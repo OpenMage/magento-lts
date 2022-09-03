@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Emulation model
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_App_Emulation extends Varien_Object
 {
@@ -52,7 +46,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
         $this->_app = !empty($args['app']) ? $args['app'] : Mage::app();
@@ -95,7 +89,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
             ->setInitialLocaleCode($initialLocaleCode);
 
         Mage::app()->getTranslator()->init($area, true);
-        
+
         return $initialEnvironmentInfo;
     }
 
@@ -156,11 +150,11 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      */
     protected function _emulateDesign($storeId, $area = Mage_Core_Model_App_Area::AREA_FRONTEND)
     {
-        $initialDesign = Mage::getDesign()->setAllGetOld(array(
+        $initialDesign = Mage::getDesign()->setAllGetOld([
             'package' => $this->_getStoreConfig('design/package/name', $storeId),
             'store'   => $storeId,
             'area'    => $area
-        ));
+        ]);
         Mage::getDesign()->setTheme('');
         Mage::getDesign()->setPackageName('');
         return $initialDesign;

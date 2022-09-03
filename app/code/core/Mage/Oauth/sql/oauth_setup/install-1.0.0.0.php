@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,23 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Oauth
+ * @category   Mage
+ * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-/**
- * Installation of OAuth module tables
- */
+
 /** @var Mage_Oauth_Model_Resource_Setup $this */
 $installer = $this;
-
 $installer->startSetup();
 
 /** @var Varien_Db_Adapter_Pdo_Mysql $adapter */
@@ -38,52 +29,52 @@ $adapter = $installer->getConnection();
  * Create table 'oauth/consumer'
  */
 $table = $adapter->newTable($installer->getTable('oauth/consumer'))
-    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
             'identity' => true,
             'unsigned' => true,
             'nullable' => false,
             'primary'  => true,
-        ), 'Entity Id')
-    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ], 'Entity Id')
+    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
             'nullable' => false,
             'default'  => Varien_Db_Ddl_Table::TIMESTAMP_INIT
-        ), 'Created At')
-    ->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ], 'Created At')
+    ->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
             'nullable' => true
-        ), 'Updated At')
-    ->addColumn('name', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, array(
+    ], 'Updated At')
+    ->addColumn('name', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, [
             'nullable' => false
-        ), 'Name of consumer')
-    ->addColumn('key', Varien_Db_Ddl_Table::TYPE_VARCHAR, Mage_Oauth_Model_Consumer::KEY_LENGTH, array(
+    ], 'Name of consumer')
+    ->addColumn('key', Varien_Db_Ddl_Table::TYPE_VARCHAR, Mage_Oauth_Model_Consumer::KEY_LENGTH, [
             'nullable' => false
-        ), 'Key code')
-    ->addColumn('secret', Varien_Db_Ddl_Table::TYPE_VARCHAR, Mage_Oauth_Model_Consumer::SECRET_LENGTH, array(
+    ], 'Key code')
+    ->addColumn('secret', Varien_Db_Ddl_Table::TYPE_VARCHAR, Mage_Oauth_Model_Consumer::SECRET_LENGTH, [
             'nullable' => false
-        ), 'Secret code')
-    ->addColumn('callback_url', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, array(), 'Callback URL')
-    ->addColumn('rejected_callback_url', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, array(
+    ], 'Secret code')
+    ->addColumn('callback_url', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, [], 'Callback URL')
+    ->addColumn('rejected_callback_url', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, [
             'nullable'  => false
-        ), 'Rejected callback URL')
+    ], 'Rejected callback URL')
     ->addIndex(
         $installer->getIdxName(
             $installer->getTable('oauth/consumer'),
-            array('key'),
+            ['key'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('key'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        ['key'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->addIndex(
         $installer->getIdxName(
             $installer->getTable('oauth/consumer'),
-            array('secret'),
+            ['secret'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('secret'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        ['secret'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
-    ->addIndex($installer->getIdxName('oauth/consumer', array('created_at')), array('created_at'))
-    ->addIndex($installer->getIdxName('oauth/consumer', array('updated_at')), array('updated_at'))
+    ->addIndex($installer->getIdxName('oauth/consumer', ['created_at']), ['created_at'])
+    ->addIndex($installer->getIdxName('oauth/consumer', ['updated_at']), ['updated_at'])
     ->setComment('OAuth Consumers');
 $adapter->createTable($table);
 
@@ -91,67 +82,67 @@ $adapter->createTable($table);
  * Create table 'oauth/token'
  */
 $table = $adapter->newTable($installer->getTable('oauth/token'))
-    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
             'identity' => true, 'unsigned' => true, 'nullable' => false, 'primary'  => true,
-        ), 'Entity ID')
-    ->addColumn('consumer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Entity ID')
+    ->addColumn('consumer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
             'unsigned' => true,
             'nullable' => false
-        ), 'Consumer ID')
-    ->addColumn('admin_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Consumer ID')
+    ->addColumn('admin_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
             'unsigned' => true,
             'nullable' => true
-        ), 'Admin user ID')
-    ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Admin user ID')
+    ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
             'unsigned' => true,
             'nullable' => true
-        ), 'Customer user ID')
-    ->addColumn('type', Varien_Db_Ddl_Table::TYPE_TEXT, 16, array(
+    ], 'Customer user ID')
+    ->addColumn('type', Varien_Db_Ddl_Table::TYPE_TEXT, 16, [
             'nullable' => false
-        ), 'Token Type')
-    ->addColumn('token', Varien_Db_Ddl_Table::TYPE_TEXT, Mage_Oauth_Model_Token::LENGTH_TOKEN, array(
+    ], 'Token Type')
+    ->addColumn('token', Varien_Db_Ddl_Table::TYPE_TEXT, Mage_Oauth_Model_Token::LENGTH_TOKEN, [
             'nullable' => false
-        ), 'Token')
-    ->addColumn('secret', Varien_Db_Ddl_Table::TYPE_TEXT, Mage_Oauth_Model_Token::LENGTH_SECRET, array(
+    ], 'Token')
+    ->addColumn('secret', Varien_Db_Ddl_Table::TYPE_TEXT, Mage_Oauth_Model_Token::LENGTH_SECRET, [
             'nullable' => false
-        ), 'Token Secret')
-    ->addColumn('verifier', Varien_Db_Ddl_Table::TYPE_TEXT, Mage_Oauth_Model_Token::LENGTH_VERIFIER, array(
+    ], 'Token Secret')
+    ->addColumn('verifier', Varien_Db_Ddl_Table::TYPE_TEXT, Mage_Oauth_Model_Token::LENGTH_VERIFIER, [
             'nullable' => true
-        ), 'Token Verifier')
-    ->addColumn('callback_url', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
+    ], 'Token Verifier')
+    ->addColumn('callback_url', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
             'nullable' => false
-        ), 'Token Callback URL')
-    ->addColumn('revoked', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Token Callback URL')
+    ->addColumn('revoked', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
             'unsigned' => true,
             'nullable' => false,
             'default'  => 0,
-        ), 'Is Token revoked')
-    ->addColumn('authorized', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Is Token revoked')
+    ->addColumn('authorized', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
             'unsigned' => true,
             'nullable' => false,
             'default'  => 0,
-        ), 'Is Token authorized')
-    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ], 'Is Token authorized')
+    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
             'nullable' => false,
             'default'  => Varien_Db_Ddl_Table::TIMESTAMP_INIT
-        ), 'Token creation timestamp')
+    ], 'Token creation timestamp')
     ->addIndex(
         $installer->getIdxName(
             $installer->getTable('oauth/token'),
-            array('consumer_id'),
+            ['consumer_id'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
         ),
-        array('consumer_id'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX)
+        ['consumer_id'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX]
     )
     ->addIndex(
         $installer->getIdxName(
             $installer->getTable('oauth/token'),
-            array('token'),
+            ['token'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('token'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        ['token'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->addForeignKey(
         $installer->getFkName('oauth/token', 'admin_id', $installer->getTable('admin/user'), 'user_id'),
@@ -184,21 +175,21 @@ $adapter->createTable($table);
  * Create table 'oauth/nonce
  */
 $table = $adapter->newTable($installer->getTable('oauth/nonce'))
-    ->addColumn('nonce', Varien_Db_Ddl_Table::TYPE_VARCHAR, 32, array(
+    ->addColumn('nonce', Varien_Db_Ddl_Table::TYPE_VARCHAR, 32, [
         'nullable' => false
-        ), 'Nonce String')
-    ->addColumn('timestamp', Varien_Db_Ddl_Table::TYPE_INTEGER, 10, array(
+    ], 'Nonce String')
+    ->addColumn('timestamp', Varien_Db_Ddl_Table::TYPE_INTEGER, 10, [
             'unsigned' => true,
             'nullable' => false
-        ), 'Nonce Timestamp')
+    ], 'Nonce Timestamp')
     ->addIndex(
         $installer->getIdxName(
             $installer->getTable('oauth/nonce'),
-            array('nonce'),
+            ['nonce'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('nonce'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        ['nonce'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->setOption('type', 'MyISAM');
 $adapter->createTable($table);

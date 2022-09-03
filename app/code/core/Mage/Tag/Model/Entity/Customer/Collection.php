@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Tag
+ * @category   Mage
+ * @package    Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Tag
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Entity_Customer_Collection
 {
@@ -42,15 +36,6 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
         parent::__construct();
         $this->_tagTable = $resource->getTableName('tag/tag');
         $this->_tagRelTable = $resource->getTableName('tag/tag_relation');
-
-//        $this->joinField('tag_total_used', $this->_tagRelTable, 'count(_table_tag_total_used.tag_relations_id)', 'entity_val_id=entity_id', array('entity_id' => '2'));
-//        $this->getSelect()->group('tag_tag_id');
-//        echo $this->getSelect();
-//        $this->_productTable = $resource->getTableName('catalog/product');
-//        $this->_select->from(array('p' => $this->_productTable))
-//            ->join(array('tr' => $this->_tagRelTable), 'tr.entity_val_id=p.product_id and tr.entity_id=1', array('total_used' => 'count(tr.tag_relations_id)'))
-//            ->group('p.product_id', 'tr.tag_id')
-//        ;
     }
 
     /**
@@ -99,23 +84,23 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
         if (empty($this->_items)) {
             return $this;
         }
-        $customerIds = array();
+        $customerIds = [];
         foreach ($this->getItems() as $item) {
             $customerIds[] = $item->getId();
         }
         $this->getSelect()->reset()
-            ->from(array('tr' => $this->_tagRelTable), array('*','total_used' => 'count(tr.tag_relation_id)'))
-            ->joinLeft(array('t' => $this->_tagTable), 't.tag_id=tr.tag_id')
-            ->group(array('tr.customer_id', 't.tag_id'))
+            ->from(['tr' => $this->_tagRelTable], ['*','total_used' => 'count(tr.tag_relation_id)'])
+            ->joinLeft(['t' => $this->_tagTable], 't.tag_id=tr.tag_id')
+            ->group(['tr.customer_id', 't.tag_id'])
             ->where('tr.customer_id in (?)', $customerIds)
         ;
         $this->printLogQuery($printQuery, $logQuery);
 
-        $tags = array();
+        $tags = [];
         $data = $this->_read->fetchAll($this->getSelect());
         foreach ($data as $row) {
             if (!isset($tags[ $row['customer_id'] ])) {
-                $tags[ $row['customer_id'] ] = array();
+                $tags[ $row['customer_id'] ] = [];
             }
             $tags[ $row['customer_id'] ][] = $row;
         }

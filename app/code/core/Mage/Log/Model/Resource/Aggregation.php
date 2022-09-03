@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Log
+ * @category   Mage
+ * @package    Mage_Log
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Log aggregation resource model
  *
- * @category    Mage
- * @package     Mage_Log
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Log
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -54,7 +47,7 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
         $select     = $adapter->select()
             ->from(
                 $this->getTable('log/summary_table'),
-                array($adapter->quoteIdentifier('date')=>'MAX(add_date)')
+                [$adapter->quoteIdentifier('date')=>'MAX(add_date)']
             );
 
         return $adapter->fetchOne($select);
@@ -71,7 +64,7 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
     public function getCounts($from, $to, $store)
     {
         $adapter    = $this->_getReadAdapter();
-        $result     = array('customers'=>0, 'visitors'=>0);
+        $result     = ['customers'=>0, 'visitors'=>0];
         $select     = $adapter->select()
             ->from($this->getTable('log/customer'), 'visitor_id')
             ->where('login_at >= ?', $from)
@@ -82,7 +75,6 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
 
         $customers = $adapter->fetchCol($select);
         $result['customers'] = count($customers);
-
 
         $select = $adapter->select();
         $select->from($this->getTable('log/visitor'), 'COUNT(*)')
@@ -97,7 +89,6 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
         }
 
         $result['visitors'] = $adapter->fetchOne($select);
-
 
         return $result;
     }
@@ -127,11 +118,11 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
     public function removeEmpty($date)
     {
         $adapter    = $this->_getWriteAdapter();
-        $condition  = array(
+        $condition  = [
             'add_date < ?' => $date,
             'customer_count = 0',
             'visitor_count = 0'
-        );
+        ];
         $adapter->delete($this->getTable('log/summary_table'), $condition);
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogSearch
+ * @category   Mage
+ * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog advanced search model
+ *
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_CatalogSearch_Model_Resource_Advanced getResource()
  * @method Mage_CatalogSearch_Model_Resource_Advanced_Collection getCollection()
@@ -46,10 +44,6 @@
  * @method $this setCreatedAt(string $value)
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
- *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
 {
@@ -58,7 +52,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_searchCriterias = array();
+    protected $_searchCriterias = [];
 
     /**
      * Current search engine
@@ -117,7 +111,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      */
     public function getAttributes()
     {
-        /* @var Mage_Catalog_Model_Resource_Product_Attribute_Collection $attributes */
+        /** @var Mage_Catalog_Model_Resource_Product_Attribute_Collection $attributes */
         $attributes = $this->getData('attributes');
         if (is_null($attributes)) {
             $product = Mage::getModel('catalog/product');
@@ -159,10 +153,10 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     {
         $attributes     = $this->getAttributes();
         $hasConditions  = false;
-        $allConditions  = array();
+        $allConditions  = [];
 
         foreach ($attributes as $attribute) {
-            /* @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
+            /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if (!isset($values[$attribute->getAttributeCode()])) {
                 continue;
             }
@@ -171,7 +165,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 $value = trim($value);
             }
 
-            if ($attribute->getAttributeCode() == 'price') {
+            if ($attribute->getAttributeCode() === 'price') {
                 $value['from'] = isset($value['from']) ? trim($value['from']) : '';
                 $value['to'] = isset($value['to']) ? trim($value['to']) : '';
                 if (is_numeric($value['from']) || is_numeric($value['to'])) {
@@ -244,14 +238,13 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 if (!empty($value['from']) || !empty($value['to'])) {
                     if (isset($value['currency'])) {
                         $currencyModel = Mage::getModel('directory/currency')->load($value['currency']);
-                        $from = $currencyModel->format($value['from'], array(), false);
-                        $to = $currencyModel->format($value['to'], array(), false);
+                        $from = $currencyModel->format($value['from'], [], false);
+                        $to = $currencyModel->format($value['to'], [], false);
                     } else {
                         $currencyModel = null;
                     }
 
                     if (strlen($value['from']) > 0 && strlen($value['to']) > 0) {
-                        // -
                         $value = sprintf(
                             '%s - %s',
                             ($currencyModel ? $from : $value['from']),
@@ -292,7 +285,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 : Mage::helper('catalogsearch')->__('No');
         }
 
-        $this->_searchCriterias[] = array('name' => $name, 'value' => $value);
+        $this->_searchCriterias[] = ['name' => $name, 'value' => $value];
         return $this;
     }
 

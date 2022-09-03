@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,13 +23,11 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
-     * Constructor
-     *
      * Set main configuration of grid
      */
     public function __construct()
@@ -43,24 +35,26 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
         parent::__construct();
         $this->setId('subscriberGrid');
         $this->setUseAjax(true);
-        $this->setDefaultSort('subscriber_id', 'desc');
+        $this->setDefaultSort('subscriber_id');
+        $this->setDefaultDir('desc');
     }
 
     /**
      * Prepare collection for grid
      *
      * @return Mage_Adminhtml_Block_Widget_Grid
+     * @throws Exception
      */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceSingleton('newsletter/subscriber_collection');
-        /* @var $collection Mage_Newsletter_Model_Mysql4_Subscriber_Collection */
+        /** @var Mage_Newsletter_Model_Resource_Subscriber_Collection $collection */
         $collection
-            ->showCustomerInfo(true)
+            ->showCustomerInfo()
             ->addSubscriberTypeField()
             ->showStoreInfo();
 
-        if($this->getRequest()->getParam('queue', false)) {
+        if ($this->getRequest()->getParam('queue', false)) {
             $collection->useQueue(Mage::getModel('newsletter/queue')
                 ->load($this->getRequest()->getParam('queue')));
         }
@@ -70,79 +64,82 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
-
-        $this->addColumn('subscriber_id', array(
+        $this->addColumn('subscriber_id', [
             'header'    => Mage::helper('newsletter')->__('ID'),
             'index'     => 'subscriber_id'
-        ));
+        ]);
 
-        $this->addColumn('email', array(
+        $this->addColumn('email', [
             'header'    => Mage::helper('newsletter')->__('Email'),
             'index'     => 'subscriber_email'
-        ));
+        ]);
 
-        $this->addColumn('type', array(
+        $this->addColumn('type', [
             'header'    => Mage::helper('newsletter')->__('Type'),
             'index'     => 'type',
             'type'      => 'options',
-            'options'   => array(
+            'options'   => [
                 1  => Mage::helper('newsletter')->__('Guest'),
                 2  => Mage::helper('newsletter')->__('Customer')
-            )
-        ));
+            ]
+        ]);
 
-        $this->addColumn('firstname', array(
+        $this->addColumn('firstname', [
             'header'    => Mage::helper('newsletter')->__('Customer First Name'),
             'index'     => 'customer_firstname',
             'default'   =>    '----'
-        ));
+        ]);
 
-        $this->addColumn('middlename', array(
+        $this->addColumn('middlename', [
             'header'    => Mage::helper('newsletter')->__('Customer Middle Name'),
             'index'     => 'customer_middlename',
             'default'   =>    '----'
-        ));
+        ]);
 
-        $this->addColumn('lastname', array(
+        $this->addColumn('lastname', [
             'header'    => Mage::helper('newsletter')->__('Customer Last Name'),
             'index'     => 'customer_lastname',
             'default'   =>    '----'
-        ));
+        ]);
 
-        $this->addColumn('status', array(
+        $this->addColumn('status', [
             'header'    => Mage::helper('newsletter')->__('Status'),
             'index'     => 'subscriber_status',
             'type'      => 'options',
-            'options'   => array(
+            'options'   => [
                 Mage_Newsletter_Model_Subscriber::STATUS_NOT_ACTIVE   => Mage::helper('newsletter')->__('Not Activated'),
                 Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED   => Mage::helper('newsletter')->__('Subscribed'),
                 Mage_Newsletter_Model_Subscriber::STATUS_UNSUBSCRIBED => Mage::helper('newsletter')->__('Unsubscribed'),
                 Mage_Newsletter_Model_Subscriber::STATUS_UNCONFIRMED => Mage::helper('newsletter')->__('Unconfirmed'),
-            )
-        ));
+            ]
+        ]);
 
-        $this->addColumn('website', array(
+        $this->addColumn('website', [
             'header'    => Mage::helper('newsletter')->__('Website'),
             'index'     => 'website_id',
             'type'      => 'options',
             'options'   => $this->_getWebsiteOptions()
-        ));
+        ]);
 
-        $this->addColumn('group', array(
+        $this->addColumn('group', [
             'header'    => Mage::helper('newsletter')->__('Store'),
             'index'     => 'group_id',
             'type'      => 'options',
             'options'   => $this->_getStoreGroupOptions()
-        ));
+        ]);
 
-        $this->addColumn('store', array(
+        $this->addColumn('store', [
             'header'    => Mage::helper('newsletter')->__('Store View'),
             'index'     => 'store_id',
             'type'      => 'options',
             'options'   => $this->_getStoreOptions()
-        ));
+        ]);
 
         $this->addExportType('*/*/exportCsv', Mage::helper('customer')->__('CSV'));
         $this->addExportType('*/*/exportXml', Mage::helper('customer')->__('Excel XML'));
@@ -157,7 +154,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
      */
     protected function _getOptions($optionsArray)
     {
-        $options = array();
+        $options = [];
         foreach ($optionsArray as $option) {
             $options[$option['value']] = $option['label'];
         }
@@ -194,21 +191,24 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
         return Mage::getModel('adminhtml/system_store')->getStoreOptionHash();
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('subscriber_id');
         $this->getMassactionBlock()->setFormFieldName('subscriber');
         $this->getMassactionBlock()->setUseSelectAll(false);
 
-        $this->getMassactionBlock()->addItem('unsubscribe', array(
+        $this->getMassactionBlock()->addItem('unsubscribe', [
              'label'        => Mage::helper('newsletter')->__('Unsubscribe'),
              'url'          => $this->getUrl('*/*/massUnsubscribe')
-        ));
+        ]);
 
-        $this->getMassactionBlock()->addItem('delete', array(
+        $this->getMassactionBlock()->addItem('delete', [
              'label'        => Mage::helper('newsletter')->__('Delete'),
              'url'          => $this->getUrl('*/*/massDelete')
-        ));
+        ]);
 
         return $this;
     }

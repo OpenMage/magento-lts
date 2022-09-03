@@ -62,7 +62,7 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader34 extends PHPUnit_Framework_Co
      * @var int Response code
      */
     protected $_code              = 200;
-    
+
     /**
      * @var int Actual response code
      */

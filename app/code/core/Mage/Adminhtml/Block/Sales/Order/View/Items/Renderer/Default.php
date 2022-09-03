@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml sales order item renderer
  *
  * @category   Mage
  * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_Adminhtml_Block_Sales_Items_Abstract
 {
@@ -41,7 +35,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Retrieve real html id for field
      *
-     * @param string $name
+     * @param string $id
      * @return string
      */
     public function getFieldId($id)
@@ -63,6 +57,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * Indicate that block can display container
      *
      * @return boolean
+     * @throws Exception
      */
     public function canDisplayContainer()
     {
@@ -75,21 +70,21 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * @deprecated after 1.4.2.0
      * @var Mage_GiftMessage_Model_Message
      */
-    protected $_giftMessage = array();
+    protected $_giftMessage = [];
 
     /**
-     * Retrive default value for giftmessage sender
+     * Retrieve default value for giftmessage sender
      *
      * @deprecated after 1.4.2.0
      * @return string
      */
     public function getDefaultSender()
     {
-        if(!$this->getItem()) {
+        if (!$this->getItem()) {
             return '';
         }
 
-        if($this->getItem()->getOrder()) {
+        if ($this->getItem()->getOrder()) {
             return $this->getItem()->getOrder()->getBillingAddress()->getName();
         }
 
@@ -97,28 +92,32 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     }
 
     /**
-     * Retrive default value for giftmessage recipient
+     * Retrieve default value for giftmessage recipient
      *
      * @deprecated after 1.4.2.0
      * @return string
      */
     public function getDefaultRecipient()
     {
-        if(!$this->getItem()) {
+        if (!$this->getItem()) {
             return '';
         }
 
-        if($this->getItem()->getOrder()) {
+        if ($this->getItem()->getOrder()) {
             if ($this->getItem()->getOrder()->getShippingAddress()) {
                 return $this->getItem()->getOrder()->getShippingAddress()->getName();
-            } else if ($this->getItem()->getOrder()->getBillingAddress()) {
+            }
+
+            if ($this->getItem()->getOrder()->getBillingAddress()) {
                 return $this->getItem()->getOrder()->getBillingAddress()->getName();
             }
         }
 
         if ($this->getItem()->getShippingAddress()) {
             return $this->getItem()->getShippingAddress()->getName();
-        } else if ($this->getItem()->getBillingAddress()) {
+        }
+
+        if ($this->getItem()->getBillingAddress()) {
             return $this->getItem()->getBillingAddress()->getName();
         }
 
@@ -126,7 +125,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     }
 
     /**
-     * Retrive real name for field
+     * Retrieve real name for field
      *
      * @deprecated after 1.4.2.0
      * @param string $name
@@ -141,18 +140,21 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * Initialize gift message for entity
      *
      * @deprecated after 1.4.2.0
-     * @return Mage_Adminhtml_Block_Sales_Order_Edit_Items_Grid_Renderer_Name_Giftmessage
+     * @return $this
      */
     protected function _initMessage()
     {
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+
         $this->_giftMessage[$this->getItem()->getGiftMessageId()] =
-            $this->helper('giftmessage/message')->getGiftMessage($this->getItem()->getGiftMessageId());
+            $helper->getGiftMessage($this->getItem()->getGiftMessageId());
 
         // init default values for giftmessage form
-        if(!$this->getMessage()->getSender()) {
+        if (!$this->getMessage()->getSender()) {
             $this->getMessage()->setSender($this->getDefaultSender());
         }
-        if(!$this->getMessage()->getRecipient()) {
+        if (!$this->getMessage()->getRecipient()) {
             $this->getMessage()->setRecipient($this->getDefaultRecipient());
         }
 
@@ -160,14 +162,14 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     }
 
     /**
-     * Retrive gift message for entity
+     * Retrieve gift message for entity
      *
      * @deprecated after 1.4.2.0
      * @return Mage_GiftMessage_Model_Message
      */
     public function getMessage()
     {
-        if(!isset($this->_giftMessage[$this->getItem()->getGiftMessageId()])) {
+        if (!isset($this->_giftMessage[$this->getItem()->getGiftMessageId()])) {
             $this->_initMessage();
         }
 
@@ -182,15 +184,15 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/sales_order_view_giftmessage/save', array(
+        return $this->getUrl('*/sales_order_view_giftmessage/save', [
             'entity'    => $this->getItem()->getId(),
             'type'      => 'order_item',
             'reload'    => true
-        ));
+        ]);
     }
 
     /**
-     * Retrive block html id
+     * Retrieve block html id
      *
      * @deprecated after 1.4.2.0
      * @return string
@@ -208,8 +210,12 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      */
     public function canDisplayGiftmessage()
     {
-        return $this->helper('giftmessage/message')->getIsMessagesAvailable(
-            'order_item', $this->getItem(), $this->getItem()->getOrder()->getStoreId()
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->getIsMessagesAvailable(
+            'order_item',
+            $this->getItem(),
+            $this->getItem()->getOrder()->getStoreId()
         );
     }
 
@@ -221,24 +227,27 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      */
     public function displaySubtotalInclTax($item)
     {
+        /** @var Mage_Checkout_Helper_Data $helper */
+        $helper = $this->helper('checkout');
         return $this->displayPrices(
-            $this->helper('checkout')->getBaseSubtotalInclTax($item),
-            $this->helper('checkout')->getSubtotalInclTax($item)
+            $helper->getBaseSubtotalInclTax($item),
+            $helper->getSubtotalInclTax($item)
         );
     }
 
     /**
      * Display item price including tax
      *
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param Mage_Sales_Model_Order_Item|Varien_Object $item
      * @return string
      */
     public function displayPriceInclTax(Varien_Object $item)
     {
+        /** @var Mage_Checkout_Helper_Data $helper */
+        $helper = $this->helper('checkout');
         return $this->displayPrices(
-            $this->helper('checkout')->getBasePriceInclTax($item),
-            $this->helper('checkout')->getPriceInclTax($item)
+            $helper->getBasePriceInclTax($item),
+            $helper->getPriceInclTax($item)
         );
     }
-
 }

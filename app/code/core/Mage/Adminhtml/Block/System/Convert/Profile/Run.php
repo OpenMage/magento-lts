@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -61,7 +55,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
                 $numberOfRecords = $this->getProfile()->getData('gui_data/import/number_of_records');
                 if (!$numberOfRecords) {
                     $batchParams = $batchModel->getParams();
-                    $numberOfRecords = isset($batchParams['number_of_records']) ? $batchParams['number_of_records'] : 1;
+                    $numberOfRecords = $batchParams['number_of_records'] ?? 1;
                 }
                 $this->setNumberOfRecords($numberOfRecords);
                 $this->setShowFinished(false);
@@ -69,33 +63,33 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
                 $importIds = $batchImportModel->getIdCollection();
                 $this->setBatchItemsCount(count($importIds));
                 $this->setBatchConfig(
-                    array(
-                        'styles' => array(
-                            'error' => array(
+                    [
+                        'styles' => [
+                            'error' => [
                                 'icon' => Mage::getDesign()->getSkinUrl('images/error_msg_icon.gif'),
                                 'bg'   => '#FDD'
-                            ),
-                            'message' => array(
+                            ],
+                            'message' => [
                                 'icon' => Mage::getDesign()->getSkinUrl('images/fam_bullet_success.gif'),
                                 'bg'   => '#DDF'
-                            ),
+                            ],
                             'loader'  => Mage::getDesign()->getSkinUrl('images/ajax-loader.gif')
-                        ),
+                        ],
                         'template' => '<li style="#{style}" id="#{id}">'
                                     . '<img id="#{id}_img" src="#{image}" class="v-middle" style="margin-right:5px"/>'
                                     . '<span id="#{id}_status" class="text">#{text}</span>'
                                     . '</li>',
                         'text'     => $this->__('Processed <strong>%s%% %s/%d</strong> records', '#{percent}', '#{updated}', $this->getBatchItemsCount()),
                         'successText'  => $this->__('Imported <strong>%s</strong> records', '#{updated}')
-                    )
+                    ]
                 );
                 $jsonIds = array_chunk($importIds, $numberOfRecords);
-                $importData = array();
+                $importData = [];
                 foreach ($jsonIds as $part => $ids) {
-                    $importData[] = array(
+                    $importData[] = [
                         'batch_id'   => $batchModel->getId(),
                         'rows[]'     => $ids
-                    );
+                    ];
                 }
                 $this->setImportData($importData);
             } else {
@@ -166,7 +160,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     {
         if (!is_null(parent::getExceptions()))
             return parent::getExceptions();
-        $exceptions = array();
+        $exceptions = [];
         $this->getProfile()->run();
         foreach ($this->getProfile()->getExceptions() as $e) {
                 switch ($e->getLevel()) {
@@ -187,12 +181,12 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
                         $liStyle = 'background-color:#DDF; ';
                         break;
                 }
-                $exceptions[] = array(
+                $exceptions[] = [
                     "style"     => $liStyle,
                     "src"       => Mage::getDesign()->getSkinUrl('images/'.$img),
                     "message"   => $e->getMessage(),
                     "position" => $e->getPosition()
-                );
+                ];
         }
         parent::setExceptions($exceptions);
         return $exceptions;

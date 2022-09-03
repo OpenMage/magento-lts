@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV attribute resource collection
  *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
  *
@@ -62,7 +56,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      */
     protected function _getLoadDataFields()
     {
-        return array(
+        return [
             'attribute_id',
             'entity_type_id',
             'attribute_code',
@@ -72,7 +66,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             'backend_table',
             'frontend_input',
             'source_model',
-        );
+        ];
     }
 
     /**
@@ -106,7 +100,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
         $this->addFieldToFilter('main_table.entity_type_id', $id);
         if ($additionalTable) {
             $this->join(
-                array('additional_table' => $additionalTable),
+                ['additional_table' => $additionalTable],
                 'additional_table.attribute_id = main_table.attribute_id'
             );
         }
@@ -129,7 +123,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
                     'entity_attribute.attribute_id = main_table.attribute_id',
                     'attribute_id'
                 );
-                $this->addFieldToFilter('entity_attribute.attribute_set_id', array('in' => $setId));
+                $this->addFieldToFilter('entity_attribute.attribute_set_id', ['in' => $setId]);
                 $this->addAttributeGrouping();
                 $this->_useAnalyticFunction = true;
             }
@@ -156,11 +150,11 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     {
         $this->getSelect()->distinct(true);
         $this->join(
-            array('entity_attribute' => $this->getTable('eav/entity_attribute')),
+            ['entity_attribute' => $this->getTable('eav/entity_attribute')],
             'entity_attribute.attribute_id = main_table.attribute_id',
             'attribute_id'
         );
-        $this->addFieldToFilter('entity_attribute.attribute_set_id', array('in' => $setIds));
+        $this->addFieldToFilter('entity_attribute.attribute_set_id', ['in' => $setIds]);
         $this->setOrder('entity_attribute.sort_order', self::SORT_ORDER_ASC);
 
         return $this;
@@ -183,7 +177,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             $joinCondition = $this->getConnection()
                 ->quoteInto("{$alias}.attribute_id = main_table.attribute_id AND {$alias}.attribute_set_id =?", $setId);
             $this->join(
-                array($alias => 'eav/entity_attribute'),
+                [$alias => 'eav/entity_attribute'],
                 $joinCondition,
                 'attribute_id'
             );
@@ -207,7 +201,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             'entity_attribute',
             'entity_attribute.attribute_id = main_table.attribute_id'
         );
-        $this->addFieldToFilter('entity_attribute.attribute_set_id', array('neq' => $setId));
+        $this->addFieldToFilter('entity_attribute.attribute_set_id', ['neq' => $setId]);
         $this->setOrder('entity_attribute.sort_order', self::SORT_ORDER_ASC);
 
         return $this;
@@ -221,7 +215,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      */
     public function setAttributesExcludeFilter($attributes)
     {
-        return $this->addFieldToFilter('main_table.attribute_id', array('nin' => $attributes));
+        return $this->addFieldToFilter('main_table.attribute_id', ['nin' => $attributes]);
     }
 
     /**
@@ -260,7 +254,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      */
     public function addIsUniqueFilter()
     {
-        return $this->addFieldToFilter('is_unique', array('gt' => 0));
+        return $this->addFieldToFilter('is_unique', ['gt' => 0]);
     }
 
     /**
@@ -281,15 +275,15 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     public function addHasOptionsFilter()
     {
         $adapter = $this->getConnection();
-        $orWhere = implode(' OR ', array(
+        $orWhere = implode(' OR ', [
             $adapter->quoteInto('(main_table.frontend_input = ? AND ao.option_id > 0)', 'select'),
             $adapter->quoteInto('(main_table.frontend_input <> ?)', 'select'),
             '(main_table.is_user_defined = 0)'
-        ));
+        ]);
 
         $this->getSelect()
             ->joinLeft(
-                array('ao' => $this->getTable('eav/attribute_option')),
+                ['ao' => $this->getTable('eav/attribute_option')],
                 'ao.attribute_id = main_table.attribute_id',
                 'option_id'
             )
@@ -332,39 +326,39 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     protected function _addSetInfo()
     {
         if ($this->_addSetInfoFlag) {
-            $attributeIds = array();
+            $attributeIds = [];
             foreach ($this->_data as &$dataItem) {
                 $attributeIds[] = $dataItem['attribute_id'];
             }
-            $attributeToSetInfo = array();
+            $attributeToSetInfo = [];
 
             $adapter = $this->getConnection();
             if (count($attributeIds) > 0) {
                 $select = $adapter->select()
                     ->from(
-                        array('entity' => $this->getTable('eav/entity_attribute')),
-                        array('attribute_id', 'attribute_set_id', 'attribute_group_id', 'sort_order')
+                        ['entity' => $this->getTable('eav/entity_attribute')],
+                        ['attribute_id', 'attribute_set_id', 'attribute_group_id', 'sort_order']
                     )
                     ->joinLeft(
-                        array('group' => $this->getTable('eav/attribute_group')),
+                        ['group' => $this->getTable('eav/attribute_group')],
                         'entity.attribute_group_id = group.attribute_group_id',
-                        array('group_sort_order' => 'sort_order')
+                        ['group_sort_order' => 'sort_order']
                     )
                     ->where('attribute_id IN (?)', $attributeIds);
                 $result = $adapter->fetchAll($select);
 
                 foreach ($result as $row) {
-                    $data = array(
+                    $data = [
                         'group_id'      => $row['attribute_group_id'],
                         'group_sort'    => $row['group_sort_order'],
                         'sort'          => $row['sort_order']
-                    );
+                    ];
                     $attributeToSetInfo[$row['attribute_id']][$row['attribute_set_id']] = $data;
                 }
             }
 
             foreach ($this->_data as &$attributeData) {
-                $setInfo = array();
+                $setInfo = [];
                 if (isset($attributeToSetInfo[$attributeData['attribute_id']])) {
                     $setInfo = $attributeToSetInfo[$attributeData['attribute_id']];
                 }
@@ -404,7 +398,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify collection attribute codes filter
      *
-     * @param string || array $code
+     * @param string | array $code
      * @return $this
      */
     public function setCodeFilter($code)
@@ -413,16 +407,16 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             return $this;
         }
         if (!is_array($code)) {
-            $code = array($code);
+            $code = [$code];
         }
 
-        return $this->addFieldToFilter('attribute_code', array('in' => $code));
+        return $this->addFieldToFilter('attribute_code', ['in' => $code]);
     }
 
     /**
      * Add store label to attribute by specified store id
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function addStoreLabel($storeId)
@@ -431,9 +425,9 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
         $joinExpression = $adapter
             ->quoteInto('al.attribute_id = main_table.attribute_id AND al.store_id = ?', (int) $storeId);
         $this->getSelect()->joinLeft(
-            array('al' => $this->getTable('eav/attribute_label')),
+            ['al' => $this->getTable('eav/attribute_label')],
             $joinExpression,
-            array('store_label' => $adapter->getIfNullSql('al.value', 'main_table.frontend_label'))
+            ['store_label' => $adapter->getIfNullSql('al.value', 'main_table.frontend_label')]
         );
 
         return $this;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Eav Resource Config model
  *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -39,14 +32,14 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
      *
      * @var array
      */
-    protected static $_entityTypes   = array();
+    protected static $_entityTypes   = [];
 
     /**
      * Array of attributes
      *
      * @var array
      */
-    protected static $_attributes    = array();
+    protected static $_attributes    = [];
 
     /**
      * Resource initialization
@@ -89,7 +82,7 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
     {
         if (!isset(self::$_attributes[$typeId])) {
             $adapter = $this->_getReadAdapter();
-            $bind    = array('entity_type_id' => $typeId);
+            $bind    = ['entity_type_id' => $typeId];
             $select  = $adapter->select()
                 ->from($this->getTable('eav/attribute'))
                 ->where('entity_type_id = :entity_type_id');
@@ -118,11 +111,11 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
                 ? self::$_entityTypes['by_code'][$entityType] : null;
         }
 
-        $data = array();
+        $data = [];
         if ($info) {
             $data['entity']     = $info;
             $attributes         = $this->_loadTypeAttributes($info['entity_type_id']);
-            $data['attributes'] = array();
+            $data['attributes'] = [];
             foreach ($attributes as $attribute) {
                 $data['attributes'][$attribute['attribute_id']] = $attribute;
                 $data['attributes'][$attribute['attribute_code']] = $attribute['attribute_id'];

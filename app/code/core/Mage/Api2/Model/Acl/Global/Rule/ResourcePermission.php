@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -54,9 +48,9 @@ class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission implements Mage_Api2_Mo
      */
     public function getResourcesPermissions()
     {
-        if (null === $this->_resourcesPermissions) {
+        if ($this->_resourcesPermissions === null) {
             $roleConfigNodeName = $this->_role->getConfigNodeName();
-            $rulesPairs = array();
+            $rulesPairs = [];
             $allowedType = Mage_Api2_Model_Acl_Global_Rule_Permission::TYPE_ALLOW;
 
             if ($this->_role) {
@@ -71,7 +65,7 @@ class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission implements Mage_Api2_Mo
                 }
             } else {
                 //make resource "all" as default for new item
-                $rulesPairs = array(Mage_Api2_Model_Acl_Global_Rule::RESOURCE_ALL => $allowedType);
+                $rulesPairs = [Mage_Api2_Model_Acl_Global_Rule::RESOURCE_ALL => $allowedType];
             }
 
             //set permissions to resources
@@ -85,7 +79,7 @@ class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission implements Mage_Api2_Mo
             foreach ($config->getResources() as $resourceType => $node) {
                 $resourceId = (string)$resourceType;
                 $allowedRoles = (array)$node->privileges;
-                $allowedPrivileges = array();
+                $allowedPrivileges = [];
                 if (isset($allowedRoles[$roleConfigNodeName])) {
                     $allowedPrivileges = $allowedRoles[$roleConfigNodeName];
                 }

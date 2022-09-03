@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Admin
+ * @category   Mage
+ * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Admin_Model_Block
+ *
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Admin_Model_Resource_Block _getResource()
  * @method Mage_Admin_Model_Resource_Block getResource()
@@ -33,10 +31,6 @@
  *
  * @method string getBlockName()
  * @method string getIsAllowed()
- *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
 {
@@ -55,7 +49,7 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        $errors = array();
+        $errors = [];
 
         if (!Zend_Validate::is($this->getBlockName(), 'NotEmpty')) {
             $errors[] = Mage::helper('adminhtml')->__('Block Name is required field.');
@@ -64,11 +58,11 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
         if (in_array($this->getBlockName(), $disallowedBlockNames)) {
             $errors[] = Mage::helper('adminhtml')->__('Block Name is disallowed.');
         }
-        if (!Zend_Validate::is($this->getBlockName(), 'Regex', array('/^[-_a-zA-Z0-9]+\/[-_a-zA-Z0-9\/]+$/'))) {
+        if (!Zend_Validate::is($this->getBlockName(), 'Regex', ['/^[-_a-zA-Z0-9]+\/[-_a-zA-Z0-9\/]+$/'])) {
             $errors[] = Mage::helper('adminhtml')->__('Block Name is incorrect.');
         }
 
-        if (!in_array($this->getIsAllowed(), array('0', '1'))) {
+        if (!in_array($this->getIsAllowed(), ['0', '1'])) {
             $errors[] = Mage::helper('adminhtml')->__('Is Allowed is required field.');
         }
 

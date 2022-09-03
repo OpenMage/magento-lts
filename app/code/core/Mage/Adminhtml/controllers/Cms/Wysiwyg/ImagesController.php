@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,31 +12,31 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Images manage controller for Cms WYSIWYG editor
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'cms/media_gallery';
+
+    /**
      * Init storage
      *
-     * @return Mage_Adminhtml_Cms_Page_Wysiwyg_ImagesController
+     * @return $this
      */
     protected function _initAction()
     {
@@ -70,7 +70,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
                     ->getTreeJson()
             );
         } catch (Exception $e) {
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array()));
+            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([]));
         }
     }
 
@@ -81,7 +81,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             $this->loadLayout('empty');
             $this->renderLayout();
         } catch (Exception $e) {
-            $result = array('error' => true, 'message' => $e->getMessage());
+            $result = ['error' => true, 'message' => $e->getMessage()];
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
@@ -94,7 +94,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             $path = $this->getStorage()->getSession()->getCurrentPath();
             $result = $this->getStorage()->createDirectory($name, $path);
         } catch (Exception $e) {
-            $result = array('error' => true, 'message' => $e->getMessage());
+            $result = ['error' => true, 'message' => $e->getMessage()];
         }
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
@@ -105,15 +105,13 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             $path = $this->getStorage()->getSession()->getCurrentPath();
             $this->getStorage()->deleteDirectory($path);
         } catch (Exception $e) {
-            $result = array('error' => true, 'message' => $e->getMessage());
+            $result = ['error' => true, 'message' => $e->getMessage()];
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
 
     /**
      * Delete file from media storage
-     *
-     * @return void
      */
     public function deleteFilesAction()
     {
@@ -123,7 +121,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             }
             $files = Mage::helper('core')->jsonDecode($this->getRequest()->getParam('files'));
 
-            /** @var $helper Mage_Cms_Helper_Wysiwyg_Images */
+            /** @var Mage_Cms_Helper_Wysiwyg_Images $helper */
             $helper = Mage::helper('cms/wysiwyg_images');
             $path = $this->getStorage()->getSession()->getCurrentPath();
             foreach ($files as $file) {
@@ -136,7 +134,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
                 }
             }
         } catch (Exception $e) {
-            $result = array('error' => true, 'message' => $e->getMessage());
+            $result = ['error' => true, 'message' => $e->getMessage()];
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
@@ -147,15 +145,14 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
     public function uploadAction()
     {
         try {
-            $result = array();
+            $result = [];
             $this->_initAction();
             $targetPath = $this->getStorage()->getSession()->getCurrentPath();
             $result = $this->getStorage()->uploadFile($targetPath, $this->getRequest()->getParam('type'));
         } catch (Exception $e) {
-            $result = array('error' => $e->getMessage(), 'errorcode' => $e->getCode());
+            $result = ['error' => $e->getMessage(), 'errorcode' => $e->getCode()];
         }
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-
     }
 
     /**
@@ -215,7 +212,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
     /**
      * Save current path in session
      *
-     * @return Mage_Adminhtml_Cms_Page_Wysiwyg_ImagesController
+     * @return $this
      */
     protected function _saveSessionCurrentPath()
     {
@@ -225,15 +222,5 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
                 ->setCurrentPath(Mage::helper('cms/wysiwyg_images')->getCurrentPath());
         }
         return $this;
-    }
-
-    /**
-     * Check current user permission on resource and privilege
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('cms/media_gallery');
     }
 }

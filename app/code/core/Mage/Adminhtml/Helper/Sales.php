@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -87,8 +81,8 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     /**
      * Filter collection by removing not available product types
      *
-     * @param Mage_Core_Model_Mysql4_Collection_Abstract $collection
-     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     public function applySalableProductTypesFilter($collection)
     {
@@ -121,7 +115,7 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     public function escapeHtmlWithLinks($data, $allowedTags = null)
     {
         if (!empty($data) && is_array($allowedTags) && in_array('a', $allowedTags)) {
-            $links = array();
+            $links = [];
             $i = 1;
             $data = str_replace('%', '%%', $data);
             $regexp = "/<a\s[^>]*href\s*?=\s*?([\"\']??)([^\" >]*?)\\1[^>]*>(.*)<\/a>/siU";

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sendfriend
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Sendfriend_Model_Resource_Setup $installer */
+/** @var Mage_Sendfriend_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -41,48 +35,47 @@ $installer->getConnection()->dropIndex(
     'IDX_LOG_TIME'
 );
 
-
 /**
  * Change columns
  */
-$tables = array(
-    $installer->getTable('sendfriend/sendfriend') => array(
-        'columns' => array(
-            'log_id' => array(
+$tables = [
+    $installer->getTable('sendfriend/sendfriend') => [
+        'columns' => [
+            'log_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Log ID'
-            ),
-            'ip' => array(
+            ],
+            'ip' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
                 'length'    => 20,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Customer IP address'
-            ),
-            'time' => array(
+            ],
+            'time' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Log time'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Send to friend function log storage table',
         'engine'  => 'InnoDB'
-    )
-);
+    ]
+];
 
 $installer->getConnection()->modifyTables($tables);
 
@@ -91,14 +84,14 @@ $installer->getConnection()->modifyTables($tables);
  */
 $installer->getConnection()->addIndex(
     $installer->getTable('sendfriend/sendfriend'),
-    $installer->getIdxName('sendfriend/sendfriend', array('ip')),
-    array('ip')
+    $installer->getIdxName('sendfriend/sendfriend', ['ip']),
+    ['ip']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('sendfriend/sendfriend'),
-    $installer->getIdxName('sendfriend/sendfriend', array('time')),
-    array('time')
+    $installer->getIdxName('sendfriend/sendfriend', ['time']),
+    ['time']
 );
 
 $installer->endSetup();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Recurring profiles grid
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -64,63 +60,63 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
     {
         $profile = Mage::getModel('sales/recurring_profile');
 
-        $this->addColumn('reference_id', array(
+        $this->addColumn('reference_id', [
             'header' => $profile->getFieldLabel('reference_id'),
             'index' => 'reference_id',
-            'html_decorators' => array('nobr'),
+            'html_decorators' => ['nobr'],
             'width' => 1,
-        ));
+        ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', array(
+            $this->addColumn('store_id', [
                 'header'     => Mage::helper('adminhtml')->__('Store'),
                 'index'      => 'store_id',
                 'type'       => 'store',
                 'store_view' => true,
                 'display_deleted' => true,
-            ));
+            ]);
         }
 
-        $this->addColumn('state', array(
+        $this->addColumn('state', [
             'header' => $profile->getFieldLabel('state'),
             'index' => 'state',
             'type'  => 'options',
             'options' => $profile->getAllStates(),
-            'html_decorators' => array('nobr'),
+            'html_decorators' => ['nobr'],
             'width' => 1,
-        ));
+        ]);
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('created_at', [
             'header' => $profile->getFieldLabel('created_at'),
             'index' => 'created_at',
             'type' => 'datetime',
-            'html_decorators' => array('nobr'),
+            'html_decorators' => ['nobr'],
             'width' => 1,
-        ));
+        ]);
 
-        $this->addColumn('updated_at', array(
+        $this->addColumn('updated_at', [
             'header' => $profile->getFieldLabel('updated_at'),
             'index' => 'updated_at',
             'type' => 'datetime',
-            'html_decorators' => array('nobr'),
+            'html_decorators' => ['nobr'],
             'width' => 1,
-        ));
+        ]);
 
-        $methods = array();
+        $methods = [];
         foreach (Mage::helper('payment')->getRecurringProfileMethods() as $method) {
             $methods[$method->getCode()] = $method->getTitle();
         }
-        $this->addColumn('method_code', array(
+        $this->addColumn('method_code', [
             'header'  => $profile->getFieldLabel('method_code'),
             'index'   => 'method_code',
             'type'    => 'options',
             'options' => $methods,
-        ));
+        ]);
 
-        $this->addColumn('schedule_description', array(
+        $this->addColumn('schedule_description', [
             'header' => $profile->getFieldLabel('schedule_description'),
             'index' => 'schedule_description',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -133,7 +129,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/sales_recurring_profile/view', array('profile' => $row->getId()));
+        return $this->getUrl('*/sales_recurring_profile/view', ['profile' => $row->getId()]);
     }
 
     /**
@@ -143,6 +139,6 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current'=>true));
+        return $this->getUrl('*/*/grid', ['_current'=>true]);
     }
 }

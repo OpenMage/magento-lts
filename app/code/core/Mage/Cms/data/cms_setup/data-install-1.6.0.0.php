@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Cms
+ * @category   Mage
+ * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-$cmsBlocks = array(
-    array(
+$cmsBlocks = [
+    [
         'title'         => 'Footer Links',
         'identifier'    => 'footer_links',
         'content'       => "
@@ -35,11 +29,11 @@ $cmsBlocks = array(
 </ul>",
         'is_active'     => 1,
         'stores'        => 0
-    )
-);
+    ]
+];
 
-$cmsPages = array(
-    array(
+$cmsPages = [
+    [
         'title'         => '404 Not Found 1',
         'root_template' => 'two_columns_right',
         'meta_keywords' => 'Page keywords',
@@ -71,19 +65,19 @@ $cmsPages = array(
 </dl>
 ",
         'is_active'     => 1,
-        'stores'        => array(0),
+        'stores'        => [0],
         'sort_order'    => 0
-    ),
-    array(
+    ],
+    [
         'title'         => 'Home page',
         'root_template' => 'two_columns_right',
         'identifier'    => 'home',
         'content'       => "<div class=\"page-title\"><h2>Home Page</h2></div>",
         'is_active'     => 1,
-        'stores'        => array(0),
+        'stores'        => [0],
         'sort_order'    => 0
-    ),
-    array(
+    ],
+    [
         'title'         => 'About Us',
         'root_template' => 'two_columns_right',
         'identifier'    => 'about-magento-demo-store',
@@ -124,10 +118,10 @@ sit amet aliquet lectus dolor et quam. Pellentesque consequat luctus purus.</str
 <small>Some important guy</small></p></div>
 </div>",
         'is_active'     => 1,
-        'stores'        => array(0),
+        'stores'        => [0],
         'sort_order'    => 0
-    ),
-    array(
+    ],
+    [
         'title'         => 'Customer Service',
         'root_template' => 'three_columns',
         'identifier'    => 'customer-service',
@@ -202,10 +196,10 @@ faucibus et, tempus at, dui. Nunc risus. Proin scelerisque augue. Nam ullamcorpe
  justo.</dd>
 </dl>",
         'is_active'     => 1,
-        'stores'        => array(0),
+        'stores'        => [0],
         'sort_order'    => 0
-    ),
-    array(
+    ],
+    [
         'title'         => 'Enable Cookies',
         'root_template' => 'one_column',
         'identifier'    => 'enable-cookies',
@@ -333,9 +327,9 @@ faucibus et, tempus at, dui. Nunc risus. Proin scelerisque augue. Nam ullamcorpe
 </div>
 ",
         'is_active'     => 1,
-        'stores'        => array(0)
-    )
-);
+        'stores'        => [0]
+    ]
+];
 
 /**
  * Insert default blocks
@@ -364,12 +358,12 @@ $content = '
     </ul>
 </div>';
 
-$cmsBlock = array(
+$cmsBlock = [
     'title'         => 'Footer Links Company',
     'identifier'    => 'footer_links_company',
     'content'       => $content,
     'is_active'     => 1,
     'stores'        => 0
-);
+];
 
 Mage::getModel('cms/block')->setData($cmsBlock)->save();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Reports
+ * @category   Mage
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Abstract report aggregate resource model
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -42,7 +35,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
     protected $_flag     = null;
 
     /**
-     * Retrive flag object
+     * Retrieve flag object
      *
      * @return Mage_Reports_Model_Flag
      */
@@ -140,7 +133,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
         if ($subSelect !== null) {
             $deleteCondition = $this->_makeConditionFromDateRangeSelect($subSelect, 'period');
         } else {
-            $condition = array();
+            $condition = [];
             if ($from !== null) {
                 $condition[] = $this->_getWriteAdapter()->quoteInto('period >= ?', $from);
             }
@@ -172,15 +165,15 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
         $whereColumn,
         $from = null,
         $to = null,
-        $additionalWhere = array(),
+        $additionalWhere = [],
         $alias = 'date_range_table'
     ) {
         $adapter = $this->_getReadAdapter();
         $select  = $adapter->select()
             ->from(
-                array($alias => $table),
+                [$alias => $table],
                 $adapter->getDatePartSql(
-                    $this->getStoreTZOffsetQuery(array($alias => $table), $alias . '.' . $column, $from, $to)
+                    $this->getStoreTZOffsetQuery([$alias => $table], $alias . '.' . $column, $from, $to)
                 )
             )
             ->distinct(true);
@@ -219,12 +212,12 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      */
     protected function _makeConditionFromDateRangeSelect($select, $periodColumn)
     {
-        static $selectResultCache = array();
+        static $selectResultCache = [];
         $cacheKey = (string)$select;
 
         if (!array_key_exists($cacheKey, $selectResultCache)) {
             try {
-                $selectResult = array();
+                $selectResult = [];
                 $query = $this->_getReadAdapter()->query($select);
                 while ($date = $query->fetchColumn()) {
                     $selectResult[] = $date;
@@ -240,11 +233,11 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             return false;
         }
 
-        $whereCondition = array();
+        $whereCondition = [];
         $adapter = $this->_getReadAdapter();
         foreach ($selectResult as $date) {
             $date = substr($date, 0, 10); // to fix differences in oracle
-            $whereCondition[] = $adapter->prepareSqlCondition($periodColumn, array('like' => $date));
+            $whereCondition[] = $adapter->prepareSqlCondition($periodColumn, ['like' => $date]);
         }
         $whereCondition = implode(' OR ', $whereCondition);
         if ($whereCondition == '') {
@@ -277,12 +270,12 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
         $whereColumn,
         $from = null,
         $to = null,
-        $additionalWhere = array(),
+        $additionalWhere = [],
         $alias = 'date_range_table',
         $relatedAlias = 'related_date_range_table'
     ) {
         $adapter = $this->_getReadAdapter();
-        $joinConditionSql = array();
+        $joinConditionSql = [];
 
         foreach ($joinCondition as $fkField => $pkField) {
             $joinConditionSql[] = sprintf('%s.%s = %s.%s', $alias, $fkField, $relatedAlias, $pkField);
@@ -290,15 +283,15 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
 
         $select = $adapter->select()
             ->from(
-                array($alias => $table),
+                [$alias => $table],
                 $adapter->getDatePartSql(
                     $adapter->quoteIdentifier($alias . '.' . $column)
                 )
             )
             ->joinInner(
-                array($relatedAlias => $relatedTable),
+                [$relatedAlias => $relatedTable],
                 implode(' AND ', $joinConditionSql),
-                array()
+                []
             )
             ->distinct(true);
 
@@ -318,11 +311,11 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                     continue;
                 }
                 $condition = str_replace(
-                    array('{{table}}', '{{related_table}}'),
-                    array(
+                    ['{{table}}', '{{related_table}}'],
+                    [
                         $adapter->quoteIdentifier($alias),
                         $adapter->quoteIdentifier($relatedAlias)
-                    ),
+                    ],
                     $condition
                 );
                 $select->where($condition);
@@ -370,7 +363,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             $selectOldest = $this->_getWriteAdapter()->select()
                 ->from(
                     $table,
-                    array("MIN($column)")
+                    ["MIN($column)"]
                 );
             $from = $this->_getWriteAdapter()->fetchOne($selectOldest);
         }
@@ -389,7 +382,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
 
         $i = 0;
         foreach ($periods as $offset => $timestamps) {
-            $subParts = array();
+            $subParts = [];
             foreach ($timestamps as $ts) {
                 $subParts[] = "($column between {$ts['from']} and {$ts['to']})";
             }
@@ -397,7 +390,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             $then = $this->_getWriteAdapter()
                 ->getDateAddSql($column, $offset, Varien_Db_Adapter_Interface::INTERVAL_SECOND);
 
-            $query .= (++$i == $periodsCount) ? $then : "CASE WHEN " . join(" OR ", $subParts) . " THEN $then ELSE ";
+            $query .= (++$i == $periodsCount) ? $then : "CASE WHEN " . implode(" OR ", $subParts) . " THEN $then ELSE ";
         }
 
         return $query . str_repeat('END ', count($periods) - 1);
@@ -413,7 +406,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      */
     protected function _getTZOffsetTransitions($timezone, $from = null, $to = null)
     {
-        $tzTransitions = array();
+        $tzTransitions = [];
         try {
             if (!empty($from)) {
                 $from = new Zend_Date($from, Varien_Date::DATETIME_INTERNAL_FORMAT);
@@ -436,7 +429,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                 $dateTimeObject->set($tr['time']);
                 $tr['time'] = $this->_getWriteAdapter()
                     ->formatDate($dateTimeObject->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
-                $tzTransitions[$tr['offset']][] = array('from' => $tr['time'], 'to' => $nextPeriod);
+                $tzTransitions[$tr['offset']][] = ['from' => $tr['time'], 'to' => $nextPeriod];
 
                 if (!empty($from) && $tr['ts'] < $from) {
                     break;

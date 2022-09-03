@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -122,10 +116,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
     {
         $this->setChild('delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label' => Mage::helper('catalog')->__('Delete Option'),
                     'class' => 'delete delete-product-option '
-                ))
+                ])
         );
 
         $path = 'global/catalog/product/options/custom/groups';
@@ -143,10 +137,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
 
     public function getAddButtonId()
     {
-        $buttonId = $this->getLayout()
+        return $this->getLayout()
                 ->getBlock('admin.product.options')
                 ->getChild('add_button')->getId();
-        return $buttonId;
     }
 
     public function getDeleteButtonHtml()
@@ -157,10 +150,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
     public function getTypeSelectHtml()
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
-            ->setData(array(
+            ->setData([
                 'id' => $this->getFieldId().'_{{id}}_type',
                 'class' => 'select select-product-option-type required-option-select'
-            ))
+            ])
             ->setName($this->getFieldName().'[{{id}}][type]')
             ->setOptions(Mage::getSingleton('adminhtml/system_config_source_product_options_type')->toOptionArray());
 
@@ -170,10 +163,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
     public function getRequireSelectHtml()
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
-            ->setData(array(
+            ->setData([
                 'id' => $this->getFieldId().'_{{id}}_is_require',
                 'class' => 'select'
-            ))
+            ])
             ->setName($this->getFieldName().'[{{id}}][is_require]')
             ->setOptions(Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray());
 
@@ -205,29 +198,26 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
             ->setCanReadPrice($canReadPrice)
             ->setCanEditPrice($canEditPrice);
 
-        $templates = $this->getChildHtml('text_option_type') . "\n" .
+        return $this->getChildHtml('text_option_type') . "\n" .
             $this->getChildHtml('file_option_type') . "\n" .
             $this->getChildHtml('select_option_type') . "\n" .
             $this->getChildHtml('date_option_type');
-
-        return $templates;
     }
 
     public function getOptionValues()
     {
         $optionsArr = array_reverse($this->getProduct()->getOptions(), true);
-//        $optionsArr = $this->getProduct()->getOptions();
 
         if (!$this->_values) {
             $showPrice = $this->getCanReadPrice();
-            $values = array();
+            $values = [];
             $scope = (int) Mage::app()->getStore()->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE);
             foreach ($optionsArr as $option) {
-                /* @var $option Mage_Catalog_Model_Product_Option */
+                /** @var Mage_Catalog_Model_Product_Option $option */
 
                 $this->setItemCount($option->getOptionId());
 
-                $value = array();
+                $value = [];
 
                 $value['id'] = $option->getOptionId();
                 $value['item_count'] = $this->getItemCount();
@@ -245,14 +235,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                 }
 
                 if ($option->getGroupByType() == Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
-
-//                    $valuesArr = array_reverse($option->getValues(), true);
-
                     $i = 0;
                     $itemCount = 0;
                     foreach ($option->getValues() as $_value) {
-                        /* @var $_value Mage_Catalog_Model_Product_Option_Value */
-                        $value['optionValues'][$i] = array(
+                        /** @var Mage_Catalog_Model_Product_Option_Value $_value */
+                        $value['optionValues'][$i] = [
                             'item_count' => max($itemCount, $_value->getOptionTypeId()),
                             'option_id' => $_value->getOptionId(),
                             'option_type_id' => $_value->getOptionTypeId(),
@@ -262,7 +249,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                             'price_type' => ($showPrice) ? $_value->getPriceType() : 0,
                             'sku' => $this->escapeHtml($_value->getSku()),
                             'sort_order' => $_value->getSortOrder(),
-                        );
+                        ];
 
                         if ($this->getProduct()->getStoreId() != '0') {
                             $value['optionValues'][$i]['checkboxScopeTitle'] = $this->getCheckboxScopeHtml(

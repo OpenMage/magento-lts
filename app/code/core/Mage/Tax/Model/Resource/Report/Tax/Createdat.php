@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Tax
+ * @category   Mage
+ * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Tax report resource model with aggregation by created at
  *
- * @category    Mage
- * @package     Mage_Tax
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Tax
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Resource_Report_Abstract
 {
@@ -90,14 +83,14 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
             // convert dates from UTC to current admin timezone
             $periodExpr = $writeAdapter->getDatePartSql(
                 $this->getStoreTZOffsetQuery(
-                    array('e' => $this->getTable('sales/order')),
+                    ['e' => $this->getTable('sales/order')],
                     'e.' . $aggregationField,
                     $from,
                     $to
                 )
             );
 
-            $columns = array(
+            $columns = [
                 'period'                => $periodExpr,
                 'store_id'              => 'e.store_id',
                 'code'                  => 'tax.code',
@@ -105,30 +98,30 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
                 'percent'               => 'MAX(tax.' . $writeAdapter->quoteIdentifier('percent') .')',
                 'orders_count'          => 'COUNT(DISTINCT e.entity_id)',
                 'tax_base_amount_sum'   => 'SUM(tax.base_amount * e.base_to_global_rate)'
-            );
+            ];
 
             $select = $writeAdapter->select();
-            $select->from(array('tax' => $this->getTable('tax/sales_order_tax')), $columns)
-                ->joinInner(array('e' => $this->getTable('sales/order')), 'e.entity_id = tax.order_id', array())
+            $select->from(['tax' => $this->getTable('tax/sales_order_tax')], $columns)
+                ->joinInner(['e' => $this->getTable('sales/order')], 'e.entity_id = tax.order_id', [])
                 ->useStraightJoin();
 
-            $select->where('e.state NOT IN (?)', array(
+            $select->where('e.state NOT IN (?)', [
                 Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
                 Mage_Sales_Model_Order::STATE_NEW
-            ));
+            ]);
 
             if ($subSelect !== null) {
                 $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
-            $select->group(array($periodExpr, 'e.store_id', 'code', 'tax.percent', 'e.status'));
+            $select->group([$periodExpr, 'e.store_id', 'code', 'tax.percent', 'e.status']);
 
             $insertQuery = $writeAdapter->insertFromSelect($select, $this->getMainTable(), array_keys($columns));
             $writeAdapter->query($insertQuery);
 
             $select->reset();
 
-            $columns = array(
+            $columns = [
                 'period'                => 'period',
                 'store_id'              => new Zend_Db_Expr(Mage_Core_Model_App::ADMIN_STORE_ID),
                 'code'                  => 'code',
@@ -136,7 +129,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
                 'percent'               => 'MAX(' . $writeAdapter->quoteIdentifier('percent') . ')',
                 'orders_count'          => 'SUM(orders_count)',
                 'tax_base_amount_sum'   => 'SUM(tax_base_amount_sum)'
-            );
+            ];
 
             $select
                 ->from($this->getMainTable(), $columns)
@@ -146,7 +139,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
                 $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
-            $select->group(array('period', 'code', 'percent', 'order_status'));
+            $select->group(['period', 'code', 'percent', 'order_status']);
             $insertQuery = $writeAdapter->insertFromSelect($select, $this->getMainTable(), array_keys($columns));
             $writeAdapter->query($insertQuery);
             $writeAdapter->commit();

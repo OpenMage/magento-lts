@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 {
@@ -124,12 +118,12 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
              ->_title($this->__('Tags'));
 
         if (! (int) $this->getRequest()->getParam('store')) {
-            return $this->_redirect('*/*/*/', array('store' => Mage::app()->getAnyStoreView()->getId(), '_current' => true));
+            return $this->_redirect('*/*/*/', ['store' => Mage::app()->getAnyStoreView()->getId(), '_current' => true]);
         }
 
         if (! ($model = $this->_initTag())) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Wrong tag was specified.'));
-            return $this->_redirect('*/*/index', array('store' => $this->getRequest()->getParam('store')));
+            return $this->_redirect('*/*/index', ['store' => $this->getRequest()->getParam('store')]);
         }
 
         // set entered data if was error when we do save
@@ -163,7 +157,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
             if (!$model = $this->_initTag()) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Wrong tag was specified.'));
-                return $this->_redirect('*/*/index', array('store' => $data['store']));
+                return $this->_redirect('*/*/index', ['store' => $data['store']]);
             }
 
             $model->addData($data);
@@ -182,7 +176,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->setTagData(false);
 
                 if (($continue = $this->getRequest()->getParam('continue'))) {
-                    return $this->_redirect('*/tag/edit', array('tag_id' => $model->getId(), 'store' => $model->getStoreId(), 'ret' => $continue));
+                    return $this->_redirect('*/tag/edit', ['tag_id' => $model->getId(), 'store' => $model->getStoreId(), 'ret' => $continue]);
                 } else {
                     return $this->_redirect('*/tag/' . $this->getRequest()->getParam('ret', 'index'));
                 }
@@ -190,17 +184,15 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setTagData($data);
 
-                return $this->_redirect('*/*/edit', array('tag_id' => $model->getId(), 'store' => $model->getStoreId()));
+                return $this->_redirect('*/*/edit', ['tag_id' => $model->getId(), 'store' => $model->getStoreId()]);
             }
         }
 
-        return $this->_redirect('*/tag/index', array('_current' => true));
+        return $this->_redirect('*/tag/index', ['_current' => true]);
     }
 
     /**
      * Delete tag action
-     *
-     * @return void
      */
     public function deleteAction()
     {
@@ -340,8 +332,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Check currently called action by permissions for current user
-     *
+     * @inheritDoc
      */
     protected function _isAllowed()
     {
@@ -349,13 +340,10 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
         switch ($action) {
             case 'pending':
                 return Mage::getSingleton('admin/session')->isAllowed('catalog/tag/pending');
-                break;
             case 'all':
                 return Mage::getSingleton('admin/session')->isAllowed('catalog/tag/all');
-                break;
             default:
                 return Mage::getSingleton('admin/session')->isAllowed('catalog/tag');
-                break;
         }
     }
 }

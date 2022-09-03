@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -27,6 +21,7 @@
 /**
  * Wishlist item model
  *
+ * @method Mage_Wishlist_Model_Resource_Item _getResource()
  * @method Mage_Wishlist_Model_Resource_Item getResource()
  * @method Mage_Wishlist_Model_Resource_Item_Collection getCollection()
  *
@@ -92,21 +87,21 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * @var array
      */
-    protected $_options             = array();
+    protected $_options             = [];
 
     /**
      * Item options by code cache
      *
      * @var array
      */
-    protected $_optionsByCode       = array();
+    protected $_optionsByCode       = [];
 
     /**
      * Not Represent options
      *
      * @var array
      */
-    protected $_notRepresentOptions = array('info_buyRequest');
+    protected $_notRepresentOptions = ['info_buyRequest'];
 
     /**
      * Flag stating that options were successfully saved
@@ -137,16 +132,6 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     }
 
     /**
-     * Retrieve resource instance wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
-    }
-
-    /**
      * Check if two options array are identical
      *
      * @param array $options1
@@ -155,7 +140,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      */
     protected function _compareOptions($options1, $options2)
     {
-        $skipOptions = array('id', 'qty', 'return_url');
+        $skipOptions = ['id', 'qty', 'return_url'];
         foreach ($options1 as $code => $value) {
             if (in_array($code, $skipOptions)) {
                 continue;
@@ -298,12 +283,12 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      */
     public function getDataForSave()
     {
-        $data = array();
+        $data = [];
         $data['product_id']  = $this->getProductId();
         $data['wishlist_id'] = $this->getWishlistId();
-        $data['added_at']    = $this->getAddedAt() ? $this->getAddedAt() : Mage::getSingleton('core/date')->gmtDate();
+        $data['added_at']    = $this->getAddedAt() ?: Mage::getSingleton('core/date')->gmtDate();
         $data['description'] = $this->getDescription();
-        $data['store_id']    = $this->getStoreId() ? $this->getStoreId() : Mage::app()->getStore()->getId();
+        $data['store_id']    = $this->getStoreId() ?: Mage::app()->getStore()->getId();
 
         return $data;
     }
@@ -411,13 +396,13 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     public function getProductUrl()
     {
         $product = $this->getProduct();
-        $query   = array();
+        $query   = [];
 
         if ($product->getTypeInstance(true)->hasRequiredOptions($product)) {
             $query['options'] = 'cart';
         }
 
-        return $product->getUrlModel()->getUrl($product, array('_query' => $query));
+        return $product->getUrlModel()->getUrl($product, ['_query' => $query]);
     }
 
     /**
@@ -429,7 +414,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     public function getBuyRequest()
     {
         $option = $this->getOptionByCode('info_buyRequest');
-        $initialData = $option ? unserialize($option->getValue()) : null;
+        $initialData = $option ? unserialize($option->getValue(), ['allowed_classes' => false]) : null;
 
         // There can be wrong data due to bug in Grouped products - it formed 'info_buyRequest' as Varien_Object
         if ($initialData instanceof Varien_Object) {
@@ -466,10 +451,10 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         if ($option) {
             $option->setValue($sBuyRequest);
         } else {
-            $this->addOption(array(
+            $this->addOption([
                 'code'  => 'info_buyRequest',
                 'value' => $sBuyRequest
-            ));
+            ]);
         }
 
         return $this;

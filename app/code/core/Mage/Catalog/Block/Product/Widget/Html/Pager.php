@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -67,7 +61,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      */
     public function getCollectionSize()
     {
-        if (null === $this->_collectionSize) {
+        if ($this->_collectionSize === null) {
             $this->_collectionSize = $this->getCollection()->getSize();
             if ($this->getTotalLimit() && $this->_collectionSize > $this->getTotalLimit()) {
                 $this->_collectionSize = $this->getTotalLimit();
@@ -85,7 +79,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      */
     public function getCurrentPage()
     {
-        if (null === $this->_currentPage) {
+        if ($this->_currentPage === null) {
             $page = abs((int)$this->getRequest()->getParam($this->getPageVarName()));
             if ($page > $this->getLastPageNum()) {
                 $this->_currentPage = $this->getLastPageNum();
@@ -178,7 +172,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      */
     public function getLastPageNum()
     {
-        if (null === $this->_lastPage) {
+        if ($this->_lastPage === null) {
             $this->_lastPage = ceil($this->getCollectionSize() / $this->getLimit());
             if ($this->_lastPage <= 0) {
                 $this->_lastPage = 1;
@@ -214,7 +208,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      */
     public function getPages()
     {
-        $pages = array();
+        $pages = [];
         if ($this->getLastPageNum() <= $this->_displayPages) {
             $pages = range(1, $this->getLastPageNum());
         } else {

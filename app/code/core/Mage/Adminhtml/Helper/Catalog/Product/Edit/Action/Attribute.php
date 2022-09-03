@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,39 +12,32 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml catalog product action attribute update helper
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_Core_Helper_Data
 {
     /**
      * Selected products for mass-update
      *
-     * @var Mage_Catalog_Model_Entity_Product_Collection
+     * @var Mage_Catalog_Model_Resource_Product_Collection
      */
     protected $_products;
 
     /**
      * Array of same attributes for selected products
      *
-     * @var Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @var Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     protected $_attributes;
 
@@ -53,13 +46,13 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
      *
      * @var array
      */
-    protected $_excludedAttributes = array('url_key');
+    protected $_excludedAttributes = ['url_key'];
 
     /**
      * Return product collection with selected product filter
      * Product collection didn't load
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     public function getProducts()
     {
@@ -67,7 +60,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
             $productsIds = $this->getProductIds();
 
             if (!is_array($productsIds)) {
-                $productsIds = array(0);
+                $productsIds = [0];
             }
 
             $this->_products = Mage::getResourceModel('catalog/product_collection')
@@ -81,13 +74,14 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     /**
      * Return array of selected product ids from post or session
      *
-     * @return array|null
+     * @return string|null
      */
     public function getProductIds()
     {
+        /** @var Mage_Adminhtml_Model_Session $session */
         $session = Mage::getSingleton('adminhtml/session');
 
-        if ($this->_getRequest()->isPost() && strtolower($this->_getRequest()->getActionName()) == 'edit') {
+        if ($this->_getRequest()->isPost() && strtolower($this->_getRequest()->getActionName()) === 'edit') {
             $session->setProductIds($this->_getRequest()->getParam('product', null));
         }
 
@@ -117,7 +111,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     /**
      * Return collection of same attributes for selected products without unique
      *
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function getAttributes()
     {
@@ -129,13 +123,13 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
                 ->setInAllAttributeSetsFilter($this->getProductsSetIds());
 
             if ($this->_excludedAttributes) {
-                $this->_attributes->addFieldToFilter('attribute_code', array('nin' => $this->_excludedAttributes));
+                $this->_attributes->addFieldToFilter('attribute_code', ['nin' => $this->_excludedAttributes]);
             }
 
             // check product type apply to limitation and remove attributes that impossible to change in mass-update
             $productTypeIds  = $this->getProducts()->getProductTypeIds();
+            /** @var Mage_Catalog_Model_Entity_Attribute $attribute */
             foreach ($this->_attributes as $attribute) {
-                /* @var $attribute Mage_Catalog_Model_Entity_Attribute */
                 foreach ($productTypeIds as $productTypeId) {
                     $applyTo = $attribute->getApplyTo();
                     if (count($applyTo) > 0 && !in_array($productTypeId, $applyTo)) {
@@ -157,6 +151,6 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
      */
     public function getProductsNotInStoreIds()
     {
-        return array();
+        return [];
     }
 }

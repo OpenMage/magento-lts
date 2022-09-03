@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -31,11 +25,12 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminhtml_Block_Catalog_Category_Tree
 {
-    protected $_selectedIds = array();
+    protected $_selectedIds = [];
 
     protected function _prepareLayout()
     {
         $this->setTemplate('catalog/category/checkboxes/tree.phtml');
+        return $this;
     }
 
     public function getCategoryIds()
@@ -46,10 +41,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
     public function setCategoryIds($ids)
     {
         if (empty($ids)) {
-            $ids = array();
+            $ids = [];
         }
         elseif (!is_array($ids)) {
-            $ids = array((int)$ids);
+            $ids = [(int)$ids];
         }
         $this->_selectedIds = $ids;
         return $this;
@@ -57,7 +52,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
 
     protected function _getNodeJson($node, $level = 1)
     {
-        $item = array();
+        $item = [];
         $item['text']= $this->escapeHtml($node->getName());
 
         if ($this->_withProductCount) {
@@ -70,14 +65,14 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
         $item['allowDrag'] = false;
 
         if ($node->hasChildren()) {
-            $item['children'] = array();
+            $item['children'] = [];
             foreach ($node->getChildren() as $child) {
                 $item['children'][] = $this->_getNodeJson($child, $level + 1);
             }
         }
 
         if (empty($item['children']) && (int)$node->getChildrenCount() > 0) {
-            $item['children'] = array();
+            $item['children'] = [];
         }
 
         if (!empty($item['children'])) {

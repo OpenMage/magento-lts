@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,10 +23,16 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'newsletter/problem';
+
     public function indexAction()
     {
         $this->_title($this->__('Newsletter'))->_title($this->__('Newsletter Problems'));
@@ -61,13 +61,13 @@ class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Control
     public function gridAction()
     {
         if($this->getRequest()->getParam('_unsubscribe')) {
-            $problems = (array) $this->getRequest()->getParam('problem', array());
+            $problems = (array) $this->getRequest()->getParam('problem', []);
             if (count($problems)>0) {
                 $collection = Mage::getResourceModel('newsletter/problem_collection');
                 $collection
                     ->addSubscriberInfo()
                     ->addFieldToFilter($collection->getResource()->getIdFieldName(),
-                                       array('in'=>$problems))
+                                       ['in'=>$problems])
                     ->load();
 
                 $collection->walk('unsubscribe');
@@ -78,12 +78,12 @@ class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Control
         }
 
         if($this->getRequest()->getParam('_delete')) {
-            $problems = (array) $this->getRequest()->getParam('problem', array());
+            $problems = (array) $this->getRequest()->getParam('problem', []);
             if (count($problems)>0) {
                 $collection = Mage::getResourceModel('newsletter/problem_collection');
                 $collection
                     ->addFieldToFilter($collection->getResource()->getIdFieldName(),
-                                       array('in'=>$problems))
+                                       ['in'=>$problems])
                     ->load();
                 $collection->walk('delete');
             }
@@ -95,10 +95,5 @@ class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Control
 
         $grid = $this->getLayout()->createBlock('adminhtml/newsletter_problem_grid');
         $this->getResponse()->setBody($grid->toHtml());
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('newsletter/problem');
     }
 }

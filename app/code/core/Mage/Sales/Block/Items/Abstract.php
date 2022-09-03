@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract block for display sales (quote/order/invoice etc.) items
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
 {
@@ -41,7 +35,7 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_itemRenders = array();
+    protected $_itemRenders = [];
 
     /**
      * Initialize default item renderer
@@ -62,11 +56,11 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
      */
     public function addItemRender($type, $block, $template)
     {
-        $this->_itemRenders[$type] = array(
+        $this->_itemRenders[$type] = [
             'block'     => $block,
             'template'  => $template,
             'renderer'  => null
-        );
+        ];
 
         return $this;
     }

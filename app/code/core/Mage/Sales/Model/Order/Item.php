@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -228,7 +222,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     protected $_order       = null;
     protected $_parentItem  = null;
-    protected $_children    = array();
+    protected $_children    = [];
 
     /**
      * Init resource model
@@ -558,7 +552,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public function cancel()
     {
         if ($this->getStatusId() !== self::STATUS_CANCELED) {
-            Mage::dispatchEvent('sales_order_item_cancel', array('item'=>$this));
+            Mage::dispatchEvent('sales_order_item_cancel', ['item'=>$this]);
             $this->setQtyCanceled($this->getQtyToCancel());
             $this->setTaxCanceled(
                 $this->getTaxCanceled() +
@@ -580,8 +574,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public static function getStatuses()
     {
         if (is_null(self::$_statuses)) {
-            self::$_statuses = array(
-                //self::STATUS_PENDING        => Mage::helper('sales')->__('Pending'),
+            self::$_statuses = [
                 self::STATUS_PENDING        => Mage::helper('sales')->__('Ordered'),
                 self::STATUS_SHIPPED        => Mage::helper('sales')->__('Shipped'),
                 self::STATUS_INVOICED       => Mage::helper('sales')->__('Invoiced'),
@@ -591,7 +584,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
                 self::STATUS_CANCELED       => Mage::helper('sales')->__('Canceled'),
                 self::STATUS_PARTIAL        => Mage::helper('sales')->__('Partial'),
                 self::STATUS_MIXED          => Mage::helper('sales')->__('Mixed'),
-            );
+            ];
         }
         return self::$_statuses;
     }
@@ -630,9 +623,9 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public function getProductOptions()
     {
         if ($options = $this->_getData('product_options')) {
-            return unserialize($options);
+            return unserialize($options, ['allowed_classes' => false]);
         }
-        return array();
+        return [];
     }
 
     /**
@@ -804,7 +797,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     {
         $option = $this->getProductOptionByCode('info_buyRequest');
         if (!$option) {
-            $option = array();
+            $option = [];
         }
         $buyRequest = new Varien_Object($option);
         $buyRequest->setQty($this->getQtyOrdered() * 1);
@@ -833,7 +826,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function getBaseDiscountAppliedForWeeeTax()
     {
-        $weeeTaxAppliedAmounts = unserialize($this->getWeeeTaxApplied());
+        $weeeTaxAppliedAmounts = unserialize($this->getWeeeTaxApplied(), ['allowed_classes' => false]);
         $totalDiscount = 0;
         if (!is_array($weeeTaxAppliedAmounts)) {
             return $totalDiscount;
@@ -856,7 +849,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function getDiscountAppliedForWeeeTax()
     {
-        $weeeTaxAppliedAmounts = unserialize($this->getWeeeTaxApplied());
+        $weeeTaxAppliedAmounts = unserialize($this->getWeeeTaxApplied(), ['allowed_classes' => false]);
         $totalDiscount = 0;
         if (!is_array($weeeTaxAppliedAmounts)) {
             return $totalDiscount;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Order billing address backend
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
@@ -38,6 +31,7 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing extends Mage_Eav
      * Perform operation before save
      *
      * @param Varien_Object $object
+     * @return $this
      */
     public function beforeSave($object)
     {
@@ -45,18 +39,20 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing extends Mage_Eav
         if (is_null($billingAddressId)) {
             $object->unsetBillingAddressId();
         }
+        return $this;
     }
 
     /**
      * Perform operation after save
      *
      * @param Varien_Object $object
+     * @return $this
      */
     public function afterSave($object)
     {
         $billingAddressId = false;
         foreach ($object->getAddressesCollection() as $address) {
-            if ('billing' == $address->getAddressType()) {
+            if ($address->getAddressType() == 'billing') {
                 $billingAddressId = $address->getId();
             }
         }
@@ -64,5 +60,6 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing extends Mage_Eav
             $object->setBillingAddressId($billingAddressId);
             $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getAttributeCode());
         }
+        return $this;
     }
 }

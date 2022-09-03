@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Configurable Products Price Indexer Resource model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
 {
@@ -136,43 +129,43 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
         $this->_prepareConfigurableOptionPriceTable();
 
         $select = $write->select()
-            ->from(array('i' => $this->_getDefaultFinalPriceTable()), array())
+            ->from(['i' => $this->_getDefaultFinalPriceTable()], [])
             ->join(
-                array('l' => $this->getTable('catalog/product_super_link')),
+                ['l' => $this->getTable('catalog/product_super_link')],
                 'l.parent_id = i.entity_id',
-                array('parent_id', 'product_id')
+                ['parent_id', 'product_id']
             )
-            ->columns(array('customer_group_id', 'website_id'), 'i')
+            ->columns(['customer_group_id', 'website_id'], 'i')
             ->join(
-                array('a' => $this->getTable('catalog/product_super_attribute')),
+                ['a' => $this->getTable('catalog/product_super_attribute')],
                 'l.parent_id = a.product_id',
-                array()
+                []
             )
             ->join(
-                array('cp' => $this->getValueTable('catalog/product', 'int')),
+                ['cp' => $this->getValueTable('catalog/product', 'int')],
                 'l.product_id = cp.entity_id AND cp.attribute_id = a.attribute_id AND cp.store_id = 0',
-                array()
+                []
             )
             ->joinLeft(
-                array('apd' => $this->getTable('catalog/product_super_attribute_pricing')),
+                ['apd' => $this->getTable('catalog/product_super_attribute_pricing')],
                 'a.product_super_attribute_id = apd.product_super_attribute_id'
                     . ' AND apd.website_id = 0 AND cp.value = apd.value_index',
-                array()
+                []
             )
             ->joinLeft(
-                array('apw' => $this->getTable('catalog/product_super_attribute_pricing')),
+                ['apw' => $this->getTable('catalog/product_super_attribute_pricing')],
                 'a.product_super_attribute_id = apw.product_super_attribute_id'
                     . ' AND apw.website_id = i.website_id AND cp.value = apw.value_index',
-                array()
+                []
             )
             ->join(
-                array('le' => $this->getTable('catalog/product')),
+                ['le' => $this->getTable('catalog/product')],
                 'le.entity_id = l.product_id',
-                array()
+                []
             )
             ->where('le.required_options=0')
-            ->group(array('l.parent_id', 'i.customer_group_id', 'i.website_id', 'l.product_id'));
-        $this->_addWebsiteJoinToSelect($select, true);
+            ->group(['l.parent_id', 'i.customer_group_id', 'i.website_id', 'l.product_id']);
+        $this->_addWebsiteJoinToSelect($select, true, 'i.website_id');
         $this->_addProductWebsiteJoinToSelect($select, 'cw.website_id', 'le.entity_id');
 
         $priceExpression = $write->getCheckSql('apw.value_id IS NOT NULL', 'apw.pricing_value', 'apd.pricing_value');
@@ -192,11 +185,11 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
         $groupPriceExp = $write->getCheckSql("{$groupPrice} IS NULL", '0', $groupRoundPriceExp);
         $groupPriceColumn = $write->getCheckSql("MIN(i.group_price) IS NOT NULL", "SUM({$groupPriceExp})", 'NULL');
 
-        $select->columns(array(
+        $select->columns([
             'price'       => $priceColumn,
             'tier_price'  => $tierPriceColumn,
             'group_price' => $groupPriceColumn,
-        ));
+        ]);
 
         $statusCond = $write->quoteInto(' = ?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
         $this->_addAttributeToSelect($select, 'status', 'le.entity_id', 'cs.store_id', $statusCond);
@@ -206,26 +199,26 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
 
         $select = $write->select()
             ->from(
-                array($coaTable),
-                array(
+                [$coaTable],
+                [
                     'parent_id', 'customer_group_id', 'website_id',
                     'MIN(price)', 'MAX(price)', 'MIN(tier_price)', 'MIN(group_price)'
-                )
+                ]
             )
-            ->group(array('parent_id', 'customer_group_id', 'website_id'));
+            ->group(['parent_id', 'customer_group_id', 'website_id']);
 
         $query = $select->insertFromSelect($copTable);
         $write->query($query);
 
-        $table  = array('i' => $this->_getDefaultFinalPriceTable());
+        $table  = ['i' => $this->_getDefaultFinalPriceTable()];
         $select = $write->select()
             ->join(
-                array('io' => $copTable),
+                ['io' => $copTable],
                 'i.entity_id = io.entity_id AND i.customer_group_id = io.customer_group_id'
                     .' AND i.website_id = io.website_id',
-                array()
+                []
             );
-        $select->columns(array(
+        $select->columns([
             'min_price'   => new Zend_Db_Expr('i.min_price + io.min_price'),
             'max_price'   => new Zend_Db_Expr('i.max_price + io.max_price'),
             'tier_price'  => $write->getCheckSql('i.tier_price IS NOT NULL', 'i.tier_price + io.tier_price', 'NULL'),
@@ -234,7 +227,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
                 'i.group_price + io.group_price',
                 'NULL'
             ),
-        ));
+        ]);
 
         $query = $select->crossUpdateFromSelect($table);
         $write->query($query);
@@ -242,14 +235,14 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
         $select = $write->select()
             ->from($table)
             ->join(
-                array('e' => $this->getTable('catalog/product')),
+                ['e' => $this->getTable('catalog/product')],
                 'e.entity_id = i.entity_id',
-                array()
+                []
             )
             ->joinLeft(
-                array('coa' => $coaTable),
+                ['coa' => $coaTable],
                 'coa.parent_id = i.entity_id',
-                array()
+                []
             )
             ->where('e.type_id = ?', $this->getTypeId())
             ->where('coa.parent_id IS NULL');

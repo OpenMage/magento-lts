@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Checkout
@@ -89,7 +83,7 @@ class Mage_Checkout_Block_Multishipping_Address_Select extends Mage_Checkout_Blo
      */
     public function getEditAddressUrl($address)
     {
-        return $this->getUrl('*/*/editAddress', array('id'=>$address->getId()));
+        return $this->getUrl('*/*/editAddress', ['id'=>$address->getId()]);
     }
 
     /**
@@ -98,7 +92,7 @@ class Mage_Checkout_Block_Multishipping_Address_Select extends Mage_Checkout_Blo
      */
     public function getSetAddressUrl($address)
     {
-        return $this->getUrl('*/*/setBilling', array('id'=>$address->getId()));
+        return $this->getUrl('*/*/setBilling', ['id'=>$address->getId()]);
     }
 
     /**

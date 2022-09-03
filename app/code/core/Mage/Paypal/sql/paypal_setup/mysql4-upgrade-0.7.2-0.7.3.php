@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,28 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 $installer = $this;
-/* @var $installer Mage_Paypal_Model_Mysql4_Setup */
+/** @var Mage_Paypal_Model_Resource_Setup $installer */
 $installer->startSetup();
 
-$installer->addAttribute('order_payment', 'cc_secure_verify', array());
+$installer->addAttribute('order_payment', 'cc_secure_verify', []);
 
 // move paypal style settings to new paths
-foreach (array(
+foreach ([
         'paypal/wpp/page_style' => 'paypal/style/page_style',
         'paypal/wps/logo_url' => 'paypal/style/logo_url',
-    ) as $from => $to) {
+         ] as $from => $to) {
     $installer->run("
     UPDATE {$installer->getTable('core/config_data')} SET `path` = '{$to}'
     WHERE `path` = '{$from}'

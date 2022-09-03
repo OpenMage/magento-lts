@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api
@@ -53,7 +47,7 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
     }
 
     /**
-     * Retrive handler class name for webservice
+     * Retrieve handler class name for webservice
      *
      * @return string
      */
@@ -75,7 +69,7 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
     }
 
     /**
-     * Retrive webservice api controller. If no controller have been set - emulate it by the use of Varien_Object
+     * Retrieve webservice api controller. If no controller have been set - emulate it by the use of Varien_Object
      *
      * @return Mage_Api_Controller_Action|Varien_Object
      */
@@ -83,9 +77,9 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
     {
         $controller = $this->getData('controller');
 
-        if (null === $controller) {
+        if ($controller === null) {
             $controller = new Varien_Object(
-                array('request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse())
+                ['request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse()]
             );
 
             $this->setData('controller', $controller);
@@ -122,4 +116,4 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
     {
         throw new Zend_XmlRpc_Server_Exception($message, $code);
     }
-} // Class Mage_Api_Model_Server_Adapter_Xmlrpc End
+}

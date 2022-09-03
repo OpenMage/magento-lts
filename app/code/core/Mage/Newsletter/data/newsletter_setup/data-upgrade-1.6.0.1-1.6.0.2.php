@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Newsletter
+ * @category   Mage
+ * @package    Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
-
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
 $newsletterContent = <<<EOD
@@ -66,7 +59,7 @@ $newsletterContent = <<<EOD
         <table class="columns">
             <tr>
                 <td>
-                    <img width="600" src="http://placehold.it/600x200" class="main-image">
+                    <img width="600" src="https://via.placeholder.com/600x200" class="main-image">
                 </td>
                 <td class="expander"></td>
             </tr>
@@ -266,7 +259,7 @@ $newsletterContent = <<<EOD
 {{template config_path="design/email/footer"}}
 EOD;
 
-$data = array(
+$data = [
     'template_code' => 'Example Newsletter Template',
     'template_text' => $newsletterContent ,
     'template_styles' => null,
@@ -277,7 +270,7 @@ $data = array(
     'template_actual' => 1,
     'added_at' => Mage::getSingleton('core/date')->gmtDate(),
     'modified_at' => Mage::getSingleton('core/date')->gmtDate()
-);
+];
 
 $model = Mage::getModel('newsletter/template')->setData($data);
 

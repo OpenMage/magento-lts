@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Report settlement resource model
@@ -66,9 +59,9 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
             $adapter->beginTransaction();
             try {
                 if ($reportId) {
-                    $adapter->delete($this->_rowsTable, array('report_id = ?' => $reportId));
+                    $adapter->delete($this->_rowsTable, ['report_id = ?' => $reportId]);
                 }
-                /** @var $date Mage_Core_Model_Date */
+                /** @var Mage_Core_Model_Date $date */
                 $date = Mage::getSingleton('core/date');
 
                 foreach ($rows as $key => $row) {
@@ -116,7 +109,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
             ->where('account_id = :account_id')
             ->where('report_date = :report_date');
 
-        $data = $adapter->fetchRow($select, array(':account_id' => $accountId, ':report_date' => $reportDate));
+        $data = $adapter->fetchRow($select, [':account_id' => $accountId, ':report_date' => $reportDate]);
         if ($data) {
             $report->addData($data);
         }

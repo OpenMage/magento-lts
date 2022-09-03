@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Rss Observer Model
@@ -51,7 +44,7 @@ class Mage_Rss_Model_Observer
     /**
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
         $this->_app = !empty($args['app']) ? $args['app'] : Mage::app();
@@ -61,7 +54,6 @@ class Mage_Rss_Model_Observer
      * Clean cache for catalog review rss
      *
      * @param Varien_Event_Observer $observer
-     * @return void
      */
     public function reviewSaveAfter(Varien_Event_Observer $observer)
     {
@@ -72,7 +64,6 @@ class Mage_Rss_Model_Observer
      * Clean cache for notify stock rss
      *
      * @param Varien_Event_Observer $observer
-     * @return void
      */
     public function salesOrderItemSaveAfterNotifyStock(Varien_Event_Observer $observer)
     {
@@ -83,7 +74,6 @@ class Mage_Rss_Model_Observer
      * Clean cache for catalog new orders rss
      *
      * @param Varien_Event_Observer $observer
-     * @return void
      */
     public function salesOrderItemSaveAfterOrderNew(Varien_Event_Observer $observer)
     {
@@ -98,7 +88,7 @@ class Mage_Rss_Model_Observer
     protected function _cleanCache($tag)
     {
         if ($this->_factory->getHelper('rss')->isRssEnabled()) {
-            $this->_app->cleanCache(array($tag));
+            $this->_app->cleanCache([$tag]);
         }
     }
 }

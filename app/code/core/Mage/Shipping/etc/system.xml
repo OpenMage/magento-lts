@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Shipping
@@ -30,7 +24,6 @@
         <shipping translate="label" module="shipping">
             <label>Shipping Settings</label>
             <tab>sales</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>310</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -38,7 +31,6 @@
             <groups>
                 <option translate="label">
                     <label>Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>2</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -55,7 +47,6 @@
                         </checkout_multiple>
                         <checkout_multiple_maximum_qty translate="label">
                             <label>Maximum Qty Allowed for Shipping to Multiple Addresses</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number</validate>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
@@ -66,7 +57,6 @@
                 </option>
                 <origin translate="label">
                     <label>Origin</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -84,7 +74,6 @@
                         </country_id>
                         <region_id translate="label">
                             <label>Region/State</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -92,7 +81,6 @@
                         </region_id>
                         <postcode translate="label">
                             <label>ZIP/Postal Code</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -100,7 +88,6 @@
                         </postcode>
                         <city translate="label">
                             <label>City</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -108,7 +95,6 @@
                         </city>
                         <street_line1 translate="label">
                             <label>Street Address</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -116,7 +102,6 @@
                         </street_line1>
                         <street_line2 translate="label">
                             <label>Street Address Line 2</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -129,7 +114,6 @@
         <carriers translate="label" module="shipping">
             <label>Shipping Methods</label>
             <tab>sales</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>320</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -137,7 +121,6 @@
             <groups>
                 <flatrate translate="label">
                     <label>Flat Rate</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>2</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -154,7 +137,6 @@
                         </active>
                         <name translate="label">
                             <label>Method Name</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -162,7 +144,6 @@
                         </name>
                         <price translate="label">
                             <label>Price</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
@@ -180,7 +161,6 @@
                         </handling_type>
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>8</sort_order>
                             <show_in_default>1</show_in_default>
@@ -189,7 +169,6 @@
                         </handling_fee>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -197,7 +176,6 @@
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -253,7 +231,6 @@
                 </flatrate>
                 <freeshipping translate="label">
                     <label>Free Shipping</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>2</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -270,7 +247,6 @@
                         </active>
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
@@ -279,7 +255,6 @@
                         </free_shipping_subtotal>
                         <name translate="label">
                             <label>Method Name</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -287,7 +262,6 @@
                         </name>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -295,7 +269,6 @@
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -342,7 +315,6 @@
                 </freeshipping>
                 <tablerate translate="label">
                     <label>Table Rates</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>2</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -359,7 +331,6 @@
                         </handling_type>
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>8</sort_order>
                             <show_in_default>1</show_in_default>
@@ -412,7 +383,6 @@
                         </import>
                         <name translate="label">
                             <label>Method Name</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -420,7 +390,6 @@
                         </name>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -428,7 +397,6 @@
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Tag
@@ -30,6 +24,7 @@
  * @method Mage_Tag_Model_Resource_Tag _getResource()
  * @method Mage_Tag_Model_Resource_Tag getResource()
  * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
+ * @method Mage_Tag_Model_Resource_Tag_Collection getResourceCollection()
  *
  * @method bool hasBasePopularity()
  * @method int getBasePopularity()
@@ -134,15 +129,15 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      * Product event tags collection getter
      *
      * @param  Varien_Event_Observer $observer
-     * @return Mage_Tag_Model_Mysql4_Tag_Collection
+     * @return Mage_Tag_Model_Resource_Tag_Collection
      */
     protected function _getProductEventTagsCollection(Varien_Event_Observer $observer)
     {
         return $this->getResourceCollection()
-                        ->joinRel()
-                        ->addProductFilter($observer->getEvent()->getProduct()->getId())
-                        ->addTagGroup()
-                        ->load();
+            ->joinRel()
+            ->addProductFilter($observer->getEvent()->getProduct()->getId())
+            ->addTagGroup()
+            ->load();
     }
 
     /**
@@ -287,7 +282,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     public function getTaggedProductsUrl()
     {
-        return Mage::getUrl('tag/product/list', array('tagId' => $this->getTagId()));
+        return Mage::getUrl('tag/product/list', ['tagId' => $this->getTagId()]);
     }
 
     /**
@@ -295,7 +290,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     public function getViewTagUrl()
     {
-        return Mage::getUrl('tag/customer/view', array('tagId' => $this->getTagId()));
+        return Mage::getUrl('tag/customer/view', ['tagId' => $this->getTagId()]);
     }
 
     /**
@@ -303,7 +298,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     public function getEditTagUrl()
     {
-        return Mage::getUrl('tag/customer/edit', array('tagId' => $this->getTagId()));
+        return Mage::getUrl('tag/customer/edit', ['tagId' => $this->getTagId()]);
     }
 
     /**
@@ -311,7 +306,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     public function getRemoveTagUrl()
     {
-        return Mage::getUrl('tag/customer/remove', array('tagId' => $this->getTagId()));
+        return Mage::getUrl('tag/customer/remove', ['tagId' => $this->getTagId()]);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -27,6 +21,7 @@
 /**
  * Tag relation model
  *
+ * @method Mage_Tag_Model_Resource_Tag_Relation _getResource()
  * @method Mage_Tag_Model_Resource_Tag_Relation getResource()
  * @method int getActive()
  * @method $this setActive(int $value)
@@ -67,21 +62,10 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
         $this->_init('tag/tag_relation');
-    }
-
-    /**
-     * Retrieve Resource Instance wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**
@@ -103,13 +87,13 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
     /**
      * Load relation by Product (optional), tag, customer and store
      *
-     * @param int $productId
+     * @param int|null $productId
      * @param int $tagId
      * @param int $customerId
-     * @param int $storeId
+     * @param int|null $storeId
      * @return $this
      */
-    public function loadByTagCustomer($productId = null, $tagId, $customerId, $storeId = null)
+    public function loadByTagCustomer($productId, $tagId, $customerId, $storeId = null)
     {
         $this->setProductId($productId);
         $this->setTagId($tagId);
@@ -167,7 +151,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      * @param array $productIds
      * @return $this
      */
-    public function addRelations(Mage_Tag_Model_Tag $model, $productIds = array())
+    public function addRelations(Mage_Tag_Model_Tag $model, $productIds = [])
     {
         $this->setAddedProductIds($productIds);
         $this->setTagId($model->getTagId());

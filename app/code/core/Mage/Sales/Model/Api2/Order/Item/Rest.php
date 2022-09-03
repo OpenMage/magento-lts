@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -46,8 +40,8 @@ abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Ap
      */
     protected function _retrieveCollection()
     {
-        $data = array();
-        /* @var Mage_Sales_Model_Order_Item $item */
+        $data = [];
+        /** @var Mage_Sales_Model_Order_Item $item */
         foreach ($this->_getCollectionForRetrieve() as $item) {
             $itemData = $item->getData();
             $itemData['status'] = $item->getStatus();
@@ -62,12 +56,11 @@ abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Ap
      */
     protected function _getCollectionForRetrieve()
     {
-        /* @var Mage_Sales_Model_Order $order */
         $order = $this->_loadOrderById(
             $this->getRequest()->getParam(self::PARAM_ORDER_ID)
         );
 
-        /* @var Mage_Sales_Model_Resource_Order_Item_Collection $collection */
+        /** @var Mage_Sales_Model_Resource_Order_Item_Collection $collection */
         $collection = Mage::getResourceModel('sales/order_item_collection');
         $collection->setOrderFilter($order->getId());
         $this->_applyCollectionModifiers($collection);
@@ -83,7 +76,7 @@ abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Ap
      */
     protected function _loadOrderById($id)
     {
-        /* @var Mage_Sales_Model_Order $order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = Mage::getModel('sales/order')->load($id);
         if (!$order->getId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Review
@@ -39,7 +33,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      *
      * @var array
      */
-    protected $_cookieCheckActions = array('post');
+    protected $_cookieCheckActions = ['post'];
 
     /**
      * @return $this|Mage_Core_Controller_Front_Action|void
@@ -57,7 +51,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         if (!$allowGuest && $action == 'post' && $this->getRequest()->isPost()) {
             if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $this->setFlag('', self::FLAG_NO_DISPATCH, true);
-                Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', array('_current' => true)));
+                Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_current' => true]));
                 Mage::getSingleton('review/session')->setFormData($this->getRequest()->getPost())
                     ->setRedirectUrl($this->_getRefererUrl());
                 $this->_redirectUrl(Mage::helper('customer')->getLoginUrl());
@@ -73,7 +67,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      */
     protected function _initProduct()
     {
-        Mage::dispatchEvent('review_controller_product_init_before', array('controller_action'=>$this));
+        Mage::dispatchEvent('review_controller_product_init_before', ['controller_action'=>$this]);
         $categoryId = (int) $this->getRequest()->getParam('category', false);
         $productId  = (int) $this->getRequest()->getParam('id');
 
@@ -88,11 +82,11 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         }
 
         try {
-            Mage::dispatchEvent('review_controller_product_init', array('product'=>$product));
-            Mage::dispatchEvent('review_controller_product_init_after', array(
+            Mage::dispatchEvent('review_controller_product_init', ['product'=>$product]);
+            Mage::dispatchEvent('review_controller_product_init_after', [
                 'product'           => $product,
                 'controller_action' => $this
-            ));
+            ]);
         } catch (Mage_Core_Exception $e) {
             Mage::logException($e);
             return false;
@@ -117,7 +111,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         $product = Mage::getModel('catalog/product')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->load($productId);
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         if (!$product->getId() || !$product->isVisibleInCatalog() || !$product->isVisibleInSiteVisibility()) {
             return false;
         }
@@ -142,7 +136,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         }
 
         $review = Mage::getModel('review/review')->load($reviewId);
-        /* @var Mage_Review_Model_Review $review */
+        /** @var Mage_Review_Model_Review $review */
         if (!$review->getId() || !$review->isApproved() || !$review->isAvailableOnStore(Mage::app()->getStore())) {
             return false;
         }
@@ -165,20 +159,20 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         }
 
         if ($data = Mage::getSingleton('review/session')->getFormData(true)) {
-            $rating = array();
+            $rating = [];
             if (isset($data['ratings']) && is_array($data['ratings'])) {
                 $rating = $data['ratings'];
             }
         } else {
             $data   = $this->getRequest()->getPost();
-            $rating = $this->getRequest()->getParam('ratings', array());
+            $rating = $this->getRequest()->getParam('ratings', []);
         }
 
         if (($product = $this->_initProduct()) && !empty($data)) {
             $session = Mage::getSingleton('core/session');
-            /* @var Mage_Core_Model_Session $session */
+            /** @var Mage_Core_Model_Session $session */
             $review = Mage::getModel('review/review')->setData($this->_cropReviewData($data));
-            /* @var Mage_Review_Model_Review $review */
+            /** @var Mage_Review_Model_Review $review */
 
             $validate = $review->validate();
             if ($validate === true) {
@@ -188,7 +182,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
                         ->setStatusId(Mage_Review_Model_Review::STATUS_PENDING)
                         ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())
                         ->setStoreId(Mage::app()->getStore()->getId())
-                        ->setStores(array(Mage::app()->getStore()->getId()))
+                        ->setStores([Mage::app()->getStore()->getId()])
                         ->save();
 
                     foreach ($rating as $ratingId => $optionId) {
@@ -241,13 +235,15 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             $this->_initProductLayout($product);
 
             // update breadcrumbs
-            if ($breadcrumbsBlock = $this->getLayout()->getBlock('breadcrumbs')) {
-                $breadcrumbsBlock->addCrumb('product', array(
+            /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbsBlock */
+            $breadcrumbsBlock = $this->getLayout()->getBlock('breadcrumbs');
+            if ($breadcrumbsBlock) {
+                $breadcrumbsBlock->addCrumb('product', [
                     'label'    => $product->getName(),
                     'link'     => $product->getProductUrl(),
                     'readonly' => true,
-                ));
-                $breadcrumbsBlock->addCrumb('reviews', array('label' => Mage::helper('review')->__('Product Reviews')));
+                ]);
+                $breadcrumbsBlock->addCrumb('reviews', ['label' => Mage::helper('review')->__('Product Reviews')]);
             }
 
             $this->renderLayout();
@@ -291,7 +287,6 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         $update->addHandle('default');
         $this->addActionLayoutHandles();
 
-
         $update->addHandle('PRODUCT_TYPE_'.$product->getTypeId());
 
         if ($product->getPageLayout()) {
@@ -325,8 +320,8 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      */
     protected function _cropReviewData(array $reviewData)
     {
-        $croppedValues = array();
-        $allowedKeys = array_fill_keys(array('detail', 'title', 'nickname'), true);
+        $croppedValues = [];
+        $allowedKeys = array_fill_keys(['detail', 'title', 'nickname'], true);
 
         foreach ($reviewData as $key => $value) {
             if (isset($allowedKeys[$key])) {

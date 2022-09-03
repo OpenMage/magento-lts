@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml store tree
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
 {
@@ -70,42 +63,43 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
      */
     public function getTableData()
     {
-        $data = array();
+        $data = [];
         foreach (Mage::getModel('core/website')->getCollection() as $website) {
-            /** @var $website Mage_Core_Model_Website */
+            /** @var Mage_Core_Model_Website $website */
             $groupCollection = $website->getGroupCollection();
-            $data[$website->getId()] = array(
+            $websiteId = $website->getId();
+            $data[$websiteId] = [
                 'object' => $website,
-                'storeGroups' => array(),
+                'storeGroups' => [],
                 'count' => 0
-            );
+            ];
             $defaultGroupId = $website->getDefaultGroupId();
             foreach ($groupCollection as $storeGroup) {
-                /** @var $storeGroup Mage_Core_Model_Store_Group */
+                /** @var Mage_Core_Model_Store_Group $storeGroup */
                 $storeCollection = $storeGroup->getStoreCollection();
                 $storeGroupCount = max(1, $storeCollection->count());
-                $data[$website->getId()]['storeGroups'][$storeGroup->getId()] = array(
+                $data[$websiteId]['storeGroups'][$storeGroup->getId()] = [
                     'object' => $storeGroup,
-                    'stores' => array(),
+                    'stores' => [],
                     'count' => $storeGroupCount
-                );
-                $data[$website->getId()]['count'] += $storeGroupCount;
+                ];
+                $data[$websiteId]['count'] += $storeGroupCount;
                 if ($storeGroup->getId() == $defaultGroupId) {
                     $storeGroup->setData('is_default', true);
                 }
                 $defaultStoreId = $storeGroup->getDefaultStoreId();
                 foreach ($storeCollection as $store) {
-                    /** @var $store Mage_Core_Model_Store */
-                    $data[$website->getId()]['storeGroups'][$storeGroup->getId()]['stores'][$store->getId()] = array(
+                    /** @var Mage_Core_Model_Store $store */
+                    $data[$websiteId]['storeGroups'][$storeGroup->getId()]['stores'][$store->getId()] = [
                         'object' => $store
-                    );
+                    ];
                     if ($store->getId() == $defaultStoreId) {
                         $store->setData('is_default', true);
                     }
                 }
             }
 
-            $data[$website->getId()]['count'] = max(1, $data[$website->getId()]['count']);
+            $data[$websiteId]['count'] = max(1, $data[$websiteId]['count']);
         }
         return $data;
     }
@@ -130,7 +124,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     {
         return $this->_createCellTemplate()
             ->setObject($website)
-            ->setLinkUrl($this->getUrl('*/*/editWebsite', array('website_id' => $website->getWebsiteId())))
+            ->setLinkUrl($this->getUrl('*/*/editWebsite', ['website_id' => $website->getWebsiteId()]))
             ->setInfo($this->__('Code') . ': ' . $this->escapeHtml($website->getCode()))
             ->toHtml();
     }
@@ -146,7 +140,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
         $rootCategory = Mage::getModel('catalog/category')->load($storeGroup->getRootCategoryId());
         return $this->_createCellTemplate()
             ->setObject($storeGroup)
-            ->setLinkUrl($this->getUrl('*/*/editGroup', array('group_id' => $storeGroup->getGroupId())))
+            ->setLinkUrl($this->getUrl('*/*/editGroup', ['group_id' => $storeGroup->getGroupId()]))
             ->setInfo($this->__('Root Category') . ': ' . $this->escapeHtml($rootCategory->getName()))
             ->toHtml();
     }
@@ -161,7 +155,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     {
         $cell = $this->_createCellTemplate()
             ->setObject($store)
-            ->setLinkUrl($this->getUrl('*/*/editStore', array('store_id' => $store->getStoreId())))
+            ->setLinkUrl($this->getUrl('*/*/editStore', ['store_id' => $store->getStoreId()]))
             ->setInfo($this->__('Code') . ': ' . $this->escapeHtml($store->getCode()));
         if (!$store->getIsActive()) {
             $cell->setClass('strike');

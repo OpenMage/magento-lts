@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Product Eav Indexer Model
+ *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Eav _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Eav getResource()
@@ -37,38 +34,34 @@
  * @method Mage_Catalog_Model_Product_Indexer_Eav setStoreId(int $value)
  * @method int getValue()
  * @method Mage_Catalog_Model_Product_Indexer_Eav setValue(int $value)
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Abstract
 {
     /**
      * @var array
      */
-    protected $_matchedEntities = array(
-        Mage_Catalog_Model_Product::ENTITY => array(
+    protected $_matchedEntities = [
+        Mage_Catalog_Model_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE,
             Mage_Index_Model_Event::TYPE_DELETE,
             Mage_Index_Model_Event::TYPE_MASS_ACTION,
-        ),
-        Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY => array(
+        ],
+        Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE,
-        ),
-        Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => array(
+        ],
+        Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        )
-    );
+        ]
+    ];
 
     /**
      * The list of attributes that have an effect on other attributes
      *
      * @var array
      */
-    protected $_dependentAttributes = array(
+    protected $_dependentAttributes = [
         'status'
-    );
+    ];
 
     /**
      * Retrieve Indexer name
@@ -172,7 +165,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      */
     protected function _registerCatalogProductSaveEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product    = $event->getDataObject();
         $attributes = $product->getAttributes();
         $reindexEav = $product->getForceReindexRequired();
@@ -201,7 +194,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      */
     protected function _registerCatalogProductDeleteEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product    = $event->getDataObject();
 
         $parentIds  = $this->_getResource()->getRelationsByChild($product->getId());
@@ -220,7 +213,6 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      */
     protected function _registerCatalogProductMassActionEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Varien_Object $actionObject */
         $actionObject = $event->getDataObject();
         $attrData     = $actionObject->getAttributesData();
         $reindexEav   = false;
@@ -261,7 +253,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      */
     protected function _registerCatalogAttributeSaveEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
+        /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         $attribute = $event->getDataObject();
         if ($attribute->isIndexable()) {
             $before = $attribute->getOrigData('is_filterable')

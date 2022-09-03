@@ -23,7 +23,7 @@
 #require_once 'Zend/Service/Rackspace/Files.php';
 
 /**
- * List of servers retrived from the Rackspace web service
+ * List of servers retrieved from the Rackspace web service
  *
  * @uses       ArrayAccess
  * @uses       Countable

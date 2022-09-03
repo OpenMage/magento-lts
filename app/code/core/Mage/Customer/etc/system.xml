@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -44,7 +38,6 @@
             <groups>
                 <account_share translate="label">
                     <label>Account Sharing Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -64,7 +57,6 @@
                 </account_share>
                 <online_customers translate="label">
                     <label>Online Customers Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -72,7 +64,6 @@
                     <fields>
                         <online_minutes_interval translate="label comment">
                             <label>Online Minutes Interval</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -187,7 +178,6 @@
                         </vat_frontend_visibility>
                         <email_domain translate="label">
                             <label>Default Email Domain</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -252,7 +242,6 @@
                 </create_account>
                 <changed_account translate="label">
                     <label>Change Account Data</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>25</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -280,7 +269,6 @@
                 </changed_account>
                 <password translate="label">
                     <label>Password Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -316,7 +304,6 @@
                         <reset_link_expiration_period translate="label comment">
                             <label>Recovery Link Expiration Period (hours)</label>
                             <comment>Please enter a number 1 or greater in this field.</comment>
-                            <frontend_type>text</frontend_type>
                             <validate>required-entry validate-digits validate-digits-range digits-range-1-</validate>
                             <backend_model>adminhtml/system_config_backend_customer_password_link_expirationperiod</backend_model>
                             <sort_order>40</sort_order>
@@ -336,7 +323,6 @@
                         <min_password_length translate="label comment">
                             <label>Minimum password length</label>
                             <comment>Please enter a number 7 or greater in this field.</comment>
-                            <frontend_type>text</frontend_type>
                             <validate>required-entry validate-digits validate-digits-range digits-range-7-</validate>
                             <backend_model>adminhtml/system_config_backend_passwordlength</backend_model>
                             <sort_order>60</sort_order>
@@ -464,7 +450,6 @@
                 </startup>
                 <address_templates translate="label">
                     <label>Address Templates</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>100</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -546,7 +531,6 @@
                         </forgot_password_flow_secure>
                         <forgot_password_ip_times translate="label comment">
                             <label>Forgot password requests to times per hour from 1 IP</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>150</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -555,7 +539,6 @@
                         </forgot_password_ip_times>
                         <forgot_password_email_times translate="label">
                             <label>Forgot password requests to times per 24 hours from 1 e-mail</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>160</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -565,7 +548,6 @@
                         <min_admin_password_length translate="label comment">
                             <label>Minimum admin password length</label>
                             <comment>Please enter a number 7 or greater in this field.</comment>
-                            <frontend_type>text</frontend_type>
                             <validate>required-entry validate-digits validate-digits-range digits-range-7-</validate>
                             <backend_model>adminhtml/system_config_backend_passwordlength</backend_model>
                             <sort_order>170</sort_order>

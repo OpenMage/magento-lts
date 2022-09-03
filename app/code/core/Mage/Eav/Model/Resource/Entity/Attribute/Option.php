@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,9 +21,9 @@
 /**
  * Entity attribute option resource model
  *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -69,14 +63,14 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
 
         $collection->getSelect()
             ->joinLeft(
-                array($optionTable1 => $this->getTable('eav/attribute_option_value')),
+                [$optionTable1 => $this->getTable('eav/attribute_option_value')],
                 $tableJoinCond1,
-                array()
+                []
             )
             ->joinLeft(
-                array($optionTable2 => $this->getTable('eav/attribute_option_value')),
+                [$optionTable2 => $this->getTable('eav/attribute_option_value')],
                 $tableJoinCond2,
-                array($attributeCode => $valueExpr)
+                [$attributeCode => $valueExpr]
             );
 
         return $this;
@@ -117,27 +111,26 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
         }
 
         $valueExpr = $adapter->getCheckSql('t2.value_id > 0', 't2.value', 't1.value');
-        /** @var Varien_Db_Select $select */
         $select = $adapter->select()
-            ->joinLeft(array('t1' => $attributeTable), $joinCondition, array())
+            ->joinLeft(['t1' => $attributeTable], $joinCondition, [])
             ->joinLeft(
-                array('t2' => $attributeTable),
+                ['t2' => $attributeTable],
                 sprintf($joinConditionTemplate, 'e', 't2', 't2', 't2', 't2', $store),
-                array($attributeCode => $valueExpr)
+                [$attributeCode => $valueExpr]
             );
 
         if (($attribute->getFrontend()->getInputType() != 'multiselect') && $hasValueField) {
             $valueIdExpr = $adapter->getCheckSql('to2.value_id > 0', 'to2.value', 'to1.value');
             $select
                 ->joinLeft(
-                    array('to1' => $this->getTable('eav/attribute_option_value')),
+                    ['to1' => $this->getTable('eav/attribute_option_value')],
                     "to1.option_id = {$valueExpr} AND to1.store_id = 0",
-                    array()
+                    []
                 )
                 ->joinLeft(
-                    array('to2' => $this->getTable('eav/attribute_option_value')),
+                    ['to2' => $this->getTable('eav/attribute_option_value')],
                     $adapter->quoteInto("to2.option_id = {$valueExpr} AND to2.store_id = ?", $store),
-                    array($attributeCode . '_value' => $valueIdExpr)
+                    [$attributeCode . '_value' => $valueIdExpr]
                 );
         }
 

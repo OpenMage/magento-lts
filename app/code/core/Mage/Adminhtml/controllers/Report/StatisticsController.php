@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,10 +23,16 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'report/statistics';
+
     /**
      * Admin session model
      *
@@ -56,11 +56,11 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     public function _initReportAction($blocks)
     {
         if (!is_array($blocks)) {
-            $blocks = array($blocks);
+            $blocks = [$blocks];
         }
 
         $requestData = Mage::helper('adminhtml')->prepareFilterString($this->getRequest()->getParam('filter'));
-        $requestData = $this->_filterDates($requestData, array('from', 'to'));
+        $requestData = $this->_filterDates($requestData, ['from', 'to']);
         $requestData['store_ids'] = $this->getRequest()->getParam('store_ids');
         $params = new Varien_Object();
 
@@ -94,12 +94,12 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
         }
 
         if(!is_array($codes) && strpos($codes, ',') === false) {
-            $codes = array($codes);
+            $codes = [$codes];
         } elseif (!is_array($codes)) {
             $codes = explode(',', $codes);
         }
 
-        $aliases = array(
+        $aliases = [
             'sales'       => 'sales/report_order',
             'tax'         => 'tax/report_tax',
             'shipping'    => 'sales/report_shipping',
@@ -108,8 +108,8 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             'coupons'     => 'salesrule/report_rule',
             'bestsellers' => 'sales/report_bestsellers',
             'viewed'      => 'reports/report_product_viewed',
-        );
-        $out = array();
+        ];
+        $out = [];
         foreach ($codes as $code) {
             $out[] = $aliases[$code];
         }
@@ -119,7 +119,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     /**
      * Refresh statistics for last 25 hours
      *
-     * @return Mage_Adminhtml_Report_SalesController
+     * @return $this
      */
     public function refreshRecentAction()
     {
@@ -149,7 +149,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     /**
      * Refresh statistics for all period
      *
-     * @return Mage_Adminhtml_Report_SalesController
+     * @return $this
      */
     public function refreshLifetimeAction()
     {
@@ -183,11 +183,6 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             ->_setActiveMenu('report/statistics/refreshstatistics')
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('Refresh Statistics'), Mage::helper('adminhtml')->__('Refresh Statistics'))
             ->renderLayout();
-    }
-
-    protected function _isAllowed()
-    {
-        return $this->_getSession()->isAllowed('report/statistics');
     }
 
     /**

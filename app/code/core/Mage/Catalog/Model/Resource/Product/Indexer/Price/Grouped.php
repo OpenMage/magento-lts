@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Configurable Products Price Indexer Resource model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
 {
@@ -79,16 +72,16 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
         $table = $this->getIdxTable();
 
         $select = $write->select()
-            ->from(array('e' => $this->getTable('catalog/product')), 'entity_id')
+            ->from(['e' => $this->getTable('catalog/product')], 'entity_id')
             ->join(
-                array('l' => $this->getTable('catalog/product_link')),
+                ['l' => $this->getTable('catalog/product_link')],
                 'e.entity_id = l.product_id AND l.link_type_id=' . Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED,
-                array()
+                []
             )
             ->join(
-                array('cg' => $this->getTable('customer/customer_group')),
+                ['cg' => $this->getTable('customer/customer_group')],
                 '',
-                array('customer_group_id')
+                ['customer_group_id']
             );
         $this->_addWebsiteJoinToSelect($select, true);
         $this->_addProductWebsiteJoinToSelect($select, 'cw.website_id', 'e.entity_id');
@@ -96,15 +89,15 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
         $maxCheckSql = $write->getCheckSql('le.required_options = 0', 'i.max_price', 0);
         $select->columns('website_id', 'cw')
             ->join(
-                array('le' => $this->getTable('catalog/product')),
+                ['le' => $this->getTable('catalog/product')],
                 'le.entity_id = l.linked_product_id',
-                array()
+                []
             )
             ->join(
-                array('i' => $table),
+                ['i' => $table],
                 'i.entity_id = l.linked_product_id AND i.website_id = cw.website_id'
                     . ' AND i.customer_group_id = cg.customer_group_id',
-                array(
+                [
                     'tax_class_id' => $this->_getReadAdapter()
                         ->getCheckSql('MIN(i.tax_class_id) IS NULL', '0', 'MIN(i.tax_class_id)'),
                     'price'        => new Zend_Db_Expr('NULL'),
@@ -113,9 +106,9 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
                     'max_price'    => new Zend_Db_Expr('MAX(' . $maxCheckSql . ')'),
                     'tier_price'   => new Zend_Db_Expr('NULL'),
                     'group_price'  => new Zend_Db_Expr('NULL'),
-                )
+                ]
             )
-            ->group(array('e.entity_id', 'cg.customer_group_id', 'cw.website_id'))
+            ->group(['e.entity_id', 'cg.customer_group_id', 'cw.website_id'])
             ->where('e.type_id=?', $this->getTypeId());
 
         $statusCond = $write->quoteInto(' = ?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
@@ -128,12 +121,12 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
         /**
          * Add additional external limitation
          */
-        Mage::dispatchEvent('catalog_product_prepare_index_select', array(
+        Mage::dispatchEvent('catalog_product_prepare_index_select', [
             'select'        => $select,
             'entity_field'  => new Zend_Db_Expr('e.entity_id'),
             'website_field' => new Zend_Db_Expr('cw.website_id'),
             'store_field'   => new Zend_Db_Expr('cs.store_id')
-        ));
+        ]);
 
         $query = $select->insertFromSelect($table);
         $write->query($query);

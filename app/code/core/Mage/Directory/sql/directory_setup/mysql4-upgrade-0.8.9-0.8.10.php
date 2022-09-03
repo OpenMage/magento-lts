@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Directory
@@ -32,31 +26,31 @@ $connection   = $this->getConnection();
 $regionTable  = $installer->getTable('directory/country_region');
 $regNameTable = $installer->getTable('directory/country_region_name');
 
-$regionsToIns = array(
-    array('RO', 'AB', 'Alba'), array('RO', 'AR', 'Arad'), array('RO', 'AG', 'Argeş'),
-    array('RO', 'BC', 'Bacău'), array('RO', 'BH', 'Bihor'), array('RO', 'BN', 'Bistriţa-Năsăud'),
-    array('RO', 'BT', 'Botoşani'), array('RO', 'BV', 'Braşov'), array('RO', 'BR', 'Brăila'),
-    array('RO', 'B', 'Bucureşti'), array('RO', 'BZ', 'Buzău'), array('RO', 'CS', 'Caraş-Severin'),
-    array('RO', 'CL', 'Călăraşi'), array('RO', 'CJ', 'Cluj'), array('RO', 'CT', 'Constanţa'),
-    array('RO', 'CV', 'Covasna'), array('RO', 'DB', 'Dâmboviţa'), array('RO', 'DJ', 'Dolj'),
-    array('RO', 'GL', 'Galaţi'), array('RO', 'GR', 'Giurgiu'), array('RO', 'GJ', 'Gorj'),
-    array('RO', 'HR', 'Harghita'), array('RO', 'HD', 'Hunedoara'), array('RO', 'IL', 'Ialomiţa'),
-    array('RO', 'IS', 'Iaşi'), array('RO', 'IF', 'Ilfov'), array('RO', 'MM', 'Maramureş'),
-    array('RO', 'MH', 'Mehedinţi'), array('RO', 'MS', 'Mureş'), array('RO', 'NT', 'Neamţ'),
-    array('RO', 'OT', 'Olt'), array('RO', 'PH', 'Prahova'), array('RO', 'SM', 'Satu-Mare'),
-    array('RO', 'SJ', 'Sălaj'), array('RO', 'SB', 'Sibiu'), array('RO', 'SV', 'Suceava'),
-    array('RO', 'TR', 'Teleorman'), array('RO', 'TM', 'Timiş'), array('RO', 'TL', 'Tulcea'),
-    array('RO', 'VS', 'Vaslui'), array('RO', 'VL', 'Vâlcea'), array('RO', 'VN', 'Vrancea')
-);
+$regionsToIns = [
+    ['RO', 'AB', 'Alba'], ['RO', 'AR', 'Arad'], ['RO', 'AG', 'Argeş'],
+    ['RO', 'BC', 'Bacău'], ['RO', 'BH', 'Bihor'], ['RO', 'BN', 'Bistriţa-Năsăud'],
+    ['RO', 'BT', 'Botoşani'], ['RO', 'BV', 'Braşov'], ['RO', 'BR', 'Brăila'],
+    ['RO', 'B', 'Bucureşti'], ['RO', 'BZ', 'Buzău'], ['RO', 'CS', 'Caraş-Severin'],
+    ['RO', 'CL', 'Călăraşi'], ['RO', 'CJ', 'Cluj'], ['RO', 'CT', 'Constanţa'],
+    ['RO', 'CV', 'Covasna'], ['RO', 'DB', 'Dâmboviţa'], ['RO', 'DJ', 'Dolj'],
+    ['RO', 'GL', 'Galaţi'], ['RO', 'GR', 'Giurgiu'], ['RO', 'GJ', 'Gorj'],
+    ['RO', 'HR', 'Harghita'], ['RO', 'HD', 'Hunedoara'], ['RO', 'IL', 'Ialomiţa'],
+    ['RO', 'IS', 'Iaşi'], ['RO', 'IF', 'Ilfov'], ['RO', 'MM', 'Maramureş'],
+    ['RO', 'MH', 'Mehedinţi'], ['RO', 'MS', 'Mureş'], ['RO', 'NT', 'Neamţ'],
+    ['RO', 'OT', 'Olt'], ['RO', 'PH', 'Prahova'], ['RO', 'SM', 'Satu-Mare'],
+    ['RO', 'SJ', 'Sălaj'], ['RO', 'SB', 'Sibiu'], ['RO', 'SV', 'Suceava'],
+    ['RO', 'TR', 'Teleorman'], ['RO', 'TM', 'Timiş'], ['RO', 'TL', 'Tulcea'],
+    ['RO', 'VS', 'Vaslui'], ['RO', 'VL', 'Vâlcea'], ['RO', 'VN', 'Vrancea']
+];
 
 foreach ($regionsToIns as $row) {
-    $regionId = $connection->fetchOne("SELECT `region_id` FROM `{$regionTable}` WHERE `country_id` = :country_id && `code` = :code", array('country_id' => $row[0], 'code' => $row[1]));
+    $regionId = $connection->fetchOne("SELECT `region_id` FROM `{$regionTable}` WHERE `country_id` = :country_id && `code` = :code", ['country_id' => $row[0], 'code' => $row[1]]);
 
     if (! $connection->fetchOne("SELECT 1 FROM `{$regNameTable}` WHERE `region_id` = {$regionId}")) {
-        $connection->insert($regNameTable, array(
+        $connection->insert($regNameTable, [
             'locale'    => 'en_US',
             'region_id' => $regionId,
             'name'      => $row[2]
-        ));
+        ]);
     }
 }

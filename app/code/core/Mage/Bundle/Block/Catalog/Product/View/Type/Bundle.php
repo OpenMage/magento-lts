@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Bundle
+ * @category   Mage
+ * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog bundle product info block
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getAddToCartUrl(Mage_Catalog_Model_Product $value)
  */
@@ -40,7 +34,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
      *
      * @var array
      */
-    protected $_optionRenderers = array();
+    protected $_optionRenderers = [];
 
     /**
      * Bundle product options
@@ -116,40 +110,39 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
     {
         Mage::app()->getLocale()->getJsPriceFormat();
         $optionsArray = $this->getOptions();
-        $options      = array();
-        $selected     = array();
+        $options      = [];
+        $selected     = [];
         $currentProduct = $this->getProduct();
-        /* @var Mage_Core_Helper_Data $coreHelper */
+        /** @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper   = Mage::helper('core');
-        /* @var Mage_Bundle_Model_Product_Price $bundlePriceModel */
+        /** @var Mage_Bundle_Model_Product_Price $bundlePriceModel */
         $bundlePriceModel = Mage::getModel('bundle/product_price');
 
         $preConfiguredFlag = $currentProduct->hasPreconfiguredValues();
         if ($preConfiguredFlag) {
             $preConfiguredValues = $currentProduct->getPreconfiguredValues();
-            $defaultValues       = array();
+            $defaultValues       = [];
         }
 
         $position = 0;
         foreach ($optionsArray as $_option) {
-            /* @var Mage_Bundle_Model_Option $_option */
+            /** @var Mage_Bundle_Model_Option $_option */
             if (!$_option->getSelections()) {
                 continue;
             }
 
             $optionId = $_option->getId();
-            $option = array (
-                'selections' => array(),
+            $option = [
+                'selections' => [],
                 'title'      => $_option->getTitle(),
-                'isMulti'    => in_array($_option->getType(), array('multi', 'checkbox')),
+                'isMulti'    => in_array($_option->getType(), ['multi', 'checkbox']),
                 'position'   => $position++
-            );
+            ];
 
             $selectionCount = count($_option->getSelections());
             /** @var Mage_Tax_Helper_Data $taxHelper */
             $taxHelper = Mage::helper('tax');
             foreach ($_option->getSelections() as $_selection) {
-                /* @var Mage_Catalog_Model_Product $_selection */
                 $selectionId = $_selection->getSelectionId();
                 $_qty = !($_selection->getSelectionQty() * 1) ? '1' : $_selection->getSelectionQty() * 1;
                 // recalculate currency
@@ -196,7 +189,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
 
                 $canApplyMAP = false;
 
-                /* @var Mage_Tax_Helper_Data $taxHelper */
+                /** @var Mage_Tax_Helper_Data $taxHelper */
                 $taxHelper = Mage::helper('tax');
 
                 $_priceInclTax = $taxHelper->getPrice(
@@ -247,7 +240,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                     );
                 }
 
-                $selection = array (
+                $selection = [
                     'qty'              => $_qty,
                     'customQty'        => $_selection->getSelectionCanChangeQty(),
                     'price'            => $coreHelper::currency($_selection->getFinalPrice(), false, false),
@@ -261,10 +254,10 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                     'minusDisposition' => 0,
                     'canApplyMAP'      => $canApplyMAP,
                     'tierPriceHtml'    => $this->getTierPriceHtml($_selection, $currentProduct),
-                );
+                ];
 
                 $responseObject = new Varien_Object();
-                $args = array('response_object' => $responseObject, 'selection' => $_selection);
+                $args = ['response_object' => $responseObject, 'selection' => $_selection];
                 Mage::dispatchEvent('bundle_product_view_config', $args);
                 if (is_array($responseObject->getAdditionalOptions())) {
                     foreach ($responseObject->getAdditionalOptions() as $o => $v) {
@@ -290,7 +283,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             }
         }
 
-        $config = array(
+        $config = [
             'options'       => $options,
             'selected'      => $selected,
             'bundleId'      => $currentProduct->getId(),
@@ -301,7 +294,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             'includeTax'    => Mage::helper('tax')->priceIncludesTax() ? 'true' : 'false',
             'isFixedPrice'  => $this->getProduct()->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED,
             'isMAPAppliedDirectly' => Mage::helper('catalog')->canApplyMsrp($this->getProduct(), null, false)
-        );
+        ];
 
         if ($preConfiguredFlag && !empty($defaultValues)) {
             $config['defaultValues'] = $defaultValues;

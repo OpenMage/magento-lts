@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Tag
+ * @category   Mage
+ * @package    Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Popular tags collection model
  *
- * @category    Mage
- * @package     Mage_Tag
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Tag
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -54,11 +47,11 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
         $this->getSelect()
             ->reset()
             ->from(
-                array('tag_summary' => $this->getTable('tag/summary')),
-                array('popularity' => 'tag_summary.popularity')
+                ['tag_summary' => $this->getTable('tag/summary')],
+                ['popularity' => 'tag_summary.popularity']
             )
             ->joinInner(
-                array('tag' => $this->getTable('tag/tag')),
+                ['tag' => $this->getTable('tag/tag')],
                 'tag.tag_id = tag_summary.tag_id AND tag.status = ' . Mage_Tag_Model_Tag::STATUS_APPROVED
             )
             ->where('tag_summary.store_id = ?', $storeId)
@@ -122,7 +115,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 
         $countSelect = $this->getConnection()->select();
-        $countSelect->from(array('a' => $select), 'COUNT(popularity)');
+        $countSelect->from(['a' => $select], 'COUNT(popularity)');
         return $countSelect;
     }
 }

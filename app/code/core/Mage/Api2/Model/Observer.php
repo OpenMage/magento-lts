@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -37,7 +31,6 @@ class Mage_Api2_Model_Observer
      * Save relation of admin user to API2 role
      *
      * @param Varien_Event_Observer $observer
-     * @return void
      */
     public function saveAdminToRoleRelation(Varien_Event_Observer $observer)
     {
@@ -75,7 +68,7 @@ class Mage_Api2_Model_Observer
             foreach ($collection as $aclFilter) {
                 if ($aclFilter->getResourceId() != Mage_Api2_Model_Acl_Global_Rule::RESOURCE_ALL) {
                     $allowedAttributes = explode(',', $aclFilter->getAllowedAttributes());
-                    $allowedAttributes = array_diff($allowedAttributes, array($attribute->getAttributeCode()));
+                    $allowedAttributes = array_diff($allowedAttributes, [$attribute->getAttributeCode()]);
                     $aclFilter->setAllowedAttributes(implode(',', $allowedAttributes))->save();
                 }
             }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -30,6 +24,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method string getAmountPrefix()
  * @method bool getDisplayZero()
  * @method int getFontSize()
@@ -66,12 +61,12 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
         }
 
         $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
-        $total = array(
+        $total = [
             'amount'    => $amount,
             'label'     => $label,
             'font_size' => $fontSize
-        );
-        return array($total);
+        ];
+        return [$total];
     }
 
     /**
@@ -109,7 +104,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
             }
         } else {
             $fullInfo = $this->_getFullRateInfo();
-            $tax_info = array();
+            $tax_info = [];
 
             if ($fullInfo) {
                 foreach ($fullInfo as $info) {
@@ -122,11 +117,11 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
                     foreach ($info['rates'] as $rate) {
                         $percent = $rate['percent'] ? ' (' . $rate['percent']. '%)' : '';
 
-                        $tax_info[] = array(
+                        $tax_info[] = [
                             'amount'    => $this->getAmountPrefix() . $this->getOrder()->formatPriceTxt($_amount),
                             'label'     => $this->_getTaxHelper()->__($rate['title']) . $percent . ':',
                             'font_size' => $fontSize
-                        );
+                        ];
                     }
                 }
             }
@@ -144,8 +139,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
     protected function _getFullRateInfo()
     {
         $rates = Mage::getModel('tax/sales_order_tax')->getCollection()->loadByOrder($this->getOrder())->toArray();
-        $fullInfo = Mage::getSingleton('tax/calculation')->reproduceProcess($rates['items']);
-        return $fullInfo;
+        return Mage::getSingleton('tax/calculation')->reproduceProcess($rates['items']);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,27 +12,25 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Paygate
+ * @category   Mage
+ * @package    Mage_Paygate
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Paygate
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 {
-    /*
+    /**
      * AIM gateway url
      */
     const CGI_URL = 'https://secure.authorize.net/gateway/transact.dll';
 
-    /*
+    /**
      * Transaction Details gateway url
      */
     const CGI_URL_TD = 'https://api.authorize.net/xml/v1/request.api';
@@ -110,19 +108,19 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     protected $_canSaveCc = false;
     protected $_canFetchTransactionInfo = true;
 
-    protected $_allowCurrencyCode = array('USD');
+    protected $_allowCurrencyCode = ['USD'];
 
     /**
      * Fields that should be replaced in debug with '***'
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = array('x_login', 'x_tran_key',
+    protected $_debugReplacePrivateDataKeys = ['x_login', 'x_tran_key',
                                                     'x_card_num', 'x_exp_date',
                                                     'x_card_code', 'x_bank_aba_code',
                                                     'x_bank_name', 'x_bank_acct_num',
                                                     'x_bank_acct_type','x_bank_acct_name',
-                                                    'x_echeck_type');
+                                                    'x_echeck_type'];
 
     /**
      * Key for storing fraud transaction flag in additional information of payment model
@@ -165,24 +163,24 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * @var array
      */
-    protected $_partialAuthorizationChecksumDataKeys = array(
+    protected $_partialAuthorizationChecksumDataKeys = [
         'x_version', 'x_test_request', 'x_login', 'x_test_request', 'x_allow_partial_auth', 'x_amount',
         'x_currency_code', 'x_type', 'x_first_name', 'x_last_name', 'x_company', 'x_address', 'x_city', 'x_state',
         'x_zip', 'x_country', 'x_phone', 'x_fax', 'x_cust_id', 'x_customer_ip', 'x_customer_tax_id', 'x_email',
         'x_email_customer', 'x_merchant_email', 'x_ship_to_first_name', 'x_ship_to_last_name', 'x_ship_to_company',
         'x_ship_to_address', 'x_ship_to_city', 'x_ship_to_state', 'x_ship_to_zip', 'x_ship_to_country', 'x_po_num',
         'x_tax', 'x_freight'
-    );
+    ];
 
     /**
      * Centinel cardinal fields map
      *
      * @var array
      */
-    protected $_centinelFieldMap = array(
+    protected $_centinelFieldMap = [
         'centinel_cavv' => 'x_cardholder_authentication_value',
         'centinel_eci'  => 'x_authentication_indicator'
-    );
+    ];
 
     /**
      * Check method for processing with base currency
@@ -266,7 +264,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     /**
      * Check void availability
      *
-     * @param   Varien_Object $invoicePayment
+     * @param   Varien_Object $payment
      * @return  bool
      */
     public function canVoid(Varien_Object $payment)
@@ -280,7 +278,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     /**
      * Set partial authorization last action state into session
      *
-     * @param string $message
+     * @param string $state
      * @return $this
      */
     public function setPartialAuthorizationLastActionState($state)
@@ -370,7 +368,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     {
         $cardsStorage = $this->getCardsStorage($payment);
 
-        $messages = array();
+        $messages = [];
         $isSuccessful = false;
         $isFiled = false;
         foreach($cardsStorage->getCards() as $card) {
@@ -408,8 +406,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     /**
      * Refund the amount with transaction id
      *
-     * @param Mage_Payment_Model_Info $payment
-     * @param float $amount
+     * @param Mage_Payment_Model_Info|Varien_Object $payment
+     * @param float $requestedAmount
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -424,7 +422,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             Mage::throwException(Mage::helper('paygate')->__('Invalid amount for refund.'));
         }
 
-        $messages = array();
+        $messages = [];
         $isSuccessful = false;
         $isFiled = false;
         foreach($cardsStorage->getCards() as $card) {
@@ -528,8 +526,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                     $payment,
                     $card->getLastTransId(),
                     $newTransactionType,
-                    array('is_transaction_closed' => 0),
-                    array($this->_realTransactionIdKey => $card->getLastTransId()),
+                    ['is_transaction_closed' => 0],
+                    [$this->_realTransactionIdKey => $card->getLastTransId()],
                     Mage::helper('paygate')->getTransactionMessage(
                         $payment, $requestType, $card->getLastTransId(), $card, $amount
                     )
@@ -548,11 +546,11 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                         $payment,
                         $card->getLastTransId(),
                         $newTransactionType,
-                        array('is_transaction_closed' => 0),
-                        array(
+                        ['is_transaction_closed' => 0],
+                        [
                             $this->_realTransactionIdKey => $card->getLastTransId(),
                             $this->_isTransactionFraud => true
-                        ),
+                        ],
                         Mage::helper('paygate')->getTransactionMessage(
                             $payment, $requestType, $card->getLastTransId(), $card, $amount
                         )
@@ -638,8 +636,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 $payment,
                 $card->getLastTransId(),
                 $newTransactionType,
-                array('is_transaction_closed' => 0),
-                array($this->_realTransactionIdKey => $card->getLastTransId()),
+                ['is_transaction_closed' => 0],
+                [$this->_realTransactionIdKey => $card->getLastTransId()],
                 Mage::helper('paygate')->getTransactionMessage(
                     $payment, $requestType, $card->getLastTransId(), $card, $card->getProcessedAmount()
                 )
@@ -679,7 +677,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Send capture request to gateway for capture authorized transactions
      *
      * @param Mage_Payment_Model_Info $payment
-     * @param float $amount
+     * @param float $requestedAmount
      * @return $this
      */
     protected function _preauthorizeCapture($payment, $requestedAmount)
@@ -693,7 +691,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             Mage::throwException(Mage::helper('paygate')->__('Invalid amount for capture.'));
         }
 
-        $messages = array();
+        $messages = [];
         $isSuccessful = false;
         $isFiled = false;
         foreach($cardsStorage->getCards() as $card) {
@@ -760,11 +758,11 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                         $payment,
                         $captureTransactionId,
                         Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE,
-                        array(
+                        [
                             'is_transaction_closed' => 0,
                             'parent_transaction_id' => $authTransactionId
-                        ),
-                        array($this->_realTransactionIdKey => $result->getTransactionId()),
+                        ],
+                        [$this->_realTransactionIdKey => $result->getTransactionId()],
                         Mage::helper('paygate')->getTransactionMessage(
                             $payment, self::REQUEST_TYPE_PRIOR_AUTH_CAPTURE, $result->getTransactionId(), $card, $amount
                         )
@@ -816,12 +814,12 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                         $payment,
                         $voidTransactionId,
                         Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID,
-                        array(
+                        [
                             'is_transaction_closed' => 1,
                             'should_close_parent_transaction' => 1,
                             'parent_transaction_id' => $authTransactionId
-                        ),
-                        array($this->_realTransactionIdKey => $result->getTransactionId()),
+                        ],
+                        [$this->_realTransactionIdKey => $result->getTransactionId()],
                         Mage::helper('paygate')->getTransactionMessage(
                             $payment, self::REQUEST_TYPE_VOID, $result->getTransactionId(), $card
                         )
@@ -839,12 +837,12 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                     $payment,
                     $voidTransactionId,
                     Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID,
-                    array(
+                    [
                         'is_transaction_closed' => 1,
                         'should_close_parent_transaction' => 1,
                         'parent_transaction_id' => $authTransactionId
-                    ),
-                    array(),
+                    ],
+                    [],
                     Mage::helper('paygate')->getExtendedTransactionMessage(
                         $payment,
                         self::REQUEST_TYPE_VOID,
@@ -923,12 +921,12 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                         $payment,
                         $refundTransactionId,
                         Mage_Sales_Model_Order_Payment_Transaction::TYPE_REFUND,
-                        array(
+                        [
                             'is_transaction_closed' => 1,
                             'should_close_parent_transaction' => $shouldCloseCaptureTransaction,
                             'parent_transaction_id' => $captureTransactionId
-                        ),
-                        array($this->_realTransactionIdKey => $result->getTransactionId()),
+                        ],
+                        [$this->_realTransactionIdKey => $result->getTransactionId()],
                         Mage::helper('paygate')->getTransactionMessage(
                             $payment, self::REQUEST_TYPE_CREDIT, $result->getTransactionId(), $card, $amount
                         )
@@ -1070,7 +1068,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Set split_tender_id to quote payment if neeeded
      *
      * @param Varien_Object $response
-     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param Mage_Sales_Model_Order_Payment $orderPayment
      * @return bool
      */
     protected function _processPartialAuthorizationResponse($response, $orderPayment) {
@@ -1135,15 +1133,13 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      */
     protected function _getRequest()
     {
-        $request = Mage::getModel('paygate/authorizenet_request')
+        return Mage::getModel('paygate/authorizenet_request')
             ->setXVersion(3.1)
             ->setXDelimData('True')
             ->setXRelayResponse('False')
             ->setXTestRequest($this->getConfigData('test') ? 'TRUE' : 'FALSE')
             ->setXLogin($this->getConfigData('login'))
             ->setXTranKey($this->getConfigData('trans_key'));
-
-        return $request;
     }
 
     /**
@@ -1205,7 +1201,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         }
 
         if ($this->getIsCentinelValidationEnabled()){
-            $params  = $this->getCentinelValidator()->exportCmpiData(array());
+            $params  = $this->getCentinelValidator()->exportCmpiData([]);
             $request = Varien_Object_Mapper::accumulateByMap($params, $request, $this->_centinelFieldMap);
         }
 
@@ -1264,7 +1260,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      */
     protected function _postRequest(Varien_Object $request)
     {
-        $debugData = array('request' => $request->getData());
+        $debugData = ['request' => $request->getData()];
 
         $result = Mage::getModel('paygate/authorizenet_result');
 
@@ -1272,13 +1268,13 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         $uri = $this->getConfigData('cgi_url');
         $client->setUri($uri ? $uri : self::CGI_URL);
-        $client->setConfig(array(
+        $client->setConfig([
             'maxredirects' => 0,
             'timeout' => 30,
             'verifyhost' => 2,
             'verifypeer' => true,
             //'ssltransport' => 'tcp',
-        ));
+        ]);
         foreach ($request->getData() as $key => $value) {
             $request->setData($key, str_replace(self::RESPONSE_DELIM_CHAR, '', $value));
         }
@@ -1397,7 +1393,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     /**
      * Reset assigned data in payment info model
      *
-     * @param Mage_Payment_Model_Info
+     * @param Mage_Payment_Model_Info $payment
      * @return $this
      */
     private function _clearAssignedData($payment)
@@ -1427,7 +1423,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * @return null|Mage_Sales_Model_Order_Payment_Transaction
      */
     protected function _addTransaction(Mage_Sales_Model_Order_Payment $payment, $transactionId, $transactionType,
-        array $transactionDetails = array(), array $transactionAdditionalInfo = array(), $message = false
+                                       array $transactionDetails = [], array $transactionAdditionalInfo = [], $message = false
     ) {
         $payment->setTransactionId($transactionId);
         $payment->resetTransactionAdditionalInfo();
@@ -1510,9 +1506,9 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * @param array $checkSumDataKeys
      * @return string
      */
-    protected function _generateChecksum(Varien_Object $object, $checkSumDataKeys = array())
+    protected function _generateChecksum(Varien_Object $object, $checkSumDataKeys = [])
     {
-        $data = array();
+        $data = [];
         foreach($checkSumDataKeys as $dataKey) {
             $data[] = $dataKey;
             $data[] = $object->getData($dataKey);
@@ -1545,19 +1541,19 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         $uri = $this->getConfigData('cgi_url_td');
         $uri = $uri ? $uri : self::CGI_URL_TD;
         $client->setUri($uri);
-        $client->setConfig(array(
+        $client->setConfig([
             'timeout' => 45,
             'verifyhost' => 2,
             'verifypeer' => true,
-        ));
-        $client->setHeaders(array('Content-Type: text/xml'));
+        ]);
+        $client->setHeaders(['Content-Type: text/xml']);
         $client->setMethod(Zend_Http_Client::POST);
         $client->setRawData($requestBody);
 
-        $debugData = array(
+        $debugData = [
             'url' => $uri,
             'request' => $requestBody
-        );
+        ];
 
         try {
             $responseBody = $client->request()->getBody();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,11 +23,15 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Tag_Model_Resource_Product_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
+    /**
+     * Mage_Adminhtml_Block_Tag_Product_Grid constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -43,16 +41,20 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
         $this->setUseAjax(true);
     }
 
-    /*
+    /**
      * Retrieves Grid Url
      *
      * @return string
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/product', array('_current' => true));
+        return $this->getUrl('*/*/product', ['_current' => true]);
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareCollection()
     {
         $tagId = Mage::registry('current_tag')->getId();
@@ -60,7 +62,7 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
         $collection = Mage::getModel('tag/tag')
             ->getEntityCollection()
             ->addTagFilter($tagId)
-            ->addCustomerFilter(array('null' => false))
+            ->addCustomerFilter(['null' => false])
             ->addStoreFilter($storeId)
             ->addPopularity($tagId);
 
@@ -68,58 +70,60 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
         return parent::_prepareCollection();
     }
 
-    protected function _afterLoadCollection()
-    {
-        return parent::_afterLoadCollection();
-    }
-
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
-        $this->addColumn('product_id', array(
+        $this->addColumn('product_id', [
             'header'        => Mage::helper('tag')->__('ID'),
             'width'         => '50px',
             'align'         => 'right',
             'index'         => 'entity_id',
-        ));
+        ]);
 
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    => Mage::helper('tag')->__('Product Name'),
             'index'     => 'name',
-        ));
+        ]);
 
-        $this->addColumn('popularity', array(
+        $this->addColumn('popularity', [
             'header'        => Mage::helper('tag')->__('# of Uses'),
             'width'         => '50px',
             'align'         => 'right',
             'index'         => 'popularity',
             'type'          => 'number'
-        ));
+        ]);
 
-        $this->addColumn('sku', array(
+        $this->addColumn('sku', [
             'header'    => Mage::helper('tag')->__('SKU'),
             'filter'    => false,
             'sortable'  => false,
             'width'     => 50,
             'align'     => 'right',
             'index'     => 'sku',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this
+     */
     protected function _addColumnFilterToCollection($column)
     {
-        if($column->getIndex() == 'popularity') {
+        if($column->getIndex() === 'popularity') {
             $this->getCollection()->addPopularityFilter($column->getFilter()->getCondition());
             return $this;
-        } else {
-            return parent::_addColumnFilterToCollection($column);
         }
+
+        return parent::_addColumnFilterToCollection($column);
     }
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/catalog_product/edit', array('id' => $row->getProductId()));
+        return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);
     }
-
 }

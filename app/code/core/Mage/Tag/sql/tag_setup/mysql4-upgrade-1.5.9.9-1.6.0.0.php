@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -71,7 +65,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_TAG_SUMMARY_TAG'
 );
 
-
 /**
  * Drop indexes
  */
@@ -115,247 +108,244 @@ $installer->getConnection()->dropIndex(
     'IDX_TAG'
 );
 
-
 /**
  * Change columns
  */
-$tables = array(
-    $installer->getTable('tag/tag') => array(
-        'columns' => array(
-            'tag_id' => array(
+$tables = [
+    $installer->getTable('tag/tag') => [
+        'columns' => [
+            'tag_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Tag Id'
-            ),
-            'name' => array(
+            ],
+            'name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Name'
-            ),
-            'status' => array(
+            ],
+            'status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Status'
-            ),
-            'first_customer_id' => array(
+            ],
+            'first_customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'comment'   => 'First Customer Id'
-            ),
-            'first_store_id' => array(
+            ],
+            'first_store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'comment'   => 'First Store Id'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Tag'
-    ),
-    $installer->getTable('tag/relation') => array(
-        'columns' => array(
-            'tag_relation_id' => array(
+    ],
+    $installer->getTable('tag/relation') => [
+        'columns' => [
+            'tag_relation_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Tag Relation Id'
-            ),
-            'tag_id' => array(
+            ],
+            'tag_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Tag Id'
-            ),
-            'customer_id' => array(
+            ],
+            'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'comment'   => 'Customer Id'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product Id'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
                 'comment'   => 'Store Id'
-            ),
-            'active' => array(
+            ],
+            'active' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
                 'comment'   => 'Active'
-            ),
-            'created_at' => array(
+            ],
+            'created_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'Created At'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Tag Relation'
-    ),
-    $installer->getTable('tag/summary') => array(
-        'columns' => array(
-            'tag_id' => array(
+    ],
+    $installer->getTable('tag/summary') => [
+        'columns' => [
+            'tag_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Tag Id'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Store Id'
-            ),
-            'customers' => array(
+            ],
+            'customers' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Customers'
-            ),
-            'products' => array(
+            ],
+            'products' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Products'
-            ),
-            'uses' => array(
+            ],
+            'uses' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Uses'
-            ),
-            'historical_uses' => array(
+            ],
+            'historical_uses' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Historical Uses'
-            ),
-            'popularity' => array(
+            ],
+            'popularity' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Popularity'
-            ),
-            'base_popularity' => array(
+            ],
+            'base_popularity' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Base Popularity'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Tag Summary'
-    ),
-    $installer->getTable('tag/properties') => array(
-        'columns' => array(
-            'tag_id' => array(
+    ],
+    $installer->getTable('tag/properties') => [
+        'columns' => [
+            'tag_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Tag Id'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Store Id'
-            ),
-            'base_popularity' => array(
+            ],
+            'base_popularity' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Base Popularity'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Tag Properties'
-    )
-);
+    ]
+];
 
 $installer->getConnection()->modifyTables($tables);
-
 
 /**
  * Add indexes
  */
 $installer->getConnection()->addIndex(
     $installer->getTable('tag/properties'),
-    $installer->getIdxName('tag/properties', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('tag/properties', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tag/relation'),
     $installer->getIdxName(
         'tag/relation',
-        array('tag_id', 'customer_id', 'product_id', 'store_id'),
+        ['tag_id', 'customer_id', 'product_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('tag_id', 'customer_id', 'product_id', 'store_id'),
+    ['tag_id', 'customer_id', 'product_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tag/relation'),
-    $installer->getIdxName('tag/relation', array('product_id')),
-    array('product_id')
+    $installer->getIdxName('tag/relation', ['product_id']),
+    ['product_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tag/relation'),
-    $installer->getIdxName('tag/relation', array('tag_id')),
-    array('tag_id')
+    $installer->getIdxName('tag/relation', ['tag_id']),
+    ['tag_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tag/relation'),
-    $installer->getIdxName('tag/relation', array('customer_id')),
-    array('customer_id')
+    $installer->getIdxName('tag/relation', ['customer_id']),
+    ['customer_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tag/relation'),
-    $installer->getIdxName('tag/relation', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('tag/relation', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tag/summary'),
-    $installer->getIdxName('tag/summary', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('tag/summary', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tag/summary'),
-    $installer->getIdxName('tag/summary', array('tag_id')),
-    array('tag_id')
+    $installer->getIdxName('tag/summary', ['tag_id']),
+    ['tag_id']
 );
-
 
 /**
  * Add foreign keys

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -44,7 +38,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
     {
         $customer = Mage::getModel('customer/customer')
             ->load($customerId);
-        /* @var Mage_Customer_Model_Customer $customer */
+        /** @var Mage_Customer_Model_Customer $customer */
 
         if (!$customer->getId()) {
             $this->_fault('customer_not_exists');
@@ -98,7 +92,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
             $this->_fault('not_exists');
         }
 
-        $result = array();
+        $result = [];
 
         foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
             $result[$attributeAlias] = $address->getData($attributeCode);
@@ -107,7 +101,6 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
         foreach ($this->getAllowedAttributes($address) as $attributeCode => $attribute) {
             $result[$attributeCode] = $address->getData($attributeCode);
         }
-
 
         if ($customer = $address->getCustomer()) {
             $result['is_default_billing']  = $customer->getDefaultBilling() == $address->getId();
@@ -184,4 +177,4 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
 
         return true;
     }
-} // Class Mage_Customer_Model_Address_Api End
+}

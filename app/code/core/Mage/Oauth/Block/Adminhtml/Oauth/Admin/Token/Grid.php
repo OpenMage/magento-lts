@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Oauth
+ * @category   Mage
+ * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -74,29 +68,29 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('entity_id', array(
+        $this->addColumn('entity_id', [
             'header'    => Mage::helper('oauth')->__('ID'),
             'index'     => 'entity_id',
             'align'     => 'right',
             'width'     => '50px',
-        ));
+        ]);
 
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    => $this->__('Application Name'),
             'index'     => 'name',
             'escape'    => true,
-        ));
+        ]);
 
         /** @var Mage_Adminhtml_Model_System_Config_Source_Yesno $sourceYesNo */
         $sourceYesNo = Mage::getSingleton('adminhtml/system_config_source_yesno');
-        $this->addColumn('revoked', array(
+        $this->addColumn('revoked', [
             'header'    => $this->__('Revoked'),
             'index'     => 'revoked',
             'width'     => '100px',
             'type'      => 'options',
             'options'   => $sourceYesNo->toArray(),
             'sortable'  => true,
-        ));
+        ]);
 
         parent::_prepareColumns();
         return $this;
@@ -113,18 +107,18 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
         $block = $this->getMassactionBlock();
 
         $block->setFormFieldName('items');
-        $block->addItem('enable', array(
+        $block->addItem('enable', [
             'label' => Mage::helper('index')->__('Enable'),
-            'url'   => $this->getUrl('*/*/revoke', array('status' => 0)),
-        ));
-        $block->addItem('revoke', array(
+            'url'   => $this->getUrl('*/*/revoke', ['status' => 0]),
+        ]);
+        $block->addItem('revoke', [
             'label' => Mage::helper('index')->__('Revoke'),
-            'url'   => $this->getUrl('*/*/revoke', array('status' => 1)),
-        ));
-        $block->addItem('delete', array(
+            'url'   => $this->getUrl('*/*/revoke', ['status' => 1]),
+        ]);
+        $block->addItem('delete', [
             'label' => Mage::helper('index')->__('Delete'),
             'url'   => $this->getUrl('*/*/delete'),
-        ));
+        ]);
 
         return $this;
     }
@@ -136,6 +130,6 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current' => true));
+        return $this->getUrl('*/*/grid', ['_current' => true]);
     }
 }

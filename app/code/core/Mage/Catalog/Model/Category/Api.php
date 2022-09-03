@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -48,15 +42,15 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function level($website = null, $store = null, $categoryId = null)
     {
-        $ids = array();
+        $ids = [];
         $storeId = Mage_Catalog_Model_Category::DEFAULT_STORE_ID;
 
         // load root categories of website
-        if (null !== $website) {
+        if ($website !== null) {
             try {
                 $website = Mage::app()->getWebsite($website);
-                if (null === $store) {
-                    if (null === $categoryId) {
+                if ($store === null) {
+                    if ($categoryId === null) {
                         foreach ($website->getStores() as $store) {
                             $ids[] = $store->getRootCategoryId();
                         }
@@ -65,16 +59,16 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                     }
                 } elseif (in_array($store, $website->getStoreIds())) {
                     $storeId = Mage::app()->getStore($store);
-                    $ids = (null === $categoryId)? $store->getRootCategoryId() : $categoryId;
+                    $ids = ($categoryId === null)? $store->getRootCategoryId() : $categoryId;
                 } else {
                     $this->_fault('store_not_exists');
                 }
             } catch (Mage_Core_Exception $e) {
                 $this->_fault('website_not_exists', $e->getMessage());
             }
-        } elseif (null !== $store) {
+        } elseif ($store !== null) {
             // load children of root category of store
-            if (null === $categoryId) {
+            if ($categoryId === null) {
                 try {
                     $store = Mage::app()->getStore($store);
                     $storeId = $store->getId();
@@ -89,7 +83,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             }
         } // load all root categories
         else {
-            $ids = (null === $categoryId)? Mage_Catalog_Model_Category::TREE_ROOT_ID : $categoryId;
+            $ids = ($categoryId === null)? Mage_Catalog_Model_Category::TREE_ROOT_ID : $categoryId;
         }
 
         $collection = Mage::getModel('catalog/category')->getCollection()
@@ -98,23 +92,23 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             ->addAttributeToSelect('is_active');
 
         if (is_array($ids)) {
-            $collection->addFieldToFilter('entity_id', array('in' => $ids));
+            $collection->addFieldToFilter('entity_id', ['in' => $ids]);
         } else {
             $collection->addFieldToFilter('parent_id', $ids);
         }
 
         // Only basic category data
-        $result = array();
+        $result = [];
         foreach ($collection as $category) {
-            /* @var Mage_Catalog_Model_Category $category */
-            $result[] = array(
+            /** @var Mage_Catalog_Model_Category $category */
+            $result[] = [
                 'category_id' => $category->getId(),
                 'parent_id'   => $category->getParentId(),
                 'name'        => $category->getName(),
                 'is_active'   => $category->getIsActive(),
                 'position'    => $category->getPosition(),
                 'level'       => $category->getLevel()
-            );
+            ];
         }
 
         return $result;
@@ -136,7 +130,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             $parentId = 1;
         }
 
-        /* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree $tree */
+        /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree $tree */
         $tree = Mage::getResourceSingleton('catalog/category_tree')
             ->load();
 
@@ -165,14 +159,14 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     protected function _nodeToArray(Varien_Data_Tree_Node $node)
     {
         // Only basic category data
-        $result = array();
+        $result = [];
         $result['category_id'] = $node->getId();
         $result['parent_id']   = $node->getParentId();
         $result['name']        = $node->getName();
         $result['is_active']   = $node->getIsActive();
         $result['position']    = $node->getPosition();
         $result['level']       = $node->getLevel();
-        $result['children']    = array();
+        $result['children']    = [];
 
         foreach ($node->getChildren() as $child) {
             $result['children'][] = $this->_nodeToArray($child);
@@ -214,7 +208,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $category = $this->_initCategory($categoryId, $store);
 
         // Basic category data
-        $result = array();
+        $result = [];
         $result['category_id'] = $category->getId();
 
         $result['is_active']   = $category->getIsActive();
@@ -249,10 +243,10 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $category = Mage::getModel('catalog/category')
             ->setStoreId($this->_getStoreId($store));
 
-        $category->addData(array('path'=>implode('/', $parent_category->getPathIds())));
+        $category->addData(['path'=>implode('/', $parent_category->getPathIds())]);
         $category->setAttributeSetId($category->getDefaultAttributeSetId());
 
-        $useConfig = array();
+        $useConfig = [];
         foreach ($category->getAttributes() as $attribute) {
             if ($this->_isAllowedAttribute($attribute)
                 && isset($categoryData[$attribute->getAttributeCode()])
@@ -260,10 +254,10 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 // check whether value is 'use_config'
                 $attrCode = $attribute->getAttributeCode();
                 $categoryDataValue = $categoryData[$attrCode];
-                if ('use_config' === $categoryDataValue ||
+                if ($categoryDataValue === 'use_config' ||
                     (is_array($categoryDataValue) &&
                     count($categoryDataValue) == 1 &&
-                    'use_config' === $categoryDataValue[0])
+                    $categoryDataValue[0] === 'use_config')
                 ) {
                     $useConfig[] = $attrCode;
                     $category->setData($attrCode, null);
@@ -404,11 +398,14 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     }
 
     /**
-     * Get prduct Id from sku or from product id
+     * Get the product ID from a product ID or SKU. When $identifierType is left empty the helper will try to
+     * automatically parse the given $productId and determine if it is a SKU or ID value
      *
-     * @param int|string $productId
-     * @param  string $identifierType
+     * @param int|string  $productId      The product ID or SKU
+     * @param null|string $identifierType Should be 'sku' when working with SKU's. Leave null when using ID's
+     *
      * @return int
+     * @throws Mage_Api_Exception
      */
     protected function _getProductId($productId, $identifierType = null)
     {
@@ -418,7 +415,6 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         }
         return $product->getId();
     }
-
 
     /**
      * Retrieve list of assigned products to category
@@ -435,16 +431,16 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $collection = $category->setStoreId($storeId)->getProductCollection();
         ($storeId == 0)? $collection->addOrder('position', 'asc') : $collection->setOrder('position', 'asc');
 
-        $result = array();
+        $result = [];
 
         foreach ($collection as $product) {
-            $result[] = array(
+            $result[] = [
                 'product_id' => $product->getId(),
                 'type'       => $product->getTypeId(),
                 'set'        => $product->getAttributeSetId(),
                 'sku'        => $product->getSku(),
                 'position'   => $product->getCatIndexPosition()
-            );
+            ];
         }
 
         return $result;
@@ -456,7 +452,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $categoryId
      * @param int $productId
      * @param int $position
-     * @param null $identifierType
+     * @param null|string $identifierType Should be 'sku' when working with SKU's. Leave null when using ID's
      * @return boolean
      * @throws Mage_Api_Exception
      */
@@ -464,7 +460,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     {
         $category = $this->_initCategory($categoryId);
         $positions = $category->getProductsPosition();
-        $productId = $this->_getProductId($productId);
+        $productId = $this->_getProductId($productId, $identifierType);
         $positions[$productId] = $position;
         $category->setPostedProducts($positions);
 
@@ -476,7 +472,6 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         return true;
     }
-
 
     /**
      * Update product assignment
@@ -537,4 +532,4 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         return true;
     }
-} // Class Mage_Catalog_Model_Category_Api End
+}

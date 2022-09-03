@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Resource Model for Checkout Agreement
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -72,11 +65,11 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
-        $condition = array('agreement_id = ?' => $object->getId());
+        $condition = ['agreement_id = ?' => $object->getId()];
         $this->_getWriteAdapter()->delete($this->getTable('checkout/agreement_store'), $condition);
 
         foreach ((array)$object->getData('stores') as $store) {
-            $storeArray = array();
+            $storeArray = [];
             $storeArray['agreement_id'] = $object->getId();
             $storeArray['store_id'] = $store;
             $this->_getWriteAdapter()->insert($this->getTable('checkout/agreement_store'), $storeArray);
@@ -94,10 +87,10 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('checkout/agreement_store'), array('store_id'))
+            ->from($this->getTable('checkout/agreement_store'), ['store_id'])
             ->where('agreement_id = :agreement_id');
 
-        if ($stores = $this->_getReadAdapter()->fetchCol($select, array(':agreement_id' => $object->getId()))) {
+        if ($stores = $this->_getReadAdapter()->fetchCol($select, [':agreement_id' => $object->getId()])) {
             $object->setData('store_id', $stores);
         }
 
@@ -117,7 +110,7 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
         $select = parent::_getLoadSelect($field, $value, $object);
         if ($object->getStoreId()) {
             $select->join(
-                array('cps' => $this->getTable('checkout/agreement_store')),
+                ['cps' => $this->getTable('checkout/agreement_store')],
                 $this->getMainTable() . '.agreement_id = cps.agreement_id'
             )
             ->where('is_active=1')

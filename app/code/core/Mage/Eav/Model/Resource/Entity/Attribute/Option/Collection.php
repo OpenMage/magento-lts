@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Entity attribute option collection
  *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -61,7 +54,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
         return $this->addFieldToFilter('attribute_id', $setId);
     }
 
-
     /**
      * Add store filter to collection
      *
@@ -82,23 +74,23 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
         if ($useDefaultValue) {
             $this->getSelect()
                 ->join(
-                    array('tdv' => $this->_optionValueTable),
+                    ['tdv' => $this->_optionValueTable],
                     'tdv.option_id = main_table.option_id',
-                    array('default_value' => 'value')
+                    ['default_value' => 'value']
                 )
                 ->joinLeft(
-                    array('tsv' => $this->_optionValueTable),
+                    ['tsv' => $this->_optionValueTable],
                     $joinCondition,
-                    array(
+                    [
                         'store_default_value' => 'value',
                         'value'               => $adapter->getCheckSql('tsv.value_id > 0', 'tsv.value', 'tdv.value')
-                    )
+                    ]
                 )
                 ->where('tdv.store_id = ?', 0);
         } else {
             $this->getSelect()
                 ->joinLeft(
-                    array('tsv' => $this->_optionValueTable),
+                    ['tsv' => $this->_optionValueTable],
                     $joinCondition,
                     'value'
                 )
@@ -118,7 +110,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
      */
     public function setIdFilter($optionId)
     {
-        return $this->addFieldToFilter('option_id', array('in' => $optionId));
+        return $this->addFieldToFilter('option_id', ['in' => $optionId]);
     }
 
     /**
@@ -131,7 +123,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
     {
         return $this->_toOptionArray('option_id', $valueKey);
     }
-
 
     /**
      * Set order by position or alphabetically by values in admin
@@ -147,9 +138,9 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
         if ($sortAlpha) {
             $this->getSelect()
                 ->joinLeft(
-                    array('sort_alpha_value' => $this->_optionValueTable),
+                    ['sort_alpha_value' => $this->_optionValueTable],
                     'sort_alpha_value.option_id = main_table.option_id AND sort_alpha_value.store_id = 0',
-                    array('value')
+                    ['value']
                 );
             $this->setOrder('sort_alpha_value.value', $dir);
         }

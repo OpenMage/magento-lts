@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Validator for custom layout update
@@ -53,14 +46,14 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
      *
      * @var array
      */
-    protected $_disallowedXPathExpressions = array();
+    protected $_disallowedXPathExpressions = [];
 
     /**
      * Disallowed template name
      *
      * @var array
      */
-    protected $_disallowedBlock = array();
+    protected $_disallowedBlock = [];
 
     /**
      * @var Mage_Core_Model_Layout_Validator
@@ -72,7 +65,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
      *
      * @var array
      */
-    protected $_protectedExpressions = array();
+    protected $_protectedExpressions = [];
 
     /**
      * Construct
@@ -130,7 +123,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
     protected function _initMessageTemplates()
     {
         if (!$this->_messageTemplates) {
-            $this->_messageTemplates = array(
+            $this->_messageTemplates = [
                 self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR =>
                     Mage::helper('adminhtml')->__('Helper attributes should not be used in custom layout updates.'),
                 self::XML_INVALID => Mage::helper('adminhtml')->__('XML data is invalid.'),
@@ -140,7 +133,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
                 self::INVALID_BLOCK_NAME => Mage::helper('adminhtml')->__('Disallowed block name for frontend.'),
                 Mage_Core_Model_Layout_Validator::INVALID_XML_OBJECT_EXCEPTION =>
                     Mage::helper('adminhtml')->__('XML object is not instance of "Varien_Simplexml_Element".'),
-            );
+            ];
         }
         return $this;
     }
@@ -169,7 +162,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
      * Validate template path for preventing access to the directory above
      * If template path value has "../" @throws Exception
      *
-     * @param $templatePaths | array
+     * @param array $templatePaths
      */
     protected function _validateTemplatePath(array $templatePaths)
     {

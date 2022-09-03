@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Poll
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Poll Mysql4 resource model
@@ -50,10 +43,10 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _initUniqueFields()
     {
-        $this->_uniqueFields = array(array(
+        $this->_uniqueFields = [[
             'field' => 'poll_title',
             'title' => Mage::helper('poll')->__('Poll with the same question')
-        ));
+        ]];
         return $this;
     }
 
@@ -67,7 +60,7 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
     {
         $read = $this->_getReadAdapter();
         $select = $read->select()
-            ->from(array('main_table'=>$this->getMainTable()), $this->getIdFieldName())
+            ->from(['main_table'=>$this->getMainTable()], $this->getIdFieldName())
             ->where('closed = ?', 0);
 
         $excludeIds = $object->getExcludeFilter();
@@ -78,9 +71,9 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
         $storeId = $object->getStoreFilter();
         if ($storeId) {
             $select->join(
-                array('store' => $this->getTable('poll/poll_store')),
+                ['store' => $this->getTable('poll/poll_store')],
                 'main_table.poll_id=store.poll_id AND store.store_id = ' . $read->quote($storeId),
-                array()
+                []
             );
         }
 
@@ -124,7 +117,7 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
             ->from($this->getTable('poll_answer'), 'answer_id')
             ->where('poll_id = :poll_id')
             ->where('answer_id = :answer_id');
-        $bind = array(':poll_id' => $poll->getId(), ':answer_id' => $answerId);
+        $bind = [':poll_id' => $poll->getId(), ':answer_id' => $answerId];
         return $this->_getReadAdapter()->fetchOne($select, $bind);
     }
 
@@ -141,7 +134,7 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
     {
         // check if validation by ip is enabled
         if (!Mage::getModel('poll/poll')->isValidationByIp()) {
-            return array();
+            return [];
         }
 
         // look for ids in database
@@ -154,7 +147,7 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
         }
         $result = $this->_getReadAdapter()->fetchCol($select);
         if (empty($result)) {
-            $result = array();
+            $result = [];
         }
         return $result;
     }
@@ -173,8 +166,8 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
             ->where('poll_id = ?', $object->getPollId());
         $adapter->update(
             $this->getMainTable(),
-            array('votes_count' => new Zend_Db_Expr("($select)")),
-            array('poll_id = ' . $adapter->quote($object->getPollId()))
+            ['votes_count' => new Zend_Db_Expr("($select)")],
+            ['poll_id = ' . $adapter->quote($object->getPollId())]
         );
         return $object;
     }
@@ -187,7 +180,7 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
     public function loadStoreIds(Mage_Poll_Model_Poll $object)
     {
         $pollId   = $object->getId();
-        $storeIds = array();
+        $storeIds = [];
         if ($pollId) {
             $storeIds = $this->lookupStoreIds($pollId);
         }
@@ -199,6 +192,7 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
      * insert to update "poll to store" relations
      *
      * @param Mage_Core_Model_Abstract|Mage_Poll_Model_Poll $object
+     * @return $this
      */
     public function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -207,10 +201,10 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
         $this->_getWriteAdapter()->delete($this->getTable('poll/poll_store'), $deleteWhere);
 
         foreach ($object->getStoreIds() as $storeId) {
-            $pollStoreData = array(
+            $pollStoreData = [
             'poll_id'   => $object->getId(),
             'store_id'  => $storeId
-            );
+            ];
             $this->_getWriteAdapter()->insert($this->getTable('poll/poll_store'), $pollStoreData);
         }
 
@@ -219,6 +213,7 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
             $answer->setPollId($object->getId());
             $answer->save();
         }
+        return $this;
     }
 
     /**
@@ -233,7 +228,7 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
             $this->_getReadAdapter()->select()
                 ->from($this->getTable('poll/poll_store'), 'store_id')
                 ->where("{$this->getIdFieldName()} = :id_field"),
-            array(':id_field' => $id)
+            [':id_field' => $id]
         );
     }
 }

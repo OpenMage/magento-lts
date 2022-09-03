@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Reports
+ * @category   Mage
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Report Reviews collection
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Resource_Review_Collection
 {
@@ -51,7 +44,7 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
      */
     public function addProductFilter($productId)
     {
-        $this->addFieldToFilter('entity_pk_value', array('eq' => (int)$productId));
+        $this->addFieldToFilter('entity_pk_value', ['eq' => (int)$productId]);
 
         return $this;
     }
@@ -94,7 +87,7 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
-        if (in_array($attribute, array('nickname', 'title', 'detail', 'created_at'))) {
+        if (in_array($attribute, ['nickname', 'title', 'detail', 'created_at'])) {
             $this->_select->order($attribute . ' ' . $dir);
         } else {
             parent::setOrder($attribute, $dir);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -61,11 +55,11 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
      */
     public function getResourcesPermissions()
     {
-        if (null === $this->_resourcesPermissions) {
-            $rulesPairs = array();
+        if ($this->_resourcesPermissions === null) {
+            $rulesPairs = [];
 
             if ($this->_userType) {
-                $allowedAttributes = array();
+                $allowedAttributes = [];
 
                 /** @var Mage_Api2_Model_Resource_Acl_Filter_Attribute_Collection $rules */
                 $rules = Mage::getResourceModel('api2/acl_filter_attribute_collection');
@@ -77,7 +71,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                     }
 
                     /** @var Mage_Api2_Model_Acl_Filter_Attribute $rule */
-                    if (null !== $rule->getAllowedAttributes()) {
+                    if ($rule->getAllowedAttributes() !== null) {
                         $allowedAttributes[$rule->getResourceId()][$rule->getOperation()] = explode(
                             ',',
                             $rule->getAllowedAttributes()
@@ -134,10 +128,10 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                                             ? Mage_Api2_Model_Acl_Global_Rule_Permission::TYPE_ALLOW
                                             : Mage_Api2_Model_Acl_Global_Rule_Permission::TYPE_DENY;
 
-                                    $rulesPairs[$resource]['operations'][$operation]['attributes'][$attribute] = array(
+                                    $rulesPairs[$resource]['operations'][$operation]['attributes'][$attribute] = [
                                         'status'    => $status,
                                         'title'     => $attributeLabel
-                                    );
+                                    ];
                                 }
                             }
                         }

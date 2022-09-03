@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -25,34 +19,34 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
-$installer->addAttribute('quote_item', 'base_cost', array(
+$installer->addAttribute('quote_item', 'base_cost', [
     'type'              => 'decimal',
     'label'             => 'Cost',
     'visible'           => false,
     'required'          => false,
-));
+]);
 
-$installer->addAttribute('quote_address_item', 'base_cost', array(
+$installer->addAttribute('quote_address_item', 'base_cost', [
     'type'              => 'decimal',
     'label'             => 'Cost',
     'visible'           => false,
     'required'          => false,
-));
+]);
 
 $installer->getConnection()->changeColumn($installer->getTable('sales_flat_order_item'), 'cost', 'base_cost', 'DECIMAL( 12, 4 ) NULL DEFAULT \'0.0000\'');
 
 $installer->getConnection()->addColumn($installer->getTable('sales_order'), 'base_total_invoiced_cost', 'DECIMAL( 12, 4 ) NULL DEFAULT NULL');
 
-$installer->addAttribute('order', 'base_total_invoiced_cost', array(
+$installer->addAttribute('order', 'base_total_invoiced_cost', [
     'type'              => 'static'
-));
+]);
 
-$installer->updateAttribute('order_item', 'cost', array('attribute_code' => 'base_cost'));
-$installer->updateAttribute('invoice_item', 'cost', array('attribute_code' => 'base_cost'));
-$installer->updateAttribute('creditmemo_item', 'cost', array('attribute_code' => 'base_cost'));
+$installer->updateAttribute('order_item', 'cost', ['attribute_code' => 'base_cost']);
+$installer->updateAttribute('invoice_item', 'cost', ['attribute_code' => 'base_cost']);
+$installer->updateAttribute('creditmemo_item', 'cost', ['attribute_code' => 'base_cost']);
 
 $installer->endSetup();

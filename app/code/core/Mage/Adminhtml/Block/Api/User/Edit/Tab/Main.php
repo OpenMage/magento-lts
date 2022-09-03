@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form
@@ -43,62 +37,62 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_W
 
         $form->setHtmlIdPrefix('user_');
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('adminhtml')->__('Account Information')));
+        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('adminhtml')->__('Account Information')]);
 
         if ($model->getUserId()) {
-            $fieldset->addField('user_id', 'hidden', array(
+            $fieldset->addField('user_id', 'hidden', [
                 'name' => 'user_id',
-            ));
+            ]);
         } else {
             if (! $model->hasData('is_active')) {
                 $model->setIsActive(1);
             }
         }
 
-        $fieldset->addField('username', 'text', array(
+        $fieldset->addField('username', 'text', [
             'name'  => 'username',
             'label' => Mage::helper('adminhtml')->__('User Name'),
             'id'    => 'username',
             'title' => Mage::helper('adminhtml')->__('User Name'),
             'required' => true,
-        ));
+        ]);
 
-        $fieldset->addField('firstname', 'text', array(
+        $fieldset->addField('firstname', 'text', [
             'name'  => 'firstname',
             'label' => Mage::helper('adminhtml')->__('First Name'),
             'id'    => 'firstname',
             'title' => Mage::helper('adminhtml')->__('First Name'),
             'required' => true,
-        ));
+        ]);
 
-        $fieldset->addField('lastname', 'text', array(
+        $fieldset->addField('lastname', 'text', [
             'name'  => 'lastname',
             'label' => Mage::helper('adminhtml')->__('Last Name'),
             'id'    => 'lastname',
             'title' => Mage::helper('adminhtml')->__('Last Name'),
             'required' => true,
-        ));
+        ]);
 
-        $fieldset->addField('email', 'text', array(
+        $fieldset->addField('email', 'text', [
             'name'  => 'email',
             'label' => Mage::helper('adminhtml')->__('Email'),
             'id'    => 'customer_email',
             'title' => Mage::helper('adminhtml')->__('User Email'),
             'class' => 'required-entry validate-email',
             'required' => true,
-        ));
+        ]);
 
-        $fieldset->addField('current_password', 'obscure', array(
+        $fieldset->addField('current_password', 'obscure', [
                 'name'  => 'current_password',
                 'label' => Mage::helper('adminhtml')->__('Current Admin Password'),
                 'title' => Mage::helper('adminhtml')->__('Current Admin Password'),
                 'required' => true,
-            )
+            ]
         );
 
         $minPasswordLength = Mage::getModel('customer/customer')->getMinPasswordLength();
         if ($model->getUserId()) {
-            $fieldset->addField('password', 'password', array(
+            $fieldset->addField('password', 'password', [
                 'name'  => 'new_api_key',
                 'label' => Mage::helper('adminhtml')->__('New API Key'),
                 'id'    => 'new_pass',
@@ -106,17 +100,17 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_W
                 'class' => 'input-text validate-password min-pass-length-' . $minPasswordLength,
                 'note' => Mage::helper('adminhtml')
                     ->__('API Key must be at least of %d characters.', $minPasswordLength),
-            ));
+            ]);
 
-            $fieldset->addField('confirmation', 'password', array(
+            $fieldset->addField('confirmation', 'password', [
                 'name'  => 'api_key_confirmation',
                 'label' => Mage::helper('adminhtml')->__('API Key Confirmation'),
                 'id'    => 'confirmation',
                 'class' => 'input-text validate-cpassword',
-            ));
+            ]);
         }
         else {
-            $fieldset->addField('password', 'password', array(
+            $fieldset->addField('password', 'password', [
                 'name'  => 'api_key',
                 'label' => Mage::helper('adminhtml')->__('API Key'),
                 'id'    => 'customer_pass',
@@ -125,33 +119,33 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_W
                 'required' => true,
                 'note' => Mage::helper('adminhtml')
                     ->__('API Key must be at least of %d characters.', $minPasswordLength),
-            ));
-            $fieldset->addField('confirmation', 'password', array(
+            ]);
+            $fieldset->addField('confirmation', 'password', [
                 'name'  => 'api_key_confirmation',
                 'label' => Mage::helper('adminhtml')->__('API Key Confirmation'),
                 'id'    => 'confirmation',
                 'title' => Mage::helper('adminhtml')->__('API Key Confirmation'),
                 'class' => 'input-text required-entry validate-cpassword',
                 'required' => true,
-            ));
+            ]);
         }
 
         if (Mage::getSingleton('admin/session')->getUser()->getId() != $model->getUserId()) {
-            $fieldset->addField('is_active', 'select', array(
+            $fieldset->addField('is_active', 'select', [
                 'name'      => 'is_active',
                 'label'     => Mage::helper('adminhtml')->__('This account is'),
                 'id'        => 'is_active',
                 'title'     => Mage::helper('adminhtml')->__('Account status'),
                 'class'     => 'input-select',
                 'style'        => 'width: 80px',
-                'options'    => array('1' => Mage::helper('adminhtml')->__('Active'), '0' => Mage::helper('adminhtml')->__('Inactive')),
-            ));
+                'options'    => ['1' => Mage::helper('adminhtml')->__('Active'), '0' => Mage::helper('adminhtml')->__('Inactive')],
+            ]);
         }
 
-        $fieldset->addField('user_roles', 'hidden', array(
+        $fieldset->addField('user_roles', 'hidden', [
             'name' => 'user_roles',
             'id'   => '_user_roles',
-        ));
+        ]);
 
         $data = $model->getData();
 

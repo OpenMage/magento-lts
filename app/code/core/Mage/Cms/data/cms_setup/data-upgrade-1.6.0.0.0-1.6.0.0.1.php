@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Cms
+ * @category   Mage
+ * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 $pageContent = <<<EOD
 <p style="color: #ff0000; font-weight: bold; font-size: 13px">
@@ -244,16 +237,16 @@ $pageContent = <<<EOD
 </table>
 EOD;
 
-$privacyPageData = array(
+$privacyPageData = [
     'title'           => 'Privacy Policy',
     'content_heading' => 'Privacy Policy',
     'root_template'   => 'one_column',
     'identifier'      => 'privacy-policy-cookie-restriction-mode',
     'content'         => $pageContent,
     'is_active'       => 1,
-    'stores'          => array(0),
+    'stores'          => [0],
     'sort_order'      => 0
-);
+];
 
 Mage::getModel('cms/page')->setData($privacyPageData)->save();
 

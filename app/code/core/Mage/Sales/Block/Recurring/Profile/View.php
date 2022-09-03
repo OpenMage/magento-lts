@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -46,12 +40,12 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_info = array();
+    protected $_info = [];
 
     /**
      * Related orders collection
      *
-     * @var Mage_Sales_Model_Mysql4_Order_Collection
+     * @var Mage_Sales_Model_Resource_Order_Collection
      */
     protected $_relatedOrders = null;
 
@@ -60,19 +54,19 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
      */
     public function prepareViewData()
     {
-        $this->addData(array(
+        $this->addData([
             'reference_id' => $this->_profile->getReferenceId(),
             'can_cancel'   => $this->_profile->canCancel(),
-            'cancel_url'   => $this->getUrl('*/*/updateState', array('profile' => $this->_profile->getId(), 'action' => 'cancel')),
+            'cancel_url'   => $this->getUrl('*/*/updateState', ['profile' => $this->_profile->getId(), 'action' => 'cancel']),
             'can_suspend'  => $this->_profile->canSuspend(),
-            'suspend_url'  => $this->getUrl('*/*/updateState', array('profile' => $this->_profile->getId(), 'action' => 'suspend')),
+            'suspend_url'  => $this->getUrl('*/*/updateState', ['profile' => $this->_profile->getId(), 'action' => 'suspend']),
             'can_activate' => $this->_profile->canActivate(),
-            'activate_url' => $this->getUrl('*/*/updateState', array('profile' => $this->_profile->getId(), 'action' => 'activate')),
+            'activate_url' => $this->getUrl('*/*/updateState', ['profile' => $this->_profile->getId(), 'action' => 'activate']),
             'can_update'   => $this->_profile->canFetchUpdate(),
-            'update_url'   => $this->getUrl('*/*/updateProfile', array('profile' => $this->_profile->getId())),
+            'update_url'   => $this->getUrl('*/*/updateProfile', ['profile' => $this->_profile->getId()]),
             'back_url'     => $this->getUrl('*/*/'),
             'confirmation_message' => Mage::helper('sales')->__('Are you sure you want to do this?'),
-        ));
+        ]);
     }
 
     /**
@@ -92,19 +86,12 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     {
         $this->_shouldRenderInfo = true;
 
-        foreach (array('method_code', 'reference_id', 'schedule_description', 'state') as $key) {
-            $this->_addInfo(array(
+        foreach (['method_code', 'reference_id', 'schedule_description', 'state'] as $key) {
+            $this->_addInfo([
                 'label' => $this->_profile->getFieldLabel($key),
                 'value' => $this->_profile->renderData($key),
-            ));
+            ]);
         }
-//        $shippingDesctiption = $this->_profile->getInfoValue('order_info', 'shipping_description');
-//        if ($shippingDesctiption) {
-//            $this->_addInfo(array(
-//                'label' => $this->__('Shipping Method'),
-//                'value' => $shippingDesctiption,
-//            ));
-//        }
     }
 
     /**
@@ -115,13 +102,13 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
         $this->_shouldRenderInfo = true;
         $key = 'order_item_info';
 
-        foreach (array('name' => Mage::helper('catalog')->__('Product Name'),
+        foreach (['name' => Mage::helper('catalog')->__('Product Name'),
             'sku'  => Mage::helper('catalog')->__('SKU'),
             'qty'  => Mage::helper('catalog')->__('Quantity'),
-            ) as $itemKey => $label) {
+                 ] as $itemKey => $label) {
             $value = $this->_profile->getInfoValue($key, $itemKey);
             if ($value) {
-                $this->_addInfo(array('label' => $label, 'value' => $value,));
+                $this->_addInfo(['label' => $label, 'value' => $value,]);
             }
         }
 
@@ -154,25 +141,25 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
                 ->validateUserValue($request['options']);
 
             $skipHtmlEscaping = false;
-            if ('file' == $option->getType()) {
+            if ($option->getType() == 'file') {
                 $skipHtmlEscaping = true;
 
-                $downloadParams = array(
+                $downloadParams = [
                     'id'  => $this->_profile->getId(),
                     'option_id' => $option->getId(),
                     'key' => $request['options'][$option->getId()]['secret_key']
-                );
+                ];
                 $group->setCustomOptionDownloadUrl('sales/download/downloadProfileCustomOption')
                     ->setCustomOptionUrlParams($downloadParams);
             }
 
             $optionValue = $group->prepareForCart();
 
-            $this->_addInfo(array(
+            $this->_addInfo([
                 'label' => $option->getTitle(),
                 'value' => $group->getFormattedOptionValue($optionValue),
                 'skip_html_escaping' => $skipHtmlEscaping
-            ));
+            ]);
         }
     }
 
@@ -183,18 +170,18 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     {
         $this->_shouldRenderInfo = true;
 
-        foreach (array('start_datetime', 'suspension_threshold') as $key) {
-            $this->_addInfo(array(
+        foreach (['start_datetime', 'suspension_threshold'] as $key) {
+            $this->_addInfo([
                 'label' => $this->_profile->getFieldLabel($key),
                 'value' => $this->_profile->renderData($key),
-            ));
+            ]);
         }
 
         foreach ($this->_profile->exportScheduleInfo() as $i) {
-            $this->_addInfo(array(
+            $this->_addInfo([
                 'label' => $i->getTitle(),
                 'value' => $i->getSchedule(),
-            ));
+            ]);
         }
     }
 
@@ -205,24 +192,24 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     {
         $this->_shouldRenderInfo = true;
 
-        $this->_addInfo(array(
+        $this->_addInfo([
             'label' => $this->_profile->getFieldLabel('currency_code'),
             'value' => $this->_profile->getCurrencyCode()
-        ));
-        foreach (array(
+        ]);
+        foreach ([
                 'init_amount',
                 'trial_billing_amount',
                 'billing_amount',
                 'tax_amount',
                 'shipping_amount'
-            ) as $key) {
+                 ] as $key) {
             $value = $this->_profile->getData($key);
             if ($value) {
-                $this->_addInfo(array(
+                $this->_addInfo([
                     'label' => $this->_profile->getFieldLabel($key),
                     'value' => Mage::helper('core')->formatCurrency($value, false),
                     'is_amount' => true,
-                ));
+                ]);
             }
         }
     }
@@ -234,8 +221,8 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     {
         $this->_shouldRenderInfo = true;
 
-        if ('shipping' == $this->getAddressType()) {
-            if ('1' == $this->_profile->getInfoValue('order_item_info', 'is_virtual')) {
+        if ($this->getAddressType() == 'shipping') {
+            if ($this->_profile->getInfoValue('order_item_info', 'is_virtual') == '1') {
                 $this->getParentBlock()->unsetChild('sales.recurring.profile.view.shipping');
                 return;
             }
@@ -245,9 +232,9 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
         }
         $this->setIsAddress(true);
         $address = Mage::getModel('sales/order_address', $this->_profile->getData($key));
-        $this->_addInfo(array(
+        $this->_addInfo([
             'value' => preg_replace('/\\n{2,}/', "\n", $address->getFormated()),
-        ));
+        ]);
     }
 
     /**
@@ -255,7 +242,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
      */
     public function prepareRelatedOrdersFrontendGrid()
     {
-        $this->_prepareRelatedOrders(array(
+        $this->_prepareRelatedOrders([
             'increment_id',
             'created_at',
             'customer_firstname',
@@ -263,57 +250,57 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
             'customer_lastname',
             'base_grand_total',
             'status'
-        ));
-        $this->_relatedOrders->addFieldToFilter('state', array(
+        ]);
+        $this->_relatedOrders->addFieldToFilter('state', [
             'in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()
-        ));
+        ]);
 
         $pager = $this->getLayout()->createBlock('page/html_pager')
             ->setCollection($this->_relatedOrders)->setIsOutputRequired(false);
         $this->setChild('pager', $pager);
 
-        $this->setGridColumns(array(
-            new Varien_Object(array(
+        $this->setGridColumns([
+            new Varien_Object([
                 'index' => 'increment_id',
                 'title' => $this->__('Order #'),
                 'is_nobr' => true,
                 'width' => 1,
-            )),
-            new Varien_Object(array(
+            ]),
+            new Varien_Object([
                 'index' => 'created_at',
                 'title' => $this->__('Date'),
                 'is_nobr' => true,
                 'width' => 1,
-            )),
-            new Varien_Object(array(
+            ]),
+            new Varien_Object([
                 'index' => 'customer_name',
                 'title' => $this->__('Customer Name'),
-            )),
-            new Varien_Object(array(
+            ]),
+            new Varien_Object([
                 'index' => 'base_grand_total',
                 'title' => $this->__('Order Total'),
                 'is_nobr' => true,
                 'width' => 1,
                 'is_amount' => true,
-            )),
-            new Varien_Object(array(
+            ]),
+            new Varien_Object([
                 'index' => 'status',
                 'title' => $this->__('Order Status'),
                 'is_nobr' => true,
                 'width' => 1,
-            )),
-        ));
+            ]),
+        ]);
 
-        $orders = array();
+        $orders = [];
         foreach ($this->_relatedOrders as $order) {
-            $orders[] = new Varien_Object(array(
+            $orders[] = new Varien_Object([
                 'increment_id' => $order->getIncrementId(),
                 'created_at' => $this->formatDate($order->getCreatedAt()),
                 'customer_name' => $order->getCustomerName(),
                 'base_grand_total' => Mage::helper('core')->formatCurrency($order->getBaseGrandTotal(), false),
                 'status' => $order->getStatusLabel(),
-                'increment_id_link_url' => $this->getUrl('sales/order/view/', array('order_id' => $order->getId())),
-            ));
+                'increment_id_link_url' => $this->getUrl('sales/order/view/', ['order_id' => $order->getId()]),
+            ]);
         }
         if ($orders) {
             $this->setGridElements($orders);
@@ -345,7 +332,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
      */
     protected function _prepareRelatedOrders($fieldsToSelect = '*')
     {
-        if (null === $this->_relatedOrders) {
+        if ($this->_relatedOrders === null) {
             $this->_relatedOrders = Mage::getResourceModel('sales/order_collection')
                 ->addFieldToSelect($fieldsToSelect)
                 ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId())
@@ -396,7 +383,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
         if ($this->hasShouldPrepareInfoTabs()) {
             foreach ($this->getChildGroup('info_tabs') as $block) {
                 $block->setViewUrl(
-                    $this->getUrl("*/*/{$block->getViewAction()}", array('profile' => $this->_profile->getId()))
+                    $this->getUrl("*/*/{$block->getViewAction()}", ['profile' => $this->_profile->getId()])
                 );
             }
         }

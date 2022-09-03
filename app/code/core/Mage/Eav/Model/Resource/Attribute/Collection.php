@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * EAV additional attribute resource collection (Using Forms)
  *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
 {
@@ -121,17 +114,17 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
         $entityType     = $this->getEntityType();
         $extraTable     = $entityType->getAdditionalAttributeTable();
         $mainDescribe   = $this->getConnection()->describeTable($this->getResource()->getMainTable());
-        $mainColumns    = array();
+        $mainColumns    = [];
 
         foreach (array_keys($mainDescribe) as $columnName) {
             $mainColumns[$columnName] = $columnName;
         }
 
-        $select->from(array('main_table' => $this->getResource()->getMainTable()), $mainColumns);
+        $select->from(['main_table' => $this->getResource()->getMainTable()], $mainColumns);
 
         // additional attribute data table
         $extraDescribe  = $connection->describeTable($this->getTable($extraTable));
-        $extraColumns   = array();
+        $extraColumns   = [];
         foreach (array_keys($extraDescribe) as $columnName) {
             if (isset($mainColumns[$columnName])) {
                 continue;
@@ -142,7 +135,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
         $this->addBindParam('mt_entity_type_id', (int)$entityType->getId());
         $select
             ->join(
-                array('additional_table' => $this->getTable($extraTable)),
+                ['additional_table' => $this->getTable($extraTable)],
                 'additional_table.attribute_id = main_table.attribute_id',
                 $extraColumns
             )
@@ -152,7 +145,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
 
         $scopeDescribe  = $connection->describeTable($this->_getEavWebsiteTable());
         unset($scopeDescribe['attribute_id']);
-        $scopeColumns   = array();
+        $scopeColumns   = [];
         foreach (array_keys($scopeDescribe) as $columnName) {
             if ($columnName == 'website_id') {
                 $scopeColumns['scope_website_id'] = $columnName;
@@ -182,7 +175,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
         }
 
         $select->joinLeft(
-            array('scope_table' => $this->_getEavWebsiteTable()),
+            ['scope_table' => $this->_getEavWebsiteTable()],
             'scope_table.attribute_id = main_table.attribute_id AND scope_table.website_id = :scope_website_id',
             $scopeColumns
         );
@@ -248,6 +241,6 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
      */
     public function addExcludeHiddenFrontendFilter()
     {
-        return $this->addFieldToFilter('main_table.frontend_input', array('neq' => 'hidden'));
+        return $this->addFieldToFilter('main_table.frontend_input', ['neq' => 'hidden']);
     }
 }

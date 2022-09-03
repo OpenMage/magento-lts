@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Page
@@ -71,7 +65,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
         if (!$this->hasData('raw_groups')) {
             $websiteGroups = Mage::app()->getWebsite()->getGroups();
 
-            $groups = array();
+            $groups = [];
             foreach ($websiteGroups as $group) {
                 $groups[$group->getId()] = $group;
             }
@@ -88,17 +82,16 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
     {
         if (!$this->hasData('raw_stores')) {
             $websiteStores = Mage::app()->getWebsite()->getStores();
-            $stores = array();
+            $stores = [];
             foreach ($websiteStores as $store) {
-                /* @var Mage_Core_Model_Store $store */
                 if (!$store->getIsActive()) {
                     continue;
                 }
                 $store->setLocaleCode(Mage::getStoreConfig('general/locale/code', $store->getId()));
 
-                $params = array(
-                    '_query' => array()
-                );
+                $params = [
+                    '_query' => []
+                ];
                 if (!$this->isStoreInUrl()) {
                     $params['_query']['___store'] = $store->getCode();
                 }
@@ -123,10 +116,9 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
             $rawGroups = $this->getRawGroups();
             $rawStores = $this->getRawStores();
 
-            $groups = array();
+            $groups = [];
             $localeCode = Mage::getStoreConfig('general/locale/code');
             foreach ($rawGroups as $group) {
-                /* @var Mage_Core_Model_Store_Group $group */
                 if (!isset($rawStores[$group->getId()])) {
                     continue;
                 }
@@ -157,7 +149,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
 
             $groupId = $this->getCurrentGroupId();
             if (!isset($rawStores[$groupId])) {
-                $stores = array();
+                $stores = [];
             } else {
                 $stores = $rawStores[$groupId];
             }

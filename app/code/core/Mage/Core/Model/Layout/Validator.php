@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -54,13 +48,13 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      *
      * @var array
      */
-    protected $_disallowedXPathExpressions = array(
+    protected $_disallowedXPathExpressions = [
         '*//template',
         '*//@template',
         '//*[@method=\'setTemplate\']',
         '//*[@method=\'setDataUsingMethod\']//*[contains(translate(text(),
         \'ABCDEFGHIJKLMNOPQRSTUVWXYZ\', \'abcdefghijklmnopqrstuvwxyz\'), \'template\')]/../*',
-    );
+    ];
 
     /**
      * @var string
@@ -72,16 +66,16 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      *
      * @var array
      */
-    protected $_disallowedBlock = array();
+    protected $_disallowedBlock = [];
 
     /**
      * Protected expressions
      *
      * @var array
      */
-    protected $_protectedExpressions = array(
+    protected $_protectedExpressions = [
         self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR => '//action/*[@helper]',
-    );
+    ];
 
     /**
      * Construct
@@ -100,7 +94,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
     protected function _initMessageTemplates()
     {
         if (!$this->_messageTemplates) {
-            $this->_messageTemplates = array(
+            $this->_messageTemplates = [
                 self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR =>
                     Mage::helper('core')->__('Helper attributes should not be used in custom layout updates.'),
                 self::XML_INVALID => Mage::helper('core')->__('XML data is invalid.'),
@@ -110,7 +104,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
                 self::INVALID_BLOCK_NAME => Mage::helper('core')->__('Disallowed block name for frontend.'),
                 self::INVALID_XML_OBJECT_EXCEPTION =>
                     Mage::helper('core')->__('XML object is not instance of "Varien_Simplexml_Element".'),
-            );
+            ];
         }
         return $this;
     }
@@ -241,11 +235,11 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      *
      * @throws Exception
      *
-     * @param $templatePaths | array
+     * @param array $templatePaths
      */
     public function validateTemplatePath(array $templatePaths)
     {
-        /** @var $path Varien_Simplexml_Element */
+        /** @var Varien_Simplexml_Element $path */
         foreach ($templatePaths as $path) {
             if ($path->hasChildren()) {
                 $path = stripcslashes(trim((string) $path->children(), '"'));

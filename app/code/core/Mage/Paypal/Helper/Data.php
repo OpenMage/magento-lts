@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Paypal Data helper
+ *
+ * @category    Mage
+ * @package     Mage_Paypal
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -55,7 +53,7 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function shouldAskToCreateBillingAgreement(Mage_Paypal_Model_Config $config, $customerId)
     {
-        if (null === self::$_shouldAskToCreateBillingAgreement) {
+        if (self::$_shouldAskToCreateBillingAgreement === null) {
             self::$_shouldAskToCreateBillingAgreement = false;
             if ($customerId && $config->shouldAskToCreateBillingAgreement()) {
                 if (Mage::getModel('sales/billing_agreement')->needToCreateForCustomer($customerId)) {
@@ -115,12 +113,12 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getHtmlTransactionId($methodCode, $txnId)
     {
-        if (in_array($methodCode, array(
+        if (in_array($methodCode, [
             Mage_Paypal_Model_Config::METHOD_WPP_DIRECT,
             Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS,
             Mage_Paypal_Model_Config::METHOD_HOSTEDPRO,
             Mage_Paypal_Model_Config::METHOD_WPS,
-        ))) {
+        ])) {
             /** @var Mage_Paypal_Model_Config $config */
             $config = Mage::getModel('paypal/config')->setMethod($methodCode);
             $url = 'https://www.' . ($config->sandboxFlag ? 'sandbox.' : '')

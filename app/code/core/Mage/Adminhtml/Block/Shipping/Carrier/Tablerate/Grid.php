@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shipping carrier table rate grid block
  * WARNING: This grid used for export table rates
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -50,8 +44,6 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
 
     /**
      * Define grid properties
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -88,7 +80,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     /**
      * Set current website
      *
-     * @param int $websiteId
+     * @param int $name
      * @return $this
      */
     public function setConditionName($name)
@@ -114,7 +106,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
      */
     protected function _prepareCollection()
     {
-        /** @var $collection Mage_Shipping_Model_Mysql4_Carrier_Tablerate_Collection */
+        /** @var Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection $collection */
         $collection = Mage::getResourceModel('shipping/carrier_tablerate_collection');
         $collection->setConditionFilter($this->getConditionName())
             ->setWebsiteFilter($this->getWebsiteId());
@@ -131,35 +123,35 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('dest_country', array(
+        $this->addColumn('dest_country', [
             'header'    => Mage::helper('adminhtml')->__('Country'),
             'index'     => 'dest_country',
             'default'   => '*',
-        ));
+        ]);
 
-        $this->addColumn('dest_region', array(
+        $this->addColumn('dest_region', [
             'header'    => Mage::helper('adminhtml')->__('Region/State'),
             'index'     => 'dest_region',
             'default'   => '*',
-        ));
+        ]);
 
-        $this->addColumn('dest_zip', array(
+        $this->addColumn('dest_zip', [
             'header'    => Mage::helper('adminhtml')->__('Zip/Postal Code'),
             'index'     => 'dest_zip',
             'default'   => '*',
-        ));
+        ]);
 
         $label = Mage::getSingleton('shipping/carrier_tablerate')
             ->getCode('condition_name_short', $this->getConditionName());
-        $this->addColumn('condition_value', array(
+        $this->addColumn('condition_value', [
             'header'    => $label,
             'index'     => 'condition_value',
-        ));
+        ]);
 
-        $this->addColumn('price', array(
+        $this->addColumn('price', [
             'header'    => Mage::helper('adminhtml')->__('Shipping Price'),
             'index'     => 'price',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }

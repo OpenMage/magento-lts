@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ImportExport
+ * @category   Mage
+ * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract adapter model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @property resource $_fileHandler
  * @property string $_delimiter
@@ -63,11 +57,10 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
      *
      * @param string $destination OPTIONAL Destination file path.
      * @throws Exception
-     * @return void
      */
     final public function __construct($destination = null)
     {
-        register_shutdown_function(array($this, 'destruct'));
+        register_shutdown_function([$this, 'destruct']);
 
         if (!$destination) {
             $destination = tempnam(sys_get_temp_dir(), 'importexport_');
@@ -154,7 +147,7 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
      */
     public function setHeaderCols(array $headerCols)
     {
-        if (null !== $this->_headerCols) {
+        if ($this->_headerCols !== null) {
             Mage::throwException(Mage::helper('importexport')->__('Header column names already set'));
         }
         if ($headerCols) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,22 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements IteratorAggregate
 {
-
     /**
      * Read connection
      *
@@ -35,9 +32,9 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
      */
     protected $_read;
 
-    protected $_items = array();
+    protected $_items = [];
 
-    protected $_totals = array('lifetime' => 0, 'num_orders' => 0);
+    protected $_totals = ['lifetime' => 0, 'num_orders' => 0];
 
     /**
      * Entity attribute
@@ -54,8 +51,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     protected $_select;
 
     /**
-     * Enter description here...
-     *
      * @var Mage_Customer_Model_Customer
      */
     protected $_customer;
@@ -90,13 +85,13 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
         $idField    = $this->getEntity()->getIdFieldName();
         $this->getSelect()
             ->from(
-                array('sales' => $entityTable),
-                array(
+                ['sales' => $entityTable],
+                [
                     'store_id',
                     'lifetime'  => 'sum(sales.base_grand_total)',
                     'avgsale'   => 'avg(sales.base_grand_total)',
                     'num_orders'=> 'count(sales.base_grand_total)'
-                )
+                ]
             )
             ->where('sales.entity_type_id=?', $this->getEntity()->getTypeId())
             ->group('sales.store_id')
@@ -165,8 +160,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $attr
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
@@ -176,8 +169,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
-     *
      * @return Mage_Eav_Model_Entity_Abstract
      */
     public function getEntity()
@@ -186,18 +177,15 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
-     *
      * @return ArrayIterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->_items);
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getItems()
@@ -206,8 +194,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
-     *
      * @return Varien_Object
      */
     public function getTotals()

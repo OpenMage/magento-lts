@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Flat sales order collection
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resource_Collection_Abstract
 {
@@ -70,7 +63,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
     {
         if (is_null($this->_fieldsToSelect)) {
             // If we select all fields from table, we need to add column alias
-            $this->getSelect()->columns(array('items_count'=>'total_item_count'));
+            $this->getSelect()->columns(['items_count'=>'total_item_count']);
         } else {
             $this->addFieldToSelect('total_item_count', 'items_count');
         }
@@ -84,7 +77,6 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      */
     public function getSelectCountSql()
     {
-        /* @var Varien_Db_Select $countSelect */
         $countSelect = parent::getSelectCountSql();
         $countSelect->resetJoinLeft();
         $countSelect->reset(Zend_Db_Select::GROUP);
@@ -133,30 +125,33 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
         $this
             ->getSelect()
             ->joinLeft(
-                array($billingAliasName => $joinTable),
+                [$billingAliasName => $joinTable],
                 "(main_table.entity_id = {$billingAliasName}.parent_id"
                     . " AND {$billingAliasName}.address_type = 'billing')",
-                array(
+                [
                     $billingAliasName . '.firstname',
                     $billingAliasName . '.middlename',
                     $billingAliasName . '.lastname',
                     $billingAliasName . '.telephone',
                     $billingAliasName . '.postcode'
-                )
+                ]
             )
             ->joinLeft(
-                array($shippingAliasName => $joinTable),
+                [$shippingAliasName => $joinTable],
                 "(main_table.entity_id = {$shippingAliasName}.parent_id"
                     . " AND {$shippingAliasName}.address_type = 'shipping')",
-                array(
+                [
                     $shippingAliasName . '.firstname',
                     $shippingAliasName . '.middlename',
                     $shippingAliasName . '.lastname',
                     $shippingAliasName . '.telephone',
                     $shippingAliasName . '.postcode'
-                )
+                ]
             );
-        Mage::getResourceHelper('core')->prepareColumnsList($this->getSelect());
+
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('core');
+        $helper->prepareColumnsList($this->getSelect());
         return $this;
     }
 
@@ -198,7 +193,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
         if (is_array($attributes) && !empty($attributes)) {
             $this->_addAddressFields();
 
-            $toFilterData = array();
+            $toFilterData = [];
             foreach ($attributes as $attribute) {
                 $this->addFieldToSearchFilter($this->_attributeToField($attribute['attribute']), $attribute);
             }
@@ -217,12 +212,12 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      */
     public function addBillingAgreementsFilter($agreements)
     {
-        $agreements = (is_array($agreements)) ? $agreements : array($agreements);
+        $agreements = (is_array($agreements)) ? $agreements : [$agreements];
         $this->getSelect()
             ->joinInner(
-                array('sbao' => $this->getTable('sales/billing_agreement_order')),
+                ['sbao' => $this->getTable('sales/billing_agreement_order')],
                 'main_table.entity_id = sbao.order_id',
-                array()
+                []
             )
             ->where('sbao.agreement_id IN(?)', $agreements);
         return $this;
@@ -236,12 +231,12 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      */
     public function addRecurringProfilesFilter($ids)
     {
-        $ids = (is_array($ids)) ? $ids : array($ids);
+        $ids = (is_array($ids)) ? $ids : [$ids];
         $this->getSelect()
             ->joinInner(
-                array('srpo' => $this->getTable('sales/recurring_profile_order')),
+                ['srpo' => $this->getTable('sales/recurring_profile_order')],
                 'main_table.entity_id = srpo.order_id',
-                array()
+                []
             )
             ->where('srpo.profile_id IN(?)', $ids);
         return $this;

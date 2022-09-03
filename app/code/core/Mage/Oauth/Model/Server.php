@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Oauth
@@ -104,7 +98,7 @@ class Mage_Oauth_Model_Server
      *
      * @var array
      */
-    protected $_errors = array(
+    protected $_errors = [
         self::ERR_VERSION_REJECTED          => 'version_rejected',
         self::ERR_PARAMETER_ABSENT          => 'parameter_absent',
         self::ERR_PARAMETER_REJECTED        => 'parameter_rejected',
@@ -120,14 +114,14 @@ class Mage_Oauth_Model_Server
         self::ERR_VERIFIER_INVALID          => 'verifier_invalid',
         self::ERR_PERMISSION_UNKNOWN        => 'permission_unknown',
         self::ERR_PERMISSION_DENIED         => 'permission_denied'
-    );
+    ];
 
     /**
      * Error code to HTTP error code
      *
      * @var array
      */
-    protected $_errorsToHttpCode = array(
+    protected $_errorsToHttpCode = [
         self::ERR_VERSION_REJECTED          => self::HTTP_BAD_REQUEST,
         self::ERR_PARAMETER_ABSENT          => self::HTTP_BAD_REQUEST,
         self::ERR_PARAMETER_REJECTED        => self::HTTP_BAD_REQUEST,
@@ -143,21 +137,21 @@ class Mage_Oauth_Model_Server
         self::ERR_VERIFIER_INVALID          => self::HTTP_UNAUTHORIZED,
         self::ERR_PERMISSION_UNKNOWN        => self::HTTP_UNAUTHORIZED,
         self::ERR_PERMISSION_DENIED         => self::HTTP_UNAUTHORIZED
-    );
+    ];
 
     /**
      * Request parameters
      *
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      * Protocol parameters
      *
      * @var array
      */
-    protected $_protocolParams = array();
+    protected $_protocolParams = [];
 
     /**
      * Request object
@@ -215,7 +209,7 @@ class Mage_Oauth_Model_Server
     {
         $authHeaderValue = $this->_request->getHeader('Authorization');
 
-        if ($authHeaderValue && 'oauth' === strtolower(substr($authHeaderValue, 0, 5))) {
+        if ($authHeaderValue && strtolower(substr($authHeaderValue, 0, 5)) === 'oauth') {
             $authHeaderValue = substr($authHeaderValue, 6); // ignore 'OAuth ' at the beginning
 
             foreach (explode(',', $authHeaderValue) as $paramStr) {
@@ -231,7 +225,7 @@ class Mage_Oauth_Model_Server
         }
         $contentTypeHeader = $this->_request->getHeader(Zend_Http_Client::CONTENT_TYPE);
 
-        if ($contentTypeHeader && 0 === strpos($contentTypeHeader, Zend_Http_Client::ENC_URLENCODED)) {
+        if ($contentTypeHeader && strpos($contentTypeHeader, Zend_Http_Client::ENC_URLENCODED) === 0) {
             $protocolParamsNotSet = !$this->_protocolParams;
 
             parse_str($this->_request->getRawBody(), $bodyParams);
@@ -252,7 +246,7 @@ class Mage_Oauth_Model_Server
             foreach (explode('&', $queryString) as $paramToValue) {
                 $paramData = explode('=', $paramToValue);
 
-                if (2 === count($paramData) && !$this->_isProtocolParameter($paramData[0])) {
+                if (count($paramData) === 2 && !$this->_isProtocolParameter($paramData[0])) {
                     $this->_params[rawurldecode($paramData[0])] = rawurldecode($paramData[1]);
                 }
             }
@@ -285,7 +279,7 @@ class Mage_Oauth_Model_Server
      */
     protected function _getResponse()
     {
-        if (null === $this->_response) {
+        if ($this->_response === null) {
             $this->setResponse(Mage::app()->getResponse());
         }
         return $this->_response;
@@ -331,7 +325,7 @@ class Mage_Oauth_Model_Server
                 if (!hash_equals($this->_token->getVerifier(), $this->_protocolParams['oauth_verifier'])) {
                     $this->_throwException('', self::ERR_VERIFIER_INVALID);
                 }
-                if (!hash_equals($this->_token->getConsumerId(), $this->_consumer->getId())) {
+                if (!hash_equals((string)$this->_token->getConsumerId(), (string)$this->_consumer->getId())) {
                     $this->_throwException('', self::ERR_TOKEN_REJECTED);
                 }
                 if (Mage_Oauth_Model_Token::TYPE_REQUEST != $this->_token->getType()) {
@@ -491,11 +485,11 @@ class Mage_Oauth_Model_Server
     protected function _validateProtocolParams()
     {
         // validate version if specified
-        if (isset($this->_protocolParams['oauth_version']) && '1.0' != $this->_protocolParams['oauth_version']) {
+        if (isset($this->_protocolParams['oauth_version']) && $this->_protocolParams['oauth_version'] != '1.0') {
             $this->_throwException('', self::ERR_VERSION_REJECTED);
         }
         // required parameters validation
-        foreach (array('oauth_consumer_key', 'oauth_signature_method', 'oauth_signature') as $reqField) {
+        foreach (['oauth_consumer_key', 'oauth_signature_method', 'oauth_signature'] as $reqField) {
             if (empty($this->_protocolParams[$reqField])) {
                 $this->_throwException($reqField, self::ERR_PARAMETER_ABSENT);
             }
@@ -649,7 +643,7 @@ class Mage_Oauth_Model_Server
      */
     public static function getSupportedSignatureMethods()
     {
-        return array(self::SIGNATURE_RSA, self::SIGNATURE_HMAC, self::SIGNATURE_PLAIN);
+        return [self::SIGNATURE_RSA, self::SIGNATURE_HMAC, self::SIGNATURE_PLAIN];
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller_Front_Action
 {
@@ -52,7 +46,6 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
     {
         return Mage::getSingleton('checkout/type_multishipping_state');
     }
-
 
     /**
      * Create New Shipping address Form
@@ -98,7 +91,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
         $this->_initLayoutMessages('customer/session');
         if ($addressForm = $this->getLayout()->getBlock('customer_address_edit')) {
             $addressForm->setTitle(Mage::helper('checkout')->__('Edit Shipping Address'))
-                ->setSuccessUrl(Mage::getUrl('*/*/editShippingPost', array('id'=>$this->getRequest()->getParam('id'))))
+                ->setSuccessUrl(Mage::getUrl('*/*/editShippingPost', ['id'=>$this->getRequest()->getParam('id')]))
                 ->setErrorUrl(Mage::getUrl('*/*/*'));
 
             if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -154,7 +147,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
         if ($addressForm = $this->getLayout()->getBlock('customer_address_edit')) {
             $addressForm->setTitle(Mage::helper('checkout')->__('Edit Address'))
                 ->setSuccessUrl(Mage::getUrl('*/*/selectBilling'))
-                ->setErrorUrl(Mage::getUrl('*/*/*', array('id'=>$this->getRequest()->getParam('id'))))
+                ->setErrorUrl(Mage::getUrl('*/*/*', ['id'=>$this->getRequest()->getParam('id')]))
                 ->setBackUrl(Mage::getUrl('*/*/selectBilling'));
 
             if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -173,8 +166,8 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
         $this->_initLayoutMessages('customer/session');
         if ($addressForm = $this->getLayout()->getBlock('customer_address_edit')) {
             $addressForm->setTitle(Mage::helper('checkout')->__('Edit Billing Address'))
-                ->setSuccessUrl(Mage::getUrl('*/*/saveBilling', array('id'=>$this->getRequest()->getParam('id'))))
-                ->setErrorUrl(Mage::getUrl('*/*/*', array('id'=>$this->getRequest()->getParam('id'))))
+                ->setSuccessUrl(Mage::getUrl('*/*/saveBilling', ['id'=>$this->getRequest()->getParam('id')]))
+                ->setErrorUrl(Mage::getUrl('*/*/*', ['id'=>$this->getRequest()->getParam('id')]))
                 ->setBackUrl(Mage::getUrl('*/multishipping/overview'));
             if ($headBlock = $this->getLayout()->getBlock('head')) {
                 $headBlock->setTitle($addressForm->getTitle() . ' - ' . $headBlock->getDefaultTitle());

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ProductAlert
+ * @category   Mage
+ * @package    Mage_ProductAlert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_ProductAlert
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
 {
@@ -67,7 +61,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
 
         $product = Mage::getModel('catalog/product')->load($productId);
         if (!$product->getId()) {
-            /* @var Mage_Catalog_Model_Product $product */
+            /** @var Mage_Catalog_Model_Product $product */
             $session->addError($this->__('Not enough parameters.'));
             if ($this->_isUrlInternal($backUrl)) {
                 $this->_redirectUrl($backUrl);
@@ -94,7 +88,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
     public function stockAction()
     {
         $session = Mage::getSingleton('catalog/session');
-        /* @var Mage_Catalog_Model_Session $session */
+        /** @var Mage_Catalog_Model_Session $session */
         $backUrl    = $this->getRequest()->getParam(Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED);
         $productId  = (int) $this->getRequest()->getParam('product_id');
         if (!$backUrl || !$productId) {
@@ -103,7 +97,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
         }
 
         if (!$product = Mage::getModel('catalog/product')->load($productId)) {
-            /* @var Mage_Catalog_Model_Product $product */
+            /** @var Mage_Catalog_Model_Product $product */
             $session->addError($this->__('Not enough parameters.'));
             $this->_redirectUrl($backUrl);
             return ;

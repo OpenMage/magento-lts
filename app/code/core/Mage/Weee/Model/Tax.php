@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Weee
@@ -61,7 +55,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_productDiscounts = array();
+    protected $_productDiscounts = [];
 
     /**
      * Tax helper
@@ -78,13 +72,12 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
         $this->_init('weee/tax', 'weee/tax');
     }
 
-
     /**
      * Initialize tax helper
      *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         parent::__construct();
         $this->_taxHelper = !empty($args['helper']) ? $args['helper'] : Mage::helper('tax');
@@ -144,7 +137,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
     public function getWeeeTaxAttributeCodes($forceEnabled = false)
     {
         if (!$forceEnabled && !Mage::helper('weee')->isEnabled()) {
-            return array();
+            return [];
         }
 
         if (is_null($this->_allAttributes)) {
@@ -172,7 +165,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
         $calculateTax = null,
         $ignoreDiscount = false
     ) {
-        $result = array();
+        $result = [];
         $allWeee = $this->getWeeeTaxAttributeCodes();
         if (!$allWeee) {
             return $result;
@@ -216,13 +209,13 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
                 $attributeSelect
                     ->from($this->getResource()->getTable('weee/tax'), 'value')
                     ->where('attribute_id = ?', (int)$attribute->getId())
-                    ->where('website_id IN(?)', array($websiteId, 0))
+                    ->where('website_id IN(?)', [$websiteId, 0])
                     ->where('country = ?', $rateRequest->getCountryId())
-                    ->where('state IN(?)', array($rateRequest->getRegionId(), '*'))
+                    ->where('state IN(?)', [$rateRequest->getRegionId(), '*'])
                     ->where('entity_id = ?', (int)$product->getId())
                     ->limit(1);
 
-                $order = array('state ' . Varien_Db_Select::SQL_DESC, 'website_id ' . Varien_Db_Select::SQL_DESC);
+                $order = ['state ' . Varien_Db_Select::SQL_DESC, 'website_id ' . Varien_Db_Select::SQL_DESC];
                 $attributeSelect->order($order);
                 $value = $this->getResource()->getReadConnection()->fetchOne($attributeSelect);
 
@@ -284,7 +277,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
     {
         $website = Mage::app()->getStore()->getWebsiteId();
         $group = Mage::getSingleton('customer/session')->getCustomerGroupId();
-        $key = implode('-', array($website, $group, $product->getId()));
+        $key = implode('-', [$website, $group, $product->getId()]);
         if (!isset($this->_productDiscounts[$key])) {
             $this->_productDiscounts[$key] = (int) $this->getResource()
                 ->getProductDiscountPercent($product->getId(), $website, $group);

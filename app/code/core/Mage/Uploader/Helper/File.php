@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,26 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Uploader
+ * @category   Mage
+ * @package    Mage_Uploader
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * File Helper
- *
- * @category    Mage
- * @package     Mage_Uploader
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Uploader
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
 {
     /**
@@ -40,7 +31,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
      * @var array
      */
     protected $_mimeTypes =
-        array(
+        [
             'x123' => 'application/vnd.lotus-1-2-3',
             'x3dml' => 'text/vnd.in3d.3dml',
             'x3g2' => 'video/3gpp2',
@@ -616,6 +607,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
             'xxlc' => 'application/vnd.ms-excel',
             'xxlm' => 'application/vnd.ms-excel',
             'xxls' => 'application/vnd.ms-excel',
+            'xxlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             'xxlt' => 'application/vnd.ms-excel',
             'xxlw' => 'application/vnd.ms-excel',
             'xxml' => 'application/xml',
@@ -638,7 +630,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
             'xzaz' => 'application/vnd.zzazz.deck+xml',
             'xzip' => 'application/zip',
             'xzmm' => 'application/vnd.handheld-entertainment+xml',
-        );
+        ];
 
     /**
      * Extend list of MIME types if needed from config
@@ -657,7 +649,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Get MIME type by file extension from list of pre-defined MIME types
      *
-     * @param $ext
+     * @param string $ext
      * @return string
      */
     public function getMimeTypeByExtension($ext)
@@ -691,7 +683,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
             $extensionsList = array_map('trim', explode(',', $extensionsList));
         }
 
-        return array_map(array($this, 'getMimeTypeByExtension'), $extensionsList);
+        return array_map([$this, 'getMimeTypeByExtension'], $extensionsList);
     }
 
     /**
@@ -732,7 +724,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
     public function getDataMaxSizeInBytes()
     {
         $iniSize = $this->getDataMaxSize();
-        $size = substr($iniSize, 0, strlen($iniSize)-1);
+        $size = substr($iniSize, 0, -1);
         $parsedSize = 0;
         switch (strtolower(substr($iniSize, strlen($iniSize)-1))) {
             case 't':
@@ -754,5 +746,4 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
         }
         return (int)$parsedSize;
     }
-
 }

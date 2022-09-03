@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -52,13 +46,13 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
         $tierPrices = $product->getData(self::ATTRIBUTE_CODE);
 
         if (!is_array($tierPrices)) {
-            return array();
+            return [];
         }
 
-        $result = array();
+        $result = [];
 
         foreach ($tierPrices as $tierPrice) {
-            $row = array();
+            $row = [];
             $row['customer_group_id'] = (empty($tierPrice['all_groups']) ? $tierPrice['cust_group'] : 'all' );
             $row['website']           = ($tierPrice['website_id'] ?
                             Mage::app()->getWebsite($tierPrice['website_id'])->getCode() :
@@ -98,7 +92,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
              * @todo see Mage_Catalog_Model_Product::validate()
              */
             if (is_array($errors = $product->validate())) {
-                $strErrors = array();
+                $strErrors = [];
                 foreach ($errors as $code => $error) {
                     $strErrors[] = ($error === true)? Mage::helper('catalog')->__('Value for "%s" is invalid.', $code) : Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $code, $error);
                 }
@@ -130,7 +124,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
             $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid Tier Prices'));
         }
 
-        $updateValue = array();
+        $updateValue = [];
 
         foreach ($tierPrices as $tierPrice) {
             if (!is_array($tierPrice)
@@ -161,12 +155,12 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
                 $tierPrice['customer_group_id'] = Mage_Customer_Model_Group::CUST_GROUP_ALL;
             }
 
-            $updateValue[] = array(
+            $updateValue[] = [
                 'website_id' => $tierPrice['website'],
                 'cust_group' => $tierPrice['customer_group_id'],
                 'price_qty'  => $tierPrice['qty'],
                 'price'      => $tierPrice['price']
-            );
+            ];
         }
 
         return $updateValue;
@@ -188,4 +182,4 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
 
         return $product;
     }
-} // Class Mage_Catalog_Model_Product_Attribute_Tierprice End
+}

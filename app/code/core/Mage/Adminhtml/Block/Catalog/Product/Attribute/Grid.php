@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -56,67 +50,67 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
     {
         parent::_prepareColumns();
 
-        $this->addColumnAfter('is_visible', array(
+        $this->addColumnAfter('is_visible', [
             'header'=>Mage::helper('catalog')->__('Visible'),
             'sortable'=>true,
             'index'=>'is_visible_on_front',
             'type' => 'options',
-            'options' => array(
+            'options' => [
                 '1' => Mage::helper('catalog')->__('Yes'),
                 '0' => Mage::helper('catalog')->__('No'),
-            ),
+            ],
             'align' => 'center',
-        ), 'frontend_label');
+        ], 'frontend_label');
 
-        $this->addColumnAfter('is_global', array(
+        $this->addColumnAfter('is_global', [
             'header'=>Mage::helper('catalog')->__('Scope'),
             'sortable'=>true,
             'index'=>'is_global',
             'type' => 'options',
-            'options' => array(
+            'options' => [
                 Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE =>Mage::helper('catalog')->__('Store View'),
                 Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE =>Mage::helper('catalog')->__('Website'),
                 Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL =>Mage::helper('catalog')->__('Global'),
-            ),
+            ],
             'align' => 'center',
-        ), 'is_visible');
+        ], 'is_visible');
 
-        $this->addColumn('is_searchable', array(
+        $this->addColumn('is_searchable', [
             'header'=>Mage::helper('catalog')->__('Searchable'),
             'sortable'=>true,
             'index'=>'is_searchable',
             'type' => 'options',
-            'options' => array(
+            'options' => [
                 '1' => Mage::helper('catalog')->__('Yes'),
                 '0' => Mage::helper('catalog')->__('No'),
-            ),
+            ],
             'align' => 'center',
-        ), 'is_user_defined');
+        ], 'is_user_defined');
 
-        $this->addColumnAfter('is_filterable', array(
+        $this->addColumnAfter('is_filterable', [
             'header'=>Mage::helper('catalog')->__('Use in Layered Navigation'),
             'sortable'=>true,
             'index'=>'is_filterable',
             'type' => 'options',
-            'options' => array(
+            'options' => [
                 '1' => Mage::helper('catalog')->__('Filterable (with results)'),
                 '2' => Mage::helper('catalog')->__('Filterable (no results)'),
                 '0' => Mage::helper('catalog')->__('No'),
-            ),
+            ],
             'align' => 'center',
-        ), 'is_searchable');
+        ], 'is_searchable');
 
-        $this->addColumnAfter('is_comparable', array(
+        $this->addColumnAfter('is_comparable', [
             'header'=>Mage::helper('catalog')->__('Comparable'),
             'sortable'=>true,
             'index'=>'is_comparable',
             'type' => 'options',
-            'options' => array(
+            'options' => [
                 '1' => Mage::helper('catalog')->__('Yes'),
                 '0' => Mage::helper('catalog')->__('No'),
-            ),
+            ],
             'align' => 'center',
-        ), 'is_filterable');
+        ], 'is_filterable');
 
         return $this;
     }

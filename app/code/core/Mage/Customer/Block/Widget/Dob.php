@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @method string getTime()
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method DateTime getTime()
  * @method $this setTime(string $value)
  */
 class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
@@ -35,7 +33,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      *
      * @var array
      */
-    protected $_dateInputs = array();
+    protected $_dateInputs = [];
 
     public function _construct()
     {
@@ -67,33 +65,50 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      */
     public function setDate($date)
     {
-        $this->setTime($date ? strtotime($date) : false);
+        if ($date) {
+            try {
+                $dateTime = new DateTime($date);
+                $this->setTime($dateTime);
+            } catch (Exception $e) {
+                Mage::logException($e);
+            }
+        }
+
         $this->setData('date', $date);
+
         return $this;
     }
 
     /**
-     * @return false|string
+     * @return bool
+     */
+    public function hasTime()
+    {
+        return ($this->getTime() instanceof DateTime);
+    }
+
+    /**
+     * @return string
      */
     public function getDay()
     {
-        return $this->getTime() ? date('d', $this->getTime()) : '';
+        return ($this->hasTime()) ? $this->getTime()->format('d') : '';
     }
 
     /**
-     * @return false|string
+     * @return string
      */
     public function getMonth()
     {
-        return $this->getTime() ? date('m', $this->getTime()) : '';
+        return ($this->hasTime()) ? $this->getTime()->format('m') : '';
     }
 
     /**
-     * @return false|string
+     * @return string
      */
     public function getYear()
     {
-        return $this->getTime() ? date('Y', $this->getTime()) : '';
+        return ($this->hasTime()) ? $this->getTime()->format('o') : '';
     }
 
     /**
@@ -124,7 +139,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      */
     public function getSortedDateInputs()
     {
-        $strtr = array(
+        $strtr = [
             '%b' => '%1$s',
             '%B' => '%1$s',
             '%m' => '%1$s',
@@ -132,7 +147,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
             '%e' => '%2$s',
             '%Y' => '%3$s',
             '%y' => '%3$s'
-        );
+        ];
 
         $dateFormat = preg_replace('/[^\%\w]/', '\\1', $this->getDateFormat());
 

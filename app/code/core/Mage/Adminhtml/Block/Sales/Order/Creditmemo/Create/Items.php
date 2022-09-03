@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Adminhtml_Block_Sales_Items_Abstract
@@ -45,42 +39,42 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
         $onclick = "submitAndReloadArea($('creditmemo_item_container'),'".$this->getUpdateUrl()."')";
         $this->setChild(
             'update_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'label'     => Mage::helper('sales')->__('Update Qty\'s'),
                 'class'     => 'update-button',
                 'onclick'   => $onclick,
-            ))
+            ])
         );
 
         if ($this->getCreditmemo()->canRefund()) {
             if ($this->getCreditmemo()->getInvoice() && $this->getCreditmemo()->getInvoice()->getTransactionId()) {
                 $this->setChild(
                     'submit_button',
-                    $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+                    $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                         'label'     => Mage::helper('sales')->__('Refund'),
                         'class'     => 'save submit-button',
                         'onclick'   => 'disableElements(\'submit-button\');submitCreditMemo()',
-                    ))
+                    ])
                 );
             }
             $this->setChild(
                 'submit_offline',
-                $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+                $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                     'label'     => Mage::helper('sales')->__('Refund Offline'),
                     'class'     => 'save submit-button',
                     'onclick'   => 'disableElements(\'submit-button\');submitCreditMemoOffline()',
-                ))
+                ])
             );
 
         }
         else {
             $this->setChild(
                 'submit_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+                $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                     'label'     => Mage::helper('sales')->__('Refund Offline'),
                     'class'     => 'save submit-button',
                     'onclick'   => 'disableElements(\'submit-button\');submitCreditMemoOffline()',
-                ))
+                ])
             );
         }
 
@@ -114,7 +108,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
      */
     public function getOrderTotalData()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -124,13 +118,13 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
      */
     public function getOrderTotalbarData()
     {
-        $totalbarData = array();
+        $totalbarData = [];
         $this->setPriceDataObject($this->getOrder());
-        $totalbarData[] = array(Mage::helper('sales')->__('Paid Amount'), $this->displayPriceAttribute('total_invoiced'), false);
-        $totalbarData[] = array(Mage::helper('sales')->__('Refund Amount'), $this->displayPriceAttribute('total_refunded'), false);
-        $totalbarData[] = array(Mage::helper('sales')->__('Shipping Amount'), $this->displayPriceAttribute('shipping_invoiced'), false);
-        $totalbarData[] = array(Mage::helper('sales')->__('Shipping Refund'), $this->displayPriceAttribute('shipping_refunded'), false);
-        $totalbarData[] = array(Mage::helper('sales')->__('Order Grand Total'), $this->displayPriceAttribute('grand_total'), true);
+        $totalbarData[] = [Mage::helper('sales')->__('Paid Amount'), $this->displayPriceAttribute('total_invoiced'), false];
+        $totalbarData[] = [Mage::helper('sales')->__('Refund Amount'), $this->displayPriceAttribute('total_refunded'), false];
+        $totalbarData[] = [Mage::helper('sales')->__('Shipping Amount'), $this->displayPriceAttribute('shipping_invoiced'), false];
+        $totalbarData[] = [Mage::helper('sales')->__('Shipping Refund'), $this->displayPriceAttribute('shipping_refunded'), false];
+        $totalbarData[] = [Mage::helper('sales')->__('Order Grand Total'), $this->displayPriceAttribute('grand_total'), true];
 
         return $totalbarData;
     }
@@ -138,7 +132,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
     /**
      * Retrieve creditmemo model instance
      *
-     * @return Mage_Sales_Model_Creditmemo
+     * @return Mage_Sales_Model_Order_Creditmemo
      */
     public function getCreditmemo()
     {
@@ -160,10 +154,10 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
 
     public function getUpdateUrl()
     {
-        return $this->getUrl('*/*/updateQty', array(
+        return $this->getUrl('*/*/updateQty', [
                 'order_id'=>$this->getCreditmemo()->getOrderId(),
                 'invoice_id'=>$this->getRequest()->getParam('invoice_id', null),
-        ));
+        ]);
     }
 
     public function canReturnToStock()

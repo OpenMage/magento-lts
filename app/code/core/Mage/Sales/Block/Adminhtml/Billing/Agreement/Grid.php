@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,22 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml billing agreements grid
  *
- * @author Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -52,7 +48,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/sales_billing_agreement/grid', array('_current' => true));
+        return $this->getUrl('*/sales_billing_agreement/grid', ['_current' => true]);
     }
 
     /**
@@ -63,7 +59,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
      */
     public function getRowUrl($item)
     {
-        return $this->getUrl('*/sales_billing_agreement/view', array('agreement' => $item->getAgreementId()));
+        return $this->getUrl('*/sales_billing_agreement/view', ['agreement' => $item->getAgreementId()]);
     }
 
     /**
@@ -86,79 +82,79 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('agreement_id', array(
+        $this->addColumn('agreement_id', [
             'header'            => Mage::helper('sales')->__('ID'),
             'index'             => 'agreement_id',
             'type'              => 'text'
-        ));
+        ]);
 
-        $this->addColumn('customer_email', array(
+        $this->addColumn('customer_email', [
             'header'            => Mage::helper('sales')->__('Customer Email'),
             'index'             => 'customer_email',
             'type'              => 'text',
             'escape'            => true
-        ));
+        ]);
 
-        $this->addColumn('customer_firstname', array(
+        $this->addColumn('customer_firstname', [
             'header'            => Mage::helper('sales')->__('Customer Name'),
             'index'             => 'customer_firstname',
             'type'              => 'text',
             'escape'            => true
-        ));
+        ]);
 
-        $this->addColumn('customer_middlename', array(
+        $this->addColumn('customer_middlename', [
             'header'            => Mage::helper('sales')->__('Customer Middle Name'),
             'index'             => 'customer_middlename',
             'type'              => 'text',
             'escape'            => true
-        ));
+        ]);
 
-        $this->addColumn('customer_lastname', array(
+        $this->addColumn('customer_lastname', [
             'header'            => Mage::helper('sales')->__('Customer Last Name'),
             'index'             => 'customer_lastname',
             'type'              => 'text',
             'escape'            => true
-        ));
+        ]);
 
-        $this->addColumn('method_code', array(
+        $this->addColumn('method_code', [
             'header'            => Mage::helper('sales')->__('Payment Method'),
             'index'             => 'method_code',
             'type'              => 'options',
             'options'           => Mage::helper('payment')->getAllBillingAgreementMethods()
-        ));
+        ]);
 
-        $this->addColumn('reference_id', array(
+        $this->addColumn('reference_id', [
             'header'            => Mage::helper('sales')->__('Reference ID'),
             'index'             => 'reference_id',
             'type'              => 'text'
-        ));
+        ]);
 
-        $this->addColumn('status', array(
+        $this->addColumn('status', [
             'header'            => Mage::helper('sales')->__('Status'),
             'index'             => 'status',
             'type'              => 'options',
             'options'           => Mage::getSingleton('sales/billing_agreement')->getStatusesArray()
-        ));
+        ]);
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('created_at', [
             'header'            => Mage::helper('sales')->__('Created At'),
             'index'             => 'agreement_created_at',
             'width'             => 1,
             'type'              => 'datetime',
             'align'             => 'center',
             'default'           => $this->__('N/A'),
-            'html_decorators'   => array('nobr')
-        ));
+            'html_decorators'   => ['nobr']
+        ]);
 
-        $this->addColumn('updated_at', array(
+        $this->addColumn('updated_at', [
             'header'            => Mage::helper('sales')->__('Updated At'),
             'index'             => 'agreement_updated_at',
             'width'             => 1,
             'type'              => 'datetime',
             'align'             => 'center',
             'default'           => $this->__('N/A'),
-            'html_decorators'   => array('nobr')
-        ));
+            'html_decorators'   => ['nobr']
+        ]);
 
         return parent::_prepareColumns();
     }

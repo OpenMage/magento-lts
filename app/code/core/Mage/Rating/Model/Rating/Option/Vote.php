@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Rating
@@ -31,7 +25,7 @@
  * @package    Mage_Rating
  * @author      Magento Core Team <core@magentocommerce.com>
  *
- * @method Mage_Rating_Model_Resource_Rating_Option_Vote_Collection getResourceCollection()()
+ * @method Mage_Rating_Model_Resource_Rating_Option_Vote_Collection getResourceCollection()
  * @method string getEntityPkValue()
  * @method int getRatingId()
  * @method $this setRatingOptions(Mage_Rating_Model_Resource_Rating_Option_Collection $options)

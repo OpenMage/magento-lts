@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Bundle
@@ -83,12 +77,12 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search 
      */
     public function getButtonsHtml()
     {
-        $addButtonData = array(
+        $addButtonData = [
             'id'    => 'add_button_' . $this->getIndex(),
             'label' => Mage::helper('sales')->__('Add Selected Product(s) to Option'),
             'onclick' => 'bSelection.productGridAddSelected(event)',
             'class' => 'add',
-        );
+        ];
         return $this->getLayout()->createBlock('adminhtml/widget_button')->setData($addButtonData)->toHtml();
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order item render block
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Template
 {
@@ -61,7 +55,6 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
         return $this->getOrderItem()->getOrder();
     }
 
-
     /**
      * @return mixed
      */
@@ -79,7 +72,7 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
      */
     public function getItemOptions()
     {
-        $result = array();
+        $result = [];
         if ($options = $this->getOrderItem()->getProductOptions()) {
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
@@ -116,7 +109,7 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
      */
     public function getFormatedOptionValue($optionValue)
     {
-        $optionInfo = array();
+        $optionInfo = [];
 
         // define input data format
         if (is_array($optionValue)) {
@@ -132,11 +125,11 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
 
         // render customized option view
         if (isset($optionInfo['custom_view']) && $optionInfo['custom_view']) {
-            $_default = array('value' => $optionValue);
+            $_default = ['value' => $optionValue];
             if (isset($optionInfo['option_type'])) {
                 try {
                     $group = Mage::getModel('catalog/product_option')->groupFactory($optionInfo['option_type']);
-                    return array('value' => $group->getCustomizedView($optionInfo));
+                    return ['value' => $group->getCustomizedView($optionInfo)];
                 } catch (Exception $e) {
                     return $_default;
                 }
@@ -145,22 +138,22 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
         }
 
         // truncate standard view
-        $result = array();
+        $result = [];
         if (is_array($optionValue)) {
             $_truncatedValue = implode("\n", $optionValue);
             $_truncatedValue = nl2br($_truncatedValue);
-            return array('value' => $_truncatedValue);
+            return ['value' => $_truncatedValue];
         } else {
             $_truncatedValue = Mage::helper('core/string')->truncate($optionValue, 55, '');
             $_truncatedValue = nl2br($_truncatedValue);
         }
 
-        $result = array('value' => $_truncatedValue);
+        $result = ['value' => $_truncatedValue];
 
         if (Mage::helper('core/string')->strlen($optionValue) > 55) {
             $result['value'] = $result['value'] . ' <a href="#" class="dots" onclick="return false">...</a>';
             $optionValue = nl2br($optionValue);
-            $result = array_merge($result, array('full_view' => $optionValue));
+            $result = array_merge($result, ['full_view' => $optionValue]);
         }
 
         return $result;
