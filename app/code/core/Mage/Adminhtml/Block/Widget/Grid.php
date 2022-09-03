@@ -215,9 +215,12 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * @var array[][]
      */
     protected $defaultColumnSettings = [
+        'date' => [
+            'width' => 140
+        ],
         'datetime' => [
-            'width' => 160
-        ]
+            'width' => 140
+        ],
     ];
 
     /**
