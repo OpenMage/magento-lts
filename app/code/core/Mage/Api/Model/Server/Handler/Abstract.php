@@ -334,7 +334,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             }
 
             $apiPath = $call[0];
-            $args    =  ($call[1] ?? []);
+            $args    = $call[1] ?? [];
 
             list($resourceName, $methodName) = explode('.', $apiPath);
 
@@ -484,7 +484,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 'title'       => (string) $resource->title,
                 'description' => (isset($resource->description) ? (string)$resource->description : null),
                 'name'        => $resourceName,
-                'aliases'     => ($resourcesAlias[$resourceName] ?? []),
+                'aliases'     => $resourcesAlias[$resourceName] ?? [],
                 'methods'     => $methods
             ];
         }
