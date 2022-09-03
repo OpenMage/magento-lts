@@ -15,20 +15,19 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Media library js helper
  *
- * @deprecated since 1.7.0.0
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ * @deprecated since 1.7.0.0
  */
 class Mage_Adminhtml_Helper_Media_Js extends Mage_Core_Helper_Js
 {
-
     public function __construct()
     {
          $this->_translateData = [
@@ -60,5 +59,4 @@ class Mage_Adminhtml_Helper_Media_Js extends Mage_Core_Helper_Js
                 . '}';
         return $this->getScript($script);
     }
-
 }
