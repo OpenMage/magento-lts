@@ -33,5 +33,4 @@ class Mage_Adminhtml_Model_System_Config_Source_Tax_Catalog
             ['value'=>2, 'label'=>Mage::helper('adminhtml')->__("Both (without and with tax)")],
         ];
     }
-
 }

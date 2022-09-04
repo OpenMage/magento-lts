@@ -61,5 +61,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Apply extends Varien_Data
         $this->setData('disabled', $useDisabled);
         return $this;
     }
-
 }

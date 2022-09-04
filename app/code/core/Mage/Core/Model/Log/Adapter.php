@@ -27,7 +27,6 @@
  */
 class Mage_Core_Model_Log_Adapter
 {
-
     /**
      * Store log file name
      *

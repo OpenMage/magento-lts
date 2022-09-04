@@ -27,7 +27,6 @@
  */
 class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resource
 {
-
     /**
      * Initialize attributes mapping
      */

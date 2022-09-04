@@ -142,7 +142,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Order
      *
-     * @var Mage_Sales_Model_QuoteMage_Sales_Model_Quote
+     * @var Mage_Sales_Model_Order
      */
     protected $_order = null;
 

@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -500,7 +500,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                 if ($field && $cond !== null) {
                     $filtered = array_map(static function ($value) {
                         return is_object($value) ? $value->__toString() : $value;
-                    }, array_values($cond));
+                    }, is_array($cond) ? array_values($cond) : [$cond]);
                     if (in_array('\'%NULL%\'', $filtered, true) || in_array('NULL', $filtered, true)) {
                         $this->getCollection()->addFieldToFilter($field, ['null' => true]);
                     } else {

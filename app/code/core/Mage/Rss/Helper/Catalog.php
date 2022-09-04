@@ -27,7 +27,6 @@
  */
 class Mage_Rss_Helper_Catalog extends Mage_Core_Helper_Abstract
 {
-
     /**
      * @return string
      */
@@ -42,5 +41,4 @@ class Mage_Rss_Helper_Catalog extends Mage_Core_Helper_Abstract
         }
         return $url;
     }
-
 }
