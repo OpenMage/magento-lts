@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -106,7 +106,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
      */
     protected function _prepareCollection()
     {
-        /** @var Mage_Shipping_Model_Mysql4_Carrier_Tablerate_Collection $collection */
+        /** @var Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection $collection */
         $collection = Mage::getResourceModel('shipping/carrier_tablerate_collection');
         $collection->setConditionFilter($this->getConditionName())
             ->setWebsiteFilter($this->getWebsiteId());

@@ -25,7 +25,6 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Abstract extends Mage_Adminhtml_Block_Widget
 {
     protected $_name = 'abstract';
@@ -59,5 +58,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Abstract extend
         }
         return $this->getChildHtml('option_price_type');
     }
-
 }

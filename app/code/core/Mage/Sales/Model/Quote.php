@@ -622,7 +622,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         $addresses = [];
         foreach ($this->getAddressesCollection() as $address) {
-            if ($address->getAddressType()==Mage_Sales_Model_Quote_Address::TYPE_SHIPPING
+            if ($address->getAddressType() == Mage_Sales_Model_Quote_Address::TYPE_SHIPPING
                 && !$address->isDeleted()) {
                 $addresses[] = $address;
             }
@@ -652,7 +652,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function getAddressById($addressId)
     {
         foreach ($this->getAddressesCollection() as $address) {
-            if ($address->getId()==$addressId) {
+            if ($address->getId() == $addressId) {
                 return $address;
             }
         }

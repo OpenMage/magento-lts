@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,10 +27,8 @@
  */
 class Mage_Adminhtml_Block_System_Config_Form_Field_Image extends Varien_Data_Form_Element_Image
 {
-
     /**
      * Get image preview url
-     *
      * @return string
      */
     protected function _getUrl()
@@ -47,5 +45,4 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Image extends Varien_Data_Fo
 
         return $url;
     }
-
 }

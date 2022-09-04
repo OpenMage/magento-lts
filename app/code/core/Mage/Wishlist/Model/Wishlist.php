@@ -276,7 +276,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @deprecated after 1.4.2.0
      * @see Mage_Wishlist_Model_Wishlist::getItemCollection()
      *
-     * @return Mage_Wishlist_Model_Mysql4_Product_Collection
+     * @return Mage_Wishlist_Model_Resource_Product_Collection
      */
     public function getProductCollection()
     {

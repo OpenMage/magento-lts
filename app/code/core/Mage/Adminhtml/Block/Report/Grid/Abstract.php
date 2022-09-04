@@ -30,6 +30,9 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     protected $_storeIds                = [];
     protected $_aggregatedColumns       = null;
 
+    /**
+     * Mage_Adminhtml_Block_Report_Grid_Abstract constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -42,11 +45,17 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         $this->setEmptyCellLabel(Mage::helper('adminhtml')->__('No records found for this period.'));
     }
 
+    /**
+     * @return string
+     */
     public function getResourceCollectionName()
     {
         return $this->_resourceCollectionName;
     }
 
+    /**
+     * @return Mage_Reports_Model_Grouped_Collection
+     */
     public function getCollection()
     {
         if (is_null($this->_collection)) {
@@ -55,6 +64,9 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         return $this->_collection;
     }
 
+    /**
+     * @return array
+     */
     protected function _getAggregatedColumns()
     {
         if (is_null($this->_aggregatedColumns)) {

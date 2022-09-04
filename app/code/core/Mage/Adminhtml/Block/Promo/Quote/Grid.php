@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
      */
     protected function _prepareCollection()
     {
-        /** @var Mage_SalesRule_Model_Mysql4_Rule_Collection $collection  */
+        /** @var Mage_SalesRule_Model_Resource_Rule_Collection $collection  */
         $collection = Mage::getModel('salesrule/rule')
             ->getResourceCollection();
         $collection->addWebsitesToResult();

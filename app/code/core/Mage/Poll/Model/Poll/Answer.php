@@ -41,7 +41,6 @@
  * @method int getVotesCount()
  * @method $this setVotesCount(int $value)
  */
-
 class Mage_Poll_Model_Poll_Answer extends Mage_Core_Model_Abstract
 {
     protected function _construct()

@@ -27,7 +27,6 @@
  */
 abstract class Mage_Catalog_Block_Seo_Sitemap_Abstract extends Mage_Core_Block_Template
 {
-
     /**
      * Init pager
      *

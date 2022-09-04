@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order creditmemo model
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Order_Creditmemo _getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo getResource()
@@ -144,10 +148,6 @@
  * @method bool getOfflineRequested()
  * @method bool getPaymentRefundDisallowed()
  * @method $this setTotalQty(float $value)
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
 {
@@ -769,8 +769,10 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         }
 
         // Start store emulation process
-        $appEmulation = Mage::getSingleton('core/app_emulation');
-        $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
+        if ($storeId != Mage::app()->getStore()->getId()) {
+            $appEmulation = Mage::getSingleton('core/app_emulation');
+            $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
+        }
 
         try {
             // Retrieve specified view block from appropriate design package (depends on emulated store)
@@ -778,14 +780,18 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
                 ->setIsSecureMode(true);
             $paymentBlock->getMethod()->setStore($storeId);
             $paymentBlockHtml = $paymentBlock->toHtml();
-        } catch (Exception $exception) {
+        } catch (Exception $e) {
             // Stop store emulation process
-            $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
-            throw $exception;
+            if (isset($appEmulation, $initialEnvironmentInfo)) {
+                $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
+            }
+            throw $e;
         }
 
         // Stop store emulation process
-        $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
+        if (isset($appEmulation, $initialEnvironmentInfo)) {
+            $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
+        }
 
         // Retrieve corresponding email template id and customer name
         if ($order->getCustomerIsGuest()) {

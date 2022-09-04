@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -47,10 +47,10 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
      */
     protected function _prepareCollection()
     {
+        /** @var Mage_Log_Model_Resource_Visitor_Online_Collection $collection */
         $collection = Mage::getModel('log/visitor_online')
             ->prepare()
             ->getCollection();
-        /** @var Mage_Log_Model_Mysql4_Visitor_Online_Collection $collection */
         $collection->addCustomerData();
 
         $this->setCollection($collection);

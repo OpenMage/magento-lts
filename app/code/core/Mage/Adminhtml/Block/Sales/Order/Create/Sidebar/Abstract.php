@@ -177,5 +177,4 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
     {
         return true;
     }
-
 }

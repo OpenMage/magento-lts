@@ -24,6 +24,8 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -106,7 +108,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
     /**
      * Retrieves row click URL
      *
-     * @param  mixed $row
+     * @param Varien_Object $row
      * @return string
      */
     public function getRowUrl($row)
