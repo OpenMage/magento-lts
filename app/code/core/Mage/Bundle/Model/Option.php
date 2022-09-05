@@ -55,10 +55,6 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
      */
     protected $_defaultSelection = null;
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('bundle/option');

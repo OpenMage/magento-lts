@@ -100,9 +100,6 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      */
     protected $_customerGroupId = null;
 
-    /**
-     * Initialize resource model for collection
-     */
     public function _construct()
     {
         $this->_init('wishlist/item');

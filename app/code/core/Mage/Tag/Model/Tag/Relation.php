@@ -60,9 +60,6 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      */
     const ENTITY = 'tag_relation';
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('tag/tag_relation');

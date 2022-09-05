@@ -46,9 +46,6 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
     const XML_PATH_ONLINE_INTERVAL      = 'customer/online_customers/online_minutes_interval';
     const XML_PATH_UPDATE_FREQUENCY     = 'log/visitor/online_update_frequency';
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('log/visitor_online');

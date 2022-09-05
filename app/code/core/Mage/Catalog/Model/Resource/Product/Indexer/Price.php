@@ -505,8 +505,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     /**
      * Copy relations product index from primary index to temporary index table by parent entity
      *
-     * @package array|int $excludeIds
-     *
      * @param array|int $parentIds
      * @param array $excludeIds
      * @return $this
