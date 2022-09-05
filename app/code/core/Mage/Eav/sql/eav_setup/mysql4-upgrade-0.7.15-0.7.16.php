@@ -15,13 +15,13 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var Mage_Eav_Model_Entity_Setup $installer */
 $installer = $this;
-
 $installer->startSetup();
+
 $conn = $installer->getConnection();
 foreach (['datetime', 'decimal', 'int', 'text', 'varchar'] as $type) {
     $tableName = $installer->getTable('eav_entity_' . $type);
