@@ -92,7 +92,10 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
             }
             return '';
         }
-        return $row->getData($this->getColumn()->getIndex());
+        if ($index = $this->getColumn()->getIndex()) {
+            return $row->getData($index);
+        }
+        return null;
     }
 
     /**
