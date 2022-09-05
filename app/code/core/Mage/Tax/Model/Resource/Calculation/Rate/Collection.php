@@ -34,9 +34,6 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      */
     const TAX_RULES_CHUNK_SIZE = 1000;
 
-    /**
-     * Resource initialization
-     */
     protected function _construct()
     {
         $this->_init('tax/calculation_rate');

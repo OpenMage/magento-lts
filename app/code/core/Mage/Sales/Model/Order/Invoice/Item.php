@@ -97,12 +97,10 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
 
     /** @var Mage_Sales_Model_Order_Invoice */
     protected $_invoice = null;
+
     /** @var Mage_Sales_Model_Order_Item */
     protected $_orderItem = null;
 
-    /**
-     * Initialize resource model
-     */
     public function _construct()
     {
         $this->_init('sales/order_invoice_item');

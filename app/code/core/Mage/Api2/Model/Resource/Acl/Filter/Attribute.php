@@ -32,17 +32,12 @@ class Mage_Api2_Model_Resource_Acl_Filter_Attribute extends Mage_Core_Model_Reso
      */
     const FILTER_RESOURCE_ALL = 'all';
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('api2/acl_attribute', 'entity_id');
     }
 
     /**
-     * Get allowed attributes
-     *
      * @param string $userType
      * @param string $resourceId
      * @param string $operation One of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant

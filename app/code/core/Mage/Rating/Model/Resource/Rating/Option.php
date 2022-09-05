@@ -83,10 +83,6 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
     */
     protected $_optionId;
 
-    /**
-     * Resource initialization. Define other tables name
-     *
-     */
     protected function _construct()
     {
         $this->_init('rating/rating_option', 'option_id');

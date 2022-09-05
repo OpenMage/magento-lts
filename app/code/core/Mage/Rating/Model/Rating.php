@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Rating
+ * @category   Mage
+ * @package    Mage_Rating
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Rating model
+ *
+ * @category   Mage
+ * @package    Mage_Rating
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Rating_Model_Resource_Rating getResource()
  * @method Mage_Rating_Model_Resource_Rating _getResource()
@@ -49,10 +53,6 @@
  * @method $this setSum(int $value)
  * @method $this setSummary(float|int $param)
  * @method int getVoteId()
- *
- * @category   Mage
- * @package    Mage_Rating
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
 {

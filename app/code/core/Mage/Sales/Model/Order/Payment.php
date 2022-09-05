@@ -265,9 +265,6 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     protected $_transactionAdditionalInfo = [];
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('sales/order_payment');

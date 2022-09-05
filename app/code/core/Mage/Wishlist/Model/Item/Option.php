@@ -38,9 +38,6 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
     protected $_item;
     protected $_product;
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('wishlist/item_option');

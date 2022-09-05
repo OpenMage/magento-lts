@@ -27,10 +27,6 @@
  */
 class Mage_Reports_Model_Resource_Event_Type_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    /**
-     * Resource initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('reports/event_type');

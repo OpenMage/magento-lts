@@ -15,17 +15,20 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles
  *
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @author      Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Api_Model_Resource_Role_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -46,8 +49,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
             }
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('role_id', ['in'=>$userRoles]);
-            }
-            elseif ($userRoles) {
+            } elseif ($userRoles) {
                 $this->getCollection()->addFieldToFilter('role_id', ['nin'=>$userRoles]);
             }
         }

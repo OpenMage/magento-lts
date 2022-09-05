@@ -96,9 +96,6 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
 
     protected $_quote;
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('sales/quote_payment');

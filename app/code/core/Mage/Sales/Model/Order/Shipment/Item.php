@@ -59,9 +59,6 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
     protected $_shipment = null;
     protected $_orderItem = null;
 
-    /**
-     * Initialize resource model
-     */
     public function _construct()
     {
         $this->_init('sales/order_shipment_item');

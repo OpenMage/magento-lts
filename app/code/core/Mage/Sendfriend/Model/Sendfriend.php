@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sendfriend
+ * @category   Mage
+ * @package    Mage_Sendfriend
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * SendFriend Log
+ *
+ * @category   Mage
+ * @package    Mage_Sendfriend
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sendfriend_Model_Resource_Sendfriend _getResource()
  * @method Mage_Sendfriend_Model_Resource_Sendfriend getResource()
@@ -29,10 +33,6 @@
  * @method $this setIp(int $value)
  * @method int getTime()
  * @method $this setTime(int $value)
- *
- * @category    Mage
- * @package     Mage_Sendfriend
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
 {
@@ -78,10 +78,6 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      */
     protected $_lastCookieValue = [];
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('sendfriend/sendfriend');
