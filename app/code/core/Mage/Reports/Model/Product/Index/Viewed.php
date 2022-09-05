@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Viewed Product Index
  *
@@ -61,7 +60,7 @@ class Mage_Reports_Model_Product_Index_Viewed extends Mage_Reports_Model_Product
      */
     public function getExcludeProductIds()
     {
-        $productIds = array();
+        $productIds = [];
 
         if (Mage::registry('current_product')) {
             $productIds[] = Mage::registry('current_product')->getId();

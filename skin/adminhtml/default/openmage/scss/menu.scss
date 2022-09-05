@@ -6,7 +6,7 @@
 @import "base";
 
 .nav-bar {
-  background: $color_dorado_approx;
+  background: $openmage_base_blue;
   padding: 0 350px 0 70px;
 
   &:after {
@@ -21,7 +21,7 @@
 }
 
 #nav {
-  padding-left:0px;
+  padding-left:0;
   li {
     position: relative;
     text-align: left;
@@ -196,7 +196,6 @@
 
       a {
         background: $white;
-        color: $color_dorado_approx;
         padding: $menu_padding_v $menu_padding_h;
         color: $color_dorado_approx;
         font-size: 12px;
@@ -309,7 +308,7 @@
         display: block;
       }
       span {
-        border-bottom: 1px dotted var(--color-main-m);
+        border-bottom: 1px dotted $color-main-m;
         display: block;
         line-height: 31px;
         padding: 0 10px;
@@ -321,7 +320,7 @@
       a {
         color: $header_background;
         text-decoration: none;
-        background: var(--color-main-xs);
+        background: $color-main-xs;
         display: block;
       }
     }

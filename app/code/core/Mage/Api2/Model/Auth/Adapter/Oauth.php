@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api2
+ * @category   Mage
+ * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -39,7 +39,7 @@ class Mage_Api2_Model_Auth_Adapter_Oauth extends Mage_Api2_Model_Auth_Adapter_Ab
     {
         /** @var Mage_Oauth_Model_Server $oauthServer */
         $oauthServer   = Mage::getModel('oauth/server', $request);
-        $userParamsObj = (object) array('type' => null, 'id' => null);
+        $userParamsObj = (object) ['type' => null, 'id' => null];
 
         try {
             $token    = $oauthServer->checkAccessRequest();
@@ -67,6 +67,6 @@ class Mage_Api2_Model_Auth_Adapter_Oauth extends Mage_Api2_Model_Auth_Adapter_Ab
     {
         $headerValue = $request->getHeader('Authorization');
 
-        return $headerValue && 'oauth' === strtolower(substr($headerValue, 0, 5));
+        return $headerValue && strtolower(substr($headerValue, 0, 5)) === 'oauth';
     }
 }

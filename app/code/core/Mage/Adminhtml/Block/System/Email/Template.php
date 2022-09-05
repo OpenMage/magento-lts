@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Adminhtml_Block_System_Email_Template extends Mage_Adminhtml_Block_Template
@@ -47,11 +47,11 @@ class Mage_Adminhtml_Block_System_Email_Template extends Mage_Adminhtml_Block_Te
     {
         $this->setChild('add_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Add New Template'),
                     'onclick'   => "window.location='" . $this->getCreateUrl() . "'",
                     'class'     => 'add'
-        )));
+                ]));
         $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/system_email_template_grid', 'email.template.grid'));
         return parent::_prepareLayout();
     }

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,9 +23,8 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
 {
     protected $_locale = null;
@@ -62,13 +61,13 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      */
     public function getDatePeriods()
     {
-        return array(
+        return [
             '24h' => $this->__('Last 24 Hours'),
             '7d'  => $this->__('Last 7 Days'),
             '1m'  => $this->__('Current Month'),
             '1y'  => $this->__('YTD'),
             '2y'  => $this->__('2YTD')
-        );
+        ];
     }
 
     /**

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method int getStoreId()
  */
@@ -43,21 +43,21 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_defaultValues = array();
+    protected $_defaultValues = [];
 
     /**
      * This array contains codes of attributes which have value in current store
      *
      * @var array
      */
-    protected $_storeValuesFlags = array();
+    protected $_storeValuesFlags = [];
 
     /**
      * Locked attributes
      *
      * @var array
      */
-    protected $_lockedAttributes = array();
+    protected $_lockedAttributes = [];
 
     /**
      * Is model deleteable
@@ -72,7 +72,6 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      * @var boolean
      */
     protected $_isReadonly = false;
-
 
     /**
      * Lock attribute
@@ -108,7 +107,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      */
     public function unlockAttributes()
     {
-        $this->_lockedAttributes = array();
+        $this->_lockedAttributes = [];
         return $this;
     }
 
@@ -200,9 +199,8 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      */
     public function getResourceCollection()
     {
-        $collection = parent::getResourceCollection()
+        return parent::getResourceCollection()
             ->setStoreId($this->getStoreId());
-        return $collection;
     }
 
     /**

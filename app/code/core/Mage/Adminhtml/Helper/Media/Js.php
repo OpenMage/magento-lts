@@ -12,27 +12,25 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Media library js helper
  *
- * @deprecated since 1.7.0.0
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ * @deprecated since 1.7.0.0
  */
 class Mage_Adminhtml_Helper_Media_Js extends Mage_Core_Helper_Js
 {
-
     public function __construct()
     {
-         $this->_translateData = array(
+         $this->_translateData = [
             'Complete' => $this->__('Complete'),
             'File size should be more than 0 bytes' => $this->__('File size should be more than 0 bytes'),
             'Upload Security Error' => $this->__('Upload Security Error'),
@@ -44,7 +42,7 @@ class Mage_Adminhtml_Helper_Media_Js extends Mage_Core_Helper_Js
             'Mb' => $this->__('Mb'),
             'Kb' => $this->__('Kb'),
             'b' => $this->__('b')
-         );
+         ];
     }
 
     /**
@@ -61,5 +59,4 @@ class Mage_Adminhtml_Helper_Media_Js extends Mage_Core_Helper_Js
                 . '}';
         return $this->getScript($script);
     }
-
 }

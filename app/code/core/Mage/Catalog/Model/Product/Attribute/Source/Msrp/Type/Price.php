@@ -41,10 +41,10 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price extends Mage_C
     {
         if (!$this->_options) {
             $this->_options = parent::getAllOptions();
-            $this->_options[] = array(
+            $this->_options[] = [
                 'label' => Mage::helper('catalog')->__('Use config'),
                 'value' => self::TYPE_USE_CONFIG
-            );
+            ];
         }
         return $this->_options;
     }
@@ -58,21 +58,23 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price extends Mage_C
     {
         $attributeType = $this->getAttribute()->getBackendType();
         $attributeCode = $this->getAttribute()->getAttributeCode();
-        $column = array(
+        $column = [
             'unsigned'  => false,
             'default'   => null,
             'extra'     => null
-        );
+        ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
             $column['type']     = $attributeType;
             $column['is_null']  = true;
         } else {
-            $column['type']     = Mage::getResourceHelper('eav')->getDdlTypeByColumnType($attributeType);
+            /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
+            $helper = Mage::getResourceHelper('eav');
+            $column['type']     = $helper->getDdlTypeByColumnType($attributeType);
             $column['nullable'] = true;
         }
 
-        return array($attributeCode => $column);
+        return [$attributeCode => $column];
     }
 
     /**

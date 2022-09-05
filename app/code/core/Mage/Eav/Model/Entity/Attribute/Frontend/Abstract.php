@@ -12,23 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Entity/Attribute/Model - attribute frontend abstract
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage_Eav_Model_Entity_Attribute_Frontend_Interface
 {
-
     /**
      * Reference to the attribute instance
      *
@@ -69,7 +67,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     }
 
     /**
-     * Retreive lable
+     * Retrieve lable
      *
      * @return string
      */
@@ -84,7 +82,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     }
 
     /**
-     * Retreive attribute value
+     * Retrieve attribute value
      *
      * @param Varien_Object $object
      * @return mixed
@@ -92,7 +90,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     public function getValue(Varien_Object $object)
     {
         $value = $object->getData($this->getAttribute()->getAttributeCode());
-        if (in_array($this->getConfigField('input'), array('select','boolean'))) {
+        if (in_array($this->getConfigField('input'), ['select','boolean'])) {
             $valueOption = $this->getOption($value);
             if (!$valueOption) {
                 $opt     = Mage::getModel('eav/entity_attribute_source_boolean');
@@ -133,7 +131,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
      */
     public function getClass()
     {
-        $out    = array();
+        $out    = [];
         $out[]  = $this->getAttribute()->getFrontendClass();
         if ($this->getAttribute()->getIsRequired()) {
             $out[]  = 'required-entry';
@@ -207,7 +205,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     }
 
     /**
-     * Retreive option by option id
+     * Retrieve option by option id
      *
      * @param int $optionId
      * @return mixed|boolean

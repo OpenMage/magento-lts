@@ -12,16 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Locale model
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Locale
 {
@@ -79,9 +81,9 @@ class Mage_Core_Model_Locale
      *
      * @var array
      */
-    protected $_emulatedLocales = array();
+    protected $_emulatedLocales = [];
 
-    protected static $_currencyCache = array();
+    protected static $_currencyCache = [];
 
     /**
      * Mage_Core_Model_Locale constructor.
@@ -134,7 +136,7 @@ class Mage_Core_Model_Locale
         } else {
             $this->_localeCode = $this->getDefaultLocale();
         }
-        Mage::dispatchEvent('core_locale_set_locale', array('locale'=>$this));
+        Mage::dispatchEvent('core_locale_set_locale', ['locale'=>$this]);
         return $this;
     }
 
@@ -229,20 +231,20 @@ class Mage_Core_Model_Locale
      */
     protected function _getOptionLocales($translatedName = false)
     {
-        $options = array();
+        $options = [];
         $zendLocales = $this->getLocale()->getLocaleList();
         $languages = $this->getLocale()->getTranslationList('language', $this->getLocale());
         $countries = $this->getCountryTranslationList();
 
         //Zend locale codes for internal allowed locale codes
         $allowed = $this->getAllowLocales();
-        $allowedAliases = array();
+        $allowedAliases = [];
         foreach ($allowed as $code) {
             $allowedAliases[Zend_Locale::getAlias($code)] = $code;
         }
 
         //Internal locale codes translated from Zend locale codes
-        $locales = array();
+        $locales = [];
         foreach ($zendLocales as $code => $active) {
             if (array_key_exists($code, $allowedAliases)) {
                 $locales[$allowedAliases[$code]] = $active;
@@ -267,10 +269,10 @@ class Mage_Core_Model_Locale
                 } else {
                     $label = $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
                 }
-                $options[] = array(
+                $options[] = [
                     'value' => $code,
                     'label' => $label
-                );
+                ];
             }
         }
         return $this->_sortOptionArray($options);
@@ -283,23 +285,23 @@ class Mage_Core_Model_Locale
      */
     public function getOptionTimezones()
     {
-        $options= array();
+        $options= [];
         $zones  = $this->getTranslationList('windowstotimezone');
         ksort($zones);
         foreach ($zones as $code => $name) {
             $name = trim($name);
             $zonesList = explode(' ', $code);
             if (count($zonesList) == 1) {
-                $options[] = array(
+                $options[] = [
                     'label' => empty($name) ? $code : $name . ' (' . $code . ')',
                     'value' => $code,
-                );
+                ];
             } else {
                 foreach ($zonesList as $zoneCode) {
-                    $options[] = array(
+                    $options[] = [
                         'label' => empty($name) ? $zoneCode : $name . ' (' . $zoneCode . ')',
                         'value' => $zoneCode,
-                    );
+                    ];
                 }
             }
         }
@@ -316,14 +318,14 @@ class Mage_Core_Model_Locale
      */
     public function getOptionWeekdays($preserveCodes = false, $ucFirstCode = false)
     {
-        $options= array();
+        $options= [];
         $days = $this->getTranslationList('days');
         $days = $preserveCodes ? $days['format']['wide']  : array_values($days['format']['wide']);
         foreach ($days as $code => $name) {
-            $options[] = array(
+            $options[] = [
                'label' => $name,
                'value' => $ucFirstCode ? ucfirst($code) : $code,
-            );
+            ];
         }
         return $options;
     }
@@ -335,14 +337,14 @@ class Mage_Core_Model_Locale
      */
     public function getOptionCountries()
     {
-        $options    = array();
+        $options    = [];
         $countries  = $this->getCountryTranslationList();
 
         foreach ($countries as $code => $name) {
-            $options[] = array(
+            $options[] = [
                'label' => $name,
                'value' => $code,
-            );
+            ];
         }
         return $this->_sortOptionArray($options);
     }
@@ -355,7 +357,7 @@ class Mage_Core_Model_Locale
     public function getOptionCurrencies()
     {
         $currencies = $this->getTranslationList('currencytoname');
-        $options = array();
+        $options = [];
         $allowed = $this->getAllowCurrencies();
 
         foreach ($currencies as $name => $code) {
@@ -363,10 +365,10 @@ class Mage_Core_Model_Locale
                 continue;
             }
 
-            $options[] = array(
+            $options[] = [
                'label' => $name,
                'value' => $code,
-            );
+            ];
         }
         return $this->_sortOptionArray($options);
     }
@@ -379,12 +381,12 @@ class Mage_Core_Model_Locale
     public function getOptionAllCurrencies()
     {
         $currencies = $this->getTranslationList('currencytoname');
-        $options = array();
+        $options = [];
         foreach ($currencies as $name => $code) {
-            $options[] = array(
+            $options[] = [
                'label' => $name,
                'value' => $code,
-            );
+            ];
         }
         return $this->_sortOptionArray($options);
     }
@@ -395,17 +397,17 @@ class Mage_Core_Model_Locale
      */
     protected function _sortOptionArray($option)
     {
-        $data = array();
+        $data = [];
         foreach ($option as $item) {
             $data[$item['value']] = $item['label'];
         }
         asort($data);
-        $option = array();
+        $option = [];
         foreach ($data as $key => $label) {
-            $option[] = array(
+            $option[] = [
                'value' => $key,
                'label' => $label
-            );
+            ];
         }
         return $option;
     }
@@ -427,7 +429,7 @@ class Mage_Core_Model_Locale
      */
     public function getAllowCurrencies()
     {
-        $data = array();
+        $data = [];
         if (Mage::isInstalled()) {
             $data = Mage::app()->getStore()->getConfig(self::XML_PATH_ALLOW_CURRENCIES_INSTALLED);
             return explode(',', $data);
@@ -604,7 +606,7 @@ class Mage_Core_Model_Locale
     {
         Varien_Profiler::start('locale/currency');
         if (!isset(self::$_currencyCache[$this->getLocaleCode()][$currency])) {
-            $options = array();
+            $options = [];
             try {
                 $currencyObject = new Zend_Currency($currency, $this->getLocale());
             } catch (Exception $e) {
@@ -623,10 +625,10 @@ class Mage_Core_Model_Locale
             }
 
             $options = new Varien_Object($options);
-            Mage::dispatchEvent('currency_display_options_forming', array(
+            Mage::dispatchEvent('currency_display_options_forming', [
                 'currency_options' => $options,
                 'base_code' => $currency
-            ));
+            ]);
 
             $currencyObject->setFormat($options->toArray());
             self::$_currencyCache[$this->getLocaleCode()][$currency] = $currencyObject;
@@ -663,7 +665,7 @@ class Mage_Core_Model_Locale
         }
 
         //trim spaces and apostrophes
-        $value = str_replace(array('\'', ' '), '', $value);
+        $value = str_replace(['\'', ' '], '', $value);
 
         $separatorComa = strpos($value, ',');
         $separatorDot  = strpos($value, '.');
@@ -719,7 +721,7 @@ class Mage_Core_Model_Locale
         }
         $integerRequired = (strpos($format, '.') - strpos($format, '0'));
 
-        $result = array(
+        return [
             'pattern' => Mage::app()->getStore()->getCurrentCurrency()->getOutputFormat(),
             'precision' => $totalPrecision,
             'requiredPrecision' => $requiredPrecision,
@@ -727,9 +729,7 @@ class Mage_Core_Model_Locale
             'groupSymbol' => $symbols['group'],
             'groupLength' => $group,
             'integerRequired' => $integerRequired
-        );
-
-        return $result;
+        ];
     }
 
     /**

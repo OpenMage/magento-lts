@@ -25,19 +25,16 @@
  * @package    Mage_Paypal
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Paypal_Block_Adminhtml_System_Config_Field_SolutionType
-    extends Mage_Adminhtml_Block_System_Config_Form_Field
+class Mage_Paypal_Block_Adminhtml_System_Config_Field_SolutionType extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         $countryCode = Mage::helper('paypal')->getConfigurationCountryCode();
-        if ($countryCode == 'DE') {
+        if ($countryCode === 'DE') {
             return Mage::getBlockSingleton('paypal/adminhtml_System_config_field_hidden')->render($element);
         }
 

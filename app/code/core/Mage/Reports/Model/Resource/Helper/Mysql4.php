@@ -12,23 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Reports
+ * @category   Mage
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Reports Mysql resource helper model
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Mysql4 implements Mage_Reports_Model_Resource_Helper_Interface
 {
-
     /**
      * Merge Index data
      *
@@ -39,8 +37,7 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
      */
     public function mergeVisitorProductIndex($mainTable, $data, $matchFields)
     {
-        $result = $this->_getWriteAdapter()->insertOnDuplicate($mainTable, $data, array_keys($data));
-        return $result;
+        return $this->_getWriteAdapter()->insertOnDuplicate($mainTable, $data, array_keys($data));
     }
 
     /**
@@ -71,13 +68,13 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
                 break;
         }
 
-        $columns = array(
+        $columns = [
             'period'          => 't.period',
             'store_id'        => 't.store_id',
             'product_id'      => 't.product_id',
             'product_name'    => 't.product_name',
             'product_price'   => 't.product_price',
-        );
+        ];
 
         if ($type == 'day') {
             $columns['id'] = 't.id';  // to speed-up insert on duplicate key update
@@ -90,8 +87,8 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
         $cols = array_keys($columns);
         $cols['total_qty'] = new Zend_Db_Expr('SUM(t.' . $column . ')');
 
-        $periodSubSelect->from(array('t' => $mainTable), $cols)
-            ->group(array('t.store_id', $periodCol, 't.product_id'));
+        $periodSubSelect->from(['t' => $mainTable], $cols)
+            ->group(['t.store_id', $periodCol, 't.product_id']);
 
         if ($column == 'qty_ordered') {
             $productTypesInExpr = $adapter->quoteInto(
@@ -99,15 +96,15 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
                 Mage_Catalog_Model_Product_Type::getCompositeTypes()
             );
             $periodSubSelect->order(
-                array(
+                [
                     't.store_id',
                     $periodCol,
                     $adapter->getCheckSql($productTypesInExpr, 1, 0),
                     'total_qty DESC'
-                )
+                ]
             );
         } else {
-            $periodSubSelect->order(array('t.store_id', $periodCol, 'total_qty DESC'));
+            $periodSubSelect->order(['t.store_id', $periodCol, 'total_qty DESC']);
         }
 
         $cols = $columns;

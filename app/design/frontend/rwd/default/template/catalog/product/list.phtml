@@ -30,7 +30,7 @@
     $_productCollection = $this->getLoadedProductCollection();
     $_productCollectionCount = count($_productCollection);
     $_helper = $this->helper('catalog/output');
-    $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey())));
+    $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
 ?>
 <?php if(!$_productCollection->count()): ?>
 <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
@@ -84,13 +84,11 @@
                     <div class="product-secondary">
                         <?php if(!$_product->canConfigure() && $_product->isSaleable()): ?>
                             <p class="action">
+                                <?php $_cartUrl = $this->getAddToCartUrlCustom($_product, [], false); ?>
                                 <button type="button"
                                         title="<?php echo $this->quoteEscape($this->__('Add to Cart')) ?>"
                                         class="button btn-cart"
-                                        onclick="customFormSubmit(
-                                                '<?php echo $this->getAddToCartUrlCustom($_product, array(), false) ?>',
-                                                '<?php echo $_params ?>',
-                                                'post')">
+                                        onclick="customFormSubmit('<?php echo $_cartUrl ?>', '<?php echo $_params ?>', 'post')">
                                     <span><span><?php echo $this->__('Add to Cart') ?></span></span>
                                 </button>
                             </p>
@@ -101,7 +99,7 @@
                         <?php endif ?>
                         <ul class="add-to-links">
                             <?php if ($this->helper('wishlist')->isAllow()) : ?>
-                                <?php $_wishlistUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, array(), false); ?>
+                                <?php $_wishlistUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, [], false); ?>
                                 <li>
                                     <a href="#"
                                        data-url="<?php echo $_wishlistUrl ?>"
@@ -172,13 +170,11 @@
                     <?php endif ?>
                     <div class="actions">
                         <?php if(!$_product->canConfigure() && $_product->isSaleable()): ?>
+                            <?php $_cartUrl = $this->getAddToCartUrlCustom($_product, [], false); ?>
                             <button type="button"
                                     title="<?php echo $this->quoteEscape($this->__('Add to Cart')) ?>"
                                     class="button btn-cart"
-                                    onclick="customFormSubmit(
-                                            '<?php echo $this->getAddToCartUrlCustom($_product, array(), false) ?>',
-                                            '<?php echo $_params ?>',
-                                            'post')">
+                                    onclick="customFormSubmit('<?php echo $_cartUrl ?>', '<?php echo $_params ?>', 'post')">
                             <span><span><?php echo $this->__('Add to Cart') ?></span></span>
                             </button>
                         <?php elseif($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
@@ -188,7 +184,7 @@
                         <?php endif ?>
                         <ul class="add-to-links">
                             <?php if ($this->helper('wishlist')->isAllow()) : ?>
-                                <?php $_wishlistUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, array(), false); ?>
+                                <?php $_wishlistUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, [], false); ?>
                                 <li>
                                     <a href="#"
                                        data-url="<?php echo $_wishlistUrl ?>"

@@ -21,7 +21,6 @@
  * @method $this setSkipEmptySessionCheck(bool $flag)
  */
 
-
 class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 {
     const VALIDATOR_KEY                         = '_session_validator_data';
@@ -43,7 +42,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * @example array('host.name' => true)
      * @var array
      */
-    protected $_sessionHosts = array();
+    protected $_sessionHosts = [];
 
     /**
      * Configure and start session
@@ -64,7 +63,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
              * backward compatibility with db argument (option is @deprecated after 1.12.0.2)
              */
             case 'db':
-                /* @var Mage_Core_Model_Resource_Session $sessionResource */
+                /** @var Mage_Core_Model_Resource_Session $sessionResource */
                 $sessionResource = Mage::getResourceSingleton('core/session');
                 $sessionResource->setSaveHandler();
                 break;
@@ -96,13 +95,13 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         }
 
         // session cookie params
-        $cookieParams = array(
+        $cookieParams = [
             'lifetime' => $cookie->getLifetime(),
             'path'     => $cookie->getPath(),
             'domain'   => $cookie->getConfigDomain(),
             'secure'   => $cookie->isSecure(),
             'httponly' => $cookie->getHttponly()
-        );
+        ];
 
         if (!$cookieParams['httponly']) {
             unset($cookieParams['httponly']);
@@ -184,7 +183,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                         $cookie->delete($this->getSessionName(), null, $host);
                     }
                 }
-                $_SESSION = array();
+                $_SESSION = [];
             }
         }
 
@@ -254,7 +253,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             $this->start($sessionName);
         }
         if (!isset($_SESSION[$namespace])) {
-            $_SESSION[$namespace] = array();
+            $_SESSION[$namespace] = [];
         }
 
         $this->_data = &$_SESSION[$namespace];
@@ -436,7 +435,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      */
     public function getValidateHttpUserAgentSkip()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -534,12 +533,12 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      */
     public function getValidatorData()
     {
-        $parts = array(
+        $parts = [
             self::VALIDATOR_REMOTE_ADDR_KEY             => '',
             self::VALIDATOR_HTTP_VIA_KEY                => '',
             self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY    => '',
             self::VALIDATOR_HTTP_USER_AGENT_KEY         => ''
-        );
+        ];
 
         // collect ip data
         if (Mage::helper('core/http')->getRemoteAddr()) {

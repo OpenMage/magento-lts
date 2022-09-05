@@ -12,14 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_ConfigurableSwatches
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable extends Mage_Catalog_Model_Resource_Product_Type_Configurable
 {
-
     /**
      * Retrieve Required children ids
      * Grouped by parent id.
@@ -32,14 +37,14 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
     public function getChildrenIds($parentId, $required = true)
     {
         if (is_array($parentId)) {
-            $childrenIds = array();
+            $childrenIds = [];
             if (!empty($parentId)) {
                 $select = $this->_getReadAdapter()->select()
-                    ->from(array('l' => $this->getMainTable()), array('product_id', 'parent_id'))
+                    ->from(['l' => $this->getMainTable()], ['product_id', 'parent_id'])
                     ->join(
-                        array('e' => $this->getTable('catalog/product')),
+                        ['e' => $this->getTable('catalog/product')],
                         'e.entity_id = l.product_id AND e.required_options = 0',
-                        array()
+                        []
                     )
                     ->where('parent_id IN (?)', $parentId);
 

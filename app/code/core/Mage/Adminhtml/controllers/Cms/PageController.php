@@ -12,23 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Cms manage pages controller
  *
  * @category   Mage
  * @package    Mage_Cms
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 {
-
     /**
      * Init actions
      *
@@ -131,11 +129,11 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
             $model->setData($data);
 
-            Mage::dispatchEvent('cms_page_prepare_save', array('page' => $model, 'request' => $this->getRequest()));
+            Mage::dispatchEvent('cms_page_prepare_save', ['page' => $model, 'request' => $this->getRequest()]);
 
             //validating
             if (!$this->_validatePostData($data)) {
-                $this->_redirect('*/*/edit', array('page_id' => $model->getId(), '_current' => true));
+                $this->_redirect('*/*/edit', ['page_id' => $model->getId(), '_current' => true]);
                 return;
             }
 
@@ -151,7 +149,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->setFormData(false);
                 // check if 'Save and Continue'
                 if ($this->getRequest()->getParam('back')) {
-                    $this->_redirect('*/*/edit', array('page_id' => $model->getId(), '_current'=>true));
+                    $this->_redirect('*/*/edit', ['page_id' => $model->getId(), '_current'=>true]);
                     return;
                 }
                 // go to grid
@@ -167,7 +165,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             }
 
             $this->_getSession()->setFormData($data);
-            $this->_redirect('*/*/edit', array('page_id' => $this->getRequest()->getParam('page_id')));
+            $this->_redirect('*/*/edit', ['page_id' => $this->getRequest()->getParam('page_id')]);
             return;
         }
         $this->_redirect('*/*/');
@@ -191,16 +189,16 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('cms')->__('The page has been deleted.'));
                 // go to grid
-                Mage::dispatchEvent('adminhtml_cmspage_on_delete', array('title' => $title, 'status' => 'success'));
+                Mage::dispatchEvent('adminhtml_cmspage_on_delete', ['title' => $title, 'status' => 'success']);
                 $this->_redirect('*/*/');
                 return;
 
             } catch (Exception $e) {
-                Mage::dispatchEvent('adminhtml_cmspage_on_delete', array('title' => $title, 'status' => 'fail'));
+                Mage::dispatchEvent('adminhtml_cmspage_on_delete', ['title' => $title, 'status' => 'fail']);
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 // go back to edit form
-                $this->_redirect('*/*/edit', array('page_id' => $id));
+                $this->_redirect('*/*/edit', ['page_id' => $id]);
                 return;
             }
         }
@@ -246,7 +244,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
      */
     protected function _filterPostData($data)
     {
-        $data = $this->_filterDates($data, array('custom_theme_from', 'custom_theme_to'));
+        $data = $this->_filterDates($data, ['custom_theme_from', 'custom_theme_to']);
         return $data;
     }
 

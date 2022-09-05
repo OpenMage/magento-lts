@@ -12,26 +12,27 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Usa
+ * @category   Mage
+ * @package    Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract USA shipping carrier model
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Usa
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Model_Carrier_Abstract
 {
-
     const USA_COUNTRY_ID = 'US';
     const PUERTORICO_COUNTRY_ID = 'PR';
     const GUAM_COUNTRY_ID = 'GU';
     const GUAM_REGION_CODE = 'GU';
 
-    protected static $_quotesCache = array();
+    protected static $_quotesCache = [];
 
     /**
      * Flag for check carriers for activity
@@ -64,7 +65,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
 
     public function getTrackingInfo($tracking)
     {
-        $info = array();
+        $info = [];
 
         $result = $this->getTracking($tracking);
 
@@ -135,10 +136,10 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      */
     public function getAllItems(Mage_Shipping_Model_Rate_Request $request)
     {
-        $items = array();
+        $items = [];
         if ($request->getAllItems()) {
             foreach ($request->getAllItems() as $item) {
-                /* @var $item Mage_Sales_Model_Quote_Item */
+                /** @var Mage_Sales_Model_Quote_Item $item */
                 if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
                     // Don't process children here - we will process (or already have processed) them below
                     continue;
@@ -227,7 +228,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     {
         if (is_array($requestParams)) {
             $requestParams = implode(',', array_merge(
-                array($this->getCarrierCode()),
+                [$this->getCarrierCode()],
                 array_keys($requestParams),
                 $requestParams)
             );
@@ -310,7 +311,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         if ($request->getStoreId() != null) {
             $this->setStore($request->getStoreId());
         }
-        $data = array();
+        $data = [];
         foreach ($packages as $packageId => $package) {
             $request->setPackageId($packageId);
             $request->setPackagingType($package['params']['container']);
@@ -323,10 +324,10 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
                 $this->rollBack($data);
                 break;
             } else {
-                $data[] = array(
+                $data[] = [
                     'tracking_number' => $result->getTrackingNumber(),
                     'label_content'   => $result->getShippingLabelContent()
-                );
+                ];
             }
             if (!isset($isFirstRequest)) {
                 $request->setMasterTrackingId($result->getTrackingNumber());
@@ -334,9 +335,9 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
             }
         }
 
-        $response = new Varien_Object(array(
+        $response = new Varien_Object([
             'info'   => $data
-        ));
+        ]);
         if ($result->getErrors()) {
             $response->setErrors($result->getErrors());
         }
@@ -359,7 +360,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         if ($request->getStoreId() != null) {
             $this->setStore($request->getStoreId());
         }
-        $data = array();
+        $data = [];
         foreach ($packages as $packageId => $package) {
             $request->setPackageId($packageId);
             $request->setPackagingType($package['params']['container']);
@@ -372,10 +373,10 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
                 $this->rollBack($data);
                 break;
             } else {
-                $data[] = array(
+                $data[] = [
                     'tracking_number' => $result->getTrackingNumber(),
                     'label_content'   => $result->getShippingLabelContent()
-                );
+                ];
             }
             if (!isset($isFirstRequest)) {
                 $request->setMasterTrackingId($result->getTrackingNumber());
@@ -383,9 +384,9 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
             }
         }
 
-        $response = new Varien_Object(array(
+        $response = new Varien_Object([
             'info'   => $data
-        ));
+        ]);
         if ($result->getErrors()) {
             $response->setErrors($result->getErrors());
         }

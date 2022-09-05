@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -143,7 +143,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                 }
                 if ($id) {
                     $this->_getSession()->setUserData($data);
-                    $this->_redirect('*/*/edit', array('user_id' => $id));
+                    $this->_redirect('*/*/edit', ['user_id' => $id]);
                 } else {
                     $this->_getSession()->setUserData($data);
                     $this->_redirect('*/*/new');
@@ -161,19 +161,19 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                     } else if (count($uRoles) > 1) {
                         //@FIXME: stupid fix of previous multi-roles logic.
                         //@TODO:  make proper DB upgrade in the future revisions.
-                        $rs = array();
+                        $rs = [];
                         $rs[0] = $uRoles[0];
                         $model->setRoleIds( $rs )->setRoleUserId( $model->getUserId() )->saveRelations();
                     }
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been saved.'));
                 Mage::getSingleton('adminhtml/session')->setUserData(false);
-                $this->_redirect('*/*/edit', array('user_id' => $model->getUserId()));
+                $this->_redirect('*/*/edit', ['user_id' => $model->getUserId()]);
                 return;
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setUserData($data);
-                $this->_redirect('*/*/edit', array('user_id' => $model->getUserId()));
+                $this->_redirect('*/*/edit', ['user_id' => $model->getUserId()]);
                 return;
             }
         }
@@ -193,7 +193,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
-            $this->_redirect('*/*/edit', array('user_id' => $id));
+            $this->_redirect('*/*/edit', ['user_id' => $id]);
             return;
         }
 
@@ -207,7 +207,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
             }
             catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $this->_redirect('*/*/edit', array('user_id' => $id));
+                $this->_redirect('*/*/edit', ['user_id' => $id]);
                 return;
             }
         }

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Page
+ * @category   Mage
+ * @package    Mage_Page
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Page
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
 {
@@ -65,11 +65,11 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
      */
     public function addCrumb($crumbName, $crumbInfo, $after = false)
     {
-        $this->_prepareArray($crumbInfo, array('label', 'title', 'link', 'first', 'last', 'readonly'));
+        $this->_prepareArray($crumbInfo, ['label', 'title', 'link', 'first', 'last', 'readonly']);
         if ((!isset($this->_crumbs[$crumbName])) || (!$this->_crumbs[$crumbName]['readonly'])) {
             if ($after && isset($this->_crumbs[$after])) {
                 $offset = array_search($after, array_keys($this->_crumbs), true) + 1;
-                $this->_crumbs = array_slice($this->_crumbs, 0, $offset, true) + array($crumbName => $crumbInfo) + array_slice($this->_crumbs, $offset, null, true);
+                $this->_crumbs = array_slice($this->_crumbs, 0, $offset, true) + [$crumbName => $crumbInfo] + array_slice($this->_crumbs, $offset, null, true);
             } else {
                 $this->_crumbs[$crumbName] = $crumbInfo;
             }
@@ -89,8 +89,8 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
             $offset = array_search($before, $keys, true);
             # add before first
             if (!$offset) {
-                $this->_prepareArray($crumbInfo, array('label', 'title', 'link', 'first', 'last', 'readonly'));
-                $this->_crumbs = array($crumbName => $crumbInfo) + $this->_crumbs;
+                $this->_prepareArray($crumbInfo, ['label', 'title', 'link', 'first', 'last', 'readonly']);
+                $this->_crumbs = [$crumbName => $crumbInfo] + $this->_crumbs;
             } else {
                 $this->addCrumb($crumbName, $crumbInfo, $keys[$offset-1]);
             }
@@ -116,16 +116,15 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
      */
     public function getCacheKeyInfo()
     {
-        if (null === $this->_cacheKeyInfo) {
-            $this->_cacheKeyInfo = parent::getCacheKeyInfo() + array(
+        if ($this->_cacheKeyInfo === null) {
+            $this->_cacheKeyInfo = parent::getCacheKeyInfo() + [
                 'crumbs' => base64_encode(serialize($this->_crumbs)),
                 'name'   => $this->getNameInLayout(),
-            );
+                ];
         }
 
         return $this->_cacheKeyInfo;
     }
-
 
     /**
      * @return string

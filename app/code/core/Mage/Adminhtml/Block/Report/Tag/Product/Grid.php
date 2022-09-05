@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,11 +23,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Report_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -51,52 +50,52 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Grid extends Mage_Adminhtml_Block_
     protected function _prepareColumns()
     {
 
-        $this->addColumn('entity_id', array(
+        $this->addColumn('entity_id', [
             'header'    =>Mage::helper('reports')->__('ID'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'entity_id'
-        ));
+        ]);
 
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    =>Mage::helper('reports')->__('Product Name'),
             'index'     =>'name'
-        ));
+        ]);
 
-        $this->addColumn('utaged', array(
+        $this->addColumn('utaged', [
             'header'    =>Mage::helper('reports')->__('Number of Unique Tags'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'utaged'
-        ));
+        ]);
 
-        $this->addColumn('taged', array(
+        $this->addColumn('taged', [
             'header'    =>Mage::helper('reports')->__('Number of Total Tags'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'taged'
-        ));
+        ]);
 
         $this->addColumn('action',
-            array(
+            [
                 'header'    => Mage::helper('catalog')->__('Action'),
                 'width'     => '100%',
                 'type'      => 'action',
                 'getter'    => 'getId',
-                'actions'   => array(
-                    array(
+                'actions'   => [
+                    [
                         'caption' => Mage::helper('catalog')->__('Show Tags'),
-                        'url'     => array(
+                        'url'     => [
                             'base'=>'*/*/productDetail'
-                        ),
+                        ],
                         'field'   => 'id'
-                    )
-                ),
+                    ]
+                ],
                 'is_system' => true,
                 'filter'    => false,
                 'sortable'  => false,
                 'index'     => 'stores',
-        ));
+            ]);
 
         $this->setFilterVisibility(false);
 
@@ -108,7 +107,6 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Grid extends Mage_Adminhtml_Block_
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/productDetail', array('id'=>$row->getId()));
+        return $this->getUrl('*/*/productDetail', ['id'=>$row->getId()]);
     }
-
 }

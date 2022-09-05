@@ -12,19 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Modifier of queries, developed for backwards compatibility on MySQL,
  * while creating foreign keys
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Resource_Setup_Query_Modifier
 {
@@ -40,7 +40,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
      *
      * @var array
      */
-    protected $_processedTypes = array('tinyint', 'smallint', 'mediumint', 'int', 'longint');
+    protected $_processedTypes = ['tinyint', 'smallint', 'mediumint', 'int', 'longint'];
 
     /**
      * Inits query modifier
@@ -76,10 +76,10 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
                 $definition = $match[2];
                 $unsigned = preg_match('/\sUNSIGNED/i', $definition) > 0;
 
-                $result = array(
+                $result = [
                     'type' => $type,
                     'unsigned' => $unsigned
-                );
+                ];
                 break;
             }
             if ($result) {
@@ -219,10 +219,10 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
             return null;
         }
 
-        return array(
+        return [
             'type' => $this->_prepareIdentifier($description[$column]['DATA_TYPE']),
             'unsigned' => (bool) $description[$column]['UNSIGNED']
-        );
+        ];
     }
 
     /**

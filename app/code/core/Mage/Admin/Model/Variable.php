@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Admin
+ * @category   Mage
+ * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -21,8 +21,8 @@
 /**
  * Class Mage_Admin_Model_Variable
  *
- * @method Mage_Admin_Model_Resource_Variable _getResource()()
- * @method Mage_Admin_Model_Resource_Variable getResource()()
+ * @method Mage_Admin_Model_Resource_Variable _getResource()
+ * @method Mage_Admin_Model_Resource_Variable getResource()
  * @method Mage_Admin_Model_Resource_Variable_Collection getCollection()
  *
  * @method string getIsAllowed()
@@ -45,16 +45,16 @@ class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        $errors = array();
+        $errors = [];
 
         if (!Zend_Validate::is($this->getVariableName(), 'NotEmpty')) {
             $errors[] = Mage::helper('adminhtml')->__('Variable Name is required field.');
         }
-        if (!Zend_Validate::is($this->getVariableName(), 'Regex', array('/^[-_a-zA-Z0-9\/]*$/'))) {
+        if (!Zend_Validate::is($this->getVariableName(), 'Regex', ['/^[-_a-zA-Z0-9\/]*$/'])) {
             $errors[] = Mage::helper('adminhtml')->__('Variable Name is incorrect.');
         }
 
-        if (!in_array($this->getIsAllowed(), array('0', '1'))) {
+        if (!in_array($this->getIsAllowed(), ['0', '1'])) {
             $errors[] = Mage::helper('adminhtml')->__('Is Allowed is required field.');
         }
 

@@ -138,12 +138,12 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
         foreach ($ctc as $c) {
             foreach ($ptc as $p) {
                 foreach ($rates as $r) {
-                    $dataArray = array(
+                    $dataArray = [
                         'tax_calculation_rule_id'   =>$this->getId(),
                         'tax_calculation_rate_id'   =>$r,
                         'customer_tax_class_id'     =>$c,
                         'product_tax_class_id'      =>$p,
-                    );
+                    ];
                     Mage::getSingleton('tax/calculation')->setData($dataArray)->save();
                 }
             }
@@ -184,7 +184,6 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
     {
         return $this->getCalculationModel()->getProductTaxClasses($this->getId());
     }
-
 
     /**
      * Fetches rules by rate, customer tax class and product tax class

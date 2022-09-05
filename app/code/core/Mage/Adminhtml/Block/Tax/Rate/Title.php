@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Tax Rate Titles Renderer
@@ -36,7 +35,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template
     public function getTitles()
     {
         if (is_null($this->_titles)) {
-            $this->_titles = array();
+            $this->_titles = [];
             $titles = Mage::getSingleton('tax/calculation_rate')->getTitles();
             foreach ($titles as $title) {
                 $this->_titles[$title->getStoreId()] = $title->getValue();

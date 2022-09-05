@@ -42,7 +42,7 @@ class Mage_Payment_Block_Catalog_Product_View_Profile extends Mage_Core_Block_Te
      */
     public function getScheduleInfo()
     {
-        $scheduleInfo = array();
+        $scheduleInfo = [];
         foreach ($this->_profile->exportScheduleInfo() as $info) {
             $scheduleInfo[$info->getTitle()] = $info->getSchedule();
         }

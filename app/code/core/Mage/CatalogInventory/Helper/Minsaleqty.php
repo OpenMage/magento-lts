@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogInventory
+ * @category   Mage
+ * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * MinSaleQty value manipulation helper
+ *
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogInventory_Helper_Minsaleqty
 {
@@ -46,7 +50,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
             $data = (float)$value;
             return (string)$data;
         } elseif (is_array($value)) {
-            $data = array();
+            $data = [];
             foreach ($value as $groupId => $qty) {
                 if (!array_key_exists($groupId, $data)) {
                     $data[$groupId] = $this->_fixQty($qty);
@@ -70,17 +74,17 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     protected function _unserializeValue($value)
     {
         if (is_numeric($value)) {
-            return array(
+            return [
                 Mage_Customer_Model_Group::CUST_GROUP_ALL => $this->_fixQty($value)
-            );
+            ];
         } elseif (is_string($value) && !empty($value)) {
             try {
                 return Mage::helper('core/unserializeArray')->unserialize($value);
             } catch (Exception $e) {
-                return array();
+                return [];
             }
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -112,13 +116,13 @@ class Mage_CatalogInventory_Helper_Minsaleqty
      */
     protected function _encodeArrayFieldValue(array $value)
     {
-        $result = array();
+        $result = [];
         foreach ($value as $groupId => $qty) {
             $_id = Mage::helper('core')->uniqHash('_');
-            $result[$_id] = array(
+            $result[$_id] = [
                 'customer_group_id' => $groupId,
                 'min_sale_qty' => $this->_fixQty($qty),
-            );
+            ];
         }
         return $result;
     }
@@ -131,7 +135,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
      */
     protected function _decodeArrayFieldValue(array $value)
     {
-        $result = array();
+        $result = [];
         unset($value['__empty']);
         foreach ($value as $_id => $row) {
             if (!is_array($row) || !array_key_exists('customer_group_id', $row) || !array_key_exists('min_sale_qty', $row)) {

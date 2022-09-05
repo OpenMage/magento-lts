@@ -12,23 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sitemap
+ * @category   Mage
+ * @package    Mage_Sitemap
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sitemap module observer
  *
  * @category   Mage
  * @package    Mage_Sitemap
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sitemap_Model_Observer
 {
-
     /**
      * Enable/disable configuration
      */
@@ -61,7 +59,7 @@ class Mage_Sitemap_Model_Observer
      */
     public function scheduledGenerateSitemaps($schedule)
     {
-        $errors = array();
+        $errors = [];
 
         // check if scheduled generation enabled
         if (!Mage::getStoreConfigFlag(self::XML_PATH_GENERATION_ENABLED)) {
@@ -69,9 +67,9 @@ class Mage_Sitemap_Model_Observer
         }
 
         $collection = Mage::getModel('sitemap/sitemap')->getCollection();
-        /* @var Mage_Sitemap_Model_Resource_Sitemap_Collection $collection */
+        /** @var Mage_Sitemap_Model_Resource_Sitemap_Collection $collection */
         foreach ($collection as $sitemap) {
-            /* @var Mage_Sitemap_Model_Sitemap $sitemap */
+            /** @var Mage_Sitemap_Model_Sitemap $sitemap */
 
             try {
                 $sitemap->generateXml();
@@ -82,18 +80,18 @@ class Mage_Sitemap_Model_Observer
 
         if ($errors && Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT)) {
             $translate = Mage::getSingleton('core/translate');
-            /* @var Mage_Core_Model_Translate $translate */
+            /** @var Mage_Core_Model_Translate $translate */
             $translate->setTranslateInline(false);
 
             $emailTemplate = Mage::getModel('core/email_template');
-            /* @var Mage_Core_Model_Email_Template $emailTemplate */
-            $emailTemplate->setDesignConfig(array('area' => 'backend'))
+            /** @var Mage_Core_Model_Email_Template $emailTemplate */
+            $emailTemplate->setDesignConfig(['area' => 'backend'])
                 ->sendTransactional(
                     Mage::getStoreConfig(self::XML_PATH_ERROR_TEMPLATE),
                     Mage::getStoreConfig(self::XML_PATH_ERROR_IDENTITY),
                     Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT),
                     null,
-                    array('warnings' => implode("\n", $errors))
+                    ['warnings' => implode("\n", $errors)]
                 );
 
             $translate->setTranslateInline(true);

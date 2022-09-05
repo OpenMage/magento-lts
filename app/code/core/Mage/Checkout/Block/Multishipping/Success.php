@@ -46,7 +46,7 @@ class Mage_Checkout_Block_Multishipping_Success extends Mage_Checkout_Block_Mult
      */
     public function getViewOrderUrl($orderId)
     {
-        return $this->getUrl('sales/order/view/', array('order_id' => $orderId, '_secure' => true));
+        return $this->getUrl('sales/order/view/', ['order_id' => $orderId, '_secure' => true]);
     }
 
     /**

@@ -12,14 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Magethrow
+ * @category   Mage
  * @package    Mage_Core
  * @author     Magento Core Team <core@magentocommerce.com>
  */
@@ -57,7 +57,7 @@ class Mage_Core_Model_Domainpolicy
      * @param array $options
      * @throws Mage_Core_Model_Store_Exception
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         $this->_store = isset($options['store']) ? $options['store'] : Mage::app()->getStore();
     }
@@ -73,9 +73,9 @@ class Mage_Core_Model_Domainpolicy
         $action = $observer->getControllerAction();
         $policy = null;
 
-        if ('adminhtml' == $action->getLayout()->getArea()) {
+        if ($action->getLayout()->getArea() == 'adminhtml') {
             $policy = $this->getBackendPolicy();
-        } elseif ('frontend' == $action->getLayout()->getArea()) {
+        } elseif ($action->getLayout()->getArea() == 'frontend') {
             $policy = $this->getFrontendPolicy();
         }
 

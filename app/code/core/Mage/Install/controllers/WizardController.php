@@ -291,7 +291,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $adminData      = $this->getRequest()->getPost('admin');
         $encryptionKey  = $this->getRequest()->getPost('encryption_key');
 
-        $errors = array();
+        $errors = [];
 
         //preparing admin user model with data and validate it
         $user = $this->_getInstaller()->validateAndPrepareAdministrator($adminData);

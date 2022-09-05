@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Validator for check not protected file extensions
@@ -42,7 +41,7 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
      *
      * @var array
      */
-    protected $_protectedFileExtensions = array();
+    protected $_protectedFileExtensions = [];
 
     /**
      * Construct
@@ -61,9 +60,9 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
     protected function _initMessageTemplates()
     {
         if (!$this->_messageTemplates) {
-            $this->_messageTemplates = array(
+            $this->_messageTemplates = [
                 self::PROTECTED_EXTENSION => Mage::helper('core')->__('File with an extension "%value%" is protected and cannot be uploaded'),
-            );
+            ];
         }
         return $this;
     }
@@ -89,7 +88,6 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
         }
         return $this;
     }
-
 
     /**
      * Returns true if and only if $value meets the validation requirements

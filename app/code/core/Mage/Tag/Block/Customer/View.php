@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * List of products tagged by customer Block
  *
@@ -34,7 +33,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     /**
      * Tagged Product Collection
      *
-     * @var Mage_Tag_Model_Mysql4_Product_Collection
+     * @var Mage_Tag_Model_Resource_Product_Collection
      */
     protected $_collection;
 
@@ -97,7 +96,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
      */
     public function getReviewUrl($productId)
     {
-        return Mage::getUrl('review/product/list', array('id' => $productId));
+        return Mage::getUrl('review/product/list', ['id' => $productId]);
     }
 
     /**
@@ -138,7 +137,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     /**
      * Retrieve Tagged product(s) collection
      *
-     * @return Mage_Tag_Model_Mysql4_Product_Collection
+     * @return Mage_Tag_Model_Resource_Product_Collection
      */
     protected function _getCollection()
     {

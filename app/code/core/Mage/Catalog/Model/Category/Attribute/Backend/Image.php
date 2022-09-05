@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog category image attribute backend model
@@ -28,10 +27,8 @@
  */
 class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
-
     /**
      * Save uploaded file and set its name to category
-     *
      * @param Varien_Object $object
      * @return $this
      */
@@ -54,7 +51,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
         try {
             $validator = Mage::getModel('core/file_validator_image');
             $uploader = new Mage_Core_Model_File_Uploader($this->getAttribute()->getName());
-            $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
+            $uploader->setAllowedExtensions(['jpg','jpeg','gif','png']);
             $uploader->setAllowRenameFiles(true);
             $uploader->addValidateCallback(Mage_Core_Model_File_Validator_Image::NAME, $validator, 'validate');
             $result = $uploader->save($path);
@@ -65,7 +62,6 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
             if ($e->getCode() != Mage_Core_Model_File_Uploader::TMP_NAME_EMPTY) {
                 Mage::logException($e);
             }
-            /** @TODO ??? */
         }
         return $this;
     }

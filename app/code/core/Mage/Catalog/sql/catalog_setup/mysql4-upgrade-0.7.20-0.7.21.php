@@ -12,23 +12,23 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
-$attributes = array(
+$attributes = [
     $installer->getAttributeId('catalog_product', 'price'),
     $installer->getAttributeId('catalog_product', 'special_price'),
     $installer->getAttributeId('catalog_product', 'special_from_date'),
     $installer->getAttributeId('catalog_product', 'special_to_date'),
     $installer->getAttributeId('catalog_product', 'cost'),
     $installer->getAttributeId('catalog_product', 'tier_price'),
-);
+];
 
 $sql    = $installer->getConnection()->quoteInto("SELECT * FROM `{$installer->getTable('eav_attribute')}` WHERE attribute_id IN (?)", $attributes);
 $data   = $installer->getConnection()->fetchAll($sql);

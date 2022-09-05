@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
             return null;
         }
 
-        $updateValue = array();
+        $updateValue = [];
 
         foreach ($tierPrices as $tierPrice) {
             if (!is_object($tierPrice)
@@ -71,12 +71,12 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
                 $tierPrice->customer_group_id = Mage_Customer_Model_Group::CUST_GROUP_ALL;
             }
 
-            $updateValue[] = array(
+            $updateValue[] = [
                 'website_id' => $tierPrice->website,
                 'cust_group' => $tierPrice->customer_group_id,
                 'price_qty'  => $tierPrice->qty,
                 'price'      => $tierPrice->price
-            );
+            ];
         }
 
         return $updateValue;

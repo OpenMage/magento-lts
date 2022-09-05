@@ -12,29 +12,27 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Poll
+ * @category   Mage
+ * @package    Mage_Poll
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-/* @var Mage_Core_Model_Resource_Setup $installer */
-
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
 $pollModel = Mage::getModel('poll/poll');
 
 $pollModel  ->setDatePosted(Varien_Date::now())
             ->setPollTitle('What is your favorite color')
-            ->setStoreIds(array(1));
+            ->setStoreIds([1]);
 
-$answers  = array(
-                array('Green', 4),
-                array('Red', 1),
-                array('Black', 0),
-                array('Magenta', 2)
-                );
+$answers  = [
+                ['Green', 4],
+                ['Red', 1],
+                ['Black', 0],
+                ['Magenta', 2]
+];
 
 foreach ($answers as $key => $answer) {
     $answerModel = Mage::getModel('poll/poll_answer');

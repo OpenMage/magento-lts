@@ -56,7 +56,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
         if (!$object->getLoadExpired()) {
             $tableName = $this->getMainTable();
             $select->join(
-                array('customer' => $this->getTable('customer/entity')),
+                ['customer' => $this->getTable('customer/entity')],
                 'customer.entity_id = ' . $tableName . '.customer_id'
             )->where($tableName . '.updated_at >= ?', $object->getExpiredBefore());
         }
@@ -72,7 +72,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
      */
     public function deleteByCustomerId($customerId)
     {
-        $this->_getWriteAdapter()->delete($this->getMainTable(), array('customer_id = ?' => $customerId));
+        $this->_getWriteAdapter()->delete($this->getMainTable(), ['customer_id = ?' => $customerId]);
         return $this;
     }
 
@@ -100,10 +100,10 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
     {
         $this->_getWriteAdapter()->delete(
             $this->getMainTable(),
-            array(
+            [
                 'website_id = ?' => $websiteId,
                 'updated_at < ?' => $expiredBefore,
-            )
+            ]
         );
         return $this;
     }

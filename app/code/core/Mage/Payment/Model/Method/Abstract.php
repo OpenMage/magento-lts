@@ -12,16 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Payment
+ * @category   Mage
+ * @package    Mage_Payment
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payment method abstract model
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Payment
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getCheckoutRedirectUrl()
  * @method $this setInfoInstance(Mage_Payment_Model_Info $value)
@@ -98,7 +100,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = array();
+    protected $_debugReplacePrivateDataKeys = [];
 
     public function __construct()
     {
@@ -255,7 +257,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -498,7 +500,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
             Mage::throwException(Mage::helper('payment')->__('Refund action is not available.'));
         }
 
-
         return $this;
     }
 
@@ -617,7 +618,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function getConfigData($field, $storeId = null)
     {
-        if (null === $storeId) {
+        if ($storeId === null) {
             $storeId = $this->getStore();
         }
         $path = 'payment/'.$this->getCode().'/'.$field;
@@ -665,11 +666,11 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         $isActive = (bool)(int)$this->getConfigData('active', $quote ? $quote->getStoreId() : null);
         $checkResult->isAvailable = $isActive;
         $checkResult->isDeniedInConfig = !$isActive; // for future use in observers
-        Mage::dispatchEvent('payment_method_is_active', array(
+        Mage::dispatchEvent('payment_method_is_active', [
             'result'          => $checkResult,
             'method_instance' => $this,
             'quote'           => $quote,
-        ));
+        ]);
 
         if ($checkResult->isAvailable && $quote) {
             $checkResult->isAvailable = $this->isApplicableToQuote($quote, self::CHECK_RECURRING_PROFILES);

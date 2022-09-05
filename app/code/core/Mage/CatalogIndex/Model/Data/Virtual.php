@@ -19,7 +19,7 @@
  */
 
 /**
- * Virtual product data retreiver
+ * Virtual product data retriever
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
@@ -28,7 +28,7 @@ class Mage_CatalogIndex_Model_Data_Virtual extends Mage_CatalogIndex_Model_Data_
     protected $_haveChildren = false;
 
     /**
-     * Retreive product type code
+     * Retrieve product type code
      *
      * @return string
      */

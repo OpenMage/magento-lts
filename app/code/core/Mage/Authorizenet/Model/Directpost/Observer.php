@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Authorizenet
+ * @category   Mage
+ * @package    Mage_Authorizenet
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Authorizenet directpayment observer
  *
- * @category    Mage
- * @package     Mage_Authorizenet
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Authorizenet
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Authorizenet_Model_Directpost_Observer
 {
@@ -35,7 +35,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
      */
     public function saveOrderAfterSubmit(Varien_Event_Observer $observer)
     {
-        /* @var $order Mage_Sales_Model_Order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getData('order');
         Mage::register('directpost_order', $order, true);
 
@@ -50,13 +50,13 @@ class Mage_Authorizenet_Model_Directpost_Observer
      */
     public function addAdditionalFieldsToResponseFrontend(Varien_Event_Observer $observer)
     {
-        /* @var $order Mage_Sales_Model_Order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = Mage::registry('directpost_order');
 
         if ($order && $order->getId()) {
             $payment = $order->getPayment();
             if ($payment && $payment->getMethod() == Mage::getModel('authorizenet/directpost')->getCode()) {
-                /* @var $controller Mage_Core_Controller_Varien_Action */
+                /** @var Mage_Core_Controller_Varien_Action $controller */
                 $controller = $observer->getEvent()->getData('controller_action');
                 $result = Mage::helper('core')->jsonDecode(
                     $controller->getResponse()->getBody('default'),
@@ -73,7 +73,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
                     $requestToPaygate->setControllerActionName($controller->getRequest()->getControllerName());
                     $requestToPaygate->setIsSecure((string)Mage::app()->getStore()->isCurrentlySecure());
 
-                    $result['directpost'] = array('fields' => $requestToPaygate->getData());
+                    $result['directpost'] = ['fields' => $requestToPaygate->getData()];
 
                     $controller->getResponse()->clearHeader('Location');
                     $controller->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
@@ -93,7 +93,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
      */
     public function updateAllEditIncrements(Varien_Event_Observer $observer)
     {
-         /* @var $order Mage_Sales_Model_Order */
+         /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getData('order');
         Mage::helper('authorizenet')->updateOrderEditIncrements($order);
 

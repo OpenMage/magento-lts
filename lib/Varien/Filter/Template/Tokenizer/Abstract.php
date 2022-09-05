@@ -83,7 +83,6 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
         return $this->_string[$this->_currentIndex];
     }
 
-
     /**
      * Set string for tokenize
      */

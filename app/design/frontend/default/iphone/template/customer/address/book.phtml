@@ -72,7 +72,7 @@
                     <?php echo $this->getAddressHtml($_address) ?><br />
                 </address>
                 <p class="actions">
-                    <a href="<?php echo $this->getUrl('customer/address/edit', array('id'=>$_address->getId())) ?>"><?php echo $this->__('Edit Address') ?></a>
+                    <a href="<?php echo $this->getUrl('customer/address/edit', ['id'=>$_address->getId()]) ?>"><?php echo $this->__('Edit Address') ?></a>
                     <span class="separator">|</span>
                     <a href="#" onclick="return deleteAddress('<?php echo $_address->getId() ?>');"><?php echo $this->__('Delete Address') ?></a>
                 </p>

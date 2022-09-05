@@ -33,9 +33,9 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
      *
      * @var array
      */
-    protected $_serializableFields   = array(
-        'additional_information' => array(null, array())
-    );
+    protected $_serializableFields   = [
+        'additional_information' => [null, []]
+    ];
 
     /**
      * Initialize main table and the primary key field name

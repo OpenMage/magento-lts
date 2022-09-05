@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends Mage_Adminhtml_Block_Widget
 {
@@ -133,7 +133,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     {
         $values = [];
         foreach ($this->getMediaAttributes() as $attribute) {
-            /* @var Mage_Eav_Model_Entity_Attribute $attribute */
+            /** @var Mage_Eav_Model_Entity_Attribute $attribute */
             $attributeCode = $attribute->getAttributeCode();
             $values[$attributeCode] = $this->getElement()->getDataObject()->getData($attributeCode);
         }
@@ -141,15 +141,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getImageTypes()
     {
         $imageTypes = [];
         foreach ($this->getMediaAttributes() as $attribute) {
-            /* @var Mage_Eav_Model_Entity_Attribute $attribute */
+            /** @var Mage_Eav_Model_Entity_Attribute $attribute */
             $imageTypes[$attribute->getAttributeCode()] = [
                 'label' => $attribute->getFrontend()->getLabel() . ' '
                          . Mage::helper('catalog')->__($this->getElement()->getScopeLabel($attribute)),
@@ -174,8 +172,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getMediaAttributes()
@@ -190,5 +186,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     {
         return Mage::helper('core')->jsonEncode($this->getImageTypes());
     }
-
 }

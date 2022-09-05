@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer Redirect Page
  *
@@ -34,7 +33,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  HTML form hidden fields
      */
-    protected $_formFields = array();
+    protected $_formFields = [];
 
     /**
      *  URL for redirect location
@@ -97,7 +96,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
             ->setMethod($this->getMethod())
             ->setUseContainer(true);
         foreach ($this->_getFormFields() as $field => $value) {
-            $form->addField($field, 'hidden', array('name' => $field, 'value' => $value));
+            $form->addField($field, 'hidden', ['name' => $field, 'value' => $value]);
         }
         $html = $form->toHtml();
         $html.= '<script type="text/javascript">document.getElementById("' . $this->getFormId() . '").submit();</script>';
@@ -141,7 +140,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
      */
     public function getFormFields()
     {
-        return array();
+        return [];
     }
 
     /**

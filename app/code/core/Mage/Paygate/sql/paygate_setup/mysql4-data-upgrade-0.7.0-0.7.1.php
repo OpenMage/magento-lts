@@ -12,14 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paygate
+ * @category   Mage
+ * @package    Mage_Paygate
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
 $installer->startSetup();
 $connection = $installer->getConnection();
 $connection->beginTransaction();
@@ -38,20 +38,20 @@ try{
             ->joinLeft(
             $transactionTable,
             "$transactionTable.txn_id = $paymentTable.last_trans_id",
-               array(
+               [
                    'last_transaction_id' => 'transaction_id',
                    'last_transaction_type' => 'txn_type',
                    'last_transaction_is_closed' => 'is_closed'
-               )
+               ]
             )
             ->where('method=?', $paymentMethodCode)
     );
 
-    $paymentsIds = array();
-    $transactionsShouldBeOpened = array();
+    $paymentsIds = [];
+    $transactionsShouldBeOpened = [];
     foreach ($payments as $payment) {
         $paymentId = $payment['entity_id'];
-        $card = array(
+        $card = [
             'last_trans_id' => $payment['last_trans_id'],
             'cc_type' => $payment['cc_type'],
             'cc_owner' => $payment['cc_owner'],
@@ -65,17 +65,17 @@ try{
             'processed_amount' => $payment['base_amount_ordered'],
             'captured_amount' => $payment['base_amount_paid_online'],
             'refunded_amount' => $payment['base_amount_refunded_online']
-        );
+        ];
         $additionalInformation = unserialize($payment['additional_information'], ['allowed_classes' => false]);
         if (isset ($additionalInformation['authorize_cards'])) {
             continue;
         }
-        $additionalInformation['authorize_cards'] = array(
+        $additionalInformation['authorize_cards'] = [
             (string) md5(microtime(1)) => $card
-        );
+        ];
         $additionalInformation = serialize($additionalInformation);
 
-        $bind  = array(
+        $bind  = [
             'additional_information' => $additionalInformation,
             'last_trans_id' => null,
             'cc_type' => null,
@@ -86,7 +86,7 @@ try{
             'cc_ss_issue' => null,
             'cc_ss_start_month' => null,
             'cc_ss_start_year' => null
-        );
+        ];
         $where = $this->getConnection()->quoteInto('entity_id=?', $paymentId);
         $this->getConnection()->update($paymentTable, $bind, $where);
 
@@ -107,7 +107,7 @@ try{
         $installer->getConnection()->select()
             ->from(
                 $transactionTable,
-                array('transaction_id', 'txn_id', 'txn_type', 'is_closed', 'additional_information')
+                ['transaction_id', 'txn_id', 'txn_type', 'is_closed', 'additional_information']
             )
             ->where('payment_id IN (?)', $paymentsIds)
     );
@@ -125,10 +125,10 @@ try{
             $isClosed = '0';
         }
 
-        $bind  = array(
+        $bind  = [
             'additional_information' => $additionalInformation,
             'is_closed' => $isClosed
-        );
+        ];
         $where = $this->getConnection()->quoteInto('transaction_id=?', $transactionId);
         $this->getConnection()->update($transactionTable, $bind, $where);
     }

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Model  for flex reports
  *
@@ -51,7 +50,7 @@ class Mage_Reports_Model_Test extends Varien_Object
         $root = $dom -> documentElement;
         $rows = $root -> getElementsByTagName('row');
 
-        $childsToRemove = array();
+        $childsToRemove = [];
         for ($i = 0; $i < $rows -> length; $i++) {
             for ($j = 0; $j < $rows -> item($i) -> childNodes -> length; $j ++) {
                 if ($rows -> item($i) -> childNodes -> item($j) -> nodeType == XML_ELEMENT_NODE
@@ -89,14 +88,14 @@ class Mage_Reports_Model_Test extends Varien_Object
 
         $startPoint = time() - 24*60*60;
 
-        $allData = array();
+        $allData = [];
         $countOfStartData = 12;
         for ($i = 1; $i<= $countOfStartData; $i++) {
-            $allData[] = array( 'time'=>date("Y-m-d H:i", $startPoint), 'value'=>rand(1, 100) );
+            $allData[] = ['time'=>date("Y-m-d H:i", $startPoint), 'value'=>rand(1, 100)];
             $startPoint += 30*60;
         }
 
-        $allData[] = array( 'time'=>date("Y-m-d H:i", $startPoint+(90*60)));
+        $allData[] = ['time'=>date("Y-m-d H:i", $startPoint+(90*60))];
 
         $session -> setData('startPoint', $startPoint);
 
@@ -110,18 +109,16 @@ class Mage_Reports_Model_Test extends Varien_Object
     {
         $session = Mage::getModel('review/session');
 
-
         $startPoint = $session->getData('startPoint');
 
         $reset = 12;
 
-
-        $newData  = array(
-            array( 'time'=> date("Y-m-d H:i", $startPoint), 'value'=>rand(1, 100) )
-        );
+        $newData  = [
+            ['time'=> date("Y-m-d H:i", $startPoint), 'value'=>rand(1, 100)]
+        ];
 
         $startPoint += 30*60;
-        $newData[]  = array( 'time'=> date("Y-m-d H:i", $startPoint+(90*60)) );
+        $newData[]  = ['time'=> date("Y-m-d H:i", $startPoint+(90*60))];
 
         $session->setData('startPoint', $startPoint);
 

@@ -12,16 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml billing agreement info tab
  *
- * @author Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setCreatedAt(string $formatDate)
  * @method $this setCustomerEmail(string $value)
@@ -34,7 +36,6 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Ad
 {
     /**
      * Set custom template
-     *
      */
     protected function _construct()
     {
@@ -65,7 +66,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Ad
     /**
      * Can show tab in tabs
      *
-     * @return boolean
+     * @return true
      */
     public function canShowTab()
     {
@@ -75,7 +76,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Ad
     /**
      * Tab is hidden
      *
-     * @return boolean
+     * @return false
      */
     public function isHidden()
     {
@@ -103,16 +104,14 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Ad
         $this->setReferenceId($agreement->getReferenceId());
         $customer = Mage::getModel('customer/customer')->load($agreement->getCustomerId());
         $this->setCustomerUrl(
-            $this->getUrl('*/customer/edit', array('id' => $customer->getId()))
+            $this->getUrl('*/customer/edit', ['id' => $customer->getId()])
         );
         $this->setCustomerEmail($customer->getEmail());
         $this->setStatus($agreement->getStatusLabel());
-        $this->setCreatedAt(
-            $this->helper('core')->formatDate($agreement->getCreatedAt(), 'short', true)
-        );
+        $this->setCreatedAt($this->formatDate($agreement->getCreatedAt(), 'short', true));
         $this->setUpdatedAt(
             ($agreement->getUpdatedAt())
-                ? $this->helper('core')->formatDate($agreement->getUpdatedAt(), 'short', true) : $this->__('N/A')
+                ? $this->formatDate($agreement->getUpdatedAt(), 'short', true) : $this->__('N/A')
         );
 
         return parent::_toHtml();

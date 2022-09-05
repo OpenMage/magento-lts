@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Wishlist
+ * @category   Mage
+ * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Wishlist Abstract Front Controller Action
  *
- * @category    Mage
- * @package     Mage_Wishlist
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Wishlist
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Front_Action
 {
@@ -81,10 +80,10 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
         }
         $isOwner    = $wishlist->isOwner(Mage::getSingleton('customer/session')->getCustomerId());
 
-        $messages   = array();
-        $addedItems = array();
-        $notSalable = array();
-        $hasOptions = array();
+        $messages   = [];
+        $addedItems = [];
+        $notSalable = [];
+        $hasOptions = [];
 
         $cart       = Mage::getSingleton('checkout/cart');
         $collection = $wishlist->getItemCollection()
@@ -135,7 +134,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
         if ($isOwner) {
             $indexUrl = Mage::helper('wishlist')->getListUrl($wishlist->getId());
         } else {
-            $indexUrl = Mage::getUrl('wishlist/shared', array('code' => $wishlist->getSharingCode()));
+            $indexUrl = Mage::getUrl('wishlist/shared', ['code' => $wishlist->getSharingCode()]);
         }
         if (Mage::helper('checkout/cart')->getShouldRedirectToCart()) {
             $redirectUrl = Mage::helper('checkout/cart')->getCartUrl();
@@ -146,7 +145,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
         }
 
         if ($notSalable) {
-            $products = array();
+            $products = [];
             foreach ($notSalable as $item) {
                 $products[] = '"' . $item->getProduct()->getName() . '"';
             }
@@ -154,7 +153,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
         }
 
         if ($hasOptions) {
-            $products = array();
+            $products = [];
             foreach ($hasOptions as $item) {
                 $products[] = '"' . $item->getProduct()->getName() . '"';
             }
@@ -187,7 +186,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
                 $redirectUrl = $indexUrl;
             }
 
-            $products = array();
+            $products = [];
             foreach ($addedItems as $product) {
                 $products[] = '"' . $product->getName() . '"';
             }

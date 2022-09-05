@@ -12,23 +12,23 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
 $connection = $installer->getConnection();
 $installer->startSetup();
-$data = array(
-    array('paypal_reversed', 'PayPal Reversed'),
-    array('paypal_canceled_reversal', 'PayPal Canceled Reversal')
-);
+$data = [
+    ['paypal_reversed', 'PayPal Reversed'],
+    ['paypal_canceled_reversal', 'PayPal Canceled Reversal']
+];
 $connection = $installer->getConnection()->insertArray(
     $installer->getTable('sales/order_status'),
-    array('status', 'label'),
+    ['status', 'label'],
     $data
 );
 /**
@@ -40,7 +40,7 @@ Mage::getConfig()->saveConfig($ecSkipOrderReviewStepFlagPath, '1');
 /**
  * Set default value for "Mobile Optimized" option for Payflow Link/Advanced/Hosted Pro for new installations
  */
-$paymentCode = array('payflow_link', 'payflow_advanced', 'hosted_pro');
+$paymentCode = ['payflow_link', 'payflow_advanced', 'hosted_pro'];
 foreach($paymentCode as $value) {
     Mage::getConfig()->saveConfig("payment/{$value}/mobile_optimized", '1');
 }

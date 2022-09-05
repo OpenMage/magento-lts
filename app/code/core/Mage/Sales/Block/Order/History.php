@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,14 +23,13 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Order_Collection getOrders()
  * @method $this setOrders(Mage_Sales_Model_Resource_Order_Collection $value)
  */
 class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -39,7 +38,7 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
         $orders = Mage::getResourceModel('sales/order_collection')
             ->addFieldToSelect('*')
             ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId())
-            ->addFieldToFilter('state', array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()))
+            ->addFieldToFilter('state', ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()])
             ->setOrder('created_at', 'desc')
         ;
 
@@ -76,7 +75,7 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
      */
     public function getViewUrl($order)
     {
-        return $this->getUrl('*/*/view', array('order_id' => $order->getId()));
+        return $this->getUrl('*/*/view', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -85,7 +84,7 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
      */
     public function getTrackUrl($order)
     {
-        return $this->getUrl('*/*/track', array('order_id' => $order->getId()));
+        return $this->getUrl('*/*/track', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -94,7 +93,7 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
      */
     public function getReorderUrl($order)
     {
-        return $this->getUrl('*/*/reorder', array('order_id' => $order->getId()));
+        return $this->getUrl('*/*/reorder', ['order_id' => $order->getId()]);
     }
 
     /**

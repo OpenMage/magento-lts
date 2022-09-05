@@ -34,7 +34,7 @@
            class="link-compare"
            onclick="customFormSubmit(
                    '<?php echo $_compareUrl ?>',
-                   '<?php echo $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()))) ?>',
+                   '<?php echo $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])) ?>',
                    'post')">
             <?php echo $this->__('Add to Compare') ?>
         </a>

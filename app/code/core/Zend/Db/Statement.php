@@ -125,7 +125,6 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      */
     protected function _prepare($sql)
     {
-        return;
     }
 
     /**
@@ -467,7 +466,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
     /**
      * Gets the resource or object setup by the
      * _parse
-     * @return unknown_type
+     * @return resource|object
      */
     public function getDriverStatement()
     {

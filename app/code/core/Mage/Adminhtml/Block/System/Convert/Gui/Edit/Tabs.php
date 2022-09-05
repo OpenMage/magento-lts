@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
@@ -51,37 +51,37 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tabs extends Mage_Adminhtml_B
 
         $new = !$profile->getId();
 
-        $this->addTab('wizard', array(
+        $this->addTab('wizard', [
             'label'     => Mage::helper('adminhtml')->__('Profile Wizard'),
             'content'   => $wizardBlock->toHtml(),
             'active'    => true,
-        ));
+        ]);
 
         if (!$new) {
             if ($profile->getDirection() !== 'export') {
-                $this->addTab('upload', array(
+                $this->addTab('upload', [
                     'label'     => Mage::helper('adminhtml')->__('Upload File'),
                     'content'   => $this->getLayout()->createBlock('adminhtml/system_convert_gui_edit_tab_upload')->toHtml(),
-                ));
+                ]);
             }
 
-            $this->addTab('run', array(
+            $this->addTab('run', [
                 'label'     => Mage::helper('adminhtml')->__('Run Profile'),
                 'content'   => $this->getLayout()->createBlock('adminhtml/system_convert_profile_edit_tab_run')->toHtml(),
-            ));
+            ]);
 
             /** @var Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View
             $block */
             $block = $this->getLayout()->createBlock('adminhtml/system_convert_gui_edit_tab_view');
-            $this->addTab('view', array(
+            $this->addTab('view', [
                 'label'     => Mage::helper('adminhtml')->__('Profile Actions XML'),
                 'content'   => $block->initForm()->toHtml(),
-            ));
+            ]);
 
-            $this->addTab('history', array(
+            $this->addTab('history', [
                 'label'     => Mage::helper('adminhtml')->__('Profile History'),
                 'content'   => $this->getLayout()->createBlock('adminhtml/system_convert_profile_edit_tab_history')->toHtml(),
-            ));
+            ]);
         }
 
         return parent::_beforeToHtml();

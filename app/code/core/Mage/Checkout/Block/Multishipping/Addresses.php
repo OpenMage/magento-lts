@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items_Abstract
 {
@@ -87,12 +87,12 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
     {
         $options = $this->getData('address_options');
         if (is_null($options)) {
-            $options = array();
+            $options = [];
             foreach ($this->getCustomer()->getAddresses() as $address) {
-                $options[] = array(
+                $options[] = [
                     'value' => $address->getId(),
                     'label' => $address->format('oneline')
-                );
+                ];
             }
             $this->setData('address_options', $options);
         }
@@ -123,7 +123,7 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
      */
     public function getItemDeleteUrl($item)
     {
-        return $this->getUrl('*/*/removeItem', array('address'=>$item->getQuoteAddressId(), 'id'=>$item->getId()));
+        return $this->getUrl('*/*/removeItem', ['address'=>$item->getQuoteAddressId(), 'id'=>$item->getId()]);
     }
 
     /**

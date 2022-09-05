@@ -18,11 +18,18 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+/**
+ * @var Mage_Customer_Block_Form_Login $this
+ */
+?>
+<?php if ($this->canShowLogin()): ?>
 <div class="block block-login">
     <div class="block-title">
         <strong><span><?php echo $this->__('Login') ?></span></strong>
     </div>
     <form action="<?php echo $this->getPostActionUrl() ?>" method="post">
+        <?php echo $this->getBlockHtml('formkey') ?>
         <div class="block-content">
             <label for="mini-login"><?php echo $this->__('Email:') ?></label><input type="text" name="login[username]" id="mini-login" class="input-text" />
             <label for="mini-password"><?php echo $this->__('Password:') ?></label><input type="password" name="login[password]" id="mini-password" class="input-text" />
@@ -32,3 +39,4 @@
         </div>
     </form>
 </div>
+<?php endif ?>

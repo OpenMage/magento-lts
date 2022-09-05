@@ -35,9 +35,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Source_Unitofmeasure
     public function toOptionArray()
     {
         $measureUnits = Mage::getSingleton('usa/shipping_carrier_fedex')->getCode('unit_of_measure');
-        $result = array();
+        $result = [];
         foreach ($measureUnits as $key => $val){
-            $result[] = array('value'=>$key,'label'=>$val);
+            $result[] = ['value'=>$key,'label'=>$val];
         }
         return $result;
     }

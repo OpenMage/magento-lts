@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Rss
+ * @category   Mage
+ * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,7 +27,6 @@
  */
 class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
 {
-
     /**
      * Cache tag constant for feed notify stock
      *
@@ -35,12 +34,9 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
      */
     const CACHE_TAG = 'block_html_rss_catalog_notifystock';
 
-    /**
-     * Constructor
-     */
     protected function _construct()
     {
-        $this->setCacheTags(array(self::CACHE_TAG));
+        $this->setCacheTags([self::CACHE_TAG]);
         /*
         * setting cache to save the rss for 10 minutes
         */
@@ -59,33 +55,33 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         $title = Mage::helper('rss')->__('Low Stock Products');
 
         $rssObj = Mage::getModel('rss/rss');
-        $data = array(
+        $data = [
             'title'       => $title,
             'description' => $title,
             'link'        => $newUrl,
             'charset'     => 'UTF-8',
-        );
+        ];
         $rssObj->_addHeader($data);
 
         $globalNotifyStockQty = (float) Mage::getStoreConfig(
             Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY);
         Mage::helper('rss')->disableFlat();
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product');
         $collection = $product->getCollection();
-        Mage::getResourceModel('cataloginventory/stock')->addLowStockFilter($collection, array(
+        Mage::getResourceModel('cataloginventory/stock')->addLowStockFilter($collection, [
             'qty',
             'notify_stock_qty',
             'low_stock_date',
             'use_config' => 'use_config_notify_stock_qty'
-        ));
+        ]);
         $collection
             ->addAttributeToSelect('name', true)
             ->addAttributeToFilter('status',
-                array('in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds())
+                ['in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds()]
             )
             ->setOrder('low_stock_date');
-        Mage::dispatchEvent('rss_catalog_notify_stock_collection_select', array('collection' => $collection));
+        Mage::dispatchEvent('rss_catalog_notify_stock_collection_select', ['collection' => $collection]);
 
         /*
         using resource iterator to load the data one by one
@@ -93,8 +89,8 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         */
         Mage::getSingleton('core/resource_iterator')->walk(
             $collection->getSelect(),
-            array(array($this, 'addNotifyItemXmlCallback')),
-            array('rssObj'=> $rssObj, 'product'=>$product, 'globalQty' => $globalNotifyStockQty)
+            [[$this, 'addNotifyItemXmlCallback']],
+            ['rssObj'=> $rssObj, 'product'=>$product, 'globalQty' => $globalNotifyStockQty]
         );
 
         return $rssObj->createRssXml();
@@ -110,15 +106,15 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         $product = $args['product'];
         $product->setData($args['row']);
         $url = Mage::helper('adminhtml')->getUrl('adminhtml/catalog_product/edit/',
-            array('id' => $product->getId(), '_secure' => true, '_nosecret' => true));
+            ['id' => $product->getId(), '_secure' => true, '_nosecret' => true]);
         $qty = 1 * $product->getQty();
         $description = Mage::helper('rss')->__('%s has reached a quantity of %s.', $product->getName(), $qty);
         $rssObj = $args['rssObj'];
-        $data = array(
+        $data = [
             'title'         => $product->getName(),
             'link'          => $url,
             'description'   => $description,
-        );
+        ];
         $rssObj->_addEntry($data);
     }
 }

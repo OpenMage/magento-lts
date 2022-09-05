@@ -12,18 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Factory class
- *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Factory
 {
@@ -46,7 +44,7 @@ class Mage_Core_Model_Factory
      *
      * @param array $arguments
      */
-    public function __construct(array $arguments = array())
+    public function __construct(array $arguments = [])
     {
         $this->_config = !empty($arguments['config']) ? $arguments['config'] : Mage::getConfig();
     }
@@ -58,7 +56,7 @@ class Mage_Core_Model_Factory
      * @param array|object $arguments
      * @return bool|Mage_Core_Model_Abstract
      */
-    public function getModel($modelClass = '', $arguments = array())
+    public function getModel($modelClass = '', $arguments = [])
     {
         return Mage::getModel($modelClass, $arguments);
     }
@@ -70,7 +68,7 @@ class Mage_Core_Model_Factory
      * @param array $arguments
      * @return Mage_Core_Model_Abstract
      */
-    public function getSingleton($modelClass = '', array $arguments = array())
+    public function getSingleton($modelClass = '', array $arguments = [])
     {
         return Mage::getSingleton($modelClass, $arguments);
     }
@@ -82,7 +80,7 @@ class Mage_Core_Model_Factory
      * @param array $arguments
      * @return Object
      */
-    public function getResourceModel($modelClass, $arguments = array())
+    public function getResourceModel($modelClass, $arguments = [])
     {
         return Mage::getResourceModel($modelClass, $arguments);
     }

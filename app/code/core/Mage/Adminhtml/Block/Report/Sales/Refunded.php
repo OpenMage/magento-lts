@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -35,16 +35,16 @@ class Mage_Adminhtml_Block_Report_Sales_Refunded extends Mage_Adminhtml_Block_Wi
         parent::__construct();
         $this->setTemplate('report/grid/container.phtml');
         $this->_removeButton('add');
-        $this->addButton('filter_form_submit', array(
+        $this->addButton('filter_form_submit', [
             'label'     => Mage::helper('reports')->__('Show Report'),
             'onclick'   => 'filterFormSubmit()'
-        ));
+        ]);
     }
 
     public function getFilterUrl()
     {
         $this->getRequest()->setParam('filter', null);
-        return $this->getUrl('*/*/refunded', array('_current' => true));
+        return $this->getUrl('*/*/refunded', ['_current' => true]);
     }
 
     public function getHeaderCssClass()

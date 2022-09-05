@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installFile = dirname(__FILE__) . DS . 'upgrade-1.6.0.0.8-1.6.0.0.9.php';
@@ -25,9 +25,11 @@ if (file_exists($installFile)) {
 
 /** @var Mage_Catalog_Model_Resource_Setup $installer */
 $installer = $this;
+
 /** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 $connection = $installer->getConnection();
-$memoryTables = array(
+
+$memoryTables = [
     'catalog/category_anchor_indexer_tmp',
     'catalog/category_anchor_products_indexer_tmp',
     'catalog/category_product_enabled_indexer_tmp',
@@ -40,7 +42,7 @@ $memoryTables = array(
     'catalog/product_price_indexer_option_aggregate_tmp',
     'catalog/product_price_indexer_option_tmp',
     'catalog/product_price_indexer_tmp',
-);
+];
 
 foreach ($memoryTables as $table) {
     $connection->changeTableEngine($installer->getTable($table), Varien_Db_Adapter_Pdo_Mysql::ENGINE_MEMORY);

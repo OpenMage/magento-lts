@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -48,7 +48,6 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
      */
     protected $_checkoutType = 'Mage_Paypal_Model_Payflowadvanced';
 
-
     /**
      * When a customer cancel payment from payflow gateway.
      */
@@ -74,10 +73,10 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
             $order = Mage::getModel('sales/order')->loadByIncrementId($session->getLastRealOrderId());
 
             if ($order && $order->getIncrementId() == $session->getLastRealOrderId()) {
-                $allowedOrderStates = array(
+                $allowedOrderStates = [
                     Mage_Sales_Model_Order::STATE_PROCESSING,
                     Mage_Sales_Model_Order::STATE_COMPLETE
-                );
+                ];
                 if (in_array($order->getState(), $allowedOrderStates)) {
                     $session->unsLastRealOrderId();
                     $redirectBlock->setGotoSuccessPage(true);
@@ -132,7 +131,7 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
     protected function _cancelPayment($errorMsg = '')
     {
         $gotoSection = false;
-        /* @var $helper Mage_Paypal_Helper_Checkout */
+        /** @var Mage_Paypal_Helper_Checkout $helper */
         $helper = Mage::helper('paypal/checkout');
         $helper->cancelCurrentOrder($errorMsg);
         if ($helper->restoreQuote()) {

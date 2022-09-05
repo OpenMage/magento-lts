@@ -12,20 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Bundle
+ * @category   Mage
+ * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product related items block
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_Product_Abstract
 {
     protected $_columnCount = 4;
@@ -44,8 +43,8 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
             ->addStoreFilter()
             ->addMinimalPrice()
 
-            ->joinTable('bundle/option', 'parent_id=entity_id', array('option_id' => 'option_id'))
-            ->joinTable('bundle/selection', 'option_id=option_id', array('product_id' => 'product_id'), '{{table}}.product_id='.$this->getProduct()->getId());
+            ->joinTable('bundle/option', 'parent_id=entity_id', ['option_id' => 'option_id'])
+            ->joinTable('bundle/selection', 'option_id=option_id', ['product_id' => 'product_id'], '{{table}}.product_id='.$this->getProduct()->getId());
 
             $ids = Mage::getSingleton('checkout/cart')->getProductIds();
 

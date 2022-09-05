@@ -12,15 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tag
+ * @category   Mage
+ * @package    Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
+
 $installer->getConnection()->addColumn($installer->getTable('tag/tag'), 'first_customer_id', "INT(10) UNSIGNED NOT NULL DEFAULT '0'");
 
 $groupedTags = $installer->getConnection()->select()
@@ -28,13 +29,13 @@ $groupedTags = $installer->getConnection()->select()
 $select = $installer->getConnection()->select()
     ->reset()
     ->joinInner(
-        array('relation_table' => new Zend_Db_Expr("({$groupedTags->__toString()})")),
+        ['relation_table' => new Zend_Db_Expr("({$groupedTags->__toString()})")],
         'relation_table.tag_id = main_table.tag_id',
         null
     )
-    ->columns(array('first_customer_id' => 'customer_id'));
+    ->columns(['first_customer_id' => 'customer_id']);
 
-$updateSql = $select->crossUpdateFromSelect(array('main_table' => $installer->getTable('tag/tag')));
+$updateSql = $select->crossUpdateFromSelect(['main_table' => $installer->getTable('tag/tag')]);
 $installer->getConnection()->query($updateSql);
 
 $installer->endSetup();

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -24,6 +24,9 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array|null getUserValue()
+ * @method $this setUserValue(array|null $userValue)
  */
 class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Product_Option_Type_Default
 {
@@ -61,7 +64,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
 
         if ($isValid) {
             $this->setUserValue(
-                array(
+                [
                     'date' => isset($value['date']) ? $value['date'] : '',
                     'year' => isset($value['year']) ? intval($value['year']) : 0,
                     'month' => isset($value['month']) ? intval($value['month']) : 0,
@@ -70,7 +73,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
                     'minute' => isset($value['minute']) ? intval($value['minute']) : 0,
                     'day_part' => isset($value['day_part']) ? $value['day_part'] : '',
                     'date_internal' => isset($value['date_internal']) ? $value['date_internal'] : '',
-                )
+                ]
             );
         } elseif (!$isValid && $option->getIsRequire() && !$this->getSkipCheckRequiredOption()) {
             $this->setIsValid(false);
@@ -122,8 +125,8 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             if ($this->_timeExists()) {
                 // 24hr hour conversion
                 if (! $this->is24hTimeFormat()) {
-                    $pmDayPart = ('pm' == strtolower($value['day_part']));
-                    if (12 == $value['hour']) {
+                    $pmDayPart = (strtolower($value['day_part']) == 'pm');
+                    if ($value['hour'] == 12) {
                         $value['hour'] = $pmDayPart ? 12 : 0;
                     } elseif ($pmDayPart) {
                         $value['hour'] += 12;
@@ -229,10 +232,10 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             if (is_array($value) && isset($value['options']) && isset($value['options'][$this->getOption()->getId()])) {
                 return $value['options'][$this->getOption()->getId()];
             } else {
-                return array('date_internal' => $optionValue);
+                return ['date_internal' => $optionValue];
             }
         } catch (Exception $e) {
-            return array('date_internal' => $optionValue);
+            return ['date_internal' => $optionValue];
         }
     }
 
@@ -296,7 +299,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     {
         $requestOptions = $this->getRequest()->getOptions();
         if (!isset($requestOptions[$this->getOption()->getId()])) {
-            $requestOptions[$this->getOption()->getId()] = array();
+            $requestOptions[$this->getOption()->getId()] = [];
         }
         $requestOptions[$this->getOption()->getId()]['date_internal'] = $internalValue;
         $this->getRequest()->setOptions($requestOptions);
@@ -309,10 +312,10 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      */
     protected function _dateExists()
     {
-        return in_array($this->getOption()->getType(), array(
+        return in_array($this->getOption()->getType(), [
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE,
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME
-        ));
+        ]);
     }
 
     /**
@@ -322,9 +325,9 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      */
     protected function _timeExists()
     {
-        return in_array($this->getOption()->getType(), array(
+        return in_array($this->getOption()->getType(), [
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME,
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME
-        ));
+        ]);
     }
 }

@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract resource model
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Model_Resource_Abstract
 {
@@ -43,7 +43,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      *
      * @var array
      */
-    static protected $_commitCallbacks = array();
+    static protected $_commitCallbacks = [];
 
     /**
      * Resource initialization
@@ -101,7 +101,7 @@ abstract class Mage_Core_Model_Resource_Abstract
             $adapterKey = spl_object_hash($this->_getWriteAdapter());
             if (isset(self::$_commitCallbacks[$adapterKey])) {
                 $callbacks = self::$_commitCallbacks[$adapterKey];
-                self::$_commitCallbacks[$adapterKey] = array();
+                self::$_commitCallbacks[$adapterKey] = [];
                 foreach ($callbacks as $index => $callback) {
                     call_user_func($callback);
                 }
@@ -121,7 +121,7 @@ abstract class Mage_Core_Model_Resource_Abstract
         if ($this->_getWriteAdapter()->getTransactionLevel() === 0) {
             $adapterKey = spl_object_hash($this->_getWriteAdapter());
             if (isset(self::$_commitCallbacks[$adapterKey])) {
-                self::$_commitCallbacks[$adapterKey] = array();
+                self::$_commitCallbacks[$adapterKey] = [];
             }
         }
         return $this;
@@ -204,7 +204,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      */
     protected function _prepareDataForTable(Varien_Object $object, $table)
     {
-        $data = array();
+        $data = [];
         $fields = $this->_getReadAdapter()->describeTable($table);
         foreach (array_keys($fields) as $field) {
             if ($object->hasData($field)) {
@@ -212,7 +212,7 @@ abstract class Mage_Core_Model_Resource_Abstract
                 if ($fieldValue instanceof Zend_Db_Expr) {
                     $data[$field] = $fieldValue;
                 } else {
-                    if (null !== $fieldValue) {
+                    if ($fieldValue !== null) {
                         $fieldValue   = $this->_prepareTableValueForSave($fieldValue, $fields[$field]['DATA_TYPE']);
                         $data[$field] = $this->_getWriteAdapter()->prepareColumnValue($fields[$field], $fieldValue);
                     } elseif (!empty($fields[$field]['NULLABLE'])) {

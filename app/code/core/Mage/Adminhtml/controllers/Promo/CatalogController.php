@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Backend Catalog Price Rules controller
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_Action
 {
@@ -130,13 +130,13 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                 $model = Mage::getModel('catalogrule/rule');
                 Mage::dispatchEvent(
                     'adminhtml_controller_catalogrule_prepare_save',
-                    array('request' => $this->getRequest())
+                    ['request' => $this->getRequest()]
                 );
                 $data = $this->getRequest()->getPost();
-                if (Mage::helper('adminhtml')->hasTags($data['rule'], array('attribute'), false)) {
+                if (Mage::helper('adminhtml')->hasTags($data['rule'], ['attribute'], false)) {
                     Mage::throwException(Mage::helper('catalogrule')->__('Wrong rule specified'));
                 }
-                $data = $this->_filterDates($data, array('from_date', 'to_date'));
+                $data = $this->_filterDates($data, ['from_date', 'to_date']);
                 if ($id = $this->getRequest()->getParam('rule_id')) {
                     $model->load($id);
                     if ($id != $model->getId()) {
@@ -150,7 +150,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                         $this->_getSession()->addError($errorMessage);
                     }
                     $this->_getSession()->setPageData($data);
-                    $this->_redirect('*/*/edit', array('id'=>$model->getId()));
+                    $this->_redirect('*/*/edit', ['id'=>$model->getId()]);
                     return;
                 }
 
@@ -181,7 +181,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                         ->setState(1)
                         ->save();
                     if ($this->getRequest()->getParam('back')) {
-                        $this->_redirect('*/*/edit', array('id' => $model->getId()));
+                        $this->_redirect('*/*/edit', ['id' => $model->getId()]);
                         return;
                     }
                     $this->_redirect('*/*/');
@@ -195,7 +195,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                 );
                 Mage::logException($e);
                 Mage::getSingleton('adminhtml/session')->setPageData($data);
-                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('rule_id')));
+                $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('rule_id')]);
                 return;
             }
         }
@@ -231,7 +231,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                     Mage::helper('catalogrule')->__('An error occurred while deleting the rule. Please review the log and try again.')
                 );
                 Mage::logException($e);
-                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+                $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
                 return;
             }
         }

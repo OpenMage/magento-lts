@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Review
+ * @category   Mage
+ * @package    Mage_Review
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -39,7 +39,7 @@ try {
     $total = intval($this->getConnection()->fetchOne($total));
     for ($i = 0; $i < $total; $i += 100) {
         $select = $this->getConnection()->select()
-            ->from($this->getTable('review'), array('review_id', 'entity_pk_value'))
+            ->from($this->getTable('review'), ['review_id', 'entity_pk_value'])
             ->limit(100, $i)
         ;
         $rows = $this->getConnection()->fetchAll($select);

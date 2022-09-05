@@ -38,7 +38,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
         if (is_object($data)) {
             $arr = get_object_vars($data);
             foreach ($arr as $key => $value) {
-                $assocArr = array();
+                $assocArr = [];
                 if (is_array($value)) {
                     foreach ($value as $v) {
                         if (is_object($v) && count(get_object_vars($v))==2
@@ -86,7 +86,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
          * And result of Mage::dispatchEvent will always return an Object of Mage_Core_Model_App.
          */
         try {
-            Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method', array('request'=>$request, 'quote'=>$quote));
+            Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method', ['request'=>$request, 'quote'=>$quote]);
             $response->result = true;
             $response->error = '';
         } catch (Exception $e) {

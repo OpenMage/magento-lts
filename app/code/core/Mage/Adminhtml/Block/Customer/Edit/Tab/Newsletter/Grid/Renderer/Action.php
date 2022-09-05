@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,27 +23,26 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Action extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
-
     public function render(Varien_Object $row)
     {
-        $actions = array();
+        $actions = [];
 
-        $actions[] = array(
-            '@'	=>  array(
+        $actions[] = [
+            '@'	=>  [
                 'href'  => $this->getUrl('*/newsletter_template/preview',
-                    array(
+                    [
                         'id'        => $row->getTemplateId(),
                         'subscriber'=> Mage::registry('subscriber')->getId()
-                    )
+                    ]
                                 ),
                 'target'=>	'_blank'
-            ),
+            ],
             '#'	=> Mage::helper('customer')->__('View')
-        );
+        ];
 
         return $this->_actionsToHtml($actions);
     }
@@ -55,7 +54,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Action ext
 
     protected function _actionsToHtml(array $actions)
     {
-        $html = array();
+        $html = [];
         $attributesObject = new Varien_Object();
         foreach ($actions as $action) {
             $attributesObject->setData($action['@']);
@@ -63,5 +62,4 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Action ext
         }
         return implode('<span class="separator">&nbsp;|&nbsp;</span>', $html);
     }
-
 }

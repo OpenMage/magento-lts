@@ -12,20 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_GiftMessage
+ * @category   Mage
+ * @package    Mage_GiftMessage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product attribute for allowing of gift messages per item
  *
- * @deprecated after 1.4.2.0
- *
  * @category   Mage
  * @package    Mage_GiftMessage
  * @author     Magento Core Team <core@magentocommerce.com>
+ * @deprecated after 1.4.2.0
  */
 class Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
@@ -63,7 +62,7 @@ class Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config extends Mag
     public function validate($object)
     {
         // all attribute's options
-        $optionsAllowed = array('0', '1', '2');
+        $optionsAllowed = ['0', '1', '2'];
 
         $value = $object->getData($this->getAttribute()->getAttributeCode());
 

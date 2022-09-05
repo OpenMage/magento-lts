@@ -32,7 +32,7 @@
 
 <div class="advanced-search-summary">
     <?php $searchCriterias=$this->getSearchCriterias(); ?>
-        <?php foreach (array('left', 'right') as $side): ?>
+        <?php foreach (['left', 'right'] as $side): ?>
             <?php if(@$searchCriterias[$side]): ?>
                 <ul>
                     <?php foreach($searchCriterias[$side] as $criteria): ?>

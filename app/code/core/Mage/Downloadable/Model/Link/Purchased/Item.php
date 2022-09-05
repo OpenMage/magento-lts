@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Downloadable
+ * @category   Mage
+ * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable links purchased item model
+ *
+ * @category   Mage
+ * @package    Mage_Downloadable
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item _getResource()
  * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item getResource()
@@ -56,10 +60,6 @@
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
  * @method Mage_Sales_Model_Order getOrder()
- *
- * @category    Mage
- * @package     Mage_Downloadable
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstract
 {
@@ -71,10 +71,6 @@ class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstra
     const LINK_STATUS_PENDING_PAYMENT = 'pending_payment';
     const LINK_STATUS_PAYMENT_REVIEW = 'payment_review';
 
-    /**
-     * Enter description here...
-     *
-     */
     protected function _construct()
     {
         $this->_init('downloadable/link_purchased_item');
@@ -88,7 +84,7 @@ class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstra
      */
     public function _beforeSave()
     {
-        if (null == $this->getOrderItemId()) {
+        if ($this->getOrderItemId() == null) {
             throw new Exception(
                 Mage::helper('downloadable')->__('Order item id cannot be null')
             );

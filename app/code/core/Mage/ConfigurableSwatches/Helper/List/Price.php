@@ -39,7 +39,7 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
     public function attachConfigurableProductChildrenPricesMapping(array $products, $storeId = null)
     {
         $listSwatchAttrId = Mage::helper('configurableswatches/productlist')->getSwatchAttributeId();
-        $result = array();
+        $result = [];
 
         foreach ($products as $product) {
             /** @var Mage_Catalog_Model_Product $product */
@@ -69,11 +69,11 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
                     );
                     Mage::dispatchEvent(
                         'catalog_product_type_configurable_price',
-                        array('product' => $product)
+                        ['product' => $product]
                     );
                     $configurablePrice = $product->getConfigurablePrice();
                     $cofigurableSwatchesHelper = Mage::helper('configurableswatches');
-                    $result[$cofigurableSwatchesHelper::normalizeKey($attributePrice['store_label'])] = array(
+                    $result[$cofigurableSwatchesHelper::normalizeKey($attributePrice['store_label'])] = [
                        'price' => $configurablePrice,
                     'oldPrice' => $this->_getHelper()->prepareOldPrice(
                         $product,
@@ -81,7 +81,7 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
                         $attributePrice['is_percent'],
                         $storeId
                     ),
-                    );
+                    ];
                 }
             }
             $product->setSwatchPrices($result);

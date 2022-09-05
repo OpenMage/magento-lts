@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Rss
+ * @category   Mage
+ * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Rss Observer Model
@@ -45,7 +44,7 @@ class Mage_Rss_Model_Observer
     /**
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
         $this->_app = !empty($args['app']) ? $args['app'] : Mage::app();
@@ -89,7 +88,7 @@ class Mage_Rss_Model_Observer
     protected function _cleanCache($tag)
     {
         if ($this->_factory->getHelper('rss')->isRssEnabled()) {
-            $this->_app->cleanCache(array($tag));
+            $this->_app->cleanCache([$tag]);
         }
     }
 }

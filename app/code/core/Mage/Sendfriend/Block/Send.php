@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Email to a Friend Block
  *
@@ -40,7 +39,7 @@ class Mage_Sendfriend_Block_Send extends Mage_Core_Block_Template
             return trim($name);
         }
 
-        /* @var Mage_Customer_Model_Session $session */
+        /** @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton('customer/session');
 
         if ($session->isLoggedIn()) {
@@ -62,7 +61,7 @@ class Mage_Sendfriend_Block_Send extends Mage_Core_Block_Template
             return trim($email);
         }
 
-        /* @var Mage_Customer_Model_Session $session */
+        /** @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton('customer/session');
 
         if ($session->isLoggedIn()) {
@@ -165,11 +164,11 @@ class Mage_Sendfriend_Block_Send extends Mage_Core_Block_Template
      */
     public function getSendUrl()
     {
-        return Mage::getUrl('*/*/sendmail', array(
+        return Mage::getUrl('*/*/sendmail', [
             'id'     => $this->getProductId(),
             'cat_id' => $this->getCategoryId(),
             '_secure' => $this->_isSecure()
-        ));
+        ]);
     }
 
     /**

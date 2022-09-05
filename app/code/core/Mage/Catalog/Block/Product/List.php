@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Product list
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method array getAvailableOrders()
  * @method $this setAvailableOrders(array $value)
@@ -64,7 +63,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     {
         if (is_null($this->_productCollection)) {
             $layer = $this->getLayer();
-            /* @var Mage_Catalog_Model_Layer $layer */
+            /** @var Mage_Catalog_Model_Layer $layer */
             if ($this->getShowRootCategory()) {
                 $this->setCategoryId(Mage::app()->getStore()->getRootCategoryId());
             }
@@ -163,9 +162,9 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
         $toolbar->setCollection($collection);
 
         $this->setChild('toolbar', $toolbar);
-        Mage::dispatchEvent('catalog_block_product_list_collection', array(
+        Mage::dispatchEvent('catalog_block_product_list_collection', [
             'collection' => $this->_getProductCollection()
-        ));
+        ]);
 
         $this->_getProductCollection()->load();
 

@@ -35,7 +35,7 @@ class Mage_Tag_Block_Customer_Tags extends Mage_Customer_Block_Account_Dashboard
     protected function _loadTags()
     {
         if (empty($this->_tags)) {
-            $this->_tags = array();
+            $this->_tags = [];
 
             $tags = Mage::getResourceModel('tag/tag_collection')
                 ->addPopularity(null, Mage::app()->getStore()->getId())

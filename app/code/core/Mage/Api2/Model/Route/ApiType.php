@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api2
+ * @category   Mage
+ * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -46,11 +46,11 @@ class Mage_Api2_Model_Route_ApiType extends Mage_Api2_Model_Route_Abstract imple
      */
     public function __construct(
         $route,
-        $defaults = array(),
-        $reqs = array(),
+        $defaults = [],
+        $reqs = [],
         Zend_Translate $translator = null,
         $locale = null
     ) {
-        parent::__construct(array(Mage_Api2_Model_Route_Abstract::PARAM_ROUTE => str_replace('.php', '', basename(getenv('SCRIPT_FILENAME'))) . '/:api_type'));
+        parent::__construct([Mage_Api2_Model_Route_Abstract::PARAM_ROUTE => str_replace('.php', '', basename(getenv('SCRIPT_FILENAME'))) . '/:api_type']);
     }
 }

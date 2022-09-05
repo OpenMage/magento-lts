@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Category_Attribute_Source_Mode extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
@@ -33,20 +33,20 @@ class Mage_Catalog_Model_Category_Attribute_Source_Mode extends Mage_Eav_Model_E
     public function getAllOptions()
     {
         if (!$this->_options) {
-            $this->_options = array(
-                array(
+            $this->_options = [
+                [
                     'value' => Mage_Catalog_Model_Category::DM_PRODUCT,
                     'label' => Mage::helper('catalog')->__('Products only'),
-                ),
-                array(
+                ],
+                [
                     'value' => Mage_Catalog_Model_Category::DM_PAGE,
                     'label' => Mage::helper('catalog')->__('Static block only'),
-                ),
-                array(
+                ],
+                [
                     'value' => Mage_Catalog_Model_Category::DM_MIXED,
                     'label' => Mage::helper('catalog')->__('Static block and products'),
-                )
-            );
+                ]
+            ];
         }
         return $this->_options;
     }

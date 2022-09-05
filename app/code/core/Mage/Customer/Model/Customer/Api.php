@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,9 +27,9 @@
  */
 class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
 {
-    protected $_mapAttributes = array(
+    protected $_mapAttributes = [
         'customer_id' => 'entity_id'
-    );
+    ];
     /**
      * Prepare data to insert/update.
      * Creating array for stdClass Object
@@ -84,10 +84,10 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
         }
 
         if (!is_null($attributes) && !is_array($attributes)) {
-            $attributes = array($attributes);
+            $attributes = [$attributes];
         }
 
-        $result = array();
+        $result = [];
 
         foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
             $result[$attributeAlias] = $customer->getData($attributeCode);
@@ -119,11 +119,11 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
         } catch (Mage_Core_Exception $e) {
             $this->_fault('filters_invalid', $e->getMessage());
         }
-        $result = array();
+        $result = [];
         /** @var Mage_Customer_Model_Customer $customer */
         foreach ($collection as $customer) {
             $data = $customer->toArray();
-            $row  = array();
+            $row  = [];
             foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
                 $row[$attributeAlias] = (isset($data[$attributeCode]) ? $data[$attributeCode] : null);
             }

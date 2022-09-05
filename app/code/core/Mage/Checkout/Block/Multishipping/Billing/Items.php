@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -64,7 +64,7 @@ class Mage_Checkout_Block_Multishipping_Billing_Items extends Mage_Sales_Block_I
      */
     public function getVirtualQuoteItems()
     {
-        $items = array();
+        $items = [];
         foreach ($this->getQuote()->getItemsCollection() as $_item) {
             if ($_item->getProduct()->getIsVirtual() && !$_item->getParentItemId()) {
                 $items[] = $_item;

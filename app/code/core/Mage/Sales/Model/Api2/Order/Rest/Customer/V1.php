@@ -36,7 +36,7 @@ class Mage_Sales_Model_Api2_Order_Rest_Customer_V1 extends Mage_Sales_Model_Api2
     {
         return parent::_getCollectionForRetrieve()->addAttributeToFilter(
             'customer_id',
-            array('eq' => $this->getApiUser()->getUserId())
+            ['eq' => $this->getApiUser()->getUserId()]
         );
     }
 
@@ -50,7 +50,7 @@ class Mage_Sales_Model_Api2_Order_Rest_Customer_V1 extends Mage_Sales_Model_Api2
     {
         return parent::_getCollectionForSingleRetrieve($orderId)->addAttributeToFilter(
             'customer_id',
-            array('eq' => $this->getApiUser()->getUserId())
+            ['eq' => $this->getApiUser()->getUserId()]
         );
     }
 

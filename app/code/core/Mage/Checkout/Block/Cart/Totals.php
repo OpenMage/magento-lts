@@ -131,7 +131,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
         $firstTotal = reset($this->_totals);
         if ($firstTotal) {
             $total = $firstTotal->getAddress()->getBaseGrandTotal();
-            return Mage::app()->getStore()->getBaseCurrency()->format($total, array(), true);
+            return Mage::app()->getStore()->getBaseCurrency()->format($total, [], true);
         }
         return '-';
     }
@@ -147,7 +147,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
             return $this->getCustomQuote();
         }
 
-        if (null === $this->_quote) {
+        if ($this->_quote === null) {
             $this->_quote = $this->getCheckout()->getQuote();
         }
         return $this->_quote;

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_SalesRule_Model_Rule_Action_Product extends Mage_Rule_Model_Action_Abstract
 {
     /**
@@ -26,9 +25,9 @@ class Mage_SalesRule_Model_Rule_Action_Product extends Mage_Rule_Model_Action_Ab
      */
     public function loadAttributeOptions()
     {
-        $this->setAttributeOption(array(
+        $this->setAttributeOption([
             'rule_price'=>Mage::helper('salesrule')->__('Special Price'),
-        ));
+        ]);
         return $this;
     }
 
@@ -37,12 +36,12 @@ class Mage_SalesRule_Model_Rule_Action_Product extends Mage_Rule_Model_Action_Ab
      */
     public function loadOperatorOptions()
     {
-        $this->setOperatorOption(array(
+        $this->setOperatorOption([
             'to_fixed'=>Mage::helper('salesrule')->__('To Fixed Value'),
             'to_percent'=>Mage::helper('salesrule')->__('To Percentage'),
             'by_fixed'=>Mage::helper('salesrule')->__('By Fixed value'),
             'by_percent'=>Mage::helper('salesrule')->__('By Percentage'),
-        ));
+        ]);
         return $this;
     }
 

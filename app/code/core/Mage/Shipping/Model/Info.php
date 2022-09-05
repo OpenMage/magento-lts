@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Shipping
+ * @category   Mage
+ * @package    Mage_Shipping
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Shipping_Model_Info
+ *
+ * @category   Mage
+ * @package    Mage_Shipping
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method int getOrderId()
  * @method string getProtectCode()
@@ -34,7 +38,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
      *
      * @var array
      */
-    protected $_trackingInfo = array();
+    protected $_trackingInfo = [];
 
     /**
      * Generating tracking info
@@ -44,7 +48,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
      */
     public function loadByHash($hash)
     {
-        /* @var Mage_Shipping_Helper_Data $helper */
+        /** @var Mage_Shipping_Helper_Data $helper */
         $helper = Mage::helper('shipping');
         $data = $helper->decodeTrackingHash($hash);
         if (!empty($data)) {
@@ -95,7 +99,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
      */
     protected function _initShipment()
     {
-        /* @var Mage_Sales_Model_Order_Shipment $model */
+        /** @var Mage_Sales_Model_Order_Shipment $model */
         $model = Mage::getModel('sales/order_shipment');
         $ship = $model->load($this->getShipId());
         if (!$ship->getEntityId() || $this->getProtectCode() !== $ship->getProtectCode()) {
@@ -112,7 +116,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
      */
     public function getTrackingInfoByOrder()
     {
-        $shipTrack = array();
+        $shipTrack = [];
         $order = $this->_initOrder();
         if ($order) {
             $shipments = $order->getShipmentsCollection();
@@ -121,7 +125,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
                 $increment_id = $shipment->getIncrementId();
                 $tracks = $shipment->getTracksCollection();
 
-                $trackingInfos=array();
+                $trackingInfos= [];
                 foreach ($tracks as $track) {
                     $trackingInfos[] = $track->getNumberDetail();
                 }
@@ -139,13 +143,13 @@ class Mage_Shipping_Model_Info extends Varien_Object
      */
     public function getTrackingInfoByShip()
     {
-        $shipTrack = array();
+        $shipTrack = [];
         $shipment = $this->_initShipment();
         if ($shipment) {
             $increment_id = $shipment->getIncrementId();
             $tracks = $shipment->getTracksCollection();
 
-            $trackingInfos=array();
+            $trackingInfos= [];
             foreach ($tracks as $track) {
                 $trackingInfos[] = $track->getNumberDetail();
             }
@@ -164,7 +168,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
     {
         $track = Mage::getModel('sales/order_shipment_track')->load($this->getTrackId());
         if ($track->getId() && $this->getProtectCode() === $track->getProtectCode()) {
-            $this->_trackingInfo = array(array($track->getNumberDetail()));
+            $this->_trackingInfo = [[$track->getNumberDetail()]];
         }
         return $this->_trackingInfo;
     }

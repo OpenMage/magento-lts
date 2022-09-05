@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Api_User_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
@@ -38,18 +38,18 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tabs extends Mage_Adminhtml_Block_Widge
 
     protected function _beforeToHtml()
     {
-        $this->addTab('main_section', array(
+        $this->addTab('main_section', [
             'label'     => Mage::helper('adminhtml')->__('User Info'),
             'title'     => Mage::helper('adminhtml')->__('User Info'),
             'content'   => $this->getLayout()->createBlock('adminhtml/api_user_edit_tab_main')->toHtml(),
             'active'    => true
-        ));
+        ]);
 
-        $this->addTab('roles_section', array(
+        $this->addTab('roles_section', [
             'label'     => Mage::helper('adminhtml')->__('User Role'),
             'title'     => Mage::helper('adminhtml')->__('User Role'),
             'content'   => $this->getLayout()->createBlock('adminhtml/api_user_edit_tab_roles', 'user.roles.grid')->toHtml(),
-        ));
+        ]);
         return parent::_beforeToHtml();
     }
 

@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Rating
+ * @category   Mage
+ * @package    Mage_Rating
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Rating votes collection
  *
- * @category    Mage
- * @package     Mage_Rating
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Rating
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Rating_Model_Rating_Option_Vote[] getItems()
  */
@@ -74,12 +74,12 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
     {
         $this->getSelect()
             ->join(
-                array('rstore'=>$this->getTable('review/review_store')),
+                ['rstore'=>$this->getTable('review/review_store')],
                 $this->getConnection()->quoteInto(
                     'main_table.review_id=rstore.review_id AND rstore.store_id=?',
                     (int)$storeId
                 ),
-                array()
+                []
             );
         return $this;
     }
@@ -96,17 +96,17 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
         $ratingCodeCond = $adapter->getIfNullSql('title.value', 'rating.rating_code');
         $this->getSelect()
             ->join(
-                array('rating'    => $this->getTable('rating/rating')),
+                ['rating'    => $this->getTable('rating/rating')],
                 'rating.rating_id = main_table.rating_id',
-                array('rating_code')
+                ['rating_code']
             )
             ->joinLeft(
-                array('title' => $this->getTable('rating/rating_title')),
+                ['title' => $this->getTable('rating/rating_title')],
                 $adapter->quoteInto(
                     'main_table.rating_id=title.rating_id AND title.store_id = ?',
                     (int)Mage::app()->getStore()->getId()
                 ),
-                array('rating_code' => $ratingCodeCond)
+                ['rating_code' => $ratingCodeCond]
             );
 
         if ($storeId == null) {
@@ -114,16 +114,16 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
         }
 
         if (is_array($storeId)) {
-            $condition = $adapter->prepareSqlCondition('store.store_id', array(
+            $condition = $adapter->prepareSqlCondition('store.store_id', [
                 'in' => $storeId
-            ));
+            ]);
         } else {
             $condition = $adapter->quoteInto('store.store_id = ?', $storeId);
         }
 
         $this->getSelect()
             ->join(
-                array('store' => $this->getTable('rating_store')),
+                ['store' => $this->getTable('rating_store')],
                 'main_table.rating_id = store.rating_id AND ' . $condition
             );
 
@@ -139,7 +139,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
     {
         $this->getSelect()
             ->join(
-                array('rating_option' => $this->getTable('rating/rating_option')),
+                ['rating_option' => $this->getTable('rating/rating_option')],
                 'main_table.option_id = rating_option.option_id'
             );
         return $this;

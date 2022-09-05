@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Block_Messages extends Mage_Core_Block_Template
 {
@@ -67,7 +67,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_usedStorageTypes = array('core/session');
+    protected $_usedStorageTypes = ['core/session'];
 
     /**
      * @inheritDoc
@@ -224,12 +224,12 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      */
     public function getGroupedHtml()
     {
-        $types = array(
+        $types = [
             Mage_Core_Model_Message::ERROR,
             Mage_Core_Model_Message::WARNING,
             Mage_Core_Model_Message::NOTICE,
             Mage_Core_Model_Message::SUCCESS
-        );
+        ];
         $html = '';
         foreach ($types as $type) {
             if ($messages = $this->getMessages($type)) {
@@ -291,9 +291,9 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      */
     public function getCacheKeyInfo()
     {
-        return array(
+        return [
             'storage_types' => serialize($this->_usedStorageTypes)
-        );
+        ];
     }
 
     /**

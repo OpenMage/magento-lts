@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Downloadable
+ * @category   Mage
+ * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -65,11 +65,11 @@ class Mage_Downloadable_Block_Sales_Order_Email_Items_Downloadable extends Mage_
      */
     public function getPurchasedLinkUrl($item)
     {
-        return $this->getUrl('downloadable/download/link', array(
+        return $this->getUrl('downloadable/download/link', [
             'id'        => $item->getLinkHash(),
             '_store'    => $this->getOrder()->getStore(),
             '_secure'   => true,
             '_nosid'    => true
-        ));
+        ]);
     }
 }

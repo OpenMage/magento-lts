@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Quote address attribute frontend tax resource model
  *
@@ -38,11 +37,11 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Tax extends Mag
     {
         $amount = $address->getTaxAmount();
         if ($amount != 0) {
-            $address->addTotal(array(
+            $address->addTotal([
                 'code'  => 'tax',
                 'title' => Mage::helper('sales')->__('Tax'),
                 'value' => $amount
-            ));
+            ]);
         }
         return $this;
     }

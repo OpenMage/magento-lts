@@ -2,40 +2,49 @@
    Edit scss version and compile with sass from scss folder like this:
    $ sass override.scss ../override.css
  */
-.popup-window .content-header, body {
-  color: #68666f;
-  font: 400 12px/1.33 "Open Sans", sans-serif;
+/*
+ 205 = default,
+   0 = red,
+  60 = yellow,
+ 120 = green,
+ 180 = turquoise,
+ 240 = blue,
+ 300 = purple
+*/
+body, .popup-window .content-header {
+  color: #2f2f2f;
+  font: 400 12px/1.33 'Open Sans', sans-serif;
   background: #f6f6f6;
 }
 
-.content-header-floating .content-header, .footer-content, .middle, #nav, .header-top {
+.header-top, #nav, .middle, .footer-content, .content-header-floating .content-header {
   padding-left: 15px;
   padding-right: 15px;
   box-sizing: border-box;
   width: 100%;
 }
 
-.content-header h3, .content-header {
+.content-header, .content-header h3 {
   border: 0;
-  color: #68666f;
+  color: #2f2f2f;
   font-size: 24px;
   font-weight: 400;
 }
 
-dl.accordion dt, .entry-edit .entry-edit-head {
+.entry-edit .entry-edit-head, dl.accordion dt {
   background: #fefefe;
-  color: #68666f;
+  color: #2f2f2f;
   padding: 4px 16px;
   border: 1px solid lightgrey;
 }
 
-.box, .entry-edit .fieldset, .entry-edit fieldset {
+.entry-edit fieldset, .entry-edit .fieldset, .box {
   border: 1px solid lightgrey;
   background: #eee;
   border-top: 1px solid lightgrey;
 }
 
-.grid tr.headings th a.sort-arrow-asc, .grid tr.headings th a.sort-arrow-desc {
+.grid tr.headings th a.sort-arrow-desc, .grid tr.headings th a.sort-arrow-asc {
   background: none;
   border: 0;
   box-sizing: border-box;
@@ -43,7 +52,7 @@ dl.accordion dt, .entry-edit .entry-edit-head {
   position: relative;
 }
 
-.grid tr.headings th a.sort-arrow-asc span.sort-title:after, .grid tr.headings th a.sort-arrow-desc span.sort-title:after {
+.grid tr.headings th a.sort-arrow-desc span.sort-title:after, .grid tr.headings th a.sort-arrow-asc span.sort-title:after {
   content: "";
   display: block;
   position: absolute;
@@ -54,20 +63,20 @@ dl.accordion dt, .entry-edit .entry-edit-head {
   border-style: solid;
 }
 
-ul.tabs a:hover, ul.tabs a.active {
+ul.tabs a.active, ul.tabs a:hover {
   background: #f4f4f4;
-  color: #68666f;
+  color: #2f2f2f;
   transition: background 0.3s ease-in-out;
 }
 
-dl.accordion dt.open a, dl.accordion dt a:hover, dl.accordion dt a, div.collapseable a.open, div.collapseable a:hover, div.collapseable a, .entry-edit .entry-edit-head a, .entry-edit .entry-edit-head strong {
-  color: #68666f;
+.entry-edit .entry-edit-head strong, .entry-edit .entry-edit-head a, div.collapseable a, div.collapseable a:hover, div.collapseable a.open, dl.accordion dt a, dl.accordion dt a:hover, dl.accordion dt.open a {
+  color: #2f2f2f;
   font-weight: 300;
   font-size: 18px;
   line-height: 32px;
 }
 
-dl.accordion dt a:after, div.collapseable a:after {
+div.collapseable a:after, dl.accordion dt a:after {
   content: "";
   display: block;
   position: absolute;
@@ -80,7 +89,7 @@ dl.accordion dt a:after, div.collapseable a:after {
   border-color: #888 transparent transparent transparent;
 }
 
-dl.accordion dt.open a:after, div.collapseable a.open:after {
+div.collapseable a.open:after, dl.accordion dt.open a:after {
   content: "";
   display: block;
   position: absolute;
@@ -93,7 +102,7 @@ dl.accordion dt.open a:after, div.collapseable a.open:after {
   border-color: transparent transparent #888 transparent;
 }
 
-.warning-msg, .success-msg, .error-msg, .notice-msg {
+.notice-msg, .error-msg, .success-msg, .warning-msg {
   border-radius: 5px;
   margin: 20px 0;
   padding: 10px 26px 10px 35px;
@@ -101,25 +110,24 @@ dl.accordion dt.open a:after, div.collapseable a.open:after {
   text-shadow: none;
 }
 
-.grid-severity-minor, .grid-severity-major, .grid-severity-critical, .grid-severity-notice {
+.grid-severity-notice, .grid-severity-critical, .grid-severity-major, .grid-severity-minor {
   background: none;
   padding: 0;
   height: auto;
 }
 
-.grid-severity-minor span, .grid-severity-major span, .grid-severity-critical span, .grid-severity-notice span {
-  font: 400 12px/1.33 "Open Sans", sans-serif;
-  font-weight: 400;
+.grid-severity-notice span, .grid-severity-critical span, .grid-severity-major span, .grid-severity-minor span {
+  font: 400 12px/1.33 'Open Sans', sans-serif;
   padding: 2px 10px;
 }
 
-.grid-severity-minor span, .grid-severity-major span {
+.grid-severity-major span, .grid-severity-minor span {
   border: 0;
   background: #f0ad4e;
   color: #fff;
 }
 
-.header-right fieldset input.input-text:hover, .header-right fieldset input.input-text:focus {
+.header-right fieldset input.input-text:focus, .header-right fieldset input.input-text:hover {
   background-color: #fff;
   outline: none;
   box-shadow: none;
@@ -127,72 +135,64 @@ dl.accordion dt.open a:after, div.collapseable a.open:after {
 
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-Light.eot");
-  /* IE9 Compat Modes */
-  src: url("fonts/opensans/OpenSans-Light.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-Light.ttf") format("truetype"), url("fonts/opensans/OpenSans-Light.woff") format("woff"), url("fonts/opensans/OpenSans-Light.woff2") format("woff2");
+  src: url("fonts/opensans/OpenSans-Light.ttf") format("truetype"), url("fonts/opensans/OpenSans-Light.woff") format("woff"), url("fonts/opensans/OpenSans-Light.woff2") format("woff2");
   /* Modern Browsers */
   font-weight: 300;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-Regular.eot");
-  /* IE9 Compat Modes */
-  src: url("fonts/opensans/OpenSans-Regular.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-Regular.ttf") format("truetype"), url("fonts/opensans/OpenSans-Regular.woff") format("woff"), url("fonts/opensans/OpenSans-Regular.woff2") format("woff2");
+  src: url("fonts/opensans/OpenSans-Regular.ttf") format("truetype"), url("fonts/opensans/OpenSans-Regular.woff") format("woff"), url("fonts/opensans/OpenSans-Regular.woff2") format("woff2");
   /* Modern Browsers */
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-Bold.eot");
-  /* IE9 Compat Modes */
-  src: url("fonts/opensans/OpenSans-Bold.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-Bold.ttf") format("truetype"), url("fonts/opensans/OpenSans-Bold.woff") format("woff"), url("fonts/opensans/OpenSans-Bold.woff2") format("woff2");
+  src: url("fonts/opensans/OpenSans-Bold.ttf") format("truetype"), url("fonts/opensans/OpenSans-Bold.woff") format("woff"), url("fonts/opensans/OpenSans-Bold.woff2") format("woff2");
   /* Modern Browsers */
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-SemiBold.eot");
-  /* IE9 Compat Modes */
-  src: url("fonts/opensans/OpenSans-SemiBold.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-SemiBold.ttf") format("truetype"), url("fonts/opensans/OpenSans-SemiBold.woff") format("woff"), url("fonts/opensans/OpenSans-SemiBold.woff2") format("woff2");
+  src: url("fonts/opensans/OpenSans-SemiBold.ttf") format("truetype"), url("fonts/opensans/OpenSans-SemiBold.woff") format("woff"), url("fonts/opensans/OpenSans-SemiBold.woff2") format("woff2");
   /* Modern Browsers */
   font-weight: 600;
   font-style: normal;
 }
 h1 {
-  color: #68666f;
+  color: #2f2f2f;
   font-weight: 400;
 }
 
 h2 {
-  color: #68666f;
+  color: #2f2f2f;
   font-weight: 400;
 }
 
 h3 {
-  color: #68666f;
+  color: #2f2f2f;
   font-weight: 400;
 }
 
 h4 {
-  color: #68666f;
+  color: #2f2f2f;
   font-weight: 400;
 }
 
 h5 {
-  color: #68666f;
+  color: #2f2f2f;
   font-weight: 400;
 }
 
 h6 {
-  color: #68666f;
+  color: #2f2f2f;
   font-weight: 400;
 }
 
 label {
-  color: #68666f;
+  color: #2f2f2f;
   font-weight: 400;
 }
 
@@ -230,7 +230,7 @@ b {
 
 small {
   font-size: 12px;
-  color: #68666f;
+  color: #2f2f2f;
 }
 
 .wrapper {
@@ -250,7 +250,7 @@ small {
 
 .content-header-floating {
   opacity: 0.9;
-  border-bottom: solid 1px #ccc;
+  border-bottom: solid 1px #c8c8c8;
 }
 .content-header-floating h3 {
   font-size: 18px;
@@ -263,8 +263,8 @@ small {
 }
 
 .content-header {
-  margin-bottom: 0px;
-  padding-bottom: 0px;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 .content-header h3 {
   margin: 0 0.3em 0.3em;
@@ -281,8 +281,7 @@ small {
 
 .switcher {
   background: none;
-  padding: 0px;
-  padding-bottom: 10px;
+  padding: 0 0 10px;
   border: none;
 }
 
@@ -290,7 +289,7 @@ small {
   margin-top: 10px;
 }
 .entry-edit .entry-edit-head h4 {
-  color: #68666f;
+  color: #2f2f2f;
   line-height: 32px;
   font-size: 16px;
   font-weight: 300;
@@ -301,6 +300,7 @@ small {
 .entry-edit .entry-edit-head .tools a:hover {
   text-decoration: none;
 }
+
 .grid table {
   border: 1px solid lightgrey;
   border-collapse: collapse;
@@ -343,12 +343,21 @@ small {
   border-top: 0;
 }
 .grid tr.filter .range .range-line {
-  width: 110px;
+  width: 125px;
 }
 .grid tr.filter .range .label {
-  font-weight: 600;
+  font-weight: 400;
   width: 40px;
   padding: 4px;
+}
+.grid tr.filter .range div.date {
+  min-width: 140px;
+}
+.grid tr.filter .range input, .grid tr.filter .range select {
+  width: 75px !important;
+}
+.grid tr.filter .range select {
+  float: none;
 }
 .grid tr.filter .date img {
   padding-left: 17px;
@@ -366,7 +375,6 @@ small {
   padding: 4px;
   font-size: 12px;
   vertical-align: middle;
-  border: 1px solid #71798e;
   color: #fff;
   font-weight: 400;
 }
@@ -412,7 +420,8 @@ small {
 }
 
 .header {
-  background: #000537;
+  background: #3A499D;
+  position: relative;
 }
 
 .header-top {
@@ -421,7 +430,6 @@ small {
 }
 .header-top .logo {
   position: absolute;
-  background: #000537;
   display: block;
   top: 8px;
   left: 0;
@@ -461,11 +469,12 @@ small {
 .header-right fieldset input.input-text:focus {
   width: calc(100vw - 160px);
 }
+
 .footer {
   background: #eee;
   padding: 15px;
   margin-top: 30px;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #c8c8c8;
   font-size: 12px;
 }
 
@@ -480,7 +489,7 @@ ul.tabs-horiz li {
 }
 ul.tabs-horiz li a {
   background: #eee;
-  color: #68666f !important;
+  color: #2f2f2f !important;
   font-size: 16px;
   font-weight: 300;
   padding: 9px 15px;
@@ -493,7 +502,7 @@ ul.tabs-horiz li a.active {
 }
 ul.tabs {
   background: none;
-  color: #68666f;
+  color: #2f2f2f;
   border-top: 0;
 }
 ul.tabs dl {
@@ -502,22 +511,17 @@ ul.tabs dl {
 }
 ul.tabs a {
   background: #fff;
-  color: #68666f;
+  color: #2f2f2f;
   padding: 8px 18px;
   border-bottom: 1px solid #eee;
 }
 ul.tabs a.active {
   border-left: 3px solid #71798e;
   padding: 8px 18px;
-  background: #eee;
-  box-shadow: 0 1px 2px #ccc inset;
   border-bottom: 1px solid #eee;
 }
 ul.tabs a.active span {
-  background: none;
   padding: 0;
-  background: none;
-  font-weight: 400;
   background: none;
   font-weight: 400;
 }
@@ -531,19 +535,14 @@ ul.tabs a:hover.active span {
 ul.tabs span {
   background: none;
   padding: 0;
-  background: none;
   font-weight: 400;
 }
 ul.config-tabs dt {
   border: 0;
   font-weight: 300;
   text-transform: none;
-  padding-left: 10px;
-  padding-top: 7px;
-  padding-bottom: 7px;
-  padding-right: 7px;
+  padding: 7px 7px 7px 10px;
   font-size: 18px;
-  border-top: 0;
   background: #71798e;
   color: #fff;
 }
@@ -554,7 +553,7 @@ ul.config-tabs dt {
 }
 
 .nav-bar {
-  background: #68666f;
+  background: #3A499D;
   border: 0;
 }
 
@@ -573,7 +572,7 @@ div.autocomplete {
   box-shadow: 0 3px 3px rgba(50, 50, 50, 0.15);
 }
 div.autocomplete ul li {
-  color: #68666f;
+  color: #2f2f2f;
 }
 div.autocomplete ul li.selected {
   background: #eee;
@@ -587,7 +586,7 @@ div.autocomplete ul li.selected {
 }
 .section-config .section-config > .entry-edit-head > a {
   background: none;
-  color: #68666f;
+  color: #2f2f2f;
   font-size: 14px;
   font-weight: 400;
   border: 0;
@@ -626,7 +625,10 @@ div.autocomplete ul li.selected {
 }
 .massaction td {
   border-top: 0;
-  padding: 10px;
+  padding: 10px 0;
+}
+.massaction .entry-edit fieldset span.form_row, .massaction .entry-edit fieldset span.field-row {
+  padding: 0;
 }
 .massaction .entry-edit .field-row label {
   vertical-align: middle;
@@ -644,11 +646,11 @@ div.autocomplete ul li.selected {
   font-size: 12px;
 }
 .x-tree-node a span {
-  color: #68666f;
+  color: #2f2f2f;
 }
 .x-tree-node .x-tree-selected a span {
   background: lightgrey;
-  color: #68666f;
+  color: #2f2f2f;
 }
 
 .categories-side-col .tree-holder {
@@ -659,17 +661,23 @@ div.autocomplete ul li.selected {
 }
 
 #loading-mask {
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 1000;
-  color: #68666f;
   opacity: 1;
+}
+#loading-mask .backdrop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  color: #2f2f2f;
 }
 #loading-mask .loader {
   width: 160px;
   height: 100px;
   border: 0;
   opacity: 0.95;
-  color: #68666f;
+  color: #2f2f2f;
   background: #fff;
   font-size: 18px;
   font-weight: 400;
@@ -719,7 +727,7 @@ div.autocomplete ul li.selected {
   background-color: #f9f5ec !important;
   background-position: 8px center !important;
   border: 1px solid #dfc97a !important;
-  color: #68666f !important;
+  color: #2f2f2f !important;
 }
 
 .error-msg {
@@ -749,7 +757,7 @@ div.autocomplete ul li.selected {
   background-color: #fffbf0 !important;
   background-position: 8px center !important;
   border: 1px solid #d87e34 !important;
-  color: #68666f !important;
+  color: #2f2f2f !important;
 }
 
 .links-feed {
@@ -767,7 +775,7 @@ div.autocomplete ul li.selected {
   border: 0;
 }
 .options-box .option-title {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #c8c8c8;
 }
 .options-box .option-box {
   background: #fff;
@@ -870,6 +878,10 @@ div.autocomplete ul li.selected {
   margin: 4px 0;
 }
 
+.side-col .switcher .link-store-scope {
+  margin: 9px -19px 0 3px;
+}
+
 dl.accordion dt {
   margin-top: 10px;
 }
@@ -880,6 +892,7 @@ dl.accordion dt a {
 dl.accordion dt.open a {
   background: none;
 }
+
 table.actions {
   padding: 15px;
   background: #fff;
@@ -893,7 +906,7 @@ table.actions td {
   font-size: 12px;
 }
 .x-dd-drag-ghost a span {
-  color: #68666f;
+  color: #2f2f2f;
 }
 
 .no-active-category a span {
@@ -995,21 +1008,21 @@ ul.tabs a.changed span.changed {
   background-size: 13px;
 }
 
-.pager img[src$="pager_arrow_left.gif"].arrow {
+.pager img[src$='pager_arrow_left.gif'].arrow {
   padding-left: 17px;
   box-sizing: border-box;
   width: 17px;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%230090FF' d='M22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12M14,7L9,12L14,17V7Z' /%3E%3C/svg%3E") no-repeat;
   height: 17px;
 }
-.pager img[src$="pager_arrow_right.gif"].arrow {
+.pager img[src$='pager_arrow_right.gif'].arrow {
   padding-left: 17px;
   box-sizing: border-box;
   width: 17px;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%230090FF' d='M2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12M10,17L15,12L10,7V17Z' /%3E%3C/svg%3E") no-repeat;
   height: 17px;
 }
-.pager img[src$="pager_arrow_left_off.gif"].arrow {
+.pager img[src$='pager_arrow_left_off.gif'].arrow {
   padding-left: 17px;
   box-sizing: border-box;
   width: 17px;
@@ -1017,7 +1030,7 @@ ul.tabs a.changed span.changed {
   height: 17px;
   opacity: 0.5;
 }
-.pager img[src$="pager_arrow_right_off.gif"].arrow {
+.pager img[src$='pager_arrow_right_off.gif'].arrow {
   padding-left: 17px;
   box-sizing: border-box;
   width: 17px;
@@ -1034,7 +1047,7 @@ ul.tabs a.changed span.changed {
   height: 19px;
 }
 
-img[src$="grid-cal.gif"] {
+img[src$='grid-cal.gif'] {
   padding-left: 17px;
   box-sizing: border-box;
   width: 17px;

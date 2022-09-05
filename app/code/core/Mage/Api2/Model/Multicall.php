@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api2
+ * @category   Mage
+ * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,7 +27,6 @@
  */
 class Mage_Api2_Model_Multicall
 {
-
     /**
      * @var Mage_Api2_Model_Request
      */
@@ -186,9 +185,9 @@ class Mage_Api2_Model_Multicall
         $chain = $apiTypeRoute->chain(
             new Zend_Controller_Router_Route($this->_getConfig()->getMainRoute($subresourceName))
         );
-        $params = array();
+        $params = [];
         $params['api_type'] = 'rest';
-        if (null !== $parentResourceIdFieldName) {
+        if ($parentResourceIdFieldName !== null) {
             $params[$parentResourceIdFieldName] = $this->_parentResourceId;
         }
         $uri = $chain->assemble($params);

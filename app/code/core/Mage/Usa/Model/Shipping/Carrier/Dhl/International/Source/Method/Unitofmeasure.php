@@ -36,9 +36,9 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Method_Unitofmeas
     {
         $unitArr = Mage::getSingleton('usa/shipping_carrier_dhl_international')->getCode('unit_of_measure');
 
-        $returnArr = array();
+        $returnArr = [];
         foreach ($unitArr as $key => $val) {
-            $returnArr[] = array('value' => $key, 'label' => $val);
+            $returnArr[] = ['value' => $key, 'label' => $val];
         }
         return $returnArr;
     }

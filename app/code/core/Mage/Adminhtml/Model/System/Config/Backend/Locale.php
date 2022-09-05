@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Config locale allowed currencies backend
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_Config_Data
 {
@@ -39,39 +38,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_
         $allCurrenciesOptions = Mage::getSingleton('adminhtml/system_config_source_locale_currency_all')
             ->toOptionArray(true);
 
-        if (!function_exists('array_column')) {
-            function array_column(array $allCurrenciesOptions, $columnKey, $indexKey = null)
-            {
-                $array = array();
-                foreach ($allCurrenciesOptions as $allCurrenciesOption) {
-                    if (!array_key_exists($columnKey, $allCurrenciesOption)) {
-                        Mage::getSingleton('adminhtml/session')->addError(
-                            Mage::helper('adminhtml')->__("Key %s does not exist in array", $columnKey)
-                        );
-                        return false;
-                    }
-                    if (is_null($indexKey)) {
-                        $array[] = $allCurrenciesOption[$columnKey];
-                    } else {
-                        if (!array_key_exists($indexKey, $allCurrenciesOption)) {
-                            Mage::getSingleton('adminhtml/session')->addError(
-                                Mage::helper('adminhtml')->__("Key %s does not exist in array", $indexKey)
-                            );
-                            return false;
-                        }
-                        if (!is_scalar($allCurrenciesOption[$indexKey])) {
-                            Mage::getSingleton('adminhtml/session')->addError(
-                                Mage::helper('adminhtml')->__("Key %s does not contain scalar value", $indexKey)
-                            );
-                            return false;
-                        }
-                        $array[$allCurrenciesOption[$indexKey]] = $allCurrenciesOption[$columnKey];
-                    }
-                }
-                return $array;
-            }
-        }
-
         $allCurrenciesValues = array_column($allCurrenciesOptions, 'value');
 
         foreach ($this->getValue() as $currency) {
@@ -84,8 +50,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here...
-     *
      * @return $this
      */
     protected function _afterSave()
@@ -95,7 +59,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_
             ->addPathFilter('currency/options');
 
         $values     = explode(',', $this->getValue());
-        $exceptions = array();
+        $exceptions = [];
 
         foreach ($collection as $data) {
             $match = false;
@@ -137,5 +101,4 @@ class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_
 
         return $this;
     }
-
 }

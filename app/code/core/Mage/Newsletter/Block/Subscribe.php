@@ -33,8 +33,7 @@ class Mage_Newsletter_Block_Subscribe extends Mage_Core_Block_Template
      */
     public function getSuccessMessage()
     {
-        $message = Mage::getSingleton('newsletter/session')->getSuccess();
-        return $message;
+        return Mage::getSingleton('newsletter/session')->getSuccess();
     }
 
     /**
@@ -42,8 +41,7 @@ class Mage_Newsletter_Block_Subscribe extends Mage_Core_Block_Template
      */
     public function getErrorMessage()
     {
-        $message = Mage::getSingleton('newsletter/session')->getError();
-        return $message;
+        return Mage::getSingleton('newsletter/session')->getError();
     }
 
     /**
@@ -54,6 +52,6 @@ class Mage_Newsletter_Block_Subscribe extends Mage_Core_Block_Template
      */
     public function getFormActionUrl()
     {
-        return $this->getUrl('newsletter/subscriber/new', array('_secure' => true));
+        return $this->getUrl('newsletter/subscriber/new', ['_secure' => true]);
     }
 }

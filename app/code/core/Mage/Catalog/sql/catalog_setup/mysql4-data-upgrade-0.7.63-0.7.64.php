@@ -12,37 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
-
 $installer->startSetup();
-/*
-$installer->addAttribute('catalog_product', 'page_layout', array(
-    'type'              => 'varchar',
-    'backend'           => '',
-    'frontend'          => '',
-    'label'             => 'Page Layout',
-    'input'             => 'select',
-    'class'             => '',
-    'source'            => 'catalog/product_attribute_source_layout',
-    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
-    'visible'           => true,
-    'required'          => false,
-    'user_defined'      => false,
-    'default'           => '',
-    'searchable'        => false,
-    'filterable'        => false,
-    'comparable'        => false,
-    'visible_on_front'  => false,
-    'unique'            => false,
-    'group'             => 'Design'
-));
-
-$installer->endSetup();
-*/

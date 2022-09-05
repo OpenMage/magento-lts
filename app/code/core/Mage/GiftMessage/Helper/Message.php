@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_GiftMessage
+ * @category   Mage
+ * @package    Mage_GiftMessage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_GiftMessage
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
 {
@@ -46,7 +46,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      *
      * @var array
      */
-    protected $_innerCache = array();
+    protected $_innerCache = [];
 
     /**
      * Retrieve old stule edit button html for editing of giftmessage in popup
@@ -78,7 +78,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      */
     public function getInline($type, Varien_Object $entity, $dontDisplayContainer = false)
     {
-        if (!in_array($type, array('onepage_checkout','multishipping_adress'))
+        if (!in_array($type, ['onepage_checkout','multishipping_adress'])
             && !$this->isMessagesAvailable($type, $entity)
         ) {
             return '';

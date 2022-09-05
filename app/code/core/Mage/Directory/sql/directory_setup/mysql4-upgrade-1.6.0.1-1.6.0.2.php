@@ -12,17 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Directory
+ * @category   Mage
+ * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
-/* @var Varien_Db_Adapter_Pdo_Mysql $connection */
+/** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 $connection  = $installer->getConnection();
 
 $regionTable = $installer->getTable('directory/country_region');
@@ -30,24 +30,21 @@ $regionTable = $installer->getTable('directory/country_region');
 /* Armed Forces changes based on USPS */
 
 /* Armed Forces Middle East (AM) is now served by Armed Forces Europe (AE) */
-$bind = array('code' => 'AE');
-$where = array('code = ?' => 'AM');
+$bind = ['code' => 'AE'];
+$where = ['code = ?' => 'AM'];
 
 $connection->update($regionTable, $bind, $where);
 
 /* Armed Forces Canada (AC) is now served by Armed Forces Europe (AE) */
-$bind = array('code' => 'AE');
-$where = array('code = ?' => 'AC');
+$bind = ['code' => 'AE'];
+$where = ['code = ?' => 'AC'];
 
 $connection->update($regionTable, $bind, $where);
-
 
 /* Armed Forces Africa (AF) is now served by Armed Forces Europe (AE) */
-$bind = array('code' => 'AE');
-$where = array('code = ?' => 'AF');
+$bind = ['code' => 'AE'];
+$where = ['code = ?' => 'AF'];
 
 $connection->update($regionTable, $bind, $where);
-
-
 
 $installer->endSetup();

@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Eav Form Element Resource Collection
  *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -102,9 +101,9 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
     protected function _joinAttributeData()
     {
         $this->getSelect()->join(
-            array('eav_attribute' => $this->getTable('eav/attribute')),
+            ['eav_attribute' => $this->getTable('eav/attribute')],
             'main_table.attribute_id = eav_attribute.attribute_id',
-            array('attribute_code', 'entity_type_id')
+            ['attribute_code', 'entity_type_id']
         );
 
         return $this;

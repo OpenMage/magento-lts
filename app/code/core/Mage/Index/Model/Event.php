@@ -12,14 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Index
+ * @category   Mage
+ * @package    Mage_Index
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Enter description here ...
+ * @category   Mage
+ * @package    Mage_Index
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Index_Model_Resource_Event _getResource()
  * @method Mage_Index_Model_Resource_Event getResource()
@@ -35,10 +37,6 @@
  * @method Varien_Object getDataObject()
  * @method $this setDataObject(Varien_Object $value)
  * @method bool hasCreatedAt()
- *
- * @category    Mage
- * @package     Mage_Index
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
 {
@@ -121,7 +119,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
             $data[$this->_dataNamespace] = null;
             $this->setNewData($data);
         } else {
-            $this->setNewData(array());
+            $this->setNewData([]);
         }
         return $this;
     }
@@ -241,7 +239,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      */
     public function getOldData($useNamespace = true)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -256,10 +254,10 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
         if (is_string($data)) {
             $data = unserialize($data, ['allowed_classes' => false]);
         } elseif (empty($data) || !is_array($data)) {
-            $data = array();
+            $data = [];
         }
         if ($useNamespace && $this->_dataNamespace) {
-            return isset($data[$this->_dataNamespace]) ? $data[$this->_dataNamespace] : array();
+            return isset($data[$this->_dataNamespace]) ? $data[$this->_dataNamespace] : [];
         }
         return $data;
     }
@@ -288,11 +286,11 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     {
         $newData = $this->getNewData(false);
         if (!is_array($key)) {
-            $key = array($key => $value);
+            $key = [$key => $value];
         }
         if ($this->_dataNamespace) {
             if (!isset($newData[$this->_dataNamespace])) {
-                $newData[$this->_dataNamespace] = array();
+                $newData[$this->_dataNamespace] = [];
             }
             $newData[$this->_dataNamespace] = array_merge($newData[$this->_dataNamespace], $key);
         } else {

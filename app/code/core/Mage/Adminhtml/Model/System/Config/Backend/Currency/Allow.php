@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml Directory currency backend model
@@ -38,7 +37,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Allow extends Mage_Adm
      */
     protected function _afterSave()
     {
-        $exceptions = array();
+        $exceptions = [];
         foreach ($this->_getAllowedCurrencies() as $currencyCode) {
             if (!in_array($currencyCode, $this->_getInstalledCurrencies())) {
                 $exceptions[] = Mage::helper('adminhtml')->__('Selected allowed currency "%s" is not available in installed currencies.', Mage::app()->getLocale()->currency($currencyCode)->getName());

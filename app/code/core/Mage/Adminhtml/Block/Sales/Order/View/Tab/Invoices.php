@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices
     extends Mage_Adminhtml_Block_Widget_Grid
@@ -68,36 +68,36 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices
 
     protected function _prepareColumns()
     {
-        $this->addColumn('increment_id', array(
+        $this->addColumn('increment_id', [
             'header'    => Mage::helper('sales')->__('Invoice #'),
             'index'     => 'increment_id',
             'width'     => '120px',
-        ));
+        ]);
 
-        $this->addColumn('billing_name', array(
+        $this->addColumn('billing_name', [
             'header' => Mage::helper('sales')->__('Bill to Name'),
             'index' => 'billing_name',
-        ));
+        ]);
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('created_at', [
             'header'    => Mage::helper('sales')->__('Invoice Date'),
             'index'     => 'created_at',
             'type'      => 'datetime',
-        ));
+        ]);
 
-        $this->addColumn('state', array(
+        $this->addColumn('state', [
             'header'    => Mage::helper('sales')->__('Status'),
             'index'     => 'state',
             'type'      => 'options',
             'options'   => Mage::getModel('sales/order_invoice')->getStates(),
-        ));
+        ]);
 
-        $this->addColumn('base_grand_total', array(
+        $this->addColumn('base_grand_total', [
             'header'    => Mage::helper('customer')->__('Amount'),
             'index'     => 'base_grand_total',
             'type'      => 'currency',
             'currency'  => 'base_currency_code',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -115,18 +115,17 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices
     public function getRowUrl($row)
     {
         return $this->getUrl('*/sales_order_invoice/view',
-            array(
+            [
                 'invoice_id'=> $row->getId(),
                 'order_id'  => $row->getOrderId()
-            )
+            ]
         );
     }
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/invoices', array('_current' => true));
+        return $this->getUrl('*/*/invoices', ['_current' => true]);
     }
-
 
     /**
      * ######################## TAB settings #################################

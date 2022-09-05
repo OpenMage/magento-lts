@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_GiftMessage
+ * @category   Mage
+ * @package    Mage_GiftMessage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Gift Message model
+ *
+ * @category   Mage
+ * @package    Mage_GiftMessage
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_GiftMessage_Model_Resource_Message _getResource()
  * @method Mage_GiftMessage_Model_Resource_Message getResource()
@@ -33,10 +37,6 @@
  * @method $this setRecipient(string $value)
  * @method string getMessage()
  * @method $this setMessage(string $value)
- *
- * @category    Mage
- * @package     Mage_GiftMessage
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
 {
@@ -45,7 +45,7 @@ class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    static protected $_allowedEntityTypes = array(
+    static protected $_allowedEntityTypes = [
         'order'         => 'sales/order',
         'order_item'    => 'sales/order_item',
         'order_address' => 'sales/order_address',
@@ -53,7 +53,7 @@ class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
         'quote_item'    => 'sales/quote_item',
         'quote_address' => 'sales/quote_address',
         'quote_address_item' => 'sales/quote_address_item'
-    );
+    ];
 
     protected function _construct()
     {

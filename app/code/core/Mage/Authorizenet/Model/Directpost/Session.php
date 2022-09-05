@@ -44,7 +44,7 @@ class Mage_Authorizenet_Model_Directpost_Session extends Mage_Core_Model_Session
     {
         $orderIncIds = $this->getDirectPostOrderIncrementIds();
         if (!$orderIncIds) {
-            $orderIncIds = array();
+            $orderIncIds = [];
         }
         $orderIncIds[$orderIncrementId] = 1;
         $this->setDirectPostOrderIncrementIds($orderIncIds);

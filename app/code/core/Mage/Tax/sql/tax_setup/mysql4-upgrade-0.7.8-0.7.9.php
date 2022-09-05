@@ -12,49 +12,49 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tax
+ * @category   Mage
+ * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-$installer = $this;
-/* @var Mage_Tax_Model_Mysql4_Setup $installer */
+/** @var Mage_Tax_Model_Resource_Setup $installer */
+$installer  = $this;
 
-$installer->addAttribute('invoice', 'shipping_tax_amount', array('type'=>'decimal'));
-$installer->addAttribute('invoice', 'base_shipping_tax_amount', array('type'=>'decimal'));
+$installer->addAttribute('invoice', 'shipping_tax_amount', ['type'=>'decimal']);
+$installer->addAttribute('invoice', 'base_shipping_tax_amount', ['type'=>'decimal']);
 
-$installer->addAttribute('creditmemo', 'shipping_tax_amount', array('type'=>'decimal'));
-$installer->addAttribute('creditmemo', 'base_shipping_tax_amount', array('type'=>'decimal'));
+$installer->addAttribute('creditmemo', 'shipping_tax_amount', ['type'=>'decimal']);
+$installer->addAttribute('creditmemo', 'base_shipping_tax_amount', ['type'=>'decimal']);
 
-$installer->addAttribute('quote_item', 'price_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('quote_item', 'base_price_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('quote_item', 'row_total_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('quote_item', 'base_row_total_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('quote_address_item', 'price_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('quote_address_item', 'base_price_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('quote_address_item', 'row_total_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('quote_address_item', 'base_row_total_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('quote_address', 'subtotal_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('quote_address', 'base_subtotal_total_incl_tax', array('type'=>'decimal'));
+$installer->addAttribute('quote_item', 'price_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('quote_item', 'base_price_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('quote_item', 'row_total_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('quote_item', 'base_row_total_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('quote_address_item', 'price_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('quote_address_item', 'base_price_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('quote_address_item', 'row_total_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('quote_address_item', 'base_row_total_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('quote_address', 'subtotal_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('quote_address', 'base_subtotal_total_incl_tax', ['type'=>'decimal']);
 
-$installer->addAttribute('order_item', 'price_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('order_item', 'base_price_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('order_item', 'row_total_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('order_item', 'base_row_total_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('order', 'subtotal_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('order', 'base_subtotal_incl_tax', array('type'=>'decimal'));
+$installer->addAttribute('order_item', 'price_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('order_item', 'base_price_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('order_item', 'row_total_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('order_item', 'base_row_total_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('order', 'subtotal_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('order', 'base_subtotal_incl_tax', ['type'=>'decimal']);
 
-$installer->addAttribute('invoice_item', 'price_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('invoice_item', 'base_price_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('invoice_item', 'row_total_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('invoice_item', 'base_row_total_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('invoice', 'subtotal_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('invoice', 'base_subtotal_incl_tax', array('type'=>'decimal'));
+$installer->addAttribute('invoice_item', 'price_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('invoice_item', 'base_price_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('invoice_item', 'row_total_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('invoice_item', 'base_row_total_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('invoice', 'subtotal_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('invoice', 'base_subtotal_incl_tax', ['type'=>'decimal']);
 
-$installer->addAttribute('creditmemo_item', 'price_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('creditmemo_item', 'base_price_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('creditmemo_item', 'row_total_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('creditmemo_item', 'base_row_total_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('creditmemo', 'subtotal_incl_tax', array('type'=>'decimal'));
-$installer->addAttribute('creditmemo', 'base_subtotal_incl_tax', array('type'=>'decimal'));
+$installer->addAttribute('creditmemo_item', 'price_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('creditmemo_item', 'base_price_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('creditmemo_item', 'row_total_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('creditmemo_item', 'base_row_total_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('creditmemo', 'subtotal_incl_tax', ['type'=>'decimal']);
+$installer->addAttribute('creditmemo', 'base_subtotal_incl_tax', ['type'=>'decimal']);

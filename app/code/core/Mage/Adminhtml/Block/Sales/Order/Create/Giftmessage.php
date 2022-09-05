@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml order create gift message block
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
@@ -50,19 +49,21 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
      */
     public function getItems()
     {
-        $items = array();
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+
+        $items = [];
         $allItems = $this->getQuote()->getAllItems();
 
         foreach ($allItems as $item) {
             if($this->_getGiftmessageSaveModel()->getIsAllowedQuoteItem($item)
-               && $this->helper('giftmessage/message')->getIsMessagesAvailable('item',
-                        $item, $this->getStore())) {
+               && $helper->getIsMessagesAvailable('item', $item, $this->getStore())) {
                 // if item allowed
                 $items[] = $item;
             }
         }
 
-        if(count($items)) {
+        if (count($items)) {
             return $items;
         }
 
@@ -78,5 +79,4 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
     {
         return Mage::getSingleton('adminhtml/giftmessage_save');
     }
-
 }

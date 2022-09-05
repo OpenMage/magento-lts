@@ -50,7 +50,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
      *
      * @var array
      */
-    protected $_conditionNames = array();
+    protected $_conditionNames = [];
 
     /**
      * Constructor
@@ -228,27 +228,27 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
      */
     public function getCode($type, $code = '')
     {
-        $codes = array(
+        $codes = [
 
-            'condition_name' => array(
+            'condition_name' => [
                 'package_weight' => Mage::helper('shipping')->__('Weight vs. Destination'),
                 'package_value' => Mage::helper('shipping')->__('Price vs. Destination'),
                 'package_qty' => Mage::helper('shipping')->__('# of Items vs. Destination'),
-            ),
+            ],
 
-            'condition_name_short' => array(
+            'condition_name_short' => [
                 'package_weight' => Mage::helper('shipping')->__('Weight (and above)'),
                 'package_value' => Mage::helper('shipping')->__('Order Subtotal (and above)'),
                 'package_qty' => Mage::helper('shipping')->__('# of Items (and above)'),
-            ),
+            ],
 
-        );
+        ];
 
         if (!isset($codes[$type])) {
             throw Mage::exception('Mage_Shipping', Mage::helper('shipping')->__('Invalid Table Rate code type: %s', $type));
         }
 
-        if ('' === $code) {
+        if ($code === '') {
             return $codes[$type];
         }
 
@@ -266,6 +266,6 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
      */
     public function getAllowedMethods()
     {
-        return array('bestway' => $this->getConfigData('name'));
+        return ['bestway' => $this->getConfigData('name')];
     }
 }

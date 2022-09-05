@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,11 +23,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_Block_Catalog_Form
 {
-
     protected $_category;
 
     public function __construct()
@@ -51,26 +50,26 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
         $form->setHtmlIdPrefix('_general');
         $form->setDataObject($this->getCategory());
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('catalog')->__('General Information')));
+        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('catalog')->__('General Information')]);
 
         if (!$this->getCategory()->getId()) {
             $parentId = $this->getRequest()->getParam('parent');
             if (!$parentId) {
                 $parentId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
             }
-            $fieldset->addField('path', 'hidden', array(
+            $fieldset->addField('path', 'hidden', [
                 'name'  => 'path',
                 'value' => $parentId
-            ));
+            ]);
         } else {
-            $fieldset->addField('id', 'hidden', array(
+            $fieldset->addField('id', 'hidden', [
                 'name'  => 'id',
                 'value' => $this->getCategory()->getId()
-            ));
-            $fieldset->addField('path', 'hidden', array(
+            ]);
+            $fieldset->addField('path', 'hidden', [
                 'name'  => 'path',
                 'value' => $this->getCategory()->getPath()
-            ));
+            ]);
         }
 
         $this->_setFieldset($this->getCategory()->getAttributes(true), $fieldset);
@@ -78,10 +77,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
         if ($this->getCategory()->getId()) {
             if ($this->getCategory()->getLevel() == 1) {
                 $fieldset->removeField('url_key');
-                $fieldset->addField('url_key', 'hidden', array(
+                $fieldset->addField('url_key', 'hidden', [
                     'name'  => 'url_key',
                     'value' => $this->getCategory()->getUrlKey()
-                ));
+                ]);
             }
         }
 
@@ -94,22 +93,22 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
 
     protected function _getAdditionalElementTypes()
     {
-        return array(
+        return [
             'image' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_category_helper_image')
-        );
+        ];
     }
 
-    protected function _getParentCategoryOptions($node=null, &$options=array())
+    protected function _getParentCategoryOptions($node=null, &$options= [])
     {
         if (is_null($node)) {
             $node = $this->getRoot();
         }
 
         if ($node) {
-            $options[] = array(
+            $options[] = [
                'value' => $node->getPathId(),
                'label' => str_repeat('&nbsp;', max(0, 3*($node->getLevel()))) . $this->escapeHtml($node->getName()),
-            );
+            ];
 
             foreach ($node->getChildren() as $child) {
                 $this->_getParentCategoryOptions($child, $options);
@@ -117,6 +116,5 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
         }
         return $options;
     }
-
 }
 

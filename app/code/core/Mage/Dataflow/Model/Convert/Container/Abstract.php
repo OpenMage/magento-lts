@@ -12,24 +12,23 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Dataflow
+ * @category   Mage
+ * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Convert container abstract
  *
  * @category   Mage
  * @package    Mage_Dataflow
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Dataflow_Model_Convert_Container_Abstract
     implements Mage_Dataflow_Model_Convert_Container_Interface
 {
-    protected $_batchParams = array();
+    protected $_batchParams = [];
 
     protected $_vars;
 
@@ -187,7 +186,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
 
     public function getGridFields($grid)
     {
-        $fields = array();
+        $fields = [];
         foreach ($grid as $i=>$row) {
             foreach ($row as $fieldName=>$data) {
                 if (!in_array($fieldName, $fields)) {
