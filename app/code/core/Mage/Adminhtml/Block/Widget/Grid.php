@@ -219,7 +219,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             'width' => 140
         ],
         'datetime' => [
-            'width' => 140
+            'width' => 160
         ],
     ];
 
