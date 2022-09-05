@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tag
+ * @category   Mage
+ * @package    Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tag relation model
+ *
+ * @category   Mage
+ * @package    Mage_Tag
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Tag_Model_Resource_Tag_Relation _getResource()
  * @method Mage_Tag_Model_Resource_Tag_Relation getResource()
@@ -41,10 +45,6 @@
  * @method $this setStoreId(int $value)
  * @method int getTagId()
  * @method $this setTagId(int $value)
- *
- * @category    Mage
- * @package     Mage_Tag
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
 {
