@@ -19,9 +19,9 @@
  */
 
 /**
-* @category    Mage
-* @package     Mage_Index
-* @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Index
+ * @author     Magento Core Team <core@magentocommerce.com>
 */
 class Mage_Index_Exception extends Mage_Core_Exception
 {

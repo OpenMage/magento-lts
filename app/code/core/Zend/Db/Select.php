@@ -42,7 +42,6 @@
 
 class Zend_Db_Select
 {
-
     const DISTINCT       = 'distinct';
     const COLUMNS        = 'columns';
     const FROM           = 'from';
@@ -1388,5 +1387,4 @@ class Zend_Db_Select
         }
         return (string)$sql;
     }
-
 }

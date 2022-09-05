@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,9 +27,6 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Qty extends Mage_Core_Block_Template
 {
-    /**
-     * Constructor for our block with options
-     */
     public function _construct()
     {
         parent::_construct();

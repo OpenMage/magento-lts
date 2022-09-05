@@ -83,10 +83,6 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
         return Mage::helper('catalog')->__('Index product attributes for layered navigation building');
     }
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product_indexer_eav');

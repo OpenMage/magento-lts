@@ -46,9 +46,6 @@ class Mage_Sales_Model_Order_Invoice_Comment extends Mage_Sales_Model_Abstract
      */
     protected $_invoice;
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('sales/order_invoice_comment');

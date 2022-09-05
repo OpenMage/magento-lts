@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Downloadable
+ * @category   Mage
+ * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable sample model
+ *
+ * @category   Mage
+ * @package    Mage_Downloadable
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Downloadable_Model_Resource_Sample _getResource()
  * @method Mage_Downloadable_Model_Resource_Sample getResource()
@@ -40,10 +44,6 @@
  * @method string getStoreTitle()
  * @method string getTitle()
  * @method bool getUseDefaultTitle()
- *
- * @category    Mage
- * @package     Mage_Downloadable
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
 {
