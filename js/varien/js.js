@@ -239,6 +239,9 @@ function expandDetails(el, childClass) {
     }
 }
 
+// Deprecated since 20.0.17
+var isIE = false;
+
 if (!window.Varien)
     var Varien = new Object();
 
