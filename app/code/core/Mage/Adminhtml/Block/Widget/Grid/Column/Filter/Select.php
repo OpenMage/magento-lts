@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
     protected function _renderOption($option, $value)
     {
         $selected = (($option['value'] == $value && (!is_null($value))) ? ' selected="selected"' : '' );
-        return '<option value="'. $this->escapeHtml($option['value']).'"'.$selected.'>'.$this->escapeHtml($option['label']).'</option>';
+        return '<option value="'. $this->escapeHtml((string)$option['value']).'"'.$selected.'>'.$this->escapeHtml($option['label']).'</option>';
     }
 
     public function getHtml()

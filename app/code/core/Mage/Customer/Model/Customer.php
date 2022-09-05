@@ -1011,7 +1011,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $errors[] = Mage::helper('customer')->__('Invalid email address "%s".', $this->getEmail());
         }
 
-        $password = $this->getPassword();
+        $password = (string)$this->getPassword();
         if (!$this->getId() && !Zend_Validate::is($password, 'NotEmpty')) {
             $errors[] = Mage::helper('customer')->__('The password cannot be empty.');
         }

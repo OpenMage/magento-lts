@@ -133,9 +133,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
             }
             $out = '<a href="#" name="' . $this->getColumn()->getId() . '" title="' . $nDir
                    . '" class="' . $className . '"><span class="sort-title">'
-                   . $this->escapeHtml($this->getColumn()->getHeader()) . '</span></a>';
+                   . $this->escapeHtml((string)$this->getColumn()->getHeader()) . '</span></a>';
         } else {
-            $out = $this->escapeHtml($this->getColumn()->getHeader());
+            $out = $this->escapeHtml((string)$this->getColumn()->getHeader());
         }
         return $out;
     }

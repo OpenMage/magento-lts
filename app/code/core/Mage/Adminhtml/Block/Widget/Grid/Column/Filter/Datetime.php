@@ -166,6 +166,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime
             return $this->escapeHtml($value);
         }
 
-        return $this->escapeHtml(parent::getEscapedValue($index));
+        return $this->escapeHtml(parent::getEscapedValue($index) ?? '');
     }
 }

@@ -52,5 +52,5 @@
             <?php endforeach ?>
         </dl>
     <?php endif ?>
-    <?php echo $this->escapeHtml($_item->getDescription()) ?>
+    <?php echo $this->escapeHtml((string)$_item->getDescription()) ?>
 <?php endif ?>

@@ -48,9 +48,9 @@
                     <?php break;
                     case 'price': ?>
                     <div class="input-range">
-                        <input name="<?php echo $_code ?>[from]" value="<?php echo $this->escapeHtml($this->getAttributeValue($_attribute, 'from')) ?>" id="<?php echo $_code ?>" title="<?php echo $this->escapeHtml($this->getAttributeLabel($_attribute)) ?>"  class="input-text validate-number" type="text" pattern="\d*" maxlength="<?php echo $maxQueryLength;?>" />
+                        <input name="<?php echo $_code ?>[from]" value="<?php echo $this->escapeHtml((string)$this->getAttributeValue($_attribute, 'from')) ?>" id="<?php echo $_code ?>" title="<?php echo $this->escapeHtml($this->getAttributeLabel($_attribute)) ?>"  class="input-text validate-number" type="text" pattern="\d*" maxlength="<?php echo $maxQueryLength;?>" />
                         <span class="separator">-</span>
-                        <input name="<?php echo $_code ?>[to]" value="<?php echo $this->escapeHtml($this->getAttributeValue($_attribute, 'to')) ?>" id="<?php echo $_code ?>_to" title="<?php echo $this->escapeHtml($this->getAttributeLabel($_attribute)) ?>"  class="input-text validate-number" type="text" pattern="\d*" maxlength="<?php echo $maxQueryLength;?>" />
+                        <input name="<?php echo $_code ?>[to]" value="<?php echo $this->escapeHtml((string)$this->getAttributeValue($_attribute, 'to')) ?>" id="<?php echo $_code ?>_to" title="<?php echo $this->escapeHtml($this->getAttributeLabel($_attribute)) ?>"  class="input-text validate-number" type="text" pattern="\d*" maxlength="<?php echo $maxQueryLength;?>" />
                         <small>(<?php echo $this->getCurrency($_attribute); ?>)</small>
                     </div>
                     <?php break;
@@ -71,7 +71,7 @@
                     <?php break;
                     default: ?>
                     <div class="input-box">
-                        <input type="text" name="<?php echo $_code ?>" id="<?php echo $_code ?>" value="<?php echo $this->escapeHtml($this->getAttributeValue($_attribute)) ?>" title="<?php echo $this->escapeHtml($this->getAttributeLabel($_attribute)) ?>"  class="input-text <?php echo $this->getAttributeValidationClass($_attribute) ?>" maxlength="<?php echo $maxQueryLength;?>" />
+                        <input type="text" name="<?php echo $_code ?>" id="<?php echo $_code ?>" value="<?php echo $this->escapeHtml((string)$this->getAttributeValue($_attribute)) ?>" title="<?php echo $this->escapeHtml($this->getAttributeLabel($_attribute)) ?>"  class="input-text <?php echo $this->getAttributeValidationClass($_attribute) ?>" maxlength="<?php echo $maxQueryLength;?>" />
                     </div>
                 <?php endswitch; ?>
             </li>

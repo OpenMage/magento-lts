@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Comment extends Mage_Adminhtml_Blo
 
     public function getCommentNote()
     {
-        return $this->escapeHtml($this->getQuote()->getCustomerNote());
+        return $this->escapeHtml((string)$this->getQuote()->getCustomerNote());
     }
 
     public function getNoteNotify()
