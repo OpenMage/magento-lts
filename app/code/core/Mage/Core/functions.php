@@ -121,15 +121,6 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
     if ($errno == 0) {
         return false;
     }
-    if (!defined('E_STRICT')) {
-        define('E_STRICT', 2048);
-    }
-    if (!defined('E_RECOVERABLE_ERROR')) {
-        define('E_RECOVERABLE_ERROR', 4096);
-    }
-    if (!defined('E_DEPRECATED')) {
-        define('E_DEPRECATED', 8192);
-    }
 
     // Suppress deprecation warnings on PHP 7.x
     if ($errno == E_DEPRECATED && version_compare(PHP_VERSION, '7.0.0', '>=')) {
