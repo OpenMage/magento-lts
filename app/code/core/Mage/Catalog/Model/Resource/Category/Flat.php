@@ -129,10 +129,6 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         parent::__construct();
     }
 
-    /**
-     * Resource initializations
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/category_flat', 'entity_id');

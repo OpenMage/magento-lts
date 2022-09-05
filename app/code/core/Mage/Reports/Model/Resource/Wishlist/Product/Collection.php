@@ -27,18 +27,12 @@
  */
 class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishlist_Model_Resource_Product_Collection
 {
-    /**
-     * Resource initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('wishlist/wishlist');
     }
 
     /**
-     * Add wishlist count
-     *
      * @return $this
      */
     public function addWishlistCount()
