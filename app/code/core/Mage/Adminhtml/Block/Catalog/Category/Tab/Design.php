@@ -25,12 +25,23 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Tab_Design extends Mage_Adminhtml_Block_Catalog_Form
 {
+    /**
+     * @var Mage_Catalog_Model_Category
+     */
+    public $_category;
+
+    /**
+     * Mage_Adminhtml_Block_Catalog_Category_Tab_Design constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setShowGlobalIcon(true);
     }
 
+    /**
+     * @return Mage_Catalog_Model_Category
+     */
     public function getCategory()
     {
         if (!$this->_category) {
@@ -39,6 +50,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Design extends Mage_Adminhtml_Bl
         return $this->_category;
     }
 
+    /**
+     * @return $this
+     */
     public function _prepareLayout()
     {
         parent::_prepareLayout();

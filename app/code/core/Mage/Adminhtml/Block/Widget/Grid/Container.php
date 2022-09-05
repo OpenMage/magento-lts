@@ -31,6 +31,14 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
     protected $_backButtonLabel;
     protected $_blockGroup = 'adminhtml';
 
+    /**
+     * @var string
+     */
+    public $_block;
+
+    /**
+     * Mage_Adminhtml_Block_Widget_Grid_Container constructor.
+     */
     public function __construct()
     {
         if (is_null($this->_addButtonLabel)) {
@@ -51,6 +59,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
         ]);
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function _prepareLayout()
     {
         $this->setChild( 'grid',
@@ -59,21 +70,33 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return string
+     */
     public function getCreateUrl()
     {
         return $this->getUrl('*/*/new');
     }
 
+    /**
+     * @return string
+     */
     public function getGridHtml()
     {
         return $this->getChildHtml('grid');
     }
 
+    /**
+     * @return string
+     */
     protected function getAddButtonLabel()
     {
         return $this->_addButtonLabel;
     }
 
+    /**
+     * @return string
+     */
     protected function getBackButtonLabel()
     {
         return $this->_backButtonLabel;
@@ -88,11 +111,17 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderCssClass()
     {
         return 'icon-head ' . parent::getHeaderCssClass();
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderWidth()
     {
         return 'width:50%;';

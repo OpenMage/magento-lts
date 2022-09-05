@@ -56,6 +56,17 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     protected $_currentCurrencyCode = null;
 
+    /**
+     * @var Mage_Core_Model_Locale
+     */
+    public $_locale;
+
+    /** @todo OM: check */
+    public $_filterValues;
+
+    /**
+     * Mage_Adminhtml_Block_Report_Grid constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -185,16 +196,18 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->setCollection($collection);
 
         Mage::dispatchEvent('adminhtml_widget_grid_filter_collection',
-                ['collection' => $this->getCollection(), 'filter_values' => $this->_filterValues]
+            ['collection' => $this->getCollection(), 'filter_values' => $this->_filterValues]
         );
     }
 
+    /**
+     * @param array $data
+     * @return $this
+     */
     protected function _setFilterValues($data)
     {
         foreach ($data as $name => $value) {
-            //if (isset($data[$name])) {
-                $this->setFilter($name, $data[$name]);
-            //}
+            $this->setFilter($name, $data[$name]);
         }
         return $this;
     }
@@ -521,7 +534,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 foreach ($this->_columns as $column) {
                     $j++;
                     if (!$column->getIsSystem()) {
-                        $row[] = ($j==1)?$this->__('Subtotal'):$column->getRowField($this->getTotals());
+                        $row[] = ($j == 1)?$this->__('Subtotal'):$column->getRowField($this->getTotals());
                     }
                 }
                 $data[] = $row;

@@ -36,11 +36,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Api/Tab/Userroles.php
 
 		-
-			message: "#^Access to an undefined property Mage_Adminhtml_Block_Catalog_Category_Tab_Design\\:\\:\\$_category\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Design.php
-
-		-
 			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Widget/Chooser.php
@@ -136,29 +131,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Helper/Form/Gallery.php
 
 		-
-			message: "#^Access to an undefined property Mage_Adminhtml_Block_Customer_Edit_Tab_Cart\\:\\:\\$_parentTemplate\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Cart.php
-
-		-
 			message: "#^Method Mage_Wishlist_Model_Resource_Item_Collection\\:\\:addDaysInWishlist\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Wishlist.php
-
-		-
-			message: "#^Access to an undefined property Mage_Adminhtml_Block_Dashboard_Bar\\:\\:\\$_currency\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Dashboard/Bar.php
-
-		-
-			message: "#^Access to an undefined property Mage_Adminhtml_Block_Dashboard_Graph\\:\\:\\$_max\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php
-
-		-
-			message: "#^Access to an undefined property Mage_Adminhtml_Block_Dashboard_Graph\\:\\:\\$_min\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php
 
 		-
 			message: "#^Variable \\$d might not be defined\\.$#"
@@ -239,21 +214,6 @@ parameters:
 			message: "#^Variable \\$answerData might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Poll/Answer/Edit.php
-
-		-
-			message: "#^Access to an undefined property Mage_Adminhtml_Block_Report_Grid\\:\\:\\$_filterValues\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid.php
-
-		-
-			message: "#^Access to an undefined property Mage_Adminhtml_Block_Report_Grid\\:\\:\\$_locale\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid.php
-
-		-
-			message: "#^Access to an undefined property Mage_Adminhtml_Block_Report_Grid_Abstract\\:\\:\\$_columnGroupBy\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
 
 		-
 			message: "#^Call to an undefined method Mage_Reports_Model_Resource_Report_Collection_Abstract\\:\\:addOrderStatusFilter\\(\\)\\.$#"
@@ -391,11 +351,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
 
 		-
-			message: "#^Access to an undefined property Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard\\:\\:\\$_filterStores\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php
-
-		-
 			message: "#^Variable \\$attributes might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php
@@ -471,19 +426,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
 
 		-
-			message: "#^Access to an undefined property Mage_Adminhtml_Block_Tag_Customer\\:\\:\\$_block\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Customer.php
-
-		-
 			message: "#^Call to an undefined method Mage_Tag_Model_Resource_Tag_Collection\\:\\:addAttributeToFilter\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Grid/All.php
-
-		-
-			message: "#^Access to an undefined property Mage_Adminhtml_Block_Tag_Product\\:\\:\\$_block\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Product.php
 
 		-
 			message: "#^Binary operation \"\\*\" between string and 1 results in an error\\.$#"
@@ -1601,11 +1546,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Category/Indexer/Product.php
 
 		-
-			message: "#^Access to an undefined property Mage_Catalog_Model_Resource_Category_Tree\\:\\:\\$_inactiveItems\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
-
-		-
 			message: "#^Call to an undefined method Zend_Db_Adapter_Abstract\\:\\:getCheckSql\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
@@ -2531,11 +2471,6 @@ parameters:
 			path: ../app/code/core/Mage/Eav/Model/Convert/Adapter/Entity.php
 
 		-
-			message: "#^Access to an undefined property Mage_Eav_Model_Convert_Adapter_Grid\\:\\:\\$_entityType\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
-
-		-
 			message: "#^Binary operation \"\\.\" between Mage_Eav_Model_Entity_Interface and '_collection' results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
@@ -2987,11 +2922,6 @@ parameters:
 			path: ../app/code/core/Mage/Paygate/Helper/Data.php
 
 		-
-			message: "#^Access to an undefined property Mage_Paygate_Model_Authorizenet\\:\\:\\$_cardsStorage\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Paygate/Model/Authorizenet.php
-
-		-
 			message: "#^Variable \\$defaultExceptionMessage might not be defined\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Paygate/Model/Authorizenet.php
@@ -3057,84 +2987,14 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Payflowlink/Info.php
 
 		-
-			message: "#^Access to an undefined property Mage_Paypal_Block_Express_Review\\:\\:\\$_address\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Paypal/Block/Express/Review.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$visible_on_cart\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Block/Express/Shortcut.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$visible_on_product\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Block/Express/Shortcut.php
-
-		-
 			message: "#^Method Mage_Paypal_Block_Payment_Info\\:\\:getCcTypeName\\(\\) should return string\\|null but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Block/Payment/Info.php
 
 		-
-			message: "#^Access to an undefined property Mage_Paypal_Controller_Express_Abstract\\:\\:\\$_checkoutType\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Controller_Express_Abstract\\:\\:\\$_configMethod\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Controller_Express_Abstract\\:\\:\\$_configType\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
 			message: "#^Variable \\$isAjax might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$sandboxFlag\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Helper/Data.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$apiAuthentication\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Api/Abstract.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$apiPassword\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Api/Abstract.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$apiSignature\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Api/Abstract.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$apiUsername\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Api/Abstract.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$debug\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Api/Abstract.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$sandboxFlag\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Api/Nvp.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$verifyPeer\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Api/Nvp.php
 
 		-
 			message: "#^Call to an undefined method Mage_Paypal_Model_Api_Nvp\\:\\:_export\\(\\)\\.$#"
@@ -3152,66 +3012,6 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Model/Cart.php
 
 		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$allow_ba_signup\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Config.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$api_cert\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Config.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$api_password\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Config.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$api_signature\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Config.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$api_username\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Config.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$businessAccount\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Config.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$business_account\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Config.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$buttonFlavor\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Config.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$buttonType\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Paypal/Model/Config.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$paymentAction\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Config.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$paymentMarkSize\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Config.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$sandboxFlag\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Paypal/Model/Config.php
-
-		-
 			message: "#^Default value of the parameter \\#2 \\$type \\(false\\) of method Mage_Paypal_Model_Config\\:\\:getAdditionalOptionsLogoUrl\\(\\) is incompatible with type string\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Config.php
@@ -3227,64 +3027,9 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Model/Config.php
 
 		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$cctypes\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Direct.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$lineItemsEnabled\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Direct.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$paymentAction\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Direct.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$lineItemsEnabled\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Express.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$paymentAction\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Express.php
-
-		-
 			message: "#^Call to an undefined method Mage_Payment_Model_Info\\:\\:lookupTransaction\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Paypal/Model/Express.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$allow_ba_signup\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$lineItemsEnabled\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$paymentAction\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$requireBillingAddress\\.$#"
-			count: 4
-			path: ../app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$solutionType\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$transferShippingOptions\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Express/Checkout.php
 
 		-
 			message: "#^Cannot call method getData\\(\\) on array\\.$#"
@@ -3312,34 +3057,9 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Model/Hostedpro.php
 
 		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$businessAccount\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Ipn.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$debug\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Ipn.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$verifyPeer\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Ipn.php
-
-		-
 			message: "#^Binary operation \"\\-\" between array\\|string and array\\|string results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Ipn.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$lineItemsEnabled\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Method/Agreement.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$paymentAction\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Method/Agreement.php
 
 		-
 			message: "#^Method Mage_Paypal_Model_Observer\\:\\:fetchReports\\(\\) should return \\$this\\(Mage_Paypal_Model_Observer\\) but return statement is missing\\.$#"
@@ -3405,16 +3125,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isFailsafe\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Resource/Payment/Transaction.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$lineItemsEnabled\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Standard.php
-
-		-
-			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$lineItemsSummary\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Standard.php
 
 		-
 			message: "#^Method Mage_Paypal_Model_Standard\\:\\:initialize\\(\\) should return \\$this\\(Mage_Paypal_Model_Standard\\) but return statement is missing\\.$#"
@@ -3742,11 +3452,6 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Quote/Item.php
 
 		-
-			message: "#^Access to an undefined property Mage_Sales_Model_Quote_Item_Abstract\\:\\:\\$_optionsByCode\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Quote/Item/Abstract.php
-
-		-
 			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:canGetRecurringProfileDetails\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Recurring/Profile.php
@@ -3790,11 +3495,6 @@ parameters:
 			message: "#^Variable \\$currentStoreIds in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
-
-		-
-			message: "#^Access to an undefined property Mage_Sales_Model_Resource_Sale_Collection\\:\\:\\$_orderStateValue\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Sales/Model/Resource/Sale/Collection.php
 
 		-
 			message: "#^Call to an undefined method Varien_Db_Adapter_Interface\\:\\:listTables\\(\\)\\.$#"
@@ -3865,16 +3565,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Rule_Model_Action_Collection\\:\\:validate\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Access to an undefined property Mage_Shipping_Model_Carrier_Abstract\\:\\:\\$_rawRequest\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Shipping/Model/Carrier/Abstract.php
-
-		-
-			message: "#^Access to an undefined property Mage_Shipping_Model_Carrier_Abstract\\:\\:\\$_result\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Shipping/Model/Carrier/Abstract.php
 
 		-
 			message: "#^Call to an undefined method Mage_Shipping_Model_Carrier_Abstract\\:\\:_getQuotes\\(\\)\\.$#"

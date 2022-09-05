@@ -57,6 +57,11 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     protected $_orderStateCondition = null;
 
     /**
+     * @var array
+     */
+    protected $_orderStateValue;
+
+    /**
      * Set sales order entity and establish read connection
      *
      */
@@ -98,8 +103,8 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
      */
     public function setOrderStateFilter($state, $exclude = false)
     {
-        $this->_orderStateCondition = ($exclude) ? 'NOT IN' : 'IN';
-        $this->_orderStateValue     = (!is_array($state)) ? [$state] : $state;
+        $this->_orderStateCondition = $exclude ? 'NOT IN' : 'IN';
+        $this->_orderStateValue     = !is_array($state) ? [$state] : $state;
         return $this;
     }
 

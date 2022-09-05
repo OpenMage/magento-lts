@@ -47,6 +47,11 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     protected $_paypalActionPrefix = 'paypal';
 
     /**
+     * @var Mage_Sales_Model_Quote_Address
+     */
+    public $_address;
+
+    /**
      * Quote object setter
      *
      * @param Mage_Sales_Model_Quote $quote

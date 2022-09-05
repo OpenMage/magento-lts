@@ -105,22 +105,29 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     protected $_canUseInternal          = true;
     protected $_canUseCheckout          = true;
     protected $_canUseForMultishipping  = true;
-    protected $_canSaveCc = false;
+    protected $_canSaveCc               = false;
     protected $_canFetchTransactionInfo = true;
 
     protected $_allowCurrencyCode = ['USD'];
+
+    /**
+     * @var Mage_Paygate_Model_Authorizenet_Cards
+     */
+    public $_cardsStorage;
 
     /**
      * Fields that should be replaced in debug with '***'
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = ['x_login', 'x_tran_key',
-                                                    'x_card_num', 'x_exp_date',
-                                                    'x_card_code', 'x_bank_aba_code',
-                                                    'x_bank_name', 'x_bank_acct_num',
-                                                    'x_bank_acct_type','x_bank_acct_name',
-                                                    'x_echeck_type'];
+    protected $_debugReplacePrivateDataKeys = [
+        'x_login', 'x_tran_key',
+        'x_card_num', 'x_exp_date',
+        'x_card_code', 'x_bank_aba_code',
+        'x_bank_name', 'x_bank_acct_num',
+        'x_bank_acct_type','x_bank_acct_name',
+        'x_echeck_type'
+    ];
 
     /**
      * Key for storing fraud transaction flag in additional information of payment model
