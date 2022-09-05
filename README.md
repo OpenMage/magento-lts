@@ -28,7 +28,7 @@ to do so (based on available resources). For example, Magento version `1.9.4.5` 
 
 ## Requirements
 
-- PHP 7.3+ (PHP 8.0 and 8.1 are supported)
+- PHP 7.3+ (PHP 8.0 is supported)
 - MySQL 5.6+ (8.0+ recommended) or MariaDB
 
 __Please be aware that although OpenMage is compatible that one or more extensions may not be__
@@ -103,18 +103,24 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 
 ### Between Magento 1.9.4.5 and OpenMage 19.x
 
-- bug fixes and PHP 7.x and 8.0 compatibility
-- added config cache for system.xml #1916
+- bug fixes and PHP 7.x, 8.0 and 8.1 compatibility
+- added config cache for system.xml [#1916](https://github.com/OpenMage/magento-lts/pull/1916)
+- search for "NULL" in backend grids [#1203](https://github.com/OpenMage/magento-lts/pull/1203)
+- removed modules `Mage_Compiler`, `Mage_GoogleBase`, `Mage_Xmlconnect`, `Phoenix_Moneybookers`
 
 ### Between OpenMage 19.x and 20.x
 
 Do not use 20.x.x if you need IE support.
 
-- removed IE conditional comments, IE styles, IE scripts and IE eot files #1073
-- removed frontend default themes (default, modern, iphone, german, french, blank, blue) #1600
-- fixed incorrect datetime in customer block (`$useTimezone` parameter) #1525
-- add redis as a valid option for `global/session_save` #1513
-- possibility to disable global search in backend #1532
+- removed IE conditional comments, IE styles, IE scripts and IE eot files [#1073](https://github.com/OpenMage/magento-lts/pull/1073)
+- removed frontend default themes (default, modern, iphone, german, french, blank, blue) [#1600](https://github.com/OpenMage/magento-lts/pull/1600)
+- fixed incorrect datetime in customer block (`$useTimezone` parameter) [#1525](https://github.com/OpenMage/magento-lts/pull/1525)
+- added redis as a valid option for `global/session_save` [#1513](https://github.com/OpenMage/magento-lts/pull/1513)
+- reduce needless saves by avoiding setting `_hasDataChanges` flag [#2066](https://github.com/OpenMage/magento-lts/pull/2066)
+- removed support for `global/sales/old_fields_map` defined in XML [#921](https://github.com/OpenMage/magento-lts/pull/921)
+- removed module `Mage_PageCache` [#2258](https://github.com/OpenMage/magento-lts/pull/2258)
+- removed lib/flex containing unused ActionScript "file uploader" files [#2271](https://github.com/OpenMage/magento-lts/pull/2271)
+- enabled website level config cache [#2355](https://github.com/OpenMage/magento-lts/pull/2355)
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
@@ -140,18 +146,7 @@ For full list of changes, you can [compare tags](https://github.com/OpenMage/mag
 - `sitemap_cms_pages_generating_before`
 - `sitemap_urlset_generating_before`
 
-[Full list of events](EVENTS.md)
-
-### Included Extensions
-- [`N98_LayoutHelper`](https://github.com/netz98/N98_LayoutHelper)
-
-
-### Removed Modules
-
-- `Mage_Compiler`
-- `Mage_GoogleBase`
-- `Mage_Xmlconnect`
-- `Phoenix_Moneybookers`
+[Full list of events](docs/EVENTS.md)
 
 ## Development Environment with ddev
 
@@ -178,7 +173,7 @@ To add class maps for installed extensions, you have to install [N98-magerun](ht
 and run command:
 
 ```
-n98-magerun dev:ide:phpstorm:meta
+n98-magerun.phar dev:ide:phpstorm:meta
 ```
 
 You can add additional meta files in this directory to cover your own project files. See
