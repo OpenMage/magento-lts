@@ -27,25 +27,16 @@
  */
 class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
 {
-    /**
-     * Resource initialization
-     */
     protected function _construct()
     {
         return $this;
     }
 
-    /**
-     * Retrieve connection for read data
-     */
     protected function _getReadAdapter()
     {
         return false;
     }
 
-    /**
-     * Retrieve connection for write data
-     */
     protected function _getWriteAdapter()
     {
         return false;
