@@ -134,6 +134,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
     {
         $log = $this->getCustomerLog();
         if ($log->getLogoutAt()
+            || !$log->getLastVisitAt()
             || strtotime(Varien_Date::now()) - strtotime($log->getLastVisitAt()) > Mage_Log_Model_Visitor::getOnlineMinutesInterval() * 60
         ) {
             return Mage::helper('customer')->__('Offline');
