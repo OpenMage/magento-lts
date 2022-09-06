@@ -102,7 +102,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     /**
      * Use qty correction for qty column update
      *
-     * @param Varien_Object|Mage_CatalogInventory_Model_Stock_Item $object
+     * @param Mage_CatalogInventory_Model_Stock_Item $object
      * @param string $table
      * @return array
      */

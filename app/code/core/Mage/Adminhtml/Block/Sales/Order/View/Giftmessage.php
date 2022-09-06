@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Entity for editing of gift message
      *
-     * @var Mage_Eav_Model_Entity_Abstract
+     * @var Mage_Sales_Model_Order
      */
     protected $_entity;
 
@@ -99,7 +99,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Set entity for form
      *
-     * @param Varien_Object $entity
+     * @param Mage_Sales_Model_Order $entity
      * @return $this
      */
     public function setEntity(Varien_Object $entity)
@@ -111,7 +111,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Retrieve entity for form
      *
-     * @return Varien_Object
+     * @return Mage_Sales_Model_Order
      * @throws Exception
      */
     public function getEntity()
