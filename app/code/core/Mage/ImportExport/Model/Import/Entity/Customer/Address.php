@@ -128,8 +128,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
     protected $_regions = [];
 
     /**
-     * Constructor.
-     *
      * @param Mage_ImportExport_Model_Import_Entity_Customer $customer
      */
     public function __construct(Mage_ImportExport_Model_Import_Entity_Customer $customer)

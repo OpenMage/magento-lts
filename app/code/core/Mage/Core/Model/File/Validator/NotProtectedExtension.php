@@ -43,9 +43,6 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
      */
     protected $_protectedFileExtensions = [];
 
-    /**
-     * Construct
-     */
     public function __construct()
     {
         $this->_initMessageTemplates();

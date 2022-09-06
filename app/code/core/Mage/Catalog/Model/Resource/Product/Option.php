@@ -27,10 +27,6 @@
  */
 class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Define main table and initialize connection
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product_option', 'option_id');

@@ -21,9 +21,9 @@
 /**
  * Paygate data helper
  *
- * @category    Mage
- * @package     Mage_Paygate
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Paygate
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
 {

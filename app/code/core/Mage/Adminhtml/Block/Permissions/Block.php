@@ -27,9 +27,6 @@
  */
 class Mage_Adminhtml_Block_Permissions_Block extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-    /**
-     * Construct
-     */
     public function __construct()
     {
         $this->_controller = 'permissions_block';

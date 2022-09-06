@@ -37,10 +37,6 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      */
     const TYPE_LOGIN = 2;
 
-    /**
-     * Define main table
-     *
-     */
     protected function _construct()
     {
         $this->_setMainTable('captcha/log');

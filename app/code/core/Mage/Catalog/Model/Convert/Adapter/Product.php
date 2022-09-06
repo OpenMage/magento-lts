@@ -32,11 +32,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     const MULTI_DELIMITER   = ' , ';
     const ENTITY            = 'catalog_product_import';
 
-    /**
-     * Event prefix
-     *
-     * @var string
-     */
     protected $_eventPrefix = 'catalog_product_import';
 
     /**

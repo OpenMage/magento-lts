@@ -187,9 +187,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      */
     protected $_uniqueAttributes = [];
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         $entityType = Mage::getSingleton('eav/config')->getEntityType($this->getEntityTypeCode());

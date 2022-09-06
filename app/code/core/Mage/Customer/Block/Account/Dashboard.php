@@ -21,9 +21,9 @@
 /**
  * Customer dashboard block
  *
- * @category    Mage
- * @package     Mage_Customer
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getRefererUrl()
  * @method $this setRefererUrl(string $value)
