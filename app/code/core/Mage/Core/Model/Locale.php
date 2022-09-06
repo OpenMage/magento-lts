@@ -845,8 +845,8 @@ class Mage_Core_Model_Locale
         }
 
         $result = false;
-        if (!is_empty_date($dateFrom) && $storeTimeStamp < $fromTimeStamp) {
-        } elseif (!is_empty_date($dateTo) && $storeTimeStamp > $toTimeStamp) {
+        if (!is_empty_date((string)$dateFrom) && $storeTimeStamp < $fromTimeStamp) {
+        } elseif (!is_empty_date((string)$dateTo) && $storeTimeStamp > $toTimeStamp) {
         } else {
             $result = true;
         }
