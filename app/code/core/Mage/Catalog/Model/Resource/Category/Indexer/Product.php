@@ -69,10 +69,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
      */
     protected $_storesInfo;
 
-    /**
-     * Model initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/category_product_index', 'category_id');

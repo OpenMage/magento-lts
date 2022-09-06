@@ -41,10 +41,6 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
      */
     protected $_isComposite    = false;
 
-    /**
-     * Initialize connection and define main table name
-     *
-     */
     protected function _construct()
     {
         $this->_init('cataloginventory/stock_status', 'product_id');

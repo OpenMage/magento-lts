@@ -122,8 +122,6 @@ abstract class Mage_Core_Controller_Varien_Action
     protected $_removeDefaultTitle = false;
 
     /**
-     * Constructor
-     *
      * @param Zend_Controller_Request_Abstract $request
      * @param Zend_Controller_Response_Abstract $response
      * @param array $invokeArgs

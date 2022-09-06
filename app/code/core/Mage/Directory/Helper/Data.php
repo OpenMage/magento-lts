@@ -92,7 +92,6 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_app;
 
     /**
-     * Constructor for Mage_Directory_Helper_Data
      * @param array $args
      */
     public function __construct(array $args = [])

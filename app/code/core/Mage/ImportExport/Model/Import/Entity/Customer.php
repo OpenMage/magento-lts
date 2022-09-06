@@ -208,9 +208,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      */
     protected $_websiteIdToCode = [];
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         parent::__construct();

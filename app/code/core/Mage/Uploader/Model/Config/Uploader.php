@@ -12,20 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Uploader
+ * @category   Mage
+ * @package    Mage_Uploader
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Uploader Config Instance Abstract Model
  *
- * @category    Mage
- * @package     Mage_Uploader
- */
-
-/**
+ * @category   Mage
+ * @package    Mage_Uploader
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Uploader_Model_Config_Uploader setTarget(string $url)
  *      The target URL for the multipart POST request.
  * @method Mage_Uploader_Model_Config_Uploader setSingleFile(bool $isSingleFile)
@@ -73,8 +72,6 @@
  *      Response is success if response status is in this list
  * @method Mage_Uploader_Model_Config_Uploader setPermanentErrors(array $permanentErrors)
  *      Response fails if response status is in this list
- *
- * Class Mage_Uploader_Model_Config_Uploader
  */
 class Mage_Uploader_Model_Config_Uploader extends Mage_Uploader_Model_Config_Abstract
 {

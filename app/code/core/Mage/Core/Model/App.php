@@ -255,9 +255,6 @@ class Mage_Core_Model_App
      */
     protected $_isInstalled = null;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
     }

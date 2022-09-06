@@ -52,9 +52,6 @@ abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Templ
      */
     protected $_consumer;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct();
