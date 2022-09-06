@@ -41,9 +41,6 @@ class Mage_Customer_Model_Resource_Form_Attribute_Collection extends Mage_Eav_Mo
      */
     protected $_entityTypeCode = 'customer';
 
-    /**
-     * Resource initialization
-     */
     protected function _construct()
     {
         parent::_construct();

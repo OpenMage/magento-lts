@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogRule
+ * @category   Mage
+ * @package    Mage_CatalogRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Rule Product Aggregated Price per date Model
+ *
+ * @category   Mage
+ * @package    Mage_CatalogRule
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price _getResource()
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price getResource()
@@ -37,17 +41,9 @@
  * @method Mage_CatalogRule_Model_Rule_Product_Price setLatestStartDate(string $value)
  * @method string getEarliestEndDate()
  * @method Mage_CatalogRule_Model_Rule_Product_Price setEarliestEndDate(string $value)
- *
- * @category    Mage
- * @package     Mage_CatalogRule
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
 {
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalogrule/rule_product_price');

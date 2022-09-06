@@ -27,7 +27,6 @@
  */
 class Mage_Dataflow_Model_Convert_Container_Collection
 {
-
     protected $_items = [];
 
     protected $_defaultClass = 'Mage_Dataflow_Model_Convert_Container_Generic';
@@ -65,5 +64,4 @@ class Mage_Dataflow_Model_Convert_Container_Collection
     {
         return isset($this->_items[$name]);
     }
-
 }

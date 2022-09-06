@@ -41,9 +41,6 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
      */
     protected static $_attributes    = [];
 
-    /**
-     * Resource initialization
-     */
     protected function _construct()
     {
         $this->_init('eav/entity_type', 'entity_type_id');

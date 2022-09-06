@@ -44,10 +44,6 @@ class Mage_Reports_Model_Product_Index_Compared extends Mage_Reports_Model_Produ
      */
     protected $_countCacheKey   = 'product_index_compared_count';
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('reports/product_index_compared');

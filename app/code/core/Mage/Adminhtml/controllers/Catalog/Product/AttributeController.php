@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_Controller_Action
 {
-
     protected $_entityTypeId;
 
     /**

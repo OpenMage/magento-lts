@@ -350,12 +350,11 @@ class Mage_Eav_Model_Config
 
         /** @var Mage_Eav_Model_Resource_Entity_Attribute_Collection $attributesInfo */
         $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection());
-        $attributesInfo
-            ->setEntityTypeFilter($entityType)
-            ->getData();
+        $attributesInfo->setEntityTypeFilter($entityType);
+        $attributesInfoData = $attributesInfo->getData();
 
         $codes = [];
-        foreach ($attributesInfo as $attribute) {
+        foreach ($attributesInfoData as $attribute) {
             $this->_createAttribute($entityType, $attribute);
             $codes[] = $attribute['attribute_code'];
         }
@@ -469,10 +468,10 @@ class Mage_Eav_Model_Config
             $attributesInfo
                 ->setEntityTypeFilter($entityType)
                 ->setAttributeSetFilter($attributeSetId)
-                ->addStoreLabel($storeId)
-                ->getData();
+                ->addStoreLabel($storeId);
+            $attributesInfoData = $attributesInfo->getData();
             $attributes = [];
-            foreach ($attributesInfo as $attributeData) {
+            foreach ($attributesInfoData as $attributeData) {
                 $attributes[] = $attributeData['attribute_code'];
                 $this->_createAttribute($entityType, $attributeData);
             }
@@ -521,17 +520,17 @@ class Mage_Eav_Model_Config
         $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection());
         $attributesInfo
             ->setEntityTypeFilter($entityType)
-            ->setCodeFilter($attributes)
-            ->getData();
+            ->setCodeFilter($attributes);
+        $attributesInfoData = $attributesInfo->getData();
 
-        if (!$attributesInfo) {
+        if (!$attributesInfoData) {
             Varien_Profiler::stop('EAV: '.__METHOD__ . ':'.$entityTypeCode);
             return $this;
         }
 
         $attributesData = $codes = [];
 
-        foreach ($attributesInfo as $attribute) {
+        foreach ($attributesInfoData as $attribute) {
             if (empty($attribute['attribute_model'])) {
                 $attribute['attribute_model'] = $entityType->getAttributeModel();
             }
@@ -545,9 +544,7 @@ class Mage_Eav_Model_Config
         }
 
         $this->_attributeData[$entityTypeCode] = $attributesData;
-
         Varien_Profiler::stop('EAV: '.__METHOD__ . ':'.$entityTypeCode);
-
         return $this;
     }
 
@@ -616,10 +613,10 @@ class Mage_Eav_Model_Config
         $attributesInfo
             ->useLoadDataFields()
             ->setEntityTypeFilter($entityType)
-            ->setCodeFilter($attributes)
-            ->getData();
+            ->setCodeFilter($attributes);
+        $attributesInfoData = $attributesInfo->getData();
 
-        foreach ($attributesInfo as $attributeData) {
+        foreach ($attributesInfoData as $attributeData) {
             $attribute = $this->_createAttribute($entityType, $attributeData);
             $this->_collectionAttributes[$entityTypeCode][$attribute->getAttributeCode()] =$attribute;
         }

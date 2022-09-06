@@ -64,18 +64,12 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
 
     const XML_PATH_PRODUCT_COLLECTION_ATTRIBUTES = 'frontend/product/collection/attributes';
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/config');
     }
 
     /**
-     * Set store id
-     *
      * @param integer $storeId
      * @return $this
      */

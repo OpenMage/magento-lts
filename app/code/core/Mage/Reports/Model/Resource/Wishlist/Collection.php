@@ -34,10 +34,6 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
      */
     protected $_wishlistTable;
 
-    /**
-     * Resource initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('wishlist/wishlist');

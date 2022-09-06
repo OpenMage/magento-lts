@@ -64,5 +64,4 @@ class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Wi
     {
         return $this->getChildHtml('plane');
     }
-
 }

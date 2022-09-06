@@ -27,9 +27,6 @@
  */
 class Mage_Oauth_Model_Resource_Consumer extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('oauth/consumer', 'entity_id');

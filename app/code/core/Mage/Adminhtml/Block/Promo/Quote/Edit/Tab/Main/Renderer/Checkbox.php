@@ -49,5 +49,4 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main_Renderer_Checkbox
 
         return $html;
     }
-
 }

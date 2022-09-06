@@ -29,7 +29,6 @@
  */
 class Mage_Catalog_Block_Seo_Sitemap_Category extends Mage_Catalog_Block_Seo_Sitemap_Abstract
 {
-
     /**
      * Initialize categories collection
      *

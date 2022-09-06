@@ -27,9 +27,6 @@
  */
 class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstract
 {
-    /**
-     * Resource initialization
-     */
     public function __construct()
     {
         $this->setType('customer');

@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_Tag_Customer extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -56,5 +55,4 @@ class Mage_Adminhtml_Block_Tag_Customer extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->_headerText = Mage::helper('tag')->__("Customers Tagged '%s'", $this->escapeHtml($tagInfo->getName()));
     }
-
 }

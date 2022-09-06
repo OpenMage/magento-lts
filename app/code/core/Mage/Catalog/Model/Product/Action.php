@@ -30,10 +30,6 @@
  */
 class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
 {
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product_action');

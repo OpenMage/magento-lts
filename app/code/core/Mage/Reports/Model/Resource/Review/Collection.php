@@ -27,18 +27,12 @@
  */
 class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Resource_Review_Collection
 {
-    /**
-     * Resource initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('review/review');
     }
 
     /**
-     * add product filter
-     *
      * @param string|int $productId
      * @return $this
      */

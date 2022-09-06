@@ -15,12 +15,10 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * description
- *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
@@ -87,7 +85,6 @@ class Mage_Adminhtml_Block_Poll_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->addColumn('date_posted', [
             'header'    => Mage::helper('poll')->__('Date Posted'),
             'align'     => 'left',
-            'width'     => '120px',
             'type'      => 'datetime',
             'index'     => 'date_posted',
             'format'	=> Mage::app()->getLocale()->getDateFormat()
@@ -96,7 +93,6 @@ class Mage_Adminhtml_Block_Poll_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->addColumn('date_closed', [
             'header'    => Mage::helper('poll')->__('Date Closed'),
             'align'     => 'left',
-            'width'     => '120px',
             'type'      => 'datetime',
             'default'   => '--',
             'index'     => 'date_closed',

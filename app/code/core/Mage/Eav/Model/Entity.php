@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -37,9 +37,6 @@ class Mage_Eav_Model_Entity extends Mage_Eav_Model_Entity_Abstract
     const DEFAULT_ENTITY_ID_FIELD   = 'entity_id';
     const DEFAULT_VALUE_TABLE_PREFIX= 'eav/entity_attribute';
 
-    /**
-     * Resource initialization
-     */
     public function __construct()
     {
         $resource = Mage::getSingleton('core/resource');

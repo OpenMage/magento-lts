@@ -25,7 +25,6 @@
  */
 class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements IteratorAggregate
 {
-
     /**
      * Read connection
      *

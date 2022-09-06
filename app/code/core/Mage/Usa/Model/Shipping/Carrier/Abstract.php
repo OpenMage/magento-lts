@@ -27,7 +27,6 @@
  */
 abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Model_Carrier_Abstract
 {
-
     const USA_COUNTRY_ID = 'US';
     const PUERTORICO_COUNTRY_ID = 'PR';
     const GUAM_COUNTRY_ID = 'GU';

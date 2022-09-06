@@ -342,5 +342,4 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     {
         return $this->_pro->getConfig()->getPaymentAction();
     }
-
 }
