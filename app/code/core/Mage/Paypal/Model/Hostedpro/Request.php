@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,26 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  *  Website Payments Pro Hosted Solution request model to get token.
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
 {
     /**
@@ -60,8 +53,8 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
      *
      * @var array
      */
-    protected $_notButtonVars = array (
-        'METHOD', 'BUTTONCODE', 'BUTTONTYPE');
+    protected $_notButtonVars = [
+        'METHOD', 'BUTTONCODE', 'BUTTONTYPE'];
 
     /**
      * Build and return request array from object data
@@ -70,7 +63,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
      */
     public function getRequestData()
     {
-        $requestData = array();
+        $requestData = [];
         if (!empty($this->_data)) {
             // insert params to request as additional button variables,
             // except special params from _notButtonVars list
@@ -127,7 +120,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
      */
     protected function _getPaymentData(Mage_Paypal_Model_Hostedpro $paymentMethod)
     {
-        $request = array(
+        return [
             'paymentaction' => strtolower($paymentMethod->getConfigData('payment_action')),
             'notify_url'    => $paymentMethod->getNotifyUrl(),
             'cancel_return' => $paymentMethod->getCancelUrl(),
@@ -142,9 +135,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
             'showCustomerName'      => 'false',
             'showCardInfo'          => 'true',
             'showHostedThankyouPage'=> 'false'
-        );
-
-        return $request;
+        ];
     }
 
     /**
@@ -155,7 +146,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
      */
     protected function _getOrderData(Mage_Sales_Model_Order $order)
     {
-        $request = array(
+        $request = [
             'subtotal'      => $this->_formatPrice($order->getBaseSubtotal()),
             'tax'           => $this->_formatPrice($order->getBaseTaxAmount() + $order->getHiddenTaxAmount() ),
             'shipping'      => $this->_formatPrice($order->getBaseShippingAmount()),
@@ -168,7 +159,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
                 + abs($order->getBaseDiscountAmount())
                 + $order->getBaseCustomerBalanceAmount()
             ),
-        );
+        ];
 
         // append to request billing address data
         if ($billingAddress = $order->getBillingAddress()) {
@@ -191,14 +182,14 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
      */
     protected function _getShippingAddress(Varien_Object $address)
     {
-        $request = array(
+        $request = [
             'first_name'=> $address->getFirstname(),
             'last_name' => $address->getLastname(),
             'city'      => $address->getCity(),
             'state'     => $address->getRegionCode() ? $address->getRegionCode() : $address->getCity(),
             'zip'       => $address->getPostcode(),
             'country'   => $address->getCountry(),
-        );
+        ];
 
         // convert streets to tow lines format
         $street = Mage::helper('customer/address')
@@ -218,14 +209,14 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
      */
     protected function _getBillingAddress(Varien_Object $address)
     {
-        $request = array(
+        $request = [
             'billing_first_name'=> $address->getFirstname(),
             'billing_last_name' => $address->getLastname(),
             'billing_city'      => $address->getCity(),
             'billing_state'     => $address->getRegionCode() ? $address->getRegionCode() : $address->getCity(),
             'billing_zip'       => $address->getPostcode(),
             'billing_country'   => $address->getCountry(),
-        );
+        ];
 
         // convert streets to tow lines format
         $street = Mage::helper('customer/address')

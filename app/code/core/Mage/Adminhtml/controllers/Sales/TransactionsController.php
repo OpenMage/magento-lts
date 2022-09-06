@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -51,7 +45,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
         $orderId = $this->getRequest()->getParam('order_id');
         if ($orderId) {
             $txn->setOrderUrl(
-                $this->getUrl('*/sales_order/view', array('order_id' => $orderId))
+                $this->getUrl('*/sales_order/view', ['order_id' => $orderId])
             );
         }
 
@@ -121,12 +115,11 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
             );
             Mage::logException($e);
         }
-        $this->_redirect('*/sales_transactions/view', array('_current' => true));
+        $this->_redirect('*/sales_transactions/view', ['_current' => true]);
     }
 
     /**
-     * Check currently called action by permissions for current user
-     *
+     * @inheritDoc
      */
     protected function _isAllowed()
     {
@@ -134,10 +127,8 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
         switch ($action) {
             case 'fetch':
                 return Mage::getSingleton('admin/session')->isAllowed('sales/transactions/fetch');
-                break;
             default:
                 return Mage::getSingleton('admin/session')->isAllowed('sales/transactions');
-                break;
         }
     }
 }

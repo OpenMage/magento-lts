@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog product website resource model
@@ -39,7 +32,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
      *
      * @var array
      */
-    protected $_productAttributes  = array();
+    protected $_productAttributes  = [];
 
     /**
      * Initialize connection
@@ -116,13 +109,13 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
         $refreshIndex       = true;
         $adapter            = $this->_getWriteAdapter();
 
-        $data = new Varien_Object(array(
+        $data = new Varien_Object([
             'entity_type_id' => $statusEntityTypeId,
             'attribute_id'   => $statusAttributeId,
             'store_id'       => $storeId,
             'entity_id'      => $productId,
             'value'          => $value
-        ));
+        ]);
 
         $data = $this->_prepareDataForTable($data, $statusTable);
 
@@ -138,7 +131,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
             if ($row['value'] == $value) {
                 $refreshIndex = false;
             } else {
-                $condition = array('value_id = ?' => $row['value_id']);
+                $condition = ['value_id = ?' => $row['value_id']];
                 $adapter->update($statusTable, $data, $condition);
             }
         } else {
@@ -162,19 +155,19 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
      */
     public function getProductStatus($productIds, $storeId = null)
     {
-        $statuses = array();
+        $statuses = [];
 
         $attribute      = $this->_getProductAttribute('status');
         $attributeTable = $attribute->getBackend()->getTable();
         $adapter        = $this->_getReadAdapter();
 
         if (!is_array($productIds)) {
-            $productIds = array($productIds);
+            $productIds = [$productIds];
         }
 
         if ($storeId === null || $storeId == Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID) {
             $select = $adapter->select()
-                ->from($attributeTable, array('entity_id', 'value'))
+                ->from($attributeTable, ['entity_id', 'value'])
                 ->where('entity_id IN (?)', $productIds)
                 ->where('attribute_id = ?', $attribute->getAttributeId())
                 ->where('store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
@@ -185,14 +178,14 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
 
             $select = $adapter->select()
                 ->from(
-                    array('t1' => $attributeTable),
-                    array('entity_id' => 't1.entity_id', 'value' => $valueCheckSql)
+                    ['t1' => $attributeTable],
+                    ['entity_id' => 't1.entity_id', 'value' => $valueCheckSql]
                 )
                 ->joinLeft(
-                    array('t2' => $attributeTable),
+                    ['t2' => $attributeTable],
                     't1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id = '
                         . (int)$storeId,
-                    array('')
+                    ['']
                 )
                 ->where('t1.store_id = ?', Mage_Core_Model_App::ADMIN_STORE_ID)
                 ->where('t1.attribute_id = ?', $attribute->getAttributeId())

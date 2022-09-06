@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogInventory
+ * @category   Mage
+ * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Inventory Stock Model
+ *
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_CatalogInventory_Model_Resource_Stock_Item _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock_Item getResource()
@@ -90,10 +88,6 @@
  * @method $this setStockQty(float $value)
  * @method bool hasStockQty()
  * @method float getQtyCorrection()
- *
- * @category    Mage
- * @package     Mage_CatalogInventory
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
 {
@@ -116,7 +110,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * @var array
      */
-    private $_minSaleQtyCache = array();
+    private $_minSaleQtyCache = [];
 
     /**
      * @var float|false
@@ -160,10 +154,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      */
     protected $_processIndexEvents = true;
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('cataloginventory/stock_item');
@@ -177,10 +167,10 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      */
     protected function _initOldFieldsMap()
     {
-        $this->_oldFieldsMap = array(
+        $this->_oldFieldsMap = [
             'stock_status_changed_automatically' => 'stock_status_changed_auto',
             'use_config_enable_qty_increments'   => 'use_config_enable_qty_inc'
-        );
+        ];
     }
 
     /**
@@ -558,7 +548,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         if ($this->getIsChildItem() && !empty($parentItem)) {
             $typeInstance = $parentItem->getProduct()->getTypeInstance(true);
             $requiredChildrenIds = $typeInstance->getChildrenIds($parentItem->getProductId(), true);
-            $childrenIds = array();
+            $childrenIds = [];
             foreach ($requiredChildrenIds as $groupedChildrenIds) {
                 $childrenIds = array_merge($childrenIds, $groupedChildrenIds);
             }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,9 +23,8 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Dashboard_Grids extends Mage_Adminhtml_Block_Widget_Tabs
 {
     public function __construct()
@@ -59,30 +52,30 @@ class Mage_Adminhtml_Block_Dashboard_Grids extends Mage_Adminhtml_Block_Widget_T
     protected function _prepareLayout()
     {
         // load this active tab statically
-        $this->addTab('ordered_products', array(
+        $this->addTab('ordered_products', [
             'label'     => $this->__('Bestsellers'),
             'content'   => $this->getLayout()->createBlock('adminhtml/dashboard_tab_products_ordered')->toHtml(),
             'active'    => true
-        ));
+        ]);
 
         // load other tabs with ajax
-        $this->addTab('reviewed_products', array(
+        $this->addTab('reviewed_products', [
             'label'     => $this->__('Most Viewed Products'),
-            'url'       => $this->getUrl('*/*/productsViewed', array('_current'=>true)),
+            'url'       => $this->getUrl('*/*/productsViewed', ['_current'=>true]),
             'class'     => 'ajax'
-        ));
+        ]);
 
-        $this->addTab('new_customers', array(
+        $this->addTab('new_customers', [
             'label'     => $this->__('New Customers'),
-            'url'       => $this->getUrl('*/*/customersNewest', array('_current'=>true)),
+            'url'       => $this->getUrl('*/*/customersNewest', ['_current'=>true]),
             'class'     => 'ajax'
-        ));
+        ]);
 
-        $this->addTab('customers', array(
+        $this->addTab('customers', [
             'label'     => $this->__('Customers'),
-            'url'       => $this->getUrl('*/*/customersMost', array('_current'=>true)),
+            'url'       => $this->getUrl('*/*/customersMost', ['_current'=>true]),
             'class'     => 'ajax'
-        ));
+        ]);
 
         return parent::_prepareLayout();
     }

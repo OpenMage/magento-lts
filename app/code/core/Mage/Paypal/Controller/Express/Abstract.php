@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract Express Checkout Controller
+ *
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Controller_Front_Action
 {
@@ -50,7 +48,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     protected function _construct()
     {
         parent::_construct();
-        $this->_config = Mage::getModel($this->_configType, array($this->_configMethod));
+        $this->_config = Mage::getModel($this->_configType, [$this->_configMethod]);
     }
 
     /**
@@ -83,7 +81,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
                 );
                 $this->redirectLogin();
                 Mage::getSingleton('customer/session')
-                    ->setBeforeAuthUrl(Mage::getUrl('*/*/*', array('_current' => true)));
+                    ->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_current' => true]));
                 return;
             }
 
@@ -310,7 +308,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
         try {
             $requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds();
             if ($requiredAgreements) {
-                $postedAgreements = array_keys($this->getRequest()->getPost('agreement', array()));
+                $postedAgreements = array_keys($this->getRequest()->getPost('agreement', []));
                 if (array_diff($requiredAgreements, $postedAgreements)) {
                     Mage::throwException(Mage::helper('paypal')->__('Please agree to all the terms and conditions before placing the order.'));
                 }
@@ -342,7 +340,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             // recurring profiles may be created along with the order or without it
             $profiles = $this->_checkout->getRecurringPaymentProfiles();
             if ($profiles) {
-                $ids = array();
+                $ids = [];
                 foreach($profiles as $profile) {
                     $ids[] = $profile->getId();
                 }
@@ -446,10 +444,10 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->getResponse()->setHeader('HTTP/1.1','403 Forbidden');
             Mage::throwException(Mage::helper('paypal')->__('Unable to initialize Express Checkout.'));
         }
-        $this->_checkout = Mage::getSingleton($this->_checkoutType, array(
+        $this->_checkout = Mage::getSingleton($this->_checkoutType, [
             'config' => $this->_config,
             'quote'  => $quote,
-        ));
+        ]);
 
         return $this->_checkout;
     }
@@ -463,8 +461,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      */
     protected function _initToken($setToken = null)
     {
-        if (null !== $setToken) {
-            if (false === $setToken) {
+        if ($setToken !== null) {
+            if ($setToken === false) {
                 // security measure for avoid unsetting token twice
                 if (!$this->_getSession()->getExpressCheckoutToken()) {
                     Mage::throwException($this->__('PayPal Express Checkout Token does not exist.'));
@@ -488,7 +486,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     /**
      * PayPal session instance getter
      *
-     * @return Mage_PayPal_Model_Session
+     * @return Mage_Paypal_Model_Session
      */
     private function _getSession()
     {
@@ -528,7 +526,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
         $this->getResponse()->setRedirect(
             Mage::helper('core/url')->addRequestParam(
                 Mage::helper('customer')->getLoginUrl(),
-                array('context' => 'checkout')
+                ['context' => 'checkout']
             )
         );
     }

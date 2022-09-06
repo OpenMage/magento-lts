@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract model for product type implementation
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Catalog_Model_Product_Type_Abstract
 {
@@ -95,7 +89,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *
      * @var array
      */
-    protected $_fileQueue       = array();
+    protected $_fileQueue       = [];
 
     const CALCULATE_CHILD = 0;
     const CALCULATE_PARENT = 1;
@@ -187,7 +181,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function getChildrenIds($parentId, $required = true)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -198,7 +192,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function getParentIdsByChild($childId)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -245,7 +239,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     {
         $cacheKey = '_cache_editable_attributes';
         if (!$this->getProduct($product)->hasData($cacheKey)) {
-            $editableAttributes = array();
+            $editableAttributes = [];
             foreach ($this->getSetAttributes($product) as $attributeCode => $attribute) {
                 if (!is_array($attribute->getApplyTo())
                     || count($attribute->getApplyTo())==0
@@ -290,7 +284,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Check is product available for sale
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return bool
+     * @return bool|null
      */
     public function isSalable($product = null)
     {
@@ -298,7 +292,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if ($salable && $this->getProduct($product)->hasData('is_salable')) {
             $salable = $this->getProduct($product)->getData('is_salable');
         } elseif ($salable && $this->isComposite()) {
-            $salable = null;
+            return null;
         }
 
         return (boolean) (int) $salable;
@@ -316,7 +310,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     protected function _prepareProduct(Varien_Object $buyRequest, $product, $processMode)
     {
         $product = $this->getProduct($product);
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         // try to add custom options
         try {
             $options = $this->_prepareOptions($buyRequest, $product, $processMode);
@@ -345,10 +339,10 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                         $productType = $superProductConfig['product_type'];
                         $product->addCustomOption('product_type', $productType, $superProduct);
 
-                        $buyRequest->setData('super_product_config', array(
+                        $buyRequest->setData('super_product_config', [
                             'product_type' => $productType,
                             'product_id'   => $superProduct->getId()
-                        ));
+                        ]);
                     }
                 }
             }
@@ -372,7 +366,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         }
         $product->setQty($buyRequest->getQty());
 
-        return array($product);
+        return [$product];
     }
 
     /**
@@ -524,9 +518,9 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     protected function _prepareOptions(Varien_Object $buyRequest, $product, $processMode)
     {
         $transport = new stdClass;
-        $transport->options = array();
+        $transport->options = [];
         foreach ($this->getProduct($product)->getOptions() as $_option) {
-            /* @var Mage_Catalog_Model_Product_Option $_option */
+            /** @var Mage_Catalog_Model_Product_Option $_option */
             $group = $_option->groupFactory($_option->getType())
                 ->setOption($_option)
                 ->setProduct($this->getProduct($product))
@@ -541,11 +535,11 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         }
 
         $eventName = sprintf('catalog_product_type_prepare_%s_options', $processMode);
-        Mage::dispatchEvent($eventName, array(
+        Mage::dispatchEvent($eventName, [
             'transport'   => $transport,
             'buy_request' => $buyRequest,
             'product' => $product
-        ));
+        ]);
         return $transport->options;
     }
 
@@ -600,7 +594,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function getOrderOptions($product = null)
     {
-        $optionArr = array();
+        $optionArr = [];
         if ($info = $this->getProduct($product)->getCustomOption('info_buyRequest')) {
             $optionArr['info_buyRequest'] = unserialize($info->getValue(), ['allowed_classes' => false]);
         }
@@ -616,7 +610,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                         ->setProduct($this->getProduct())
                         ->setConfigurationItemOption($confItemOption);
 
-                    $optionArr['options'][] = array(
+                    $optionArr['options'][] = [
                         'label' => $option->getTitle(),
                         'value' => $group->getFormattedOptionValue($confItemOption->getValue()),
                         'print_value' => $group->getPrintableOptionValue($confItemOption->getValue()),
@@ -624,17 +618,17 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                         'option_type' => $option->getType(),
                         'option_value' => $confItemOption->getValue(),
                         'custom_view' => $group->isCustomizedView()
-                    );
+                    ];
                 }
             }
         }
 
         if ($productTypeConfig = $this->getProduct($product)->getCustomOption('product_type')) {
-            $optionArr['super_product_config'] = array(
+            $optionArr['super_product_config'] = [
                 'product_code'  => $productTypeConfig->getCode(),
                 'product_type'  => $productTypeConfig->getValue(),
                 'product_id'    => $productTypeConfig->getProductId()
-            );
+            ];
         }
 
         return $optionArr;
@@ -921,7 +915,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     public function getSearchableData($product = null)
     {
         $product    = $this->getProduct($product);
-        $searchData = array();
+        $searchData = [];
         if ($product->getHasOptions()) {
             $searchData = Mage::getSingleton('catalog/product_option')
                 ->getSearchableData($product->getId(), $product->getStoreId());
@@ -941,9 +935,9 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     {
         $product = $this->getProduct($product);
         if ($this->isComposite($product)) {
-            return array();
+            return [];
         }
-        return array(array($product));
+        return [[$product]];
     }
 
     /**
@@ -955,7 +949,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function processBuyRequest($product, $buyRequest)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -967,7 +961,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function checkProductConfiguration($product, $buyRequest)
     {
-        $errors = array();
+        $errors = [];
 
         try {
             /**

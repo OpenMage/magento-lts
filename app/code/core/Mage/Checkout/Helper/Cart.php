@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,22 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
 {
@@ -58,7 +54,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
      * @param array $additional
      * @return string
      */
-    public function getAddUrl($product, $additional = array())
+    public function getAddUrl($product, $additional = [])
     {
         return $this->getAddUrlCustom($product, $additional);
     }
@@ -82,10 +78,10 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
      */
     public function getRemoveUrl($item)
     {
-        $params = array(
+        $params = [
             'id' => $item->getId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_BASE64_URL => $this->getCurrentBase64Url()
-        );
+        ];
         return $this->_getUrl('checkout/cart/delete', $params);
     }
 
@@ -168,13 +164,13 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
      * @param bool $addFormKey
      * @return string
      */
-    public function getAddUrlCustom($product, $additional = array(), $addFormKey = true)
+    public function getAddUrlCustom($product, $additional = [], $addFormKey = true)
     {
-        $routeParams = array(
+        $routeParams = [
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->_getHelperInstance('core')
                 ->urlEncode($this->getCurrentUrl()),
             'product' => $product->getEntityId(),
-        );
+        ];
         if ($addFormKey) {
             $routeParams[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
         }

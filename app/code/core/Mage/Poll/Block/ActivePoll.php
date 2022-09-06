@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Poll
+ * @category   Mage
+ * @package    Mage_Poll
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Poll block
- *
- * @file        Poll.php
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Poll
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
 {
     /**
@@ -160,8 +152,8 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
             ->countPercent($poll);
 
         // correct rounded percents to be always equal 100
-        $percentsSorted = array();
-        $answersArr = array();
+        $percentsSorted = [];
+        $answersArr = [];
         /**
          * @var int $key
          * @var Mage_Poll_Model_Poll_Answer $answer
@@ -180,13 +172,12 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
             $answersArr[$key]->setPercent($value + 100 - $total);
         }
 
-        return array(
+        return [
             'poll' => $poll,
             'poll_answers' => $pollAnswers,
-            'action' => Mage::getUrl('poll/vote/add', array('poll_id' => $pollId, '_secure' => true))
-        );
+            'action' => Mage::getUrl('poll/vote/add', ['poll_id' => $pollId, '_secure' => true])
+        ];
     }
-
 
     /**
      * Add poll template
@@ -229,7 +220,6 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
         return parent::_toHtml();
     }
 
-
     /**
      * Get cache key informative items that must be preserved in cache placeholders
      * for block to be rerendered by placeholder
@@ -238,9 +228,9 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
      */
     public function getCacheKeyInfo()
     {
-        $items = array(
+        $items = [
             'templates' => serialize($this->_templates)
-        );
+        ];
 
         $items = parent::getCacheKeyInfo() + $items;
 

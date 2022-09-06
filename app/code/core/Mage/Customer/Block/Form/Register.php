@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,22 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer register form block
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setBackUrl(string $value)
  * @method $this setErrorUrl(string $value)
@@ -59,7 +55,9 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     public function getPostActionUrl()
     {
-        return $this->helper('customer')->getRegisterPostUrl();
+        /** @var Mage_Customer_Helper_Data $helper */
+        $helper = $this->helper('customer');
+        return $helper->getRegisterPostUrl();
     }
 
     /**
@@ -71,7 +69,9 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     {
         $url = $this->getData('back_url');
         if (is_null($url)) {
-            $url = $this->helper('customer')->getLoginUrl();
+            /** @var Mage_Customer_Helper_Data $helper */
+            $helper = $this->helper('customer');
+            $url = $helper->getLoginUrl();
         }
         return $url;
     }
@@ -120,9 +120,11 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     public function getRegion()
     {
-        if (false !== ($region = $this->getFormData()->getRegion())) {
+        if ($region = $this->getFormData()->getRegion() !== false) {
             return $region;
-        } elseif (false !== ($region = $this->getFormData()->getRegionId())) {
+        }
+
+        if ($region = $this->getFormData()->getRegionId() !== false) {
             return $region;
         }
         return null;

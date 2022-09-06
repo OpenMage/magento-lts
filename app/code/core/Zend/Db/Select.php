@@ -20,7 +20,6 @@
  * @version    $Id$
  */
 
-
 /**
  * @see Zend_Db_Adapter_Abstract
  */
@@ -30,7 +29,6 @@
  * @see Zend_Db_Expr
  */
 #require_once 'Zend/Db/Expr.php';
-
 
 /**
  * Class for SQL SELECT generation and results.
@@ -42,10 +40,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
 class Zend_Db_Select
 {
-
     const DISTINCT       = 'distinct';
     const COLUMNS        = 'columns';
     const FROM           = 'from';
@@ -156,7 +152,6 @@ class Zend_Db_Select
      * @var array
      */
     protected $_tableCols = array();
-
 
     /**
      * List of MySql specific control characters
@@ -711,7 +706,7 @@ class Zend_Db_Select
      *
      * @param integer $fetchMode OPTIONAL
      * @param  mixed  $bind An array of data to bind to the placeholders.
-     * @return PDO_Statement|Zend_Db_Statement
+     * @return Zend_Db_Statement
      */
     public function query($fetchMode = null, $bind = array())
     {
@@ -1392,5 +1387,4 @@ class Zend_Db_Select
         }
         return (string)$sql;
     }
-
 }

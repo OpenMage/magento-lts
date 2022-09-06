@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,26 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml sales orders grid
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     /**
      * Initialization
      */
@@ -72,59 +67,59 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('increment_id', array(
+        $this->addColumn('increment_id', [
             'header'    => Mage::helper('sales')->__('Shipment #'),
             'index'     => 'increment_id',
             'type'      => 'text',
-        ));
+        ]);
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('created_at', [
             'header'    => Mage::helper('sales')->__('Date Shipped'),
             'index'     => 'created_at',
             'type'      => 'datetime',
-        ));
+        ]);
 
-        $this->addColumn('order_increment_id', array(
+        $this->addColumn('order_increment_id', [
             'header'    => Mage::helper('sales')->__('Order #'),
             'index'     => 'order_increment_id',
             'type'      => 'text',
             'escape'    => true,
-        ));
+        ]);
 
-        $this->addColumn('order_created_at', array(
+        $this->addColumn('order_created_at', [
             'header'    => Mage::helper('sales')->__('Order Date'),
             'index'     => 'order_created_at',
             'type'      => 'datetime',
-        ));
+        ]);
 
-        $this->addColumn('shipping_name', array(
+        $this->addColumn('shipping_name', [
             'header' => Mage::helper('sales')->__('Ship to Name'),
             'index' => 'shipping_name',
-        ));
+        ]);
 
-        $this->addColumn('total_qty', array(
+        $this->addColumn('total_qty', [
             'header' => Mage::helper('sales')->__('Total Qty'),
             'index' => 'total_qty',
             'type'  => 'number',
-        ));
+        ]);
 
         $this->addColumn('action',
-            array(
+            [
                 'header'    => Mage::helper('sales')->__('Action'),
                 'width'     => '50px',
                 'type'      => 'action',
                 'getter'     => 'getId',
-                'actions'   => array(
-                    array(
+                'actions'   => [
+                    [
                         'caption' => Mage::helper('sales')->__('View'),
-                        'url'     => array('base'=>'*/sales_shipment/view'),
+                        'url'     => ['base'=>'*/sales_shipment/view'],
                         'field'   => 'shipment_id'
-                    )
-                ),
+                    ]
+                ],
                 'filter'    => false,
                 'sortable'  => false,
                 'is_system' => true
-        ));
+            ]);
 
         $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
         $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel XML'));
@@ -145,9 +140,9 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
         }
 
         return $this->getUrl('*/sales_shipment/view',
-            array(
+            [
                 'shipment_id'=> $row->getId(),
-            )
+            ]
         );
     }
 
@@ -162,15 +157,15 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
         $this->getMassactionBlock()->setFormFieldName('shipment_ids');
         $this->getMassactionBlock()->setUseSelectAll(false);
 
-        $this->getMassactionBlock()->addItem('pdfshipments_order', array(
+        $this->getMassactionBlock()->addItem('pdfshipments_order', [
              'label'=> Mage::helper('sales')->__('PDF Packingslips'),
              'url'  => $this->getUrl('*/sales_shipment/pdfshipments'),
-        ));
+        ]);
 
-        $this->getMassactionBlock()->addItem('print_shipping_label', array(
+        $this->getMassactionBlock()->addItem('print_shipping_label', [
              'label'=> Mage::helper('sales')->__('Print Shipping Labels'),
              'url'  => $this->getUrl('*/sales_order_shipment/massPrintShippingLabel'),
-        ));
+        ]);
 
         return $this;
     }
@@ -182,7 +177,6 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/*', array('_current' => true));
+        return $this->getUrl('*/*/*', ['_current' => true]);
     }
-
 }

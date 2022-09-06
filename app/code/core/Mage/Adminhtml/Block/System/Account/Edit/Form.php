@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,9 +23,8 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_System_Account_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     protected function _prepareForm()
@@ -43,69 +36,69 @@ class Mage_Adminhtml_Block_System_Account_Edit_Form extends Mage_Adminhtml_Block
 
         $form = new Varien_Data_Form();
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('adminhtml')->__('Account Information')));
+        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('adminhtml')->__('Account Information')]);
 
-        $fieldset->addField('username', 'text', array(
+        $fieldset->addField('username', 'text', [
                 'name'  => 'username',
                 'label' => Mage::helper('adminhtml')->__('User Name'),
                 'title' => Mage::helper('adminhtml')->__('User Name'),
                 'required' => true,
-            )
+            ]
         );
 
-        $fieldset->addField('firstname', 'text', array(
+        $fieldset->addField('firstname', 'text', [
                 'name'  => 'firstname',
                 'label' => Mage::helper('adminhtml')->__('First Name'),
                 'title' => Mage::helper('adminhtml')->__('First Name'),
                 'required' => true,
-            )
+            ]
         );
 
-        $fieldset->addField('lastname', 'text', array(
+        $fieldset->addField('lastname', 'text', [
                 'name'  => 'lastname',
                 'label' => Mage::helper('adminhtml')->__('Last Name'),
                 'title' => Mage::helper('adminhtml')->__('Last Name'),
                 'required' => true,
-            )
+            ]
         );
 
-        $fieldset->addField('user_id', 'hidden', array(
+        $fieldset->addField('user_id', 'hidden', [
                 'name'  => 'user_id',
-            )
+            ]
         );
 
-        $fieldset->addField('email', 'text', array(
+        $fieldset->addField('email', 'text', [
                 'name'  => 'email',
                 'label' => Mage::helper('adminhtml')->__('Email'),
                 'title' => Mage::helper('adminhtml')->__('User Email'),
                 'required' => true,
-            )
+            ]
         );
 
-        $fieldset->addField('current_password', 'obscure', array(
+        $fieldset->addField('current_password', 'obscure', [
                 'name'  => 'current_password',
                 'label' => Mage::helper('adminhtml')->__('Current Admin Password'),
                 'title' => Mage::helper('adminhtml')->__('Current Admin Password'),
                 'required' => true,
-            )
+            ]
         );
 
         $minAdminPasswordLength = Mage::getModel('admin/user')->getMinAdminPasswordLength();
-        $fieldset->addField('password', 'password', array(
+        $fieldset->addField('password', 'password', [
                 'name'  => 'new_password',
                 'label' => Mage::helper('adminhtml')->__('New Password'),
                 'title' => Mage::helper('adminhtml')->__('New Password'),
                 'class' => 'input-text validate-admin-password min-admin-pass-length-' . $minAdminPasswordLength,
                 'note' => Mage::helper('adminhtml')
                     ->__('Password must be at least of %d characters.', $minAdminPasswordLength),
-            )
+            ]
         );
 
-        $fieldset->addField('confirmation', 'password', array(
+        $fieldset->addField('confirmation', 'password', [
                 'name'  => 'password_confirmation',
                 'label' => Mage::helper('adminhtml')->__('Password Confirmation'),
                 'class' => 'input-text validate-cpassword',
-            )
+            ]
         );
 
         $form->setValues($user->getData());

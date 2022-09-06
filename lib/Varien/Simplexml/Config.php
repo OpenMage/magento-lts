@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Varien
  * @package     Varien_Simplexml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Base class for simplexml based configurations
@@ -43,36 +36,26 @@ class Varien_Simplexml_Config
     protected $_xml = null;
 
     /**
-     * Enter description here...
-     *
      * @var string
      */
     protected $_cacheId = null;
 
     /**
-     * Enter description here...
-     *
      * @var array
      */
     protected $_cacheTags = array();
 
     /**
-     * Enter description here...
-     *
      * @var int
      */
     protected $_cacheLifetime = null;
 
     /**
-     * Enter description here...
-     *
      * @var unknown_type
      */
     protected $_cacheChecksum = false;
 
     /**
-     * Enter description here...
-     *
      * @var boolean
      */
     protected $_cacheSaved = false;
@@ -174,8 +157,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Simplexml_Config_Cache_Abstract $cache
      * @return Varien_Simplexml_Config
      */
@@ -186,8 +167,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @return Varien_Simplexml_Config_Cache_Abstract
      */
     public function getCache()
@@ -196,8 +175,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param boolean $flag
      * @return Varien_Simplexml_Config
      */
@@ -208,8 +185,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @return boolean
      */
     public function getCacheSaved()
@@ -218,8 +193,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $id
      * @return Varien_Simplexml_Config
      */
@@ -230,8 +203,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getCacheId()
@@ -240,8 +211,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param array $tags
      * @return Varien_Simplexml_Config
      */
@@ -252,8 +221,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getCacheTags()
@@ -262,8 +229,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param int $lifetime
      * @return Varien_Simplexml_Config
      */
@@ -274,8 +239,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @return int
      */
     public function getCacheLifetime()
@@ -284,8 +247,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param string|null $data
      * @return Varien_Simplexml_Config
      */
@@ -302,8 +263,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $data
      * @return Varien_Simplexml_Config
      */
@@ -321,8 +280,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getCacheChecksum()
@@ -331,8 +288,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getCacheChecksumId()
@@ -341,8 +296,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @return boolean
      */
     public function fetchCacheChecksum()
@@ -351,8 +304,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @return boolean
      */
     public function validateCacheChecksum()
@@ -369,8 +320,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @return boolean
      */
     public function loadCache()
@@ -391,8 +340,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param array $tags
      * @return Varien_Simplexml_Config
      */
@@ -432,8 +379,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @return Varien_Simplexml_Config
      */
     public function removeCache()
@@ -444,8 +389,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $id
      * @return boolean
      */
@@ -455,8 +398,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $data
      * @param string $id
      * @param array $tags
@@ -469,8 +410,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @todo check this, as there are no caches that implement remove() method
      * @param string $id
      * @return unknown
@@ -589,8 +528,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Simplexml_Config $config
      * @param boolean $overwrite
      * @return Varien_Simplexml_Config

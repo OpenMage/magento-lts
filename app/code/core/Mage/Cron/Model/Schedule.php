@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Cron
+ * @category   Mage
+ * @package    Mage_Cron
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Crontab schedule model
+ *
+ * @category   Mage
+ * @package    Mage_Cron
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Cron_Model_Resource_Schedule _getResource()
  * @method Mage_Cron_Model_Resource_Schedule getResource()
@@ -47,10 +45,6 @@
  * @method $this unsScheduleId()
  * @method array[]|false|string[] getCronExprArr()
  * @method $this setCronExprArr(array[]|false|string[] $value)
- *
- * @category    Mage
- * @package     Mage_Cron
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 {
@@ -188,7 +182,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      */
     public function getNumeric($value)
     {
-        static $data = array(
+        static $data = [
             'jan'=>1,
             'feb'=>2,
             'mar'=>3,
@@ -209,7 +203,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
             'thu'=>4,
             'fri'=>5,
             'sat'=>6,
-        );
+        ];
 
         if (is_numeric($value)) {
             return $value;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,23 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Poll
+ * @category   Mage
+ * @package    Mage_Poll
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-/* @var Mage_Core_Model_Resource_Setup $installer */
-
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
-
 $installer->startSetup();
 
 /**
@@ -36,44 +27,44 @@ $installer->startSetup();
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('poll/poll'))
-    ->addColumn('poll_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('poll_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Poll Id')
-    ->addColumn('poll_title', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        ), 'Poll title')
-    ->addColumn('votes_count', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Poll Id')
+    ->addColumn('poll_title', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
+    ], 'Poll title')
+    ->addColumn('votes_count', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Votes Count')
-    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Votes Count')
+    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Store id')
-    ->addColumn('date_posted', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ], 'Store id')
+    ->addColumn('date_posted', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
         'nullable'  => false,
-        ), 'Date posted')
-    ->addColumn('date_closed', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ], 'Date posted')
+    ->addColumn('date_closed', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
         'nullable'  => true,
-        ), 'Date closed')
-    ->addColumn('active', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Date closed')
+    ->addColumn('active', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'nullable'  => false,
         'default'   => '1',
-        ), 'Is active')
-    ->addColumn('closed', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Is active')
+    ->addColumn('closed', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'nullable'  => false,
         'default'   => '0',
-        ), 'Is closed')
-    ->addColumn('answers_display', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Is closed')
+    ->addColumn('answers_display', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'nullable'  => true,
-        ), 'Answers display')
+    ], 'Answers display')
     ->addIndex(
-        $installer->getIdxName('poll/poll', array('store_id')),
-        array('store_id')
+        $installer->getIdxName('poll/poll', ['store_id']),
+        ['store_id']
     )
     ->addForeignKey(
         $installer->getFkName('poll/poll', 'store_id', 'core/store', 'store_id'),
@@ -91,31 +82,31 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('poll/poll_answer'))
-    ->addColumn('answer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('answer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Answer Id')
-    ->addColumn('poll_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Answer Id')
+    ->addColumn('poll_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Poll Id')
-    ->addColumn('answer_title', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        ), 'Answer title')
-    ->addColumn('votes_count', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Poll Id')
+    ->addColumn('answer_title', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
+    ], 'Answer title')
+    ->addColumn('votes_count', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Votes Count')
-    ->addColumn('answer_order', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Votes Count')
+    ->addColumn('answer_order', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'nullable'  => false,
         'default'   => '0',
-        ), 'Answers display')
+    ], 'Answers display')
     ->addIndex(
-        $installer->getIdxName('poll/poll_answer', array('poll_id')),
-        array('poll_id')
+        $installer->getIdxName('poll/poll_answer', ['poll_id']),
+        ['poll_id']
     )
     ->addForeignKey(
         $installer->getFkName('poll/poll_answer', 'poll_id', 'poll/poll', 'poll_id'),
@@ -133,21 +124,21 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('poll/poll_store'))
-    ->addColumn('poll_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('poll_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'primary'   => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Poll Id')
-    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Poll Id')
+    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'primary'   => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Store id')
+    ], 'Store id')
     ->addIndex(
-        $installer->getIdxName('poll/poll_store', array('store_id')),
-        array('store_id')
+        $installer->getIdxName('poll/poll_store', ['store_id']),
+        ['store_id']
     )
     ->addForeignKey(
         $installer->getFkName('poll/poll_store', 'poll_id', 'poll/poll', 'poll_id'),
@@ -173,34 +164,34 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('poll/poll_vote'))
-    ->addColumn('vote_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('vote_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Vote Id')
-    ->addColumn('poll_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Vote Id')
+    ->addColumn('poll_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Poll Id')
-    ->addColumn('poll_answer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Poll Id')
+    ->addColumn('poll_answer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Poll answer id')
-    ->addColumn('ip_address', Varien_Db_Ddl_Table::TYPE_BIGINT, null, array(
+    ], 'Poll answer id')
+    ->addColumn('ip_address', Varien_Db_Ddl_Table::TYPE_BIGINT, null, [
         'nullable'  => true,
-        ), 'Poll answer id')
-    ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Poll answer id')
+    ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'nullable'  => true,
-        ), 'Customer id')
-    ->addColumn('vote_time', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ], 'Customer id')
+    ->addColumn('vote_time', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
         'nullable'  => true,
-        ), 'Date closed')
+    ], 'Date closed')
     ->addIndex(
-        $installer->getIdxName('poll/poll_vote', array('poll_answer_id')),
-        array('poll_answer_id')
+        $installer->getIdxName('poll/poll_vote', ['poll_answer_id']),
+        ['poll_answer_id']
     )
     ->addForeignKey(
         $installer->getFkName('poll/poll_vote', 'poll_answer_id', 'poll/poll_answer', 'answer_id'),

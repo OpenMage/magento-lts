@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Entity type model
+ *
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Eav_Model_Resource_Entity_Type _getResource()
  * @method Mage_Eav_Model_Resource_Entity_Type getResource()
@@ -55,17 +53,13 @@
  * @method $this setAdditionalAttributeTable(string $value)
  * @method $this setEntityAttributeCollection(string $value)
  * @method $this setAttributeCodes(array $value)
- *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
 {
     /**
      * Collection of attributes
      *
-     * @var Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @var Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     protected $_attributes;
 
@@ -74,12 +68,12 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_attributesBySet             = array();
+    protected $_attributesBySet             = [];
 
     /**
      * Collection of sets
      *
-     * @var Mage_Eav_Model_Mysql4_Entity_Attribute_Set_Collection
+     * @var Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection
      */
     protected $_sets;
 
@@ -108,7 +102,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      * Retrieve entity type attributes collection
      *
      * @param   int $setId
-     * @return  Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @return  Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function getAttributeCollection($setId = null)
     {
@@ -131,9 +125,9 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Init and retreive attribute collection
+     * Init and retrieve attribute collection
      *
-     * @return Mage_Core_Model_Mysql4_Collection_Abstract|object
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|object
      */
     protected function _getAttributeCollection()
     {
@@ -149,7 +143,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve entity tpe sets collection
      *
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Set_Collection
+     * @return Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection
      */
     public function getAttributeSetCollection()
     {
@@ -161,7 +155,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive new incrementId
+     * Retrieve new incrementId
      *
      * @param int $storeId
      * @return string
@@ -223,23 +217,23 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive entity id field
+     * Retrieve entity id field
      *
      * @return string|null
      */
     public function getEntityIdField()
     {
-        return isset($this->_data['entity_id_field']) ? $this->_data['entity_id_field'] : null;
+        return $this->_data['entity_id_field'] ?? null;
     }
 
     /**
-     * Retreive entity table name
+     * Retrieve entity table name
      *
      * @return string|null
      */
     public function getEntityTable()
     {
-        return isset($this->_data['entity_table']) ? $this->_data['entity_table'] : null;
+        return $this->_data['entity_table'] ?? null;
     }
 
     /**
@@ -280,37 +274,37 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getDefaultAttributeSetId()
     {
-        return isset($this->_data['default_attribute_set_id']) ? $this->_data['default_attribute_set_id'] : null;
+        return $this->_data['default_attribute_set_id'] ?? null;
     }
 
     /**
-     * Retreive entity type id
+     * Retrieve entity type id
      *
      * @return string|null
      */
     public function getEntityTypeId()
     {
-        return isset($this->_data['entity_type_id']) ? $this->_data['entity_type_id'] : null;
+        return $this->_data['entity_type_id'] ?? null;
     }
 
     /**
-     * Retreive entity type code
+     * Retrieve entity type code
      *
      * @return string|null
      */
     public function getEntityTypeCode()
     {
-        return isset($this->_data['entity_type_code']) ? $this->_data['entity_type_code'] : null;
+        return $this->_data['entity_type_code'] ?? null;
     }
 
     /**
-     * Retreive attribute codes
+     * Retrieve attribute codes
      *
      * @return array|null
      */
     public function getAttributeCodes()
     {
-        return isset($this->_data['attribute_codes']) ? $this->_data['attribute_codes'] : null;
+        return $this->_data['attribute_codes'] ?? null;
     }
 
     /**
@@ -328,7 +322,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive resource entity object
+     * Retrieve resource entity object
      *
      * @return Mage_Core_Model_Resource_Abstract
      */

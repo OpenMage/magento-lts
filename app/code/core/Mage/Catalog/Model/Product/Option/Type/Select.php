@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -170,7 +164,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {
-        $_values = array();
+        $_values = [];
         if (!$this->_isSingleSelection()) {
             foreach (explode(',', $optionValue) as $_value) {
                 $_value = trim($_value);
@@ -266,7 +260,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
         $option = $this->getOption();
 
         if (!$this->_isSingleSelection()) {
-            $skus = array();
+            $skus = [];
             foreach (explode(',', $optionValue) as $value) {
                 if ($optionSku = $option->getValueById($value)) {
                     $skus[] = $optionSku->getSku();
@@ -309,10 +303,10 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
      */
     protected function _isSingleSelection()
     {
-        $_single = array(
+        $_single = [
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN,
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_RADIO
-        );
+        ];
         return in_array($this->getOption()->getType(), $_single);
     }
 }

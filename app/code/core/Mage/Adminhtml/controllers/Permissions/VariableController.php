@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -33,6 +27,12 @@
  */
 class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/acl/variables';
+
     /**
      * @return $this
      */
@@ -55,7 +55,6 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
             ->_title($this->__('Permissions'))
             ->_title($this->__('Variables'));
 
-        /** @var Mage_Adminhtml_Block_Permissions_Variables $block */
         $block = $this->getLayout()->createBlock('adminhtml/permissions_variable');
         $this->_initAction()
             ->_addContent($block)
@@ -142,7 +141,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
                 foreach ($result as $message) {
                     Mage::getSingleton('adminhtml/session')->addError($message);
                 }
-                $this->_redirect('*/*/edit', array('variable_id' => $id));
+                $this->_redirect('*/*/edit', ['variable_id' => $id]);
                 return $this;
             }
             try {
@@ -160,7 +159,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
                 // save data in session
                 Mage::getSingleton('adminhtml/session')->setFormData($data);
                 // redirect to edit form
-                $this->_redirect('*/*/edit', array('variable_id' => $id));
+                $this->_redirect('*/*/edit', ['variable_id' => $id]);
                 return;
             }
         }
@@ -183,7 +182,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
                 return;
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $this->_redirect('*/*/edit', array('variable_id' => $id));
+                $this->_redirect('*/*/edit', ['variable_id' => $id]);
                 return;
             }
         }
@@ -198,18 +197,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
     {
         $this->getResponse()
             ->setBody($this->getLayout()
-                ->createBlock('adminhtml/permissions_variable_grid')
-                ->toHtml()
-            );
-    }
-
-    /**
-     * Check permissions before allow edit list of config variables
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/acl/variables');
+            ->createBlock('adminhtml/permissions_variable_grid')
+            ->toHtml());
     }
 }

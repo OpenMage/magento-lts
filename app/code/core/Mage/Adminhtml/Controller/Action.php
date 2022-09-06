@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Base adminhtml controller
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Action
 {
@@ -44,18 +38,24 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     const SESSION_NAMESPACE = 'adminhtml';
 
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'admin';
+
+    /**
      * Array of actions which can be processed without secret key validation
      *
      * @var array
      */
-    protected $_publicActions = array();
+    protected $_publicActions = [];
 
     /**
      *Array of actions which can't be processed without form key validation
      *
      * @var array
      */
-    protected $_forcedFormKeyActions = array();
+    protected $_forcedFormKeyActions = [];
 
     /**
      * Used module name in current adminhtml controller
@@ -76,9 +76,14 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     protected $_sessionNamespace = self::SESSION_NAMESPACE;
 
+    /**
+     * Check current user permission on resource and privilege
+     *
+     * @return bool
+     */
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('admin');
+        return Mage::getSingleton('admin/session')->isAllowed(static::ADMIN_RESOURCE);
     }
 
     /**
@@ -117,7 +122,9 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     protected function _addBreadcrumb($label, $title, $link=null)
     {
-        $this->getLayout()->getBlock('breadcrumbs')->addLink($label, $title, $link);
+        /** @var Mage_Adminhtml_Block_Widget_Breadcrumbs $block */
+        $block = $this->getLayout()->getBlock('breadcrumbs');
+        $block->addLink($label, $title, $link);
         return $this;
     }
 
@@ -143,7 +150,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     }
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return $this
      */
@@ -160,7 +167,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             ->setArea($this->_currentArea)
             ->setPackageName((string)Mage::getConfig()->getNode('stores/admin/design/package/name'))
             ->setTheme((string)$theme);
-        foreach (array('layout', 'template', 'skin', 'locale') as $type) {
+        foreach (['layout', 'template', 'skin', 'locale'] as $type) {
             if ($value = (string)Mage::getConfig()->getNode("stores/admin/design/theme/{$type}")) {
                 Mage::getDesign()->setTheme($type, $value);
             }
@@ -168,7 +175,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         $this->getLayout()->setArea($this->_currentArea);
 
-        Mage::dispatchEvent('adminhtml_controller_action_predispatch_start', array());
+        Mage::dispatchEvent('adminhtml_controller_action_predispatch_start', []);
         parent::preDispatch();
         $_isValidFormKey = true;
         $_isValidSecretKey = true;
@@ -186,10 +193,10 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
             if ($this->getRequest()->getQuery('isAjax', false) || $this->getRequest()->getQuery('ajax', false)) {
-                $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array(
+                $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
                     'error' => true,
                     'message' => $_keyErrorMsg
-                )));
+                ]));
             } else {
                 if (!$_isValidFormKey){
                     Mage::getSingleton('adminhtml/session')->addError($_keyErrorMsg);
@@ -245,7 +252,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         if ($defaultSecure == '{{base_url}}' || $defaultUnsecure == '{{base_url}}') {
             $this->_getSession()->addNotice(
-                $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', array('section'=>'web')))
+                $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', ['section'=>'web']))
             );
             return $this;
         }
@@ -257,11 +264,11 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         foreach ($dataCollection as $data) {
             if ($data->getScope() == 'stores') {
                 $code = Mage::app()->getStore($data->getScopeId())->getCode();
-                $url = $this->getUrl('adminhtml/system_config/edit', array('section'=>'web', 'store'=>$code));
+                $url = $this->getUrl('adminhtml/system_config/edit', ['section'=>'web', 'store'=>$code]);
             }
             if ($data->getScope() == 'websites') {
                 $code = Mage::app()->getWebsite($data->getScopeId())->getCode();
-                $url = $this->getUrl('adminhtml/system_config/edit', array('section'=>'web', 'website'=>$code));
+                $url = $this->getUrl('adminhtml/system_config/edit', ['section'=>'web', 'website'=>$code]);
             }
 
             if ($url) {
@@ -281,7 +288,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             $this->_redirect('*/index/login');
             return;
         }
-        $this->loadLayout(array('default', 'adminhtml_denied'));
+        $this->loadLayout(['default', 'adminhtml_denied']);
         $this->renderLayout();
     }
 
@@ -296,10 +303,9 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     {
         $this->getResponse()->setHeader('HTTP/1.1','404 Not Found');
         $this->getResponse()->setHeader('Status','404 File not found');
-        $this->loadLayout(array('default', 'adminhtml_noroute'));
+        $this->loadLayout(['default', 'adminhtml_noroute']);
         $this->renderLayout();
     }
-
 
     /**
      * Retrieve currently used module name
@@ -354,10 +360,11 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Set redirect into responce
      *
-     * @param   string $path
-     * @param   array $arguments
+     * @param string $path
+     * @param array $arguments
+     * @return $this
      */
-    protected function _redirect($path, $arguments=array())
+    protected function _redirect($path, $arguments= [])
     {
         $this->_getSession()->setIsUrlNotice($this->getFlag('', self::FLAG_IS_URLS_CHECKED));
         $this->getResponse()->setRedirect($this->getUrl($path, $arguments));
@@ -377,7 +384,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * @param   array $params
      * @return  string
      */
-    public function getUrl($route='', $params=array())
+    public function getUrl($route='', $params= [])
     {
         return Mage::helper('adminhtml')->getUrl($route, $params);
     }

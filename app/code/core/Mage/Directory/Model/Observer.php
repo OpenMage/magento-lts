@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,22 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Directory
+ * @category   Mage
+ * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Directory module observer
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Directory
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Directory_Model_Observer
 {
@@ -44,7 +40,7 @@ class Mage_Directory_Model_Observer
      */
     public function scheduledUpdateCurrencyRates()
     {
-        $importWarnings = array();
+        $importWarnings = [];
         if (!Mage::getStoreConfig(self::IMPORT_ENABLE) || !Mage::getStoreConfig(self::CRON_STRING_PATH)) {
             return;
         }
@@ -74,21 +70,21 @@ class Mage_Directory_Model_Observer
             Mage::getModel('directory/currency')->saveRates($rates);
         } else {
             $translate = Mage::getSingleton('core/translate');
-            /* @var Mage_Core_Model_Translate $translate */
+            /** @var Mage_Core_Model_Translate $translate */
             $translate->setTranslateInline(false);
 
-            /* @var Mage_Core_Model_Email_Template $mailTemplate */
+            /** @var Mage_Core_Model_Email_Template $mailTemplate */
             $mailTemplate = Mage::getModel('core/email_template');
-            $mailTemplate->setDesignConfig(array(
+            $mailTemplate->setDesignConfig([
                 'area'  => 'frontend',
-            ))->sendTransactional(
+            ])->sendTransactional(
                 Mage::getStoreConfig(self::XML_PATH_ERROR_TEMPLATE),
                 Mage::getStoreConfig(self::XML_PATH_ERROR_IDENTITY),
                 Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT),
                 null,
-                array(
+                [
                     'warnings' => implode("\n", $importWarnings),
-                )
+                ]
             );
 
             $translate->setTranslateInline(true);

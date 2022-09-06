@@ -1,4 +1,4 @@
 includes:
-    - ./phpstan.neon
+    - phpstan.neon
 parameters:
-    level: 1
+    level: 3

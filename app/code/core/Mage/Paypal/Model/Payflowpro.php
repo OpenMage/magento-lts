@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,26 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payflow Pro payment gateway model
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
 {
     /**
@@ -100,25 +93,25 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = array('user', 'pwd', 'acct', 'expdate', 'cvv2');
+    protected $_debugReplacePrivateDataKeys = ['user', 'pwd', 'acct', 'expdate', 'cvv2'];
 
     /**
      * Centinel cardinal fields map
      *
      * @var string
      */
-    protected $_centinelFieldMap = array(
+    protected $_centinelFieldMap = [
         'centinel_mpivendor'    => 'MPIVENDOR3DS',
         'centinel_authstatus'   => 'AUTHSTATUS3DS',
         'centinel_cavv'         => 'CAVV',
         'centinel_eci'          => 'ECI',
         'centinel_xid'          => 'XID',
-    );
+    ];
 
     /**
      * Check whether payment method can be used
      *
-     * @param Mage_Sales_Model_Quote
+     * @param Mage_Sales_Model_Quote|null $quote
      * @return bool
      */
     public function isAvailable($quote = null)
@@ -338,18 +331,18 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
         }
 
         $rawData = $response->getData();
-        return ($rawData) ? $rawData : array();
+        return ($rawData) ? $rawData : [];
     }
 
     /**
      * Check whether the transaction is in payment review status
      *
-     * @param string $statusCode
+     * @param string $status
      * @return bool
      */
     protected static function _isTransactionUnderReview($status)
     {
-        if (in_array($status, array(self::RESPONSE_CODE_APPROVED, self::RESPONSE_CODE_DECLINED_BY_MERCHANT))) {
+        if (in_array($status, [self::RESPONSE_CODE_APPROVED, self::RESPONSE_CODE_DECLINED_BY_MERCHANT])) {
             return false;
         }
         return true;
@@ -378,16 +371,16 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
      */
     protected function _postRequest(Varien_Object $request)
     {
-        $debugData = array('request' => $request->getData());
+        $debugData = ['request' => $request->getData()];
 
         $client = new Varien_Http_Client();
         $result = new Varien_Object();
 
-        $_config = array(
+        $_config = [
             'maxredirects' => 5,
             'timeout'    => 30,
             'verifypeer' => $this->getConfigData('verify_peer')
-        );
+        ];
 
         //checking proxy
         $_isProxy = $this->getConfigData('use_proxy', false);
@@ -424,8 +417,6 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
             throw $e;
         }
 
-
-
         $response = strstr($response->getBody(), 'RESULT');
         $valArray = explode('&', $response);
 
@@ -459,7 +450,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
         $request->setCvv2($payment->getCcCid());
 
         if ($this->getIsCentinelValidationEnabled()){
-            $params = array();
+            $params = [];
             $params = $this->getCentinelValidator()->exportCmpiData($params);
             $request = Varien_Object_Mapper::accumulateByMap($params, $request, $this->_centinelFieldMap);
         }

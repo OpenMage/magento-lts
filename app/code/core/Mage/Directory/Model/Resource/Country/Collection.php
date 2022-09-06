@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Directory
+ * @category   Mage
+ * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Directory Country Resource Collection
  *
- * @category    Mage
- * @package     Mage_Directory
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Directory
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @property Mage_Directory_Model_Country[] $_items
  */
@@ -65,7 +59,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
     {
         $allowCountries = explode(',', (string)$this->_getStoreConfig('general/country/allow', $store));
         if (!empty($allowCountries)) {
-            $this->addFieldToFilter("country_id", array('in' => $allowCountries));
+            $this->addFieldToFilter("country_id", ['in' => $allowCountries]);
         }
         return $this;
     }
@@ -96,22 +90,22 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
      * @param string|array $iso
      * @return $this
      */
-    public function addCountryCodeFilter($countryCode, $iso = array('iso3', 'iso2'))
+    public function addCountryCodeFilter($countryCode, $iso = ['iso3', 'iso2'])
     {
         if (!empty($countryCode)) {
             if (is_array($countryCode)) {
                 if (is_array($iso)) {
-                    $whereOr = array();
+                    $whereOr = [];
                     foreach ($iso as $iso_curr) {
-                        $whereOr[] = $this->_getConditionSql("{$iso_curr}_code", array('in' => $countryCode));
+                        $whereOr[] = $this->_getConditionSql("{$iso_curr}_code", ['in' => $countryCode]);
                     }
                     $this->_select->where('(' . implode(') OR (', $whereOr) . ')');
                 } else {
-                    $this->addFieldToFilter("{$iso}_code", array('in' => $countryCode));
+                    $this->addFieldToFilter("{$iso}_code", ['in' => $countryCode]);
                 }
             } else {
                 if (is_array($iso)) {
-                    $whereOr = array();
+                    $whereOr = [];
                     foreach ($iso as $iso_curr) {
                         $whereOr[] = $this->_getConditionSql("{$iso_curr}_code", $countryCode);
                     }
@@ -134,7 +128,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
     {
         if (!empty($countryId)) {
             if (is_array($countryId)) {
-                $this->addFieldToFilter("country_id", array('in' => $countryId));
+                $this->addFieldToFilter("country_id", ['in' => $countryId]);
             } else {
                 $this->addFieldToFilter("country_id", $countryId);
             }
@@ -150,9 +144,9 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
      */
     public function toOptionArray($emptyLabel = ' ')
     {
-        $options = $this->_toOptionArray('country_id', 'name', array('title' => 'iso2_code'));
+        $options = $this->_toOptionArray('country_id', 'name', ['title' => 'iso2_code']);
 
-        $sort = array();
+        $sort = [];
         foreach ($options as $data) {
             $name = Mage::app()->getLocale()->getCountryTranslation($data['value']);
             if (!empty($name)) {
@@ -161,16 +155,16 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
         }
 
         Mage::helper('core/string')->ksortMultibyte($sort);
-        $options = array();
+        $options = [];
         foreach ($sort as $label => $value) {
-            $options[] = array(
+            $options[] = [
                 'value' => $value,
                 'label' => $label
-            );
+            ];
         }
 
         if (count($options) > 0 && $emptyLabel !== false) {
-            array_unshift($options, array('value' => '', 'label' => $emptyLabel));
+            array_unshift($options, ['value' => '', 'label' => $emptyLabel]);
         }
 
         return $options;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,30 +12,24 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product type price model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Type_Price
 {
     const CACHE_TAG = 'PRODUCT_PRICE';
 
-    public static $attributeCache = array();
+    public static $attributeCache = [];
 
     /**
      * Default action to get price of product
@@ -66,7 +60,6 @@ class Mage_Catalog_Model_Product_Type_Price
         );
     }
 
-
     /**
      * Retrieve product final price
      *
@@ -83,7 +76,7 @@ class Mage_Catalog_Model_Product_Type_Price
         $finalPrice = $this->getBasePrice($product, $qty);
         $product->setFinalPrice($finalPrice);
 
-        Mage::dispatchEvent('catalog_product_get_final_price', array('product' => $product, 'qty' => $qty));
+        Mage::dispatchEvent('catalog_product_get_final_price', ['product' => $product, 'qty' => $qty]);
 
         $finalPrice = $product->getData('final_price');
         $finalPrice = $this->_applyOptionsPrice($product, $qty, $finalPrice);
@@ -202,12 +195,12 @@ class Mage_Catalog_Model_Product_Type_Price
             if (!is_null($qty)) {
                 return $product->getPrice();
             }
-            return array(array(
+            return [[
                 'price'         => $product->getPrice(),
                 'website_price' => $product->getPrice(),
                 'price_qty'     => 1,
                 'cust_group'    => $allGroups,
-            ));
+            ]];
         }
 
         $custGroup = $this->_getCustomerGroupId($product);
@@ -241,7 +234,7 @@ class Mage_Catalog_Model_Product_Type_Price
             }
             return $prevPrice;
         } else {
-            $qtyCache = array();
+            $qtyCache = [];
             foreach ($prices as $i => $price) {
                 if ($price['cust_group'] != $custGroup && $price['cust_group'] != $allGroups) {
                     unset($prices[$i]);
@@ -259,7 +252,7 @@ class Mage_Catalog_Model_Product_Type_Price
             }
         }
 
-        return ($prices) ? $prices : array();
+        return ($prices) ? $prices : [];
     }
 
     /**

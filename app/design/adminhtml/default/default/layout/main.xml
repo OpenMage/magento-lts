@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     default_default
@@ -132,8 +126,8 @@ Default layout, loads most of the pages
             <block type="core/messages" name="messages" as="messages"/>
             <block type="core/text_list" name="js" as="js"/>
             <block type="adminhtml/page_footer" name="footer" as="footer">
-                <action method="setBugreportUrl"><url>https://github.com/OpenMage/magento-lts/issues</url></action>
-                <action method="setConnectWithMagentoUrl"><url>https://www.openmage.org/</url></action>
+                <action method="setOpenMageProjectUrl"><url>https://www.openmage.org</url></action>
+                <action method="setReportIssuesUrl"><url>https://github.com/OpenMage/magento-lts/issues</url></action>
             </block>
             <block type="core/profiler" name="profiler" as="profiler"/>
             <block type="core/text_list" name="before_body_end" as="before_body_end"/>

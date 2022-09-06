@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
@@ -34,38 +28,38 @@ $installer->startSetup();
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('core/email_queue'))
-    ->addColumn('message_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('message_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
          'identity'  => true,
          'unsigned'  => true,
          'nullable'  => false,
          'primary'   => true,
-        ), 'Message Id')
-    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Message Id')
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
             'unsigned'  => true,
-        ), 'Entity ID')
-    ->addColumn('entity_type', Varien_Db_Ddl_Table::TYPE_TEXT, 128, array(
-        ), 'Entity Type')
-    ->addColumn('event_type', Varien_Db_Ddl_Table::TYPE_TEXT, 128, array(
-        ), 'Event Type')
-    ->addColumn('message_body_hash', Varien_Db_Ddl_Table::TYPE_TEXT, 64, array(
+    ], 'Entity ID')
+    ->addColumn('entity_type', Varien_Db_Ddl_Table::TYPE_TEXT, 128, [
+    ], 'Entity Type')
+    ->addColumn('event_type', Varien_Db_Ddl_Table::TYPE_TEXT, 128, [
+    ], 'Event Type')
+    ->addColumn('message_body_hash', Varien_Db_Ddl_Table::TYPE_TEXT, 64, [
             'nullable'  => false,
-        ), 'Message Body Hash')
-    ->addColumn('message_body', Varien_Db_Ddl_Table::TYPE_TEXT, '1024k', array(
+    ], 'Message Body Hash')
+    ->addColumn('message_body', Varien_Db_Ddl_Table::TYPE_TEXT, '1024k', [
            'nullable'  => false,
-        ), 'Message Body')
-    ->addColumn('message_parameters', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
+    ], 'Message Body')
+    ->addColumn('message_parameters', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', [
            'nullable'  => false,
-        ), 'Message Parameters')
-    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
-        ), 'Creation Time')
-    ->addColumn('processed_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
-        ), 'Finish Time')
+    ], 'Message Parameters')
+    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
+    ], 'Creation Time')
+    ->addColumn('processed_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
+    ], 'Finish Time')
     ->addIndex(
         $installer->getIdxName(
             'core/email_queue',
-            array('entity_id', 'entity_type', 'event_type', 'message_body_hash')
+            ['entity_id', 'entity_type', 'event_type', 'message_body_hash']
         ),
-        array('entity_id', 'entity_type', 'event_type', 'message_body_hash')
+        ['entity_id', 'entity_type', 'event_type', 'message_body_hash']
     )
     ->setComment('Email Queue');
 $installer->getConnection()->createTable($table);
@@ -75,42 +69,42 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('core/email_recipients'))
-    ->addColumn('recipient_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('recipient_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
             'identity'  => true,
             'unsigned'  => true,
             'nullable'  => false,
             'primary'   => true,
-        ), 'Recipient Id')
-    ->addColumn('message_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Recipient Id')
+    ->addColumn('message_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
            'unsigned'  => true,
            'nullable'  => false,
-        ), 'Message ID')
-    ->addColumn('recipient_email', Varien_Db_Ddl_Table::TYPE_TEXT, 128, array(
+    ], 'Message ID')
+    ->addColumn('recipient_email', Varien_Db_Ddl_Table::TYPE_TEXT, 128, [
            'nullable'  => false,
-        ), 'Recipient Email')
-    ->addColumn('recipient_name', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
+    ], 'Recipient Email')
+    ->addColumn('recipient_name', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
              'nullable'  => false,
-        ), 'Recipient Name')
-    ->addColumn('email_type', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Recipient Name')
+    ->addColumn('email_type', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
             'nullable'  => false,
             'default'   => '0',
-        ), 'Email Type')
+    ], 'Email Type')
     ->addIndex(
-        $installer->getIdxName('core/email_recipients', array('recipient_email')),
-        array('recipient_email')
+        $installer->getIdxName('core/email_recipients', ['recipient_email']),
+        ['recipient_email']
     )
     ->addIndex(
-        $installer->getIdxName('core/email_recipients', array('email_type')),
-        array('email_type')
+        $installer->getIdxName('core/email_recipients', ['email_type']),
+        ['email_type']
     )
     ->addIndex(
         $installer->getIdxName(
             'core/email_recipients',
-            array('message_id', 'recipient_email', 'email_type'),
+            ['message_id', 'recipient_email', 'email_type'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('message_id', 'recipient_email', 'email_type'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        ['message_id', 'recipient_email', 'email_type'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->addForeignKey(
         $installer->getFkName('core/email_recipients', 'message_id', 'core/email_queue', 'message_id'),

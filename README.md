@@ -24,18 +24,14 @@ dependency definition. Each Magento `1.<minor>.<revision>` release will get its 
 that will be independently maintained with upstream patches and community bug fixes for as long as it makes sense
 to do so (based on available resources). For example, Magento version `1.9.3.4` was merged into the `1.9.3.x` branch.
 
-Note, the branches older than `1.9.4.x` and that were created before this strategy came into practice are **not maintained**.
-
 ## Requirements
 
 - PHP 7.0+ (PHP 7.3 with OpenSSL extension strongly recommended and verified compatible) (PHP 7.4 and 8.0 are supported)
 - MySQL 5.6+ (8.0+ recommended)
-- (optional) Redis 5+ (6.x recommended, latest verified compatible 6.0.7 with 20.x)
+- (optional) Redis 5+ (7.x recommended, latest verified compatible 7.0.4 with 20.x)
 
 - PHP 7.4 and 8.0 are supported
 - Please be aware that although OpenMage is compatible that 1 or more extensions may not be
-
-Installation on PHP 7.2.33 (7.2.x), MySQL 5.7.31-34 (5.7.x) Percona Server and Redis 6.x should work fine and confirmed by users.
 
 If using php 7.2+ then mcrypt needs to be disabled in php.ini or pecl to fallback on mcryptcompat and phpseclib. mcrypt is deprecated from 7.2+ onwards.
 
@@ -72,6 +68,29 @@ git add -A && git commit
 
 [More Information](http://openmage.github.io/magento-lts/install.html)
 
+## Secure your installation
+
+Don't use common paths like /admin for OpenMage Backend URL. Don't use the path in _robots.txt_ and keep it secret. You can change it from Backend (System / Configuration / Admin / Admin Base Url) or by editing _app/etc/local.xml_:
+
+```xml
+<config>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <frontName><![CDATA[admin]]></frontName>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>
+```
+
+Don't use common file names like api.php for OpenMage API URLs to prevent attacks. Don't use the new file name in _robots.txt_ and keep it secret with your partners. After renaming the file you must update the webserver configuration as follows:
+
+* Apache .htaccess: `RewriteRule ^api/rest api.php?type=rest [QSA,L]`
+* Nginx: `rewrite ^/api/(\w+).*$ /api.php?type=$1 last;`
+
 ## Changes
 
 Most important changes will be listed here, all other changes since `19.4.0` can be found in
@@ -79,18 +98,24 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 
 ### Between Magento 1.9.4.5 and OpenMage 19.x
 
-- bug fixes and PHP 7.x and 8.0 compatibility
-- added config cache for system.xml #1916
+- bug fixes and PHP 7.x, 8.0 and 8.1 compatibility
+- added config cache for system.xml [#1916](https://github.com/OpenMage/magento-lts/pull/1916)
+- search for "NULL" in backend grids [#1203](https://github.com/OpenMage/magento-lts/pull/1203)
+- removed modules `Mage_Compiler`, `Mage_GoogleBase`, `Mage_Xmlconnect`, `Phoenix_Moneybookers`
 
 ### Between OpenMage 19.x and 20.x
 
 Do not use 20.x.x if you need IE support.
 
-- removed IE conditional comments, IE styles, IE scripts and IE eot files #1073
-- removed frontend default themes (default, modern, iphone, german, french, blank, blue) #1600
-- fixed incorrect datetime in customer block (`$useTimezone` parameter) #1525
-- add redis as a valid option for `global/session_save` #1513
-- possibility to disable global search in backend #1532
+- removed IE conditional comments, IE styles, IE scripts and IE eot files [#1073](https://github.com/OpenMage/magento-lts/pull/1073)
+- removed frontend default themes (default, modern, iphone, german, french, blank, blue) [#1600](https://github.com/OpenMage/magento-lts/pull/1600)
+- fixed incorrect datetime in customer block (`$useTimezone` parameter) [#1525](https://github.com/OpenMage/magento-lts/pull/1525)
+- added redis as a valid option for `global/session_save` [#1513](https://github.com/OpenMage/magento-lts/pull/1513)
+- reduce needless saves by avoiding setting `_hasDataChanges` flag [#2066](https://github.com/OpenMage/magento-lts/pull/2066)
+- removed support for `global/sales/old_fields_map` defined in XML [#921](https://github.com/OpenMage/magento-lts/pull/921)
+- removed module `Mage_PageCache` [#2258](https://github.com/OpenMage/magento-lts/pull/2258)
+- removed lib/flex containing unused ActionScript "file uploader" files [#2271](https://github.com/OpenMage/magento-lts/pull/2271)
+- enabled website level config cache [#2355](https://github.com/OpenMage/magento-lts/pull/2355)
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
@@ -116,14 +141,7 @@ For full list of changes, you can [compare tags](https://github.com/OpenMage/mag
 - `sitemap_cms_pages_generating_before`
 - `sitemap_urlset_generating_before`
 
-[Full list of events](EVENTS.md)
-
-### Removed Modules
-
-- `Mage_Compiler`
-- `Mage_GoogleBase`
-- `Mage_Xmlconnect`
-- `Phoenix_Moneybookers`
+[Full list of events](docs/EVENTS.md)
 
 ## Development Environment with ddev
 
@@ -142,7 +160,7 @@ To add class maps for installed extensions, you have to install [N98-magerun](ht
 and run command:
 
 ```
-n98-magerun dev:ide:phpstorm:meta
+n98-magerun.phar dev:ide:phpstorm:meta
 ```
 
 You can add additional meta files in this directory to cover your own project files. See
@@ -362,6 +380,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://www.developpeur-web-tlse.fr/"><img src="https://avatars.githubusercontent.com/u/5030086?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Benjamin MARROT</b></sub></a></td>
     <td align="center"><a href="https://github.com/tmewes"><img src="https://avatars.githubusercontent.com/u/12640514?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Tino Mewes</b></sub></a></td>
     <td align="center"><a href="http://cebe.cc/"><img src="https://avatars.githubusercontent.com/u/189796?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Carsten Brandt</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=cebe" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/eneiasramos"><img src="https://avatars.githubusercontent.com/u/2862728?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Enéias Ramos de Melo</b></sub></a></td>
+    <td align="center"><a href="https://github.com/discountscott"><img src="https://avatars.githubusercontent.com/u/5454596?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Scott Moore</b></sub></a></td>
   </tr>
 </table>
 

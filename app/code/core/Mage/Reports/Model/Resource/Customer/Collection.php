@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Reports
+ * @category   Mage
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Customers Report collection
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Model_Resource_Customer_Collection
 {
@@ -127,9 +120,9 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
 
         $this->getSelect()
             ->joinLeft(
-                array('orders' => $this->getTable('sales/order')),
+                ['orders' => $this->getTable('sales/order')],
                 "orders.customer_id = e.entity_id".$dateFilter,
-                array()
+                []
             );
 
         return $this;
@@ -143,7 +136,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     public function addOrdersCount()
     {
         $this->getSelect()
-            ->columns(array("orders_count" => "COUNT(orders.entity_id)"))
+            ->columns(["orders_count" => "COUNT(orders.entity_id)"])
             ->where('orders.state <> ?', Mage_Sales_Model_Order::STATE_CANCELED)
             ->group("e.entity_id");
 
@@ -171,8 +164,8 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
             : "orders.base_subtotal - {$baseSubtotalCanceled} - {$baseSubtotalRefunded}";
 
         $this->getSelect()
-            ->columns(array("orders_avg_amount" => "AVG({$expr})"))
-            ->columns(array("orders_sum_amount" => "SUM({$expr})"));
+            ->columns(["orders_avg_amount" => "AVG({$expr})"])
+            ->columns(["orders_sum_amount" => "SUM({$expr})"]);
 
         return $this;
     }
@@ -222,19 +215,22 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
                 : "orders.base_subtotal - {$baseSubtotalCanceled} - {$baseSubtotalRefunded}";
 
             $select = $this->getConnection()->select();
-            $select->from(array('orders' => $this->getTable('sales/order')), array(
+            $select->from(['orders' => $this->getTable('sales/order')], [
                 'orders_avg_amount' => "AVG({$totalExpr})",
                 'orders_sum_amount' => "SUM({$totalExpr})",
                 'orders_count' => 'COUNT(orders.entity_id)',
                 'customer_id'
-            ))->where('orders.state <> ?', Mage_Sales_Model_Order::STATE_CANCELED)
+            ])->where('orders.state <> ?', Mage_Sales_Model_Order::STATE_CANCELED)
               ->where('orders.customer_id IN(?)', $customerIds)
               ->group('orders.customer_id');
+
+            /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+            $helper = Mage::getResourceHelper('core');
 
             /*
              * Analytic functions usage
              */
-            $select = Mage::getResourceHelper('core')->getQueryUsingAnalyticFunction($select);
+            $select = $helper->getQueryUsingAnalyticFunction($select);
 
             foreach ($this->getConnection()->fetchAll($select) as $ordersInfo) {
                 $this->getItemById($ordersInfo['customer_id'])->addData($ordersInfo);

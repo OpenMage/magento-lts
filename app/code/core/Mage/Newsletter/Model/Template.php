@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Newsletter
@@ -90,20 +84,20 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function validate()
     {
-        $validators = array(
-            'template_code'         => array(Zend_Filter_Input::ALLOW_EMPTY => false),
+        $validators = [
+            'template_code'         => [Zend_Filter_Input::ALLOW_EMPTY => false],
             'template_type'         => 'Int',
             'template_sender_email' => 'EmailAddress',
-            'template_sender_name'  => array(Zend_Filter_Input::ALLOW_EMPTY => false)
-        );
-        $data = array();
+            'template_sender_name'  => [Zend_Filter_Input::ALLOW_EMPTY => false]
+        ];
+        $data = [];
         foreach (array_keys($validators) as $validateField) {
             $data[$validateField] = $this->getDataUsingMethod($validateField);
         }
 
-        $validateInput = new Zend_Filter_Input(array(), $validators, $data);
+        $validateInput = new Zend_Filter_Input([], $validators, $data);
         if (!$validateInput->isValid()) {
-            $errorMessages = array();
+            $errorMessages = [];
             foreach ($validateInput->getMessages() as $messages) {
                 if (is_array($messages)) {
                     foreach ($messages as $message) {
@@ -196,9 +190,9 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * @param bool $usePreprocess
      * @return string
      */
-    public function getProcessedTemplate(array $variables = array(), $usePreprocess = false)
+    public function getProcessedTemplate(array $variables = [], $usePreprocess = false)
     {
-        /* @var Mage_Newsletter_Model_Template_Filter $processor */
+        /** @var Mage_Newsletter_Model_Template_Filter $processor */
         $processor = Mage::helper('newsletter')->getTemplateProcessor();
 
         if (!$this->_preprocessFlag) {
@@ -215,8 +209,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         $variables = $this->_addEmailVariables($variables, $processor->getStoreId());
 
         $processor
-            ->setTemplateProcessor(array($this, 'getTemplateByConfigPath'))
-            ->setIncludeProcessor(array($this, 'getInclude'))
+            ->setTemplateProcessor([$this, 'getTemplateByConfigPath'])
+            ->setIncludeProcessor([$this, 'getInclude'])
             ->setVariables($variables);
 
         // Filter the template text so that all HTML content will be present
@@ -286,7 +280,6 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         return $this->_mail;
     }
 
-
     /**
      * Send mail to subscriber
      *
@@ -297,7 +290,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * @return boolean
      * @deprecated since 1.4.0.1
      **/
-    public function send($subscriber, array $variables = array(), $name = null, Mage_Newsletter_Model_Queue $queue = null)
+    public function send($subscriber, array $variables = [], $name = null, Mage_Newsletter_Model_Queue $queue = null)
     {
         if (!$this->isValidForSend()) {
             return false;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Layer Attribute Filter Resource Model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -56,17 +49,17 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
         $attribute  = $filter->getAttributeModel();
         $connection = $this->_getReadAdapter();
         $tableAlias = $attribute->getAttributeCode() . '_idx';
-        $conditions = array(
+        $conditions = [
             "{$tableAlias}.entity_id = e.entity_id",
             $connection->quoteInto("{$tableAlias}.attribute_id = ?", $attribute->getAttributeId()),
             $connection->quoteInto("{$tableAlias}.store_id = ?", $collection->getStoreId()),
             $connection->quoteInto("{$tableAlias}.value = ?", $value)
-        );
+        ];
 
         $collection->getSelect()->join(
-            array($tableAlias => $this->getMainTable()),
+            [$tableAlias => $this->getMainTable()],
             implode(' AND ', $conditions),
-            array()
+            []
         );
 
         return $this;
@@ -91,17 +84,17 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
         $connection = $this->_getReadAdapter();
         $attribute  = $filter->getAttributeModel();
         $tableAlias = sprintf('%s_idx', $attribute->getAttributeCode());
-        $conditions = array(
+        $conditions = [
             "{$tableAlias}.entity_id = e.entity_id",
             $connection->quoteInto("{$tableAlias}.attribute_id = ?", $attribute->getAttributeId()),
             $connection->quoteInto("{$tableAlias}.store_id = ?", $filter->getStoreId()),
-        );
+        ];
 
         $select
             ->join(
-                array($tableAlias => $this->getMainTable()),
+                [$tableAlias => $this->getMainTable()],
                 implode(' AND ', $conditions),
-                array('value', 'count' => new Zend_Db_Expr("COUNT({$tableAlias}.entity_id)"))
+                ['value', 'count' => new Zend_Db_Expr("COUNT({$tableAlias}.entity_id)")]
             )
             ->group("{$tableAlias}.value");
 

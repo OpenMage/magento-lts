@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/** @var Mage_Sales_Model_Entity_Setup $installer */
 $installer = $this;
-/* @var Mage_Sales_Model_Entity_Setup $installer */
 $installer->startSetup();
+
 $installer->run("
 CREATE TABLE `{$installer->getTable('sales_flat_quote')}` (
     `entity_id` int(10) unsigned NOT NULL auto_increment,
@@ -260,7 +255,7 @@ CREATE TABLE `{$installer->getTable('sales_flat_quote_shipping_rate')}` (
 DELETE FROM `{$installer->getTable('log_quote')}`;
 ");
 
-$installer->addAttribute('order_item', 'is_virtual', array('type'=>'int'));
+$installer->addAttribute('order_item', 'is_virtual', ['type'=>'int']);
 $installer->endSetup();
 
 /**
@@ -271,7 +266,7 @@ $installer->endSetup();
 $quoteFields = array_keys($installer->getConnection()->describeTable($installer->getTable('sales_flat_quote')));
 $itemFields  = array_keys($installer->getConnection()->describeTable($installer->getTable('sales_flat_quote_item')));
 
-$quoteRows = array();
+$quoteRows = [];
 $query = $installer->getConnection()->query(
     $installer->getConnection()->select()
         ->from($installer->getTable('sales_quote'), 'entity_id')
@@ -296,7 +291,7 @@ foreach ($quoteRows as $oldQuoteId) {
     if (!empty($quoteItems)) {
         unset($quoteInfo['entity_id']);
 
-        $quoteData = array();
+        $quoteData = [];
         foreach ($quoteFields as $field) {
             if (isset($quoteInfo[$field])) {
                 $quoteData[$field] = $quoteInfo[$field];
@@ -307,9 +302,9 @@ foreach ($quoteRows as $oldQuoteId) {
         $quoteId = $installer->getConnection()->lastInsertId();
 
         foreach ($quoteItems as $itemInfo) {
-            $itemData = array(
+            $itemData = [
                 'quote_id' => $quoteId
-            );
+            ];
 
             foreach ($itemFields as $field) {
                 if (isset($itemInfo[$field])) {
@@ -345,9 +340,8 @@ DROP TABLE IF EXISTS {$this->getTable('sales_quote_item_varchar')};
 DROP TABLE IF EXISTS {$this->getTable('sales_quote_text')};
 DROP TABLE IF EXISTS {$this->getTable('sales_quote_varchar')};
 DROP TABLE IF EXISTS {$this->getTable('sales_quote_rule')};
-
-
 DROP TABLE IF EXISTS {$this->getTable('sales_counter')};
 DROP TABLE IF EXISTS {$this->getTable('sales_discount_coupon')};
 ");
+
 $installer->endSetup();

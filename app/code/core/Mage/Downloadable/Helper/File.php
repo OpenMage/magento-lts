@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Downloadable
+ * @category   Mage
+ * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable Products File Helper
  *
- * @category    Mage
- * @package     Mage_Downloadable
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Downloadable
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
 {
@@ -105,14 +99,14 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
         $ioObject = new Varien_Io_File();
         $destDirectory = dirname($this->getFilePath($basePath, $file));
         try {
-            $ioObject->open(array('path'=>$destDirectory));
+            $ioObject->open(['path'=>$destDirectory]);
         } catch (Exception $e) {
             $ioObject->mkdir($destDirectory, 0777, true);
-            $ioObject->open(array('path'=>$destDirectory));
+            $ioObject->open(['path'=>$destDirectory]);
         }
 
         if (strrpos($file, '.tmp') == strlen($file)-4) {
-            $file = substr($file, 0, strlen($file)-4);
+            $file = substr($file, 0, -4);
         }
 
         $destFile = dirname($file) . $ioObject->dirsep()

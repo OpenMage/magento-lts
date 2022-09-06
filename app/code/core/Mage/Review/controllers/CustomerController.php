@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,26 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Review
+ * @category   Mage
+ * @package    Mage_Review
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer reviews controller
  *
- * @category    Mage
- * @package     Mage_Review
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Review
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
 {
     /**
@@ -45,6 +38,28 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         if (!Mage::getSingleton('customer/session')->authenticate($this)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
+    }
+
+    /**
+     * Load review model with data by passed id.
+     * Return false if review was not loaded or was not created by customer
+     *
+     * @param int $reviewId
+     * @return bool|Mage_Review_Model_Review
+     */
+    protected function _loadReview($reviewId)
+    {
+        if (!$reviewId) {
+            return false;
+        }
+
+        /** @var Mage_Review_Model_Review $review */
+        $review = Mage::getModel('review/review')->load($reviewId);
+        if (!$review->getId() || $review->getCustomerId() != Mage::getSingleton('customer/session')->getCustomerId()) {
+            return false;
+        }
+
+        return $review;
     }
 
     public function indexAction()
@@ -66,6 +81,12 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function viewAction()
     {
+        $review = $this->_loadReview((int) $this->getRequest()->getParam('id'));
+        if (!$review) {
+            $this->_redirect('*/*');
+            return;
+        }
+
         $this->loadLayout();
         if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
             $navigationBlock->setActive('review/customer');

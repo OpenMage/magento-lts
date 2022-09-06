@@ -14,6 +14,7 @@
 "Admin User Emails","Admin User Emails"
 "Admin routing compatibility mode for extensions","Admin routing compatibility mode for extensions"
 "Advanced","Advanced"
+"Advanced Cache Settings","Advanced Cache Settings"
 "After selecting a new media storage location, press the Synchronize button
                                 to transfer all media to that location. Media will not be available in the new
                                 location until the synchronization process is complete.","After selecting a new media storage location, press the Synchronize button
@@ -73,6 +74,7 @@
 "Create Store View","Create Store View"
 "Create Website","Create Website"
 "Credit card number does not match credit card type.","Credit card number does not match credit card type."
+"Cron Expression for Cache Flushing","Cron Expression for Cache Flushing"
 "Current Package Name","Current Package Name"
 "Custom Admin Path","Custom Admin Path"
 "Custom Admin URL","Custom Admin URL"
@@ -145,7 +147,7 @@
 "File with an extension ""%value%"" is protected and cannot be uploaded","File with an extension ""%value%"" is protected and cannot be uploaded"
 "First Day of Week","First Day of Week"
 "Flush Cache Storage","Flush Cache Storage"
-"Flush Magento Cache","Flush Magento Cache"
+"Flush OpenMage Cache","Flush OpenMage Cache"
 "Footer","Footer"
 "Forgot Password Email Sender","Forgot Password Email Sender"
 "Forgot Password Email Template","Forgot Password Email Template"
@@ -294,6 +296,7 @@
 "Request path length exceeds allowed %s symbols.","Request path length exceeds allowed %s symbols."
 "Requested file may not include parent directory traversal (""../"", ""..\\ notation)""","Requested file may not include parent directory traversal (""../"", ""..\\ notation)"""
 "Requested invalid store ""%s""","Requested invalid store ""%s"""
+"Resource ""%s"" is not found.","Resource ""%s"" is not found."
 "Resource is not set.","Resource is not set."
 "Retrieve info about current Magento installation","Retrieve info about current Magento installation"
 "Retrieve store data","Retrieve store data"
@@ -409,6 +412,7 @@
 "Use Secure URLs in Frontend","Use Secure URLs in Frontend"
 "Use Web Server Rewrites","Use Web Server Rewrites"
 "VAT Number","VAT Number"
+"The default value is ""30 2 * * *"". An empty value disables automatic cache flushing.","The default value is ""30 2 * * *"". An empty value disables automatic cache flushing."
 "Validate HTTP_USER_AGENT","Validate HTTP_USER_AGENT"
 "Validate HTTP_VIA","Validate HTTP_VIA"
 "Validate HTTP_X_FORWARDED_FOR","Validate HTTP_X_FORWARDED_FOR"
@@ -438,3 +442,5 @@
 "Admin","Admin"
 "Frontend","Frontend"
 "The store view #%d is disabled.","The store view #%d is disabled."
+"Loading Indicator Timeout","Loading Indicator Timeout"
+"Number of milliseconds to delay showing the loading indicator. The default value is ""200"". An empty value disables the delay.","Number of milliseconds to delay showing the loading indicator. The default value is ""200"". An empty value disables the delay."

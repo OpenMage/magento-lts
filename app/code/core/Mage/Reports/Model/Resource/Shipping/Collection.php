@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Reports
+ * @category   Mage
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Reports orders collection
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Resource_Shipping_Collection extends Mage_Sales_Model_Entity_Order_Collection
 {
@@ -45,8 +38,8 @@ class Mage_Reports_Model_Resource_Shipping_Collection extends Mage_Sales_Model_E
     {
         $this->_reset()
             ->addAttributeToSelect('*')
-            ->addAttributeToFilter('created_at', array('from' => $from, 'to' => $to))
-            ->addExpressionAttributeToSelect('orders', 'COUNT(DISTINCT({{entity_id}}))', array('entity_id'))
+            ->addAttributeToFilter('created_at', ['from' => $from, 'to' => $to])
+            ->addExpressionAttributeToSelect('orders', 'COUNT(DISTINCT({{entity_id}}))', ['entity_id'])
             ->addAttributeToSelect('shipping_description')
             ->groupByAttribute('shipping_description')
             ->getSelect()->order('orders ' . self::SORT_ORDER_DESC);
@@ -64,17 +57,17 @@ class Mage_Reports_Model_Resource_Shipping_Collection extends Mage_Sales_Model_E
     public function setStoreIds($storeIds)
     {
         if ($storeIds) {
-            $this->addAttributeToFilter('store_id', array('in' => (array)$storeIds));
+            $this->addAttributeToFilter('store_id', ['in' => (array)$storeIds]);
             $this->addExpressionAttributeToSelect(
                 'total',
                 'SUM({{base_shipping_amount}})',
-                array('base_shipping_amount')
+                ['base_shipping_amount']
             );
         } else {
             $this->addExpressionAttributeToSelect(
                 'total',
                 'SUM({{base_shipping_amount}}*{{base_to_global_rate}})',
-                array('base_shipping_amount', 'base_to_global_rate')
+                ['base_shipping_amount', 'base_to_global_rate']
             );
         }
 

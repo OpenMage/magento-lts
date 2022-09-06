@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,30 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Eav Resource Entity Attribute Group
  *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Resource initialization
-     */
     protected function _construct()
     {
         $this->_init('eav/attribute_group', 'attribute_group_id');
@@ -50,10 +41,10 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
     public function itemExists($object)
     {
         $adapter   = $this->_getReadAdapter();
-        $bind      = array(
+        $bind      = [
             'attribute_set_id'      => $object->getAttributeSetId(),
             'attribute_group_name'  => $object->getAttributeGroupName()
-        );
+        ];
         $select = $adapter->select()
             ->from($this->getMainTable())
             ->where('attribute_set_id = :attribute_set_id')
@@ -95,7 +86,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
     }
 
     /**
-     * Retreive max sort order
+     * Retrieve max sort order
      *
      * @param Mage_Core_Model_Abstract|Mage_Eav_Model_Entity_Attribute_Group $object
      * @return int
@@ -103,7 +94,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
     protected function _getMaxSortOrder($object)
     {
         $adapter = $this->_getReadAdapter();
-        $bind    = array(':attribute_set_id' => $object->getAttributeSetId());
+        $bind    = [':attribute_set_id' => $object->getAttributeSetId()];
         $select  = $adapter->select()
             ->from($this->getMainTable(), new Zend_Db_Expr("MAX(sort_order)"))
             ->where('attribute_set_id = :attribute_set_id');
@@ -120,7 +111,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
     public function updateDefaultGroup($attributeSetId)
     {
         $adapter = $this->_getWriteAdapter();
-        $bind    = array(':attribute_set_id' => $attributeSetId);
+        $bind    = [':attribute_set_id' => $attributeSetId];
         $select  = $adapter->select()
             ->from($this->getMainTable(), $this->getIdFieldName())
             ->where('attribute_set_id = :attribute_set_id')
@@ -130,8 +121,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
         $groupId = $adapter->fetchOne($select, $bind);
 
         if ($groupId) {
-            $data  = array('default_id' => 1);
-            $where = array('attribute_group_id =?' => $groupId);
+            $data  = ['default_id' => 1];
+            $where = ['attribute_group_id =?' => $groupId];
             $adapter->update($this->getMainTable(), $data, $where);
         }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -30,6 +24,9 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getGalleryFilterHelper()
+ * @method string getGalleryFilterMethod()
  */
 class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_View_Abstract
 {
@@ -48,10 +45,9 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
     public function getGalleryImages()
     {
         if ($this->_isGalleryDisabled) {
-            return array();
+            return [];
         }
-        $collection = $this->getProduct()->getMediaGalleryImages();
-        return $collection;
+        return $this->getProduct()->getMediaGalleryImages();
     }
 
     /**
@@ -62,7 +58,7 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
      */
     public function getGalleryUrl($image = null)
     {
-        $params = array('id' => $this->getProduct()->getId());
+        $params = ['id' => $this->getProduct()->getId()];
         if ($image) {
             $params['image'] = $image->getValueId();
         }
@@ -78,7 +74,9 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
     public function getGalleryImageUrl($image)
     {
         if ($image) {
-            $helper = $this->helper('catalog/image')
+            /** @var Mage_Catalog_Helper_Image $helper */
+            $helper = $this->helper('catalog/image');
+            $helper
                 ->init($this->getProduct(), 'image', $image->getFile())
                 ->keepFrame(false);
 

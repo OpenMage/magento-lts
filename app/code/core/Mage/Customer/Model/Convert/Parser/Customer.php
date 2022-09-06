@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category    Mage
+ * @package     Mage_Customer
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert_Parser_Abstract
 {
     const MULTI_DELIMITER = ' , ';
@@ -52,7 +50,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
      * @var array
      */
     protected $_websites;
-    protected $_attributes = array();
+    protected $_attributes = [];
 
     protected $_fields;
 
@@ -200,10 +198,6 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     {
         if (!$this->_resource) {
             $this->_resource = Mage::getResourceSingleton('catalog_entity/convert');
-                #->loadStores()
-                #->loadProducts()
-                #->loadAttributeSets()
-                #->loadAttributeOptions();
         }
         return $this->_resource;
     }
@@ -227,7 +221,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
      */
     public function unparse()
     {
-        $systemFields = array();
+        $systemFields = [];
         foreach ($this->getFields() as $code => $node) {
             if ($node->is('system')) {
                 $systemFields[] = $code;
@@ -237,15 +231,15 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
         $entityIds = $this->getData();
 
         foreach ($entityIds as $i => $entityId) {
-            /* @var Mage_Customer_Model_Customer $customer */
+            /** @var Mage_Customer_Model_Customer $customer */
             $customer = $this->getCustomerModel()
-                ->setData(array())
+                ->setData([])
                 ->load($entityId);
 
             $position = Mage::helper('catalog')->__('Line %d, Email: %s', ($i+1), $customer->getEmail());
             $this->setPosition($position);
 
-            $row = array();
+            $row = [];
 
             foreach ($customer->getData() as $field => $value) {
                 if ($field == 'website_id') {
@@ -330,7 +324,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             $row['created_in'] = $store->getCode();
 
             $newsletter = $this->getNewsletterModel()
-                ->setData(array())
+                ->setData([])
                 ->loadByCustomer($customer);
             $row['is_subscribed'] = ($newsletter->getId()
                 && $newsletter->getSubscriberStatus() == Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED)
@@ -365,7 +359,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
      */
     public function getExternalAttributes()
     {
-        $internal = array(
+        $internal = [
             'store_id',
             'entity_id',
             'website_id',
@@ -374,7 +368,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             'default_billing',
             'default_shipping',
             'country_id'
-        );
+        ];
 
         $customerAttributes = Mage::getResourceModel('customer/attribute_collection')
             ->load()->getIterator();
@@ -382,13 +376,13 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
         $addressAttributes = Mage::getResourceModel('customer/address_attribute_collection')
             ->load()->getIterator();
 
-        $attributes = array(
+        $attributes = [
             'website'       => 'website',
             'email'         => 'email',
             'group'         => 'group',
             'create_in'     => 'create_in',
             'is_subscribed' => 'is_subscribed'
-        );
+        ];
 
         foreach ($customerAttributes as $attr) {
             $code = $attr->getAttributeCode();
@@ -463,7 +457,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
         $data = $this->getData();
 
         $entityTypeId = Mage::getSingleton('eav/config')->getEntityType('customer')->getId();
-        $result = array();
+        $result = [];
         foreach ($data as $i => $row) {
             $this->setPosition('Line: '.($i+1));
             try {
@@ -473,13 +467,6 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                     continue;
                 }
                 $this->setPosition('Line: '.($i+1).', email: '.$row['email']);
-
-                // try to get entity_id by sku if not set
-                /*
-                if (empty($row['entity_id'])) {
-                    $row['entity_id'] = $this->getResource()->getProductIdBySku($row['email']);
-                }
-                */
 
                 // if attribute_set not set use default
                 if (empty($row['attribute_set'])) {
@@ -501,22 +488,11 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                     $this->addException(Mage::helper('customer')->__('Missing firstname, skipping the record.'), Varien_Convert_Exception::ERROR);
                     continue;
                 }
-                //$this->setPosition('Line: '.($i+1).', Firstname: '.$row['firstname']);
 
                 if (empty($row['lastname'])) {
                     $this->addException(Mage::helper('customer')->__('Missing lastname, skipping the record.'), Varien_Convert_Exception::ERROR);
                     continue;
                 }
-                //$this->setPosition('Line: '.($i+1).', Lastname: '.$row['lastname']);
-
-                /*
-                // get product type_id, if not throw error
-                $row['type_id'] = $this->getProductTypeId($row['type']);
-                if (!$row['type_id']) {
-                    $this->addException(Mage::helper('catalog')->__("Invalid product type specified, skipping the record."), Varien_Convert_Exception::ERROR);
-                    continue;
-                }
-                */
 
                 // get store ids
                 $storeIds = $this->getStoreIds(isset($row['store']) ? $row['store'] : $this->getVar('store'));
@@ -564,7 +540,6 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                         $model->setData($field, $value);
                     }//foreach ($row as $field=>$value)
 
-
                     $billingAddress = $model->getPrimaryBillingAddress();
                     /** @var Mage_Customer_Model_Customer $customer */
                     $customer = Mage::getModel('customer/customer')->load($model->getId());
@@ -593,7 +568,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                     $billingAddress->setRegionId($regionId);
                     $billingAddress->setCountryId($row['billing_country']);
                     $billingAddress->setPostcode($row['billing_postcode']);
-                    $billingAddress->setStreet(array($row['billing_street1'],$row['billing_street2']));
+                    $billingAddress->setStreet([$row['billing_street1'],$row['billing_street2']]);
                     if (!empty($row['billing_telephone'])) {
                         $billingAddress->setTelephone($row['billing_telephone']);
                     }
@@ -637,7 +612,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                     $shippingAddress->setRegionId($regionId);
                     $shippingAddress->setCountryId($row['shipping_country']);
                     $shippingAddress->setPostcode($row['shipping_postcode']);
-                    $shippingAddress->setStreet(array($row['shipping_street1'], $row['shipping_street2']));
+                    $shippingAddress->setStreet([$row['shipping_street1'], $row['shipping_street2']]);
                     $shippingAddress->setCustomerId($model->getId());
                     if (!empty($row['shipping_telephone'])) {
                         $shippingAddress->setTelephone($row['shipping_telephone']);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * CMS block edit form container
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
@@ -44,11 +37,11 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
         $this->_updateButton('save', 'label', Mage::helper('cms')->__('Save Block'));
         $this->_updateButton('delete', 'label', Mage::helper('cms')->__('Delete Block'));
 
-        $this->_addButton('saveandcontinue', array(
+        $this->_addButton('saveandcontinue', [
             'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
             'onclick'   => 'saveAndContinueEdit()',
             'class'     => 'save',
-        ), -100);
+        ], -100);
 
         $this->_formScripts[] = "
             function toggleEditor() {
@@ -79,5 +72,4 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
             return Mage::helper('cms')->__('New Block');
         }
     }
-
 }

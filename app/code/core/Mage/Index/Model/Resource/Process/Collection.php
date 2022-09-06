@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Index
+ * @category   Mage
+ * @package    Mage_Index
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Index Process Collection
  *
- * @category    Mage
- * @package     Mage_Index
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Index
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Index_Model_Resource_Process_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -66,18 +59,18 @@ class Mage_Index_Model_Resource_Process_Collection extends Mage_Core_Model_Resou
     {
         $countsSelect = $this->getConnection()
             ->select()
-            ->from($this->getTable('index/process_event'), array('process_id', 'events' => 'COUNT(*)'))
+            ->from($this->getTable('index/process_event'), ['process_id', 'events' => 'COUNT(*)'])
             ->where('status=?', Mage_Index_Model_Process::EVENT_STATUS_NEW)
             ->group('process_id');
         $this->getSelect()
             ->joinLeft(
-                array('e' => $countsSelect),
+                ['e' => $countsSelect],
                 'e.process_id=main_table.process_id',
-                array('events' => $this->getConnection()->getCheckSql(
-                    $this->getConnection()->prepareSqlCondition('e.events', array('null' => null)),
+                ['events' => $this->getConnection()->getCheckSql(
+                    $this->getConnection()->prepareSqlCondition('e.events', ['null' => null]),
                     0,
                     'e.events'
-                ))
+                )]
             );
         return $this;
     }

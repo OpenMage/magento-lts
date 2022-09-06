@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,7 +28,6 @@
 class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
     extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
 {
-
     /**
      * Renders column
      *
@@ -72,7 +65,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
     /**
      * Render single action as dropdown option html
      *
-     * @param unknown_type $action
+     * @param array $action
      * @param Varien_Object $row
      * @return string
      */
@@ -83,7 +76,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
         $actionCaption = '';
         $this->_transformActionData($action, $actionCaption, $row);
 
-        $htmlAttibutes = array('value'=>$this->escapeHtml(Mage::helper('core')->jsonEncode($action)));
+        $htmlAttibutes = ['value'=>$this->escapeHtml(Mage::helper('core')->jsonEncode($action))];
         $actionAttributes->setData($htmlAttibutes);
         return '<option ' . $actionAttributes->serialize() . '>' . $actionCaption . '</option>';
     }
@@ -139,7 +132,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
 
                 case 'url':
                     if(is_array($action['url'])) {
-                        $params = array($action['field']=>$this->_getValue($row));
+                        $params = [$action['field']=>$this->_getValue($row)];
                         if(isset($action['url']['params'])) {
                             $params = array_merge($action['url']['params'], $params);
                         }

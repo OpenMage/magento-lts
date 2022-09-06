@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Permissions_Grid_User extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -53,38 +47,38 @@ class Mage_Adminhtml_Block_Permissions_Grid_User extends Mage_Adminhtml_Block_Wi
 
     protected function _prepareColumns()
     {
-        $this->addColumn('user_id', array(
+        $this->addColumn('user_id', [
             'header'    =>Mage::helper('adminhtml')->__('ID'),
             'width'     =>5,
             'align'     =>'right',
             'sortable'  =>true,
             'index'     =>'user_id'
-        ));
-        $this->addColumn('username', array(
+        ]);
+        $this->addColumn('username', [
             'header'    =>Mage::helper('adminhtml')->__('User Name'),
             'index'     =>'username'
-        ));
-        $this->addColumn('firstname', array(
+        ]);
+        $this->addColumn('firstname', [
             'header'    =>Mage::helper('adminhtml')->__('First Name'),
             'index'     =>'firstname'
-        ));
-        $this->addColumn('lastname', array(
+        ]);
+        $this->addColumn('lastname', [
             'header'    =>Mage::helper('adminhtml')->__('Last Name'),
             'index'     =>'lastname'
-        ));
-        $this->addColumn('email', array(
+        ]);
+        $this->addColumn('email', [
             'header'    =>Mage::helper('adminhtml')->__('Email'),
             'width'     =>40,
             'align'     =>'left',
             'index'     =>'email'
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edituser', array('id' => $row->getUserId()));
+        return $this->getUrl('*/*/edituser', ['id' => $row->getUserId()]);
     }
 
 }

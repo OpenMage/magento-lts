@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,11 +23,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -55,46 +48,46 @@ class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Blo
     protected function _prepareColumns()
     {
 
-        $this->addColumn('entity_id', array(
+        $this->addColumn('entity_id', [
             'header'    =>Mage::helper('reports')->__('ID'),
             'width'     =>'50px',
             'index'     =>'entity_id'
-        ));
+        ]);
 
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    => Mage::helper('reports')->__('Product Name'),
             'index'     => 'name'
-        ));
+        ]);
 
-        $this->addColumn('review_cnt', array(
+        $this->addColumn('review_cnt', [
             'header'    =>Mage::helper('reports')->__('Number of Reviews'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'review_cnt'
-        ));
+        ]);
 
-        $this->addColumn('avg_rating', array(
+        $this->addColumn('avg_rating', [
             'header'    =>Mage::helper('reports')->__('Avg. Rating'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'avg_rating'
-        ));
+        ]);
 
-        $this->addColumn('avg_rating_approved', array(
+        $this->addColumn('avg_rating_approved', [
             'header'    =>Mage::helper('reports')->__('Avg. Approved Rating'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'avg_rating_approved'
-        ));
+        ]);
 
-        $this->addColumn('last_created', array(
+        $this->addColumn('last_created', [
             'header'    =>Mage::helper('reports')->__('Last Review'),
             'width'     =>'150px',
             'index'     =>'last_created',
             'type'      =>'datetime'
-        ));
+        ]);
 
-        $this->addColumn('action', array(
+        $this->addColumn('action', [
             'header'    => Mage::helper('reports')->__('Action'),
             'width'     => '100px',
             'align'     => 'center',
@@ -102,7 +95,7 @@ class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Blo
             'sortable'  => false,
             'renderer'  => 'adminhtml/report_grid_column_renderer_product',
             'is_system' => true
-        ));
+        ]);
 
         $this->setFilterVisibility(false);
 
@@ -114,6 +107,6 @@ class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Blo
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/catalog_product_review/', array('productId' => $row->getId()));
+        return $this->getUrl('*/catalog_product_review/', ['productId' => $row->getId()]);
     }
 }

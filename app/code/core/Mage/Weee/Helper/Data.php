@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,28 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Weee
+ * @category   Mage
+ * @package    Mage_Weee
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * WEEE data helper
- *
- * @category Mage
- * @package  Mage_Weee
- * @author   Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Weee
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
 {
-
     /**
      * Config Path for FPT
      */
@@ -59,7 +50,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * @var array
      */
-    protected $_storeDisplayConfig   = array();
+    protected $_storeDisplayConfig   = [];
 
     /**
      * Get weee amount display type on product view page
@@ -258,7 +249,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if ($item instanceof Mage_Sales_Model_Quote_Item_Abstract) {
             if ($item->getHasChildren() && $item->isChildrenCalculated()) {
-                $result = array();
+                $result = [];
                 foreach ($item->getChildren() as $child) {
                     $childData = $this->getApplied($child);
                     if (is_array($childData)) {
@@ -275,7 +266,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
          */
         $data = $item->getWeeeTaxApplied();
         if (empty($data)) {
-            return array();
+            return [];
         }
         return unserialize($item->getWeeeTaxApplied(), ['allowed_classes' => false]);
     }
@@ -304,7 +295,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         if ($this->isEnabled()) {
             return $this->getProductWeeeAttributes($product, null, null, null, $this->typeOfDisplay($product, 1));
         }
-        return array();
+        return [];
     }
 
     /**
@@ -333,7 +324,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 $calculateTaxes ? $calculateTaxes : $this->typeOfDisplay($product, 1)
             );
         }
-        return array();
+        return [];
     }
 
     /**
@@ -356,7 +347,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
             if (is_array($attributes)) {
                 $amount = 0;
                 foreach ($attributes as $attribute) {
-                    /* @var Varien_Object $attribute */
+                    /** @var Varien_Object $attribute */
                     $amount += $attribute->getAmount();
                 }
                 return $amount;
@@ -465,7 +456,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_array($attributes)) {
             $amount = 0;
             foreach ($attributes as $attribute) {
-                /* @var Varien_Object $attribute */
+                /** @var Varien_Object $attribute */
                 $amount += $attribute->getAmount() + $attribute->getTaxAmount();
             }
         } else {

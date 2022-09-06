@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_AdminNotification
+ * @category   Mage
+ * @package    Mage_AdminNotification
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * AdminNotification Feed model
  *
  * @category   Mage
  * @package    Mage_AdminNotification
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
 {
@@ -78,19 +71,19 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        $feedData = array();
+        $feedData = [];
 
         $feedXml = $this->getFeedData();
 
         if ($feedXml && $feedXml->channel && $feedXml->channel->item) {
             foreach ($feedXml->channel->item as $item) {
-                $feedData[] = array(
+                $feedData[] = [
                     'severity'      => (int)$item->severity,
                     'date_added'    => $this->getDate((string)$item->pubDate),
                     'title'         => (string)$item->title,
                     'description'   => (string)$item->description,
                     'url'           => (string)$item->link,
-                );
+                ];
             }
 
             if ($feedData) {
@@ -131,7 +124,6 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     public function getLastUpdate()
     {
         return Mage::app()->loadCache('admin_notifications_lastcheck');
-//        return Mage::getStoreConfig(self::XML_LAST_UPDATE_PATH);
     }
 
     /**
@@ -142,9 +134,6 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     public function setLastUpdate()
     {
         Mage::app()->saveCache(time(), 'admin_notifications_lastcheck');
-//        $config = Mage::getModel('core/config');
-//        /* @var $config Mage_Core_Model_Config */
-//        $config->saveConfig(self::XML_LAST_UPDATE_PATH, time());
         return $this;
     }
 
@@ -156,9 +145,9 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     public function getFeedData()
     {
         $curl = new Varien_Http_Adapter_Curl();
-        $curl->setConfig(array(
+        $curl->setConfig([
             'timeout'   => 2
-        ));
+        ]);
         $curl->write(Zend_Http_Client::GET, $this->getFeedUrl(), '1.0');
         $data = $curl->read();
         if ($data === false) {

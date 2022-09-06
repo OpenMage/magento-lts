@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_Dashboard_Grid
@@ -70,26 +64,26 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
 
     protected function _prepareColumns()
     {
-        $this->addColumn('search_query', array(
+        $this->addColumn('search_query', [
             'header'    => $this->__('Search Term'),
             'sortable'  => false,
             'index'     => 'name',
             'renderer'  => 'adminhtml/dashboard_searches_renderer_searchquery',
-        ));
+        ]);
 
-        $this->addColumn('num_results', array(
+        $this->addColumn('num_results', [
             'header'    => $this->__('Results'),
             'sortable'  => false,
             'index'     => 'num_results',
             'type'      => 'number'
-        ));
+        ]);
 
-        $this->addColumn('popularity', array(
+        $this->addColumn('popularity', [
             'header'    => $this->__('Number of Uses'),
             'sortable'  => false,
             'index'     => 'popularity',
             'type'      => 'number'
-        ));
+        ]);
 
         $this->setFilterVisibility(false);
         $this->setPagerVisibility(false);
@@ -99,6 +93,6 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/catalog_search/edit', array('id'=>$row->getId()));
+        return $this->getUrl('*/catalog_search/edit', ['id'=>$row->getId()]);
     }
 }

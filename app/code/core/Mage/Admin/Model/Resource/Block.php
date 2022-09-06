@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Admin
+ * @category   Mage
+ * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -43,7 +37,7 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @var array
      */
-    protected $disallowedBlockNames = array('install/end');
+    protected $disallowedBlockNames = ['install/end'];
 
     /**
      * Define main table
@@ -75,17 +69,17 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
     {
         /** @var Mage_Admin_Model_Resource_Block_Collection $collection */
         $collection = Mage::getResourceModel('admin/block_collection');
-        $collection->addFieldToFilter('is_allowed', array('eq' => 1));
+        $collection->addFieldToFilter('is_allowed', ['eq' => 1]);
         $disallowedBlockNames = $this->getDisallowedBlockNames();
         if (is_array($disallowedBlockNames) && count($disallowedBlockNames) > 0) {
-            $collection->addFieldToFilter('block_name', array('nin' => $disallowedBlockNames));
+            $collection->addFieldToFilter('block_name', ['nin' => $disallowedBlockNames]);
         }
         $data = $collection->getColumnValues('block_name');
         $data = array_flip($data);
         Mage::app()->saveCache(
             Mage::helper('core')->jsonEncode($data),
             self::CACHE_ID,
-            array(Mage_Core_Model_App::CACHE_TAG)
+            [Mage_Core_Model_App::CACHE_TAG]
         );
     }
 

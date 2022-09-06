@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_Template
 {
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->setTemplate('system/config/switcher.phtml');
@@ -34,8 +30,6 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getStoreSelectOptions()
@@ -46,17 +40,17 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
         $curStore   = $this->getRequest()->getParam('store');
 
         $storeModel = Mage::getSingleton('adminhtml/system_store');
-        /* @var $storeModel Mage_Adminhtml_Model_System_Store */
+        /** @var Mage_Adminhtml_Model_System_Store $storeModel */
 
         $url = Mage::getModel('adminhtml/url');
 
-        $options = array();
-        $options['default'] = array(
+        $options = [];
+        $options['default'] = [
             'label'    => Mage::helper('adminhtml')->__('Default Config'),
-            'url'      => $url->getUrl('*/*/*', array('section'=>$section)),
+            'url'      => $url->getUrl('*/*/*', ['section'=>$section]),
             'selected' => !$curWebsite && !$curStore,
             'style'    => 'background:#ccc; font-weight:bold;',
-        );
+        ];
 
         foreach ($storeModel->getWebsiteCollection() as $website) {
             $websiteShow = false;
@@ -71,34 +65,35 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
                     }
                     if (!$websiteShow) {
                         $websiteShow = true;
-                        $options['website_' . $website->getCode()] = array(
+                        $options['website_' . $website->getCode()] = [
                             'label'    => $website->getName(),
-                            'url'      => $url->getUrl('*/*/*', array('section'=>$section, 'website'=>$website->getCode())),
+                            'url'      => $url->getUrl('*/*/*', ['section'=>$section, 'website'=>$website->getCode()]),
                             'selected' => !$curStore && $curWebsite == $website->getCode(),
                             'style'    => 'padding-left:16px; background:#DDD; font-weight:bold;',
-                        );
+                        ];
                     }
                     if (!$groupShow) {
                         $groupShow = true;
-                        $options['group_' . $group->getId() . '_open'] = array(
+                        $options['group_' . $group->getId() . '_open'] = [
                             'is_group'  => true,
                             'is_close'  => false,
                             'label'     => $group->getName(),
                             'style'     => 'padding-left:32px;'
-                        );
+                        ];
                     }
-                    $options['store_' . $store->getCode()] = array(
+                    $storeCode = $store->getCode();
+                    $options['store_' . $storeCode] = [
                         'label'    => $store->getName(),
-                        'url'      => $url->getUrl('*/*/*', array('section'=>$section, 'website'=>$website->getCode(), 'store'=>$store->getCode())),
-                        'selected' => $curStore == $store->getCode(),
+                        'url'      => $url->getUrl('*/*/*', ['section'=>$section, 'website'=>$website->getCode(), 'store'=>$storeCode]),
+                        'selected' => $curStore == $storeCode,
                         'style'    => '',
-                    );
+                    ];
                 }
                 if ($groupShow) {
-                    $options['group_' . $group->getId() . '_close'] = array(
+                    $options['group_' . $group->getId() . '_close'] = [
                         'is_group'  => true,
                         'is_close'  => true,
-                    );
+                    ];
                 }
             }
         }

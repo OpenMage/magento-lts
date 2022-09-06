@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Rss
+ * @category   Mage
+ * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,10 +23,13 @@
  *
  * @category   Mage
  * @package    Mage_Rss
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
 {
+    /**
+     * @throws Exception
+     */
     protected function _construct()
     {
         /*
@@ -50,6 +47,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
      * @return string
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
+     * @throws Exception
      */
     protected function _toHtml()
     {
@@ -64,11 +62,11 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                 $category->setIsAnchor(true);
                 $newurl = $category->getUrl();
                 $title = $category->getName();
-                $data = array('title' => $title,
+                $data = ['title' => $title,
                         'description' => $title,
                         'link'        => $newurl,
                         'charset'     => 'UTF-8',
-                        );
+                ];
 
                 $rssObj->_addHeader($data);
 
@@ -99,7 +97,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                 ;
 
                 if ($_productCollection->getSize()>0) {
-                    $args = array('rssObj' => $rssObj);
+                    $args = ['rssObj' => $rssObj];
                     foreach ($_productCollection as $_product) {
                         $args['product'] = $_product;
                         $this->addNewItemXmlCallback($args);
@@ -127,9 +125,12 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
             return;
         }
 
+        /** @var Mage_Catalog_Helper_Image $helper */
+        $helper = $this->helper('catalog/image');
+
         $description = '<table><tr>'
                      . '<td><a href="'.$product->getProductUrl().'"><img src="'
-                     . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
+                     . $helper->init($product, 'thumbnail')->resize(75, 75)
                      . '" border="0" align="left" height="75" width="75"></a></td>'
                      . '<td  style="text-decoration:none;">' . $product->getDescription();
 
@@ -139,11 +140,11 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
 
         $description .= '</td></tr></table>';
         $rssObj = $args['rssObj'];
-        $data = array(
+        $data = [
                 'title'         => $product->getName(),
                 'link'          => $product->getProductUrl(),
                 'description'   => $description,
-            );
+        ];
 
         $rssObj->_addEntry($data);
     }

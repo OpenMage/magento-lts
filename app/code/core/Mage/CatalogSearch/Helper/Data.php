@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,15 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogSearch
+ * @category   Mage
+ * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Catalog search helper
- *
+ * @category    Mage
+ * @package     Mage_CatalogSearch
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
@@ -36,7 +30,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const QUERY_VAR_NAME = 'q';
 
-    /*
+    /**
      * Maximum query length
      */
     const MAX_QUERY_LEN  = 200;
@@ -60,7 +54,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_messages = array();
+    protected $_messages = [];
 
     /**
      * Is a maximum length cut
@@ -127,7 +121,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
             if ($this->_queryText === null) {
                 $this->_queryText = '';
             } else {
-                /* @var Mage_Core_Helper_String $stringHelper */
+                /** @var Mage_Core_Helper_String $stringHelper */
                 $stringHelper = Mage::helper('core/string');
                 $this->_queryText = is_array($this->_queryText) ? ''
                     : $stringHelper->cleanString(trim($this->_queryText));
@@ -171,10 +165,10 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getResultUrl($query = null)
     {
-        return $this->_getUrl('catalogsearch/result', array(
-            '_query' => array(self::QUERY_VAR_NAME => $query),
+        return $this->_getUrl('catalogsearch/result', [
+            '_query' => [self::QUERY_VAR_NAME => $query],
             '_secure' => $this->_getApp()->getFrontController()->getRequest()->isSecure()
-        ));
+        ]);
     }
 
     /**
@@ -184,9 +178,9 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getSuggestUrl()
     {
-        return $this->_getUrl('catalogsearch/ajax/suggest', array(
+        return $this->_getUrl('catalogsearch/ajax/suggest', [
             '_secure' => $this->_getApp()->getStore()->isCurrentlySecure()
-        ));
+        ]);
     }
 
     /**
@@ -290,7 +284,6 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      * Check query of a warnings
      *
      * @param mixed $store
-     * @return void
      */
     public function checkNotes($store = null)
     {
@@ -298,7 +291,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
             $this->addNoteMessage($this->__('Maximum Search query length is %s. Your query was cut.', $this->getMaxQueryLength()));
         }
 
-        /* @var Mage_Core_Helper_String $stringHelper */
+        /** @var Mage_Core_Helper_String $stringHelper */
         $stringHelper = Mage::helper('core/string');
 
         $searchType = Mage::getStoreConfig(Mage_CatalogSearch_Model_Fulltext::XML_PATH_CATALOG_SEARCH_TYPE);
@@ -308,7 +301,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
             $wordsFull = $stringHelper->splitWords($this->getQueryText(), true);
             $wordsLike = $stringHelper->splitWords($this->getQueryText(), true, $this->getMaxQueryWords());
             if (count($wordsFull) > count($wordsLike)) {
-                $wordsCut = array_map(array($this, 'escapeHtml'), array_diff($wordsFull, $wordsLike));
+                $wordsCut = array_map([$this, 'escapeHtml'], array_diff($wordsFull, $wordsLike));
                 $this->addNoteMessage(
                     $this->__('Maximum words count is %1$s. In your search query was cut next part: %2$s.', $this->getMaxQueryWords(), implode(' ', $wordsCut))
                 );
@@ -326,7 +319,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function prepareIndexdata($index, $separator = ' ')
     {
-        $_index = array();
+        $_index = [];
         foreach ($index as $value) {
             if (!is_array($value)) {
                 $_index[] = $value;
