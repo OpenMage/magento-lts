@@ -86,7 +86,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
      *
      * @throws Mage_Core_Exception
      *
-     * @param Mage_Core_Model_Abstract $transaction
+     * @param Mage_Paypal_Model_Payment_Transaction $transaction
      * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $transaction)

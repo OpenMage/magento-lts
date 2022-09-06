@@ -64,7 +64,9 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
     {
         $defaultStoreId = Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
         //check default store first
-        if (!$this->_factory->getSingleton('tax/config')->checkDisplaySettings($defaultStoreId)) {
+        /** @var Mage_Tax_Model_Config $model */
+        $model = $this->_factory->getSingleton('tax/config');
+        if (!$model->checkDisplaySettings($defaultStoreId)) {
             return true;
         }
         $storeNames = [];
@@ -123,7 +125,9 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
      */
     public function checkDisplaySettings($store = null)
     {
-        return $this->_factory->getSingleton('tax/config')->checkDisplaySettings($store);
+        /** @var Mage_Tax_Model_Config $model */
+        $model = $this->_factory->getSingleton('tax/config');
+        return $model->checkDisplaySettings($store);
     }
 
     /**
@@ -134,15 +138,18 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
      */
     public function getWebsitesWithWrongDiscountSettings()
     {
+        /** @var Mage_Tax_Model_Config $model */
+        $model = $this->_factory->getSingleton('tax/config');
+
         $defaultStoreId = Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
         //check default store first
-        if (!$this->_factory->getSingleton('tax/config')->checkDiscountSettings($defaultStoreId)) {
+        if (!$model->checkDiscountSettings($defaultStoreId)) {
             return true;
         }
         $storeNames = [];
         $stores = $this->_app->getStores();
         foreach ($stores as $store) {
-            if (!$this->_factory->getSingleton('tax/config')->checkDiscountSettings($store)) {
+            if (!$model->checkDiscountSettings($store)) {
                 $website = $store->getWebsite();
                 $storeNames[] = $website->getName() . '(' . $store->getName() . ')';
             }
@@ -189,7 +196,9 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
      */
     protected function _toHtml()
     {
-        if ($this->_factory->getSingleton('admin/session')->isAllowed('system/config/tax')) {
+        /** @var Mage_Admin_Model_Session $model */
+        $model = $this->_factory->getSingleton('admin/session');
+        if ($model->isAllowed('system/config/tax')) {
             return parent::_toHtml();
         }
         return '';

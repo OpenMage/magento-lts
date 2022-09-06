@@ -701,16 +701,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/System/ConfigController.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:clearAffectedEntityIds\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
-
-		-
-			message: "#^Cannot call method saveRow\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
-
-		-
 			message: "#^Variable \\$data in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
@@ -749,16 +739,6 @@ parameters:
 			message: "#^Method Mage_Directory_Model_Country\\:\\:loadByCode\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:addError\\(\\)\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:addSuccess\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Tax_RuleController\\:\\:saveAction\\(\\) should return Mage_Core_Controller_Response_Http\\|Mage_Core_Controller_Varien_Action but return statement is missing\\.$#"
@@ -1516,11 +1496,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Abstract.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isScopeGlobal\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Attribute.php
-
-		-
 			message: "#^Variable \\$ids in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Category/Collection.php
@@ -1949,11 +1924,6 @@ parameters:
 			message: "#^Variable \\$query might not be defined\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/ConfigurableSwatches/Model/Resource/Catalog/Product/Type/Configurable/Product/Collection.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:sessionUrlVar\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Block/Abstract.php
 
 		-
 			message: "#^Static method Mage\\:\\:log\\(\\) invoked with 5 parameters, 1\\-4 required\\.$#"
@@ -3331,11 +3301,6 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Model/Pro.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isFailsafe\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Resource/Payment/Transaction.php
-
-		-
 			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$lineItemsEnabled\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Standard.php
@@ -3576,26 +3541,6 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Order/Api.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:addComment\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order/Creditmemo/Api.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:canCancel\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order/Creditmemo/Api.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:cancel\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order/Creditmemo/Api.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:sendUpdateEmail\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order/Creditmemo/Api.php
-
-		-
 			message: "#^Variable \\$data in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Order/Creditmemo/Api.php
@@ -3821,11 +3766,6 @@ parameters:
 			path: ../app/code/core/Mage/Shipping/Model/Carrier/Pickup.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:append\\(\\)\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
-
-		-
 			message: "#^Variable \\$rate in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 3
 			path: ../app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
@@ -3889,21 +3829,6 @@ parameters:
 			message: "#^Variable \\$result might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Tag/Model/Tag.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:checkDiscountSettings\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Tax/Block/Adminhtml/Notifications.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:checkDisplaySettings\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Tax/Block/Adminhtml/Notifications.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isAllowed\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tax/Block/Adminhtml/Notifications.php
 
 		-
 			message: "#^Call to an undefined method Mage_Tax_Block_Sales_Order_Tax\\:\\:addTotal\\(\\)\\.$#"
