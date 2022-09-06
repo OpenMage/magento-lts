@@ -83,7 +83,6 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
             'header' => Mage::helper('sales')->__('Purchased On'),
             'index' => 'created_at',
             'type' => 'datetime',
-            'width' => '100px',
         ]);
 
         $this->addColumn('billing_name', [

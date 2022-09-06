@@ -120,7 +120,6 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
         $this->addColumn('created_at', [
             'header'    => Mage::helper('sales')->__('Created At'),
             'index'     => 'created_at',
-            'width'     => 1,
             'type'      => 'datetime',
             'align'     => 'center',
             'default'   => $this->__('N/A'),
