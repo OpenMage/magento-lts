@@ -135,7 +135,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     {
         $filterData = $this->getFilterData();
         if ($filterData) {
-            $storeIds = explode(',', $filterData->getData('store_ids'));
+            $storeIds = explode(',', (string)$filterData->getData('store_ids'));
         } else {
             $storeIds = [];
         }
