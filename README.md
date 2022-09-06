@@ -102,6 +102,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 - added config cache for system.xml [#1916](https://github.com/OpenMage/magento-lts/pull/1916)
 - search for "NULL" in backend grids [#1203](https://github.com/OpenMage/magento-lts/pull/1203)
 - removed modules `Mage_Compiler`, `Mage_GoogleBase`, `Mage_Xmlconnect`, `Phoenix_Moneybookers`
+- since `19.4.17` `targetNamespace` for WSDL is `OpenMage` instead of `Magento`, please refer to [release notes](https://github.com/OpenMage/magento-lts/releases/tag/v19.4.17) for more info
 
 ### Between OpenMage 19.x and 20.x
 
@@ -116,6 +117,7 @@ Do not use 20.x.x if you need IE support.
 - removed module `Mage_PageCache` [#2258](https://github.com/OpenMage/magento-lts/pull/2258)
 - removed lib/flex containing unused ActionScript "file uploader" files [#2271](https://github.com/OpenMage/magento-lts/pull/2271)
 - enabled website level config cache [#2355](https://github.com/OpenMage/magento-lts/pull/2355)
+- since `20.0.15` `targetNamespace` for WSDL is `OpenMage` instead of `Magento`, please refer to [release notes](https://github.com/OpenMage/magento-lts/releases/tag/v20.0.15) for more info
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
