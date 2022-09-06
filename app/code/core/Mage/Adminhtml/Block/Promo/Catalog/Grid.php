@@ -81,7 +81,6 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn('from_date', [
             'header'    => Mage::helper('catalogrule')->__('Date Start'),
             'align'     => 'left',
-            'width'     => '120px',
             'type'      => 'date',
             'index'     => 'from_date',
         ]);
@@ -89,7 +88,6 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn('to_date', [
             'header'    => Mage::helper('catalogrule')->__('Date Expire'),
             'align'     => 'left',
-            'width'     => '120px',
             'type'      => 'date',
             'default'   => '--',
             'index'     => 'to_date',

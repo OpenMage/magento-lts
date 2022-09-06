@@ -69,7 +69,6 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->addColumn('sitemap_time', [
             'header'    => Mage::helper('sitemap')->__('Last Time Generated'),
-            'width'     => '150px',
             'index'     => 'sitemap_time',
             'type'      => 'datetime',
         ]);

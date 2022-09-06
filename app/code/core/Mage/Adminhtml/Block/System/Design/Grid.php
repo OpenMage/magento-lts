@@ -80,7 +80,6 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn('date_from', [
             'header'    => Mage::helper('catalogrule')->__('Date From'),
             'align'     => 'left',
-            'width'     => '100px',
             'type'      => 'date',
             'index'     => 'date_from',
         ]);
@@ -88,7 +87,6 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn('date_to', [
             'header'    => Mage::helper('catalogrule')->__('Date To'),
             'align'     => 'left',
-            'width'     => '100px',
             'type'      => 'date',
             'index'     => 'date_to',
         ]);
