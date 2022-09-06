@@ -19,9 +19,9 @@
  */
 
 /**
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Custbalance extends Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend
 {

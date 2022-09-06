@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,10 +23,10 @@
  *
  * @category   Mage
  * @package    Mage_Sitemap
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sitemap extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     /**
      * Block constructor
      */
@@ -37,5 +37,4 @@ class Mage_Adminhtml_Block_Sitemap extends Mage_Adminhtml_Block_Widget_Grid_Cont
         $this->_addButtonLabel = Mage::helper('sitemap')->__('Add Sitemap');
         parent::__construct();
     }
-
 }
