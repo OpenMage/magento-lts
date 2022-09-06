@@ -1926,11 +1926,6 @@ parameters:
 			path: ../app/code/core/Mage/ConfigurableSwatches/Model/Resource/Catalog/Product/Type/Configurable/Product/Collection.php
 
 		-
-			message: "#^Static method Mage\\:\\:log\\(\\) invoked with 5 parameters, 1\\-4 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Block/Template.php
-
-		-
 			message: "#^Call to an undefined method Zend_Controller_Router_Interface\\:\\:addRoute\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Controller/Front/Router.php
