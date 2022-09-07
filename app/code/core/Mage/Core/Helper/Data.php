@@ -774,7 +774,10 @@ XML;
                 } else {
                     $targetMtime = filemtime($targetFile);
                     foreach ($srcFiles as $file) {
-                        if (!file_exists($file) || @filemtime($file) > $targetMtime) {
+                        if (!file_exists($file)) {
+                            // no translation intentionally
+                            throw new Exception(sprintf('File %s not found.', $file));
+                        } elseif (@filemtime($file) > $targetMtime) {
                             $shouldMerge = true;
                             break;
                         }
