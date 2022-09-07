@@ -728,7 +728,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Create SOAP client based on VAT validation service WSDL
      *
-     * @param boolean $trace
+     * @param bool $trace
      * @return SoapClient
      */
     protected function _createVatNumberValidationSoapClient($trace = false)

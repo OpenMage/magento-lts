@@ -119,7 +119,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Set scope visibility
      * Search value only in scope or search value in scope and global
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Eav_Model_Attribute_Data_Abstract
      */
     public function setRequestScopeOnly($flag)
@@ -458,7 +458,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Set is AJAX Request flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Eav_Model_Attribute_Data_Abstract
      */
     public function setIsAjaxRequest($flag = true)

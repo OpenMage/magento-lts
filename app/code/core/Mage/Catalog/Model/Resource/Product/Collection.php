@@ -578,7 +578,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Add collection filters by identifiers
      *
      * @param mixed $productId
-     * @param boolean $exclude
+     * @param bool $exclude
      * @return $this
      */
     public function addIdFilter($productId, $exclude = false)
@@ -1306,7 +1306,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Retrieve all ids
      *
-     * @param boolean $resetCache
+     * @param bool $resetCache
      * @return array
      */
     public function getAllIdsCache($resetCache = false)

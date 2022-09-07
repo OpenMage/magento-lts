@@ -48,7 +48,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     /**
      * Set flag for load default (admin) store
      *
-     * @param boolean $loadDefault
+     * @param bool $loadDefault
      *
      * @return $this
      */

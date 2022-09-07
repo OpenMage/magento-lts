@@ -277,7 +277,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns the list of countries, for which region is required
      *
-     * @param boolean $asJson
+     * @param bool $asJson
      * @return array
      */
     public function getCountriesWithStatesRequired($asJson = false)

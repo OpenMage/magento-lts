@@ -159,7 +159,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param Varien_Simplexml_Element $node
      * @param string $websiteCode
      * @param string $storeCode
-     * @param boolean $isField
+     * @param bool $isField
      * @return bool
      */
     public function hasChildren ($node, $websiteCode=null, $storeCode=null, $isField=false)

@@ -355,7 +355,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      *
      * @deprecated
      * @param float $price
-     * @param boolean $round
+     * @param bool $round
      * @return float
      */
     protected function _convertPrice($price, $round = false)

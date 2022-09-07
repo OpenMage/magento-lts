@@ -52,7 +52,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
     /**
      * Set flag for load default (admin) website
      *
-     * @param boolean $loadDefault
+     * @param bool $loadDefault
      * @return $this
      */
     public function setLoadDefault($loadDefault)

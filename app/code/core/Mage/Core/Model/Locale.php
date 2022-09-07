@@ -543,7 +543,7 @@ class Mage_Core_Model_Locale
      *
      * @param   null|string|bool|int|Mage_Core_Model_Store $store Information about store
      * @param   string|integer|Zend_Date|array|null $date date in UTC
-     * @param   boolean $includeTime flag for including time to date
+     * @param   bool $includeTime flag for including time to date
      * @param   string|null $format
      * @return  Zend_Date
      */
@@ -567,7 +567,7 @@ class Mage_Core_Model_Locale
      *
      * @param mixed $store Information about store
      * @param string|integer|Zend_Date|array|null $date date in store's timezone
-     * @param boolean $includeTime flag for including time to date
+     * @param bool $includeTime flag for including time to date
      * @param null|string $format
      * @return Zend_Date
      */

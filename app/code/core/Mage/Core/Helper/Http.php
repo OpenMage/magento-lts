@@ -164,7 +164,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Retrieve HTTP "clean" value
      *
      * @param string $var
-     * @param boolean $clean clean non UTF-8 characters
+     * @param bool $clean clean non UTF-8 characters
      * @return string
      */
     protected function _getHttpCleanValue($var, $clean = true)
@@ -180,7 +180,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP HOST
      *
-     * @param boolean $clean clean non UTF-8 characters
+     * @param bool $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpHost($clean = true)
@@ -191,7 +191,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP USER AGENT
      *
-     * @param boolean $clean clean non UTF-8 characters
+     * @param bool $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpUserAgent($clean = true)
@@ -202,7 +202,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP ACCEPT LANGUAGE
      *
-     * @param boolean $clean clean non UTF-8 characters
+     * @param bool $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpAcceptLanguage($clean = true)
@@ -213,7 +213,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP ACCEPT CHARSET
      *
-     * @param boolean $clean clean non UTF-8 characters
+     * @param bool $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpAcceptCharset($clean = true)
@@ -224,7 +224,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP REFERER
      *
-     * @param boolean $clean clean non UTF-8 characters
+     * @param bool $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpReferer($clean = true)
@@ -236,7 +236,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Returns the REQUEST_URI taking into account
      * platform differences between Apache and IIS
      *
-     * @param boolean $clean clean non UTF-8 characters
+     * @param bool $clean clean non UTF-8 characters
      * @return string
      */
     public function getRequestUri($clean = false)

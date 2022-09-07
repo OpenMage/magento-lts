@@ -162,7 +162,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
      * Check whether status history comment is with customer notification
      *
      * @param array $item
-     * @param boolean $isSimpleCheck
+     * @param bool $isSimpleCheck
      * @return bool
      */
     public function isItemNotified(array $item, $isSimpleCheck = true)

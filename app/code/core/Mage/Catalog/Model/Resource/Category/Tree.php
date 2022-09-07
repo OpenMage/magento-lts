@@ -114,10 +114,10 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 
     /**
      * @param Mage_Catalog_Model_Resource_Category_Collection $collection
-     * @param boolean $sorted
+     * @param bool $sorted
      * @param array $exclude
-     * @param boolean $toLoad
-     * @param boolean $onlyActive
+     * @param bool $toLoad
+     * @param bool $onlyActive
      * @return $this
      */
     public function addCollectionData(
@@ -328,7 +328,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Get categories collection
      *
-     * @param boolean $sorted
+     * @param bool $sorted
      * @return Mage_Catalog_Model_Resource_Category_Collection
      */
     public function getCollection($sorted = false)
@@ -353,7 +353,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     }
 
     /**
-     * @param boolean $sorted
+     * @param bool $sorted
      * @return Mage_Catalog_Model_Resource_Category_Collection
      */
     protected function _getDefaultCollection($sorted = false)

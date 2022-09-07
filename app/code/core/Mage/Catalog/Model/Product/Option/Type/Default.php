@@ -384,7 +384,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * Return final chargable price for option
      *
      * @param float $price Price of option
-     * @param boolean $isPercent Price type - percent or fixed
+     * @param bool $isPercent Price type - percent or fixed
      * @param float $basePrice For percent price type
      * @return float
      */

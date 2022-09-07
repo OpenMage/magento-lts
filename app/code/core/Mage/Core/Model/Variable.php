@@ -127,7 +127,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Retrieve variables option array
      *
-     * @param boolean $withGroup
+     * @param bool $withGroup
      * @return array
      */
     public function getVariablesOptionArray($withGroup = false)

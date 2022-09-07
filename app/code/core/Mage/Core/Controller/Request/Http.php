@@ -584,7 +584,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Define that request was forwarded internally
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setInternallyForwarded($flag = true)

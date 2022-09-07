@@ -219,7 +219,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     /**
      * Set readonly flag
      *
-     * @param boolean $isReadonly
+     * @param bool $isReadonly
      * @return $this
      */
     public function setIsReadonly($isReadonly)

@@ -237,7 +237,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      *
      * @param array $rowData
      * @param int $rowNum
-     * @param boolean $isNewProduct OPTIONAL.
+     * @param bool $isNewProduct OPTIONAL.
      * @return bool
      */
     public function isRowValid(array $rowData, $rowNum, $isNewProduct = true)

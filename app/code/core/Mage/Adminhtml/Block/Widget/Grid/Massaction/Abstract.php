@@ -275,7 +275,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Retrieve select all functionality flag check
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
      */
     public function setUseSelectAll($flag)

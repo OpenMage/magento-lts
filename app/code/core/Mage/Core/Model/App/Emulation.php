@@ -61,7 +61,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      *
      * @param integer $storeId
      * @param string $area
-     * @param boolean $emulateStoreInlineTranslation emulate inline translation of the specified store or just disable it
+     * @param bool $emulateStoreInlineTranslation emulate inline translation of the specified store or just disable it
      *
      * @return Varien_Object information about environment of the initial store
      */
@@ -194,7 +194,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     /**
      * Restore initial inline translation state
      *
-     * @param boolean $initialTranslateInline
+     * @param bool $initialTranslateInline
      *
      * @return $this
      */

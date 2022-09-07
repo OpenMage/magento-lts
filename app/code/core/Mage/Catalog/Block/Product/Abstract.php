@@ -232,7 +232,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * Returns product price block html
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param boolean $displayMinimalPrice
+     * @param bool $displayMinimalPrice
      * @param string $idSuffix
      * @return string
      */

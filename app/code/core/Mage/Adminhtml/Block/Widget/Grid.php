@@ -826,7 +826,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Set visibility of column headers
      *
-     * @param boolean $visible
+     * @param bool $visible
      */
     public function setHeadersVisibility($visible = true)
     {
@@ -846,7 +846,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Set visibility of pager
      *
-     * @param boolean $visible
+     * @param bool $visible
      */
     public function setPagerVisibility($visible = true)
     {
@@ -866,7 +866,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Set visibility of filter
      *
-     * @param boolean $visible
+     * @param bool $visible
      */
     public function setFilterVisibility($visible = true)
     {
@@ -886,7 +886,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Set visibility of filter
      *
-     * @param boolean $visible
+     * @param bool $visible
      */
     public function setMessageBlockVisibility($visible = true)
     {
@@ -1632,7 +1632,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Set count totals
      *
-     * @param boolean $count
+     * @param bool $count
      */
     public function setCountTotals($count = true)
     {
@@ -1672,7 +1672,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Set subtotals
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setCountSubTotals($flag = true)

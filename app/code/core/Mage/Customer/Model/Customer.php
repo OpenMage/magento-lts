@@ -1433,7 +1433,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Set is deleteable flag
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setIsDeleteable($value)
@@ -1455,7 +1455,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Set is readonly flag
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setIsReadonly($value)

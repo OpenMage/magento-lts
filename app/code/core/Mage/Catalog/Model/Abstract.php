@@ -318,7 +318,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Set is deletable flag
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setIsDeleteable($value)
@@ -340,7 +340,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Set is deletable flag
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setIsReadonly($value)

@@ -108,7 +108,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Setter
      *
-     * @param boolean $plainTemplateMode
+     * @param bool $plainTemplateMode
      * @return $this
      */
     public function setPlainTemplateMode($plainTemplateMode)

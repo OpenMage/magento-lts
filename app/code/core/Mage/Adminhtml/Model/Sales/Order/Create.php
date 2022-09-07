@@ -119,7 +119,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Set validate data in import data flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setIsValidate($flag)

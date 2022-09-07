@@ -207,7 +207,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Set apply filters flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setApplyFilters($flag)

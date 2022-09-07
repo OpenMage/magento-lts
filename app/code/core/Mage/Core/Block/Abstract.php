@@ -569,8 +569,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Retrieve child block HTML
      *
      * @param   string $name
-     * @param   boolean $useCache
-     * @param   boolean $sorted
+     * @param   bool $useCache
+     * @param   bool $sorted
      * @return  string
      */
     public function getChildHtml($name = '', $useCache = true, $sorted = false)
@@ -631,7 +631,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Retrieve child block HTML
      *
      * @param   string $name
-     * @param   boolean $useCache
+     * @param   bool $useCache
      * @return  string
      */
     protected function _getChildHtml($name, $useCache = true)
@@ -685,7 +685,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @param   Mage_Core_Block_Abstract|string $block
      * @param   string $siblingName
-     * @param   boolean $after
+     * @param   bool $after
      * @param   string $alias
      * @return  object $this
      */
@@ -744,7 +744,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Sort block's children
      *
-     * @param boolean $force force re-sort all children
+     * @param bool $force force re-sort all children
      * @return $this
      */
     public function sortChildren($force = false)

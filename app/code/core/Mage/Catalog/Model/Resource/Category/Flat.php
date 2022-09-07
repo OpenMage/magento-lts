@@ -397,8 +397,8 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * @param integer $parent
      * @param integer $recursionLevel
      * @param boolean|string $sorted
-     * @param boolean $asCollection
-     * @param boolean $toLoad
+     * @param bool $asCollection
+     * @param bool $toLoad
      * @return array|Varien_Data_Collection
      */
     public function getCategories($parent, $recursionLevel = 0, $sorted = false, $asCollection = false, $toLoad = true)

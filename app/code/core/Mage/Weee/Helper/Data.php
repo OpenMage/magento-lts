@@ -396,7 +396,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array                      $tierPrices
-     * @param boolean                    $includeIndex
+     * @param bool                    $includeIndex
      * @return $this
      */
     public function processTierPrices($product, &$tierPrices, $includeIndex = true)

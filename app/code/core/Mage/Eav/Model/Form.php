@@ -344,7 +344,7 @@ abstract class Mage_Eav_Model_Form
      *
      * @param Zend_Controller_Request_Http $request
      * @param string $scope the request scope
-     * @param boolean $scopeOnly search value only in scope or search value in global too
+     * @param bool $scopeOnly search value only in scope or search value in global too
      * @return array
      */
     public function extractData(Zend_Controller_Request_Http $request, $scope = null, $scopeOnly = true)
@@ -478,7 +478,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Set is AJAX Request flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Eav_Model_Form
      */
     public function setIsAjaxRequest($flag = true)

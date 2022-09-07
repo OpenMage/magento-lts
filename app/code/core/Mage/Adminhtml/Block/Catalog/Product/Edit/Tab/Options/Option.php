@@ -295,7 +295,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
      *
      * @param string $id
      * @param string $name
-     * @param boolean $checked
+     * @param bool $checked
      * @param string $select_id
      * @return string
      */

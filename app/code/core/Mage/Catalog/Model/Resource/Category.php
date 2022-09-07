@@ -553,8 +553,8 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * @param integer $parent
      * @param integer $recursionLevel
      * @param boolean|string $sorted
-     * @param boolean $asCollection
-     * @param boolean $toLoad
+     * @param bool $asCollection
+     * @param bool $toLoad
      * @return Varien_Data_Tree_Node_Collection|Mage_Catalog_Model_Resource_Category_Collection
      */
     public function getCategories($parent, $recursionLevel = 0, $sorted = false, $asCollection = false, $toLoad = true)
@@ -690,7 +690,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * Return children ids of category
      *
      * @param Mage_Catalog_Model_Category $category
-     * @param boolean $recursive
+     * @param bool $recursive
      * @return array
      */
     public function getChildren($category, $recursive = true)

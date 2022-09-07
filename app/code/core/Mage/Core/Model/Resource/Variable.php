@@ -55,7 +55,7 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
      * Retrieve variable data by code
      *
      * @param string $code
-     * @param boolean $withValue
+     * @param bool $withValue
      * @param integer $storeId
      * @return array
      */

@@ -649,7 +649,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Get all children categories IDs
      *
-     * @param boolean $asArray return result as array instead of comma-separated list of IDs
+     * @param bool $asArray return result as array instead of comma-separated list of IDs
      * @return array|string
      */
     public function getAllChildren($asArray = false)

@@ -462,7 +462,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Retrieve partial load flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return bool
      */
     public function isPartialLoad($flag = null)
@@ -477,7 +477,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Retrieve partial save flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return bool
      */
     public function isPartialSave($flag = null)

@@ -177,7 +177,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
      * @param string $orderIncrementId
      * @param string $status
      * @param string $comment
-     * @param boolean $notify
+     * @param bool $notify
      * @return bool
      */
     public function addComment($orderIncrementId, $status, $comment = '', $notify = false)

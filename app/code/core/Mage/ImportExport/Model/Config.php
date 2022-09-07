@@ -56,7 +56,7 @@ class Mage_ImportExport_Model_Config
      *
      * @static
      * @param string $configKey
-     * @param boolean $withEmpty OPTIONAL Include 'Please Select' option or not
+     * @param bool $withEmpty OPTIONAL Include 'Please Select' option or not
      * @return array
      */
     public static function getModelsComboOptions($configKey, $withEmpty = false)
@@ -77,7 +77,7 @@ class Mage_ImportExport_Model_Config
      *
      * @static
      * @param string $configKey
-     * @param boolean $withEmpty OPTIONAL Include 'Please Select' option or not
+     * @param bool $withEmpty OPTIONAL Include 'Please Select' option or not
      * @return array
      */
     public static function getModelsArrayOptions($configKey, $withEmpty = false)

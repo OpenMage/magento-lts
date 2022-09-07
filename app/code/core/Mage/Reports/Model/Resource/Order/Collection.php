@@ -314,7 +314,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * @param string $range
      * @param string $customStart
      * @param string $customEnd
-     * @param boolean $returnObjects
+     * @param bool $returnObjects
      * @return array
      */
     public function getDateRange($range, $customStart, $customEnd, $returnObjects = false)
@@ -668,7 +668,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Add revenue
      *
-     * @param boolean $convertCurrency
+     * @param bool $convertCurrency
      * @return $this
      */
     public function addRevenueToSelect($convertCurrency = false)

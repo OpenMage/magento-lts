@@ -73,7 +73,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      *
      * @param string $type
      * @param Varien_Object $entity
-     * @param boolean $dontDisplayContainer
+     * @param bool $dontDisplayContainer
      * @return string
      */
     public function getInline($type, Varien_Object $entity, $dontDisplayContainer = false)

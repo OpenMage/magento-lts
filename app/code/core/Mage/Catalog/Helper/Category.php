@@ -49,7 +49,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
      * Retrieve current store categories
      *
      * @param boolean|string $sorted
-     * @param boolean $asCollection
+     * @param bool $asCollection
      * @param bool $toLoad
      * @return array|Mage_Catalog_Model_Resource_Category_Collection|Varien_Data_Collection|Varien_Data_Tree_Node_Collection
      * @throws Mage_Core_Model_Store_Exception

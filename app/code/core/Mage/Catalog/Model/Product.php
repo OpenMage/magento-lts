@@ -1246,8 +1246,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param string        $file              file path of image in file system
      * @param string|array  $mediaAttribute    code of attribute with type 'media_image',
      *                                          leave blank if image should be only in gallery
-     * @param boolean       $move              if true, it will move source file
-     * @param boolean       $exclude           mark image as disabled in product page view
+     * @param bool       $move              if true, it will move source file
+     * @param bool       $exclude           mark image as disabled in product page view
      * @return $this
      */
     public function addImageToMediaGallery($file, $mediaAttribute = null, $move = false, $exclude = true)
@@ -1487,7 +1487,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Set is duplicable flag
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setIsDuplicable($value)
