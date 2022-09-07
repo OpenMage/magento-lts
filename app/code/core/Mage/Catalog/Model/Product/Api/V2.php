@@ -160,7 +160,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @param array $productData
      * @param string|int $store
      * @param null $identifierType
-     * @return boolean
+     * @return bool
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -203,7 +203,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @param array      $productData
      * @param string|int $store
      * @param string     $identifierType
-     * @return boolean
+     * @return bool
      */
     public function multiUpdate($productIds, $productData, $store = null, $identifierType = null)
     {
@@ -328,7 +328,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @param string|int $store
      * @param string $identifierType OPTIONAL If 'sku' - search product by SKU, if any except for NULL - search by ID,
      *                                        otherwise - try to determine identifier type automatically
-     * @return boolean
+     * @return bool
      */
     public function setSpecialPrice(
         $productId,

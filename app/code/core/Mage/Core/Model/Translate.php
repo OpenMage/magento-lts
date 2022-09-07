@@ -89,14 +89,14 @@ class Mage_Core_Model_Translate
     /**
      * Configuration flag to enable inline translations
      *
-     * @var boolean
+     * @var bool
      */
     protected $_translateInline;
 
     /**
      * Configuration flag to local enable inline translations
      *
-     * @var boolean
+     * @var bool
      */
     protected $_canUseInline = true;
 

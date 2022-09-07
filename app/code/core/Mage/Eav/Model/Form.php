@@ -93,7 +93,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Is AJAX request flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isAjax          = false;
 
@@ -344,7 +344,7 @@ abstract class Mage_Eav_Model_Form
      *
      * @param Zend_Controller_Request_Http $request
      * @param string $scope the request scope
-     * @param boolean $scopeOnly search value only in scope or search value in global too
+     * @param bool $scopeOnly search value only in scope or search value in global too
      * @return array
      */
     public function extractData(Zend_Controller_Request_Http $request, $scope = null, $scopeOnly = true)
@@ -366,7 +366,7 @@ abstract class Mage_Eav_Model_Form
      * Validate data array and return true or array of errors
      *
      * @param array $data
-     * @return boolean|array
+     * @return bool|array
      */
     public function validateData(array $data)
     {
@@ -478,7 +478,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Set is AJAX Request flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Eav_Model_Form
      */
     public function setIsAjaxRequest($flag = true)
@@ -490,7 +490,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Return is AJAX Request
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsAjaxRequest()
     {

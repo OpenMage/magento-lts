@@ -126,7 +126,7 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
      * @param array $a
      * @param array $b
      *
-     * @return integer
+     * @return int
      */
     protected function _sortWeeeTaxes($a, $b)
     {
@@ -142,7 +142,7 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
     /**
      * Retrieves number of websites
      *
-     * @return integer
+     * @return int
      */
     public function getWebsiteCount()
     {

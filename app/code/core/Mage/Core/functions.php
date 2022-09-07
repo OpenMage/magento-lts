@@ -76,7 +76,7 @@ function now($dayOnly = false)
  * Check whether sql date is empty
  *
  * @param string $date
- * @return boolean
+ * @return bool
  */
 function is_empty_date($date)
 {
@@ -104,10 +104,10 @@ function mageFindClassFile($class)
 /**
  * Custom error handler
  *
- * @param integer $errno
+ * @param int $errno
  * @param string $errstr
  * @param string $errfile
- * @param integer $errline
+ * @param int $errline
  * @return bool
  */
 function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
@@ -364,7 +364,7 @@ if (!function_exists('hash_equals')) {
      *
      * @param string $known_string
      * @param string $user_string
-     * @return boolean Returns true when the two strings are equal, false otherwise.
+     * @return bool Returns true when the two strings are equal, false otherwise.
      */
     function hash_equals($known_string, $user_string)
     {

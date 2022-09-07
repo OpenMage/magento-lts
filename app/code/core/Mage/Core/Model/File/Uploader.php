@@ -86,7 +86,7 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
      * Check protected/allowed extension
      *
      * @param string $extension
-     * @return boolean
+     * @return bool
      */
     public function checkAllowedExtension($extension)
     {

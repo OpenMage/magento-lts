@@ -28,7 +28,7 @@
 class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_Product_Abstract
 {
     /**
-     * @return boolean
+     * @return bool
      */
     public function getLinksPurchasedSeparately()
     {
@@ -36,7 +36,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getLinkSelectionRequired()
     {
@@ -45,7 +45,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasLinks()
     {

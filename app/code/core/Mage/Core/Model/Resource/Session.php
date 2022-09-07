@@ -35,7 +35,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     /**
      * Session lifetime
      *
-     * @var integer
+     * @var int
      */
     protected $_lifeTime;
 
@@ -166,7 +166,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      *
      * @param string $savePath ignored
      * @param string $sessName ignored
-     * @return boolean
+     * @return bool
      */
     public function open($savePath, $sessName)
     {
@@ -176,7 +176,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     /**
      * Close session
      *
-     * @return boolean
+     * @return bool
      */
     public function close()
     {
@@ -212,7 +212,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      *
      * @param string $sessId
      * @param string $sessData
-     * @return boolean
+     * @return bool
      */
     public function write($sessId, $sessData)
     {
@@ -245,7 +245,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * Destroy session
      *
      * @param string $sessId
-     * @return boolean
+     * @return bool
      */
     public function destroy($sessId)
     {
@@ -258,7 +258,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * Garbage collection
      *
      * @param int $sessMaxLifeTime ignored
-     * @return boolean
+     * @return bool
      */
     public function gc($sessMaxLifeTime)
     {

@@ -26,6 +26,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Bundle_Model_Option[] getItems()
+ * @method Mage_Bundle_Model_Option getItemById($idValue)
  */
 class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

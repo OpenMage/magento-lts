@@ -147,7 +147,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
     /**
      * Import data rows.
      *
-     * @return boolean
+     * @return bool
      */
     protected function _importData()
     {
@@ -468,7 +468,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
      *
      * @param array $rowData
      * @param int $rowNum
-     * @return boolean
+     * @return bool
      */
     public function validateRow(array $rowData, $rowNum)
     {

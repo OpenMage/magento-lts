@@ -311,7 +311,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * Thumbnail path getter
      *
      * @param  string $filePath original file path
-     * @param  boolean $checkFile OPTIONAL is it necessary to check file availability
+     * @param bool $checkFile OPTIONAL is it necessary to check file availability
      * @return string | false
      */
     public function getThumbnailPath($filePath, $checkFile = false)
@@ -333,7 +333,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * Thumbnail URL getter
      *
      * @param  string $filePath original file path
-     * @param  boolean $checkFile OPTIONAL is it necessary to check file availability
+     * @param bool $checkFile OPTIONAL is it necessary to check file availability
      * @return string|false
      */
     public function getThumbnailUrl($filePath, $checkFile = false)

@@ -74,7 +74,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     /**
      * Destination Zip Code required flag
      *
-     * @var boolean
+     * @var bool
      * @deprecated since 1.7.0 functionality implemented in Mage_Usa_Model_Shipping_Carrier_Abstract
      */
     protected $_isZipCodeRequired;

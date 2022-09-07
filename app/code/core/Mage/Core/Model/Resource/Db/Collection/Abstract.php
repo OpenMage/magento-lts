@@ -67,7 +67,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Fields to select changed flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_fieldsToSelectChanged  = false;
 
@@ -88,7 +88,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Reset items data changed flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_resetItemsDataChanged   = false;
 
@@ -357,7 +357,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Removes field from select
      *
      * @param string|null $field
-     * @param boolean $isAlias Alias identifier
+     * @param bool $isAlias Alias identifier
      * @return $this
      */
     public function removeFieldFromSelect($field, $isAlias = false)
@@ -589,7 +589,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Set reset items data changed flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setResetItemsDataChanged($flag)
@@ -701,7 +701,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Format Date to internal database date format
      *
      * @param int|string|Zend_Date $date
-     * @param boolean $includeTime
+     * @param bool $includeTime
      * @return string
      */
     public function formatDate($date, $includeTime = true)

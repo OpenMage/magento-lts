@@ -185,7 +185,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Set the error messages scope for subscription
      *
-     * @param boolean $scope
+     * @param bool $scope
      * @return $this
      */
 
@@ -219,19 +219,19 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Set for status change flag
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setIsStatusChanged($value)
     {
-        $this->_isStatusChanged = (boolean) $value;
+        $this->_isStatusChanged = (bool) $value;
            return $this;
     }
 
     /**
      * Return status change flag value
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsStatusChanged()
     {
@@ -475,7 +475,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Confirms subscriber newsletter
      *
      * @param string $code
-     * @return boolean
+     * @return bool
      */
     public function confirm($code)
     {

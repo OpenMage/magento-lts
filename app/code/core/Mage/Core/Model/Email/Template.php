@@ -267,7 +267,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Return true if this template can be used for sending queue as main template
      *
-     * @return boolean
+     * @return bool
      */
     public function isValidForSend()
     {
@@ -377,7 +377,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @param   array|string       $email        E-mail(s)
      * @param   array|string|null  $name         receiver name(s)
      * @param   array              $variables    template variables
-     * @return  boolean
+     * @return bool
      **/
     public function send($email, $name = null, array $variables = [])
     {
@@ -607,7 +607,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Retrieve option array of variables
      *
-     * @param boolean $withGroup if true wrap variable options in group
+     * @param bool $withGroup if true wrap variable options in group
      * @return array
      */
     public function getVariablesOptionArray($withGroup = false)

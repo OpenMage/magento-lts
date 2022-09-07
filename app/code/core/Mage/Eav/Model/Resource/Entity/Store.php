@@ -38,7 +38,7 @@ class Mage_Eav_Model_Resource_Entity_Store extends Mage_Core_Model_Resource_Db_A
      * @param Mage_Core_Model_Abstract $object
      * @param int $entityTypeId
      * @param int $storeId
-     * @return boolean
+     * @return bool
      */
     public function loadByEntityStore(Mage_Core_Model_Abstract $object, $entityTypeId, $storeId)
     {

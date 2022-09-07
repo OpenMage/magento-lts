@@ -243,7 +243,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
      * Return array of rating summary
      *
      * @param Mage_Rating_Model_Rating $object
-     * @param boolean $onlyForCurrentStore
+     * @param bool $onlyForCurrentStore
      * @return array|Mage_Rating_Model_Rating
      */
     public function getEntitySummary($object, $onlyForCurrentStore = true)
@@ -345,7 +345,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
      * Review summary
      *
      * @param Mage_Rating_Model_Rating $object
-     * @param boolean $onlyForCurrentStore
+     * @param bool $onlyForCurrentStore
      * @return array|Mage_Rating_Model_Rating
      */
     public function getReviewSummary($object, $onlyForCurrentStore = true)

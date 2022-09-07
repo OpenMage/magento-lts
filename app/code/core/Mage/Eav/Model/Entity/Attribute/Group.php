@@ -49,7 +49,7 @@ class Mage_Eav_Model_Entity_Attribute_Group extends Mage_Core_Model_Abstract
     /**
      * Checks if current attribute group exists
      *
-     * @return boolean
+     * @return bool
      */
     public function itemExists()
     {

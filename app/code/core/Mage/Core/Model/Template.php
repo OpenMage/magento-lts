@@ -159,7 +159,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     /**
      * Return true if template type eq text
      *
-     * @return boolean
+     * @return bool
      */
     public function isPlain()
     {

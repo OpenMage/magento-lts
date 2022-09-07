@@ -68,7 +68,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     /**
      * Add days in whishlist filter of product collection
      *
-     * @var boolean
+     * @var bool
      */
     protected $_addDaysInWishlist = false;
 
@@ -82,7 +82,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     /**
      * Whether product name attribute value table is joined in select
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isProductNameJoined = false;
 
@@ -201,6 +201,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
         $checkInStock = $this->_productInStock && !Mage::helper('cataloginventory')->isShowOutOfStock();
 
         foreach ($this as $item) {
+            /** @var Mage_Catalog_Model_Product $product */
             $product = $productCollection->getItemById($item->getProductId());
             if ($product) {
                 if ($checkInStock && !$product->isInStock()) {

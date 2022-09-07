@@ -45,7 +45,7 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
     protected $_grid                         = true;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $_useIncrementId               = true;
 

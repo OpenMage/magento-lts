@@ -869,7 +869,7 @@ class Mage_Paypal_Model_Express_Checkout
      *
      * @param Varien_Object $option1
      * @param Varien_Object $option2
-     * @return integer
+     * @return int
      */
     protected static function cmpShippingOptions(Varien_Object $option1, Varien_Object $option2)
     {

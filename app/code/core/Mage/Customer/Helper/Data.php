@@ -581,7 +581,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             // Send request to service
             $result = $soapClient->checkVatApprox($requestParams);
 
-            $gatewayResponse->setIsValid((boolean) $result->valid);
+            $gatewayResponse->setIsValid((bool) $result->valid);
             $gatewayResponse->setRequestDate((string) $result->requestDate);
             $gatewayResponse->setRequestIdentifier((string) $result->requestIdentifier);
             $gatewayResponse->setRequestSuccess(true);
@@ -602,7 +602,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $requesterCountryCode
      * @param string $requesterVatNumber
      *
-     * @return boolean
+     * @return bool
      */
     public function canCheckVatNumber($countryCode, $vatNumber, $requesterCountryCode, $requesterVatNumber)
     {
@@ -728,7 +728,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Create SOAP client based on VAT validation service WSDL
      *
-     * @param boolean $trace
+     * @param bool $trace
      * @return SoapClient
      */
     protected function _createVatNumberValidationSoapClient($trace = false)

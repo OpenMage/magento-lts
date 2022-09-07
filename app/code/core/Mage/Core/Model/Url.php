@@ -202,7 +202,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set use_url_cache flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setUseUrlCache($flag)
@@ -621,7 +621,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Set route params
      *
      * @param array $data
-     * @param boolean $unsetOldParams
+     * @param bool $unsetOldParams
      * @return $this
      */
     public function setRouteParams(array $data, $unsetOldParams = true)
@@ -1211,7 +1211,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Check if users originated URL is one of the domain URLs assigned to stores
      *
-     * @return boolean
+     * @return bool
      */
     public function isOwnOriginUrl()
     {

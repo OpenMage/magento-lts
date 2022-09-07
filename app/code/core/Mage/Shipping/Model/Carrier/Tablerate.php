@@ -35,9 +35,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
     protected $_code = 'tablerate';
 
     /**
-     * boolean isFixed
-     *
-     * @var boolean
+     * @var bool
      */
     protected $_isFixed = true;
 
@@ -134,6 +132,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
         $request->setPackageWeight($request->getFreeMethodWeight());
         $request->setPackageQty($oldQty - $freeQty);
 
+        /** @var Mage_Shipping_Model_Rate_Result $result */
         $result = $this->_getModel('shipping/rate_result');
         $rate = $this->getRate($request);
 

@@ -30,7 +30,7 @@ class Mage_Customer_Model_Resource_Address_Attribute_Backend_Street extends Mage
     /**
      * Prepare object for save
      *
-     * @param Varien_Object|Mage_Customer_Model_Address_Abstract $object
+     * @param Mage_Customer_Model_Address_Abstract $object
      * @return $this
      */
     public function beforeSave($object)

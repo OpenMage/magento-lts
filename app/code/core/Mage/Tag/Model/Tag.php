@@ -425,7 +425,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      * Check whether product is already marked in store with tag
      *
      * @param Mage_Tag_Model_Tag_Relation $relationModel
-     * @return boolean
+     * @return bool
      */
     protected function _checkLinkBetweenTagProduct($relationModel)
     {

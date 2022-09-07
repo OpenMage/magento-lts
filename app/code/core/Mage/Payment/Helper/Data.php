@@ -270,7 +270,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns value of Zero Subtotal Checkout / Enabled
      *
      * @param mixed $store
-     * @return boolean
+     * @return bool
      */
     public function isZeroSubTotal($store = null)
     {

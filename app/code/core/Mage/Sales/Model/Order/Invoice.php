@@ -783,7 +783,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Send email with invoice data
      *
-     * @param boolean $notifyCustomer
+     * @param bool $notifyCustomer
      * @param string $comment
      * @return $this
      */
@@ -883,7 +883,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Send email with invoice update information
      *
-     * @param boolean $notifyCustomer
+     * @param bool $notifyCustomer
      * @param string $comment
      * @return $this
      */

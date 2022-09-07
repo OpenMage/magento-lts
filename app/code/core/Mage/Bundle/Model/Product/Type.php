@@ -580,6 +580,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 // Check if added selections are still on sale
                 foreach ($selections->getItems() as $key => $selection) {
                     if (!$selection->isSalable() && !$skipSaleableCheck) {
+                        /** @var Mage_Bundle_Model_Option $_option */
                         $_option = $optionsCollection->getItemById($selection->getOptionId());
                         if (is_array($options[$_option->getId()]) && count($options[$_option->getId()]) > 1) {
                             $moreSelections = true;
@@ -886,7 +887,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Allow for updates of chidren qty's
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return boolean true
+     * @return bool true
      */
     public function getForceChildItemQtyChanges($product = null)
     {

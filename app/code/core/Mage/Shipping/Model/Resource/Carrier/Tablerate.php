@@ -100,7 +100,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      * Return table rate array or false by rate request
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return array|boolean
+     * @return array|bool
      */
     public function getRate(Mage_Shipping_Model_Rate_Request $request)
     {

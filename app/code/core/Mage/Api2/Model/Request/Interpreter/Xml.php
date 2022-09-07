@@ -131,10 +131,10 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
     /**
      * Handle any errors from load xml
      *
-     * @param integer $errno
+     * @param int $errno
      * @param string $errstr
      * @param string $errfile
-     * @param integer $errline
+     * @param int $errline
      */
     protected function _loadErrorHandler($errno, $errstr, $errfile, $errline)
     {

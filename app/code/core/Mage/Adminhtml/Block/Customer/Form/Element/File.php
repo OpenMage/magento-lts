@@ -171,7 +171,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
      *
      * @param string $element
      * @param array $attributes
-     * @param boolean $closed
+     * @param bool $closed
      * @return string
      */
     protected function _drawElementHtml($element, array $attributes, $closed = true)

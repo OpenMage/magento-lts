@@ -126,7 +126,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Available resources flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_hasAvailableResources = true;
 
@@ -263,7 +263,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Check if such combination role/user exists
      *
-     * @return boolean
+     * @return bool
      */
     public function roleUserExists()
     {
@@ -285,7 +285,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Check if user exists based on its id, username and email
      *
-     * @return boolean
+     * @return bool
      */
     public function userExists()
     {
@@ -375,7 +375,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $password
-     * @return boolean
+     * @return bool
      * @throws Mage_Core_Exception
      */
     public function authenticate($username, $password)
@@ -471,7 +471,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Check if user is assigned to any role
      *
      * @param int|Mage_Admin_Model_User $user
-     * @return null|boolean|array
+     * @return null|bool|array
      */
     public function hasAssigned2Role($user)
     {
@@ -505,7 +505,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param Mage_Core_Model_Config_Element $parent
      * @param string $path
-     * @param integer $level
+     * @param int $level
      * @return string
      */
     public function findFirstAvailableMenu($parent = null, $path = '', $level = 0)
@@ -682,7 +682,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Check if current reset password link token is expired
      *
-     * @return boolean
+     * @return bool
      */
     public function isResetPasswordLinkTokenExpired()
     {
@@ -727,7 +727,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Simple sql format date
      *
-     * @param string|boolean $dayOnly
+     * @param string|bool $dayOnly
      * @return string
      */
     protected function _getDateNow($dayOnly = false)

@@ -45,7 +45,7 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
     /**
      * Checks that item option model has data changes
      *
-     * @return boolean
+     * @return bool
      */
     protected function _hasModelChanged()
     {

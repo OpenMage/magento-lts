@@ -544,7 +544,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * @param Varien_Simplexml_Element $a
      * @param Varien_Simplexml_Element $b
-     * @return boolean
+     * @return bool
      */
     protected function _sortForm($a, $b)
     {
@@ -554,7 +554,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
     /**
      * @param Varien_Simplexml_Element $field
-     * @return boolean
+     * @return bool
      */
     public function canUseDefaultValue($field)
     {
@@ -569,7 +569,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
     /**
      * @param Varien_Simplexml_Element $field
-     * @return boolean
+     * @return bool
      */
     public function canUseWebsiteValue($field)
     {

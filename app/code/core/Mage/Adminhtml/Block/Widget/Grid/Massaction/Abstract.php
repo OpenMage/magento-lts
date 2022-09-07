@@ -21,8 +21,8 @@
 /**
  * Grid widget massaction block
  *
- * @method Mage_Sales_Model_Quote setHideFormElement(boolean $value) Hide Form element to prevent IE errors
- * @method boolean getHideFormElement()
+ * @method Mage_Sales_Model_Quote setHideFormElement(bool $value) Hide Form element to prevent IE errors
+ * @method bool getHideFormElement()
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
@@ -119,7 +119,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Retrieve massaction items count
      *
-     * @return integer
+     * @return int
      */
     public function getCount()
     {
@@ -129,7 +129,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Checks are massactions available
      *
-     * @return boolean
+     * @return bool
      */
     public function isAvailable()
     {
@@ -265,7 +265,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Retrieve select all functionality flag check
      *
-     * @return boolean
+     * @return bool
      */
     public function getUseSelectAll()
     {
@@ -275,7 +275,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Retrieve select all functionality flag check
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
      */
     public function setUseSelectAll($flag)

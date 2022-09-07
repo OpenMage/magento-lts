@@ -29,7 +29,7 @@ class Mage_Install_Controller_Router_Install extends Mage_Core_Controller_Varien
      * Check if current controller instance is allowed in current router.
      *
      * @param Mage_Core_Controller_Varien_Action $controllerInstance
-     * @return boolean
+     * @return bool
      */
     protected function _validateControllerInstance($controllerInstance)
     {

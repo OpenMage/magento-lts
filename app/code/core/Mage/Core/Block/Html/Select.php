@@ -209,7 +209,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      * Return option HTML node
      *
      * @param array $option
-     * @param boolean $selected
+     * @param bool $selected
      * @return string
      */
     protected function _optionToHtml($option, $selected = false)

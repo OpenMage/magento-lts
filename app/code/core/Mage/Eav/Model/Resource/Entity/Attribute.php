@@ -81,7 +81,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      * @param Mage_Core_Model_Abstract $object
      * @param int $entityTypeId
      * @param string $code
-     * @return boolean
+     * @return bool
      */
     public function loadByCode(Mage_Core_Model_Abstract $object, $entityTypeId, $code)
     {
@@ -469,7 +469,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Retrieve additional attribute table name for specified entity type
      *
-     * @param integer $entityTypeId
+     * @param int $entityTypeId
      * @return string
      */
     public function getAdditionalAttributeTable($entityTypeId)
@@ -513,7 +513,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Retrieve store labels by given attribute id
      *
-     * @param integer $attributeId
+     * @param int $attributeId
      * @return array
      */
     public function getStoreLabelsByAttributeId($attributeId)

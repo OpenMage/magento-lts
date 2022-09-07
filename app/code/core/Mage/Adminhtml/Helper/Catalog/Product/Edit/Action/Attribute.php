@@ -91,7 +91,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     /**
      * Return selected store id from request
      *
-     * @return integer
+     * @return int
      */
     public function getSelectedStoreId()
     {

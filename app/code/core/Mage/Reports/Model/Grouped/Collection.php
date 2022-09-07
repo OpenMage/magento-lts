@@ -54,8 +54,8 @@ class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection //Mag
     /**
      * Load collection
      *
-     * @param boolean $printQuery
-     * @param boolean $logQuery
+     * @param bool $printQuery
+     * @param bool $logQuery
      * @return $this
      */
     public function load($printQuery = false, $logQuery = false)

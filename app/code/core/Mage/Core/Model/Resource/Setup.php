@@ -69,7 +69,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Call afterApplyAllUpdates method flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_callAfterApplyAllUpdates = false;
 
@@ -207,7 +207,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Apply database updates whenever needed
      *
-     * @return boolean
+     * @return bool
      */
     public static function applyAllUpdates()
     {
@@ -705,10 +705,10 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $table
      * @param string $idField
-     * @param string|integer $id
+     * @param string|int $id
      * @param string $field
      * @param string $parentField
-     * @param string|integer $parentId
+     * @param string|int $parentId
      * @return mixed|boolean
      */
     public function getTableRow($table, $idField, $id, $field = null, $parentField = null, $parentId = 0)
@@ -774,11 +774,11 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $table
      * @param string $idField
-     * @param string|integer $id
+     * @param string|int $id
      * @param string|array $field
      * @param mixed|null $value
      * @param string $parentField
-     * @param string|integer $parentId
+     * @param string|int $parentId
      * @return $this
      */
     public function updateTableRow($table, $idField, $id, $field, $value = null, $parentField = null, $parentId = 0)
@@ -976,7 +976,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Check call afterApplyAllUpdates method for setup class
      *
-     * @return boolean
+     * @return bool
      */
     public function getCallAfterApplyAllUpdates()
     {

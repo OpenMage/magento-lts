@@ -117,7 +117,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     /**
      * Checks if attribute is visible on frontend
      *
-     * @return boolean
+     * @return bool
      */
     public function isVisible()
     {

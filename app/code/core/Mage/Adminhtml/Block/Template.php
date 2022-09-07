@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
      * the feature "Disable module output" doesn't cover Admin area
      *
      * @param string $moduleName Full module name
-     * @return boolean
+     * @return bool
      */
     public function isOutputEnabled($moduleName = null)
     {

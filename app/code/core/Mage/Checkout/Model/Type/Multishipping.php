@@ -170,7 +170,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                 /**
                  * Require shiping rate recollect
                  */
-                $address->setCollectShippingRates((boolean) $this->getCollectRatesFlag());
+                $address->setCollectShippingRates((bool) $this->getCollectRatesFlag());
 
                 if (count($address->getAllItems()) == 0) {
                     $address->isDeleted(true);
@@ -317,7 +317,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                 /**
                  * Require shiping rate recollect
                  */
-                $quoteAddress->setCollectShippingRates((boolean) $this->getCollectRatesFlag());
+                $quoteAddress->setCollectShippingRates((bool) $this->getCollectRatesFlag());
             }
         }
         return $this;

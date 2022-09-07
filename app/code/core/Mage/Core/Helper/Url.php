@@ -131,7 +131,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      *
      * @param string $url
      * @param string $paramKey
-     * @param boolean $caseSensitive
+     * @param bool $caseSensitive
      * @return string
      */
     public function removeRequestParam($url, $paramKey, $caseSensitive = false)
@@ -208,7 +208,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      * Check domain name for IDN using ACE prefix http://tools.ietf.org/html/rfc3490#section-5
      *
      * @param string $host domain name
-     * @return boolean
+     * @return bool
      */
     private function _isPunycode($host)
     {

@@ -34,7 +34,7 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return reports flag enabled.
      *
-     * @return boolean
+     * @return bool
      */
 
     public function isReportsEnabled()

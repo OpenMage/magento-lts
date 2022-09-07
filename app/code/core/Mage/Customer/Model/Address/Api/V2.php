@@ -115,7 +115,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
      *
      * @param int $addressId
      * @param array $addressData
-     * @return boolean
+     * @return bool
      */
     public function update($addressId, $addressData)
     {
@@ -158,7 +158,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
      * Delete address
      *
      * @param int $addressId
-     * @return boolean
+     * @return bool
      */
     public function delete($addressId)
     {

@@ -137,7 +137,7 @@ class Mage_Review_Block_Customer_View extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Check whether current customer is review owner
      *
-     * @return boolean
+     * @return bool
      */
     public function isReviewOwner()
     {

@@ -669,7 +669,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * If attribute is system will add to all existing attribute sets
      *
-     * @param string|integer $entityTypeId
+     * @param string|int $entityTypeId
      * @param string $code
      * @param array $attr
      * @return $this

@@ -58,7 +58,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Check if product has links
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return boolean
+     * @return bool
      */
     public function hasLinks($product = null)
     {
@@ -72,7 +72,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Check if product has options
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return boolean
+     * @return bool
      */
     public function hasOptions($product = null)
     {
@@ -99,7 +99,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Check if product cannot be purchased with no links selected
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return boolean
+     * @return bool
      */
     public function getLinkSelectionRequired($product = null)
     {
@@ -129,7 +129,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Check if product has samples
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return boolean
+     * @return bool
      */
     public function hasSamples($product = null)
     {

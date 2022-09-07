@@ -116,7 +116,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Form extends Mage_Adminhtm
     /**
      * Return forced creating of shipment flag
      *
-     * @return integer
+     * @return int
      */
     public function getForcedShipmentCreate()
     {

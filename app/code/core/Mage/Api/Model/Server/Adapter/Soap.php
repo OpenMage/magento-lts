@@ -201,7 +201,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     /**
      * Check whether Soap extension is loaded
      *
-     * @return boolean
+     * @return bool
      */
     protected function _extensionLoaded()
     {

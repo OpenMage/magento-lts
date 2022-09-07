@@ -47,7 +47,7 @@ class Mage_Core_Model_Resource_Variable_Collection extends Mage_Core_Model_Resou
     /**
      * Setter
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -59,7 +59,7 @@ class Mage_Core_Model_Resource_Variable_Collection extends Mage_Core_Model_Resou
     /**
      * Getter
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {
