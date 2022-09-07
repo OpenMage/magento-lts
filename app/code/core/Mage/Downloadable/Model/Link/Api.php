@@ -88,7 +88,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
      * @param string $resourceType
      * @param string|int|null $store
      * @param string|null $identifierType ('sku'|'id')
-     * @return boolean
+     * @return bool
      */
     public function add($productId, $resource, $resourceType, $store = null, $identifierType = null)
     {

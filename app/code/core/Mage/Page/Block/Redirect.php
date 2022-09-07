@@ -103,9 +103,9 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     }
 
     /**
-     *  HTML form or JS redirect
+     * HTML form or JS redirect
      *
-     *  @return   boolean
+     * @return bool
      */
     public function isHtmlFormRedirect()
     {

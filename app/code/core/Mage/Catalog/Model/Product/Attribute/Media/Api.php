@@ -199,7 +199,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @param array $data
      * @param string|int $store
      * @param null $identifierType
-     * @return boolean
+     * @return bool
      * @throws Mage_Api_Exception
      */
     public function update($productId, $file, $data, $store = null, $identifierType = null)
@@ -270,7 +270,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @param int|string $productId
      * @param string $file
      * @param null $identifierType
-     * @return boolean
+     * @return bool
      * @throws Mage_Api_Exception
      */
     public function remove($productId, $file, $identifierType = null)

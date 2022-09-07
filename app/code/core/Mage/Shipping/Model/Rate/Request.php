@@ -80,8 +80,8 @@
  * @method string getDestStreet()
  * @method $this setDestStreet(string $value)
  *
- * @method boolean getFreeShipping()
- * @method $this setFreeShipping(boolean $flag)
+ * @method bool getFreeShipping()
+ * @method $this setFreeShipping(bool $flag)
  * @method float getFreeMethodWeight()
  * @method $this setFreeMethodWeight(float $value)
  *
@@ -90,8 +90,8 @@
  * @method string getLimitMethod()
  * @method $this setLimitMethod(string $value)
  *
- * @method boolean getOptionInsurance()
- * @method $this setOptionInsurance(boolean $value)
+ * @method bool getOptionInsurance()
+ * @method $this setOptionInsurance(bool $value)
  * @method float getOptionHandling()
  * @method $this setOptionHandling(float $flag)
  * @method float getOrderTotalQty()

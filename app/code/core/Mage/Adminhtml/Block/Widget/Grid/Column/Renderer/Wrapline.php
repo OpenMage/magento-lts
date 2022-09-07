@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Wrapline
     /**
      * Default max length of a line at one row
      *
-     * @var integer
+     * @var int
      */
     protected $_defaultMaxLineLength = 60;
 

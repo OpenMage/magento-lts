@@ -57,7 +57,7 @@ class Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config extends Mag
      * Validate attribute data
      *
      * @param Varien_Object $object
-     * @return boolean
+     * @return bool
      */
     public function validate($object)
     {

@@ -76,7 +76,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
      * Check attribute is Text and is Searchable
      *
      * @param Mage_Catalog_Model_Entity_Attribute $attribute
-     * @return boolean
+     * @return bool
      */
     protected function _isAttributeTextAndSearchable($attribute)
     {
@@ -93,7 +93,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
      * Check attributes has options and searchable
      *
      * @param Mage_Catalog_Model_Entity_Attribute $attribute
-     * @return boolean
+     * @return bool
      */
     protected function _hasAttributeOptionsAndSearchable($attribute)
     {

@@ -309,7 +309,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
     /**
      * @param string $code
-     * @return boolean
+     * @return bool
      */
     public function checkSectionPermissions($code=null)
     {

@@ -1413,7 +1413,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Check transaction existence by specified transaction id
      *
      * @param string $txnId
-     * @return boolean
+     * @return bool
      */
     protected function _isTransactionExists($txnId = null)
     {

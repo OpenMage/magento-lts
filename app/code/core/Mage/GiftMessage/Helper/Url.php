@@ -49,7 +49,7 @@ class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
     /**
      * Retrieve gift message button block url
      *
-     * @param integer $itemId
+     * @param int $itemId
      * @param string $type
      * @param array $params
      * @return string
@@ -63,7 +63,7 @@ class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
     /**
      * Retrieve gift message remove url
      *
-     * @param integer $itemId
+     * @param int $itemId
      * @param string $type
      * @param array $params
      * @return string
@@ -77,7 +77,7 @@ class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
     /**
      * Retrieve gift message save url
      *
-     * @param integer $itemId
+     * @param int $itemId
      * @param string $type
      * @param string $giftMessageId
      * @param array $params

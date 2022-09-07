@@ -92,7 +92,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      * Check item product availability for reorder
      *
      * @param  Mage_Sales_Model_Order_Item $orderItem
-     * @return boolean
+     * @return bool
      */
     public function isItemAvailableForReorder(Mage_Sales_Model_Order_Item $orderItem)
     {

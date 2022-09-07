@@ -840,8 +840,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Set collection page start and records to show
      *
-     * @param integer $pageNum
-     * @param integer $pageSize
+     * @param int $pageNum
+     * @param int $pageSize
      * @return $this
      */
     public function setPage($pageNum, $pageSize)

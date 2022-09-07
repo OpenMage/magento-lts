@@ -58,7 +58,7 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param array $attributes
-     * @return boolean
+     * @return bool
      */
     protected function _isAllowedAttribute($attribute, $attributes = null)
     {

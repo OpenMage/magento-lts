@@ -278,7 +278,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Indicates that block can display giftmessages form
      *
-     * @return boolean
+     * @return bool
      * @throws Exception
      */
     public function canDisplayGiftmessage()

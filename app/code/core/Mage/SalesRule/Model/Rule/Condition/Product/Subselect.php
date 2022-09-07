@@ -121,7 +121,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
      * validate
      *
      * @param Varien_Object $object Quote
-     * @return boolean
+     * @return bool
      */
     public function validate(Varien_Object $object)
     {

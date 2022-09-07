@@ -149,7 +149,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      * Check for permissions
      *
      * @param int $customerIdSession
-     * @return boolean
+     * @return bool
      */
     public function canPerformAction($customerIdSession)
     {

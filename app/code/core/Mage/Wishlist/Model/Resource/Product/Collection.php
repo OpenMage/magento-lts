@@ -33,7 +33,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     /**
      * Add days in whishlist filter of product collection
      *
-     * @var boolean
+     * @var bool
      */
     protected $_addDaysInWishlist  = false;
 
@@ -46,7 +46,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     /**
      * Get add days in whishlist filter of product collection flag
      *
-     * @return boolean
+     * @return bool
      */
     public function getDaysInWishlist()
     {

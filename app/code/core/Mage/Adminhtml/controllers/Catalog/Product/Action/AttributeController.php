@@ -199,7 +199,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
     /**
      * Validate selection of products for massupdate
      *
-     * @return boolean
+     * @return bool
      */
     protected function _validateProducts()
     {

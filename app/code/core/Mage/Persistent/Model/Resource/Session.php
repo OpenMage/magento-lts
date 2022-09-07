@@ -30,7 +30,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
     /**
      * Use is object new method for object saving
      *
-     * @var boolean
+     * @var bool
      */
     protected $_useIsObjectNew = true;
 

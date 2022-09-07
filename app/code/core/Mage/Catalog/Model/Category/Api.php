@@ -304,7 +304,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $categoryId
      * @param array $categoryData
      * @param string|int $store
-     * @return boolean
+     * @return bool
      */
     public function update($categoryId, $categoryData, $store = null)
     {
@@ -348,7 +348,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $categoryId
      * @param int $parentId
      * @param int $afterId
-     * @return boolean
+     * @return bool
      */
     public function move($categoryId, $parentId, $afterId = null)
     {
@@ -378,7 +378,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * Delete category
      *
      * @param int $categoryId
-     * @return boolean
+     * @return bool
      */
     public function delete($categoryId)
     {
@@ -453,7 +453,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $productId
      * @param int $position
      * @param null|string $identifierType Should be 'sku' when working with SKU's. Leave null when using ID's
-     * @return boolean
+     * @return bool
      * @throws Mage_Api_Exception
      */
     public function assignProduct($categoryId, $productId, $position = null, $identifierType = null)
@@ -480,7 +480,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $productId
      * @param int $position
      * @param null $identifierType
-     * @return boolean
+     * @return bool
      * @throws Mage_Api_Exception
      */
     public function updateProduct($categoryId, $productId, $position = null, $identifierType = null)
@@ -509,7 +509,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $categoryId
      * @param int $productId
      * @param null $identifierType
-     * @return boolean
+     * @return bool
      * @throws Mage_Api_Exception
      */
     public function removeProduct($categoryId, $productId, $identifierType = null)

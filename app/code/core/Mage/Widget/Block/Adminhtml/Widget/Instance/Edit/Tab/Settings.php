@@ -170,7 +170,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
      *
      * @param array $a
      * @param array $b
-     * @return boolean
+     * @return bool
      */
     protected function _sortWidgets($a, $b)
     {

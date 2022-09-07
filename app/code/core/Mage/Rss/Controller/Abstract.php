@@ -31,7 +31,7 @@ class Mage_Rss_Controller_Abstract extends Mage_Core_Controller_Front_Action
      * Check feed enabled in config
      *
      * @param string $code
-     * @return boolean
+     * @return bool
      */
     protected function isFeedEnable($code)
     {
@@ -44,7 +44,7 @@ class Mage_Rss_Controller_Abstract extends Mage_Core_Controller_Front_Action
      * Do check feed enabled and prepare response
      *
      * @param string $code
-     * @return boolean
+     * @return bool
      */
     protected function checkFeedEnable($code)
     {

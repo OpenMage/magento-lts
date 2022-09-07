@@ -281,7 +281,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Load object data
      *
-     * @param string|integer $id
+     * @param string|int $id
      * @param string|null $field
      * @return $this
      */
@@ -353,7 +353,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Can be overloaded in child classes to perform advanced check whether model needs to be saved
      * e.g. usign resouceModel->hasDataChanged() or any other technique
      *
-     * @return boolean
+     * @return bool
      */
     protected function _hasModelChanged()
     {

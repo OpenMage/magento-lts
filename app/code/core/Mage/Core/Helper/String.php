@@ -101,7 +101,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * Split string and appending $insert string after $needle
      *
      * @param string $str
-     * @param integer $length
+     * @param int $length
      * @param string $needle
      * @param string $insert
      * @return string
@@ -483,7 +483,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * Unicode compatible ord() method
      *
      * @param  string $c char to get value from
-     * @return integer
+     * @return int
      */
     public function uniOrd($c)
     {

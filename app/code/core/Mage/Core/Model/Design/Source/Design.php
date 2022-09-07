@@ -31,7 +31,7 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
      * Setter
      * Add package name to label
      *
-     * @param boolean $isFullLabel
+     * @param bool $isFullLabel
      * @return $this
      */
     public function setIsFullLabel($isFullLabel)
@@ -43,7 +43,7 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
     /**
      * Getter
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsFullLabel()
     {
@@ -87,7 +87,7 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
     /**
      * Get a text for option value
      *
-     * @param string|integer $value
+     * @param string|int $value
      * @return string
      */
     public function getOptionText($value)

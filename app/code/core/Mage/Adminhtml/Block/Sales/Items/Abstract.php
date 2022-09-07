@@ -50,7 +50,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     /**
      * Flag - if it is set method canEditQty will return value of it
      *
-     * @var boolean | null
+     * @var bool | null
      */
     protected $_canEditQty = null;
 
@@ -451,7 +451,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     /**
      * Check availability to edit quantity of item
      *
-     * @return boolean
+     * @return bool
      */
     public function canEditQty()
     {
@@ -566,7 +566,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * Return true if can ship partially
      *
      * @param Mage_Sales_Model_Order|null $order
-     * @return boolean
+     * @return bool
      */
     public function canShipPartially($order = null)
     {
@@ -584,7 +584,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * Return true if can ship items partially
      *
      * @param Mage_Sales_Model_Order|null $order
-     * @return boolean
+     * @return bool
      */
     public function canShipPartiallyItem($order = null)
     {

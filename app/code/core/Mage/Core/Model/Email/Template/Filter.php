@@ -108,7 +108,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Setter
      *
-     * @param boolean $plainTemplateMode
+     * @param bool $plainTemplateMode
      * @return $this
      */
     public function setPlainTemplateMode($plainTemplateMode)
@@ -120,7 +120,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Getter
      *
-     * @return boolean
+     * @return bool
      */
     public function getPlainTemplateMode()
     {
@@ -130,7 +130,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Setter
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -143,7 +143,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Getter
      * if $_storeId is null return Design store id
      *
-     * @return integer
+     * @return int
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreId()

@@ -341,7 +341,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if user must be logged during checkout process
      *
-     * @return boolean
+     * @return bool
      */
     public function isCustomerMustBeLogged()
     {

@@ -191,7 +191,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * Getter for availability preview mode
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsPreview()
     {
@@ -204,7 +204,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * Getter for single store mode check
      *
-     * @return boolean
+     * @return bool
      */
     protected function isSingleStoreMode()
     {
@@ -214,7 +214,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * Getter for id of current store (the only one in single-store mode and current in multi-stores mode)
      *
-     * @return boolean
+     * @return bool
      */
     protected function getStoreId()
     {
@@ -224,7 +224,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * Getter for check is this newsletter the plain text.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsTextType()
     {
@@ -234,7 +234,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * Getter for availability resume action
      *
-     * @return boolean
+     * @return bool
      */
     public function getCanResume()
     {
@@ -244,7 +244,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * Getter for header text
      *
-     * @return boolean
+     * @return bool
      */
     public function getHeaderText()
     {

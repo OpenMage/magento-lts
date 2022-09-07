@@ -301,7 +301,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     /**
      * Check if page loaded by outside link to category edit
      *
-     * @return boolean
+     * @return bool
      */
     public function isClearEdit()
     {
@@ -311,7 +311,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     /**
      * Check availability of adding root category
      *
-     * @return boolean
+     * @return bool
      */
     public function canAddRootCategory()
     {
@@ -331,7 +331,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     /**
      * Check availability of adding sub category
      *
-     * @return boolean
+     * @return bool
      */
     public function canAddSubCategory()
     {

@@ -65,7 +65,7 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      * Backward compatibility with EAV collection
      *
      * @param string|Mage_Eav_Model_Entity_Attribute $attribute
-     * @param array|integer|string|null $condition
+     * @param array|int|string|null $condition
      * @return $this
      */
     public function addAttributeToFilter($attribute, $condition = null)
@@ -92,8 +92,8 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      * Set collection page start and records to show
      * Backward compatibility with EAV collection
      *
-     * @param integer $pageNum
-     * @param integer $pageSize
+     * @param int $pageNum
+     * @param int $pageSize
      * @return $this
      */
     public function setPage($pageNum, $pageSize)
