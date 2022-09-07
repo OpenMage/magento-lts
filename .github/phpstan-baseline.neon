@@ -1406,7 +1406,7 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Recurring.php
 
 		-
-			message: "#^Cannot call method getBackend\\(\\) on bool\\|Mage_Catalog_Model_Resource_Eav_Mysql4_Attribute\\.$#"
+			message: "#^Cannot call method getBackend\\(\\) on bool\\|Mage_Catalog_Model_Resource_Attribute\\.$#"
 			count: 11
 			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api.php
 
