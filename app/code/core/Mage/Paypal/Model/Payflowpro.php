@@ -138,6 +138,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
             case Mage_Paypal_Model_Config::PAYMENT_ACTION_SALE:
                 return Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE_CAPTURE;
         }
+        return '';
     }
 
     /**

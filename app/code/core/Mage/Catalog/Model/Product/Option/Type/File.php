@@ -60,6 +60,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         } catch (Exception $e) {
             return $optionInfo['value'];
         }
+        return '';
     }
 
     /**
