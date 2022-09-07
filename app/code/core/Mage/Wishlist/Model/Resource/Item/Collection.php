@@ -201,6 +201,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
         $checkInStock = $this->_productInStock && !Mage::helper('cataloginventory')->isShowOutOfStock();
 
         foreach ($this as $item) {
+            /** @var Mage_Catalog_Model_Product $product */
             $product = $productCollection->getItemById($item->getProductId());
             if ($product) {
                 if ($checkInStock && !$product->isInStock()) {
