@@ -12,22 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_SalesRule
+ * @category   Mage
+ * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * SalesRule Model Observer
  *
- * @category    Mage
- * @package     Mage_SalesRule
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_SalesRule_Model_Observer
 {
-
     /**
      * Sales Rule Validator
      *
@@ -133,7 +132,6 @@ class Mage_SalesRule_Model_Observer
      */
     public function sales_order_paymentCancel($observer)
     {
-        /** @var Varien_Event $event */
         $event = $observer->getEvent();
         /** @var Mage_Sales_Model_Order $order */
         $order = $event->getPayment()->getOrder();
@@ -196,15 +194,15 @@ class Mage_SalesRule_Model_Observer
      */
     protected function _checkSalesRulesAvailability($attributeCode)
     {
-        /* @var Mage_SalesRule_Model_Mysql4_Rule_Collection $collection */
+        /** @var Mage_SalesRule_Model_Resource_Rule_Collection $collection */
         $collection = Mage::getResourceModel('salesrule/rule_collection')
             ->addAttributeInConditionFilter($attributeCode);
 
         $disabledRulesCount = 0;
         foreach ($collection as $rule) {
-            /* @var Mage_SalesRule_Model_Rule $rule */
+            /** @var Mage_SalesRule_Model_Rule $rule */
             $rule->setIsActive(0);
-            /* @var $rule->getConditions() Mage_SalesRule_Model_Rule_Condition_Combine */
+            /** @var $rule->getConditions() Mage_SalesRule_Model_Rule_Condition_Combine */
             $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
             $this->_removeAttributeFromConditions($rule->getActions(), $attributeCode);
             $rule->save();
@@ -294,7 +292,7 @@ class Mage_SalesRule_Model_Observer
                 Mage::app()->getWebsite()->getId(),
                 Mage::getSingleton('customer/session')->getCustomer()->getGroupId()
             );
-        $result = array();
+        $result = [];
         foreach ($attributes as $attribute) {
             $result[$attribute['attribute_code']] = true;
         }

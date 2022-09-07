@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -32,10 +32,10 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      */
     public function __construct()
     {
-        $this->_attributesMap = array(
-            'invoice' => array('invoice_id' => 'entity_id'),
-            'invoice_item' => array('item_id' => 'entity_id'),
-            'invoice_comment' => array('comment_id' => 'entity_id'));
+        $this->_attributesMap = [
+            'invoice' => ['invoice_id' => 'entity_id'],
+            'invoice_item' => ['item_id' => 'entity_id'],
+            'invoice_comment' => ['comment_id' => 'entity_id']];
     }
 
     /**
@@ -46,8 +46,8 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      */
     public function items($filters = null)
     {
-        $invoices = array();
-        /** @var Mage_Sales_Model_Mysql4_Order_Invoice_Collection $invoiceCollection */
+        $invoices = [];
+        /** @var Mage_Sales_Model_Resource_Order_Invoice_Collection $invoiceCollection */
         $invoiceCollection = Mage::getResourceModel('sales/order_invoice_collection');
         $invoiceCollection->addAttributeToSelect('entity_id')
             ->addAttributeToSelect('order_id')
@@ -84,7 +84,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     {
         $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
 
-        /* @var Mage_Sales_Model_Order_Invoice $invoice */
+        /** @var Mage_Sales_Model_Order_Invoice $invoice */
 
         if (!$invoice->getId()) {
             $this->_fault('not_exists');
@@ -97,12 +97,12 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
         $result['billing_middlename'] = $invoice->getBillingAddress()->getMiddlename();
         $result['billing_lastname'] = $invoice->getBillingAddress()->getLastname();
 
-        $result['items'] = array();
+        $result['items'] = [];
         foreach ($invoice->getAllItems() as $item) {
             $result['items'][] = $this->_getAttributes($item, 'invoice_item');
         }
 
-        $result['comments'] = array();
+        $result['comments'] = [];
         foreach ($invoice->getCommentsCollection() as $comment) {
             $result['comments'][] = $this->_getAttributes($comment, 'invoice_comment');
         }
@@ -116,15 +116,15 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      * @param string $orderIncrementId
      * @param array $itemsQty
      * @param string $comment
-     * @param boolean $email
-     * @param boolean $includeComment
+     * @param bool $email
+     * @param bool $includeComment
      * @return string
      */
     public function create($orderIncrementId, $itemsQty, $comment = null, $email = false, $includeComment = false)
     {
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
 
-        /* @var Mage_Sales_Model_Order $order */
+        /** @var Mage_Sales_Model_Order $order */
         /**
           * Check order existing
           */
@@ -172,20 +172,19 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      *
      * @param string $invoiceIncrementId
      * @param string $comment
-     * @param boolean $email
-     * @param boolean $includeComment
-     * @return boolean
+     * @param bool $email
+     * @param bool $includeComment
+     * @return bool
      */
     public function addComment($invoiceIncrementId, $comment, $email = false, $includeComment = false)
     {
         $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
 
-        /* @var Mage_Sales_Model_Order_Invoice $invoice */
+        /** @var Mage_Sales_Model_Order_Invoice $invoice */
 
         if (!$invoice->getId()) {
             $this->_fault('not_exists');
         }
-
 
         try {
             $invoice->addComment($comment, $email);
@@ -202,13 +201,13 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      * Capture invoice
      *
      * @param string $invoiceIncrementId
-     * @return boolean
+     * @return bool
      */
     public function capture($invoiceIncrementId)
     {
         $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
 
-        /* @var Mage_Sales_Model_Order_Invoice $invoice */
+        /** @var Mage_Sales_Model_Order_Invoice $invoice */
 
         if (!$invoice->getId()) {
             $this->_fault('not_exists');
@@ -245,7 +244,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     {
         $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
 
-        /* @var Mage_Sales_Model_Order_Invoice $invoice */
+        /** @var Mage_Sales_Model_Order_Invoice $invoice */
 
         if (!$invoice->getId()) {
             $this->_fault('not_exists');
@@ -275,13 +274,13 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      * Cancel invoice
      *
      * @param string $invoiceIncrementId
-     * @return boolean
+     * @return bool
      */
     public function cancel($invoiceIncrementId)
     {
         $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
 
-        /* @var Mage_Sales_Model_Order_Invoice $invoice */
+        /** @var Mage_Sales_Model_Order_Invoice $invoice */
 
         if (!$invoice->getId()) {
             $this->_fault('not_exists');

@@ -12,26 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Product Relations Resource model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Initialize resource model and define main table
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product_relation', 'parent_id');
@@ -47,7 +42,7 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
     public function processRelations($parentId, $childIds)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), array('child_id'))
+            ->from($this->getMainTable(), ['child_id'])
             ->where('parent_id = ?', $parentId);
         $old = $this->_getReadAdapter()->fetchCol($select);
         $new = $childIds;
@@ -56,20 +51,20 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
         $delete = array_diff($old, $new);
 
         if (!empty($insert)) {
-            $insertData = array();
+            $insertData = [];
             foreach ($insert as $childId) {
-                $insertData[] = array(
+                $insertData[] = [
                     'parent_id' => $parentId,
                     'child_id'  => $childId
-                );
+                ];
             }
             $this->_getWriteAdapter()->insertMultiple($this->getMainTable(), $insertData);
         }
         if (!empty($delete)) {
-            $where = implode(' AND ', array(
+            $where = implode(' AND ', [
                 $this->_getWriteAdapter()->quoteInto('parent_id = ?', $parentId),
                 $this->_getWriteAdapter()->quoteInto('child_id IN(?)', $delete)
-            ));
+            ]);
             $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
         }
 

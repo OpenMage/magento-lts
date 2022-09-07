@@ -12,18 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * PayPal module observer
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Paypal_Model_Observer
 {
     /**
@@ -34,7 +35,7 @@ class Mage_Paypal_Model_Observer
     {
         try {
             $reports = Mage::getModel('paypal/report_settlement');
-            /* @var $reports Mage_Paypal_Model_Report_Settlement */
+            /** @var Mage_Paypal_Model_Report_Settlement $reports */
             $credentials = $reports->getSftpCredentials(true);
             foreach ($credentials as $config) {
                 try {
@@ -67,7 +68,7 @@ class Mage_Paypal_Model_Observer
      */
     public function saveOrderAfterSubmit(Varien_Event_Observer $observer)
     {
-        /* @var $order Mage_Sales_Model_Order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getData('order');
         Mage::register('hss_order', $order, true);
 
@@ -82,13 +83,13 @@ class Mage_Paypal_Model_Observer
      */
     public function setResponseAfterSaveOrder(Varien_Event_Observer $observer)
     {
-        /* @var $order Mage_Sales_Model_Order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = Mage::registry('hss_order');
 
         if ($order && $order->getId()) {
             $payment = $order->getPayment();
             if ($payment && in_array($payment->getMethod(), Mage::helper('paypal/hss')->getHssMethods())) {
-                /* @var $controller Mage_Core_Controller_Varien_Action */
+                /** @var Mage_Core_Controller_Varien_Action $controller */
                 $controller = $observer->getEvent()->getData('controller_action');
                 $result = Mage::helper('core')->jsonDecode(
                     $controller->getResponse()->getBody('default'),
@@ -98,10 +99,10 @@ class Mage_Paypal_Model_Observer
                 if (empty($result['error'])) {
                     $controller->loadLayout('checkout_onepage_review');
                     $html = $controller->getLayout()->getBlock('paypal.iframe')->toHtml();
-                    $result['update_section'] = array(
+                    $result['update_section'] = [
                         'name' => 'paypaliframe',
                         'html' => $html
-                    );
+                    ];
                     $result['redirect'] = false;
                     $result['success'] = false;
                     $controller->getResponse()->clearHeader('Location');

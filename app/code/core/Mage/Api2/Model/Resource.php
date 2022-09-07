@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api2
+ * @category   Mage
+ * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -24,6 +24,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method string _create() _create(array $filteredData) creation of an entity
  * @method void _multiCreate() _multiCreate(array $filteredData) processing and creation of a collection
  * @method array _retrieve() retrieving an entity
@@ -394,7 +395,7 @@ abstract class Mage_Api2_Model_Resource
      */
     public function getVersion()
     {
-        if (null === $this->_version) {
+        if ($this->_version === null) {
             if (preg_match('/^.+([1-9]\d*)$/', get_class($this), $matches)) {
                 $this->setVersion($matches[1]);
             } else {
@@ -651,7 +652,7 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _getCriticalErrors()
     {
-        return array(
+        return [
             '' => Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             self::RESOURCE_NOT_FOUND => Mage_Api2_Model_Server::HTTP_NOT_FOUND,
             self::RESOURCE_METHOD_NOT_ALLOWED => Mage_Api2_Model_Server::HTTP_METHOD_NOT_ALLOWED,
@@ -665,7 +666,7 @@ abstract class Mage_Api2_Model_Resource
             self::RESOURCE_COLLECTION_ORDERING_ERROR => Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             self::RESOURCE_COLLECTION_FILTERING_ERROR => Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             self::RESOURCE_COLLECTION_ATTRIBUTES_ERROR => Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
-        );
+        ];
     }
 
     /**
@@ -689,7 +690,7 @@ abstract class Mage_Api2_Model_Resource
      * @param array $params
      * @return $this
      */
-    protected function _successMessage($message, $code, $params = array())
+    protected function _successMessage($message, $code, $params = [])
     {
         $this->getResponse()->addMessage($message, $code, $params, Mage_Api2_Model_Response::MESSAGE_TYPE_SUCCESS);
         return $this;
@@ -703,7 +704,7 @@ abstract class Mage_Api2_Model_Resource
      * @param array $params
      * @return $this
      */
-    protected function _errorMessage($message, $code, $params = array())
+    protected function _errorMessage($message, $code, $params = [])
     {
         $this->getResponse()->addMessage($message, $code, $params, Mage_Api2_Model_Response::MESSAGE_TYPE_ERROR);
         return $this;
@@ -723,7 +724,7 @@ abstract class Mage_Api2_Model_Resource
         }
 
         $pageSize = $this->getRequest()->getPageSize();
-        if (null == $pageSize) {
+        if ($pageSize == null) {
             $pageSize = self::PAGE_SIZE_DEFAULT;
         } else {
             if ($pageSize != abs($pageSize) || $pageSize > self::PAGE_SIZE_MAX) {
@@ -733,7 +734,7 @@ abstract class Mage_Api2_Model_Resource
 
         $orderField = $this->getRequest()->getOrderField();
 
-        if (null !== $orderField) {
+        if ($orderField !== null) {
             $operation = Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ;
             if (!is_string($orderField)
                 || !array_key_exists($orderField, $this->getAvailableAttributes($this->getUserType(), $operation))
@@ -861,7 +862,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Set 'returnData' flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setReturnData($flag)
@@ -878,16 +879,16 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _getLocation($resource)
     {
-        /* @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
+        /** @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(
             new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType()))
         );
-        $params = array(
+        $params = [
             'api_type' => $this->getRequest()->getApiType(),
             'id'       => $resource->getId()
-        );
+        ];
         $uri = $chain->assemble($params);
 
         return '/' . $uri;
@@ -900,7 +901,7 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _getResourceAttributes()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -919,7 +920,7 @@ abstract class Mage_Api2_Model_Resource
         $resourceAttrs = $this->_getResourceAttributes();
 
         // if resource returns not-associative array - attributes' codes only
-        if (0 === key($resourceAttrs)) {
+        if (key($resourceAttrs) === 0) {
             $resourceAttrs = array_combine($resourceAttrs, $resourceAttrs);
         }
         foreach ($resourceAttrs as $attrCode => $attrLabel) {
@@ -1001,11 +1002,11 @@ abstract class Mage_Api2_Model_Resource
      */
     public function getDbAttributes()
     {
-        $available = array();
+        $available = [];
         $workModel = $this->getConfig()->getResourceWorkingModel($this->getResourceType());
 
         if ($workModel) {
-            /* @var Mage_Core_Model_Resource_Db_Abstract $resource */
+            /** @var Mage_Core_Model_Resource_Db_Abstract $resource */
             $resource = Mage::getResourceModel($workModel);
 
             if (method_exists($resource, 'getMainTable')) {
@@ -1024,7 +1025,7 @@ abstract class Mage_Api2_Model_Resource
      */
     public function getEavAttributes($onlyVisible = false, $excludeSystem = false)
     {
-        $attributes = array();
+        $attributes = [];
         $model = $this->getConfig()->getResourceWorkingModel($this->getResourceType());
 
         /** @var Mage_Eav_Model_Entity_Type $entityType */

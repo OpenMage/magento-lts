@@ -12,15 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Fieldset renderer for PayPal global settings
- * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated  since 1.7.0.1
  */
 class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
@@ -32,7 +35,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
      *
      * @var array
      */
-    protected $_elements = array();
+    protected $_elements = [];
 
     /**
      * Custom template
@@ -54,10 +57,10 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
             $this->_elements[$htmlId] = $element;
         }
         $originalData = $fieldset->getOriginalData();
-        $this->addData(array(
+        $this->addData([
             'fieldset_label' => $fieldset->getLegend(),
             'fieldset_help_url' => isset($originalData['help_url']) ? $originalData['help_url'] : '',
-        ));
+        ]);
         return $this->toHtml();
     }
 
@@ -103,11 +106,11 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
             $element->setDisabled(true);
         }
 
-        $hidden = new Varien_Data_Form_Element_Hidden(array(
+        $hidden = new Varien_Data_Form_Element_Hidden([
             'html_id' => $element->getHtmlId() . '_value',
             'name' => $element->getName(),
             'value' => '0'
-        ));
+        ]);
         $hidden->setForm($element->getForm());
         return $hidden->getElementHtml() . $element->getElementHtml();
     }
@@ -121,7 +124,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
     public function getIsElementSimplified(Varien_Data_Form_Element_Abstract $element)
     {
         $originalData = $element->getOriginalData();
-        return isset($originalData['is_simplified']) && 1 == $originalData['is_simplified'];
+        return isset($originalData['is_simplified']) && $originalData['is_simplified'] == 1;
     }
 
     /**
@@ -178,13 +181,13 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
     public function getInheritElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $elementId = $element->getHtmlId();
-        $inheritCheckbox = new Varien_Data_Form_Element_Checkbox(array(
+        $inheritCheckbox = new Varien_Data_Form_Element_Checkbox([
             'html_id' => $elementId . '_inherit',
             'name' => preg_replace('/\[value\](\[\])?$/', '[inherit]', $element->getName()),
             'value' => '1',
             'class' => 'checkbox config-inherit',
             'onclick' => 'toggleValueElements(this, $(\'' . $elementId . '\').up())'
-        ));
+        ]);
         if ($element->getInherit()) {
             $inheritCheckbox->setChecked(true);
         }

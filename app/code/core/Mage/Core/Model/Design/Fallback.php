@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Configuration for Design model
@@ -43,7 +42,7 @@ class Mage_Core_Model_Design_Fallback
      *
      * @var array
      */
-    protected $_cachedSchemes = array();
+    protected $_cachedSchemes = [];
 
     /**
      * Used to find circular dependencies
@@ -53,10 +52,9 @@ class Mage_Core_Model_Design_Fallback
     protected $_visited;
 
     /**
-     * Constructor
      * @param array $params
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         $this->_config = isset($params['config']) ? $params['config'] : Mage::getModel('core/design_config');
     }
@@ -75,7 +73,7 @@ class Mage_Core_Model_Design_Fallback
     }
 
     /**
-     * @param string|integer|Mage_Core_Model_Store $store
+     * @param string|int|Mage_Core_Model_Store $store
      * @return $this
      */
     public function setStore($store)
@@ -84,7 +82,7 @@ class Mage_Core_Model_Design_Fallback
             $store = Mage::app()->getStore($store);
         }
         $this->_store = $store;
-        $this->_cachedSchemes = array();
+        $this->_cachedSchemes = [];
         return $this;
     }
 
@@ -138,8 +136,8 @@ class Mage_Core_Model_Design_Fallback
      */
     protected function _getFallbackScheme($area, $package, $theme)
     {
-        $scheme = array(array());
-        $this->_visited = array();
+        $scheme = [[]];
+        $this->_visited = [];
         while ($parent = (string)$this->_config->getNode($area . '/' . $package . '/' . $theme . '/parent')) {
             $this->_checkVisited($area, $package, $theme);
 
@@ -148,7 +146,7 @@ class Mage_Core_Model_Design_Fallback
                 throw new Mage_Core_Exception('Parent node should be defined as "package/theme"');
             }
             list($package, $theme) = $parts;
-            $scheme[] = array('_package' => $package, '_theme' => $theme);
+            $scheme[] = ['_package' => $package, '_theme' => $theme];
         }
 
         return $scheme;
@@ -180,11 +178,11 @@ class Mage_Core_Model_Design_Fallback
      */
     protected function _getLegacyFallbackScheme()
     {
-        return array(
-            array(),
-            array('_theme' => $this->_getFallbackTheme()),
-            array('_theme' => Mage_Core_Model_Design_Package::DEFAULT_THEME),
-        );
+        return [
+            [],
+            ['_theme' => $this->_getFallbackTheme()],
+            ['_theme' => Mage_Core_Model_Design_Package::DEFAULT_THEME],
+        ];
     }
 
     /**

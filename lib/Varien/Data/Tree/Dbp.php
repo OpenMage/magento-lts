@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Data DB tree
  *
@@ -216,7 +215,6 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                 $node->setPathId($node->getData($this->_pathField));
                 $this->addNode($node, $parentNode);
 
-
                 if ($path) {
                     $childrenPath = explode('/', $path);
                 } else {
@@ -231,8 +229,6 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param int|string $nodeId
      * @return Varien_Data_Tree_Node
      */

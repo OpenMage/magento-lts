@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,13 +23,11 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
 {
     /**
-     * Enter description here...
-     *
      * @return string
      */
     protected function _getUrlModelClass()
@@ -54,7 +52,7 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
      * the feature "Disable module output" doesn't cover Admin area
      *
      * @param string $moduleName Full module name
-     * @return boolean
+     * @return bool
      */
     public function isOutputEnabled($moduleName = null)
     {
@@ -71,7 +69,7 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
-        Mage::dispatchEvent('adminhtml_block_html_before', array('block' => $this));
+        Mage::dispatchEvent('adminhtml_block_html_before', ['block' => $this]);
         return parent::_toHtml();
     }
 

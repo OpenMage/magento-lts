@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Persistent
+ * @category   Mage
+ * @package    Mage_Persistent
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Persistent Shopping Cart Data Helper
@@ -170,7 +169,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     public function getCreateAccountUrl($url)
     {
         if (Mage::helper('checkout')->isContextCheckout()) {
-            $url = Mage::helper('core/url')->addRequestParam($url, array('context' => 'checkout'));
+            $url = Mage::helper('core/url')->addRequestParam($url, ['context' => 'checkout']);
         }
         return $url;
     }

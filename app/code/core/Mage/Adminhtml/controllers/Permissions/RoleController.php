@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controller_Action
 {
@@ -162,7 +162,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
-            $this->_redirect('*/*/editrole', array('rid' => $role->getId()));
+            $this->_redirect('*/*/editrole', ['rid' => $role->getId()]);
             return;
         }
 
@@ -170,7 +170,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
         if (in_array($role->getId(), $currentUser->getRoles()) ) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('Self-assigned roles cannot be deleted.'));
-            $this->_redirect('*/*/editrole', array('rid' => $role->getId()));
+            $this->_redirect('*/*/editrole', ['rid' => $role->getId()]);
             return;
         }
 
@@ -203,7 +203,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
         $isAll = $this->getRequest()->getParam('all');
         if ($isAll)
-            $resource = array('all');
+            $resource = ['all'];
 
         $role = $this->_initRole('role_id');
         if (!$role->getId() && $rid) {
@@ -221,7 +221,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
-            $this->_redirect('*/*/editrole', array('rid' => $rid));
+            $this->_redirect('*/*/editrole', ['rid' => $rid]);
             return;
         }
 
@@ -233,7 +233,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
                  ->setRoleType('G');
             Mage::dispatchEvent(
                 'admin_permissions_role_prepare_save',
-                array('object' => $role, 'request' => $this->getRequest())
+                ['object' => $role, 'request' => $this->getRequest()]
             );
             $role->save();
 
@@ -260,7 +260,6 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
         //$this->getResponse()->setRedirect($this->getUrl("*/*/editrole/rid/$rid"));
         $this->_redirect('*/*/');
-        return;
     }
 
     /**
@@ -327,9 +326,9 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         try {
             foreach ($roles as $role) {
                 $roleTypeId = $role->getRoleType() . $role->getRoleId();
-                $selectedResourceIds = array();
+                $selectedResourceIds = [];
                 if ($resourceAcl->isAllowed($roleTypeId, 'all')) {
-                    $selectedResourceIds = array('all');
+                    $selectedResourceIds = ['all'];
                 } else {
                     foreach ($resourceAcl->getResources() as $resource) {
                         if ($resourceAcl->isAllowed($roleTypeId, $resource)) {
@@ -353,6 +352,5 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         }
 
         $this->_redirect('*/*/');
-        return;
     }
 }

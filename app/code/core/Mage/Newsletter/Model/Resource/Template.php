@@ -12,26 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Newsletter
+ * @category   Mage
+ * @package    Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Newsletter template resource model
  *
- * @category    Mage
- * @package     Mage_Newsletter
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Newsletter
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Initialize connection
-     *
-     */
     protected function _construct()
     {
         $this->_init('newsletter/template', 'template_id');
@@ -50,7 +45,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
         if ($read && !is_null($templateCode)) {
             $select = $this->_getLoadSelect('template_code', $templateCode, $object)
                 ->where('template_actual = :template_actual');
-            $data = $read->fetchRow($select, array('template_actual'=>1));
+            $data = $read->fetchRow($select, ['template_actual'=>1]);
 
             if ($data) {
                 $object->setData($data);
@@ -66,7 +61,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
      * Check usage of template in queue
      *
      * @param Mage_Newsletter_Model_Template $template
-     * @return boolean
+     * @return bool
      */
     public function checkUsageInQueue(Mage_Newsletter_Model_Template $template)
     {
@@ -75,7 +70,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
                 ->from($this->getTable('newsletter/queue'), new Zend_Db_Expr('COUNT(queue_id)'))
                 ->where('template_id = :template_id');
 
-            $countOfQueue = $this->_getReadAdapter()->fetchOne($select, array('template_id'=>$template->getId()));
+            $countOfQueue = $this->_getReadAdapter()->fetchOne($select, ['template_id'=>$template->getId()]);
 
             return $countOfQueue > 0;
         } elseif ($template->getIsSystem()) {
@@ -89,16 +84,16 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
      * Check usage of template code in other templates
      *
      * @param Mage_Newsletter_Model_Template $template
-     * @return boolean
+     * @return bool
      */
     public function checkCodeUsage(Mage_Newsletter_Model_Template $template)
     {
         if ($template->getTemplateActual() != 0 || is_null($template->getTemplateActual())) {
-            $bind = array(
+            $bind = [
                 'template_id'     => $template->getId(),
                 'template_code'   => $template->getTemplateCode(),
                 'template_actual' => 1
-            );
+            ];
             $select = $this->_getReadAdapter()->select()
                 ->from($this->getMainTable(), new Zend_Db_Expr('COUNT(template_id)'))
                 ->where('template_id != :template_id')

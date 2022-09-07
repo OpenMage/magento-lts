@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -52,9 +52,9 @@ abstract class Mage_Sales_Model_Api2_Order_Rest extends Mage_Sales_Model_Api2_Or
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
         $orderData = $order->getData();
-        $addresses = $this->_getAddresses(array($orderId));
-        $items     = $this->_getItems(array($orderId));
-        $comments  = $this->_getComments(array($orderId));
+        $addresses = $this->_getAddresses([$orderId]);
+        $items     = $this->_getItems([$orderId]);
+        $comments  = $this->_getComments([$orderId]);
 
         if ($addresses) {
             $orderData['addresses'] = $addresses[$orderId];

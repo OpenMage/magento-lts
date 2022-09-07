@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -152,7 +152,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             !Zend_Validate::is(
                 $this->_data['attribute_code'],
                 'StringLength',
-                array('max' => self::ATTRIBUTE_CODE_MAX_LENGTH)
+                ['max' => self::ATTRIBUTE_CODE_MAX_LENGTH]
             )
         ) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', self::ATTRIBUTE_CODE_MAX_LENGTH));
@@ -163,13 +163,13 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
 
         if ($this->getBackendType() == 'decimal' && $hasDefaultValue) {
             $locale = Mage::app()->getLocale()->getLocaleCode();
-            if (!Zend_Locale_Format::isNumber($defaultValue, array('locale' => $locale))) {
+            if (!Zend_Locale_Format::isNumber($defaultValue, ['locale' => $locale])) {
                  throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default decimal value'));
             }
 
             try {
                 $filter = new Zend_Filter_LocalizedToNormalized(
-                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                    ['locale' => Mage::app()->getLocale()->getLocaleCode()]
                 );
                 $this->setDefaultValue($filter->filter($defaultValue));
             } catch (Exception $e) {

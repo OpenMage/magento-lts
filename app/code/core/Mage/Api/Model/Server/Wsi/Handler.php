@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api
+ * @category   Mage
+ * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -58,7 +58,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
         $nodes = Mage::getSingleton('api/config')->getNode('v2/resources_function_prefix')->children();
         foreach ($nodes as $resource => $prefix) {
             $prefix = $prefix->asArray();
-            if (false !== strpos($function, $prefix)) {
+            if (strpos($function, $prefix) !== false) {
                 $method = substr($function, strlen($prefix));
                 $apiKey = $resource . '.' . strtolower($method[0]).substr($method, 1);
             }
@@ -126,7 +126,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
 
         $method = (isset($methodInfo->method) ? (string) $methodInfo->method : $methodName);
 
-        return array($modelClass, $method);
+        return [$modelClass, $method];
     }
 
     /**
@@ -154,7 +154,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
     public function prepareArgs($params, $args)
     {
 
-        $callArgs = array();
+        $callArgs = [];
 
         /** @var ReflectionParameter $parameter */
         foreach ($params as $parameter) {

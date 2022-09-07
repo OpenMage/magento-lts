@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api2
+ * @category   Mage
+ * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -40,7 +40,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
      */
     public function preDispatch()
     {
-        $this->_setForcedFormKeyActions(array('save'));
+        $this->_setForcedFormKeyActions(['save']);
         return parent::preDispatch();
     }
 
@@ -107,20 +107,18 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
             return;
         }
 
-        /** @var Mage_Adminhtml_Model_Session $session */
         $session = $this->_getSession();
 
         try {
             /** @var Mage_Api2_Model_Acl_Global_Rule_Tree $ruleTree */
             $ruleTree = Mage::getSingleton(
                 'api2/acl_global_rule_tree',
-                array('type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_ATTRIBUTE)
+                ['type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_ATTRIBUTE]
             );
 
             /** @var Mage_Api2_Model_Acl_Filter_Attribute $attribute */
             $attribute = Mage::getModel('api2/acl_filter_attribute');
 
-            /** @var Mage_Api2_Model_Resource_Acl_Filter_Attribute_Collection $collection */
             $collection = $attribute->getCollection();
             $collection->addFilterByUserType($type);
 
@@ -155,6 +153,6 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
             $session->addException($e, $this->__('An error occurred while saving attribute rules.'));
         }
 
-        $this->_redirect('*/*/edit', array('type' => $type));
+        $this->_redirect('*/*/edit', ['type' => $type]);
     }
 }

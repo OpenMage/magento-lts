@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tax
+ * @category   Mage
+ * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Tax_Model_Sales_Pdf_Subtotal
+ *
+ * @category   Mage
+ * @package    Mage_Tax
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Model_Sales_Pdf_Subtotal extends Mage_Sales_Model_Order_Pdf_Total_Default
 {
@@ -51,30 +55,30 @@ class Mage_Tax_Model_Sales_Pdf_Subtotal extends Mage_Sales_Model_Order_Pdf_Total
         $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
 
         if ($helper->displaySalesSubtotalBoth($store)) {
-            $totals = array(
-                array(
+            $totals = [
+                [
                     'amount'    => $this->getAmountPrefix().$amount,
                     'label'     => Mage::helper('tax')->__('Subtotal (Excl. Tax)') . ':',
                     'font_size' => $fontSize
-                ),
-                array(
+                ],
+                [
                     'amount'    => $this->getAmountPrefix().$amountInclTax,
                     'label'     => Mage::helper('tax')->__('Subtotal (Incl. Tax)') . ':',
                     'font_size' => $fontSize
-                ),
-            );
+                ],
+            ];
         } elseif ($helper->displaySalesSubtotalInclTax($store)) {
-            $totals = array(array(
+            $totals = [[
                 'amount'    => $this->getAmountPrefix().$amountInclTax,
                 'label'     => Mage::helper('sales')->__($this->getTitle()) . ':',
                 'font_size' => $fontSize
-            ));
+            ]];
         } else {
-            $totals = array(array(
+            $totals = [[
                 'amount'    => $this->getAmountPrefix().$amount,
                 'label'     => Mage::helper('sales')->__($this->getTitle()) . ':',
                 'font_size' => $fontSize
-            ));
+            ]];
         }
 
         return $totals;

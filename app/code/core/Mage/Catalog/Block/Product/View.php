@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product View block
  *
- * @category Mage
- * @package  Mage_Catalog
- * @module   Catalog
- * @author   Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method int getProductId()
  * @method $this setCustomAddToCartUrl(string $value)
@@ -76,7 +75,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             /** @var Mage_Catalog_Helper_Product $helper */
             $helper = $this->helper('catalog/product');
             if ($helper->canUseCanonicalTag()) {
-                $params = array('_ignore_category' => true);
+                $params = ['_ignore_category' => true];
                 $headBlock->addLinkRel('canonical', $product->getUrlModel()->getUrl($product, $params));
             }
         }
@@ -118,7 +117,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * @return string
      * @throws Exception
      */
-    public function getAddToCartUrl($product, $additional = array())
+    public function getAddToCartUrl($product, $additional = [])
     {
         return $this->getAddToCartUrlCustom($product, $additional);
     }
@@ -132,7 +131,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      */
     public function getJsonConfig()
     {
-        $config = array();
+        $config = [];
         if (!$this->hasOptions()) {
             return Mage::helper('core')->jsonEncode($config);
         }
@@ -147,7 +146,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         );
 
         $responseObject = new Varien_Object();
-        Mage::dispatchEvent('catalog_product_view_config', array('response_object' => $responseObject));
+        Mage::dispatchEvent('catalog_product_view_config', ['response_object' => $responseObject]);
         if (is_array($responseObject->getAdditionalOptions())) {
             foreach ($responseObject->getAdditionalOptions() as $option => $value) {
                 $config[$option] = $value;
@@ -233,7 +232,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * @return string
      * @throws Exception
      */
-    public function getAddToCartUrlCustom($product, $additional = array(), $addFormKey = true)
+    public function getAddToCartUrlCustom($product, $additional = [], $addFormKey = true)
     {
         if (!$addFormKey && $this->hasCustomAddToCartPostUrl()) {
             return $this->getCustomAddToCartPostUrl();
@@ -245,7 +244,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             $additional['wishlist_next'] = 1;
         }
 
-        $addUrlValue = Mage::getUrl('*/*/*', array('_use_rewrite' => true, '_current' => true));
+        $addUrlValue = Mage::getUrl('*/*/*', ['_use_rewrite' => true, '_current' => true]);
         $additional[Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED] =
             Mage::helper('core')->urlEncode($addUrlValue);
 

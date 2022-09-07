@@ -12,12 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paygate
+ * @category   Mage
+ * @package    Mage_Paygate
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Paygate
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Paygate_Model_Authorizenet_Cards
 {
     const CARDS_NAMESPACE = 'authorize_cards';
@@ -31,7 +36,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
      *
      * @var mixed
      */
-    protected $_cards = array();
+    protected $_cards = [];
 
     /**
      * Payment instance
@@ -63,7 +68,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
      * @param mixed $cardInfo
      * @return Varien_Object
      */
-    public function registerCard($cardInfo = array())
+    public function registerCard($cardInfo = [])
     {
         $this->_isPaymentValid();
         $cardId = md5(microtime(1));
@@ -98,8 +103,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     public function getCard($cardId)
     {
         if (isset($this->_cards[$cardId])) {
-            $card = new Varien_Object($this->_cards[$cardId]);
-            return $card;
+            return new Varien_Object($this->_cards[$cardId]);
         }
         return false;
     }
@@ -112,7 +116,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     public function getCards()
     {
         $this->_isPaymentValid();
-        $_cards = array();
+        $_cards = [];
         foreach(array_keys($this->_cards) as $key) {
             $_cards[$key] = $this->getCard($key);
         }
@@ -167,7 +171,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
      */
     public function flushCards()
     {
-        $this->_cards = array();
+        $this->_cards = [];
         $this->_payment->setAdditionalInformation(self::CARDS_NAMESPACE, null);
         return $this;
     }

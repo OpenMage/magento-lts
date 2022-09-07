@@ -63,7 +63,7 @@
                 <?php endif ?>
             </strong></small>
             <?php if ($_item->getComment()): ?>
-                <br/><?php echo $this->escapeHtml($_item->getComment(), array('b', 'br', 'strong', 'i', 'u', 'a')) ?>
+                <br/><?php echo $this->escapeHtml($_item->getComment(), ['b', 'br', 'strong', 'i', 'u', 'a']) ?>
             <?php endif ?>
         </li>
     <?php endforeach ?>

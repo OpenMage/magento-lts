@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
             return null;
         }
 
-        $updateValue = array();
+        $updateValue = [];
 
         foreach ($tierPrices as $tierPrice) {
             if (!is_object($tierPrice)
@@ -71,12 +71,12 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
                 $tierPrice->customer_group_id = Mage_Customer_Model_Group::CUST_GROUP_ALL;
             }
 
-            $updateValue[] = array(
+            $updateValue[] = [
                 'website_id' => $tierPrice->website,
                 'cust_group' => $tierPrice->customer_group_id,
                 'price_qty'  => $tierPrice->qty,
                 'price'      => $tierPrice->price
-            );
+            ];
         }
 
         return $updateValue;

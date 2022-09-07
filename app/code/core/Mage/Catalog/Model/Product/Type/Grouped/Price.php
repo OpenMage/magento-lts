@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Grouped product price model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Type_Grouped_Price extends Mage_Catalog_Model_Product_Type_Price
 {
@@ -42,12 +42,12 @@ class Mage_Catalog_Model_Product_Type_Grouped_Price extends Mage_Catalog_Model_P
 
         $finalPrice = parent::getFinalPrice($qty, $product);
         if ($product->hasCustomOptions()) {
-            /* @var Mage_Catalog_Model_Product_Type_Grouped $typeInstance */
+            /** @var Mage_Catalog_Model_Product_Type_Grouped $typeInstance */
             $typeInstance = $product->getTypeInstance(true);
             $associatedProducts = $typeInstance->setStoreFilter($product->getStore(), $product)
                 ->getAssociatedProducts($product);
             foreach ($associatedProducts as $childProduct) {
-                /* @var Mage_Catalog_Model_Product $childProduct */
+                /** @var Mage_Catalog_Model_Product $childProduct */
                 $option = $product->getCustomOption('associated_product_' . $childProduct->getId());
                 if (!$option) {
                     continue;
@@ -61,7 +61,7 @@ class Mage_Catalog_Model_Product_Type_Grouped_Price extends Mage_Catalog_Model_P
         }
 
         $product->setFinalPrice($finalPrice);
-        Mage::dispatchEvent('catalog_product_type_grouped_price', array('product' => $product));
+        Mage::dispatchEvent('catalog_product_type_grouped_price', ['product' => $product]);
 
         return max(0, $product->getData('final_price'));
     }

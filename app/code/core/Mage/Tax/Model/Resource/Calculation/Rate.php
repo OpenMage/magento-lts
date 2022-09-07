@@ -12,25 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tax
+ * @category   Mage
+ * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Tax rate resource model
  *
- * @category    Mage
- * @package     Mage_Tax
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Tax
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Model_Resource_Calculation_Rate extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Resource initialization
-     */
     protected function _construct()
     {
         $this->_init('tax/tax_calculation_rate', 'tax_calculation_rate_id');
@@ -43,10 +39,10 @@ class Mage_Tax_Model_Resource_Calculation_Rate extends Mage_Core_Model_Resource_
      */
     protected function _initUniqueFields()
     {
-        $this->_uniqueFields = array(array(
-            'field' => array('code'),
+        $this->_uniqueFields = [[
+            'field' => ['code'],
             'title' => Mage::helper('tax')->__('Code'),
-        ));
+        ]];
         return $this;
     }
 
@@ -71,7 +67,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate extends Mage_Core_Model_Resource_
     {
         $adapter = $this->_getReadAdapter();
         $select  = $adapter->select()
-            ->from($this->getTable('tax/tax_calculation'), array('tax_calculation_rate_id'))
+            ->from($this->getTable('tax/tax_calculation'), ['tax_calculation_rate_id'])
             ->where('tax_calculation_rate_id = ?', $rateId);
         return $adapter->fetchCol($select);
     }

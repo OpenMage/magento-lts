@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart api for product
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resource_Product
 {
@@ -56,7 +56,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             $this->_fault('invalid_product_data');
         }
 
-        $errors = array();
+        $errors = [];
         foreach ($productsData as $productItem) {
             if (isset($productItem['product_id'])) {
                 $productByItem = $this->_getProduct($productItem['product_id'], $store, "id");
@@ -109,7 +109,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             $this->_fault('invalid_product_data');
         }
 
-        $errors = array();
+        $errors = [];
         foreach ($productsData as $productItem) {
             if (isset($productItem['product_id'])) {
                 $productByItem = $this->_getProduct($productItem['product_id'], $store, "id");
@@ -120,7 +120,6 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                 continue;
             }
 
-            /** @var Mage_Sales_Model_Quote_Item $quoteItem */
             $quoteItem = $this->_getQuoteItemByProduct(
                 $quote,
                 $productByItem,
@@ -167,7 +166,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             $this->_fault('invalid_product_data');
         }
 
-        $errors = array();
+        $errors = [];
         foreach ($productsData as $productItem) {
             if (isset($productItem['product_id'])) {
                 $productByItem = $this->_getProduct($productItem['product_id'], $store, "id");
@@ -179,7 +178,6 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             }
 
             try {
-                /** @var Mage_Sales_Model_Quote_Item $quoteItem */
                 $quoteItem = $this->_getQuoteItemByProduct(
                     $quote,
                     $productByItem,
@@ -221,14 +219,13 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
         }
 
         if (!$quote->getItemsCount()) {
-            return array();
+            return [];
         }
 
-        $productsResult = array();
+        $productsResult = [];
         foreach ($quote->getAllItems() as $item) {
-            /** @var Mage_Sales_Model_Quote_Item $item */
             $product = $item->getProduct();
-            $productsResult[] = array( // Basic product data
+            $productsResult[] = [ // Basic product data
                 'product_id'   => $product->getId(),
                 'sku'          => $product->getSku(),
                 'name'         => $product->getName(),
@@ -236,7 +233,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                 'type'         => $product->getTypeId(),
                 'category_ids' => $product->getCategoryIds(),
                 'website_ids'  => $product->getWebsiteIds()
-            );
+            ];
         }
 
         return $productsResult;
@@ -279,7 +276,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             $this->_fault('invalid_product_data');
         }
 
-        $errors = array();
+        $errors = [];
         foreach ($productsData as $key => $productItem) {
             if (isset($productItem['product_id'])) {
                 $productByItem = $this->_getProduct($productItem['product_id'], $store, "id");
@@ -291,7 +288,6 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             }
 
             try {
-                /** @var Mage_Sales_Model_Quote_Item $quoteItem */
                 $quoteItem = $this->_getQuoteItemByProduct(
                     $quote,
                     $productByItem,

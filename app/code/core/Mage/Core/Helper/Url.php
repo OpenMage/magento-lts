@@ -12,22 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core URL helper
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
 {
-
     /**
      * Retrieve current url
      *
@@ -38,10 +37,10 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         $request = Mage::app()->getRequest();
         $port = $request->getServer('SERVER_PORT');
         if ($port) {
-            $defaultPorts = array(
+            $defaultPorts = [
                 Mage_Core_Controller_Request_Http::DEFAULT_HTTP_PORT,
                 Mage_Core_Controller_Request_Http::DEFAULT_HTTPS_PORT
-            );
+            ];
             $port = (in_array($port, $defaultPorts)) ? '' : ':' . $port;
         }
         $url = $request->getScheme() . '://' . $request->getHttpHost() . $port . $request->getServer('REQUEST_URI');
@@ -106,9 +105,9 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function addRequestParam($url, $param)
     {
-        $startDelimiter = (false === strpos($url, '?'))? '?' : '&';
+        $startDelimiter = (strpos($url, '?') === false)? '?' : '&';
 
-        $arrQueryParams = array();
+        $arrQueryParams = [];
         foreach ($param as $key => $value) {
             if (is_numeric($key) || is_object($value)) {
                 continue;
@@ -132,7 +131,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      *
      * @param string $url
      * @param string $paramKey
-     * @param boolean $caseSensitive
+     * @param bool $caseSensitive
      * @return string
      */
     public function removeRequestParam($url, $paramKey, $caseSensitive = false)
@@ -156,7 +155,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      * @param array $arguments
      * @return Mage_Core_Model_Abstract
      */
-    protected function _getSingletonModel($name, $arguments = array())
+    protected function _getSingletonModel($name, $arguments = [])
     {
         return Mage::getSingleton($name, $arguments);
     }
@@ -200,7 +199,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      * Check domain name for IDN using ACE prefix http://tools.ietf.org/html/rfc3490#section-5
      *
      * @param string $host domain name
-     * @return boolean
+     * @return bool
      */
     private function _isPunycode($host)
     {

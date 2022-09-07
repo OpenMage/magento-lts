@@ -12,15 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogRule
+ * @category   Mage
+ * @package    Mage_CatalogRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Rule Product Condition data model
+ *
+ * @category   Mage
+ * @package    Mage_CatalogRule
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Condition_Product_Abstract
 {
@@ -33,10 +36,10 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
     public function validate(Varien_Object $object)
     {
         $attrCode = $this->getAttribute();
-        if ('category_ids' == $attrCode) {
+        if ($attrCode == 'category_ids') {
             return $this->validateAttribute($object->getCategoryIds());
         }
-        if ('attribute_set_id' == $attrCode) {
+        if ($attrCode == 'attribute_set_id') {
             return $this->validateAttribute($object->getData($attrCode));
         }
 
@@ -87,7 +90,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         $storeId = $object->getStoreId();
         $defaultStoreId = Mage_Core_Model_App::ADMIN_STORE_ID;
         $productValues  = isset($this->_entityAttributeValues[$object->getId()])
-            ? $this->_entityAttributeValues[$object->getId()] : array();
+            ? $this->_entityAttributeValues[$object->getId()] : [];
         $defaultValue = isset($productValues[$defaultStoreId])
             ? $productValues[$defaultStoreId] : $object->getData($attrCode);
         $value = isset($productValues[$storeId]) ? $productValues[$storeId] : $defaultValue;
@@ -128,7 +131,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
     {
         $attribute = $object->getResource()->getAttribute($this->getAttribute());
         if ($attribute && $attribute->getFrontendInput() == 'multiselect') {
-            $value = strlen($value) ? explode(',', $value) : array();
+            $value = strlen($value) ? explode(',', $value) : [];
         }
         return $value;
     }

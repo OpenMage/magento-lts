@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api
+ * @category   Mage
+ * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,7 +27,6 @@
  */
 class Mage_Api_Model_Server
 {
-
     /**
      * Api Name by Adapter
      * @var string
@@ -106,7 +105,7 @@ class Mage_Api_Model_Server
             $this->_api     = $adapterCode;
 
             // get handler code from config if no handler passed as argument
-            if (null === $handler && !empty($adapters[$adapterCode]->handler)) {
+            if ($handler === null && !empty($adapters[$adapterCode]->handler)) {
                 $handler = (string) $adapters[$adapterCode]->handler;
             }
             $handlers = $helper->getHandlers();

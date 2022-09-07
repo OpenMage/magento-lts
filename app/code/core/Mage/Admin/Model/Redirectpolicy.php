@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Admin
+ * @category   Mage
+ * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Admin redirect policy model, guard admin from direct link to store/category/product deletion
  *
- * @category    Mage
- * @package     Mage_Admin
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Admin
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Admin_Model_Redirectpolicy
 {
@@ -35,7 +35,7 @@ class Mage_Admin_Model_Redirectpolicy
     /**
      * @param array $parameters array('urlModel' => object)
      */
-    public function __construct($parameters = array())
+    public function __construct($parameters = [])
     {
         $this->_urlModel = (!empty($parameters['urlModel'])) ?
             $parameters['urlModel'] : Mage::getModel('adminhtml/url');

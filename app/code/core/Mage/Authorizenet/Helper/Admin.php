@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Authorizenet
+ * @category   Mage
+ * @package    Mage_Authorizenet
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,7 +27,6 @@
  */
 class Mage_Authorizenet_Helper_Admin extends Mage_Authorizenet_Helper_Data
 {
-
     /**
      * Retrieve place order url
      * @param array $params
@@ -44,7 +43,7 @@ class Mage_Authorizenet_Helper_Admin extends Mage_Authorizenet_Helper_Data
             $order = Mage::getModel('sales/order');
             $order->loadByIncrementId($params['x_invoice_num']);
 
-            $url = $this->getAdminUrl('adminhtml/sales_order/view', array('order_id' => $order->getId()));
+            $url = $this->getAdminUrl('adminhtml/sales_order/view', ['order_id' => $order->getId()]);
         }
 
         return $url;

@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Dataflow
+ * @category   Mage
+ * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Convert profile
+ *
+ * @category   Mage
+ * @package    Mage_Dataflow
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Dataflow_Model_Resource_Profile _getResource()
  * @method Mage_Dataflow_Model_Resource_Profile getResource()
@@ -43,10 +47,6 @@
  * @method Mage_Dataflow_Model_Profile setDataTransfer(string $value)
  * @method int getAdminUserId()
  * @method Mage_Dataflow_Model_Profile setAdminUserId(int $value)
- *
- * @category    Mage
- * @package     Mage_Dataflow
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 {
@@ -58,14 +58,14 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_productTablePermanentAttributes = array('sku');
+    protected $_productTablePermanentAttributes = ['sku'];
 
     /**
      * Customer table permanent attributes
      *
      * @var array
      */
-    protected $_customerTablePermanentAttributes = array('email', 'website');
+    protected $_customerTablePermanentAttributes = ['email', 'website'];
 
     protected function _construct()
     {
@@ -100,7 +100,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         if (is_array($this->getGuiData())) {
             $data = $this->getData();
             $guiData = $this->getGuiData();
-            $charSingleList = array('\\', '/', '.', '!', '@', '#', '$', '%', '&', '*', '~', '^');
+            $charSingleList = ['\\', '/', '.', '!', '@', '#', '$', '%', '&', '*', '~', '^'];
             if (isset($guiData['file']['type']) && $guiData['file']['type'] == 'file') {
                 if (empty($guiData['file']['path'])
                 || (strlen($guiData['file']['path']) == 1
@@ -168,14 +168,14 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $csvParser->setDelimiter($delimiter);
         }
         $xmlParser = new DOMDocument();
-        $newUploadedFilenames = array();
+        $newUploadedFilenames = [];
 
         if (isset($_FILES['file_1']['tmp_name']) || isset($_FILES['file_2']['tmp_name'])
         || isset($_FILES['file_3']['tmp_name'])) {
             for ($index = 0; $index < 3; $index++) {
                 if ($file = $_FILES['file_' . ($index+1)]['tmp_name']) {
                     $uploader = new Mage_Core_Model_File_Uploader('file_' . ($index + 1));
-                    $uploader->setAllowedExtensions(array('csv','xml'));
+                    $uploader->setAllowedExtensions(['csv','xml']);
                     $path = Mage::app()->getConfig()->getTempVarDir() . '/import/';
                     $uploader->save($path);
                     $uploadFile = $uploader->getUploadedFileName();
@@ -192,7 +192,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                             $cells = $this->getNode($xmlParser, 'Worksheet')->item(0);
                             $cells = $this->getNode($cells, 'Row')->item(0);
                             $cells = $this->getNode($cells, 'Cell');
-                            $fileData = array();
+                            $fileData = [];
                             foreach ($cells as $cell) {
                                 $fileData[] = $this->getNode($cell, 'Data')->item(0)->nodeValue;
                             }
@@ -273,7 +273,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $profile = Mage::getModel('core/convert')
             ->importXml($xml)
             ->getProfile('default');
-        /* @var $profile Mage_Dataflow_Model_Convert_Profile */
+        /** @var Mage_Dataflow_Model_Convert_Profile $profile */
 
         try {
             $batch = Mage::getSingleton('dataflow/batch')
@@ -398,10 +398,10 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         }
         $mapXml .= '</action>' . $nl . $nl;
 
-        $parsers = array(
+        $parsers = [
             'product'=>'catalog/convert_parser_product',
             'customer'=>'customer/convert_parser_customer',
-        );
+        ];
 
         if ($import) {
             $parseFileXmlInter .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $nl;
@@ -415,10 +415,10 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $parseDataXml .= '</action>' . $nl . $nl;
         }
 
-        $adapters = array(
+        $adapters = [
             'product'=>'catalog/convert_adapter_product',
             'customer'=>'customer/convert_adapter_customer',
-        );
+        ];
 
         if ($import) {
             $entityXml = '<action type="' . $adapters[$this->getEntityType()] . '" method="save">' . $nl;

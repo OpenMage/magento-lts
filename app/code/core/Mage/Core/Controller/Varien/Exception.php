@@ -12,15 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Controller exception that can fork different actions, cause forward or redirect
  *
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Controller_Varien_Exception extends Exception
 {
@@ -28,9 +31,9 @@ class Mage_Core_Controller_Varien_Exception extends Exception
     const RESULT_REDIRECT = '_redirect';
 
     protected $_resultCallback       = null;
-    protected $_resultCallbackParams = array();
+    protected $_resultCallbackParams = [];
     protected $_defaultActionName    = 'noroute';
-    protected $_flags                = array();
+    protected $_flags                = [];
 
     /**
      * Prepare data for forwarding action
@@ -41,13 +44,13 @@ class Mage_Core_Controller_Varien_Exception extends Exception
      * @param array $params
      * @return $this
      */
-    public function prepareForward($actionName = null, $controllerName = null, $moduleName = null, array $params = array())
+    public function prepareForward($actionName = null, $controllerName = null, $moduleName = null, array $params = [])
     {
         $this->_resultCallback = self::RESULT_FORWARD;
-        if (null === $actionName) {
+        if ($actionName === null) {
             $actionName = $this->_defaultActionName;
         }
-        $this->_resultCallbackParams = array($actionName, $controllerName, $moduleName, $params);
+        $this->_resultCallbackParams = [$actionName, $controllerName, $moduleName, $params];
         return $this;
     }
 
@@ -58,10 +61,10 @@ class Mage_Core_Controller_Varien_Exception extends Exception
      * @param array $arguments
      * @return $this
      */
-    public function prepareRedirect($path, $arguments = array())
+    public function prepareRedirect($path, $arguments = [])
     {
         $this->_resultCallback = self::RESULT_REDIRECT;
-        $this->_resultCallbackParams = array($path, $arguments);
+        $this->_resultCallbackParams = [$path, $arguments];
         return $this;
     }
 
@@ -73,7 +76,7 @@ class Mage_Core_Controller_Varien_Exception extends Exception
      */
     public function prepareFork($actionName = null)
     {
-        if (null === $actionName) {
+        if ($actionName === null) {
             $actionName = $this->_defaultActionName;
         }
         $this->_resultCallback = $actionName;
@@ -90,7 +93,7 @@ class Mage_Core_Controller_Varien_Exception extends Exception
      */
     public function prepareFlag($action, $flag, $value)
     {
-        $this->_flags[] = array($action, $flag, $value);
+        $this->_flags[] = [$action, $flag, $value];
         return $this;
     }
 
@@ -111,9 +114,9 @@ class Mage_Core_Controller_Varien_Exception extends Exception
      */
     public function getResultCallback()
     {
-        if (null === $this->_resultCallback) {
+        if ($this->_resultCallback === null) {
             $this->prepareFork();
         }
-        return array($this->_resultCallback, $this->_resultCallbackParams);
+        return [$this->_resultCallback, $this->_resultCallbackParams];
     }
 }

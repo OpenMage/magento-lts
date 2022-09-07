@@ -12,13 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses
     extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
 {
@@ -43,7 +47,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses
     protected function _getDummyElement()
     {
         if (empty($this->_dummyElement)) {
-            $this->_dummyElement = new Varien_Object(array('show_in_default'=>1, 'show_in_website'=>1));
+            $this->_dummyElement = new Varien_Object(['show_in_default'=>1, 'show_in_website'=>1]);
         }
         return $this->_dummyElement;
     }
@@ -60,12 +64,12 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses
     {
         $configData = $this->getConfigData();
         $path = 'sales/order_statuses/status_'.$id; //TODO: move as property of form
-        $data = isset($configData[$path]) ? $configData[$path] : array();
+        $data = isset($configData[$path]) ? $configData[$path] : [];
 
         $e = $this->_getDummyElement();
 
         $field = $fieldset->addField($id, 'text',
-            array(
+            [
                 'name'          => 'groups[order_statuses][fields][status_'.$id.'][value]',
                 'label'         => $status,
                 'value'         => isset($data['value']) ? $data['value'] : $status,
@@ -74,9 +78,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses
                 'inherit'       => isset($data['inherit']) ? $data['inherit'] : '',
                 'can_use_default_value' => $this->getForm()->canUseDefaultValue($e),
                 'can_use_website_value' => $this->getForm()->canUseWebsiteValue($e),
-            ))->setRenderer($this->_getFieldRenderer());
+            ])->setRenderer($this->_getFieldRenderer());
 
         return $field->toHtml();
     }
-
 }

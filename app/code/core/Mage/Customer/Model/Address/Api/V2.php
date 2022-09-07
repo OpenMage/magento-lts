@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -38,7 +38,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
     {
         $customer = Mage::getModel('customer/customer')
             ->load($customerId);
-        /* @var Mage_Customer_Model_Customer $customer */
+        /** @var Mage_Customer_Model_Customer $customer */
 
         if (!$customer->getId()) {
             $this->_fault('customer_not_exists');
@@ -92,7 +92,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
             $this->_fault('not_exists');
         }
 
-        $result = array();
+        $result = [];
 
         foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
             $result[$attributeAlias] = $address->getData($attributeCode);
@@ -101,7 +101,6 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
         foreach ($this->getAllowedAttributes($address) as $attributeCode => $attribute) {
             $result[$attributeCode] = $address->getData($attributeCode);
         }
-
 
         if ($customer = $address->getCustomer()) {
             $result['is_default_billing']  = $customer->getDefaultBilling() == $address->getId();
@@ -116,7 +115,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
      *
      * @param int $addressId
      * @param array $addressData
-     * @return boolean
+     * @return bool
      */
     public function update($addressId, $addressData)
     {
@@ -159,7 +158,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
      * Delete address
      *
      * @param int $addressId
-     * @return boolean
+     * @return bool
      */
     public function delete($addressId)
     {

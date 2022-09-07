@@ -30,7 +30,7 @@
                     <span class="label"><?php echo $this->__('Excl. Tax'); ?>:</span>
                 <?php endif ?>
 
-            <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales', $_item->getStoreId())): ?>
+            <?php if (Mage::helper('weee')->typeOfDisplay($_item, [0, 1, 4], 'sales', $_item->getStoreId())): ?>
                 <?php
                 echo $this->displayPrices(
                     $_item->getBasePrice() + $_item->getBaseWeeeTaxAppliedAmount() + $_item->getBaseWeeeTaxDisposition(),
@@ -142,7 +142,7 @@
                     <span class="label"><?php echo $this->__('Excl. Tax'); ?>:</span>
                 <?php endif ?>
 
-            <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales', $_item->getStoreId())): ?>
+            <?php if (Mage::helper('weee')->typeOfDisplay($_item, [0, 1, 4], 'sales', $_item->getStoreId())): ?>
                 <?php
                 echo $this->displayPrices(
                     $_item->getBaseRowTotal() + $_item->getBaseWeeeTaxAppliedRowAmount() + $_item->getBaseWeeeTaxRowDisposition(),

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Page
+ * @category   Mage
+ * @package    Mage_Page
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,11 +23,10 @@
  *
  * @category   Mage
  * @package    Mage_Page
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
 {
-
     /**
      * @var string
      */
@@ -35,11 +34,11 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
 
     protected function _construct()
     {
-        $this->addData(array('cache_lifetime' => false));
-        $this->addCacheTag(array(
+        $this->addData(['cache_lifetime' => false]);
+        $this->addCacheTag([
             Mage_Core_Model_Store::CACHE_TAG,
             Mage_Cms_Model_Block::CACHE_TAG
-        ));
+        ]);
     }
 
     /**
@@ -49,14 +48,14 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
      */
     public function getCacheKeyInfo()
     {
-        return array(
+        return [
             'PAGE_FOOTER',
             Mage::app()->getStore()->getId(),
             (int)Mage::app()->getStore()->isCurrentlySecure(),
             Mage::getDesign()->getPackageName(),
             Mage::getDesign()->getTheme('template'),
             Mage::getSingleton('customer/session')->isLoggedIn()
-        );
+        ];
     }
 
     /**
@@ -85,7 +84,7 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
      * Retrieve child block HTML, sorted by default
      *
      * @param string $name
-     * @param boolean $useCache
+     * @param bool $useCache
      * @param bool $sorted
      * @return  string
      */

@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml order creditmemo totals block
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Totals extends Mage_Adminhtml_Block_Sales_Totals
 {
@@ -56,18 +56,18 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Totals extends Mage_Adminhtml_
     protected function _initTotals()
     {
         parent::_initTotals();
-        $this->addTotal(new Varien_Object(array(
+        $this->addTotal(new Varien_Object([
             'code'      => 'adjustment_positive',
             'value'     => $this->getSource()->getAdjustmentPositive(),
             'base_value'=> $this->getSource()->getBaseAdjustmentPositive(),
             'label'     => $this->helper('sales')->__('Adjustment Refund')
-        )));
-        $this->addTotal(new Varien_Object(array(
+        ]));
+        $this->addTotal(new Varien_Object([
             'code'      => 'adjustment_negative',
             'value'     => $this->getSource()->getAdjustmentNegative(),
             'base_value'=> $this->getSource()->getBaseAdjustmentNegative(),
             'label'     => $this->helper('sales')->__('Adjustment Fee')
-        )));
+        ]));
         return $this;
     }
 }

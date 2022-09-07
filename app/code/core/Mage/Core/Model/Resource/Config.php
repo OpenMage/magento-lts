@@ -12,26 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Core Resource Resource Model
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Define main table
-     *
-     */
     protected function _construct()
     {
         $this->_init('core/config_data', 'config_id');
@@ -51,19 +46,19 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             return $this;
         }
 
-        $websites = array();
+        $websites = [];
         $select = $read->select()
-            ->from($this->getTable('core/website'), array('website_id', 'code', 'name'));
+            ->from($this->getTable('core/website'), ['website_id', 'code', 'name']);
         $rowset = $read->fetchAssoc($select);
         foreach ($rowset as $w) {
             $xmlConfig->setNode('websites/'.$w['code'].'/system/website/id', $w['website_id']);
             $xmlConfig->setNode('websites/'.$w['code'].'/system/website/name', $w['name']);
-            $websites[$w['website_id']] = array('code' => $w['code']);
+            $websites[$w['website_id']] = ['code' => $w['code']];
         }
 
-        $stores = array();
+        $stores = [];
         $select = $read->select()
-            ->from($this->getTable('core/store'), array('store_id', 'code', 'name', 'website_id'))
+            ->from($this->getTable('core/store'), ['store_id', 'code', 'name', 'website_id'])
             ->order('sort_order ' . Varien_Db_Select::SQL_ASC);
         $rowset = $read->fetchAssoc($select);
         foreach ($rowset as $s) {
@@ -74,21 +69,20 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             $xmlConfig->setNode('stores/'.$s['code'].'/system/store/name', $s['name']);
             $xmlConfig->setNode('stores/'.$s['code'].'/system/website/id', $s['website_id']);
             $xmlConfig->setNode('websites/'.$websites[$s['website_id']]['code'].'/system/stores/'.$s['code'], $s['store_id']);
-            $stores[$s['store_id']] = array('code'=>$s['code']);
+            $stores[$s['store_id']] = ['code'=>$s['code']];
             $websites[$s['website_id']]['stores'][$s['store_id']] = $s['code'];
         }
 
-        $substFrom = array();
-        $substTo   = array();
+        $substFrom = [];
+        $substTo   = [];
 
         // load all configuration records from database, which are not inherited
         $select = $read->select()
-            ->from($this->getMainTable(), array('scope', 'scope_id', 'path', 'value'));
+            ->from($this->getMainTable(), ['scope', 'scope_id', 'path', 'value']);
         if (!is_null($condition)) {
             $select->where($condition);
         }
         $rowset = $read->fetchAll($select);
-
 
         // set default config values from database
         foreach ($rowset as $r) {
@@ -106,7 +100,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             $websiteNode->extend($extendSource);
         }
 
-        $deleteWebsites = array();
+        $deleteWebsites = [];
         // set websites config values from database
         foreach ($rowset as $r) {
             if ($r['scope'] !== 'websites') {
@@ -135,7 +129,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             }
         }
 
-        $deleteStores = array();
+        $deleteStores = [];
         // set stores config values from database
         foreach ($rowset as $r) {
             if ($r['scope'] !== 'stores') {
@@ -151,17 +145,17 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
         }
 
         if ($deleteWebsites) {
-            $this->_getWriteAdapter()->delete($this->getMainTable(), array(
+            $this->_getWriteAdapter()->delete($this->getMainTable(), [
                 'scope = ?'      => 'websites',
                 'scope_id IN(?)' => $deleteWebsites,
-            ));
+            ]);
         }
 
         if ($deleteStores) {
-            $this->_getWriteAdapter()->delete($this->getMainTable(), array(
+            $this->_getWriteAdapter()->delete($this->getMainTable(), [
                 'scope=?'        => 'stores',
                 'scope_id IN(?)' => $deleteStores,
-            ));
+            ]);
         }
         return $this;
     }
@@ -185,15 +179,15 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             ->where('scope_id = ?', $scopeId);
         $row = $writeAdapter->fetchRow($select);
 
-        $newData = array(
+        $newData = [
             'scope'     => $scope,
             'scope_id'  => $scopeId,
             'path'      => $path,
             'value'     => $value
-        );
+        ];
 
         if ($row) {
-            $whereCondition = array($this->getIdFieldName() . '=?' => $row[$this->getIdFieldName()]);
+            $whereCondition = [$this->getIdFieldName() . '=?' => $row[$this->getIdFieldName()]];
             $writeAdapter->update($this->getMainTable(), $newData, $whereCondition);
         } else {
             $writeAdapter->insert($this->getMainTable(), $newData);
@@ -212,11 +206,11 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
     public function deleteConfig($path, $scope, $scopeId)
     {
         $adapter = $this->_getWriteAdapter();
-        $adapter->delete($this->getMainTable(), array(
+        $adapter->delete($this->getMainTable(), [
             $adapter->quoteInto('path = ?', $path),
             $adapter->quoteInto('scope = ?', $scope),
             $adapter->quoteInto('scope_id = ?', $scopeId)
-        ));
+        ]);
         return $this;
     }
 }

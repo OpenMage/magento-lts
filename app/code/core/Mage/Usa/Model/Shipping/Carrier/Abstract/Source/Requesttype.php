@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Usa
+ * @category   Mage
+ * @package    Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,9 +34,9 @@ class Mage_Usa_Model_Shipping_Carrier_Abstract_Source_Requesttype
      */
     public function toOptionArray()
     {
-        return array(
-            array('value' => 0, 'label' => Mage::helper('shipping')->__('Divide to equal weight (one request)')),
-            array('value' => 1, 'label' => Mage::helper('shipping')->__('Use origin weight (few requests)')),
-        );
+        return [
+            ['value' => 0, 'label' => Mage::helper('shipping')->__('Divide to equal weight (one request)')],
+            ['value' => 1, 'label' => Mage::helper('shipping')->__('Use origin weight (few requests)')],
+        ];
     }
 }

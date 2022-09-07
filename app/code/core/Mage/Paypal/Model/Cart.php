@@ -12,15 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * PayPal-specific model for shopping cart items and totals
  * The main idea is to accommodate all possible totals into PayPal-compatible 4 totals and line items
+ *
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Cart
 {
@@ -37,8 +41,7 @@ class Mage_Paypal_Model_Cart
     /**
      * Order or quote instance
      *
-     * @var Mage_Sales_Model_Order
-     * @var Mage_Sales_Model_Quote
+     * @var Mage_Sales_Model_Order|Mage_Sales_Model_Quote
      */
     protected $_salesEntity = null;
 
@@ -48,7 +51,7 @@ class Mage_Paypal_Model_Cart
      *
      * @var array
      */
-    protected $_items = array();
+    protected $_items = [];
 
     /**
      * Rendered cart totals
@@ -56,7 +59,7 @@ class Mage_Paypal_Model_Cart
      *
      * @var array
      */
-    protected $_totals = array();
+    protected $_totals = [];
 
     /**
      * Set of optional descriptions for the item that may replace a total and composed of several amounts
@@ -64,7 +67,7 @@ class Mage_Paypal_Model_Cart
      *
      * @var array
      */
-    protected $_totalLineItemDescriptions = array();
+    protected $_totalLineItemDescriptions = [];
 
     /**
      * Lazy initialization indicator for rendering
@@ -108,7 +111,7 @@ class Mage_Paypal_Model_Cart
      *
      * @param array $params
      */
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         $salesEntity = array_shift($params);
         if (is_object($salesEntity)
@@ -160,9 +163,9 @@ class Mage_Paypal_Model_Cart
 
         // cut down totals to one total if they are invalid
         if (!$this->_areTotalsValid) {
-            $totals = array(
+            $totals = [
                 self::TOTAL_SUBTOTAL => $this->_totals[self::TOTAL_SUBTOTAL] + $this->_totals[self::TOTAL_TAX]
-            );
+            ];
             if (!$this->_isShippingAsItem) {
                 $totals[self::TOTAL_SUBTOTAL] += $this->_totals[self::TOTAL_SHIPPING];
             }
@@ -193,11 +196,11 @@ class Mage_Paypal_Model_Cart
     public function addItem($name, $qty, $amount, $identifier = null)
     {
         $this->_shouldRender = true;
-        $item = new Varien_Object(array(
+        $item = new Varien_Object([
             'name'   => $name,
             'qty'    => $qty,
             'amount' => (float)$amount,
-        ));
+        ]);
         if ($identifier) {
             $item->setData('id', $identifier);
         }
@@ -274,7 +277,7 @@ class Mage_Paypal_Model_Cart
         }
 
         // regular items from the sales entity
-        $this->_items = array();
+        $this->_items = [];
         foreach ($this->_salesEntity->getAllItems() as $item) {
             if (!$item->getParentItem()) {
                 $this->_addRegularItem($item);
@@ -287,29 +290,29 @@ class Mage_Paypal_Model_Cart
         $shippingDescription = '';
         if ($this->_salesEntity instanceof Mage_Sales_Model_Order) {
             $shippingDescription = $this->_salesEntity->getShippingDescription();
-            $this->_totals = array(
+            $this->_totals = [
                 self::TOTAL_SUBTOTAL => $this->_salesEntity->getBaseSubtotal(),
                 self::TOTAL_TAX      => $this->_salesEntity->getBaseTaxAmount(),
                 self::TOTAL_SHIPPING => $this->_salesEntity->getBaseShippingAmount(),
                 self::TOTAL_DISCOUNT => abs($this->_salesEntity->getBaseDiscountAmount()),
-            );
+            ];
             $this->_applyHiddenTaxWorkaround($this->_salesEntity);
         } else {
             $address = $this->_salesEntity->getIsVirtual() ?
                 $this->_salesEntity->getBillingAddress() : $this->_salesEntity->getShippingAddress();
             $shippingDescription = $address->getShippingDescription();
-            $this->_totals = array (
+            $this->_totals = [
                 self::TOTAL_SUBTOTAL => $this->_salesEntity->getBaseSubtotal(),
                 self::TOTAL_TAX      => $address->getBaseTaxAmount(),
                 self::TOTAL_SHIPPING => $address->getBaseShippingAmount(),
                 self::TOTAL_DISCOUNT => abs($address->getBaseDiscountAmount()),
-            );
+            ];
             $this->_applyHiddenTaxWorkaround($address);
         }
         $originalDiscount = $this->_totals[self::TOTAL_DISCOUNT];
 
         // arbitrary items, total modifications
-        Mage::dispatchEvent('paypal_prepare_line_items', array('paypal_cart' => $this));
+        Mage::dispatchEvent('paypal_prepare_line_items', ['paypal_cart' => $this]);
 
         // distinguish original discount among the others
         if ($originalDiscount > 0.0001 && isset($this->_totalLineItemDescriptions[self::TOTAL_DISCOUNT])) {
@@ -356,7 +359,7 @@ class Mage_Paypal_Model_Cart
      */
     protected function _renderTotalLineItemDescriptions($code, $prepend = '', $append = '', $glue = '; ')
     {
-        $result = array();
+        $result = [];
         if ($prepend) {
             $result[] = $prepend;
         }
@@ -464,7 +467,7 @@ class Mage_Paypal_Model_Cart
      */
     private function _totalAsItem($var, $setValue = null)
     {
-        if (null !== $setValue) {
+        if ($setValue !== null) {
             if ($setValue != $this->$var) {
                 $this->_shouldRender = true;
             }

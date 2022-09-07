@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
+ * @category   Mage
+ * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,11 +34,6 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
     protected $_minPopularity;
     protected $_maxPopularity;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Load terms and try to sort it by names
      *
@@ -47,7 +42,7 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
     protected function _loadTerms()
     {
         if (empty($this->_terms)) {
-            $this->_terms = array();
+            $this->_terms = [];
             $terms = Mage::getResourceModel('catalogsearch/query_collection')
                 ->setPopularQueryFilter(Mage::app()->getStore()->getId())
                 ->setPageSize(100)
@@ -57,7 +52,6 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
             if (count($terms) == 0) {
                 return $this;
             }
-
 
             $this->_maxPopularity = reset($terms)->getPopularity();
             $this->_minPopularity = end($terms)->getPopularity();

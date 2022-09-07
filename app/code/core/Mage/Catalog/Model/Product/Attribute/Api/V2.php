@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,7 +31,7 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
      * Create new product attribute
      *
      * @param array $data input data
-     * @return integer
+     * @return int
      */
     public function create($data)
     {
@@ -44,9 +44,9 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
     /**
      * Update product attribute
      *
-     * @param string|integer $attribute attribute code or ID
+     * @param string|int $attribute attribute code or ID
      * @param array $data
-     * @return boolean
+     * @return bool
      */
     public function update($attribute, $data)
     {
@@ -59,7 +59,7 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
     /**
      * Add option to select or multiselect attribute
      *
-     * @param  integer|string $attribute attribute ID or code
+     * @param  int|string $attribute attribute ID or code
      * @param  array $data
      * @return bool
      */
@@ -72,7 +72,7 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
     /**
      * Get full information about attribute with list of options
      *
-     * @param integer|string $attribute attribute ID or code
+     * @param int|string $attribute attribute ID or code
      * @return array
      */
     public function info($attribute)
@@ -81,10 +81,10 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
         if (!empty($result['additional_fields'])) {
             $keys = array_keys($result['additional_fields']);
             foreach ($keys as $key) {
-                $result['additional_fields'][] = array(
+                $result['additional_fields'][] = [
                     'key' => $key,
                     'value' => $result['additional_fields'][$key]
-                );
+                ];
                 unset($result['additional_fields'][$key]);
             }
         }

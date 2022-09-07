@@ -187,31 +187,43 @@ varienLoaderHandler.handler = {
         if(request.options.loaderArea===false){
             return;
         }
-
-        request.options.loaderArea = $$('#html-body .wrapper')[0]; // Blocks all page
-
-        if(request && request.options.loaderArea){
-            Element.clonePosition($('loading-mask'), $(request.options.loaderArea), {offsetLeft:-2});
-            toggleSelectsUnderBlock($('loading-mask'), false);
-            Element.show('loading-mask');
-            setLoaderPosition();
-            if(request.options.loaderArea=='html-body'){
-                //Element.show('loading-process');
-            }
-        }
-        else{
-            //Element.show('loading-process');
-        }
+        showLoader();
     },
-
     onComplete: function(transport) {
         if(Ajax.activeRequestCount == 0) {
-            //Element.hide('loading-process');
-            toggleSelectsUnderBlock($('loading-mask'), true);
-            Element.hide('loading-mask');
+            hideLoader();
         }
     }
 };
+
+var loaderTimeout = null;
+
+function showLoader(loaderArea) {
+    if($(loaderArea) === undefined) {
+        loaderArea = $$('#html-body .wrapper')[0]; // Blocks all page
+    }
+    var loadingMask = $('loading-mask');
+    if(Element.visible(loadingMask)) {
+        return;
+    }
+    Element.clonePosition(loadingMask, loaderArea, {offsetLeft:-2});
+    toggleSelectsUnderBlock(loadingMask, false);
+    Element.show(loadingMask);
+    Element.childElements(loadingMask).invoke('hide');
+    setLoaderPosition();
+    loaderTimeout = setTimeout(function() {
+        Element.childElements(loadingMask).invoke('show');
+    }, typeof window.LOADING_TIMEOUT === 'undefined' ? 200 : window.LOADING_TIMEOUT);
+}
+
+function hideLoader() {
+    toggleSelectsUnderBlock($('loading-mask'), true);
+    Element.hide('loading-mask');
+    if(loaderTimeout) {
+        clearTimeout(loaderTimeout);
+        loaderTimeout = null;
+    }
+}
 
 /**
  * @todo need calculate middle of visible area and scroll bind

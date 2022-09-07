@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Product Url model
@@ -61,7 +60,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
         $this->_store = !empty($args['store']) ? $args['store'] : Mage::app()->getStore();
@@ -74,7 +73,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      */
     public function getUrlInstance()
     {
-        if (null === $this->_url) {
+        if ($this->_url === null) {
             $this->_url = Mage::getModel('core/url');
         }
         return $this->_url;
@@ -87,7 +86,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      */
     public function getUrlRewrite()
     {
-        if (null === $this->_urlRewrite) {
+        if ($this->_urlRewrite === null) {
             $this->_urlRewrite = $this->_factory->getUrlRewriteInstance();
         }
         return $this->_urlRewrite;
@@ -114,7 +113,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      * @param array $params the URL route params
      * @return string
      */
-    public function getUrlInStore(Mage_Catalog_Model_Product $product, $params = array())
+    public function getUrlInStore(Mage_Catalog_Model_Product $product, $params = [])
     {
         $params['_store_to_url'] = true;
         return $this->getUrl($product, $params);
@@ -133,7 +132,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
             $useSid = Mage::app()->getUseSessionInUrl();
         }
 
-        $params = array();
+        $params = [];
         if (!$useSid) {
             $params['_nosid'] = true;
         }
@@ -186,7 +185,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      * @param array $params
      * @return string
      */
-    public function getUrl(Mage_Catalog_Model_Product $product, $params = array())
+    public function getUrl(Mage_Catalog_Model_Product $product, $params = [])
     {
         $url = $product->getData('url');
         if (!empty($url)) {
@@ -211,7 +210,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
 
         // reset cached URL instance GET query params
         if (!isset($params['_query'])) {
-            $params['_query'] = array();
+            $params['_query'] = [];
         }
 
         $this->getUrlInstance()->setStore($storeId);

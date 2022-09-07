@@ -12,24 +12,24 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-$installer = $this;
 /** @var Mage_Catalog_Model_Resource_Setup $installer */
+$installer = $this;
 
-$productTypes = array(
+$productTypes = [
     Mage_Catalog_Model_Product_Type::TYPE_SIMPLE,
     Mage_Catalog_Model_Product_Type::TYPE_BUNDLE,
     Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE,
     Mage_Catalog_Model_Product_Type::TYPE_VIRTUAL
-);
+];
 $productTypes = implode(',', $productTypes);
 
-$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp_enabled', array(
+$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp_enabled', [
     'group'         => 'Prices',
     'backend'       => 'catalog/product_attribute_backend_msrp',
     'frontend'      => '',
@@ -45,9 +45,9 @@ $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp_enabled', arr
     'input_renderer'   => 'adminhtml/catalog_product_helper_form_msrp_enabled',
     'visible_on_front' => false,
     'used_in_product_listing' => true
-));
+]);
 
-$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp_display_actual_price_type', array(
+$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp_display_actual_price_type', [
     'group'         => 'Prices',
     'backend'       => 'catalog/product_attribute_backend_boolean',
     'frontend'      => '',
@@ -63,9 +63,9 @@ $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp_display_actua
     'input_renderer'   => 'adminhtml/catalog_product_helper_form_msrp_price',
     'visible_on_front' => false,
     'used_in_product_listing' => true
-));
+]);
 
-$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp', array(
+$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp', [
     'group'         => 'Prices',
     'backend'       => 'catalog/product_attribute_backend_price',
     'frontend'      => '',
@@ -79,4 +79,4 @@ $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp', array(
     'apply_to'      => $productTypes,
     'visible_on_front' => false,
     'used_in_product_listing' => true
-));
+]);

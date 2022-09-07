@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogInventory
+ * @category   Mage
+ * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -39,7 +39,7 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
     public function items($productIds)
     {
         if (!is_array($productIds)) {
-            $productIds = array($productIds);
+            $productIds = [$productIds];
         }
 
         $product = Mage::getModel('catalog/product');
@@ -53,18 +53,18 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
         $collection = Mage::getModel('catalog/product')
             ->getCollection()
             ->setFlag('require_stock_items', true)
-            ->addFieldToFilter('entity_id', array('in'=>$productIds));
+            ->addFieldToFilter('entity_id', ['in'=>$productIds]);
 
-        $result = array();
+        $result = [];
 
         foreach ($collection as $product) {
             if ($product->getStockItem()) {
-                $result[] = array(
+                $result[] = [
                     'product_id'    => $product->getId(),
                     'sku'           => $product->getSku(),
                     'qty'           => $product->getStockItem()->getQty(),
                     'is_in_stock'   => $product->getStockItem()->getIsInStock()
-                );
+                ];
             }
         }
 
@@ -93,7 +93,7 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
         }
 
         if (!$stockData = $product->getStockData()) {
-            $stockData = array();
+            $stockData = [];
         }
 
         if (isset($data['qty'])) {

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,10 +23,16 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Tag_Model_Resource_Customer_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widget_Grid
 {
+    /**
+     * @inheritDoc
+     * @throws Mage_Core_Exception
+     */
     protected function _prepareCollection()
     {
         //TODO: add full name logic
@@ -47,35 +53,39 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
-        $this->addColumn('entity_id', array(
+        $this->addColumn('entity_id', [
             'header'   => Mage::helper('tag')->__('ID'),
             'width'    => '40px',
             'align'    => 'center',
             'sortable' => true,
             'index'    => 'entity_id',
-        ));
-        $this->addColumn('firstname', array(
+        ]);
+        $this->addColumn('firstname', [
             'header' => Mage::helper('tag')->__('First Name'),
             'index'  => 'firstname',
-        ));
-        $this->addColumn('middlename', array(
+        ]);
+        $this->addColumn('middlename', [
             'header' => Mage::helper('tag')->__('Middle Name'),
             'index'  => 'middlename',
-        ));
-        $this->addColumn('lastname', array(
+        ]);
+        $this->addColumn('lastname', [
             'header' => Mage::helper('tag')->__('Last Name'),
             'index'  => 'lastname',
-        ));
-        $this->addColumn('tags', array(
+        ]);
+        $this->addColumn('tags', [
             'header'   => Mage::helper('tag')->__('Tags'),
             'index'    => 'tags',
             'sortable' => false,
             'filter'   => false,
             'renderer' => 'adminhtml/tag_grid_column_renderer_tags',
-        ));
-        $this->addColumn('action', array(
+        ]);
+        $this->addColumn('action', [
             'header'    => Mage::helper('tag')->__('Action'),
             'align'     => 'center',
             'width'     => '120px',
@@ -83,7 +93,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
             'filter'    => false,
             'sortable'  => false,
             'is_system' => true,
-        ));
+        ]);
 
         $this->setColumnFilter('entity_id')
             ->setColumnFilter('email')
@@ -94,6 +104,10 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this
+     */
     protected function _addColumnFilterToCollection($column)
     {
         if ($this->getCollection() && $column->getFilter()->getValue()) {
@@ -101,5 +115,4 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
         }
         return $this;
     }
-
 }

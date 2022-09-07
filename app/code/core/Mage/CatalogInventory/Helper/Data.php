@@ -12,14 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogInventory
+ * @category   Mage
+ * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Catalo
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -66,14 +68,14 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getIsQtyTypeIds($filter = null)
     {
-        if (null === self::$_isQtyTypeIds) {
-            self::$_isQtyTypeIds = array();
+        if (self::$_isQtyTypeIds === null) {
+            self::$_isQtyTypeIds = [];
             $productTypesXml = Mage::getConfig()->getNode('global/catalog/product/type');
             foreach ($productTypesXml->children() as $typeId => $configXml) {
                 self::$_isQtyTypeIds[$typeId] = (bool)$configXml->is_qty;
             }
         }
-        if (null === $filter) {
+        if ($filter === null) {
             return self::$_isQtyTypeIds;
         }
         $result = self::$_isQtyTypeIds;
@@ -92,7 +94,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getConfigItemOptions()
     {
-        return array(
+        return [
             'min_qty',
             'backorders',
             'min_sale_qty',
@@ -102,7 +104,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
             'enable_qty_increments',
             'qty_increments',
             'is_decimal_divided',
-        );
+        ];
     }
 
     /**

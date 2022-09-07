@@ -12,20 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_GiftMessage
+ * @category   Mage
+ * @package    Mage_GiftMessage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 $this->startSetup()
-    ->addAttribute('quote', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false))
-    ->addAttribute('quote_address', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false))
-    ->addAttribute('quote_item', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false))
-    ->addAttribute('quote_address_item', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false))
-    ->addAttribute('order', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false))
-    ->addAttribute('order_item', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false))
-    ->addAttribute('order_item', 'gift_message_available', array('type' => 'int', 'visible' => false, 'required' => false))
-    ->addAttribute('catalog_product', 'gift_message_available', array(
+    ->addAttribute('quote', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false])
+    ->addAttribute('quote_address', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false])
+    ->addAttribute('quote_item', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false])
+    ->addAttribute('quote_address_item', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false])
+    ->addAttribute('order', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false])
+    ->addAttribute('order_item', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false])
+    ->addAttribute('order_item', 'gift_message_available', ['type' => 'int', 'visible' => false, 'required' => false])
+    ->addAttribute('catalog_product', 'gift_message_available', [
         'backend'       => 'giftmessage/entity_attribute_backend_boolean_config',
         'frontend'      => '',
         'label'         => 'Allow Gift Message',
@@ -38,7 +39,7 @@ $this->startSetup()
         'user_defined'  => false,
         'default'       => '2',
         'visible_on_front' => false
-    ))
+    ])
     ->removeAttribute('catalog_product', 'gift_message_aviable')
     ->setConfigData('sales/gift_messages/allow', 1)
     ->endSetup();

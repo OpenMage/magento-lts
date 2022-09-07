@@ -12,12 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tag
+ * @category   Mage
+ * @package    Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Tag
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
 {
     protected $_collection;
@@ -95,11 +100,11 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
      */
     public function getFormAction()
     {
-        return Mage::getUrl('tag/index/save', array(
+        return Mage::getUrl('tag/index/save', [
             'product' => $this->getProductId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => Mage::helper('core/url')->getEncodedUrl(),
             '_secure' => $this->_isSecure()
-        ));
+        ]);
     }
 
     /**
@@ -112,7 +117,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
      */
     public function renderTags($pattern, $glue = ' ')
     {
-        $out = array();
+        $out = [];
         foreach ($this->getTags() as $tag) {
             $out[] = sprintf(
                 $pattern,

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api2
+ * @category   Mage
+ * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -42,13 +42,13 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
      *
      * @var array
      */
-    protected $_paramsDefaultValues = array(
+    protected $_paramsDefaultValues = [
         self::PARAM_ROUTE      => null,
-        self::PARAM_DEFAULTS   => array(),
-        self::PARAM_REQS       => array(),
+        self::PARAM_DEFAULTS   => [],
+        self::PARAM_REQS       => [],
         self::PARAM_TRANSLATOR => null,
         self::PARAM_LOCALE     => null
-    );
+    ];
 
     /**
      * Process construct param and call parent::__construct() with params
@@ -83,7 +83,7 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
      * returns an array of variables on a successful match.
      *
      * @param Mage_Api2_Model_Request $request
-     * @param boolean $partial Partial path matching
+     * @param bool $partial Partial path matching
      * @return array|bool An array of assigned values or a boolean false on a mismatch
      */
     public function match($request, $partial = false)

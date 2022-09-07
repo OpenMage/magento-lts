@@ -12,36 +12,36 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
-
 $installer->startSetup();
+
 $connection = $installer->getConnection();
 $table = $installer->getTable('core/translate');
 
 $connection->dropIndex($table, $installer->getIdxName(
     'core/translate',
-    array('store_id', 'locale', 'string'),
+    ['store_id', 'locale', 'string'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 ));
 
-$connection->addColumn($table, 'crc_string', array(
+$connection->addColumn($table, 'crc_string', [
     'type'     => Varien_Db_Ddl_Table::TYPE_BIGINT,
     'nullable' => false,
     'default'  => crc32(Mage_Core_Model_Translate::DEFAULT_STRING),
     'comment'  => 'Translation String CRC32 Hash',
-));
+]);
 
 $connection->addIndex($table, $installer->getIdxName(
     'core/translate',
-    array('store_id', 'locale', 'crc_string', 'string'),
+    ['store_id', 'locale', 'crc_string', 'string'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
-), array('store_id', 'locale', 'crc_string', 'string'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE);
+), ['store_id', 'locale', 'crc_string', 'string'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE);
 
 $installer->endSetup();

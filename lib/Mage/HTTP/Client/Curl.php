@@ -52,7 +52,6 @@ implements Mage_HTTP_IClient
      */
     protected $_headers = array();
 
-
     /**
      * Fields for POST method - hash
      * @var array
@@ -83,7 +82,6 @@ implements Mage_HTTP_IClient
      */
     protected $_responseStatus = 0;
 
-
     /**
      * Request timeout in seconds
      * @var int
@@ -102,7 +100,6 @@ implements Mage_HTTP_IClient
      */
     protected $_ch;
 
-
     /**
      * User ovverides options hash
      * Are applied before curl_exec
@@ -110,7 +107,6 @@ implements Mage_HTTP_IClient
      * @var array();
      */
     protected $_curlUserOptions = array();
-
 
     /**
      * Header count, used while parsing headers
@@ -222,7 +218,6 @@ implements Mage_HTTP_IClient
         $this->setCookies(array());
     }
 
-
     /**
      * Make GET request
      *
@@ -242,7 +237,6 @@ implements Mage_HTTP_IClient
         $this->makeRequest("POST", $uri, $params);
     }
 
-
     /**
      * Get response headers
      *
@@ -252,7 +246,6 @@ implements Mage_HTTP_IClient
     {
         return $this->_responseHeaders;
     }
-
 
     /**
      * Get response body
@@ -289,7 +282,6 @@ implements Mage_HTTP_IClient
         }
         return $out;
     }
-
 
     /**
      * Get cookies array with details
@@ -383,7 +375,6 @@ implements Mage_HTTP_IClient
         $this->curlOption(CURLOPT_RETURNTRANSFER, 1);
         $this->curlOption(CURLOPT_HEADERFUNCTION, array($this,'parseHeaders'));
 
-
         if(count($this->_curlUserOptions)) {
             foreach($this->_curlUserOptions as $k=>$v) {
                 $this->curlOption($k, $v);
@@ -409,7 +400,6 @@ implements Mage_HTTP_IClient
     {
         throw new Exception($string);
     }
-
 
     /**
      * Parse headers - CURL callback functin

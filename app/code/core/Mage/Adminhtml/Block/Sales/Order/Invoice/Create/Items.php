@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,9 +23,8 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminhtml_Block_Sales_Items_Abstract
 {
     protected $_disableSubmitButton = false;
@@ -40,11 +39,11 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
         $onclick = "submitAndReloadArea($('invoice_item_container'),'".$this->getUpdateUrl()."')";
         $this->setChild(
             'update_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'class'     => 'update-button',
                 'label'     => Mage::helper('sales')->__('Update Qty\'s'),
                 'onclick'   => $onclick,
-            ))
+            ])
         );
         $this->_disableSubmitButton = true;
         $_submitButtonClass = ' disabled';
@@ -65,12 +64,12 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
         }
         $this->setChild(
             'submit_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'label'     => $_submitLabel,
                 'class'     => 'save submit-button' . $_submitButtonClass,
                 'onclick'   => 'disableElements(\'submit-button\');$(\'edit_form\').submit()',
                 'disabled'  => $this->_disableSubmitButton
-            ))
+            ])
         );
 
         return parent::_prepareLayout();
@@ -79,7 +78,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
     /**
      * Get is submit button disabled or not
      *
-     * @return boolean
+     * @return bool
      */
     public function getDisableSubmitButton()
     {
@@ -123,7 +122,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
      */
     public function getOrderTotalData()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -133,13 +132,13 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
      */
     public function getOrderTotalbarData()
     {
-        $totalbarData = array();
+        $totalbarData = [];
         $this->setPriceDataObject($this->getInvoice()->getOrder());
-        $totalbarData[] = array(Mage::helper('sales')->__('Paid Amount'), $this->displayPriceAttribute('amount_paid'), false);
-        $totalbarData[] = array(Mage::helper('sales')->__('Refund Amount'), $this->displayPriceAttribute('amount_refunded'), false);
-        $totalbarData[] = array(Mage::helper('sales')->__('Shipping Amount'), $this->displayPriceAttribute('shipping_captured'), false);
-        $totalbarData[] = array(Mage::helper('sales')->__('Shipping Refund'), $this->displayPriceAttribute('shipping_refunded'), false);
-        $totalbarData[] = array(Mage::helper('sales')->__('Order Grand Total'), $this->displayPriceAttribute('grand_total'), true);
+        $totalbarData[] = [Mage::helper('sales')->__('Paid Amount'), $this->displayPriceAttribute('amount_paid'), false];
+        $totalbarData[] = [Mage::helper('sales')->__('Refund Amount'), $this->displayPriceAttribute('amount_refunded'), false];
+        $totalbarData[] = [Mage::helper('sales')->__('Shipping Amount'), $this->displayPriceAttribute('shipping_captured'), false];
+        $totalbarData[] = [Mage::helper('sales')->__('Shipping Refund'), $this->displayPriceAttribute('shipping_refunded'), false];
+        $totalbarData[] = [Mage::helper('sales')->__('Order Grand Total'), $this->displayPriceAttribute('grand_total'), true];
 
         return $totalbarData;
     }
@@ -156,7 +155,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
 
     public function getUpdateUrl()
     {
-        return $this->getUrl('*/*/updateQty', array('order_id'=>$this->getInvoice()->getOrderId()));
+        return $this->getUrl('*/*/updateQty', ['order_id'=>$this->getInvoice()->getOrderId()]);
     }
 
     /**

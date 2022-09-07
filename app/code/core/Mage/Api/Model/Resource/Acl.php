@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api
+ * @category   Mage
+ * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Resource model for admin ACL
  *
- * @category    Mage
- * @package     Mage_Api
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Api
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -52,17 +51,17 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
         $rolesArr = $adapter->fetchAll(
             $adapter->select()
                 ->from($this->getTable('api/role'))
-                ->order(array('tree_level', 'role_type'))
+                ->order(['tree_level', 'role_type'])
         );
         $this->loadRoles($acl, $rolesArr);
 
         $rulesArr =  $adapter->fetchAll(
             $adapter->select()
-                ->from(array('r'=>$this->getTable('api/rule')))
+                ->from(['r'=>$this->getTable('api/rule')])
                 ->joinLeft(
-                    array('a'=>$this->getTable('api/assert')),
+                    ['a'=>$this->getTable('api/assert')],
                     'a.assert_id=r.assert_id',
-                    array('assert_type', 'assert_data')
+                    ['assert_type', 'assert_data']
                 )
         );
         $this->loadRules($acl, $rulesArr);
@@ -115,7 +114,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
             $privileges = !empty($rule['api_privileges']) ? explode(',', $rule['api_privileges']) : null;
 
             $assert = null;
-            if (0!=$rule['assert_id']) {
+            if ($rule['assert_id'] != 0) {
                 $assertClass = Mage::getSingleton('api/config')->getAclAssert($rule['assert_type'])->getClassName();
                 $assert = new $assertClass(unserialize($rule['assert_data'], ['allowed_classes' => false]));
             }

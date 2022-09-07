@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var Mage_Catalog_Model_Resource_Setup $installer */
@@ -27,54 +27,54 @@ $connection = $installer->getConnection();
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('catalog/product_attribute_group_price'))
-    ->addColumn('value_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('value_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Value ID')
-    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Value ID')
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Entity ID')
-    ->addColumn('all_groups', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Entity ID')
+    ->addColumn('all_groups', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '1',
-        ), 'Is Applicable To All Customer Groups')
-    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Is Applicable To All Customer Groups')
+    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Customer Group ID')
-    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
+    ], 'Customer Group ID')
+    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
         'nullable'  => false,
         'default'   => '0.0000',
-        ), 'Value')
-    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Value')
+    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
-        ), 'Website ID')
+    ], 'Website ID')
     ->addIndex(
         $installer->getIdxName(
             'catalog/product_attribute_group_price',
-            array('entity_id', 'all_groups', 'customer_group_id', 'website_id'),
+            ['entity_id', 'all_groups', 'customer_group_id', 'website_id'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('entity_id', 'all_groups', 'customer_group_id', 'website_id'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        ['entity_id', 'all_groups', 'customer_group_id', 'website_id'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->addIndex(
-        $installer->getIdxName('catalog/product_attribute_group_price', array('entity_id')),
-        array('entity_id')
+        $installer->getIdxName('catalog/product_attribute_group_price', ['entity_id']),
+        ['entity_id']
     )
     ->addIndex(
-        $installer->getIdxName('catalog/product_attribute_group_price', array('customer_group_id')),
-        array('customer_group_id')
+        $installer->getIdxName('catalog/product_attribute_group_price', ['customer_group_id']),
+        ['customer_group_id']
     )
     ->addIndex(
-        $installer->getIdxName('catalog/product_attribute_group_price', array('website_id')),
-        array('website_id')
+        $installer->getIdxName('catalog/product_attribute_group_price', ['website_id']),
+        ['website_id']
     )
     ->addForeignKey(
         $installer->getFkName(
@@ -118,7 +118,7 @@ $table = $installer->getConnection()
     ->setComment('Catalog Product Group Price Attribute Backend Table');
 $installer->getConnection()->createTable($table);
 
-$installer->addAttribute('catalog_product', 'group_price', array(
+$installer->addAttribute('catalog_product', 'group_price', [
     'type'                       => 'decimal',
     'label'                      => 'Group Price',
     'input'                      => 'text',
@@ -128,37 +128,37 @@ $installer->addAttribute('catalog_product', 'group_price', array(
     'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
     'apply_to'                   => 'simple,configurable,virtual',
     'group'                      => 'Prices',
-));
+]);
 
 /**
  * Create table 'catalog/product_index_group_price'
  */
 $table = $connection
     ->newTable($installer->getTable('catalog/product_index_group_price'))
-    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Entity ID')
-    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Entity ID')
+    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Customer Group ID')
-    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Customer Group ID')
+    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Website ID')
-    ->addColumn('price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Min Price')
+    ], 'Website ID')
+    ->addColumn('price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Min Price')
     ->addIndex(
-        $installer->getIdxName('catalog/product_index_group_price', array('customer_group_id')),
-        array('customer_group_id')
+        $installer->getIdxName('catalog/product_index_group_price', ['customer_group_id']),
+        ['customer_group_id']
     )
     ->addIndex(
-        $installer->getIdxName('catalog/product_index_group_price', array('website_id')),
-        array('website_id')
+        $installer->getIdxName('catalog/product_index_group_price', ['website_id']),
+        ['website_id']
     )
     ->addForeignKey(
         $installer->getFkName(
@@ -202,12 +202,12 @@ $table = $connection
     ->setComment('Catalog Product Group Price Index Table');
 $connection->createTable($table);
 
-$finalPriceIndexerTables = array(
+$finalPriceIndexerTables = [
     'catalog/product_price_indexer_final_idx',
     'catalog/product_price_indexer_final_tmp',
-);
+];
 
-$priceIndexerTables =  array(
+$priceIndexerTables =  [
     'catalog/product_price_indexer_option_aggregate_idx',
     'catalog/product_price_indexer_option_aggregate_tmp',
     'catalog/product_price_indexer_option_idx',
@@ -219,25 +219,25 @@ $priceIndexerTables =  array(
     'catalog/product_price_indexer_cfg_option_idx',
     'catalog/product_price_indexer_cfg_option_tmp',
     'catalog/product_index_price',
-);
+];
 
 foreach ($finalPriceIndexerTables as $table) {
-    $connection->addColumn($installer->getTable($table), 'group_price', array(
+    $connection->addColumn($installer->getTable($table), 'group_price', [
         'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
         'length'    => '12,4',
         'comment'   => 'Group price',
-    ));
-    $connection->addColumn($installer->getTable($table), 'base_group_price', array(
+    ]);
+    $connection->addColumn($installer->getTable($table), 'base_group_price', [
         'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
         'length'    => '12,4',
         'comment'   => 'Base Group Price',
-    ));
+    ]);
 }
 
 foreach ($priceIndexerTables as $table) {
-    $connection->addColumn($installer->getTable($table), 'group_price', array(
+    $connection->addColumn($installer->getTable($table), 'group_price', [
         'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
         'length'    => '12,4',
         'comment'   => 'Group price',
-    ));
+    ]);
 }

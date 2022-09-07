@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -32,14 +32,14 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @var array
      */
-    protected $_ignoredAttributeCodes = array('entity_id', 'attribute_set_id', 'entity_type_id');
+    protected $_ignoredAttributeCodes = ['entity_id', 'attribute_set_id', 'entity_type_id'];
 
     /**
      * Default ignored attribute types
      *
      * @var array
      */
-    protected $_ignoredAttributeTypes = array();
+    protected $_ignoredAttributeTypes = [];
 
     /**
      * Field name in session for saving store id
@@ -58,7 +58,7 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param array $attributes
-     * @return boolean
+     * @return bool
      */
     protected function _isAllowedAttribute($attribute, $attributes = null)
     {

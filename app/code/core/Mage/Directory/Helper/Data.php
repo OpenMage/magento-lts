@@ -12,16 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Directory
+ * @category   Mage
+ * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Directory data helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Directory
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -66,7 +68,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_currencyCache = array();
+    protected $_currencyCache = [];
 
     /**
      * ISO2 country codes which have optional Zip/Postal pre-configured
@@ -90,10 +92,9 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_app;
 
     /**
-     * Constructor for Mage_Directory_Helper_Data
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
         $this->_app = !empty($args['app']) ? $args['app'] : Mage::app();
@@ -103,6 +104,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve region collection
      * @param string|array|null $countryFilter If string, accepts iso2_code; if array, accepts iso2_code[].
      * @return Mage_Directory_Model_Resource_Region_Collection
+     * @throws Mage_Core_Exception
      */
     public function getRegionCollection($countryFilter = null)
     {
@@ -118,6 +120,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve country collection
      *
      * @return Mage_Directory_Model_Resource_Country_Collection
+     * @throws Mage_Core_Exception
      */
     public function getCountryCollection()
     {
@@ -133,6 +136,8 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      * @deprecated after 1.7.0.2
      * @see Mage_Directory_Helper_Data::getRegionJsonByStore()
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getRegionJson()
     {
@@ -144,6 +149,8 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param int|null $storeId
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getRegionJsonByStore($storeId = null)
     {
@@ -156,11 +163,12 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
             }
             if (empty($json)) {
                 $regions = $this->_getRegions($storeId);
+                /** @var Mage_Core_Helper_Data $helper */
                 $helper = $this->_factory->getHelper('core');
                 $json = $helper->jsonEncode($regions);
 
                 if ($this->_app->useCache('config')) {
-                    $this->_app->saveCache($json, $cacheKey, array('config'));
+                    $this->_app->saveCache($json, $cacheKey, ['config']);
                 }
             }
             $this->_regionJson = $json;
@@ -174,10 +182,11 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      * Get Regions for specific Countries
      * @param string $storeId
      * @return array|null
+     * @throws Mage_Core_Exception
      */
     protected function _getRegions($storeId)
     {
-        $countryIds = array();
+        $countryIds = [];
 
         $countryCollection = $this->getCountryCollection()->loadByStore($storeId);
         /** @var Mage_Directory_Model_Country $country */
@@ -192,20 +201,20 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
             ->addCountryFilter($countryIds)
             ->load();
 
-        $regions = array(
-            'config' => array(
+        $regions = [
+            'config' => [
                 'show_all_regions' => $this->getShowNonRequiredState(),
                 'regions_required' => $this->getCountriesWithStatesRequired()
-            )
-        );
+            ]
+        ];
         foreach ($collection as $region) {
             if (!$region->getRegionId()) {
                 continue;
             }
-            $regions[$region->getCountryId()][$region->getRegionId()] = array(
+            $regions[$region->getCountryId()][$region->getRegionId()] = [
                 'code' => $region->getCode(),
                 'name' => $this->__($region->getName())
-            );
+            ];
         }
         return $regions;
     }
@@ -217,6 +226,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $from
      * @param string $to
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function currencyConvert($amount, $from, $to = null)
     {
@@ -226,8 +236,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_null($to)) {
             $to = Mage::app()->getStore()->getCurrentCurrencyCode();
         }
-        $converted = $this->_currencyCache[$from]->convert($amount, $to);
-        return $converted;
+        return $this->_currencyCache[$from]->convert($amount, $to);
     }
 
     /**
@@ -238,7 +247,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCountriesWithOptionalZip($asJson = false)
     {
-        if (null === $this->_optionalZipCountries) {
+        if ($this->_optionalZipCountries === null) {
             $this->_optionalZipCountries = preg_split(
                 '/\,/',
                 Mage::getStoreConfig(self::OPTIONAL_ZIP_COUNTRIES_CONFIG_PATH),
@@ -256,7 +265,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      * Check whether zip code is optional for specified country code
      *
      * @param string $countryCode
-     * @return boolean
+     * @return bool
      */
     public function isZipCodeOptional($countryCode)
     {
@@ -267,7 +276,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns the list of countries, for which region is required
      *
-     * @param boolean $asJson
+     * @param bool $asJson
      * @return array
      */
     public function getCountriesWithStatesRequired($asJson = false)
@@ -286,7 +295,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getShowNonRequiredState()
     {
-        return (boolean)Mage::getStoreConfig(self::XML_PATH_DISPLAY_ALL_STATES);
+        return (bool)Mage::getStoreConfig(self::XML_PATH_DISPLAY_ALL_STATES);
     }
 
     /**

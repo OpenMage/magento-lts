@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Page
+ * @category   Mage
+ * @package    Mage_Page
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,7 +27,6 @@
  */
 class Mage_Page_Model_Source_Layout
 {
-
     /**
      * Page layout options
      *
@@ -49,7 +48,7 @@ class Mage_Page_Model_Source_Layout
     public function getOptions()
     {
         if ($this->_options === null) {
-            $this->_options = array();
+            $this->_options = [];
             foreach (Mage::getSingleton('page/config')->getPageLayouts() as $layout) {
                 $this->_options[$layout->getCode()] = $layout->getLabel();
                 if ($layout->getIsDefault()) {
@@ -69,17 +68,17 @@ class Mage_Page_Model_Source_Layout
      */
     public function toOptionArray($withEmpty = false)
     {
-        $options = array();
+        $options = [];
 
         foreach ($this->getOptions() as $value => $label) {
-            $options[] = array(
+            $options[] = [
                 'label' => $label,
                 'value' => $value
-            );
+            ];
         }
 
         if ($withEmpty) {
-            array_unshift($options, array('value'=>'', 'label'=>Mage::helper('page')->__('-- Please Select --')));
+            array_unshift($options, ['value'=>'', 'label'=>Mage::helper('page')->__('-- Please Select --')]);
         }
 
         return $options;

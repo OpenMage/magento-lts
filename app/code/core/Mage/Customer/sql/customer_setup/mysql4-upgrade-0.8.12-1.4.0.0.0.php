@@ -12,15 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $installer */
 $installer = $this;
-
 $installer->startSetup();
 
 $installer->updateEntityType('customer', 'additional_attribute_table', 'customer/eav_attribute');
@@ -40,9 +39,9 @@ CREATE TABLE `{$installer->getTable('customer/eav_attribute')}` (
   CONSTRAINT `FK_CUSTOMER_EAV_ATTRIBUTE_ID` FOREIGN KEY (`attribute_id`) REFERENCES `{$installer->getTable('eav/attribute')}` (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
-$visibleAttributes = array('store_id', 'default_billing', 'default_shipping', 'confirmation');
+$visibleAttributes = ['store_id', 'default_billing', 'default_shipping', 'confirmation'];
 $stmt = $installer->getConnection()->select()
-    ->from($installer->getTable('eav/attribute'), array('attribute_id', 'attribute_code'))
+    ->from($installer->getTable('eav/attribute'), ['attribute_id', 'attribute_code'])
     ->where('entity_type_id = ?', $installer->getEntityTypeId('customer'))
     ->orWhere('entity_type_id = ?', $installer->getEntityTypeId('customer_address'));
 $result = $installer->getConnection()->fetchAll($stmt);
@@ -58,7 +57,7 @@ foreach ($result as $row) {
     if (in_array($row['attribute_code'], $visibleAttributes)) {
         $_visible = false;
     }
-    $attributes = array(
+    $attributes = [
         'attribute_id'              => $row['attribute_id'],
         'is_visible'                => $_visible,
         'is_visible_on_front'       => $_visibleOnFront,
@@ -66,7 +65,7 @@ foreach ($result as $row) {
         'lines_to_divide_multiline' => $_linesToDivideMultiline,
         'min_text_length'           => $_minLength,
         'max_text_length'           => $_maxLength
-    );
+    ];
     $installer->getConnection()->insert($table, $attributes);
 }
 

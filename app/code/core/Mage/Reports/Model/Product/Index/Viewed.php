@@ -12,15 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Reports
+ * @category   Mage
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Viewed Product Index
+ *
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Reports_Model_Resource_Product_Index_Viewed _getResource()
  * @method Mage_Reports_Model_Resource_Product_Index_Viewed getResource()
@@ -31,10 +34,6 @@
  * @method Mage_Reports_Model_Product_Index_Viewed setStoreId(int $value)
  * @method string getAddedAt()
  * @method Mage_Reports_Model_Product_Index_Viewed setAddedAt(string $value)
- *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Product_Index_Viewed extends Mage_Reports_Model_Product_Index_Abstract
 {
@@ -61,7 +60,7 @@ class Mage_Reports_Model_Product_Index_Viewed extends Mage_Reports_Model_Product
      */
     public function getExcludeProductIds()
     {
-        $productIds = array();
+        $productIds = [];
 
         if (Mage::registry('current_product')) {
             $productIds[] = Mage::registry('current_product')->getId();

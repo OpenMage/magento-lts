@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Category url rewrite helper
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Category_Url_Rewrite_Interface
 {
@@ -46,7 +46,7 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
      *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_resource = Mage::getSingleton('core/resource');
         $this->_connection = !empty($args['connection']) ? $args['connection'] : $this->_resource
@@ -65,7 +65,7 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
         $collection->joinTable(
             'core/url_rewrite',
             'category_id=entity_id',
-            array('request_path'),
+            ['request_path'],
             "{{table}}.is_system=1 AND " .
                 "{{table}}.store_id='{$storeId}' AND " .
                 "{{table}}.category_id IS NOT NULL AND " .
@@ -85,12 +85,12 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
     public function joinTableToCollection(Mage_Catalog_Model_Resource_Category_Flat_Collection $collection, $storeId)
     {
         $collection->getSelect()->joinLeft(
-            array('url_rewrite' => $collection->getTable('core/url_rewrite')),
+            ['url_rewrite' => $collection->getTable('core/url_rewrite')],
             'url_rewrite.category_id = main_table.entity_id AND url_rewrite.is_system = 1 '.
                 ' AND ' . $collection->getConnection()->quoteInto('url_rewrite.store_id = ?', $storeId).
                 ' AND url_rewrite.category_id IS NOT NULL'.
                 ' AND ' . $collection->getConnection()->quoteInto('url_rewrite.id_path LIKE ?', 'category/%'),
-            array('request_path')
+            ['request_path']
         );
         return $this;
     }
@@ -105,15 +105,15 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
     public function joinTableToSelect(Varien_Db_Select $select, $storeId)
     {
         $select->joinLeft(
-            array('url_rewrite' => $this->_resource->getTableName('core/url_rewrite')),
+            ['url_rewrite' => $this->_resource->getTableName('core/url_rewrite')],
             'url_rewrite.category_id=main_table.entity_id AND url_rewrite.is_system=1 AND ' .
                 $this->_connection->quoteInto(
                     'url_rewrite.store_id = ? AND ',
                     (int)$storeId
                 ) .
                 'url_rewrite.category_id IS NOT NULL AND '.
-                $this->_connection->prepareSqlCondition('url_rewrite.id_path', array('like' => 'category/%')),
-            array('request_path' => 'url_rewrite.request_path')
+                $this->_connection->prepareSqlCondition('url_rewrite.id_path', ['like' => 'category/%']),
+            ['request_path' => 'url_rewrite.request_path']
         );
         return $this;
     }

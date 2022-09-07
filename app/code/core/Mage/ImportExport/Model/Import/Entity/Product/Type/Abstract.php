@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_ImportExport
+ * @category   Mage
+ * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import entity abstract product type model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
 {
@@ -42,35 +42,35 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      *
      * @var array
      */
-    protected $_attributes = array();
+    protected $_attributes = [];
 
     /**
      * Attributes' codes which will be allowed anyway, independently from its visibility property.
      *
      * @var array
      */
-    protected $_forcedAttributesCodes = array();
+    protected $_forcedAttributesCodes = [];
 
     /**
      * Attributes with index (not label) value.
      *
      * @var array
      */
-    protected $_indexValueAttributes = array();
+    protected $_indexValueAttributes = [];
 
     /**
      * Validation failure message template definitions
      *
      * @var array
      */
-    protected $_messageTemplates = array();
+    protected $_messageTemplates = [];
 
     /**
      * Column names that holds values with particular meaning.
      *
      * @var array
      */
-    protected $_particularAttributes = array();
+    protected $_particularAttributes = [];
 
     /**
      * Product entity object.
@@ -152,7 +152,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     protected function _initAttributes()
     {
         // temporary storage for attributes' parameters to avoid double querying inside the loop
-        $attributesCache = array();
+        $attributesCache = [];
 
         foreach (Mage::getResourceModel('eav/entity_attribute_set_collection')
                 ->setEntityTypeFilter($this->_entityModel->getEntityTypeId()) as $attributeSet) {
@@ -164,7 +164,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
 
                 if ($attribute->getIsVisible() || in_array($attributeCode, $this->_forcedAttributesCodes)) {
                     if (!isset($attributesCache[$attributeId])) {
-                        $attributesCache[$attributeId] = array(
+                        $attributesCache[$attributeId] = [
                             'id'               => $attributeId,
                             'code'             => $attributeCode,
                             'for_configurable' => $attribute->getIsConfigurable(),
@@ -179,7 +179,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                                                   ? $attribute->getDefaultValue() : null,
                             'options'          => $this->_entityModel
                                                       ->getAttributeOptions($attribute, $this->_indexValueAttributes)
-                        );
+                        ];
                     }
                     $this->_addAttributeParams($attributeSet->getAttributeSetName(), $attributesCache[$attributeId]);
                 }
@@ -237,8 +237,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      *
      * @param array $rowData
      * @param int $rowNum
-     * @param boolean $isNewProduct OPTIONAL.
-     * @return boolean
+     * @param bool $isNewProduct OPTIONAL.
+     * @return bool
      */
     public function isRowValid(array $rowData, $rowNum, $isNewProduct = true)
     {
@@ -290,16 +290,16 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      */
     public function prepareAttributesForSave(array $rowData, $withDefaultValue = true)
     {
-        $resultAttrs = array();
+        $resultAttrs = [];
 
         foreach ($this->_getProductAttributes($rowData) as $attrCode => $attrParams) {
             if (!$attrParams['is_static']) {
                 if (isset($rowData[$attrCode]) && strlen($rowData[$attrCode])) {
                     $resultAttrs[$attrCode] =
-                        ('select' == $attrParams['type'] || 'multiselect' == $attrParams['type'])
+                        ($attrParams['type'] == 'select' || $attrParams['type'] == 'multiselect')
                         ? $attrParams['options'][strtolower($rowData[$attrCode])]
                         : $rowData[$attrCode];
-                } elseif ($withDefaultValue && null !== $attrParams['default_value']) {
+                } elseif ($withDefaultValue && $attrParams['default_value'] !== null) {
                     $resultAttrs[$attrCode] = $attrParams['default_value'];
                 }
             }

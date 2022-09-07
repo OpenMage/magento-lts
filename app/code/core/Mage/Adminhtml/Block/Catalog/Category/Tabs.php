@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
@@ -105,17 +105,17 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
             ->load();
         $defaultGroupId = 0;
         foreach ($groupCollection as $group) {
-            /* @var $group Mage_Eav_Model_Entity_Attribute_Group */
+            /** @var Mage_Eav_Model_Entity_Attribute_Group $group */
             if ($defaultGroupId == 0 || $group->getIsDefault()) {
                 $defaultGroupId = $group->getId();
             }
         }
 
         foreach ($groupCollection as $group) {
-            /* @var $group Mage_Eav_Model_Entity_Attribute_Group */
-            $attributes = array();
+            /** @var Mage_Eav_Model_Entity_Attribute_Group $group */
+            $attributes = [];
             foreach ($categoryAttributes as $attribute) {
-                /* @var $attribute Mage_Eav_Model_Entity_Attribute */
+                /** @var Mage_Eav_Model_Entity_Attribute $attribute */
                 if ($attribute->isInGroup($attributeSetId, $group->getId())) {
                     $attributes[] = $attribute;
                 }
@@ -132,25 +132,25 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
                 ->setAttributes($attributes)
                 ->setAddHiddenFields($active)
                 ->toHtml();
-            $this->addTab('group_' . $group->getId(), array(
+            $this->addTab('group_' . $group->getId(), [
                 'label'     => Mage::helper('catalog')->__($group->getAttributeGroupName()),
                 'content'   => $block,
                 'active'    => $active
-            ));
+            ]);
         }
 
-        $this->addTab('products', array(
+        $this->addTab('products', [
             'label'     => Mage::helper('catalog')->__('Category Products'),
             'content'   => $this->getLayout()->createBlock(
                 'adminhtml/catalog_category_tab_product',
                 'category.product.grid'
             )->toHtml(),
-        ));
+        ]);
 
         // dispatch event add custom tabs
-        Mage::dispatchEvent('adminhtml_catalog_category_tabs', array(
+        Mage::dispatchEvent('adminhtml_catalog_category_tabs', [
             'tabs'  => $this
-        ));
+        ]);
 
         /*$this->addTab('features', array(
             'label'     => Mage::helper('catalog')->__('Feature Products'),

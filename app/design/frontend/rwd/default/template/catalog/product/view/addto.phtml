@@ -20,8 +20,8 @@
 ?>
 
 <?php $_product = $this->getProduct(); ?>
-<?php $_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, array(), false); ?>
-<?php $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()))); ?>
+<?php $_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, [], false); ?>
+<?php $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])); ?>
 
 <ul class="add-to-links">
 <?php if ($this->helper('wishlist')->isAllow()) : ?>

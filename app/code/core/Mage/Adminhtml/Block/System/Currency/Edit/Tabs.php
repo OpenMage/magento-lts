@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Currency_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
@@ -37,16 +37,16 @@ class Mage_Adminhtml_Block_System_Currency_Edit_Tabs extends Mage_Adminhtml_Bloc
 
     protected function _beforeToHtml()
     {
-        $this->addTab('general', array(
+        $this->addTab('general', [
             'label'     => Mage::helper('adminhtml')->__('General Information'),
             'content'   => $this->getLayout()->createBlock('adminhtml/system_currency_edit_tab_main')->toHtml(),
             'active'    => true
-        ));
+        ]);
 
-        $this->addTab('currency_rates', array(
+        $this->addTab('currency_rates', [
             'label'     => Mage::helper('adminhtml')->__('Rates'),
             'content'   => $this->getLayout()->createBlock('adminhtml/system_currency_edit_tab_rates')->toHtml(),
-        ));
+        ]);
 
         return parent::_beforeToHtml();
     }

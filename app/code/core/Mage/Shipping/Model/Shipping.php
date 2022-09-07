@@ -12,13 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Shipping
+ * @category   Mage
+ * @package    Mage_Shipping
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Shipping
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Shipping_Model_Shipping
 {
     /**
@@ -123,7 +127,7 @@ class Mage_Shipping_Model_Shipping
             }
         } else {
             if (!is_array($limitCarrier)) {
-                $limitCarrier = array($limitCarrier);
+                $limitCarrier = [$limitCarrier];
             }
             foreach ($limitCarrier as $carrierCode) {
                 $carrierConfig = Mage::getStoreConfig('carriers/' . $carrierCode, $storeId);
@@ -146,26 +150,26 @@ class Mage_Shipping_Model_Shipping
      */
     public function collectCarrierRates($carrierCode, $request)
     {
-        /* @var Mage_Shipping_Model_Carrier_Abstract $carrier */
+        /** @var Mage_Shipping_Model_Carrier_Abstract $carrier */
         $carrier = $this->getCarrierByCode($carrierCode, $request->getStoreId());
         if (!$carrier) {
             return $this;
         }
         $carrier->setActiveFlag($this->_availabilityConfigField);
         $result = $carrier->checkAvailableShipCountries($request);
-        if (false !== $result && !($result instanceof Mage_Shipping_Model_Rate_Result_Error)) {
+        if ($result !== false && !($result instanceof Mage_Shipping_Model_Rate_Result_Error)) {
             $result = $carrier->proccessAdditionalValidation($request);
         }
         /*
         * Result will be false if the admin set not to show the shipping module
         * if the delivery country is not within specific countries
         */
-        if (false !== $result) {
+        if ($result !== false) {
             if (!$result instanceof Mage_Shipping_Model_Rate_Result_Error) {
                 if ($carrier->getConfigData('shipment_requesttype')) {
                     $packages = $this->composePackagesForCarrier($carrier, $request);
                     if (!empty($packages)) {
-                        $sumResults = array();
+                        $sumResults = [];
                         foreach ($packages as $weight => $packageCount) {
                             //clone carrier for multi-requests
                             $carrierObj = clone $carrier;
@@ -179,7 +183,7 @@ class Mage_Shipping_Model_Shipping
                             $sumResults[] = $result;
                         }
                         if (!empty($sumResults) && count($sumResults) > 1) {
-                            $result = array();
+                            $result = [];
                             foreach ($sumResults as $res) {
                                 if (empty($result)) {
                                     $result = $res;
@@ -228,7 +232,7 @@ class Mage_Shipping_Model_Shipping
     public function composePackagesForCarrier($carrier, $request)
     {
         $allItems   = $request->getAllItems();
-        $fullItems  = array();
+        $fullItems  = [];
 
         $maxWeight  = (float) $carrier->getConfigData('max_package_weight');
 
@@ -242,7 +246,7 @@ class Mage_Shipping_Model_Shipping
             $qty            = $item->getQty();
             $changeQty      = true;
             $checkWeight    = true;
-            $decimalItems   = array();
+            $decimalItems   = [];
 
             if ($item->getParentItem()) {
                 if (!$item->getParentItem()->getProduct()->getShipmentType()) {
@@ -265,10 +269,10 @@ class Mage_Shipping_Model_Shipping
                         $itemWeight = $itemWeight * $item->getQty();
                         if ($itemWeight > $maxWeight) {
                             $qtyItem = floor($itemWeight / $maxWeight);
-                            $decimalItems[] = array('weight' => $maxWeight, 'qty' => $qtyItem);
+                            $decimalItems[] = ['weight' => $maxWeight, 'qty' => $qtyItem];
                             $weightItem = Mage::helper('core')->getExactDivision($itemWeight, $maxWeight);
                             if ($weightItem) {
-                                $decimalItems[] = array('weight' => $weightItem, 'qty' => 1);
+                                $decimalItems[] = ['weight' => $weightItem, 'qty' => 1];
                             }
                             $checkWeight = false;
                         } else {
@@ -281,7 +285,7 @@ class Mage_Shipping_Model_Shipping
             }
 
             if ($checkWeight && $maxWeight && $itemWeight > $maxWeight) {
-                return array();
+                return [];
             }
 
             if ($changeQty && !$item->getParentItem() && $item->getIsQtyDecimal()
@@ -316,7 +320,7 @@ class Mage_Shipping_Model_Shipping
      */
     protected function _makePieces($items, $maxWeight)
     {
-        $pieces = array();
+        $pieces = [];
         if (!empty($items)) {
             $sumWeight = 0;
 

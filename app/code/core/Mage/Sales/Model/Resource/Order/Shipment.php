@@ -12,25 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Flat sales order shipment resource
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Resource_Order_Shipment extends Mage_Sales_Model_Resource_Order_Abstract
 {
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix                  = 'sales_order_shipment_resource';
@@ -43,23 +40,15 @@ class Mage_Sales_Model_Resource_Order_Shipment extends Mage_Sales_Model_Resource
     protected $_grid                         = true;
 
     /**
-     * Use increment id
-     *
      * @var bool
      */
     protected $_useIncrementId               = true;
 
     /**
-     * Entity type for increment id
-     *
      * @var string
      */
     protected $_entityTypeForIncrementId     = 'shipment';
 
-    /**
-     * Model initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('sales/shipment', 'entity_id');
@@ -77,31 +66,31 @@ class Mage_Sales_Model_Resource_Order_Shipment extends Mage_Sales_Model_Resource
         $checkedFirstname  = $adapter->getIfNullSql('{{table}}.firstname', $adapter->quote(''));
         $checkedMidllename = $adapter->getIfNullSql('{{table}}.middlename', $adapter->quote(''));
         $checkedLastname   = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
-        $concatName        = $adapter->getConcatSql(array(
+        $concatName        = $adapter->getConcatSql([
             $checkedFirstname,
             $adapter->quote(' '),
             $checkedMidllename,
             $adapter->quote(' '),
             $checkedLastname
-        ));
+        ]);
         $concatName = new Zend_Db_Expr("TRIM(REPLACE($concatName,'  ', ' '))");
 
         $this->addVirtualGridColumn(
             'shipping_name',
             'sales/order_address',
-            array('shipping_address_id' => 'entity_id'),
+            ['shipping_address_id' => 'entity_id'],
             $concatName
         )
         ->addVirtualGridColumn(
             'order_increment_id',
             'sales/order',
-            array('order_id' => 'entity_id'),
+            ['order_id' => 'entity_id'],
             'increment_id'
         )
         ->addVirtualGridColumn(
             'order_created_at',
             'sales/order',
-            array('order_id' => 'entity_id'),
+            ['order_id' => 'entity_id'],
             'created_at'
         );
 

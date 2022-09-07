@@ -12,10 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Dataflow
+ * @category   Mage
+ * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mage
+ * @package    Mage_Dataflow
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
@@ -25,14 +31,14 @@ class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_C
         $import = Mage::getResourceModel('dataflow/import');
         $total = $import->loadTotalBySessionId($sessionId);
 
-        $callbacks = array();
+        $callbacks = [];
         if ($mapperCb = $this->_parseCallback($this->getVar('mapper'), 'mapRow')) {
             $callbacks[] = $mapperCb;
         }
         if ($adapterCb = $this->_parseCallback($this->getVar('adapter'), 'saveRow')) {
             $callbacks[] = $adapterCb;
         }
-        $callbacks[] = array($this, 'updateProgress');
+        $callbacks[] = [$this, 'updateProgress'];
 
         echo $this->_getProgressBarHtml($sessionId, $total['cnt']);
 
@@ -100,7 +106,7 @@ function updateProgress(sessionId, idx, time, memory) {
             . $args['row']['session_id'] . '", "' . $args['idx'] . '", "' . time() . '", "' . $memory . '");</script>';
         echo '<li>' . $memory . '</li>';
 
-        return array();
+        return [];
     }
 
     protected function _parseCallback($callback, $defaultMethod=null)
@@ -114,6 +120,6 @@ function updateProgress(sessionId, idx, time, memory) {
         if (!($method = $match[3] ? $match[3] : $defaultMethod)) {
             return false;
         }
-        return array($model, $method);
+        return [$model, $method];
     }
 }

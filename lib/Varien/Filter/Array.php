@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Varien_Filter_Array extends Zend_Filter
 {
     protected $_columnFilters = array();

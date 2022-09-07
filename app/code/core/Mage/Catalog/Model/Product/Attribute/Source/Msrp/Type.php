@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -50,20 +50,20 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type extends Mage_Eav_Mod
     public function getAllOptions()
     {
         if (!$this->_options) {
-            $this->_options = array(
-                array(
+            $this->_options = [
+                [
                     'label' => Mage::helper('catalog')->__('In Cart'),
                     'value' => self::TYPE_IN_CART
-                ),
-                array(
+                ],
+                [
                     'label' => Mage::helper('catalog')->__('Before Order Confirmation'),
                     'value' => self::TYPE_BEFORE_ORDER_CONFIRM
-                ),
-                array(
+                ],
+                [
                     'label' => Mage::helper('catalog')->__('On Gesture'),
                     'value' => self::TYPE_ON_GESTURE
-                ),
-            );
+                ],
+            ];
         }
         return $this->_options;
     }

@@ -12,10 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_Totals
 {
@@ -68,19 +74,19 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
         parent::_initTotals();
         $this->removeTotal('base_grandtotal');
         if ((float) $this->getSource()->getAdjustmentPositive()) {
-            $total = new Varien_Object(array(
+            $total = new Varien_Object([
                 'code'  => 'adjustment_positive',
                 'value' => $this->getSource()->getAdjustmentPositive(),
                 'label' => $this->__('Adjustment Refund')
-            ));
+            ]);
             $this->addTotal($total);
         }
         if ((float) $this->getSource()->getAdjustmentNegative()) {
-            $total = new Varien_Object(array(
+            $total = new Varien_Object([
                 'code'  => 'adjustment_negative',
                 'value' => $this->getSource()->getAdjustmentNegative(),
                 'label' => $this->__('Adjustment Fee')
-            ));
+            ]);
             $this->addTotal($total);
         }
         /**

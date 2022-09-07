@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml sales order create shipping address block
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address
     extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
@@ -69,7 +68,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address
     /**
      * Return is shipping address flag
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsShipping()
     {
@@ -79,7 +78,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address
     /**
      * Same as billing address flag
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsAsBilling()
     {
@@ -109,7 +108,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address
     /**
      * Return customer address id
      *
-     * @return int|boolean
+     * @return int|bool
      */
     public function getAddressId()
     {
@@ -135,7 +134,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address
      * Return is address disabled flag
      * Return true is the quote is virtual
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsDisabled()
     {

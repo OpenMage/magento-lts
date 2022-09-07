@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart api for customer data
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Resource_Customer
 {
@@ -31,9 +31,9 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
     {
         $this->_storeIdSessionField = "cart_store_id";
 
-        $this->_attributesMap['quote'] = array('quote_id' => 'entity_id');
-        $this->_attributesMap['quote_customer'] = array('customer_id' => 'entity_id');
-        $this->_attributesMap['quote_address'] = array('address_id' => 'entity_id');
+        $this->_attributesMap['quote'] = ['quote_id' => 'entity_id'];
+        $this->_attributesMap['quote_customer'] = ['customer_id' => 'entity_id'];
+        $this->_attributesMap['quote_address'] = ['address_id' => 'entity_id'];
     }
 
     /**
@@ -206,7 +206,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
             return null;
         }
 
-        $dataAddresses = array();
+        $dataAddresses = [];
         foreach ($data as $addressItem) {
             foreach ($this->_attributesMap['quote_address'] as $attributeAlias => $attributeCode) {
                 if (isset($addressItem[$attributeAlias])) {

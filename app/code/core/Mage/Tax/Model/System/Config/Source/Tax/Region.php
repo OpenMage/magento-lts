@@ -12,13 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tax
+ * @category   Mage
+ * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Tax
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Tax_Model_System_Config_Source_Tax_Region
 {
     /**
@@ -29,7 +33,7 @@ class Mage_Tax_Model_System_Config_Source_Tax_Region
     /**
      * @param array $arguments
      */
-    public function __construct($arguments = array())
+    public function __construct($arguments = [])
     {
         $this->_optionsModel = !empty($arguments['region_model'])
             ? $arguments['region_model'] : Mage::getModel('directory/region');
@@ -52,11 +56,11 @@ class Mage_Tax_Model_System_Config_Source_Tax_Region
             unset($options[0]);
         } else {
             if ($options) {
-                $options[0] = array('value' => '0', 'label' => '*');
+                $options[0] = ['value' => '0', 'label' => '*'];
             } else {
-                $options = array(
-                    array('value' => '0', 'label' => '*'),
-                );
+                $options = [
+                    ['value' => '0', 'label' => '*'],
+                ];
             }
         }
         return $options;

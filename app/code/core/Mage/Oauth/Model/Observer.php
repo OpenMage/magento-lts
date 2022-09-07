@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Oauth
+ * @category   Mage
+ * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * OAuth observer
  *
- * @category    Mage
- * @package     Mage_Oauth
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Oauth
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Oauth_Model_Observer
 {
@@ -44,7 +44,7 @@ class Mage_Oauth_Model_Observer
      */
     public function afterCustomerLogin(Varien_Event_Observer $observer)
     {
-        if (null !== $this->_getOauthToken()) {
+        if ($this->_getOauthToken() !== null) {
             $userType = Mage_Oauth_Model_Token::USER_TYPE_CUSTOMER;
             $url = Mage::helper('oauth')->getAuthorizeUrl($userType);
             Mage::app()->getResponse()
@@ -62,7 +62,7 @@ class Mage_Oauth_Model_Observer
      */
     public function afterAdminLogin(Varien_Event_Observer $observer)
     {
-        if (null !== $this->_getOauthToken()) {
+        if ($this->_getOauthToken() !== null) {
             $userType = Mage_Oauth_Model_Token::USER_TYPE_ADMIN;
             $url = Mage::helper('oauth')->getAuthorizeUrl($userType);
             Mage::app()->getResponse()
@@ -80,7 +80,7 @@ class Mage_Oauth_Model_Observer
      */
     public function afterAdminLoginFailed(Varien_Event_Observer $observer)
     {
-        if (null !== $this->_getOauthToken()) {
+        if ($this->_getOauthToken() !== null) {
             /** @var Mage_Admin_Model_Session $session */
             $session = Mage::getSingleton('admin/session');
             $session->addError($observer->getException()->getMessage());

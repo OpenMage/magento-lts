@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,11 +23,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Adminhtml_Block_Widget_Container
 {
-
     protected $_storeModel;
     protected $_attributes;
     protected $_addMapButtonHtml;
@@ -63,7 +62,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
                     break;
             }
 
-            array_splice($attributes, 0, 0, array(''=>$this->__('Choose an attribute')));
+            array_splice($attributes, 0, 0, [''=>$this->__('Choose an attribute')]);
             $this->_attributes[$entityType] = $attributes;
         }
         return $this->_attributes[$entityType];
@@ -71,8 +70,8 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
 
     public function getValue($key, $default='', $defaultNew = null)
     {
-        if (null !== $defaultNew) {
-            if (0 == $this->getProfileId()) {
+        if ($defaultNew !== null) {
+            if ($this->getProfileId() == 0) {
                 $default = $defaultNew;
             }
         }
@@ -94,7 +93,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     public function getMappings($entityType)
     {
         $maps = $this->getData('gui_data/map/'.$entityType.'/db');
-        return $maps ? $maps : array();
+        return $maps ? $maps : [];
     }
 
     public function getAddMapButtonHtml()
@@ -120,7 +119,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     public function getProductTypeFilterOptions()
     {
         $options = Mage::getSingleton('catalog/product_type')->getOptionArray();
-        array_splice($options, 0, 0, array(''=>$this->__('Any Type')));
+        array_splice($options, 0, 0, [''=>$this->__('Any Type')]);
         return $options;
     }
 
@@ -131,8 +130,8 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
             ->load()
             ->toOptionHash();
 
-        $opt = array();
-        $opt = array(''=>$this->__('Any Attribute Set'));
+        $opt = [];
+        $opt = [''=>$this->__('Any Attribute Set')];
         if ($options) foreach($options as $index => $value) {
             $opt[$index]  = $value;
         }
@@ -144,7 +143,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     {
         $options = Mage::getSingleton('catalog/product_visibility')->getOptionArray();
 
-        array_splice($options, 0, 0, array(''=>$this->__('Any Visibility')));
+        array_splice($options, 0, 0, [''=>$this->__('Any Visibility')]);
         return $options;
     }
 
@@ -152,7 +151,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     {
         $options = Mage::getSingleton('catalog/product_status')->getOptionArray();
 
-        array_splice($options, 0, 0, array(''=>$this->__('Any Status')));
+        array_splice($options, 0, 0, [''=>$this->__('Any Status')]);
         return $options;
     }
 
@@ -160,7 +159,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     {
         if (!$this->_filterStores) {
             #$this->_filterStores = array(''=>$this->__('Any Store'));
-            $this->_filterStores = array();
+            $this->_filterStores = [];
             foreach (Mage::getConfig()->getNode('stores')->children() as $storeNode) {
                 if ($storeNode->getName()==='default') {
                     //continue;
@@ -174,11 +173,11 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     public function getCustomerGroupFilterOptions()
     {
         $options = Mage::getResourceModel('customer/group_collection')
-            ->addFieldToFilter('customer_group_id', array('gt'=>0))
+            ->addFieldToFilter('customer_group_id', ['gt'=>0])
             ->load()
             ->toOptionHash();
 
-        array_splice($options, 0, 0, array(''=>$this->__('Any Group')));
+        array_splice($options, 0, 0, [''=>$this->__('Any Group')]);
         return $options;
     }
 
@@ -186,7 +185,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     {
         $options = Mage::getResourceModel('directory/country_collection')
             ->load()->toOptionArray(false);
-        array_unshift($options, array('value'=>'', 'label'=>Mage::helper('adminhtml')->__('All countries')));
+        array_unshift($options, ['value'=>'', 'label'=>Mage::helper('adminhtml')->__('All countries')]);
         return $options;
     }
 
@@ -226,6 +225,5 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
         }
         return $this->_shortDateFormat;
     }
-
 }
 

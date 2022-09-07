@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_ImportExport
+ * @category   Mage
+ * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract import adapter
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements SeekableIterator
 {
@@ -70,7 +70,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      */
     final public function __construct($source)
     {
-        register_shutdown_function(array($this, 'destruct'));
+        register_shutdown_function([$this, 'destruct']);
 
         if (!is_string($source)) {
             Mage::throwException(Mage::helper('importexport')->__('Source file path must be a string'));
@@ -116,6 +116,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return array_combine(
@@ -141,6 +142,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      *
      * @return int More than 0 integer on success, integer 0 on failure.
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->_currentKey;
@@ -160,7 +162,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Checks if current position is valid.
      *
-     * @return boolean Returns true on success or false on failure.
+     * @return bool Returns true on success or false on failure.
      */
     #[\ReturnTypeWillChange]
     public function valid()

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,15 +23,14 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
 {
     /**
      * @var array
      */
-    protected $_links = array();
+    protected $_links = [];
 
     /**
      * @var bool
@@ -45,14 +44,14 @@ class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
      * @param array $urlParams
      * @return $this
      */
-    public function addLink($name, $path, $label, $urlParams = array())
+    public function addLink($name, $path, $label, $urlParams = [])
     {
-        $this->_links[$name] = new Varien_Object(array(
+        $this->_links[$name] = new Varien_Object([
             'name' => $name,
             'path' => $path,
             'label' => $label,
             'url' => $this->getUrl($path, $urlParams),
-        ));
+        ]);
         return $this;
     }
 

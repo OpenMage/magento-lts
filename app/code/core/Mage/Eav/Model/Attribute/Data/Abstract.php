@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * EAV Attribute Abstract Data Model
  *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Eav_Model_Attribute_Data_Abstract
 {
@@ -52,14 +51,14 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Scope visibility flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_requestScopeOnly    = true;
 
     /**
      * Is AJAX request flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isAjax              = false;
 
@@ -69,7 +68,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      *
      * @var array
      */
-    protected $_extractedData       = array();
+    protected $_extractedData       = [];
 
     /**
      * Mage_Core_Model_Locale FORMAT
@@ -120,7 +119,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Set scope visibility
      * Search value only in scope or search value in scope and global
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Eav_Model_Attribute_Data_Abstract
      */
     public function setRequestScopeOnly($flag)
@@ -425,11 +424,11 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                 case 'url':
                     $parsedUrl = parse_url($value);
                     if ($parsedUrl === false || empty($parsedUrl['scheme']) || empty($parsedUrl['host'])) {
-                        return array(Mage::helper('eav')->__('"%s" is not a valid URL.', $label));
+                        return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
                     }
                     $validator = new Zend_Validate_Hostname();
                     if (!$validator->isValid($parsedUrl['host'])) {
-                        return array(Mage::helper('eav')->__('"%s" is not a valid URL.', $label));
+                        return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
                     }
                     break;
                 case 'date':
@@ -459,7 +458,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Set is AJAX Request flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Eav_Model_Attribute_Data_Abstract
      */
     public function setIsAjaxRequest($flag = true)
@@ -471,7 +470,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Return is AJAX Request
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsAjaxRequest()
     {
@@ -495,7 +494,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     if (isset($params[$part])) {
                         $params = $params[$part];
                     } else {
-                        $params = array();
+                        $params = [];
                     }
                 }
             } else {
@@ -530,7 +529,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      *
      * @param array|string $value
      * @throws Mage_Core_Exception
-     * @return boolean
+     * @return bool
      */
     abstract public function validateValue($value);
 

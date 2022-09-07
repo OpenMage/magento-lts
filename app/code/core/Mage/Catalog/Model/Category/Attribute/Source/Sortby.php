@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Category *_sort_by Attributes Source Model
@@ -46,15 +45,15 @@ class Mage_Catalog_Model_Category_Attribute_Source_Sortby extends Mage_Eav_Model
     public function getAllOptions()
     {
         if (is_null($this->_options)) {
-            $this->_options = array(array(
+            $this->_options = [[
                 'label' => Mage::helper('catalog')->__('Best Value'),
                 'value' => 'position'
-            ));
+            ]];
             foreach ($this->_getCatalogConfig()->getAttributesUsedForSortBy() as $attribute) {
-                $this->_options[] = array(
+                $this->_options[] = [
                     'label' => Mage::helper('catalog')->__($attribute['frontend_label']),
                     'value' => $attribute['attribute_code']
-                );
+                ];
             }
         }
         return $this->_options;

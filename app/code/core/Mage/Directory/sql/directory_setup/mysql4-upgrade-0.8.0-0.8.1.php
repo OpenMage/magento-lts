@@ -12,22 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
-/**
- * Directory upgrade - adding regions of France (#6068)
- *
  * @category   Mage
  * @package    Mage_Directory
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
 $installer->startSetup();
+
 $installer->run("
 INSERT INTO `{$installer->getTable('directory_country_region')}` (`country_id`, `code`, `default_name`)
 VALUES
@@ -64,4 +58,5 @@ VALUES
 ('FR', '90', 'Territoire-de-Belfort'),('FR', '91', 'Essonne'),('FR', '92', 'Hauts-de-Seine'),
 ('FR', '93', 'Seine-Saint-Denis'),('FR', '94', 'Val-de-Marne'),('FR', '95', 'Val-d\\'Oise');
 ");
+
 $installer->endSetup();

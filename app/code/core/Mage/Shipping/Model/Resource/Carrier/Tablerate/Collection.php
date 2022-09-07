@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Shipping
+ * @category   Mage
+ * @package    Mage_Shipping
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -72,14 +72,14 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
 
         $this->_select
             ->joinLeft(
-                array('country_table' => $this->_countryTable),
+                ['country_table' => $this->_countryTable],
                 'country_table.country_id = main_table.dest_country_id',
-                array('dest_country' => 'iso3_code')
+                ['dest_country' => 'iso3_code']
             )
             ->joinLeft(
-                array('region_table' => $this->_regionTable),
+                ['region_table' => $this->_regionTable],
                 'region_table.region_id = main_table.dest_region_id',
-                array('dest_region' => 'code')
+                ['dest_region' => 'code']
             );
 
         $this->addOrder('dest_country', self::SORT_ORDER_ASC);

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -120,7 +120,6 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             $isSatisfied = false;
         }
 
-
         return $isSatisfied;
     }
 
@@ -140,7 +139,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         }
         // Validate weight
         if (isset($data['weight']) && !empty($data['weight']) && $data['weight'] > 0
-            && !Zend_Validate::is($data['weight'], 'Between', array(0, self::MAX_DECIMAL_VALUE))) {
+            && !Zend_Validate::is($data['weight'], 'Between', [0, self::MAX_DECIMAL_VALUE])) {
             $this->_addError('The "weight" value is not within the specified range.');
         }
         // msrp_display_actual_price_type attribute values needs to be a string to pass validation
@@ -148,8 +147,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         if (isset($data['msrp_display_actual_price_type'])) {
             $data['msrp_display_actual_price_type'] = (string) $data['msrp_display_actual_price_type'];
         }
-        $requiredAttributes = array('attribute_set_id');
-        $positiveNumberAttributes = array('weight', 'price', 'special_price', 'msrp');
+        $requiredAttributes = ['attribute_set_id'];
+        $positiveNumberAttributes = ['weight', 'price', 'special_price', 'msrp'];
         /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         foreach ($productEntity->getAttributeCollection($data['attribute_set_id']) as $attribute) {
             $attributeCode = $attribute->getAttributeCode();
@@ -181,7 +180,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                     $allowedValues = $this->_getAttributeAllowedValues($attribute->getSource()->getAllOptions());
                     if (!is_array($value)) {
                         // make validation of select and multiselect identical
-                        $value = array($value);
+                        $value = [$value];
                     }
                     foreach ($value as $selectValue) {
                         $useStrictMode = !is_numeric($selectValue);
@@ -282,7 +281,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         if ($this->_isUpdate() && !isset($data['sku'])) {
             return true;
         }
-        if (!Zend_Validate::is((string)$data['sku'], 'StringLength', array('min' => 0, 'max' => 64))) {
+        if (!Zend_Validate::is((string)$data['sku'], 'StringLength', ['min' => 0, 'max' => 64])) {
             $this->_addError('SKU length should be 64 characters maximum.');
         }
     }
@@ -592,7 +591,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      */
     protected function _getAttributeAllowedValues(array $options)
     {
-        $values = array();
+        $values = [];
         foreach ($options as $option) {
             if (isset($option['value'])) {
                 $value = $option['value'];

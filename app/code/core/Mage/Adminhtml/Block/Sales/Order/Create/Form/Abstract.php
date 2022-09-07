@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sales Order Create Form Abstract Block
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
     extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
@@ -88,11 +87,11 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
      */
     protected function _getAdditionalFormElementTypes()
     {
-        return array(
+        return [
             'file'      => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_file'),
             'image'     => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_image'),
             'boolean'   => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_boolean'),
-        );
+        ];
     }
 
     /**
@@ -102,9 +101,9 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
      */
     protected function _getAdditionalFormElementRenderers()
     {
-        return array(
+        return [
             'region'    => $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_region'),
-        );
+        ];
     }
 
     /**
@@ -140,13 +139,13 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
             $inputType = $attribute->getFrontend()->getInputType();
 
             if ($inputType) {
-                $element = $form->addField($attribute->getAttributeCode(), $inputType, array(
+                $element = $form->addField($attribute->getAttributeCode(), $inputType, [
                     'name'      => $attribute->getAttributeCode(),
                     'label'     => $this->__($attribute->getStoreLabel()),
                     'class'     => $attribute->getFrontend()->getClass(),
                     'required'  => $attribute->getIsRequired(),
                     'note'      => $this->escapeHtml($this->__($attribute->getNote()))
-                ));
+                ]);
                 if ($inputType == 'multiline') {
                     $element->setLineCount($attribute->getMultilineCount());
                 }
@@ -177,6 +176,6 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
      */
     public function getFormValues()
     {
-        return array();
+        return [];
     }
 }

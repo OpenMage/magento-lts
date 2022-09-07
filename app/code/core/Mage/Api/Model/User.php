@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api
+ * @category   Mage
+ * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Api model
+ *
+ * @category   Mage
+ * @package    Mage_Api
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Api_Model_Resource_User _getResource()
  * @method Mage_Api_Model_Resource_User getResource()
@@ -56,44 +60,33 @@
  * @method array getRoleIds()
  * @method $this setLogdate(string $value)
  *
- * @category    Mage
- * @package     Mage_Api
- * @author      Magento Core Team <core@magentocommerce.com>
- *
  * @method $this setRoleIds(array $value)
  * @method $this setRoleUserId(int $value)
  */
 class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 {
     /**
-     * Prefix of model events names
-     *
      * @var string
      */
     protected $_eventPrefix = 'api_user';
 
-    /**
-     * Constructor
-     */
     protected function _construct()
     {
         $this->_init('api/user');
     }
 
     /**
-     * Save user
-     *
      * @return $this
      */
     public function save()
     {
         $this->_beforeSave();
-        $data = array(
+        $data = [
                 'firstname' => $this->getFirstname(),
                 'lastname'  => $this->getLastname(),
                 'email'     => $this->getEmail(),
                 'modified'  => Mage::getSingleton('core/date')->gmtDate()
-            );
+        ];
 
         if ($this->getId() > 0) {
             $data['user_id']   = $this->getId();
@@ -247,7 +240,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $apiKey
-     * @return boolean
+     * @return bool
      * @throws Exception
      */
     public function authenticate($username, $apiKey)
@@ -281,10 +274,10 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
             $this->getResource()->cleanOldSessions($this)
                 ->recordLogin($this)
                 ->recordSession($this);
-            Mage::dispatchEvent('api_user_authenticated', array(
+            Mage::dispatchEvent('api_user_authenticated', [
                'model'    => $this,
                'api_key'  => $apiKey,
-            ));
+            ]);
         }
 
         return $this;

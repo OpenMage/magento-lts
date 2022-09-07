@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_AdminNotification
+ * @category   Mage
+ * @package    Mage_AdminNotification
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * AdminNotification observer
  *
  * @category   Mage
  * @package    Mage_AdminNotification
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_AdminNotification_Model_Observer
 {
@@ -37,7 +36,7 @@ class Mage_AdminNotification_Model_Observer
     {
         if (Mage::getSingleton('admin/session')->isLoggedIn()) {
             $feedModel  = Mage::getModel('adminnotification/feed');
-            /* @var Mage_AdminNotification_Model_Feed $feedModel */
+            /** @var Mage_AdminNotification_Model_Feed $feedModel */
 
             $feedModel->checkUpdate();
         }

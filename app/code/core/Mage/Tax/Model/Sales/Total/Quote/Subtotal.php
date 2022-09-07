@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tax
+ * @category   Mage
+ * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Calculate items and address amounts including/excluding tax
+ *
+ * @category   Mage
+ * @package    Mage_Tax
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
@@ -99,7 +103,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      *
      * @var array
      */
-    protected $_roundingDeltas = array();
+    protected $_roundingDeltas = [];
 
     /**
      * Class constructor
@@ -130,7 +134,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
         $this->_baseSubtotalInclTax = 0;
         $this->_subtotal = 0;
         $this->_baseSubtotal = 0;
-        $this->_roundingDeltas = array();
+        $this->_roundingDeltas = [];
 
         $address->setSubtotalInclTax(0);
         $address->setBaseSubtotalInclTax(0);
@@ -146,7 +150,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
         $storeRequest = $this->_getStoreTaxRequest($address);
         $this->_calculator->setCustomer($address->getQuote()->getCustomer());
         if ($this->_config->priceIncludesTax($this->_store)) {
-            $classIds = array();
+            $classIds = [];
             foreach ($items as $item) {
                 $classIds[] = $item->getProduct()->getTaxClassId();
                 if ($item->getHasChildren()) {
@@ -303,8 +307,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
                 $baseTaxable = $basePrice;
             }
             $appliedRates = $this->_calculator->getAppliedRates($request);
-            $taxes = array();
-            $baseTaxes = array();
+            $taxes = [];
+            $baseTaxes = [];
             foreach ($appliedRates as $appliedRate) {
                 $taxRate = $appliedRate['percent'];
                 $taxes[] = $this->_calculator->calcTaxAmount($taxable, $taxRate, false);
@@ -444,8 +448,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
             }
 
             $appliedRates = $this->_calculator->getAppliedRates($request);
-            $rowTaxes = array();
-            $baseRowTaxes = array();
+            $rowTaxes = [];
+            $baseRowTaxes = [];
             foreach ($appliedRates as $appliedRate) {
                 $taxRate = $appliedRate['percent'];
                 $rowTaxes[] = $this->_calculator->calcTaxAmount($taxable, $taxRate, false, true);
@@ -598,8 +602,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
                 $baseTaxable = $baseSubtotal;
             }
             $appliedRates = $this->_calculator->getAppliedRates($request);
-            $rowTaxes = array();
-            $baseRowTaxes = array();
+            $rowTaxes = [];
+            $baseRowTaxes = [];
             foreach ($appliedRates as $appliedRate) {
                 $taxId = $appliedRate['id'];
                 $taxRate = $appliedRate['percent'];
@@ -667,8 +671,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
         $storeTax = $this->_calculator->calcTaxAmount($storePriceInclTax, $storeRate, true, false);
         $priceExclTax = $storePriceInclTax - $storeTax;
         $customerTax = $this->_calculator->calcTaxAmount($priceExclTax, $customerRate, false, false);
-        $customerPriceInclTax = $this->_calculator->round($priceExclTax + $customerTax);
-        return $customerPriceInclTax;
+        return $this->_calculator->round($priceExclTax + $customerTax);
     }
 
     /**
@@ -781,13 +784,12 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      */
     protected function _getAddressTaxRequest($address)
     {
-        $addressTaxRequest = $this->_calculator->getRateRequest(
+        return $this->_calculator->getRateRequest(
             $address,
             $address->getQuote()->getBillingAddress(),
             $address->getQuote()->getCustomerTaxClassId(),
             $address->getQuote()->getStore()
         );
-        return $addressTaxRequest;
     }
 
     /**

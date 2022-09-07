@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml catalog super product configurable tab
@@ -56,7 +55,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Check block is readonly
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {
@@ -66,7 +65,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Check whether attributes of configurable products can be editable
      *
-     * @return boolean
+     * @return bool
      */
     public function isAttributesConfigurationReadonly()
     {
@@ -76,7 +75,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Check whether prices of configurable products can be editable
      *
-     * @return boolean
+     * @return bool
      */
     public function isAttributesPricesReadonly()
     {
@@ -98,11 +97,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
 
         $this->setChild('create_empty',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label' => Mage::helper('catalog')->__('Create Empty'),
                     'class' => 'add',
                     'onclick' => 'superProduct.createEmptyProduct()'
-                ))
+                ])
         );
 
         if ($this->_getProduct()->getId()) {
@@ -113,11 +112,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
 
             $this->setChild('create_from_configurable',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData(array(
+                    ->setData([
                         'label' => Mage::helper('catalog')->__('Copy From Configurable'),
                         'class' => 'add',
                         'onclick' => 'superProduct.createNewProduct()'
-                    ))
+                    ])
             );
         }
 
@@ -178,7 +177,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
         if(!$products) {
             return '{}';
         }
-        $data = array();
+        $data = [];
         foreach ($products as $product) {
             $data[$product->getId()] = $this->getConfigurableSettings($product);
         }
@@ -192,15 +191,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      * @return array
      */
     public function getConfigurableSettings($product) {
-        $data = array();
+        $data = [];
         $attributes = $this->_getProduct()->getTypeInstance(true)
             ->getUsedProductAttributes($this->_getProduct());
         foreach ($attributes as $attribute) {
-            $data[] = array(
+            $data[] = [
                 'attribute_id' => $attribute->getId(),
                 'label'        => $product->getAttributeText($attribute->getAttributeCode()),
                 'value_index'  => $product->getData($attribute->getAttributeCode())
-            );
+            ];
         }
 
         return $data;
@@ -235,12 +234,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     {
         return $this->getUrl(
             '*/*/new',
-            array(
+            [
                 'set'      => $this->_getProduct()->getAttributeSetId(),
                 'type'     => Mage_Catalog_Model_Product_Type::TYPE_SIMPLE,
                 'required' => $this->_getRequiredAttributesIds(),
                 'popup'    => 1
-            )
+            ]
         );
     }
 
@@ -253,13 +252,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     {
         return $this->getUrl(
             '*/*/new',
-            array(
+            [
                 'set'      => $this->_getProduct()->getAttributeSetId(),
                 'type'     => Mage_Catalog_Model_Product_Type::TYPE_SIMPLE,
                 'required' => $this->_getRequiredAttributesIds(),
                 'popup'    => 1,
                 'product'  => $this->_getProduct()->getId()
-            )
+            ]
         );
     }
 
@@ -272,9 +271,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     {
         return $this->getUrl(
             '*/*/quickCreate',
-            array(
+            [
                 'product'  => $this->_getProduct()->getId()
-            )
+            ]
         );
     }
 
@@ -285,7 +284,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      */
     protected function _getRequiredAttributesIds()
     {
-        $attributesIds = array();
+        $attributesIds = [];
         $configurableAttributes = $this->_getProduct()
             ->getTypeInstance(true)->getConfigurableAttributes($this->_getProduct());
         foreach ($configurableAttributes as $attribute) {

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -25,7 +25,6 @@
  * @package    Mage_Sales
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Sales_Block_Adminhtml_Report_Filter_Form_Order extends Mage_Sales_Block_Adminhtml_Report_Filter_Form
 {
     /**
@@ -40,14 +39,14 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form_Order extends Mage_Sales_Blo
         $fieldset = $this->getForm()->getElement('base_fieldset');
 
         if (is_object($fieldset) && $fieldset instanceof Varien_Data_Form_Element_Fieldset) {
-            $fieldset->addField('show_actual_columns', 'select', array(
+            $fieldset->addField('show_actual_columns', 'select', [
                 'name'       => 'show_actual_columns',
-                'options'    => array(
+                'options'    => [
                     '1' => Mage::helper('reports')->__('Yes'),
                     '0' => Mage::helper('reports')->__('No')
-                ),
+                ],
                 'label'      => Mage::helper('reports')->__('Show Actual Values'),
-            ));
+            ]);
         }
 
         return $this;

@@ -12,22 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-/* @var Mage_Checkout_Model_Mysql4_Setup $installer */
+/** @var Mage_Checkout_Model_Resource_Setup $installer */
 $installer = $this;
-
 $installer->startSetup();
+
 $connection = $installer->getConnection();
 $table = $installer->getTable('core/config_data');
 
 $select = $connection->select()
-    ->from($table, array('config_id', 'value'))
+    ->from($table, ['config_id', 'value'])
     ->where('path = ?', 'checkout/options/onepage_checkout_disabled');
 
 $data = $connection->fetchAll($select);
@@ -37,10 +36,10 @@ if ($data) {
         $connection->beginTransaction();
 
         foreach ($data as $value) {
-            $bind = array(
+            $bind = [
                 'path'  => 'checkout/options/onepage_checkout_enabled',
                 'value' => !((bool)$value['value'])
-            );
+            ];
             $where = 'config_id = ' . $value['config_id'];
             $connection->update($table, $bind, $where);
         }

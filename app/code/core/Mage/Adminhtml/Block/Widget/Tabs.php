@@ -12,24 +12,20 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Tabs block
- *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
 {
     /**
-     * tabs structure
-     *
      * @var array
      */
     protected $_tabs = [];
@@ -152,7 +148,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         $this->_tabs[$tabId]->setId($tabId);
         $this->_tabs[$tabId]->setTabId($tabId);
 
-        if (true === $this->_tabs[$tabId]->getActive()) {
+        if ($this->_tabs[$tabId]->getActive() === true) {
             $this->setActiveTab($tabId);
         }
 
@@ -207,7 +203,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
 
     protected function _beforeToHtml()
     {
-        Mage::dispatchEvent('adminhtml_block_widget_tabs_html_before', array('block' => $this));
+        Mage::dispatchEvent('adminhtml_block_widget_tabs_html_before', ['block' => $this]);
         if ($activeTab = $this->getRequest()->getParam('active_tab')) {
             $this->setActiveTab($activeTab);
         } elseif ($activeTabId = Mage::getSingleton('admin/session')->getActiveTabId()) {
@@ -276,7 +272,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     public function getTabsIds()
     {
         if (empty($this->_tabs))
-            return array();
+            return [];
         return array_keys($this->_tabs);
     }
 
@@ -337,7 +333,6 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         return $tab->getClass();
     }
 
-
     public function getTabLabel($tab)
     {
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
@@ -367,7 +362,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      */
     public function bindShadowTabs($tabOneId, $tabTwoId)
     {
-        $tabs = array();
+        $tabs = [];
         $args = func_get_args();
         if ((!empty($args)) && (count($args) > 1)) {
             foreach ($args as $tabId) {
@@ -380,11 +375,11 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
                 foreach ($tabs as $tabToId) {
                     if ($tabId !== $tabToId) {
                         if (!$this->_tabs[$tabToId]->getData('shadow_tabs')) {
-                            $this->_tabs[$tabToId]->setData('shadow_tabs', array());
+                            $this->_tabs[$tabToId]->setData('shadow_tabs', []);
                         }
                         $this->_tabs[$tabToId]->setData('shadow_tabs', array_merge(
                             $this->_tabs[$tabToId]->getData('shadow_tabs'),
-                            array($blockId . '_' . $tabId)
+                            [$blockId . '_' . $tabId]
                         ));
                     }
                 }
@@ -400,7 +395,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      */
     public function getAllShadowTabs($asJson = true)
     {
-        $result = array();
+        $result = [];
         if (!empty($this->_tabs)) {
             $blockId = $this->getId();
             foreach (array_keys($this->_tabs) as $tabId) {
@@ -427,7 +422,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     {
         if (isset($this->_tabs[$tab]) && $this->_tabs[$tab] instanceof Varien_Object) {
             if ($key == 'url') {
-                $value = $this->getUrl($value, array('_current' => true, '_use_rewrite' => true));
+                $value = $this->getUrl($value, ['_current' => true, '_use_rewrite' => true]);
             }
             $this->_tabs[$tab]->setData($key, $value);
         }

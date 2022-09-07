@@ -12,25 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core Store Resource Model
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Define main table and primary key
-     *
-     */
     protected function _construct()
     {
         $this->_init('core/store', 'store_id');
@@ -43,10 +39,10 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
      */
     protected function _initUniqueFields()
     {
-        $this->_uniqueFields = array(array(
+        $this->_uniqueFields = [[
             'field' => 'code',
             'title' => Mage::helper('core')->__('Store with the same code')
-        ));
+        ]];
         return $this;
     }
 
@@ -90,10 +86,10 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $model)
     {
-        $where = array(
+        $where = [
             'scope = ?'    => 'stores',
             'scope_id = ?' => $model->getStoreId()
-        );
+        ];
 
         $this->_getWriteAdapter()->delete(
             $this->getTable('core/config_data'),
@@ -113,15 +109,15 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     {
         $adapter    = $this->_getWriteAdapter();
 
-        $bindValues = array('group_id' => (int)$groupId);
+        $bindValues = ['group_id' => (int)$groupId];
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('count' => 'COUNT(*)'))
+            ->from($this->getMainTable(), ['count' => 'COUNT(*)'])
             ->where('group_id = :group_id');
         $count  = $adapter->fetchOne($select, $bindValues);
 
         if ($count == 1) {
-            $bind  = array('default_store_id' => (int)$storeId);
-            $where = array('group_id = ?' => (int)$groupId);
+            $bind  = ['default_store_id' => (int)$storeId];
+            $where = ['group_id = ?' => (int)$groupId];
             $adapter->update($this->getTable('core/store_group'), $bind, $where);
         }
 
@@ -144,8 +140,8 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
             $storeId = $adapter->fetchOne($select, 'default_store_id');
 
             if ($storeId == $model->getId()) {
-                $bind = array('default_store_id' => Mage_Core_Model_App::ADMIN_STORE_ID);
-                $where = array('group_id = ?' => $model->getOriginalGroupId());
+                $bind = ['default_store_id' => Mage_Core_Model_App::ADMIN_STORE_ID];
+                $where = ['group_id = ?' => $model->getOriginalGroupId()];
                 $this->_getWriteAdapter()->update($this->getTable('core/store_group'), $bind, $where);
             }
         }

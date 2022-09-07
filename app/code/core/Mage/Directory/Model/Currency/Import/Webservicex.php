@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Directory
+ * @category   Mage
+ * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,14 +23,13 @@
  *
  * @category   Mage
  * @package    Mage_Directory
- * @author      Magento Core Team <core@magentocommerce.com>
- *
+ * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated after 1.9.4.3
  */
 class Mage_Directory_Model_Currency_Import_Webservicex extends Mage_Directory_Model_Currency_Import_Abstract
 {
     protected $_url = 'http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency={{CURRENCY_FROM}}&ToCurrency={{CURRENCY_TO}}';
-    protected $_messages = array();
+    protected $_messages = [];
 
      /**
      * HTTP client
@@ -58,7 +57,7 @@ class Mage_Directory_Model_Currency_Import_Webservicex extends Mage_Directory_Mo
         try {
             $response = $this->_httpClient
                 ->setUri($url)
-                ->setConfig(array('timeout' => Mage::getStoreConfig('currency/webservicex/timeout')))
+                ->setConfig(['timeout' => Mage::getStoreConfig('currency/webservicex/timeout')])
                 ->request('GET')
                 ->getBody();
 

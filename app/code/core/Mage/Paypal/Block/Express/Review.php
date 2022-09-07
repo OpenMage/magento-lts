@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
 {
@@ -37,7 +37,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
      *
      * @var Mage_Sales_Model_Quote_Address_Rate
      */
-    protected $_currentShippingRate = null;
+    protected $_currentShippingRate;
 
     /**
      * Paypal action prefix
@@ -134,11 +134,12 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         if ($rate->getErrorMessage()) {
             $price = $rate->getErrorMessage();
         } else {
-            $price = $this->_getShippingPrice($rate->getPrice(),
-                $this->helper('tax')->displayShippingPriceIncludingTax());
+            /** @var Mage_Tax_Helper_Data $helper */
+            $helper = $this->helper('tax');
 
+            $price = $this->_getShippingPrice($rate->getPrice(), $helper->displayShippingPriceIncludingTax());
             $incl = $this->_getShippingPrice($rate->getPrice(), true);
-            if (($incl != $price) && $this->helper('tax')->displayShippingBothPrices()) {
+            if (($incl != $price) && $helper->displayShippingBothPrices()) {
                 $renderedInclTax = sprintf($inclTaxFormat, Mage::helper('tax')->__('Incl. Tax'), $incl);
             }
         }
@@ -157,6 +158,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
 
     /**
      * Set paypal actions prefix
+     * @param string $prefix
      */
     public function setPaypalActionPrefix($prefix)
     {
@@ -173,7 +175,9 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
      */
     protected function _getShippingPrice($price, $isInclTax)
     {
-        return $this->_formatPrice($this->helper('tax')->getShippingPrice($price, $isInclTax, $this->_address));
+        /** @var Mage_Tax_Helper_Data $helper */
+        $helper = $this->helper('tax');
+        return $helper->getShippingPrice($price, $isInclTax, $this->_address);
     }
 
     /**

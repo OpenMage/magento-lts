@@ -29,7 +29,7 @@
         </div>
         <?php echo $this->getMessagesBlock()->toHtml() ?>
 
-        <form id="wishlist-view-form" action="<?php echo $this->getUrl('*/*/update', array('wishlist_id' => $this->getWishlistInstance()->getId())) ?>" method="post">
+        <form id="wishlist-view-form" action="<?php echo $this->getUrl('*/*/update', ['wishlist_id' => $this->getWishlistInstance()->getId()]) ?>" method="post">
             <?php echo $this->getChildHtml('top'); ?>
             <div class="fieldset">
                 <?php if ($this->hasWishlistItems()): ?>

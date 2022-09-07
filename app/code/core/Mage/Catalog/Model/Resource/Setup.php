@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog entity setup
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
 {
@@ -37,7 +36,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     protected function _prepareValues($attr)
     {
         $data = parent::_prepareValues($attr);
-        $data = array_merge($data, array(
+        $data = array_merge($data, [
             'frontend_input_renderer'       => $this->_getValue($attr, 'input_renderer'),
             'is_global'                     => $this->_getValue(
                 $attr,
@@ -59,7 +58,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             'position'                      => $this->_getValue($attr, 'position', 0),
             'is_configurable'               => $this->_getValue($attr, 'is_configurable', 1),
             'is_used_for_promo_rules'       => $this->_getValue($attr, 'used_for_promo_rules', 0)
-        ));
+        ]);
         return $data;
     }
 
@@ -70,24 +69,24 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      */
     public function getDefaultEntities()
     {
-        return array(
-            'catalog_category'               => array(
+        return [
+            'catalog_category'               => [
                 'entity_model'                   => 'catalog/category',
                 'attribute_model'                => 'catalog/resource_eav_attribute',
                 'table'                          => 'catalog/category',
                 'additional_attribute_table'     => 'catalog/eav_attribute',
                 'entity_attribute_collection'    => 'catalog/category_attribute_collection',
                 'default_group'                  => 'General Information',
-                'attributes'                     => array(
-                    'name'               => array(
+                'attributes'                     => [
+                    'name'               => [
                         'type'                       => 'varchar',
                         'label'                      => 'Name',
                         'input'                      => 'text',
                         'sort_order'                 => 1,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'General Information',
-                    ),
-                    'is_active'          => array(
+                    ],
+                    'is_active'          => [
                         'type'                       => 'int',
                         'label'                      => 'Is Active',
                         'input'                      => 'select',
@@ -95,8 +94,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 2,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'General Information',
-                    ),
-                    'url_key'            => array(
+                    ],
+                    'url_key'            => [
                         'type'                       => 'varchar',
                         'label'                      => 'URL Key',
                         'input'                      => 'text',
@@ -105,8 +104,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 3,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'General Information',
-                    ),
-                    'description'        => array(
+                    ],
+                    'description'        => [
                         'type'                       => 'text',
                         'label'                      => 'Description',
                         'input'                      => 'textarea',
@@ -116,8 +115,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'wysiwyg_enabled'            => true,
                         'is_html_allowed_on_front'   => true,
                         'group'                      => 'General Information',
-                    ),
-                    'image'              => array(
+                    ],
+                    'image'              => [
                         'type'                       => 'varchar',
                         'label'                      => 'Image',
                         'input'                      => 'image',
@@ -126,8 +125,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 5,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'General Information',
-                    ),
-                    'meta_title'         => array(
+                    ],
+                    'meta_title'         => [
                         'type'                       => 'varchar',
                         'label'                      => 'Page Title',
                         'input'                      => 'text',
@@ -135,8 +134,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 6,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'General Information',
-                    ),
-                    'meta_keywords'      => array(
+                    ],
+                    'meta_keywords'      => [
                         'type'                       => 'text',
                         'label'                      => 'Meta Keywords',
                         'input'                      => 'textarea',
@@ -144,8 +143,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 7,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'General Information',
-                    ),
-                    'meta_description'   => array(
+                    ],
+                    'meta_description'   => [
                         'type'                       => 'text',
                         'label'                      => 'Meta Description',
                         'input'                      => 'textarea',
@@ -153,8 +152,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 8,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'General Information',
-                    ),
-                    'display_mode'       => array(
+                    ],
+                    'display_mode'       => [
                         'type'                       => 'varchar',
                         'label'                      => 'Display Mode',
                         'input'                      => 'select',
@@ -163,8 +162,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 10,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Display Settings',
-                    ),
-                    'landing_page'       => array(
+                    ],
+                    'landing_page'       => [
                         'type'                       => 'int',
                         'label'                      => 'CMS Block',
                         'input'                      => 'select',
@@ -173,8 +172,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 20,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Display Settings',
-                    ),
-                    'is_anchor'          => array(
+                    ],
+                    'is_anchor'          => [
                         'type'                       => 'int',
                         'label'                      => 'Is Anchor',
                         'input'                      => 'select',
@@ -182,53 +181,53 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'required'                   => false,
                         'sort_order'                 => 30,
                         'group'                      => 'Display Settings',
-                    ),
-                    'path'               => array(
+                    ],
+                    'path'               => [
                         'type'                       => 'static',
                         'label'                      => 'Path',
                         'required'                   => false,
                         'sort_order'                 => 12,
                         'visible'                    => false,
                         'group'                      => 'General Information',
-                    ),
-                    'position'           => array(
+                    ],
+                    'position'           => [
                         'type'                       => 'static',
                         'label'                      => 'Position',
                         'required'                   => false,
                         'sort_order'                 => 13,
                         'visible'                    => false,
                         'group'                      => 'General Information',
-                    ),
-                    'all_children'       => array(
+                    ],
+                    'all_children'       => [
                         'type'                       => 'text',
                         'required'                   => false,
                         'sort_order'                 => 14,
                         'visible'                    => false,
                         'group'                      => 'General Information',
-                    ),
-                    'path_in_store'      => array(
+                    ],
+                    'path_in_store'      => [
                         'type'                       => 'text',
                         'required'                   => false,
                         'sort_order'                 => 15,
                         'visible'                    => false,
                         'group'                      => 'General Information',
-                    ),
-                    'children'           => array(
+                    ],
+                    'children'           => [
                         'type'                       => 'text',
                         'required'                   => false,
                         'sort_order'                 => 16,
                         'visible'                    => false,
                         'group'                      => 'General Information',
-                    ),
-                    'url_path'           => array(
+                    ],
+                    'url_path'           => [
                         'type'                       => 'varchar',
                         'required'                   => false,
                         'sort_order'                 => 17,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'visible'                    => false,
                         'group'                      => 'General Information',
-                    ),
-                    'custom_design'      => array(
+                    ],
+                    'custom_design'      => [
                         'type'                       => 'varchar',
                         'label'                      => 'Custom Design',
                         'input'                      => 'select',
@@ -237,8 +236,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 10,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Custom Design',
-                    ),
-                    'custom_design_from' => array(
+                    ],
+                    'custom_design_from' => [
                         'type'                       => 'datetime',
                         'label'                      => 'Active From',
                         'input'                      => 'date',
@@ -247,8 +246,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 30,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Custom Design',
-                    ),
-                    'custom_design_to'   => array(
+                    ],
+                    'custom_design_to'   => [
                         'type'                       => 'datetime',
                         'label'                      => 'Active To',
                         'input'                      => 'date',
@@ -257,8 +256,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 40,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Custom Design',
-                    ),
-                    'page_layout'        => array(
+                    ],
+                    'page_layout'        => [
                         'type'                       => 'varchar',
                         'label'                      => 'Page Layout',
                         'input'                      => 'select',
@@ -267,8 +266,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 50,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Custom Design',
-                    ),
-                    'custom_layout_update' => array(
+                    ],
+                    'custom_layout_update' => [
                         'type'                       => 'text',
                         'label'                      => 'Custom Layout Update',
                         'input'                      => 'textarea',
@@ -277,24 +276,24 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 60,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Custom Design',
-                    ),
-                    'level'              => array(
+                    ],
+                    'level'              => [
                         'type'                       => 'static',
                         'label'                      => 'Level',
                         'required'                   => false,
                         'sort_order'                 => 24,
                         'visible'                    => false,
                         'group'                      => 'General Information',
-                    ),
-                    'children_count'     => array(
+                    ],
+                    'children_count'     => [
                         'type'                       => 'static',
                         'label'                      => 'Children Count',
                         'required'                   => false,
                         'sort_order'                 => 25,
                         'visible'                    => false,
                         'group'                      => 'General Information',
-                    ),
-                    'available_sort_by'  => array(
+                    ],
+                    'available_sort_by'  => [
                         'type'                       => 'text',
                         'label'                      => 'Available Product Listing Sort By',
                         'input'                      => 'multiselect',
@@ -304,8 +303,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'input_renderer'             => 'adminhtml/catalog_category_helper_sortby_available',
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Display Settings',
-                    ),
-                    'default_sort_by'    => array(
+                    ],
+                    'default_sort_by'    => [
                         'type'                       => 'varchar',
                         'label'                      => 'Default Product Listing Sort By',
                         'input'                      => 'select',
@@ -315,8 +314,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'input_renderer'             => 'adminhtml/catalog_category_helper_sortby_default',
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Display Settings',
-                    ),
-                    'include_in_menu'    => array(
+                    ],
+                    'include_in_menu'    => [
                         'type'                       => 'int',
                         'label'                      => 'Include in Navigation Menu',
                         'input'                      => 'select',
@@ -325,8 +324,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 10,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'General Information',
-                    ),
-                    'custom_use_parent_settings' => array(
+                    ],
+                    'custom_use_parent_settings' => [
                         'type'                       => 'int',
                         'label'                      => 'Use Parent Category Settings',
                         'input'                      => 'select',
@@ -335,8 +334,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 5,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Custom Design',
-                    ),
-                    'custom_apply_to_products' => array(
+                    ],
+                    'custom_apply_to_products' => [
                         'type'                       => 'int',
                         'label'                      => 'Apply To Products',
                         'input'                      => 'select',
@@ -345,8 +344,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 6,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Custom Design',
-                    ),
-                    'filter_price_range' => array(
+                    ],
+                    'filter_price_range' => [
                         'type'                       => 'decimal',
                         'label'                      => 'Layered Navigation Price Step',
                         'input'                      => 'text',
@@ -355,17 +354,17 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'input_renderer'             => 'adminhtml/catalog_category_helper_pricestep',
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Display Settings',
-                    ),
-                )
-            ),
-            'catalog_product'                => array(
+                    ],
+                ]
+            ],
+            'catalog_product'                => [
                 'entity_model'                   => 'catalog/product',
                 'attribute_model'                => 'catalog/resource_eav_attribute',
                 'table'                          => 'catalog/product',
                 'additional_attribute_table'     => 'catalog/eav_attribute',
                 'entity_attribute_collection'    => 'catalog/product_attribute_collection',
-                'attributes'                     => array(
-                    'name'               => array(
+                'attributes'                     => [
+                    'name'               => [
                         'type'                       => 'varchar',
                         'label'                      => 'Name',
                         'input'                      => 'text',
@@ -375,8 +374,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'visible_in_advanced_search' => true,
                         'used_in_product_listing'    => true,
                         'used_for_sort_by'           => true,
-                    ),
-                    'description'        => array(
+                    ],
+                    'description'        => [
                         'type'                       => 'text',
                         'label'                      => 'Description',
                         'input'                      => 'textarea',
@@ -387,8 +386,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'wysiwyg_enabled'            => true,
                         'is_html_allowed_on_front'   => true,
                         'visible_in_advanced_search' => true,
-                    ),
-                    'short_description'  => array(
+                    ],
+                    'short_description'  => [
                         'type'                       => 'text',
                         'label'                      => 'Short Description',
                         'input'                      => 'textarea',
@@ -400,8 +399,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'is_html_allowed_on_front'   => true,
                         'visible_in_advanced_search' => true,
                         'used_in_product_listing'    => true,
-                    ),
-                    'sku'                => array(
+                    ],
+                    'sku'                => [
                         'type'                       => 'static',
                         'label'                      => 'SKU',
                         'input'                      => 'text',
@@ -411,8 +410,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'searchable'                 => true,
                         'comparable'                 => true,
                         'visible_in_advanced_search' => true,
-                    ),
-                    'price'              => array(
+                    ],
+                    'price'              => [
                         'type'                       => 'decimal',
                         'label'                      => 'Price',
                         'input'                      => 'price',
@@ -426,8 +425,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'used_for_sort_by'           => true,
                         'apply_to'                   => 'simple,configurable,virtual',
                         'group'                      => 'Prices',
-                    ),
-                    'special_price'      => array(
+                    ],
+                    'special_price'      => [
                         'type'                       => 'decimal',
                         'label'                      => 'Special Price',
                         'input'                      => 'price',
@@ -438,8 +437,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'used_in_product_listing'    => true,
                         'apply_to'                   => 'simple,configurable,virtual',
                         'group'                      => 'Prices',
-                    ),
-                    'special_from_date'  => array(
+                    ],
+                    'special_from_date'  => [
                         'type'                       => 'datetime',
                         'label'                      => 'Special Price From Date',
                         'input'                      => 'date',
@@ -450,8 +449,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'used_in_product_listing'    => true,
                         'apply_to'                   => 'simple,configurable,virtual',
                         'group'                      => 'Prices',
-                    ),
-                    'special_to_date'    => array(
+                    ],
+                    'special_to_date'    => [
                         'type'                       => 'datetime',
                         'label'                      => 'Special Price To Date',
                         'input'                      => 'date',
@@ -462,8 +461,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'used_in_product_listing'    => true,
                         'apply_to'                   => 'simple,configurable,virtual',
                         'group'                      => 'Prices',
-                    ),
-                    'cost'               => array(
+                    ],
+                    'cost'               => [
                         'type'                       => 'decimal',
                         'label'                      => 'Cost',
                         'input'                      => 'price',
@@ -474,15 +473,15 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
                         'apply_to'                   => 'simple,virtual',
                         'group'                      => 'Prices',
-                    ),
-                    'weight'             => array(
+                    ],
+                    'weight'             => [
                         'type'                       => 'decimal',
                         'label'                      => 'Weight',
                         'input'                      => 'weight',
                         'sort_order'                 => 5,
                         'apply_to'                   => Mage_Catalog_Model_Product_Type::TYPE_SIMPLE,
-                    ),
-                    'manufacturer'       => array(
+                    ],
+                    'manufacturer'       => [
                         'type'                       => 'int',
                         'label'                      => 'Manufacturer',
                         'input'                      => 'select',
@@ -493,8 +492,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'comparable'                 => true,
                         'visible_in_advanced_search' => true,
                         'apply_to'                   => Mage_Catalog_Model_Product_Type::TYPE_SIMPLE,
-                    ),
-                    'meta_title'         => array(
+                    ],
+                    'meta_title'         => [
                         'type'                       => 'varchar',
                         'label'                      => 'Meta Title',
                         'input'                      => 'text',
@@ -502,8 +501,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 1,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Meta Information',
-                    ),
-                    'meta_keyword'       => array(
+                    ],
+                    'meta_keyword'       => [
                         'type'                       => 'text',
                         'label'                      => 'Meta Keywords',
                         'input'                      => 'textarea',
@@ -511,8 +510,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 2,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Meta Information',
-                    ),
-                    'meta_description'   => array(
+                    ],
+                    'meta_description'   => [
                         'type'                       => 'varchar',
                         'label'                      => 'Meta Description',
                         'input'                      => 'textarea',
@@ -522,8 +521,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 3,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Meta Information',
-                    ),
-                    'image'              => array(
+                    ],
+                    'image'              => [
                         'type'                       => 'varchar',
                         'label'                      => 'Base Image',
                         'input'                      => 'media_image',
@@ -532,8 +531,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 1,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Images',
-                    ),
-                    'small_image'        => array(
+                    ],
+                    'small_image'        => [
                         'type'                       => 'varchar',
                         'label'                      => 'Small Image',
                         'input'                      => 'media_image',
@@ -543,8 +542,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'used_in_product_listing'    => true,
                         'group'                      => 'Images',
-                    ),
-                    'thumbnail'          => array(
+                    ],
+                    'thumbnail'          => [
                         'type'                       => 'varchar',
                         'label'                      => 'Thumbnail',
                         'input'                      => 'media_image',
@@ -554,8 +553,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'used_in_product_listing'    => true,
                         'group'                      => 'Images',
-                    ),
-                    'media_gallery'      => array(
+                    ],
+                    'media_gallery'      => [
                         'type'                       => 'varchar',
                         'label'                      => 'Media Gallery',
                         'input'                      => 'gallery',
@@ -563,14 +562,14 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'required'                   => false,
                         'sort_order'                 => 4,
                         'group'                      => 'Images',
-                    ),
-                    'old_id'             => array(
+                    ],
+                    'old_id'             => [
                         'type'                       => 'int',
                         'required'                   => false,
                         'sort_order'                 => 6,
                         'visible'                    => false,
-                    ),
-                    'group_price'         => array(
+                    ],
+                    'group_price'         => [
                         'type'                       => 'decimal',
                         'label'                      => 'Group Price',
                         'input'                      => 'text',
@@ -580,8 +579,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
                         'apply_to'                   => 'simple,configurable,virtual',
                         'group'                      => 'Prices',
-                    ),
-                    'tier_price'         => array(
+                    ],
+                    'tier_price'         => [
                         'type'                       => 'decimal',
                         'label'                      => 'Tier Price',
                         'input'                      => 'text',
@@ -591,8 +590,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
                         'apply_to'                   => 'simple,configurable,virtual',
                         'group'                      => 'Prices',
-                    ),
-                    'color'              => array(
+                    ],
+                    'color'              => [
                         'type'                       => 'int',
                         'label'                      => 'Color',
                         'input'                      => 'select',
@@ -603,8 +602,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'comparable'                 => true,
                         'visible_in_advanced_search' => true,
                         'apply_to'                   => Mage_Catalog_Model_Product_Type::TYPE_SIMPLE,
-                    ),
-                    'news_from_date'     => array(
+                    ],
+                    'news_from_date'     => [
                         'type'                       => 'datetime',
                         'label'                      => 'Set Product as New from Date',
                         'input'                      => 'date',
@@ -613,8 +612,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 7,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
                         'used_in_product_listing'    => true,
-                    ),
-                    'news_to_date'       => array(
+                    ],
+                    'news_to_date'       => [
                         'type'                       => 'datetime',
                         'label'                      => 'Set Product as New to Date',
                         'input'                      => 'date',
@@ -623,16 +622,16 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 8,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
                         'used_in_product_listing'    => true,
-                    ),
-                    'gallery'            => array(
+                    ],
+                    'gallery'            => [
                         'type'                       => 'varchar',
                         'label'                      => 'Image Gallery',
                         'input'                      => 'gallery',
                         'required'                   => false,
                         'sort_order'                 => 5,
                         'group'                      => 'Images',
-                    ),
-                    'status'             => array(
+                    ],
+                    'status'             => [
                         'type'                       => 'int',
                         'label'                      => 'Status',
                         'input'                      => 'select',
@@ -641,8 +640,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
                         'searchable'                 => true,
                         'used_in_product_listing'    => true,
-                    ),
-                    'url_key'            => array(
+                    ],
+                    'url_key'            => [
                         'type'                       => 'varchar',
                         'label'                      => 'URL Key',
                         'input'                      => 'text',
@@ -651,15 +650,15 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 10,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'used_in_product_listing'    => true,
-                    ),
-                    'url_path'           => array(
+                    ],
+                    'url_path'           => [
                         'type'                       => 'varchar',
                         'required'                   => false,
                         'sort_order'                 => 11,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'visible'                    => false,
-                    ),
-                    'minimal_price'      => array(
+                    ],
+                    'minimal_price'      => [
                         'type'                       => 'decimal',
                         'label'                      => 'Minimal Price',
                         'input'                      => 'price',
@@ -669,8 +668,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'visible'                    => false,
                         'apply_to'                   => 'simple,configurable,virtual',
                         'group'                      => 'Prices',
-                    ),
-                    'is_recurring'       => array(
+                    ],
+                    'is_recurring'       => [
                         'type'                       => 'int',
                         'label'                      => 'Enable Recurring Profile',
                         'input'                      => 'select',
@@ -682,8 +681,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'apply_to'                   => 'simple,virtual',
                         'is_configurable'            => false,
                         'group'                      => 'Recurring Profile',
-                    ),
-                    'recurring_profile'  => array(
+                    ],
+                    'recurring_profile'  => [
                         'type'                       => 'text',
                         'label'                      => 'Recurring Payment Profile',
                         'input'                      => 'text',
@@ -693,8 +692,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'apply_to'                   => 'simple,virtual',
                         'is_configurable'            => false,
                         'group'                      => 'Recurring Profile',
-                    ),
-                    'visibility'         => array(
+                    ],
+                    'visibility'         => [
                         'type'                       => 'int',
                         'label'                      => 'Visibility',
                         'input'                      => 'select',
@@ -702,8 +701,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'default'                    => '4',
                         'sort_order'                 => 12,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
-                    ),
-                    'custom_design'      => array(
+                    ],
+                    'custom_design'      => [
                         'type'                       => 'varchar',
                         'label'                      => 'Custom Design',
                         'input'                      => 'select',
@@ -712,8 +711,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 1,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Design',
-                    ),
-                    'custom_design_from' => array(
+                    ],
+                    'custom_design_from' => [
                         'type'                       => 'datetime',
                         'label'                      => 'Active From',
                         'input'                      => 'date',
@@ -722,8 +721,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 2,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Design',
-                    ),
-                    'custom_design_to'   => array(
+                    ],
+                    'custom_design_to'   => [
                         'type'                       => 'datetime',
                         'label'                      => 'Active To',
                         'input'                      => 'date',
@@ -732,8 +731,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 3,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Design',
-                    ),
-                    'custom_layout_update' => array(
+                    ],
+                    'custom_layout_update' => [
                         'type'                       => 'text',
                         'label'                      => 'Custom Layout Update',
                         'input'                      => 'textarea',
@@ -742,8 +741,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 4,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Design',
-                    ),
-                    'page_layout'        => array(
+                    ],
+                    'page_layout'        => [
                         'type'                       => 'varchar',
                         'label'                      => 'Page Layout',
                         'input'                      => 'select',
@@ -752,15 +751,15 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 5,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Design',
-                    ),
-                    'category_ids'       => array(
+                    ],
+                    'category_ids'       => [
                         'type'                       => 'static',
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
                         'required'                   => false,
                         'sort_order'                 => 13,
                         'visible'                    => false,
-                    ),
-                    'options_container'  => array(
+                    ],
+                    'options_container'  => [
                         'type'                       => 'varchar',
                         'label'                      => 'Display Product Options In',
                         'input'                      => 'select',
@@ -770,23 +769,23 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 6,
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Design',
-                    ),
-                    'required_options'   => array(
+                    ],
+                    'required_options'   => [
                         'type'                       => 'static',
                         'input'                      => 'text',
                         'required'                   => false,
                         'sort_order'                 => 14,
                         'visible'                    => false,
                         'used_in_product_listing'    => true,
-                    ),
-                    'has_options'        => array(
+                    ],
+                    'has_options'        => [
                         'type'                       => 'static',
                         'input'                      => 'text',
                         'required'                   => false,
                         'sort_order'                 => 15,
                         'visible'                    => false,
-                    ),
-                    'image_label'        => array(
+                    ],
+                    'image_label'        => [
                         'type'                       => 'varchar',
                         'label'                      => 'Image Label',
                         'input'                      => 'text',
@@ -796,8 +795,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'visible'                    => false,
                         'used_in_product_listing'    => true,
                         'is_configurable'            => false,
-                    ),
-                    'small_image_label'  => array(
+                    ],
+                    'small_image_label'  => [
                         'type'                       => 'varchar',
                         'label'                      => 'Small Image Label',
                         'input'                      => 'text',
@@ -807,8 +806,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'visible'                    => false,
                         'used_in_product_listing'    => true,
                         'is_configurable'            => false,
-                    ),
-                    'thumbnail_label'    => array(
+                    ],
+                    'thumbnail_label'    => [
                         'type'                       => 'varchar',
                         'label'                      => 'Thumbnail Label',
                         'input'                      => 'text',
@@ -818,24 +817,24 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'visible'                    => false,
                         'used_in_product_listing'    => true,
                         'is_configurable'            => false,
-                    ),
-                    'created_at'         => array(
+                    ],
+                    'created_at'         => [
                         'type'                       => 'static',
                         'input'                      => 'text',
                         'backend'                    => 'eav/entity_attribute_backend_time_created',
                         'sort_order'                 => 19,
                         'visible'                    => false,
-                    ),
-                    'updated_at'         => array(
+                    ],
+                    'updated_at'         => [
                         'type'                       => 'static',
                         'input'                      => 'text',
                         'backend'                    => 'eav/entity_attribute_backend_time_updated',
                         'sort_order'                 => 20,
                         'visible'                    => false,
-                    ),
-                )
-            )
-        );
+                    ],
+                ]
+            ]
+        ];
     }
 
     /**
@@ -850,7 +849,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             Mage::getModel('catalog/category')->setId(1)->setPath(1)->save();
         }
 
-        $categories = array();
+        $categories = [];
 
         $select = $this->getConnection()->select();
         $select->from($this->getTable('catalog/category'));
@@ -869,8 +868,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                     ->getConnection()
                     ->update(
                         $this->getTable('catalog/category'),
-                        array('path' => $path),
-                        array('entity_id = ?' => $category['entity_id'])
+                        ['path' => $path],
+                        ['entity_id = ?' => $category['entity_id']]
                     );
             }
         }
@@ -890,7 +889,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         $select->from($this->getTable('catalog/category'));
         $select->where('entity_id = :entity_id');
 
-        return $this->getConnection()->fetchRow($select, array('entity_id' => $entityId));
+        return $this->getConnection()->fetchRow($select, ['entity_id' => $entityId]);
     }
 
     /**
@@ -900,7 +899,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      * @param array $path
      * @return string
      */
-    protected function _getCategoryPath($category, $path = array())
+    protected function _getCategoryPath($category, $path = [])
     {
         $path[] = $category['entity_id'];
 
@@ -932,8 +931,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             $level = count(explode('/', $category['path']))-1;
             $adapter->update(
                 $this->getTable('catalog/category'),
-                array('level' => $level),
-                array('entity_id = ?' => $category['entity_id'])
+                ['level' => $level],
+                ['entity_id = ?' => $category['entity_id']]
             );
         }
         return $this;

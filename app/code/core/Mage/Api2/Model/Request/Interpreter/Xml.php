@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api2
+ * @category   Mage
+ * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Request content interpreter XML adapter
  *
- * @category    Mage
- * @package     Mage_Api2
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Api2
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request_Interpreter_Interface
 {
@@ -53,11 +53,11 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
         if (!is_string($body)) {
             throw new Exception(sprintf('Invalid data type "%s". String expected.', gettype($body)));
         }
-        $body = false !== strpos($body, '<?xml') ? $body : '<?xml version="1.0"?>' . PHP_EOL . $body;
+        $body = strpos($body, '<?xml') !== false ? $body : '<?xml version="1.0"?>' . PHP_EOL . $body;
 
         // disable external entity loading to prevent possible vulnerability
         libxml_disable_entity_loader(true);
-        set_error_handler(array($this, '_loadErrorHandler')); // Warnings and errors are suppressed
+        set_error_handler([$this, '_loadErrorHandler']); // Warnings and errors are suppressed
         $config = simplexml_load_string($body);
         restore_error_handler();
         // restore default behavior to make possible to load external entities
@@ -68,8 +68,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
             throw new Mage_Api2_Exception('Decoding error.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
 
-        $xml = $this->_toArray($config);
-        return $xml;
+        return $this->_toArray($config);
     }
 
     /**
@@ -80,14 +79,14 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
      */
     protected function _toArray(SimpleXMLElement $xmlObject)
     {
-        $config = array();
+        $config = [];
         // Search for parent node values
         if (count($xmlObject->attributes()) > 0) {
             foreach ($xmlObject->attributes() as $key => $value) {
                 $value = (string)$value;
                 if (array_key_exists($key, $config)) {
                     if (!is_array($config[$key])) {
-                        $config[$key] = array($config[$key]);
+                        $config[$key] = [$config[$key]];
                     }
                     $config[$key][] = $value;
                 } else {
@@ -113,7 +112,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
                 }
                 if (array_key_exists($key, $config)) {
                     if (!is_array($config[$key]) || !array_key_exists(0, $config[$key])) {
-                        $config[$key] = array($config[$key]);
+                        $config[$key] = [$config[$key]];
                     }
                     $config[$key][] = $value;
                 } else {
@@ -132,10 +131,10 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
     /**
      * Handle any errors from load xml
      *
-     * @param integer $errno
+     * @param int $errno
      * @param string $errstr
      * @param string $errfile
-     * @param integer $errline
+     * @param int $errline
      */
     protected function _loadErrorHandler($errno, $errstr, $errfile, $errline)
     {

@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Payment
+ * @category   Mage
+ * @package    Mage_Payment
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payment Observer
  *
- * @category    Mage
- * @package     Mage_Payment
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Payment
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Payment_Model_Observer
 {
@@ -87,20 +87,20 @@ class Mage_Payment_Model_Observer
         // add the start datetime as product custom option
         $product->addCustomOption(
             Mage_Payment_Model_Recurring_Profile::PRODUCT_OPTIONS_KEY,
-            serialize(array('start_datetime' => $profile->getStartDatetime()))
+            serialize(['start_datetime' => $profile->getStartDatetime()])
         );
 
         // duplicate as 'additional_options' to render with the product statically
-        $infoOptions = array(array(
+        $infoOptions = [[
             'label' => $profile->getFieldLabel('start_datetime'),
             'value' => $profile->exportStartDatetime(true),
-        ));
+        ]];
 
         foreach ($profile->exportScheduleInfo() as $info) {
-            $infoOptions[] = array(
+            $infoOptions[] = [
                 'label' => $info->getTitle(),
                 'value' => $info->getSchedule(),
-            );
+            ];
         }
         $product->addCustomOption('additional_options', serialize($infoOptions));
     }
@@ -137,7 +137,7 @@ class Mage_Payment_Model_Observer
             $statusModel = $observer->getEvent()->getStatus();
             $status      = $statusModel->getStatus();
             $used        = 0;
-            $titles      = array();
+            $titles      = [];
             foreach (Mage::app()->getWebsites(true) as $website) {
                 $store = current($website->getStores()); // just need one store from each website
                 if (!$store) {
@@ -153,7 +153,7 @@ class Mage_Payment_Model_Observer
                         if (array_key_exists($title, $titles)) {
                             $titles[$title][] = $websiteName;
                         } else {
-                            $titles[$title]   = array($websiteName);
+                            $titles[$title]   = [$websiteName];
                         }
                     }
                 }

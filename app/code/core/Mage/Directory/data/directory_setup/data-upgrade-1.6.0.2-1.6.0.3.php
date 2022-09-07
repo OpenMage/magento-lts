@@ -12,24 +12,24 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Directory
+ * @category   Mage
+ * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
-$data = array(
-    array('directory/country_region', 'default_name'),
-    array('directory/country_region_name', 'name')
-);
+$data = [
+    ['directory/country_region', 'default_name'],
+    ['directory/country_region_name', 'name']
+];
 
 foreach ($data as $row) {
     $installer->getConnection()->update(
         $installer->getTable($row[0]),
-        array($row[1]          => 'Vorarlberg'),
-        array($row[1] . ' = ?' => 'Voralberg')
+        [$row[1]          => 'Vorarlberg'],
+        [$row[1] . ' = ?' => 'Voralberg']
     );
 }

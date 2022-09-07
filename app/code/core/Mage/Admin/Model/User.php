@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Admin
+ * @category   Mage
+ * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Admin user model
+ *
+ * @category   Mage
+ * @package    Mage_Admin
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Admin_Model_Resource_User _getResource()
  * @method Mage_Admin_Model_Resource_User getResource()
@@ -69,10 +73,6 @@
  * @method string getRpTokenCreatedAt()
  * @method $this setRpTokenCreatedAt(string $value)
  * @method $this setUserId(int $value)
- *
- * @category    Mage
- * @package     Mage_Admin
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 {
@@ -126,7 +126,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Available resources flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_hasAvailableResources = true;
 
@@ -143,13 +143,13 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     protected function _beforeSave()
     {
-        $data = array(
+        $data = [
             'firstname' => $this->getFirstname(),
             'lastname'  => $this->getLastname(),
             'email'     => $this->getEmail(),
             'modified'  => $this->_getDateNow(),
             'extra'     => serialize($this->getExtra())
-        );
+        ];
 
         if ($this->getId() > 0) {
             $data['user_id'] = $this->getId();
@@ -239,7 +239,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function getRole()
     {
-        if (null === $this->_role) {
+        if ($this->_role === null) {
             $this->_role = Mage::getModel('admin/roles');
             $roles = $this->getRoles();
             if ($roles && isset($roles[0]) && $roles[0]) {
@@ -263,7 +263,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Check if such combination role/user exists
      *
-     * @return boolean
+     * @return bool
      */
     public function roleUserExists()
     {
@@ -285,7 +285,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Check if user exists based on its id, username and email
      *
-     * @return boolean
+     * @return bool
      */
     public function userExists()
     {
@@ -331,9 +331,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $mailer->setSender(Mage::getStoreConfig(self::XML_PATH_FORGOT_EMAIL_IDENTITY));
         $mailer->setStoreId(0);
         $mailer->setTemplateId(Mage::getStoreConfig(self::XML_PATH_FORGOT_EMAIL_TEMPLATE));
-        $mailer->setTemplateParams(array(
+        $mailer->setTemplateParams([
             'user' => $this
-        ));
+        ]);
         $mailer->send();
 
         return $this;
@@ -375,7 +375,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $password
-     * @return boolean
+     * @return bool
      * @throws Mage_Core_Exception
      */
     public function authenticate($username, $password)
@@ -384,10 +384,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $result = false;
 
         try {
-            Mage::dispatchEvent('admin_user_authenticate_before', array(
+            Mage::dispatchEvent('admin_user_authenticate_before', [
                 'username' => $username,
                 'user'     => $this
-            ));
+            ]);
             $this->loadByUsername($username);
             $sensitive = ($config) ? $username == $this->getUsername() : true;
 
@@ -401,12 +401,12 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 $result = true;
             }
 
-            Mage::dispatchEvent('admin_user_authenticate_after', array(
+            Mage::dispatchEvent('admin_user_authenticate_after', [
                 'username' => $username,
                 'password' => $password,
                 'user'     => $this,
                 'result'   => $result,
-            ));
+            ]);
         } catch (Mage_Core_Exception $e) {
             $this->unsetData();
             throw $e;
@@ -471,7 +471,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Check if user is assigned to any role
      *
      * @param int|Mage_Admin_Model_User $user
-     * @return null|boolean|array
+     * @return null|bool|array
      */
     public function hasAssigned2Role($user)
     {
@@ -505,7 +505,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param Mage_Core_Model_Config_Element $parent
      * @param string $path
-     * @param integer $level
+     * @param int $level
      * @return string
      */
     public function findFirstAvailableMenu($parent = null, $path = '', $level = 0)
@@ -617,10 +617,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 $errors->append(Mage::helper('adminhtml')->__('Password confirmation must be same as password.'));
             }
 
-            Mage::dispatchEvent('admin_user_validate', array(
+            Mage::dispatchEvent('admin_user_validate', [
                 'user' => $this,
                 'errors' => $errors,
-            ));
+            ]);
         }
 
         if ($this->userExists()) {
@@ -644,7 +644,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function validateCurrentPassword($password)
     {
-        $result = array();
+        $result = [];
 
         if (!Zend_Validate::is($password, 'NotEmpty')) {
             $result[] = $this->_getHelper('adminhtml')->__('Current password field cannot be empty.');
@@ -682,7 +682,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Check if current reset password link token is expired
      *
-     * @return boolean
+     * @return bool
      */
     public function isResetPasswordLinkTokenExpired()
     {
@@ -727,7 +727,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Simple sql format date
      *
-     * @param string|boolean $dayOnly
+     * @param string|bool $dayOnly
      * @return string
      */
     protected function _getDateNow($dayOnly = false)
@@ -759,15 +759,15 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $mailer->addEmailInfo($emailInfo);
 
         // Set all required params and send emails
-        $mailer->setSender(array(
+        $mailer->setSender([
             'name'  => $generalContactName,
             'email' => $generalContactEmail,
-        ));
+        ]);
         $mailer->setStoreId(0);
         $mailer->setTemplateId(Mage::getStoreConfig(self::XML_PATH_NOTIFICATION_EMAILS_TEMPLATE));
-        $mailer->setTemplateParams(array(
+        $mailer->setTemplateParams([
             'user' => $user,
-        ));
+        ]);
         $mailer->send();
 
         return $this;

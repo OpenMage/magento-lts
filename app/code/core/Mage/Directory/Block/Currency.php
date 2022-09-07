@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Directory
+ * @category   Mage
+ * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Directory
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Directory_Block_Currency extends Mage_Core_Block_Template
 {
@@ -49,7 +49,7 @@ class Mage_Directory_Block_Currency extends Mage_Core_Block_Template
     {
         $currencies = $this->getData('currencies');
         if (is_null($currencies)) {
-            $currencies = array();
+            $currencies = [];
             $codes = Mage::app()->getStore()->getAvailableCurrencyCodes(true);
             if (is_array($codes) && count($codes) > 1) {
                 $rates = Mage::getModel('directory/currency')->getCurrencyRates(
@@ -88,7 +88,7 @@ class Mage_Directory_Block_Currency extends Mage_Core_Block_Template
      */
     public function getSwitchCurrencyUrl($code)
     {
-        return Mage::helper('directory/url')->getSwitchCurrencyUrl(array('currency' => $code));
+        return Mage::helper('directory/url')->getSwitchCurrencyUrl(['currency' => $code]);
     }
 
     /**

@@ -12,16 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * JavaScript helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
 {
@@ -124,7 +126,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function getJsSkinUrl($file)
     {
-        return Mage::getDesign()->getSkinUrl($file, array());
+        return Mage::getDesign()->getSkinUrl($file, []);
     }
 
     /**
@@ -135,7 +137,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     protected function _getTranslateData()
     {
         if ($this->_translateData === null) {
-            $this->_translateData = array();
+            $this->_translateData = [];
             $messages = $this->_getXmlConfig()->getXpath('*/message');
             if (!empty($messages)) {
                 foreach ($messages as $message) {
@@ -175,7 +177,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                     Mage::app()->saveCache(
                         $xmlConfig->getXmlString(),
                         self::JAVASCRIPT_TRANSLATE_CONFIG_KEY,
-                        array(Mage_Core_Model_Config::CACHE_TAG)
+                        [Mage_Core_Model_Config::CACHE_TAG]
                     );
                 }
             }

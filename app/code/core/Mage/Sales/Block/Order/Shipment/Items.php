@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -43,7 +43,7 @@ class Mage_Sales_Block_Order_Shipment_Items extends Mage_Sales_Block_Items_Abstr
      */
     public function getPrintShipmentUrl($shipment)
     {
-        return Mage::getUrl('*/*/printShipment', array('shipment_id' => $shipment->getId()));
+        return Mage::getUrl('*/*/printShipment', ['shipment_id' => $shipment->getId()]);
     }
 
     /**
@@ -52,7 +52,7 @@ class Mage_Sales_Block_Order_Shipment_Items extends Mage_Sales_Block_Items_Abstr
      */
     public function getPrintAllShipmentsUrl($order)
     {
-        return Mage::getUrl('*/*/printShipment', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/printShipment', ['order_id' => $order->getId()]);
     }
 
     /**

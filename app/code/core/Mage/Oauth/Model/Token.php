@@ -12,18 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Oauth
+ * @category   Mage
+ * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * oAuth token model
  *
- * @category    Mage
- * @package     Mage_Oauth
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Oauth
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method string getName() Consumer name (joined from consumer table)
  * @method Mage_Oauth_Model_Resource_Token_Collection getCollection()
  * @method Mage_Oauth_Model_Resource_Token_Collection getResourceCollection()
@@ -169,13 +170,13 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
         /** @var Mage_Oauth_Helper_Data $helper */
         $helper = Mage::helper('oauth');
 
-        $this->setData(array(
+        $this->setData([
             'consumer_id'  => $consumerId,
             'type'         => self::TYPE_REQUEST,
             'token'        => $helper->generateToken(),
             'secret'       => $helper->generateTokenSecret(),
             'callback_url' => $callbackUrl
-        ));
+        ]);
         $this->save();
 
         return $this;
@@ -206,7 +207,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
      */
     public function toString($format = '')
     {
-        return http_build_query(array('oauth_token' => $this->getToken(), 'oauth_token_secret' => $this->getSecret()));
+        return http_build_query(['oauth_token' => $this->getToken(), 'oauth_token_secret' => $this->getSecret()]);
     }
 
     /**
@@ -218,7 +219,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     {
         $this->validate();
 
-        if ($this->isObjectNew() && null === $this->getCreatedAt()) {
+        if ($this->isObjectNew() && $this->getCreatedAt() === null) {
             $this->setCreatedAt(Varien_Date::now());
         }
         parent::_beforeSave();
@@ -260,7 +261,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
             Mage::throwException(array_shift($messages));
         }
 
-        if (null !== ($verifier = $this->getVerifier())) {
+        if (($verifier = $this->getVerifier()) !== null) {
             $validatorLength->setLength(self::LENGTH_VERIFIER);
             $validatorLength->setName('Verifier Key');
             if (!$validatorLength->isValid($verifier)) {

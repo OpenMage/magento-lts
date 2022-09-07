@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogIndex
+ * @category   Mage
+ * @package    Mage_CatalogIndex
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * CatalogIndex Data Retriever Abstract Model
@@ -45,16 +44,16 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      *
      * @var int[]|bool[]
      */
-    protected $_haveChildren = array(
+    protected $_haveChildren = [
         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS => true,
         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES => true,
         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES => true,
-    );
+    ];
 
     /**
      * Defines when product type has parents
      *
-     * @var boolean
+     * @var bool
      */
     protected $_haveParents = true;
 
@@ -133,7 +132,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
                 break;
         }
 
-        $additional = array();
+        $additional = [];
         if (isset($settings['additional']) && is_array($settings['additional'])) {
             $additional = $settings['additional'];
         }
@@ -157,7 +156,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
         $specialPriceFromId = Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'special_from_date');
         $specialPriceToId = Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'special_to_date');
 
-        $attributes = array($priceId, $specialPriceId, $specialPriceFromId, $specialPriceToId);
+        $attributes = [$priceId, $specialPriceId, $specialPriceFromId, $specialPriceToId];
 
         $productData = $this->getAttributeData($product, $attributes, $store);
         foreach ($productData as $row) {
@@ -177,11 +176,9 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
             }
         }
 
-        $finalPrice = Mage::getSingleton('catalog/product_type')
+        return Mage::getSingleton('catalog/product_type')
             ->priceFactory($this->getTypeCode())
             ->calculatePrice($basePrice, $specialPrice, $specialPriceFrom, $specialPriceTo, false, $store, $group, $product);
-
-        return $finalPrice;
     }
 
     /**
@@ -193,14 +190,14 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      */
     public function getMinimalPrice($products, $store)
     {
-        $priceAttributes = array(
+        $priceAttributes = [
             Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'tier_price'),
-            Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'price'));
+            Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'price')];
 
         $data = $this->getResource()->getMinimalPrice($products, $priceAttributes, $store->getId());
 
         $this->setMinimalPriceData($data);
-        $eventData = array('indexer'=>$this, 'product_ids'=>$products, 'store'=>$store);
+        $eventData = ['indexer'=>$this, 'product_ids'=>$products, 'store'=>$store];
         Mage::dispatchEvent('catalogindex_get_minimal_price', $eventData);
         $data = $this->getMinimalPriceData();
 
@@ -217,7 +214,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     public function getTaxClassId($productId, $store)
     {
         $attributeId = Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'tax_class_id');
-        $taxClassId  = $this->getResource()->getAttributeData(array($productId), array($attributeId), $store->getId());
+        $taxClassId  = $this->getResource()->getAttributeData([$productId], [$attributeId], $store->getId());
         if (is_array($taxClassId) && isset($taxClassId[0]['value'])) {
             $taxClassId = $taxClassId[0]['value'];
         } else {

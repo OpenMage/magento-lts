@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,12 +23,11 @@
  *
  * @category   Mage
  * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
 {
     /**
-     * Enter description here...
-     *
      * @param string $var
      * @param string|true $value
      * @return bool
@@ -39,19 +38,17 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
 
         if ($value === true) {
             $flag = strtolower((string)$flag);
-            if (!empty($flag) && 'false' !== $flag && 'off' !== $flag) {
+            if (!empty($flag) && $flag !== 'false' && $flag !== 'off') {
                 return true;
             } else {
                 return false;
             }
         }
 
-        return !empty($flag) && (0 === strcasecmp($value, (string)$flag));
+        return !empty($flag) && (strcasecmp($value, (string)$flag) === 0);
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getClassName()

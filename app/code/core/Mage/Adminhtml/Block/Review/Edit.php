@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,9 +23,8 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
     public function __construct()
@@ -46,7 +45,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                 'setLocation(\''
                     . $this->getUrl(
                         '*/catalog_product/edit',
-                        array('id' => $this->getRequest()->getParam('productId', false))
+                        ['id' => $this->getRequest()->getParam('productId', false)]
                     )
                     .'\')'
             );
@@ -59,7 +58,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                 'setLocation(\''
                     . $this->getUrl(
                         '*/customer/edit',
-                        array('id' => $this->getRequest()->getParam('customerId', false))
+                        ['id' => $this->getRequest()->getParam('customerId', false)]
                     )
                     .'\')'
             );
@@ -78,10 +77,10 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                     . '\', '
                     . '\'' . $this->getUrl(
                         '*/*/delete',
-                        array(
+                        [
                             $this->_objectId => $this->getRequest()->getParam($this->_objectId),
                             'ret'           => 'pending',
-                        )
+                        ]
                     ) . '\''
                     . ')'
             );
@@ -104,7 +103,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                         $(\'save_button\').disabled = true;
                         new Ajax.Updater(
                             "rating_detail",
-                            "' . $this->getUrl('*/*/ratingItems', array('_current'=>true)).'",
+                            "' . $this->getUrl('*/*/ratingItems', ['_current'=>true]).'",
                             {
                                 parameters:Form.serializeElements(elements),
                                 evalScripts:true,

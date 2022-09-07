@@ -12,17 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Directory
+ * @category   Mage
+ * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Country model
  *
+ * @category   Mage
+ * @package    Mage_Directory
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Directory_Model_Resource_Country _getResource()
  * @method Mage_Directory_Model_Resource_Country getResource()
+ * @method Mage_Directory_Model_Resource_Country_Collection getResourceCollection()
  * @method string getCode()
  * @method string getCountryId()
  * @method $this setCountryId(string $value)
@@ -30,14 +35,10 @@
  * @method $this setIso2Code(string $value)
  * @method string getIso3Code()
  * @method $this setIso3Code(string $value)
- *
- * @category    Mage
- * @package     Mage_Directory
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
 {
-    static public $_format = array();
+    static public $_format = [];
 
     protected function _construct()
     {
@@ -133,16 +134,12 @@ T: {{telephone}}";
     {
         if (!isset(self::$_format[$this->getId()]) && $this->getId()) {
             self::$_format[$this->getId()] = Mage::getModel('directory/country_format')
-                                                ->getCollection()
-                                                ->setCountryFilter($this)
-                                                ->load();
+                ->getCollection()
+                ->setCountryFilter($this)
+                ->load();
         }
 
-        if (isset(self::$_format[$this->getId()])) {
-            return self::$_format[$this->getId()];
-        }
-
-        return null;
+        return self::$_format[$this->getId()] ?? null;
     }
 
     /**
@@ -155,7 +152,7 @@ T: {{telephone}}";
     {
         if ($this->getFormats()) {
             foreach ($this->getFormats() as $format) {
-                if ($format->getType()==$type) {
+                if ($format->getType() == $type) {
                     return $format;
                 }
             }

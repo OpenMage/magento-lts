@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Multishipping checkout model
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method bool getCollectRatesFlag()
  * @method $this setCollectRatesFlag(bool $value)
@@ -39,9 +39,6 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      */
     protected $_quoteShippingAddressesItems;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct();
@@ -117,7 +114,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
         if ($this->_quoteShippingAddressesItems !== null) {
             return $this->_quoteShippingAddressesItems;
         }
-        $items = array();
+        $items = [];
         $addresses  = $this->getQuote()->getAllAddresses();
         foreach ($addresses as $address) {
             foreach ($address->getAllItems() as $item) {
@@ -160,7 +157,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     public function removeAddressItem($addressId, $itemId)
     {
         $address = $this->getQuote()->getAddressById($addressId);
-        /* @var Mage_Sales_Model_Quote_Address $address */
+        /** @var Mage_Sales_Model_Quote_Address $address */
         if ($address) {
             $item = $address->getValidItemById($itemId);
             if ($item) {
@@ -173,7 +170,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                 /**
                  * Require shiping rate recollect
                  */
-                $address->setCollectShippingRates((boolean) $this->getCollectRatesFlag());
+                $address->setCollectShippingRates((bool) $this->getCollectRatesFlag());
 
                 if (count($address->getAllItems()) == 0) {
                     $address->isDeleted(true);
@@ -211,7 +208,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     {
         if (is_array($info)) {
             $allQty = 0;
-            $itemsInfo = array();
+            $itemsInfo = [];
             foreach ($info as $itemData) {
                 foreach ($itemData as $quoteItemId => $data) {
                     $allQty += $data['qty'];
@@ -273,7 +270,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
             }
 
             $this->save();
-            Mage::dispatchEvent('checkout_type_multishipping_set_shipping_items', array('quote'=>$quote));
+            Mage::dispatchEvent('checkout_type_multishipping_set_shipping_items', ['quote'=>$quote]);
         }
         return $this;
     }
@@ -320,7 +317,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                 /**
                  * Require shiping rate recollect
                  */
-                $quoteAddress->setCollectShippingRates((boolean) $this->getCollectRatesFlag());
+                $quoteAddress->setCollectShippingRates((bool) $this->getCollectRatesFlag());
             }
         }
         return $this;
@@ -466,7 +463,6 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
             Mage::throwException(Mage::helper('checkout')->__('Invalid checkout type.'));
         }
 
-        /** @var Mage_Payment_Model_Method_Abstract $paymentMethod */
         $paymentMethod = $quote->getPayment()->getMethodInstance();
         if (!empty($paymentMethod) && !$paymentMethod->isAvailable($quote)) {
             Mage::throwException(Mage::helper('checkout')->__('Please specify payment method.'));
@@ -498,10 +494,10 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      */
     public function createOrders()
     {
-        $orderIds = array();
+        $orderIds = [];
         $this->_validate();
         $shippingAddresses = $this->getQuote()->getAllShippingAddresses();
-        $orders = array();
+        $orders = [];
 
         if ($this->getQuote()->hasVirtualItems()) {
             $shippingAddresses[] = $this->getQuote()->getBillingAddress();
@@ -514,7 +510,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                 $orders[] = $order;
                 Mage::dispatchEvent(
                     'checkout_type_multishipping_create_orders_single',
-                    array('order'=>$order, 'address'=>$address)
+                    ['order'=>$order, 'address'=>$address]
                 );
             }
 
@@ -534,11 +530,11 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                 ->setIsActive(false)
                 ->save();
 
-            Mage::dispatchEvent('checkout_submit_all_after', array('orders' => $orders, 'quote' => $this->getQuote()));
+            Mage::dispatchEvent('checkout_submit_all_after', ['orders' => $orders, 'quote' => $this->getQuote()]);
 
             return $this;
         } catch (Exception $e) {
-            Mage::dispatchEvent('checkout_multishipping_refund_all', array('orders' => $orders));
+            Mage::dispatchEvent('checkout_multishipping_refund_all', ['orders' => $orders]);
             throw $e;
         }
     }

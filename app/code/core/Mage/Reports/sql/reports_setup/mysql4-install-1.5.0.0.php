@@ -12,15 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Reports
+ * @category   Mage
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
-
 
 $installFile = dirname(__FILE__) . DS . 'install-1.6.0.0.php';
 if (file_exists($installFile)) {
@@ -33,20 +32,20 @@ if (file_exists($installFile)) {
         $installer->getTable('reports/viewed_product_index'),
         $installer->getIdxName(
             'reports/viewed_product_index',
-            array('visitor_id', 'product_id'),
+            ['visitor_id', 'product_id'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('visitor_id', 'product_id'),
+        ['visitor_id', 'product_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     );
     $installer->getConnection()->addIndex(
         $installer->getTable('reports/viewed_product_index'),
         $installer->getIdxName(
             'reports/viewed_product_index',
-            array('customer_id', 'product_id'),
+            ['customer_id', 'product_id'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('customer_id', 'product_id'),
+        ['customer_id', 'product_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     );
 
@@ -57,20 +56,20 @@ if (file_exists($installFile)) {
         $installer->getTable('reports/compared_product_index'),
         $installer->getIdxName(
             'reports/compared_product_index',
-            array('visitor_id', 'product_id'),
+            ['visitor_id', 'product_id'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('visitor_id', 'product_id'),
+        ['visitor_id', 'product_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     );
     $installer->getConnection()->addIndex(
         $installer->getTable('reports/compared_product_index'),
         $installer->getIdxName(
             'reports/compared_product_index',
-            array('customer_id', 'product_id'),
+            ['customer_id', 'product_id'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('customer_id', 'product_id'),
+        ['customer_id', 'product_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     );
 }

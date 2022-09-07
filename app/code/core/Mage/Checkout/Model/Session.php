@@ -12,14 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Class Mage_Checkout_Model_Session
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setAdditionalMessages(array $value)
  *
@@ -186,7 +188,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function getQuote()
     {
-        Mage::dispatchEvent('custom_quote_process', array('checkout_session' => $this));
+        Mage::dispatchEvent('custom_quote_process', ['checkout_session' => $this]);
 
         if ($this->_quote === null) {
             /** @var Mage_Sales_Model_Quote $quote */
@@ -227,7 +229,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
                     $this->setQuoteId($quote->getId());
                 } else {
                     $quote->setIsCheckoutCart(true);
-                    Mage::dispatchEvent('checkout_quote_init', array('quote'=>$quote));
+                    Mage::dispatchEvent('checkout_quote_init', ['quote'=>$quote]);
                 }
             }
 
@@ -286,7 +288,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             return $this;
         }
 
-        Mage::dispatchEvent('load_customer_quote_before', array('checkout_session' => $this));
+        Mage::dispatchEvent('load_customer_quote_before', ['checkout_session' => $this]);
 
         $customerQuote = Mage::getModel('sales/quote')
             ->setStoreId(Mage::app()->getStore()->getId())
@@ -335,7 +337,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             }
         } else {
             if (!isset($steps[$step])) {
-                $steps[$step] = array();
+                $steps[$step] = [];
             }
             if (is_string($data)) {
                 $steps[$step][$data] = $value;
@@ -385,7 +387,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     {
         $additionalMessages = $this->getData('additional_messages');
         if (!$additionalMessages) {
-            return array();
+            return [];
         }
         if ($clear) {
             $this->setData('additional_messages', null);
@@ -468,7 +470,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function clear()
     {
-        Mage::dispatchEvent('checkout_quote_destroy', array('quote'=>$this->getQuote()));
+        Mage::dispatchEvent('checkout_quote_destroy', ['quote'=>$this->getQuote()]);
         $this->_quote = null;
         $this->setQuoteId(null);
         $this->setLastSuccessQuoteId(null);

@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Newsletter
+ * @category   Mage
+ * @package    Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Customers newsletter subscription controller
  *
  * @category   Mage
  * @package    Mage_Newsletter
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
 {
@@ -65,9 +64,9 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         try {
             Mage::getSingleton('customer/session')->getCustomer()
             ->setStoreId(Mage::app()->getStore()->getId())
-            ->setIsSubscribed((boolean)$this->getRequest()->getParam('is_subscribed', false))
+            ->setIsSubscribed((bool)$this->getRequest()->getParam('is_subscribed', false))
             ->save();
-            if ((boolean)$this->getRequest()->getParam('is_subscribed', false)) {
+            if ((bool)$this->getRequest()->getParam('is_subscribed', false)) {
                 Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been saved.'));
             } else {
                 Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been removed.'));

@@ -12,14 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Log
+ * @category   Mage
+ * @package    Mage_Log
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Enter description here ...
+ * @category   Mage
+ * @package    Mage_Log
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Log_Model_Resource_Visitor getResource()
  * @method int getCustomerId()
@@ -56,10 +58,6 @@
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
  * @method int getVisitorId()
- *
- * @category    Mage
- * @package     Mage_Log
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
 {
@@ -93,7 +91,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      * Mage_Log_Model_Visitor constructor.
      * @param array $data
      */
-    public function __construct(array $data = array())
+    public function __construct(array $data = [])
     {
         $this->_httpHelper = !empty($data['http_helper']) ? $data['http_helper'] : Mage::helper('core/http');
         $this->_config = !empty($data['config']) ? $data['config'] : Mage::getConfig();
@@ -102,7 +100,6 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         $this->_session = !empty($data['session']) ? $data['session'] : Mage::getSingleton('core/session');
         parent::__construct($data);
     }
-
 
     /**
      * Object initialization
@@ -140,7 +137,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      */
     public function initServerData()
     {
-        $this->addData(array(
+        $this->addData([
             'server_addr'           => $this->_httpHelper->getServerAddr(true),
             'remote_addr'           => $this->_httpHelper->getRemoteAddr(true),
             'http_secure'           => Mage::app()->getStore()->isCurrentlySecure(),
@@ -151,7 +148,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             'request_uri'           => $this->_httpHelper->getRequestUri(true),
             'session_id'            => $this->_session->getSessionId(),
             'http_referer'          => $this->_httpHelper->getHttpReferer(true),
-        ));
+        ]);
 
         return $this;
     }
@@ -227,7 +224,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             $this->save();
         }
         if (!$visitorId || $this->_isVisitorSessionNew()) {
-            Mage::dispatchEvent('visitor_init', array('visitor' => $this));
+            Mage::dispatchEvent('visitor_init', ['visitor' => $this]);
         }
         return $this;
     }
@@ -344,7 +341,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      */
     public function addIpData($data)
     {
-        $ipData = array();
+        $ipData = [];
         $data->setIpData($ipData);
         return $this;
     }
@@ -360,7 +357,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             return $this;
         }
         $customerData = Mage::getModel('customer/customer')->load($customerId);
-        $newCustomerData = array();
+        $newCustomerData = [];
         foreach ($customerData->getData() as $propName => $propValue) {
             $newCustomerData['customer_' . $propName] = $propValue;
         }

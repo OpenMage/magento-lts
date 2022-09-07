@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Centinel
+ * @category   Mage
+ * @package    Mage_Centinel
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * 3D Secure Validation Model
+ *
+ * @category   Mage
+ * @package    Mage_Centinel
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Centinel_Model_Service extends Varien_Object
 {
@@ -37,14 +41,14 @@ class Mage_Centinel_Model_Service extends Varien_Object
      *
      * @var array
      */
-    protected $_cmpiMap = array(
+    protected $_cmpiMap = [
         'lookup_enrolled'      => self::CMPI_ENROLLED,
         'lookup_eci_flag'      => self::CMPI_ECI,
         'authenticate_pa_res_status' => self::CMPI_PARES,
         'authenticate_cavv'          => self::CMPI_CAVV,
         'authenticate_eci_flag'      => self::CMPI_ECI,
         'authenticate_xid'           => self::CMPI_XID,
-    );
+    ];
 
     /**
      * Validation api model
@@ -107,12 +111,12 @@ class Mage_Centinel_Model_Service extends Varien_Object
      */
     private function _getUrl($suffix, $current = false)
     {
-        $params = array(
+        $params = [
             '_secure'  => true,
             '_current' => $current,
             'form_key' => Mage::getSingleton('core/session')->getFormKey(),
             'isIframe' => true
-        );
+        ];
         if (Mage::app()->getStore()->isAdmin()) {
             return Mage::getSingleton('adminhtml/url')->getUrl('*/centinel_index/' . $suffix, $params);
         } else {
@@ -183,7 +187,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      */
     protected function _resetValidationState()
     {
-        $this->_getSession()->setData(array());
+        $this->_getSession()->setData([]);
         $this->_validationState = false;
     }
 
@@ -351,13 +355,12 @@ class Mage_Centinel_Model_Service extends Varien_Object
         if (!$validationState && $this->shouldAuthenticate()) {
             throw new Exception('Authentication impossible: validation state is wrong.');
         }
-        $data = array(
+        return [
             'acs_url' => $validationState->getLookupAcsUrl(),
             'pa_req' => $validationState->getLookupPayload(),
             'term_url' => $this->_getUrl('authenticationcomplete', true),
             'md' => $validationState->getLookupTransactionId()
-        );
-        return $data;
+        ];
     }
 
     /**

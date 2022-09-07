@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Recurring profiles view/management controller
+ *
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * TODO: implement ACL restrictions
  */
@@ -125,7 +129,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             Mage::logException($e);
         }
         if ($profile) {
-            $this->_redirect('*/*/view', array('profile' => $profile->getId()));
+            $this->_redirect('*/*/view', ['profile' => $profile->getId()]);
         } else {
             $this->_redirect('*/*/');
         }
@@ -153,7 +157,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             Mage::logException($e);
         }
         if ($profile) {
-            $this->_redirect('*/*/view', array('profile' => $profile->getId()));
+            $this->_redirect('*/*/view', ['profile' => $profile->getId()]);
         } else {
             $this->_redirect('*/*/');
         }

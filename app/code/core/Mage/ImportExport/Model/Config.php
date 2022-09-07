@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_ImportExport
+ * @category   Mage
+ * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * ImportExport config model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Config
 {
@@ -37,16 +37,16 @@ class Mage_ImportExport_Model_Config
      */
     public static function getModels($configKey)
     {
-        $entities = array();
+        $entities = [];
 
         foreach (Mage::getConfig()->getNode($configKey)->asCanonicalArray() as $entityType => $entityParams) {
             if (empty($entityParams['model_token'])) {
                 Mage::throwException(Mage::helper('importexport')->__('Node does not has model token tag'));
             }
-            $entities[$entityType] = array(
+            $entities[$entityType] = [
                 'model' => $entityParams['model_token'],
                 'label' => empty($entityParams['label']) ? $entityType : $entityParams['label']
-            );
+            ];
         }
         return $entities;
     }
@@ -56,18 +56,18 @@ class Mage_ImportExport_Model_Config
      *
      * @static
      * @param string $configKey
-     * @param boolean $withEmpty OPTIONAL Include 'Please Select' option or not
+     * @param bool $withEmpty OPTIONAL Include 'Please Select' option or not
      * @return array
      */
     public static function getModelsComboOptions($configKey, $withEmpty = false)
     {
-        $options = array();
+        $options = [];
 
         if ($withEmpty) {
-            $options[] = array('label' => Mage::helper('importexport')->__('-- Please Select --'), 'value' => '');
+            $options[] = ['label' => Mage::helper('importexport')->__('-- Please Select --'), 'value' => ''];
         }
         foreach (self::getModels($configKey) as $type => $params) {
-            $options[] = array('value' => $type, 'label' => $params['label']);
+            $options[] = ['value' => $type, 'label' => $params['label']];
         }
         return $options;
     }
@@ -77,12 +77,12 @@ class Mage_ImportExport_Model_Config
      *
      * @static
      * @param string $configKey
-     * @param boolean $withEmpty OPTIONAL Include 'Please Select' option or not
+     * @param bool $withEmpty OPTIONAL Include 'Please Select' option or not
      * @return array
      */
     public static function getModelsArrayOptions($configKey, $withEmpty = false)
     {
-        $options = array();
+        $options = [];
         if ($withEmpty) {
             $options[0] = Mage::helper('importexport')->__('-- Please Select --');
         }

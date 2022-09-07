@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml dashboard totals bar
@@ -42,7 +41,7 @@ class Mage_Adminhtml_Block_Dashboard_Totals extends Mage_Adminhtml_Block_Dashboa
         $isFilter = $this->getRequest()->getParam('store') || $this->getRequest()->getParam('website') || $this->getRequest()->getParam('group');
         $period = $this->getRequest()->getParam('period', '24h');
 
-        /* @var $collection Mage_Reports_Model_Mysql4_Order_Collection */
+        /** @var Mage_Reports_Model_Resource_Order_Collection $collection */
         $collection = Mage::getResourceModel('reports/order_collection')
             ->addCreateAtPeriodFilter($period)
             ->calculateTotals($isFilter);
@@ -51,13 +50,13 @@ class Mage_Adminhtml_Block_Dashboard_Totals extends Mage_Adminhtml_Block_Dashboa
             $collection->addFieldToFilter('store_id', $this->getRequest()->getParam('store'));
         } else if ($this->getRequest()->getParam('website')){
             $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
-            $collection->addFieldToFilter('store_id', array('in' => $storeIds));
+            $collection->addFieldToFilter('store_id', ['in' => $storeIds]);
         } else if ($this->getRequest()->getParam('group')){
             $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
-            $collection->addFieldToFilter('store_id', array('in' => $storeIds));
+            $collection->addFieldToFilter('store_id', ['in' => $storeIds]);
         } elseif (!$collection->isLive()) {
             $collection->addFieldToFilter('store_id',
-                array('eq' => Mage::app()->getStore(Mage_Core_Model_Store::ADMIN_CODE)->getId())
+                ['eq' => Mage::app()->getStore(Mage_Core_Model_Store::ADMIN_CODE)->getId()]
             );
         }
 

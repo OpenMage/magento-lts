@@ -12,24 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Uploader
+ * @category   Mage
+ * @package    Mage_Uploader
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Uploader
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Uploader_Block_Multiple extends Mage_Uploader_Block_Abstract
 {
-    /**
-     *
-     * Default upload button ID suffix
-     */
     const DEFAULT_UPLOAD_BUTTON_ID_SUFFIX = 'upload';
 
-
     /**
-     * Prepare layout, create upload button
-     *
      * @return $this
      */
     protected function _prepareLayout()
@@ -39,16 +37,16 @@ class Mage_Uploader_Block_Multiple extends Mage_Uploader_Block_Abstract
         $this->setChild(
             'upload_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData(array(
+                ->addData([
                     'id'      => $this->getElementId(self::DEFAULT_UPLOAD_BUTTON_ID_SUFFIX),
                     'label'   => Mage::helper('uploader')->__('Upload Files'),
                     'type'    => 'button',
-                ))
+                ])
         );
 
-        $this->_addElementIdsMapping(array(
-            'upload' => $this->_prepareElementsIds(array(self::DEFAULT_UPLOAD_BUTTON_ID_SUFFIX))
-        ));
+        $this->_addElementIdsMapping([
+            'upload' => $this->_prepareElementsIds([self::DEFAULT_UPLOAD_BUTTON_ID_SUFFIX])
+        ]);
 
         return $this;
     }

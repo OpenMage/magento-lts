@@ -12,14 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Usa
+ * @category   Mage
+ * @package    Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
 
 // update UPS Gateway XML URL to the new recommended one
 $installer->run("UPDATE {$installer->getTable('core/config_data')} SET `value` = REPLACE(`value`,

@@ -12,19 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Resource transaction model
  *
- * @todo need collect conection by name
  * @category   Mage
  * @package    Mage_Core
  * @author     Magento Core Team <core@magentocommerce.com>
+ * @todo need collect conection by name
  */
 class Mage_Core_Model_Resource_Transaction
 {
@@ -33,21 +33,21 @@ class Mage_Core_Model_Resource_Transaction
      *
      * @var array
      */
-    protected $_objects = array();
+    protected $_objects = [];
 
     /**
      * Transaction objects array with alias key
      *
      * @var array
      */
-    protected $_objectsByAlias = array();
+    protected $_objectsByAlias = [];
 
     /**
      * Callbacks array.
      *
      * @var array
      */
-    protected $_beforeCommitCallbacks = array();
+    protected $_beforeCommitCallbacks = [];
     /**
      * Begin transaction for all involved object resources
      *

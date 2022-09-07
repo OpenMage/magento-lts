@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Reports
+ * @category   Mage
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Totals
 {
@@ -37,12 +37,12 @@ class Mage_Reports_Model_Totals
      */
     public function countTotals($grid, $from, $to)
     {
-        $columns = array();
+        $columns = [];
         foreach ($grid->getColumns() as $col) {
             if ($col->getTotal() === null) {
                 continue;
             }
-            $columns[$col->getIndex()] = array("total" => $col->getTotal(), "value" => 0);
+            $columns[$col->getIndex()] = ["total" => $col->getTotal(), "value" => 0];
         }
 
         $count = 0;
@@ -60,7 +60,7 @@ class Mage_Reports_Model_Totals
             }
             $count++;
         }
-        $data = array();
+        $data = [];
         foreach ($columns as $field => $a) {
             if ($a['total'] == 'avg') {
                 if ($field !== '') {

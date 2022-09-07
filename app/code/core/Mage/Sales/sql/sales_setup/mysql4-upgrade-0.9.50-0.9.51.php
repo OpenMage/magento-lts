@@ -12,37 +12,36 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
-
 $installer->startSetup();
-$installer->addAttribute('order_payment', 'additional_information', array('type' => 'text'));
-$installer->addAttribute('quote_payment', 'additional_information', array('type' => 'text'));
 
+$installer->addAttribute('order_payment', 'additional_information', ['type' => 'text']);
+$installer->addAttribute('quote_payment', 'additional_information', ['type' => 'text']);
 
 $processingItemsCountForOneIteration = 1000;
 
 $connection = $installer->getConnection();
 
-$paymentMethods = array(
+$paymentMethods = [
     'paypal_standard',
     'paypal_express',
     'paypal_direct',
     'paypaluk_direct',
     'paypaluk_express'
-);
+];
 $entityTypeCode = 'order_payment';
-$attributesIds = array(
+$attributesIds = [
     'method' => false,
     'additional_data' => false,
     'additional_information' => false
-);
+];
 
 /* get order_payment entity type code*/
 $entityTypeId = $connection->fetchOne("
@@ -97,19 +96,19 @@ try {
         ");
 
         /* prepare query data items */
-        $insertQueryItems = array();
+        $insertQueryItems = [];
         foreach ($data as $item) {
             if ($item['additional_data'] != '') {
-                $additionalInformationFields = array();
+                $additionalInformationFields = [];
                 $additionalInformationFields['paypal_payer_email'] = $item['additional_data'];
                 $additionalInformation = serialize($additionalInformationFields);
 
-                $insertQueryItems[] = array(
+                $insertQueryItems[] = [
                     $entityTypeId,
                     $attributesIds['additional_information'],
                     $item['entity_id'],
                     $additionalInformation
-                );
+                ];
             }
         }
 
@@ -119,7 +118,7 @@ try {
 
         $connection->insertArray(
             $this->getTable('sales_order_entity_text'),
-            array('entity_type_id', 'attribute_id', 'entity_id', 'value'),
+            ['entity_type_id', 'attribute_id', 'entity_id', 'value'],
             $insertQueryItems
         );
     }

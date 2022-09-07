@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,6 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Layout extends Varien_Simplexml_Config
 {
@@ -38,14 +39,14 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      *
      * @var array
      */
-    protected $_blocks = array();
+    protected $_blocks = [];
 
     /**
      * Cache of block callbacks to output during rendering
      *
      * @var array
      */
-    protected $_output = array();
+    protected $_output = [];
 
     /**
      * Layout area (f.e. admin, frontend)
@@ -59,12 +60,12 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      *
      * @var array
      */
-    protected $_helpers = array();
+    protected $_helpers = [];
 
     /**
      * Flag to have blocks' output go directly to browser as oppose to return result
      *
-     * @var boolean
+     * @var bool
      */
     protected $_directOutput = false;
 
@@ -81,7 +82,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      *
      * @param array $data
      */
-    public function __construct($data = array())
+    public function __construct($data = [])
     {
         $this->_elementClass = Mage::getConfig()->getModelClassName('core/layout_element');
         $this->setXml(simplexml_load_string('<layout/>', $this->_elementClass));
@@ -253,13 +254,13 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             $alias = isset($node['as']) ? (string)$node['as'] : '';
             if (isset($node['before'])) {
                 $sibling = (string)$node['before'];
-                if ('-'===$sibling) {
+                if ($sibling === '-') {
                     $sibling = '';
                 }
                 $parentBlock->insert($block, $sibling, false, $alias);
             } elseif (isset($node['after'])) {
                 $sibling = (string)$node['after'];
-                if ('-'===$sibling) {
+                if ($sibling === '-') {
                     $sibling = '';
                 }
                 $parentBlock->insert($block, $sibling, true, $alias);
@@ -281,8 +282,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Simplexml_Element $node
      * @param Mage_Core_Model_Layout_Element $parent
      * @return $this
@@ -320,12 +319,12 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                         $helperName = implode('/', $helperName);
                         $arg = $arg->asArray();
                         unset($arg['@']);
-                        $args[$key] = call_user_func_array(array(Mage::helper($helperName), $helperMethod), $arg);
+                        $args[$key] = call_user_func_array([Mage::helper($helperName), $helperMethod], $arg);
                     } else {
                         /**
                          * if there is no helper we hope that this is assoc array
                          */
-                        $arr = array();
+                        $arr = [];
                         /**
                          * @var string $subkey
                          * @var Mage_Core_Model_Layout_Element $value
@@ -350,7 +349,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             Mage::helper('core/security')->validateAgainstBlockMethodBlacklist($block, $method, $args);
 
             $this->_translateLayoutNode($node, $args);
-            call_user_func_array(array($block, $method), array_values($args));
+            call_user_func_array([$block, $method], array_values($args));
         }
 
         Varien_Profiler::stop($_profilerKey);
@@ -456,7 +455,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * @param     array $attributes
      * @return    Mage_Core_Block_Abstract|false
      */
-    public function createBlock($type, $name = '', array $attributes = array())
+    public function createBlock($type, $name = '', array $attributes = [])
     {
         try {
             $block = $this->_getBlockInstance($type, $attributes);
@@ -465,7 +464,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             return false;
         }
 
-        if (empty($name) || '.'===$name[0]) {
+        if (empty($name) || $name[0] === '.') {
             $block->setIsAnonymous(true);
             if (!empty($name)) {
                 $block->setAnonSuffix(substr($name, 1));
@@ -481,7 +480,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         $block->setLayout($this);
 
         $this->_blocks[$name] = $block;
-        Mage::dispatchEvent('core_layout_block_create_after', array('block'=>$block));
+        Mage::dispatchEvent('core_layout_block_create_after', ['block'=>$block]);
         return $this->_blocks[$name];
     }
 
@@ -504,7 +503,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * @param array $attributes
      * @return Mage_Core_Block_Abstract
      */
-    protected function _getBlockInstance($block, array $attributes = array())
+    protected function _getBlockInstance($block, array $attributes = [])
     {
         if (is_string($block)) {
             if (strpos($block, '/')!==false) {
@@ -557,7 +556,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     public function addOutputBlock($blockName, $method = 'toHtml')
     {
         //$this->_output[] = array($blockName, $method);
-        $this->_output[$blockName] = array($blockName, $method);
+        $this->_output[$blockName] = [$blockName, $method];
         return $this;
     }
 
@@ -603,8 +602,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $type
      * @return Mage_Core_Block_Abstract
      */

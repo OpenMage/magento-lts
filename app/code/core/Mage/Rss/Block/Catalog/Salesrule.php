@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Rss
+ * @category   Mage
+ * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Rss
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
 {
@@ -57,13 +57,13 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
         /** @var Mage_SalesRule_Model_Resource_Rule_Collection $collection */
         $collection = Mage::getModel('salesrule/rule')->getResourceCollection();
 
-        $data = array(
+        $data = [
             'title'       => $title,
             'description' => $title,
             'link'        => $newUrl,
             'charset'     => 'UTF-8',
             'language'    => $lang
-        );
+        ];
         $rssObject->_addHeader($data);
 
         $collection->addWebsiteGroupDateFilter($websiteId, $customerGroup, $now)
@@ -79,11 +79,11 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
             ($sr->getCouponCode() ? '<br/> Coupon Code: '. $this->escapeHtml($sr->getCouponCode()).'' : '').
             '</td>'.
             '</tr></table>';
-             $data = array(
+             $data = [
                  'title'       => $sr->getName(),
                  'description' => $description,
                  'link'        => $url
-             );
+             ];
             $rssObject->_addEntry($data);
         }
 

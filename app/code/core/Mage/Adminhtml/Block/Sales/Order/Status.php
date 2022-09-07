@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml sales order's status namagement block
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_Status extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
@@ -35,11 +35,11 @@ class Mage_Adminhtml_Block_Sales_Order_Status extends Mage_Adminhtml_Block_Widge
         $this->_controller = 'sales_order_status';
         $this->_headerText = Mage::helper('sales')->__('Order Statuses');
         $this->_addButtonLabel = Mage::helper('sales')->__('Create New Status');
-        $this->_addButton('assign', array(
+        $this->_addButton('assign', [
             'label'     => Mage::helper('sales')->__('Assign Status to State'),
             'onclick'   => 'setLocation(\'' . $this->getAssignUrl() .'\')',
             'class'     => 'add',
-        ));
+        ]);
         parent::__construct();
     }
 

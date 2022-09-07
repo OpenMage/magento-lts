@@ -12,12 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tax
+ * @category   Mage
+ * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Tax
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Tax_Model_Sales_Pdf_Tax extends Mage_Sales_Model_Order_Pdf_Total_Default
 {
     /**
@@ -36,11 +41,11 @@ class Mage_Tax_Model_Sales_Pdf_Tax extends Mage_Sales_Model_Order_Pdf_Total_Defa
         $store = $this->getOrder()->getStore();
         $config= Mage::getSingleton('tax/config');
         if ($config->displaySalesTaxWithGrandTotal($store)) {
-            return array();
+            return [];
         }
 
         $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
-        $totals = array();
+        $totals = [];
 
         if ($config->displaySalesFullSummary($store)) {
             $totals = $this->getFullTaxInfo();

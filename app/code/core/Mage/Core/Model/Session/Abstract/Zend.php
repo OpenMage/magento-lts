@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getCookieDomain()
  * @method string getCookiePath()
@@ -52,11 +52,11 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
     public function start()
     {
         Varien_Profiler::start(__METHOD__.'/setOptions');
-        $options = array(
+        $options = [
             'save_path'=>Mage::getBaseDir('session'),
             'use_only_cookies'=>'off',
             'throw_startup_exceptions' => E_ALL ^ E_NOTICE,
-        );
+        ];
         if ($this->getCookieDomain()) {
             $options['cookie_domain'] = $this->getCookieDomain();
         }
