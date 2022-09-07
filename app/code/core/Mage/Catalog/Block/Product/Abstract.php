@@ -579,7 +579,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * Retrieve row size depends on page layout
      *
      * @param string $pageLayout
-     * @return int|boolean
+     * @return int|bool
      */
     public function getColumnCountLayoutDepend($pageLayout)
     {

@@ -1757,7 +1757,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param Varien_Object $item
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return int|boolean
+     * @return int|bool
      */
     public function getRowspan($item, $column)
     {
