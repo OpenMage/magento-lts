@@ -30,6 +30,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Recurring extends Mage_Eav_Mo
     /**
      * Serialize or remove before saving
      * @param Mage_Catalog_Model_Product $product
+     * @return $this
      */
     public function beforeSave($product)
     {
@@ -40,6 +41,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Recurring extends Mage_Eav_Mo
                 $product->unsRecurringProfile();
             }
         }
+        return $this;
     }
 
     /**

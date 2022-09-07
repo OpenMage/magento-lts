@@ -1376,11 +1376,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Api.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Product_Attribute_Backend_Recurring\\:\\:beforeSave\\(\\) should return \\$this\\(Mage_Catalog_Model_Product_Attribute_Backend_Recurring\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Recurring.php
-
-		-
 			message: "#^Cannot call method getBackend\\(\\) on bool\\|Mage_Catalog_Model_Resource_Attribute\\.$#"
 			count: 11
 			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api.php
@@ -2146,11 +2141,6 @@ parameters:
 			path: ../app/code/core/Mage/Customer/Model/Customer.php
 
 		-
-			message: "#^Method Mage_Customer_Model_Customer_Attribute_Backend_Password\\:\\:beforeSave\\(\\) should return \\$this\\(Mage_Customer_Model_Customer_Attribute_Backend_Password\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Customer/Attribute/Backend/Password.php
-
-		-
 			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
@@ -2544,11 +2534,6 @@ parameters:
 			message: "#^PHPDoc tag @param for parameter \\$object with type Mage_Eav_Model_Resource_Form_Type is incompatible with native type Mage_Core_Model_Abstract\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Eav/Model/Resource/Form/Type.php
-
-		-
-			message: "#^Method Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config\\:\\:beforeSave\\(\\) should return \\$this\\(Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/GiftMessage/Model/Entity/Attribute/Backend/Boolean/Config.php
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:setGiftMessageId\\(\\)\\.$#"

@@ -46,6 +46,7 @@ class Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config extends Mag
      * Set attribute default value if value empty
      *
      * @param Varien_Object $object
+     * @return $this
      */
     public function beforeSave($object)
     {
@@ -53,6 +54,7 @@ class Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config extends Mag
             && $object->getData($this->getAttribute()->getAttributeCode()) == $this->getDefaultValue()) {
             $object->unsData($this->getAttribute()->getAttributeCode());
         }
+        return $this;
     }
 
     /**
