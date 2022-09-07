@@ -39,7 +39,7 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
      * Assign order status to particular state
      *
      * @param string  $state
-     * @param boolean $isDefault make the status as default one for state
+     * @param bool $isDefault make the status as default one for state
      * @return $this
      */
     public function assignState($state, $isDefault = false)

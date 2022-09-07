@@ -54,7 +54,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
      *
      * @param string $attributeSetName
      * @param string $skeletonSetId
-     * @return integer
+     * @return int
      */
     public function create($attributeSetName, $skeletonSetId)
     {
@@ -229,7 +229,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
      *
      * @param string|int $groupId
      * @param string $groupName
-     * @return boolean
+     * @return bool
      */
     public function groupRename($groupId, $groupName)
     {

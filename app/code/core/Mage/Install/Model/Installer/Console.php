@@ -97,7 +97,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Set and validate arguments
      *
      * @param array $args
-     * @return boolean
+     * @return bool
      */
     public function setArgs($args = null)
     {
@@ -183,7 +183,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Check if there were any errors
      *
-     * @return boolean
+     * @return bool
      */
     public function hasErrors()
     {
@@ -207,7 +207,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Case insensitive
      *
      * @param string $value
-     * @return boolean
+     * @return bool
      */
     protected function _checkFlag($value)
     {
@@ -242,7 +242,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Init installation
      *
      * @param Mage_Core_Model_App $app
-     * @return boolean
+     * @return bool
      */
     public function init(Mage_Core_Model_App $app)
     {
@@ -314,7 +314,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Install Magento
      *
-     * @return boolean
+     * @return bool
      */
     public function install()
     {
@@ -456,7 +456,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Check if installer is run in shell, and redirect if run on web
      *
      * @param string $url fallback url to redirect to
-     * @return boolean
+     * @return bool
      */
     public function checkConsole($url=null)
     {

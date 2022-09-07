@@ -78,7 +78,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
      * Convert price from default currency to current currency
      *
      * @param float $price
-     * @param boolean $round
+     * @param bool $round
      * @param null|int $storeId
      * @return float
      */

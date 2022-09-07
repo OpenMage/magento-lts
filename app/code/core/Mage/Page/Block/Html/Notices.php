@@ -30,7 +30,7 @@ class Mage_Page_Block_Html_Notices extends Mage_Core_Block_Template
     /**
      * Check if noscript notice should be displayed
      *
-     * @return boolean
+     * @return bool
      */
     public function displayNoscriptNotice()
     {
@@ -40,7 +40,7 @@ class Mage_Page_Block_Html_Notices extends Mage_Core_Block_Template
     /**
      * Check if demo store notice should be displayed
      *
-     * @return boolean
+     * @return bool
      */
     public function displayDemoNotice()
     {

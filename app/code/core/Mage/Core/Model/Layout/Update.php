@@ -414,7 +414,7 @@ class Mage_Core_Model_Layout_Update
      * @param string $area
      * @param string $package
      * @param string $theme
-     * @param integer|null $storeId
+     * @param int|null $storeId
      * @return SimpleXMLElement
      */
     public function getFileLayoutUpdatesXml($area, $package, $theme, $storeId = null)

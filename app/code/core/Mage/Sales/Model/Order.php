@@ -540,7 +540,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve can flag for action (edit, unhold, etc..)
      *
      * @param string $action
-     * @return boolean|null
+     * @return bool|null
      */
     public function getActionFlag($action)
     {
@@ -554,12 +554,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Set can flag value for action (edit, unhold, etc...)
      *
      * @param string $action
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setActionFlag($action, $flag)
     {
-        $this->_actionFlag[$action] = (boolean) $flag;
+        $this->_actionFlag[$action] = (bool) $flag;
         return $this;
     }
 
@@ -581,7 +581,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function setCanSendNewEmailFlag($flag)
     {
-        $this->_canSendNewEmailFlag = (boolean) $flag;
+        $this->_canSendNewEmailFlag = (bool) $flag;
         return $this;
     }
 
@@ -1475,7 +1475,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Queue email with order update information
      *
-     * @param boolean $notifyCustomer
+     * @param bool $notifyCustomer
      * @param string $comment
      * @param bool $forceMode if true then email will be sent regardless of the fact that it was already sent previously
      *

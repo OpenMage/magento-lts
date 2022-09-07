@@ -215,7 +215,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      * Import data rows.
      *
      * @abstract
-     * @return boolean
+     * @return bool
      */
     abstract protected function _importData();
 
@@ -537,7 +537,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      * @param array $attrParams Attribute params
      * @param array $rowData Row data
      * @param int $rowNum
-     * @return boolean
+     * @return bool
      */
     public function isAttributeValid($attrCode, array $attrParams, array $rowData, $rowNum)
     {
@@ -622,7 +622,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      *
      * @param array $rowData
      * @param int $rowNum
-     * @return boolean
+     * @return bool
      */
     abstract public function validateRow(array $rowData, $rowNum);
 

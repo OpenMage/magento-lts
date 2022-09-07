@@ -247,7 +247,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $apiKey
-     * @return boolean
+     * @return bool
      * @throws Exception
      */
     public function authenticate($username, $apiKey)

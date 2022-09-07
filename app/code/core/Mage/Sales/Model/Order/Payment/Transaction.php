@@ -590,7 +590,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * Set order instance for transaction depends on transaction behavior
      * If $order equals to true, method isn't loading new order instance.
      *
-     * @param Mage_Sales_Model_Order_Payment|null|boolean $order
+     * @param Mage_Sales_Model_Order_Payment|null|bool $order
      * @return $this
      */
     public function setOrder($order = null)

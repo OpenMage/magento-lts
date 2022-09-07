@@ -41,7 +41,7 @@ abstract class Mage_Api2_Model_Auth_Adapter_Abstract
      * Check if request contains authentication info for adapter
      *
      * @param Mage_Api2_Model_Request $request
-     * @return boolean
+     * @return bool
      */
     abstract public function isApplicableToRequest(Mage_Api2_Model_Request $request);
 }

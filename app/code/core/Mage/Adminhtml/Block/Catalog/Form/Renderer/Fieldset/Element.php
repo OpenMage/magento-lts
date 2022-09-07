@@ -186,7 +186,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
     /**
      * Default sore ID getter
      *
-     * @return integer
+     * @return int
      */
     protected function _getDefaultStoreId()
     {

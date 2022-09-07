@@ -40,7 +40,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
     /**
      * Enable loging
      *
-     * @var boolean
+     * @var bool
      */
     protected $_debugMode = false;
 

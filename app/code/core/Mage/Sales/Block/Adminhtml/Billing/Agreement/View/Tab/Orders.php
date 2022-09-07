@@ -73,7 +73,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_
     /**
      * Can show tab in tabs
      *
-     * @return boolean
+     * @return bool
      */
     public function canShowTab()
     {
@@ -83,7 +83,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_
     /**
      * Tab is hidden
      *
-     * @return boolean
+     * @return bool
      */
     public function isHidden()
     {

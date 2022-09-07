@@ -38,7 +38,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     *
     * @param Mage_Core_Controller_Front_Action $action
     * @param string $pageId
-    * @return boolean
+    * @return bool
     */
     public function renderPage(Mage_Core_Controller_Front_Action $action, $pageId = null)
     {
@@ -51,7 +51,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     * @param Mage_Core_Controller_Varien_Action $action
     * @param string $pageId
     * @param bool $renderLayout
-    * @return boolean
+    * @return bool
     */
     protected function _renderPage(Mage_Core_Controller_Varien_Action  $action, $pageId = null, $renderLayout = true)
     {

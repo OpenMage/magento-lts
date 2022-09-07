@@ -52,7 +52,7 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
     /**
      * Get a text for option value
      *
-     * @param string|integer $value
+     * @param string|int $value
      * @return string
      */
     public function getOptionText($value)

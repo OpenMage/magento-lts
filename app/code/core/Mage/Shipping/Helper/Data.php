@@ -53,7 +53,7 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
      * @deprecated the non-model usage
      *
      * @param  string $key
-     * @param  integer|Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track $model
+     * @param  int|Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track $model
      * @param  string $method - option
      * @return string
      */

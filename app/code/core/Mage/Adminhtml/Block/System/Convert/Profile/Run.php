@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
 {
     /**
      * Flag for batch model
-     * @var boolean
+     * @var bool
      */
     protected $_batchModelPrepared = false;
     /**

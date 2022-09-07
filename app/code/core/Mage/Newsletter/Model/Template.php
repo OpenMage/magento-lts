@@ -138,7 +138,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Return true if this template can be used for sending queue as main template
      *
-     * @return boolean
+     * @return bool
      * @deprecated since 1.4.0.1
      */
     public function isValidForSend()
@@ -287,7 +287,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * @param   array                                     $variables    template variables
      * @param   string|null                               $name         receiver name (if subscriber model not specified)
      * @param   Mage_Newsletter_Model_Queue|null          $queue        queue model, used for problems reporting.
-     * @return boolean
+     * @return bool
      * @deprecated since 1.4.0.1
      **/
     public function send($subscriber, array $variables = [], $name = null, Mage_Newsletter_Model_Queue $queue = null)

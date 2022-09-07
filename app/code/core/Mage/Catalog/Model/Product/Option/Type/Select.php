@@ -299,7 +299,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
     /**
      * Check if option has single or multiple values selection
      *
-     * @return boolean
+     * @return bool
      */
     protected function _isSingleSelection()
     {

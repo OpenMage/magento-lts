@@ -174,7 +174,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Cache flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_cacheTag    = true;
 
@@ -258,14 +258,14 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Flag that shows that backend URLs are secure
      *
-     * @var boolean|null
+     * @var bool|null
      */
     protected $_isAdminSecure = null;
 
     /**
      * Flag that shows that frontend URLs are secure
      *
-     * @var boolean|null
+     * @var bool|null
      */
     protected $_isFrontSecure = null;
 
@@ -608,7 +608,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Retrieve base URL
      *
      * @param string $type
-     * @param boolean|null $secure
+     * @param bool|null $secure
      * @return string
      */
     public function getBaseUrl($type = self::URL_TYPE_LINK, $secure = null)
@@ -690,7 +690,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * If we use Database file storage and server doesn't support rewrites (.htaccess in media folder)
      * we have to put name of fetching media script exactly into URL
      *
-     * @param null|boolean $secure
+     * @param null|bool $secure
      * @param string $type
      * @return string
      */
@@ -755,12 +755,12 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if backend URLs should be secure
      *
-     * @return boolean
+     * @return bool
      */
     public function isAdminUrlSecure()
     {
         if ($this->_isAdminSecure === null) {
-            $this->_isAdminSecure = (boolean) (int) (string) Mage::getConfig()
+            $this->_isAdminSecure = (bool) (int) (string) Mage::getConfig()
                 ->getNode(Mage_Core_Model_Url::XML_PATH_SECURE_IN_ADMIN);
         }
         return $this->_isAdminSecure;
@@ -769,7 +769,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if frontend URLs should be secure
      *
-     * @return boolean
+     * @return bool
      */
     public function isFrontUrlSecure()
     {
@@ -785,7 +785,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if request was secure
      *
-     * @return boolean
+     * @return bool
      */
     public function isCurrentlySecure()
     {
@@ -994,8 +994,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Convert price from default currency to current currency
      *
      * @param   double $price
-     * @param   boolean $format             Format price to currency format
-     * @param   boolean $includeContainer   Enclose into <span class="price"><span>
+     * @param   bool $format             Format price to currency format
+     * @param   bool $includeContainer   Enclose into <span class="price"><span>
      * @return  double
      */
     public function convertPrice($price, $format = false, $includeContainer = true)
@@ -1130,7 +1130,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if store can be deleted
      *
-     * @return boolean
+     * @return bool
      */
     public function isCanDelete()
     {
@@ -1191,7 +1191,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if store is active
      *
-     * @return boolean|null
+     * @return bool|null
      */
     public function getIsActive()
     {

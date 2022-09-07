@@ -507,7 +507,7 @@ class Mage_Sales_Model_Observer
                 'is_valid' => (int)$quoteAddress->getVatIsValid(),
                 'request_identifier' => (string)$quoteAddress->getVatRequestId(),
                 'request_date' => (string)$quoteAddress->getVatRequestDate(),
-                'request_success' => (boolean)$quoteAddress->getVatRequestSuccess()
+                'request_success' => (bool)$quoteAddress->getVatRequestSuccess()
             ]);
         }
 

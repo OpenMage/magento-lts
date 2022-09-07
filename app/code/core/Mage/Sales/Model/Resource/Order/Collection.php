@@ -185,7 +185,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      * Specify collection select filter by attribute value
      *
      * @param array $attributes
-     * @param array|integer|string|null $condition
+     * @param array|int|string|null $condition
      * @return $this
      */
     public function addAttributeToSearchFilter($attributes, $condition = null)

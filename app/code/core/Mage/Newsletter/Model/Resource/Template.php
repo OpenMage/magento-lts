@@ -65,7 +65,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
      * Check usage of template in queue
      *
      * @param Mage_Newsletter_Model_Template $template
-     * @return boolean
+     * @return bool
      */
     public function checkUsageInQueue(Mage_Newsletter_Model_Template $template)
     {
@@ -88,7 +88,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
      * Check usage of template code in other templates
      *
      * @param Mage_Newsletter_Model_Template $template
-     * @return boolean
+     * @return bool
      */
     public function checkCodeUsage(Mage_Newsletter_Model_Template $template)
     {

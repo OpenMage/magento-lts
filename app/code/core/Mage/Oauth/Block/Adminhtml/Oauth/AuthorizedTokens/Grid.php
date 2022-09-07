@@ -204,7 +204,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
     /**
      * Check admin permissions
      *
-     * @return boolean
+     * @return bool
      */
     protected function _isAllowed()
     {

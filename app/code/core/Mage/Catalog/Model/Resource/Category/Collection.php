@@ -69,7 +69,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Load with product count flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_loadWithProductCount     = false;
 
@@ -142,7 +142,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Set flag for loading product count
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setLoadProductCount($flag)
@@ -245,8 +245,8 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
      * Load product count for specified items
      *
      * @param array $items
-     * @param boolean $countRegular get product count for regular (non-anchor) categories
-     * @param boolean $countAnchor get product count for anchor categories
+     * @param bool $countRegular get product count for regular (non-anchor) categories
+     * @param bool $countAnchor get product count for anchor categories
      * @return $this
      */
     public function loadProductCount($items, $countRegular = true, $countAnchor = true)

@@ -54,7 +54,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Setter
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -66,7 +66,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Getter
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {
@@ -110,7 +110,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Validation of object data. Checking for unique variable code
      *
-     * @return boolean | string
+     * @return bool | string
      */
     public function validate()
     {
@@ -127,7 +127,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Retrieve variables option array
      *
-     * @param boolean $withGroup
+     * @param bool $withGroup
      * @return array
      */
     public function getVariablesOptionArray($withGroup = false)

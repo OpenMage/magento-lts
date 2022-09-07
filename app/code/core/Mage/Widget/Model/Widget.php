@@ -289,7 +289,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
      *
      * @param array $a
      * @param array $b
-     * @return boolean
+     * @return bool
      */
     protected function _sortWidgets($a, $b)
     {

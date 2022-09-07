@@ -34,7 +34,7 @@ class Mage_Api_Model_Acl_Assert_Ip implements Zend_Acl_Assert_Interface
      * @param Mage_Api_Model_Acl_Role $role
      * @param Mage_Api_Model_Acl_Resource $resource
      * @param string $privilege
-     * @return boolean
+     * @return bool
      */
     public function assert(
         Mage_Api_Model_Acl $acl,

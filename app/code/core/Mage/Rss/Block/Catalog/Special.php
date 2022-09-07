@@ -197,7 +197,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
      *
      * @param   Varien_Object $a
      * @param   Varien_Object $b
-     * @return  boolean
+     * @return bool
      */
     public function sortByStartDate($a, $b)
     {

@@ -84,7 +84,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      * Validate resourceType, it should be one of (links|samples|link_samples)
      *
      * @param string $type
-     * @return boolean
+     * @return bool
      */
     public function validateType($type)
     {
@@ -213,7 +213,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
     /**
      * Validate variable, in case of fault loads default entity.
      *
-     * @param int|boolean $var
+     * @param int|bool $var
      */
     public function validateUnlimited(&$var)
     {

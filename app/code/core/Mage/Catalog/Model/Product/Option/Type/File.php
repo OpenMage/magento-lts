@@ -639,7 +639,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Main Destination directory
      *
-     * @param boolean $relative If true - returns relative path to the webroot
+     * @param bool $relative If true - returns relative path to the webroot
      * @return string
      */
     public function getTargetDir($relative = false)
@@ -651,7 +651,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Quote items destination directory
      *
-     * @param boolean $relative If true - returns relative path to the webroot
+     * @param bool $relative If true - returns relative path to the webroot
      * @return string
      */
     public function getQuoteTargetDir($relative = false)
@@ -662,7 +662,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Order items destination directory
      *
-     * @param boolean $relative If true - returns relative path to the webroot
+     * @param bool $relative If true - returns relative path to the webroot
      * @return string
      */
     public function getOrderTargetDir($relative = false)
@@ -757,7 +757,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Simple check if file is image
      *
      * @param array|string $fileInfo - either file data from Zend_File_Transfer or file path
-     * @return boolean
+     * @return bool
      */
     protected function _isImage($fileInfo)
     {
