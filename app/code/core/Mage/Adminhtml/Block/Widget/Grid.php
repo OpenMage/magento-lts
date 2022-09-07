@@ -212,6 +212,18 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected $_emptyCellLabel = '';
 
     /**
+     * @var array[][]
+     */
+    protected $defaultColumnSettings = [
+        'date' => [
+            'width' => 140
+        ],
+        'datetime' => [
+            'width' => 160
+        ],
+    ];
+
+    /**
      * Mage_Adminhtml_Block_Widget_Grid constructor.
      * @param array $attributes
      */
@@ -325,6 +337,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function addColumn($columnId, $column)
     {
         if (is_array($column)) {
+            if (isset($column['type'], $this->defaultColumnSettings[$column['type']])) {
+                $column += $this->defaultColumnSettings[$column['type']];
+            }
             $this->_columns[$columnId] = $this->getLayout()->createBlock('adminhtml/widget_grid_column')
                 ->setData($column)
                 ->setGrid($this);

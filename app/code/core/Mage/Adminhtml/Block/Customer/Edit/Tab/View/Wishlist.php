@@ -88,7 +88,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
             'header'    => Mage::helper('customer')->__('Date Added'),
             'index'     => 'added_at',
             'type'      => 'date',
-            'width'     => '140px',
         ]);
 
         $this->addColumn('days', [

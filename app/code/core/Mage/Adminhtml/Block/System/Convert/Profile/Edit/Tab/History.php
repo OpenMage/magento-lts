@@ -68,7 +68,6 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_History extends Mage_
             'header'    => Mage::helper('adminhtml')->__('Performed At'),
             'type'      => 'datetime',
             'index'     => 'performed_at',
-            'width'     => '150px',
         ]);
 
         $this->addColumn('firstname', [
