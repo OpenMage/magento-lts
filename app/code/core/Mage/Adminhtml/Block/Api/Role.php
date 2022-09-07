@@ -24,14 +24,9 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ * @deprecated
+ * @see Mage_Api_Block_Adminhtml_Role
  */
-class Mage_Adminhtml_Block_Api_Role extends Mage_Adminhtml_Block_Widget_Grid_Container
+class Mage_Adminhtml_Block_Api_Role extends Mage_Api_Block_Adminhtml_Role
 {
-    public function __construct()
-    {
-        $this->_controller = 'api_role';
-        $this->_headerText = Mage::helper('adminhtml')->__('Roles');
-        $this->_addButtonLabel = Mage::helper('adminhtml')->__('Add New Role');
-        parent::__construct();
-    }
 }

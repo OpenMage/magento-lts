@@ -24,30 +24,9 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ * @deprecated
+ * @see Mage_Api_Block_Adminhtml_User_Edit
  */
-class Mage_Adminhtml_Block_Api_User_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
+class Mage_Adminhtml_Block_Api_User_Edit extends Mage_Api_Block_Adminhtml_User_Edit
 {
-    public function __construct()
-    {
-        $this->_objectId = 'user_id';
-        $this->_controller = 'api_user';
-
-        parent::__construct();
-
-        $this->_updateButton('save', 'label', Mage::helper('adminhtml')->__('Save User'));
-        $this->_updateButton('delete', 'label', Mage::helper('adminhtml')->__('Delete User'));
-        $this->_updateButton('delete', 'onclick', 'if(confirm(\'' . Mage::helper('core')->jsQuoteEscape(
-                Mage::helper('adminhtml')->__('Are you sure you want to do this?')
-            ) . '\')) editForm.submit(\'' . $this->getUrl('*/*/delete') . '\'); return false;');
-    }
-
-    public function getHeaderText()
-    {
-        if (Mage::registry('api_user')->getId()) {
-            return Mage::helper('adminhtml')->__("Edit User '%s'", $this->escapeHtml(Mage::registry('api_user')->getUsername()));
-        }
-        else {
-            return Mage::helper('adminhtml')->__('New User');
-        }
-    }
 }

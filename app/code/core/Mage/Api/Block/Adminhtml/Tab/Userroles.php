@@ -19,37 +19,34 @@
  */
 
 /**
- * users block
- *
  * @category   Mage
  * @package    Mage_Api
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Api_Block_Adminhtml_Users extends Mage_Adminhtml_Block_Template
+class Mage_Api_Block_Adminhtml_Tab_Userroles extends Mage_Adminhtml_Block_Widget_Tabs
 {
     /**
-     * Mage_Api_Block_Adminhtml_Users constructor.
+     * Mage_Api_Block_Adminhtml_Tab_Userroles constructor.
+     * @throws Mage_Core_Exception
      */
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('api/users.phtml');
+
+        $uid = $this->getRequest()->getParam('id', false);
+        $uid = !empty($uid) ? $uid : 0;
+        $roles = Mage::getModel('api/roles')
+            ->getCollection()
+            ->load();
+
+        $user_roles = Mage::getModel('api/roles')
+            ->getUsersCollection()
+            ->setUserFilter($uid)
+            ->load();
+
+        $this->setTemplate('api/userroles.phtml')
+            ->assign('roles', $roles)
+            ->assign('user_roles', $user_roles);
     }
 
-    /**
-     * @return string
-     */
-    public function getAddNewUrl()
-    {
-        return $this->getUrl('*/*/edituser');
-    }
-
-    /**
-     * @return string
-     */
-    public function getGridHtml()
-    {
-        return $this->getLayout()->createBlock('api/adminhtml_grid_user')->toHtml();
-    }
 }
-

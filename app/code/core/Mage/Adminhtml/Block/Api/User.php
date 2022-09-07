@@ -24,26 +24,9 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ * @deprecated
+ * @see Mage_Api_Block_Adminhtml_User
  */
-class Mage_Adminhtml_Block_Api_User extends Mage_Adminhtml_Block_Widget_Grid_Container
+class Mage_Adminhtml_Block_Api_User extends Mage_Api_Block_Adminhtml_User
 {
-
-    public function __construct()
-    {
-        $this->_controller = 'api_user';
-        $this->_headerText = Mage::helper('adminhtml')->__('Users');
-        $this->_addButtonLabel = Mage::helper('adminhtml')->__('Add New User');
-        parent::__construct();
-    }
-
-    /**
-     * Prepare output HTML
-     *
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        Mage::dispatchEvent('api_user_html_before', ['block' => $this]);
-        return parent::_toHtml();
-    }
 }

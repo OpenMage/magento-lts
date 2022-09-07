@@ -24,14 +24,9 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ * @deprecated
+ * @see Mage_Api_Block_Adminhtml_User_Edit_Form
  */
-class Mage_Adminhtml_Block_Api_User_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
+class Mage_Adminhtml_Block_Api_User_Edit_Form extends Mage_Api_Block_Adminhtml_User_Edit_Form
 {
-    protected function _prepareForm()
-    {
-        $form = new Varien_Data_Form(['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post']);
-        $form->setUseContainer(true);
-        $this->setForm($form);
-        return parent::_prepareForm();
-    }
 }

@@ -13,18 +13,28 @@
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
- * @package    Mage_Adminhtml
+ * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
+ * Adminhtml permissions user edit form
+ *
  * @category   Mage
- * @package    Mage_Adminhtml
+ * @package    Mage_Api
  * @author     Magento Core Team <core@magentocommerce.com>
- * @deprecated
- * @see Mage_Api_Block_Adminhtml_Tab_Roleinfo
  */
-class Mage_Adminhtml_Block_Api_Tab_Roleinfo extends Mage_Api_Block_Adminhtml_Tab_Roleinfo
+class Mage_Api_Block_Adminhtml_User_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    /**
+     * @inheritdoc
+     */
+    protected function _prepareForm()
+    {
+        $form = new Varien_Data_Form(['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post']);
+        $form->setUseContainer(true);
+        $this->setForm($form);
+        return parent::_prepareForm();
+    }
 }

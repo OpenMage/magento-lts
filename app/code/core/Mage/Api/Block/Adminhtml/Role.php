@@ -13,18 +13,28 @@
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
- * @package    Mage_Adminhtml
+ * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
+ * Adminhtml permissioms role block
+ *
  * @category   Mage
- * @package    Mage_Adminhtml
+ * @package    Mage_Api
  * @author     Magento Core Team <core@magentocommerce.com>
- * @deprecated
- * @see Mage_Api_Block_Adminhtml_Tab_Roleinfo
  */
-class Mage_Adminhtml_Block_Api_Tab_Roleinfo extends Mage_Api_Block_Adminhtml_Tab_Roleinfo
+class Mage_Api_Block_Adminhtml_Role extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+    /**
+     * Mage_Api_Block_Adminhtml_Role constructor.
+     */
+    public function __construct()
+    {
+        $this->_controller = 'api_role';
+        $this->_headerText = Mage::helper('adminhtml')->__('Roles');
+        $this->_addButtonLabel = Mage::helper('adminhtml')->__('Add New Role');
+        parent::__construct();
+    }
 }

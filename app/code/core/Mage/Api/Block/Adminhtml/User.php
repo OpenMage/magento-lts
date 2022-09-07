@@ -13,20 +13,39 @@
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
- * @package    Mage_Adminhtml
+ * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Admin page left menu
+ * Adminhtml permissions user block
  *
  * @category   Mage
- * @package    Mage_Adminhtml
+ * @package    Mage_Api
  * @author     Magento Core Team <core@magentocommerce.com>
- * @deprecated
- * @see Mage_Api_Block_Adminhtml_User_Edit_Tabs
  */
-class Mage_Adminhtml_Block_Api_User_Edit_Tabs extends Mage_Api_Block_Adminhtml_User_Edit_Tabs
+class Mage_Api_Block_Adminhtml_User extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+    /**
+     * Mage_Api_Block_Adminhtml_User constructor.
+     */
+    public function __construct()
+    {
+        $this->_controller = 'api_user';
+        $this->_headerText = Mage::helper('adminhtml')->__('Users');
+        $this->_addButtonLabel = Mage::helper('adminhtml')->__('Add New User');
+        parent::__construct();
+    }
+
+    /**
+     * Prepare output HTML
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        Mage::dispatchEvent('api_user_html_before', ['block' => $this]);
+        return parent::_toHtml();
+    }
 }
