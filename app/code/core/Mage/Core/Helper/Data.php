@@ -776,7 +776,7 @@ XML;
                     foreach ($srcFiles as $file) {
                         if (!file_exists($file)) {
                             // no translation intentionally
-                            throw new Exception(sprintf('File %s not found.', dirname($file)));
+                            throw new Exception(sprintf('File %s not found.', $file));
                         } elseif (@filemtime($file) > $targetMtime) {
                             $shouldMerge = true;
                             break;
