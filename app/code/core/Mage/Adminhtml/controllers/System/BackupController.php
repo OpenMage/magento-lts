@@ -66,7 +66,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
      */
     public function gridAction()
     {
-        $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/backup_grid')->toHtml());
+        $this->getResponse()->setBody($this->getLayout()->createBlock('backup/adminhtml_grid')->toHtml());
     }
 
     /**

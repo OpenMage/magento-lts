@@ -24,9 +24,26 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
- * @deprecated
- * @see Mage_Backup_Block_Adminhtml_Dialogs
  */
-class Mage_Adminhtml_Block_Backup_Dialogs extends Mage_Backup_Block_Adminhtml_Dialogs
+class Mage_Backup_Block_Adminhtml_Dialogs extends Mage_Adminhtml_Block_Template
 {
+    /**
+     * Block's template
+     *
+     * @var string
+     */
+    protected $_template = 'backup/dialogs.phtml';
+
+    /**
+     * Include backup.js file in page before rendering
+     *
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        /** @var Mage_Page_Block_Html_Head $block */
+        $block = $this->getLayout()->getBlock('head');
+        $block->addJs('mage/adminhtml/backup.js');
+        return parent::_prepareLayout();
+    }
 }

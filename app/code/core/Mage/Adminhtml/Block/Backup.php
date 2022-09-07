@@ -24,88 +24,9 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ * @deprecated
+ * @see Mage_Backup_Block_Adminhtml_Backup
  */
-class Mage_Adminhtml_Block_Backup extends Mage_Adminhtml_Block_Template
+class Mage_Adminhtml_Block_Backup extends Mage_Backup_Block_Adminhtml_Backup
 {
-    /**
-     * Block's template
-     *
-     * @var string
-     */
-    protected $_template = 'backup/list.phtml';
-
-    protected function _prepareLayout()
-    {
-        parent::_prepareLayout();
-        $this->setChild('createButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('backup')->__('Database Backup'),
-                    'onclick' => "return backup.backup('" . Mage_Backup_Helper_Data::TYPE_DB . "')",
-                    'class'  => 'task'
-                ])
-        );
-        $this->setChild('createSnapshotButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('backup')->__('System Backup'),
-                    'onclick' => "return backup.backup('" . Mage_Backup_Helper_Data::TYPE_SYSTEM_SNAPSHOT . "')",
-                    'class'  => ''
-                ])
-        );
-        $this->setChild('createMediaBackupButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('backup')->__('Database and Media Backup'),
-                    'onclick' => "return backup.backup('" . Mage_Backup_Helper_Data::TYPE_MEDIA . "')",
-                    'class'  => ''
-                ])
-        );
-        $this->setChild('backupsGrid',
-            $this->getLayout()->createBlock('adminhtml/backup_grid')
-        );
-
-        $this->setChild('dialogs', $this->getLayout()->createBlock('adminhtml/backup_dialogs'));
-        return $this;
-    }
-
-    public function getCreateButtonHtml()
-    {
-        return $this->getChildHtml('createButton');
-    }
-
-    /**
-     * Generate html code for "Create System Snapshot" button
-     *
-     * @return string
-     */
-    public function getCreateSnapshotButtonHtml()
-    {
-        return $this->getChildHtml('createSnapshotButton');
-    }
-
-    /**
-     * Generate html code for "Create Media Backup" button
-     *
-     * @return string
-     */
-    public function getCreateMediaBackupButtonHtml()
-    {
-        return $this->getChildHtml('createMediaBackupButton');
-    }
-
-    public function getGridHtml()
-    {
-        return $this->getChildHtml('backupsGrid');
-    }
-
-    /**
-     * Generate html code for pop-up messages that will appear when user click on "Rollback" link
-     *
-     * @return string
-     */
-    public function getDialogsHtml()
-    {
-        return $this->getChildHtml('dialogs');
-    }
 }
