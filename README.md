@@ -108,7 +108,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 - search for "NULL" in backend grids [#1203](https://github.com/OpenMage/magento-lts/pull/1203)
 - removed modules `Mage_Compiler`, `Mage_GoogleBase`, `Mage_Xmlconnect`, `Phoenix_Moneybookers`
 
-### Between OpenMage 19.4.18 / 20.0.15 and 19.4.19 / 20.0.16
+### Between OpenMage 19.4.18 / 20.0.16 and 19.4.19 / 20.0.17
 
 - PHP extension `intl` is required
 
