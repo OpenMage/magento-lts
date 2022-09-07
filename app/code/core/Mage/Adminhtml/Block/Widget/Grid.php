@@ -93,28 +93,28 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Pager visibility
      *
-     * @var boolean
+     * @var bool
      */
     protected $_pagerVisibility = true;
 
     /**
      * Column headers visibility
      *
-     * @var boolean
+     * @var bool
      */
     protected $_headersVisibility = true;
 
     /**
      * Filter visibility
      *
-     * @var boolean
+     * @var bool
      */
     protected $_filterVisibility = true;
 
     /**
      * Massage block visibility
      *
-     * @var boolean
+     * @var bool
      */
     protected $_messageBlockVisibility = false;
 
@@ -123,14 +123,14 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Count totals
      *
-     * @var boolean
+     * @var bool
      */
     protected $_countTotals = false;
 
     /**
      * Count subtotals
      *
-     * @var boolean
+     * @var bool
      */
     protected $_countSubTotals = false;
 

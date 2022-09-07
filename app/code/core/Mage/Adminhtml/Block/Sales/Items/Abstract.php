@@ -50,7 +50,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     /**
      * Flag - if it is set method canEditQty will return value of it
      *
-     * @var boolean | null
+     * @var bool | null
      */
     protected $_canEditQty = null;
 

@@ -581,7 +581,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             // Send request to service
             $result = $soapClient->checkVatApprox($requestParams);
 
-            $gatewayResponse->setIsValid((boolean) $result->valid);
+            $gatewayResponse->setIsValid((bool) $result->valid);
             $gatewayResponse->setRequestDate((string) $result->requestDate);
             $gatewayResponse->setRequestIdentifier((string) $result->requestIdentifier);
             $gatewayResponse->setRequestSuccess(true);

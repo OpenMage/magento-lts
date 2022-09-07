@@ -32,7 +32,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     /**
      * Fill date and time options with leading zeros or not
      *
-     * @var boolean
+     * @var bool
      */
     protected $_fillLeadingZeros = true;
 

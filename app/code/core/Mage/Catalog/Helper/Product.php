@@ -36,7 +36,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Flag that shows if Magento has to check product to be saleable (enabled and/or inStock)
      *
-     * @var boolean
+     * @var bool
      */
     protected $_skipSaleableCheck = false;
 

@@ -227,7 +227,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      */
     public function setIsStatusChanged($value)
     {
-        $this->_isStatusChanged = (boolean) $value;
+        $this->_isStatusChanged = (bool) $value;
            return $this;
     }
 

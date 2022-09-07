@@ -266,7 +266,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * Generate salted hash from password
      *
      * @param string $password
-     * @param string|integer|boolean $salt
+     * @param string|int|bool $salt
      * @return string
      */
     public function getHash($password, $salt = false)

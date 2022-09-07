@@ -58,21 +58,21 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Re-collect quote flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_needCollect;
 
     /**
      * Re-collect cart flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_needCollectCart = false;
 
     /**
      * Collect (import) data and validate it flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isValidate              = false;
 

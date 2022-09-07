@@ -59,7 +59,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      *
      * Function returns information about initial store environment and emulates environment of another store
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @param string $area
      * @param bool $emulateStoreInlineTranslation emulate inline translation of the specified store or just disable it
      *
@@ -118,7 +118,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      *
      * Function disables inline translation if $storeId is null
      *
-     * @param integer|null $storeId
+     * @param int|null $storeId
      * @param string $area
      *
      * @return bool initial inline translation state
@@ -143,7 +143,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     /**
      * Apply design of the specified store
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @param string $area
      *
      * @return array initial design parameters(package, store, area)
@@ -163,7 +163,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     /**
      * Apply locale of the specified store
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @param string $area
      *
      * @return string initial locale code

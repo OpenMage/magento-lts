@@ -104,10 +104,10 @@ function mageFindClassFile($class)
 /**
  * Custom error handler
  *
- * @param integer $errno
+ * @param int $errno
  * @param string $errstr
  * @param string $errfile
- * @param integer $errline
+ * @param int $errline
  * @return bool
  */
 function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)

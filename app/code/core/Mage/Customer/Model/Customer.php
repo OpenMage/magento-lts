@@ -213,14 +213,14 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Is model deleteable
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isDeleteable = true;
 
     /**
      * Is model readonly
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isReadonly = false;
 
@@ -234,7 +234,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Confirmation requirement flag
      *
-     * @var boolean
+     * @var bool
      */
     private static $_isConfirmationRequired;
 

@@ -328,14 +328,14 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Flag for available duplicate function
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isDuplicable = true;
 
     /**
      * Flag for get Price function
      *
-     * @var boolean
+     * @var bool
      */
     protected $_calculatePrice = true;
 
@@ -1492,7 +1492,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function setIsDuplicable($value)
     {
-        $this->_isDuplicable = (boolean) $value;
+        $this->_isDuplicable = (bool) $value;
         return $this;
     }
 
@@ -2062,7 +2062,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      *  Check whether attribute reserved or not
      *
      *  @param Mage_Catalog_Model_Entity_Attribute $attribute Attribute model object
-     *  @return boolean
+     *  @return bool
      */
     public function isReservedAttribute($attribute)
     {

@@ -37,7 +37,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Next id for edit gift message block
      *
-     * @var integer
+     * @var int
      */
     protected $_nextId = 0;
 
@@ -292,7 +292,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Retrieve gift message with specified id
      *
-     * @param integer $messageId
+     * @param int $messageId
      * @return Mage_GiftMessage_Model_Message
      */
     public function getGiftMessage($messageId = null)

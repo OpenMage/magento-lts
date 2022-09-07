@@ -91,7 +91,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Use is object new method for save of object
      *
-     * @var boolean
+     * @var bool
      */
     protected $_useIsObjectNew       = false;
 

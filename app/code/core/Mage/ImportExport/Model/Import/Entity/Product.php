@@ -339,7 +339,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      *     'type_id'        => (string) product type
      *     'attr_set_id'    => (int) product attribute set ID
      *     'entity_id'      => (int) product ID
-     *     'supported_type' => (boolean) is product type supported by current version of import module
+     *     'supported_type' => (bool) is product type supported by current version of import module
      * )
      *
      * @var array

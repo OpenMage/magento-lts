@@ -51,7 +51,7 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
     /**
      * Get a text for option value
      *
-     * @param string|integer $value
+     * @param string|int $value
      * @return string
      */
     public function getOptionText($value)

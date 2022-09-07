@@ -219,7 +219,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Getter/Setter for isTotals
      *
-     * @param null|boolean $flag
+     * @param null|bool $flag
      * @return $this|bool
      */
     public function isTotals($flag = null)
@@ -234,7 +234,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Getter/Setter for isSubTotals
      *
-     * @param null|boolean $flag
+     * @param null|bool $flag
      * @return $this|bool
      */
     public function isSubTotals($flag = null)

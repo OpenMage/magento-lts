@@ -33,7 +33,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     /**
      * Add days in whishlist filter of product collection
      *
-     * @var boolean
+     * @var bool
      */
     protected $_addDaysInWishlist  = false;
 

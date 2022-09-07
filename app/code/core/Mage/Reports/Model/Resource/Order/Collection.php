@@ -32,7 +32,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Is live
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isLive   = false;
 

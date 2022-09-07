@@ -138,7 +138,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Whether this block was not explicitly named
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isAnonymous = false;
 

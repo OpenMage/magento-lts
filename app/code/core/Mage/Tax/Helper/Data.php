@@ -101,7 +101,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Postcode cut to this length when creating search templates
      *
-     * @var integer
+     * @var int
      */
     protected $_postCodeSubStringLength = 10;
 

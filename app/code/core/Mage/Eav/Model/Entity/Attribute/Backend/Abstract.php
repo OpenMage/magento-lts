@@ -37,7 +37,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     /**
      * PK value_id for loaded entity (for faster updates)
      *
-     * @var integer
+     * @var int
      */
     protected $_valueId;
 

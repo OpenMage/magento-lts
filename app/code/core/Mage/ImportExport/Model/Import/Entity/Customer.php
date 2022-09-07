@@ -101,7 +101,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Customer account sharing. TRUE - is global, FALSE - is per website.
      *
-     * @var boolean
+     * @var bool
      */
     protected $_customerGlobal;
 

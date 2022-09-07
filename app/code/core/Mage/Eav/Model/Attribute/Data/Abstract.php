@@ -51,14 +51,14 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Scope visibility flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_requestScopeOnly    = true;
 
     /**
      * Is AJAX request flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isAjax              = false;
 

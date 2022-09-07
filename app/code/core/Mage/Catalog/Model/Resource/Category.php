@@ -73,7 +73,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     /**
      * Set store Id
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -550,9 +550,9 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     /**
      * Retrieve categories
      *
-     * @param integer $parent
-     * @param integer $recursionLevel
-     * @param boolean|string $sorted
+     * @param int $parent
+     * @param int $recursionLevel
+     * @param bool|string $sorted
      * @param bool $asCollection
      * @param bool $toLoad
      * @return Varien_Data_Tree_Node_Collection|Mage_Catalog_Model_Resource_Category_Collection
@@ -767,7 +767,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * Check category is forbidden to delete.
      * If category is root and assigned to store group return false
      *
-     * @param integer $categoryId
+     * @param int $categoryId
      * @return bool
      */
     public function isForbiddenToDelete($categoryId)

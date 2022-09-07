@@ -93,7 +93,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Is AJAX request flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isAjax          = false;
 

@@ -471,7 +471,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      *
      * @param Mage_Catalog_Model_Product $product
      * @param string $file
-     * @return array|boolean
+     * @return array|bool
      */
     public function getImage(Mage_Catalog_Model_Product $product, $file)
     {

@@ -69,7 +69,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Load with product count flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_loadWithProductCount     = false;
 

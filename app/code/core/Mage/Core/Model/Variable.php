@@ -54,7 +54,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Setter
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function setStoreId($storeId)

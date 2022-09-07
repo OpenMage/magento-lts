@@ -114,7 +114,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Attribute validation flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_attributeValidationPassed   = false;
 

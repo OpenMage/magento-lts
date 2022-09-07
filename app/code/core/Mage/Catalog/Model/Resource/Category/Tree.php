@@ -49,7 +49,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Join URL rewrites data to collection flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_joinUrlRewriteIntoCollection     = false;
 
@@ -63,7 +63,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * store id
      *
-     * @var integer
+     * @var int
      */
     protected $_storeId                          = null;
 
@@ -90,7 +90,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Set store id
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function setStoreId($storeId)

@@ -48,7 +48,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     /**
      * Retrieve current store categories
      *
-     * @param boolean|string $sorted
+     * @param bool|string $sorted
      * @param bool $asCollection
      * @param bool $toLoad
      * @return array|Mage_Catalog_Model_Resource_Category_Collection|Varien_Data_Collection|Varien_Data_Tree_Node_Collection

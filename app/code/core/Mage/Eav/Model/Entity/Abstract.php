@@ -127,14 +127,14 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Partial load flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isPartialLoad = false;
 
     /**
      * Partial save flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isPartialSave = false;
 
@@ -348,7 +348,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      *
      * If attribute is not found false is returned
      *
-     * @param string|integer|Mage_Core_Model_Config_Element $attribute
+     * @param string|int|Mage_Core_Model_Config_Element $attribute
      * @return Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Catalog_Model_Resource_Eav_Attribute|false
      */
     public function getAttribute($attribute)
@@ -792,7 +792,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * Check whether the attribute is a real field in entity table
      *
      * @see Mage_Eav_Model_Entity_Abstract::getAttribute for $attribute format
-     * @param integer|string|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param int|string|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      *
      * @return bool
      */
@@ -914,7 +914,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * Load entity's attributes into the object
      *
      * @param   Mage_Core_Model_Abstract $object
-     * @param   integer $entityId
+     * @param   int $entityId
      * @param   array|null $attributes
      * @return  Mage_Eav_Model_Entity_Abstract
      */

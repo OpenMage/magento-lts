@@ -62,7 +62,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Whether it is the first page after successfull login
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isFirstPageAfterLogin;
 

@@ -175,7 +175,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Validate widget instance data
      *
-     * @return string|boolean
+     * @return string|bool
      */
     public function validate()
     {

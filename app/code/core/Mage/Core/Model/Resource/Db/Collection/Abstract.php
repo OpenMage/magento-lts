@@ -67,7 +67,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Fields to select changed flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_fieldsToSelectChanged  = false;
 
@@ -88,7 +88,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Reset items data changed flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_resetItemsDataChanged   = false;
 

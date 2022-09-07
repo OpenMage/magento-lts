@@ -164,7 +164,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * Processing additional validation to check if carrier applicable.
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|boolean
+     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|bool
      */
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {

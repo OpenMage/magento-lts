@@ -68,7 +68,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * save template flag
      *
-     * @var boolean
+     * @var bool
      * @deprecated since 1.4.0.1
      */
     protected $_saveTemplateFlag = false;
@@ -76,7 +76,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Save stores flag.
      *
-     * @var boolean
+     * @var bool
      */
     protected $_saveStoresFlag = false;
 
@@ -267,13 +267,13 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Setter for save template flag.
      *
-     * @param boolean|integer|string $value
+     * @param bool|int|string $value
      * @return $this
      * @deprecated since 1.4.0.1
      */
     public function setSaveTemplateFlag($value)
     {
-        $this->_saveTemplateFlag = (boolean)$value;
+        $this->_saveTemplateFlag = (bool)$value;
         return $this;
     }
 
@@ -291,12 +291,12 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Setter for save stores flag.
      *
-     * @param boolean|integer|string $value
+     * @param bool|int|string $value
      * @return $this
      */
     public function setSaveStoresFlag($value)
     {
-        $this->_saveStoresFlag = (boolean)$value;
+        $this->_saveStoresFlag = (bool)$value;
         return $this;
     }
 

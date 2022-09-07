@@ -62,14 +62,14 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Is model deleteable
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isDeleteable = true;
 
     /**
      * Is model readonly
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isReadonly = false;
 

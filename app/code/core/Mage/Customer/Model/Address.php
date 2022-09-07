@@ -55,7 +55,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
     /**
      * Declare address customer identifier
      *
-     * @param integer $id
+     * @param int $id
      * @return $this
      */
     public function setCustomerId($id)

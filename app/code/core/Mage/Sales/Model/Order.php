@@ -559,7 +559,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function setActionFlag($action, $flag)
     {
-        $this->_actionFlag[$action] = (boolean) $flag;
+        $this->_actionFlag[$action] = (bool) $flag;
         return $this;
     }
 
@@ -581,7 +581,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function setCanSendNewEmailFlag($flag)
     {
-        $this->_canSendNewEmailFlag = (boolean) $flag;
+        $this->_canSendNewEmailFlag = (bool) $flag;
         return $this;
     }
 
