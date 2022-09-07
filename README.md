@@ -19,21 +19,26 @@ level of backwards compatibility to the official releases.
 
 **Pull requests with unofficial bug fixes and security patches from the community are encouraged and welcome!**
 
-Though Magento does not follow [Semantic Versioning](http://semver.org/) we aim to provide a workable system for
+### Versioning
+
+Though Magento does __not__ follow [Semantic Versioning](http://semver.org/) we aim to provide a workable system for
 dependency definition. Each Magento `1.<minor>.<revision>` release will get its own branch (named `1.<minor>.<revision>.x`)
 that will be independently maintained with upstream patches and community bug fixes for as long as it makes sense
-to do so (based on available resources). For example, Magento version `1.9.3.4` was merged into the `1.9.3.x` branch.
+to do so (based on available resources). For example, Magento version `1.9.4.5` was merged into the `1.9.4.x` branch.
 
 ## Requirements
 
-- PHP 7.0+ (PHP 7.3 with OpenSSL extension strongly recommended and verified compatible) (PHP 7.4 and 8.0 are supported)
-- MySQL 5.6+ (8.0+ recommended)
-- (optional) Redis 5+ (7.x recommended, latest verified compatible 7.0.4 with 20.x)
+- PHP 7.3+ (PHP 8.0 is supported)
+- MySQL 5.6+ (8.0+ recommended) or MariaDB
 
-- PHP 7.4 and 8.0 are supported
-- Please be aware that although OpenMage is compatible that 1 or more extensions may not be
+__Please be aware that although OpenMage is compatible that one or more extensions may not be__
 
-If using php 7.2+ then mcrypt needs to be disabled in php.ini or pecl to fallback on mcryptcompat and phpseclib. mcrypt is deprecated from 7.2+ onwards.
+### Optional
+
+- Redis 5+ (6.x recommended, latest verified compatible 6.0.7 with 20.x)
+
+### PHP 7.2+
+If using php 7.2+ then `mcrypt` needs to be disabled in `php.ini` or pecl to fallback on `mcryptcompat` and `phpseclib`. `mcrypt` is deprecated from 7.2+ onwards.
 
 ## Installation
 
@@ -60,7 +65,7 @@ If you want to contribute to the project:
 ```bash
 git init
 git remote add origin https://github.com/<YOUR GIT USERNAME>/magento-lts
-git pull origin master
+git pull origin main
 git remote add upstream https://github.com/OpenMage/magento-lts
 git pull upstream 1.9.4.x
 git add -A && git commit
@@ -153,14 +158,22 @@ To find which files need the modification you can run `grep -rn 'urn:Magento' --
 ## Development Environment with ddev
 
 - Install [ddev](https://ddev.com/get-started/)
-- Clone the repository as described in Installation -> Using Git
-- Create a ddev config using ```$ ddev config``` the defaults should be good for you
-- Open .ddev/config.yaml and change the php version to 7.2
-- Type ```$ ddev start``` to download and start the containers
-- Navigate to https://magento-lts.ddev.site
-- When you are done you can stop the test system by typing ```$ ddev stop```
+- Clone the repository as described in installation ([Using Git](https://github.com/OpenMage/magento-lts#using-git))
+- Create a ddev config, defaults should be good for you
+  ```bash
+  $ ddev config
+  ```
+- Open `.ddev/config.yaml` and change the php version to your needs
+- Download and start the containers
+  ```bash
+  $ ddev start
+  ```
+- Open your site in browser
+  ```bash
+  $ ddev launch
+  ```
 
-### PhpStorm Factory Helper
+## PhpStorm Factory Helper
 
 This repo includes class maps for the core Magento files in `.phpstorm.meta.php`.
 To add class maps for installed extensions, you have to install [N98-magerun](https://github.com/netz98/n98-magerun)
