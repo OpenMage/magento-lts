@@ -366,7 +366,7 @@ abstract class Mage_Eav_Model_Form
      * Validate data array and return true or array of errors
      *
      * @param array $data
-     * @return boolean|array
+     * @return bool|array
      */
     public function validateData(array $data)
     {
@@ -490,7 +490,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Return is AJAX Request
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsAjaxRequest()
     {

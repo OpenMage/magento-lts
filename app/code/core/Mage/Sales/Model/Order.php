@@ -540,7 +540,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve can flag for action (edit, unhold, etc..)
      *
      * @param string $action
-     * @return boolean|null
+     * @return bool|null
      */
     public function getActionFlag($action)
     {

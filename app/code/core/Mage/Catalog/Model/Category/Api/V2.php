@@ -118,7 +118,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
      * @param int $categoryId
      * @param array $categoryData
      * @param string|int $store
-     * @return boolean
+     * @return bool
      */
     public function update($categoryId, $categoryData, $store = null)
     {

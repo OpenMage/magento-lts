@@ -602,7 +602,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $requesterCountryCode
      * @param string $requesterVatNumber
      *
-     * @return boolean
+     * @return bool
      */
     public function canCheckVatNumber($countryCode, $vatNumber, $requesterCountryCode, $requesterVatNumber)
     {

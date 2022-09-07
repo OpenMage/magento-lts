@@ -131,7 +131,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Return is validate data in import flag
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsValidate()
     {

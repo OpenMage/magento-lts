@@ -886,7 +886,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Allow for updates of chidren qty's
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return boolean true
+     * @return bool true
      */
     public function getForceChildItemQtyChanges($product = null)
     {

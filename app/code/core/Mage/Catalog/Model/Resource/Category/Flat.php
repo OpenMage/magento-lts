@@ -193,7 +193,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Return true if need use for each store different table of flat categories data.
      *
-     * @return boolean
+     * @return bool
      */
     public function getUseStoreTables()
     {
@@ -1314,7 +1314,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Check is category in list of store categories
      *
      * @param Mage_Catalog_Model_Category $category
-     * @return boolean
+     * @return bool
      */
     public function isInRootCategoryList($category)
     {

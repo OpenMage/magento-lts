@@ -103,7 +103,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
     /**
      * Return boolean determining if FPT/ Catalog Price settings is conflicting or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function isDefaultStoreWithConflictingFptTaxConfigurationSettings()
     {

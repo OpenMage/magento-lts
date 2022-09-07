@@ -252,7 +252,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Validate IP address
      *
      * @param string $address
-     * @return boolean
+     * @return bool
      */
     public function validateIpAddr($address)
     {

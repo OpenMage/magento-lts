@@ -178,7 +178,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
      * @param string $status
      * @param string $comment
      * @param boolean $notify
-     * @return boolean
+     * @return bool
      */
     public function addComment($orderIncrementId, $status, $comment = '', $notify = false)
     {
@@ -212,7 +212,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
      * Hold order
      *
      * @param string $orderIncrementId
-     * @return boolean
+     * @return bool
      */
     public function hold($orderIncrementId)
     {
@@ -232,7 +232,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
      * Unhold order
      *
      * @param string $orderIncrementId
-     * @return boolean
+     * @return bool
      */
     public function unhold($orderIncrementId)
     {
@@ -252,7 +252,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
      * Cancel order
      *
      * @param string $orderIncrementId
-     * @return boolean
+     * @return bool
      */
     public function cancel($orderIncrementId)
     {

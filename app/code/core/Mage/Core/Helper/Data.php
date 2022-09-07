@@ -450,7 +450,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param array|Varien_Object $source
      * @param array|Varien_Object $target
      * @param string $root
-     * @return boolean
+     * @return bool
      */
     public function copyFieldset($fieldset, $aspect, $source, $target, $root = 'global')
     {

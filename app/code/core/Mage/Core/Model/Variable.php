@@ -110,7 +110,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Validation of object data. Checking for unique variable code
      *
-     * @return boolean | string
+     * @return bool | string
      */
     public function validate()
     {

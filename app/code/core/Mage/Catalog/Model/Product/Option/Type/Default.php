@@ -248,7 +248,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Flag to indicate that custom option has own customized output (blocks, native html etc.)
      *
-     * @return boolean
+     * @return bool
      */
     public function isCustomizedView()
     {

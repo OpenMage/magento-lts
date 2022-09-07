@@ -266,7 +266,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      * Check whether zip code is optional for specified country code
      *
      * @param string $countryCode
-     * @return boolean
+     * @return bool
      */
     public function isZipCodeOptional($countryCode)
     {

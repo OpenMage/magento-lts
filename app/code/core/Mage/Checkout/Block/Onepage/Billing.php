@@ -165,7 +165,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
     /**
      * Check is Quote items can ship to
      *
-     * @return boolean
+     * @return bool
      */
     public function canShip()
     {

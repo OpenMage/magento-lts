@@ -754,7 +754,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * Check is category in list of store categories
      *
      * @param Mage_Catalog_Model_Category $category
-     * @return boolean
+     * @return bool
      */
     public function isInRootCategoryList($category)
     {
@@ -768,7 +768,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * If category is root and assigned to store group return false
      *
      * @param integer $categoryId
-     * @return boolean
+     * @return bool
      */
     public function isForbiddenToDelete($categoryId)
     {

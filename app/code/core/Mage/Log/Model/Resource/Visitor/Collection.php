@@ -233,7 +233,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
     /**
      * Return true if online filter used
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsOnlineFilterUsed()
     {

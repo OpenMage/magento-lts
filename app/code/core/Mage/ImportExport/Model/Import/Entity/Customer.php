@@ -590,7 +590,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      *
      * @param array $rowData
      * @param int $rowNum
-     * @return boolean
+     * @return bool
      */
     public function validateRow(array $rowData, $rowNum)
     {

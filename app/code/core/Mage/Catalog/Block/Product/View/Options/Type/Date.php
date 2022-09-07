@@ -50,7 +50,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     /**
      * Use JS calendar settings
      *
-     * @return boolean
+     * @return bool
      */
     public function useCalendar()
     {

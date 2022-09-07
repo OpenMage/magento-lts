@@ -101,7 +101,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Return: is this queue newly created or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function isNew()
     {
@@ -280,7 +280,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Getter for save template flag.
      *
-     * @return boolean
+     * @return bool
      * @deprecated since 1.4.0.1
      */
     public function getSaveTemplateFlag()
@@ -303,7 +303,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Getter for save stores flag.
      *
-     * @return boolean
+     * @return bool
      */
     public function getSaveStoresFlag()
     {

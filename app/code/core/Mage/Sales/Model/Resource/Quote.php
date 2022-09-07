@@ -151,7 +151,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
      *
      * @param string|integer $orderIncrementId
      *
-     * @return boolean
+     * @return bool
      */
     public function isOrderIncrementIdUsed($orderIncrementId)
     {

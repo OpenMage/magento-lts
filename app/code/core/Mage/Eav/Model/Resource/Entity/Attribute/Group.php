@@ -36,7 +36,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
      * Checks if attribute group exists
      *
      * @param Mage_Eav_Model_Entity_Attribute_Group $object
-     * @return boolean
+     * @return bool
      */
     public function itemExists($object)
     {

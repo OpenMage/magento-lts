@@ -568,7 +568,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Check is Request from AJAX
      *
-     * @return boolean
+     * @return bool
      */
     public function isAjax()
     {

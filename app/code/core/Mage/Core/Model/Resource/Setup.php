@@ -207,7 +207,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Apply database updates whenever needed
      *
-     * @return boolean
+     * @return bool
      */
     public static function applyAllUpdates()
     {
@@ -976,7 +976,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Check call afterApplyAllUpdates method for setup class
      *
-     * @return boolean
+     * @return bool
      */
     public function getCallAfterApplyAllUpdates()
     {

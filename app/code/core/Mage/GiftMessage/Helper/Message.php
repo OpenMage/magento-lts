@@ -234,7 +234,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Check availability for internal cached data with specified key
      *
      * @param string $key
-     * @return boolean
+     * @return bool
      */
     public function isCached($key)
     {

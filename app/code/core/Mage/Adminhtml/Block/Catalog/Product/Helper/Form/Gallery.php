@@ -148,7 +148,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
      * Check readonly attribute
      *
      * @param Mage_Eav_Model_Entity_Attribute|string $attribute
-     * @return boolean
+     * @return bool
      */
     public function getAttributeReadonly($attribute)
     {

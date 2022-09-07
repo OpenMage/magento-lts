@@ -81,7 +81,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      * Supports $this->setCronExpr('* 0-5,10-59/5 2-10,15-25 january-june/2 mon-fri')
      *
      * @param string|int $time
-     * @return boolean
+     * @return bool
      */
     public function trySchedule($time)
     {
@@ -226,7 +226,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      * @param string $oldStatus
      * This is used to implement locking for cron jobs.
      *
-     * @return boolean
+     * @return bool
      */
     public function tryLockJob($oldStatus = self::STATUS_PENDING)
     {

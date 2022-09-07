@@ -234,7 +234,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Return status change flag value
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsStatusChanged()
     {
@@ -478,7 +478,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Confirms subscriber newsletter
      *
      * @param string $code
-     * @return boolean
+     * @return bool
      */
     public function confirm($code)
     {

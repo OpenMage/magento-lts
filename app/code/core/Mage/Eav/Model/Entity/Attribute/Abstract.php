@@ -539,7 +539,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Check if attribute is valid
      *
-     * @return boolean
+     * @return bool
      */
     public function isAttributeValidationPassed()
     {
@@ -550,7 +550,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Check if attribute in specified set
      *
      * @param int|array $setId
-     * @return boolean
+     * @return bool
      */
     public function isInSet($setId)
     {
@@ -576,7 +576,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      *
      * @param int $setId
      * @param int $groupId
-     * @return boolean
+     * @return bool
      */
     public function isInGroup($setId, $groupId)
     {

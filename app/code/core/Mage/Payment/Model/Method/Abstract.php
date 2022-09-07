@@ -304,7 +304,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Check method for processing with base currency
      *
      * @param string $currencyCode
-     * @return boolean
+     * @return bool
      */
     public function canUseForCurrency($currencyCode)
     {

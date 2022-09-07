@@ -755,7 +755,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if backend URLs should be secure
      *
-     * @return boolean
+     * @return bool
      */
     public function isAdminUrlSecure()
     {
@@ -769,7 +769,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if frontend URLs should be secure
      *
-     * @return boolean
+     * @return bool
      */
     public function isFrontUrlSecure()
     {
@@ -785,7 +785,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if request was secure
      *
-     * @return boolean
+     * @return bool
      */
     public function isCurrentlySecure()
     {
@@ -1130,7 +1130,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if store can be deleted
      *
-     * @return boolean
+     * @return bool
      */
     public function isCanDelete()
     {
@@ -1191,7 +1191,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if store is active
      *
-     * @return boolean|null
+     * @return bool|null
      */
     public function getIsActive()
     {

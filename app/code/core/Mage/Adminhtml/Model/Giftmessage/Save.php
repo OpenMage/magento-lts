@@ -216,7 +216,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * Checks allowed quote item for gift messages
      *
      * @param  Varien_Object $item
-     * @return boolean
+     * @return bool
      */
     public function getIsAllowedQuoteItem($item)
     {

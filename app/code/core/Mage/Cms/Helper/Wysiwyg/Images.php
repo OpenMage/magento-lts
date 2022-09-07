@@ -162,7 +162,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     /**
      * Check whether using static URLs is allowed
      *
-     * @return boolean
+     * @return bool
      */
     public function isUsingStaticUrlsAllowed()
     {

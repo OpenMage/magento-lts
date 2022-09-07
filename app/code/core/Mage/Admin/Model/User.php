@@ -263,7 +263,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Check if such combination role/user exists
      *
-     * @return boolean
+     * @return bool
      */
     public function roleUserExists()
     {
@@ -285,7 +285,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Check if user exists based on its id, username and email
      *
-     * @return boolean
+     * @return bool
      */
     public function userExists()
     {
@@ -375,7 +375,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $password
-     * @return boolean
+     * @return bool
      * @throws Mage_Core_Exception
      */
     public function authenticate($username, $password)
@@ -682,7 +682,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Check if current reset password link token is expired
      *
-     * @return boolean
+     * @return bool
      */
     public function isResetPasswordLinkTokenExpired()
     {

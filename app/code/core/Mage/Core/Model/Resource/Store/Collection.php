@@ -60,7 +60,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     /**
      * Is load default (admin) store
      *
-     * @return boolean
+     * @return bool
      */
     public function getLoadDefault()
     {

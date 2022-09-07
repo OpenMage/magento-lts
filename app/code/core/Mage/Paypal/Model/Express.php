@@ -697,7 +697,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      *
      * @param Mage_Sales_Model_Order_Payment_Transaction $transaction
      * @param int $period
-     * @return boolean
+     * @return bool
      */
     protected function _isTransactionExpired(Mage_Sales_Model_Order_Payment_Transaction $transaction, $period)
     {

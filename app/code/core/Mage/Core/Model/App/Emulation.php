@@ -121,7 +121,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      * @param integer|null $storeId
      * @param string $area
      *
-     * @return boolean initial inline translation state
+     * @return bool initial inline translation state
      */
     protected function _emulateInlineTranslation($storeId = null, $area = Mage_Core_Model_App_Area::AREA_FRONTEND)
     {

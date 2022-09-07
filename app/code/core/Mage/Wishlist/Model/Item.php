@@ -168,7 +168,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Checks that item model has data changes.
      * Call save item options if model isn't need to save in DB
      *
-     * @return boolean
+     * @return bool
      */
     protected function _hasModelChanged()
     {

@@ -104,7 +104,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     /**
      * Check whether the attribute is a real field in the entity table
      *
-     * @return boolean
+     * @return bool
      */
     public function isStatic()
     {
@@ -228,7 +228,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
      *
      * @param Varien_Object $object
      * @throws Mage_Eav_Exception
-     * @return boolean
+     * @return bool
      */
     public function validate($object)
     {

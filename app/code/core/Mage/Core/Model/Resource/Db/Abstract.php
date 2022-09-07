@@ -602,7 +602,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * has really changed comparing with origData
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return boolean
+     * @return bool
      */
     public function hasDataChanged($object)
     {

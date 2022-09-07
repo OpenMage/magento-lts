@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
     /**
      * Checks when this block is readonly
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {

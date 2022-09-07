@@ -1205,7 +1205,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * Return whether cross border trade is enabled or not
      *
      * @param   null|int $store
-     * @return boolean
+     * @return bool
      */
     public function isCrossBorderTradeEnabled($store = null)
     {

@@ -463,7 +463,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * Retrieve partial load flag
      *
      * @param boolean $flag
-     * @return boolean
+     * @return bool
      */
     public function isPartialLoad($flag = null)
     {
@@ -478,7 +478,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * Retrieve partial save flag
      *
      * @param boolean $flag
-     * @return boolean
+     * @return bool
      */
     public function isPartialSave($flag = null)
     {
@@ -662,7 +662,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Eav_Model_Entity_Attribute_Backend_Abstract|Mage_Eav_Model_Entity_Attribute_Frontend_Abstract|Mage_Eav_Model_Entity_Attribute_Source_Abstract $instance
      * @param string $method
      * @param array $args array of arguments
-     * @return boolean
+     * @return bool
      */
     protected function _isCallableAttributeInstance($instance, $method, $args)
     {
@@ -794,7 +794,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @see Mage_Eav_Model_Entity_Abstract::getAttribute for $attribute format
      * @param integer|string|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      *
-     * @return boolean
+     * @return bool
      */
     public function isAttributeStatic($attribute)
     {
@@ -854,7 +854,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param Varien_Object $object
-     * @return boolean
+     * @return bool
      */
     public function checkAttributeUniqueValue(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $object)
     {

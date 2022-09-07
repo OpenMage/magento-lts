@@ -101,7 +101,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
      * Check if a category can be shown
      *
      * @param  Mage_Catalog_Model_Category|int $category
-     * @return boolean
+     * @return bool
      */
     public function canShow($category)
     {

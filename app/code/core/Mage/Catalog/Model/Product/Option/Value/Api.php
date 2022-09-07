@@ -162,7 +162,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      * Delete value from select option
      *
      * @param int $valueId
-     * @return boolean
+     * @return bool
      */
     public function remove($valueId)
     {

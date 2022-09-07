@@ -219,7 +219,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * @param array $productData
      * @param string|int $store
      * @param null $identifierType
-     * @return boolean
+     * @return bool
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -336,7 +336,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * @param string $fromDate
      * @param string $toDate
      * @param string|int $store
-     * @return boolean
+     * @return bool
      */
     public function setSpecialPrice($productId, $specialPrice = null, $fromDate = null, $toDate = null, $store = null)
     {
@@ -370,7 +370,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      *
      * @param int|string $productId
      * @param null $identifierType
-     * @return boolean
+     * @return bool
      * @throws Mage_Api_Exception
      */
     public function delete($productId, $identifierType = null)

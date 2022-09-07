@@ -1211,7 +1211,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Check if users originated URL is one of the domain URLs assigned to stores
      *
-     * @return boolean
+     * @return bool
      */
     public function isOwnOriginUrl()
     {

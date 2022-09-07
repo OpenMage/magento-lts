@@ -58,7 +58,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Retrieve is live flag for rep
      *
-     * @return boolean
+     * @return bool
      */
     public function isLive()
     {

@@ -852,7 +852,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * (applicable for complicated product types. As default returns false)
      *
      * @param null $product
-     * @return boolean false
+     * @return bool false
      */
     public function getForceChildItemQtyChanges($product = null)
     {

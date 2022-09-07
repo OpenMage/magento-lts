@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg extends Varien_Data_Form_
     /**
      * Check whether wysiwyg enabled or not
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsWysiwygEnabled()
     {

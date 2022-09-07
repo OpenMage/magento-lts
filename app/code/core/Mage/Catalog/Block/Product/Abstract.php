@@ -314,7 +314,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Create reviews summary helper block once
      *
-     * @return boolean
+     * @return bool
      */
     protected function _initReviewsHelperBlock()
     {

@@ -1477,7 +1477,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Checks product can be duplicated
      *
-     * @return boolean
+     * @return bool
      */
     public function isDuplicable()
     {
@@ -2131,7 +2131,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Check for empty SKU on each product
      *
      * @param  array $productIds
-     * @return boolean|null
+     * @return bool|null
      */
     public function isProductsHasSku(array $productIds)
     {

@@ -267,7 +267,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Return true if this template can be used for sending queue as main template
      *
-     * @return boolean
+     * @return bool
      */
     public function isValidForSend()
     {

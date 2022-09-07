@@ -104,7 +104,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
     /**
      * Check block is readonly
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {

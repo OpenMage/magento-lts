@@ -87,7 +87,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      * @param Mage_Core_Model_Abstract $object
      * @param int $entityTypeId
      * @param string $code
-     * @return boolean
+     * @return bool
      */
     public function loadByCode(Mage_Core_Model_Abstract $object, $entityTypeId, $code)
     {

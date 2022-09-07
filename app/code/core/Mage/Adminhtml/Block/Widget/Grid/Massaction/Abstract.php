@@ -129,7 +129,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Checks are massactions available
      *
-     * @return boolean
+     * @return bool
      */
     public function isAvailable()
     {
@@ -265,7 +265,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Retrieve select all functionality flag check
      *
-     * @return boolean
+     * @return bool
      */
     public function getUseSelectAll()
     {

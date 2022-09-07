@@ -116,7 +116,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
      * no greater than the max option (when the max option is not null).
      *
      * @param  string $value
-     * @return boolean
+     * @return bool
      */
     public function isValid($value)
     {

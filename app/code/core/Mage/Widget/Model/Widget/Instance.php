@@ -188,7 +188,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Check if widget instance has required data (other data depends on it)
      *
-     * @return boolean
+     * @return bool
      */
     public function isCompleteToCreate()
     {

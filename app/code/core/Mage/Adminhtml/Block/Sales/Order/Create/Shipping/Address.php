@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address
     /**
      * Return is shipping address flag
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsShipping()
     {
@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address
     /**
      * Same as billing address flag
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsAsBilling()
     {
@@ -134,7 +134,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address
      * Return is address disabled flag
      * Return true is the quote is virtual
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsDisabled()
     {

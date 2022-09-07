@@ -536,7 +536,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Validate password with salted hash
      *
      * @param string $password
-     * @return boolean
+     * @return bool
      * @throws Exception
      */
     public function validatePassword($password)
@@ -694,7 +694,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Check if address is primary
      *
      * @param Mage_Customer_Model_Address $address
-     * @return boolean
+     * @return bool
      */
     public function isAddressPrimary(Mage_Customer_Model_Address $address)
     {
@@ -1327,7 +1327,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @param null|string $error
      * @param string $line
-     * @return boolean
+     * @return bool
      * @throws Exception
      */
     public function printError($error, $line = null)
@@ -1423,7 +1423,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Checks model is deleteable
      *
-     * @return boolean
+     * @return bool
      */
     public function isDeleteable()
     {
@@ -1445,7 +1445,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Checks model is readonly
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {
@@ -1580,7 +1580,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Check if current reset password link token is expired
      *
-     * @return boolean
+     * @return bool
      */
     public function isResetPasswordLinkTokenExpired()
     {

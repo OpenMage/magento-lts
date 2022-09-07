@@ -757,7 +757,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Simple check if file is image
      *
      * @param array|string $fileInfo - either file data from Zend_File_Transfer or file path
-     * @return boolean
+     * @return bool
      */
     protected function _isImage($fileInfo)
     {

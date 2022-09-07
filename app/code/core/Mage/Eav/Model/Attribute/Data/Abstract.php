@@ -470,7 +470,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Return is AJAX Request
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsAjaxRequest()
     {
@@ -529,7 +529,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      *
      * @param array|string $value
      * @throws Mage_Core_Exception
-     * @return boolean
+     * @return bool
      */
     abstract public function validateValue($value);
 

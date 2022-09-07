@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
     /**
      * Get is submit button disabled or not
      *
-     * @return boolean
+     * @return bool
      */
     public function getDisableSubmitButton()
     {

@@ -187,7 +187,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      *
      * @param string|integer $attribute attribute code or ID
      * @param array $data
-     * @return boolean
+     * @return bool
      */
     public function update($attribute, $data)
     {
@@ -218,7 +218,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      * Remove attribute
      *
      * @param integer|string $attribute attribute ID or code
-     * @return boolean
+     * @return bool
      */
     public function remove($attribute)
     {

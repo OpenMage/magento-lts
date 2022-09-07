@@ -276,7 +276,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * Check if there's anything to display in footer
      *
-     * @return boolean
+     * @return bool
      */
     public function hasFooterButtons()
     {

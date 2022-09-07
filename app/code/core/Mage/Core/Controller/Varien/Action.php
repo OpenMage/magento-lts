@@ -868,7 +868,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * 1. core_module/core_controller/core_action to new_module/new_controller/new_action
      * 2. all other actions of core_module/core_controller to new_module/new_controller
      *
-     * @return boolean true if rewrite happened
+     * @return bool true if rewrite happened
      */
     protected function _rewrite()
     {
