@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sitemap
+ * @category   Mage
+ * @package    Mage_Sitemap
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sitemap model
+ *
+ * @category   Mage
+ * @package    Mage_Sitemap
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sitemap_Model_Resource_Sitemap _getResource()
  * @method Mage_Sitemap_Model_Resource_Sitemap getResource()
@@ -36,10 +40,6 @@
  * @method $this setSitemapTime(string $value)
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
- *
- * @category    Mage
- * @package     Mage_Sitemap
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
 {

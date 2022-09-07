@@ -27,9 +27,6 @@
  */
 class Mage_CatalogSearch_Model_Resource_Indexer_Fulltext extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Initialize connection and define catalog product table as main table
-     */
     protected function _construct()
     {
         $this->_init('catalogsearch/fulltext', 'product_id');

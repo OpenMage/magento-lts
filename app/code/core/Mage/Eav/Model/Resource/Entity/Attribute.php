@@ -34,18 +34,12 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      */
     protected static $_entityAttributes     = [];
 
-    /**
-     * Define main table
-     *
-     */
     protected function _construct()
     {
         $this->_init('eav/attribute', 'attribute_id');
     }
 
     /**
-     * Initialize unique fields
-     *
      * @return $this
      */
     protected function _initUniqueFields()

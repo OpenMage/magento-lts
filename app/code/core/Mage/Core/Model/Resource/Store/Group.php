@@ -27,10 +27,6 @@
  */
 class Mage_Core_Model_Resource_Store_Group extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Define main table
-     *
-     */
     protected function _construct()
     {
         $this->_init('core/store_group', 'group_id');

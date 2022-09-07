@@ -39,9 +39,6 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      */
     protected $_quoteShippingAddressesItems;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct();

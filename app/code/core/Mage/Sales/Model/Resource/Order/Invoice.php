@@ -28,8 +28,6 @@
 class Mage_Sales_Model_Resource_Order_Invoice extends Mage_Sales_Model_Resource_Order_Abstract
 {
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix                  = 'sales_order_invoice_resource';
@@ -55,10 +53,6 @@ class Mage_Sales_Model_Resource_Order_Invoice extends Mage_Sales_Model_Resource_
      */
     protected $_entityTypeForIncrementId     = 'invoice';
 
-    /**
-     * Model initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('sales/invoice', 'entity_id');

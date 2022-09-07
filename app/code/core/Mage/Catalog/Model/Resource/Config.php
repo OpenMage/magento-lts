@@ -41,10 +41,6 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
      */
     protected $_storeId          = null;
 
-    /**
-     * Initialize connection
-     *
-     */
     protected function _construct()
     {
         $this->_init('eav/attribute', 'attribute_id');

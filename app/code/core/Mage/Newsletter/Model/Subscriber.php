@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Newsletter
+ * @category   Mage
+ * @package    Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Subscriber model
+ *
+ * @category   Mage
+ * @package    Mage_Newsletter
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Newsletter_Model_Resource_Subscriber _getResource()
  * @method Mage_Newsletter_Model_Resource_Subscriber getResource()
@@ -45,10 +49,6 @@
  * @method bool getImportMode()
  * @method bool hasCustomerFirstname()
  * @method bool hasCustomerLastname()
- *
- * @category    Mage
- * @package     Mage_Newsletter
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 {
@@ -94,9 +94,6 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      */
     protected $_isStatusChanged = false;
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('newsletter/subscriber');

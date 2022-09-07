@@ -93,10 +93,6 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     protected $_preparedFlatTables   = [];
 
-    /**
-     * Initialize connection
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product', 'entity_id');
