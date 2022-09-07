@@ -245,15 +245,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     protected $_transactionsLookup = [];
 
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix = 'sales_order_payment';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject = 'payment';

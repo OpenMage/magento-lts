@@ -78,14 +78,10 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     const ENTITY                                = 'catalog_eav_attribute';
 
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix                     = 'catalog_entity_attribute';
     /**
-     * Event object name
-     *
      * @var string
      */
     protected $_eventObject                     = 'attribute';

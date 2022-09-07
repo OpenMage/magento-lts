@@ -37,16 +37,10 @@ class Mage_Sales_Model_Resource_Order_Payment extends Mage_Sales_Model_Resource_
     ];
 
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix          = 'sales_order_payment_resource';
 
-    /**
-     * Model initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('sales/order_payment', 'entity_id');

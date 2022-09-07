@@ -70,15 +70,11 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     protected $_gridColumns                  = null;
 
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix                  = 'sales_resource';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject                  = 'resource';

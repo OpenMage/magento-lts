@@ -32,15 +32,11 @@
 class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model_Resource_Collection_Abstract
 {
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix              = 'catalog_category_collection';
 
     /**
-     * Event object name
-     *
      * @var string
      */
     protected $_eventObject              = 'category_collection';

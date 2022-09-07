@@ -37,8 +37,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region
     protected $_factory;
 
     /**
-     * Constructor for Mage_Adminhtml_Block_Customer_Edit_Renderer_Region class
-     *
      * @param array $args
      */
     public function __construct(array $args = [])

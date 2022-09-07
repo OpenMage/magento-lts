@@ -42,8 +42,6 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     protected $_app;
 
     /**
-     * Constructor
-     *
      * @param array $args
      */
     public function __construct(array $args = [])

@@ -62,11 +62,6 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
      */
     protected $_countFilterPart    = [];
 
-    /**
-     * Constructor
-     * Configures collection
-     *
-     */
     protected function _construct()
     {
         parent::_construct();

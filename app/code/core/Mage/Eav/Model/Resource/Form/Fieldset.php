@@ -27,9 +27,6 @@
  */
 class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Initialize connection and define main table
-     */
     protected function _construct()
     {
         $this->_init('eav/form_fieldset', 'fieldset_id');

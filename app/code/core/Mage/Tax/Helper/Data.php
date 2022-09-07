@@ -19,9 +19,9 @@
  */
 
 /**
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
 {

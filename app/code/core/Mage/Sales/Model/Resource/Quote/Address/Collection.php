@@ -28,15 +28,11 @@
 class Mage_Sales_Model_Resource_Quote_Address_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix    = 'sales_quote_address_collection';
 
     /**
-     * Event object name
-     *
      * @var string
      */
     protected $_eventObject    = 'quote_address_collection';

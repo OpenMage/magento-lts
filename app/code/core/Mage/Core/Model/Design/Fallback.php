@@ -52,7 +52,6 @@ class Mage_Core_Model_Design_Fallback
     protected $_visited;
 
     /**
-     * Constructor
      * @param array $params
      */
     public function __construct(array $params = [])

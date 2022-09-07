@@ -27,10 +27,6 @@
  */
 class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Define main table and initialize connection
-     *
-     */
     protected function _construct()
     {
         $this->_init('cataloginventory/stock_item', 'item_id');
