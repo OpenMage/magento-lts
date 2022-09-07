@@ -183,8 +183,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Sort menu comparison function
      *
-     * @param int $a
-     * @param int $b
+     * @param array $a
+     * @param array $b
      * @return int
      */
     protected function _sortMenu($a, $b)
@@ -219,14 +219,6 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 
         return true;
     }
-
-    /*protected function _checkAcl(Varien_Simplexml_Element $acl)
-    {
-        return true;
-        $resource = (string)$acl->resource;
-        $privilege = (string)$acl->privilege;
-        return Mage::getSingleton('admin/session')->isAllowed($resource, $privilege);
-    }*/
 
     /**
      * Check is Allow menu item for admin user

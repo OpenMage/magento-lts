@@ -261,7 +261,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
      * Load CreditMemo by IncrementId
      *
      * @param mixed $incrementId
-     * @return Mage_Core_Model_Abstract|Mage_Sales_Model_Order_Creditmemo
+     * @return Mage_Sales_Model_Order_Creditmemo
      */
     protected function _getCreditmemo($incrementId)
     {

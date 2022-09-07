@@ -21,6 +21,11 @@
 /**
  * Catalog product option select type model
  *
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Resource_Product_Option_Value_Collection getCollection()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value getResource()
  * @method int getOptionId()
@@ -35,10 +40,6 @@
  * @method float getStorePrice()
  * @method string getStoreTitle()
  * @method string getTitle()
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
 {
