@@ -32,9 +32,6 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
      */
     const BASEPATH_PAYPAL_CERT  = 'cert/paypal';
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('paypal/cert');

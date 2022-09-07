@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_ImportExport
+ * @category   Mage
+ * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import frame result block.
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminhtml_Block_Template
 {

@@ -32,9 +32,6 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
      */
     protected $_iterator = null;
 
-    /**
-     * Resource initialization
-     */
     protected function _construct()
     {
         $this->_init('importexport/importdata', 'id');
