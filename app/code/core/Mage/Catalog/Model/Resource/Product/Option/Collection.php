@@ -150,8 +150,8 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
         }
         if (!empty($optionIds)) {
             /** @var Mage_Catalog_Model_Resource_Product_Option_Value_Collection $values */
-            $values = Mage::getModel('catalog/product_option_value')
-                ->getCollection()
+            $values = Mage::getModel('catalog/product_option_value')->getCollection();
+            $values
                 ->addTitleToResult($storeId)
                 ->addPriceToResult($storeId)
                 ->addOptionToFilter($optionIds)
