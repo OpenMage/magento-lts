@@ -187,7 +187,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      *  Check session expiration
      *
      * @param Mage_Api_Model_User $user
-     * @return  boolean
+     * @return bool
      */
     public function isSessionExpired($user)
     {

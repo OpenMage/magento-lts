@@ -1323,7 +1323,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Check whether we need to create new customer (for another website) during order creation
      *
      * @param   Mage_Core_Model_Store $store
-     * @return  boolean
+     * @return bool
      */
     protected function _customerIsInStore($store)
     {

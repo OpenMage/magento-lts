@@ -580,7 +580,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      *
      * @param   Varien_Object $object
      * @param   Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @return  boolean
+     * @return bool
      */
     protected function _isApplicableAttribute($object, $attribute)
     {

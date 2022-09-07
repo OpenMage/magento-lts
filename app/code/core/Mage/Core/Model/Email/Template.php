@@ -377,7 +377,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @param   array|string       $email        E-mail(s)
      * @param   array|string|null  $name         receiver name(s)
      * @param   array              $variables    template variables
-     * @return  boolean
+     * @return bool
      **/
     public function send($email, $name = null, array $variables = [])
     {
