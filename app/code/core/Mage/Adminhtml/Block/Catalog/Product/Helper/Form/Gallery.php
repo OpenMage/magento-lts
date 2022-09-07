@@ -171,7 +171,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
     /**
      * Default sore ID getter
      *
-     * @return integer
+     * @return int
      */
     protected function _getDefaultStoreId()
     {

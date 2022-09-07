@@ -149,7 +149,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Return store id
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {
@@ -1188,7 +1188,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      *
      * @param Mage_Catalog_Model_Category $category
      * @param bool $isActiveFlag
-     * @return integer
+     * @return int
      */
     public function getChildrenAmount($category, $isActiveFlag = true)
     {
@@ -1204,7 +1204,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Get products count in category
      *
      * @param Mage_Catalog_Model_Category $category
-     * @return integer
+     * @return int
      */
     public function getProductCount($category)
     {

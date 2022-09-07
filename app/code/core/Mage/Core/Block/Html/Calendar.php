@@ -81,7 +81,7 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
     /**
      * Return offset of current timezone with GMT in seconds
      *
-     * @return integer
+     * @return int
      */
     public function getTimezoneOffsetSeconds()
     {

@@ -31,7 +31,7 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
      * Create new product attribute
      *
      * @param array $data input data
-     * @return integer
+     * @return int
      */
     public function create($data)
     {

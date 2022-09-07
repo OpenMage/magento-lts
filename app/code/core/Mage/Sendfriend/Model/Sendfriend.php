@@ -412,7 +412,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Get max allowed uses of "Send to Friend" function per hour
      *
-     * @return integer
+     * @return int
      */
     public function getMaxSendsToFriend()
     {
@@ -432,7 +432,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Get max allowed recipients for "Send to a Friend" function
      *
-     * @return integer
+     * @return int
      */
     public function getMaxRecipients()
     {

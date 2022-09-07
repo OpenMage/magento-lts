@@ -1757,7 +1757,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param Varien_Object $item
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return integer|boolean
+     * @return int|boolean
      */
     public function getRowspan($item, $column)
     {
@@ -1842,7 +1842,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve colspan for empty cell
      *
-     * @return integer
+     * @return int
      */
     public function getEmptyCellColspan()
     {

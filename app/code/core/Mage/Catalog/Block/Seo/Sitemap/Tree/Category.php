@@ -162,7 +162,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
      *
      * @param Mage_Catalog_Model_Category $item
      * @param integer $delta
-     * @return integer
+     * @return int
      */
     public function getLevel($item, $delta = 1)
     {

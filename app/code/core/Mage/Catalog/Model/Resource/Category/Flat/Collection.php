@@ -133,7 +133,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
      * Return store id.
      * If store id is not set yet, return store of application
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {

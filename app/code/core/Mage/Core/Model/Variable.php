@@ -66,7 +66,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Getter
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {

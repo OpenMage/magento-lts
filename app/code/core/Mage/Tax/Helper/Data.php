@@ -126,7 +126,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return max postcode length to create search templates
      *
-     * @return integer  $len
+     * @return int  $len
      */
     public function getPostCodeSubStringLength()
     {

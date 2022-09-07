@@ -85,7 +85,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     /**
      * Return store id
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {

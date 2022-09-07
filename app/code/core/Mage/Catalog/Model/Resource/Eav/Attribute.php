@@ -184,7 +184,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Return is attribute global
      *
-     * @return integer
+     * @return int
      */
     public function getIsGlobal()
     {

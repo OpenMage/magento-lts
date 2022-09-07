@@ -448,7 +448,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      *
      * If store id is underfined for category return current active store id
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {

@@ -102,7 +102,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Return store id
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {

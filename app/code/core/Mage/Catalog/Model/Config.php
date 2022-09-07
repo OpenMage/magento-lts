@@ -82,7 +82,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     /**
      * Return store id, if is not set return current app store
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {

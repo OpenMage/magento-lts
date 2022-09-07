@@ -45,7 +45,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
     /**
      * Retrieve address customer identifier
      *
-     * @return integer
+     * @return int
      */
     public function getCustomerId()
     {
