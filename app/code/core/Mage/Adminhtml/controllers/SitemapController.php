@@ -22,7 +22,7 @@
  * Google sitemap controller
  *
  * @category   Mage
- * @package    Mage_Sitemap
+ * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action

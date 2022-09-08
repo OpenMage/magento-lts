@@ -156,7 +156,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Category tree model
      *
-     * @var Mage_Catalog_Model_Resource_Category_Tree.
+     * @var Mage_Catalog_Model_Resource_Category_Tree
      */
     protected $_treeModel = null;
 
@@ -222,7 +222,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * @return Mage_Catalog_Model_Resource_Category_Tree.
+     * @return Mage_Catalog_Model_Resource_Category_Tree
      */
     public function getTreeModelInstance()
     {

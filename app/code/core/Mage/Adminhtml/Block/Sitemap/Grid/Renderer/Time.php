@@ -19,10 +19,10 @@
  */
 
 /**
- * Sitemap grid link column renderer
+ * Sitemap grid link column rendererMage_Catalog_Block_Seo_Sitemap_Tree_Pager
  *
  * @category   Mage
- * @package    Mage_Sitemap
+ * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sitemap_Grid_Renderer_Time extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract

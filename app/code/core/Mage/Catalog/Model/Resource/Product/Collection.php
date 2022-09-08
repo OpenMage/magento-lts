@@ -803,7 +803,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Retrieve product count by some value of attribute
      *
      * @param string $attribute
-     * @return array($value=>$count)
+     * @return array ($value=>$count)
      */
     public function getAttributeValueCount($attribute)
     {
