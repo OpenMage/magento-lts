@@ -34,7 +34,7 @@ ini_set('display_errors', 0);
 
 $ds = DIRECTORY_SEPARATOR;
 $ps = PATH_SEPARATOR;
-$bp = dirname(__FILE__);
+$bp = __DIR__;
 
 require $bp . '/app/bootstrap.php';
 

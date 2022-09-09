@@ -46,7 +46,7 @@ class Varien_Debug
             if (defined('BP')) {
                 self::$_filePath = BP;
             } else {
-                self::$_filePath = dirname(dirname(__FILE__));
+                self::$_filePath = dirname(__DIR__);
             }
         }
         return self::$_filePath;

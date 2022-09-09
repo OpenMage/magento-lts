@@ -96,7 +96,7 @@ abstract class Mage_Shell_Abstract
     protected function _getRootPath()
     {
         if (is_null($this->_rootPath)) {
-            $this->_rootPath = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR;
+            $this->_rootPath = dirname(__DIR__) . DIRECTORY_SEPARATOR;
         }
         return $this->_rootPath;
     }
