@@ -76,7 +76,7 @@ function now($dayOnly = false)
  * Check whether sql date is empty
  *
  * @param string $date
- * @return boolean
+ * @return bool
  */
 function is_empty_date($date)
 {
@@ -104,10 +104,10 @@ function mageFindClassFile($class)
 /**
  * Custom error handler
  *
- * @param integer $errno
+ * @param int $errno
  * @param string $errstr
  * @param string $errfile
- * @param integer $errline
+ * @param int $errline
  * @return bool
  */
 function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
@@ -364,7 +364,7 @@ if (!function_exists('hash_equals')) {
      *
      * @param string $known_string
      * @param string $user_string
-     * @return boolean Returns true when the two strings are equal, false otherwise.
+     * @return bool Returns true when the two strings are equal, false otherwise.
      */
     function hash_equals($known_string, $user_string)
     {
@@ -389,22 +389,6 @@ if (!function_exists('hash_equals')) {
         }
 
         return $result === 0;
-    }
-}
-
-if (version_compare(PHP_VERSION, '7.0.0', '<') && !function_exists('random_int')) {
-    /**
-     * Generates pseudo-random integers
-     *
-     * @param int $min
-     * @param int $max
-     * @return int Returns random integer in the range $min to $max, inclusive.
-     */
-    function random_int($min, $max)
-    {
-        mt_srand();
-
-        return mt_rand($min, $max);
     }
 }
 
@@ -453,15 +437,3 @@ if (!function_exists('str_ends_with')) {
     }
 }
 
-/**
- * polyfill for PHP 7.3 function "is_countable"
- */
-if (!function_exists('is_countable')) {
-    /**
-     * @param mixed $value
-     * @return bool
-     */
-    function is_countable($value) {
-        return is_array($value) || $value instanceof Countable || $value instanceof ResourceBundle || $value instanceof SimpleXMLElement;
-    }
-}

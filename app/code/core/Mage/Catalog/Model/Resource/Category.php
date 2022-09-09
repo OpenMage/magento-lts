@@ -73,7 +73,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     /**
      * Set store Id
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -85,7 +85,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     /**
      * Return store id
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {
@@ -547,11 +547,11 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     /**
      * Retrieve categories
      *
-     * @param integer $parent
-     * @param integer $recursionLevel
-     * @param boolean|string $sorted
-     * @param boolean $asCollection
-     * @param boolean $toLoad
+     * @param int $parent
+     * @param int $recursionLevel
+     * @param bool|string $sorted
+     * @param bool $asCollection
+     * @param bool $toLoad
      * @return Varien_Data_Tree_Node_Collection|Mage_Catalog_Model_Resource_Category_Collection
      */
     public function getCategories($parent, $recursionLevel = 0, $sorted = false, $asCollection = false, $toLoad = true)
@@ -687,7 +687,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * Return children ids of category
      *
      * @param Mage_Catalog_Model_Category $category
-     * @param boolean $recursive
+     * @param bool $recursive
      * @return array
      */
     public function getChildren($category, $recursive = true)
@@ -751,7 +751,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * Check is category in list of store categories
      *
      * @param Mage_Catalog_Model_Category $category
-     * @return boolean
+     * @return bool
      */
     public function isInRootCategoryList($category)
     {
@@ -764,8 +764,8 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * Check category is forbidden to delete.
      * If category is root and assigned to store group return false
      *
-     * @param integer $categoryId
-     * @return boolean
+     * @param int $categoryId
+     * @return bool
      */
     public function isForbiddenToDelete($categoryId)
     {

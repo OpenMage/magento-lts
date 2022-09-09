@@ -22,12 +22,6 @@
  * @category   Mage
  * @package    Mage_Eav
  * @author     Magento Core Team <core@magentocommerce.com>
- *
- * Properties:
- * - prefix
- * - pad_length
- * - pad_char
- * - last_id
  */
 class Mage_Eav_Model_Entity_Increment_Numeric extends Mage_Eav_Model_Entity_Increment_Abstract
 {
@@ -40,7 +34,7 @@ class Mage_Eav_Model_Entity_Increment_Numeric extends Mage_Eav_Model_Entity_Incr
 
         if (empty($last)) {
             $last = 0;
-        } else if (!empty($prefix = (string)$this->getPrefix()) && strpos($last, $prefix) === 0) {
+        } elseif (!empty($prefix = (string)$this->getPrefix()) && strpos($last, $prefix) === 0) {
             $last = (int)substr($last, strlen($prefix));
         } else {
             $last = (int)$last;

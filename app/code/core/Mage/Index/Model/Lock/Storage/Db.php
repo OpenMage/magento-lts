@@ -37,9 +37,6 @@ class Mage_Index_Model_Lock_Storage_Db implements Mage_Index_Model_Lock_Storage_
      */
     protected $_connection;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         /** @var Mage_Core_Model_Resource $resource */

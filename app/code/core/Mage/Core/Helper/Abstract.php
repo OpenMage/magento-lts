@@ -129,7 +129,7 @@ abstract class Mage_Core_Helper_Abstract
      * Check whether or not the module output is enabled in Configuration
      *
      * @param string $moduleName Full module name
-     * @return boolean
+     * @return bool
      */
     public function isModuleOutputEnabled($moduleName = null)
     {
@@ -151,7 +151,7 @@ abstract class Mage_Core_Helper_Abstract
      * Check is module exists and enabled in global config.
      *
      * @param string $moduleName the full module name, example Mage_Core
-     * @return boolean
+     * @return bool
      */
     public function isModuleEnabled($moduleName = null)
     {

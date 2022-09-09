@@ -271,7 +271,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * This value will define which operators will be available for this condition.
      *
-     * Possible values are: string, numeric, date, select, multiselect, grid, boolean
+     * Possible values are: string, numeric, date, select, multiselect, grid, bool
      *
      * @return string
      */

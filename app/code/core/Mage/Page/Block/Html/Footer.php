@@ -84,7 +84,7 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
      * Retrieve child block HTML, sorted by default
      *
      * @param string $name
-     * @param boolean $useCache
+     * @param bool $useCache
      * @param bool $sorted
      * @return  string
      */

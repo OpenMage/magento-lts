@@ -169,9 +169,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      */
     protected $_websiteIdToCode = [];
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         $entityCode = $this->getEntityTypeCode();

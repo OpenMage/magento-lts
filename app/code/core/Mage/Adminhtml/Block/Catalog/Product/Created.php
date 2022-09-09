@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
     /**
      * Indentifies edit mode of popup
      *
-     * @return boolean
+     * @return bool
      */
     public function isEdit()
     {

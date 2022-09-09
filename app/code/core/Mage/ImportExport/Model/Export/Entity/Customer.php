@@ -69,9 +69,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
      */
     protected $_permanentAttributes = [self::COL_EMAIL, self::COL_WEBSITE, self::COL_STORE];
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         parent::__construct();

@@ -255,9 +255,6 @@ class Mage_Core_Model_App
      */
     protected $_isInstalled = null;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
     }
@@ -319,7 +316,7 @@ class Mage_Core_Model_App
     /**
      * Run light version of application with specified modules support
      *
-     * @see Mage_Core_Model_App->run()
+     * @see Mage_Core_Model_App::run()
      *
      * @param  string|array $scopeCode
      * @param  string $scopeType

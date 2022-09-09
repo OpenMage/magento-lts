@@ -25,7 +25,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  *
- * TODO: implement ACL restrictions
+ * @TODO: implement ACL restrictions
  */
 class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Controller_Action
 {

@@ -112,7 +112,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Set store
      *
-     * @param  string|integer|Mage_Core_Model_Store $store
+     * @param  string|int|Mage_Core_Model_Store $store
      * @return $this
      */
     public function setStore($store)

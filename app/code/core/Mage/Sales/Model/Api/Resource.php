@@ -109,7 +109,7 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @param string $attributeCode
      * @param string $type
      * @param array $attributes
-     * @return boolean
+     * @return bool
      */
     protected function _isAllowedAttribute($attributeCode, $type, array $attributes = null)
     {

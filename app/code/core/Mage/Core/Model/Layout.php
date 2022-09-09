@@ -65,7 +65,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     /**
      * Flag to have blocks' output go directly to browser as oppose to return result
      *
-     * @var boolean
+     * @var bool
      */
     protected $_directOutput = false;
 

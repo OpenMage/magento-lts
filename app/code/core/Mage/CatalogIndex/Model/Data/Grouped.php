@@ -30,7 +30,7 @@ class Mage_CatalogIndex_Model_Data_Grouped extends Mage_CatalogIndex_Model_Data_
     /**
      * Defines when product type has parents
      *
-     * @var boolean
+     * @var bool
      */
     protected $_haveParents = false;
 

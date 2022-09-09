@@ -143,7 +143,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
      *
      * @param int $customerId
      * @param array $customerData
-     * @return boolean
+     * @return bool
      */
     public function update($customerId, $customerData)
     {
@@ -169,7 +169,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
      * Delete customer
      *
      * @param int $customerId
-     * @return boolean
+     * @return bool
      */
     public function delete($customerId)
     {

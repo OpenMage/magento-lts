@@ -34,9 +34,6 @@ class Mage_Sales_Model_Order_Creditmemo_Config extends Mage_Sales_Model_Order_To
      */
     protected $_collectorsCacheKey = 'sorted_order_creditmemo_collectors';
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct(Mage::getConfig()->getNode('global/sales/order_creditmemo'));

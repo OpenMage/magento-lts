@@ -109,9 +109,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      */
     protected $_attributeScopes = [];
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         parent::__construct();

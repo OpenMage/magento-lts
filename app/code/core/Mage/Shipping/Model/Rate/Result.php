@@ -63,7 +63,7 @@ class Mage_Shipping_Model_Rate_Result
     /**
      * Get Error
      *
-     * @return null|bool;
+     * @return null|bool
      */
     public function getError()
     {

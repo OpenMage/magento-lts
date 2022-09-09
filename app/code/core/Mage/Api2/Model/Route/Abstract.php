@@ -83,7 +83,7 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
      * returns an array of variables on a successful match.
      *
      * @param Mage_Api2_Model_Request $request
-     * @param boolean $partial Partial path matching
+     * @param bool $partial Partial path matching
      * @return array|bool An array of assigned values or a boolean false on a mismatch
      */
     public function match($request, $partial = false)

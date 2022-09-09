@@ -100,7 +100,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
     /**
      * Makes a decision about whether to add info about the scope.
      *
-     * @return boolean
+     * @return bool
      */
     protected function _addWhetherScopeInfo()
     {

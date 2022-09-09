@@ -1089,10 +1089,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
     /**
      * Get Country Params by Country Code
      *
-     * @param string $countryCode
+     * @param string $countryCode ISO 3166 Codes (Countries) A2
      * @return Varien_Object
-     *
-     * @see $countryCode ISO 3166 Codes (Countries) A2
      */
     protected function getCountryParams($countryCode)
     {
@@ -1126,7 +1124,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Processing additional validation to check is carrier applicable.
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|boolean
+     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|bool
      */
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {

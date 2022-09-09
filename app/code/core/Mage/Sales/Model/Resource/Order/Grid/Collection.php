@@ -28,30 +28,20 @@
 class Mage_Sales_Model_Resource_Order_Grid_Collection extends Mage_Sales_Model_Resource_Order_Collection
 {
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix    = 'sales_order_grid_collection';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject    = 'order_grid_collection';
 
     /**
-     * Customer mode flag
-     *
      * @var bool
      */
     protected $_customerModeFlag = false;
 
-    /**
-     * Model initialization
-     *
-     */
     protected function _construct()
     {
         parent::_construct();

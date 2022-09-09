@@ -281,7 +281,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Check if VAT ID address attribute has to be shown on frontend (on Customer Address management forms)
      *
-     * @return boolean
+     * @return bool
      */
     public function isVatAttributeVisible()
     {

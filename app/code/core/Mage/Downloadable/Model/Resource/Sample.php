@@ -27,10 +27,6 @@
  */
 class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Initialize connection
-     *
-     */
     protected function _construct()
     {
         $this->_init('downloadable/sample', 'sample_id');

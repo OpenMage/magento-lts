@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
      *
      * If no items available return false.
      *
-     * @return array|boolean
+     * @return array|bool
      */
     public function getItems()
     {

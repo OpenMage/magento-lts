@@ -72,7 +72,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Tab_Resource extends Mage_Adminhtml_Bl
     /**
      * Check if everything is allowed
      *
-     * @return boolean
+     * @return bool
      */
     public function getEverythingAllowed()
     {

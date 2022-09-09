@@ -184,7 +184,7 @@ class Mage_Sendfriend_Block_Send extends Mage_Core_Block_Template
     /**
      * Check if user is allowed to send
      *
-     * @return boolean
+     * @return bool
      */
     public function canSend()
     {

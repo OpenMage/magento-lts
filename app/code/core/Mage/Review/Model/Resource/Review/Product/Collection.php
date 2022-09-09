@@ -44,7 +44,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Add store data flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_addStoreDataFlag     = false;
 

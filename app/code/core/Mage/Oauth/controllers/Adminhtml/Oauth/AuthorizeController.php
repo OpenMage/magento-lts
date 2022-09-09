@@ -244,7 +244,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
      * Check is login data has empty login or pass
      * See Mage_Admin_Model_Session: there is no any error message if login or password is empty
      *
-     * @return boolean
+     * @return bool
      */
     protected function _checkLoginIsEmpty()
     {

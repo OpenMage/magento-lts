@@ -67,9 +67,6 @@ class Mage_Index_Model_Lock
      */
     protected static $_lockFileResource = [];
 
-    /**
-     * Constructor
-     */
     protected function __construct()
     {
         register_shutdown_function([$this, 'shutdownReleaseLocks']);

@@ -36,7 +36,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Add attribute set info flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_addSetInfoFlag   = false;
 

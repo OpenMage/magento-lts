@@ -862,7 +862,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Set 'returnData' flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setReturnData($flag)

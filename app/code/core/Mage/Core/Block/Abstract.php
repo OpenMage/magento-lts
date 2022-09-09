@@ -138,7 +138,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Whether this block was not explicitly named
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isAnonymous = false;
 
@@ -569,8 +569,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Retrieve child block HTML
      *
      * @param   string $name
-     * @param   boolean $useCache
-     * @param   boolean $sorted
+     * @param   bool $useCache
+     * @param   bool $sorted
      * @return  string
      */
     public function getChildHtml($name = '', $useCache = true, $sorted = false)
@@ -631,7 +631,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Retrieve child block HTML
      *
      * @param   string $name
-     * @param   boolean $useCache
+     * @param   bool $useCache
      * @return  string
      */
     protected function _getChildHtml($name, $useCache = true)
@@ -685,7 +685,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @param   Mage_Core_Block_Abstract|string $block
      * @param   string $siblingName
-     * @param   boolean $after
+     * @param   bool $after
      * @param   string $alias
      * @return  object $this
      */
@@ -744,7 +744,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Sort block's children
      *
-     * @param boolean $force force re-sort all children
+     * @param bool $force force re-sort all children
      * @return $this
      */
     public function sortChildren($force = false)
@@ -1301,7 +1301,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if ($this->_getApp()->useCache(self::CACHE_GROUP)) {
             $this->_getApp()->setUseSessionVar(false);
             Varien_Profiler::start('CACHE_URL');
-            $html = Mage::getSingleton($this->_getUrlModelClass())->sessionUrlVar($html);
+            /** @var Mage_Core_Model_Url $model */
+            $model = Mage::getSingleton($this->_getUrlModelClass());
+            $html = $model->sessionUrlVar($html);
             Varien_Profiler::stop('CACHE_URL');
         }
         return $html;

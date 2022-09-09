@@ -245,15 +245,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     protected $_transactionsLookup = [];
 
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix = 'sales_order_payment';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject = 'payment';
@@ -1413,7 +1409,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Check transaction existence by specified transaction id
      *
      * @param string $txnId
-     * @return boolean
+     * @return bool
      */
     protected function _isTransactionExists($txnId = null)
     {

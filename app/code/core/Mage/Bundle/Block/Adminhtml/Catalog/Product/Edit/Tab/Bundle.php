@@ -83,7 +83,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
     /**
      * Check block readonly
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {
