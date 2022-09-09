@@ -76,7 +76,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Save entity types after save form type
      *
-     * @see Mage_Core_Model_Resource_Db_Abstract#_afterSave($object)
+     * @see Mage_Core_Model_Resource_Db_Abstract::_afterSave()
      *
      * @param Mage_Eav_Model_Resource_Form_Type $object
      * @inheritDoc

@@ -929,7 +929,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * bar / <default title>
      *
      * @see self::_renderTitles()
-     * @param string|false|-1|null $text
+     * @param string|false|int|null $text
      * @param bool $resetIfExists
      * @return $this
      */

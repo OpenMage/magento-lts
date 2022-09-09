@@ -22,7 +22,7 @@
  * Abstract lock helper
  *
  * @category   Mage
- * @package    Mage_Core
+ * @package    Mage_Index
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_Index_Model_Resource_Helper_Lock_Interface

@@ -23,12 +23,6 @@
  * @package    Mage_Eav
  * @author     Magento Core Team <core@magentocommerce.com>
  *
- * Properties:
- * - prefix
- * - pad_length
- * - pad_char
- * - last_id
- *
  * @method string getLastId()
  * @method string getPrefix()
  */
