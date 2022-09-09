@@ -338,7 +338,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         if (!$this->hasValueParsed()) {
             $value = $this->getData('value');
             if ($this->isArrayOperatorType() && is_string($value)) {
-                $value = preg_split('#\s*[,;]\s*#', $value, null, PREG_SPLIT_NO_EMPTY);
+                $value = preg_split('#\s*[,;]\s*#', $value, -1, PREG_SPLIT_NO_EMPTY);
             }
             $this->setValueParsed($value);
         }

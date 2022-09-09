@@ -66,7 +66,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      */
     public function setCronExpr($expr)
     {
-        $e = preg_split('#\s+#', $expr, null, PREG_SPLIT_NO_EMPTY);
+        $e = preg_split('#\s+#', $expr, -1, PREG_SPLIT_NO_EMPTY);
         if (count($e) < 5 || count($e) > 6) {
             throw Mage::exception('Mage_Cron', 'Invalid cron expression: '.$expr);
         }

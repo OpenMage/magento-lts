@@ -41,7 +41,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
      */
     public function isValidFor(Varien_Event $event)
     {
-        $e = preg_split('#\s+#', $this->getCronExpr(), null, PREG_SPLIT_NO_EMPTY);
+        $e = preg_split('#\s+#', $this->getCronExpr(), -1, PREG_SPLIT_NO_EMPTY);
         if (count($e) !== 5) {
             return false;
         }
