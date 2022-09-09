@@ -74,7 +74,7 @@ if (file_exists($maintenanceFile)) {
         }
     }
     if (!$maintenanceBypass) {
-        include_once dirname(__FILE__) . '/errors/503.php';
+        include_once __DIR__ . '/errors/503.php';
         exit;
     }
 }
