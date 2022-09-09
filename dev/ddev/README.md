@@ -2,6 +2,18 @@
 
 __This is work-in-progress.__
 
+## Enable developer mode
+
+Set environment variables here:
+
+`.ddev/config.yaml`
+
+```
+web_environment: [
+    MAGE_IS_DEVELOPER_MODE=1
+]
+```
+
 ## Use xDebug with PhpStorm
 
 If xdebug works not correctly with phpstorm.
@@ -12,6 +24,18 @@ If xdebug works not correctly with phpstorm.
 [xdebug]
 xdebug.mode=debug
 xdebug.start_with_request=trigger
+```
+
+## Access DB in PhpStorm
+
+DDEV changes port numbers on every restart.
+
+If you use PhpStorms DB feature, it is helpful to use fixed port numbers. E.g. 
+
+`.ddev/config.yaml`
+
+```
+host_db_port: 6000
 ```
 
 ## Setup cronjob
@@ -25,17 +49,6 @@ hooks:
   post-start:
     - exec: printf "SHELL=/bin/bash\n* * * * * /var/www/html/cron.sh\n" | crontab
 
-```
-## Access DB in PhpStorm
-
-DDEV changes port numbers on every restart.
-
-If you use PhpStorms DB feature, it is helpful to use fixed port numbers. E.g. 
-
-`.ddev/config.yaml`
-
-```
-host_db_port: 6000
 ```
 
 ## Install compass
