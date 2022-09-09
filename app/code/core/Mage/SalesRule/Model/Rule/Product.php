@@ -21,7 +21,7 @@
 /**
  * @category   Mage
  * @package    Mage_SalesRule
- * @author     Magento Core Team <core@magentocommerce.com> *
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_SalesRule_Model_Rule_Product extends Mage_Core_Model_Abstract
 {

@@ -22,7 +22,7 @@
  * Entity/Attribute/Model - select product design options container from config
  *
  * @category   Mage
- * @package    Mage_Eav
+ * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Entity_Product_Attribute_Design_Options_Container extends Mage_Eav_Model_Entity_Attribute_Source_Config
