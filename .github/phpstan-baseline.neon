@@ -281,11 +281,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Sales/Coupons/Grid.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Review_Grid_Renderer_Type\\:\\:render\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Review/Grid/Renderer/Type.php
-
-		-
 			message: "#^Undefined variable\\: \\$info$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php
@@ -501,11 +496,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Number.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options\\:\\:render\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Options.php
-
-		-
 			message: "#^Call to an undefined method Mage_Adminhtml_Block_Widget_Tab_Interface\\:\\:getSkipGenerateContent\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
@@ -529,16 +519,6 @@ parameters:
 			message: "#^PHPDoc tag @param references unknown parameter\\: \\$tabNId$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Helper_Catalog_Product_Composite\\:\\:renderConfigureResult\\(\\) should return \\$this\\(Mage_Adminhtml_Helper_Catalog_Product_Composite\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Helper/Catalog/Product/Composite.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Helper_Catalog_Product_Composite\\:\\:renderUpdateResult\\(\\) should return \\$this\\(Mage_Adminhtml_Helper_Catalog_Product_Composite\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Helper/Catalog/Product/Composite.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Model_Config\\:\\:getSection\\(\\) should return Varien_Simplexml_Element but return statement is missing\\.$#"
@@ -586,16 +566,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Catalog/Search/Type.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Encrypted\\:\\:_afterLoad\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Encrypted\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Encrypted.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Serialized\\:\\:_afterLoad\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Serialized\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Serialized.php
-
-		-
 			message: "#^Comparison operation \"\\=\\=\" between \\(Varien_Simplexml_Element\\|null\\) and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Source/Admin/Page.php
@@ -634,11 +604,6 @@ parameters:
 			message: "#^Method Mage_Adminhtml_Controller_Action\\:\\:_setForcedFormKeyActions\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/SearchController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_CustomerController\\:\\:cartAction\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/CustomerController.php
 
 		-
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
@@ -1251,11 +1216,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Api/Resource.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1\\:\\:_create\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Api2/Product/Image/Rest/Admin/V1.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:toOptionArray\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php
@@ -1396,16 +1356,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Api.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Product_Attribute_Backend_Media\\:\\:afterLoad\\(\\) should return \\$this\\(Mage_Catalog_Model_Product_Attribute_Backend_Media\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Media.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Product_Attribute_Backend_Recurring\\:\\:beforeSave\\(\\) should return \\$this\\(Mage_Catalog_Model_Product_Attribute_Backend_Recurring\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Recurring.php
-
-		-
 			message: "#^Cannot call method getBackend\\(\\) on bool\\|Mage_Catalog_Model_Resource_Attribute\\.$#"
 			count: 11
 			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api.php
@@ -1447,11 +1397,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Catalog_Model_Product_Option_Type_File\\:\\:_validateFile\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Product_Option_Type_File\\:\\:getCustomizedView\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php
 
@@ -1751,11 +1696,6 @@ parameters:
 			path: ../app/code/core/Mage/CatalogInventory/Model/Stock/Item.php
 
 		-
-			message: "#^Method Mage_CatalogInventory_Model_System_Config_Backend_Minsaleqty\\:\\:_afterLoad\\(\\) should return \\$this\\(Mage_CatalogInventory_Model_System_Config_Backend_Minsaleqty\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogInventory/Model/System/Config/Backend/Minsaleqty.php
-
-		-
 			message: "#^Variable \\$gId might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogRule/Model/Observer.php
@@ -1814,11 +1754,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getSelectedAttributesInfo\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Checkout/Block/Cart/Item/Renderer/Configurable.php
-
-		-
-			message: "#^Method Mage_Checkout_Block_Onepage_Payment_Methods\\:\\:getMethodLabelAfterHtml\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Checkout/Block/Onepage/Payment/Methods.php
 
 		-
 			message: "#^Call to an undefined method Mage_Sales_Model_Service_Order\\:\\:register\\(\\)\\.$#"
@@ -1981,11 +1916,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Config.php
 
 		-
-			message: "#^Method Mage_Core_Model_Config_Data\\:\\:afterLoad\\(\\) should return \\$this\\(Mage_Core_Model_Config_Data\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Config/Data.php
-
-		-
 			message: "#^Binary operation \"\\+\" between string and string results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Date.php
@@ -2111,11 +2041,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/functions.php
 
 		-
-			message: "#^Function mageDebugBacktrace\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/functions.php
-
-		-
 			message: "#^Variable \\$arguments might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Cron/Model/Observer.php
@@ -2174,11 +2099,6 @@ parameters:
 			message: "#^Method Mage_Directory_Model_Region\\:\\:loadByName\\(\\) invoked with 1 parameter, 2 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/Model/Customer.php
-
-		-
-			message: "#^Method Mage_Customer_Model_Customer_Attribute_Backend_Password\\:\\:beforeSave\\(\\) should return \\$this\\(Mage_Customer_Model_Customer_Attribute_Backend_Password\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Customer/Attribute/Backend/Password.php
 
 		-
 			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
@@ -2576,16 +2496,6 @@ parameters:
 			path: ../app/code/core/Mage/Eav/Model/Resource/Form/Type.php
 
 		-
-			message: "#^Method Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config\\:\\:afterLoad\\(\\) should return \\$this\\(Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/GiftMessage/Model/Entity/Attribute/Backend/Boolean/Config.php
-
-		-
-			message: "#^Method Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config\\:\\:beforeSave\\(\\) should return \\$this\\(Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/GiftMessage/Model/Entity/Attribute/Backend/Boolean/Config.php
-
-		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:setGiftMessageId\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/GiftMessage/controllers/IndexController.php
@@ -2766,11 +2676,6 @@ parameters:
 			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Product/Type/Grouped.php
 
 		-
-			message: "#^Method Mage_Index_Block_Adminhtml_Process_Edit\\:\\:getHeaderText\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Index/Block/Adminhtml/Process/Edit.php
-
-		-
 			message: "#^Method Mage_Core_Model_Resource\\:\\:getConnection\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Index/Model/Lock/Storage/Db.php
@@ -2904,11 +2809,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:cancelPartialAuthorization\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paygate/controllers/Authorizenet/PaymentController.php
-
-		-
-			message: "#^Method Mage_Payment_Block_Catalog_Product_View_Profile\\:\\:getDateHtml\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Payment/Block/Catalog/Product/View/Profile.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isAvailable\\(\\)\\.$#"
@@ -3236,16 +3136,6 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Model/Observer.php
 
 		-
-			message: "#^Method Mage_Paypal_Model_Payflowlink\\:\\:_getTrxTokenType\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Method Mage_Paypal_Model_Payflowlink\\:\\:initialize\\(\\) should return \\$this\\(Mage_Paypal_Model_Payflowlink\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
 			message: "#^Variable \\$order in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
@@ -3267,11 +3157,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method setShiptofirstname\\(\\) on array\\|object\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Payflowpro.php
-
-		-
-			message: "#^Method Mage_Paypal_Model_Payflowpro\\:\\:getConfigPaymentAction\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Payflowpro.php
 
@@ -3304,11 +3189,6 @@ parameters:
 			message: "#^Method Mage_Paypal_Model_Standard\\:\\:initialize\\(\\) should return \\$this\\(Mage_Paypal_Model_Standard\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Standard.php
-
-		-
-			message: "#^Method Mage_Paypal_Model_System_Config_Backend_MerchantCountry\\:\\:_afterLoad\\(\\) should return \\$this\\(Mage_Paypal_Model_System_Config_Backend_MerchantCountry\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/System/Config/Backend/MerchantCountry.php
 
 		-
 			message: "#^Method Varien_Data_Collection\\:\\:toOptionArray\\(\\) invoked with 1 parameter, 0 required\\.$#"
@@ -3496,11 +3376,6 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Block/Order/Details.php
 
 		-
-			message: "#^Method Mage_Sales_Model_Billing_Agreement\\:\\:getStatusLabel\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Billing/Agreement.php
-
-		-
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Config/Ordered.php
@@ -3634,11 +3509,6 @@ parameters:
 			message: "#^Cannot call method updateOnRelatedRecordChanged\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Resource/Order/Address.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Resource_Order_Invoice_Collection\\:\\:_afterLoad\\(\\) should return \\$this\\(Mage_Sales_Model_Resource_Order_Invoice_Collection\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Resource/Order/Invoice/Collection.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isFailsafe\\(\\)\\.$#"
@@ -3934,11 +3804,6 @@ parameters:
 			message: "#^Variable \\$template might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Widget/Model/Widget/Instance.php
-
-		-
-			message: "#^Method Mage_Wishlist_Block_Customer_Wishlist_Item_Column\\:\\:_beforeChildToHtml\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Wishlist/Block/Customer/Wishlist/Item/Column.php
 
 		-
 			message: "#^Method Mage_Wishlist_Model_Item\\:\\:save\\(\\) should return \\$this\\(Mage_Wishlist_Model_Item\\) but return statement is missing\\.$#"

@@ -68,10 +68,12 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
 
     /**
      * Add availability call after load as public
+     * @return $this
      */
     public function afterLoad()
     {
         $this->_afterLoad();
+        return $this;
     }
 
     /**
