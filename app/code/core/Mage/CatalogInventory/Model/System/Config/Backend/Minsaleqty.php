@@ -29,16 +29,19 @@ class Mage_CatalogInventory_Model_System_Config_Backend_Minsaleqty extends Mage_
 {
     /**
      * Process data after load
+     * @return $this
      */
     protected function _afterLoad()
     {
         $value = $this->getValue();
         $value = Mage::helper('cataloginventory/minsaleqty')->makeArrayFieldValue($value);
         $this->setValue($value);
+        return $this;
     }
 
     /**
      * Prepare data before save
+     * @return $this
      */
     protected function _beforeSave()
     {
