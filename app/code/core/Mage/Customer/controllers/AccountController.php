@@ -84,6 +84,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         } else {
             $this->_getSession()->setNoReferer(true);
         }
+        return $this;
     }
 
     /**

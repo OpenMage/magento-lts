@@ -576,11 +576,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Model/Url.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Catalog_Product_AttributeController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Adminhtml_Catalog_Product_AttributeController\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/AttributeController.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getConfigurableAttributes\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/ProductController.php
@@ -2066,16 +2061,6 @@ parameters:
 			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
 
 		-
-			message: "#^Method Mage_Customer_AccountController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Customer_AccountController\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Method Mage_Customer_AddressController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Customer_AddressController\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AddressController.php
-
-		-
 			message: "#^Variable \\$address might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/controllers/AddressController.php
@@ -2256,24 +2241,9 @@ parameters:
 			path: ../app/code/core/Mage/Downloadable/Model/Product/Type.php
 
 		-
-			message: "#^Method Mage_Downloadable_CustomerController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Downloadable_CustomerController\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Downloadable/controllers/CustomerController.php
-
-		-
 			message: "#^Method Mage_Customer_Model_Session\\:\\:setBeforeAuthUrl\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Downloadable/controllers/DownloadController.php
-
-		-
-			message: "#^Method Mage_Downloadable_FileController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Downloadable_FileController\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Downloadable/controllers/FileController.php
-
-		-
-			message: "#^Method Mage_Downloadable_Product_EditController\\:\\:preDispatch\\(\\) should return Mage_Adminhtml_Controller_Action but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Downloadable/controllers/Product/EditController.php
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Resource_Entity_Attribute\\:\\:getUsedInForms\\(\\)\\.$#"
@@ -2671,22 +2641,12 @@ parameters:
 			path: ../app/code/core/Mage/Newsletter/Model/Resource/Subscriber/Collection.php
 
 		-
-			message: "#^Method Mage_Newsletter_ManageController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Newsletter_ManageController\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Newsletter/controllers/ManageController.php
-
-		-
 			message: "#^Method Mage_Newsletter_ManageController\\:\\:saveAction\\(\\) should return Mage_Newsletter_ManageController but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Newsletter/controllers/ManageController.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:authenticate\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Oauth/controllers/Customer/TokenController.php
-
-		-
-			message: "#^Method Mage_Oauth_Customer_TokenController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Oauth_Customer_TokenController\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Oauth/controllers/Customer/TokenController.php
 
@@ -3146,11 +3106,6 @@ parameters:
 			path: ../app/code/core/Mage/ProductAlert/controllers/AddController.php
 
 		-
-			message: "#^Method Mage_ProductAlert_UnsubscribeController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_ProductAlert_UnsubscribeController\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/ProductAlert/controllers/UnsubscribeController.php
-
-		-
 			message: "#^Variable \\$data in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Rating/Model/Resource/Rating.php
@@ -3239,11 +3194,6 @@ parameters:
 			message: "#^Comparison operation \"\\=\\=\" between array\\|null and 2 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Review/Model/Resource/Review/Product/Collection.php
-
-		-
-			message: "#^Method Mage_Review_CustomerController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Review_CustomerController\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Review/controllers/CustomerController.php
 
 		-
 			message: "#^Cannot call method getId\\(\\) on true\\.$#"
@@ -3471,11 +3421,6 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Service/Quote.php
 
 		-
-			message: "#^Method Mage_Sales_Billing_AgreementController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Sales_Billing_AgreementController\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/controllers/Billing/AgreementController.php
-
-		-
 			message: "#^Variable \\$billingAgreement might not be defined\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Sales/controllers/Billing/AgreementController.php
@@ -3484,16 +3429,6 @@ parameters:
 			message: "#^Comparison operation \"\\!\\=\" between int and \\(array\\|string\\) results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/controllers/DownloadController.php
-
-		-
-			message: "#^Method Mage_Sales_OrderController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Sales_OrderController\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/controllers/OrderController.php
-
-		-
-			message: "#^Method Mage_Sales_Recurring_ProfileController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Sales_Recurring_ProfileController\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/controllers/Recurring/ProfileController.php
 
 		-
 			message: "#^Method Mage_SalesRule_Model_Observer\\:\\:sales_order_afterPlace\\(\\) should return Mage_SalesRule_Model_Observer but return statement is missing\\.$#"
