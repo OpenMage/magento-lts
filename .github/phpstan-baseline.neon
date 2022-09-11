@@ -3021,26 +3021,6 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
 
 		-
-			message: "#^Cannot call method setCurrency\\(\\) on array\\|object\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Payflowpro.php
-
-		-
-			message: "#^Cannot call method setCustref\\(\\) on array\\|object\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Payflowpro.php
-
-		-
-			message: "#^Cannot call method setFirstname\\(\\) on array\\|object\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Payflowpro.php
-
-		-
-			message: "#^Cannot call method setShiptofirstname\\(\\) on array\\|object\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Payflowpro.php
-
-		-
 			message: "#^Variable \\$order in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Payflowpro.php
