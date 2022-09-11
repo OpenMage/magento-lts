@@ -38,6 +38,7 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         if (!Mage::getSingleton('customer/session')->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
         }
+        return $this;
     }
 
     public function indexAction()

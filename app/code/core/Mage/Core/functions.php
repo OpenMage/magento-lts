@@ -108,7 +108,7 @@ function mageFindClassFile($class)
  * @param string $errstr
  * @param string $errfile
  * @param int $errline
- * @return bool
+ * @return bool|void
  */
 function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 {

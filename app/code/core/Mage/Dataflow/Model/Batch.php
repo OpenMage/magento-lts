@@ -131,6 +131,7 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
     protected function _afterDelete()
     {
         $this->getIoAdapter()->clear();
+        return $this;
     }
 
     /**

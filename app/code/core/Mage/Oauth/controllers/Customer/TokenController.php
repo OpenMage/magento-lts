@@ -55,6 +55,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
         if (!$this->_session->authenticate($this)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
+        return $this;
     }
 
     /**
