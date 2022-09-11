@@ -56,7 +56,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
     /**
      * Returns status flag about this tab can be showen or not
      *
-     * @return true
+     * @return bool
      */
     public function canShowTab()
     {
@@ -66,7 +66,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
     /**
      * Returns status flag about this tab hidden or not
      *
-     * @return true
+     * @return false
      */
     public function isHidden()
     {
@@ -170,11 +170,11 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
      *
      * @param array $a
      * @param array $b
-     * @return bool
+     * @return int<-1, 1>
      */
     protected function _sortWidgets($a, $b)
     {
-        return strcmp($a["label"], $b["label"]);
+        return strcmp($a['label'], $b['label']);
     }
 
     /**

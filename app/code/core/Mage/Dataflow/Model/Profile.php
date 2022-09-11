@@ -247,6 +247,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             }
         }
         parent::_afterSave();
+        return $this;
     }
 
     /**

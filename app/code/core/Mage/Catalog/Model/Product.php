@@ -804,6 +804,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $indexer = Mage::getSingleton('index/indexer');
 
         $indexer->processEntityAction($this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE);
+        return $this;
     }
 
     /**

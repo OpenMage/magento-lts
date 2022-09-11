@@ -32,7 +32,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      *
      * @throws Mage_Api2_Exception
      * @param array $data
-     * @return string
+     * @return string|void
      */
     protected function _create(array $data)
     {

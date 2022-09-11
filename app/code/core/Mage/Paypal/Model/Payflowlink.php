@@ -158,6 +158,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @param string $paymentAction
      * @param Varien_Object $stateObject
+     * @return $this
      */
     public function initialize($paymentAction, $stateObject)
     {
@@ -184,6 +185,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             default:
                 break;
         }
+        return $this;
     }
 
     /**
@@ -487,6 +489,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             case Mage_Paypal_Model_Config::PAYMENT_ACTION_SALE:
                 return self::TRXTYPE_SALE;
         }
+        return '';
     }
 
     /**

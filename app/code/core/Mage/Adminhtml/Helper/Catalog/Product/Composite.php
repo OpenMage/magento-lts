@@ -55,6 +55,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
 
         $this->_initUpdateResultLayout($controller);
         $controller->renderLayout();
+        return $this;
     }
 
      /**
@@ -142,5 +143,6 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
 
         $this->_initConfigureResultLayout($controller, $isOk, $productType);
         $controller->renderLayout();
+        return $this;
     }
 }

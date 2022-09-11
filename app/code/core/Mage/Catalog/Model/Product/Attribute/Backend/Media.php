@@ -27,12 +27,16 @@
  */
 class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+    /**
+     * @var array
+     */
     protected $_renamedImages = [];
 
     /**
      * Load attribute data after product loaded
      *
      * @param Mage_Catalog_Model_Product $object
+     * @return $this
      */
     public function afterLoad($object)
     {
@@ -52,6 +56,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         }
 
         $object->setData($attrCode, $value);
+        return $this;
     }
 
     /**
