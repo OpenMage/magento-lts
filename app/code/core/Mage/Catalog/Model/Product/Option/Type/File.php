@@ -386,6 +386,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             $this->setIsValid(false);
             Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option(s)'));
         }
+        return false;
     }
 
     /**

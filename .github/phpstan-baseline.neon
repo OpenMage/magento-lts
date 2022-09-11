@@ -661,11 +661,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
 
 		-
-			message: "#^Method Mage_Adminhtml_System_ConfigController\\:\\:_isSectionAllowed\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/System/ConfigController.php
-
-		-
 			message: "#^Variable \\$data in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
@@ -1136,11 +1131,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Block/Product/Gallery.php
 
 		-
-			message: "#^Method Mage_Catalog_Block_Product_View_Tabs\\:\\:addTab\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/View/Tabs.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getConfigurableAttributes\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php
@@ -1222,21 +1212,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\:\\:formatDate\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Api2_Product_Validator_Product\\:\\:_validateAttributeSet\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Api2_Product_Validator_Product\\:\\:_validateProductType\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Api2_Product_Validator_Product\\:\\:_validateSku\\(\\) should return bool but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php
 
@@ -1351,11 +1326,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Product/Api/V2.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Product_Attribute_Api\\:\\:remove\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Api.php
-
-		-
 			message: "#^Cannot call method getBackend\\(\\) on bool\\|Mage_Catalog_Model_Resource_Attribute\\.$#"
 			count: 11
 			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api.php
@@ -1392,11 +1362,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Configuration_Item_Option_Interface\\:\\:setValue\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Product_Option_Type_File\\:\\:_validateFile\\(\\) should return bool but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php
 
@@ -2041,11 +2006,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Url/Rewrite.php
 
 		-
-			message: "#^Function mageCoreErrorHandler\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/functions.php
-
-		-
 			message: "#^Variable \\$arguments might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Cron/Model/Observer.php
@@ -2094,11 +2054,6 @@ parameters:
 			message: "#^Variable \\$regionId might not be defined\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Customer/Model/Convert/Parser/Customer.php
-
-		-
-			message: "#^Method Mage_Customer_Model_Customer\\:\\:printError\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Customer.php
 
 		-
 			message: "#^Method Mage_Directory_Model_Region\\:\\:loadByName\\(\\) invoked with 1 parameter, 2 required\\.$#"
@@ -2831,11 +2786,6 @@ parameters:
 			path: ../app/code/core/Mage/Payment/Model/Method/Cc.php
 
 		-
-			message: "#^Method Mage_Payment_Model_Method_Cc\\:\\:_isPlaceOrder\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Payment/Model/Method/Cc.php
-
-		-
 			message: "#^Method Mage_Payment_Model_Recurring_Profile\\:\\:getFieldComment\\(\\) should return string\\|null but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Payment/Model/Recurring/Profile.php
@@ -3539,21 +3489,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Db_Adapter_Interface\\:\\:listTables\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Resource/Setup.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Service_Order\\:\\:_canInvoiceItem\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Service/Order.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Service_Order\\:\\:_canRefundItem\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Service/Order.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Service_Order\\:\\:_canShipItem\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Service/Order.php
 
 		-
 			message: "#^Call to an undefined method Mage_Payment_Model_Recurring_Profile\\:\\:submit\\(\\)\\.$#"
