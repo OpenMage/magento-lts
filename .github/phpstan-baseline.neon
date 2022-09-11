@@ -1271,11 +1271,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Observer.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Product\\:\\:_afterDeleteCommit\\(\\) should return \\$this\\(Mage_Catalog_Model_Product\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product.php
-
-		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\:\\:addImage\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product.php
@@ -2066,11 +2061,6 @@ parameters:
 			path: ../app/code/core/Mage/Customer/controllers/AddressController.php
 
 		-
-			message: "#^Method Mage_Dataflow_Model_Batch\\:\\:_afterDelete\\(\\) should return \\$this\\(Mage_Dataflow_Model_Batch\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Batch.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Abstract\\:\\:deleteCollection\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Dataflow/Model/Batch/Abstract.php
@@ -2119,11 +2109,6 @@ parameters:
 			message: "#^Undefined variable\\: \\$profile$#"
 			count: 1
 			path: ../app/code/core/Mage/Dataflow/Model/Convert/Profile/Abstract.php
-
-		-
-			message: "#^Method Mage_Dataflow_Model_Profile\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Dataflow_Model_Profile\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
 			message: "#^Variable \\$parseFileXml might not be defined\\.$#"
@@ -3429,11 +3414,6 @@ parameters:
 			message: "#^Comparison operation \"\\!\\=\" between int and \\(array\\|string\\) results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/controllers/DownloadController.php
-
-		-
-			message: "#^Method Mage_SalesRule_Model_Observer\\:\\:sales_order_afterPlace\\(\\) should return Mage_SalesRule_Model_Observer but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Observer.php
 
 		-
 			message: "#^Binary operation \"\\+\\=\" between string and \\-1\\|1 results in an error\\.$#"
