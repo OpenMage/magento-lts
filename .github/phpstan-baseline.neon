@@ -261,11 +261,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Report_Grid_Shopcart\\:\\:setStoreIds\\(\\) has invalid return type Mage_Adminhtml_Block_Report_Grid_Shopcart_Abstract\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid/Shopcart.php
-
-		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:setStore\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php
@@ -559,11 +554,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Sales_Model_Quote\\:\\:addCatalogProduct\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Random.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Catalog_Search_Type\\:\\:_afterSave\\(\\) has invalid return type Mage_Adminhtml_Model_System_Config_Catalog_Search_Type\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Catalog/Search/Type.php
 
 		-
 			message: "#^Comparison operation \"\\=\\=\" between \\(Varien_Simplexml_Element\\|null\\) and 1 results in an error\\.$#"
@@ -2756,11 +2746,6 @@ parameters:
 			path: ../app/code/core/Mage/Paygate/Model/Authorizenet.php
 
 		-
-			message: "#^Method Mage_Paygate_Model_Authorizenet_Cards\\:\\:flushCards\\(\\) has invalid return type Mage_Paygate_Model_Authorizenet_Cart\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paygate/Model/Authorizenet/Cards.php
-
-		-
 			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:cancelPartialAuthorization\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paygate/controllers/Adminhtml/Paygate/Authorizenet/PaymentController.php
@@ -2794,11 +2779,6 @@ parameters:
 			message: "#^Method Mage_Payment_Model_Recurring_Profile\\:\\:getFieldLabel\\(\\) should return string\\|null but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Payment/Model/Recurring/Profile.php
-
-		-
-			message: "#^Method Mage_Paypal_Block_Adminhtml_System_Config_Payflowlink_Info\\:\\:getFrontendUrl\\(\\) has invalid return type strting\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Payflowlink/Info.php
 
 		-
 			message: "#^Access to an undefined property Mage_Paypal_Block_Express_Review\\:\\:\\$_address\\.$#"
@@ -3119,11 +3099,6 @@ parameters:
 			message: "#^Variable \\$order in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Payflowpro.php
-
-		-
-			message: "#^Method Mage_Paypal_Model_Payment_Transaction\\:\\:setAdditionalInformation\\(\\) has invalid return type Mage_Paypal_Model_Order_Payment_Transaction\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Payment/Transaction.php
 
 		-
 			message: "#^Method Mage_Paypal_Model_Pro\\:\\:capture\\(\\) should return false\\|null but return statement is missing\\.$#"
