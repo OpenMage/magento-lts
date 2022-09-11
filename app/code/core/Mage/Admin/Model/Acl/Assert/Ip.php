@@ -33,7 +33,7 @@ class Mage_Admin_Model_Acl_Assert_Ip implements Zend_Acl_Assert_Interface
      * @param Mage_Admin_Model_Acl $acl
      * @param Mage_Admin_Model_Acl_Role|null $role
      * @param Mage_Admin_Model_Acl_Resource|null $resource
-     * @param null $privilege
+     * @param string|null $privilege
      * @return bool|null
      */
     public function assert(
