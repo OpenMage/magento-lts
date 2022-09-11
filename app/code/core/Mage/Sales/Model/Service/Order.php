@@ -397,6 +397,7 @@ class Mage_Sales_Model_Service_Order
         } else {
             return $item->getQtyToInvoice() > 0;
         }
+        return false;
     }
 
     /**
@@ -445,6 +446,7 @@ class Mage_Sales_Model_Service_Order
         } else {
             return $item->getQtyToShip()>0;
         }
+        return false;
     }
 
     /**
@@ -483,6 +485,7 @@ class Mage_Sales_Model_Service_Order
         } else {
             return $this->_canRefundNoDummyItem($item, $invoiceQtysRefundLimits);
         }
+        return false;
     }
 
     /**

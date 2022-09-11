@@ -98,7 +98,7 @@ class Mage_Index_Block_Adminhtml_Process_Edit_Tab_Main extends Mage_Adminhtml_Bl
     /**
      * Returns status flag about this tab hidden or not
      *
-     * @return true
+     * @return false
      */
     public function isHidden()
     {

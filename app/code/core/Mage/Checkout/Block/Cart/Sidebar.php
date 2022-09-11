@@ -175,7 +175,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     /**
      * Get one page checkout page url
      *
-     * @return bool
+     * @return string
      */
     public function getCheckoutUrl()
     {

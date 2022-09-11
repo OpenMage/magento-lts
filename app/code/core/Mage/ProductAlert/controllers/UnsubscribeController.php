@@ -37,6 +37,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
                 Mage::getSingleton('customer/session')->setBeforeUrl($this->_getRefererUrl());
             }
         }
+        return $this;
     }
 
     public function priceAction()

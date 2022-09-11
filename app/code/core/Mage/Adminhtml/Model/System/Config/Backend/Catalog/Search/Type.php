@@ -30,7 +30,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Catalog_Search_Type extends Mag
     /**
      * After change Catalog Search Type process
      *
-     * @return Mage_Adminhtml_Model_System_Config_Catalog_Search_Type
+     * @return $this
      */
     protected function _afterSave()
     {
