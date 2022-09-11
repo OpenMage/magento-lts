@@ -29,7 +29,6 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
 {
     /**
      * Check for template Id in request
-     *
      */
     protected function _construct()
     {
@@ -50,6 +49,9 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
         return Mage::registry('current_queue');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected  function _beforeToHtml() {
 
         $this->setTemplate('newsletter/queue/edit.phtml');
@@ -61,6 +63,10 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
         return parent::_beforeToHtml();
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public function getSaveUrl()
     {
         if ($this->getTemplateId()) {
@@ -71,6 +77,9 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
         return $this->getUrl('*/*/save', $params);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         // Load Wysiwyg on demand and Prepare layout
@@ -244,10 +253,10 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * Getter for header text
      *
-     * @return bool
+     * @return string
      */
     public function getHeaderText()
     {
-        return ( $this->getIsPreview() ? Mage::helper('newsletter')->__('View Newsletter') : Mage::helper('newsletter')->__('Edit Newsletter'));
+        return ($this->getIsPreview() ? Mage::helper('newsletter')->__('View Newsletter') : Mage::helper('newsletter')->__('Edit Newsletter'));
     }
 }
