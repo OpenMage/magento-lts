@@ -377,7 +377,6 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      * Process PayPal API's processable errors
      *
      * @param Mage_Paypal_Model_Api_ProcessableException $exception
-     * @throws Mage_Paypal_Model_Api_ProcessableException
      */
     protected function _processPaypalApiError($exception)
     {

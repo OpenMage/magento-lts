@@ -174,10 +174,10 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     /**
      * Set environment for all rules in collection
      *
+     * @param Mage_Rule_Model_Environment|null $env
+     * @return $this
      * @deprecated after 1.6.2.0
      *
-     * @param Mage_Rule_Model_Environment $env
-     * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
      */
     public function setEnv(Mage_Rule_Model_Environment $env = null)
     {

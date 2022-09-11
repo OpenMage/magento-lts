@@ -55,7 +55,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @return null |null
+     * @return null
      * @throws Exception
      */
     public function getCurrentImage()

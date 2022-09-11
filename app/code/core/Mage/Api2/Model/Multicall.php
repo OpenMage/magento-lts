@@ -95,7 +95,6 @@ class Mage_Api2_Model_Multicall
      *
      * @param Mage_Core_Model_Config_Element $subresource
      * @param array $requestData
-     * @throws Mage_Api2_Exception
      * @return $this
      */
     protected function _internalCall($subresource, $requestData)

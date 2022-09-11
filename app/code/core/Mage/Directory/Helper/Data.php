@@ -196,7 +196,6 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
 
         /** @var Mage_Directory_Model_Region $regionModel */
         $regionModel = $this->_factory->getModel('directory/region');
-        /** @var Mage_Directory_Model_Resource_Region_Collection $collection */
         $collection = $regionModel->getResourceCollection()
             ->addCountryFilter($countryIds)
             ->load();

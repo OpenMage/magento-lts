@@ -109,7 +109,6 @@ class Mage_Customer_Block_Form_Login extends Mage_Core_Block_Template
         if (Mage::getStoreConfigFlag(Mage_Customer_Helper_Data::XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD)) {
             $url = Mage::helper('customer')->getDashboardUrl();
         } else {
-            /** @var string $pathInfo 'something.html'|'/'|'/path0'|'/path0/path1/'|'/path0/path1/path2'|etc */
             $pathInfo = $this->getRequest()->getOriginalPathInfo();
             if (strtolower(substr($pathInfo, -5)) === '.html') {
                 // For URL rewrite, preserve the path without considering query or post.

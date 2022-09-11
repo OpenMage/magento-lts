@@ -118,9 +118,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         }
 
         $options = [];
-        /**
-         * @var Mage_Catalog_Model_Product_Type_Grouped
-         */
+        /** @var Mage_Catalog_Model_Product_Type_Grouped $typeInstance */
         $typeInstance = $product->getTypeInstance(true);
         $associatedProducts = $typeInstance->getAssociatedProducts($product);
 

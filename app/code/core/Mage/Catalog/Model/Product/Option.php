@@ -269,7 +269,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Set product instance
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param Mage_Catalog_Model_Product|null $product
      * @return $this
      */
     public function setProduct(Mage_Catalog_Model_Product $product = null)

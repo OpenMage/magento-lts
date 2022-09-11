@@ -279,7 +279,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
      * Checks the current weight to comply with the minimum weight standards set by the carrier.
      * Then strictly rounds the weight up until the first significant digit after the decimal point.
      *
-     * @param float|integer|double $weight
+     * @param float|int $weight
      * @return float
      */
     protected function _getCorrectWeight($weight)
@@ -963,7 +963,7 @@ XMLRequest;
     /**
      * Prepare shipping rate result based on response
      *
-     * @param mixed $response
+     * @param mixed $xmlResponse
      * @return Mage_Shipping_Model_Rate_Result
      */
     protected function _parseXmlResponse($xmlResponse)
@@ -1190,7 +1190,7 @@ XMLAuth;
      * Parse xml tracking response
      *
      * @param string $trackingvalue
-     * @param string $response
+     * @param string $xmlResponse
      * @return null
      */
     protected function _parseXmlTrackingResponse($trackingvalue, $xmlResponse)
@@ -1545,7 +1545,7 @@ XMLAuth;
     /**
      * Send and process shipment accept request
      *
-     * @param SimpleXMLElement
+     * @param SimpleXMLElement $shipmentConfirmResponse
      * @return Varien_Object
      */
     protected function _sendShipmentAcceptRequest(SimpleXMLElement $shipmentConfirmResponse)

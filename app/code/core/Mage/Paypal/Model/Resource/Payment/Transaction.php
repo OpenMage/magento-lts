@@ -84,8 +84,6 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
     /**
      * Serialize additional information, if any
      *
-     * @throws Mage_Core_Exception
-     *
      * @param Mage_Paypal_Model_Payment_Transaction $transaction
      * @return $this
      */

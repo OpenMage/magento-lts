@@ -393,7 +393,6 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
         if (is_array($adminFrontNameNodes)) {
             foreach ($adminFrontNameNodes as $frontNameNode) {
-                /** @var SimpleXMLElement $frontNameNode */
                 $adminFrontNames[] = (string)$frontNameNode;
             }
         }

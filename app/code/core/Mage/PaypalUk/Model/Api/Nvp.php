@@ -431,8 +431,8 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Return Payflow Edition
      *
-     * @param string
-     * @return string | null
+     * @param string $methodName
+     * @return string|null
      */
     protected function _getPaypalUkActionName($methodName)
     {
@@ -475,8 +475,8 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Catch success calls and collect warnings
      *
-     * @param array
-     * @return bool| success flag
+     * @param array $response
+     * @return bool success flag
      */
     protected function _isCallSuccessful($response)
     {
@@ -494,7 +494,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Handle logical errors
      *
-     * @param array
+     * @param array $response
      */
     protected function _handleCallErrors($response)
     {
@@ -526,7 +526,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Generate Request ID
      *
-     * @return
+     * @return string
      */
     protected function getRequestId()
     {
