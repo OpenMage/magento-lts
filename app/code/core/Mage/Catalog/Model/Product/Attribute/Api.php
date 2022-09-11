@@ -218,7 +218,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      * Remove attribute
      *
      * @param int|string $attribute attribute ID or code
-     * @return bool
+     * @return true|void
      */
     public function remove($attribute)
     {

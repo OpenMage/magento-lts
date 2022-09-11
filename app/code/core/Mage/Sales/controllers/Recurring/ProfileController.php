@@ -28,7 +28,6 @@
 class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_Action
 {
     /**
-     *
      * @var Mage_Customer_Model_Session
      */
     protected $_session = null;
@@ -47,6 +46,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
             $this->setFlag('', 'no-dispatch', true);
         }
         Mage::register('current_customer', $this->_session->getCustomer());
+        return $this;
     }
 
     /**

@@ -48,7 +48,7 @@ class Varien_Object_Mapper
      * @param array|Varien_Object|callback $to
      * @param array $map
      * @param array $defaults
-     * @return array|object
+     * @return array|Varien_Object
      */
     public static function &accumulateByMap($from, $to, array $map, array $defaults = array())
     {
