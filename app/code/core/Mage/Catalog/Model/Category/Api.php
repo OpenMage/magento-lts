@@ -59,7 +59,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                     }
                 } elseif (in_array($store, $website->getStoreIds())) {
                     $storeId = Mage::app()->getStore($store);
-                    $ids = ($categoryId === null)? $store->getRootCategoryId() : $categoryId;
+                    $ids = $categoryId ?? $store->getRootCategoryId();
                 } else {
                     $this->_fault('store_not_exists');
                 }
@@ -83,7 +83,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             }
         } // load all root categories
         else {
-            $ids = ($categoryId === null)? Mage_Catalog_Model_Category::TREE_ROOT_ID : $categoryId;
+            $ids = $categoryId ?? Mage_Catalog_Model_Category::TREE_ROOT_ID;
         }
 
         $collection = Mage::getModel('catalog/category')->getCollection()

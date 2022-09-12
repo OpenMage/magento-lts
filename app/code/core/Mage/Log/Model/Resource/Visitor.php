@@ -41,8 +41,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     public function __construct(array $data = [])
     {
         parent::__construct();
-        $this->_urlLoggingCondition = isset($data['log_condition'])
-            ? $data['log_condition'] : Mage::helper('log');
+        $this->_urlLoggingCondition = $data['log_condition'] ?? Mage::helper('log');
     }
 
     protected function _construct()

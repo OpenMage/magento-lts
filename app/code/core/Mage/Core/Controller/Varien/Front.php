@@ -113,10 +113,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      */
     public function getRouter($name)
     {
-        if (isset($this->_routers[$name])) {
-            return $this->_routers[$name];
-        }
-        return false;
+        return $this->_routers[$name] ?? false;
     }
 
     /**

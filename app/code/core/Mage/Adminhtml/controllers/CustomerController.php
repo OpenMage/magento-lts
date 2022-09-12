@@ -226,11 +226,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 && Mage::helper('customer')->getIsRequireAdminUserToChangeUserPassword()
             ) {
                 //Validate current admin password
-                if (isset($data['account']['current_password'])) {
-                    $currentPassword = $data['account']['current_password'];
-                } else {
-                    $currentPassword = null;
-                }
+                $currentPassword = $data['account']['current_password'] ?? null;
                 unset($data['account']['current_password']);
                 $errors = $this->_validateCurrentPassword($currentPassword);
             }

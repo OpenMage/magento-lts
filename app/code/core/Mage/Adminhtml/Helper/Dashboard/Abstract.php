@@ -97,15 +97,11 @@ abstract class Mage_Adminhtml_Helper_Dashboard_Abstract extends Mage_Core_Helper
 
     public function getParam($name)
     {
-        if(isset($this->_params[$name])) {
-            return $this->_params[$name];
-        }
-
-        return null;
+        return $this->_params[$name] ?? null;
     }
 
     public function getParams()
     {
         return $this->_params;
     }
- }
+}

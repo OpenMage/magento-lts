@@ -806,9 +806,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     $row = [];
                     $productId = $option['product_id'];
                     $optionId  = $option['option_id'];
-                    $customOptions = isset($customOptionsDataPre[$productId][$optionId])
-                                   ? $customOptionsDataPre[$productId][$optionId]
-                                   : [];
+                    $customOptions = $customOptionsDataPre[$productId][$optionId] ?? [];
 
                     if ($defaultStoreId == $storeId) {
                         $row['_custom_option_type']           = $option['type'];

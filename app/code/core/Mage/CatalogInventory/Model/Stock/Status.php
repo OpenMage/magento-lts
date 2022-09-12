@@ -96,10 +96,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     public function getProductTypeInstance($productType)
     {
         $types = $this->getProductTypeInstances();
-        if (isset($types[$productType])) {
-            return $types[$productType];
-        }
-        return false;
+        return $types[$productType] ?? false;
     }
 
     /**
@@ -131,10 +128,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     public function getWebsiteDefaultStoreId($websiteId)
     {
         $websites = $this->getWebsites();
-        if (isset($websites[$websiteId])) {
-            return $websites[$websiteId];
-        }
-        return 0;
+        return $websites[$websiteId] ?? 0;
     }
 
     /**
@@ -202,7 +196,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
         if (is_null($stockStatus)) {
             $websiteId = $product->getStore()->getWebsiteId();
             $status = $this->getProductStatus($product->getId(), $websiteId, $stockId);
-            $stockStatus = isset($status[$product->getId()]) ? $status[$product->getId()] : null;
+            $stockStatus = $status[$product->getId()] ?? null;
         }
 
         $product->setIsSalable($stockStatus);
@@ -363,7 +357,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
         $item         = $this->getStockItemModel();
 
         foreach ($parentIds as $parentId) {
-            $parentType = isset($productTypes[$parentId]) ? $productTypes[$parentId] : null;
+            $parentType = $productTypes[$parentId] ?? null;
             $item->setData(['stock_id' => $stockId])
                 ->setOrigData()
                 ->loadByProduct($parentId);
@@ -432,10 +426,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     public function getProductType($productId)
     {
         $types = $this->getResource()->getProductsType($productId);
-        if (isset($types[$productId])) {
-            return $types[$productId];
-        }
-        return false;
+        return $types[$productId] ?? false;
     }
 
     /**

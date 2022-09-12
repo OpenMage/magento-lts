@@ -100,10 +100,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
             asort($types);
             return $types;
         }
-        if (isset($types[$code])) {
-            return $types[$code];
-        }
-        return $code;
+        return $types[$code] ?? $code;
     }
 
     /**
@@ -115,10 +112,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
     public function getTransactionEvent($code)
     {
         $this->_generateEventLabels();
-        if (isset(self::$_eventList[$code])) {
-            return self::$_eventList[$code];
-        }
-        return $code;
+        return self::$_eventList[$code] ?? $code;
     }
 
     /**
@@ -148,10 +142,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
         if($code === null) {
             return $options;
         }
-        if (isset($options[$code])) {
-            return $options[$code];
-        }
-        return $code;
+        return $options[$code] ?? $code;
     }
 
     /**

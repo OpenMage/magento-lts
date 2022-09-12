@@ -1052,8 +1052,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $errorMessages = implode(' ', array_values($errorMessages));
         $exceptionLogMessage = sprintf('PayPal NVP gateway errors: %s Correlation ID: %s. Version: %s.',
             $errorMessages,
-            isset($response['CORRELATIONID']) ? $response['CORRELATIONID'] : '',
-            isset($response['VERSION']) ? $response['VERSION'] : ''
+            $response['CORRELATIONID'] ?? '',
+            $response['VERSION'] ?? ''
         );
 
         $exception = new $exceptionClass($exceptionLogMessage, $exceptionCode);
@@ -1329,10 +1329,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected function _filterCcType($value)
     {
-        if (isset($this->_supportedCcTypes[$value])) {
-            return $this->_supportedCcTypes[$value];
-        }
-        return '';
+        return $this->_supportedCcTypes[$value] ?? '';
     }
 
     /**

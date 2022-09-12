@@ -233,12 +233,12 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
     /**
      * Hook method, could be replaced in derived classes
      *
-     * @param  array $data
+     * @param  array|null $data
      * @return array
      */
     protected function _prepareCreateData($data)
     {
-        $data = isset($data) ? $data : [];
+        $data = $data ?? [];
 
         if (isset($data['qtys']) && count($data['qtys'])) {
             $qtysArray = [];

@@ -151,7 +151,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
             $data['name']               = trim($postData['tag_name']);
             $data['status']             = $postData['tag_status'];
-            $data['base_popularity']    = (isset($postData['base_popularity'])) ? $postData['base_popularity'] : 0;
+            $data['base_popularity']    = $postData['base_popularity'] ?? 0;
             $data['store']              = $postData['store_id'];
 
             if (!$model = $this->_initTag()) {

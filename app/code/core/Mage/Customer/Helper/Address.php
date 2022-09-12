@@ -177,8 +177,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     public function getAttributeValidationClass($attributeCode)
     {
         /** @var Mage_Customer_Model_Attribute $attribute */
-        $attribute = isset($this->_attributes[$attributeCode]) ? $this->_attributes[$attributeCode]
-            : Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);
+        $attribute = $this->_attributes[$attributeCode] ?? Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);
         $class = $attribute ? $attribute->getFrontend()->getClass() : '';
 
         if (in_array($attributeCode, ['firstname', 'middlename', 'lastname', 'prefix', 'suffix', 'taxvat'])) {

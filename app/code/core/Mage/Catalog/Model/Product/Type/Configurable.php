@@ -430,7 +430,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
          */
         if ($data = $this->getProduct($product)->getConfigurableAttributesData()) {
             foreach ($data as $attributeData) {
-                $id = isset($attributeData['id']) ? $attributeData['id'] : null;
+                $id = $attributeData['id'] ?? null;
                 Mage::getModel('catalog/product_type_configurable_attribute')
                    ->setData($attributeData)
                    ->setId($id)

@@ -368,10 +368,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      **/
     public function getStoreData($storeId)
     {
-        if (isset($this->_storeCollection[$storeId])) {
-            return $this->_storeCollection[$storeId];
-        }
-        return null;
+        return $this->_storeCollection[$storeId] ?? null;
     }
 
     /**

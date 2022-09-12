@@ -142,10 +142,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     protected function _getScopeValue($key)
     {
         $scopeKey = sprintf('scope_%s', $key);
-        if ($this->getData($scopeKey) !== null) {
-            return $this->getData($scopeKey);
-        }
-        return $this->getData($key);
+        return $this->getData($scopeKey) ?? $this->getData($key);
     }
 
     /**

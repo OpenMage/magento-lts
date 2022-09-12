@@ -539,11 +539,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      */
     public function getBlock($name)
     {
-        if (isset($this->_blocks[$name])) {
-            return $this->_blocks[$name];
-        } else {
-            return false;
-        }
+        return $this->_blocks[$name] ?? false;
     }
 
     /**

@@ -297,7 +297,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     }
 
     /**
-     * Retrieve price formated html content
+     * Retrieve price formatted html content
      *
      * @param float $basePrice
      * @param float $price
@@ -338,7 +338,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     }
 
     /**
-     * Retrieve include tax html formated content
+     * Retrieve include tax html formatted content
      *
      * @param Varien_Object $item
      * @return string
@@ -364,7 +364,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     }
 
     /**
-     * Retrieve subtotal price include tax html formated content
+     * Retrieve subtotal price include tax html formatted content
      *
      * @param Varien_Object $item
      * @return string

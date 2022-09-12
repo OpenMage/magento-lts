@@ -189,7 +189,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             $this->_loginFailed($e, $request, $username, $message);
         }
 
-        return isset($user) ? $user : null;
+        return $user ?? null;
     }
 
     /**

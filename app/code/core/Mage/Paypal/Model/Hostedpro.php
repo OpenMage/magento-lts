@@ -188,10 +188,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
         $api = $this->_pro->getApi();
         $response = $api->call(self::BM_BUTTON_METHOD, $request->getRequestData());
 
-        if (!isset($response['EMAILLINK'])) {
-            return false;
-        }
-        return $response['EMAILLINK'];
+        return $response['EMAILLINK'] ?? false;
     }
 
     /**

@@ -126,7 +126,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
             $params['_direct'] = $params['direct_url'];
             unset($params['direct_url']);
         } else {
-            $path = isset($params['url']) ? $params['url'] : '';
+            $path = $params['url'] ?? '';
             unset($params['url']);
         }
 

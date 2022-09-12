@@ -180,7 +180,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     public static function getOptionText($optionId)
     {
         $options = self::getOptionArray();
-        return isset($options[$optionId]) ? $options[$optionId] : null;
+        return $options[$optionId] ?? null;
     }
 
     /**

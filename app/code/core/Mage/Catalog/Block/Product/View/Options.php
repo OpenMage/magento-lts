@@ -99,11 +99,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      */
     public function getOptionRender($type)
     {
-        if (isset($this->_optionRenders[$type])) {
-            return $this->_optionRenders[$type];
-        }
-
-        return $this->_optionRenders['default'];
+        return $this->_optionRenders[$type] ?? $this->_optionRenders['default'];
     }
 
     /**

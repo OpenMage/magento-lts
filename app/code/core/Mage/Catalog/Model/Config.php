@@ -86,10 +86,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
      */
     public function getStoreId()
     {
-        if ($this->_storeId === null) {
-            return Mage::app()->getStore()->getId();
-        }
-        return $this->_storeId;
+        return $this->_storeId ?? Mage::app()->getStore()->getId();
     }
 
     /**
@@ -130,7 +127,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         if (!is_numeric($entityTypeId)) {
             $entityTypeId = $this->getEntityType($entityTypeId)->getId();
         }
-        return isset($this->_attributeSetsById[$entityTypeId][$id]) ? $this->_attributeSetsById[$entityTypeId][$id] : false;
+        return $this->_attributeSetsById[$entityTypeId][$id] ?? false;
     }
 
     /**
@@ -149,7 +146,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             $entityTypeId = $this->getEntityType($entityTypeId)->getId();
         }
         $name = strtolower($name);
-        return isset($this->_attributeSetsByName[$entityTypeId][$name]) ? $this->_attributeSetsByName[$entityTypeId][$name] : false;
+        return $this->_attributeSetsByName[$entityTypeId][$name] ?? false;
     }
 
     /**
@@ -191,7 +188,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         if (!is_numeric($attributeSetId)) {
             $attributeSetId = $this->getAttributeSetId($attributeSetId);
         }
-        return isset($this->_attributeGroupsById[$attributeSetId][$id]) ? $this->_attributeGroupsById[$attributeSetId][$id] : false;
+        return $this->_attributeGroupsById[$attributeSetId][$id] ?? false;
     }
 
     /**
@@ -211,7 +208,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             $attributeSetId = $this->getAttributeSetId($attributeSetId);
         }
         $name = strtolower($name);
-        return isset($this->_attributeGroupsByName[$attributeSetId][$name]) ? $this->_attributeGroupsByName[$attributeSetId][$name] : false;
+        return $this->_attributeGroupsByName[$attributeSetId][$name] ?? false;
     }
 
     /**
@@ -254,7 +251,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         $this->loadProductTypes();
 
         $name = strtolower($name);
-        return isset($this->_productTypesByName[$name]) ? $this->_productTypesByName[$name] : false;
+        return $this->_productTypesByName[$name] ?? false;
     }
 
     /**
@@ -269,7 +266,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
 
         $this->loadProductTypes();
 
-        return isset($this->_productTypesById[$id]) ? $this->_productTypesById[$id] : false;
+        return $this->_productTypesById[$id] ?? false;
     }
 
     /**

@@ -60,7 +60,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      */
     public function getCarrierCode()
     {
-        return isset($this->_code) ? $this->_code : null;
+        return $this->_code ?? null;
     }
 
     public function getTrackingInfo($tracking)
@@ -248,7 +248,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     protected function _getCachedQuotes($requestParams)
     {
         $key = $this->_getQuotesCacheKey($requestParams);
-        return isset(self::$_quotesCache[$key]) ? self::$_quotesCache[$key] : null;
+        return self::$_quotesCache[$key] ?? null;
     }
 
     /**

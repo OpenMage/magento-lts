@@ -188,7 +188,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
             $data = [
                 'attribute_id' => $object->getAttribute()->getId(),
                 'entity_id'    => $newProductId,
-                'value'        => (isset($newFiles[$row['value_id']]) ? $newFiles[$row['value_id']] : $row['value'])
+                'value'        => $newFiles[$row['value_id']] ?? $row['value']
             ];
 
             $valueIdMap[$row['value_id']] = $this->insertGallery($data);

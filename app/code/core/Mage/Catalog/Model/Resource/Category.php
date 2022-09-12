@@ -89,10 +89,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      */
     public function getStoreId()
     {
-        if ($this->_storeId === null) {
-            return Mage::app()->getStore()->getId();
-        }
-        return $this->_storeId;
+        return $this->_storeId ?? Mage::app()->getStore()->getId();
     }
 
     /**

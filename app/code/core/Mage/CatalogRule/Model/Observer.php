@@ -441,7 +441,7 @@ class Mage_CatalogRule_Model_Observer
                 ->getRulePrices($date, $websiteId, $groupId, $productIds);
             foreach ($productIds as $productId) {
                 $key = $this->_getRulePricesKey([$date, $websiteId, $groupId, $productId]);
-                $this->_rulePrices[$key] = isset($rulePrices[$productId]) ? $rulePrices[$productId] : false;
+                $this->_rulePrices[$key] = $rulePrices[$productId] ?? false;
             }
         }
 
