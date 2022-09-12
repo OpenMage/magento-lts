@@ -28,7 +28,7 @@
 abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sales_Model_Order_Pdf_Items_Abstract
 {
     /**
-     * Getting all available childs for Invoice, Shipmen or Creditmemo item
+     * Getting all available children for Invoice, Shipmen or Creditmemo item
      *
      * @param Varien_Object $item
      * @return array

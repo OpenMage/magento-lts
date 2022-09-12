@@ -220,7 +220,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                 }
             }
             /**
-             * Prepare formated values for options choose
+             * Prepare formatted values for options choose
              */
             foreach ($optionPrices as $optionPrice) {
                 foreach ($optionPrices as $additional) {

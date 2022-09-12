@@ -242,7 +242,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     }
 
     /**
-     * Retrieve formated Date
+     * Retrieve formatted Date
      *
      * @param string $date
      * @return string
