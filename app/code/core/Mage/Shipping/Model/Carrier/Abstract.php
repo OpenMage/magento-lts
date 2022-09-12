@@ -94,6 +94,20 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     protected $_debugReplacePrivateDataKeys = [];
 
     /**
+     * Raw rate request data
+     *
+     * @var Varien_Object|null
+     */
+    protected $_rawRequest;
+
+    /**
+     * Rate result data
+     *
+     * @var Mage_Shipping_Model_Rate_Result|null
+     */
+    protected $_result;
+
+    /**
      * Retrieve information from carrier configuration
      *
      * @param   string $field

@@ -193,6 +193,11 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     protected $_messages    = [];
 
     /**
+     * @var array
+     */
+    protected $_optionsByCode;
+
+    /**
      * Retrieve Quote instance
      *
      * @return Mage_Sales_Model_Quote
