@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,13 +23,16 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Media_Editor extends Mage_Adminhtml_Block_Widget
 {
-
+    /** @var Varien_Object */
     protected $_config;
 
+    /**
+     * Mage_Adminhtml_Block_Media_Editor constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -38,6 +41,9 @@ class Mage_Adminhtml_Block_Media_Editor extends Mage_Adminhtml_Block_Widget
         $this->getConfig()->setParams();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -83,26 +89,42 @@ class Mage_Adminhtml_Block_Media_Editor extends Mage_Adminhtml_Block_Widget
         return parent::_prepareLayout();
     }
 
+    /**
+     * @param string $buttonName
+     * @return string
+     */
     protected function _getButtonId($buttonName)
     {
         return $this->getHtmlId() . '-' . $buttonName;
     }
 
+    /**
+     * @return string
+     */
     public function getRotatecwButtonHtml()
     {
         return $this->getChildHtml('rotatecw_button');
     }
 
+    /**
+     * @return string
+     */
     public function getImageButtonHtml()
     {
         return $this->getChildHtml('image_button');
     }
 
+    /**
+     * @return string
+     */
     public function getRotateccwButtonHtml()
     {
         return $this->getChildHtml('rotateccw_button');
     }
 
+    /**
+     * @return string
+     */
     public function getResizeButtonHtml()
     {
         return $this->getChildHtml('resize_button');
@@ -131,7 +153,7 @@ class Mage_Adminhtml_Block_Media_Editor extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve config object
      *
-     * @return Varien_Config
+     * @return Varien_Object
      */
     public function getConfig()
     {
@@ -141,5 +163,4 @@ class Mage_Adminhtml_Block_Media_Editor extends Mage_Adminhtml_Block_Widget
 
         return $this->_config;
     }
-
 }

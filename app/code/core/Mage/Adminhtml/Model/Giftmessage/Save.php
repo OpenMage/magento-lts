@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
 {
@@ -80,7 +80,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     /**
      * Save a single gift message
      *
-     * @param integer $entityId
+     * @param int $entityId
      * @param array $giftmessage
      * @return $this
      * @throws Throwable
@@ -216,7 +216,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * Checks allowed quote item for gift messages
      *
      * @param  Varien_Object $item
-     * @return boolean
+     * @return bool
      */
     public function getIsAllowedQuoteItem($item)
     {

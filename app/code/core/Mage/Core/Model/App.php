@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,13 +23,12 @@
  *
  * Application should have: areas, store, locale, translator, design package
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_App
 {
-
     const XML_PATH_INSTALL_DATE = 'global/install/date';
 
     const XML_PATH_SKIP_PROCESS_MODULES_UPDATES = 'global/skip_process_modules_updates';
@@ -256,9 +255,6 @@ class Mage_Core_Model_App
      */
     protected $_isInstalled = null;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
     }
@@ -320,7 +316,7 @@ class Mage_Core_Model_App
     /**
      * Run light version of application with specified modules support
      *
-     * @see Mage_Core_Model_App->run()
+     * @see Mage_Core_Model_App::run()
      *
      * @param  string|array $scopeCode
      * @param  string $scopeType

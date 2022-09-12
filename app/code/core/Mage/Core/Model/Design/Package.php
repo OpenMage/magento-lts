@@ -12,12 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Core_Model_Design_Package
 {
     const DEFAULT_AREA    = 'frontend';
@@ -107,7 +112,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Set store
      *
-     * @param  string|integer|Mage_Core_Model_Store $store
+     * @param  string|int|Mage_Core_Model_Store $store
      * @return $this
      */
     public function setStore($store)

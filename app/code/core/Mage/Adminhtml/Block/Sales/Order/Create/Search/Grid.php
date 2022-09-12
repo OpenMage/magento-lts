@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,10 +23,16 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    /**
+     * Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid constructor.
+     * @throws Exception
+     */
     public function __construct()
     {
         parent::__construct();
@@ -59,20 +65,23 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
         return Mage::getSingleton('adminhtml/session_quote')->getQuote();
     }
 
+    /**
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this
+     * @throws Exception
+     */
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
-        if ($column->getId() == 'in_products') {
+        if ($column->getId() === 'in_products') {
             $productIds = $this->_getSelectedProducts();
             if (empty($productIds)) {
                 $productIds = 0;
             }
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('entity_id', ['in'=>$productIds]);
-            } else {
-                if($productIds) {
-                    $this->getCollection()->addFieldToFilter('entity_id', ['nin'=>$productIds]);
-                }
+                $this->getCollection()->addFieldToFilter('entity_id', ['in' => $productIds]);
+            } elseif ($productIds) {
+                $this->getCollection()->addFieldToFilter('entity_id', ['nin' => $productIds]);
             }
         } else {
             parent::_addColumnFilterToCollection($column);
@@ -174,6 +183,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
         return $this->getUrl('*/*/loadBlock', ['block'=>'search_grid', '_current' => true, 'collapse' => null]);
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     protected function _getSelectedProducts()
     {
         return $this->getRequest()->getPost('products', []);

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,16 +23,20 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+    /**
+     * @var array
+     */
     protected $_renamedImages = [];
 
     /**
      * Load attribute data after product loaded
      *
      * @param Mage_Catalog_Model_Product $object
+     * @return $this
      */
     public function afterLoad($object)
     {
@@ -52,6 +56,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         }
 
         $object->setData($attrCode, $value);
+        return $this;
     }
 
     /**
@@ -266,8 +271,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * @param string                     $file              file path of image in file system
      * @param string|array               $mediaAttribute    code of attribute with type 'media_image',
      *                                                      leave blank if image should be only in gallery
-     * @param boolean                    $move              if true, it will move source file
-     * @param boolean                    $exclude           mark image as disabled in product page view
+     * @param bool                    $move              if true, it will move source file
+     * @param bool                    $exclude           mark image as disabled in product page view
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -365,8 +370,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * @param Mage_Catalog_Model_Product $product
      * @param array $fileAndAttributesArray array of arrays of filename and corresponding media attribute
      * @param string $filePath path, where image cand be found
-     * @param boolean $move if true, it will move source file
-     * @param boolean $exclude mark image as disabled in product page view
+     * @param bool $move if true, it will move source file
+     * @param bool $exclude mark image as disabled in product page view
      * @return array array of parallel arrays with original and renamed files
      * @throws Mage_Core_Exception
      */
@@ -471,7 +476,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      *
      * @param Mage_Catalog_Model_Product $product
      * @param string $file
-     * @return array|boolean
+     * @return array|bool
      */
     public function getImage(Mage_Catalog_Model_Product $product, $file)
     {

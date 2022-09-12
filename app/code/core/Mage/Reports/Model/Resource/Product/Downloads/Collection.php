@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Reports
+ * @category   Mage
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product Downloads Report collection
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
@@ -33,11 +33,6 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
      * @var string
      */
     protected $_idFieldName    = 'link_id';
-
-    protected function _construct()
-    {
-        parent::_construct();
-    }
     /**
      * Add downloads summary grouping by product
      *

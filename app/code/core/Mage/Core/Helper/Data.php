@@ -12,16 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core data helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -264,7 +266,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * Generate salted hash from password
      *
      * @param string $password
-     * @param string|integer|boolean $salt
+     * @param string|int|bool $salt
      * @return string
      */
     public function getHash($password, $salt = false)
@@ -448,7 +450,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param array|Varien_Object $source
      * @param array|Varien_Object $target
      * @param string $root
-     * @return boolean
+     * @return bool
      */
     public function copyFieldset($fieldset, $aspect, $source, $target, $root = 'global')
     {
@@ -676,7 +678,7 @@ XML;
      * Encode the mixed $valueToEncode into the JSON format
      *
      * @param mixed $valueToEncode
-     * @param  boolean $cycleCheck Optional; whether or not to check for object recursion; off by default
+     * @param bool $cycleCheck Optional; whether or not to check for object recursion; off by default
      * @param  array $options Additional options used during encoding
      * @return string
      */
@@ -772,7 +774,10 @@ XML;
                 } else {
                     $targetMtime = filemtime($targetFile);
                     foreach ($srcFiles as $file) {
-                        if (!file_exists($file) || @filemtime($file) > $targetMtime) {
+                        if (!file_exists($file)) {
+                            // no translation intentionally
+                            throw new Exception(sprintf('File %s not found.', $file));
+                        } elseif (@filemtime($file) > $targetMtime) {
                             $shouldMerge = true;
                             break;
                         }

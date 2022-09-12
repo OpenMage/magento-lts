@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Wishlist
+ * @category   Mage
+ * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wishlist item collection
  *
- * @category    Mage
- * @package     Mage_Wishlist
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Wishlist
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Wishlist_Model_Item getItemById(int|string $value)
  * @method Mage_Wishlist_Model_Item[] getItems()
@@ -68,7 +68,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     /**
      * Add days in whishlist filter of product collection
      *
-     * @var boolean
+     * @var bool
      */
     protected $_addDaysInWishlist = false;
 
@@ -82,7 +82,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     /**
      * Whether product name attribute value table is joined in select
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isProductNameJoined = false;
 
@@ -100,9 +100,6 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      */
     protected $_customerGroupId = null;
 
-    /**
-     * Initialize resource model for collection
-     */
     public function _construct()
     {
         $this->_init('wishlist/item');
@@ -204,6 +201,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
         $checkInStock = $this->_productInStock && !Mage::helper('cataloginventory')->isShowOutOfStock();
 
         foreach ($this as $item) {
+            /** @var Mage_Catalog_Model_Product $product */
             $product = $productCollection->getItemById($item->getProductId());
             if ($product) {
                 if ($checkInStock && !$product->isInStock()) {

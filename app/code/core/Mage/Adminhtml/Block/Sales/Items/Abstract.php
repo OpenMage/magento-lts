@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract items renderer
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Template
 {
@@ -50,7 +50,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     /**
      * Flag - if it is set method canEditQty will return value of it
      *
-     * @var boolean | null
+     * @var bool | null
      */
     protected $_canEditQty = null;
 
@@ -451,7 +451,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     /**
      * Check availability to edit quantity of item
      *
-     * @return boolean
+     * @return bool
      */
     public function canEditQty()
     {
@@ -566,7 +566,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * Return true if can ship partially
      *
      * @param Mage_Sales_Model_Order|null $order
-     * @return boolean
+     * @return bool
      */
     public function canShipPartially($order = null)
     {
@@ -584,7 +584,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * Return true if can ship items partially
      *
      * @param Mage_Sales_Model_Order|null $order
-     * @return boolean
+     * @return bool
      */
     public function canShipPartiallyItem($order = null)
     {
@@ -605,5 +605,4 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
         }
         return true;
     }
-
 }

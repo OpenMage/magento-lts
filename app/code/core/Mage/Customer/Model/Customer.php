@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer model
+ *
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Customer_Model_Resource_Customer getResource()
  * @method Mage_Customer_Model_Resource_Customer _getResource()
@@ -108,10 +112,6 @@
  *
  * @method int getWebsiteId()
  * @method $this setWebsiteId(int $value)
- *
- * @category    Mage
- * @package     Mage_Customer
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 {
@@ -213,14 +213,14 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Is model deleteable
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isDeleteable = true;
 
     /**
      * Is model readonly
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isReadonly = false;
 
@@ -234,7 +234,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Confirmation requirement flag
      *
-     * @var boolean
+     * @var bool
      */
     private static $_isConfirmationRequired;
 
@@ -536,7 +536,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Validate password with salted hash
      *
      * @param string $password
-     * @return boolean
+     * @return bool
      * @throws Exception
      */
     public function validatePassword($password)
@@ -694,7 +694,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Check if address is primary
      *
      * @param Mage_Customer_Model_Address $address
-     * @return boolean
+     * @return bool
      */
     public function isAddressPrimary(Mage_Customer_Model_Address $address)
     {
@@ -1327,7 +1327,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @param null|string $error
      * @param string $line
-     * @return boolean
+     * @return false|void
      * @throws Exception
      */
     public function printError($error, $line = null)
@@ -1423,7 +1423,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Checks model is deleteable
      *
-     * @return boolean
+     * @return bool
      */
     public function isDeleteable()
     {
@@ -1433,7 +1433,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Set is deleteable flag
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setIsDeleteable($value)
@@ -1445,7 +1445,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Checks model is readonly
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {
@@ -1455,7 +1455,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Set is readonly flag
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setIsReadonly($value)
@@ -1580,7 +1580,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Check if current reset password link token is expired
      *
-     * @return boolean
+     * @return bool
      */
     public function isResetPasswordLinkTokenExpired()
     {

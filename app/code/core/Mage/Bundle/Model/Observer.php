@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Bundle
+ * @category   Mage
+ * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle Products Observer
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Bundle_Model_Observer
 {
@@ -94,7 +94,7 @@ class Mage_Bundle_Model_Observer
             }
         }
 
-        /** @var Mage_Bundle_Model_Mysql4_Selection $resource */
+        /** @var Mage_Bundle_Model_Resource_Selection $resource */
         $resource   = Mage::getResourceSingleton('bundle/selection');
 
         $productIds = array_keys($collection->getItems());
@@ -294,7 +294,7 @@ class Mage_Bundle_Model_Observer
      * CatalogIndex Indexer after plain reindex process
      *
      * @deprecated since 1.4.0.0
-     * @see Mage_Bundle_Model_Mysql4_Indexer_Price
+     * @see Mage_Bundle_Model_Resource_Indexer_Price
      *
      * @param Varien_Event_Observer $observer
      * @return $this

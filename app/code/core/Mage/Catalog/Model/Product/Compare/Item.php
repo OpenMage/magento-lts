@@ -12,15 +12,20 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Compare Item Model
  *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Resource_Product_Compare_Item _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Compare_Item getResource()
  *
  * @method $this setVisitorId(int $value)
@@ -32,10 +37,6 @@
  * @method bool hasVisitorId()
  * @method bool hasCustomerId()
  * @method bool hasStoreId()
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
 {
@@ -62,23 +63,9 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
      */
     protected $_eventObject = 'item';
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product_compare_item');
-    }
-
-    /**
-     * Retrieve Resource instance
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**

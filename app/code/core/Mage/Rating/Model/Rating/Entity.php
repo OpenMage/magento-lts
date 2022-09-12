@@ -12,25 +12,24 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Rating
+ * @category   Mage
+ * @package    Mage_Rating
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Ratings entity model
  *
+ * @category   Mage
+ * @package    Mage_Rating
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Rating_Model_Resource_Rating_Entity _getResource()
  * @method Mage_Rating_Model_Resource_Rating_Entity getResource()
  * @method string getEntityCode()
  * @method Mage_Rating_Model_Rating_Entity setEntityCode(string $value)
- *
- * @category    Mage
- * @package     Mage_Rating
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Rating_Model_Rating_Entity extends Mage_Core_Model_Abstract
 {
     protected function _construct()

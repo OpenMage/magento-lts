@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,11 +23,17 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block_Widget_Grid
 {
-
+    /**
+     * Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku constructor.
+     * @param array $arguments
+     * @throws Exception
+     */
     public function __construct($arguments= [])
     {
         parent::__construct($arguments);
@@ -58,18 +64,22 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
         return Mage::app()->getStore();
     }
 
+    /**
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this
+     */
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
-        if ($column->getId() == 'in_products') {
+        if ($column->getId() === 'in_products') {
             $selected = $this->_getSelectedProducts();
             if (empty($selected)) {
                 $selected = '';
             }
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('sku', ['in'=>$selected]);
+                $this->getCollection()->addFieldToFilter('sku', ['in' => $selected]);
             } else {
-                $this->getCollection()->addFieldToFilter('sku', ['nin'=>$selected]);
+                $this->getCollection()->addFieldToFilter('sku', ['nin' => $selected]);
             }
         } else {
             parent::_addColumnFilterToCollection($column);
@@ -80,7 +90,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
     /**
      * Prepare Catalog Product Collection for attribute SKU in Promo Conditions SKU chooser
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -155,6 +165,9 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
         return parent::_prepareColumns();
     }
 
+    /**
+     * @return string
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/chooser', [
@@ -164,6 +177,10 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
         ]);
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     protected function _getSelectedProducts()
     {
         return $this->getRequest()->getPost('selected', []);

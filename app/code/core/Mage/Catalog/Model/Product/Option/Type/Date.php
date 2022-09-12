@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -242,7 +242,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Use Calendar on frontend or not
      *
-     * @return boolean
+     * @return bool
      */
     public function useCalendar()
     {
@@ -252,7 +252,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Time Format
      *
-     * @return boolean
+     * @return bool
      */
     public function is24hTimeFormat()
     {
@@ -308,7 +308,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Does option have date?
      *
-     * @return boolean
+     * @return bool
      */
     protected function _dateExists()
     {
@@ -321,7 +321,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Does option have time?
      *
-     * @return boolean
+     * @return bool
      */
     protected function _timeExists()
     {

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,7 +27,6 @@
  */
 class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resource
 {
-
     /**
      * Initialize attributes mapping
      */
@@ -191,9 +190,9 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
      *
      * @param string $creditmemoIncrementId
      * @param string $comment
-     * @param boolean $notifyCustomer
-     * @param boolean $includeComment
-     * @return boolean
+     * @param bool $notifyCustomer
+     * @param bool $includeComment
+     * @return bool
      */
     public function addComment($creditmemoIncrementId, $comment, $notifyCustomer = false, $includeComment = false)
     {
@@ -213,7 +212,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
      * Cancel credit memo
      *
      * @param string $creditmemoIncrementId
-     * @return boolean
+     * @return bool
      */
     public function cancel($creditmemoIncrementId)
     {
@@ -262,7 +261,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
      * Load CreditMemo by IncrementId
      *
      * @param mixed $incrementId
-     * @return Mage_Core_Model_Abstract|Mage_Sales_Model_Order_Creditmemo
+     * @return Mage_Sales_Model_Order_Creditmemo
      */
     protected function _getCreditmemo($incrementId)
     {

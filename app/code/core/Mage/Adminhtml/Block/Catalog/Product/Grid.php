@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,11 +23,12 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -124,7 +125,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
     protected function _addColumnFilterToCollection($column)
     {
         if ($this->getCollection()) {
-            if ($column->getId() == 'websites') {
+            if ($column->getId() === 'websites') {
                 $this->getCollection()->joinField('websites',
                     'catalog/product_website',
                     'website_id',
@@ -136,6 +137,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         return parent::_addColumnFilterToCollection($column);
     }
 
+    /**
+     * @inheritDoc
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id',
@@ -269,6 +275,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         return parent::_prepareColumns();
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('entity_id');
@@ -308,16 +317,23 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', ['_current'=>true]);
     }
 
+    /**
+     * @param Mage_Catalog_Model_Product $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', [
-            'store'=>$this->getRequest()->getParam('store'),
-            'id'=>$row->getId()]
+            'store' => $this->getRequest()->getParam('store'),
+            'id' => $row->getId()]
         );
     }
 }

@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product list toolbar
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getDefaultGridPerPage()
  * @method string getDefaultListPerPage()
@@ -33,7 +33,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Products collection
      *
-     * @var Mage_Core_Model_Mysql4_Collection_Abstract
+     * @var Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     protected $_collection = null;
 
@@ -234,7 +234,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Return products collection instance
      *
-     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     public function getCollection()
     {

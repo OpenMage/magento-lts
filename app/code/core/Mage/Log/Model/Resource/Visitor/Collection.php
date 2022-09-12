@@ -12,20 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Log
+ * @category   Mage
+ * @package    Mage_Log
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Visitor log collection
  *
- * @category    Mage
- * @package     Mage_Log
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Log
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
@@ -218,8 +217,8 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
     /**
      * Load data
      *
-     * @param boolean $printQuery
-     * @param boolean $logQuery
+     * @param bool $printQuery
+     * @param bool $logQuery
      * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     public function load($printQuery = false, $logQuery = false)
@@ -234,7 +233,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
     /**
      * Return true if online filter used
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsOnlineFilterUsed()
     {

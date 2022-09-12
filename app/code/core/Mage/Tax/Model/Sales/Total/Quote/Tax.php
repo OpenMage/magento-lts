@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tax
+ * @category   Mage
+ * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tax totals calculation model
+ *
+ * @category   Mage
+ * @package    Mage_Tax
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
@@ -450,7 +454,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @param Varien_Object $taxRateRequest
      * @param array $itemTaxGroups
-     * @param boolean $catalogPriceInclTax
+     * @param bool $catalogPriceInclTax
      */
     protected function _unitBaseProcessItemTax(
         $address,
@@ -526,7 +530,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      * @param   float $rate
      * @param   array $taxGroups
      * @param   string $taxId
-     * @param   boolean $recalculateRowTotalInclTax
+     * @param   bool $recalculateRowTotalInclTax
      * @return  $this
      */
     protected function _calcUnitTaxAmount(
@@ -728,7 +732,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @param Varien_Object $taxRateRequest
      * @param array $itemTaxGroups
-     * @param boolean $catalogPriceInclTax
+     * @param bool $catalogPriceInclTax
      */
     protected function _rowBaseProcessItemTax($address, $item, $taxRateRequest, &$itemTaxGroups, $catalogPriceInclTax)
     {
@@ -796,7 +800,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      * @param   float $rate
      * @param   array $taxGroups
      * @param   string $taxId
-     * @param   boolean $recalculateRowTotalInclTax
+     * @param   bool $recalculateRowTotalInclTax
      * @return  $this
      */
     protected function _calcRowTaxAmount(
@@ -1022,7 +1026,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      * @param Varien_Object $taxRateRequest
      * @param array $taxGroups
      * @param array $itemTaxGroups
-     * @param boolean $catalogPriceInclTax
+     * @param bool $catalogPriceInclTax
      */
     protected function _totalBaseProcessItemTax(
         $item,

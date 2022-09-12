@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method bool hasAllowProducts()
  */
@@ -287,7 +287,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      * @param array $attributeId
      * @param array $value
      * @param array $options
-     * @return boolean
+     * @return bool
      */
     protected function _validateAttributeValue($attributeId, &$value, &$options)
     {
@@ -302,7 +302,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      * Validation of super product option
      *
      * @param array $info
-     * @return boolean
+     * @return bool
      */
     protected function _validateAttributeInfo(&$info)
     {
@@ -355,7 +355,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      *
      * @deprecated
      * @param float $price
-     * @param boolean $round
+     * @param bool $round
      * @return float
      */
     protected function _convertPrice($price, $round = false)

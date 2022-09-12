@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Reports
+ * @category   Mage
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Report collection abstract model
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -207,7 +207,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Set apply filters flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setApplyFilters($flag)
@@ -219,7 +219,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Getter/Setter for isTotals
      *
-     * @param null|boolean $flag
+     * @param null|bool $flag
      * @return $this|bool
      */
     public function isTotals($flag = null)
@@ -234,7 +234,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Getter/Setter for isSubTotals
      *
-     * @param null|boolean $flag
+     * @param null|bool $flag
      * @return $this|bool
      */
     public function isSubTotals($flag = null)

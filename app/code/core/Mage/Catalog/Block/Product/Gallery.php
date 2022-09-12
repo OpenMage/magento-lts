@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
 {
@@ -39,7 +39,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @return mixed
+     * @return Mage_Catalog_Model_Product
      */
     public function getProduct()
     {
@@ -47,7 +47,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @return mixed
+     * @return Varien_Data_Collection
      */
     public function getGalleryCollection()
     {
@@ -55,7 +55,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @return null |null
+     * @return Varien_Object|null
      * @throws Exception
      */
     public function getCurrentImage()
@@ -91,7 +91,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     /**
      * Retrieve image width
      *
-     * @return bool|int
+     * @return false|int
      */
     public function getImageWidth()
     {
@@ -111,7 +111,8 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @return bool
+     * @return false|Varien_Object
+     * @throws Exception
      */
     public function getPreviusImage()
     {
@@ -130,7 +131,8 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @return bool
+     * @return false|Varien_Object
+     * @throws Exception
      */
     public function getNextImage()
     {
@@ -153,23 +155,23 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @return bool|string
+     * @return false|string
      */
     public function getPreviusImageUrl()
     {
         if ($image = $this->getPreviusImage()) {
-            return $this->getUrl('*/*/*', ['_current'=>true, 'image'=>$image->getValueId()]);
+            return $this->getUrl('*/*/*', ['_current' => true, 'image' => $image->getValueId()]);
         }
         return false;
     }
 
     /**
-     * @return bool|string
+     * @return false|string
      */
     public function getNextImageUrl()
     {
         if ($image = $this->getNextImage()) {
-            return $this->getUrl('*/*/*', ['_current'=>true, 'image'=>$image->getValueId()]);
+            return $this->getUrl('*/*/*', ['_current' => true, 'image' => $image->getValueId()]);
         }
         return false;
     }

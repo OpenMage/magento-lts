@@ -12,38 +12,27 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Product Mass Action processing model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Resource_Product_Action _getResource()
+ * @method Mage_Catalog_Model_Resource_Product_Action getResource()
  */
 class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
 {
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product_action');
-    }
-
-    /**
-     * Retrieve resource instance wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**
@@ -102,9 +91,9 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
             'action'        => $type
         ]);
 
-        if ($type == 'add') {
+        if ($type === 'add') {
             Mage::getModel('catalog/product_website')->addProducts($websiteIds, $productIds);
-        } elseif ($type == 'remove') {
+        } elseif ($type === 'remove') {
             Mage::getModel('catalog/product_website')->removeProducts($websiteIds, $productIds);
         }
 

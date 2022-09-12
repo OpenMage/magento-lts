@@ -12,19 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Paypal transaction resource model
  *
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated since 1.6.2.0
- * @category    Mage
- * @package     Mage_Paypal
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -86,7 +86,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
      *
      * @throws Mage_Core_Exception
      *
-     * @param Mage_Core_Model_Abstract $transaction
+     * @param Mage_Paypal_Model_Payment_Transaction $transaction
      * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $transaction)

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_GiftMessage
+ * @category   Mage
+ * @package    Mage_GiftMessage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_GiftMessage
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
 {
@@ -37,7 +37,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Next id for edit gift message block
      *
-     * @var integer
+     * @var int
      */
     protected $_nextId = 0;
 
@@ -73,7 +73,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      *
      * @param string $type
      * @param Varien_Object $entity
-     * @param boolean $dontDisplayContainer
+     * @param bool $dontDisplayContainer
      * @return string
      */
     public function getInline($type, Varien_Object $entity, $dontDisplayContainer = false)
@@ -234,7 +234,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Check availability for internal cached data with specified key
      *
      * @param string $key
-     * @return boolean
+     * @return bool
      */
     public function isCached($key)
     {
@@ -292,7 +292,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Retrieve gift message with specified id
      *
-     * @param integer $messageId
+     * @param int $messageId
      * @return Mage_GiftMessage_Model_Message
      */
     public function getGiftMessage($messageId = null)

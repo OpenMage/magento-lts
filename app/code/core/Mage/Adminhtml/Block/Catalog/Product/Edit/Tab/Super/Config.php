@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Check block is readonly
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {
@@ -65,7 +65,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Check whether attributes of configurable products can be editable
      *
-     * @return boolean
+     * @return bool
      */
     public function isAttributesConfigurationReadonly()
     {
@@ -75,7 +75,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Check whether prices of configurable products can be editable
      *
-     * @return boolean
+     * @return bool
      */
     public function isAttributesPricesReadonly()
     {

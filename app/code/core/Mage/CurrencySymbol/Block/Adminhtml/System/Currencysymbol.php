@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CurrencySymbol
+ * @category   Mage
+ * @package    Mage_CurrencySymbol
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,9 +34,6 @@ class Mage_CurrencySymbol_Block_Adminhtml_System_Currencysymbol extends Mage_Adm
      */
     private $_controller;
 
-    /**
-     * Constructor. Initialization required variables for class instance.
-     */
     public function __construct()
     {
         $this->_blockGroup = 'currencysymbol_system';

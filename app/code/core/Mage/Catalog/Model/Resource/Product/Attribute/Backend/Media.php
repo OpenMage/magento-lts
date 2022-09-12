@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product media gallery attribute backend resource
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -34,9 +34,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
 
     private $_attributeId = null;
 
-    /**
-     * Resource initialization
-     */
     protected function _construct()
     {
         $this->_init(self::GALLERY_TABLE, 'value_id');
@@ -117,7 +114,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Delete gallery value in db
      *
-     * @param array|integer $valueId
+     * @param array|int $valueId
      * @return $this
      */
     public function deleteGallery($valueId)
@@ -151,8 +148,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Delete gallery value for store in db
      *
-     * @param integer $valueId
-     * @param integer $storeId
+     * @param int $valueId
+     * @param int $storeId
      * @return $this
      */
     public function deleteGalleryValueInStore($valueId, $storeId)

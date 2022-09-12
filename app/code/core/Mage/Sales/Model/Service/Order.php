@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Quote submit service model
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setEmailSent(bool $value)
  */
@@ -393,6 +397,7 @@ class Mage_Sales_Model_Service_Order
         } else {
             return $item->getQtyToInvoice() > 0;
         }
+        return false;
     }
 
     /**
@@ -441,6 +446,7 @@ class Mage_Sales_Model_Service_Order
         } else {
             return $item->getQtyToShip()>0;
         }
+        return false;
     }
 
     /**
@@ -479,6 +485,7 @@ class Mage_Sales_Model_Service_Order
         } else {
             return $this->_canRefundNoDummyItem($item, $invoiceQtysRefundLimits);
         }
+        return false;
     }
 
     /**

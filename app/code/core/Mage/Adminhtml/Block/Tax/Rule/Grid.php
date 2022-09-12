@@ -12,10 +12,20 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * Class Mage_Adminhtml_Block_Tax_Rule_Grid
+ *
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -52,10 +62,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
     }
 
     /**
-     * Add filter
-     *
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
     protected function _addColumnFilterToCollection($column)
     {
@@ -79,9 +86,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
     }
 
     /**
-     * Prepare grid columns
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
@@ -167,12 +172,11 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
     /**
      * Return url
      *
-     * @param Mage_Core_Model_Abstract $row
+     * @param Mage_Tax_Model_Calculation_Rule $row
      * @return string
      */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['rule' => $row->getId()]);
     }
-
 }

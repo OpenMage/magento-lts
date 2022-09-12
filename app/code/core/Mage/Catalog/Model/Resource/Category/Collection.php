@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Category resource collection
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Catalog_Model_Category getFirstItem()
  * @method Mage_Catalog_Model_Category getItemById(int $value)
@@ -32,15 +32,11 @@
 class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model_Resource_Collection_Abstract
 {
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix              = 'catalog_category_collection';
 
     /**
-     * Event object name
-     *
      * @var string
      */
     protected $_eventObject              = 'category_collection';
@@ -69,7 +65,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Load with product count flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_loadWithProductCount     = false;
 
@@ -142,7 +138,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Set flag for loading product count
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setLoadProductCount($flag)
@@ -245,8 +241,8 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
      * Load product count for specified items
      *
      * @param array $items
-     * @param boolean $countRegular get product count for regular (non-anchor) categories
-     * @param boolean $countAnchor get product count for anchor categories
+     * @param bool $countRegular get product count for regular (non-anchor) categories
+     * @param bool $countAnchor get product count for anchor categories
      * @return $this
      */
     public function loadProductCount($items, $countRegular = true, $countAnchor = true)

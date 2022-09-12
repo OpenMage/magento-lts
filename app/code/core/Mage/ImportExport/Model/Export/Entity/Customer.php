@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_ImportExport
+ * @category   Mage
+ * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Export entity customer model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_Model_Export_Entity_Abstract
 {
@@ -69,9 +69,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
      */
     protected $_permanentAttributes = [self::COL_EMAIL, self::COL_WEBSITE, self::COL_STORE];
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         parent::__construct();
