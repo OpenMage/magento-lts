@@ -67,8 +67,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tabs extends Mage_Adminhtml_B
                 'content'   => $this->getLayout()->createBlock('adminhtml/system_convert_profile_edit_tab_run')->toHtml(),
             ]);
 
-            /** @var Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View
-            $block */
+            /** @var Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View $block */
             $block = $this->getLayout()->createBlock('adminhtml/system_convert_gui_edit_tab_view');
             $this->addTab('view', [
                 'label'     => Mage::helper('adminhtml')->__('Profile Actions XML'),

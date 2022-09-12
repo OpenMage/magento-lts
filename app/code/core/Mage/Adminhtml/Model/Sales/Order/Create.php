@@ -1663,7 +1663,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     protected function _putCustomerIntoQuote()
     {
         if (!$this->getSession()->getCustomer()->getId()) {
-            /** @var Mage_Customer_Model_Customer*/
+            /** @var Mage_Customer_Model_Customer $customer */
             $customer = Mage::getModel('customer/customer');
 
             $customer->addData($this->getBillingAddress()->exportCustomerAddress()->getData())

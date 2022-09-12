@@ -587,7 +587,6 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @deprecated since 1.6.2.0
      * @param string $token
-     * @throws Mage_Core_Exception
      */
     public function prepareOrderReview($token = null)
     {
@@ -635,8 +634,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * Check response from Payflow gateway.
      *
      * @deprecated since 1.6.2.0
-     * @return Mage_Sales_Model_Abstract in case of validation passed
-     * @throws Mage_Core_Exception in other cases
+     * @return null in case of validation passed
      */
     protected function _getDocumentFromResponse()
     {

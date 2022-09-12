@@ -45,7 +45,7 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * Check is attribute allowed
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @param array $filter
+     * @param array|null $filter
      * @return bool
      */
     protected function _isAllowedAttribute($attribute, array $filter = null)
@@ -64,7 +64,7 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * Return list of allowed attributes
      *
      * @param Mage_Eav_Model_Entity_Abstract $entity
-     * @param array $filter
+     * @param array|null $filter
      * @return array
      */
     public function getAllowedAttributes($entity, array $filter = null)

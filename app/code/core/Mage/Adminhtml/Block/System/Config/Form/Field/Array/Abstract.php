@@ -135,7 +135,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
             return $this->_arrayRowsCache;
         }
         $result = [];
-        /** @var Varien_Data_Form_Element_Abstract */
+        /** @var Varien_Data_Form_Element_Abstract $element */
         $element = $this->getElement();
         if ($element->getValue() && is_array($element->getValue())) {
             foreach ($element->getValue() as $rowId => $row) {

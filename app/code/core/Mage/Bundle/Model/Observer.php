@@ -107,7 +107,6 @@ class Mage_Bundle_Model_Observer
             return $this;
         }
 
-        /** @var Mage_Catalog_Model_Resource_Product_Collection $bundleCollection */
         $bundleCollection = $product->getCollection()
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addStoreFilter()
