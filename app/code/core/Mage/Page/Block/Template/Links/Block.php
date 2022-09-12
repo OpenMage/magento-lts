@@ -12,23 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Page
+ * @category   Mage
+ * @package    Mage_Page
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Simple links list block
  *
  * @category   Mage
- * @package    Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @package    Mage_Page
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
 {
-
     /**
      * First link flag
      *
@@ -106,7 +104,6 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     {
         $this->setTemplate('page/template/linksblock.phtml');
     }
-
 
     /**
      * Return link position in link list

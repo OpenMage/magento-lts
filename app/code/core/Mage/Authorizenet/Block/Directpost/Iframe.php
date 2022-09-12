@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Authorizenet
+ * @category   Mage
+ * @package    Mage_Authorizenet
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,9 +34,7 @@ class Mage_Authorizenet_Block_Directpost_Iframe extends Mage_Core_Block_Template
     protected $_params = [];
 
     /**
-     * Internal constructor
      * Set template for iframe
-     *
      */
     protected function _construct()
     {

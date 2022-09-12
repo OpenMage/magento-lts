@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tax
+ * @category   Mage
+ * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var Mage_Tax_Model_Resource_Setup $installer */
@@ -59,7 +59,6 @@ $installer->getConnection()->dropForeignKey(
     $installer->getTable('tax/tax_order_aggregated_created'),
     'FK_TAX_ORDER_AGGREGATED_CREATED_STORE'
 );
-
 
 /**
  * Drop indexes
@@ -138,7 +137,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_order_aggregated_created'),
     'IDX_STORE_ID'
 );
-
 
 /**
  * Change columns
@@ -372,7 +370,6 @@ $installer->getConnection()->addColumn(
     ]
 );
 
-
 /**
  * Add indexes
  */
@@ -470,7 +467,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('tax/tax_order_aggregated_created', ['store_id']),
     ['store_id']
 );
-
 
 /**
  * Add foreign keys

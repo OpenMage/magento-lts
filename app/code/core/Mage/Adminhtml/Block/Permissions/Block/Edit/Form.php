@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_Permissions_Block_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
-
     /**
      * @return Mage_Adminhtml_Block_Widget_Form
      * @throws Exception
@@ -51,7 +50,6 @@ class Mage_Adminhtml_Block_Permissions_Block_Edit_Form extends Mage_Adminhtml_Bl
             'name' => 'block_name',
         ]);
 
-
         $yesno = [
             [
                 'value' => 0,
@@ -61,7 +59,6 @@ class Mage_Adminhtml_Block_Permissions_Block_Edit_Form extends Mage_Adminhtml_Bl
                 'value' => 1,
                 'label' => $this->__('Yes')
             ]];
-
 
         $fieldset->addField('is_allowed', 'select', [
             'name' => 'is_allowed',

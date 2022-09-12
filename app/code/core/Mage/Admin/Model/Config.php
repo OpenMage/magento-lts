@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Admin
+ * @category   Mage
+ * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Configuration for Admin model
  *
  * @category   Mage
  * @package    Mage_Admin
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Admin_Model_Config extends Varien_Simplexml_Config
 {
@@ -104,8 +103,6 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
             $children = $resource->children->children();
         }
 
-
-
         if (empty($children)) {
             return $this;
         }
@@ -132,11 +129,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
             return $asserts;
         }
 
-        if (isset($asserts->$name)) {
-            return $asserts->$name;
-        }
-
-        return false;
+        return $asserts->$name ?? false;
     }
 
     /**
@@ -152,11 +145,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
             return $sets;
         }
 
-        if (isset($sets->$name)) {
-            return $sets->$name;
-        }
-
-        return false;
+        return $sets->$name ?? false;
     }
 
     /**

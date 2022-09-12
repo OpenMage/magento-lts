@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
+ * @category   Mage
+ * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * CatalogSearch Fulltext Index Engine resource model
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -77,8 +76,9 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
         }
 
         if ($data) {
-            Mage::getResourceHelper('catalogsearch')
-                ->insertOnDuplicate($this->getMainTable(), $data, ['data_index']);
+            /** @var Mage_CatalogSearch_Model_Resource_Helper_Mysql4 $helper */
+            $helper = Mage::getResourceHelper('catalogsearch');
+            $helper->insertOnDuplicate($this->getMainTable(), $data, ['data_index']);
         }
 
         return $this;

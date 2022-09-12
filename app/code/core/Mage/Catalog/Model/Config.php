@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Catalog_Model_Config
+ *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @property array $_productTypesByName
  */
@@ -60,19 +64,13 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
 
     const XML_PATH_PRODUCT_COLLECTION_ATTRIBUTES = 'frontend/product/collection/attributes';
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/config');
     }
 
     /**
-     * Set store id
-     *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -84,14 +82,11 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     /**
      * Return store id, if is not set return current app store
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {
-        if ($this->_storeId === null) {
-            return Mage::app()->getStore()->getId();
-        }
-        return $this->_storeId;
+        return $this->_storeId ?? Mage::app()->getStore()->getId();
     }
 
     /**
@@ -132,7 +127,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         if (!is_numeric($entityTypeId)) {
             $entityTypeId = $this->getEntityType($entityTypeId)->getId();
         }
-        return isset($this->_attributeSetsById[$entityTypeId][$id]) ? $this->_attributeSetsById[$entityTypeId][$id] : false;
+        return $this->_attributeSetsById[$entityTypeId][$id] ?? false;
     }
 
     /**
@@ -151,7 +146,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             $entityTypeId = $this->getEntityType($entityTypeId)->getId();
         }
         $name = strtolower($name);
-        return isset($this->_attributeSetsByName[$entityTypeId][$name]) ? $this->_attributeSetsByName[$entityTypeId][$name] : false;
+        return $this->_attributeSetsByName[$entityTypeId][$name] ?? false;
     }
 
     /**
@@ -193,7 +188,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         if (!is_numeric($attributeSetId)) {
             $attributeSetId = $this->getAttributeSetId($attributeSetId);
         }
-        return isset($this->_attributeGroupsById[$attributeSetId][$id]) ? $this->_attributeGroupsById[$attributeSetId][$id] : false;
+        return $this->_attributeGroupsById[$attributeSetId][$id] ?? false;
     }
 
     /**
@@ -213,7 +208,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             $attributeSetId = $this->getAttributeSetId($attributeSetId);
         }
         $name = strtolower($name);
-        return isset($this->_attributeGroupsByName[$attributeSetId][$name]) ? $this->_attributeGroupsByName[$attributeSetId][$name] : false;
+        return $this->_attributeGroupsByName[$attributeSetId][$name] ?? false;
     }
 
     /**
@@ -256,7 +251,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         $this->loadProductTypes();
 
         $name = strtolower($name);
-        return isset($this->_productTypesByName[$name]) ? $this->_productTypesByName[$name] : false;
+        return $this->_productTypesByName[$name] ?? false;
     }
 
     /**
@@ -271,7 +266,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
 
         $this->loadProductTypes();
 
-        return isset($this->_productTypesById[$id]) ? $this->_productTypesById[$id] : false;
+        return $this->_productTypesById[$id] ?? false;
     }
 
     /**

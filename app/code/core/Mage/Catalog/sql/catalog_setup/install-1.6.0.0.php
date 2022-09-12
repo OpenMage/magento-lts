@@ -12,15 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-$installer = $this;
 /** @var Mage_Catalog_Model_Resource_Setup $installer */
-
+$installer = $this;
 $installer->startSetup();
 
 /**
@@ -98,8 +97,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Catalog Product Table');
 $installer->getConnection()->createTable($table);
-
-
 
 /**
  * Create table array('catalog/product', 'datetime')
@@ -676,7 +673,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Catalog Category Table');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table array('catalog/category', 'datetime')
@@ -3823,7 +3819,6 @@ $table = $installer->getConnection()
     ], 'Product ID')
     ->setComment('Catalog Category Anchor Product Indexer Temp Table');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Modify core/url_rewrite table

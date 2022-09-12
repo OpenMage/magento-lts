@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog url rewrite resource model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -179,8 +178,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     {
         $adapter = $this->_getWriteAdapter();
         $requestPathField = new Zend_Db_Expr($adapter->quoteIdentifier('request_path'));
+        /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('eav');
         //select increment part of request path and cast expression to integer
-        $urlIncrementPartExpression = Mage::getResourceHelper('eav')
+        $urlIncrementPartExpression = $helper
             ->getCastToIntExpression($adapter->getSubstringSql(
                 $requestPathField,
                 strlen($prefix) + 1,
@@ -709,7 +710,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $select->where('main_table.entity_id IN(?)', $categoryIds);
         } else {
             // Ensure that path ends with '/', otherwise we can get wrong results - e.g. $path = '1/2' will get '1/20'
-            if (substr($path, -1) != '/') {
+            if (substr($path, -1) !== '/') {
                 $path .= '/';
             }
 
@@ -748,7 +749,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                 }
                 // Second - check non-root category - that it's really a descendant, not a simple string match
                 if ((strlen($row['path']) > $rootCategoryPathLength)
-                    && ($row['path'][$rootCategoryPathLength] != '/')) {
+                    && ($row['path'][$rootCategoryPathLength] !== '/')) {
                     continue;
                 }
             }
@@ -792,10 +793,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         }
 
         $categories = $this->_getCategories($categoryId, $storeId);
-        if (isset($categories[$categoryId])) {
-            return $categories[$categoryId];
-        }
-        return false;
+        return $categories[$categoryId] ?? false;
     }
 
     /**
@@ -1014,10 +1012,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     {
         $entityId = 0;
         $products = $this->_getProducts($productId, $storeId, 0, $entityId);
-        if (isset($products[$productId])) {
-            return $products[$productId];
-        }
-        return false;
+        return $products[$productId] ?? false;
     }
 
     /**

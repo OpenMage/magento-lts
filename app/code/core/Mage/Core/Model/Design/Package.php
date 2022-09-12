@@ -12,12 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Core_Model_Design_Package
 {
     const DEFAULT_AREA    = 'frontend';
@@ -107,7 +112,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Set store
      *
-     * @param  string|integer|Mage_Core_Model_Store $store
+     * @param  string|int|Mage_Core_Model_Store $store
      * @return $this
      */
     public function setStore($store)
@@ -126,10 +131,7 @@ class Mage_Core_Model_Design_Package
      */
     public function getStore()
     {
-        if ($this->_store === null) {
-            return Mage::app()->getStore();
-        }
-        return $this->_store;
+        return $this->_store ?? Mage::app()->getStore();
     }
 
     /**
@@ -312,7 +314,7 @@ class Mage_Core_Model_Design_Package
             $params['_package'] = $this->getPackageName();
         }
         if (empty($params['_theme'])) {
-            $params['_theme'] = $this->getTheme((isset($params['_type'])) ? $params['_type'] : '');
+            $params['_theme'] = $this->getTheme($params['_type'] ?? '');
         }
         if (empty($params['_default'])) {
             $params['_default'] = false;
@@ -327,9 +329,8 @@ class Mage_Core_Model_Design_Package
     public function getBaseDir(array $params)
     {
         $this->updateParamDefaults($params);
-        $baseDir = (empty($params['_relative']) ? Mage::getBaseDir('design').DS : '').
+        return (empty($params['_relative']) ? Mage::getBaseDir('design').DS : '').
             $params['_area'].DS.$params['_package'].DS.$params['_theme'].DS.$params['_type'];
-        return $baseDir;
     }
 
     /**
@@ -340,9 +341,8 @@ class Mage_Core_Model_Design_Package
     {
         $params['_type'] = 'skin';
         $this->updateParamDefaults($params);
-        $baseDir = (empty($params['_relative']) ? Mage::getBaseDir('skin').DS : '').
+        return (empty($params['_relative']) ? Mage::getBaseDir('skin').DS : '').
             $params['_area'].DS.$params['_package'].DS.$params['_theme'];
-        return $baseDir;
     }
 
     /**
@@ -353,10 +353,9 @@ class Mage_Core_Model_Design_Package
     {
         $params['_type'] = 'locale';
         $this->updateParamDefaults($params);
-        $baseDir = (empty($params['_relative']) ? Mage::getBaseDir('design').DS : '').
+        return (empty($params['_relative']) ? Mage::getBaseDir('design').DS : '').
             $params['_area'].DS.$params['_package'].DS.$params['_theme'] . DS . 'locale' . DS .
             Mage::app()->getLocale()->getLocaleCode();
-        return $baseDir;
     }
 
     /**
@@ -367,9 +366,8 @@ class Mage_Core_Model_Design_Package
     {
         $params['_type'] = 'skin';
         $this->updateParamDefaults($params);
-        $baseUrl = Mage::getBaseUrl('skin', isset($params['_secure'])?(bool)$params['_secure']:null)
+        return Mage::getBaseUrl('skin', isset($params['_secure'])?(bool)$params['_secure']:null)
             .$params['_area'].'/'.$params['_package'].'/'.$params['_theme'].'/';
-        return $baseUrl;
     }
 
     /**

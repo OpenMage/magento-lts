@@ -12,18 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order payment information
  *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Sales_Model_Resource_Order_Payment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment getResource()
- * @method Mage_Sales_Model_Resource_Order_Payment_Collection getCollection()()
+ * @method Mage_Sales_Model_Resource_Order_Payment_Collection getCollection()
  *
  * @method string getAccountStatus()
  * @method $this setAccountStatus(string $value)
@@ -193,10 +197,6 @@
  * @method $this unsTransactionId()
  *
  * @method $this setVoidTransactionId(string $value)
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 {
@@ -245,15 +245,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     protected $_transactionsLookup = [];
 
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix = 'sales_order_payment';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject = 'payment';
@@ -265,9 +261,6 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     protected $_transactionAdditionalInfo = [];
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('sales/order_payment');
@@ -418,7 +411,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 }
             }
         }
-        $isCustomerNotified = ($orderIsNotified !== null) ? $orderIsNotified : $order->getCustomerNoteNotify();
+        $isCustomerNotified = $orderIsNotified ?? $order->getCustomerNoteNotify();
         $message = $order->getCustomerNote();
 
         // add message if order was put into review during authorization or capture
@@ -1416,7 +1409,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Check transaction existence by specified transaction id
      *
      * @param string $txnId
-     * @return boolean
+     * @return bool
      */
     protected function _isTransactionExists($txnId = null)
     {
@@ -1681,7 +1674,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if (is_null($key)) {
             return $this->_transactionAdditionalInfo;
         }
-        return isset($this->_transactionAdditionalInfo[$key]) ? $this->_transactionAdditionalInfo[$key] : null;
+        return $this->_transactionAdditionalInfo[$key] ?? null;
     }
 
     /**

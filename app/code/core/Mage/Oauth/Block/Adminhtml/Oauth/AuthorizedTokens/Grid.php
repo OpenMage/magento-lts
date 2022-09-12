@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Oauth
+ * @category   Mage
+ * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -183,9 +183,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
         $options = $column->getOptions();
 
         $value = ($row->getCustomerId())   ?$options[1]   :$options[0];
-        $cell = $value;
-
-        return $cell;
+        return $value;
     }
 
     /**
@@ -200,15 +198,13 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
     public function decorateUserId($value, $row, $column, $isExport)
     {
         $value = ($row->getCustomerId())   ?$row->getCustomerId()   :$row->getAdminId();
-        $cell = $value;
-
-        return $cell;
+        return $value;
     }
 
     /**
      * Check admin permissions
      *
-     * @return boolean
+     * @return bool
      */
     protected function _isAllowed()
     {

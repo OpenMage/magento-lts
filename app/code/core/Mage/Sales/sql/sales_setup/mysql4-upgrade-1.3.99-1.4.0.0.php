@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var Mage_Sales_Model_Entity_Setup $installer */
@@ -784,13 +784,11 @@ $select
     ->where('entity.entity_type_code IN (?)', array_keys($entityToFlat))
     ->where('attribute.attribute_code NOT IN(?)', $excludeAttributes['all']);
 
-
 $attributes = [];
 
 foreach ($installer->getConnection()->fetchAll($select) as $attribute) {
     $attributes[$attribute['entity']][$attribute['code']] = $attribute;
 }
-
 
 $definitions = [
     'datetime' => 'datetime default null',
@@ -878,7 +876,6 @@ foreach ($entityToFlat as $entityCode => $flags) {
                     $definitions[$attribute['type']]
                 );
 
-
                 $flatFields[$attributeCode] = $definitions[$attribute['type']];
             }
 
@@ -897,7 +894,6 @@ foreach ($entityToFlat as $entityCode => $flags) {
             ->from(['e' => $entityTable], $fields);
 
         $select->where('e.entity_type_id = ?', $entityTypeId);
-
 
         $sql = $select->insertFromSelect($installer->getTable($flatTablePrefix), array_keys($fields), false) . "; \n";
 
@@ -1125,7 +1121,6 @@ if ($flag->getId()) {
     $flag->delete();
 }
 
-
 $select = $installer->getConnection()->select();
 $select->from($installer->getTable('sales/order_item'), [
         'total_item_count'   => 'COUNT(item_id)',
@@ -1144,7 +1139,6 @@ $select->reset()
 
 $installer->getConnection()->query($select->crossUpdateFromSelect(['order_table' => $installer->getTable('sales/order')]));
 $installer->getConnection()->query('DROP TEMPORARY TABLE ' . $temporaryTable);
-
 
 /**
  * Workaround for the coupon_code attribute that may be missed in the Mage_SalesRule/sql/mysql4-upgrade-0.7.10-0.7.11.php
@@ -1205,7 +1199,6 @@ foreach ($tablesToDrop as $table) {
         'DROP TABLE ' . $installer->getConnection()->quoteIdentifier($table)
     );
 }
-
 
 /* Add columns to tables */
 $tableData = [

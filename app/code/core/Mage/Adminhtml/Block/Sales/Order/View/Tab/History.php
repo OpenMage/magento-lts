@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
     extends Mage_Adminhtml_Block_Template
@@ -142,9 +142,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
             return '';
         }
         if ($dateType === 'date') {
-            return $this->helper('core')->formatDate($item['created_at'], $format);
+            return $this->formatDate($item['created_at'], $format);
         }
-        return $this->helper('core')->formatTime($item['created_at'], $format);
+        return $this->formatTime($item['created_at'], $format);
     }
 
     /**
@@ -162,7 +162,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
      * Check whether status history comment is with customer notification
      *
      * @param array $item
-     * @param boolean $isSimpleCheck
+     * @param bool $isSimpleCheck
      * @return bool
      */
     public function isItemNotified(array $item, $isSimpleCheck = true)
@@ -263,7 +263,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
     /**
      * Can Show Tab
      *
-     * @return boolean
+     * @return bool
      */
     public function canShowTab()
     {
@@ -273,7 +273,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
     /**
      * Is Hidden
      *
-     * @return boolean
+     * @return bool
      */
     public function isHidden()
     {
@@ -284,7 +284,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
      * Customer Notification Applicable check method
      *
      * @param array $historyItem
-     * @return boolean
+     * @return bool
      */
     public function isCustomerNotificationNotApplicable($historyItem)
     {

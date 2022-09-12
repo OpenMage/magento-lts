@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Wishlist sidebar block
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
 {
@@ -77,7 +76,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      *
      * It will include tax, if required by config settings.
      *
-     * @param   bool $skipTax flag for getting price with tax or not. Ignored in case when we display just subtotal incl.tax
+     * @param   bool $skipTax flag for getting price with tax or not. Ignored when we display just subtotal incl.tax
      * @return  float
      */
     public function getSubtotal($skipTax = true)
@@ -145,7 +144,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      */
     protected function _getShippingTaxAmount()
     {
-        $quote = $this->getCustomQuote() ? $this->getCustomQuote() : $this->getQuote();
+        $quote = $this->getCustomQuote() ?: $this->getQuote();
         return $quote->getShippingAddress()->getShippingTaxAmount();
     }
 
@@ -168,23 +167,28 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      */
     public function isPossibleOnepageCheckout()
     {
-        return $this->helper('checkout')->canOnepageCheckout() && !$this->getQuote()->getHasError();
+        /** @var Mage_Checkout_Helper_Data $helper */
+        $helper = $this->helper('checkout');
+        return $helper->canOnepageCheckout() && !$this->getQuote()->getHasError();
     }
 
     /**
      * Get one page checkout page url
      *
-     * @return bool
+     * @return string
      */
     public function getCheckoutUrl()
     {
-        return $this->helper('checkout/url')->getCheckoutUrl();
+        /** @var Mage_Checkout_Helper_Url $helper */
+        $helper = $this->helper('checkout/url');
+        return $helper->getCheckoutUrl();
     }
 
     /**
      * Define if Shopping Cart Sidebar enabled
      *
      * @return bool
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getIsNeedToDisplaySideBar()
     {
@@ -213,7 +217,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     public function getTotalsCache()
     {
         if (empty($this->_totals)) {
-            $quote = $this->getCustomQuote() ? $this->getCustomQuote() : $this->getQuote();
+            $quote = $this->getCustomQuote() ?: $this->getQuote();
             $this->_totals = $quote->getTotals();
         }
         return $this->_totals;
@@ -291,16 +295,6 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
             (!$quoteTags)? [] : $quoteTags,
             $this->getItemsTags($items)
         );
-    }
-
-    /**
-     * Get form key
-     *
-     * @return string
-     */
-    public function getFormKey()
-    {
-        return Mage::getSingleton('core/session')->getFormKey();
     }
 
     /**

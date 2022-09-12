@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog data helper
@@ -45,7 +44,6 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_MSRP_APPLY_TO_ALL = 'sales/msrp/apply_for_all';
     const XML_PATH_MSRP_EXPLANATION_MESSAGE = 'sales/msrp/explanation_message';
     const XML_PATH_MSRP_EXPLANATION_MESSAGE_WHATS_THIS = 'sales/msrp/explanation_message_whats_this';
-
 
     /**
      * Breadcrumb Path cache

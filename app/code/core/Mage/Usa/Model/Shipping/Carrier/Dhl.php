@@ -12,25 +12,23 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Usa
+ * @category   Mage
+ * @package    Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * DHL shipping implementation
  *
  * @category   Mage
  * @package    Mage_Usa
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Usa_Model_Shipping_Carrier_Dhl
     extends Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract
     implements Mage_Shipping_Model_Carrier_Interface
 {
-
     /**
      * Code of the carrier
      *
@@ -342,7 +340,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         $r->setDestPersonName($request->getDestPersonName());
         $r->setDestCompanyName($request->getDestCompanyName());
 
-
         if (is_numeric($request->getOrigState())) {
             $r->setOrigState(Mage::getModel('directory/region')->load($request->getOrigState())->getCode());
         } else {
@@ -604,7 +601,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
                 if ($apValue) {
                     $apCode = self::ADDITIONAL_PROTECTION_ASSET;
 
-
                     switch ($_apValueRounding) {
                         case self::ADDITIONAL_PROTECTION_ROUNDING_CEIL:
                             $apValue = ceil($apValue);
@@ -674,7 +670,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
             $extendedService = $specialServices->addChild('SpecialService');
             $extendedService->addChild('Code', $r->getExtendedService());
         }
-
 
         /*
         * R = Receiver (if receiver, need AccountNbr)
@@ -904,18 +899,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
 
         ];
 
-
         if (!isset($codes[$type])) {
             return false;
         } elseif ($code === '') {
             return $codes[$type];
         }
 
-        if (!isset($codes[$type][$code])) {
-            return false;
-        } else {
-            return $codes[$type][$code];
-        }
+        return $codes[$type][$code] ?? false;
     }
 
     /**
@@ -948,7 +938,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
                 }
             }
 
-            $data['term'] = (isset($services[$service]) ? $services[$service] : $desc);
+            $data['term'] = $services[$service] ?? $desc;
             $data['price_total'] = $this->getMethodPrice($totalEstimate, $service);
             $this->_dhlRates[] = ['service' => $service, 'data' => $data];
         }

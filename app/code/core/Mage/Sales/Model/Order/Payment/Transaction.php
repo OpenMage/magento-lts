@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,25 +23,27 @@
  * Tracks transaction history, allows to build transactions hierarchy
  * By default transactions are saved as closed.
  *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction _getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction getResource()
+ * @method Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection getCollection()()
+ * @method Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection getResourceCollection()
+ * @method string getCreatedAt()
+ * @method $this setCreatedAt(string $value)
+ * @method int getIsClosed()
+ * @method $this setIsClosed(int $value)
+ * @method $this setOrderId(int $value)
+ * @method $this setOrderUrl(string $value)
  * @method int getParentId()
  * @method $this setParentId(int $value)
- * @method $this setOrderId(int $value)
+ * @method string getParentTxnId()
  * @method int getPaymentId()
  * @method $this setPaymentId(int $value)
  * @method string getTxnId()
- * @method string getParentTxnId()
  * @method string getTxnType()
- * @method int getIsClosed()
- * @method $this setIsClosed(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method $this setOrderUrl(string $value)
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstract
 {
@@ -67,7 +69,6 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * @var Mage_Sales_Model_Order_Payment
      */
     protected $_paymentObject = null;
-
 
     /**
      * Order instance
@@ -116,31 +117,22 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     protected $_hasChild = null;
 
     /**
-     * Event object prefix
-     *
      * @see Mage_Core_Model_Absctract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'sales_order_payment_transaction';
 
     /**
-     * Event object prefix
-     *
      * @see Mage_Core_Model_Absctract::$_eventObject
      * @var string
      */
     protected $_eventObject = 'order_payment_transaction';
 
     /**
-     * Order website id
-     *
      * @var int
      */
     protected $_orderWebsiteId = null;
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('sales/order_payment_transaction');
@@ -444,7 +436,6 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         return $this;
     }
 
-
     /**
      * Additional information setter
      * Updates data inside the 'additional_information' array
@@ -480,7 +471,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             $info = [];
         }
         if ($key) {
-            return (isset($info[$key]) ? $info[$key] : null);
+            return $info[$key] ?? null;
         }
         return $info;
     }
@@ -590,7 +581,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * Set order instance for transaction depends on transaction behavior
      * If $order equals to true, method isn't loading new order instance.
      *
-     * @param Mage_Sales_Model_Order_Payment|null|boolean $order
+     * @param Mage_Sales_Model_Order_Payment|null|bool $order
      * @return $this
      */
     public function setOrder($order = null)
@@ -827,6 +818,6 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     public function getHtmlTxnId()
     {
         Mage::dispatchEvent('sales_html_txn_id', ['transaction' => $this, 'payment' => $this->_paymentObject]);
-        return isset($this->_data['html_txn_id']) ? $this->_data['html_txn_id'] : $this->getTxnId();
+        return $this->_data['html_txn_id'] ?? $this->getTxnId();
     }
 }

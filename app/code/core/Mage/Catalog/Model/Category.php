@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -156,7 +156,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Category tree model
      *
-     * @var Mage_Catalog_Model_Resource_Category_Tree.
+     * @var Mage_Catalog_Model_Resource_Category_Tree
      */
     protected $_treeModel = null;
 
@@ -173,8 +173,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     protected function _construct()
     {
         // If Flat Data enabled then use it but only on frontend
+        /** @var Mage_Catalog_Helper_Category_Flat $flatHelper */
         $flatHelper = Mage::helper('catalog/category_flat');
-        if ($flatHelper->isAvailable() && !Mage::app()->getStore()->isAdmin() && $flatHelper->isBuilt(true)
+        if ($flatHelper->isAccessible() && !Mage::app()->getStore()->isAdmin() && $flatHelper->isBuilt(true)
             && !$this->getDisableFlat()
         ) {
             $this->_init('catalog/category_flat');
@@ -221,7 +222,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * @return Mage_Catalog_Model_Resource_Category_Tree.
+     * @return Mage_Catalog_Model_Resource_Category_Tree
      */
     public function getTreeModelInstance()
     {
@@ -332,10 +333,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function getProductCollection()
     {
-        $collection = Mage::getResourceModel('catalog/product_collection')
+        return Mage::getResourceModel('catalog/product_collection')
             ->setStoreId($this->getStoreId())
             ->addCategoryFilter($this);
-        return $collection;
     }
 
     /**
@@ -448,7 +448,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      *
      * If store id is underfined for category return current active store id
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {
@@ -649,7 +649,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Get all children categories IDs
      *
-     * @param boolean $asArray return result as array instead of comma-separated list of IDs
+     * @param bool $asArray return result as array instead of comma-separated list of IDs
      * @return array|string
      */
     public function getAllChildren($asArray = false)
@@ -845,9 +845,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function getCategories($parent, $recursionLevel = 0, $sorted = false, $asCollection = false, $toLoad = true)
     {
-        $categories = $this->getResource()
+        return $this->getResource()
             ->getCategories($parent, $recursionLevel, $sorted, $asCollection, $toLoad);
-        return $categories;
     }
 
     /**

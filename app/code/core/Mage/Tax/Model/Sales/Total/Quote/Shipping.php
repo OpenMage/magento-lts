@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tax
+ * @category   Mage
+ * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Model to calculate shipping tax
  *
- * @category    Mage
- * @package     Mage_Tax
- * @author      Magento Core Team
+ * @category   Mage
+ * @package    Mage_Tax
+ * @author     Magento Core Team
  */
 class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
@@ -204,7 +204,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
         $deltas = $this->_address->getRoundingDeltas();
         $key = $type.$direction;
         $rate = (string) $rate;
-        $delta = isset($deltas[$key][$rate]) ? $deltas[$key][$rate] : 0;
+        $delta = $deltas[$key][$rate] ?? 0;
         return $this->_calculator->round($price+$delta);
     }
 
@@ -232,13 +232,12 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
      */
     protected function _getAddressTaxRequest($address)
     {
-        $addressTaxRequest = $this->_calculator->getRateRequest(
+        return $this->_calculator->getRateRequest(
             $address,
             $address->getQuote()->getBillingAddress(),
             $address->getQuote()->getCustomerTaxClassId(),
             $address->getQuote()->getStore()
         );
-        return $addressTaxRequest;
     }
 
     /**

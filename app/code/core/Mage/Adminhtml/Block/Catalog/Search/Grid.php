@@ -12,39 +12,37 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * description
- *
  * @category    Mage
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
      * Init Grid default properties
-     *
      */
     public function __construct()
     {
         parent::__construct();
         $this->setId('catalog_search_grid');
-        $this->setDefaultSort('name');
-        $this->setDefaultDir('ASC');
+        $this->setDefaultSort('query_id');
+        $this->setDefaultDir('asc');
         $this->setSaveParametersInSession(true);
     }
 
     /**
      * Prepare collection for Grid
      *
-     * @return $this
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _prepareCollection()
     {
@@ -57,15 +55,16 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Prepare Grid columns
      *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
-        /*$this->addColumn('query_id', array(
+        $this->addColumn('query_id', array(
             'header'    => Mage::helper('catalog')->__('ID'),
             'width'     => '50px',
             'index'     => 'query_id',
-        ));*/
+        ));
 
         $this->addColumn('search_query', [
             'header'    => Mage::helper('catalog')->__('Search Query'),
@@ -143,7 +142,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Prepare grid massaction actions
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {
@@ -162,11 +161,11 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Retrieve Row Click callback URL
      *
+     * @param Mage_CatalogSearch_Model_Query $row
      * @return string
      */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
-
 }

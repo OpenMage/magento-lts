@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product url rewrite helper
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Product_Url_Rewrite implements Mage_Catalog_Helper_Product_Url_Rewrite_Interface
 {
@@ -63,14 +63,13 @@ class Mage_Catalog_Helper_Product_Url_Rewrite implements Mage_Catalog_Helper_Pro
      */
     public function getTableSelect(array $productIds, $categoryId, $storeId)
     {
-        $select = $this->_connection->select()
+        return $this->_connection->select()
             ->from($this->_resource->getTableName('core/url_rewrite'), ['product_id', 'request_path'])
             ->where('store_id = ?', (int)$storeId)
             ->where('is_system = ?', 1)
             ->where('category_id = ? OR category_id IS NULL', (int)$categoryId)
             ->where('product_id IN(?)', $productIds)
             ->order('category_id ' . Varien_Data_Collection::SORT_ORDER_DESC);
-        return $select;
     }
 
     /**

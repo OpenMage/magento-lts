@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Review
+ * @category   Mage
+ * @package    Mage_Review
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Review resource model
  *
- * @category    Mage
- * @package     Mage_Review
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Review
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -79,7 +78,6 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
 
     /**
      * Define main table. Define other tables name
-     *
      */
     protected function _construct()
     {
@@ -163,7 +161,6 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
             $detail['review_id']  = $object->getId();
             $adapter->insert($this->_reviewDetailTable, $detail);
         }
-
 
         /**
          * save stores

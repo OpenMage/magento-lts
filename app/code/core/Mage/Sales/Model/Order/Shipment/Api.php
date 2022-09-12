@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -111,8 +111,8 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      * @param string $orderIncrementId
      * @param array $itemsQty
      * @param string $comment
-     * @param boolean $email
-     * @param boolean $includeComment
+     * @param bool $email
+     * @param bool $includeComment
      * @return string
      */
     public function create(
@@ -210,7 +210,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      *
      * @param string $shipmentIncrementId
      * @param int $trackId
-     * @return boolean
+     * @return bool
      */
     public function removeTrack($shipmentIncrementId, $trackId)
     {
@@ -298,9 +298,9 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      *
      * @param string $shipmentIncrementId
      * @param string $comment
-     * @param boolean $email
-     * @param boolean $includeInEmail
-     * @return boolean
+     * @param bool $email
+     * @param bool $includeInEmail
+     * @return bool
      */
     public function addComment($shipmentIncrementId, $comment, $email = false, $includeInEmail = false)
     {
@@ -309,7 +309,6 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
         if (!$shipment->getId()) {
             $this->_fault('not_exists');
         }
-
 
         try {
             $shipment->addComment($comment, $email);

@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_ImportExport
+ * @category   Mage
+ * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Export entity abstract model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @property array $_invalidRows
  */
@@ -35,7 +35,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      * @var array
      */
     protected $_attributeValues = [];
-
 
     /**
      * Attribute code to its values. Only attributes with options and only default store values used.
@@ -170,9 +169,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      */
     protected $_websiteIdToCode = [];
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         $entityCode = $this->getEntityTypeCode();

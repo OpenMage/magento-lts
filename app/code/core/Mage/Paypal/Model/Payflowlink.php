@@ -12,20 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payflow Link payment gateway model
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
 {
     /**
@@ -159,6 +158,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @param string $paymentAction
      * @param Varien_Object $stateObject
+     * @return $this
      */
     public function initialize($paymentAction, $stateObject)
     {
@@ -185,12 +185,13 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             default:
                 break;
         }
+        return $this;
     }
 
     /**
      * Return response model.
      *
-     * @return Mage_Mage_Paypal_Model_Payflow_Request
+     * @return Mage_Paypal_Model_Payflow_Request
      */
     public function getResponse()
     {
@@ -392,7 +393,6 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             //->setTaxamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseTaxAmount()))
             //->setFreightamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseShippingAmount()));
 
-
         $order = $payment->getOrder();
         if (empty($order)) {
             return $request;
@@ -489,6 +489,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             case Mage_Paypal_Model_Config::PAYMENT_ACTION_SALE:
                 return self::TRXTYPE_SALE;
         }
+        return '';
     }
 
     /**

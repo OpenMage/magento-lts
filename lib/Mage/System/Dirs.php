@@ -70,7 +70,6 @@ class Mage_System_Dirs
         return true;
     }
 
-
     public static function mkdirStrict($path, $recursive = true, $mode = 0777)
     {
         $exists = file_exists($path);

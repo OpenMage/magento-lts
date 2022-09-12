@@ -12,22 +12,87 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Core configuration class
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 {
+    const MAGE_MODULES = [
+        'Mage_Core' => 0,
+        'Mage_Eav' => 1,
+        'Mage_Page' => 2,
+        'Mage_Install' => 3,
+        'Mage_Admin' => 4,
+        'Mage_Rule' => 5,
+        'Mage_Adminhtml' => 6,
+        'Mage_AdminNotification' => 7,
+        'Mage_Cron' => 8,
+        'Mage_Directory' => 9,
+        'Mage_Dataflow' => 10,
+        'Mage_Index' => 11,
+        'Mage_Uploader' => 12,
+        'Mage_Customer' => 13,
+        'Mage_Cms' => 14,
+        'Mage_Catalog' => 15,
+        'Mage_CatalogRule' => 16,
+        'Mage_CatalogIndex' => 17,
+        'Mage_CatalogSearch' => 18,
+        'Mage_Payment' => 19,
+        'Mage_Sales' => 20,
+        'Mage_CatalogInventory' => 21,
+        'Mage_Shipping' => 22,
+        'Mage_SalesRule' => 23,
+        'Mage_Usa' => 24,
+        'Mage_Paygate' => 25,
+        'Mage_Backup' => 26,
+        'Mage_Checkout' => 27,
+        'Mage_Paypal' => 28,
+        'Mage_GoogleCheckout' => 29,
+        'Mage_Log' => 30,
+        'Mage_Poll' => 31,
+        'Mage_Review' => 32,
+        'Mage_Rating' => 33,
+        'Mage_Tag' => 34,
+        'Mage_Reports' => 35,
+        'Mage_GoogleAnalytics' => 36,
+        'Mage_Widget' => 37,
+        'Mage_Tax' => 38,
+        'Mage_Wishlist' => 39,
+        'Mage_Media' => 40,
+        'Mage_PaypalUk' => 41,
+        'Mage_Contacts' => 42,
+        'Mage_GiftMessage' => 43,
+        'Mage_Sendfriend' => 44,
+        'Mage_Sitemap' => 45,
+        'Mage_Rss' => 46,
+        'Mage_ProductAlert' => 47,
+        'Mage_Api' => 48,
+        'Mage_Oauth' => 49,
+        'Mage_Authorizenet' => 50,
+        'Mage_Bundle' => 51,
+        'Mage_Captcha' => 52,
+        'Mage_Centinel' => 53,
+        'Mage_ConfigurableSwatches' => 54,
+        'Mage_Newsletter' => 55,
+        'Mage_Downloadable' => 56,
+        'Mage_ImportExport' => 57,
+        'Mage_Api2' => 58,
+        'Mage_PageCache' => 59,
+        'Mage_Persistent' => 60,
+        'Mage_Weee' => 61,
+        'Mage_CurrencySymbol' => 62
+    ];
+
     const CACHE_TAG         = 'CONFIG';
 
     /**
@@ -115,7 +180,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Resource model
      * Used for operations with DB
      *
-     * @var Mage_Core_Model_Mysql4_Config
+     * @var Mage_Core_Model_Resource_Config
      */
     protected $_resourceModel;
 
@@ -162,7 +227,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     protected $_isLocalConfigLoaded = false;
 
     /**
-     * Depricated properties
+     * Deprecated properties
      *
      * @deprecated
      */
@@ -543,8 +608,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $this->reinit($this->_options);
             return false;
         } else {
-            $xml = simplexml_load_string($xmlString, $this->_elementClass);
-            return $xml;
+            return simplexml_load_string($xmlString, $this->_elementClass);
         }
     }
 
@@ -711,7 +775,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         return parent::setNode($path, $value, $overwrite);
     }
 
-
     /**
      * Retrieve Declared Module file list
      *
@@ -727,7 +790,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
 
         $collectModuleFiles = [
-            'base'   => [],
             'mage'   => [],
             'custom' => []
         ];
@@ -736,17 +798,16 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $name = explode(DIRECTORY_SEPARATOR, $v);
             $name = substr($name[count($name) - 1], 0, -4);
 
-            if ($name == 'Mage_All') {
-                $collectModuleFiles['base'][] = $v;
-            } elseif (substr($name, 0, 5) == 'Mage_') {
-                $collectModuleFiles['mage'][] = $v;
+            if (array_key_exists($name, self::MAGE_MODULES)) {
+                $collectModuleFiles['mage'][self::MAGE_MODULES[$name]] = $v;
             } else {
                 $collectModuleFiles['custom'][] = $v;
             }
         }
 
+        ksort($collectModuleFiles['mage']);
+
         return array_merge(
-            $collectModuleFiles['base'],
             $collectModuleFiles['mage'],
             $collectModuleFiles['custom']
         );
@@ -789,8 +850,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Load declared modules configuration
      *
-     * @param   null $mergeConfig depricated
-     * @return  $this|void
+     * @param null $mergeConfig deprecated
+     * @return $this|void
      */
     protected function _loadDeclaredModules($mergeConfig = null)
     {
@@ -1179,7 +1240,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Load event observers for an area (front, admin)
      *
      * @param   string $area
-     * @return  boolean
+     * @return bool
      */
     public function loadEventObservers($area)
     {
@@ -1373,11 +1434,12 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Example:
      * $config->getModelInstance('catalog/product')
      *
-     * Will instantiate Mage_Catalog_Model_Mysql4_Product
+     * Will instantiate Mage_Catalog_Model_Resource_Product
      *
      * @param string $modelClass
      * @param array|object $constructArguments
      * @return Mage_Core_Model_Abstract|false
+     * @see Mage_Catalog_Model_Resource_Product
      */
     public function getModelInstance($modelClass = '', $constructArguments = [])
     {

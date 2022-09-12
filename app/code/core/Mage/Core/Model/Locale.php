@@ -12,16 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Locale model
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Locale
 {
@@ -540,8 +542,8 @@ class Mage_Core_Model_Locale
      * Create Zend_Date object with date converted to store timezone and store Locale
      *
      * @param   null|string|bool|int|Mage_Core_Model_Store $store Information about store
-     * @param   string|integer|Zend_Date|array|null $date date in UTC
-     * @param   boolean $includeTime flag for including time to date
+     * @param   string|int|Zend_Date|array|null $date date in UTC
+     * @param   bool $includeTime flag for including time to date
      * @param   string|null $format
      * @return  Zend_Date
      */
@@ -564,8 +566,8 @@ class Mage_Core_Model_Locale
      * or in format which was passed as parameter.
      *
      * @param mixed $store Information about store
-     * @param string|integer|Zend_Date|array|null $date date in store's timezone
-     * @param boolean $includeTime flag for including time to date
+     * @param string|int|Zend_Date|array|null $date date in store's timezone
+     * @param bool $includeTime flag for including time to date
      * @param null|string $format
      * @return Zend_Date
      */
@@ -719,7 +721,7 @@ class Mage_Core_Model_Locale
         }
         $integerRequired = (strpos($format, '.') - strpos($format, '0'));
 
-        $result = [
+        return [
             'pattern' => Mage::app()->getStore()->getCurrentCurrency()->getOutputFormat(),
             'precision' => $totalPrecision,
             'requiredPrecision' => $requiredPrecision,
@@ -728,8 +730,6 @@ class Mage_Core_Model_Locale
             'groupLength' => $group,
             'integerRequired' => $integerRequired
         ];
-
-        return $result;
     }
 
     /**

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Poll
+ * @category   Mage
+ * @package    Mage_Poll
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var Mage_Core_Model_Resource_Setup $installer */
@@ -50,7 +50,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_POLL_ANSWER'
 );
 
-
 /**
  * Drop indexes
  */
@@ -73,7 +72,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('poll/poll_vote'),
     'FK_POLL_ANSWER'
 );
-
 
 /**
  * Change columns
@@ -240,7 +238,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -267,7 +264,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('poll/poll_vote', ['poll_answer_id']),
     ['poll_answer_id']
 );
-
 
 /**
  * Add foreign keys

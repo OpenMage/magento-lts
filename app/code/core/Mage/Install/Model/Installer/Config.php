@@ -12,16 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Install
+ * @category   Mage
+ * @package    Mage_Install
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Config installer
+ *
  * @category   Mage
  * @package    Mage_Install
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_Abstract
 {
@@ -111,7 +113,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
         $connectDefault = Mage::getConfig()
                 ->getResourceConnectionConfig(Mage_Core_Model_Resource::DEFAULT_SETUP_RESOURCE);
 
-        $data = Mage::getModel('varien/object')
+        return Mage::getModel('varien/object')
             ->setDbHost($connectDefault->host)
             ->setDbName($connectDefault->dbname)
             ->setDbUser($connectDefault->username)
@@ -120,9 +122,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
             ->setSecureBaseUrl($baseSecureUrl)
             ->setUnsecureBaseUrl($baseUrl)
             ->setAdminFrontname('admin')
-            ->setEnableCharts('1')
-        ;
-        return $data;
+            ->setEnableCharts('1');
     }
 
     /**

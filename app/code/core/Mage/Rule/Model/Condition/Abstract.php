@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Rule
+ * @category   Mage
+ * @package    Mage_Rule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Abstract Rule condition data model
  *
- * @category Mage
- * @package Mage_Rule
- * @author Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Rule
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string|false getAttribute()
  * @method $this setAttribute(string|false $value)
@@ -174,14 +173,13 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function asArray(array $arrAttributes = [])
     {
-        $out = [
+        return [
             'type'               => $this->getType(),
             'attribute'          => $this->getAttribute(),
             'operator'           => $this->getOperator(),
             'value'              => $this->getValue(),
             'is_value_processed' => $this->getIsValueParsed(),
         ];
-        return $out;
     }
 
     /**
@@ -189,11 +187,10 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function asXml()
     {
-        $xml = '<type>' . $this->getType() . '</type>'
+        return '<type>' . $this->getType() . '</type>'
             . '<attribute>' . $this->getAttribute() . '</attribute>'
             . '<operator>' . $this->getOperator() . '</operator>'
             . '<value>' . $this->getValue() . '</value>';
-        return $xml;
     }
 
     /**
@@ -203,10 +200,10 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function loadArray($arr)
     {
         $this->setType($arr['type']);
-        $this->setAttribute(isset($arr['attribute']) ? $arr['attribute'] : false);
-        $this->setOperator(isset($arr['operator']) ? $arr['operator'] : false);
-        $this->setValue(isset($arr['value']) ? $arr['value'] : false);
-        $this->setIsValueParsed(isset($arr['is_value_parsed']) ? $arr['is_value_parsed'] : false);
+        $this->setAttribute($arr['attribute'] ?? false);
+        $this->setOperator($arr['operator'] ?? false);
+        $this->setValue($arr['value'] ?? false);
+        $this->setIsValueParsed($arr['is_value_parsed'] ?? false);
 
         return $this;
     }
@@ -274,16 +271,13 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * This value will define which operators will be available for this condition.
      *
-     * Possible values are: string, numeric, date, select, multiselect, grid, boolean
+     * Possible values are: string, numeric, date, select, multiselect, grid, bool
      *
      * @return string
      */
     public function getInputType()
     {
-        if ($this->_inputType === null) {
-            return 'string';
-        }
-        return $this->_inputType;
+        return $this->_inputType ?? 'string';
     }
 
     /**
@@ -460,13 +454,12 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function asHtml()
     {
-        $html = $this->getTypeElementHtml()
+        return $this->getTypeElementHtml()
            .$this->getAttributeElementHtml()
            .$this->getOperatorElementHtml()
            .$this->getValueElementHtml()
            .$this->getRemoveLinkHtml()
            .$this->getChooserContainerHtml();
-        return $html;
     }
 
     /**
@@ -474,8 +467,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function asHtmlRecursive()
     {
-        $html = $this->asHtml();
-        return $html;
+        return $this->asHtml();
     }
 
     /**
@@ -633,10 +625,9 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function getAddLinkHtml()
     {
         $src = Mage::getDesign()->getSkinUrl('images/rule_component_add.gif');
-        $html = '<img src="' . $src . '" class="rule-param-add v-middle" alt="" title="'
+        return '<img src="' . $src . '" class="rule-param-add v-middle" alt="" title="'
             . Mage::helper('core')->quoteEscape(Mage::helper('rule')->__('Add'))
             . '"/>';
-        return $html;
     }
 
     /**
@@ -645,10 +636,9 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function getRemoveLinkHtml()
     {
         $src = Mage::getDesign()->getSkinUrl('images/rule_component_remove.gif');
-        $html = ' <span class="rule-param"><a href="javascript:void(0)" class="rule-param-remove" title="'
+        return ' <span class="rule-param"><a href="javascript:void(0)" class="rule-param-remove" title="'
             . Mage::helper('core')->quoteEscape(Mage::helper('rule')->__('Remove'))
             . '"><img src="' . $src . '"  alt="" class="v-middle" /></a></span>';
-        return $html;
     }
 
     /**
@@ -670,8 +660,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function asString($format = '')
     {
-        $str = $this->getAttributeName() . ' ' . $this->getOperatorName() . ' ' . $this->getValueName();
-        return $str;
+        return $this->getAttributeName() . ' ' . $this->getOperatorName() . ' ' . $this->getValueName();
     }
 
     /**
@@ -680,8 +669,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function asStringRecursive($level = 0)
     {
-        $str = str_pad('', $level * 3, ' ', STR_PAD_LEFT) . $this->asString();
-        return $str;
+        return str_pad('', $level * 3, ' ', STR_PAD_LEFT) . $this->asString();
     }
 
     /**

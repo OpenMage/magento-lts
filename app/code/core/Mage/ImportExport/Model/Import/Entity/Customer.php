@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_ImportExport
+ * @category   Mage
+ * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import entity customer model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_Model_Import_Entity_Abstract
 {
@@ -101,7 +101,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Customer account sharing. TRUE - is global, FALSE - is per website.
      *
-     * @var boolean
+     * @var bool
      */
     protected $_customerGlobal;
 
@@ -208,9 +208,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      */
     protected $_websiteIdToCode = [];
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         parent::__construct();
@@ -290,7 +287,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 'options'     => $this->getAttributeOptions($attribute)
             ];
             $this->_attributes[$attribute->getAttributeCode()] = $attributeArray;
-            if (Mage_ImportExport_Model_Import::getAttributeType($attribute) == 'multiselect') {
+            if (Mage_ImportExport_Model_Import::getAttributeType($attribute) === 'multiselect') {
                 $this->_multiSelectAttributes[$attribute->getAttributeCode()] = $attributeArray;
             }
         }
@@ -368,7 +365,9 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         $resource       = Mage::getModel('customer/customer');
         $strftimeFormat = Varien_Date::convertZendToStrftime(Varien_Date::DATETIME_INTERNAL_FORMAT, true, true);
         $table = $resource->getResource()->getEntityTable();
-        $nextEntityId   = Mage::getResourceHelper('importexport')->getNextAutoincrement($table);
+        /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
+        $helper         = Mage::getResourceHelper('importexport');
+        $nextEntityId   = $helper->getNextAutoincrement($table);
         $passId         = $resource->getAttribute('password_hash')->getId();
         $passTable      = $resource->getAttribute('password_hash')->getBackend()->getTable();
         $multiSelect    = [];
@@ -421,11 +420,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                             $backModel  = $attribute->getBackendModel();
                             $attrParams = $this->_attributes[$attrCode];
 
-                            if ($attrParams['type'] == 'select') {
+                            if ($attrParams['type'] === 'select') {
                                 $value = $attrParams['options'][strtolower($value)];
-                            } elseif ($attrParams['type'] == 'datetime') {
+                            } elseif ($attrParams['type'] === 'datetime') {
                                 $value = gmstrftime($strftimeFormat, strtotime($value));
-                            } elseif ($attrParams['type'] == 'multiselect') {
+                            } elseif ($attrParams['type'] === 'multiselect') {
                                 $value = (array)$attrParams['options'][strtolower($value)];
                                 $attribute->getBackend()->beforeSave($resource->setData($attrCode, $value));
                                 $value = $resource->getData($attrCode);
@@ -448,7 +447,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                     foreach (array_intersect_key($rowData, $this->_attributes) as $attrCode => $value) {
                         $attribute  = $resource->getAttribute($attrCode);
                         $attrParams = $this->_attributes[$attrCode];
-                        if ($attrParams['type'] == 'multiselect') {
+                        if ($attrParams['type'] === 'multiselect') {
                             if (!isset($attrParams['options'][strtolower($value)])) {
                                 continue;
                             }
@@ -588,7 +587,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      *
      * @param array $rowData
      * @param int $rowNum
-     * @return boolean
+     * @return bool
      */
     public function validateRow(array $rowData, $rowNum)
     {
@@ -605,7 +604,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         if (self::SCOPE_DEFAULT == $rowScope) {
             $this->_processedEntitiesCount ++;
         }
-
 
         $email        = $rowData[self::COL_EMAIL];
         $emailToLower = strtolower($rowData[self::COL_EMAIL]);

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Review
+ * @category   Mage
+ * @package    Mage_Review
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var Mage_Core_Model_Resource_Setup $installer */
@@ -70,7 +70,6 @@ $installer->getConnection()->dropForeignKey(
     'REVIEW_STORE_IBFK_1'
 );
 
-
 /**
  * Drop indexes
  */
@@ -113,7 +112,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('review/review_aggregate'),
     'FK_REVIEW_ENTITY_SUMMARY_STORE'
 );
-
 
 /**
  * Change columns
@@ -313,7 +311,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -364,7 +361,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('review/review_store', ['store_id']),
     ['store_id']
 );
-
 
 /**
  * Add foreign keys

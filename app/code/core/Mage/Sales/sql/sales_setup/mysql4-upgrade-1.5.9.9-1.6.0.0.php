@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var Mage_Sales_Model_Entity_Setup $installer */
@@ -369,7 +369,6 @@ $installer->getConnection()->dropForeignKey(
     $installer->getTable('sales/shipping_aggregated_order'),
     'FK_SALES_SHIPPING_AGGREGATED_ORDER_STORE'
 );
-
 
 /**
  * Drop indexes
@@ -1068,7 +1067,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('sales/shipping_aggregated_order'),
     'IDX_STORE_ID'
 );
-
 
 /**
  * Change columns
@@ -6692,7 +6690,6 @@ $installer->getConnection()->changeColumn(
     ]
 );
 
-
 /**
  * Add indexes
  */
@@ -7623,7 +7620,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('sales/shipping_aggregated_order', ['store_id']),
     ['store_id']
 );
-
 
 /**
  * Add foreign keys

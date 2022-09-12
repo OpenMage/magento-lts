@@ -12,23 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * System config form block
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widget_Form
 {
-
     const SCOPE_DEFAULT = 'default';
     const SCOPE_WEBSITES = 'websites';
     const SCOPE_STORES   = 'stores';
@@ -546,7 +544,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * @param Varien_Simplexml_Element $a
      * @param Varien_Simplexml_Element $b
-     * @return boolean
+     * @return bool
      */
     protected function _sortForm($a, $b)
     {
@@ -556,7 +554,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
     /**
      * @param Varien_Simplexml_Element $field
-     * @return boolean
+     * @return bool
      */
     public function canUseDefaultValue($field)
     {
@@ -571,7 +569,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
     /**
      * @param Varien_Simplexml_Element $field
-     * @return boolean
+     * @return bool
      */
     public function canUseWebsiteValue($field)
     {
@@ -731,5 +729,4 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     {
         return $this->getRequest()->getParam('store', '');
     }
-
 }

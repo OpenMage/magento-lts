@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tax
+ * @category   Mage
+ * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -274,7 +274,6 @@ class Mage_Tax_Model_Config
         return $this->_needUseShippingExcludeTax;
     }
 
-
     /**
      * Get defined tax calculation agorithm
      *
@@ -335,7 +334,6 @@ class Mage_Tax_Model_Config
         $this->_shippingPriceIncludeTax = $flag;
         return $this;
     }
-
 
     /**
      * Check if need display full tax summary information in totals block

@@ -12,32 +12,27 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Flat sales order resource
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Abstract
 {
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix                  = 'sales_order_resource';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject                  = 'resource';
@@ -50,9 +45,7 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
     protected $_grid                         = true;
 
     /**
-     * Use increment id
-     *
-     * @var boolean
+     * @var bool
      */
     protected $_useIncrementId               = true;
 
@@ -63,10 +56,6 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
      */
     protected $_entityCodeForIncrementId     = 'order';
 
-    /**
-     * Model Initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('sales/order', 'entity_id');

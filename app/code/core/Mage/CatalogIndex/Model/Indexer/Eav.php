@@ -12,15 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogIndex
+ * @category   Mage
+ * @package    Mage_CatalogIndex
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog indexer eav processor
+ *
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Eav _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Eav getResource()
@@ -31,10 +34,6 @@
  * @method Mage_CatalogIndex_Model_Indexer_Eav setStoreId(int $value)
  * @method int getValue()
  * @method Mage_CatalogIndex_Model_Indexer_Eav setValue(int $value)
- *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
@@ -95,12 +94,6 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
      */
     protected function _getIndexableAttributeConditions()
     {
-        $conditions = "main_table.frontend_input IN ('select', 'multiselect') AND (additional_table.is_filterable IN (1, 2) OR additional_table.is_visible_in_advanced_search = 1)";
-        return $conditions;
-
-        $conditions = [];
-        $conditions['frontend_input'] = ['select', 'multiselect'];
-        $conditions['or']['is_filterable'] = [1, 2];
-        $conditions['or']['is_visible_in_advanced_search'] = 1;
+        return "main_table.frontend_input IN ('select', 'multiselect') AND (additional_table.is_filterable IN (1, 2) OR additional_table.is_visible_in_advanced_search = 1)";
     }
 }

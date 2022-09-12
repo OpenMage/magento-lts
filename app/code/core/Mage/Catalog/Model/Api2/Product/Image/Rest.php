@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -119,7 +119,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
      */
     protected function _formatImageData($image)
     {
-        $result = [
+        return [
             'id'        => $image['value_id'],
             'label'     => $image['label'],
             'position'  => $image['position'],
@@ -127,7 +127,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
             'url'       => $this->_getMediaConfig()->getMediaUrl($image['file']),
             'types'     => $this->_getImageTypesAssignedToProduct($image['file'])
         ];
-        return $result;
     }
 
     /**

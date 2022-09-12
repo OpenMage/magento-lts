@@ -12,21 +12,20 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Product collection
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @method Mage_Catalog_Model_Product getItemById(int|string $value)
+ * @method Mage_Catalog_Model_Product getItemById($value)
  * @method Mage_Catalog_Model_Product[] getItems()
  */
 class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Collection_Abstract
@@ -330,8 +329,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         }
         $storeId = $this->getStoreId();
         if (!isset($this->_flatEnabled[$storeId])) {
+            /** @var Mage_Catalog_Helper_Product_Flat $flatHelper */
             $flatHelper = $this->getFlatHelper();
-            $this->_flatEnabled[$storeId] = $flatHelper->isAvailable() && $flatHelper->isBuilt($storeId);
+            $this->_flatEnabled[$storeId] = $flatHelper->isAccessible() && $flatHelper->isBuilt($storeId);
         }
         return $this->_flatEnabled[$storeId];
     }
@@ -578,7 +578,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Add collection filters by identifiers
      *
      * @param mixed $productId
-     * @param boolean $exclude
+     * @param bool $exclude
      * @return $this
      */
     public function addIdFilter($productId, $exclude = false)
@@ -753,11 +753,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             ->group('e.entity_type_id');
 
         $data = $this->getConnection()->fetchRow($select);
-        if (isset($data[$fieldAlias])) {
-            return $data[$fieldAlias];
-        }
-
-        return null;
+        return $data[$fieldAlias] ?? null;
     }
 
     /**
@@ -803,7 +799,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Retrieve product count by some value of attribute
      *
      * @param string $attribute
-     * @return array($value=>$count)
+     * @return array ($value=>$count)
      */
     public function getAttributeValueCount($attribute)
     {
@@ -1056,10 +1052,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         }
 
         foreach ($categoryCollection as $category) {
-            $_count = 0;
-            if (isset($productCounts[$category->getId()])) {
-                $_count = $productCounts[$category->getId()];
-            }
+            $_count = $productCounts[$category->getId()] ?? 0;
             $category->setProductCount($_count);
         }
 
@@ -1306,7 +1299,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Retrieve all ids
      *
-     * @param boolean $resetCache
+     * @param bool $resetCache
      * @return array
      */
     public function getAllIdsCache($resetCache = false)
@@ -1705,7 +1698,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             );
         }
         // Avoid column duplication problems
-        Mage::getResourceHelper('core')->prepareColumnsList($this->getSelect());
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('core');
+        $helper->prepareColumnsList($this->getSelect());
 
         $whereCond = implode(' OR ', [
             $this->getConnection()->quoteInto('cat_index.visibility IN(?)', $filters['visibility']),
@@ -1753,6 +1748,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             return $this;
         }
 
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
         $helper     = Mage::getResourceHelper('core');
         $connection = $this->getConnection();
         $select     = $this->getSelect();
@@ -1789,7 +1785,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         //Clean duplicated fields
         $helper->prepareColumnsList($select);
 
-
         return $this;
     }
 
@@ -1825,9 +1820,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     {
         Mage::dispatchEvent('catalog_product_collection_apply_limitations_before', [
             'collection'  => $this,
-            'category_id' => isset($this->_productLimitationFilters['category_id'])
-                ? $this->_productLimitationFilters['category_id']
-                : null,
+            'category_id' => $this->_productLimitationFilters['category_id'] ?? null,
         ]);
         $this->_prepareProductLimitationFilters();
         $this->_productLimitationJoinWebsite();
@@ -1944,7 +1937,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $categoryIds[$info['product_id']] = [$info['category_id']];
             }
         }
-
 
         foreach ($this->getItems() as $item) {
             $productId = $item->getId();
@@ -2142,7 +2134,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         return $this->_priceStandardDeviation;
     }
-
 
     /**
      * Get count of product prices

@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Product Compare Helper
@@ -92,18 +91,12 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function __construct(array $data = [])
     {
-        $this->_logCondition = isset($data['log_condition'])
-            ? $data['log_condition'] : Mage::helper('log');
-        $this->_catalogSession = isset($data['catalog_session'])
-            ? $data['catalog_session'] : Mage::getSingleton('catalog/session');
-        $this->_customerSession = isset($data['customer_session'])
-            ? $data['customer_session'] : Mage::getSingleton('customer/session');
-        $this->_coreSession = isset($data['core_session'])
-            ? $data['core_session'] :  Mage::getSingleton('core/session');
-        $this->_productVisibility = isset($data['product_visibility'])
-            ? $data['product_visibility'] : Mage::getSingleton('catalog/product_visibility');
-        $this->_logVisitor = isset($data['log_visitor'])
-            ? $data['log_visitor'] : Mage::getSingleton('log/visitor');
+        $this->_logCondition = $data['log_condition'] ?? Mage::helper('log');
+        $this->_catalogSession = $data['catalog_session'] ?? Mage::getSingleton('catalog/session');
+        $this->_customerSession = $data['customer_session'] ?? Mage::getSingleton('customer/session');
+        $this->_coreSession = $data['core_session'] ?? Mage::getSingleton('core/session');
+        $this->_productVisibility = $data['product_visibility'] ?? Mage::getSingleton('catalog/product_visibility');
+        $this->_logVisitor = $data['log_visitor'] ?? Mage::getSingleton('log/visitor');
     }
 
     /**

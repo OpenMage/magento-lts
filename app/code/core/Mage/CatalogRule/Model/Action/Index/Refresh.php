@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogRule
+ * @category   Mage
+ * @package    Mage_CatalogRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog rule indexer
  *
- * @category    Mage
- * @package     Mage_CatalogRule
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_CatalogRule
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogRule_Model_Action_Index_Refresh
 {
@@ -507,7 +507,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                 ]
             );
 
-        $select = $this->_connection->select()
+        return $this->_connection->select()
             ->from($indexSelect, [])
             ->joinInner(
                 [
@@ -555,8 +555,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                 )
             )
             ->group(['customer_group_id', 'product_id', 'dates.rule_date', 'website_id']);
-
-        return $select;
     }
 
     /**

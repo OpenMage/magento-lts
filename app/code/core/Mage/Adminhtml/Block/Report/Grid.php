@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,9 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Reports_Model_Resource_Report_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -174,7 +176,6 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         // reset array keys
         $storeIds = array_values($storeIds);
 
-
         $collection->setStoreIds($storeIds);
 
         if ($this->getSubReportSize() !== null) {
@@ -201,7 +202,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Set visibility of store switcher
      *
-     * @param boolean $visible
+     * @param bool $visible
      */
     public function setStoreSwitcherVisibility($visible=true)
     {
@@ -211,7 +212,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Return visibility of store switcher
      *
-     * @return boolean
+     * @return bool
      */
     public function getStoreSwitcherVisibility()
     {
@@ -231,7 +232,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Set visibility of date filter
      *
-     * @param boolean $visible
+     * @param bool $visible
      */
     public function setDateFilterVisibility($visible=true)
     {
@@ -241,7 +242,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Return visibility of date filter
      *
-     * @return boolean
+     * @return bool
      */
     public function getDateFilterVisibility()
     {
@@ -251,7 +252,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Set visibility of export action
      *
-     * @param boolean $visible
+     * @param bool $visible
      */
     public function setExportVisibility($visible=true)
     {
@@ -261,7 +262,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Return visibility of export action
      *
-     * @return boolean
+     * @return bool
      */
     public function getExportVisibility()
     {
@@ -271,7 +272,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Set visibility of subtotals
      *
-     * @param boolean $visible
+     * @param bool $visible
      */
     public function setSubtotalVisibility($visible=true)
     {
@@ -281,7 +282,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Return visibility of subtotals
      *
-     * @return boolean
+     * @return bool
      */
     public function getSubtotalVisibility()
     {
@@ -396,7 +397,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
          * recalc totals if we have average
          */
         foreach ($this->getColumns() as $key=>$_column) {
-            if (strpos($_column->getTotal(), '/') !== FALSE) {
+            if (strpos($_column->getTotal(), '/') !== false) {
                 list($t1, $t2) = explode('/', $_column->getTotal());
                 if ($this->getGrandTotals()->getData($t2) != 0) {
                     $this->getGrandTotals()->setData(
@@ -487,7 +488,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Retrieve grid as Excel Xml
      *
-     * @return unknown
+     * @return mixed
      */
     public function getExcel($filename = '')
     {
@@ -546,21 +547,33 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return $xmlObj->getData();
     }
 
+    /**
+     * @return string
+     */
     public function getSubtotalText()
     {
         return $this->__('Subtotal');
     }
 
+    /**
+     * @return string
+     */
     public function getTotalText()
     {
         return $this->__('Total');
     }
 
+    /**
+     * @return string
+     */
     public function getEmptyText()
     {
         return $this->__('No records found for this period.');
     }
 
+    /**
+     * @return bool
+     */
     public function getCountTotals()
     {
         $totals = $this->getGrandTotals()->getData();

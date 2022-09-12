@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Setup Model of Sales Module
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
 {
@@ -148,7 +147,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     protected function _getAttributeColumnDefinition($code, $data)
     {
         // Convert attribute type to column info
-        $data['type'] = isset($data['type']) ? $data['type'] : 'varchar';
+        $data['type'] = $data['type'] ?? 'varchar';
         $type = null;
         $length = null;
         switch ($data['type']) {
@@ -181,7 +180,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         }
 
         $data['nullable'] = isset($data['required']) ? !$data['required'] : true;
-        $data['comment']  = isset($data['comment']) ? $data['comment'] : ucwords(str_replace('_', ' ', $code));
+        $data['comment']  = $data['comment'] ?? ucwords(str_replace('_', ' ', $code));
         return $data;
     }
 
@@ -722,7 +721,6 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                     'is_used_for_refund' => ['type'=>'int'],
                     'transaction_id' => [],
 
-
                     'order_id'              => [
                         'type'=>'int',
                         'backend'=>'sales_entity/order_invoice_attribute_backend_order'
@@ -801,8 +799,6 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                     'is_customer_notified' => ['type'=>'int'],
                 ],
             ],
-
-
 
             'shipment' => [
                 'entity_model'      => 'sales/order_shipment',

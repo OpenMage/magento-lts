@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Order create model
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements Mage_Checkout_Model_Cart_Interface
 {
@@ -59,21 +58,21 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Re-collect quote flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_needCollect;
 
     /**
      * Re-collect cart flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_needCollectCart = false;
 
     /**
      * Collect (import) data and validate it flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isValidate              = false;
 
@@ -120,7 +119,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Set validate data in import data flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setIsValidate($flag)
@@ -132,7 +131,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Return is validate data in import flag
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsValidate()
     {
@@ -256,7 +255,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Initialize creation data from existing order
      *
      * @param Mage_Sales_Model_Order $order
-     * @return unknown
+     * @return $this
      */
     public function initFromOrder(Mage_Sales_Model_Order $order)
     {
@@ -327,7 +326,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         $quote->getShippingAddress()->setShippingDescription($order->getShippingDescription());
 
         $quote->getPayment()->addData($order->getPayment()->getData());
-
 
         $orderCouponCode = $order->getCouponCode();
         if ($orderCouponCode) {
@@ -1325,7 +1323,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Check whether we need to create new customer (for another website) during order creation
      *
      * @param   Mage_Core_Model_Store $store
-     * @return  boolean
+     * @return bool
      */
     protected function _customerIsInStore($store)
     {
@@ -1752,7 +1750,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
     /**
      * @deprecated after 1.1.7
-     * @return unknown
+     * @return $this
      */
     protected function _saveCustomer()
     {
@@ -1776,7 +1774,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 $shippingAddress = $billingAddress;
             }
             $customer->save();
-
 
             $customer->setEmail($this->_getNewCustomerEmail($customer))
                 ->setDefaultBilling($billingAddress->getId())

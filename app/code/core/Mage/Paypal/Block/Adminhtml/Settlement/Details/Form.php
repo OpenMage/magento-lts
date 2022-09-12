@@ -12,31 +12,32 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Settlement reports transaction details
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
      * Prepare read-only data and group it by fieldsets
      * @return $this
+     * @throws Zend_Currency_Exception
      */
     protected function _prepareForm()
     {
-        $model = Mage::registry('current_transaction');
         /** @var Mage_Paypal_Model_Report_Settlement_Row $model */
-        $settlement = Mage::getSingleton('paypal/report_settlement');
+        $model = Mage::registry('current_transaction');
         /** @var Mage_Paypal_Model_Report_Settlement $settlement */
+        $settlement = Mage::getSingleton('paypal/report_settlement');
 
         $fieldsets = [
             'reference_fieldset' => [
@@ -61,11 +62,11 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
                     ],
                     'transaction_initiation_date' => [
                         'label' => $settlement->getFieldLabel('transaction_initiation_date'),
-                        'value' => $this->helper('core')->formatDate($model->getData('transaction_initiation_date'), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true)
+                        'value' => $this->formatDate($model->getData('transaction_initiation_date'), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true)
                     ],
                     'transaction_completion_date' => [
                         'label' => $settlement->getFieldLabel('transaction_completion_date'),
-                        'value' => $this->helper('core')->formatDate($model->getData('transaction_completion_date'), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true)
+                        'value' => $this->formatDate($model->getData('transaction_completion_date'), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true)
                     ],
                     'transaction_debit_or_credit' => [
                         'label' => $settlement->getFieldLabel('transaction_debit_or_credit'),
@@ -106,7 +107,7 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
                     'name'  => $id,
                     'label' => $info['label'],
                     'title' => $info['label'],
-                    'value' => isset($info['value']) ? $info['value'] : $model->getData($id),
+                    'value' => $info['value'] ?? $model->getData($id),
                 ]);
             }
         }

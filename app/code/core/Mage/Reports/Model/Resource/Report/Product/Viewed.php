@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Reports
+ * @category   Mage
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Most viewed product report aggregate resource model
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model_Resource_Report_Abstract
 {
@@ -32,10 +31,6 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
     const AGGREGATION_MONTHLY = 'reports/viewed_aggregated_monthly';
     const AGGREGATION_YEARLY  = 'reports/viewed_aggregated_yearly';
 
-    /**
-     * Model initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init(self::AGGREGATION_DAILY, 'id');
@@ -83,6 +78,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
             )
         );
 
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
         $helper = Mage::getResourceHelper('core');
         $select = $adapter->select();
 
@@ -208,11 +204,13 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
         );
         $adapter->query($insertQuery);
 
-        Mage::getResourceHelper('reports')
+        /** @var Mage_Reports_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('reports');
+        $helper
             ->updateReportRatingPos('day', 'views_num', $mainTable, $this->getTable(self::AGGREGATION_DAILY));
-        Mage::getResourceHelper('reports')
+        $helper
             ->updateReportRatingPos('month', 'views_num', $mainTable, $this->getTable(self::AGGREGATION_MONTHLY));
-        Mage::getResourceHelper('reports')
+        $helper
             ->updateReportRatingPos('year', 'views_num', $mainTable, $this->getTable(self::AGGREGATION_YEARLY));
 
         $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_PRODUCT_VIEWED_FLAG_CODE);

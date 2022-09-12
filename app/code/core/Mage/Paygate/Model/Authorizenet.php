@@ -12,13 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paygate
+ * @category   Mage
+ * @package    Mage_Paygate
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Paygate
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 {
     /**
@@ -182,7 +186,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Check method for processing with base currency
      *
      * @param string $currencyCode
-     * @return boolean
+     * @return bool
      */
     public function canUseForCurrency($currencyCode)
     {
@@ -1129,15 +1133,13 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      */
     protected function _getRequest()
     {
-        $request = Mage::getModel('paygate/authorizenet_request')
+        return Mage::getModel('paygate/authorizenet_request')
             ->setXVersion(3.1)
             ->setXDelimData('True')
             ->setXRelayResponse('False')
             ->setXTestRequest($this->getConfigData('test') ? 'TRUE' : 'FALSE')
             ->setXLogin($this->getConfigData('login'))
             ->setXTranKey($this->getConfigData('trans_key'));
-
-        return $request;
     }
 
     /**
@@ -1313,7 +1315,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 ->setCustomerId($r[12])
                 ->setMd5Hash($r[37])
                 ->setCardCodeResponseCode($r[38])
-                ->setCAVVResponseCode( (isset($r[39])) ? $r[39] : null)
+                ->setCAVVResponseCode($r[39] ?? null)
                 ->setSplitTenderId($r[52])
                 ->setAccNumber($r[50])
                 ->setCardType($r[51])

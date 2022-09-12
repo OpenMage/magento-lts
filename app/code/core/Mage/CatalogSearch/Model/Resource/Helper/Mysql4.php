@@ -12,23 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
+ * @category   Mage
+ * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * CatalogSearch Mysql resource helper model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_Helper_Mysql4
 {
-
     /**
      * Join information for usin full text search
      *
@@ -49,7 +47,7 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
      *
      * @param string $str The source string
      * @param int $maxWordLength
-     * @return array(0=>words, 1=>terms)
+     * @return array (0=>words, 1=>terms)
      */
     public function prepareTerms($str, $maxWordLength = 0)
     {
@@ -81,7 +79,7 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
                     $word = '"'.$word.'"';
                     $words[] = $word;
                 } elseif ($isBracket) {
-                    if ($word == '(') {
+                    if ($word === '(') {
                         $isOpenBracket++;
                     } else {
                         $isOpenBracket--;
@@ -100,8 +98,7 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
         if ($maxWordLength && count($terms) > $maxWordLength) {
             $terms = array_slice($terms, 0, $maxWordLength);
         }
-        $result = [$words, $terms];
-        return $result;
+        return [$words, $terms];
     }
 
     /**

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Widget
+ * @category   Mage
+ * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var Mage_Core_Model_Resource_Setup $installer */
@@ -39,7 +39,6 @@ $installer->getConnection()->dropForeignKey(
     $installer->getTable('widget/widget_instance_page_layout'),
     'FK_WIDGET_WIDGET_INSTANCE_PAGE_ID'
 );
-
 
 /**
  * Drop indexes
@@ -68,7 +67,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('widget/widget_instance_page_layout'),
     'IDX_WIDGET_WIDGET_INSTANCE_LAYOUT_UPDATE_ID'
 );
-
 
 /**
  * Change columns
@@ -260,7 +258,6 @@ $installer->getConnection()->changeColumn(
     ]
 );
 
-
 /**
  * Add indexes
  */
@@ -298,7 +295,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('widget/widget_instance_page_layout', ['layout_update_id']),
     ['layout_update_id']
 );
-
 
 /**
  * Add foreign keys

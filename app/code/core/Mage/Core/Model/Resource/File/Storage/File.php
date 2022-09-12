@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Model for synchronization from DB to filesystem
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Resource_File_Storage_File
 {
@@ -202,7 +202,7 @@ class Mage_Core_Model_Resource_File_Storage_File
             // If we already opened the file using lockCreateFile method
             if ($this->filePointer) {
                 $fp = $this->filePointer;
-                $this->filePointer = NULL;
+                $this->filePointer = null;
                 if (@fwrite($fp, $content) !== false && @fflush($fp) && @flock($fp, LOCK_UN) && @fclose($fp)) {
                     return true;
                 }
@@ -283,7 +283,7 @@ class Mage_Core_Model_Resource_File_Storage_File
         $fullPath = $path . DS . $filename;
         if ($this->filePointer) {
             $fp = $this->filePointer;
-            $this->filePointer = NULL;
+            $this->filePointer = null;
             @flock($fp, LOCK_UN);
             @fclose($fp);
         }
@@ -294,7 +294,7 @@ class Mage_Core_Model_Resource_File_Storage_File
             foreach ($this->_createdDirectories as $directory) {
                 @rmdir($directory); // Allowed to fail when the directory cannot be removed (non-empty)
             }
-            $this->_createdDirectories = NULL;
+            $this->_createdDirectories = null;
         }
 
         // Clean up all empty directories
@@ -302,5 +302,4 @@ class Mage_Core_Model_Resource_File_Storage_File
             @exec("find {$this->getMediaBaseDirectory()} -empty -type d -delete"); // TODO - replace with native PHP?
         }
     }
-
 }

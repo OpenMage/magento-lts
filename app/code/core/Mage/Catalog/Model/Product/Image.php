@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setImageOpacity(int $value)
  */
@@ -31,14 +31,12 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 {
     /**
      * Requested width for the scaled image
-     *
      * @var int
      */
     protected $_width;
 
     /**
      * Requested height for the scaled image
-     *
      * @var int
      */
     protected $_height;
@@ -59,7 +57,6 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
     /**
      *  If true, images will not be scaled up (when original image is smaller then requested size)
-     *
      * @var bool
      */
     protected $_constrainOnly    = false;
@@ -74,7 +71,6 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
     /**
      * Absolute path to and original (full resolution) image
-     *
      * @var string
      */
     protected $_baseFile;
@@ -232,6 +228,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @deprecated
      * @param null $file
      * @return bool
      */
@@ -241,6 +238,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @deprecated
      * @return float|int|string
      */
     protected function _getMemoryLimit()
@@ -264,6 +262,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @deprecated
      * @return int
      */
     protected function _getMemoryUsage()
@@ -275,6 +274,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @deprecated
      * @param string $file
      * @return float|int
      */
@@ -343,7 +343,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
             $file = null;
         }
         if ($file) {
-            if ((!$this->_fileExists($baseDir . $file)) || !$this->_checkMemory($baseDir . $file)) {
+            if ((!$this->_fileExists($baseDir . $file))) {
                 $file = null;
             }
         }

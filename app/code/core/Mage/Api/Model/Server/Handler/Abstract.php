@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api
+ * @category   Mage
+ * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -49,7 +49,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         }
         return true;
     }
-
 
     /**
      * Retrieve webservice session
@@ -110,7 +109,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      *  Check session expiration
      *
-     *  @return  boolean
+     *  @return  bool
      */
     protected function _isSessionExpired()
     {
@@ -174,7 +173,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         $this->_startSession();
         return $this->_getSession()->getSessionId();
     }
-
 
     /**
      * End web service session
@@ -262,7 +260,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             return $this->_fault('access_denied');
         }
 
-
         if (!isset($resources->$resourceName->methods->$methodName->public)
             && isset($resources->$resourceName->methods->$methodName->acl)
             && !$this->_isAllowed((string)$resources->$resourceName->methods->$methodName->acl)) {
@@ -337,7 +334,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             }
 
             $apiPath = $call[0];
-            $args    =  (isset($call[1]) ? $call[1] : []);
+            $args    = $call[1] ?? [];
 
             list($resourceName, $methodName) = explode('.', $apiPath);
 
@@ -374,7 +371,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                     continue;
                 }
             }
-
 
             if (!isset($resources->$resourceName->methods->$methodName->public)
                 && isset($resources->$resourceName->methods->$methodName->acl)
@@ -454,7 +450,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             $resourcesAlias[(string) $resourceName][] = $alias;
         }
 
-
         foreach ($this->_getConfig()->getResources() as $resourceName => $resource) {
             if (isset($resource->acl) && !$this->_isAllowed((string) $resource->acl)) {
                 continue;
@@ -489,7 +484,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 'title'       => (string) $resource->title,
                 'description' => (isset($resource->description) ? (string)$resource->description : null),
                 'name'        => $resourceName,
-                'aliases'     => (isset($resourcesAlias[$resourceName]) ? $resourcesAlias[$resourceName] : []),
+                'aliases'     => $resourcesAlias[$resourceName] ?? [],
                 'methods'     => $methods
             ];
         }
@@ -518,7 +513,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         if (isset($resourcesAlias->$resourceName)) {
             $resourceName = (string) $resourcesAlias->$resourceName;
         }
-
 
         if (empty($resourceName)
             || !isset($resources->$resourceName)) {

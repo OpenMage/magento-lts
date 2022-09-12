@@ -12,22 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Widget
+ * @category   Mage
+ * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Widgets Insertion Plugin Config for Editor HTML Element
  *
- * @category    Mage
- * @package     Mage_Widget
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Widget
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Widget_Model_Widget_Config extends Varien_Object
 {
-
     /**
      * Return config settings for widgets insertion plugin based on editor element config
      *
@@ -36,14 +35,12 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
      */
     public function getPluginSettings($config)
     {
-        $settings = [
+        return [
             'widget_plugin_src'   => Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/plugins/magentowidget/editor_plugin.js',
             'widget_images_url'   => $this->getPlaceholderImagesBaseUrl(),
             'widget_placeholders' => $this->getAvailablePlaceholderFilenames(),
             'widget_window_url'   => $this->getWidgetWindowUrl($config)
         ];
-
-        return $settings;
     }
 
     /**

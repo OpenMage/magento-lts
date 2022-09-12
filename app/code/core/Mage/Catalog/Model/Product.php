@@ -12,15 +12,20 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product model
  *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Resource_Product _getResource()
  * @method Mage_Catalog_Model_Resource_Product getResource()
  * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
  *
@@ -258,10 +263,6 @@
  * @method bool hasWishlistStoreId()
  * @method int getWishlistStoreId()
  * @method $this setWishlistStoreId(int $value)
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 {
@@ -327,14 +328,14 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Flag for available duplicate function
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isDuplicable = true;
 
     /**
      * Flag for get Price function
      *
-     * @var boolean
+     * @var bool
      */
     protected $_calculatePrice = true;
 
@@ -531,7 +532,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Retrieve product id by sku
      *
      * @param   string $sku
-     * @return  integer
+     * @return  int
      */
     public function getIdBySku($sku)
     {
@@ -612,7 +613,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve product categories
      *
-     * @return Varien_Data_Collection
+     * @return Mage_Catalog_Model_Resource_Category_Collection
      */
     public function getCategoryCollection()
     {
@@ -803,6 +804,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $indexer = Mage::getSingleton('index/indexer');
 
         $indexer->processEntityAction($this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE);
+        return $this;
     }
 
     /**
@@ -823,16 +825,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             }
         }
         return $this;
-    }
-
-    /**
-     * Retrieve resource instance wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**
@@ -935,10 +927,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function getFinalPrice($qty = null)
     {
         $price = $this->_getData('final_price');
-        if ($price !== null) {
-            return $price;
-        }
-        return $this->getPriceModel()->getFinalPrice($qty, $this);
+        return $price ?? $this->getPriceModel()->getFinalPrice($qty, $this);
     }
 
     /**
@@ -990,7 +979,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         return $this->_getData('special_to_date');
     }
-
 
 /*******************************************************************************
  ** Linked products API
@@ -1240,7 +1228,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                     continue;
                 }
                 $image['url'] = $this->getMediaConfig()->getMediaUrl($image['file']);
-                $image['id'] = isset($image['value_id']) ? $image['value_id'] : null;
+                $image['id'] = $image['value_id'] ?? null;
                 $image['path'] = $this->getMediaConfig()->getMediaPath($image['file']);
                 $images->addItem(new Varien_Object($image));
             }
@@ -1256,8 +1244,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param string        $file              file path of image in file system
      * @param string|array  $mediaAttribute    code of attribute with type 'media_image',
      *                                          leave blank if image should be only in gallery
-     * @param boolean       $move              if true, it will move source file
-     * @param boolean       $exclude           mark image as disabled in product page view
+     * @param bool       $move              if true, it will move source file
+     * @param bool       $exclude           mark image as disabled in product page view
      * @return $this
      */
     public function addImageToMediaGallery($file, $mediaAttribute = null, $move = false, $exclude = true)
@@ -1487,7 +1475,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Checks product can be duplicated
      *
-     * @return boolean
+     * @return bool
      */
     public function isDuplicable()
     {
@@ -1497,15 +1485,14 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Set is duplicable flag
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setIsDuplicable($value)
     {
-        $this->_isDuplicable = (boolean) $value;
+        $this->_isDuplicable = (bool) $value;
         return $this;
     }
-
 
     /**
      * Check is product available for sale
@@ -1845,10 +1832,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getProductOptionsCollection()
     {
-        $collection = $this->getOptionInstance()
+        return $this->getOptionInstance()
             ->getProductOptionCollection($this);
-
-        return $collection;
     }
 
     /**
@@ -1871,11 +1856,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getOptionById($optionId)
     {
-        if (isset($this->_options[$optionId])) {
-            return $this->_options[$optionId];
-        }
-
-        return null;
+        return $this->_options[$optionId] ?? null;
     }
 
     /**
@@ -1948,10 +1929,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getCustomOption($code)
     {
-        if (isset($this->_customOptions[$code])) {
-            return $this->_customOptions[$code];
-        }
-        return null;
+        return $this->_customOptions[$code] ?? null;
     }
 
     /**
@@ -2075,7 +2053,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      *  Check whether attribute reserved or not
      *
      *  @param Mage_Catalog_Model_Entity_Attribute $attribute Attribute model object
-     *  @return boolean
+     *  @return bool
      */
     public function isReservedAttribute($attribute)
     {
@@ -2144,7 +2122,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Check for empty SKU on each product
      *
      * @param  array $productIds
-     * @return boolean|null
+     * @return bool|null
      */
     public function isProductsHasSku(array $productIds)
     {

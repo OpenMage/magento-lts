@@ -12,13 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert_Parser_Abstract
 {
     const MULTI_DELIMITER = ' , ';
@@ -194,10 +198,6 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     {
         if (!$this->_resource) {
             $this->_resource = Mage::getResourceSingleton('catalog_entity/convert');
-                #->loadStores()
-                #->loadProducts()
-                #->loadAttributeSets()
-                #->loadAttributeOptions();
         }
         return $this->_resource;
     }
@@ -442,11 +442,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             }
         }
 
-        if (isset($this->_customerGroups[$customer->getGroupId()])) {
-            return $this->_customerGroups[$customer->getGroupId()];
-        } else {
-            return null;
-        }
+        return $this->_customerGroups[$customer->getGroupId()] ?? null;
     }
 
     /**
@@ -495,7 +491,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 }
 
                 // get store ids
-                $storeIds = $this->getStoreIds(isset($row['store']) ? $row['store'] : $this->getVar('store'));
+                $storeIds = $this->getStoreIds($row['store'] ?? $this->getVar('store'));
                 if (!$storeIds) {
                     $this->addException(Mage::helper('customer')->__("Invalid store specified, skipping the record."), Varien_Convert_Exception::ERROR);
                     continue;
@@ -539,7 +535,6 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                         }
                         $model->setData($field, $value);
                     }//foreach ($row as $field=>$value)
-
 
                     $billingAddress = $model->getPrimaryBillingAddress();
                     /** @var Mage_Customer_Model_Customer $customer */

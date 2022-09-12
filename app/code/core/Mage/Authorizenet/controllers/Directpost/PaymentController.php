@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Authorizenet
+ * @category   Mage
+ * @package    Mage_Authorizenet
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -95,7 +95,7 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
                 $result['key'] = $data['key'];
             }
             $result['controller_action_name'] = $data['controller_action_name'];
-            $result['is_secure'] = isset($data['is_secure']) ? $data['is_secure'] : false;
+            $result['is_secure'] = $data['is_secure'] ?? false;
             $params['redirect'] = Mage::helper('authorizenet')->getRedirectIframeUrl($result);
         }
         $block = $this->_getIframeBlock()->setParams($params);
@@ -183,7 +183,7 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
                     ->load($order->getQuoteId());
                 if ($quote->getId()) {
                     $quote->setIsActive(1)
-                        ->setReservedOrderId(NULL)
+                        ->setReservedOrderId(null)
                         ->save();
                     $this->_getCheckout()->replaceQuote($quote);
                 }

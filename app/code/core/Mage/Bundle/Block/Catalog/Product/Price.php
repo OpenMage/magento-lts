@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Bundle
+ * @category   Mage
+ * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Bundle product price block
  *
  * @category   Mage
  * @package    Mage_Bundle
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getMAPTemplate()
  * @method $this unsWithoutPrice()
@@ -31,7 +31,6 @@
  */
 class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product_Price
 {
-
     /**
      * @return bool
      */
@@ -53,6 +52,7 @@ class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product
      * With corrections for Dynamic prices
      *
      * @return bool
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function displayBothPrices()
     {
@@ -61,7 +61,10 @@ class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product
             $product->getPriceModel()->getIsPricesCalculatedByIndex() !== false) {
             return false;
         }
-        return $this->helper('tax')->displayBothPrices(Mage::app()->getStore()->getId());
+
+        /** @var Mage_Tax_Helper_Data $helper */
+        $helper = $this->helper('tax');
+        return $helper->displayBothPrices(Mage::app()->getStore()->getId());
     }
 
     /**

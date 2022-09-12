@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api
+ * @category   Mage
+ * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -157,7 +157,6 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
         return $this->getNode('resources_alias')->children();
     }
 
-
     /**
      * Load Acl resources from config
      *
@@ -203,11 +202,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
             return $asserts;
         }
 
-        if (isset($asserts->$name)) {
-            return $asserts->$name;
-        }
-
-        return false;
+        return $asserts->$name ?? false;
     }
 
     /**
@@ -223,11 +218,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
             return $sets;
         }
 
-        if (isset($sets->$name)) {
-            return $sets->$name;
-        }
-
-        return false;
+        return $sets->$name ?? false;
     }
 
     /**

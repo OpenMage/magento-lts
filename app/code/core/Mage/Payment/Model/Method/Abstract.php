@@ -12,16 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Payment
+ * @category   Mage
+ * @package    Mage_Payment
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payment method abstract model
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Payment
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getCheckoutRedirectUrl()
  * @method $this setInfoInstance(Mage_Payment_Model_Info $value)
@@ -302,7 +304,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Check method for processing with base currency
      *
      * @param string $currencyCode
-     * @return boolean
+     * @return bool
      */
     public function canUseForCurrency($currencyCode)
     {
@@ -497,7 +499,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         if (!$this->canRefund()) {
             Mage::throwException(Mage::helper('payment')->__('Refund action is not available.'));
         }
-
 
         return $this;
     }

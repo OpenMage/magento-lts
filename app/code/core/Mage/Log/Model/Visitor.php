@@ -12,13 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Log
+ * @category   Mage
+ * @package    Mage_Log
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
+ * @category   Mage
+ * @package    Mage_Log
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Log_Model_Resource_Visitor getResource()
  * @method int getCustomerId()
  * @method $this setCustomerId(int $value)
@@ -54,10 +58,6 @@
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
  * @method int getVisitorId()
- *
- * @category    Mage
- * @package     Mage_Log
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
 {
@@ -100,7 +100,6 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         $this->_session = !empty($data['session']) ? $data['session'] : Mage::getSingleton('core/session');
         parent::__construct($data);
     }
-
 
     /**
      * Object initialization

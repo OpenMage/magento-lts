@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogRule
+ * @category   Mage
+ * @package    Mage_CatalogRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog rules resource model
  *
- * @category    Mage
- * @package     Mage_CatalogRule
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_CatalogRule
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstract
 {
@@ -610,11 +609,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             $productPrice = $productData['rule_price'];
         } else {
             $websiteId = $ruleData['website_id'];
-            if (isset($ruleData['website_'.$websiteId.'_price'])) {
-                $productPrice = $ruleData['website_'.$websiteId.'_price'];
-            } else {
-                $productPrice = $ruleData['default_price'];
-            }
+            $productPrice = $ruleData['website_' . $websiteId . '_price'] ?? $ruleData['default_price'];
         }
 
         $productPrice = Mage::helper('catalogrule')->calcPriceRule(
@@ -675,11 +670,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     public function getRulePrice($date, $wId, $gId, $pId)
     {
         $data = $this->getRulePrices($date, $wId, $gId, [$pId]);
-        if (isset($data[$pId])) {
-            return $data[$pId];
-        }
-
-        return false;
+        return $data[$pId] ?? false;
     }
 
     /**

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
+ * @category   Mage
+ * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -43,7 +43,9 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     protected function _getQuery()
     {
-        return $this->helper('catalogsearch')->getQuery();
+        /** @var Mage_CatalogSearch_Helper_Data $helper */
+        $helper = $this->helper('catalogsearch');
+        return $helper->getQuery();
     }
 
     /**
@@ -53,11 +55,14 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
+        /** @var Mage_CatalogSearch_Helper_Data $helper */
+        $helper = $this->helper('catalogsearch');
+
         // add Home breadcrumb
         /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
         $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
         if ($breadcrumbs) {
-            $title = $this->__("Search results for: '%s'", $this->helper('catalogsearch')->getQueryText());
+            $title = $this->__("Search results for: '%s'", $helper->getQueryText());
 
             $breadcrumbs->addCrumb('home', [
                 'label' => $this->__('Home'),
@@ -70,7 +75,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
         }
 
         // modify page title
-        $title = $this->__("Search results for: '%s'", $this->helper('catalogsearch')->getEscapedQueryText());
+        $title = $this->__("Search results for: '%s'", $helper->getEscapedQueryText());
         $this->getLayout()->getBlock('head')->setTitle($title);
 
         return parent::_prepareLayout();
@@ -191,7 +196,10 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     public function getNoResultText()
     {
         if (Mage::helper('catalogsearch')->isMinQueryLength()) {
-            return Mage::helper('catalogsearch')->__('Minimum Search query length is %s', $this->_getQuery()->getMinQueryLength());
+            return Mage::helper('catalogsearch')->__(
+                'Minimum Search query length is %s',
+                $this->_getQuery()->getMinQueryLength()
+            );
         }
         return $this->_getData('no_result_text');
     }

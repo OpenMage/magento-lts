@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Mysql4 session save handler
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Interface
 {
@@ -36,7 +35,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     /**
      * Session lifetime
      *
-     * @var integer
+     * @var int
      */
     protected $_lifeTime;
 
@@ -70,10 +69,6 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      */
     protected $_automaticCleaningFactor    = 50;
 
-    /**
-     * Constructor
-     *
-     */
     public function __construct()
     {
         $resource = Mage::getSingleton('core/resource');
@@ -171,7 +166,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      *
      * @param string $savePath ignored
      * @param string $sessName ignored
-     * @return boolean
+     * @return bool
      */
     public function open($savePath, $sessName)
     {
@@ -181,7 +176,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     /**
      * Close session
      *
-     * @return boolean
+     * @return bool
      */
     public function close()
     {
@@ -217,7 +212,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      *
      * @param string $sessId
      * @param string $sessData
-     * @return boolean
+     * @return bool
      */
     public function write($sessId, $sessData)
     {
@@ -250,7 +245,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * Destroy session
      *
      * @param string $sessId
-     * @return boolean
+     * @return bool
      */
     public function destroy($sessId)
     {
@@ -263,7 +258,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * Garbage collection
      *
      * @param int $sessMaxLifeTime ignored
-     * @return boolean
+     * @return bool
      */
     public function gc($sessMaxLifeTime)
     {

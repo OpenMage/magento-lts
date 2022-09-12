@@ -12,15 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogRule
+ * @category   Mage
+ * @package    Mage_CatalogRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-$installer = $this;
 /** @var Mage_Core_Model_Resource_Setup $installer */
-
+$installer = $this;
 $installer->startSetup();
 
 $conn = $installer->getConnection();
@@ -76,7 +75,6 @@ if ($conn->tableColumnExists($ruleProductTable, 'store_id')) {
     $conn->dropForeignKey($ruleProductTable, 'FK_catalogrule_product_website');
     $conn->raw_query("ALTER TABLE `$ruleProductTable` ADD CONSTRAINT `FK_catalogrule_product_website` FOREIGN KEY (`website_id`) REFERENCES `{$this->getTable('core_website')}` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE");
 }
-
 
 // catalogrule_product_price
 $ruleProductPriceTable = $this->getTable('catalogrule_product_price');

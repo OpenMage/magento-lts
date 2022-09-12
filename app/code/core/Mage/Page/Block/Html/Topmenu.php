@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Page
+ * @category   Mage
+ * @package    Mage_Page
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Top menu block
  *
- * @category    Mage
- * @package     Mage_Page
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Page
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
 {
@@ -173,11 +173,9 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     protected function _getMenuItemAttributes(Varien_Data_Tree_Node $item)
     {
         $menuItemClasses = $this->_getMenuItemClasses($item);
-        $attributes = [
+        return [
             'class' => implode(' ', $menuItemClasses)
         ];
-
-        return $attributes;
     }
 
     /**

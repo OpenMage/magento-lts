@@ -12,25 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * EAV entity type resource model
  *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Resource_Entity_Type extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Resource initialization
-     */
     protected function _construct()
     {
         $this->_init('eav/entity_type', 'entity_type_id');
@@ -51,7 +47,7 @@ class Mage_Eav_Model_Resource_Entity_Type extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve additional attribute table name for specified entity type
      *
-     * @param integer $entityTypeId
+     * @param int $entityTypeId
      * @return string
      */
     public function getAdditionalAttributeTable($entityTypeId)

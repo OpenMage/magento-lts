@@ -12,18 +12,23 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core Website model
  *
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Core_Model_Resource_Website _getResource()
  * @method Mage_Core_Model_Resource_Website getResource()
  * @method Mage_Core_Model_Resource_Website_Collection getCollection()
+ * @method Mage_Core_Model_Resource_Website_Collection getResourceCollection()
  *
  * @method $this setCode(string $value)
  * @method string getName()
@@ -40,12 +45,7 @@
  * @method bool hasWebsiteId()
  * @method int getWebsiteId()
  * @method bool hasDefaultGroupId()
- *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 {
     const ENTITY    = 'core_website';
@@ -178,7 +178,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         }
         if (is_numeric($code)) {
             foreach (Mage::getConfig()->getNode('websites')->children() as $websiteCode => $website) {
-                if ((int)$website->system->website->id==$code) {
+                if ((int)$website->system->website->id == $code) {
                     $code = $websiteCode;
                     break;
                 }
@@ -511,9 +511,9 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             == Mage_Core_Model_Store::PRICE_SCOPE_GLOBAL
         ) {
             return Mage::app()->getBaseCurrencyCode();
-        } else {
-            return $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
         }
+
+        return $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
     }
 
     /**

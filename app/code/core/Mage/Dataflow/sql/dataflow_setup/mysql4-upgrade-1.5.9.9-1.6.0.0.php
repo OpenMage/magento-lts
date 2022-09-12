@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Dataflow
+ * @category   Mage
+ * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var Mage_Core_Model_Resource_Setup $installer */
@@ -55,7 +55,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_DATAFLOW_PROFILE_HISTORY'
 );
 
-
 /**
  * Drop indexes
  */
@@ -92,7 +91,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('dataflow/profile_history'),
     'FK_DATAFLOW_PROFILE_HISTORY'
 );
-
 
 /**
  * Change columns
@@ -375,7 +373,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -420,7 +417,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('dataflow/profile_history', ['profile_id']),
     ['profile_id']
 );
-
 
 /**
  * Add foreign keys

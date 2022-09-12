@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -24,12 +24,11 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct();
@@ -40,9 +39,13 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
              ->setSaveParametersInSession(true);
     }
 
+    /**
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this
+     */
     protected function _addColumnFilterToCollection($column)
     {
-        if($column->getIndex()=='stores') {
+        if ($column->getIndex() === 'stores') {
             $this->getCollection()->addStoreFilter($column->getFilter()->getCondition(), false);
         } else {
             parent::_addColumnFilterToCollection($column);
@@ -50,6 +53,10 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('tag/tag_collection')
@@ -59,6 +66,10 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
@@ -82,12 +93,14 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'type'          => 'number',
         ]);
 
+        /** @var Mage_Tag_Helper_Data $helper */
+        $helper = $this->helper('tag/data');
         $this->addColumn('status', [
             'header'        => Mage::helper('tag')->__('Status'),
             'width'         => 90,
             'index'         => 'status',
             'type'          => 'options',
-            'options'       => $this->helper('tag/data')->getStatusesArray(),
+            'options'       => $helper->getStatusesArray(),
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -104,6 +117,9 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return parent::_prepareColumns();
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('tag_id');
@@ -115,7 +131,9 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
              'confirm'  => Mage::helper('tag')->__('Are you sure?')
         ]);
 
-        $statuses = $this->helper('tag/data')->getStatusesOptionsArray();
+        /** @var Mage_Tag_Helper_Data $helper */
+        $helper = $this->helper('tag/data');
+        $statuses = $helper->getStatusesOptionsArray();
 
         array_unshift($statuses, ['label'=>'', 'value'=>'']);
 
@@ -149,7 +167,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Retrieves row click URL
      *
-     * @param  Varien_Object $row
+     * @param  Mage_Tag_Model_Tag $row
      * @return string
      */
     public function getRowUrl($row)

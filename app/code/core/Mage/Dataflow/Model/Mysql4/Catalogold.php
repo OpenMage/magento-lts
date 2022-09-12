@@ -12,13 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Dataflow
+ * @category   Mage
+ * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
+ * @category   Mage
+ * @package    Mage_Dataflow
+ * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated after 1.5.0.1
  */
 class Mage_Catalog_Model_Mysql4_Convert
@@ -71,7 +74,7 @@ class Mage_Catalog_Model_Mysql4_Convert
                 $this->_productsBySku[$p['sku']] = $p['entity_id'];
             }
         }
-        return isset($this->_productsBySku[$sku]) ? $this->_productsBySku[$sku] : false;
+        return $this->_productsBySku[$sku] ?? false;
     }
 
     public function addProductToStore($productId, $storeId)
@@ -106,9 +109,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             ->where('et.entity_type_code in (?)', ['catalog_product', 'catalog_category'])
             ->order('if(not a.is_user_defined, 1, 2)')->order('attribute_code');
 
-        $attributes = $this->getConnection()->fetchAll($select);
-
-        return $attributes;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportAttributeSets()
@@ -122,9 +123,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             ->where('et.entity_type_code in (?)', ['catalog_product', 'catalog_category'])
             ->order('et.entity_type_code')->order('s.sort_order')->order('g.sort_order');
 
-        $sets = $this->getConnection()->fetchAll($select);
-
-        return $sets;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportAttributeOptions()
@@ -145,9 +144,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             );
         }
 
-        $options = $this->getConnection()->fetchAll($select);
-
-        return $options;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportProductLinks()
@@ -161,9 +158,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             ->join(['sku'=>$skuTable], 'sku.entity_id=l.product_id'.$skuCond, ['sku'=>'value'])
             ->join(['linked'=>$skuTable], 'linked.entity_id=l.product_id'.$skuCond, ['linked'=>'value'])
             ->order('sku')->order('link_type');
-        $links = $this->getConnection()->fetchAll($select);
-
-        return $links;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportProductsInCategories()
@@ -176,9 +171,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             ->join(['sku'=>$skuTable], 'sku.entity_id=cp.product_id'.$skuCond, ['sku'=>'value'])
             ->order('category_id')->order('position')->order('sku');
 
-        $prodCats = $this->getConnection()->fetchAll($select);
-
-        return $prodCats;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportProductsInStores()
@@ -192,9 +185,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             ->join(['sku'=>$skuTable], 'sku.entity_id=ps.product_id'.$skuCond, ['sku'=>'value'])
             ->order('store')->order('sku');
 
-        $prodStores = $this->getConnection()->fetchAll($select);
-
-        return $prodStores;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportCategories()

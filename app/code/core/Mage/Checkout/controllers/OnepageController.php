@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Onepage controller for checkout
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 {
@@ -121,8 +121,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $update->load('checkout_onepage_shippingmethod');
         $layout->generateXml();
         $layout->generateBlocks();
-        $output = $layout->getOutput();
-        return $output;
+        return $layout->getOutput();
     }
 
     /**
@@ -137,8 +136,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $update->load('checkout_onepage_paymentmethod');
         $layout->generateXml();
         $layout->generateBlocks();
-        $output = $layout->getOutput();
-        return $output;
+        return $layout->getOutput();
     }
 
     /**
@@ -308,7 +306,6 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $this->loadLayout();
         $this->renderLayout();
     }
-
 
     /**
      * Get additional info action
@@ -668,7 +665,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Check can page show for unregistered users
      *
-     * @return boolean
+     * @return bool
      */
     protected function _canShowForUnregisteredUsers()
     {

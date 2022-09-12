@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_Db
 {
@@ -245,7 +245,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         return $this;
     }
 
-
     /**
      * Add an object to the collection
      *
@@ -373,9 +372,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             }
 
             if (in_array($attrInstance->getFrontendClass(), $this->_castToIntMap)) {
-                $orderExpr = Mage::getResourceHelper('eav')->getCastToIntExpression(
-                    $this->_prepareOrderExpression($orderExpr)
-                );
+                /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
+                $helper = Mage::getResourceHelper('eav');
+                $orderExpr = $helper->getCastToIntExpression($this->_prepareOrderExpression($orderExpr));
             }
 
             $orderExpr .= ' ' . $dir;
@@ -532,7 +531,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         return $this;
     }
 
-
     /**
      * Groups results by specified attribute
      *
@@ -632,11 +630,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             $entity = $attribute->getEntity();
         } elseif (is_string($entity)) {
             // retrieve cached entity if possible
-            if (isset($this->_joinEntities[$entity])) {
-                $entity = $this->_joinEntities[$entity];
-            } else {
-                $entity = Mage::getModel('eav/entity')->setType($attrArr[0]);
-            }
+            $entity = $this->_joinEntities[$entity] ?? Mage::getModel('eav/entity')->setType($attrArr[0]);
         }
         if (!$entity || !$entity->getTypeId()) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid entity type'));
@@ -842,8 +836,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Set collection page start and records to show
      *
-     * @param integer $pageNum
-     * @param integer $pageSize
+     * @param int $pageNum
+     * @param int $pageSize
      * @return $this
      */
     public function setPage($pageNum, $pageSize)
@@ -959,7 +953,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
         return $this;
     }
-
 
     /**
      * Delete all the entities in the collection
@@ -1120,7 +1113,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
                 $attributeTypes[$table]
             );
         }
-        $selectGroups = Mage::getResourceHelper('eav')->getLoadAttributesSelectGroups($selects);
+
+        /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('eav');
+        $selectGroups = $helper->getLoadAttributesSelectGroups($selects);
         foreach ($selectGroups as $selects) {
             if (!empty($selects)) {
                 try {
@@ -1156,12 +1152,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
         $helper = Mage::getResourceHelper('eav');
         $entityIdField = $this->getEntity()->getEntityIdField();
-        $select = $this->getConnection()->select()
+        return $this->getConnection()->select()
             ->from($table, [$entityIdField, 'attribute_id'])
             ->where('entity_type_id =?', $this->getEntity()->getTypeId())
             ->where("$entityIdField IN (?)", array_keys($this->_itemsById))
             ->where('attribute_id IN (?)', $attributeIds);
-        return $select;
     }
 
     /**
@@ -1172,6 +1167,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      */
     protected function _addLoadAttributesSelectValues($select, $table, $type)
     {
+        /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
         $helper = Mage::getResourceHelper('eav');
         $select->columns([
             'value' => $helper->prepareEavAttributeValue($table. '.value', $type),
@@ -1332,7 +1328,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         /**
          * process join type
          */
-        $joinMethod = ($joinType == 'left') ? 'joinLeft' : 'join';
+        $joinMethod = $joinType === 'left' ? 'joinLeft' : 'join';
 
         $this->_joinAttributeToSelect($joinMethod, $attribute, $attrTable, $condArr, $attributeCode, $attrFieldName);
 
@@ -1404,12 +1400,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             );
         } else {
             $this->_addAttributeJoin($attribute, $joinType);
-            if (isset($this->_joinAttributes[$attribute]['condition_alias'])) {
-                $field = $this->_joinAttributes[$attribute]['condition_alias'];
-            } else {
-                $field = $this->_getAttributeTableAlias($attribute) . '.value';
-            }
-
+            $field = $this->_joinAttributes[$attribute]['condition_alias'] ?? ($this->_getAttributeTableAlias($attribute) . '.value');
             $conditionSql = $this->_getConditionSql($field, $condition);
         }
 
@@ -1513,6 +1504,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     public function _prepareSelect(Varien_Db_Select $select)
     {
         if ($this->_useAnalyticFunction) {
+            /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
             $helper = Mage::getResourceHelper('core');
             return $helper->getQueryUsingAnalyticFunction($select);
         }

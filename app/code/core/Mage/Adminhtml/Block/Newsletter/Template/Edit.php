@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml Newsletter Template Edit Block
@@ -217,7 +216,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     /**
      * Set edit flag for block
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setEditMode($value = true)
@@ -229,7 +228,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     /**
      * Return edit flag for block
      *
-     * @return boolean
+     * @return bool
      */
     public function getEditMode()
     {
@@ -325,7 +324,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     /**
      * Getter for single store mode check
      *
-     * @return boolean
+     * @return bool
      */
     protected function isSingleStoreMode()
     {
@@ -335,7 +334,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     /**
      * Getter for id of current store (the only one in single-store mode and current in multi-stores mode)
      *
-     * @return boolean
+     * @return bool
      */
     protected function getStoreId()
     {

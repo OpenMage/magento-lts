@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,11 +23,13 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
+    /**
+     * Mage_Adminhtml_Block_Customer_Grid constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -37,6 +39,11 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
         $this->setSaveParametersInSession(true);
     }
 
+    /**
+     * @inheritDoc
+     * @throws Mage_Core_Exception
+     * @throws Mage_Eav_Exception
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('customer/customer_collection')
@@ -55,6 +62,10 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [
@@ -63,18 +74,12 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
             'index'     => 'entity_id',
             'type'  => 'number',
         ]);
-        /*$this->addColumn('firstname', array(
-            'header'    => Mage::helper('customer')->__('First Name'),
-            'index'     => 'firstname'
-        ));
-        $this->addColumn('lastname', array(
-            'header'    => Mage::helper('customer')->__('Last Name'),
-            'index'     => 'lastname'
-        ));*/
+
         $this->addColumn('name', [
             'header'    => Mage::helper('customer')->__('Name'),
             'index'     => 'name'
         ]);
+
         $this->addColumn('email', [
             'header'    => Mage::helper('customer')->__('Email'),
             'width'     => '150',
@@ -162,6 +167,9 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
         return parent::_prepareColumns();
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('entity_id');
@@ -183,7 +191,9 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
              'url'      => $this->getUrl('*/*/massUnsubscribe')
         ]);
 
-        $groups = $this->helper('customer')->getGroups()->toOptionArray();
+        /** @var Mage_Customer_Helper_Data $helper */
+        $helper = $this->helper('customer');
+        $groups = $helper->getGroups()->toOptionArray();
 
         array_unshift($groups, ['label'=> '', 'value'=> '']);
         $this->getMassactionBlock()->addItem('assign_group', [
@@ -203,13 +213,20 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', ['_current'=> true]);
     }
 
+    /**
+     * @param Mage_Customer_Model_Customer $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', ['id'=>$row->getId()]);
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
 }

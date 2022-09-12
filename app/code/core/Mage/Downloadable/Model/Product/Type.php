@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Downloadable
+ * @category   Mage
+ * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable product type model
  *
- * @category    Mage
- * @package     Mage_Downloadable
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Downloadable
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Virtual
 {
@@ -58,7 +58,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Check if product has links
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return boolean
+     * @return bool
      */
     public function hasLinks($product = null)
     {
@@ -72,7 +72,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Check if product has options
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return boolean
+     * @return bool
      */
     public function hasOptions($product = null)
     {
@@ -99,7 +99,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Check if product cannot be purchased with no links selected
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return boolean
+     * @return bool
      */
     public function getLinkSelectionRequired($product = null)
     {
@@ -129,7 +129,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Check if product has samples
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return boolean
+     * @return bool
      */
     public function hasSamples($product = null)
     {
@@ -378,8 +378,6 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
         return $options;
     }
 
-
-
     /**
      * Setting flag if dowenloadable product can be or not in complex product
      * based on link can be purchased separately or not
@@ -462,9 +460,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
         $links = $buyRequest->getLinks();
         $links = (is_array($links)) ? array_filter($links, '\intval') : [];
 
-        $options = ['links' => $links];
-
-        return $options;
+        return ['links' => $links];
     }
 
     /**

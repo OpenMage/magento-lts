@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Dataflow
+ * @category   Mage
+ * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Convert excel xml parser
  *
  * @category   Mage
  * @package    Mage_Dataflow
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_Convert_Parser_Abstract
 {
@@ -315,7 +314,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         $i = 0;
         foreach ($this->_parseFieldNames as $field) {
-            $itemData[$field] = isset($xmlData[$i]) ? $xmlData[$i] : null;
+            $itemData[$field] = $xmlData[$i] ?? null;
             $i ++;
         }
 
@@ -376,7 +375,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             $row = $batchExport->getBatchData();
 
             foreach ($fieldList as $field) {
-                $xmlData[] = isset($row[$field]) ? $row[$field] : '';
+                $xmlData[] = $row[$field] ?? '';
             }
             $xmlData = $this->_getXmlString($xmlData);
             $io->write($xmlData);

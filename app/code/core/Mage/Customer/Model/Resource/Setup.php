@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Customer resource setup model
  *
- * @category    Mage
- * @package     Mage_Customer
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
 {
@@ -74,8 +73,8 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         $attributes = $entities['customer']['attributes'];
         foreach ($attributes as $attributeCode => $attribute) {
             $attributeId = $attributeIds[$customer][$attributeCode];
-            $attribute['system'] = isset($attribute['system']) ? $attribute['system'] : true;
-            $attribute['visible'] = isset($attribute['visible']) ? $attribute['visible'] : true;
+            $attribute['system'] = $attribute['system'] ?? true;
+            $attribute['visible'] = $attribute['visible'] ?? true;
             if ($attribute['system'] != true || $attribute['visible'] != false) {
                 $usedInForms = [
                     'customer_account_create',
@@ -102,8 +101,8 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         $attributes = $entities['customer_address']['attributes'];
         foreach ($attributes as $attributeCode => $attribute) {
             $attributeId = $attributeIds[$customerAddress][$attributeCode];
-            $attribute['system'] = isset($attribute['system']) ? $attribute['system'] : true;
-            $attribute['visible'] = isset($attribute['visible']) ? $attribute['visible'] : true;
+            $attribute['system'] = $attribute['system'] ?? true;
+            $attribute['visible'] = $attribute['visible'] ?? true;
             if (($attribute['system'] == true && $attribute['visible'] == false) === false) {
                 $usedInForms = [
                     'adminhtml_customer_address',
@@ -131,7 +130,7 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      */
     public function getDefaultEntities()
     {
-        $entities = [
+        return [
             'customer'                       => [
                 'entity_model'                   => 'customer/customer',
                 'attribute_model'                => 'customer/attribute',
@@ -456,6 +455,5 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 ]
             ]
         ];
-        return $entities;
     }
 }

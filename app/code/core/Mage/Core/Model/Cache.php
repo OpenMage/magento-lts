@@ -12,15 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * System cache model
  * support id and tags prefix support,
+ *
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Cache
 {
@@ -95,7 +99,6 @@ class Mage_Core_Model_Cache
      */
     protected $_allowedCacheOptions;
 
-
     /**
      * DB connection
      *
@@ -110,12 +113,11 @@ class Mage_Core_Model_Cache
      */
     public function __construct(array $options = [])
     {
-        $this->_defaultBackendOptions['cache_dir'] = isset($options['cache_dir']) ? $options['cache_dir'] :
-            Mage::getBaseDir('cache');
+        $this->_defaultBackendOptions['cache_dir'] = $options['cache_dir'] ?? Mage::getBaseDir('cache');
         /**
          * Initialize id prefix
          */
-        $this->_idPrefix = isset($options['id_prefix']) ? $options['id_prefix'] : '';
+        $this->_idPrefix = $options['id_prefix'] ?? '';
         if (!$this->_idPrefix && isset($options['prefix'])) {
             $this->_idPrefix = $options['prefix'];
         }
@@ -154,7 +156,7 @@ class Mage_Core_Model_Cache
     protected function _getBackendOptions(array $cacheOptions)
     {
         $enable2levels = false;
-        $type   = isset($cacheOptions['backend']) ? $cacheOptions['backend'] : $this->_defaultBackend;
+        $type   = $cacheOptions['backend'] ?? $this->_defaultBackend;
         if (isset($cacheOptions['backend_options']) && is_array($cacheOptions['backend_options'])) {
             $options = $cacheOptions['backend_options'];
         } else {
@@ -300,11 +302,10 @@ class Mage_Core_Model_Cache
             }
         }
 
-        $backend = [
+        return [
             'type'      => 'TwoLevels',
             'options'   => $options
         ];
-        return $backend;
     }
 
     /**
@@ -315,13 +316,12 @@ class Mage_Core_Model_Cache
      */
     protected function _getFrontendOptions(array $cacheOptions)
     {
-        $options = isset($cacheOptions['frontend_options']) ? $cacheOptions['frontend_options'] : [];
+        $options = $cacheOptions['frontend_options'] ?? [];
         if (!array_key_exists('caching', $options)) {
             $options['caching'] = true;
         }
         if (!array_key_exists('lifetime', $options)) {
-            $options['lifetime'] = isset($cacheOptions['lifetime']) ? $cacheOptions['lifetime']
-                : self::DEFAULT_LIFETIME;
+            $options['lifetime'] = $cacheOptions['lifetime'] ?? self::DEFAULT_LIFETIME;
         }
         if (!array_key_exists('automatic_cleaning_factor', $options)) {
             $options['automatic_cleaning_factor'] = 0;
@@ -453,8 +453,7 @@ class Mage_Core_Model_Cache
      */
     public function flush()
     {
-        $res = $this->getFrontend()->clean();
-        return $res;
+        return $this->getFrontend()->clean();
     }
 
     /**

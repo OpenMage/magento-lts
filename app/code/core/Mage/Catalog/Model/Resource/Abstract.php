@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog entity abstract model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method int getStoreId()
  * @method bool getUseDataSharing()
@@ -62,7 +62,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      *
      * @param Varien_Object $object
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @return boolean
+     * @return bool
      */
     protected function _isApplicableAttribute($object, $attribute)
     {
@@ -76,7 +76,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Eav_Model_Entity_Attribute_Backend_Abstract|Mage_Eav_Model_Entity_Attribute_Frontend_Abstract|Mage_Eav_Model_Entity_Attribute_Source_Abstract $instance
      * @param string $method
      * @param array $args array of arguments
-     * @return boolean
+     * @return bool
      */
     protected function _isCallableAttributeInstance($instance, $method, $args)
     {
@@ -91,8 +91,6 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
 
         return parent::_isCallableAttributeInstance($instance, $method, $args);
     }
-
-
 
     /**
      * Retrieve select object for loading entity attributes values
@@ -146,8 +144,10 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      */
     protected function _addLoadAttributesSelectFields($select, $table, $type)
     {
+        /** @var Mage_Catalog_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('catalog');
         $select->columns(
-            Mage::getResourceHelper('catalog')->attributeSelectFields('attr_table', $type)
+            $helper->attributeSelectFields('attr_table', $type)
         );
         return $select;
     }
@@ -561,7 +561,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     protected function _prepareValueForSave($value, Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
         $type = $attribute->getBackendType();
-        if (($type == 'int' || $type == 'decimal' || $type == 'datetime') && $value === '') {
+        if (($type === 'int' || $type === 'decimal' || $type === 'datetime') && $value === '') {
             $value = null;
         }
 

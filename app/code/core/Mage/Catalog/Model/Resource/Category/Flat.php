@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Category flat model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resource_Abstract
 {
@@ -43,7 +42,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Loaded
      *
-     * @var boolean
+     * @var bool
      */
     protected $_loaded                   = false;
 
@@ -130,10 +129,6 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         parent::__construct();
     }
 
-    /**
-     * Resource initializations
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/category_flat', 'entity_id');
@@ -142,7 +137,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Set store id
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -154,7 +149,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Return store id
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {
@@ -177,7 +172,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Return name of table for given $storeId.
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return string
      */
     public function getMainStoreTable($storeId = Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
@@ -198,7 +193,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Return true if need use for each store different table of flat categories data.
      *
-     * @return boolean
+     * @return bool
      */
     public function getUseStoreTables()
     {
@@ -250,8 +245,8 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Load nodes by parent id
      *
      * @param Mage_Catalog_Model_Category|int $parentNode
-     * @param integer $recursionLevel
-     * @param integer $storeId
+     * @param int $recursionLevel
+     * @param int $storeId
      * @param bool $onlyActive
      * @return array
      */
@@ -360,9 +355,9 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Return sorted array of nodes
      *
-     * @param integer|null $parentId
-     * @param integer $recursionLevel
-     * @param integer $storeId
+     * @param int|null $parentId
+     * @param int $recursionLevel
+     * @param int $storeId
      * @return array
      */
     public function getNodes($parentId, $recursionLevel = 0, $storeId = 0)
@@ -399,11 +394,11 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Return array or collection of categories
      *
-     * @param integer $parent
-     * @param integer $recursionLevel
-     * @param boolean|string $sorted
-     * @param boolean $asCollection
-     * @param boolean $toLoad
+     * @param int $parent
+     * @param int $recursionLevel
+     * @param bool|string $sorted
+     * @param bool $asCollection
+     * @param bool $toLoad
      * @return array|Varien_Data_Collection
      */
     public function getCategories($parent, $recursionLevel = 0, $sorted = false, $asCollection = false, $toLoad = true)
@@ -433,7 +428,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Return node with id $nodeId
      *
-     * @param integer $nodeId
+     * @param int $nodeId
      * @param array $nodes
      * @return Varien_Object|array
      */
@@ -569,7 +564,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Creating table and adding attributes as fields to table
      *
-     * @param array|integer $store
+     * @param array|int $store
      * @return $this
      */
     protected function _createTable($store)
@@ -587,14 +582,14 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             foreach ($this->_columns as $fieldName => $fieldProp) {
                 $default = $fieldProp['default'];
                 if ($fieldProp['type'][0] == Varien_Db_Ddl_Table::TYPE_TIMESTAMP
-                    && $default == 'CURRENT_TIMESTAMP') {
+                    && $default === 'CURRENT_TIMESTAMP') {
                     $default = Varien_Db_Ddl_Table::TIMESTAMP_INIT;
                 }
                 $table->addColumn($fieldName, $fieldProp['type'][0], $fieldProp['type'][1], [
                     'nullable' => $fieldProp['nullable'],
                     'unsigned' => $fieldProp['unsigned'],
                     'default'  => $default,
-                    'primary'  => isset($fieldProp['primary']) ? $fieldProp['primary'] : false,
+                    'primary'  => $fieldProp['primary'] ?? false,
                 ], ($fieldProp['comment'] != '') ?
                     $fieldProp['comment'] :
                     ucwords(str_replace('_', ' ', $fieldName)));
@@ -656,6 +651,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      */
     protected function _getStaticColumns()
     {
+        /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
         $helper = Mage::getResourceHelper('catalog');
         $columns = [];
         $columnsToSkip = ['entity_type_id', 'attribute_set_id'];
@@ -706,7 +702,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 'type' => [$ddlType, $options],
                 'unsigned' => $_is_unsigned,
                 'nullable' => $column['NULLABLE'],
-                'default' => ($column['DEFAULT'] === null ? false : $column['DEFAULT']),
+                'default' => $column['DEFAULT'] ?? false,
                 'comment' => $column['COLUMN_NAME']
             ];
         }
@@ -730,7 +726,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $columns = [];
         $attributes = $this->_getAttributes();
         foreach ($attributes as $attribute) {
-            if ($attribute['backend_type'] == 'static') {
+            if ($attribute['backend_type'] === 'static') {
                 continue;
             }
             $columns[$attribute['attribute_code']] = [];
@@ -817,7 +813,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Return attribute values for given entities and store
      *
      * @param array $entityIds
-     * @param integer $store_id
+     * @param int $store_id
      * @return array
      */
     protected function _getAttributeValues($entityIds, $store_id)
@@ -851,7 +847,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      *
      * @param string $type
      * @param array $entityIds
-     * @param integer $storeId
+     * @param int $storeId
      * @return array
      */
     protected function _getAttributeTypeValues($type, $entityIds, $storeId)
@@ -879,7 +875,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Delete store table(s) of given stores;
      *
-     * @param array|integer $stores
+     * @param array|int $stores
      * @return $this
      */
     public function deleteStores($stores)
@@ -891,7 +887,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Delete table(s) of given stores.
      *
-     * @param array|integer $stores
+     * @param array|int $stores
      * @return $this
      */
     protected function _deleteTable($stores)
@@ -1076,9 +1072,9 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Synchronize flat data with eav after moving category
      *
-     * @param integer $categoryId
-     * @param integer $prevParentId
-     * @param integer $parentId
+     * @param int $categoryId
+     * @param int $prevParentId
+     * @param int $parentId
      * @return $this
      */
     public function moveold($categoryId, $prevParentId, $parentId)
@@ -1192,7 +1188,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      *
      * @param Mage_Catalog_Model_Category $category
      * @param bool $isActiveFlag
-     * @return integer
+     * @return int
      */
     public function getChildrenAmount($category, $isActiveFlag = true)
     {
@@ -1208,7 +1204,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Get products count in category
      *
      * @param Mage_Catalog_Model_Category $category
-     * @return integer
+     * @return int
      */
     public function getProductCount($category)
     {
@@ -1300,8 +1296,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      */
     public function getChildrenCategories($category)
     {
-        $categories = $this->_loadNodes($category, 1, $category->getStoreId());
-        return $categories;
+        return $this->_loadNodes($category, 1, $category->getStoreId());
     }
 
     /**
@@ -1319,7 +1314,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Check is category in list of store categories
      *
      * @param Mage_Catalog_Model_Category $category
-     * @return boolean
+     * @return bool
      */
     public function isInRootCategoryList($category)
     {

@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sendfriend
+ * @category   Mage
+ * @package    Mage_Sendfriend
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Email to a Friend Block
  *
- * @category    Mage
- * @package     Mage_Sendfriend
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sendfriend
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sendfriend_Block_Send extends Mage_Core_Block_Template
 {
@@ -185,7 +184,7 @@ class Mage_Sendfriend_Block_Send extends Mage_Core_Block_Template
     /**
      * Check if user is allowed to send
      *
-     * @return boolean
+     * @return bool
      */
     public function canSend()
     {

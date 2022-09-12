@@ -12,16 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /** @var Mage_Eav_Model_Entity_Setup $installer */
 $installer = $this;
-
 $installer->startSetup();
 
 $entityTypeId = $installer->getEntityTypeId('catalog_category');
@@ -52,8 +50,6 @@ $installer->addAttribute($entityTypeId, 'custom_apply_to_products', [
 ]);
 $useParentSettingsAttributeId = $installer->getAttributeId($entityTypeId, 'custom_use_parent_settings');
 $applyToProductsAttributeId = $installer->getAttributeId($entityTypeId, 'custom_apply_to_products');
-
-
 
 $attributeIdExpr = new Zend_Db_Expr(
     'IF (e_a.attribute_id = e.attribute_id,'.

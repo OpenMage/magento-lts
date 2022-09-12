@@ -12,15 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Log
+ * @category   Mage
+ * @package    Mage_Log
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Log Model
+ *
+ * @category   Mage
+ * @package    Mage_Log
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Log_Model_Resource_Log _getResource()
  * @method Mage_Log_Model_Resource_Log getResource()
@@ -34,10 +37,6 @@
  * @method Mage_Log_Model_Log setLastUrlId(int $value)
  * @method int getStoreId()
  * @method Mage_Log_Model_Log setStoreId(int $value)
- *
- * @category    Mage
- * @package     Mage_Log
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Log_Model_Log extends Mage_Core_Model_Abstract
 {

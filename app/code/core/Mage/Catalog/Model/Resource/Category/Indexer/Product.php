@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Resource model for category product indexer
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Model_Resource_Abstract
 {
@@ -70,10 +69,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
      */
     protected $_storesInfo;
 
-    /**
-     * Model initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/category_product_index', 'category_id');
@@ -431,7 +426,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         return $this;
     }
 
-
     /**
      * Rebuild index for direct associations categories and products
      *
@@ -767,11 +761,10 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     {
         $isAnchorAttribute = Mage::getSingleton('eav/config')
             ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_anchor');
-        $info = [
+        return [
             'id'    => $isAnchorAttribute->getId() ,
             'table' => $isAnchorAttribute->getBackend()->getTable()
         ];
-        return $info;
     }
 
     /**
@@ -783,11 +776,10 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     {
         $visibilityAttribute = Mage::getSingleton('eav/config')
             ->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'visibility');
-        $info = [
+        return [
             'id'    => $visibilityAttribute->getId() ,
             'table' => $visibilityAttribute->getBackend()->getTable()
         ];
-        return $info;
     }
 
     /**
@@ -798,11 +790,10 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     protected function _getStatusAttributeInfo()
     {
         $statusAttribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'status');
-        $info = [
+        return [
             'id'    => $statusAttribute->getId() ,
             'table' => $statusAttribute->getBackend()->getTable()
         ];
-        return $info;
     }
 
     /**
@@ -890,7 +881,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                         .' + '.$idxAdapter->quoteIdentifier('cp.position')
                     )
                 .')';
-
 
                 $select = $idxAdapter->select()
                 ->useStraightJoin(true)
@@ -992,7 +982,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         }
         return $this;
     }
-
 
     /**
      * Create temporary table with enabled products visibility info
@@ -1107,7 +1096,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
 
         return $this->_storesInfo;
     }
-
 
     /**
      * @param int $storeId

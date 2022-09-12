@@ -19,25 +19,26 @@ level of backwards compatibility to the official releases.
 
 **Pull requests with unofficial bug fixes and security patches from the community are encouraged and welcome!**
 
-Though Magento does not follow [Semantic Versioning](http://semver.org/) we aim to provide a workable system for
+### Versioning
+
+Though Magento does __not__ follow [Semantic Versioning](http://semver.org/) we aim to provide a workable system for
 dependency definition. Each Magento `1.<minor>.<revision>` release will get its own branch (named `1.<minor>.<revision>.x`)
 that will be independently maintained with upstream patches and community bug fixes for as long as it makes sense
-to do so (based on available resources). For example, Magento version `1.9.3.4` was merged into the `1.9.3.x` branch.
-
-Note, the branches older than `1.9.4.x` and that were created before this strategy came into practice are **not maintained**.
+to do so (based on available resources). For example, Magento version `1.9.4.5` was merged into the `1.9.4.x` branch.
 
 ## Requirements
 
-- PHP 7.0+ (PHP 7.3 with OpenSSL extension strongly recommended and verified compatible) (PHP 7.4 and 8.0 are supported)
-- MySQL 5.6+ (8.0+ recommended)
-- (optional) Redis 5+ (6.x recommended, latest verified compatible 6.0.7 with 20.x)
+- PHP 7.3+ (PHP 8.0 is supported)
+- MySQL 5.6+ (8.0+ recommended) or MariaDB
 
-- PHP 7.4 and 8.0 are supported
-- Please be aware that although OpenMage is compatible that 1 or more extensions may not be
+__Please be aware that although OpenMage is compatible that one or more extensions may not be__
 
-Installation on PHP 7.2.33 (7.2.x), MySQL 5.7.31-34 (5.7.x) Percona Server and Redis 6.x should work fine and confirmed by users.
+### Optional
 
-If using php 7.2+ then mcrypt needs to be disabled in php.ini or pecl to fallback on mcryptcompat and phpseclib. mcrypt is deprecated from 7.2+ onwards.
+- Redis 5+ (6.x recommended, latest verified compatible 6.0.7 with 20.x)
+
+### PHP 7.2+
+If using php 7.2+ then `mcrypt` needs to be disabled in `php.ini` or pecl to fallback on `mcryptcompat` and `phpseclib`. `mcrypt` is deprecated from 7.2+ onwards.
 
 ## Installation
 
@@ -64,7 +65,7 @@ If you want to contribute to the project:
 ```bash
 git init
 git remote add origin https://github.com/<YOUR GIT USERNAME>/magento-lts
-git pull origin master
+git pull origin main
 git remote add upstream https://github.com/OpenMage/magento-lts
 git pull upstream 1.9.4.x
 git add -A && git commit
@@ -102,8 +103,14 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 
 ### Between Magento 1.9.4.5 and OpenMage 19.x
 
-- bug fixes and PHP 7.x and 8.0 compatibility
+- bug fixes and PHP 7.x, 8.0 and 8.1 compatibility
 - added config cache for system.xml [#1916](https://github.com/OpenMage/magento-lts/pull/1916)
+- search for "NULL" in backend grids [#1203](https://github.com/OpenMage/magento-lts/pull/1203)
+- removed modules `Mage_Compiler`, `Mage_GoogleBase`, `Mage_Xmlconnect`, `Phoenix_Moneybookers`
+
+### Between OpenMage 19.4.18 / 20.0.16 and 19.4.19 / 20.0.17
+
+- PHP extension `intl` is required
 
 ### Between OpenMage 19.x and 20.x
 
@@ -112,7 +119,12 @@ Do not use 20.x.x if you need IE support.
 - removed IE conditional comments, IE styles, IE scripts and IE eot files [#1073](https://github.com/OpenMage/magento-lts/pull/1073)
 - removed frontend default themes (default, modern, iphone, german, french, blank, blue) [#1600](https://github.com/OpenMage/magento-lts/pull/1600)
 - fixed incorrect datetime in customer block (`$useTimezone` parameter) [#1525](https://github.com/OpenMage/magento-lts/pull/1525)
-- add redis as a valid option for `global/session_save` [#1513](https://github.com/OpenMage/magento-lts/pull/1513)
+- added redis as a valid option for `global/session_save` [#1513](https://github.com/OpenMage/magento-lts/pull/1513)
+- reduce needless saves by avoiding setting `_hasDataChanges` flag [#2066](https://github.com/OpenMage/magento-lts/pull/2066)
+- removed support for `global/sales/old_fields_map` defined in XML [#921](https://github.com/OpenMage/magento-lts/pull/921)
+- removed module `Mage_PageCache` [#2258](https://github.com/OpenMage/magento-lts/pull/2258)
+- removed lib/flex containing unused ActionScript "file uploader" files [#2271](https://github.com/OpenMage/magento-lts/pull/2271)
+- enabled website level config cache [#2355](https://github.com/OpenMage/magento-lts/pull/2355)
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
@@ -140,24 +152,32 @@ For full list of changes, you can [compare tags](https://github.com/OpenMage/mag
 
 [Full list of events](docs/EVENTS.md)
 
-### Removed Modules
+### Changes to SOAP/WSDL
 
-- `Mage_Compiler`
-- `Mage_GoogleBase`
-- `Mage_Xmlconnect`
-- `Phoenix_Moneybookers`
+Since `19.4.17`/`20.0.15` we changed the `targetNamespace` of all the WSDL files (used in the API modules), from `Magento` to `OpenMage`.
+If your custom modules extends OpenMage's APIs with a custom WSDL file and there are some hardcoded `targetNamespace="urn:Magento"` string, your APIs may stop working.
+Please replace all occurrences of `targetNamespace="urn:Magento"` with `targetNamespace="urn:OpenMage"` (or alternatively `targetNamespace="urn:{{var wsdl.name}}"`) to avoid any problem.
+To find which files need the modification you can run `grep -rn 'urn:Magento' --include \*.xml` from the root directory of your project.
 
 ## Development Environment with ddev
 
 - Install [ddev](https://ddev.com/get-started/)
-- Clone the repository as described in Installation -> Using Git
-- Create a ddev config using ```$ ddev config``` the defaults should be good for you
-- Open .ddev/config.yaml and change the php version to 7.2
-- Type ```$ ddev start``` to download and start the containers
-- Navigate to https://magento-lts.ddev.site
-- When you are done you can stop the test system by typing ```$ ddev stop```
+- Clone the repository as described in installation ([Using Git](https://github.com/OpenMage/magento-lts#using-git))
+- Create a ddev config, defaults should be good for you
+  ```bash
+  $ ddev config
+  ```
+- Open `.ddev/config.yaml` and change the php version to your needs
+- Download and start the containers
+  ```bash
+  $ ddev start
+  ```
+- Open your site in browser
+  ```bash
+  $ ddev launch
+  ```
 
-### PhpStorm Factory Helper
+## PhpStorm Factory Helper
 
 This repo includes class maps for the core Magento files in `.phpstorm.meta.php`.
 To add class maps for installed extensions, you have to install [N98-magerun](https://github.com/netz98/n98-magerun)

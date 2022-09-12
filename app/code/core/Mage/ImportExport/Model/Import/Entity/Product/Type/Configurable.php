@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_ImportExport
+ * @category   Mage
+ * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import entity configurable product type model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
 {
@@ -131,7 +131,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
     protected function _addAttributeParams($attrSetName, array $attrParams)
     {
         // save super attributes for simplier and quicker search in future
-        if ($attrParams['type'] == 'select' && $attrParams['is_global'] == 1 && $attrParams['for_configurable']) {
+        if ($attrParams['type'] === 'select' && $attrParams['is_global'] == 1 && $attrParams['for_configurable']) {
             $this->_superAttributes[$attrParams['code']] = $attrParams;
         }
         return parent::_addAttributeParams($attrSetName, $attrParams);
@@ -146,11 +146,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      */
     protected function _getSuperAttributeId($productId, $attributeId)
     {
-        if (isset($this->_productSuperAttrs["{$productId}_{$attributeId}"])) {
-            return $this->_productSuperAttrs["{$productId}_{$attributeId}"];
-        } else {
-            return null;
-        }
+        return $this->_productSuperAttrs["{$productId}_{$attributeId}"] ?? null;
     }
 
     /**
@@ -168,7 +164,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      * Is attribute is super-attribute?
      *
      * @param string $attrCode
-     * @return boolean
+     * @return bool
      */
     protected function _isAttributeSuper($attrCode)
     {
@@ -366,7 +362,9 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
         $oldSku          = $this->_entityModel->getOldSku();
         $productSuperData = [];
         $productData     = null;
-        $nextAttrId      = Mage::getResourceHelper('importexport')->getNextAutoincrement($mainTable);
+        /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
+        $helper          = Mage::getResourceHelper('importexport');
+        $nextAttrId      = $helper->getNextAutoincrement($mainTable);
 
         if ($this->_entityModel->getBehavior() == Mage_ImportExport_Model_Import::BEHAVIOR_APPEND) {
             $this->_loadSkuSuperData();
@@ -444,7 +442,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                         $superAttributes['pricing'][] = [
                             'product_super_attribute_id' => $productSuperAttrId,
                             'value_index'   => $optionId,
-                            'is_percent'    => substr($rowData['_super_attribute_price_corr'], -1) == '%',
+                            'is_percent'    => substr($rowData['_super_attribute_price_corr'], -1) === '%',
                             'pricing_value' => (float) rtrim($rowData['_super_attribute_price_corr'], '%'),
                             'website_id'    => 0
                         ];

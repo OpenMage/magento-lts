@@ -12,14 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * NVP API wrappers model
+ *
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @TODO: move some parts to abstract, don't hesitate to throw exceptions on api calls
  */
 class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
@@ -274,7 +279,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected $_doCaptureRequest = ['AUTHORIZATIONID', 'COMPLETETYPE', 'AMT', 'CURRENCYCODE', 'NOTE', 'INVNUM',];
     protected $_doCaptureResponse = ['TRANSACTIONID', 'CURRENCYCODE', 'AMT', 'PAYMENTSTATUS', 'PENDINGREASON',];
-
 
     /**
      * DoAuthorization request/response map
@@ -715,7 +719,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         return $this;
     }
 
-
     /**
      * DoVoid call
      * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_DoVoid
@@ -1049,8 +1052,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $errorMessages = implode(' ', array_values($errorMessages));
         $exceptionLogMessage = sprintf('PayPal NVP gateway errors: %s Correlation ID: %s. Version: %s.',
             $errorMessages,
-            isset($response['CORRELATIONID']) ? $response['CORRELATIONID'] : '',
-            isset($response['VERSION']) ? $response['VERSION'] : ''
+            $response['CORRELATIONID'] ?? '',
+            $response['VERSION'] ?? ''
         );
 
         $exception = new $exceptionClass($exceptionLogMessage, $exceptionCode);
@@ -1077,7 +1080,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         return $longErrorMessage ? sprintf('%s (#%s: %s).', $longErrorMessage, $errorCode, $shortErrorMessage)
             : sprintf('#%s: %s.', $errorCode, $shortErrorMessage);
     }
-
 
     /**
      * Check whether PayPal error can be processed
@@ -1327,10 +1329,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected function _filterCcType($value)
     {
-        if (isset($this->_supportedCcTypes[$value])) {
-            return $this->_supportedCcTypes[$value];
-        }
-        return '';
+        return $this->_supportedCcTypes[$value] ?? '';
     }
 
     /**

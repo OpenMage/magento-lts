@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Weee
+ * @category   Mage
+ * @package    Mage_Weee
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Weee calculation model
  *
- * @category    Mage
- * @package     Mage_Weee
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Weee
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_Tax
 {
@@ -260,10 +260,9 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             $this->_store
         );
 
-        $customerRatePercentage = $taxCalculationModel->getRate(
+        return $taxCalculationModel->getRate(
             $request->setProductClassId($item->getProduct()->getTaxClassId())
         );
-        return $customerRatePercentage;
     }
 
     /**
@@ -623,7 +622,6 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     {
         $this->_helper = $helper;
     }
-
 
     /**
      * Set the store Object

@@ -12,16 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Helper_Abstract
 {
@@ -127,7 +129,7 @@ abstract class Mage_Core_Helper_Abstract
      * Check whether or not the module output is enabled in Configuration
      *
      * @param string $moduleName Full module name
-     * @return boolean
+     * @return bool
      */
     public function isModuleOutputEnabled($moduleName = null)
     {
@@ -149,7 +151,7 @@ abstract class Mage_Core_Helper_Abstract
      * Check is module exists and enabled in global config.
      *
      * @param string $moduleName the full module name, example Mage_Core
-     * @return boolean
+     * @return bool
      */
     public function isModuleEnabled($moduleName = null)
     {

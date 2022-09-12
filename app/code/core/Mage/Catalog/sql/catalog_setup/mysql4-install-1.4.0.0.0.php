@@ -12,15 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
-
 $installer->startSetup();
 
 if (!$installer->tableExists($installer->getTable('catalog_category_entity'))) {
@@ -639,7 +638,6 @@ CREATE TABLE `{$installer->getTable('catalog/product_option_type_title')}` (
 ALTER TABLE `{$installer->getTable('core_url_rewrite')}` ADD INDEX `IDX_CATEGORY_REWRITE` (`category_id`, `is_system`, `product_id`, `store_id`, `id_path`);
 ");
 
-
     $installer->run("
 CREATE TABLE `{$installer->getTable('catalog/eav_attribute')}` (
   `attribute_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
@@ -670,9 +668,6 @@ CREATE TABLE `{$installer->getTable('catalog/eav_attribute')}` (
 $installer->endSetup();
 
 $installer->installEntities();
-
-
-
 
 // Create Root Catalog Node
 Mage::getModel('catalog/category')

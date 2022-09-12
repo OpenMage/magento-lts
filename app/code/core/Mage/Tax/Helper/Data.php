@@ -12,14 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tax
+ * @category   Mage
+ * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Catalog data helper
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -99,7 +101,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Postcode cut to this length when creating search templates
      *
-     * @var integer
+     * @var int
      */
     protected $_postCodeSubStringLength = 10;
 
@@ -124,7 +126,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return max postcode length to create search templates
      *
-     * @return integer  $len
+     * @return int  $len
      */
     public function getPostCodeSubStringLength()
     {
@@ -351,7 +353,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_config->displaySalesPricesBoth($store);
     }
 
-
     /**
      * Check if we need display price include and exclude tax for order/invoice subtotal
      *
@@ -441,7 +442,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->_getAllRatesByProductClass($store);
     }
-
 
     /**
      * Get all tax rates JSON for all product tax classes of specific store
@@ -625,8 +625,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $priceExclTax         = $this->_calculatePrice($storePriceInclTax, $storePercent, false, false);
         $customerTax          = $this->getCalculator()->calcTaxAmount($priceExclTax, $customerPercent, false, false);
-        $customerPriceInclTax = $store->roundPrice($priceExclTax + $customerTax);
-        return $customerPriceInclTax;
+        return $store->roundPrice($priceExclTax + $customerTax);
     }
 
     /**
@@ -1152,11 +1151,11 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$helper->includeInSubtotal($store)) {
             foreach ($source->getAllItems() as $item) {
                 foreach ($helper->getApplied($item) as $tax) {
-                    $weeeDiscount = isset($tax['weee_discount']) ? $tax['weee_discount'] : 0;
+                    $weeeDiscount = $tax['weee_discount'] ?? 0;
                     $title = $tax['title'];
 
-                    $rowAmount = isset($tax['row_amount']) ? $tax['row_amount'] : 0;
-                    $rowAmountInclTax = isset($tax['row_amount_incl_tax']) ? $tax['row_amount_incl_tax'] : 0;
+                    $rowAmount = $tax['row_amount'] ?? 0;
+                    $rowAmountInclTax = $tax['row_amount_incl_tax'] ?? 0;
                     $amountDisplayed = ($helper->isTaxIncluded()) ? $rowAmountInclTax : $rowAmount;
 
                     if (array_key_exists($title, $allWeee)) {
@@ -1206,7 +1205,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * Return whether cross border trade is enabled or not
      *
      * @param   null|int $store
-     * @return boolean
+     * @return bool
      */
     public function isCrossBorderTradeEnabled($store = null)
     {

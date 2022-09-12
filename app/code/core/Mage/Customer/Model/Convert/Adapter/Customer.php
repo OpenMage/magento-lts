@@ -12,13 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Convert_Adapter_Entity
 {
     const MULTI_DELIMITER = ' , ';
@@ -180,11 +184,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
             }
         }
 
-        if (isset($this->_regions[$country][$regionName])) {
-            return $this->_regions[$country][$regionName];
-        }
-
-        return 0;
+        return $this->_regions[$country][$regionName] ?? 0;
     }
 
     /**
@@ -456,7 +456,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
              * Check customer group
              */
             if (empty($importData['group']) || !isset($customerGroups[$importData['group']])) {
-                $value = isset($importData['group']) ? $importData['group'] : '';
+                $value = $importData['group'] ?? '';
                 $message = Mage::helper('catalog')->__('Skipping import row, the value "%s" is not valid for the "%s" field.', $value, 'group');
                 Mage::throwException($message);
             }
@@ -624,7 +624,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
             }
 
             $billingAddress->setCountryId($importData['billing_country']);
-            $regionName = isset($importData['billing_region']) ? $importData['billing_region'] : '';
+            $regionName = $importData['billing_region'] ?? '';
             if ($regionName) {
                 $regionId = $this->getRegionId($importData['billing_country'], $regionName);
                 $billingAddress->setRegionId($regionId);
@@ -677,7 +677,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
             }
 
             $shippingAddress->setCountryId($importData['shipping_country']);
-            $regionName = isset($importData['shipping_region']) ? $importData['shipping_region'] : '';
+            $regionName = $importData['shipping_region'] ?? '';
             if ($regionName) {
                 $regionId = $this->getRegionId($importData['shipping_country'], $regionName);
                 $shippingAddress->setRegionId($regionId);

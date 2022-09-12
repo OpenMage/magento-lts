@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Install
+ * @category   Mage
+ * @package    Mage_Install
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract resource data model
  *
- * @category    Mage
- * @package     Mage_Install
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Install
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Install_Model_Installer_Db_Abstract
 {
@@ -48,7 +48,6 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
      */
     protected $_configData;
 
-
     /**
      * Return the name of DB model from config
      *
@@ -58,7 +57,6 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
     {
         return $this->_configData['db_model'];
     }
-
 
     /**
      * Return the DB type from config

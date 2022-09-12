@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -24,12 +24,13 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
      * Set grid params
-     *
      */
     public function __construct()
     {
@@ -48,8 +49,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
      */
     protected function _prepareCollection()
     {
-        $collection = ($this->getCollection())
-            ? $this->getCollection() : Mage::getResourceModel('sales/order_payment_transaction_collection');
+        $collection = $this->getCollection() ?: Mage::getResourceModel('sales/order_payment_transaction_collection');
         $order = Mage::registry('current_order');
         if ($order) {
             $collection->addOrderIdFilter($order->getId());
@@ -61,9 +61,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
     }
 
     /**
-     * Add columns to grid
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
@@ -122,7 +120,6 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
         $this->addColumn('created_at', [
             'header'    => Mage::helper('sales')->__('Created At'),
             'index'     => 'created_at',
-            'width'     => 1,
             'type'      => 'datetime',
             'align'     => 'center',
             'default'   => $this->__('N/A'),
@@ -147,8 +144,8 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
      *
      * @return string
      */
-    public function getRowUrl($item)
+    public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/view', ['txn_id' => $item->getId()]);
+        return $this->getUrl('*/*/view', ['txn_id' => $row->getId()]);
     }
 }

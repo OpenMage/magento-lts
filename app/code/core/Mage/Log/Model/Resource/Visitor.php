@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Log
+ * @category   Mage
+ * @package    Mage_Log
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Visitor log resource
  *
- * @category    Mage
- * @package     Mage_Log
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Log
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -42,14 +41,9 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     public function __construct(array $data = [])
     {
         parent::__construct();
-        $this->_urlLoggingCondition = isset($data['log_condition'])
-            ? $data['log_condition'] : Mage::helper('log');
+        $this->_urlLoggingCondition = $data['log_condition'] ?? Mage::helper('log');
     }
 
-    /**
-     * Define main table
-     *
-     */
     protected function _construct()
     {
         $this->_init('log/visitor', 'visitor_id');

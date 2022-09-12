@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Translate_Inline
 {
@@ -166,7 +166,7 @@ class Mage_Core_Model_Translate_Inline
             return $this;
         }
 
-        /** @var Mage_Core_Model_Mysql4_Translate_String $resource */
+        /** @var Mage_Core_Model_Resource_Translate_String $resource */
         $resource = Mage::getResourceModel('core/translate_string');
         foreach ($translate as $t) {
             if (Mage::getDesign()->getArea() == 'adminhtml') {
@@ -310,11 +310,7 @@ class Mage_Core_Model_Translate_Inline
     {
         $tagName = strtolower($options['tagName']);
 
-        if (isset($options['tagList'][$tagName])) {
-            return $options['tagList'][$tagName];
-        }
-
-        return ucfirst($tagName) . ' Text';
+        return $options['tagList'][$tagName] ?? (ucfirst($tagName) . ' Text');
     }
 
     /**
@@ -343,7 +339,6 @@ class Mage_Core_Model_Translate_Inline
         }
         return $trArr;
     }
-
 
     /**
      * Prepare tags inline translates

@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Store Contact Information source model
@@ -35,10 +34,6 @@ class Mage_Core_Model_Source_Email_Variables
      */
     protected $_configVariables = [];
 
-    /**
-     * Constructor
-     *
-     */
     public function __construct()
     {
         $this->_configVariables = [
@@ -100,7 +95,7 @@ class Mage_Core_Model_Source_Email_Variables
     /**
      * Retrieve option array of store contact variables
      *
-     * @param boolean $withGroup
+     * @param bool $withGroup
      * @return array
      */
     public function toOptionArray($withGroup = false)

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,6 +27,10 @@
  *  sales_order_save_after
  *  sales_order_delete_before
  *  sales_order_delete_after
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Order _getResource()
  * @method Mage_Sales_Model_Resource_Order getResource()
@@ -360,10 +364,6 @@
  *
  * @method string getXForwardedFor()
  * @method $this setXForwardedFor(string $value)
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 {
@@ -504,9 +504,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected $_historyEntityName = self::HISTORY_ENTITY_NAME;
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('sales/order');
@@ -543,26 +540,23 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve can flag for action (edit, unhold, etc..)
      *
      * @param string $action
-     * @return boolean|null
+     * @return bool|null
      */
     public function getActionFlag($action)
     {
-        if (isset($this->_actionFlag[$action])) {
-            return $this->_actionFlag[$action];
-        }
-        return null;
+        return $this->_actionFlag[$action] ?? null;
     }
 
     /**
      * Set can flag value for action (edit, unhold, etc...)
      *
      * @param string $action
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setActionFlag($action, $flag)
     {
-        $this->_actionFlag[$action] = (boolean) $flag;
+        $this->_actionFlag[$action] = (bool) $flag;
         return $this;
     }
 
@@ -584,7 +578,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function setCanSendNewEmailFlag($flag)
     {
-        $this->_canSendNewEmailFlag = (boolean) $flag;
+        $this->_canSendNewEmailFlag = (bool) $flag;
         return $this;
     }
 
@@ -1383,9 +1377,11 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_EMAIL_COPY_METHOD, $storeId);
 
         // Start store emulation process
-        /** @var Mage_Core_Model_App_Emulation $appEmulation */
-        $appEmulation = Mage::getSingleton('core/app_emulation');
-        $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
+        if ($storeId != Mage::app()->getStore()->getId()) {
+            /** @var Mage_Core_Model_App_Emulation $appEmulation */
+            $appEmulation = Mage::getSingleton('core/app_emulation');
+            $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
+        }
 
         try {
             // Retrieve specified view block from appropriate design package (depends on emulated store)
@@ -1393,14 +1389,18 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 ->setIsSecureMode(true);
             $paymentBlock->getMethod()->setStore($storeId);
             $paymentBlockHtml = $paymentBlock->toHtml();
-        } catch (Exception $exception) {
+        } catch (Exception $e) {
             // Stop store emulation process
-            $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
-            throw $exception;
+            if (isset($appEmulation, $initialEnvironmentInfo)) {
+                $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
+            }
+            throw $e;
         }
 
         // Stop store emulation process
-        $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
+        if (isset($appEmulation, $initialEnvironmentInfo)) {
+            $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
+        }
 
         // Retrieve corresponding email template id and customer name
         if ($this->getCustomerIsGuest()) {
@@ -1472,7 +1472,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Queue email with order update information
      *
-     * @param boolean $notifyCustomer
+     * @param bool $notifyCustomer
      * @param string $comment
      * @param bool $forceMode if true then email will be sent regardless of the fact that it was already sent previously
      *
@@ -1828,7 +1828,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $payments;
     }
 
-
     /**
      * @param int $paymentId
      * @return bool|Mage_Sales_Model_Order_Payment
@@ -1958,7 +1957,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         }
         return $this;
     }
-
 
     /**
      * @return string
@@ -2226,7 +2224,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $result;
     }
 
-
     /**
      * Retrieve array of related objects
      *
@@ -2485,8 +2482,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function prepareInvoice($qtys = [])
     {
-        $invoice = Mage::getModel('sales/service_order', $this)->prepareInvoice($qtys);
-        return $invoice;
+        return Mage::getModel('sales/service_order', $this)->prepareInvoice($qtys);
     }
 
     /**
@@ -2497,8 +2493,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function prepareShipment($qtys = [])
     {
-        $shipment = Mage::getModel('sales/service_order', $this)->prepareShipment($qtys);
-        return $shipment;
+        return Mage::getModel('sales/service_order', $this)->prepareShipment($qtys);
     }
 
     /**

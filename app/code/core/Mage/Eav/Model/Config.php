@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Eav_Model_Config
+ *
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Config
 {
@@ -121,7 +125,7 @@ class Mage_Eav_Model_Config
      */
     protected function _load($id)
     {
-        return isset($this->_objects[$id]) ? $this->_objects[$id] : null;
+        return $this->_objects[$id] ?? null;
     }
 
     /**
@@ -158,7 +162,7 @@ class Mage_Eav_Model_Config
      */
     protected function _getEntityTypeReference($id)
     {
-        return isset($this->_references['entity'][$id]) ? $this->_references['entity'][$id] : null;
+        return $this->_references['entity'][$id] ?? null;
     }
 
     /**
@@ -184,10 +188,7 @@ class Mage_Eav_Model_Config
      */
     protected function _getAttributeReference($id, $entityTypeCode)
     {
-        if (isset($this->_references['attribute'][$entityTypeCode][$id])) {
-            return $this->_references['attribute'][$entityTypeCode][$id];
-        }
-        return null;
+        return $this->_references['attribute'][$entityTypeCode][$id] ?? null;
     }
 
     /**
@@ -310,7 +311,6 @@ class Mage_Eav_Model_Config
             return $entityType;
         }
 
-
         $entityType = Mage::getModel('eav/entity_type');
         if (isset($this->_entityData[$code])) {
             $entityType->setData($this->_entityData[$code]);
@@ -348,12 +348,13 @@ class Mage_Eav_Model_Config
         }
         Varien_Profiler::start('EAV: '.__METHOD__);
 
-        $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection())
-            ->setEntityTypeFilter($entityType)
-            ->getData();
+        /** @var Mage_Eav_Model_Resource_Entity_Attribute_Collection $attributesInfo */
+        $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection());
+        $attributesInfo->setEntityTypeFilter($entityType);
+        $attributesInfoData = $attributesInfo->getData();
 
         $codes = [];
-        foreach ($attributesInfo as $attribute) {
+        foreach ($attributesInfoData as $attribute) {
             $this->_createAttribute($entityType, $attribute);
             $codes[] = $attribute['attribute_code'];
         }
@@ -462,13 +463,15 @@ class Mage_Eav_Model_Config
         }
 
         if ($attributeSetId) {
-            $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection())
+            /** @var Mage_Eav_Model_Resource_Entity_Attribute_Collection $attributesInfo */
+            $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection());
+            $attributesInfo
                 ->setEntityTypeFilter($entityType)
                 ->setAttributeSetFilter($attributeSetId)
-                ->addStoreLabel($storeId)
-                ->getData();
+                ->addStoreLabel($storeId);
+            $attributesInfoData = $attributesInfo->getData();
             $attributes = [];
-            foreach ($attributesInfo as $attributeData) {
+            foreach ($attributesInfoData as $attributeData) {
                 $attributes[] = $attributeData['attribute_code'];
                 $this->_createAttribute($entityType, $attributeData);
             }
@@ -513,19 +516,21 @@ class Mage_Eav_Model_Config
         }
         Varien_Profiler::start('EAV: '.__METHOD__ . ':'.$entityTypeCode);
 
-        $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection())
+        /** @var Mage_Eav_Model_Resource_Entity_Attribute_Collection $attributesInfo */
+        $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection());
+        $attributesInfo
             ->setEntityTypeFilter($entityType)
-            ->setCodeFilter($attributes)
-            ->getData();
+            ->setCodeFilter($attributes);
+        $attributesInfoData = $attributesInfo->getData();
 
-        if (!$attributesInfo) {
+        if (!$attributesInfoData) {
             Varien_Profiler::stop('EAV: '.__METHOD__ . ':'.$entityTypeCode);
             return $this;
         }
 
         $attributesData = $codes = [];
 
-        foreach ($attributesInfo as $attribute) {
+        foreach ($attributesInfoData as $attribute) {
             if (empty($attribute['attribute_model'])) {
                 $attribute['attribute_model'] = $entityType->getAttributeModel();
             }
@@ -539,9 +544,7 @@ class Mage_Eav_Model_Config
         }
 
         $this->_attributeData[$entityTypeCode] = $attributesData;
-
         Varien_Profiler::stop('EAV: '.__METHOD__ . ':'.$entityTypeCode);
-
         return $this;
     }
 
@@ -605,13 +608,15 @@ class Mage_Eav_Model_Config
             return $this;
         }
         $attributeCollection = $entityType->getEntityAttributeCollection();
-        $attributesInfo = Mage::getResourceModel($attributeCollection)
+        /** @var Mage_Eav_Model_Resource_Entity_Attribute_Collection $attributesInfo */
+        $attributesInfo = Mage::getResourceModel($attributeCollection);
+        $attributesInfo
             ->useLoadDataFields()
             ->setEntityTypeFilter($entityType)
-            ->setCodeFilter($attributes)
-            ->getData();
+            ->setCodeFilter($attributes);
+        $attributesInfoData = $attributesInfo->getData();
 
-        foreach ($attributesInfo as $attributeData) {
+        foreach ($attributesInfoData as $attributeData) {
             $attribute = $this->_createAttribute($entityType, $attributeData);
             $this->_collectionAttributes[$entityTypeCode][$attribute->getAttributeCode()] =$attribute;
         }

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -164,13 +164,11 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function canUseAttribute(Mage_Eav_Model_Entity_Attribute $attribute)
     {
-        $allow = $attribute->getIsGlobal() == Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL
+        return $attribute->getIsGlobal() == Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL
             && $attribute->getIsVisible()
             && $attribute->getIsConfigurable()
             && $attribute->usesSource()
             && $attribute->getIsUserDefined();
-
-        return $allow;
     }
 
     /**
@@ -294,7 +292,6 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         return Mage::getResourceModel('catalog/product_type_configurable_attribute_collection')
             ->setProductFilter($this->getProduct($product));
     }
-
 
     /**
      * Retrieve subproducts identifiers
@@ -433,7 +430,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
          */
         if ($data = $this->getProduct($product)->getConfigurableAttributesData()) {
             foreach ($data as $attributeData) {
-                $id = isset($attributeData['id']) ? $attributeData['id'] : null;
+                $id = $attributeData['id'] ?? null;
                 Mage::getModel('catalog/product_type_configurable_attribute')
                    ->setData($attributeData)
                    ->setId($id)
@@ -854,9 +851,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         $superAttribute = $buyRequest->getSuperAttribute();
         $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, '\intval') : [];
 
-        $options = ['super_attribute' => $superAttribute];
-
-        return $options;
+        return ['super_attribute' => $superAttribute];
     }
 
     /**

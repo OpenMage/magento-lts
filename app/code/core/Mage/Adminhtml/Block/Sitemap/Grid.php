@@ -12,22 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sitemaps grid
  *
  * @category   Mage
  * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -38,8 +37,8 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     protected function _prepareCollection()
     {
+        /** @var Mage_Sitemap_Model_Resource_Sitemap_Collection $collection */
         $collection = Mage::getModel('sitemap/sitemap')->getCollection();
-        /** @var Mage_Sitemap_Model_Mysql4_Sitemap_Collection $collection */
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -70,11 +69,9 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->addColumn('sitemap_time', [
             'header'    => Mage::helper('sitemap')->__('Last Time Generated'),
-            'width'     => '150px',
             'index'     => 'sitemap_time',
             'type'      => 'datetime',
         ]);
-
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', [
@@ -104,5 +101,4 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
     {
         return $this->getUrl('*/*/edit', ['sitemap_id' => $row->getId()]);
     }
-
 }

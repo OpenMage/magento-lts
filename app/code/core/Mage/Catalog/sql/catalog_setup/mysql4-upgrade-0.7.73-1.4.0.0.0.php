@@ -12,17 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
-
 $installer->startSetup();
+
 $installer->updateEntityType('catalog_category', 'additional_attribute_table', 'catalog/eav_attribute');
 $installer->updateEntityType('catalog_product', 'additional_attribute_table', 'catalog/eav_attribute');
 $installer->updateEntityType('catalog_category', 'entity_attribute_collection', 'catalog/attribute_collection');
@@ -68,7 +67,6 @@ foreach ($result as $data) {
     $installer->getConnection()->insert($table, $data);
 }
 
-
 $describe = $installer->getConnection()->describeTable($installer->getTable('catalog/eav_attribute'));
 foreach ($describe as $columnData) {
     if ($columnData['COLUMN_NAME'] == 'attribute_id') {
@@ -90,4 +88,5 @@ $sql = "
             `translate`.store_id != 0
 ";
 $installer->getConnection()->query($sql);
+
 $installer->endSetup();

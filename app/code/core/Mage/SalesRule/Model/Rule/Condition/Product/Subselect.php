@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_SalesRule
+ * @category   Mage
+ * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_SalesRule_Model_Rule_Condition_Product_Subselect
+ *
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setAttributeOption(array $value)
  * @method $this setOperatorOption(array $value)
@@ -53,10 +57,9 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
      */
     public function asXml($containerKey = 'conditions', $itemKey = 'condition')
     {
-        $xml = '<attribute>'.$this->getAttribute().'</attribute>'
+        return '<attribute>'.$this->getAttribute().'</attribute>'
             . '<operator>'.$this->getOperator().'</operator>'
             . parent::asXml($containerKey, $itemKey);
-        return $xml;
     }
 
     /**
@@ -122,7 +125,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
      * validate
      *
      * @param Varien_Object $object Quote
-     * @return boolean
+     * @return bool
      */
     public function validate(Varien_Object $object)
     {

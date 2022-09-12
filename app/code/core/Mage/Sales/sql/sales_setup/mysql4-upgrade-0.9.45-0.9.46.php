@@ -12,16 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-/** @var Mage_Sales_Model_Mysql4_Setup $installer */
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 $installer = $this;
-
 $this->startSetup();
 
 $orderEntityType = $installer->getEntityType('order');
@@ -43,7 +41,6 @@ $attributesToMove = [
 foreach ($attributesToModify as $attribute) {
     $installer->getConnection()->modifyColumn($this->getTable('sales_order'), $attribute['attribute_code'], "decimal(12,4) NOT NULL DEFAULT '0'");
 }
-
 
 foreach ($attributesToMove as $attribute) {
     $installer->getConnection()->addColumn($this->getTable('sales_order'), $attribute['attribute_code'], 'varchar(50) NULL');
@@ -100,6 +97,5 @@ $installer->getConnection()->addConstraint(
     'store_id',
     'SET NULL'
 );
-
 
 $this->endSetup();

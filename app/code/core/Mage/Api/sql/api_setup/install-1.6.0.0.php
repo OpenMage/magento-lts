@@ -12,22 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api
+ * @category   Mage
+ * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/**
- * Api install
- *
- * @category    Mage
- * @package     Mage_Api
- * @author      Magento Core Team <core@magentocommerce.com>
- */
-$installer = $this;
 /** @var Mage_Core_Model_Resource_Setup $installer */
-
+$installer = $this;
 $installer->startSetup();
 
 /**
@@ -218,7 +210,5 @@ $table = $installer->getConnection()
     )
     ->setComment('Api Sessions');
 $installer->getConnection()->createTable($table);
-
-
 
 $installer->endSetup();

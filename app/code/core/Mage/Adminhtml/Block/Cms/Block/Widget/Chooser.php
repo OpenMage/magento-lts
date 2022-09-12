@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -60,7 +60,6 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
             ->setSourceUrl($sourceUrl)
             ->setUniqId($uniqId);
 
-
         if ($element->getValue()) {
             $block = Mage::getModel('cms/block')->load($element->getValue());
             if ($block->getId()) {
@@ -80,7 +79,7 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
     public function getRowClickCallback()
     {
         $chooserJsObject = $this->getId();
-        $js = '
+        return '
             function (grid, event) {
                 var trElement = Event.findElement(event, "tr");
                 var blockId = trElement.down("td").innerHTML.replace(/^\s+|\s+$/g,"");
@@ -90,7 +89,6 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
                 '.$chooserJsObject.'.close();
             }
         ';
-        return $js;
     }
 
     /**
@@ -100,8 +98,8 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
      */
     protected function _prepareCollection()
     {
+        /** @var Mage_Cms_Model_Resource_Block_Collection $collection */
         $collection = Mage::getModel('cms/block')->getCollection();
-        /** @var Mage_Cms_Model_Mysql4_Block_Collection $collection */
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -131,7 +129,6 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
             'align'     => 'left',
             'index'     => 'identifier'
         ]);
-
 
         $this->addColumn('chooser_is_active', [
             'header'    => Mage::helper('cms')->__('Status'),

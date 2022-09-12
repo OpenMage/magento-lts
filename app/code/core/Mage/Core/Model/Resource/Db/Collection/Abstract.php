@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract Core Resource Collection
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Data_Collection_Db
 {
@@ -67,7 +67,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Fields to select changed flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_fieldsToSelectChanged  = false;
 
@@ -88,7 +88,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Reset items data changed flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_resetItemsDataChanged   = false;
 
@@ -214,7 +214,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
                 if ($column instanceof Zend_Db_Expr) {
                     $column = $column->__toString();
                 }
-                $key = ($alias !== null ? $alias : $column);
+                $key = $alias ?? $column;
                 $columnsToSelect[$key] = $columnEntry;
             }
         }
@@ -357,7 +357,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Removes field from select
      *
      * @param string|null $field
-     * @param boolean $isAlias Alias identifier
+     * @param bool $isAlias Alias identifier
      * @return $this
      */
     public function removeFieldFromSelect($field, $isAlias = false)
@@ -589,7 +589,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Set reset items data changed flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setResetItemsDataChanged($flag)
@@ -668,8 +668,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      */
     protected function _loadCache($select)
     {
-        $data = Mage::app()->loadCache($this->_getSelectCacheId($select));
-        return $data;
+        return Mage::app()->loadCache($this->_getSelectCacheId($select));
     }
 
     /**
@@ -702,7 +701,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Format Date to internal database date format
      *
      * @param int|string|Zend_Date $date
-     * @param boolean $includeTime
+     * @param bool $includeTime
      * @return string
      */
     public function formatDate($date, $includeTime = true)

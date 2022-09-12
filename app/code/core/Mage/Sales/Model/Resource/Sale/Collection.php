@@ -12,23 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sales Collection
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_Db
 {
-
     /**
      * Totals data
      *
@@ -36,7 +34,6 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
      */
     protected $_totals = [
         'lifetime' => 0, 'base_lifetime' => 0, 'base_avgsale' => 0, 'num_orders' => 0];
-
 
     /**
      * Customer model
@@ -105,7 +102,6 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
         $this->_orderStateValue     = (!is_array($state)) ? [$state] : $state;
         return $this;
     }
-
 
     /**
      * Before load action
@@ -182,7 +178,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
         foreach ($data as $v) {
             $storeObject = new Varien_Object($v);
             $storeId     = $v['store_id'];
-            $storeName   = isset($stores[$storeId]) ? $stores[$storeId] : null;
+            $storeName   = $stores[$storeId] ?? null;
             $storeObject->setStoreName($storeName)
                 ->setWebsiteId(Mage::app()->getStore($storeId)->getWebsiteId())
                 ->setAvgNormalized($v['avgsale'] * $v['num_orders']);

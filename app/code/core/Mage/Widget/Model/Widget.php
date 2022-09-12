@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Widget
+ * @category   Mage
+ * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Widget model for different purposes
  *
- * @category    Mage
- * @package     Mage_Widget
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Widget
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Widget_Model_Widget extends Varien_Object
 {
@@ -247,13 +247,12 @@ class Mage_Widget_Model_Widget extends Varien_Object
         } else {
             $image = $config->getPlaceholderImagesBaseUrl() . 'default.gif';
         }
-        $html = sprintf(
+        return sprintf(
             '<img id="%s" src="%s" title="%s">',
             $this->_idEncode($directive),
             $image,
             Mage::helper('core')->escapeUrl($directive)
         );
-        return $html;
     }
 
     /**
@@ -290,11 +289,11 @@ class Mage_Widget_Model_Widget extends Varien_Object
      *
      * @param array $a
      * @param array $b
-     * @return boolean
+     * @return int<-1, 1>
      */
     protected function _sortWidgets($a, $b)
     {
-        return strcmp($a["name"], $b["name"]);
+        return strcmp($a['name'], $b['name']);
     }
 
     /**
