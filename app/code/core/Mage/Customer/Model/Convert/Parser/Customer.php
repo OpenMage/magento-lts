@@ -442,11 +442,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             }
         }
 
-        if (isset($this->_customerGroups[$customer->getGroupId()])) {
-            return $this->_customerGroups[$customer->getGroupId()];
-        } else {
-            return null;
-        }
+        return $this->_customerGroups[$customer->getGroupId()] ?? null;
     }
 
     /**
@@ -495,7 +491,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 }
 
                 // get store ids
-                $storeIds = $this->getStoreIds(isset($row['store']) ? $row['store'] : $this->getVar('store'));
+                $storeIds = $this->getStoreIds($row['store'] ?? $this->getVar('store'));
                 if (!$storeIds) {
                     $this->addException(Mage::helper('customer')->__("Invalid store specified, skipping the record."), Varien_Convert_Exception::ERROR);
                     continue;

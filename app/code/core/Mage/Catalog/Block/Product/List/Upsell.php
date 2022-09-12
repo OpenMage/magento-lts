@@ -182,11 +182,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         if ($type == '') {
             return $this->_itemLimits;
         }
-        if (isset($this->_itemLimits[$type])) {
-            return $this->_itemLimits[$type];
-        } else {
-            return 0;
-        }
+        return $this->_itemLimits[$type] ?? 0;
     }
 
     /**

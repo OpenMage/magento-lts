@@ -793,10 +793,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         }
 
         $categories = $this->_getCategories($categoryId, $storeId);
-        if (isset($categories[$categoryId])) {
-            return $categories[$categoryId];
-        }
-        return false;
+        return $categories[$categoryId] ?? false;
     }
 
     /**
@@ -1015,10 +1012,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     {
         $entityId = 0;
         $products = $this->_getProducts($productId, $storeId, 0, $entityId);
-        if (isset($products[$productId])) {
-            return $products[$productId];
-        }
-        return false;
+        return $products[$productId] ?? false;
     }
 
     /**

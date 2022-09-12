@@ -46,7 +46,7 @@ abstract class Mage_Sales_Model_Api2_Order_Comment_Rest extends Mage_Sales_Model
         $this->_applyCollectionModifiers($collection);
 
         $data = $collection->load()->toArray();
-        return isset($data['items']) ? $data['items'] : $data;
+        return $data['items'] ?? $data;
     }
 
     /**

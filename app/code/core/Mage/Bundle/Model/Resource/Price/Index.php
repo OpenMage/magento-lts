@@ -391,7 +391,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
 
         $query = $read->query($select, $bind);
         while ($row = $query->fetch()) {
-            $salable = isset($row['salable']) ? $row['salable'] : true;
+            $salable = $row['salable'] ?? true;
             $website = $row['website_id'] > 0;
             $status  = $row['status'];
 
@@ -774,7 +774,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                         $group->getId()
                     ]);
 
-                    $selectionPrice = isset($priceIndex[$priceIndexKey]) ? $priceIndex[$priceIndexKey] : 0;
+                    $selectionPrice = $priceIndex[$priceIndexKey] ?? 0;
                     $selectionPrice = $this->_calculateSpecialPrice($selectionPrice, $priceData, $website);
                 } else {
                     if ($selection['price_type']) { // percent

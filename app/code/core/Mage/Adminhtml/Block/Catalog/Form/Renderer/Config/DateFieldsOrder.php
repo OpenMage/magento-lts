@@ -46,9 +46,9 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Config_DateFieldsOrder
         }
 
         $_parts = [];
-        $_parts[] = $element->setValue(isset($values[0]) ? $values[0] : null)->getElementHtml();
-        $_parts[] = $element->setValue(isset($values[1]) ? $values[1] : null)->getElementHtml();
-        $_parts[] = $element->setValue(isset($values[2]) ? $values[2] : null)->getElementHtml();
+        $_parts[] = $element->setValue($values[0] ?? null)->getElementHtml();
+        $_parts[] = $element->setValue($values[1] ?? null)->getElementHtml();
+        $_parts[] = $element->setValue($values[2] ?? null)->getElementHtml();
 
         return implode(' <span>/</span> ', $_parts);
     }

@@ -473,7 +473,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             if ($sourceIsArray) {
-                $value = isset($source[$code]) ? $source[$code] : null;
+                $value = $source[$code] ?? null;
             } else {
                 $value = $source->getDataUsingMethod($code);
             }

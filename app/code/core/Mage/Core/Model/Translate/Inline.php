@@ -310,11 +310,7 @@ class Mage_Core_Model_Translate_Inline
     {
         $tagName = strtolower($options['tagName']);
 
-        if (isset($options['tagList'][$tagName])) {
-            return $options['tagList'][$tagName];
-        }
-
-        return ucfirst($tagName) . ' Text';
+        return $options['tagList'][$tagName] ?? (ucfirst($tagName) . ' Text');
     }
 
     /**
