@@ -146,7 +146,8 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * @param   string $path - path to directory
      * @return  string - latest dir in the path
      */
-    static public function getLastDir($path){
+    static public function getLastDir($path)
+    {
         if($path=='') $path = $this->getPath();
         $last = strrpos($path, "/");
         return substr($path,$last+1);
@@ -407,9 +408,8 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     }
     /**
      * add filter
-     * @return  none
      */
-    public function addFilter($field, $value)
+    public function addFilter($field, $value, $type = 'and')
     {
         $filter = array();
         $filter['field']   = $field;
