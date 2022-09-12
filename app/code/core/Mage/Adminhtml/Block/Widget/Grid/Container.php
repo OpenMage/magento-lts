@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
     /**
      * @var string
      */
-    public $_block;
+    protected $_block;
 
     /**
      * Mage_Adminhtml_Block_Widget_Grid_Container constructor.

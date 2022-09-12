@@ -70,7 +70,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * @var array
      */
-    public $_inactiveItems;
+    protected $_inactiveItems;
 
     /**
      * Initialize tree
