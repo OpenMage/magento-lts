@@ -251,7 +251,6 @@ abstract class Mage_Backup_Abstract implements  Mage_Backup_Interface
      * Set error message
      *
      * @param string $errorMessage
-     * @return string
      */
     public function setErrorMessage($errorMessage)
     {

@@ -441,7 +441,6 @@ class Mage_HTTP_Client_Socket
      * @param string $method
      * @param string $uri
      * @param array $params
-     * @return null
      */
     protected function makeRequest($method, $uri, $params = array())
     {

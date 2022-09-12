@@ -87,13 +87,14 @@ class Mage_Backup_Filesystem extends Mage_Backup_Abstract
         $rollbackWorker->run();
 
         $this->_lastOperationSucceed = true;
+        return $this->_lastOperationSucceed;
     }
 
     /**
      * Implementation Create Backup functionality for Filesystem
      *
      * @throws Mage_Exception
-     * @return boolean
+     * @return bool
      */
     public function create()
     {
@@ -144,6 +145,7 @@ class Mage_Backup_Filesystem extends Mage_Backup_Abstract
         @unlink($tarTmpPath);
 
         $this->_lastOperationSucceed = true;
+        return $this->_lastOperationSucceed;
     }
 
     /**
