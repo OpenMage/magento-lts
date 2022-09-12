@@ -38,9 +38,8 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 
     public function __construct(array $params = [])
     {
-        $this->_rssSession = isset($params['rss_session']) ? $params['rss_session'] : Mage::getSingleton('rss/session');
-        $this->_adminSession = isset($params['admin_session'])
-            ? $params['admin_session'] : Mage::getSingleton('admin/session');
+        $this->_rssSession = $params['rss_session'] ?? Mage::getSingleton('rss/session');
+        $this->_adminSession = $params['admin_session'] ?? Mage::getSingleton('admin/session');
     }
 
     /**

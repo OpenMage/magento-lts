@@ -537,7 +537,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
 
         $i = 0;
         foreach ($keys as $key) {
-            $to[$key] = isset($street[$i]) ? $street[$i]: '';
+            $to[$key] = $street[$i] ?? '';
             $i++;
         }
     }

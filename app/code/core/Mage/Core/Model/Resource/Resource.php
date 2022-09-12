@@ -94,7 +94,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
             return false;
         }
         $this->_loadVersionData('db');
-        return isset(self::$_versions[$resName]) ? self::$_versions[$resName] : false;
+        return self::$_versions[$resName] ?? false;
     }
 
     /**
@@ -138,7 +138,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
 
         $this->_loadVersionData('data');
 
-        return isset(self::$_dataVersions[$resName]) ? self::$_dataVersions[$resName] : false;
+        return self::$_dataVersions[$resName] ?? false;
     }
 
     /**

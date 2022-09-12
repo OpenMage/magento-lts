@@ -255,11 +255,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
             $this->_indexers = [];
             $types = Mage::getSingleton('catalog/product_type')->getTypesByPriority();
             foreach ($types as $typeId => $typeInfo) {
-                if (isset($typeInfo['stock_indexer'])) {
-                    $modelName = $typeInfo['stock_indexer'];
-                } else {
-                    $modelName = $this->_defaultIndexer;
-                }
+                $modelName = $typeInfo['stock_indexer'] ?? $this->_defaultIndexer;
                 $isComposite = !empty($typeInfo['composite']);
                 $indexer = Mage::getResourceModel($modelName)
                     ->setTypeId($typeId)

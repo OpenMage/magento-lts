@@ -1193,7 +1193,7 @@ class Mage_Core_Model_Url extends Varien_Object
             return $match[1]
                 . $session->getSessionIdQueryParam()
                 . '=' . $session->getEncryptedSessionId()
-                . (isset($match[3]) ? $match[3] : '');
+                . ($match[3] ?? '');
         } else {
             if ($match[1] == '?' && isset($match[3])) {
                 return '?';

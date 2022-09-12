@@ -66,11 +66,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      */
     protected function _getDefaultValue($key, &$image)
     {
-        if (isset($image[$key . '_default'])) {
-            return $image[$key . '_default'];
-        }
-
-        return '';
+        return $image[$key . '_default'] ?? '';
     }
 
     /**
@@ -189,11 +185,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      */
     public function getRenamedImage($file)
     {
-        if (isset($this->_renamedImages[$file])) {
-            return $this->_renamedImages[$file];
-        }
-
-        return $file;
+        return $this->_renamedImages[$file] ?? $file;
     }
 
     /**
@@ -693,7 +685,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         $this->_getResource()->duplicate(
             $this,
-            (isset($mediaGalleryData['duplicate']) ? $mediaGalleryData['duplicate'] : []),
+            $mediaGalleryData['duplicate'] ?? [],
             $object->getOriginalId(),
             $object->getId()
         );

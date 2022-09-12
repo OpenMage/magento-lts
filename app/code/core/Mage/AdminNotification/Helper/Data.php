@@ -65,7 +65,7 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_null($this->_unreadNoticeCounts)) {
             $this->_unreadNoticeCounts = Mage::getModel('adminnotification/inbox')->getNoticeStatus();
         }
-        return isset($this->_unreadNoticeCounts[$severity]) ? $this->_unreadNoticeCounts[$severity] : 0;
+        return $this->_unreadNoticeCounts[$severity] ?? 0;
     }
 
     /**

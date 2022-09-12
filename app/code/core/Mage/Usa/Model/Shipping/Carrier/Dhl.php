@@ -905,11 +905,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
             return $codes[$type];
         }
 
-        if (!isset($codes[$type][$code])) {
-            return false;
-        } else {
-            return $codes[$type][$code];
-        }
+        return $codes[$type][$code] ?? false;
     }
 
     /**
@@ -942,7 +938,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
                 }
             }
 
-            $data['term'] = (isset($services[$service]) ? $services[$service] : $desc);
+            $data['term'] = $services[$service] ?? $desc;
             $data['price_total'] = $this->getMethodPrice($totalEstimate, $service);
             $this->_dhlRates[] = ['service' => $service, 'data' => $data];
         }

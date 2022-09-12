@@ -50,7 +50,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment
     protected function _isPaymentEnabled($element, $configCallback = null)
     {
         $groupConfig = $this->getGroup($element)->asArray();
-        $activityPath = isset($groupConfig['activity_path']) ? $groupConfig['activity_path'] : '';
+        $activityPath = $groupConfig['activity_path'] ?? '';
 
         if (empty($activityPath)) {
             return false;

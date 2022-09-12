@@ -36,9 +36,7 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
      */
     public function __construct(array $config = [])
     {
-        $this->_adapter = isset($config['adapter'])
-            ? $config['adapter']
-            : Mage::getSingleton('core/resource')->getConnection(Mage_Core_Model_Resource::DEFAULT_READ_RESOURCE);
+        $this->_adapter = $config['adapter'] ?? Mage::getSingleton('core/resource')->getConnection(Mage_Core_Model_Resource::DEFAULT_READ_RESOURCE);
     }
 
     /**

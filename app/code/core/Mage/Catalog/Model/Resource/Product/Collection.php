@@ -752,11 +752,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             ->group('e.entity_type_id');
 
         $data = $this->getConnection()->fetchRow($select);
-        if (isset($data[$fieldAlias])) {
-            return $data[$fieldAlias];
-        }
-
-        return null;
+        return $data[$fieldAlias] ?? null;
     }
 
     /**
@@ -1055,10 +1051,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         }
 
         foreach ($categoryCollection as $category) {
-            $_count = 0;
-            if (isset($productCounts[$category->getId()])) {
-                $_count = $productCounts[$category->getId()];
-            }
+            $_count = $productCounts[$category->getId()] ?? 0;
             $category->setProductCount($_count);
         }
 
@@ -1826,9 +1819,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     {
         Mage::dispatchEvent('catalog_product_collection_apply_limitations_before', [
             'collection'  => $this,
-            'category_id' => isset($this->_productLimitationFilters['category_id'])
-                ? $this->_productLimitationFilters['category_id']
-                : null,
+            'category_id' => $this->_productLimitationFilters['category_id'] ?? null,
         ]);
         $this->_prepareProductLimitationFilters();
         $this->_productLimitationJoinWebsite();

@@ -146,11 +146,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      */
     protected function _getSuperAttributeId($productId, $attributeId)
     {
-        if (isset($this->_productSuperAttrs["{$productId}_{$attributeId}"])) {
-            return $this->_productSuperAttrs["{$productId}_{$attributeId}"];
-        } else {
-            return null;
-        }
+        return $this->_productSuperAttrs["{$productId}_{$attributeId}"] ?? null;
     }
 
     /**

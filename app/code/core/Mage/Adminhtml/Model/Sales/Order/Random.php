@@ -107,7 +107,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
     {
         $items = $this->_getProducts();
         $randKey = array_rand($items);
-        return isset($items[$randKey]) ? $items[$randKey] : false;
+        return $items[$randKey] ?? false;
     }
 
     protected function _getStore()

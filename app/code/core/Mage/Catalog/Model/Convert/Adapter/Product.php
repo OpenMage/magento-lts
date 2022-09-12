@@ -337,11 +337,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             return Mage::app()->getStore(Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
         }
 
-        if (isset($this->_stores[$store])) {
-            return $this->_stores[$store];
-        }
-
-        return false;
+        return $this->_stores[$store] ?? false;
     }
 
     /**
@@ -681,7 +677,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
              * Check product define type
              */
             if (empty($importData['type']) || !isset($productTypes[strtolower($importData['type'])])) {
-                $value = isset($importData['type']) ? $importData['type'] : '';
+                $value = $importData['type'] ?? '';
                 $message = Mage::helper('catalog')->__('Skip import row, is not valid value "%s" for field "%s"', $value, 'type');
                 Mage::throwException($message);
             }
@@ -690,7 +686,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
              * Check product define attribute set
              */
             if (empty($importData['attribute_set']) || !isset($productAttributeSets[$importData['attribute_set']])) {
-                $value = isset($importData['attribute_set']) ? $importData['attribute_set'] : '';
+                $value = $importData['attribute_set'] ?? '';
                 $message = Mage::helper('catalog')->__('Skip import row, the value "%s" is invalid for field "%s"', $value, 'attribute_set');
                 Mage::throwException($message);
             }
@@ -812,9 +808,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
         }
 
         $stockData = [];
-        $inventoryFields = isset($this->_inventoryFieldsProductTypes[$product->getTypeId()])
-            ? $this->_inventoryFieldsProductTypes[$product->getTypeId()]
-            : [];
+        $inventoryFields = $this->_inventoryFieldsProductTypes[$product->getTypeId()] ?? [];
         foreach ($inventoryFields as $field) {
             if (isset($importData[$field])) {
                 if (in_array($field, $this->_toNumber)) {

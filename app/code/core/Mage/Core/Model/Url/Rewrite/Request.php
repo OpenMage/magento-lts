@@ -356,10 +356,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      */
     protected function _getRouter($name)
     {
-        if (isset($this->_routers[$name])) {
-            return $this->_routers[$name];
-        }
-        return false;
+        return $this->_routers[$name] ?? false;
     }
 
     /**

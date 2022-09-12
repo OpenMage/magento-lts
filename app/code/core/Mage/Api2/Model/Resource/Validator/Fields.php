@@ -154,7 +154,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
         if (!$isPartial && count($this->_requiredFields) > 0) {
             $notEmptyValidator = new Zend_Validate_NotEmpty();
             foreach ($this->_requiredFields as $requiredField) {
-                if (!$notEmptyValidator->isValid(isset($data[$requiredField]) ? $data[$requiredField] : null)) {
+                if (!$notEmptyValidator->isValid($data[$requiredField] ?? null)) {
                     $isValid = false;
                     foreach ($notEmptyValidator->getMessages() as $message) {
                         $this->_addError(sprintf('%s: %s', $requiredField, $message));

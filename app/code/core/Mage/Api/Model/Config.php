@@ -202,11 +202,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
             return $asserts;
         }
 
-        if (isset($asserts->$name)) {
-            return $asserts->$name;
-        }
-
-        return false;
+        return $asserts->$name ?? false;
     }
 
     /**
@@ -222,11 +218,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
             return $sets;
         }
 
-        if (isset($sets->$name)) {
-            return $sets->$name;
-        }
-
-        return false;
+        return $sets->$name ?? false;
     }
 
     /**

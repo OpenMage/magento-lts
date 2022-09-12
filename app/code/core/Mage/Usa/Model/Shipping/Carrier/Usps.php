@@ -512,11 +512,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                 $rate->setCarrier('usps');
                 $rate->setCarrierTitle($this->getConfigData('title'));
                 $rate->setMethod($method);
-                 $rate->setMethodTitle(
-                     isset($serviceCodeToActualNameMap[$method])
-                         ? $serviceCodeToActualNameMap[$method]
-                         : $this->getCode('method', $method)
-                );
+                $rate->setMethodTitle($serviceCodeToActualNameMap[$method] ?? $this->getCode('method', $method));
                 $rate->setCost($costArr[$method]);
                 $rate->setPrice($price);
                 $result->append($rate);
@@ -895,11 +891,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             return $codes[$type];
         }
 
-        if (!isset($codes[$type][$code])) {
-            return false;
-        } else {
-            return $codes[$type][$code];
-        }
+         return $codes[$type][$code] ?? false;
     }
     /**
      * Get tracking

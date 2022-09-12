@@ -733,9 +733,7 @@ class Mage_Core_Model_Resource_Setup
         if (is_null($field)) {
             return $this->_setupCache[$table][$parentId][$id];
         }
-        return isset($this->_setupCache[$table][$parentId][$id][$field])
-            ? $this->_setupCache[$table][$parentId][$id][$field]
-            : false;
+        return $this->_setupCache[$table][$parentId][$id][$field] ?? false;
     }
 
      /**

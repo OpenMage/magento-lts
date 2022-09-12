@@ -69,9 +69,7 @@ class Mage_Sales_Model_Order_Pdf_Items_Shipment_Default extends Mage_Sales_Model
 
                 // draw options value
                 if ($option['value']) {
-                    $_printValue = isset($option['print_value'])
-                        ? $option['print_value']
-                        : strip_tags($option['value']);
+                    $_printValue = $option['print_value'] ?? strip_tags($option['value']);
                     $values = explode(', ', $_printValue);
                     foreach ($values as $value) {
                         $lines[][] = [

@@ -51,10 +51,10 @@ abstract class Mage_Uploader_Model_Config_Abstract extends Varien_Object
         $key = lcfirst($this->_camelize(substr($method,3)));
         switch (substr($method, 0, 3)) {
             case 'get' :
-                return $this->getData($key, isset($args[0]) ? $args[0] : null);
+                return $this->getData($key, $args[0] ?? null);
 
             case 'set' :
-                return $this->setData($key, isset($args[0]) ? $args[0] : null);
+                return $this->setData($key, $args[0] ?? null);
 
             case 'uns' :
                 return $this->unsetData($key);
