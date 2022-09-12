@@ -36,7 +36,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Installer data model used to store data between installation steps
      *
-     * @var Varien_Object
+     * @var Mage_Install_Model_Session
      */
     protected $_dataModel;
 
@@ -53,7 +53,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Get data model
      *
-     * @return Varien_Object
+     * @return Mage_Install_Model_Session
      */
     public function getDataModel()
     {
@@ -236,14 +236,8 @@ class Mage_Install_Model_Installer extends Varien_Object
 
         //run time flag to force saving entered password
         $data->setForceNewPassword(true);
-
         $data->save();
         $data->setRoleIds([1])->saveRelations();
-
-        /*Mage::getModel("permissions/user")->setRoleId(1)
-            ->setUserId($user->getId())
-            ->setFirstname($user->getFirstname())
-            ->add();*/
 
         return true;
     }

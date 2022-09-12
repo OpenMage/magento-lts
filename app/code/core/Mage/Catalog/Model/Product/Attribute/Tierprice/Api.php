@@ -73,7 +73,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
      * @param int|string $productId
      * @param array $tierPrices
      * @param null $identifierType
-     * @return boolean
+     * @return bool
      * @throws Mage_Api_Exception
      */
     public function update($productId, $tierPrices, $identifierType = null)

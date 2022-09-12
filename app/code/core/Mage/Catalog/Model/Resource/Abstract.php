@@ -62,7 +62,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      *
      * @param Varien_Object $object
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @return boolean
+     * @return bool
      */
     protected function _isApplicableAttribute($object, $attribute)
     {
@@ -76,7 +76,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Eav_Model_Entity_Attribute_Backend_Abstract|Mage_Eav_Model_Entity_Attribute_Frontend_Abstract|Mage_Eav_Model_Entity_Attribute_Source_Abstract $instance
      * @param string $method
      * @param array $args array of arguments
-     * @return boolean
+     * @return bool
      */
     protected function _isCallableAttributeInstance($instance, $method, $args)
     {

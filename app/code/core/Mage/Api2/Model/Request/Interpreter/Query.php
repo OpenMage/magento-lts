@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api2
+ * @category   Mage
+ * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Request content interpreter query adapter
  *
- * @category    Mage
- * @package     Mage_Api2
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Api2
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api2_Model_Request_Interpreter_Query implements Mage_Api2_Model_Request_Interpreter_Interface
 {
@@ -61,7 +61,7 @@ class Mage_Api2_Model_Request_Interpreter_Query implements Mage_Api2_Model_Reque
      * Returns true if and only if the query string passes validation.
      *
      * @param  string $query The query to validate
-     * @return boolean
+     * @return bool
      * @link   http://www.faqs.org/rfcs/rfc2396.html
      */
     protected function _validateQuery($query)

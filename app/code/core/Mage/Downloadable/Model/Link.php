@@ -78,10 +78,6 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
     const LINK_SHAREABLE_NO     = 0;
     const LINK_SHAREABLE_CONFIG = 2;
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('downloadable/link');

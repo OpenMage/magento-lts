@@ -156,7 +156,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Category tree model
      *
-     * @var Mage_Catalog_Model_Resource_Category_Tree.
+     * @var Mage_Catalog_Model_Resource_Category_Tree
      */
     protected $_treeModel = null;
 
@@ -222,7 +222,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * @return Mage_Catalog_Model_Resource_Category_Tree.
+     * @return Mage_Catalog_Model_Resource_Category_Tree
      */
     public function getTreeModelInstance()
     {
@@ -448,7 +448,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      *
      * If store id is underfined for category return current active store id
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {
@@ -649,7 +649,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Get all children categories IDs
      *
-     * @param boolean $asArray return result as array instead of comma-separated list of IDs
+     * @param bool $asArray return result as array instead of comma-separated list of IDs
      * @return array|string
      */
     public function getAllChildren($asArray = false)

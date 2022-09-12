@@ -33,6 +33,8 @@ class Mage_Downloadable_FileController extends Mage_Downloadable_Adminhtml_Downl
     /**
      * Controller pre-dispatch method
      * Show 404 front page
+     *
+     * @return void
      */
     public function preDispatch()
     {

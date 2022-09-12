@@ -385,7 +385,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * @param mixed $value
      * @param Mage_Eav_Model_Entity_Attribute $row
      * @param Varien_Object $column
-     * @param boolean $isExport
+     * @param bool $isExport
      * @return string
      */
     public function decorateFilter($value, Mage_Eav_Model_Entity_Attribute $row, Varien_Object $column, $isExport)

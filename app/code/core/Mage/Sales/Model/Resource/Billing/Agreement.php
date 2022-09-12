@@ -27,10 +27,6 @@
  */
 class Mage_Sales_Model_Resource_Billing_Agreement extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Resource initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('sales/billing_agreement', 'agreement_id');

@@ -58,8 +58,8 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      *
      * @param string $id
      * @param array $data
-     * @param integer $level
-     * @param integer $sortOrder
+     * @param int $level
+     * @param int $sortOrder
      * @param string|null $area area, that button should be displayed in ('header', 'footer', null)
      * @return $this
      */
@@ -83,8 +83,8 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      *
      * @param string $id
      * @param array $data
-     * @param integer $level
-     * @param integer $sortOrder
+     * @param int $level
+     * @param int $sortOrder
      * @param string|null $area area, that button should be displayed in ('header', 'footer', null)
      * @return $this
      */
@@ -276,7 +276,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * Check if there's anything to display in footer
      *
-     * @return boolean
+     * @return bool
      */
     public function hasFooterButtons()
     {

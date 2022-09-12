@@ -34,9 +34,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
 
     private $_attributeId = null;
 
-    /**
-     * Resource initialization
-     */
     protected function _construct()
     {
         $this->_init(self::GALLERY_TABLE, 'value_id');
@@ -117,7 +114,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Delete gallery value in db
      *
-     * @param array|integer $valueId
+     * @param array|int $valueId
      * @return $this
      */
     public function deleteGallery($valueId)
@@ -151,8 +148,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Delete gallery value for store in db
      *
-     * @param integer $valueId
-     * @param integer $storeId
+     * @param int $valueId
+     * @param int $storeId
      * @return $this
      */
     public function deleteGalleryValueInStore($valueId, $storeId)

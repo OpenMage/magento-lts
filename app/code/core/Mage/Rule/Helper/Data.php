@@ -19,9 +19,9 @@
  */
 
 /**
- * @category    Mage
- * @package     Mage_Rule
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Rule
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rule_Helper_Data extends Mage_Core_Helper_Abstract
 {

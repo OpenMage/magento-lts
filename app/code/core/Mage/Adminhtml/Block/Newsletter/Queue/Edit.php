@@ -29,7 +29,6 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
 {
     /**
      * Check for template Id in request
-     *
      */
     protected function _construct()
     {
@@ -50,6 +49,9 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
         return Mage::registry('current_queue');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected  function _beforeToHtml() {
 
         $this->setTemplate('newsletter/queue/edit.phtml');
@@ -61,6 +63,10 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
         return parent::_beforeToHtml();
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public function getSaveUrl()
     {
         if ($this->getTemplateId()) {
@@ -71,6 +77,9 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
         return $this->getUrl('*/*/save', $params);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         // Load Wysiwyg on demand and Prepare layout
@@ -191,7 +200,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * Getter for availability preview mode
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsPreview()
     {
@@ -204,7 +213,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * Getter for single store mode check
      *
-     * @return boolean
+     * @return bool
      */
     protected function isSingleStoreMode()
     {
@@ -214,7 +223,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * Getter for id of current store (the only one in single-store mode and current in multi-stores mode)
      *
-     * @return boolean
+     * @return bool
      */
     protected function getStoreId()
     {
@@ -224,7 +233,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * Getter for check is this newsletter the plain text.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsTextType()
     {
@@ -234,7 +243,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * Getter for availability resume action
      *
-     * @return boolean
+     * @return bool
      */
     public function getCanResume()
     {
@@ -244,10 +253,10 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * Getter for header text
      *
-     * @return boolean
+     * @return string
      */
     public function getHeaderText()
     {
-        return ( $this->getIsPreview() ? Mage::helper('newsletter')->__('View Newsletter') : Mage::helper('newsletter')->__('Edit Newsletter'));
+        return ($this->getIsPreview() ? Mage::helper('newsletter')->__('View Newsletter') : Mage::helper('newsletter')->__('Edit Newsletter'));
     }
 }

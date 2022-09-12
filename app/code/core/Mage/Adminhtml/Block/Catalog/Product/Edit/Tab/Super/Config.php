@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Check block is readonly
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {
@@ -65,7 +65,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Check whether attributes of configurable products can be editable
      *
-     * @return boolean
+     * @return bool
      */
     public function isAttributesConfigurationReadonly()
     {
@@ -75,7 +75,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Check whether prices of configurable products can be editable
      *
-     * @return boolean
+     * @return bool
      */
     public function isAttributesPricesReadonly()
     {

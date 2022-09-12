@@ -190,9 +190,9 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
      *
      * @param string $creditmemoIncrementId
      * @param string $comment
-     * @param boolean $notifyCustomer
-     * @param boolean $includeComment
-     * @return boolean
+     * @param bool $notifyCustomer
+     * @param bool $includeComment
+     * @return bool
      */
     public function addComment($creditmemoIncrementId, $comment, $notifyCustomer = false, $includeComment = false)
     {
@@ -212,7 +212,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
      * Cancel credit memo
      *
      * @param string $creditmemoIncrementId
-     * @return boolean
+     * @return bool
      */
     public function cancel($creditmemoIncrementId)
     {
@@ -261,7 +261,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
      * Load CreditMemo by IncrementId
      *
      * @param mixed $incrementId
-     * @return Mage_Core_Model_Abstract|Mage_Sales_Model_Order_Creditmemo
+     * @return Mage_Sales_Model_Order_Creditmemo
      */
     protected function _getCreditmemo($incrementId)
     {

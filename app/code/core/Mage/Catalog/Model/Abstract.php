@@ -62,14 +62,14 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Is model deleteable
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isDeleteable = true;
 
     /**
      * Is model readonly
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isReadonly = false;
 
@@ -124,7 +124,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Checks that model have locked attributes
      *
-     * @return boolean
+     * @return bool
      */
     public function hasLockedAttributes()
     {
@@ -135,7 +135,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      * Retrieve locked attributes
      *
      * @param string $attributeCode
-     * @return boolean
+     * @return bool
      */
     public function isLockedAttribute($attributeCode)
     {
@@ -308,7 +308,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Checks model is deletable
      *
-     * @return boolean
+     * @return bool
      */
     public function isDeleteable()
     {
@@ -318,7 +318,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Set is deletable flag
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setIsDeleteable($value)
@@ -330,7 +330,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Checks model is deletable
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {
@@ -340,7 +340,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Set is deletable flag
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setIsReadonly($value)

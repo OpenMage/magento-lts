@@ -250,7 +250,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Is current authorize page is simple
      *
-     * @return boolean
+     * @return bool
      */
     protected function _getIsSimple()
     {

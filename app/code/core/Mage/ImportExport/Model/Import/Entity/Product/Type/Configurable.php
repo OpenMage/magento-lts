@@ -168,7 +168,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      * Is attribute is super-attribute?
      *
      * @param string $attrCode
-     * @return boolean
+     * @return bool
      */
     protected function _isAttributeSuper($attrCode)
     {

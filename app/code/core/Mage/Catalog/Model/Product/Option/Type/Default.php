@@ -53,8 +53,6 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     protected $_product;
 
     /**
-     * description
-     *
      * @var    mixed
      */
     protected $_productOptions = [];
@@ -248,7 +246,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Flag to indicate that custom option has own customized output (blocks, native html etc.)
      *
-     * @return boolean
+     * @return bool
      */
     public function isCustomizedView()
     {
@@ -384,7 +382,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * Return final chargable price for option
      *
      * @param float $price Price of option
-     * @param boolean $isPercent Price type - percent or fixed
+     * @param bool $isPercent Price type - percent or fixed
      * @param float $basePrice For percent price type
      * @return float
      */

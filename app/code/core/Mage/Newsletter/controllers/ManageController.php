@@ -38,6 +38,7 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         if (!Mage::getSingleton('customer/session')->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
         }
+        return $this;
     }
 
     public function indexAction()
@@ -64,9 +65,9 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         try {
             Mage::getSingleton('customer/session')->getCustomer()
             ->setStoreId(Mage::app()->getStore()->getId())
-            ->setIsSubscribed((boolean)$this->getRequest()->getParam('is_subscribed', false))
+            ->setIsSubscribed((bool)$this->getRequest()->getParam('is_subscribed', false))
             ->save();
-            if ((boolean)$this->getRequest()->getParam('is_subscribed', false)) {
+            if ((bool)$this->getRequest()->getParam('is_subscribed', false)) {
                 Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been saved.'));
             } else {
                 Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been removed.'));

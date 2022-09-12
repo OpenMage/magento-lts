@@ -81,7 +81,6 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'header'        => Mage::helper('review')->__('Created On'),
             'align'         => 'left',
             'type'          => 'datetime',
-            'width'         => '100px',
             'filter_index'  => 'rt.created_at',
             'index'         => 'review_created_at',
         ]);

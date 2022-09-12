@@ -122,8 +122,6 @@ abstract class Mage_Core_Controller_Varien_Action
     protected $_removeDefaultTitle = false;
 
     /**
-     * Constructor
-     *
      * @param Zend_Controller_Request_Abstract $request
      * @param Zend_Controller_Response_Abstract $response
      * @param array $invokeArgs
@@ -868,7 +866,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * 1. core_module/core_controller/core_action to new_module/new_controller/new_action
      * 2. all other actions of core_module/core_controller to new_module/new_controller
      *
-     * @return boolean true if rewrite happened
+     * @return bool true if rewrite happened
      */
     protected function _rewrite()
     {
@@ -931,7 +929,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * bar / <default title>
      *
      * @see self::_renderTitles()
-     * @param string|false|-1|null $text
+     * @param string|false|int|null $text
      * @param bool $resetIfExists
      * @return $this
      */

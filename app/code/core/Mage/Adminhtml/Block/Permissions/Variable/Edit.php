@@ -27,9 +27,6 @@
  */
 class Mage_Adminhtml_Block_Permissions_Variable_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
-    /**
-     * Construct
-     */
     public function __construct()
     {
         $this->_objectId = 'variable_id';

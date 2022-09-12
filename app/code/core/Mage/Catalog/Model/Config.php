@@ -64,19 +64,13 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
 
     const XML_PATH_PRODUCT_COLLECTION_ATTRIBUTES = 'frontend/product/collection/attributes';
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/config');
     }
 
     /**
-     * Set store id
-     *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -88,7 +82,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     /**
      * Return store id, if is not set return current app store
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {

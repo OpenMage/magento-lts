@@ -69,7 +69,6 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
 
     /**
      * Init model
-     *
      */
     protected function _construct()
     {
@@ -79,7 +78,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     /**
      * Set created_at parameter
      *
-     * @return Mage_Core_Model_Abstract
+     * @inheritdoc
      */
     protected function _beforeSave()
     {
@@ -118,6 +117,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
             case self::STATUS_CANCELED:
                 return Mage::helper('sales')->__('Canceled');
         }
+        return '';
     }
 
     /**
@@ -149,7 +149,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      * Check for permissions
      *
      * @param int $customerIdSession
-     * @return boolean
+     * @return bool
      */
     public function canPerformAction($customerIdSession)
     {

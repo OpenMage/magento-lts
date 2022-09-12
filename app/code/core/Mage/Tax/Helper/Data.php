@@ -19,9 +19,9 @@
  */
 
 /**
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -101,7 +101,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Postcode cut to this length when creating search templates
      *
-     * @var integer
+     * @var int
      */
     protected $_postCodeSubStringLength = 10;
 
@@ -126,7 +126,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return max postcode length to create search templates
      *
-     * @return integer  $len
+     * @return int  $len
      */
     public function getPostCodeSubStringLength()
     {
@@ -1205,7 +1205,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * Return whether cross border trade is enabled or not
      *
      * @param   null|int $store
-     * @return boolean
+     * @return bool
      */
     public function isCrossBorderTradeEnabled($store = null)
     {

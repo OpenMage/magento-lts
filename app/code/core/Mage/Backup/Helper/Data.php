@@ -19,9 +19,9 @@
  */
 
 /**
- * @category    Mage
- * @package     Mage_Backup
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Backup
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -143,7 +143,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check Permission for Rollback
      *
-     * @return boolean
+     * @return bool
      */
     public function isRollbackAllowed(){
         return Mage::getSingleton('admin/session')->isAllowed('system/tools/backup/rollback' );

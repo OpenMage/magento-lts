@@ -126,9 +126,6 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      */
     protected $_taxHelper;
 
-    /**
-     * Constructor
-     */
     protected function _construct()
     {
         $this->_init('tax/calculation');
@@ -652,8 +649,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      *
      * @param   float $price
      * @param   float $taxRate
-     * @param   boolean $priceIncludeTax
-     * @param   boolean $round
+     * @param   bool $priceIncludeTax
+     * @param   bool $round
      * @return  float
      */
     public function calcTaxAmount($price, $taxRate, $priceIncludeTax = false, $round = true)

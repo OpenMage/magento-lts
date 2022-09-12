@@ -223,10 +223,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      */
     protected $_errorInfos = null;
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('sales/quote_item');
@@ -731,7 +727,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Checks that item model has data changes.
      * Call save item options if model isn't need to save in DB
      *
-     * @return boolean
+     * @return bool
      */
     protected function _hasModelChanged()
     {

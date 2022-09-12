@@ -51,14 +51,14 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Scope visibility flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_requestScopeOnly    = true;
 
     /**
      * Is AJAX request flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isAjax              = false;
 
@@ -119,7 +119,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Set scope visibility
      * Search value only in scope or search value in scope and global
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Eav_Model_Attribute_Data_Abstract
      */
     public function setRequestScopeOnly($flag)
@@ -458,7 +458,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Set is AJAX Request flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Eav_Model_Attribute_Data_Abstract
      */
     public function setIsAjaxRequest($flag = true)
@@ -470,7 +470,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Return is AJAX Request
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsAjaxRequest()
     {
@@ -529,7 +529,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      *
      * @param array|string $value
      * @throws Mage_Core_Exception
-     * @return boolean
+     * @return bool
      */
     abstract public function validateValue($value);
 

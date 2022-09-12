@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Category tree model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 {
@@ -49,7 +49,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Join URL rewrites data to collection flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_joinUrlRewriteIntoCollection     = false;
 
@@ -63,7 +63,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * store id
      *
-     * @var integer
+     * @var int
      */
     protected $_storeId                          = null;
 
@@ -94,7 +94,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Set store id
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -106,7 +106,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Return store id
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {
@@ -118,10 +118,10 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 
     /**
      * @param Mage_Catalog_Model_Resource_Category_Collection $collection
-     * @param boolean $sorted
+     * @param bool $sorted
      * @param array $exclude
-     * @param boolean $toLoad
-     * @param boolean $onlyActive
+     * @param bool $toLoad
+     * @param bool $onlyActive
      * @return $this
      */
     public function addCollectionData(
@@ -319,7 +319,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * Check is category items active
      *
      * @param int $id
-     * @return boolean
+     * @return bool
      */
     protected function _getItemIsActive($id)
     {
@@ -332,7 +332,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Get categories collection
      *
-     * @param boolean $sorted
+     * @param bool $sorted
      * @return Mage_Catalog_Model_Resource_Category_Collection
      */
     public function getCollection($sorted = false)
@@ -357,7 +357,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     }
 
     /**
-     * @param boolean $sorted
+     * @param bool $sorted
      * @return Mage_Catalog_Model_Resource_Category_Collection
      */
     protected function _getDefaultCollection($sorted = false)

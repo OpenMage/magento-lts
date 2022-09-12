@@ -287,7 +287,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      * @param array $attributeId
      * @param array $value
      * @param array $options
-     * @return boolean
+     * @return bool
      */
     protected function _validateAttributeValue($attributeId, &$value, &$options)
     {
@@ -302,7 +302,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      * Validation of super product option
      *
      * @param array $info
-     * @return boolean
+     * @return bool
      */
     protected function _validateAttributeInfo(&$info)
     {
@@ -355,7 +355,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      *
      * @deprecated
      * @param float $price
-     * @param boolean $round
+     * @param bool $round
      * @return float
      */
     protected function _convertPrice($price, $round = false)

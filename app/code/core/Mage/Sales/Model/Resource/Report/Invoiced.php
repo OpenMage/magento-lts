@@ -27,10 +27,6 @@
  */
 class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resource_Report_Abstract
 {
-    /**
-     * Model initialization
-     *
-     */
     protected function _construct()
     {
         $this->_setResource('sales');

@@ -18,13 +18,13 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
- /**
-  * Totals item block
-  *
-  * @category   Mage
-  * @package    Mage_Adminhtml
-  * @author     Magento Core Team <core@magentocommerce.com>
-  */
+/**
+ * Totals item block
+ *
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_Sales_Order_Totals
 {
     /**

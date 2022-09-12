@@ -40,7 +40,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isComplianceWSI()
     {

@@ -27,9 +27,6 @@
  */
 class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstract
 {
-    /**
-     * Resource initialization
-     */
     public function __construct()
     {
         $this->setType('customer');
@@ -57,7 +54,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Check customer scope, email and confirmation key before saving
      *
-     * @param Varien_Object|Mage_Customer_Model_Customer $customer
+     * @param Mage_Customer_Model_Customer $customer
      * @return $this
      * @throws Mage_Core_Exception
      */

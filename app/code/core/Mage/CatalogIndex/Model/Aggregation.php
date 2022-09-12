@@ -40,9 +40,6 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
 {
     const CACHE_FLAG_NAME   = 'layered_navigation';
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('catalogindex/aggregation');

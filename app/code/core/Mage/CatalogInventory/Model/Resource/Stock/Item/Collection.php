@@ -27,10 +27,6 @@
  */
 class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('cataloginventory/stock_item');
@@ -99,7 +95,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
     /**
      * Add Managed Stock products filter to collection
      *
-     * @param boolean $isStockManagedInConfig
+     * @param bool $isStockManagedInConfig
      * @return $this
      */
     public function addManagedFilter($isStockManagedInConfig)

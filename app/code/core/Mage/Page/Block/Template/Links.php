@@ -22,7 +22,7 @@
  * Simple links list block
  *
  * @category   Mage
- * @package    Mage_Core
+ * @package    Mage_Page
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
@@ -66,7 +66,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      * @param string $label
      * @param string $url
      * @param string $title
-     * @param boolean $prepare
+     * @param bool $prepare
      * @param array $urlParams
      * @param int $position
      * @param string|array $liParams
