@@ -68,8 +68,8 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
     /**
      * Import payment info to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp
-     * @param Mage_Sales_Model_Order_Payment
+     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Sales_Model_Order_Payment $payment
      */
     protected function _importToPayment($api, $payment)
     {

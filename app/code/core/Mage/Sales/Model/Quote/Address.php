@@ -972,7 +972,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Request shipping rates for entire address or specified address item
      * Returns true if current selected shipping method code corresponds to one of the found rates
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @param Mage_Sales_Model_Quote_Item_Abstract|null $item
      * @return bool
      */
     public function requestShippingRates(Mage_Sales_Model_Quote_Item_Abstract $item = null)

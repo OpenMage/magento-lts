@@ -1035,7 +1035,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
     /**
      * Parse xml tracking response
      *
-     * @param array $trackingvalue
+     * @param array $trackings
      * @param string $response
      * @return null
      */

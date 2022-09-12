@@ -304,8 +304,9 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     /**
      * Determine nearest possible profile start date
      *
-     * @param Zend_Date $minAllowed
+     * @param Zend_Date|null $minAllowed
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function setNearestStartDatetime(Zend_Date $minAllowed = null)
     {

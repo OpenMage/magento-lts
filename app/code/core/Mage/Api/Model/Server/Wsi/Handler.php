@@ -40,7 +40,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
     {
         $args = $args[0];
 
-        /** @var Mage_Api_Helper_Data */
+        /** @var Mage_Api_Helper_Data $helper */
         $helper = Mage::helper('api/data');
 
         $helper->wsiArrayUnpacker($args);
