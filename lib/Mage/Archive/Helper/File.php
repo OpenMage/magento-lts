@@ -58,7 +58,7 @@ class Mage_Archive_Helper_File
     /**
      * File handler
      *
-     * @var pointer
+     * @var resource
      */
     protected $_fileHandler;
 

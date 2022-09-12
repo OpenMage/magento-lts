@@ -46,7 +46,7 @@ class Mage_System_Args
 
     /**
      * Constructor
-     * @param array $argv, if false $GLOBALS['argv'] is taken
+     * @param array|false $source, if false $GLOBALS['argv'] is taken
      * @return void
      */
     public function __construct($source = false)

@@ -332,7 +332,6 @@ implements Mage_HTTP_IClient
      * @param string $method
      * @param string $uri
      * @param array|string $params pass an array to form post, pass a json encoded string to directly post json
-     * @return null
      */
     protected function makeRequest($method, $uri, $params = array())
     {
@@ -443,7 +442,6 @@ implements Mage_HTTP_IClient
 
     /**
      * @param array $line
-     *
      * @throws Exception
      */
     protected function validateHttpVersion(array $line)

@@ -27,7 +27,6 @@
  */
 class Mage_Archive
 {
-
     /**
     * Archiver is used for compress.
     */
@@ -41,7 +40,7 @@ class Mage_Archive
     /**
     * Current archiver is used for compress.
     *
-    * @var Mage_Archiver_Tar|Mage_Archiver_Gz|Mage_Archiver_Bz
+    * @var Mage_Archive_Tar|Mage_Archive_Gz|Mage_Archive_Bz
     */
     protected $_archiver=null;
 
@@ -69,7 +68,7 @@ class Mage_Archive
     * Create object of current archiver by $extension.
     *
     * @param string $extension
-    * @return Mage_Archiver_Tar|Mage_Archiver_Gz|Mage_Archiver_Bz
+    * @return Mage_Archive_Tar|Mage_Archive_Gz|Mage_Archive_Bz
     */
     protected function _getArchiver($extension)
     {
@@ -108,7 +107,7 @@ class Mage_Archive
     *
     * @param string $source
     * @param string $destination
-    * @param boolean $skipRoot skip first level parent
+    * @param bool $skipRoot skip first level parent
     * @return string Path to file
     */
     public function pack($source, $destination='packed.tgz', $skipRoot=false)
@@ -186,7 +185,7 @@ class Mage_Archive
     * Check file is archive.
     *
     * @param string $file
-    * @return boolean
+    * @return bool
     */
     public function isArchive($file)
     {
@@ -201,7 +200,7 @@ class Mage_Archive
     * Check file is TAR.
     *
     * @param mixed $file
-    * @return boolean
+    * @return bool
     */
     public function isTar($file)
     {

@@ -28,18 +28,16 @@
 
 class Mage_HTTP_Client
 {
-
     /**
      * Disallow to instantiate - pvt constructor
      */
     private function __construct()
     {
-
     }
 
     /**
      * Factory for HTTP client
-     * @param string/false $frontend  'curl'/'socket' or false for auto-detect
+     * @param string|false $frontend  'curl'/'socket' or false for auto-detect
      * @return Mage_HTTP_IClient
      */
     public static function getInstance($frontend = false)
@@ -62,7 +60,7 @@ class Mage_HTTP_Client
      * Detects frontend type.
      * Priority is given to CURL
      *
-     * @return string/bool
+     * @return string|false
      */
     protected static function detectFrontend()
     {

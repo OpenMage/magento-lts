@@ -86,7 +86,7 @@ interface Mage_HTTP_IClient
 
     /**
      * Make GET request
-     * @param string full uri
+     * @param string $uri full uri
      */
     function get($uri);
 

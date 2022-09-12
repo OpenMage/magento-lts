@@ -51,8 +51,8 @@ class Mage_System_Ftp
     /**
      * ftp_mkdir wrapper
      *
-     * @param stin$name
-     * @return unknown_type
+     * @param string $name
+     * @return string
      */
     public function mdkir($name)
     {
@@ -188,7 +188,7 @@ class Mage_System_Ftp
     /**
      * Get current working directory
      *
-     * @return mixed
+     * @return false|string
      */
     public function getcwd()
     {
@@ -211,7 +211,7 @@ class Mage_System_Ftp
      * ftp_raw wrapper
      *
      * @param string $cmd
-     * @return mixed
+     * @return array
      */
     public function raw($cmd)
     {
@@ -225,11 +225,11 @@ class Mage_System_Ftp
      * Can be used for relative and absoulte remote paths
      * Relative: use chdir before calling this
      *
-     * @param srting $remote
+     * @param string $remote
      * @param string $local
      * @param int $dirMode
      * @param int $ftpMode
-     * @return unknown_type
+     * @return bool
      */
     public function upload($remote, $local, $dirMode = 0777, $ftpMode = FTP_BINARY)
     {
@@ -308,7 +308,7 @@ class Mage_System_Ftp
      *
      * @param $mode
      * @param $remoteFile
-     * @return bool
+     * @return int
      */
     public function chmod($mode, $remoteFile)
     {
@@ -359,7 +359,7 @@ class Mage_System_Ftp
      * ftp_nlist wrapper
      *
      * @param string $dir
-     * @return bool
+     * @return array
      */
     public function nlist($dir = "/")
     {
@@ -373,7 +373,7 @@ class Mage_System_Ftp
      *
      * @param string $dir
      * @param bool $recursive
-     * @return mixed
+     * @return array
      */
     public function rawlist( $dir = "/", $recursive = false )
     {
