@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_GiftMessage
+ * @category   Mage
+ * @package    Mage_GiftMessage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_GiftMessage
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
 {
@@ -43,7 +37,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Next id for edit gift message block
      *
-     * @var integer
+     * @var int
      */
     protected $_nextId = 0;
 
@@ -52,10 +46,10 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      *
      * @var array
      */
-    protected $_innerCache = array();
+    protected $_innerCache = [];
 
     /**
-     * Retrive old stule edit button html for editing of giftmessage in popup
+     * Retrieve old stule edit button html for editing of giftmessage in popup
      *
      * @param string $type
      * @param Varien_Object $entity
@@ -75,16 +69,16 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     }
 
     /**
-     * Retrive inline giftmessage edit form for specified entity
+     * Retrieve inline giftmessage edit form for specified entity
      *
      * @param string $type
      * @param Varien_Object $entity
-     * @param boolean $dontDisplayContainer
+     * @param bool $dontDisplayContainer
      * @return string
      */
     public function getInline($type, Varien_Object $entity, $dontDisplayContainer = false)
     {
-        if (!in_array($type, array('onepage_checkout','multishipping_adress'))
+        if (!in_array($type, ['onepage_checkout','multishipping_adress'])
             && !$this->isMessagesAvailable($type, $entity)
         ) {
             return '';
@@ -190,7 +184,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     }
 
     /**
-     * Retrive escaped and preformated gift message text for specified entity
+     * Retrieve escaped and preformated gift message text for specified entity
      *
      * @param Varien_Object $entity
      * @return string|null
@@ -205,7 +199,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     }
 
     /**
-     * Retrive gift message for entity. If message not exists return null
+     * Retrieve gift message for entity. If message not exists return null
      *
      * @param Varien_Object $entity
      * @return Mage_GiftMessage_Model_Message
@@ -220,7 +214,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     }
 
     /**
-     * Retrive internal cached data with specified key.
+     * Retrieve internal cached data with specified key.
      *
      * If cached data not found return null.
      *
@@ -240,7 +234,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Check availability for internal cached data with specified key
      *
      * @param string $key
-     * @return boolean
+     * @return bool
      */
     public function isCached($key)
     {
@@ -296,9 +290,9 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     }
 
     /**
-     * Retrive gift message with specified id
+     * Retrieve gift message with specified id
      *
-     * @param integer $messageId
+     * @param int $messageId
      * @return Mage_GiftMessage_Model_Message
      */
     public function getGiftMessage($messageId = null)

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,31 +12,23 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Customer Widget Form Image File Element Block
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Block_Customer_Form_Element_File
 {
     /**
      * Return Delete CheckBox Label
-     *
      * @return string
      */
     protected function _getDeleteCheckboxLabel()
@@ -46,7 +38,6 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
 
     /**
      * Return Delete CheckBox SPAN Class name
-     *
      * @return string
      */
     protected function _getDeleteCheckboxSpanClass()
@@ -56,7 +47,6 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
 
     /**
      * Return File preview link HTML
-     *
      * @return string
      */
     protected function _getPreviewHtml()
@@ -65,7 +55,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
         if ($this->getValue() && !is_array($this->getValue())) {
             $url = $this->_getPreviewUrl();
             $imageId = sprintf('%s_image', $this->getHtmlId());
-            $image   = array(
+            $image   = [
                 'alt'    => Mage::helper('adminhtml')->__('View Full Size'),
                 'title'  => Mage::helper('adminhtml')->__('View Full Size'),
                 'src'    => $url,
@@ -73,11 +63,11 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
                 'height' => 22,
                 'width'  => 22,
                 'id'     => $imageId
-            );
-            $link    = array(
+            ];
+            $link    = [
                 'href'      => $url,
                 'onclick'   => "imagePreview('{$imageId}'); return false;",
-            );
+            ];
 
             $html = sprintf('%s%s</a> ',
                 $this->_drawElementHtml('a', $link, false),
@@ -89,7 +79,6 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
 
     /**
      * Return Image URL
-     *
      * @return string
      */
     protected function _getPreviewUrl()
@@ -97,8 +86,8 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
         if (is_array($this->getValue())) {
             return false;
         }
-        return Mage::helper('adminhtml')->getUrl('adminhtml/customer/viewfile', array(
+        return Mage::helper('adminhtml')->getUrl('adminhtml/customer/viewfile', [
             'image'      => Mage::helper('core')->urlEncode($this->getValue()),
-        ));
+        ]);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,22 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core data helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -65,13 +61,12 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     protected $_encryptor = null;
 
-    protected $_allowedFormats = array(
+    protected $_allowedFormats = [
         Mage_Core_Model_Locale::FORMAT_TYPE_FULL,
         Mage_Core_Model_Locale::FORMAT_TYPE_LONG,
         Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
         Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
-    );
-
+    ];
 
     /**
      * @return Mage_Core_Model_Encryption
@@ -271,7 +266,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * Generate salted hash from password
      *
      * @param string $password
-     * @param string|integer|boolean $salt
+     * @param string|int|bool $salt
      * @return string
      */
     public function getHash($password, $salt = false)
@@ -341,7 +336,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         static $replacements;
 
         if (empty($replacements[$german])) {
-            $subst = array(
+            $subst = [
                 // single ISO-8859-1 letters
                 192=>'A', 193=>'A', 194=>'A', 195=>'A', 196=>'A', 197=>'A', 199=>'C',
                 208=>'D', 200=>'E', 201=>'E', 202=>'E', 203=>'E', 204=>'I', 205=>'I',
@@ -363,16 +358,16 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 369=>'u', 378=>'z', 380=>'z',
                 // ligatures
                 198=>'Ae', 230=>'ae', 140=>'Oe', 156=>'oe', 223=>'ss',
-            );
+            ];
 
             if ($german) {
                 // umlauts
-                $subst = array(
+                $subst = [
                     196=>'Ae', 228=>'ae', 214=>'Oe', 246=>'oe', 220=>'Ue', 252=>'ue'
-                ) + $subst;
+                    ] + $subst;
             }
 
-            $replacements[$german] = array();
+            $replacements[$german] = [];
             foreach ($subst as $k => $v) {
                 $replacements[$german][$k<256 ? chr($k) : '&#'.$k.';'] = $v;
             }
@@ -418,7 +413,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCacheTypes()
     {
-        $types = array();
+        $types = [];
         $config = Mage::getConfig()->getNode(Mage_Core_Model_Cache::XML_PATH_TYPES);
         foreach ($config->children() as $type => $node) {
             $types[$type] = (string)$node->label;
@@ -433,7 +428,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCacheBetaTypes()
     {
-        $types = array();
+        $types = [];
         $config = Mage::getConfig()->getNode(self::XML_PATH_CACHE_BETA_TYPES);
         if ($config) {
             foreach ($config->children() as $type => $node) {
@@ -455,7 +450,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param array|Varien_Object $source
      * @param array|Varien_Object $target
      * @param string $root
-     * @return boolean
+     * @return bool
      */
     public function copyFieldset($fieldset, $aspect, $source, $target, $root = 'global')
     {
@@ -496,11 +491,11 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $eventName = sprintf('core_copy_fieldset_%s_%s', $fieldset, $aspect);
-        Mage::dispatchEvent($eventName, array(
+        Mage::dispatchEvent($eventName, [
             'target' => $target,
             'source' => $source,
             'root'   => $root
-        ));
+        ]);
 
         return $result;
     }
@@ -542,15 +537,15 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $isEven = false;
         foreach ($array as $key => $element) {
             if (is_object($element)) {
-                $this->_decorateArrayObject($element, $keyIsFirst, (0 === $i), $forceSetAll || (0 === $i));
+                $this->_decorateArrayObject($element, $keyIsFirst, ($i === 0), $forceSetAll || ($i === 0));
                 $this->_decorateArrayObject($element, $keyIsOdd, !$isEven, $forceSetAll || !$isEven);
                 $this->_decorateArrayObject($element, $keyIsEven, $isEven, $forceSetAll || $isEven);
                 $isEven = !$isEven;
                 $i++;
                 $this->_decorateArrayObject($element, $keyIsLast, ($i === $count), $forceSetAll || ($i === $count));
             } elseif (is_array($element)) {
-                if ($forceSetAll || (0 === $i)) {
-                    $array[$key][$keyIsFirst] = (0 === $i);
+                if ($forceSetAll || ($i === 0)) {
+                    $array[$key][$keyIsFirst] = ($i === 0);
                 }
                 if ($forceSetAll || !$isEven) {
                     $array[$key][$keyIsOdd] = !$isEven;
@@ -658,7 +653,7 @@ XML;
      */
     public function xmlToAssoc(SimpleXMLElement $xml)
     {
-        $array = array();
+        $array = [];
         foreach ($xml as $key => $value) {
             if (isset($value->$key)) {
                 $i = 0;
@@ -683,14 +678,14 @@ XML;
      * Encode the mixed $valueToEncode into the JSON format
      *
      * @param mixed $valueToEncode
-     * @param  boolean $cycleCheck Optional; whether or not to check for object recursion; off by default
+     * @param bool $cycleCheck Optional; whether or not to check for object recursion; off by default
      * @param  array $options Additional options used during encoding
      * @return string
      */
-    public function jsonEncode($valueToEncode, $cycleCheck = false, $options = array())
+    public function jsonEncode($valueToEncode, $cycleCheck = false, $options = [])
     {
         $json = Zend_Json::encode($valueToEncode, $cycleCheck, $options);
-        /* @var Mage_Core_Model_Translate_Inline $inline */
+        /** @var Mage_Core_Model_Translate_Inline $inline */
         $inline = Mage::getSingleton('core/translate_inline');
         if ($inline->isAllowed()) {
             $inline->setIsJson(true);
@@ -715,16 +710,16 @@ XML;
     public function jsonDecode($encodedValue, $objectDecodeType = Zend_Json::TYPE_ARRAY)
     {
         switch (true) {
-            case (null === $encodedValue):
+            case ($encodedValue === null):
                 $encodedValue = 'null';
                 break;
-            case (true === $encodedValue):
+            case ($encodedValue === true):
                 $encodedValue = 'true';
                 break;
-            case (false === $encodedValue):
+            case ($encodedValue === false):
                 $encodedValue = 'false';
                 break;
-            case ('' === $encodedValue):
+            case ($encodedValue === ''):
                 $encodedValue = '""';
                 break;
             default:
@@ -768,7 +763,7 @@ XML;
         $targetFile = false,
         $mustMerge = false,
         $beforeMergeCallback = null,
-        $extensionsFilter = array()
+        $extensionsFilter = []
     ) {
         try {
             // check whether merger is required
@@ -779,7 +774,10 @@ XML;
                 } else {
                     $targetMtime = filemtime($targetFile);
                     foreach ($srcFiles as $file) {
-                        if (!file_exists($file) || @filemtime($file) > $targetMtime) {
+                        if (!file_exists($file)) {
+                            // no translation intentionally
+                            throw new Exception(sprintf('File %s not found.', $file));
+                        } elseif (@filemtime($file) > $targetMtime) {
                             $shouldMerge = true;
                             break;
                         }
@@ -789,7 +787,7 @@ XML;
 
             // merge contents into the file
             if ($shouldMerge) {
-                if ($targetFile && !is_writeable(dirname($targetFile))) {
+                if ($targetFile && !is_writable(dirname($targetFile))) {
                     // no translation intentionally
                     throw new Exception(sprintf('Path %s is not writeable.', dirname($targetFile)));
                 }
@@ -797,7 +795,7 @@ XML;
                 // filter by extensions
                 if ($extensionsFilter) {
                     if (!is_array($extensionsFilter)) {
-                        $extensionsFilter = array($extensionsFilter);
+                        $extensionsFilter = [$extensionsFilter];
                     }
                     if (!empty($srcFiles)) {
                         foreach ($srcFiles as $key => $file) {
@@ -972,7 +970,7 @@ XML;
                 $value = (string)$value;
 
                 $firstLetter = substr($value, 0, 1);
-                if ($firstLetter !== false && in_array($firstLetter, array("=", "+", "-"))) {
+                if ($firstLetter !== false && in_array($firstLetter, ["=", "+", "-"])) {
                     $data[$key] = ' ' . $value;
                 }
             }

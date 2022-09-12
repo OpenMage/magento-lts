@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     default_default
@@ -49,16 +43,14 @@
                 });
             }
 
-            // show mask, temporary set new target and submit form
-            var loadingMask = $('loading-mask');
+            // show mask
+            showLoader();
+
+            // temporary set new target and submit form
             var formElem    = $(this.formId);
             var oldTarget   = formElem.target;
             var oldAction   = formElem.action;
 
-            Element.clonePosition(loadingMask, $$('#html-body .wrapper')[0], {offsetLeft:-2})
-            toggleSelectsUnderBlock(loadingMask, false);
-            loadingMask.show();
-            setLoaderPosition();
             formElem.target = this.ifrElemName;
 
             if (newActionUrl) {
@@ -80,10 +72,8 @@
      */
     varienForm.prototype.postToFrameComplete = function(response)
     {
-        var loadingMask = $('loading-mask');
         $(this.ifrElemName).remove();
-        toggleSelectsUnderBlock(loadingMask, true);
-        loadingMask.hide();
+        hideLoader();
         this.postToFrameProcessResponse(response);
     };
 

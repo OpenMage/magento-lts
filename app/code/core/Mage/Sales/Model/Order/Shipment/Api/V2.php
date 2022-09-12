@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -39,7 +33,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
      */
     protected function _prepareItemQtyData($data)
     {
-        $_data = array();
+        $_data = [];
         foreach ($data as $item) {
             if (isset($item->order_item_id) && isset($item->qty)) {
                 $_data[$item->order_item_id] = $item->qty;
@@ -54,13 +48,13 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
      * @param string $orderIncrementId
      * @param array $itemsQty
      * @param string $comment
-     * @param boolean $email
-     * @param boolean $includeComment
+     * @param bool $email
+     * @param bool $includeComment
      * @return string
      */
     public function create(
         $orderIncrementId,
-        $itemsQty = array(),
+        $itemsQty = [],
         $comment = null,
         $email = false,
         $includeComment = false
@@ -81,7 +75,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
              $this->_fault('data_invalid', Mage::helper('sales')->__('Cannot do shipment for order.'));
         }
 
-         /* @var Mage_Sales_Model_Order_Shipment $shipment */
+         /** @var Mage_Sales_Model_Order_Shipment $shipment */
         $shipment = $order->prepareShipment($itemsQty);
         if ($shipment) {
             $shipment->register();
@@ -120,9 +114,9 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
         if (!$order->getId()) {
             $this->_fault('order_not_exists');
         }
-        $carriers = array();
+        $carriers = [];
         foreach ($this->_getCarriers($order) as $key => $value) {
-            $carriers[] = array('key' => $key, 'value' => $value);
+            $carriers[] = ['key' => $key, 'value' => $value];
         }
 
         return $carriers;

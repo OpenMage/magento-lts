@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Api
+ * @category   Mage
+ * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Api model
+ *
+ * @category   Mage
+ * @package    Mage_Api
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Api_Model_Resource_User _getResource()
  * @method Mage_Api_Model_Resource_User getResource()
@@ -37,8 +35,11 @@
  * @method $this setEmail(string $value)
  * @method string getUsername()
  * @method $this setUsername(string $value)
+ * @method bool hasApiKey()
  * @method string getApiKey()
  * @method $this setApiKey(string $value)
+ * @method bool hasApiKeyConfirmation()
+ * @method string getApiKeyConfirmation()
  * @method string getCreated()
  * @method $this setCreated(string $value)
  * @method string getModified()
@@ -51,6 +52,7 @@
  * @method $this setIsActive(int $value)
  * @method string getSessid()
  * @method $this setSessid($sessId)
+ * @method bool hasNewApiKey()
  * @method string getNewApiKey()
  * @method string getUserId()
  * @method string getLogdate()
@@ -58,44 +60,33 @@
  * @method array getRoleIds()
  * @method $this setLogdate(string $value)
  *
- * @category    Mage
- * @package     Mage_Api
- * @author      Magento Core Team <core@magentocommerce.com>
- *
  * @method $this setRoleIds(array $value)
  * @method $this setRoleUserId(int $value)
  */
 class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 {
     /**
-     * Prefix of model events names
-     *
      * @var string
      */
     protected $_eventPrefix = 'api_user';
 
-    /**
-     * Constructor
-     */
     protected function _construct()
     {
         $this->_init('api/user');
     }
 
     /**
-     * Save user
-     *
      * @return $this
      */
     public function save()
     {
         $this->_beforeSave();
-        $data = array(
+        $data = [
                 'firstname' => $this->getFirstname(),
                 'lastname'  => $this->getLastname(),
                 'email'     => $this->getEmail(),
                 'modified'  => Mage::getSingleton('core/date')->gmtDate()
-            );
+        ];
 
         if ($this->getId() > 0) {
             $data['user_id']   = $this->getId();
@@ -127,6 +118,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Delete user
      *
      * @return $this|Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     public function delete()
     {
@@ -140,6 +132,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Save relations for users
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function saveRelations()
     {
@@ -176,7 +169,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     public function roleUserExists()
     {
         $result = $this->_getResource()->roleUserExists($this);
-        return ( is_array($result) && count($result) > 0 ) ? true : false;
+        return is_array($result) && count($result) > 0;
     }
 
     /**
@@ -198,7 +191,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     public function userExists()
     {
         $result = $this->_getResource()->userExists($this);
-        return ( is_array($result) && count($result) > 0 ) ? true : false;
+        return is_array($result) && count($result) > 0;
     }
 
     /**
@@ -247,7 +240,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $apiKey
-     * @return boolean
+     * @return bool
+     * @throws Exception
      */
     public function authenticate($username, $apiKey)
     {
@@ -258,18 +252,19 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
         $auth = Mage::helper('core')->validateHash($apiKey, $this->getApiKey());
         if ($auth) {
             return true;
-        } else {
-            $this->unsetData();
-            return false;
         }
+
+        $this->unsetData();
+        return false;
     }
 
     /**
      * Login user
      *
-     * @param   string $username
-     * @param   string $apiKey
-     * @return  Mage_Api_Model_User
+     * @param string $username
+     * @param string $apiKey
+     * @return Mage_Api_Model_User
+     * @throws Exception
      */
     public function login($username, $apiKey)
     {
@@ -279,10 +274,10 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
             $this->getResource()->cleanOldSessions($this)
                 ->recordLogin($this)
                 ->recordSession($this);
-            Mage::dispatchEvent('api_user_authenticated', array(
+            Mage::dispatchEvent('api_user_authenticated', [
                'model'    => $this,
                'api_key'  => $apiKey,
-            ));
+            ]);
         }
 
         return $this;
@@ -354,7 +349,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      */
     protected function _getEncodedApiKey($apiKey)
     {
-        return $this->_getHelper('core')->getHash($apiKey, Mage_Admin_Model_User::HASH_SALT_LENGTH);
+        return Mage::helper('core')->getHash($apiKey, Mage_Admin_Model_User::HASH_SALT_LENGTH);
     }
 
     /**
@@ -371,7 +366,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Validate user attribute values.
      *
-     * @return array|bool
+     * @return array|true
      * @throws Zend_Validate_Exception
      */
     public function validate()
@@ -379,19 +374,19 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
         $errors = new ArrayObject();
 
         if (!Zend_Validate::is($this->getUsername(), 'NotEmpty')) {
-            $errors[] = $this->_getHelper('api')->__('User Name is required field.');
+            $errors->append($this->_getHelper('api')->__('User Name is required field.'));
         }
 
         if (!Zend_Validate::is($this->getFirstname(), 'NotEmpty')) {
-            $errors[] = $this->_getHelper('api')->__('First Name is required field.');
+            $errors->append($this->_getHelper('api')->__('First Name is required field.'));
         }
 
         if (!Zend_Validate::is($this->getLastname(), 'NotEmpty')) {
-            $errors[] = $this->_getHelper('api')->__('Last Name is required field.');
+            $errors->append($this->_getHelper('api')->__('Last Name is required field.'));
         }
 
         if (!Zend_Validate::is($this->getEmail(), 'EmailAddress')) {
-            $errors[] = $this->_getHelper('api')->__('Please enter a valid email.');
+            $errors->append($this->_getHelper('api')->__('Please enter a valid email.'));
         }
 
         if ($this->hasNewApiKey()) {
@@ -403,23 +398,23 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
         if (isset($apiKey)) {
             $minCustomerPasswordLength = $this->_getMinCustomerPasswordLength();
             if (strlen($apiKey) < $minCustomerPasswordLength) {
-                $errors[] = $this->_getHelper('api')
-                    ->__('Api Key must be at least of %d characters.', $minCustomerPasswordLength);
+                $errors->append($this->_getHelper('api')
+                    ->__('Api Key must be at least of %d characters.', $minCustomerPasswordLength));
             }
 
             if (!preg_match('/[a-z]/iu', $apiKey) || !preg_match('/[0-9]/u', $apiKey)) {
-                $errors[] = $this->_getHelper('api')
-                    ->__('Api Key must include both numeric and alphabetic characters.');
+                $errors->append($this->_getHelper('api')
+                    ->__('Api Key must include both numeric and alphabetic characters.'));
             }
 
             if ($this->hasApiKeyConfirmation() && $apiKey != $this->getApiKeyConfirmation()) {
-                $errors[] = $this->_getHelper('api')->__('Api Key confirmation must be same as Api Key.');
+                $errors->append($this->_getHelper('api')->__('Api Key confirmation must be same as Api Key.'));
             }
         }
 
         if ($this->userExists()) {
-            $errors[] = $this->_getHelper('api')
-                ->__('A user with the same user name or email already exists.');
+            $errors->append($this->_getHelper('api')
+                ->__('A user with the same user name or email already exists.'));
         }
 
         if (count($errors) === 0) {

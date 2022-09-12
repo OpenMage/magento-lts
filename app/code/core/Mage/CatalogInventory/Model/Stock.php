@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,29 +12,23 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogInventory
+ * @category   Mage
+ * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Stock model
  *
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_CatalogInventory_Model_Resource_Stock _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock getResource()
  * @method string getStockName()
  * @method Mage_CatalogInventory_Model_Stock setStockName(string $value)
- *
- * @category    Mage
- * @package     Mage_CatalogInventory
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
 {
@@ -78,7 +72,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
             ->addProductsFilter($productCollection)
             ->joinStockStatus($productCollection->getStoreId())
             ->load();
-        $stockItems = array();
+        $stockItems = [];
         /** @var Mage_CatalogInventory_Model_Stock_Item $item */
         foreach ($items as $item) {
             $stockItems[$item->getProductId()] = $item;
@@ -111,7 +105,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
      */
     protected function _prepareProductQtys($items)
     {
-        $qtys = array();
+        $qtys = [];
         foreach ($items as $productId => $item) {
             if (empty($item['item'])) {
                 $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId);
@@ -140,7 +134,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
         $this->_getResource()->beginTransaction();
         try {
             $stockInfo = $this->_getResource()->getProductsStock($this, array_keys($qtys), true);
-            $fullSaveItems = array();
+            $fullSaveItems = [];
             foreach ($stockInfo as $itemInfo) {
                 $item->setData($itemInfo);
                 if (!$item->checkQty($qtys[$item->getProductId()])) {

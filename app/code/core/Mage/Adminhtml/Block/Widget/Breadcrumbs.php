@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Widget_Breadcrumbs extends Mage_Adminhtml_Block_Template
 {
@@ -38,27 +32,39 @@ class Mage_Adminhtml_Block_Widget_Breadcrumbs extends Mage_Adminhtml_Block_Templ
      *
      * @var array
      */
-    protected $_links = array();
+    protected $_links = [];
 
+    /**
+     * Mage_Adminhtml_Block_Widget_Breadcrumbs constructor.
+     */
     public function __construct()
     {
         $this->setTemplate('widget/breadcrumbs.phtml');
         $this->addLink(Mage::helper('adminhtml')->__('Home'), Mage::helper('adminhtml')->__('Home'), $this->getUrl('*'));
     }
 
-    public function addLink($label, $title=null, $url=null)
+    /**
+     * @param string $label
+     * @param string|null $title
+     * @param string|null $url
+     * @return $this
+     */
+    public function addLink($label, $title = null, $url = null)
     {
         if (empty($title)) {
             $title = $label;
         }
-        $this->_links[] = array(
+        $this->_links[] = [
             'label' => $label,
             'title' => $title,
             'url'   => $url
-        );
+        ];
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _beforeToHtml()
     {
         // TODO - Moved to Beta 2, no breadcrumbs displaying in Beta 1

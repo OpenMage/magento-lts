@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Quote Item Model
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Quote_Item _getResource()
  * @method Mage_Sales_Model_Resource_Quote_Item getResource()
@@ -165,10 +163,6 @@
  * @method $this setWeeeTaxRowDisposition(float $value)
  * @method float getWeight()
  * @method $this setWeight(float $value)
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 {
@@ -200,21 +194,21 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      *
      * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * Item options by code cache
      *
      * @var array
      */
-    protected $_optionsByCode = array();
+    protected $_optionsByCode = [];
 
     /**
      * Not Represent options
      *
      * @var array
      */
-    protected $_notRepresentOptions = array('info_buyRequest');
+    protected $_notRepresentOptions = ['info_buyRequest'];
 
     /**
      * Flag stating that options were successfully saved
@@ -229,10 +223,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      */
     protected $_errorInfos = null;
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('sales/quote_item');
@@ -346,7 +336,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         $oldQty = $this->_getData('qty');
         $this->setData('qty', $qty);
 
-        Mage::dispatchEvent('sales_quote_item_qty_set_after', array('item' => $this));
+        Mage::dispatchEvent('sales_quote_item_qty_set_after', ['item' => $this]);
 
         if ($this->getQuote() && $this->getQuote()->getIgnoreOldQty()) {
             return $this;
@@ -371,8 +361,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     {
         $qtyOptions = $this->getData('qty_options');
         if (is_null($qtyOptions)) {
-            $productIds = array();
-            $qtyOptions = array();
+            $productIds = [];
+            $qtyOptions = [];
             foreach ($this->getOptions() as $option) {
                 /** @var Mage_Sales_Model_Quote_Item_Option $option */
                 if (is_object($option->getProduct())
@@ -398,7 +388,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Set option product with Qty
      *
-     * @param  $qtyOptions
+     * @param array $qtyOptions
      * @return $this
      */
     public function setQtyOptions($qtyOptions)
@@ -432,17 +422,11 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             $this->setIsQtyDecimal($product->getStockItem()->getIsQtyDecimal());
         }
 
-        Mage::dispatchEvent('sales_quote_item_set_product', array(
+        Mage::dispatchEvent('sales_quote_item_set_product', [
             'product' => $product,
             'quote_item' => $this
-        ));
+        ]);
 
-
-//        if ($options = $product->getCustomOptions()) {
-//            foreach ($options as $option) {
-//                $this->addOption($option);
-//            }
-//        }
         return $this;
     }
 
@@ -544,7 +528,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
                             $itemOptionValue = $_itemOptionValue;
                             $optionValue = $_optionValue;
                             // looks like it does not break bundle selection qty
-                            foreach (array('qty', 'uenc', 'form_key', 'item', 'original_qty') as $key) {
+                            foreach (['qty', 'uenc', 'form_key', 'item', 'original_qty'] as $key) {
                                 unset($itemOptionValue[$key], $optionValue[$key]);
                             }
                         }
@@ -595,7 +579,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * @param array $arrAttributes
      * @return array
      */
-    public function toArray(array $arrAttributes = array())
+    public function toArray(array $arrAttributes = [])
     {
         $data = parent::toArray($arrAttributes);
 
@@ -642,8 +626,9 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Add option to item
      *
-     * @param   Mage_Sales_Model_Quote_Item_Option|Varien_Object $option
-     * @return  $this
+     * @param Mage_Sales_Model_Quote_Item_Option|Varien_Object|array $option
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addOption($option)
     {
@@ -742,7 +727,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Checks that item model has data changes.
      * Call save item options if model isn't need to save in DB
      *
-     * @return boolean
+     * @return bool
      */
     protected function _hasModelChanged()
     {
@@ -812,8 +797,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         parent::__clone();
         $options = $this->getOptions();
         $this->_quote = null;
-        $this->_options = array();
-        $this->_optionsByCode = array();
+        $this->_options = [];
+        $this->_optionsByCode = [];
         foreach ($options as $option) {
             $this->addOption(clone $option);
         }

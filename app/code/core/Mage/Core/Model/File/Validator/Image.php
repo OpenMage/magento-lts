@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -13,16 +13,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -36,7 +30,7 @@ class Mage_Core_Model_File_Validator_Image
 {
     const NAME = "isImage";
 
-    protected $_allowedImageTypes = array(
+    protected $_allowedImageTypes = [
         IMAGETYPE_JPEG,
         IMAGETYPE_GIF,
         IMAGETYPE_JPEG2000,
@@ -44,7 +38,7 @@ class Mage_Core_Model_File_Validator_Image
         IMAGETYPE_ICO,
         IMAGETYPE_TIFF_II,
         IMAGETYPE_TIFF_MM
-    );
+    ];
 
     /**
      * Setter for allowed image types
@@ -52,21 +46,21 @@ class Mage_Core_Model_File_Validator_Image
      * @param array $imageFileExtensions
      * @return $this
      */
-    public function setAllowedImageTypes(array $imageFileExtensions = array())
+    public function setAllowedImageTypes(array $imageFileExtensions = [])
     {
-        $map = array(
-            'tif' => array(IMAGETYPE_TIFF_II, IMAGETYPE_TIFF_MM),
-            'tiff' => array(IMAGETYPE_TIFF_II, IMAGETYPE_TIFF_MM),
-            'jpg' => array(IMAGETYPE_JPEG, IMAGETYPE_JPEG2000),
-            'jpe' => array(IMAGETYPE_JPEG, IMAGETYPE_JPEG2000),
-            'jpeg' => array(IMAGETYPE_JPEG, IMAGETYPE_JPEG2000),
-            'gif' => array(IMAGETYPE_GIF),
-            'png' => array(IMAGETYPE_PNG),
-            'ico' => array(IMAGETYPE_ICO),
-            'apng' => array(IMAGETYPE_PNG)
-        );
+        $map = [
+            'tif' => [IMAGETYPE_TIFF_II, IMAGETYPE_TIFF_MM],
+            'tiff' => [IMAGETYPE_TIFF_II, IMAGETYPE_TIFF_MM],
+            'jpg' => [IMAGETYPE_JPEG, IMAGETYPE_JPEG2000],
+            'jpe' => [IMAGETYPE_JPEG, IMAGETYPE_JPEG2000],
+            'jpeg' => [IMAGETYPE_JPEG, IMAGETYPE_JPEG2000],
+            'gif' => [IMAGETYPE_GIF],
+            'png' => [IMAGETYPE_PNG],
+            'ico' => [IMAGETYPE_ICO],
+            'apng' => [IMAGETYPE_PNG]
+        ];
 
-        $this->_allowedImageTypes = array();
+        $this->_allowedImageTypes = [];
 
         foreach ($imageFileExtensions as $extension) {
             if (isset($map[$extension])) {

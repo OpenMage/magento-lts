@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Page
+ * @category   Mage
+ * @package    Mage_Page
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Html page block
@@ -53,11 +46,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $name
      * @param string $params
+     * @param string $referenceName
+     * @param bool $before
      * @return $this
      */
-    public function addCss($name, $params = "")
+    public function addCss($name, $params = "", $referenceName = "*", $before = null)
     {
-        $this->addItem('skin_css', $name, $params);
+        $this->addItem('skin_css', $name, $params, null, null, $referenceName, $before);
         return $this;
     }
 
@@ -66,11 +61,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $name
      * @param string $params
+     * @param string $referenceName
+     * @param bool $before
      * @return $this
      */
-    public function addJs($name, $params = "")
+    public function addJs($name, $params = "", $referenceName = "*", $before = null)
     {
-        $this->addItem('js', $name, $params);
+        $this->addItem('js', $name, $params, null, null, $referenceName, $before);
         return $this;
     }
 
@@ -79,11 +76,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $name
      * @param string $params
+     * @param string $referenceName
+     * @param bool $before
      * @return $this
      */
-    public function addCssIe($name, $params = "")
+    public function addCssIe($name, $params = "", $referenceName = "*", $before = null)
     {
-        $this->addItem('skin_css', $name, $params, 'IE');
+        $this->addItem('skin_css', $name, $params, 'IE', null, $referenceName, $before);
         return $this;
     }
 
@@ -92,11 +91,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $name
      * @param string $params
+     * @param string $referenceName
+     * @param bool $before
      * @return $this
      */
-    public function addJsIe($name, $params = "")
+    public function addJsIe($name, $params = "", $referenceName = "*", $before = null)
     {
-        $this->addItem('js', $name, $params, 'IE');
+        $this->addItem('js', $name, $params, 'IE', null, $referenceName, $before);
         return $this;
     }
 
@@ -128,20 +129,41 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param string $params
      * @param string $if
      * @param string $cond
+     * @param string $referenceName name of the item to insert the element before. If name is not found, insert at the end, * has special meaning (before all / before all)
+     * @param bool $before If true insert before the $referenceName instead of after
      * @return $this
      */
-    public function addItem($type, $name, $params = null, $if = null, $cond = null)
+    public function addItem($type, $name, $params = null, $if = null, $cond = null, $referenceName = "*", $before = false)
     {
-        if ($type==='skin_css' && empty($params)) {
+        // allow skipping of parameters in the layout XML files via empty-string
+        if ($params === '') {
+            $params = null;
+        }
+        if ($if === '') {
+            $if = null;
+        }
+        if ($cond === '') {
+            $cond = null;
+        }
+
+        if ($type === 'skin_css' && empty($params)) {
             $params = 'media="all"';
         }
-        $this->_data['items'][$type.'/'.$name] = array(
-            'type'   => $type,
-            'name'   => $name,
+        $this->_data['items'][$type . '/' . $name] = [
+            'type' => $type,
+            'name' => $name,
             'params' => $params,
-            'if'     => $if,
-            'cond'   => $cond,
-        );
+            'if' => $if,
+            'cond' => $cond,
+        ];
+
+        // that is the standard behaviour
+        if ($referenceName === '*' && $before === false) {
+            return $this;
+        }
+
+        $this->_sortItems($referenceName, $before, $type);
+
         return $this;
     }
 
@@ -167,7 +189,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     public function getCssJsHtml()
     {
         // separate items by types
-        $lines  = array();
+        $lines  = [];
         foreach ($this->_data['items'] as $item) {
             if (!is_null($item['cond']) && !$this->getData($item['cond']) || !isset($item['name'])) {
                 continue;
@@ -207,17 +229,17 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             // static and skin css
             $html .= $this->_prepareStaticAndSkinElements(
                 '<link rel="stylesheet" type="text/css" href="%s"%s />'."\n",
-                empty($items['js_css']) ? array() : $items['js_css'],
-                empty($items['skin_css']) ? array() : $items['skin_css'],
-                $shouldMergeCss ? array(Mage::getDesign(), 'getMergedCssUrl') : null
+                empty($items['js_css']) ? [] : $items['js_css'],
+                empty($items['skin_css']) ? [] : $items['skin_css'],
+                $shouldMergeCss ? [Mage::getDesign(), 'getMergedCssUrl'] : null
             );
 
             // static and skin javascripts
             $html .= $this->_prepareStaticAndSkinElements(
                 '<script type="text/javascript" src="%s"%s></script>' . "\n",
-                empty($items['js']) ? array() : $items['js'],
-                empty($items['skin_js']) ? array() : $items['skin_js'],
-                $shouldMergeJs ? array(Mage::getDesign(), 'getMergedJsUrl') : null
+                empty($items['js']) ? [] : $items['js'],
+                empty($items['skin_js']) ? [] : $items['skin_js'],
+                $shouldMergeJs ? [Mage::getDesign(), 'getMergedJsUrl'] : null
             );
 
             // other stuff
@@ -258,7 +280,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     ) {
         $designPackage = Mage::getDesign();
         $baseJsUrl = Mage::getBaseUrl('js');
-        $items = array();
+        $items = [];
         if ($mergeCallback && !is_callable($mergeCallback)) {
             $mergeCallback = null;
         }
@@ -273,8 +295,8 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         // lookup each file basing on current theme configuration
         foreach ($skinItems as $params => $rows) {
             foreach ($rows as $name) {
-                $items[$params][] = $mergeCallback ? $designPackage->getFilename($name, array('_type' => 'skin'))
-                    : $designPackage->getSkinUrl($name, array());
+                $items[$params][] = $mergeCallback ? $designPackage->getFilename($name, ['_type' => 'skin'])
+                    : $designPackage->getSkinUrl($name, []);
             }
         }
 
@@ -350,7 +372,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      */
     public function getChunkedItems($items, $prefix = '', $maxLen = 450)
     {
-        $chunks = array();
+        $chunks = [];
         $chunk  = $prefix;
         foreach ($items as $item) {
             if (strlen($chunk.','.$item)>$maxLen) {
@@ -535,5 +557,44 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             Mage::helper('core/file_storage_database')->saveFileToFilesystem($filename);
         }
         return is_file($filename);
+    }
+
+    /**
+     * @param string $referenceName
+     * @param string $before
+     * @param string $type
+     */
+    protected function _sortItems($referenceName, $before, $type)
+    {
+        $items = $this->_data['items'];
+
+        // get newly inserted item so we do not have to reproduce the functionality of the parent
+        end($items);
+        $newKey = key($items);
+        $newVal = array_pop($items);
+
+        $newItems = [];
+
+        if ($referenceName === '*' && $before === true) {
+            $newItems[$newKey] = $newVal;
+        }
+
+        $referenceName = $type . '/' . $referenceName;
+        foreach ($items as $key => $value) {
+            if ($key === $referenceName && $before === true) {
+                $newItems[$newKey] = $newVal;
+            }
+
+            $newItems[$key] = $value;
+
+            if ($key === $referenceName && $before === false) {
+                $newItems[$newKey] = $newVal;
+            }
+        }
+
+        // replace items only if the reference was found (otherwise insert as last item)
+        if (isset($newItems[$newKey])) {
+            $this->_data['items'] = $newItems;
+        }
     }
 }

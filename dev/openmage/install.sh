@@ -4,6 +4,26 @@ dir=$(dirname "${BASH_SOURCE[0]}")
 cd $dir
 test -f .env && source .env
 
+HOST_PORT=":${HOST_PORT:-80}"
+test "$HOST_PORT" = ":80" && HOST_PORT=""
+BASE_URL=${BASE_URL:-"http://${HOST_NAME:-openmage-7f000001.nip.io}${HOST_PORT}/"}
+ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.com}"
+ADMIN_USERNAME="${ADMIN_USERNAME:-admin}"
+ADMIN_PASSWORD="${ADMIN_PASSWORD:-veryl0ngpassw0rd}"
+
+if test -f ../../app/etc/local.xml; then
+  echo "Already installed!";
+  if [[ "$1" = "--reset" ]]; then
+    echo "Wiping previous installation..."
+    cd $dir && docker-compose down --volumes && rm ../../app/etc/local.xml
+  else
+    echo "Visit ${BASE_URL}admin and login with '$ADMIN_USERNAME' : '$ADMIN_PASSWORD'"
+    echo "MySQL server IP: $(docker exec openmage_apache_1 getent hosts mysql | awk '{print $1}')"
+    echo "To start a clean installation run: $0 --reset"
+    exit 1
+  fi
+fi
+
 chmod 777 ../../app/etc ../../media ../../var
 
 docker-compose up -d mysql apache
@@ -14,13 +34,6 @@ for i in $(seq 1 20); do
   sleep 1
   docker exec openmage_mysql_1 mysql -e 'show databases;' 2>/dev/null | grep -qF 'openmage' && break
 done
-
-HOST_PORT=":${HOST_PORT:-80}"
-test "$HOST_PORT" = ":80" && HOST_PORT=""
-BASE_URL="http://${HOST_NAME:-openmage-7f000001.nip.io}${HOST_PORT}/"
-ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.com}"
-ADMIN_USERNAME="${ADMIN_USERNAME:-admin}"
-ADMIN_PASSWORD="${ADMIN_PASSWORD:-veryl0ngpassw0rd}"
 
 echo "Installing OpenMage LTS..."
 docker-compose run --rm cli php install.php \

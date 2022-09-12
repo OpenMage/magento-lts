@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Api2
+ * @category   Mage
+ * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -129,12 +123,12 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
      */
     protected function _validateAttributeWithSource(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $attrValue)
     {
-        $errors = array();
+        $errors = [];
 
         // validate attributes with source models
-        if (null !== $attrValue && $attribute->getSourceModel()) {
-            if ('multiselect' !== $attribute->getFrontendInput() && is_array($attrValue)) {
-                return array('Invalid value type for ' . $attribute->getAttributeCode());
+        if ($attrValue !== null && $attribute->getSourceModel()) {
+            if ($attribute->getFrontendInput() !== 'multiselect' && is_array($attrValue)) {
+                return ['Invalid value type for ' . $attribute->getAttributeCode()];
             }
             $possibleValues = $attribute->getSource()->getAllOptions(false);
 
@@ -186,7 +180,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
      */
     public function isValidData(array $data, $partial = false)
     {
-        $errors = array();
+        $errors = [];
         foreach ($this->_eavForm->getAttributes() as $attribute) {
             if ($partial && !array_key_exists($attribute->getAttributeCode(), $data)) {
                 continue;
@@ -205,7 +199,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
             } else {
                 $result = $this->_validateAttributeWithSource($attribute, $attrValue);
 
-                if (true !== $result) {
+                if ($result !== true) {
                     $errors = array_merge($errors, $result);
                 }
             }
@@ -223,13 +217,13 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
     public function getErrors()
     {
         // business asked to avoid additional validation message, so we filter it here
-        $errors        = array();
-        $requiredAttrs = array();
-        $isRequiredRE  = '/^' . str_replace('%s', '(.+)', preg_quote(Mage::helper('eav')->__('"%s" is a required value.'))) . '$/';
+        $errors        = [];
+        $requiredAttrs = [];
+        $isRequiredRE  = '/^' . str_replace('%s', '(.+)', preg_quote(Mage::helper('eav')->__('"%s" is a required value.'), '/') ) . '$/';
         $greaterThanRE = '/^' . str_replace(
             '%s',
             '(.+)',
-            preg_quote(Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.'))
+            preg_quote(Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.'), '/')
         ) . '$/';
 
         // find all required attributes labels

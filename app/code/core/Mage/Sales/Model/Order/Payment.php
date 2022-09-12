@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order payment information
  *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Sales_Model_Resource_Order_Payment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment getResource()
- * @method Mage_Sales_Model_Resource_Order_Payment_Collection getCollection()()
+ * @method Mage_Sales_Model_Resource_Order_Payment_Collection getCollection()
  *
  * @method string getAccountStatus()
  * @method $this setAccountStatus(string $value)
@@ -199,10 +197,6 @@
  * @method $this unsTransactionId()
  *
  * @method $this setVoidTransactionId(string $value)
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 {
@@ -248,18 +242,14 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * array(txn_id => sales/order_payment_transaction)
      * @var array
      */
-    protected $_transactionsLookup = array();
+    protected $_transactionsLookup = [];
 
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix = 'sales_order_payment';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject = 'payment';
@@ -269,11 +259,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @var array
      */
-    protected $_transactionAdditionalInfo = array();
+    protected $_transactionAdditionalInfo = [];
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('sales/order_payment');
@@ -360,7 +347,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     public function place()
     {
-        Mage::dispatchEvent('sales_order_payment_place_start', array('payment' => $this));
+        Mage::dispatchEvent('sales_order_payment_place_start', ['payment' => $this]);
         $order = $this->getOrder();
 
         $this->setAmountOrdered($order->getTotalDue());
@@ -424,7 +411,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 }
             }
         }
-        $isCustomerNotified = (null !== $orderIsNotified) ? $orderIsNotified : $order->getCustomerNoteNotify();
+        $isCustomerNotified = ($orderIsNotified !== null) ? $orderIsNotified : $order->getCustomerNoteNotify();
         $message = $order->getCustomerNote();
 
         // add message if order was put into review during authorization or capture
@@ -440,7 +427,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $order->setState($orderState, $orderStatus, $message, $isCustomerNotified);
         }
 
-        Mage::dispatchEvent('sales_order_payment_place_end', array('payment' => $this));
+        Mage::dispatchEvent('sales_order_payment_place_end', ['payment' => $this]);
 
         return $this;
     }
@@ -479,7 +466,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $this->getAuthorizationTransaction()
         );
 
-        Mage::dispatchEvent('sales_order_payment_capture', array('payment' => $this, 'invoice' => $invoice));
+        Mage::dispatchEvent('sales_order_payment_capture', ['payment' => $this, 'invoice' => $invoice]);
 
         /**
          * Fetch an update about existing transaction. It can determine whether the transaction can be paid
@@ -512,7 +499,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 $message = Mage::helper('sales')->__('Captured amount of %s online.', $this->_formatPrice($amountToCapture));
                 $state = Mage_Sales_Model_Order::STATE_PROCESSING;
                 $invoice->setIsPaid(true);
-                $this->_updateTotals(array('base_amount_paid_online' => $amountToCapture));
+                $this->_updateTotals(['base_amount_paid_online' => $amountToCapture]);
             }
             if ($order->isNominal()) {
                 $message = $this->_prependMessage(Mage::helper('sales')->__('Nominal order registered.'));
@@ -564,7 +551,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 if (!$skipFraudDetection || !$isSameCurrency) {
                     $this->setIsFraudDetected(true);
                 }
-                $this->_updateTotals(array('base_amount_paid_online' => $amount));
+                $this->_updateTotals(['base_amount_paid_online' => $amount]);
             }
         }
 
@@ -587,7 +574,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             // register capture for an existing invoice
             if ($invoice && Mage_Sales_Model_Order_Invoice::STATE_OPEN == $invoice->getState()) {
                 $invoice->pay();
-                $this->_updateTotals(array('base_amount_paid_online' => $amount));
+                $this->_updateTotals(['base_amount_paid_online' => $amount]);
                 $order->addRelatedObject($invoice);
             }
         }
@@ -619,13 +606,13 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     public function pay($invoice)
     {
-        $this->_updateTotals(array(
+        $this->_updateTotals([
             'amount_paid' => $invoice->getGrandTotal(),
             'base_amount_paid' => $invoice->getBaseGrandTotal(),
             'shipping_captured' => $invoice->getShippingAmount(),
             'base_shipping_captured' => $invoice->getBaseShippingAmount(),
-        ));
-        Mage::dispatchEvent('sales_order_payment_pay', array('payment' => $this, 'invoice' => $invoice));
+        ]);
+        Mage::dispatchEvent('sales_order_payment_pay', ['payment' => $this, 'invoice' => $invoice]);
         return $this;
     }
 
@@ -637,13 +624,13 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     public function cancelInvoice($invoice)
     {
-        $this->_updateTotals(array(
+        $this->_updateTotals([
             'amount_paid' => -1 * $invoice->getGrandTotal(),
             'base_amount_paid' => -1 * $invoice->getBaseGrandTotal(),
             'shipping_captured' => -1 * $invoice->getShippingAmount(),
             'base_shipping_captured' => -1 * $invoice->getBaseShippingAmount(),
-        ));
-        Mage::dispatchEvent('sales_order_payment_cancel_invoice', array('payment' => $this, 'invoice' => $invoice));
+        ]);
+        Mage::dispatchEvent('sales_order_payment_cancel_invoice', ['payment' => $this, 'invoice' => $invoice]);
         return $this;
     }
 
@@ -675,7 +662,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     public function canVoid(Varien_Object $document)
     {
-        if (null === $this->_canVoidLookup) {
+        if ($this->_canVoidLookup === null) {
             $this->_canVoidLookup = (bool)$this->getMethodInstance()->canVoid($document);
             if ($this->_canVoidLookup) {
                 $authTransaction = $this->getAuthorizationTransaction();
@@ -695,7 +682,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     public function void(Varien_Object $document)
     {
         $this->_void(true);
-        Mage::dispatchEvent('sales_order_payment_void', array('payment' => $this, 'invoice' => $document));
+        Mage::dispatchEvent('sales_order_payment_void', ['payment' => $this, 'invoice' => $document]);
         return $this;
     }
 
@@ -759,13 +746,13 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         }
 
         // update self totals from creditmemo
-        $this->_updateTotals(array(
+        $this->_updateTotals([
             'amount_refunded' => $creditmemo->getGrandTotal(),
             'base_amount_refunded' => $baseAmountToRefund,
             'base_amount_refunded_online' => $isOnline ? $baseAmountToRefund : null,
             'shipping_refunded' => $creditmemo->getShippingAmount(),
             'base_shipping_refunded' => $creditmemo->getBaseShippingAmount(),
-        ));
+        ]);
 
         // update transactions and order state
         $transaction = $this->_addTransaction(
@@ -779,11 +766,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $message = $this->hasMessage() ? $this->getMessage()
                 : Mage::helper('sales')->__('Refunded amount of %s offline.', $this->_formatPrice($baseAmountToRefund));
         }
-        $message = $message = $this->_prependMessage($message);
+        $message = $this->_prependMessage($message);
         $message = $this->_appendTransactionToMessage($transaction, $message);
         $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message);
 
-        Mage::dispatchEvent('sales_order_payment_refund', array('payment' => $this, 'creditmemo' => $creditmemo));
+        Mage::dispatchEvent('sales_order_payment_refund', ['payment' => $this, 'creditmemo' => $creditmemo]);
         return $this;
     }
 
@@ -825,8 +812,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         }
 
         if ($amount != $baseGrandTotal) {
-            $transaction = new Varien_Object(array('txn_id' => $this->getTransactionId()));
-            Mage::dispatchEvent('sales_html_txn_id', array('transaction' => $transaction, 'payment' => $this));
+            $transaction = new Varien_Object(['txn_id' => $this->getTransactionId()]);
+            Mage::dispatchEvent('sales_html_txn_id', ['transaction' => $transaction, 'payment' => $this]);
             $transactionId = $transaction->getHtmlTxnId() ? $transaction->getHtmlTxnId() : $transaction->getTxnId();
             $order->addStatusHistoryComment(Mage::helper('sales')->__(
                 'IPN "Refunded". Refund issued by merchant. Registered notification about refunded amount of %s. Transaction ID: "%s". Credit Memo has not been created. Please create offline Credit Memo.',
@@ -840,9 +827,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         $serviceModel = Mage::getModel('sales/service_order', $order);
         if ($invoice) {
             if ($invoice->getBaseTotalRefunded() > 0) {
-                $adjustment = array('adjustment_positive' => $amount);
+                $adjustment = ['adjustment_positive' => $amount];
             } else {
-                $adjustment = array('adjustment_negative' => $baseGrandTotal - $amount);
+                $adjustment = ['adjustment_negative' => $baseGrandTotal - $amount];
             }
             $creditmemo = $serviceModel->prepareInvoiceCreditmemo($invoice, $adjustment);
             if ($creditmemo) {
@@ -851,9 +838,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             }
         } else {
             if ($order->getBaseTotalRefunded() > 0) {
-                $adjustment = array('adjustment_positive' => $amount);
+                $adjustment = ['adjustment_positive' => $amount];
             } else {
-                $adjustment = array('adjustment_negative' => $baseGrandTotal - $amount);
+                $adjustment = ['adjustment_negative' => $baseGrandTotal - $amount];
             }
             $creditmemo = $serviceModel->prepareCreditmemo($adjustment);
             if ($creditmemo) {
@@ -868,10 +855,10 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             ->addComment(Mage::helper('sales')->__('Credit memo has been created automatically'))
             ->save();
 
-        $this->_updateTotals(array(
+        $this->_updateTotals([
             'amount_refunded' => $creditmemo->getGrandTotal(),
             'base_amount_refunded_online' => $amount
-        ));
+        ]);
 
         $this->setCreatedCreditmemo($creditmemo);
         // update transactions and order state
@@ -892,15 +879,15 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     public function cancelCreditmemo($creditmemo)
     {
-        $this->_updateTotals(array(
+        $this->_updateTotals([
             'amount_refunded' => -1 * $creditmemo->getGrandTotal(),
             'base_amount_refunded' => -1 * $creditmemo->getBaseGrandTotal(),
             'shipping_refunded' => -1 * $creditmemo->getShippingAmount(),
             'base_shipping_refunded' => -1 * $creditmemo->getBaseShippingAmount()
-        ));
+        ]);
         Mage::dispatchEvent(
             'sales_order_payment_cancel_creditmemo',
-            array('payment' => $this, 'creditmemo' => $creditmemo)
+            ['payment' => $this, 'creditmemo' => $creditmemo]
         );
         return $this;
     }
@@ -926,7 +913,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $this->_void($isOnline, null, 'cancel');
         }
 
-        Mage::dispatchEvent('sales_order_payment_cancel', array('payment' => $this));
+        Mage::dispatchEvent('sales_order_payment_cancel', ['payment' => $this]);
 
         return $this;
     }
@@ -1049,7 +1036,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         }
 
         // process payment in case of positive or negative result, or add a comment
-        if (-1 === $result) { // switch won't work with such $result!
+        if ($result === -1) { // switch won't work with such $result!
             if ($order -> getState() != Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW) {
                 $status = $this->getIsFraudDetected() ? Mage_Sales_Model_Order::STATUS_FRAUD : false;
                 $order->setState(Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW, $status, $message);
@@ -1059,14 +1046,14 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             } else {
                 $order->addStatusHistoryComment($message);
             }
-        } elseif (true === $result) {
+        } elseif ($result === true) {
             if ($invoice) {
                 $invoice->pay();
-                $this->_updateTotals(array('base_amount_paid_online' => $invoice->getBaseGrandTotal()));
+                $this->_updateTotals(['base_amount_paid_online' => $invoice->getBaseGrandTotal()]);
                 $order->addRelatedObject($invoice);
             }
             $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message);
-        } elseif (false === $result) {
+        } elseif ($result === false) {
             if ($invoice) {
                 $invoice->cancel();
                 $order->addRelatedObject($invoice);
@@ -1221,7 +1208,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         // if the authorization was untouched, we may assume voided amount = order grand total
         // but only if the payment auth amount equals to order grand total
         if ($authTransaction && ($order->getBaseGrandTotal() == $this->getBaseAmountAuthorized())
-            && (0 == $this->getBaseAmountCanceled())) {
+            && ($this->getBaseAmountCanceled() == 0)) {
             if ($authTransaction->canVoidAuthorizationCompletely()) {
                 $amount = (float)$order->getBaseGrandTotal();
             }
@@ -1283,7 +1270,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
         // look for set transaction ids
         $transactionId = $this->getTransactionId();
-        if (null !== $transactionId) {
+        if ($transactionId !== null) {
             // set transaction parameters
             $transaction = false;
             if ($this->getOrder()->getId()) {
@@ -1394,7 +1381,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     protected function _updateTotals($data)
     {
         foreach ($data as $key => $amount) {
-            if (null !== $amount) {
+            if ($amount !== null) {
                 $was = $this->getDataUsingMethod($key);
                 $this->setDataUsingMethod($key, $was + $amount);
             }
@@ -1422,11 +1409,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Check transaction existence by specified transaction id
      *
      * @param string $txnId
-     * @return boolean
+     * @return bool
      */
     protected function _isTransactionExists($txnId = null)
     {
-        if (null === $txnId) {
+        if ($txnId === null) {
             $txnId = $this->getTransactionId();
         }
         return $txnId && $this->_lookupTransaction($txnId);
@@ -1495,7 +1482,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     {
         return $this->getOrder()->getBaseCurrency()->formatTxt(
             $amount,
-            $currency ? array('currency' => $currency) : array()
+            $currency ? ['currency' => $currency] : []
         );
     }
 
@@ -1606,7 +1593,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         $amountToCapture = $this->_formatAmount($amountToCapture, true);
         $orderGrandTotal = $this->_formatAmount($this->getOrder()->getBaseGrandTotal(), true);
         if ($orderGrandTotal == $this->_formatAmount($this->getBaseAmountPaid(), true) + $amountToCapture) {
-            if (false !== $this->getShouldCloseParentTransaction()) {
+            if ($this->getShouldCloseParentTransaction() !== false) {
                 $this->setShouldCloseParentTransaction(true);
             }
             return true;
@@ -1697,7 +1684,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     public function resetTransactionAdditionalInfo()
     {
-        $this->_transactionAdditionalInfo = array();
+        $this->_transactionAdditionalInfo = [];
         return $this;
     }
 

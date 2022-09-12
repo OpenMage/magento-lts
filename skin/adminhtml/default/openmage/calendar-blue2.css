@@ -2,14 +2,23 @@
    Edit scss version and compile with sass from scss folder like this:
    $ sass calendar-blue2.scss ../calendar-blue2.css
  */
-.calendar table, .calendar {
+/*
+ 205 = default,
+   0 = red,
+  60 = yellow,
+ 120 = green,
+ 180 = turquoise,
+ 240 = blue,
+ 300 = purple
+*/
+.calendar, .calendar table {
   color: #202856;
   cursor: default;
   background: #f1f8fc;
-  font: 400 12px/1.33 "Open Sans", sans-serif;
+  font: 400 12px/1.33 'Open Sans', sans-serif;
 }
 
-.calendar td.time .ampm, .calendar td.time .minute, .calendar td.time .hour {
+.calendar td.time .hour, .calendar td.time .minute, .calendar td.time .ampm {
   padding: 0 3px 0 4px;
   border: 1px solid #889;
   font-weight: 600;
@@ -65,7 +74,7 @@
 }
 .calendar tbody .day.othermonth {
   font-size: 80%;
-  color: #ccc;
+  color: #c8c8c8;
 }
 .calendar tbody .day.othermonth.oweekend {
   color: #fbb;

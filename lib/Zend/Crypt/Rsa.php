@@ -203,9 +203,9 @@ class Zend_Crypt_Rsa
 
     /**
      * @param  array $configargs
-     * 
+     *
      * @throws Zend_Crypt_Rsa_Exception
-     * 
+     *
      * @return ArrayObject
      */
     public function generateKeys(array $configargs = null)

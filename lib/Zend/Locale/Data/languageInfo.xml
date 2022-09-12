@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE supplementalData SYSTEM "../../common/dtd/ldmlSupplemental.dtd">
-<!-- Copyright © 1991-2013 Unicode, Inc. CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/) 
+<!-- Copyright © 1991-2013 Unicode, Inc. CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 	For terms of use, see http://www.unicode.org/copyright.html -->
 
 <supplementalData>
@@ -137,11 +137,11 @@
 			<!-- Region Matches -->
 			<languageMatch desired="en_*_US" supported="en_*_*" percent="97" /><!-- Non-US Englishes are closer to each other. Managed by having en-US be further from everything else. -->
 			<languageMatch desired="en_*_*" supported="en_*_*" percent="99" />
-			
+
 			<languageMatch desired="es_*_ES" supported="es_*_*" percent="97" />    <!-- Latin American Spanishes are closer to each other. Managed by having es-ES be further from everything else. -->
 			<languageMatch desired="es_*_419" supported="es_*_*" percent="99" />	<!-- Make 419 a bit closer to each one than they are to one another. -->
 			<languageMatch desired="es_*_*" supported="es_*_*" percent="98" />
-						
+
 			<!-- Fallbacks -->
 			<languageMatch desired="*" supported="*" percent="1" />  <!-- [Default value - must be at end!] Normally there is no comprehension of different languages. -->
 			<languageMatch desired="*_*" supported="*_*" percent="20" /> <!-- [Default value - must be at end!] Normally there is little comprehension of different scripts. -->

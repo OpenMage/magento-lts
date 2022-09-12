@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,62 +12,55 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml catalog product action attribute update
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Adminhtml_Block_Widget
 {
-
     protected function _prepareLayout()
     {
         $this->setChild('back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('catalog')->__('Back'),
-                    'onclick'   => 'setLocation(\''.$this->getUrl('*/catalog_product/', array('store'=>$this->getRequest()->getParam('store', 0))).'\')',
+                    'onclick'   => 'setLocation(\''.$this->getUrl('*/catalog_product/', ['store'=>$this->getRequest()->getParam('store', 0)]).'\')',
                     'class' => 'back'
-                ))
+                ])
         );
 
         $this->setChild('reset_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('catalog')->__('Reset'),
-                    'onclick'   => 'setLocation(\''.$this->getUrl('*/*/*', array('_current'=>true)).'\')'
-                ))
+                    'onclick'   => 'setLocation(\''.$this->getUrl('*/*/*', ['_current'=>true]).'\')'
+                ])
         );
 
         $this->setChild('save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('catalog')->__('Save'),
                     'onclick'   => 'attributesForm.submit()',
                     'class'     => 'save'
-                ))
+                ])
         );
+        return $this;
     }
 
     /**
      * Retrieve selected products for update
      *
-     * @return unknown
+     * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     public function getProducts()
     {
@@ -83,7 +76,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
     {
         return $this->helper('adminhtml/catalog_product_edit_action_attribute');
     }
-    
+
     /**
      * Retrieve back button html code
      *
@@ -121,9 +114,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('store'=>Mage::helper('adminhtml/catalog_product_edit_action_attribute')->getSelectedStoreId()));
+        return $this->getUrl('*/*/save', ['store'=>Mage::helper('adminhtml/catalog_product_edit_action_attribute')->getSelectedStoreId()]);
     }
-    
+
     /**
      * Get validation url
      *
@@ -131,6 +124,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
      */
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', array('_current'=>true));
+        return $this->getUrl('*/*/validate', ['_current'=>true]);
     }
 }

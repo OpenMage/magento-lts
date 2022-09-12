@@ -30,7 +30,7 @@
  * @package    Zend_Gdata
  * @subpackage Analytics
  */
-class Zend_Gdata_Analytics_Extension_Metric 
+class Zend_Gdata_Analytics_Extension_Metric
     extends Zend_Gdata_Analytics_Extension_Property
 {
     protected $_rootNamespace = 'ga';

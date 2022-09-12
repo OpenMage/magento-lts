@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogSearch
+ * @category   Mage
+ * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
-
 $installer->startSetup();
 
 /**
@@ -34,49 +27,49 @@ $installer->startSetup();
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('catalogsearch/search_query'))
-    ->addColumn('query_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('query_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Query ID')
-    ->addColumn('query_text', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        ), 'Query text')
-    ->addColumn('num_results', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Query ID')
+    ->addColumn('query_text', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
+    ], 'Query text')
+    ->addColumn('num_results', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Num results')
-    ->addColumn('popularity', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Num results')
+    ->addColumn('popularity', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Popularity')
-    ->addColumn('redirect', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        ), 'Redirect')
-    ->addColumn('synonym_for', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        ), 'Synonym for')
-    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Popularity')
+    ->addColumn('redirect', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
+    ], 'Redirect')
+    ->addColumn('synonym_for', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
+    ], 'Synonym for')
+    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Store ID')
-    ->addColumn('display_in_terms', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Store ID')
+    ->addColumn('display_in_terms', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'nullable'  => false,
         'default'   => '1',
-        ), 'Display in terms')
-    ->addColumn('is_active', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Display in terms')
+    ->addColumn('is_active', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'default'   => '1',
-        ), 'Active status')
-    ->addColumn('is_processed', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Active status')
+    ->addColumn('is_processed', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'default'   => '0',
-        ), 'Processed status')
-    ->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ], 'Processed status')
+    ->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
         'nullable'  => false,
-        ), 'Updated at')
+    ], 'Updated at')
     ->addIndex(
-        $installer->getIdxName('catalogsearch/search_query', array('query_text','store_id','popularity')),
-        array('query_text','store_id','popularity')
+        $installer->getIdxName('catalogsearch/search_query', ['query_text','store_id','popularity']),
+        ['query_text','store_id','popularity']
     )
     ->addIndex($installer->getIdxName('catalogsearch/search_query', 'store_id'), 'store_id')
     ->addForeignKey(
@@ -95,20 +88,20 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('catalogsearch/result'))
-    ->addColumn('query_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('query_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Query ID')
-    ->addColumn('product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Query ID')
+    ->addColumn('product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Product ID')
-    ->addColumn('relevance', Varien_Db_Ddl_Table::TYPE_DECIMAL, '20,4', array(
+    ], 'Product ID')
+    ->addColumn('relevance', Varien_Db_Ddl_Table::TYPE_DECIMAL, '20,4', [
         'nullable'  => false,
         'default'   => '0.0000'
-        ), 'Relevance')
+    ], 'Relevance')
     ->addIndex($installer->getIdxName('catalogsearch/result', 'query_id'), 'query_id')
     ->addForeignKey(
         $installer->getFkName('catalogsearch/result', 'query_id', 'catalogsearch/search_query', 'query_id'),
@@ -135,30 +128,30 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('catalogsearch/fulltext'))
-    ->addColumn('fulltext_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('fulltext_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Entity ID')
-    ->addColumn('product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Entity ID')
+    ->addColumn('product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
-        ), 'Product ID')
-    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Product ID')
+    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
-        ), 'Store ID')
-    ->addColumn('data_index', Varien_Db_Ddl_Table::TYPE_TEXT, '4g', array(
-        ), 'Data index')
+    ], 'Store ID')
+    ->addColumn('data_index', Varien_Db_Ddl_Table::TYPE_TEXT, '4g', [
+    ], 'Data index')
     ->addIndex(
         $installer->getIdxName(
             'catalogsearch/fulltext',
-            array('product_id', 'store_id'),
+            ['product_id', 'store_id'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('product_id', 'store_id'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        ['product_id', 'store_id'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->addIndex(
         $installer->getIdxName(
@@ -167,7 +160,7 @@ $table = $installer->getConnection()
             Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT
         ),
         'data_index',
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT)
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT]
     )
     ->setOption('type', 'MyISAM')
     ->setComment('Catalog search result table');

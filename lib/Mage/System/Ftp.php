@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_System
@@ -96,7 +90,7 @@ class Mage_System_Ftp
 
     /**
      * Try to login to server
-     * 
+     *
      * @param string $login
      * @param string $password
      * @throws Exception on invalid login credentials
@@ -114,7 +108,7 @@ class Mage_System_Ftp
 
     /**
      * Validate connection string
-     * 
+     *
      * @param string $string
      * @throws Exception
      * @return string
@@ -178,7 +172,7 @@ class Mage_System_Ftp
 
     /**
      * ftp_put wrapper
-     * 
+     *
      * @param string $remoteFile
      * @param string $localFile
      * @param int $mode FTP_BINARY | FTP_ASCII
@@ -193,7 +187,7 @@ class Mage_System_Ftp
 
     /**
      * Get current working directory
-     * 
+     *
      * @return mixed
      */
     public function getcwd()
@@ -215,7 +209,7 @@ class Mage_System_Ftp
 
     /**
      * ftp_raw wrapper
-     * 
+     *
      * @param string $cmd
      * @return mixed
      */
@@ -273,7 +267,7 @@ class Mage_System_Ftp
 
     /**
      * Download remote file to local machine
-     * 
+     *
      * @param string $remote
      * @param string $local
      * @param int $ftpMode  FTP_BINARY|FTP_ASCII
@@ -287,7 +281,7 @@ class Mage_System_Ftp
 
     /**
      * ftp_pasv wrapper
-     * 
+     *
      * @param bool $pasv
      * @return bool
      */
@@ -299,7 +293,7 @@ class Mage_System_Ftp
 
     /**
      * Close FTP connection
-     * 
+     *
      * @return void
      */
     public function close()
@@ -311,7 +305,7 @@ class Mage_System_Ftp
 
     /**
      * ftp_chmod wrapper
-     * 
+     *
      * @param $mode
      * @param $remoteFile
      * @return bool
@@ -324,7 +318,7 @@ class Mage_System_Ftp
 
     /**
      * ftp_chdir wrapper
-     * 
+     *
      * @param string $dir
      * @return bool
      */
@@ -336,7 +330,7 @@ class Mage_System_Ftp
 
     /**
      * ftp_cdup wrapper
-     * 
+     *
      * @return bool
      */
     public function cdup()
@@ -347,7 +341,7 @@ class Mage_System_Ftp
 
     /**
      * ftp_get wrapper
-     * 
+     *
      * @param string $localFile
      * @param string $remoteFile
      * @param int $fileMode         FTP_BINARY | FTP_ASCII
@@ -363,7 +357,7 @@ class Mage_System_Ftp
 
     /**
      * ftp_nlist wrapper
-     * 
+     *
      * @param string $dir
      * @return bool
      */
@@ -376,7 +370,7 @@ class Mage_System_Ftp
 
     /**
      * ftp_rawlist wrapper
-     * 
+     *
      * @param string $dir
      * @param bool $recursive
      * @return mixed
@@ -390,7 +384,7 @@ class Mage_System_Ftp
 
     /**
      * Convert byte count to float KB/MB format
-     * 
+     *
      * @param int $bytes
      * @return string
      */
@@ -403,7 +397,7 @@ class Mage_System_Ftp
 
     /**
      * Chmod string "-rwxrwxrwx" to "777" converter
-     * 
+     *
      * @param string $chmod
      * @return string
      */
@@ -443,7 +437,7 @@ class Mage_System_Ftp
 
     /**
      * Get directory contents in PHP array
-     * 
+     *
      * @param string $dir
      * @param bool $recursive
      * @return array
@@ -483,7 +477,7 @@ class Mage_System_Ftp
 
     /**
      * Correct file path
-     * 
+     *
      * @param string $str
      * @return string
      */

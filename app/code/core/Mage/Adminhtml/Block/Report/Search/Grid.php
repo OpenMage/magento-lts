@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -65,44 +59,44 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('query_id', array(
+        $this->addColumn('query_id', [
             'header'    =>Mage::helper('reports')->__('ID'),
             'width'     =>'50px',
             'filter'    =>false,
             'index'     =>'query_id',
             'type'      =>'number'
-        ));
+        ]);
 
-        $this->addColumn('query_text', array(
+        $this->addColumn('query_text', [
             'header'    =>Mage::helper('reports')->__('Search Query'),
             'index'     =>'query_text'
-        ));
+        ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', array(
+            $this->addColumn('store_id', [
                 'header'        => Mage::helper('catalog')->__('Store'),
                 'index'         => 'store_id',
                 'type'          => 'store',
                 'store_view'    => true,
                 'sortable'      => false
-            ));
+            ]);
         }
 
-        $this->addColumn('num_results', array(
+        $this->addColumn('num_results', [
             'header'    =>Mage::helper('reports')->__('Results'),
             'width'     =>'50px',
             'align'     =>'right',
             'type'      =>'number',
             'index'     =>'num_results'
-        ));
+        ]);
 
-        $this->addColumn('popularity', array(
+        $this->addColumn('popularity', [
             'header'    =>Mage::helper('reports')->__('Hits'),
             'width'     =>'50px',
             'align'     =>'right',
             'type'      =>'number',
             'index'     =>'popularity'
-        ));
+        ]);
 
         $this->addExportType('*/*/exportSearchCsv', Mage::helper('reports')->__('CSV'));
         $this->addExportType('*/*/exportSearchExcel', Mage::helper('reports')->__('Excel XML'));
@@ -117,7 +111,7 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/catalog_search/edit', array('id' => $row->getId()));
+        return $this->getUrl('*/catalog_search/edit', ['id' => $row->getId()]);
     }
 }
 

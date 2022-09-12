@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Product description block
@@ -54,13 +47,12 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
      * @param array $excludeAttr
      * @return array
      */
-    public function getAdditionalData(array $excludeAttr = array())
+    public function getAdditionalData(array $excludeAttr = [])
     {
-        $data = array();
+        $data = [];
         $product = $this->getProduct();
         $attributes = $product->getAttributes();
         foreach ($attributes as $attribute) {
-//            if ($attribute->getIsVisibleOnFront() && $attribute->getIsUserDefined() && !in_array($attribute->getAttributeCode(), $excludeAttr)) {
             if ($attribute->getIsVisibleOnFront() && !in_array($attribute->getAttributeCode(), $excludeAttr)) {
                 $value = $attribute->getFrontend()->getValue($product);
 
@@ -73,11 +65,11 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
                 }
 
                 if (is_string($value) && strlen($value)) {
-                    $data[$attribute->getAttributeCode()] = array(
+                    $data[$attribute->getAttributeCode()] = [
                         'label' => $attribute->getStoreLabel(),
                         'value' => $value,
                         'code'  => $attribute->getAttributeCode()
-                    );
+                    ];
                 }
             }
         }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,26 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payflow Link payment gateway model
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
 {
     /**
@@ -56,7 +49,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @var array
      */
-    protected $_responseParamsMappings = array(
+    protected $_responseParamsMappings = [
         'firstname' => 'billtofirstname',
         'lastname' => 'billtolastname',
         'address' => 'billtostreet',
@@ -78,7 +71,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
         'method' => 'tender',
         'cscmatch' => 'cvv2match',
         'type' => 'trxtype',
-    );
+    ];
 
     /**
      * Payment method code
@@ -133,7 +126,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Check whether payment method can be used
      *
-     * @param Mage_Sales_Model_Quote
+     * @param Mage_Sales_Model_Quote|null $quote
      * @return bool
      */
     public function isAvailable($quote = null)
@@ -165,6 +158,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @param string $paymentAction
      * @param Varien_Object $stateObject
+     * @return $this
      */
     public function initialize($paymentAction, $stateObject)
     {
@@ -191,12 +185,13 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             default:
                 break;
         }
+        return $this;
     }
 
     /**
      * Return response model.
      *
-     * @return Mage_Mage_Paypal_Model_Payflow_Request
+     * @return Mage_Paypal_Model_Payflow_Request
      */
     public function getResponse()
     {
@@ -248,9 +243,9 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      */
     public function process($responseData)
     {
-        $debugData = array(
+        $debugData = [
             'response' => $responseData
-        );
+        ];
         $this->_debug($debugData);
 
         $this->setResponseData($responseData);
@@ -360,7 +355,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             Mage::throwException($response->getRespmsg());
         }
 
-        $amountCompared = ($response->getAmt() == $order->getPayment()->getBaseAmountAuthorized()) ? true : false;
+        $amountCompared = $response->getAmt() == $order->getPayment()->getBaseAmountAuthorized();
         if (!$order->getId()
             || $order->getState() != Mage_Sales_Model_Order::STATE_PENDING_PAYMENT
             || !$amountCompared
@@ -397,7 +392,6 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             //->setSubtotal($this->_formatStr('%.2F', $payment->getOrder()->getBaseSubtotal()))
             //->setTaxamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseTaxAmount()))
             //->setFreightamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseShippingAmount()));
-
 
         $order = $payment->getOrder();
         if (empty($order)) {
@@ -495,6 +489,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             case Mage_Paypal_Model_Config::PAYMENT_ACTION_SALE:
                 return self::TRXTYPE_SALE;
         }
+        return '';
     }
 
     /**
@@ -569,7 +564,6 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @deprecated since 1.6.2.0
      * @param Varien_Object $payment
      * @param string $txnId
-     * @return void
      */
     protected function _addTransaction($payment, $txnId)
     {
@@ -580,7 +574,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @deprecated since 1.6.2.0
      * @param Varien_Object $payment
-     * @param  $amount
+     * @param mixed $amount
      * @return $this
      */
     protected function _initialize(Varien_Object $payment, $amount)
@@ -592,7 +586,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * Check whether order review has enough data to initialize
      *
      * @deprecated since 1.6.2.0
-     * @param $token
+     * @param string $token
      * @throws Mage_Core_Exception
      */
     public function prepareOrderReview($token = null)

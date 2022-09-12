@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,26 +12,27 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Widget_Grid
 {
     protected $_resourceCollectionName  = '';
     protected $_currentCurrencyCode     = null;
-    protected $_storeIds                = array();
+    protected $_storeIds                = [];
     protected $_aggregatedColumns       = null;
 
+    /**
+     * Mage_Adminhtml_Block_Report_Grid_Abstract constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -44,11 +45,17 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         $this->setEmptyCellLabel(Mage::helper('adminhtml')->__('No records found for this period.'));
     }
 
+    /**
+     * @return string
+     */
     public function getResourceCollectionName()
     {
         return $this->_resourceCollectionName;
     }
 
+    /**
+     * @return Mage_Reports_Model_Grouped_Collection
+     */
     public function getCollection()
     {
         if (is_null($this->_collection)) {
@@ -57,12 +64,15 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         return $this->_collection;
     }
 
+    /**
+     * @return array
+     */
     protected function _getAggregatedColumns()
     {
         if (is_null($this->_aggregatedColumns)) {
             foreach ($this->getColumns() as $column) {
                 if (!is_array($this->_aggregatedColumns)) {
-                    $this->_aggregatedColumns = array();
+                    $this->_aggregatedColumns = [];
                 }
                 if ($column->hasTotal()) {
                     $this->_aggregatedColumns[$column->getId()] = "{$column->getTotal()}({$column->getIndex()})";
@@ -88,7 +98,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             $filterData = $this->getFilterData();
             $visibilityFilter = $column['visibility_filter'];
             if (!is_array($visibilityFilter)) {
-                $visibilityFilter = array($visibilityFilter);
+                $visibilityFilter = [$visibilityFilter];
             }
             foreach ($visibilityFilter as $k => $v) {
                 if (is_int($k)) {
@@ -120,7 +130,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         if ($filterData) {
             $storeIds = explode(',', $filterData->getData('store_ids'));
         } else {
-            $storeIds = array();
+            $storeIds = [];
         }
         // By default storeIds array contains only allowed stores
         $allowedStoreIds = array_keys(Mage::app()->getStores());

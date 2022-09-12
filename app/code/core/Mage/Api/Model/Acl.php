@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Api
+ * @category   Mage
+ * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Acl model
  *
  * @category   Mage
  * @package    Mage_Api
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api_Model_Acl extends Zend_Acl
 {
@@ -82,7 +75,7 @@ class Mage_Api_Model_Acl extends Zend_Acl
      */
     protected function _getRoleRegistry()
     {
-        if (null === $this->_roleRegistry) {
+        if ($this->_roleRegistry === null) {
             $this->_roleRegistry = Mage::getModel('api/acl_role_registry');
         }
         return $this->_roleRegistry;

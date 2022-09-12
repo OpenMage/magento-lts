@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Api
+ * @category   Mage
+ * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * ACL roles resource
  *
- * @category    Mage
- * @package     Mage_Api
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Api
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -48,10 +41,6 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected $_ruleTable;
 
-    /**
-     * Resource initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('api/role', 'role_id');
@@ -79,7 +68,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
         if ($role->getPid() > 0) {
             $row = $this->load($role->getPid());
         } else {
-            $row = array('tree_level' => 0);
+            $row = ['tree_level' => 0];
         }
         $role->setTreeLevel($row['tree_level'] + 1);
         $role->setRoleName($role->getName());
@@ -108,8 +97,8 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     protected function _afterDelete(Mage_Core_Model_Abstract $role)
     {
         $adapter = $this->_getWriteAdapter();
-        $adapter->delete($this->getMainTable(), array('parent_id=?'=>$role->getId()));
-        $adapter->delete($this->_ruleTable, array('role_id=?'=>$role->getId()));
+        $adapter->delete($this->getMainTable(), ['parent_id=?'=>$role->getId()]);
+        $adapter->delete($this->_ruleTable, ['role_id=?'=>$role->getId()]);
         return $this;
     }
 
@@ -123,7 +112,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     {
         $adapter   = $this->_getReadAdapter();
         $select     = $adapter->select()
-            ->from($this->getMainTable(), array('user_id'))
+            ->from($this->getMainTable(), ['user_id'])
             ->where('parent_id = ?', $role->getId())
             ->where('role_type = ?', Mage_Api_Model_Acl::ROLE_TYPE_USER)
             ->where('user_id > 0');
@@ -134,7 +123,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
      * Update role users
      *
      * @param Mage_Api_Model_Roles $role
-     * @return boolean
+     * @return bool
      */
     private function _updateRoleUsersAcl(Mage_Api_Model_Roles $role)
     {
@@ -143,10 +132,10 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
         if (count($users)) {
             $rowsCount = $this->_getWriteAdapter()->update(
                 $this->_usersTable,
-                array('reload_acl_flag' => 1),
-                array('user_id IN(?)' => $users)
+                ['reload_acl_flag' => 1],
+                ['user_id IN(?)' => $users]
             );
         }
-        return ($rowsCount > 0) ? true : false;
+        return $rowsCount > 0;
     }
 }

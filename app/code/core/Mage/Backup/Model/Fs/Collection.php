@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Backup
+ * @category   Mage
+ * @package    Mage_Backup
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Backup
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Backup_Model_Fs_Collection extends Varien_Data_Collection_Filesystem
 {
@@ -53,7 +47,7 @@ class Mage_Backup_Model_Fs_Collection extends Varien_Data_Collection_Filesystem
         $ioProxy = new Varien_Io_File();
         $ioProxy->mkdir($this->_baseDir);
         if (!is_file($this->_baseDir . DS . '.htaccess')) {
-            $ioProxy->open(array('path' => $this->_baseDir));
+            $ioProxy->open(['path' => $this->_baseDir]);
             $ioProxy->write('.htaccess', 'deny from all', 0644);
         }
 
@@ -69,8 +63,7 @@ class Mage_Backup_Model_Fs_Collection extends Varien_Data_Collection_Filesystem
             ->setOrder('time', self::SORT_ORDER_DESC)
             ->addTargetDir($this->_baseDir)
             ->setFilesFilter('/^[a-z0-9\-\_]+\.' . $extensions . '$/')
-            ->setCollectRecursively(false)
-        ;
+            ->setCollectRecursively(false);
     }
 
     /**

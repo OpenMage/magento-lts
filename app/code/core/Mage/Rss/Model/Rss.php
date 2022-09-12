@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,53 +12,64 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Rss
+ * @category   Mage
+ * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Auth session model
  *
  * @category   Mage
  * @package    Mage_Rss
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rss_Model_Rss
 {
-    protected $_feedArray = array();
+    protected $_feedArray = [];
 
-    public function _addHeader($data = array())
+    /**
+     * @param array $data
+     * @return $this
+     */
+    public function _addHeader($data = [])
     {
         $this->_feedArray = $data;
         return $this;
     }
 
+    /**
+     * @param array $entries
+     * @return $this
+     */
     public function _addEntries($entries)
     {
         $this->_feedArray['entries'] = $entries;
         return $this;
     }
 
+    /**
+     * @param array $entry
+     * @return $this
+     */
     public function _addEntry($entry)
     {
         $this->_feedArray['entries'][] = $entry;
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getFeedArray()
     {
         return $this->_feedArray;
     }
 
+    /**
+     * @return string
+     */
     public function createRssXml()
     {
         try {

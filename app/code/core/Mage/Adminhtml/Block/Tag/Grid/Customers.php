@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,26 +23,23 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Tag_Model_Resource_Customer_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widget_Grid
 {
+    /**
+     * @inheritDoc
+     * @throws Mage_Core_Exception
+     */
     protected function _prepareCollection()
     {
         //TODO: add full name logic
         $collection = Mage::getResourceModel('tag_customer/collection')
             ->addAttributeToSelect('firstname')
             ->addAttributeToSelect('middlename')
-            ->addAttributeToSelect('lastname')
-//            ->addAttributeToSelect('email')
-//            ->addAttributeToSelect('created_at')
-//            ->joinAttribute('billing_postcode', 'customer_address/postcode', 'default_billing')
-//            ->joinAttribute('billing_city', 'customer_address/city', 'default_billing')
-//            ->joinAttribute('billing_telephone', 'customer_address/telephone', 'default_billing')
-//            ->joinAttribute('billing_country_id', 'customer_address/country_id', 'default_billing')
-//            ->joinField('billing_country_name', 'directory/country_name', 'name',
-//                'country_id=billing_country_id', array('language_code'=>'en'))
-        ;
+            ->addAttributeToSelect('lastname');
 
         if ($productId = $this->getRequest()->getParam('product_id')) {
             $collection->addProductFilter($productId);
@@ -62,61 +53,39 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
-        $this->addColumn('entity_id', array(
+        $this->addColumn('entity_id', [
             'header'   => Mage::helper('tag')->__('ID'),
             'width'    => '40px',
             'align'    => 'center',
             'sortable' => true,
             'index'    => 'entity_id',
-        ));
-        $this->addColumn('firstname', array(
+        ]);
+        $this->addColumn('firstname', [
             'header' => Mage::helper('tag')->__('First Name'),
             'index'  => 'firstname',
-        ));
-        $this->addColumn('middlename', array(
+        ]);
+        $this->addColumn('middlename', [
             'header' => Mage::helper('tag')->__('Middle Name'),
             'index'  => 'middlename',
-        ));
-        $this->addColumn('lastname', array(
+        ]);
+        $this->addColumn('lastname', [
             'header' => Mage::helper('tag')->__('Last Name'),
             'index'  => 'lastname',
-        ));
-//        $this->addColumn('email', array(
-//            'header'    =>Mage::helper('tag')->__('Email'),
-//            'align'     =>'center',
-//            'index'     =>'email'
-//        ));
-//        $this->addColumn('Telephone', array(
-//            'header'    =>Mage::helper('tag')->__('Telephone'),
-//            'align'     =>'center',
-//            'index'     =>'billing_telephone'
-//        ));
-//        $this->addColumn('billing_postcode', array(
-//            'header'    =>Mage::helper('tag')->__('ZIP/Post Code'),
-//            'index'     =>'billing_postcode',
-//        ));
-//        $this->addColumn('billing_country_name', array(
-//            'header'    =>Mage::helper('tag')->__('Country'),
-//            #'filter'    => 'adminhtml/customer_grid_filter_country',
-//            'index'     =>'billing_country_name',
-//        ));
-//        $this->addColumn('customer_since', array(
-//            'header'    =>Mage::helper('tag')->__('Customer Since'),
-//            'type'      => 'date',
-//            'align'     => 'center',
-//            #'format'    => 'Y.m.d',
-//            'index'     =>'created_at',
-//        ));
-        $this->addColumn('tags', array(
+        ]);
+        $this->addColumn('tags', [
             'header'   => Mage::helper('tag')->__('Tags'),
             'index'    => 'tags',
             'sortable' => false,
             'filter'   => false,
             'renderer' => 'adminhtml/tag_grid_column_renderer_tags',
-        ));
-        $this->addColumn('action', array(
+        ]);
+        $this->addColumn('action', [
             'header'    => Mage::helper('tag')->__('Action'),
             'align'     => 'center',
             'width'     => '120px',
@@ -124,7 +93,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
             'filter'    => false,
             'sortable'  => false,
             'is_system' => true,
-        ));
+        ]);
 
         $this->setColumnFilter('entity_id')
             ->setColumnFilter('email')
@@ -132,11 +101,13 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
             ->setColumnFilter('middlename')
             ->setColumnFilter('lastname');
 
-//        $this->addExportType('*/*/exportCsv', Mage::helper('tag')->__('CSV'));
-//        $this->addExportType('*/*/exportXml', Mage::helper('tag')->__('XML'));
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this
+     */
     protected function _addColumnFilterToCollection($column)
     {
         if ($this->getCollection() && $column->getFilter()->getValue()) {
@@ -144,5 +115,4 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
         }
         return $this;
     }
-
 }

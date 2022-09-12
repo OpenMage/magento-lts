@@ -1,0 +1,53 @@
+includes:
+    - ../vendor/macopedia/phpstan-magento1/extension.neon
+    - phpstan-baseline.neon
+parameters:
+    magentoRootPath: %currentWorkingDirectory%
+    paths:
+         - %currentWorkingDirectory%/app/code/core/Mage
+    excludePaths:
+        #todo DOCblocks
+        - %currentWorkingDirectory%/app/code/core/Mage/Centinel
+        - %currentWorkingDirectory%/app/code/core/Mage/PaypalUk
+        - %currentWorkingDirectory%/app/code/core/Mage/Usa
+        - %currentWorkingDirectory%/app/code/core/Mage/Weee
+
+        #incompatible interfaces
+        - */app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php
+        - */app/code/core/Mage/Admin/Model/Acl/Assert/Time.php
+        - */app/code/core/Mage/Api/Model/Acl/Assert/Ip.php
+        - */app/code/core/Mage/Api/Model/Acl/Assert/Time.php
+        - */app/code/core/Mage/Adminhtml/Block/Widget/Grid/Block.php
+        - */app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
+
+        # deprecated _getHelper()
+        - */app/code/core/Mage/Adminhtml/Controller/Rss/Abstract.php
+        - */app/code/core/Mage/Adminhtml/controllers/Rss/OrderController.php
+        - */app/code/core/Mage/Adminhtml/controllers/Rss/CatalogController.php
+
+        # contains 1 abstract method and must therefore be declared abstract or implement the remaining methods
+        - */app/code/core/Mage/Dataflow/Model/Session/Adapter/Http.php
+        - */app/code/core/Mage/Dataflow/Model/Convert/Iterator/Http.php
+        - */app/code/core/Mage/Dataflow/Model/Convert/Iterator/File/Csv.php
+
+        # Cannot declare class Varien_Date, because the name is already in use
+        - */app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
+
+        # Class phpseclib\Net\SSH2 not found.
+        - */Paypal/Model/Report/Settlement.php
+
+        # Class backup/db was not found while trying to analyse it
+        - */Adminhtml/controllers/System/BackupController.php
+
+        # Dataflow/Model/Convert/Iterator.php
+        - */Dataflow/Model/Convert/Iterator.php
+
+        # Too much noise from "Variable $this might not be defined"
+        - */app/code/core/*/*/data/*
+        - */app/code/core/*/*/sql/*
+    level: 2
+    checkFunctionNameCase: true
+    checkInternalClassCaseSensitivity: true
+
+#    universalObjectCratesClasses:
+#        - Varien_Object

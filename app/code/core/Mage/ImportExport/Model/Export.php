@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ImportExport
+ * @category   Mage
+ * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Export model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
 {
@@ -157,10 +151,10 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
                 );
             }
             if ($result) {
-                $this->addLogComment(array(
+                $this->addLogComment([
                     Mage::helper('importexport')->__('Exported %s rows.', $countRows),
                     Mage::helper('importexport')->__('Export has been done.')
-                ));
+                ]);
             }
             return $result;
         } else {
@@ -199,10 +193,10 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
                     );
                 }
                 if ($result['rows']) {
-                    $this->addLogComment(array(
+                    $this->addLogComment([
                         Mage::helper('importexport')->__('Exported %s rows.', $result['rows']),
                         Mage::helper('importexport')->__('Export has been done.')
-                    ));
+                    ]);
                 }
             }
 
@@ -237,13 +231,13 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
     {
         if ($attribute->usesSource() || $attribute->getFilterOptions()) {
             return self::FILTER_TYPE_SELECT;
-        } elseif ('datetime' == $attribute->getBackendType()) {
+        } elseif ($attribute->getBackendType() == 'datetime') {
             return self::FILTER_TYPE_DATE;
-        } elseif ('decimal' == $attribute->getBackendType() || 'int' == $attribute->getBackendType()) {
+        } elseif ($attribute->getBackendType() == 'decimal' || $attribute->getBackendType() == 'int') {
             return self::FILTER_TYPE_NUMBER;
         } elseif ($attribute->isStatic()
-                  || 'varchar' == $attribute->getBackendType()
-                  || 'text' == $attribute->getBackendType()
+                  || $attribute->getBackendType() == 'varchar'
+                  || $attribute->getBackendType() == 'text'
         ) {
             return self::FILTER_TYPE_INPUT;
         } else {

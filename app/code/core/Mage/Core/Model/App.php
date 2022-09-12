@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,13 +23,12 @@
  *
  * Application should have: areas, store, locale, translator, design package
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_App
 {
-
     const XML_PATH_INSTALL_DATE = 'global/install/date';
 
     const XML_PATH_SKIP_PROCESS_MODULES_UPDATES = 'global/skip_process_modules_updates';
@@ -93,7 +86,7 @@ class Mage_Core_Model_App
      *
      * @var array
      */
-    protected $_areas = array();
+    protected $_areas = [];
 
     /**
      * Application store object
@@ -170,21 +163,21 @@ class Mage_Core_Model_App
      *
      * @var Mage_Core_Model_Website[]
      */
-    protected $_websites = array();
+    protected $_websites = [];
 
     /**
      * Groups cache
      *
      * @var Mage_Core_Model_Store_Group[]
      */
-    protected $_groups = array();
+    protected $_groups = [];
 
     /**
      * Stores cache
      *
      * @var Mage_Core_Model_Store[]
      */
-    protected $_stores = array();
+    protected $_stores = [];
 
     /**
      * is a single store mode
@@ -219,13 +212,12 @@ class Mage_Core_Model_App
      */
     protected $_response;
 
-
     /**
      * Events cache
      *
      * @var array
      */
-    protected $_events = array();
+    protected $_events = [];
 
     /**
      * Update process run flag
@@ -263,9 +255,6 @@ class Mage_Core_Model_App
      */
     protected $_isInstalled = null;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
     }
@@ -278,11 +267,11 @@ class Mage_Core_Model_App
      * @param  string|array $options
      * @return $this
      */
-    public function init($code, $type = null, $options = array())
+    public function init($code, $type = null, $options = [])
     {
         $this->_initEnvironment();
         if (is_string($options)) {
-            $options = array('etc_dir'=>$options);
+            $options = ['etc_dir'=>$options];
         }
 
         Varien_Profiler::start('mage::app::init::config');
@@ -318,7 +307,7 @@ class Mage_Core_Model_App
         $this->_config->setOptions($options);
 
         $this->_initBaseConfig();
-        $cacheInitOptions = is_array($options) && array_key_exists('cache', $options) ? $options['cache'] : array();
+        $cacheInitOptions = is_array($options) && array_key_exists('cache', $options) ? $options['cache'] : [];
         $this->_initCache($cacheInitOptions);
 
         return $this;
@@ -327,7 +316,7 @@ class Mage_Core_Model_App
     /**
      * Run light version of application with specified modules support
      *
-     * @see Mage_Core_Model_App->run()
+     * @see Mage_Core_Model_App::run()
      *
      * @param  string|array $scopeCode
      * @param  string $scopeType
@@ -335,7 +324,7 @@ class Mage_Core_Model_App
      * @param  string|array $modules
      * @return $this
      */
-    public function initSpecified($scopeCode, $scopeType = null, $options = array(), $modules = array())
+    public function initSpecified($scopeCode, $scopeType = null, $options = [], $modules = [])
     {
         $this->baseInit($options);
 
@@ -360,7 +349,7 @@ class Mage_Core_Model_App
      */
     public function run($params)
     {
-        $options = isset($params['options']) ? $params['options'] : array();
+        $options = isset($params['options']) ? $params['options'] : [];
         $this->baseInit($options);
         Mage::register('application_params', $params);
 
@@ -415,14 +404,14 @@ class Mage_Core_Model_App
      * @param array $cacheInitOptions
      * @return $this
      */
-    protected function _initCache(array $cacheInitOptions = array())
+    protected function _initCache(array $cacheInitOptions = [])
     {
         $this->_isCacheLocked = true;
         $options = $this->_config->getNode('global/cache');
         if ($options) {
             $options = $options->asArray();
         } else {
-            $options = array();
+            $options = [];
         }
         $options = array_merge($options, $cacheInitOptions);
         $this->_cache = Mage::getModel('core/cache', $options);
@@ -626,24 +615,24 @@ class Mage_Core_Model_App
      */
     protected function _initStores()
     {
-        $this->_stores   = array();
-        $this->_groups   = array();
+        $this->_stores   = [];
+        $this->_groups   = [];
         $this->_website  = null;
-        $this->_websites = array();
+        $this->_websites = [];
 
         /** @var Mage_Core_Model_Resource_Website_Collection $websiteCollection */
         $websiteCollection = Mage::getModel('core/website')->getCollection()
-                ->initCache($this->getCache(), 'app', array(Mage_Core_Model_Website::CACHE_TAG))
+                ->initCache($this->getCache(), 'app', [Mage_Core_Model_Website::CACHE_TAG])
                 ->setLoadDefault(true);
 
         /** @var Mage_Core_Model_Resource_Store_Group_Collection $groupCollection */
         $groupCollection = Mage::getModel('core/store_group')->getCollection()
-                ->initCache($this->getCache(), 'app', array(Mage_Core_Model_Store_Group::CACHE_TAG))
+                ->initCache($this->getCache(), 'app', [Mage_Core_Model_Store_Group::CACHE_TAG])
                 ->setLoadDefault(true);
 
         /** @var Mage_Core_Model_Resource_Store_Collection $storeCollection */
         $storeCollection = Mage::getModel('core/store')->getCollection()
-            ->initCache($this->getCache(), 'app', array(Mage_Core_Model_Store::CACHE_TAG))
+            ->initCache($this->getCache(), 'app', [Mage_Core_Model_Store::CACHE_TAG])
             ->setLoadDefault(true);
 
         $this->_isSingleStore = false;
@@ -651,13 +640,14 @@ class Mage_Core_Model_App
             $this->_isSingleStore = $storeCollection->count() < 3;
         }
 
-        $websiteStores = array();
-        $websiteGroups = array();
-        $groupStores   = array();
+        $websiteStores = [];
+        $websiteGroups = [];
+        $groupStores   = [];
+
+        $storeCollection->initConfigCache();
 
         foreach ($storeCollection as $store) {
             /** @var Mage_Core_Model_Store $store */
-            $store->initConfigCache();
             $store->setWebsite($websiteCollection->getItemById($store->getWebsiteId()));
             $store->setGroup($groupCollection->getItemById($store->getGroupId()));
 
@@ -673,9 +663,9 @@ class Mage_Core_Model_App
         }
 
         foreach ($groupCollection as $group) {
-            /* @var Mage_Core_Model_Store_Group $group */
+            /** @var Mage_Core_Model_Store_Group $group */
             if (!isset($groupStores[$group->getId()])) {
-                $groupStores[$group->getId()] = array();
+                $groupStores[$group->getId()] = [];
             }
             $group->setStores($groupStores[$group->getId()]);
             $group->setWebsite($websiteCollection->getItemById($group->getWebsiteId()));
@@ -686,12 +676,12 @@ class Mage_Core_Model_App
         }
 
         foreach ($websiteCollection as $website) {
-            /* @var Mage_Core_Model_Website $website */
+            /** @var Mage_Core_Model_Website $website */
             if (!isset($websiteGroups[$website->getId()])) {
-                $websiteGroups[$website->getId()] = array();
+                $websiteGroups[$website->getId()] = [];
             }
             if (!isset($websiteStores[$website->getId()])) {
-                $websiteStores[$website->getId()] = array();
+                $websiteStores[$website->getId()] = [];
             }
             if ($website->getIsDefault()) {
                 $this->_website = $website;
@@ -854,7 +844,7 @@ class Mage_Core_Model_App
             return $this->_store;
         }
 
-        if (!isset($id) || ''===$id || $id === true) {
+        if (!isset($id) || $id === '' || $id === true) {
             $id = $this->_currentStore;
         }
         if ($id instanceof Mage_Core_Model_Store) {
@@ -866,7 +856,7 @@ class Mage_Core_Model_App
 
         if (empty($this->_stores[$id])) {
             $store = Mage::getModel('core/store');
-            /* @var Mage_Core_Model_Store $store */
+            /** @var Mage_Core_Model_Store $store */
             if (is_numeric($id)) {
                 $store->load($id);
             } elseif (is_string($id)) {
@@ -911,7 +901,7 @@ class Mage_Core_Model_App
      */
     public function getStores($withDefault = false, $codeKey = false)
     {
-        $stores = array();
+        $stores = [];
         foreach ($this->_stores as $store) {
             if (!$withDefault && $store->getId() == 0) {
                 continue;
@@ -1008,7 +998,7 @@ class Mage_Core_Model_App
      */
     public function getWebsites($withDefault = false, $codeKey = false)
     {
-        $websites = array();
+        $websites = [];
         if (is_array($this->_websites)) {
             foreach ($this->_websites as $website) {
                 if (!$withDefault && $website->getId() == 0) {
@@ -1065,7 +1055,7 @@ class Mage_Core_Model_App
     }
 
     /**
-     * Retrive layout object
+     * Retrieve layout object
      *
      * @return Mage_Core_Model_Layout
      */
@@ -1187,7 +1177,7 @@ class Mage_Core_Model_App
      * @param null|false|int $lifeTime
      * @return  $this
      */
-    public function saveCache($data, $id, $tags = array(), $lifeTime = false)
+    public function saveCache($data, $id, $tags = [], $lifeTime = false)
     {
         $this->_cache->save($data, $id, $tags, $lifeTime);
         return $this;
@@ -1222,10 +1212,10 @@ class Mage_Core_Model_App
      * @param   array $tags
      * @return  $this
      */
-    public function cleanCache($tags = array())
+    public function cleanCache($tags = [])
     {
         $this->_cache->clean($tags);
-        Mage::dispatchEvent('application_clean_cache', array('tags' => $tags));
+        Mage::dispatchEvent('application_clean_cache', ['tags' => $tags]);
         return $this;
     }
 
@@ -1324,7 +1314,7 @@ class Mage_Core_Model_App
     public function addEventArea($area)
     {
         if (!isset($this->_events[$area])) {
-            $this->_events[$area] = array();
+            $this->_events[$area] = [];
         }
         return $this;
     }
@@ -1345,23 +1335,23 @@ class Mage_Core_Model_App
                     $this->_events[$area][$eventName] = false;
                     continue;
                 }
-                $observers = array();
+                $observers = [];
                 /**
                  * @var string $obsName
                  * @var Mage_Core_Model_Config_Element $obsConfig
                  */
                 foreach ($eventConfig->observers->children() as $obsName => $obsConfig) {
-                    $observers[$obsName] = array(
+                    $observers[$obsName] = [
                         'type'  => (string)$obsConfig->type,
                         'model' => $obsConfig->class ? (string)$obsConfig->class : $obsConfig->getClassName(),
                         'method'=> (string)$obsConfig->method,
                         'args'  => (array)$obsConfig->args,
-                    );
+                    ];
                 }
                 $events[$eventName]['observers'] = $observers;
                 $this->_events[$area][$eventName]['observers'] = $observers;
             }
-            if (false===$events[$eventName]) {
+            if ($events[$eventName] === false) {
                 continue;
             } else {
                 $event = new Varien_Event($args);
@@ -1370,7 +1360,7 @@ class Mage_Core_Model_App
             }
 
             foreach ($events[$eventName]['observers'] as $obsName => $obs) {
-                $observer->setData(array('event'=>$event));
+                $observer->setData(['event'=>$event]);
                 Varien_Profiler::start('OBSERVER: '.$obsName);
                 switch ($obs['type']) {
                     case 'disabled':
@@ -1380,13 +1370,13 @@ class Mage_Core_Model_App
                         $method = $obs['method'];
                         $observer->addData($args);
                         $object = Mage::getModel($obs['model']);
-                        $this->_callObserverMethod($object, $method, $observer);
+                        $this->_callObserverMethod($object, $method, $observer, $obsName);
                         break;
                     default:
                         $method = $obs['method'];
                         $observer->addData($args);
                         $object = Mage::getSingleton($obs['model']);
-                        $this->_callObserverMethod($object, $method, $observer);
+                        $this->_callObserverMethod($object, $method, $observer, $obsName);
                         break;
                 }
                 Varien_Profiler::stop('OBSERVER: '.$obsName);
@@ -1401,15 +1391,22 @@ class Mage_Core_Model_App
      * @param object $object
      * @param string $method
      * @param Varien_Event_Observer $observer
+     * @param string $observerName
      * @return $this
      * @throws Mage_Core_Exception
      */
-    protected function _callObserverMethod($object, $method, $observer)
+    protected function _callObserverMethod($object, $method, $observer, $observerName = 'undefined')
     {
-        if (method_exists($object, $method)) {
+        if (is_object($object) && method_exists($object, $method)) {
             $object->$method($observer);
         } elseif (Mage::getIsDeveloperMode()) {
-            Mage::throwException('Method "'.$method.'" is not defined in "'.get_class($object).'"');
+            if (is_object($object)) {
+                $message = 'Method "' . $method . '" is not defined in "' . get_class($object) . '"';
+            } else {
+                $message = 'Class from observer "' . $observerName . '" is not initialized';
+            }
+
+            Mage::throwException($message);
         }
         return $this;
     }
@@ -1430,9 +1427,9 @@ class Mage_Core_Model_App
         return $this->_updateMode;
     }
 
-    public function throwStoreException()
+    public function throwStoreException($text = '')
     {
-        throw new Mage_Core_Model_Store_Exception('');
+        throw new Mage_Core_Model_Store_Exception($text);
     }
 
     /**
@@ -1518,7 +1515,7 @@ class Mage_Core_Model_App
      */
     public function getGroups($withDefault = false, $codeKey = false)
     {
-        $groups = array();
+        $groups = [];
         if (is_array($this->_groups)) {
             foreach ($this->_groups as $group) {
                 if (!$withDefault && $group->getId() == 0) {
@@ -1553,7 +1550,7 @@ class Mage_Core_Model_App
      * @return array
      * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
      */
-    protected function _getCacheTags($tags = array())
+    protected function _getCacheTags($tags = [])
     {
         foreach ($tags as $index => $value) {
             $tags[$index] = $this->_getCacheId($value);

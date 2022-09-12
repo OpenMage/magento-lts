@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Rule
+ * @category   Mage
+ * @package    Mage_Rule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract Rule entity data model
  *
- * @category Mage
- * @package Mage_Rule
- * @author Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Rule
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this unsActions()
  * @method bool hasActionsSerialized()
@@ -304,10 +298,10 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     {
         $arr = $this->_convertFlatToRecursive($data);
         if (isset($arr['conditions'])) {
-            $this->getConditions()->setConditions(array())->loadArray($arr['conditions'][1]);
+            $this->getConditions()->setConditions([])->loadArray($arr['conditions'][1]);
         }
         if (isset($arr['actions'])) {
-            $this->getActions()->setActions(array())->loadArray($arr['actions'][1], 'actions');
+            $this->getActions()->setActions([])->loadArray($arr['actions'][1], 'actions');
         }
 
         return $this;
@@ -324,7 +318,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      */
     protected function _convertFlatToRecursive(array $data)
     {
-        $arr = array();
+        $arr = [];
         foreach ($data as $key => $value) {
             if (($key === 'conditions' || $key === 'actions') && is_array($value)) {
                 foreach ($value as $id => $data) {
@@ -332,7 +326,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                     $node =& $arr;
                     for ($i=0, $l=count($path); $i<$l; $i++) {
                         if (!isset($node[$key][$path[$i]])) {
-                            $node[$key][$path[$i]] = array();
+                            $node[$key][$path[$i]] = [];
                         }
                         $node =& $node[$key][$path[$i]];
                     }
@@ -344,7 +338,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                 /**
                  * Convert dates into Zend_Date
                  */
-                if (in_array($key, array('from_date', 'to_date')) && $value) {
+                if (in_array($key, ['from_date', 'to_date']) && $value) {
                     $value = Mage::app()->getLocale()->date(
                         $value,
                         Varien_Date::DATE_INTERNAL_FORMAT,
@@ -380,7 +374,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      */
     public function validateData(Varien_Object $object)
     {
-        $result   = array();
+        $result   = [];
         $fromDate = $toDate = null;
 
         if ($object->hasFromDate() && $object->hasToDate()) {
@@ -473,9 +467,6 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
         return $this->_getData('website_ids');
     }
 
-
-
-
     /**
      * @deprecated since 1.7.0.0
      *
@@ -507,9 +498,9 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @return array
      */
-    public function asArray(array $arrAttributes = array())
+    public function asArray(array $arrAttributes = [])
     {
-        return array();
+        return [];
     }
 
     /**
