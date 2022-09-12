@@ -96,7 +96,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
     /**
      * Return transaction type. according centinel documetation it should be "C"
      *
-     * @return "C"
+     * @return string "C"
      */
     protected function _getTransactionType()
     {

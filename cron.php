@@ -19,7 +19,7 @@
  */
 
 // Change current directory to the directory of current script
-chdir(dirname(__FILE__));
+chdir(__DIR__);
 
 require 'app/bootstrap.php';
 require 'app/Mage.php';
@@ -60,7 +60,7 @@ try {
             }
         } else if (!$isShellDisabled) {
             $fileName = escapeshellarg(basename(__FILE__));
-            $cronPath = escapeshellarg(dirname(__FILE__) . '/cron.sh');
+            $cronPath = escapeshellarg(__DIR__ . '/cron.sh');
 
             shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -mdefault 1") . " > /dev/null 2>&1 &");
             shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -malways 1") . " > /dev/null 2>&1 &");

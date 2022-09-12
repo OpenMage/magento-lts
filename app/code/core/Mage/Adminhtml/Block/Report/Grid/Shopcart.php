@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Report_Grid_Shopcart extends Mage_Adminhtml_Block_Wid
      * storeIds setter
      *
      * @param  array $storeIds
-     * @return Mage_Adminhtml_Block_Report_Grid_Shopcart_Abstract
+     * @return $this
      */
     public function setStoreIds($storeIds)
     {

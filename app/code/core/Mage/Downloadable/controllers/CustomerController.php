@@ -39,11 +39,11 @@ class Mage_Downloadable_CustomerController extends Mage_Core_Controller_Front_Ac
         if (!Mage::getSingleton('customer/session')->authenticate($this, $loginUrl)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
+        return $this;
     }
 
     /**
      * Display downloadable links bought by customer
-     *
      */
     public function productsAction()
     {

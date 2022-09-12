@@ -22,7 +22,7 @@
  * Html page block
  *
  * @category   Mage
- * @package    Mage_Page
+ * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  * @todo       Separate order, mode and pager
  */
