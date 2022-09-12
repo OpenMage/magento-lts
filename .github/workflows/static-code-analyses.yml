@@ -97,7 +97,11 @@ jobs:
             '.github/phpstan_experimental_level.neon',
         ]
         include:
-          - directories: 'lib/'
+          - directories: [
+            'lib/Mage',
+            'lib/Magento',
+            'lib/Varien'
+          ]
             config_files: '.github/phpstan.neon'
     steps:
       - uses: actions/checkout@v3
