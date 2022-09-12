@@ -14,6 +14,7 @@
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var varienGrid = new Class.create();
