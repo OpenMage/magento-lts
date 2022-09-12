@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
     /**
      * @var Mage_Directory_Model_Currency
      */
-    public $_currency;
+    protected $_currency;
 
     protected function _construct()
     {

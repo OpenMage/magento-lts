@@ -113,7 +113,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     /**
      * @var Mage_Paygate_Model_Authorizenet_Cards
      */
-    public $_cardsStorage;
+    protected $_cardsStorage;
 
     /**
      * Fields that should be replaced in debug with '***'

@@ -104,8 +104,8 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
      */
     protected $_htmlId = '';
 
-    public $_max;
-    public $_min;
+    protected $_max;
+    protected $_min;
 
     /**
      * Initialize object

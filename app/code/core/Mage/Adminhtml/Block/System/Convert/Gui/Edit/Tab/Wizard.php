@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     /**
      * @var array
      */
-    public $_filterStores;
+    protected $_filterStores;
 
     /**
      * Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard constructor.

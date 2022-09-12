@@ -599,32 +599,32 @@ class Mage_Paypal_Model_Config
         'zh_XC',
     ];
 
-    public $allow_ba_signup;
-    public $api_cert;
-    public $api_password;
-    public $api_signature;
-    public $api_username;
-    public $apiAuthentication;
-    public $apiPassword;
-    public $apiSignature;
-    public $apiUsername;
-    public $business_account;
-    public $businessAccount;
-    public $buttonFlavor;
-    public $buttonType;
-    public $cctypes;
-    public $debug;
-    public $lineItemsEnabled;
-    public $lineItemsSummary;
-    public $paymentAction;
-    public $paymentMarkSize;
-    public $requireBillingAddress;
-    public $sandboxFlag;
-    public $solutionType;
-    public $transferShippingOptions;
-    public $verifyPeer;
-    public $visible_on_cart;
-    public $visible_on_product;
+    protected $allow_ba_signup;
+    protected $api_cert;
+    protected $api_password;
+    protected $api_signature;
+    protected $api_username;
+    protected $apiAuthentication;
+    protected $apiPassword;
+    protected $apiSignature;
+    protected $apiUsername;
+    protected $business_account;
+    protected $businessAccount;
+    protected $buttonFlavor;
+    protected $buttonType;
+    protected $cctypes;
+    protected $debug;
+    protected $lineItemsEnabled;
+    protected $lineItemsSummary;
+    protected $paymentAction;
+    protected $paymentMarkSize;
+    protected $requireBillingAddress;
+    protected $sandboxFlag;
+    protected $solutionType;
+    protected $transferShippingOptions;
+    protected $verifyPeer;
+    protected $visible_on_cart;
+    protected $visible_on_product;
 
     /**
      * Set method and store id, if specified

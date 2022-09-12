@@ -59,10 +59,10 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @var Mage_Core_Model_Locale
      */
-    public $_locale;
+    protected $_locale;
 
     /** @todo OM: check */
-    public $_filterValues;
+    protected $_filterValues;
 
     /**
      * Mage_Adminhtml_Block_Report_Grid constructor.

@@ -28,7 +28,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Design extends Mage_Adminhtml_Bl
     /**
      * @var Mage_Catalog_Model_Category
      */
-    public $_category;
+    protected $_category;
 
     /**
      * Mage_Adminhtml_Block_Catalog_Category_Tab_Design constructor.
