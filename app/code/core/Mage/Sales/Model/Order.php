@@ -1984,7 +1984,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Get formated price value including order currency rate to order website currency
+     * Get formatted price value including order currency rate to order website currency
      *
      * @param   float $price
      * @param   bool  $addBrackets
@@ -2007,7 +2007,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Retrieve text formated price value includeing order rate
+     * Retrieve text formatted price value including order rate
      *
      * @param   float $price
      * @return  string
@@ -2264,7 +2264,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Get formated order created date in store timezone
+     * Get formatted order created date in store timezone
      *
      * @param   string $format date format type (short|medium|long|full)
      * @return  string

@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View_Form extends Mage_Adminhtml_
     }
 
     /**
-     * Retrieve formated price
+     * Retrieve formatted price
      *
      * @param float $price
      * @return string
