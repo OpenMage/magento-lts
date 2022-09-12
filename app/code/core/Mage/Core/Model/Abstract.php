@@ -162,7 +162,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Set resource names
      *
-     * If collection name is ommited, resource name will be used with _collection appended
+     * If collection name is omitted, resource name will be used with _collection appended
      *
      * @param string $resourceName
      * @param string|null $resourceCollectionName
@@ -296,7 +296,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
-     * Get array of objects transfered to default events processing
+     * Get array of objects transferred to default events processing
      *
      * @return array
      */
@@ -413,7 +413,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Check object state (true - if it is object without id on object just created)
      * This method can help detect if object just created in _afterSave method
-     * problem is what in after save onject has id and we can't detect what object was
+     * problem is what in after save object has id and we can't detect what object was
      * created in this transaction
      *
      * @param bool $flag
@@ -470,7 +470,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
-     * Get cahce tags associated with object id
+     * Get cache tags associated with object id
      *
      * @return array|bool
      */
@@ -491,7 +491,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
-     * Remove model onject related cache
+     * Remove model object related cache
      *
      * @return $this
      */
@@ -588,7 +588,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     {
         Mage::dispatchEvent('model_delete_commit_after', ['object'=>$this]);
         Mage::dispatchEvent($this->_eventPrefix.'_delete_commit_after', $this->_getEventData());
-        return $this;
+         return $this;
     }
 
     /**

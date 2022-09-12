@@ -145,7 +145,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     }
 
     /**
-     * Try dynamicly detect and call event hanler from resource model.
+     * Try dynamically detect and call event handler from resource model.
      * Handler name will be generated from event entity and type code
      *
      * @param   Mage_Index_Model_Event $event

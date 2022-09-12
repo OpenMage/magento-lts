@@ -504,7 +504,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     }
 
     /**
-     * Validate product attrbute value for condition
+     * Validate product attribute value for condition
      *
      * @param Varien_Object $object
      * @return bool

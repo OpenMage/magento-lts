@@ -305,7 +305,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     }
 
     /**
-     * Always take into accoun
+     * Always take into account
      */
     public function getFraudManagementFiltersEnabled()
     {

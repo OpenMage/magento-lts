@@ -439,7 +439,7 @@ abstract class Mage_Eav_Model_Form
     }
 
     /**
-     * Return array of entity formated values
+     * Return array of entity formatted values
      *
      * @param string $format
      * @return array

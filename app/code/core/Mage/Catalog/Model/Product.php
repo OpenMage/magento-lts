@@ -909,7 +909,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Get formated by currency tier price
+     * Get formatted by currency tier price
      *
      * @param   double $qty
      * @return  array | double
@@ -920,7 +920,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Get formated by currency product price
+     * Get formatted by currency product price
      *
      * @return  array|double
      */
@@ -2117,7 +2117,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Get cahce tags associated with object id
+     * Get cache tags associated with object id
      *
      * @return array
      */
@@ -2132,7 +2132,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Remove model onject related cache
+     * Remove model object related cache
      *
      * @return Mage_Core_Model_Abstract
      */

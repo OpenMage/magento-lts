@@ -30,7 +30,7 @@
 abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
 {
     /**
-     * Identifuer of default store
+     * Identifier of default store
      * used for loading default data for entity
      */
     const DEFAULT_STORE_ID = 0;
@@ -60,7 +60,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     protected $_lockedAttributes = [];
 
     /**
-     * Is model deleteable
+     * Is model deletable
      *
      * @var bool
      */

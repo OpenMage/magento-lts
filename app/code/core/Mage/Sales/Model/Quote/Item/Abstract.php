@@ -26,7 +26,7 @@
  *  - original_price - product price before any calculations
  *  - calculation_price - prices for item totals calculation
  *  - custom_price - new price that can be declared by user and recalculated during calculation process
- *  - original_custom_price - original defined value of custom price without any convertion
+ *  - original_custom_price - original defined value of custom price without any conversion
  *
  * @category   Mage
  * @package    Mage_Sales
@@ -284,7 +284,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     }
 
     /**
-     * Get chil items
+     * Get child items
      *
      * @return $this[]
      */
@@ -727,7 +727,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     }
 
     /**
-     * Checking can we ship product separatelly (each child separately)
+     * Checking can we ship product separately (each child separately)
      * or each parent product item can be shipped only like one item
      *
      * @return bool

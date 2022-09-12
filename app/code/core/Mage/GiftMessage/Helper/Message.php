@@ -184,7 +184,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     }
 
     /**
-     * Retrieve escaped and preformated gift message text for specified entity
+     * Retrieve escaped and preformatted gift message text for specified entity
      *
      * @param Varien_Object $entity
      * @return string|null

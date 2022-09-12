@@ -539,7 +539,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     abstract public function restoreValue($value);
 
     /**
-     * Return formated attribute value from entity model
+     * Return formatted attribute value from entity model
      *
      * @param string $format
      * @return string|array

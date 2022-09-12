@@ -183,7 +183,7 @@ class Mage_Index_Model_Indexer
     }
 
     /**
-     * Check if onject actions are locked
+     * Check if object actions are locked
      *
      * @deprecated after 1.6.1.0
      * @return bool

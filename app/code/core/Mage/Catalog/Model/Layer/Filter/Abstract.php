@@ -96,7 +96,7 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     }
 
     /**
-     * Get fiter items count
+     * Get filter items count
      *
      * @return int
      */

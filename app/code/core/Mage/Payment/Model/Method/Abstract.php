@@ -376,7 +376,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     }
 
     /**
-     * Retrieve payment iformation model object
+     * Retrieve payment information model object
      *
      * @return Mage_Payment_Model_Info
      */
