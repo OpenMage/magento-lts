@@ -92,6 +92,11 @@ class Varien_Io_File extends Varien_Io_Abstract
      */
     protected $_streamLocked = false;
 
+    /**
+     * @var Exception
+     */
+    protected $_streamException;
+
     public function __construct()
     {
         // Initialize shutdown function
@@ -552,7 +557,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * File put content wrapper
      *
      * @param string $filename
-     * @param srting|resource $src
+     * @param string|resource $src
      *
      * @return int
      */
@@ -726,7 +731,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      *   - LS_FILES = 2
      *   - LS_ALL   = 3
      *
-     * @param Varien_Io_File const
+     * @param Varien_Io_File $grep const
      * @access public
      * @return array
      */

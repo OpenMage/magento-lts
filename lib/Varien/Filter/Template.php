@@ -282,7 +282,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         $stackVars = $tokenizer->tokenize();
         $result = $default;
         $last = 0;
-        /** @var $emailPathValidator Mage_Adminhtml_Model_Email_PathValidator */
+        /** @var Mage_Adminhtml_Model_Email_PathValidator $emailPathValidator */
         $emailPathValidator = $this->getEmailPathValidator();
         for($i = 0; $i < count($stackVars); $i ++) {
             if ($i == 0 && isset($this->_templateVars[$stackVars[$i]['name']])) {

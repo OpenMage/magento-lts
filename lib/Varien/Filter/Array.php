@@ -32,6 +32,7 @@ class Varien_Filter_Array extends Zend_Filter
             }
             $this->_columnFilters[$column]->addFilter($filter);
         }
+        return $this;
     }
 
     function filter($array)
