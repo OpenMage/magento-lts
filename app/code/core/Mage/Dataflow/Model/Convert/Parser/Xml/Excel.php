@@ -314,7 +314,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         $i = 0;
         foreach ($this->_parseFieldNames as $field) {
-            $itemData[$field] = isset($xmlData[$i]) ? $xmlData[$i] : null;
+            $itemData[$field] = $xmlData[$i] ?? null;
             $i ++;
         }
 
@@ -375,7 +375,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             $row = $batchExport->getBatchData();
 
             foreach ($fieldList as $field) {
-                $xmlData[] = isset($row[$field]) ? $row[$field] : '';
+                $xmlData[] = $row[$field] ?? '';
             }
             $xmlData = $this->_getXmlString($xmlData);
             $io->write($xmlData);

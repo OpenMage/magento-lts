@@ -242,10 +242,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      */
     public function getTotal($code)
     {
-        if (isset($this->_totals[$code])) {
-            return $this->_totals[$code];
-        }
-        return false;
+        return $this->_totals[$code] ?? false;
     }
 
     /**

@@ -214,7 +214,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
                 if ($column instanceof Zend_Db_Expr) {
                     $column = $column->__toString();
                 }
-                $key = ($alias !== null ? $alias : $column);
+                $key = $alias ?? $column;
                 $columnsToSelect[$key] = $columnEntry;
             }
         }

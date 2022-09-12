@@ -57,7 +57,7 @@ class Mage_Core_Exception extends Exception
             }
             return $arrRes;
         }
-        return isset($this->_messages[$type]) ? $this->_messages[$type] : [];
+        return $this->_messages[$type] ?? [];
     }
 
     /**

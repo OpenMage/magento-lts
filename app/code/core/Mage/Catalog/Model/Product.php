@@ -954,10 +954,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function getFinalPrice($qty = null)
     {
         $price = $this->_getData('final_price');
-        if ($price !== null) {
-            return $price;
-        }
-        return $this->getPriceModel()->getFinalPrice($qty, $this);
+        return $price ?? $this->getPriceModel()->getFinalPrice($qty, $this);
     }
 
     /**
@@ -1258,7 +1255,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                     continue;
                 }
                 $image['url'] = $this->getMediaConfig()->getMediaUrl($image['file']);
-                $image['id'] = isset($image['value_id']) ? $image['value_id'] : null;
+                $image['id'] = $image['value_id'] ?? null;
                 $image['path'] = $this->getMediaConfig()->getMediaPath($image['file']);
                 $images->addItem(new Varien_Object($image));
             }
@@ -1886,11 +1883,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getOptionById($optionId)
     {
-        if (isset($this->_options[$optionId])) {
-            return $this->_options[$optionId];
-        }
-
-        return null;
+        return $this->_options[$optionId] ?? null;
     }
 
     /**
@@ -1963,10 +1956,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getCustomOption($code)
     {
-        if (isset($this->_customOptions[$code])) {
-            return $this->_customOptions[$code];
-        }
-        return null;
+        return $this->_customOptions[$code] ?? null;
     }
 
     /**

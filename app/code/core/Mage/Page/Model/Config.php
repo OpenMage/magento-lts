@@ -99,11 +99,7 @@ class Mage_Page_Model_Config
     {
         $this->_initPageLayouts();
 
-        if (isset($this->_pageLayouts[$layoutCode])) {
-            return $this->_pageLayouts[$layoutCode];
-        }
-
-        return false;
+        return $this->_pageLayouts[$layoutCode] ?? false;
     }
 
     /**

@@ -630,10 +630,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         if (is_null(self::$_states)) {
             self::getStates();
         }
-        if (isset(self::$_states[$stateId])) {
-            return self::$_states[$stateId];
-        }
-        return Mage::helper('sales')->__('Unknown State');
+        return self::$_states[$stateId] ?? Mage::helper('sales')->__('Unknown State');
     }
 
     /**

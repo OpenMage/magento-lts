@@ -1287,10 +1287,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function getTotalAmount($code)
     {
-        if (isset($this->_totalAmounts[$code])) {
-            return  $this->_totalAmounts[$code];
-        }
-        return 0;
+        return $this->_totalAmounts[$code] ?? 0;
     }
 
     /**
@@ -1301,10 +1298,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function getBaseTotalAmount($code)
     {
-        if (isset($this->_baseTotalAmounts[$code])) {
-            return  $this->_baseTotalAmounts[$code];
-        }
-        return 0;
+        return $this->_baseTotalAmounts[$code] ?? 0;
     }
 
     /**

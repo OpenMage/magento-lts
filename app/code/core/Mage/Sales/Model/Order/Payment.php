@@ -411,7 +411,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 }
             }
         }
-        $isCustomerNotified = ($orderIsNotified !== null) ? $orderIsNotified : $order->getCustomerNoteNotify();
+        $isCustomerNotified = $orderIsNotified ?? $order->getCustomerNoteNotify();
         $message = $order->getCustomerNote();
 
         // add message if order was put into review during authorization or capture
@@ -1674,7 +1674,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if (is_null($key)) {
             return $this->_transactionAdditionalInfo;
         }
-        return isset($this->_transactionAdditionalInfo[$key]) ? $this->_transactionAdditionalInfo[$key] : null;
+        return $this->_transactionAdditionalInfo[$key] ?? null;
     }
 
     /**

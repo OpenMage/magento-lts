@@ -58,7 +58,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
             $row  = [];
 
             foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
-                $row[$attributeAlias] = isset($data[$attributeCode]) ? $data[$attributeCode] : null;
+                $row[$attributeAlias] = $data[$attributeCode] ?? null;
             }
 
             foreach ($this->getAllowedAttributes($address) as $attributeCode => $attribute) {

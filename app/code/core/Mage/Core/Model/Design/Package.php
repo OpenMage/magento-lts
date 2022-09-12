@@ -131,10 +131,7 @@ class Mage_Core_Model_Design_Package
      */
     public function getStore()
     {
-        if ($this->_store === null) {
-            return Mage::app()->getStore();
-        }
-        return $this->_store;
+        return $this->_store ?? Mage::app()->getStore();
     }
 
     /**
@@ -317,7 +314,7 @@ class Mage_Core_Model_Design_Package
             $params['_package'] = $this->getPackageName();
         }
         if (empty($params['_theme'])) {
-            $params['_theme'] = $this->getTheme((isset($params['_type'])) ? $params['_type'] : '');
+            $params['_theme'] = $this->getTheme($params['_type'] ?? '');
         }
         if (empty($params['_default'])) {
             $params['_default'] = false;

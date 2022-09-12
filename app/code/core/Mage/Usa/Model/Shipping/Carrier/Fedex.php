@@ -924,11 +924,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
             return $codes[$type];
         }
 
-        if (!isset($codes[$type][$code])) {
-            return false;
-        } else {
-            return $codes[$type][$code];
-        }
+        return $codes[$type][$code] ?? false;
     }
 
     /**
@@ -956,7 +952,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
             'TWD' => 'NTD', // New Taiwan Dollars
         ];
         $currencyCode = Mage::app()->getStore()->getBaseCurrencyCode();
-        return isset($codes[$currencyCode]) ? $codes[$currencyCode] : $currencyCode;
+        return $codes[$currencyCode] ?? $currencyCode;
     }
 
     /**
@@ -1064,16 +1060,14 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                 $trackInfo = $response->TrackDetails;
                 $resultArray['status'] = (string)$trackInfo->StatusDescription;
                 $resultArray['service'] = (string)$trackInfo->ServiceInfo;
-                $timestamp = isset($trackInfo->EstimatedDeliveryTimestamp) ?
-                    $trackInfo->EstimatedDeliveryTimestamp : $trackInfo->ActualDeliveryTimestamp;
+                $timestamp = $trackInfo->EstimatedDeliveryTimestamp ?? $trackInfo->ActualDeliveryTimestamp;
                 $timestamp = strtotime((string)$timestamp);
                 if ($timestamp) {
                     $resultArray['deliverydate'] = date('Y-m-d', $timestamp);
                     $resultArray['deliverytime'] = date('H:i:s', $timestamp);
                 }
 
-                $deliveryLocation = isset($trackInfo->EstimatedDeliveryAddress) ?
-                    $trackInfo->EstimatedDeliveryAddress : $trackInfo->ActualDeliveryAddress;
+                $deliveryLocation = $trackInfo->EstimatedDeliveryAddress ?? $trackInfo->ActualDeliveryAddress;
                 $deliveryLocationArray = [];
                 if (isset($deliveryLocation->City)) {
                     $deliveryLocationArray[] = (string)$deliveryLocation->City;

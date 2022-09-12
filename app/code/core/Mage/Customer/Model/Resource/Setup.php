@@ -73,8 +73,8 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         $attributes = $entities['customer']['attributes'];
         foreach ($attributes as $attributeCode => $attribute) {
             $attributeId = $attributeIds[$customer][$attributeCode];
-            $attribute['system'] = isset($attribute['system']) ? $attribute['system'] : true;
-            $attribute['visible'] = isset($attribute['visible']) ? $attribute['visible'] : true;
+            $attribute['system'] = $attribute['system'] ?? true;
+            $attribute['visible'] = $attribute['visible'] ?? true;
             if ($attribute['system'] != true || $attribute['visible'] != false) {
                 $usedInForms = [
                     'customer_account_create',
@@ -101,8 +101,8 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         $attributes = $entities['customer_address']['attributes'];
         foreach ($attributes as $attributeCode => $attribute) {
             $attributeId = $attributeIds[$customerAddress][$attributeCode];
-            $attribute['system'] = isset($attribute['system']) ? $attribute['system'] : true;
-            $attribute['visible'] = isset($attribute['visible']) ? $attribute['visible'] : true;
+            $attribute['system'] = $attribute['system'] ?? true;
+            $attribute['visible'] = $attribute['visible'] ?? true;
             if (($attribute['system'] == true && $attribute['visible'] == false) === false) {
                 $usedInForms = [
                     'adminhtml_customer_address',

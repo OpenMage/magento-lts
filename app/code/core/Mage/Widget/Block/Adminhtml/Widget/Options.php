@@ -145,7 +145,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         ];
 
         if ($values = $this->getWidgetValues()) {
-            $data['value'] = (isset($values[$fieldName]) ? $values[$fieldName] : '');
+            $data['value'] = $values[$fieldName] ?? '';
         } else {
             $data['value'] = $parameter->getValue();
             //prepare unique id value

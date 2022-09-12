@@ -56,7 +56,7 @@ class Mage_Core_Model_Design_Fallback
      */
     public function __construct(array $params = [])
     {
-        $this->_config = isset($params['config']) ? $params['config'] : Mage::getModel('core/design_config');
+        $this->_config = $params['config'] ?? Mage::getModel('core/design_config');
     }
 
     /**
@@ -66,10 +66,7 @@ class Mage_Core_Model_Design_Fallback
      */
     public function getStore()
     {
-        if ($this->_store === null) {
-            return Mage::app()->getStore();
-        }
-        return $this->_store;
+        return $this->_store ?? Mage::app()->getStore();
     }
 
     /**

@@ -151,11 +151,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
      */
     public function getTab($code)
     {
-        if(isset($this->_tabs[$code])) {
-            return $this->_tabs[$code];
-        }
-
-        return null;
+        return $this->_tabs[$code] ?? null;
     }
 
     /**

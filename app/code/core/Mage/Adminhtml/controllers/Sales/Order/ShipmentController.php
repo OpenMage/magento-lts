@@ -33,11 +33,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     protected function _getItemQtys()
     {
         $data = $this->getRequest()->getParam('shipment');
-        if (isset($data['items'])) {
-            $qtys = $data['items'];
-        } else {
-            $qtys = [];
-        }
+        $qtys = $data['items'] ?? [];
         return $qtys;
     }
 
