@@ -185,7 +185,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
-     * Retrieve parent ids array by requered child
+     * Retrieve parent ids array by required child
      *
      * @param int|array $childId
      * @return array
@@ -209,7 +209,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
-     * Compare attribues sorting
+     * Compare attributes sorting
      *
      * @param Mage_Catalog_Model_Entity_Attribute $attribute1
      * @param Mage_Catalog_Model_Entity_Attribute $attribute2
@@ -370,7 +370,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
-     * Process product configuaration
+     * Process product configuration
      *
      * @param Varien_Object $buyRequest
      * @param Mage_Catalog_Model_Product $product
@@ -848,7 +848,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
-     * Allow for updates of children qty's
+     * Allow for updates of children quantities
      * (applicable for complicated product types. As default returns false)
      *
      * @param null $product

@@ -127,7 +127,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
     }
 
     /**
-     * Get formated in base currency base grand total value
+     * Get formatted in base currency base grand total value
      *
      * @return string
      */

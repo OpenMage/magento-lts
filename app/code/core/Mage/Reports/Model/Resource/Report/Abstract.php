@@ -91,7 +91,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
     }
 
     /**
-     * Trancate table
+     * Truncate table
      *
      * @param string $table
      * @return Mage_Reports_Model_Resource_Report_Abstract
