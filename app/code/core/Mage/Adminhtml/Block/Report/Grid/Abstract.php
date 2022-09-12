@@ -31,6 +31,13 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     protected $_aggregatedColumns       = null;
 
     /**
+     * Column for grid to be grouped by
+     *
+     * @var string
+     */
+    protected $_columnGroupBy;
+
+    /**
      * Mage_Adminhtml_Block_Report_Grid_Abstract constructor.
      */
     public function __construct()

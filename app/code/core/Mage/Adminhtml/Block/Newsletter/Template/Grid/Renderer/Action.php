@@ -35,7 +35,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Action extends Mage
      */
     public function render(Varien_Object $row)
     {
-        if($row->isValidForSend()) {
+        if ($row->isValidForSend()) {
             $actions[] = [
                 'url' => $this->getUrl('*/newsletter_queue/edit', ['template_id' => $row->getId()]),
                 'caption' => Mage::helper('newsletter')->__('Queue Newsletter...')
