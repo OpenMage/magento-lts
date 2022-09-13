@@ -792,7 +792,7 @@ class Mage_Paypal_Model_Express_Checkout
      *
      * @param Mage_Sales_Model_Quote_Address $address
      * @param bool $mayReturnEmpty
-     * @return array|false
+     * @return array
      */
     protected function _prepareShippingOptions(
         Mage_Sales_Model_Quote_Address $address,

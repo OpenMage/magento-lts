@@ -876,7 +876,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Set current store currency code
      *
      * @param   string $code
-     * @return  string
+     * @return  $this
      */
     public function setCurrentCurrencyCode($code)
     {

@@ -56,7 +56,7 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
      *
      * @param Mage_Directory_Model_Currency|string $currencyFrom
      * @param Mage_Directory_Model_Currency|string $currencyTo
-     * @return float
+     * @return float|int
      */
     public function getRate($currencyFrom, $currencyTo)
     {

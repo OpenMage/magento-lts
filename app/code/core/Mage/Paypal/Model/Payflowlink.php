@@ -507,7 +507,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @param mixed $format
      * @param mixed $string
-     * @return mixed
+     * @return string
      */
     protected function _formatStr($format, $string)
     {

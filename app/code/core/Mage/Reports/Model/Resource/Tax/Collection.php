@@ -91,7 +91,7 @@ class Mage_Reports_Model_Resource_Tax_Collection extends Mage_Sales_Model_Entity
     /**
      * Get select count sql
      *
-     * @return string
+     * @return Varien_Db_Select
      */
     public function getSelectCountSql()
     {

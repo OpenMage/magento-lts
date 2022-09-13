@@ -358,7 +358,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Grand total getter
      *
-     * @return string
+     * @return float
      */
     private function _getAmount()
     {

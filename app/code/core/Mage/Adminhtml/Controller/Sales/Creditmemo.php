@@ -45,7 +45,7 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
     /**
      * Init layout, menu and breadcrumb
      *
-     * @return Mage_Adminhtml_Sales_CreditmemoController
+     * @return $this
      */
     protected function _initAction()
     {

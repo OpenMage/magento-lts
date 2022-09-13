@@ -159,8 +159,6 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
 
     /**
      * Refresh admin menu cache etc.
-     *
-     * @return $this
      */
     public function renewSecretUrls()
     {

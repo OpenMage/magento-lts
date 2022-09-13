@@ -55,7 +55,7 @@ class Mage_Checkout_Block_Multishipping_Billing extends Mage_Payment_Block_Form_
     /**
      * Retrieve code of current payment method
      *
-     * @return mixed
+     * @return false|string
      */
     public function getSelectedMethodCode()
     {

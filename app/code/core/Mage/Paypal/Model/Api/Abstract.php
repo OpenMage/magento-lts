@@ -558,7 +558,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * Paypal note: The value for quantity must be a positive integer. Null, zero, or negative numbers are not allowed.
      *
      * @param float|string|int $value
-     * @return string
+     * @return int
      */
     protected function _filterQty($value)
     {

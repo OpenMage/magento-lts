@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
     /**
      * Retrieve source
      *
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return Mage_Sales_Model_Order_Shipment
      */
     public function getSource()
     {

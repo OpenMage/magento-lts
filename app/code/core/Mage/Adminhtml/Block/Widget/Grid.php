@@ -446,7 +446,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @return int|void
+     * @return int
      */
     public function getColumnCount()
     {
@@ -1301,7 +1301,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Return array with keys type and value
      *
      * @param string $sheetName
-     * @return string
+     * @return array
      * @throws Exception
      */
     public function getExcelFile($sheetName = '')

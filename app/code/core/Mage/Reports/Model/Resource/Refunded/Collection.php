@@ -98,7 +98,7 @@ class Mage_Reports_Model_Resource_Refunded_Collection extends Mage_Sales_Model_E
     /**
      * Get select count sql
      *
-     * @return string
+     * @return Varien_Db_Select
      */
     public function getSelectCountSql()
     {

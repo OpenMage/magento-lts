@@ -222,7 +222,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * Returns cache key for some request to carrier quotes service
      *
      * @param string|array $requestParams
-     * @return string
+     * @return int
      */
     protected function _getQuotesCacheKey($requestParams)
     {
