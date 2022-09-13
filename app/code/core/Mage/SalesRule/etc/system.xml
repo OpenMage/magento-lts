@@ -80,5 +80,22 @@
                 </auto_generated_coupon_codes>
             </groups>
         </promo>
+        <reports>
+            <groups>
+                <crontab>
+                    <fields>
+                        <coupons_expr translate="label comment">
+                            <label>Cron definition - Coupons</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>600</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Promotion Coupons Usage Report</comment>
+                        </coupons_expr>
+                    </fields>
+                </crontab>
+            </groups>
+        </reports>
     </sections>
 </config>
