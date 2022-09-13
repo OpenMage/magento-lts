@@ -921,11 +921,6 @@ parameters:
 			path: ../app/code/core/Mage/Bundle/Model/Product/Type.php
 
 		-
-			message: "#^Method Mage_Bundle_Model_Product_Type\\:\\:beforeSave\\(\\) should return Mage_Catalog_Model_Product_Type_Abstract but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Bundle/Model/Product/Type.php
-
-		-
 			message: "#^Variable \\$selections in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Bundle/Model/Product/Type.php
@@ -2109,11 +2104,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getLinks\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Downloadable/Model/Product/Price.php
-
-		-
-			message: "#^Method Mage_Downloadable_Model_Product_Type\\:\\:beforeSave\\(\\) should return Mage_Catalog_Model_Product_Type_Abstract but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Downloadable/Model/Product/Type.php
 
 		-
 			message: "#^Method Mage_Customer_Model_Session\\:\\:setBeforeAuthUrl\\(\\) invoked with 2 parameters, 1 required\\.$#"
