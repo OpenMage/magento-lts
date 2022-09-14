@@ -39,7 +39,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Default extends Mage_A
     {
         $allowedCurrencies = $this->_getAllowedCurrencies();
 
-        if (!$allowedCurrencies) {
+        if (!is_array($allowedCurrencies)) {
             Mage::throwException(Mage::helper('adminhtml')->__('At least one currency has to be allowed.'));
         }
 
