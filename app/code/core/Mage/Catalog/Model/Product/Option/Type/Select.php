@@ -60,7 +60,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
     /**
      * Prepare option value for cart
      *
-     * @return array|int|string|null Prepared option value
+     * @return int|string|null Prepared option value
      */
     public function prepareForCart()
     {

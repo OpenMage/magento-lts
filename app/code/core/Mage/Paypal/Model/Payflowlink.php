@@ -634,7 +634,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * Check response from Payflow gateway.
      *
      * @deprecated since 1.6.2.0
-     * @return null in case of validation passed
+     * @return null
      */
     protected function _getDocumentFromResponse()
     {
