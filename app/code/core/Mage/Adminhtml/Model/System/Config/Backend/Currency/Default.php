@@ -37,11 +37,17 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Default extends Mage_A
      */
     protected function _afterSave()
     {
+        $allowedCurrencies = $this->_getAllowedCurrencies();
+
+        if (!$allowedCurrencies) {
+            Mage::throwException(Mage::helper('adminhtml')->__('At least one currency has to be allowed.'));
+        }
+
         if (!in_array($this->getValue(), $this->_getInstalledCurrencies())) {
             Mage::throwException(Mage::helper('adminhtml')->__('Selected default display currency is not available in installed currencies.'));
         }
 
-        if (!in_array($this->getValue(), $this->_getAllowedCurrencies())) {
+        if (!in_array($this->getValue(), $allowedCurrencies)) {
             Mage::throwException(Mage::helper('adminhtml')->__('Selected default display currency is not available in allowed currencies.'));
         }
 
