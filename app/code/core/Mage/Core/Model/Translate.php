@@ -209,8 +209,10 @@ class Mage_Core_Model_Translate
     protected function _loadModuleTranslation($moduleName, $files, $forceReload = false)
     {
         foreach ($files as $file) {
-            $file = $this->_getModuleFilePath($moduleName, $file);
-            $this->_addData($this->_getFileData($file), $moduleName, $forceReload);
+            $paths = $this->_getModuleFilePaths($moduleName, $file);
+            foreach ($paths as $path) {
+                $this->_addData($this->_getFileData($path), $moduleName, $forceReload);
+            }
         }
         return $this;
     }
@@ -293,18 +295,41 @@ class Mage_Core_Model_Translate
     }
 
     /**
-     * Retrieve translation file for module
+     * Retrieve translation file for module form app/locale
      *
      * @param string $module
      * @param string $fileName
      * @return string
+     * @deprecated
+     * @see _getModuleFilePaths()
      */
     protected function _getModuleFilePath($module, $fileName)
     {
-        //$file = Mage::getConfig()->getModuleDir('locale', $module);
         $file = Mage::getBaseDir('locale');
         $file.= DS.$this->getLocale().DS.$fileName;
         return $file;
+    }
+
+    /**
+     * Retrieve translation files for module form app/locale
+     * and app/code/<scope>/<vendor>/<module>/locale
+     *
+     * @param string $module
+     * @param string $fileName
+     * @return array
+     */
+    protected function _getModuleFilePaths(string $module, string $fileName): array
+    {
+        $paths = [
+            Mage::getBaseDir('locale'),
+            Mage::getConfig()->getModuleDir('locale', $module)
+        ];
+
+        $locale = $this->getLocale();
+        foreach ($paths as $key => $path) {
+            $paths[$key] = $path.DS.$locale.DS.$fileName;
+        }
+        return $paths;
     }
 
     /**
