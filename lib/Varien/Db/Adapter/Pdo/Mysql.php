@@ -3008,7 +3008,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _prepareQuotedSqlCondition($text, $value, $fieldName)
     {
-        $sql = $this->quoteInto($text, str_replace("\0", '', $value));
+        $value = is_string($value) ? str_replace("\0", '', $value) : $value;
+        $sql = $this->quoteInto($text, $value);
         return str_replace('{{fieldName}}', $fieldName, $sql);
     }
 
