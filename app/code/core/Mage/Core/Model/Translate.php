@@ -295,7 +295,7 @@ class Mage_Core_Model_Translate
     }
 
     /**
-     * Retrieve translation file for module form app/locale
+     * Retrieve translation file for module from app/locale
      *
      * @param string $module
      * @param string $fileName
@@ -311,7 +311,7 @@ class Mage_Core_Model_Translate
     }
 
     /**
-     * Retrieve translation files for module form app/locale
+     * Retrieve translation files for module from app/locale
      * and app/code/<scope>/<vendor>/<module>/locale
      *
      * @param string $module
