@@ -41,8 +41,8 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addAttributeToSort('position', 'asc')
             ->addStoreFilter()
+            ->addAttributeToFilter('status', Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
             ->addMinimalPrice()
-
             ->joinTable('bundle/option', 'parent_id=entity_id', ['option_id' => 'option_id'])
             ->joinTable('bundle/selection', 'option_id=option_id', ['product_id' => 'product_id'], '{{table}}.product_id='.$this->getProduct()->getId());
 
@@ -52,7 +52,6 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
             $collection->addIdFilter(Mage::getSingleton('checkout/cart')->getProductIds(), true);
         }
 
-        Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($collection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
         $collection->getSelect()->group('entity_id');
 

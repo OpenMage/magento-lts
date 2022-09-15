@@ -68,7 +68,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
             ->addAttributeToSelect('attribute_set_id')
             ->addAttributeToFilter('type_id', ['in' => $this->getAllowedSelectionTypes()])
             ->addFilterByRequiredOptions()
-            ->addStoreFilter();
+            ->addStoreFilter()
+            ->addAttributeToFilter('status', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
 
         if ($products = $this->_getProducts()) {
             $collection->addIdFilter($this->_getProducts(), true);
@@ -78,8 +79,6 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
             $collection->addIdFilter('-1');
             $this->setEmptyText($this->__('Please enter search conditions to view products.'));
         }
-
-        Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($collection);
 
         $this->setCollection($collection);
 
