@@ -2276,31 +2276,6 @@ parameters:
 			path: ../app/code/core/Mage/Paygate/Block/Authorizenet/Form/Cc.php
 
 		-
-			message: "#^Default value of the parameter \\#5 \\$amount \\(false\\) of method Mage_Paygate_Helper_Data\\:\\:getExtendedTransactionMessage\\(\\) is incompatible with type float\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paygate/Helper/Data.php
-
-		-
-			message: "#^Default value of the parameter \\#5 \\$amount \\(false\\) of method Mage_Paygate_Helper_Data\\:\\:getTransactionMessage\\(\\) is incompatible with type float\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paygate/Helper/Data.php
-
-		-
-			message: "#^Default value of the parameter \\#6 \\$exception \\(false\\) of method Mage_Paygate_Helper_Data\\:\\:getExtendedTransactionMessage\\(\\) is incompatible with type string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paygate/Helper/Data.php
-
-		-
-			message: "#^Default value of the parameter \\#6 \\$exception \\(false\\) of method Mage_Paygate_Helper_Data\\:\\:getTransactionMessage\\(\\) is incompatible with type string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paygate/Helper/Data.php
-
-		-
-			message: "#^Default value of the parameter \\#7 \\$additionalMessage \\(false\\) of method Mage_Paygate_Helper_Data\\:\\:getExtendedTransactionMessage\\(\\) is incompatible with type string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paygate/Helper/Data.php
-
-		-
 			message: "#^Variable \\$defaultExceptionMessage might not be defined\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Paygate/Model/Authorizenet.php
@@ -2336,21 +2311,6 @@ parameters:
 			path: ../app/code/core/Mage/Payment/Model/Method/Cc.php
 
 		-
-			message: "#^Method Mage_Payment_Model_Recurring_Profile\\:\\:getFieldComment\\(\\) should return string\\|null but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Payment/Model/Recurring/Profile.php
-
-		-
-			message: "#^Method Mage_Payment_Model_Recurring_Profile\\:\\:getFieldLabel\\(\\) should return string\\|null but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Payment/Model/Recurring/Profile.php
-
-		-
-			message: "#^Method Mage_Paypal_Block_Payment_Info\\:\\:getCcTypeName\\(\\) should return string\\|null but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Block/Payment/Info.php
-
-		-
 			message: "#^Variable \\$isAjax might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Controller/Express/Abstract.php
@@ -2369,21 +2329,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Object\\:\\:isNominal\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Cart.php
-
-		-
-			message: "#^Default value of the parameter \\#2 \\$type \\(false\\) of method Mage_Paypal_Model_Config\\:\\:getAdditionalOptionsLogoUrl\\(\\) is incompatible with type string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Config.php
-
-		-
-			message: "#^Method Mage_Paypal_Model_Config\\:\\:_matchBnCountryCode\\(\\) should return string\\|null but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Config.php
-
-		-
-			message: "#^Method Mage_Paypal_Model_Config\\:\\:getPaymentAction\\(\\) should return string\\|null but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Config.php
 
 		-
 			message: "#^Call to an undefined method Mage_Payment_Model_Info\\:\\:lookupTransaction\\(\\)\\.$#"
