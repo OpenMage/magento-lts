@@ -278,6 +278,8 @@ small {
   .grid tr.filter th {
     border: 1px solid lightgrey;
     border-top: 0; }
+    .grid tr.filter th.sorted {
+      background: #f7f7f7 !important; }
   .grid tr.filter .range .range-line {
     width: 125px; }
   .grid tr.filter .range .label {

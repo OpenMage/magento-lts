@@ -255,6 +255,10 @@ small {
       th {
         border: 1px solid $color_alto_approx;
         border-top: 0;
+
+        &.sorted {
+          background: darken($white, 3%) !important;
+        }
       }
 
       .range {
