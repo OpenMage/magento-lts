@@ -149,7 +149,9 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
         $product = $this->_getProduct($productId, $store, $identifierType);
 
         $linkArr = [];
-        $links = $product->getTypeInstance(true)->getLinks($product);
+        /** @var Mage_Downloadable_Model_Product_Type $productType */
+        $productType = $product->getTypeInstance(true);
+        $links = $productType->getLinks($product);
         $downloadHelper = Mage::helper('downloadable');
         foreach ($links as $item) {
             $tmpLinkItem = [
@@ -212,7 +214,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
         unset($tmpLinkItem);
         unset($links);
 
-        $samples = $product->getTypeInstance(true)->getSamples($product)->getData();
+        $samples = $productType->getSamples($product)->getData();
         return ['links' => $linkArr, 'samples' => $samples];
     }
 

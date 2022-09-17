@@ -234,15 +234,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
 
     public function getIsConfigured()
     {
-        if ($this->getProduct()->isConfigurable()
-            && !($superAttributes = $this->getProduct()
-                ->getTypeInstance(true)
-                ->getUsedProductAttributeIds($this->getProduct()))
-        ) {
-            $superAttributes = false;
+        $superAttributes = true;
+        $product = $this->getProduct();
+        if ($product->isConfigurable()) {
+            /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+            $productType = $product->getTypeInstance(true);
+            $superAttributes = $productType->getUsedProductAttributeIds($this->getProduct());
+            if (!$superAttributes) {
+                $superAttributes = false;
+            }
         }
 
-        return !$this->getProduct()->isConfigurable() || $superAttributes !== false;
+        return !$product->isConfigurable() || $superAttributes !== false;
     }
 
     public function getSelectedTabId()

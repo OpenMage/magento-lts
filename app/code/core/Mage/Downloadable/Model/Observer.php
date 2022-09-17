@@ -75,7 +75,9 @@ class Mage_Downloadable_Model_Observer
                 ->load($orderItem->getProductId());
         }
         if ($product->getTypeId() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE) {
-            $links = $product->getTypeInstance(true)->getLinks($product);
+            /** @var Mage_Downloadable_Model_Product_Type $productType */
+            $productType = $product->getTypeInstance(true);
+            $links = $productType->getLinks($product);
             if ($linkIds = $orderItem->getProductOptionByCode('links')) {
                 $linkPurchased = Mage::getModel('downloadable/link_purchased');
                 Mage::helper('core')->copyFieldset(

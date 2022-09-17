@@ -58,45 +58,47 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
             ->setAttributeSetId($this->_getProduct()->getAttributeSetId())
             ->getAttributes();
 
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->_getProduct()->getTypeInstance(true);
+        $usedAttributes = $productType->getUsedProductAttributes($this->_getProduct());
+
         /* Standart attributes */
         foreach ($attributes as $attribute) {
+            $attributeCode = $attribute->getAttributeCode();
             if (($attribute->getIsRequired()
-                && $attribute->getApplyTo()
-                // If not applied to configurable
-                && !in_array(Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE, $attribute->getApplyTo())
-                // If not used in configurable
-                && !in_array($attribute->getId(),
-                    $this->_getProduct()->getTypeInstance(true)->getUsedProductAttributeIds($this->_getProduct()))
-                )
+                    && $attribute->getApplyTo()
+                    // If not applied to configurable
+                    && !in_array(Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE, $attribute->getApplyTo())
+                    // If not used in configurable
+                    && !in_array($attribute->getId(), $usedAttributes))
                 // Or in additional
-                || in_array($attribute->getAttributeCode(), $attributesConfig['additional'])
+                || in_array($attributeCode, $attributesConfig['additional'])
             ) {
                 $inputType = $attribute->getFrontend()->getInputType();
                 if (!in_array($inputType, $availableTypes)) {
                     continue;
                 }
-                $attributeCode = $attribute->getAttributeCode();
                 $attribute->setAttributeCode('simple_product_' . $attributeCode);
                 $element = $fieldset->addField(
                     'simple_product_' . $attributeCode,
-                     $inputType,
-                     [
+                    $inputType,
+                    [
                         'label'    => $attribute->getFrontend()->getLabel(),
                         'name'     => $attributeCode,
                         'required' => $attribute->getIsRequired(),
-                     ]
+                    ]
                 )->setEntityAttribute($attribute);
 
                 if (in_array($attributeCode, $attributesConfig['autogenerate'])) {
                     $element->setDisabled('true');
                     $element->setValue($this->_getProduct()->getData($attributeCode));
                     $element->setAfterElementHtml(
-                         '<input type="checkbox" id="simple_product_' . $attributeCode . '_autogenerate" '
-                         . 'name="simple_product[' . $attributeCode . '_autogenerate]" value="1" '
-                         . 'onclick="toggleValueElements(this, this.parentNode)" checked="checked" /> '
-                         . '<label for="simple_product_' . $attributeCode . '_autogenerate" >'
-                         . Mage::helper('catalog')->__('Autogenerate')
-                         . '</label>'
+                        '<input type="checkbox" id="simple_product_' . $attributeCode . '_autogenerate" '
+                        . 'name="simple_product[' . $attributeCode . '_autogenerate]" value="1" '
+                        . 'onclick="toggleValueElements(this, this.parentNode)" checked="checked" /> '
+                        . '<label for="simple_product_' . $attributeCode . '_autogenerate" >'
+                        . Mage::helper('catalog')->__('Autogenerate')
+                        . '</label>'
                     );
                 }
 
@@ -108,7 +110,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
         }
 
         /* Configurable attributes */
-        $usedAttributes = $this->_getProduct()->getTypeInstance(true)->getUsedProductAttributes($this->_getProduct());
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->_getProduct()->getTypeInstance(true);
+        $usedAttributes = $productType->getUsedProductAttributes($this->_getProduct());
         foreach ($usedAttributes as $attribute) {
             $attributeCode =  $attribute->getAttributeCode();
             $fieldset->addField( 'simple_product_' . $attributeCode, 'select',  [
