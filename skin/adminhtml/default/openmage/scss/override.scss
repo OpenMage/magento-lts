@@ -361,6 +361,18 @@ small {
     &.odd tr td {
       background: $color_wild_sand_approx !important;
     }
+
+    tr.even td.sorted {
+      background: darken($color_gallery_approx, 3%) !important;
+    }
+
+    tr.odd td.sorted {
+      background: darken($white, 3%) !important;
+    }
+
+    tr.selected td.sorted {
+      background: darken($color_alice_blue_approx, 3%) !important;
+    }
   }
 
   td input.input-text {

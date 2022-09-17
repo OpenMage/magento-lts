@@ -55,6 +55,8 @@ varienGrid.prototype = {
             for (var row=0; row<this.rows.length; row++) {
                 if(row%2==0){
                     Element.addClassName(this.rows[row], 'even');
+                }else{
+                    Element.addClassName(this.rows[row], 'odd');
                 }
 
                 Event.observe(this.rows[row],'mouseover',this.trOnMouseOver);

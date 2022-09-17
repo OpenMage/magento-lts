@@ -55,21 +55,33 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         return $this->_grid;
     }
 
+    /**
+     * @return bool
+     */
     public function isLast()
     {
         return $this->getId() == $this->getGrid()->getLastColumnId();
     }
 
+    /**
+     * @return string
+     */
     public function getHtmlProperty()
     {
         return $this->getRenderer()->renderProperty();
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderHtml()
     {
         return $this->getRenderer()->renderHeader();
     }
 
+    /**
+     * @return string|null
+     */
     public function getCssClass()
     {
         if (is_null($this->_cssClass)) {
@@ -83,16 +95,26 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             if ($this->getEditable()) {
                 $this->_cssClass .= ' editable';
             }
+            // Add css class for sorted columns
+            if ($this->hasData('dir')) {
+                $this->_cssClass .= ' sorted';
+            }
         }
 
         return $this->_cssClass;
     }
 
+    /**
+     * @return string|null
+     */
     public function getCssProperty()
     {
         return $this->getRenderer()->renderCss();
     }
 
+    /**
+     * @return string|null
+     */
     public function getHeaderCssClass()
     {
         $class = $this->getData('header_css_class');
@@ -105,6 +127,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         return $class;
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderHtmlProperty()
     {
         $str = '';
@@ -374,14 +399,16 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         return $this->_filter;
     }
 
+    /**
+     * @return string
+     */
     public function getFilterHtml()
     {
         if ($this->getFilter()) {
             return $this->getFilter()->getHtml();
-        } else {
-            return '&nbsp;';
         }
-        return null;
+
+        return '&nbsp;';
     }
 
     /**
