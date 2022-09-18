@@ -237,7 +237,11 @@ Object.extend(Validation, {
     },
     hideAdvice : function(elm, advice){
         if (advice != null) {
-            new Effect.Fade(advice, {duration : 1, afterFinishInternal : function() {advice.hide();}});
+            if(typeof Effect == 'undefined') {
+                advice.hide();
+            } else {
+                new Effect.Fade(advice, {duration : 1, afterFinishInternal : function() {advice.hide();}});
+            }
         }
     },
     updateCallback : function(elm, status) {
