@@ -829,7 +829,7 @@
                 <crontab>
                     <fields>
                         <sales_expr translate="label comment">
-                            <label>Cron definition - Orders</label>
+                            <label>Orders</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
@@ -838,7 +838,7 @@
                             <comment>Total Ordered Report</comment>
                         </sales_expr>
                         <shipping_expr translate="label comment">
-                            <label>Cron definition - Shipping</label>
+                            <label>Shipping</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>300</sort_order>
                             <show_in_default>1</show_in_default>
@@ -847,7 +847,7 @@
                             <comment>Total Shipped Report</comment>
                         </shipping_expr>
                         <invoiced_expr translate="label comment">
-                            <label>Cron definition - Total Invoiced</label>
+                            <label>Total Invoiced</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>400</sort_order>
                             <show_in_default>1</show_in_default>
@@ -856,7 +856,7 @@
                             <comment>Total Invoiced VS Paid Report</comment>
                         </invoiced_expr>
                         <refunded_expr translate="label comment">
-                            <label>Cron definition - Total Refunded</label>
+                            <label>Total Refunded</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>500</sort_order>
                             <show_in_default>1</show_in_default>
@@ -865,7 +865,7 @@
                             <comment>Total Refunded Report</comment>
                         </refunded_expr>
                         <bestsellers_expr translate="label comment">
-                            <label>Cron definition - Bestsellers</label>
+                            <label>Bestsellers</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>700</sort_order>
                             <show_in_default>1</show_in_default>
