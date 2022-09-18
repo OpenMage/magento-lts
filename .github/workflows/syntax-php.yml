@@ -1,0 +1,27 @@
+name: "PHP Syntax Check"
+on:
+  push:
+  pull_request:
+
+jobs:
+  php_syntax:
+    name: PHP Syntax ${{ matrix.php-versions }}
+    continue-on-error: ${{ matrix.php-versions == '8.2' }}
+    runs-on: [ubuntu-latest]
+    strategy:
+      max-parallel: 3
+      matrix:
+        php-versions: ['7.3', '8.1', '8.2']
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring #optional, setup extensions
+          ini-values: post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
+          coverage: none #optional, setup coverage driver
+      - name: Check .php files
+        run: '! find . -not \( -path ./.phpstorm.meta.php -prune \) -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 1> /dev/null | grep "^"'
+      - name: Check .phtml files
+        run: '! find app/design -type f -name "*.phtml" -exec php -d error_reporting=32767 -l {} \; 2>&1 1> /dev/null | grep "^"'

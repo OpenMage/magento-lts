@@ -1,4 +1,9 @@
 includes:
     - phpstan.neon
 parameters:
+    paths:
+         - %currentWorkingDirectory%/app/code/core/Mage
+         - %currentWorkingDirectory%/lib/Mage
+         - %currentWorkingDirectory%/lib/Magento
+         - %currentWorkingDirectory%/lib/Varien
     level: 3
