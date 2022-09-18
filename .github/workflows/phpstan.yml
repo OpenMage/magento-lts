@@ -1,20 +1,30 @@
 name: "PHPStan Static Code Analyses"
+
 on:
+  # Run on all pushes and on all pull requests.
+  # Prevent the build from running when there are only irrelevant changes.
   push:
+    paths-ignore:
+      - '**.md'
   pull_request:
+    paths-ignore:
+      - '**.md'
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
 
 jobs:
   php_stan:
-    name: PHP Stan ${{ matrix.config_files }}
-    continue-on-error: ${{ matrix.config_files == '.github/phpstan_experimental_level.neon' }}
     runs-on: [ubuntu-latest]
     strategy:
-      max-parallel: 2
       matrix:
         config_files: [
           '.github/phpstan.neon',
           '.github/phpstan_experimental_level.neon'
         ]
+
+    name: PHP Stan ${{ matrix.config_files }}
+    continue-on-error: ${{ matrix.config_files == '.github/phpstan_experimental_level.neon' }}
+
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
