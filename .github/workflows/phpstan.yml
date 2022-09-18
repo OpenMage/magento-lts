@@ -23,7 +23,6 @@ jobs:
         ]
 
     name: PHP Stan ${{ matrix.config_files }}
-    continue-on-error: ${{ matrix.config_files == '.github/phpstan_experimental_level.neon' }}
 
     steps:
       - uses: actions/checkout@v3
@@ -33,3 +32,4 @@ jobs:
         run: mkdir -p app/code/local
       - name: PHPStan Static Analysis
         run: php vendor/bin/phpstan.phar analyze -c ${{ matrix.config_files }}
+        continue-on-error: ${{ matrix.config_files == '.github/phpstan_experimental_level.neon' }}
