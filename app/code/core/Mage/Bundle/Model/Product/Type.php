@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Bundle
+ * @category   Mage
+ * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle Type Model
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abstract
 {
@@ -269,7 +269,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     {
         parent::save($product);
         $product = $this->getProduct($product);
-        /** @var Mage_Bundle_Model_Mysql4_Bundle $resource */
+        /** @var Mage_Bundle_Model_Resource_Bundle $resource */
         $resource = Mage::getResourceModel('bundle/bundle');
 
         $options = $product->getBundleOptionsData();
@@ -708,7 +708,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      *
      * @param array $selectionIds
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Bundle_Model_Mysql4_Selection_Collection
+     * @return Mage_Bundle_Model_Resource_Selection_Collection
      */
     public function getSelectionsByIds($selectionIds, $product = null)
     {
@@ -744,7 +744,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      *
      * @param array $optionIds
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Bundle_Model_Mysql4_Option_Collection
+     * @return Mage_Bundle_Model_Resource_Option_Collection
      */
     public function getOptionsByIds($optionIds, $product = null)
     {
@@ -886,7 +886,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Allow for updates of chidren qty's
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return boolean true
+     * @return bool true
      */
     public function getForceChildItemQtyChanges($product = null)
     {

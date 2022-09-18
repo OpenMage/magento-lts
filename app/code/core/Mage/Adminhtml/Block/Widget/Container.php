@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Template
 {
-
     /**
      * So called "container controller" to specify group of blocks participating in some action
      *
@@ -59,8 +58,8 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      *
      * @param string $id
      * @param array $data
-     * @param integer $level
-     * @param integer $sortOrder
+     * @param int $level
+     * @param int $sortOrder
      * @param string|null $area area, that button should be displayed in ('header', 'footer', null)
      * @return $this
      */
@@ -84,8 +83,8 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      *
      * @param string $id
      * @param array $data
-     * @param integer $level
-     * @param integer $sortOrder
+     * @param int $level
+     * @param int $sortOrder
      * @param string|null $area area, that button should be displayed in ('header', 'footer', null)
      * @return $this
      */
@@ -277,7 +276,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * Check if there's anything to display in footer
      *
-     * @return boolean
+     * @return bool
      */
     public function hasFooterButtons()
     {

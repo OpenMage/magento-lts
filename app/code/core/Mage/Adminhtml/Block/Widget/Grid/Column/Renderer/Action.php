@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -28,7 +28,6 @@
 class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
     extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
 {
-
     /**
      * Renders column
      *
@@ -66,7 +65,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
     /**
      * Render single action as dropdown option html
      *
-     * @param unknown_type $action
+     * @param array $action
      * @param Varien_Object $row
      * @return string
      */

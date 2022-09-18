@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract resource helper class
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Model_Resource_Helper_Abstract
 {
@@ -103,7 +103,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
 
     /**
      * Escapes value, that participates in LIKE, with '\' symbol.
-     * Note: this func cannot be used on its own, because different RDMBS may use different default escape symbols,
+     * Note: this func cannot be used on its own, because different RDBMS may use different default escape symbols,
      * so you should either use addLikeEscape() to produce LIKE construction, or add escape symbol on your own.
      *
      * By default escapes '_', '%' and '\' symbols. If some masking symbols must not be escaped, then you can set

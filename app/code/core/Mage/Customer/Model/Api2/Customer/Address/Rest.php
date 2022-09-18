@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -150,7 +150,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
         if (isset($data['region'])) {
             $data['region'] = $this->_getRegionIdByNameOrCode(
                 $data['region'],
-                isset($data['country_id']) ? $data['country_id'] : $address->getCountryId()
+                $data['country_id'] ?? $address->getCountryId()
             );
             $data['region_id'] = null; // to avoid overwrite region during update in address model _beforeSave()
         }

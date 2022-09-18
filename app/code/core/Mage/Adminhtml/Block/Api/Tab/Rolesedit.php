@@ -15,9 +15,14 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form {
 
     public function __construct() {
@@ -59,7 +64,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
 
         $rootArray = $this->_getNodeJson($resources,1);
 
-        return Mage::helper('core')->jsonEncode(isset($rootArray['children']) ? $rootArray['children'] : []);
+        return Mage::helper('core')->jsonEncode($rootArray['children'] ?? []);
     }
 
     protected function _sortTree($a, $b)

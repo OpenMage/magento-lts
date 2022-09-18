@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -97,7 +97,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         if (!$this->_attributeSetsById) {
             $this->loadAttributeSets($entityTypeId);
         }
-        return isset($this->_attributeSetsById[$id]) ? $this->_attributeSetsById[$id] : false;
+        return $this->_attributeSetsById[$id] ?? false;
     }
 
     /**
@@ -110,7 +110,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         if (!$this->_attributeSetsByName) {
             $this->loadAttributeSets($entityTypeId);
         }
-        return isset($this->_attributeSetsByName[$name]) ? $this->_attributeSetsByName[$name] : false;
+        return $this->_attributeSetsByName[$name] ?? false;
     }
 
     /**

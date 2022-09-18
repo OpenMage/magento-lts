@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -232,7 +232,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * Returns product price block html
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param boolean $displayMinimalPrice
+     * @param bool $displayMinimalPrice
      * @param string $idSuffix
      * @return string
      */
@@ -314,7 +314,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Create reviews summary helper block once
      *
-     * @return boolean
+     * @return bool
      */
     protected function _initReviewsHelperBlock()
     {
@@ -579,7 +579,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * Retrieve row size depends on page layout
      *
      * @param string $pageLayout
-     * @return int|boolean
+     * @return int|bool
      */
     public function getColumnCountLayoutDepend($pageLayout)
     {

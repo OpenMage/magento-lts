@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -135,7 +135,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
             return $this->_arrayRowsCache;
         }
         $result = [];
-        /** @var Varien_Data_Form_Element_Abstract */
+        /** @var Varien_Data_Form_Element_Abstract $element */
         $element = $this->getElement();
         if ($element->getValue() && is_array($element->getValue())) {
             foreach ($element->getValue() as $rowId => $row) {
@@ -172,7 +172,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
 
         return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" ' .
             ($column['size'] ? 'size="' . $column['size'] . '"' : '') . ' class="' .
-            (isset($column['class']) ? $column['class'] : 'input-text') . '"'.
+            ($column['class'] ?? 'input-text') . '"'.
             (isset($column['style']) ? ' style="'.$column['style'] . '"' : '') . '/>';
     }
 

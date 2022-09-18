@@ -12,13 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Core_Controller_Varien_Action getAction()
  * @method $this setAction(Mage_Core_Controller_Varien_Action $value)
  * @method bool getNoRender()
@@ -109,10 +113,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      */
     public function getRouter($name)
     {
-        if (isset($this->_routers[$name])) {
-            return $this->_routers[$name];
-        }
-        return false;
+        return $this->_routers[$name] ?? false;
     }
 
     /**
@@ -368,7 +369,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      * Check if requested path starts with one of the admin front names
      *
      * @param Zend_Controller_Request_Http $request
-     * @return boolean
+     * @return bool
      */
     protected function _isAdminFrontNameMatched($request)
     {
@@ -389,7 +390,6 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
         if (is_array($adminFrontNameNodes)) {
             foreach ($adminFrontNameNodes as $frontNameNode) {
-                /** @var SimpleXMLElement $frontNameNode */
                 $adminFrontNames[] = (string)$frontNameNode;
             }
         }

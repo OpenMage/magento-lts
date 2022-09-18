@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -59,7 +59,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Collection of attributes
      *
-     * @var Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @var Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     protected $_attributes;
 
@@ -73,13 +73,10 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Collection of sets
      *
-     * @var Mage_Eav_Model_Mysql4_Entity_Attribute_Set_Collection
+     * @var Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection
      */
     protected $_sets;
 
-    /**
-     * Resource initialization
-     */
     protected function _construct()
     {
         $this->_init('eav/entity_type');
@@ -102,7 +99,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      * Retrieve entity type attributes collection
      *
      * @param   int $setId
-     * @return  Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @return  Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function getAttributeCollection($setId = null)
     {
@@ -127,7 +124,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Init and retrieve attribute collection
      *
-     * @return Mage_Core_Model_Mysql4_Collection_Abstract|object
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|object
      */
     protected function _getAttributeCollection()
     {
@@ -143,7 +140,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve entity tpe sets collection
      *
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Set_Collection
+     * @return Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection
      */
     public function getAttributeSetCollection()
     {

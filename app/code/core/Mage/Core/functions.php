@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -76,7 +76,7 @@ function now($dayOnly = false)
  * Check whether sql date is empty
  *
  * @param string $date
- * @return boolean
+ * @return bool
  */
 function is_empty_date($date)
 {
@@ -104,11 +104,11 @@ function mageFindClassFile($class)
 /**
  * Custom error handler
  *
- * @param integer $errno
+ * @param int $errno
  * @param string $errstr
  * @param string $errfile
- * @param integer $errline
- * @return bool
+ * @param int $errline
+ * @return bool|void
  */
 function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 {
@@ -120,15 +120,6 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
     $errno = $errno & error_reporting();
     if ($errno == 0) {
         return false;
-    }
-    if (!defined('E_STRICT')) {
-        define('E_STRICT', 2048);
-    }
-    if (!defined('E_RECOVERABLE_ERROR')) {
-        define('E_RECOVERABLE_ERROR', 4096);
-    }
-    if (!defined('E_DEPRECATED')) {
-        define('E_DEPRECATED', 8192);
     }
 
     // Suppress deprecation warnings on PHP 7.x
@@ -210,7 +201,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
  * @param bool $return
  * @param bool $html
  * @param bool $showFirst
- * @return string
+ * @return string|void
  */
 function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 {
@@ -373,7 +364,7 @@ if (!function_exists('hash_equals')) {
      *
      * @param string $known_string
      * @param string $user_string
-     * @return boolean Returns true when the two strings are equal, false otherwise.
+     * @return bool Returns true when the two strings are equal, false otherwise.
      */
     function hash_equals($known_string, $user_string)
     {
@@ -398,22 +389,6 @@ if (!function_exists('hash_equals')) {
         }
 
         return $result === 0;
-    }
-}
-
-if (version_compare(PHP_VERSION, '7.0.0', '<') && !function_exists('random_int')) {
-    /**
-     * Generates pseudo-random integers
-     *
-     * @param int $min
-     * @param int $max
-     * @return int Returns random integer in the range $min to $max, inclusive.
-     */
-    function random_int($min, $max)
-    {
-        mt_srand();
-
-        return mt_rand($min, $max);
     }
 }
 
@@ -462,15 +437,3 @@ if (!function_exists('str_ends_with')) {
     }
 }
 
-/**
- * polyfill for PHP 7.3 function "is_countable"
- */
-if (!function_exists('is_countable')) {
-    /**
-     * @param mixed $value
-     * @return bool
-     */
-    function is_countable($value) {
-        return is_array($value) || $value instanceof Countable || $value instanceof ResourceBundle || $value instanceof SimpleXMLElement;
-    }
-}

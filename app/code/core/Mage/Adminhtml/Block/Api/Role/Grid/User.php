@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -24,10 +24,11 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Api_Model_Resource_Roles_User_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -38,19 +39,22 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
         $this->setUseAjax(true);
     }
 
+    /**
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this
+     * @throws Exception
+     */
     protected function _addColumnFilterToCollection($column)
     {
-        if ($column->getId() == 'in_role_users') {
+        if ($column->getId() === 'in_role_users') {
             $inRoleIds = $this->_getUsers();
             if (empty($inRoleIds)) {
                 $inRoleIds = 0;
             }
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('user_id', ['in'=>$inRoleIds]);
-            } else {
-                if ($inRoleIds) {
-                    $this->getCollection()->addFieldToFilter('user_id', ['nin'=>$inRoleIds]);
-                }
+                $this->getCollection()->addFieldToFilter('user_id', ['in' => $inRoleIds]);
+            } elseif ($inRoleIds) {
+                $this->getCollection()->addFieldToFilter('user_id', ['nin' => $inRoleIds]);
             }
         } else {
             parent::_addColumnFilterToCollection($column);
@@ -58,6 +62,10 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     * @throws Mage_Core_Exception
+     */
     protected function _prepareCollection()
     {
         $roleId = $this->getRequest()->getParam('rid');
@@ -67,6 +75,10 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('in_role_users', [
@@ -119,33 +131,24 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
             'options'   => ['1' => Mage::helper('adminhtml')->__('Active'), '0' => Mage::helper('adminhtml')->__('Inactive')],
         ]);
 
-       /*
-        $this->addColumn('grid_actions',
-            array(
-                'header'=>Mage::helper('adminhtml')->__('Actions'),
-                'width'=>5,
-                'sortable'=>false,
-                'filter'    =>false,
-                'type' => 'action',
-                'actions'   => array(
-                                    array(
-                                        'caption' => Mage::helper('adminhtml')->__('Remove'),
-                                        'onClick' => 'role.deleteFromRole($role_id);'
-                                    )
-                                )
-            )
-        );
-        */
-
         return parent::_prepareColumns();
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public function getGridUrl()
     {
         $roleId = $this->getRequest()->getParam('rid');
         return $this->getUrl('*/*/editrolegrid', ['rid' => $roleId]);
     }
 
+    /**
+     * @param bool $json
+     * @return array|int|string
+     * @throws Exception
+     */
     protected function _getUsers($json = false)
     {
         if ($this->getRequest()->getParam('in_role_user') != "") {
@@ -160,15 +163,15 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
                     $jsonUsers[$usrid] = 0;
                 }
                 return Mage::helper('core')->jsonEncode((object)$jsonUsers);
-            } else {
-                return array_values($users);
             }
-        } else {
-            if ($json) {
-                return '{}';
-            } else {
-                return [];
-            }
+
+            return array_values($users);
         }
+
+        if ($json) {
+            return '{}';
+        }
+
+        return [];
     }
 }

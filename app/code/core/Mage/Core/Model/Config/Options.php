@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Config_Options extends Varien_Object
 {
@@ -177,8 +177,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
     public function getVarDir()
     {
         //$dir = $this->getDataSetDefault('var_dir', $this->getBaseDir().DS.'var');
-        $dir = isset($this->_data['var_dir']) ? $this->_data['var_dir']
-            : $this->_data['base_dir'] . DS . self::VAR_DIRECTORY;
+        $dir = $this->_data['var_dir'] ?? ($this->_data['base_dir'] . DS . self::VAR_DIRECTORY);
         if (!$this->createDirIfNotExists($dir)) {
             $dir = $this->getSysTmpDir().DS.'magento'.DS.'var';
             if (!$this->createDirIfNotExists($dir)) {

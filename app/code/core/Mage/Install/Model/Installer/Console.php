@@ -12,21 +12,20 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Install
+ * @category   Mage
+ * @package    Mage_Install
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Console installer
  * @category   Mage
  * @package    Mage_Install
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_Abstract
 {
-
     /**
      * Available options
      *
@@ -98,7 +97,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Set and validate arguments
      *
      * @param array $args
-     * @return boolean
+     * @return bool
      */
     public function setArgs($args = null)
     {
@@ -163,7 +162,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
          * Set args values
          */
         foreach ($this->_getOptions() as $name => $option) {
-            $this->_args[$name] = isset($args[$name]) ? $args[$name] : '';
+            $this->_args[$name] = $args[$name] ?? '';
         }
 
         return true;
@@ -184,7 +183,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Check if there were any errors
      *
-     * @return boolean
+     * @return bool
      */
     public function hasErrors()
     {
@@ -208,7 +207,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Case insensitive
      *
      * @param string $value
-     * @return boolean
+     * @return bool
      */
     protected function _checkFlag($value)
     {
@@ -243,7 +242,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Init installation
      *
      * @param Mage_Core_Model_App $app
-     * @return boolean
+     * @return bool
      */
     public function init(Mage_Core_Model_App $app)
     {
@@ -315,7 +314,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Install Magento
      *
-     * @return boolean
+     * @return bool
      */
     public function install()
     {
@@ -457,7 +456,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Check if installer is run in shell, and redirect if run on web
      *
      * @param string $url fallback url to redirect to
-     * @return boolean
+     * @return bool
      */
     public function checkConsole($url=null)
     {
@@ -471,5 +470,4 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         header('Location: ' . $url);
         return false;
     }
-
 }

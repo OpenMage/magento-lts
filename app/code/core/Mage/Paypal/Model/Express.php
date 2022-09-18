@@ -12,15 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- *
- * PayPal Express Module
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     implements Mage_Payment_Model_Recurring_Profile_MethodInterface
@@ -539,7 +540,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         $result = parent::assignData($data);
         $key = Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT;
         if (is_array($data)) {
-            $this->getInfoInstance()->setAdditionalInformation($key, isset($data[$key]) ? $data[$key] : null);
+            $this->getInfoInstance()->setAdditionalInformation($key, $data[$key] ?? null);
         }
         elseif ($data instanceof Varien_Object) {
             $this->getInfoInstance()->setAdditionalInformation($key, $data->getData($key));
@@ -696,7 +697,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      *
      * @param Mage_Sales_Model_Order_Payment_Transaction $transaction
      * @param int $period
-     * @return boolean
+     * @return bool
      */
     protected function _isTransactionExpired(Mage_Sales_Model_Order_Payment_Transaction $transaction, $period)
     {

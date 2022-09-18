@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,9 +34,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
      */
     protected $_optionValueTable;
 
-    /**
-     * Resource initialization
-     */
     protected function _construct()
     {
         $this->_init('eav/entity_attribute_option');
@@ -128,7 +125,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
      * Set order by position or alphabetically by values in admin
      *
      * @param string $dir direction
-     * @param boolean $sortAlpha sort alphabetically by values in admin
+     * @param bool $sortAlpha sort alphabetically by values in admin
      * @return $this
      */
     public function setPositionOrder($dir = self::SORT_ORDER_ASC, $sortAlpha = false)

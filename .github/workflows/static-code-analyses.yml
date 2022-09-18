@@ -9,10 +9,10 @@ jobs:
     name: PHP Syntax ${{ matrix.php-versions }}
     runs-on: ${{ matrix.operating-system }}
     strategy:
-      max-parallel: 5
+      max-parallel: 2
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['7.0', '7.4']
+        php-versions: ['7.3', '8.1']
     steps:
       - uses: actions/checkout@v3
       - name: Setup PHP
@@ -34,14 +34,13 @@ jobs:
     name: PHP Stan ${{ matrix.directories }} - ${{ matrix.config_files }}
     runs-on: [ubuntu-latest]
     strategy:
-      max-parallel: 2
+      max-parallel: 1
       matrix:
         directories: [
-            '',
-            #'lib/',
+          ''
         ]
         config_files: [
-            '.github/phpstan.neon',
+          '.github/phpstan.neon',
         ]
     steps:
       - uses: actions/checkout@v3
@@ -61,7 +60,7 @@ jobs:
       fail-fast: false
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['8.0','8.1']
+        php-versions: ['8.2']
     steps:
       - uses: actions/checkout@v3
       - name: Setup PHP
@@ -96,9 +95,33 @@ jobs:
         config_files: [
             '.github/phpstan_experimental_level.neon',
         ]
-        include:
-          - directories: 'lib/'
-            config_files: '.github/phpstan.neon'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest --ignore-platform-reqs
+      - name: ensure existance of ./app/code/local
+        run: mkdir -p app/code/local
+      - name: PHPStan Static Analysis
+        continue-on-error: true
+        run: php vendor/bin/phpstan.phar analyze --error-format=raw -c ${{ matrix.config_files }} ${{ matrix.directories }}
+
+  php_stan_experimental_lib:
+    name: PHP Stan ${{ matrix.directories }} - ${{ matrix.config_files }} - experimental
+    runs-on: [ubuntu-latest]
+    needs: php_stan
+    strategy:
+      max-parallel: 6
+      fail-fast: false
+      matrix:
+        directories: [
+          'lib/Mage',
+          'lib/Magento',
+          'lib/Varien'
+        ]
+        config_files: [
+          '.github/phpstan.neon',
+          '.github/phpstan_experimental_level.neon',
+        ]
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies

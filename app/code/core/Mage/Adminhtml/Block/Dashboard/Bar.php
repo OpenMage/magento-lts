@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -25,11 +25,15 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_Abstract
 {
     protected $_totals = [];
     protected $_currentCurrencyCode = null;
+
+    /**
+     * @var Mage_Directory_Model_Currency
+     */
+    protected $_currency;
 
     protected function _construct()
     {
@@ -44,14 +48,6 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
 
     public function addTotal($label, $value, $isQuantity=false)
     {
-        /*if (!$isQuantity) {
-            $value = $this->format($value);
-            $decimals = substr($value, -2);
-            $value = substr($value, 0, -2);
-        } else {
-            $value = ($value != '')?$value:0;
-            $decimals = '';
-        }*/
         if (!$isQuantity) {
             $value = $this->format($value);
         }
@@ -99,7 +95,7 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
             } else if ($this->getRequest()->getParam('website')){
                 $this->_currentCurrencyCode = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getBaseCurrency();
             } else if ($this->getRequest()->getParam('group')){
-                $this->_currentCurrencyCode =  Mage::app()->getGroup($this->getRequest()->getParam('group'))->getWebsite()->getBaseCurrency();
+                $this->_currentCurrencyCode = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getWebsite()->getBaseCurrency();
             } else {
                 $this->_currentCurrencyCode = Mage::app()->getStore()->getBaseCurrency();
             }

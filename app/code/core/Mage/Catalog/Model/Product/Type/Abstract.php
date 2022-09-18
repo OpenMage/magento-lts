@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract model for product type implementation
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Catalog_Model_Product_Type_Abstract
 {
@@ -185,7 +185,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
-     * Retrieve parent ids array by requered child
+     * Retrieve parent ids array by required child
      *
      * @param int|array $childId
      * @return array
@@ -209,7 +209,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
-     * Compare attribues sorting
+     * Compare attributes sorting
      *
      * @param Mage_Catalog_Model_Entity_Attribute $attribute1
      * @param Mage_Catalog_Model_Entity_Attribute $attribute2
@@ -295,7 +295,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
             return null;
         }
 
-        return (boolean) (int) $salable;
+        return (bool) (int) $salable;
     }
 
     /**
@@ -370,7 +370,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
-     * Process product configuaration
+     * Process product configuration
      *
      * @param Varien_Object $buyRequest
      * @param Mage_Catalog_Model_Product $product
@@ -434,10 +434,10 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
             if (isset($queueOptions['operation']) && $operation = $queueOptions['operation']) {
                 switch ($operation) {
                     case 'receive_uploaded_file':
-                        $src = isset($queueOptions['src_name']) ? $queueOptions['src_name'] : '';
-                        $dst = isset($queueOptions['dst_name']) ? $queueOptions['dst_name'] : '';
+                        $src = $queueOptions['src_name'] ?? '';
+                        $dst = $queueOptions['dst_name'] ?? '';
                         /** @var Zend_File_Transfer_Adapter_Http $uploader */
-                        $uploader = isset($queueOptions['uploader']) ? $queueOptions['uploader'] : null;
+                        $uploader = $queueOptions['uploader'] ?? null;
 
                         $path = dirname($dst);
                         $io = new Varien_Io_File();
@@ -848,11 +848,11 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
-     * Allow for updates of children qty's
+     * Allow for updates of children quantities
      * (applicable for complicated product types. As default returns false)
      *
      * @param null $product
-     * @return boolean false
+     * @return bool false
      */
     public function getForceChildItemQtyChanges($product = null)
     {

@@ -12,12 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_Varien_Router_Abstract
 {
     protected $_modules = [];
@@ -281,7 +286,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      * Check if current controller instance is allowed in current router.
      *
      * @param Mage_Core_Controller_Varien_Action $controllerInstance
-     * @return boolean
+     * @return bool
      */
     protected function _validateControllerInstance($controllerInstance)
     {
@@ -371,10 +376,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function getModuleByFrontName($frontName)
     {
-        if (isset($this->_modules[$frontName])) {
-            return $this->_modules[$frontName];
-        }
-        return false;
+        return $this->_modules[$frontName] ?? false;
     }
 
     /**
@@ -399,10 +401,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function getFrontNameByRoute($routeName)
     {
-        if (isset($this->_routes[$routeName])) {
-            return $this->_routes[$routeName];
-        }
-        return false;
+        return $this->_routes[$routeName] ?? false;
     }
 
     /**

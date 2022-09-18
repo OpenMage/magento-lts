@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Wishlist
+ * @category   Mage
+ * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wishlist front controller
  *
- * @category    Mage
- * @package     Mage_Wishlist
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Wishlist
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method float getQty()
  * @method int getProductId()
@@ -317,7 +317,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
         try {
             $id = (int) $this->getRequest()->getParam('id');
-            /** @var Mage_Wishlist_Model_Item */
+            /** @var Mage_Wishlist_Model_Item $item */
             $item = Mage::getModel('wishlist/item');
             $item->load($id);
             $wishlist = $this->_getWishlist($item->getWishlistId());
@@ -495,11 +495,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         // Set qty
         $qty = $this->getRequest()->getParam('qty');
         if (is_array($qty)) {
-            if (isset($qty[$itemId])) {
-                $qty = $qty[$itemId];
-            } else {
-                $qty = 1;
-            }
+            $qty = $qty[$itemId] ?? 1;
         }
         $qty = (float)$qty;
         if ($qty && $qty>0) {

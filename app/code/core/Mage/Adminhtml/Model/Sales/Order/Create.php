@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -58,21 +58,21 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Re-collect quote flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_needCollect;
 
     /**
      * Re-collect cart flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_needCollectCart = false;
 
     /**
      * Collect (import) data and validate it flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isValidate              = false;
 
@@ -119,7 +119,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Set validate data in import data flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setIsValidate($flag)
@@ -131,7 +131,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Return is validate data in import flag
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsValidate()
     {
@@ -1323,7 +1323,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Check whether we need to create new customer (for another website) during order creation
      *
      * @param   Mage_Core_Model_Store $store
-     * @return  boolean
+     * @return bool
      */
     protected function _customerIsInStore($store)
     {
@@ -1663,7 +1663,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     protected function _putCustomerIntoQuote()
     {
         if (!$this->getSession()->getCustomer()->getId()) {
-            /** @var Mage_Customer_Model_Customer*/
+            /** @var Mage_Customer_Model_Customer $customer */
             $customer = Mage::getModel('customer/customer');
 
             $customer->addData($this->getBillingAddress()->exportCustomerAddress()->getData())

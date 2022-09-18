@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -51,14 +51,14 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Scope visibility flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_requestScopeOnly    = true;
 
     /**
      * Is AJAX request flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isAjax              = false;
 
@@ -119,7 +119,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Set scope visibility
      * Search value only in scope or search value in scope and global
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Eav_Model_Attribute_Data_Abstract
      */
     public function setRequestScopeOnly($flag)
@@ -174,10 +174,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     public function getExtractedData($index = null)
     {
         if (!is_null($index)) {
-            if (isset($this->_extractedData[$index])) {
-                return $this->_extractedData[$index];
-            }
-            return null;
+            return $this->_extractedData[$index] ?? null;
         }
         return $this->_extractedData;
     }
@@ -458,7 +455,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Set is AJAX Request flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Eav_Model_Attribute_Data_Abstract
      */
     public function setIsAjaxRequest($flag = true)
@@ -470,7 +467,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Return is AJAX Request
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsAjaxRequest()
     {
@@ -491,21 +488,13 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                 $params = $request->getParams();
                 $parts = explode('/', $this->_requestScope);
                 foreach ($parts as $part) {
-                    if (isset($params[$part])) {
-                        $params = $params[$part];
-                    } else {
-                        $params = [];
-                    }
+                    $params = $params[$part] ?? [];
                 }
             } else {
                 $params = $request->getParam($this->_requestScope);
             }
 
-            if (isset($params[$attrCode])) {
-                $value = $params[$attrCode];
-            } else {
-                $value = false;
-            }
+            $value = $params[$attrCode] ?? false;
 
             if (!$this->_requestScopeOnly && $value === false) {
                 $value = $request->getParam($attrCode, false);
@@ -529,7 +518,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      *
      * @param array|string $value
      * @throws Mage_Core_Exception
-     * @return boolean
+     * @return bool
      */
     abstract public function validateValue($value);
 
@@ -550,7 +539,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     abstract public function restoreValue($value);
 
     /**
-     * Return formated attribute value from entity model
+     * Return formatted attribute value from entity model
      *
      * @param string $format
      * @return string|array

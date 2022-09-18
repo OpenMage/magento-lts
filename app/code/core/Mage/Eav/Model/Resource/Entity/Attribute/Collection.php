@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -36,7 +36,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Add attribute set info flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_addSetInfoFlag   = false;
 
@@ -358,11 +358,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             }
 
             foreach ($this->_data as &$attributeData) {
-                $setInfo = [];
-                if (isset($attributeToSetInfo[$attributeData['attribute_id']])) {
-                    $setInfo = $attributeToSetInfo[$attributeData['attribute_id']];
-                }
-
+                $setInfo = $attributeToSetInfo[$attributeData['attribute_id']] ?? [];
                 $attributeData['attribute_set_info'] = $setInfo;
             }
 

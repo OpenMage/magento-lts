@@ -15,18 +15,18 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml menu block
  *
- * @method Mage_Adminhtml_Block_Page_Menu setAdditionalCacheKeyInfo(array $cacheKeyInfo)
- * @method array getAdditionalCacheKeyInfo()
- *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Adminhtml_Block_Page_Menu setAdditionalCacheKeyInfo(array $cacheKeyInfo)
+ * @method array getAdditionalCacheKeyInfo()
  */
 class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 {
@@ -183,8 +183,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Sort menu comparison function
      *
-     * @param int $a
-     * @param int $b
+     * @param array $a
+     * @param array $b
      * @return int
      */
     protected function _sortMenu($a, $b)
@@ -219,14 +219,6 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 
         return true;
     }
-
-    /*protected function _checkAcl(Varien_Simplexml_Element $acl)
-    {
-        return true;
-        $resource = (string)$acl->resource;
-        $privilege = (string)$acl->privilege;
-        return Mage::getSingleton('admin/session')->isAllowed($resource, $privilege);
-    }*/
 
     /**
      * Check is Allow menu item for admin user

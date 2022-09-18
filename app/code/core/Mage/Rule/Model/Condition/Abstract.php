@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Rule
+ * @category   Mage
+ * @package    Mage_Rule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract Rule condition data model
  *
- * @category Mage
- * @package Mage_Rule
- * @author Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Rule
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string|false getAttribute()
  * @method $this setAttribute(string|false $value)
@@ -200,10 +200,10 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function loadArray($arr)
     {
         $this->setType($arr['type']);
-        $this->setAttribute(isset($arr['attribute']) ? $arr['attribute'] : false);
-        $this->setOperator(isset($arr['operator']) ? $arr['operator'] : false);
-        $this->setValue(isset($arr['value']) ? $arr['value'] : false);
-        $this->setIsValueParsed(isset($arr['is_value_parsed']) ? $arr['is_value_parsed'] : false);
+        $this->setAttribute($arr['attribute'] ?? false);
+        $this->setOperator($arr['operator'] ?? false);
+        $this->setValue($arr['value'] ?? false);
+        $this->setIsValueParsed($arr['is_value_parsed'] ?? false);
 
         return $this;
     }
@@ -271,16 +271,13 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * This value will define which operators will be available for this condition.
      *
-     * Possible values are: string, numeric, date, select, multiselect, grid, boolean
+     * Possible values are: string, numeric, date, select, multiselect, grid, bool
      *
      * @return string
      */
     public function getInputType()
     {
-        if ($this->_inputType === null) {
-            return 'string';
-        }
-        return $this->_inputType;
+        return $this->_inputType ?? 'string';
     }
 
     /**

@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract resource model
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Model_Resource_Abstract
 {
@@ -45,9 +45,6 @@ abstract class Mage_Core_Model_Resource_Abstract
      */
     static protected $_commitCallbacks = [];
 
-    /**
-     * Resource initialization
-     */
     abstract protected function _construct();
 
     /**
@@ -233,9 +230,8 @@ abstract class Mage_Core_Model_Resource_Abstract
      */
     protected function _prepareTableValueForSave($value, $type)
     {
-        $type = strtolower($type);
         if ($type == 'decimal' || $type == 'numeric' || $type == 'float') {
-            $value = Mage::app()->getLocale()->getNumber($value);
+            return Mage::app()->getLocale()->getNumber($value);
         }
         return $value;
     }

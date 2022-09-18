@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -24,10 +24,15 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Resource_Product_Link_Product_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adminhtml_Block_Widget_Grid
     implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    /**
+     * Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -40,11 +45,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         }
     }
 
+    /**
+     * @return string
+     */
     public function getTabUrl()
     {
         return $this->getUrl('*/*/superGroup', ['_current'=>true]);
     }
 
+    /**
+     * @return string
+     */
     public function getTabClass()
     {
         return 'ajax';
@@ -60,22 +71,24 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         return Mage::registry('current_product');
     }
 
+    /**
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this
+     */
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
-        if ($column->getId() == 'in_products') {
+        if ($column->getId() === 'in_products') {
             $productIds = $this->_getSelectedProducts();
             if (empty($productIds)) {
                 $productIds = 0;
             }
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('entity_id', ['in'=>$productIds]);
+                $this->getCollection()->addFieldToFilter('entity_id', ['in' => $productIds]);
+            } else {
+                $this->getCollection()->addFieldToFilter('entity_id', ['nin' => $productIds]);
             }
-            else {
-                $this->getCollection()->addFieldToFilter('entity_id', ['nin'=>$productIds]);
-            }
-        }
-        else {
+        } else {
             parent::_addColumnFilterToCollection($column);
         }
 
@@ -83,9 +96,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     }
 
     /**
-     * Prepare collection
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -110,6 +121,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('in_products', [
@@ -176,8 +191,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
      */
     public function getGridUrl()
     {
-        return $this->_getData('grid_url')
-            ? $this->_getData('grid_url') : $this->getUrl('*/*/superGroupGridOnly', ['_current'=>true]);
+        return $this->_getData('grid_url') ?: $this->getUrl('*/*/superGroupGridOnly', ['_current' => true]);
     }
 
     /**

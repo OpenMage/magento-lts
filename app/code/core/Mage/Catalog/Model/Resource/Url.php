@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog url rewrite resource model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -793,10 +793,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         }
 
         $categories = $this->_getCategories($categoryId, $storeId);
-        if (isset($categories[$categoryId])) {
-            return $categories[$categoryId];
-        }
-        return false;
+        return $categories[$categoryId] ?? false;
     }
 
     /**
@@ -1015,10 +1012,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     {
         $entityId = 0;
         $products = $this->_getProducts($productId, $storeId, 0, $entityId);
-        if (isset($products[$productId])) {
-            return $products[$productId];
-        }
-        return false;
+        return $products[$productId] ?? false;
     }
 
     /**

@@ -15,11 +15,15 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart price rule chooser
+ *
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -133,7 +137,6 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
         $this->addColumn('from_date', [
             'header'    => Mage::helper('salesrule')->__('Date Start'),
             'align'     => 'left',
-            'width'     => '120px',
             'type'      => 'date',
             'index'     => 'from_date',
         ]);
@@ -141,7 +144,6 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
         $this->addColumn('to_date', [
             'header'    => Mage::helper('salesrule')->__('Date Expire'),
             'align'     => 'left',
-            'width'     => '120px',
             'type'      => 'date',
             'default'   => '--',
             'index'     => 'to_date',

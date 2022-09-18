@@ -12,13 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Rule
+ * @category   Mage
+ * @package    Mage_Rule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
+ * @category   Mage
+ * @package    Mage_Rule
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method $this setActions(array $value)
  * @method string getAggregator()
  * @method $this setAggregator(string $value)
@@ -251,10 +255,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      */
     public function loadArray($arr, $key = 'conditions')
     {
-        $this->setAggregator(isset($arr['aggregator']) ? $arr['aggregator']
-                : (isset($arr['attribute']) ? $arr['attribute'] : null))
-            ->setValue(isset($arr['value']) ? $arr['value']
-                : (isset($arr['operator']) ? $arr['operator'] : null));
+        $this->setAggregator($arr['aggregator'] ?? $arr['attribute'] ?? null)
+            ->setValue($arr['value'] ?? $arr['operator'] ?? null);
 
         if (!empty($arr[$key]) && is_array($arr[$key])) {
             foreach ($arr[$key] as $condArr) {

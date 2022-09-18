@@ -15,16 +15,33 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Category_Tab_Design extends Mage_Adminhtml_Block_Catalog_Form
 {
+    /**
+     * @var Mage_Catalog_Model_Category
+     */
+    protected $_category;
+
+    /**
+     * Mage_Adminhtml_Block_Catalog_Category_Tab_Design constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setShowGlobalIcon(true);
     }
 
+    /**
+     * @return Mage_Catalog_Model_Category
+     */
     public function getCategory()
     {
         if (!$this->_category) {
@@ -33,6 +50,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Design extends Mage_Adminhtml_Bl
         return $this->_category;
     }
 
+    /**
+     * @return $this
+     */
     public function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -48,5 +68,4 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Design extends Mage_Adminhtml_Bl
         $this->setForm($form);
         return $this;
     }
-
 }

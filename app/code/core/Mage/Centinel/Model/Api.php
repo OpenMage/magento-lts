@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Centinel
+ * @category   Mage
+ * @package    Mage_Centinel
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * 3D Secure Validation Api
+ *
+ * @category   Mage
+ * @package    Mage_Centinel
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Centinel_Model_Api extends Varien_Object
 {
@@ -92,7 +96,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
     /**
      * Return transaction type. according centinel documetation it should be "C"
      *
-     * @return "C"
+     * @return string "C"
      */
     protected function _getTransactionType()
     {
@@ -187,7 +191,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
 
         $month = strlen($data->getCardExpMonth()) == 1 ? '0' . $data->getCardExpMonth() : $data->getCardExpMonth();
         $currencyCode = $data->getCurrencyCode();
-        $currencyNumber = isset(self::$_iso4217Currencies[$currencyCode]) ? self::$_iso4217Currencies[$currencyCode] : '';
+        $currencyNumber = self::$_iso4217Currencies[$currencyCode] ?? '';
         if (!$currencyNumber) {
             return $result->setErrorNo(1)->setErrorDesc(
                 Mage::helper('payment')->__('Unsupported currency code: %s.', $currencyCode)

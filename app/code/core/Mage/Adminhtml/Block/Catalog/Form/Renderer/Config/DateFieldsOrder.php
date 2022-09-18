@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -28,7 +28,6 @@
 class Mage_Adminhtml_Block_Catalog_Form_Renderer_Config_DateFieldsOrder
     extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
-
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $_options = [
@@ -47,9 +46,9 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Config_DateFieldsOrder
         }
 
         $_parts = [];
-        $_parts[] = $element->setValue(isset($values[0]) ? $values[0] : null)->getElementHtml();
-        $_parts[] = $element->setValue(isset($values[1]) ? $values[1] : null)->getElementHtml();
-        $_parts[] = $element->setValue(isset($values[2]) ? $values[2] : null)->getElementHtml();
+        $_parts[] = $element->setValue($values[0] ?? null)->getElementHtml();
+        $_parts[] = $element->setValue($values[1] ?? null)->getElementHtml();
+        $_parts[] = $element->setValue($values[2] ?? null)->getElementHtml();
 
         return implode(' <span>/</span> ', $_parts);
     }

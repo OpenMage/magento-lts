@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,11 +27,10 @@
  */
 class Mage_Adminhtml_Block_Page_Notices extends Mage_Adminhtml_Block_Template
 {
-
     /**
      * Check if noscript notice should be displayed
      *
-     * @return boolean
+     * @return bool
      */
     public function displayNoscriptNotice()
     {
@@ -41,11 +40,10 @@ class Mage_Adminhtml_Block_Page_Notices extends Mage_Adminhtml_Block_Template
     /**
      * Check if demo store notice should be displayed
      *
-     * @return boolean
+     * @return bool
      */
     public function displayDemoNotice()
     {
         return Mage::getStoreConfig('design/head/demonotice');
     }
-
 }

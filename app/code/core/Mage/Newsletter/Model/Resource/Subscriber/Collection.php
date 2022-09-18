@@ -12,22 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Newsletter
+ * @category   Mage
+ * @package    Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Newsletter subscribers collection
  *
- * @category    Mage
- * @package     Mage_Newsletter
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Newsletter
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-
     /**
      * Queue link table name
      *
@@ -45,14 +44,14 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Queue joined flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_queueJoinedFlag    = false;
 
     /**
      * Flag that indicates apply of customers info on load
      *
-     * @var boolean
+     * @var bool
      */
     protected $_showCustomersInfo  = false;
 
@@ -63,11 +62,6 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
      */
     protected $_countFilterPart    = [];
 
-    /**
-     * Constructor
-     * Configures collection
-     *
-     */
     protected function _construct()
     {
         parent::_construct();

@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Downloadable
+ * @category   Mage
+ * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable links resource collection
  *
- * @category    Mage
- * @package     Mage_Downloadable
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Downloadable
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Model_Resource_Link_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -57,7 +57,7 @@ class Mage_Downloadable_Model_Resource_Link_Collection extends Mage_Core_Model_R
     /**
      * Retrieve title for for current store
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function addTitleToResult($storeId = 0)
@@ -84,7 +84,7 @@ class Mage_Downloadable_Model_Resource_Link_Collection extends Mage_Core_Model_R
     /**
      * Retrieve price for for current website
      *
-     * @param integer $websiteId
+     * @param int $websiteId
      * @return $this
      */
     public function addPriceToResult($websiteId)

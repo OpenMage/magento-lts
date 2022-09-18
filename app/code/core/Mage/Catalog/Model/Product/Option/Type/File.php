@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -60,6 +60,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         } catch (Exception $e) {
             return $optionInfo['value'];
         }
+        return '';
     }
 
     /**
@@ -385,6 +386,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             $this->setIsValid(false);
             Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option(s)'));
         }
+        return false;
     }
 
     /**
@@ -639,7 +641,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Main Destination directory
      *
-     * @param boolean $relative If true - returns relative path to the webroot
+     * @param bool $relative If true - returns relative path to the webroot
      * @return string
      */
     public function getTargetDir($relative = false)
@@ -651,7 +653,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Quote items destination directory
      *
-     * @param boolean $relative If true - returns relative path to the webroot
+     * @param bool $relative If true - returns relative path to the webroot
      * @return string
      */
     public function getQuoteTargetDir($relative = false)
@@ -662,7 +664,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Order items destination directory
      *
-     * @param boolean $relative If true - returns relative path to the webroot
+     * @param bool $relative If true - returns relative path to the webroot
      * @return string
      */
     public function getOrderTargetDir($relative = false)
@@ -757,7 +759,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Simple check if file is image
      *
      * @param array|string $fileInfo - either file data from Zend_File_Transfer or file path
-     * @return boolean
+     * @return bool
      */
     protected function _isImage($fileInfo)
     {

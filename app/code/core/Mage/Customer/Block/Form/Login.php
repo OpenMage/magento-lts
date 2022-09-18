@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setCreateAccountUrl(string $value)
  */
@@ -109,7 +109,6 @@ class Mage_Customer_Block_Form_Login extends Mage_Core_Block_Template
         if (Mage::getStoreConfigFlag(Mage_Customer_Helper_Data::XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD)) {
             $url = Mage::helper('customer')->getDashboardUrl();
         } else {
-            /** @var string $pathInfo 'something.html'|'/'|'/path0'|'/path0/path1/'|'/path0/path1/path2'|etc */
             $pathInfo = $this->getRequest()->getOriginalPathInfo();
             if (strtolower(substr($pathInfo, -5)) === '.html') {
                 // For URL rewrite, preserve the path without considering query or post.

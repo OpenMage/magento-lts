@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -62,7 +62,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Whether it is the first page after successfull login
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isFirstPageAfterLogin;
 
@@ -189,7 +189,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             $this->_loginFailed($e, $request, $username, $message);
         }
 
-        return isset($user) ? $user : null;
+        return $user ?? null;
     }
 
     /**
@@ -223,7 +223,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      *
      * @param   string $resource
      * @param   string $privilege
-     * @return  boolean
+     * @return bool
      */
     public function isAllowed($resource, $privilege = null)
     {
@@ -252,7 +252,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Check if user is logged in
      *
-     * @return boolean
+     * @return bool
      */
     public function isLoggedIn()
     {
@@ -262,7 +262,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Check if it is the first page after successfull login
      *
-     * @return boolean
+     * @return bool
      */
     public function isFirstPageAfterLogin()
     {

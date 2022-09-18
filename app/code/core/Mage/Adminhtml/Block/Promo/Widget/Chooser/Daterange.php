@@ -15,12 +15,16 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Date range promo widget chooser
  * Currently works without localized format
+ *
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml_Block_Abstract
 {
@@ -115,10 +119,8 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
     public function setRangeValue($delimitedString)
     {
         $split = explode($this->_rangeDelimiter, $delimitedString, 2);
-        $from = $split[0]; $to = '';
-        if (isset($split[1])) {
-            $to = $split[1];
-        }
+        $from = $split[0];
+        $to = $split[1] ?? '';
         return $this->setRangeValues($from, $to);
     }
 

@@ -53,6 +53,12 @@
 # ddev
 .ddev/config.yaml
 
+# scss-cache
+/skin/*/*/*/scss/.sass-cache
+
+# .phar (n98-magerun, ...)
+*.phar
+
 # ignore files from bc-mysql4
 app/code/core/Mage/*/Model/Mysql4
 !app/code/core/Mage/Dataflow/Model/Mysql4/Catalogold.php

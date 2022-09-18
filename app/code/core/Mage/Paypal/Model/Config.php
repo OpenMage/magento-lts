@@ -12,15 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Config model that is aware of all Mage_Paypal payment methods
  * Works with PayPal-specific system configuration
+ *
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Config
 {
@@ -595,6 +599,33 @@ class Mage_Paypal_Model_Config
         'zh_XC',
     ];
 
+    public $allow_ba_signup;
+    public $api_cert;
+    public $api_password;
+    public $api_signature;
+    public $api_username;
+    public $apiAuthentication;
+    public $apiPassword;
+    public $apiSignature;
+    public $apiUsername;
+    public $business_account;
+    public $businessAccount;
+    public $buttonFlavor;
+    public $buttonType;
+    public $cctypes;
+    public $debug;
+    public $lineItemsEnabled;
+    public $lineItemsSummary;
+    public $paymentAction;
+    public $paymentMarkSize;
+    public $requireBillingAddress;
+    public $sandboxFlag;
+    public $solutionType;
+    public $transferShippingOptions;
+    public $verifyPeer;
+    public $visible_on_cart;
+    public $visible_on_product;
+
     /**
      * Set method and store id, if specified
      *
@@ -920,7 +951,7 @@ class Mage_Paypal_Model_Config
         if ($countryCode === null) {
             return $countryMethods;
         }
-        return isset($countryMethods[$countryCode]) ? $countryMethods[$countryCode] : $countryMethods['other'];
+        return $countryMethods[$countryCode] ?? $countryMethods['other'];
     }
 
     /**

@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract Express Checkout Controller
+ *
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Controller_Front_Action
 {
@@ -37,6 +41,21 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      * @var Mage_Sales_Model_Quote
      */
     protected $_quote = false;
+
+    /**
+     * @var string
+     */
+    protected $_checkoutType;
+
+    /**
+     * @var string
+     */
+    protected $_configMethod;
+
+    /**
+     * @var string
+     */
+    protected $_configType;
 
     /**
      * Instantiate config
@@ -138,7 +157,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     {
         try {
             $this->_initToken(false);
-            // TODO verify if this logic of order cancelation is deprecated
+            // TODO verify if this logic of order cancellation is deprecated
             // if there is an order - cancel it
             $orderId = $this->_getCheckoutSession()->getLastOrderId();
             $order = ($orderId) ? Mage::getModel('sales/order')->load($orderId) : false;
@@ -373,7 +392,6 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      * Process PayPal API's processable errors
      *
      * @param Mage_Paypal_Model_Api_ProcessableException $exception
-     * @throws Mage_Paypal_Model_Api_ProcessableException
      */
     protected function _processPaypalApiError($exception)
     {

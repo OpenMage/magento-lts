@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -53,8 +53,6 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     protected $_product;
 
     /**
-     * description
-     *
      * @var    mixed
      */
     protected $_productOptions = [];
@@ -248,7 +246,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Flag to indicate that custom option has own customized output (blocks, native html etc.)
      *
-     * @return boolean
+     * @return bool
      */
     public function isCustomizedView()
     {
@@ -274,7 +272,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      */
     public function getCustomizedView($optionInfo)
     {
-        return isset($optionInfo['value']) ? $optionInfo['value'] : $optionInfo;
+        return $optionInfo['value'] ?? $optionInfo;
     }
 
     /**
@@ -374,17 +372,14 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
                 }
             }
         }
-        if (isset($this->_productOptions[$this->getProduct()->getId()])) {
-            return $this->_productOptions[$this->getProduct()->getId()];
-        }
-        return [];
+        return $this->_productOptions[$this->getProduct()->getId()] ?? [];
     }
 
     /**
      * Return final chargable price for option
      *
      * @param float $price Price of option
-     * @param boolean $isPercent Price type - percent or fixed
+     * @param bool $isPercent Price type - percent or fixed
      * @param float $basePrice For percent price type
      * @return float
      */

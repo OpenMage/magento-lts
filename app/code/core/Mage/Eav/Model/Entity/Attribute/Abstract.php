@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -114,13 +114,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Attribute validation flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_attributeValidationPassed   = false;
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('eav/entity_attribute');
@@ -346,7 +343,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Return is attribute global
      *
      * @deprecated moved to catalog attribute model
-     * @return integer
+     * @return int
      */
     public function getIsGlobal()
     {
@@ -542,7 +539,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Check if attribute is valid
      *
-     * @return boolean
+     * @return bool
      */
     public function isAttributeValidationPassed()
     {
@@ -553,7 +550,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Check if attribute in specified set
      *
      * @param int|array $setId
-     * @return boolean
+     * @return bool
      */
     public function isInSet($setId)
     {
@@ -579,7 +576,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      *
      * @param int $setId
      * @param int $groupId
-     * @return boolean
+     * @return bool
      */
     public function isInGroup($setId, $groupId)
     {

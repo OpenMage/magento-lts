@@ -12,18 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-$installer = $this;
 /** @var Mage_Core_Model_Resource_Setup $installer */
-
+$installer = $this;
 $installer->startSetup();
 
-$rows = $installer->_conn->fetchAll(
+$rows = $installer->getConnection()->fetchAll(
     "select * from {$this->getTable('core_config_data')} where
     path in (
     'paypal/wpp/api_password', 'paypal/wpp/api_signature', 'paypal/wpp/api_username',
@@ -38,7 +37,7 @@ $hlp = Mage::helper('core');
 foreach ($rows as $r) {
     if (!empty($r['value'])) {
         $r['value'] = $hlp->encrypt($r['value']);
-        $installer->_conn->update($this->getTable('core_config_data'), $r, 'config_id='.$r['config_id']);
+        $installer->getConnection()->update($this->getTable('core_config_data'), $r, 'config_id='.$r['config_id']);
     }
 }
 $installer->endSetup();

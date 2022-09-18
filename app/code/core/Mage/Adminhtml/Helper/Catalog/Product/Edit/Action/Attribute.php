@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -37,7 +37,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     /**
      * Array of same attributes for selected products
      *
-     * @var Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @var Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     protected $_attributes;
 
@@ -91,7 +91,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     /**
      * Return selected store id from request
      *
-     * @return integer
+     * @return int
      */
     public function getSelectedStoreId()
     {
@@ -111,7 +111,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     /**
      * Return collection of same attributes for selected products without unique
      *
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function getAttributes()
     {

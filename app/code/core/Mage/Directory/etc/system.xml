@@ -8,15 +8,15 @@
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Directory
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Directory
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/afl-3.0.php s+Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -67,7 +67,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <can_be_empty>1</can_be_empty>
+                            <validate>required-entry</validate>
                         </allow>
                     </fields>
                 </options>
@@ -93,6 +93,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
                         </timeout>
                         <api_key translate="label">
                             <label>API Key</label>
@@ -102,6 +105,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
                         </api_key>
                     </fields>
                 </currencyconverterapi>
@@ -127,6 +133,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
                         </timeout>
                         <api_key translate="label">
                             <label>API Access Key</label>
@@ -136,6 +145,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
                         </api_key>
                     </fields>
                 </fixerio>
@@ -162,6 +174,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
                         </error_email>
                         <error_email_identity translate="label">
                             <label>Error Email Sender</label>
@@ -171,6 +186,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
                         </error_email_identity>
                         <error_email_template translate="label">
                             <label>Error Email Template</label>
@@ -180,6 +198,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
                         </error_email_template>
                         <frequency translate="label">
                             <label>Frequency</label>
@@ -189,6 +210,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
                         </frequency>
                         <service translate="label">
                             <label>Service</label>
@@ -199,6 +223,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
                         </service>
                         <time translate="label">
                             <label>Start Time</label>
@@ -207,6 +234,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
                         </time>
                     </fields>
                 </import>
