@@ -5,8 +5,6 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
-
-
 jobs:
   unit:
     name: Unit Tests on ${{ matrix.php-versions }}
@@ -24,7 +22,7 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           extensions: mbstring
           tools: composer, pecl, phpcs, phpstan, phpunit:9.5
-          ini-values-csv: pcov.directory=api, post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
+          ini-values: pcov.directory=api, post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
           coverage: pcov #optional, setup coverage driver
         env:
           COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
