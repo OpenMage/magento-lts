@@ -26,5 +26,5 @@ jobs:
       - name: Install xmllint
         run: "sudo apt-get -y install libxml2-utils"
 
-      - name: "Validate XMLs"
+      - name: Validate XMLs
         run: "find . -type f -iname '*.xml' | xargs -I '{}' xmllint --noout '{}'"
