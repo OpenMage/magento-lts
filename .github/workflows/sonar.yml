@@ -13,19 +13,19 @@ on:
 
 jobs:
   unit:
-    name: Unit Tests on ${{ matrix.php-versions }}
-    runs-on: ${{ matrix.operating-system }}
+    name: Unit Tests on ${{ matrix.php }}
+    runs-on: ${{ matrix.os }}
     strategy:
       max-parallel: 5
       matrix:
-        operating-system: [ubuntu-latest]
-        php-versions: ['7.4', '8.1']
+        os: [ubuntu-latest]
+        php: ['7.4', '8.1']
     steps:
       - uses: actions/checkout@v3
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-versions }}
+          php-version: ${{ matrix.php }}
           extensions: mbstring
           tools: composer, pecl, phpcs, phpstan, phpunit:9.5
           ini-values: pcov.directory=api, post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
@@ -41,7 +41,7 @@ jobs:
         run: phpunit --configuration ./dev/phpunit.xml.dist --testsuite=Unit;
       - name: prepare SonarCloud Scan Data
         continue-on-error: true
-        if: ${{ matrix.php-versions == '8.1' }}
+        if: ${{ matrix.php == '8.1' }}
         run: |
           echo $PWD
           ls -la
@@ -53,7 +53,7 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         continue-on-error: true
-        if: ${{ matrix.php-versions == '8.1' }} && SONAR_TOKEN
+        if: ${{ matrix.php == '8.1' }} && SONAR_TOKEN
         with:
           args: >
             -Dproject.settings=dev/sonar-project.properties

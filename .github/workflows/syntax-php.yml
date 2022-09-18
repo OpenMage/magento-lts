@@ -23,7 +23,9 @@ jobs:
     name: PHP Syntax ${{ matrix.php }}
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -31,9 +33,11 @@ jobs:
           extensions: mbstring #optional, setup extensions
           ini-values: post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
           coverage: none #optional, setup coverage driver
+
       - name: Check .php files
         run: '! find . -not \( -path ./.phpstorm.meta.php -prune \) -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 1> /dev/null | grep "^"'
         continue-on-error: ${{ matrix.php == '8.2' }}
+
       - name: Check .phtml files
         run: '! find app/design -type f -name "*.phtml" -exec php -d error_reporting=32767 -l {} \; 2>&1 1> /dev/null | grep "^"'
         continue-on-error: ${{ matrix.php == '8.2' }}
