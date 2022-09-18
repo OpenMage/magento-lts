@@ -41,7 +41,7 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest --ignore-platform-req=ext-*
+        run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
       - name: ensure existance of ./app/code/local
         run: mkdir -p app/code/local
