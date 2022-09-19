@@ -36,8 +36,6 @@ jobs:
 
       - name: Check .php files
         run: '! find . -not \( -path ./.phpstorm.meta.php -prune \) -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 1> /dev/null | grep "^"'
-        continue-on-error: ${{ matrix.php == '8.2' }}
 
       - name: Check .phtml files
         run: '! find app/design -type f -name "*.phtml" -exec php -d error_reporting=32767 -l {} \; 2>&1 1> /dev/null | grep "^"'
-        continue-on-error: ${{ matrix.php == '8.2' }}
