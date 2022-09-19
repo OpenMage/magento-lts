@@ -62,7 +62,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
         $productType = $this->_getProduct()->getTypeInstance(true);
         $usedAttributes = $productType->getUsedProductAttributes($this->_getProduct());
 
-        /* Standart attributes */
+        /* Standard attributes */
+        /** @var Mage_Eav_Model_Attribute $attribute */
         foreach ($attributes as $attribute) {
             $attributeCode = $attribute->getAttributeCode();
             if (($attribute->getIsRequired()
