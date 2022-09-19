@@ -252,7 +252,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         Mage::dispatchEvent('catalog_product_edit_action', ['product' => $product]);
 
         $_additionalLayoutPart = '';
-        if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
+        if ($product->getTypeId() === Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
             /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
             $productType = $product->getTypeInstance();
             if (!$productType->getUsedProductAttributeIds()) {
