@@ -208,7 +208,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $this->loadLayout('popup');
         } else {
             $_additionalLayoutPart = '';
-            if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
+            if ($product->getTypeId() === Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
                 /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
                 $productType = $product->getTypeInstance();
                 if (!$productType->getUsedProductAttributeIds()) {
