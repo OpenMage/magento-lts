@@ -60,8 +60,9 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      */
     public function getAllowAttributes()
     {
-        return $this->getProduct()->getTypeInstance(true)
-            ->getConfigurableAttributes($this->getProduct());
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->getProduct()->getTypeInstance(true);
+        return $productType->getConfigurableAttributes($this->getProduct());
     }
 
     /**
@@ -93,8 +94,9 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
         if (!$this->hasAllowProducts()) {
             $products = [];
             $skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck();
-            $allProducts = $this->getProduct()->getTypeInstance(true)
-                ->getUsedProducts(null, $this->getProduct());
+            /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+            $productType = $this->getProduct()->getTypeInstance(true);
+            $allProducts = $productType->getUsedProducts(null, $this->getProduct());
             foreach ($allProducts as $product) {
                 if ($product->isSaleable()
                     || $skipSaleableCheck
