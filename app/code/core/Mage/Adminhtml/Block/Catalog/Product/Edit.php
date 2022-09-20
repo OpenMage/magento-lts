@@ -239,7 +239,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
         if ($product->isConfigurable()) {
             /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
             $productType = $product->getTypeInstance(true);
-            $superAttributes = $productType->getUsedProductAttributeIds($this->getProduct());
+            $superAttributes = $productType->getUsedProductAttributeIds($product);
             if (!$superAttributes) {
                 $superAttributes = false;
             }
