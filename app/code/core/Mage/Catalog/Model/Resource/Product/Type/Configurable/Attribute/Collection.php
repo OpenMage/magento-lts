@@ -147,8 +147,9 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
      */
     public function _addAssociatedProductFilters()
     {
-        $this->getProduct()->getTypeInstance(true)
-            ->getUsedProducts($this->getColumnValues('attribute_id'), $this->getProduct()); //Filter associated products
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->getProduct()->getTypeInstance(true);
+        $productType->getUsedProducts($this->getColumnValues('attribute_id'), $this->getProduct()); //Filter associated products
         return $this;
     }
 
@@ -235,6 +236,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
             $sortOrder = 1;
             foreach ($this->_items as $item) {
                 $productAttribute = $item->getProductAttribute();
+                $productAttributeCode = $productAttribute->getAttributeCode();
                 if (!($productAttribute instanceof Mage_Eav_Model_Entity_Attribute_Abstract)) {
                     continue;
                 }
@@ -245,12 +247,12 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                     $optionsByValue[$option['value']] = ['label' => $option['label'], 'order' => $sortOrder++];
                 }
 
-                /** @var Mage_Catalog_Model_Product $associatedProduct */
-                foreach ($this->getProduct()->getTypeInstance(true)
-                             ->getUsedProducts([$productAttribute->getAttributeCode()], $this->getProduct())
-                         as $associatedProduct) {
+                /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+                $productType = $this->getProduct()->getTypeInstance(true);
 
-                    $optionValue = $associatedProduct->getData($productAttribute->getAttributeCode());
+                /** @var Mage_Catalog_Model_Product $associatedProduct */
+                foreach ($productType->getUsedProducts([$productAttributeCode], $this->getProduct()) as $associatedProduct) {
+                    $optionValue = $associatedProduct->getData($productAttributeCode);
 
                     if (array_key_exists($optionValue, $optionsByValue)) {
                         // If option available in associated product

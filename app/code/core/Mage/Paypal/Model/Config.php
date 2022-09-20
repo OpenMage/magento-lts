@@ -1262,7 +1262,7 @@ class Mage_Paypal_Model_Config
      * Return PayPal logo URL with additional options
      *
      * @param string $localeCode Supported locale code
-     * @param string $type One of supported logo types
+     * @param string|false $type One of supported logo types
      * @return string|bool Logo Image URL or false if logo disabled in configuration
      */
     public function getAdditionalOptionsLogoUrl($localeCode, $type = false)
@@ -1362,6 +1362,7 @@ class Mage_Paypal_Model_Config
             case self::PAYMENT_ACTION_ORDER:
                 return Mage_Payment_Model_Method_Abstract::ACTION_ORDER;
         }
+        return null;
     }
 
     /**
@@ -1654,6 +1655,7 @@ class Mage_Paypal_Model_Config
             case 'JP': case 'MX': case 'NL': case 'PL': case 'SG': case 'ES': case 'CH': case 'UK': case 'US':
                 return $code;
         }
+        return null;
     }
 
     /**
