@@ -3316,11 +3316,6 @@ parameters:
 			path: ../app/code/core/Mage/ConfigurableSwatches/Model/Resource/Catalog/Product/Type/Configurable/Product/Collection.php
 
 		-
-			message: "#^Access to constant SUCCESS on an unknown class Command\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Console/Model/Translation/Deprecated.php
-
-		-
 			message: "#^Method Mage_Core_Block_Abstract\\:\\:_getUrlModel\\(\\) should return Mage_Core_Model_Url but returns Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Block/Abstract.php
