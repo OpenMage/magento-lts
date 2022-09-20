@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -70,17 +64,19 @@ function uc_words($str, $destSep = '_', $srcSep = '_')
  *
  * @param bool $dayOnly
  * @return string
+ * @deprecated use equivalent Varien method directly
+ * @see Varien_Date::now()
  */
 function now($dayOnly = false)
 {
-    return date($dayOnly ? 'Y-m-d' : 'Y-m-d H:i:s');
+    return Varien_Date::now($dayOnly);
 }
 
 /**
  * Check whether sql date is empty
  *
  * @param string $date
- * @return boolean
+ * @return bool
  */
 function is_empty_date($date)
 {
@@ -108,11 +104,11 @@ function mageFindClassFile($class)
 /**
  * Custom error handler
  *
- * @param integer $errno
+ * @param int $errno
  * @param string $errstr
  * @param string $errfile
- * @param integer $errline
- * @return bool
+ * @param int $errline
+ * @return bool|void
  */
 function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 {
@@ -124,15 +120,6 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
     $errno = $errno & error_reporting();
     if ($errno == 0) {
         return false;
-    }
-    if (!defined('E_STRICT')) {
-        define('E_STRICT', 2048);
-    }
-    if (!defined('E_RECOVERABLE_ERROR')) {
-        define('E_RECOVERABLE_ERROR', 4096);
-    }
-    if (!defined('E_DEPRECATED')) {
-        define('E_DEPRECATED', 8192);
     }
 
     // Suppress deprecation warnings on PHP 7.x
@@ -214,7 +201,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
  * @param bool $return
  * @param bool $html
  * @param bool $showFirst
- * @return string
+ * @return string|void
  */
 function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 {
@@ -377,7 +364,7 @@ if (!function_exists('hash_equals')) {
      *
      * @param string $known_string
      * @param string $user_string
-     * @return boolean Returns true when the two strings are equal, false otherwise.
+     * @return bool Returns true when the two strings are equal, false otherwise.
      */
     function hash_equals($known_string, $user_string)
     {
@@ -401,22 +388,52 @@ if (!function_exists('hash_equals')) {
             $result |= (ord($known_string[$i]) ^ ord($user_string[$i]));
         }
 
-        return 0 === $result;
+        return $result === 0;
     }
 }
 
-if (version_compare(PHP_VERSION, '7.0.0', '<') && !function_exists('random_int')) {
+/**
+ * polyfill for PHP 8.0 function "str_contains"
+ */
+if (!function_exists('str_contains')) {
     /**
-     * Generates pseudo-random integers
-     *
-     * @param int $min
-     * @param int $max
-     * @return int Returns random integer in the range $min to $max, inclusive.
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
      */
-    function random_int($min, $max)
+    function str_contains($haystack, $needle)
     {
-        mt_srand();
-
-        return mt_rand($min, $max);
+        return $needle === '' || strpos($haystack, $needle) !== false;
     }
 }
+
+/**
+ * polyfill for PHP 8.0 function "str_starts_with"
+ */
+if (!function_exists('str_starts_with')) {
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
+     */
+    function str_starts_with($haystack, $needle)
+    {
+        return strncmp($haystack, $needle, \strlen($needle)) === 0;
+    }
+}
+
+/**
+ * polyfill for PHP 8.0 function "str_ends_with"
+ */
+if (!function_exists('str_ends_with')) {
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
+     */
+    function str_ends_with($haystack,  $needle)
+    {
+        return $needle === '' || ($haystack !== '' && substr_compare($haystack, $needle, -\strlen($needle)) === 0);
+    }
+}
+

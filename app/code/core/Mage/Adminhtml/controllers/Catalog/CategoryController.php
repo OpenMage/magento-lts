@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,10 +23,16 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'catalog/categories';
+
     /**
      * Initialize requested category and put it into registry.
      * Root category can be returned, if inappropriate store/category is specified
@@ -61,7 +61,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                         $category->load($rootId);
                     }
                     else {
-                        $this->_redirect('*/*/', array('_current'=>true, 'id'=>null));
+                        $this->_redirect('*/*/', ['_current'=>true, 'id'=>null]);
                         return false;
                     }
                 }
@@ -115,7 +115,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         $categoryId = (int) $this->getRequest()->getParam('id');
         $_prevCategoryId = Mage::getSingleton('admin/session')
             ->getLastEditedCategory(true);
-
 
         if ($_prevCategoryId
             && !$this->getRequest()->getQuery('isAjax')
@@ -176,20 +175,19 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 ->setLastViewedStore($this->getRequest()->getParam('store'));
             Mage::getSingleton('admin/session')
                 ->setLastEditedCategory($category->getId());
-//            $this->_initLayoutMessages('adminhtml/session');
             $this->loadLayout();
 
-            $eventResponse = new Varien_Object(array(
+            $eventResponse = new Varien_Object([
                 'content' => $this->getLayout()->getBlock('category.edit')->getFormHtml()
                     . $this->getLayout()->getBlock('category.tree')
                     ->getBreadcrumbsJavascript($breadcrumbsPath, 'editingCategoryBreadcrumbs'),
                 'messages' => $this->getLayout()->getMessagesBlock()->getGroupedHtml(),
-            ));
+            ]);
 
-            Mage::dispatchEvent('category_prepare_ajax_response', array(
+            Mage::dispatchEvent('category_prepare_ajax_response', [
                 'response' => $eventResponse,
                 'controller' => $this
-            ));
+            ]);
 
             $this->getResponse()->setBody(
                 Mage::helper('core')->jsonEncode($eventResponse->getData())
@@ -225,11 +223,11 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         $storeId = $this->getRequest()->getParam('store_id', 0);
         $storeMediaUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
 
-        $content = $this->getLayout()->createBlock('adminhtml/catalog_helper_form_wysiwyg_content', '', array(
+        $content = $this->getLayout()->createBlock('adminhtml/catalog_helper_form_wysiwyg_content', '', [
             'editor_element_id' => $elementId,
             'store_id'          => $storeId,
             'store_media_url'   => $storeMediaUrl,
-        ));
+        ]);
 
         $this->getResponse()->setBody($content->toHtml());
     }
@@ -323,10 +321,10 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 $category->setPostedProducts($products);
             }
 
-            Mage::dispatchEvent('catalog_category_prepare_save', array(
+            Mage::dispatchEvent('catalog_category_prepare_save', [
                 'category' => $category,
                 'request' => $this->getRequest()
-            ));
+            ]);
 
             /**
              * Proceed with $_POST['use_config']
@@ -362,7 +360,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 $refreshTree = 'false';
             }
         }
-        $url = $this->getUrl('*/*/edit', array('_current' => true, 'id' => $category->getId()));
+        $url = $this->getUrl('*/*/edit', ['_current' => true, 'id' => $category->getId()]);
         $this->getResponse()->setBody(
             '<script type="text/javascript">parent.updateContent("' . $url . '", {}, '.$refreshTree.');</script>'
         );
@@ -409,7 +407,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         if ($id = (int) $this->getRequest()->getParam('id')) {
             try {
                 $category = Mage::getModel('catalog/category')->load($id);
-                Mage::dispatchEvent('catalog_controller_category_delete', array('category'=>$category));
+                Mage::dispatchEvent('catalog_controller_category_delete', ['category'=>$category]);
 
                 Mage::getSingleton('admin/session')->setDeletedPath($category->getPath());
 
@@ -418,23 +416,21 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
             }
             catch (Mage_Core_Exception $e){
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $this->getResponse()->setRedirect($this->getUrl('*/*/edit', array('_current'=>true)));
+                $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['_current'=>true]));
                 return;
             }
             catch (Exception $e){
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('An error occurred while trying to delete the category.'));
-                $this->getResponse()->setRedirect($this->getUrl('*/*/edit', array('_current'=>true)));
+                $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['_current'=>true]));
                 return;
             }
         }
-        $this->getResponse()->setRedirect($this->getUrl('*/*/', array('_current'=>true, 'id'=>null)));
+        $this->getResponse()->setRedirect($this->getUrl('*/*/', ['_current'=>true, 'id'=>null]));
     }
 
     /**
      * Grid Action
      * Display list of products related to current category
-     *
-     * @return void
      */
     public function gridAction()
     {
@@ -450,8 +446,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     /**
      * Tree Action
      * Retrieve category tree
-     *
-     * @return void
      */
     public function treeAction()
     {
@@ -468,11 +462,12 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
         $category = $this->_initCategory(true);
 
+        /** @var Mage_Adminhtml_Block_Catalog_Category_Tree $block */
         $block = $this->getLayout()->createBlock('adminhtml/catalog_category_tree');
         $root  = $block->getRoot();
-        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array(
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
             'data' => $block->getTree(),
-            'parameters' => array(
+            'parameters' => [
                 'text'        => $block->buildNodeName($root),
                 'draggable'   => false,
                 'allowDrop'   => ($root->getIsVisible()) ? true : false,
@@ -481,7 +476,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 'store_id'    => (int) $block->getStore()->getId(),
                 'category_id' => (int) $category->getId(),
                 'root_visible'=> (int) $root->getIsVisible()
-        ))));
+            ]]));
     }
 
     /**
@@ -492,26 +487,16 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         if ($id = (int) $this->getRequest()->getParam('id')) {
             $category = Mage::getModel('catalog/category')->load($id);
             $this->getResponse()->setBody(
-                Mage::helper('core')->jsonEncode(array(
+                Mage::helper('core')->jsonEncode([
                    'id' => $id,
                    'path' => $category->getPath(),
-                ))
+                ])
             );
         }
     }
 
     /**
-     * Check if admin has permissions to visit related pages
-     *
-     * @return boolean
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('catalog/categories');
-    }
-
-    /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */

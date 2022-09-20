@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Api2
+ * @category   Mage
+ * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -38,7 +32,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
      *
      * @param array $attributes
      */
-    public function __construct($attributes = array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->setId('api2_attributes');
@@ -46,6 +40,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
 
     /**
      * Collection object set up
+     * @return void
      */
     protected function _prepareCollection()
     {
@@ -53,7 +48,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
 
         foreach (Mage_Api2_Model_Auth_User::getUserTypes() as $type => $label) {
             $collection->addItem(
-                new Varien_Object(array('user_type_name' => $label, 'user_type_code' => $type))
+                new Varien_Object(['user_type_name' => $label, 'user_type_code' => $type])
             );
         }
 
@@ -67,10 +62,10 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('user_type_name', array(
+        $this->addColumn('user_type_name', [
             'header'    => $this->__('User Type'),
             'index'     => 'user_type_name'
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -99,7 +94,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
         /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
         if ($session->isAllowed('system/api/attributes/edit')) {
-            return $this->getUrl('*/*/edit', array('type' => $row->getUserTypeCode()));
+            return $this->getUrl('*/*/edit', ['type' => $row->getUserTypeCode()]);
         }
 
         return null;

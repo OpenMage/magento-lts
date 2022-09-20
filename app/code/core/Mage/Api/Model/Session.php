@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,33 +12,27 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Api
+ * @category   Mage
+ * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Webservice api session
  *
+ * @category   Mage
+ * @package    Mage_Api
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Api_Model_User getUser()
  * @method $this setUser(Mage_Api_Model_User $user)
  * @method Mage_Api_Model_Acl getAcl()
  * @method $this setAcl(Mage_Api_Model_Acl $loadAcl)
- *
- * @category   Mage
- * @package    Mage_Api
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 {
-    public $sessionIds = array();
+    public $sessionIds = [];
     protected $_currentSessId = null;
 
     /**
@@ -47,7 +41,6 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function start($sessionName = null)
     {
-//        parent::start($sessionName=null);
         $this->_currentSessId = md5(time() . uniqid('', true) . $sessionName);
         $this->sessionIds[] = $this->getSessionId();
         return $this;
@@ -178,6 +171,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
                     return true;
                 }
             } catch (Exception $e) {
+                Mage::logException($e);
             }
 
             try {
@@ -193,17 +187,16 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      *  Check session expiration
      *
      * @param Mage_Api_Model_User $user
-     * @return  boolean
+     * @return bool
      */
     public function isSessionExpired($user)
     {
         if (!$user->getId()) {
             return true;
         }
-        $timeout = strtotime(now()) - strtotime($user->getLogdate());
+        $timeout = strtotime(Varien_Date::now()) - strtotime($user->getLogdate());
         return $timeout > Mage::getStoreConfig('api/config/session_timeout');
     }
-
 
     /**
      * @param string|false $sessId
@@ -227,8 +220,8 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      *  Renew user by session ID if session not expired
      *
-     *  @param    string $sessId
-     *  @return  boolean
+     *  @param string $sessId
+     *  @return bool
      */
     protected function _renewBySessId($sessId)
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -41,8 +35,8 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
      */
     protected function _create(array $data)
     {
-        /* @var Mage_Api2_Model_Resource_Validator_Fields $validator */
-        $validator = Mage::getResourceModel('api2/validator_fields', array('resource' => $this));
+        /** @var Mage_Api2_Model_Resource_Validator_Fields $validator */
+        $validator = Mage::getResourceModel('api2/validator_fields', ['resource' => $this]);
         if (!$validator->isValidData($data)) {
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
@@ -55,7 +49,7 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
 
         $categoryIds = $product->getCategoryIds();
         if (!is_array($categoryIds)) {
-            $categoryIds = array();
+            $categoryIds = [];
         }
         if (in_array($category->getId(), $categoryIds)) {
             $this->_critical(sprintf(
@@ -75,6 +69,7 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
 
@@ -93,7 +88,7 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
 
         $categoryIds = $product->getCategoryIds();
         $categoryToBeDeletedId = array_search($category->getId(), $categoryIds);
-        if (false === $categoryToBeDeletedId) {
+        if ($categoryToBeDeletedId === false) {
             $this->_critical(sprintf(
                 'Product #%d isn\'t assigned to category #%d',
                 $product->getId(),
@@ -110,6 +105,7 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
 
@@ -140,11 +136,11 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
         $chain = $apiTypeRoute->chain(new Zend_Controller_Router_Route(
             $this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType())
         ));
-        $params = array(
+        $params = [
             'api_type' => $this->getRequest()->getApiType(),
             'id' => $this->getRequest()->getParam('id'),
             'category_id' => $resource->getId()
-        );
+        ];
         $uri = $chain->assemble($params);
 
         return '/' . $uri;

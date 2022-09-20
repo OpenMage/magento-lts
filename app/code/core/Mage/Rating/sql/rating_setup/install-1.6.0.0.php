@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,28 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Rating
+ * @category   Mage
+ * @package    Mage_Rating
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/**
- * Rating install
- *
- * @category    Mage
- * @package     Mage_Rating
- * @author      Magento Core Team <core@magentocommerce.com>
- */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
-
 $installer->startSetup();
 
 /**
@@ -41,19 +27,19 @@ $installer->startSetup();
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('rating/rating_entity'))
-    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Entity Id')
-    ->addColumn('entity_code', Varien_Db_Ddl_Table::TYPE_TEXT, 64, array(
+    ], 'Entity Id')
+    ->addColumn('entity_code', Varien_Db_Ddl_Table::TYPE_TEXT, 64, [
         'nullable'  => false
-        ), 'Entity Code')
+    ], 'Entity Code')
     ->addIndex(
-        $installer->getIdxName('rating/rating_entity', array('entity_code'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('entity_code'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        $installer->getIdxName('rating/rating_entity', ['entity_code'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+        ['entity_code'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->setComment('Rating entities');
 $installer->getConnection()->createTable($table);
@@ -63,33 +49,33 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('rating/rating'))
-    ->addColumn('rating_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ->addColumn('rating_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Rating Id')
-    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Rating Id')
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => 0
-        ), 'Entity Id')
-    ->addColumn('rating_code', Varien_Db_Ddl_Table::TYPE_TEXT, 64, array(
+    ], 'Entity Id')
+    ->addColumn('rating_code', Varien_Db_Ddl_Table::TYPE_TEXT, 64, [
         'nullable'  => false
-        ), 'Rating Code')
-    ->addColumn('position', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Rating Code')
+    ->addColumn('position', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => 0
-        ), 'Rating Position On Frontend')
+    ], 'Rating Position On Frontend')
     ->addIndex(
-        $installer->getIdxName('rating/rating', array('rating_code'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('rating_code'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        $installer->getIdxName('rating/rating', ['rating_code'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+        ['rating_code'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->addIndex(
-        $installer->getIdxName('rating/rating', array('entity_id')),
-        array('entity_id')
+        $installer->getIdxName('rating/rating', ['entity_id']),
+        ['entity_id']
     )
     ->addForeignKey(
         $installer->getFkName('rating/rating', 'entity_id', 'rating/rating_entity', 'entity_id'),
@@ -107,33 +93,33 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('rating/rating_option'))
-    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Rating Option Id')
-    ->addColumn('rating_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Rating Option Id')
+    ->addColumn('rating_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => 0
-        ), 'Rating Id')
-    ->addColumn('code', Varien_Db_Ddl_Table::TYPE_TEXT, 32, array(
+    ], 'Rating Id')
+    ->addColumn('code', Varien_Db_Ddl_Table::TYPE_TEXT, 32, [
         'nullable'  => false
-        ), 'Rating Option Code')
-    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Rating Option Code')
+    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => 0
-        ), 'Rating Option Value')
-    ->addColumn('position', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Rating Option Value')
+    ->addColumn('position', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => 0
-        ), 'Ration option position on frontend')
+    ], 'Ration option position on frontend')
     ->addIndex(
-        $installer->getIdxName('rating/rating_option', array('rating_id')),
-        array('rating_id')
+        $installer->getIdxName('rating/rating_option', ['rating_id']),
+        ['rating_id']
     )
     ->addForeignKey(
         $installer->getFkName('rating/rating_option', 'rating_id', 'rating/rating', 'rating_id'),
@@ -151,52 +137,52 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('rating/rating_option_vote'))
-    ->addColumn('vote_id', Varien_Db_Ddl_Table::TYPE_BIGINT, null, array(
+    ->addColumn('vote_id', Varien_Db_Ddl_Table::TYPE_BIGINT, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Vote id')
-    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Vote id')
+    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => 0
-        ), 'Vote option id')
-    ->addColumn('remote_ip', Varien_Db_Ddl_Table::TYPE_TEXT, 16, array(
+    ], 'Vote option id')
+    ->addColumn('remote_ip', Varien_Db_Ddl_Table::TYPE_TEXT, 16, [
         'nullable'  => false
-        ), 'Customer IP')
-    ->addColumn('remote_ip_long', Varien_Db_Ddl_Table::TYPE_BIGINT, null, array(
+    ], 'Customer IP')
+    ->addColumn('remote_ip_long', Varien_Db_Ddl_Table::TYPE_BIGINT, null, [
         'nullable'  => false,
         'default'   => 0
-        ), 'Customer IP converted to long integer format')
-    ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Customer IP converted to long integer format')
+    ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'default'   => 0
-        ), 'Customer Id')
-    ->addColumn('entity_pk_value', Varien_Db_Ddl_Table::TYPE_BIGINT, null, array(
-        'unsigned'  => true,
-        'nullable'  => false,
-        'default'   => 0
-        ), 'Product id')
-    ->addColumn('rating_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Customer Id')
+    ->addColumn('entity_pk_value', Varien_Db_Ddl_Table::TYPE_BIGINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => 0
-        ), 'Rating id')
-    ->addColumn('review_id', Varien_Db_Ddl_Table::TYPE_BIGINT, null, array(
+    ], 'Product id')
+    ->addColumn('rating_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
-        ), 'Review id')
-    ->addColumn('percent', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
         'nullable'  => false,
         'default'   => 0
-        ), 'Percent amount')
-    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Rating id')
+    ->addColumn('review_id', Varien_Db_Ddl_Table::TYPE_BIGINT, null, [
+        'unsigned'  => true,
+    ], 'Review id')
+    ->addColumn('percent', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'nullable'  => false,
         'default'   => 0
-        ), 'Vote option value')
+    ], 'Percent amount')
+    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
+        'nullable'  => false,
+        'default'   => 0
+    ], 'Vote option value')
     ->addIndex(
-        $installer->getIdxName('rating/rating_option_vote', array('option_id')),
-        array('option_id')
+        $installer->getIdxName('rating/rating_option_vote', ['option_id']),
+        ['option_id']
     )
     ->addForeignKey(
         $installer->getFkName('rating/rating_option_vote', 'option_id', 'rating/rating_option', 'option_id'),
@@ -214,50 +200,50 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('rating/rating_vote_aggregated'))
-    ->addColumn('primary_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('primary_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Vote aggregation id')
-    ->addColumn('rating_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Vote aggregation id')
+    ->addColumn('rating_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => 0
-        ), 'Rating id')
-    ->addColumn('entity_pk_value', Varien_Db_Ddl_Table::TYPE_BIGINT, null, array(
+    ], 'Rating id')
+    ->addColumn('entity_pk_value', Varien_Db_Ddl_Table::TYPE_BIGINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => 0
-        ), 'Product id')
-    ->addColumn('vote_count', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Product id')
+    ->addColumn('vote_count', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => 0
-        ), 'Vote dty')
-    ->addColumn('vote_value_sum', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Vote dty')
+    ->addColumn('vote_value_sum', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => 0
-        ), 'General vote sum')
-    ->addColumn('percent', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'General vote sum')
+    ->addColumn('percent', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'nullable'  => false,
         'default'   => 0
-        ), 'Vote percent')
-    ->addColumn('percent_approved', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Vote percent')
+    ->addColumn('percent_approved', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'default'   => '0',
-        ), 'Vote percent approved by admin')
-    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Vote percent approved by admin')
+    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => 0
-        ), 'Store Id')
+    ], 'Store Id')
     ->addIndex(
-        $installer->getIdxName('rating/rating_vote_aggregated', array('rating_id')),
-        array('rating_id')
+        $installer->getIdxName('rating/rating_vote_aggregated', ['rating_id']),
+        ['rating_id']
     )
     ->addIndex(
-        $installer->getIdxName('rating/rating_vote_aggregated', array('store_id')),
-        array('store_id')
+        $installer->getIdxName('rating/rating_vote_aggregated', ['store_id']),
+        ['store_id']
     )
     ->addForeignKey(
         $installer->getFkName('rating/rating_vote_aggregated', 'rating_id', 'rating/rating', 'rating_id'),
@@ -283,21 +269,21 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('rating/rating_store'))
-    ->addColumn('rating_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ->addColumn('rating_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => 0,
         'primary'   => true,
-        ), 'Rating id')
-    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Rating id')
+    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => 0,
         'primary'   => true
-        ), 'Store id')
+    ], 'Store id')
     ->addIndex(
-        $installer->getIdxName('rating/rating_store', array('store_id')),
-        array('store_id')
+        $installer->getIdxName('rating/rating_store', ['store_id']),
+        ['store_id']
     )
     ->addForeignKey(
         $installer->getFkName('rating/rating_store', 'store_id', 'core/store', 'store_id'),
@@ -323,24 +309,24 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('rating/rating_title'))
-    ->addColumn('rating_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ->addColumn('rating_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => 0,
         'primary'   => true,
-        ), 'Rating Id')
-    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Rating Id')
+    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => 0,
         'primary'   => true
-        ), 'Store Id')
-    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
+    ], 'Store Id')
+    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
         'nullable'  => false
-        ), 'Rating Label')
+    ], 'Rating Label')
     ->addIndex(
-        $installer->getIdxName('rating/rating_title', array('store_id')),
-        array('store_id')
+        $installer->getIdxName('rating/rating_title', ['store_id']),
+        ['store_id']
     )
     ->addForeignKey(
         $installer->getFkName('rating/rating_title', 'rating_id', 'rating/rating', 'rating_id'),

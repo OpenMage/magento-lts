@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Admin
+ * @category   Mage
+ * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Admin
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @property Mage_Admin_Model_Acl_Role_Registry $_roleRegistry
  *
@@ -43,25 +37,25 @@ class Mage_Admin_Model_Acl extends Zend_Acl
      *
      */
     const ROLE_TYPE_GROUP = 'G';
-    
+
     /**
      * All the user roles are prepended by U
      *
      */
     const ROLE_TYPE_USER = 'U';
-    
+
     /**
      * Permission level to deny access
      *
      */
     const RULE_PERM_DENY = 0;
-    
+
     /**
      * Permission level to inheric access from parent role
      *
      */
     const RULE_PERM_INHERIT = 1;
-    
+
     /**
      * Permission level to allow access
      *
@@ -75,12 +69,12 @@ class Mage_Admin_Model_Acl extends Zend_Acl
      */
     protected function _getRoleRegistry()
     {
-        if (null === $this->_roleRegistry) {
+        if ($this->_roleRegistry === null) {
             $this->_roleRegistry = Mage::getModel('admin/acl_role_registry');
         }
         return $this->_roleRegistry;
     }
-    
+
     /**
      * Add parent to role object
      *

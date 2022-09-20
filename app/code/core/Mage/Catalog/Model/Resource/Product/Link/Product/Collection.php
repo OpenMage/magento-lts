@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog product linked products collection
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
@@ -141,7 +134,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     {
         if (!empty($products)) {
             if (!is_array($products)) {
-                $products = array($products);
+                $products = [$products];
             }
             $this->_hasLinkFilter = true;
             $this->getSelect()->where('links.linked_product_id NOT IN (?)', $products);
@@ -159,7 +152,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     {
         if (!empty($products)) {
             if (!is_array($products)) {
-                $products = array($products);
+                $products = [$products];
             }
             $this->getSelect()->where('links.product_id IN (?)', $products);
             $this->_hasLinkFilter = true;
@@ -220,10 +213,10 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         $select  = $this->getSelect();
         $adapter = $select->getAdapter();
 
-        $joinCondition = array(
+        $joinCondition = [
             'links.linked_product_id = e.entity_id',
             $adapter->quoteInto('links.link_type_id = ?', $this->_linkTypeId)
-        );
+        ];
         $joinType = 'join';
         if ($this->getProduct() && $this->getProduct()->getId()) {
             $productId = $this->getProduct()->getId();
@@ -233,22 +226,20 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
                 $joinType = 'joinLeft';
                 $joinCondition[] = $adapter->quoteInto('links.product_id = ?', $productId);
             }
-            $this->addFieldToFilter('entity_id', array('neq' => $productId));
+            $this->addFieldToFilter('entity_id', ['neq' => $productId]);
         } elseif ($this->_isStrongMode) {
-            $this->addFieldToFilter('entity_id', array('eq' => -1));
+            $this->addFieldToFilter('entity_id', ['eq' => -1]);
         }
         if ($this->_hasLinkFilter) {
             $select->$joinType(
-                array('links' => $this->getTable('catalog/product_link')),
+                ['links' => $this->getTable('catalog/product_link')],
                 implode(' AND ', $joinCondition),
-                array('link_id')
+                ['link_id']
             );
             $this->joinAttributes();
         }
         return $this;
     }
-
-
 
     /**
      * Enable sorting products by its position
@@ -274,9 +265,9 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     {
         $this->getSelect()
             ->joinLeft(
-                array('set' => $this->getTable('eav/attribute_set')),
+                ['set' => $this->getTable('eav/attribute_set')],
                 'e.attribute_set_id = set.attribute_set_id',
-                array('attribute_set_name')
+                ['attribute_set_name']
             )
             ->order('set.attribute_set_name ' . $dir);
         return $this;
@@ -311,14 +302,14 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             $table = $this->getLinkModel()->getAttributeTypeTable($attribute['type']);
             $alias = $this->_getLinkAttributeTableAlias($attribute['code'], $attribute['type']);
 
-            $joinCondiotion = array(
+            $joinCondiotion = [
                 "{$alias}.link_id = links.link_id",
                 $this->getSelect()->getAdapter()->quoteInto("{$alias}.product_link_attribute_id = ?", $attribute['id'])
-            );
+            ];
             $this->getSelect()->joinLeft(
-                array($alias => $table),
+                [$alias => $table],
                 implode(' AND ', $joinCondiotion),
-                array($attribute['code'] => 'value')
+                [$attribute['code'] => 'value']
             );
         }
 

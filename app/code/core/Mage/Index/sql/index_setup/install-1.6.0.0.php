@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Index
+ * @category   Mage
+ * @package    Mage_Index
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/** @var Mage_Index_Model_Resource_Setup $installer */
 $installer = $this;
-/* @var Mage_Index_Model_Resource_Setup $installer */
-
 $installer->startSetup();
 
 /**
@@ -34,31 +27,31 @@ $installer->startSetup();
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('index/event'))
-    ->addColumn('event_id', Varien_Db_Ddl_Table::TYPE_BIGINT, null, array(
+    ->addColumn('event_id', Varien_Db_Ddl_Table::TYPE_BIGINT, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Event Id')
-    ->addColumn('type', Varien_Db_Ddl_Table::TYPE_TEXT, 64, array(
+    ], 'Event Id')
+    ->addColumn('type', Varien_Db_Ddl_Table::TYPE_TEXT, 64, [
         'nullable'  => false,
-        ), 'Type')
-    ->addColumn('entity', Varien_Db_Ddl_Table::TYPE_TEXT, 64, array(
+    ], 'Type')
+    ->addColumn('entity', Varien_Db_Ddl_Table::TYPE_TEXT, 64, [
         'nullable'  => false,
-        ), 'Entity')
-    ->addColumn('entity_pk', Varien_Db_Ddl_Table::TYPE_BIGINT, null, array(
-        ), 'Entity Primary Key')
-    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ], 'Entity')
+    ->addColumn('entity_pk', Varien_Db_Ddl_Table::TYPE_BIGINT, null, [
+    ], 'Entity Primary Key')
+    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
         'nullable'  => false,
-        ), 'Creation Time')
-    ->addColumn('old_data', Varien_Db_Ddl_Table::TYPE_TEXT, '2M', array(
-        ), 'Old Data')
-    ->addColumn('new_data', Varien_Db_Ddl_Table::TYPE_TEXT, '2M', array(
-        ), 'New Data')
+    ], 'Creation Time')
+    ->addColumn('old_data', Varien_Db_Ddl_Table::TYPE_TEXT, '2M', [
+    ], 'Old Data')
+    ->addColumn('new_data', Varien_Db_Ddl_Table::TYPE_TEXT, '2M', [
+    ], 'New Data')
     ->addIndex(
-        $installer->getIdxName('index/event', array('type', 'entity', 'entity_pk'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('type', 'entity', 'entity_pk'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        $installer->getIdxName('index/event', ['type', 'entity', 'entity_pk'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+        ['type', 'entity', 'entity_pk'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->setComment('Index Event');
 $installer->getConnection()->createTable($table);
@@ -68,31 +61,31 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('index/process'))
-    ->addColumn('process_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('process_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Process Id')
-    ->addColumn('indexer_code', Varien_Db_Ddl_Table::TYPE_TEXT, 32, array(
+    ], 'Process Id')
+    ->addColumn('indexer_code', Varien_Db_Ddl_Table::TYPE_TEXT, 32, [
         'nullable'  => false,
-        ), 'Indexer Code')
-    ->addColumn('status', Varien_Db_Ddl_Table::TYPE_TEXT, 15, array(
+    ], 'Indexer Code')
+    ->addColumn('status', Varien_Db_Ddl_Table::TYPE_TEXT, 15, [
         'nullable'  => false,
         'default'   => 'pending',
-        ), 'Status')
-    ->addColumn('started_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
-        ), 'Started At')
-    ->addColumn('ended_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
-        ), 'Ended At')
-    ->addColumn('mode', Varien_Db_Ddl_Table::TYPE_TEXT, 9, array(
+    ], 'Status')
+    ->addColumn('started_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
+    ], 'Started At')
+    ->addColumn('ended_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
+    ], 'Ended At')
+    ->addColumn('mode', Varien_Db_Ddl_Table::TYPE_TEXT, 9, [
         'nullable'  => false,
         'default'   => 'real_time',
-        ), 'Mode')
+    ], 'Mode')
     ->addIndex(
-        $installer->getIdxName('index/process', array('indexer_code'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('indexer_code'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        $installer->getIdxName('index/process', ['indexer_code'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+        ['indexer_code'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->setComment('Index Process');
 $installer->getConnection()->createTable($table);
@@ -102,23 +95,23 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('index/process_event'))
-    ->addColumn('process_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('process_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Process Id')
-    ->addColumn('event_id', Varien_Db_Ddl_Table::TYPE_BIGINT, null, array(
+    ], 'Process Id')
+    ->addColumn('event_id', Varien_Db_Ddl_Table::TYPE_BIGINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Event Id')
-    ->addColumn('status', Varien_Db_Ddl_Table::TYPE_TEXT, 7, array(
+    ], 'Event Id')
+    ->addColumn('status', Varien_Db_Ddl_Table::TYPE_TEXT, 7, [
         'nullable'  => false,
         'default'   => 'new',
-        ), 'Status')
+    ], 'Status')
     ->addIndex(
-        $installer->getIdxName('index/process_event', array('event_id')),
-        array('event_id')
+        $installer->getIdxName('index/process_event', ['event_id']),
+        ['event_id']
     )
     ->addForeignKey(
         $installer->getFkName('index/process_event', 'event_id', 'index/event', 'event_id'),

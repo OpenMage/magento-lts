@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
-
 $installer->startSetup();
 
 $installer->getConnection()->addColumn(
@@ -34,9 +27,9 @@ $installer->getConnection()->addColumn(
     'customer_taxvat',
     'varchar(255) NULL DEFAULT NULL AFTER `customer_is_guest`'
 );
-$installer->addAttribute('quote', 'customer_taxvat', array('type' => 'static', 'visible' => false));
+$installer->addAttribute('quote', 'customer_taxvat', ['type' => 'static', 'visible' => false]);
 
 // add customer_taxvat
-$installer->addAttribute('order', 'customer_taxvat', array('type' => 'varchar', 'visible' => false));
+$installer->addAttribute('order', 'customer_taxvat', ['type' => 'varchar', 'visible' => false]);
 
 $installer->endSetup();

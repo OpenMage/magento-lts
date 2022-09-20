@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,11 +23,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
 {
-
     /**
      * Storage action on selected item
      *
@@ -47,7 +40,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
         $this->setId('sales_order_create_sidebar_reorder');
         $this->setDataId('reorder');
     }
-
 
     public function getHeaderText()
     {
@@ -64,7 +56,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
         $storeIds = $this->getQuote()->getStore()->getWebsite()->getStoreIds();
         $collection = Mage::getResourceModel('sales/order_collection')
             ->addFieldToFilter('customer_id', $this->getCustomerId())
-            ->addFieldToFilter('store_id', array('in' => $storeIds))
+            ->addFieldToFilter('store_id', ['in' => $storeIds])
             ->setOrder('created_at', 'desc')
             ->setPageSize(1)
             ->load();
@@ -82,7 +74,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
     public function getItemCollection()
     {
         if ($order = $this->getLastOrder()) {
-            $items = array();
+            $items = [];
             foreach ($order->getItemsCollection() as $item) {
                 if (!$item->getParentItem()) {
                     $items[] = $item;

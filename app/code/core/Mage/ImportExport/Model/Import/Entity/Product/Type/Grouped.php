@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ImportExport
+ * @category   Mage
+ * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import entity grouped product type model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
 {
@@ -38,9 +32,9 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
      *
      * @var array
      */
-    protected $_particularAttributes = array(
+    protected $_particularAttributes = [
         '_associated_sku', '_associated_default_qty', '_associated_position'
-    );
+    ];
 
     /**
      * Import model behavior
@@ -50,7 +44,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
     protected $_behavior;
 
     /**
-     * Retrive model behavior
+     * Retrieve model behavior
      *
      * @return string
      */
@@ -76,30 +70,30 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
         $relationTable = $resource->getTable('catalog/product_relation');
         $newSku        = $this->_entityModel->getNewSku();
         $oldSku        = $this->_entityModel->getOldSku();
-        $attributes    = array();
+        $attributes    = [];
 
         // pre-load attributes parameters
         $select = $connection->select()
-            ->from($resource->getTable('catalog/product_link_attribute'), array(
+            ->from($resource->getTable('catalog/product_link_attribute'), [
                 'id'   => 'product_link_attribute_id',
                 'code' => 'product_link_attribute_code',
                 'type' => 'data_type'
-            ))->where('link_type_id = ?', $groupedLinkId);
+            ])->where('link_type_id = ?', $groupedLinkId);
         foreach ($connection->fetchAll($select) as $row) {
-            $attributes[$row['code']] = array(
+            $attributes[$row['code']] = [
                 'id' => $row['id'],
                 'table' => $resource->getAttributeTypeTable($row['type'])
-            );
+            ];
         }
         while ($bunch = $this->_entityModel->getNextBunch()) {
-            $linksData     = array(
-                'product_ids'      => array(),
-                'links'            => array(),
-                'attr_product_ids' => array(),
-                'position'         => array(),
-                'qty'              => array(),
-                'relation'         => array()
-            );
+            $linksData     = [
+                'product_ids'      => [],
+                'links'            => [],
+                'attr_product_ids' => [],
+                'position'         => [],
+                'qty'              => [],
+                'relation'         => []
+            ];
             foreach ($bunch as $rowNum => $rowData) {
                 if (!$this->_entityModel->isRowAllowedToImport($rowData, $rowNum)
                     || empty($rowData['_associated_sku'])
@@ -128,23 +122,23 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                 }
                 $linksData['product_ids'][$productId] = true;
                 $linksData['links'][$productId][$linkedProductId] = $groupedLinkId;
-                $linksData['relation'][] = array('parent_id' => $productId, 'child_id' => $linkedProductId);
+                $linksData['relation'][] = ['parent_id' => $productId, 'child_id' => $linkedProductId];
                 $qty = empty($rowData['_associated_default_qty']) ? 0 : $rowData['_associated_default_qty'];
                 $pos = empty($rowData['_associated_position']) ? 0 : $rowData['_associated_position'];
 
                 if ($qty || $pos) {
                     $linksData['attr_product_ids'][$productId] = true;
                     if ($pos) {
-                        $linksData['position']["{$productId} {$linkedProductId}"] = array(
+                        $linksData['position']["{$productId} {$linkedProductId}"] = [
                             'product_link_attribute_id' => $attributes['position']['id'],
                             'value' => $pos
-                        );
+                        ];
                     }
                     if ($qty) {
-                        $linksData['qty']["{$productId} {$linkedProductId}"] = array(
+                        $linksData['qty']["{$productId} {$linkedProductId}"] = [
                             'product_link_attribute_id' => $attributes['qty']['id'],
                             'value' => $qty
-                        );
+                        ];
                     }
                 }
             }
@@ -159,15 +153,15 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                 );
             }
             if ($linksData['links']) {
-                $mainData = array();
+                $mainData = [];
 
                 foreach ($linksData['links'] as $productId => $linkedData) {
                     foreach ($linkedData as $linkedId => $linkType) {
-                        $mainData[] = array(
+                        $mainData[] = [
                             'product_id'        => $productId,
                             'linked_product_id' => $linkedId,
                             'link_type_id'      => $linkType
-                        );
+                        ];
                     }
                 }
                 $connection->insertOnDuplicate($mainTable, $mainData);
@@ -176,9 +170,9 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
             // save positions and default quantity
             if ($linksData['attr_product_ids']) {
                 $savedData = $connection->fetchPairs($connection->select()
-                    ->from($mainTable, array(
+                    ->from($mainTable, [
                         new Zend_Db_Expr('CONCAT_WS(" ", product_id, linked_product_id)'), 'link_id'
-                    ))
+                    ])
                     ->where(
                         'product_id IN (?) AND link_type_id = ' . $groupedLinkId,
                         array_keys($linksData['attr_product_ids'])

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Page
+ * @category   Mage
+ * @package    Mage_Page
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
+ * @category   Mage
+ * @package    Mage_Page
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @deprecated after 1.4.0.1
  */
 class Mage_Page_Block_Html_Toplinks extends Mage_Core_Block_Template
@@ -46,7 +44,7 @@ class Mage_Page_Block_Html_Toplinks extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_toplinks = array();
+    protected $_toplinks = [];
 
     public function __construct()
     {
@@ -88,9 +86,9 @@ class Mage_Page_Block_Html_Toplinks extends Mage_Core_Block_Template
         $toplinkInfo['innerText'] = $innerText;
         $toplinkInfo['beforeText'] = $beforeText;
         $toplinkInfo['afterText'] = $afterText;
-        $this->_prepareArray($toplinkInfo, array('liParams', 'aParams', 'innerText', 'beforeText', 'afterText', 'first', 'last'));
+        $this->_prepareArray($toplinkInfo, ['liParams', 'aParams', 'innerText', 'beforeText', 'afterText', 'first', 'last']);
         if (is_numeric($position)) {
-            array_splice($this->_toplinks, $position, 0, array($toplinkInfo));
+            array_splice($this->_toplinks, $position, 0, [$toplinkInfo]);
         } else {
             $this->_toplinks[] = $toplinkInfo;
         }

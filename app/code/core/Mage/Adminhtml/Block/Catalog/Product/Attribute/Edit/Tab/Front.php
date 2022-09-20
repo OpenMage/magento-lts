@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,72 +23,69 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage_Adminhtml_Block_Widget_Form
 {
-
+    /**
+     * @inheritDoc
+     */
     protected function _prepareForm()
     {
         $model = Mage::registry('entity_attribute');
 
-        $form = new Varien_Data_Form(array('id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post'));
+        $form = new Varien_Data_Form(['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post']);
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('catalog')->__('Frontend Properties')));
+        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('catalog')->__('Frontend Properties')]);
 
-        $yesno = array(
-            array(
+        $yesno = [
+            [
                 'value' => 0,
                 'label' => Mage::helper('catalog')->__('No')
-            ),
-            array(
+            ],
+            [
                 'value' => 1,
                 'label' => Mage::helper('catalog')->__('Yes')
-            ));
+            ]];
 
-
-        $fieldset->addField('is_searchable', 'select', array(
+        $fieldset->addField('is_searchable', 'select', [
             'name' => 'is_searchable',
             'label' => Mage::helper('catalog')->__('Use in Quick Search'),
             'title' => Mage::helper('catalog')->__('Use in Quick Search'),
             'values' => $yesno,
-        ));
+        ]);
 
-        $fieldset->addField('is_visible_in_advanced_search', 'select', array(
+        $fieldset->addField('is_visible_in_advanced_search', 'select', [
             'name' => 'is_visible_in_advanced_search',
             'label' => Mage::helper('catalog')->__('Use in Advanced Search'),
             'title' => Mage::helper('catalog')->__('Use in Advanced Search'),
             'values' => $yesno,
-        ));
+        ]);
 
-        $fieldset->addField('is_comparable', 'select', array(
+        $fieldset->addField('is_comparable', 'select', [
             'name' => 'is_comparable',
             'label' => Mage::helper('catalog')->__('Comparable on the Frontend'),
             'title' => Mage::helper('catalog')->__('Comparable on the Frontend'),
             'values' => $yesno,
-        ));
+        ]);
 
-
-        $fieldset->addField('is_filterable', 'select', array(
+        $fieldset->addField('is_filterable', 'select', [
             'name' => 'is_filterable',
             'label' => Mage::helper('catalog')->__("Use in Layered Navigation<br/>(Can be used only with catalog input type 'Dropdown')"),
             'title' => Mage::helper('catalog')->__('Can be used only with catalog input type Dropdown'),
-            'values' => array(
-                array('value' => '0', 'label' => Mage::helper('catalog')->__('No')),
-                array('value' => '1', 'label' => Mage::helper('catalog')->__('Filterable (with results)')),
-                array('value' => '2', 'label' => Mage::helper('catalog')->__('Filterable (no results)')),
-            ),
-        ));
+            'values' => [
+                ['value' => '0', 'label' => Mage::helper('catalog')->__('No')],
+                ['value' => '1', 'label' => Mage::helper('catalog')->__('Filterable (with results)')],
+                ['value' => '2', 'label' => Mage::helper('catalog')->__('Filterable (no results)')],
+            ],
+        ]);
 
-//        if ($model->getIsUserDefined() || !$model->getId()) {
-            $fieldset->addField('is_visible_on_front', 'select', array(
-                'name' => 'is_visible_on_front',
-                'label' => Mage::helper('catalog')->__('Visible on Catalog Pages on Front-end'),
-                'title' => Mage::helper('catalog')->__('Visible on Catalog Pages on Front-end'),
-                'values' => $yesno,
-            ));
-//        }
+        $fieldset->addField('is_visible_on_front', 'select', [
+            'name' => 'is_visible_on_front',
+            'label' => Mage::helper('catalog')->__('Visible on Catalog Pages on Front-end'),
+            'title' => Mage::helper('catalog')->__('Visible on Catalog Pages on Front-end'),
+            'values' => $yesno,
+        ]);
 
         $form->setValues($model->getData());
 
@@ -102,5 +93,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage
 
         return parent::_prepareForm();
     }
-
 }

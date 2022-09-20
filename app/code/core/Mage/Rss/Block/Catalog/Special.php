@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Rss
+ * @category   Mage
+ * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Rss
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
 {
@@ -40,6 +34,10 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
      */
     protected static $_currentDate = null;
 
+    /**
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Exception
+     */
     protected function _construct()
     {
         /*
@@ -49,6 +47,11 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
         $this->setCacheLifetime(600);
     }
 
+    /**
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Exception
+     */
     protected function _toHtml()
     {
          //store id is store view id
@@ -60,19 +63,19 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
 
         $product = Mage::getModel('catalog/product');
 
-        $fields = array(
+        $fields = [
             'final_price',
             'price'
-        );
+        ];
         $specials = $product->setStoreId($storeId)->getResourceCollection()
             ->addPriceDataFieldFilter('%s < %s', $fields)
             ->addPriceData($customerGroupId, $websiteId)
             ->addAttributeToSelect(
-                    array(
+                    [
                         'name', 'short_description', 'description', 'price', 'thumbnail',
                         'special_price', 'special_to_date',
                         'msrp_enabled', 'msrp_display_actual_price_type', 'msrp'
-                    ),
+                    ],
                     'left'
             )
             ->addAttributeToSort('name', 'asc')
@@ -83,26 +86,31 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
         $lang = Mage::getStoreConfig('general/locale/code');
 
         $rssObj = Mage::getModel('rss/rss');
-        $data = array('title' => $title,
+        $data = ['title' => $title,
                 'description' => $title,
                 'link'        => $newurl,
                 'charset'     => 'UTF-8',
                 'language'    => $lang
-                );
+        ];
         $rssObj->_addHeader($data);
 
-        $results = array();
+        $results = [];
         /*
         using resource iterator to load the data one by one
         instead of loading all at the same time. loading all data at the same time can cause the big memory allocation.
         */
         Mage::getSingleton('core/resource_iterator')->walk(
             $specials->getSelect(),
-            array(array($this, 'addSpecialXmlCallback')),
-            array('rssObj'=> $rssObj, 'results'=> &$results)
+            [[$this, 'addSpecialXmlCallback']],
+            ['rssObj'=> $rssObj, 'results'=> &$results]
         );
 
         if (count($results)) {
+            /** @var Mage_Catalog_Helper_Image $imageHelper */
+            $imageHelper = $this->helper('catalog/image');
+            /** @var Mage_Catalog_Helper_Output $outputHelper */
+            $outputHelper = $this->helper('catalog/output');
+
             foreach($results as $result){
                 // render a row for RSS feed
                 $product->setData($result);
@@ -110,8 +118,8 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
                     <td><a href="%s"><img src="%s" alt="" border="0" align="left" height="75" width="75" /></a></td>
                     <td style="text-decoration:none;">%s',
                     $product->getProductUrl(),
-                    $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75),
-                    $this->helper('catalog/output')->productAttribute(
+                    $imageHelper->init($product, 'thumbnail')->resize(75, 75),
+                    $outputHelper->productAttribute(
                         $product,
                         $product->getDescription(),
                         'description'
@@ -138,11 +146,11 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
 
                 $html .= '</td></tr></table>';
 
-                $rssObj->_addEntry(array(
+                $rssObj->_addEntry([
                     'title'       => $product->getName(),
                     'link'        => $product->getProductUrl(),
                     'description' => $html
-                ));
+                ]);
             }
         }
         return $rssObj->createRssXml();
@@ -152,6 +160,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
      * Preparing data and adding to rss object
      *
      * @param array $args
+     * @throws Zend_Date_Exception
      */
     public function addSpecialXmlCallback($args)
     {
@@ -160,7 +169,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
         }
 
         // dispatch event to determine whether the product will eventually get to the result
-        $product = new Varien_Object(array('allowed_in_rss' => true, 'allowed_price_in_rss' => true));
+        $product = new Varien_Object(['allowed_in_rss' => true, 'allowed_price_in_rss' => true]);
         $args['product'] = $product;
         Mage::dispatchEvent('rss_catalog_special_xml_callback', $args);
         if (!$product->getAllowedInRss()) {
@@ -175,7 +184,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
             && $row['allowed_price_in_rss']
         ) {
             $compareDate = self::$_currentDate->compareDate($row['special_to_date'], Varien_Date::DATE_INTERNAL_FORMAT);
-            if (-1 === $compareDate || 0 === $compareDate) {
+            if ($compareDate === -1 || $compareDate === 0) {
                 $row['use_special'] = true;
             }
         }
@@ -183,13 +192,12 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
        $args['results'][] = $row;
     }
 
-
     /**
      * Function for comparing two items in collection
      *
-     * @param   Varien_Object $item1
-     * @param   Varien_Object $item2
-     * @return  boolean
+     * @param   Varien_Object $a
+     * @param   Varien_Object $b
+     * @return bool
      */
     public function sortByStartDate($a, $b)
     {

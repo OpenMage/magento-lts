@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     default_default
@@ -77,7 +71,7 @@
             <block type="adminhtml/catalog_product_edit_tab_categories" name="catalog.product.edit.tab.categories"/>
         </block>
     </adminhtml_catalog_product_categories>
-    
+
     <adminhtml_catalog_product_reviews>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="adminhtml/catalog_product_edit_tab_reviews" name="admin.product.reviews"/>
@@ -306,11 +300,11 @@ Layout handle for configurable products
             <block type="adminhtml/catalog_product_composite_fieldset_qty" name="product.composite.fieldset.qty" template="catalog/product/composite/fieldset/qty.phtml"/>
         </block>
     </ADMINHTML_CATALOG_PRODUCT_COMPOSITE_CONFIGURE>
-    
+
     <ADMINHTML_CATALOG_PRODUCT_COMPOSITE_CONFIGURE_ERROR>
         <block type="adminhtml/catalog_product_composite_error" name="product.composite.error" output="toHtml" />
     </ADMINHTML_CATALOG_PRODUCT_COMPOSITE_CONFIGURE_ERROR>
-    
+
     <ADMINHTML_CATALOG_PRODUCT_COMPOSITE_UPDATE_RESULT>
         <block type="adminhtml/catalog_product_composite_update_result" name="product.composite.update.result" output="toHtml" />
     </ADMINHTML_CATALOG_PRODUCT_COMPOSITE_UPDATE_RESULT>

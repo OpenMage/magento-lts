@@ -73,7 +73,7 @@
 		 * Gets the raw data of a cookie by name.
 		 *
 		 * @method get
-		 * @param {String} n Name of cookie to retrive.
+		 * @param {String} n Name of cookie to retrieve.
 		 * @return {String} Cookie data string.
 		 */
 		get : function(n) {

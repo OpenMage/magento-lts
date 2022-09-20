@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Rss
+ * @category   Mage
+ * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Rss
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
 {
@@ -45,6 +39,10 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         $this->setCacheLifetime(600);
     }
 
+    /**
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _toHtml()
     {
         //store id is store view id
@@ -55,12 +53,12 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         $lang = Mage::getStoreConfig('general/locale/code');
 
         $rssObj = Mage::getModel('rss/rss');
-        $data = array('title' => $title,
+        $data = ['title' => $title,
             'description' => $title,
             'link'        => $newurl,
             'charset'     => 'UTF-8',
             'language'    => $lang
-        );
+        ];
         $rssObj->_addHeader($data);
 
         $_collection = $tagModel->getEntityCollection()
@@ -71,10 +69,12 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
 
         $product = Mage::getModel('catalog/product');
 
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $resourceHelper */
+        $resourceHelper = Mage::getResourceHelper('core');
         Mage::getSingleton('core/resource_iterator')->walk(
-            Mage::getResourceHelper('core')->getQueryUsingAnalyticFunction($_collection->getSelect()),
-            array(array($this, 'addTaggedItemXml')),
-            array('rssObj'=> $rssObj, 'product'=>$product),
+            $resourceHelper->getQueryUsingAnalyticFunction($_collection->getSelect()),
+            [[$this, 'addTaggedItemXml']],
+            ['rssObj'=> $rssObj, 'product'=>$product],
             $_collection->getSelect()->getAdapter()
         );
 
@@ -101,9 +101,12 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
 
         $allowedPriceInRss = $product->getAllowedPriceInRss();
 
+        /** @var Mage_Catalog_Helper_Image $helper */
+        $helper = $this->helper('catalog/image');
+
         $product->unsetData()->load($args['row']['entity_id']);
         $description = '<table><tr><td><a href="'.$product->getProductUrl().'">'
-            . '<img src="' . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
+            . '<img src="' . $helper->init($product, 'thumbnail')->resize(75, 75)
             . '" border="0" align="left" height="75" width="75"></a></td>'
             . '<td  style="text-decoration:none;">'.$product->getDescription();
 
@@ -114,11 +117,11 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         $description .='</td></tr></table>';
 
         $rssObj = $args['rssObj'];
-        $data = array(
+        $data = [
             'title'         => $product->getName(),
             'link'          => $product->getProductUrl(),
             'description'   => $description,
-        );
+        ];
         $rssObj->_addEntry($data);
     }
 }

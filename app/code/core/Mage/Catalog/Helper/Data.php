@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog data helper
@@ -51,7 +44,6 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_MSRP_APPLY_TO_ALL = 'sales/msrp/apply_for_all';
     const XML_PATH_MSRP_EXPLANATION_MESSAGE = 'sales/msrp/explanation_message';
     const XML_PATH_MSRP_EXPLANATION_MESSAGE_WHATS_THIS = 'sales/msrp/explanation_message_whats_this';
-
 
     /**
      * Breadcrumb Path cache
@@ -95,7 +87,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     public function getBreadcrumbPath()
     {
         if (!$this->_categoryPath) {
-            $path = array();
+            $path = [];
             if ($category = $this->getCategory()) {
                 $pathInStore = $category->getPathInStore();
                 $pathIds = array_reverse(explode(',', $pathInStore));
@@ -105,16 +97,16 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
                 // add category path breadcrumb
                 foreach ($pathIds as $categoryId) {
                     if (isset($categories[$categoryId]) && $categories[$categoryId]->getName()) {
-                        $path['category'.$categoryId] = array(
+                        $path['category'.$categoryId] = [
                             'label' => $categories[$categoryId]->getName(),
                             'link' => $this->_isCategoryLink($categoryId) ? $categories[$categoryId]->getUrl() : ''
-                        );
+                        ];
                     }
                 }
             }
 
             if ($this->getProduct()) {
-                $path['product'] = array('label'=>$this->getProduct()->getName());
+                $path['product'] = ['label'=>$this->getProduct()->getName()];
             }
 
             $this->_categoryPath = $path;
@@ -168,14 +160,14 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if ($productId = Mage::getSingleton('catalog/session')->getLastViewedProductId()) {
             $product = Mage::getModel('catalog/product')->load($productId);
-            /* @var Mage_Catalog_Model_Product $product */
+            /** @var Mage_Catalog_Model_Product $product */
             if (Mage::helper('catalog/product')->canShow($product, 'catalog')) {
                 return $product->getProductUrl();
             }
         }
         if ($categoryId = Mage::getSingleton('catalog/session')->getLastViewedCategoryId()) {
             $category = Mage::getModel('catalog/category')->load($categoryId);
-            /* @var Mage_Catalog_Model_Category $category */
+            /** @var Mage_Catalog_Model_Category $category */
             if (!Mage::helper('catalog/category')->canShow($category)) {
                 return '';
             }
@@ -207,7 +199,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
         if (Mage::registry('attribute_type_hidden_fields')) {
             return Mage::registry('attribute_type_hidden_fields');
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -221,7 +213,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
         if (Mage::registry('attribute_type_disabled_types')) {
             return Mage::registry('attribute_type_disabled_types');
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -296,7 +288,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $node = Mage::getConfig()->getNode('global/catalog_product/old_fields_map');
         if ($node === false) {
-            return array();
+            return [];
         }
         return (array) $node;
     }
@@ -339,7 +331,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->escapeHtml(
             Mage::getStoreConfig(self::XML_PATH_MSRP_EXPLANATION_MESSAGE, $this->_storeId),
-            array('b','br','strong','i','u', 'p', 'span')
+            ['b','br','strong','i','u', 'p', 'span']
         );
     }
 
@@ -352,7 +344,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->escapeHtml(
             Mage::getStoreConfig(self::XML_PATH_MSRP_EXPLANATION_MESSAGE_WHATS_THIS, $this->_storeId),
-            array('b','br','strong','i','u', 'p', 'span')
+            ['b','br','strong','i','u', 'p', 'span']
         );
     }
 

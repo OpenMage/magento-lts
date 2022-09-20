@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,31 +12,24 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart api
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Resource
 {
     public function __construct()
     {
-        $this->_ignoredAttributeCodes['quote_shipping_rate'] = array('address_id', 'created_at', 'updated_at', 'rate_id', 'carrier_sort_order');
+        $this->_ignoredAttributeCodes['quote_shipping_rate'] = ['address_id', 'created_at', 'updated_at', 'rate_id', 'carrier_sort_order'];
     }
 
     /**
@@ -91,7 +84,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
             $quoteShippingAddress->collectShippingRates()->save();
             $groupedRates = $quoteShippingAddress->getGroupedAllShippingRates();
 
-            $ratesResult = array();
+            $ratesResult = [];
             foreach ($groupedRates as $carrierCode => $rates) {
                 $carrierName = $carrierCode;
                 if (!is_null(Mage::getStoreConfig('carriers/'.$carrierCode.'/title'))) {
@@ -106,7 +99,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
                 }
             }
         } catch (Mage_Core_Exception $e) {
-            $this->_fault('shipping_methods_list_could_not_be_retrived', $e->getMessage());
+            $this->_fault('shipping_methods_list_could_not_be_retrieved', $e->getMessage());
         }
 
         return $ratesResult;

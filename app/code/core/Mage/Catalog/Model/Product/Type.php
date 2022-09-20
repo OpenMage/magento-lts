@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product type model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Type
 {
@@ -109,7 +103,7 @@ class Mage_Catalog_Model_Product_Type
      */
     public static function getOptionArray()
     {
-        $options = array();
+        $options = [];
         foreach (self::getTypes() as $typeId => $type) {
             $options[$typeId] = Mage::helper('catalog')->__($type['label']);
         }
@@ -133,7 +127,7 @@ class Mage_Catalog_Model_Product_Type
     public static function getAllOption()
     {
         $options = self::getOptionArray();
-        array_unshift($options, array('value'=>'', 'label'=>''));
+        array_unshift($options, ['value'=>'', 'label'=>'']);
         return $options;
     }
 
@@ -142,13 +136,13 @@ class Mage_Catalog_Model_Product_Type
      */
     public static function getAllOptions()
     {
-        $res = array();
-        $res[] = array('value'=>'', 'label'=>'');
+        $res = [];
+        $res[] = ['value'=>'', 'label'=>''];
         foreach (self::getOptionArray() as $index => $value) {
-            $res[] = array(
+            $res[] = [
                'value' => $index,
                'label' => $value
-            );
+            ];
         }
         return $res;
     }
@@ -158,24 +152,24 @@ class Mage_Catalog_Model_Product_Type
      */
     public static function getOptions()
     {
-        $res = array();
+        $res = [];
         foreach (self::getOptionArray() as $index => $value) {
-            $res[] = array(
+            $res[] = [
                'value' => $index,
                'label' => $value
-            );
+            ];
         }
         return $res;
     }
 
     /**
-     * @param $optionId
+     * @param string $optionId
      * @return mixed|null
      */
     public static function getOptionText($optionId)
     {
         $options = self::getOptionArray();
-        return isset($options[$optionId]) ? $options[$optionId] : null;
+        return $options[$optionId] ?? null;
     }
 
     /**
@@ -186,10 +180,7 @@ class Mage_Catalog_Model_Product_Type
         if (is_null(self::$_types)) {
             $productTypes = Mage::getConfig()->getNode('global/catalog/product/type')->asArray();
             foreach ($productTypes as $productKey => $productConfig) {
-                $moduleName = 'catalog';
-                if (isset($productConfig['@']['module'])) {
-                    $moduleName = $productConfig['@']['module'];
-                }
+                $moduleName = $productConfig['@']['module'] ?? 'catalog';
                 $translatedLabel = Mage::helper($moduleName)->__($productConfig['label']);
                 $productTypes[$productKey]['label'] = $translatedLabel;
             }
@@ -207,7 +198,7 @@ class Mage_Catalog_Model_Product_Type
     public static function getCompositeTypes()
     {
         if (is_null(self::$_compositeTypes)) {
-            self::$_compositeTypes = array();
+            self::$_compositeTypes = [];
             $types = self::getTypes();
             foreach ($types as $typeId => $typeInfo) {
                 if (array_key_exists('composite', $typeInfo) && $typeInfo['composite']) {
@@ -226,9 +217,9 @@ class Mage_Catalog_Model_Product_Type
     public static function getTypesByPriority()
     {
         if (is_null(self::$_typesPriority)) {
-            self::$_typesPriority = array();
-            $a = array();
-            $b = array();
+            self::$_typesPriority = [];
+            $a = [];
+            $b = [];
 
             $types = self::getTypes();
             foreach ($types as $typeId => $typeInfo) {

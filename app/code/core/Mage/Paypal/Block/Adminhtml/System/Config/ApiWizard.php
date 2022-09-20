@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Custom renderer for PayPal API credentials wizard popup
+ *
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
@@ -84,11 +82,11 @@ class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml
      */
     protected function _getButtonData($elementHtmlId, $originalData)
     {
-        return array(
+        return [
             'button_label' => Mage::helper('paypal')->__($originalData['button_label']),
             'button_url'   => $originalData['button_url'],
             'html_id' => $elementHtmlId,
-        );
+        ];
     }
 
     /**
@@ -100,10 +98,10 @@ class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml
      */
     protected function _getSandboxButtonData($elementHtmlId, $originalData)
     {
-        return array(
+        return [
             'sandbox_button_label' => Mage::helper('paypal')->__($originalData['sandbox_button_label']),
             'sandbox_button_url'   => $originalData['sandbox_button_url'],
             'sandbox_html_id' => 'sandbox_' . $elementHtmlId,
-        );
+        ];
     }
 }

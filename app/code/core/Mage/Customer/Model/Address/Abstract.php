@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Address abstract model
+ *
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getCustomerId()
  * @method string getFirstname()
@@ -65,10 +63,6 @@
  * @method $this setSuffix(string $value)
  * @method $this unsRegion()
  * @method bool getShouldIgnoreValidation()
- *
- * @category   Mage
- * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 {
@@ -97,21 +91,21 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Directory country models
      *
      * @var array
      */
-    static protected $_countryModels = array();
+    static protected $_countryModels = [];
 
     /**
      * Directory region models
      *
      * @var array
      */
-    static protected $_regionModels = array();
+    static protected $_regionModels = [];
 
     /**
      * Get full customer name
@@ -145,11 +139,11 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     public function getStreet($line = 0)
     {
         $street = parent::getData('street');
-        if (-1 === $line) {
+        if ($line === -1) {
             return $street;
         } else {
             $arr = is_array($street) ? $street : explode("\n", $street);
-            if (0 === $line || $line === null) {
+            if ($line === 0 || $line === null) {
                 return $arr;
             } elseif (isset($arr[$line-1])) {
                 return $arr[$line-1];
@@ -324,7 +318,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getCountry()
     {
@@ -338,7 +332,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive country model
+     * Retrieve country model
      *
      * @return Mage_Directory_Model_Country
      */
@@ -353,7 +347,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive country model
+     * Retrieve country model
      *
      * @param int|null $region
      * @return Mage_Directory_Model_Country
@@ -400,12 +394,12 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
             || !$formatType->getRenderer()) {
             return null;
         }
-        Mage::dispatchEvent('customer_address_format', array('type' => $formatType, 'address' => $this));
+        Mage::dispatchEvent('customer_address_format', ['type' => $formatType, 'address' => $this]);
         return $formatType->getRenderer()->render($this);
     }
 
     /**
-     * Retrive address config object
+     * Retrieve address config object
      *
      * @return Mage_Customer_Model_Address_Config
      */
@@ -437,7 +431,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 
         $this->_basicCheck();
 
-        Mage::dispatchEvent('customer_address_validation_after', array('address' => $this));
+        Mage::dispatchEvent('customer_address_validation_after', ['address' => $this]);
 
         $errors = $this->_getErrors();
 
@@ -451,8 +445,6 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 
     /**
      * Perform basic validation
-     *
-     * @return void
      */
     protected function _basicCheck()
     {
@@ -508,7 +500,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive errors
+     * Retrieve errors
      *
      * @return array
      */
@@ -524,7 +516,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      */
     protected function _resetErrors()
     {
-        $this->_errors = array();
+        $this->_errors = [];
         return $this;
     }
 }

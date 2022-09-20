@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,31 +12,23 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Downloadable
+ * @category   Mage
+ * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable Product Links part block
  *
- * @category    Mage
- * @package     Mage_Downloadable
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Downloadable
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_Product_Abstract
 {
     /**
-     * Enter description here...
-     *
-     * @return boolean
+     * @return bool
      */
     public function getLinksPurchasedSeparately()
     {
@@ -44,9 +36,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     }
 
     /**
-     * Enter description here...
-     *
-     * @return boolean
+     * @return bool
      */
     public function getLinkSelectionRequired()
     {
@@ -55,9 +45,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     }
 
     /**
-     * Enter description here...
-     *
-     * @return boolean
+     * @return bool
      */
     public function hasLinks()
     {
@@ -66,8 +54,6 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getLinks()
@@ -77,17 +63,16 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     }
 
     /**
-     * Enter description here...
-     *
      * @param Mage_Downloadable_Model_Link $link
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getFormattedLinkPrice($link)
     {
         $price = $link->getPrice();
         $store = $this->getProduct()->getStore();
 
-        if (0 == $price) {
+        if ($price == 0) {
             return '';
         }
 
@@ -97,6 +82,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
         }
 
         $taxHelper = Mage::helper('tax');
+        /** @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper = $this->helper('core');
         $_priceInclTax = $taxHelper->getPrice($link->getProduct(), $price, true);
         $_priceExclTax = $taxHelper->getPrice($link->getProduct(), $price);
@@ -126,18 +112,18 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
      */
     public function getCurrencyPrice($price)
     {
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
         $store = $this->getProduct()->getStore();
-        return $this->helper('core')->currencyByStore($price, $store, false);
+        return $helper::currencyByStore($price, $store, false);
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getJsonConfig()
     {
-        $config = array();
+        $config = [];
         $coreHelper = Mage::helper('core');
 
         foreach ($this->getLinks() as $link) {
@@ -153,7 +139,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
      */
     public function getLinkSamlpeUrl($link)
     {
-        return $this->getUrl('downloadable/download/linkSample', array('link_id' => $link->getId()));
+        return $this->getUrl('downloadable/download/linkSample', ['link_id' => $link->getId()]);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ProductAlert
+ * @category   Mage
+ * @package    Mage_ProductAlert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * ProductAlert unsubscribe controller
  *
  * @category   Mage
  * @package    Mage_ProductAlert
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front_Action
 {
@@ -44,6 +37,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
                 Mage::getSingleton('customer/session')->setBeforeUrl($this->_getRefererUrl());
             }
         }
+        return $this;
     }
 
     public function priceAction()
@@ -56,10 +50,10 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         }
         $session    = Mage::getSingleton('catalog/session');
 
-        /* @var Mage_Catalog_Model_Session $session */
+        /** @var Mage_Catalog_Model_Session $session */
         $product = Mage::getModel('catalog/product')->load($productId);
         if (!$product->getId() || !$product->isVisibleInCatalog()) {
-            /* @var Mage_Catalog_Model_Product $product */
+            /** @var Mage_Catalog_Model_Product $product */
             Mage::getSingleton('customer/session')->addError($this->__('The product is not found.'));
             $this->_redirect('customer/account/');
             return ;
@@ -85,7 +79,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
     public function priceAllAction()
     {
         $session = Mage::getSingleton('customer/session');
-        /* @var Mage_Customer_Model_Session $session */
+        /** @var Mage_Customer_Model_Session $session */
 
         try {
             Mage::getModel('productalert/price')->deleteCustomer(

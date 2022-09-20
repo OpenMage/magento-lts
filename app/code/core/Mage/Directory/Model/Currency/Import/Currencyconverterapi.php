@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Directory
+ * @category   Mage
+ * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -55,7 +49,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
      *
      * @var array
      */
-    protected $_messages = array();
+    protected $_messages = [];
 
      /**
      * HTTP client
@@ -91,13 +85,13 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
      */
     public function fetchRates()
     {
-        $data = array();
+        $data = [];
         $currencies = $this->_getCurrencyCodes();
         $defaultCurrencies = $this->_getDefaultCurrencyCodes();
 
         foreach ($defaultCurrencies as $currencyFrom) {
             if (!isset($data[$currencyFrom])) {
-                $data[$currencyFrom] = array();
+                $data[$currencyFrom] = [];
             }
 
             $data = $this->_convertBatch($data, $currencyFrom, $currencies);
@@ -128,8 +122,8 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
         foreach ($currenciesTo as $currencyTo) {
             $currenciesCombined = $currencyFrom . '_' . $currencyTo;
             $url = str_replace(
-                array('{{API_KEY}}', '{{CURRENCY_FROM}}_{{CURRENCY_TO}}'),
-                array($apiKey, $currenciesCombined),
+                ['{{API_KEY}}', '{{CURRENCY_FROM}}_{{CURRENCY_TO}}'],
+                [$apiKey, $currenciesCombined],
                 $this->_url
             );
 
@@ -168,11 +162,11 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
      */
     protected function _getServiceResponse($url, $retry = 0)
     {
-        $response = array();
+        $response = [];
         try {
             $jsonResponse = $this->_httpClient
                 ->setUri($url)
-                ->setConfig(array('timeout' => Mage::getStoreConfig(self::XML_PATH_CURRENCY_CONVERTER_TIMEOUT)))
+                ->setConfig(['timeout' => Mage::getStoreConfig(self::XML_PATH_CURRENCY_CONVERTER_TIMEOUT)])
                 ->request('GET')
                 ->getBody();
 
