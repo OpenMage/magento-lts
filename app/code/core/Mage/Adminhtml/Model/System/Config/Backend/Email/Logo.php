@@ -18,7 +18,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
- /**
+/**
  * Backend model for uploading transactional emails custom logo image
  *
  * @category   Mage
