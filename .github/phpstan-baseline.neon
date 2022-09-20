@@ -46,6 +46,11 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Grid.php
 
 		-
+			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 2 parameters, 0 required\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Config/Simple.php
+
+		-
 			message: "#^Method Mage_Catalog_Model_Product_Type_Configurable\\:\\:canUseAttribute\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Settings.php
@@ -1206,12 +1211,12 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
 		-
-			message: "#^Binary operation \"\\-\" between int and non-falsy-string results in an error\\.$#"
+			message: "#^Binary operation \"\\-\" between int and non\\-falsy\\-string results in an error\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Layer/Filter/Price.php
 
 		-
-			message: "#^Binary operation \"\\-\" between non-falsy-string and 1 results in an error\\.$#"
+			message: "#^Binary operation \"\\-\" between non\\-falsy\\-string and 1 results in an error\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Layer/Filter/Price.php
 
@@ -1411,11 +1416,6 @@ parameters:
 			path: ../app/code/core/Mage/Checkout/Block/Cart/Crosssell.php
 
 		-
-			message: "#^Call to an undefined method Mage_Sales_Model_Service_Order\\:\\:register\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Checkout/controllers/OnepageController.php
-
-		-
 			message: "#^Variable \\$storeId might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Checkout/Model/Api/Resource.php
@@ -1484,6 +1484,11 @@ parameters:
 			message: "#^Variable \\$customerRequest might not be defined\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Checkout/Model/Type/Onepage.php
+
+		-
+			message: "#^Call to an undefined method Mage_Sales_Model_Service_Order\\:\\:register\\(\\)\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Checkout/controllers/OnepageController.php
 
 		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 2 parameters, 0 required\\.$#"
@@ -1576,7 +1581,7 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Design.php
 
 		-
-			message: "#^Binary operation \"\\.\" between non-falsy-string and array results in an error\\.$#"
+			message: "#^Binary operation \"\\.\" between non\\-falsy\\-string and array results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Design/Package.php
 
@@ -1816,7 +1821,7 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
-			message: "#^Binary operation \"\\*\" between float and non-falsy-string results in an error\\.$#"
+			message: "#^Binary operation \"\\*\" between float and non\\-falsy\\-string results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Directory/Model/Currency.php
 
@@ -2236,7 +2241,7 @@ parameters:
 			path: ../app/code/core/Mage/Install/controllers/WizardController.php
 
 		-
-			message: "#^Binary operation \"\\+\" between non-falsy-string and 1 results in an error\\.$#"
+			message: "#^Binary operation \"\\+\" between non\\-falsy\\-string and 1 results in an error\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Log/Model/Resource/Log.php
 
