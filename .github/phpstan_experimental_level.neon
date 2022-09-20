@@ -6,4 +6,4 @@ parameters:
          - %currentWorkingDirectory%/lib/Mage
          - %currentWorkingDirectory%/lib/Magento
          - %currentWorkingDirectory%/lib/Varien
-    level: 3
+    level: 4
