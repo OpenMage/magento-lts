@@ -110,9 +110,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
         }
 
         /* Configurable attributes */
-        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
-        $productType = $this->_getProduct()->getTypeInstance(true);
-        $usedAttributes = $productType->getUsedProductAttributes($this->_getProduct());
         foreach ($usedAttributes as $attribute) {
             $attributeCode =  $attribute->getAttributeCode();
             $fieldset->addField( 'simple_product_' . $attributeCode, 'select',  [
