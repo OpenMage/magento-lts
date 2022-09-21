@@ -93,12 +93,12 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     {
         $productTypes = Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray();
         $productTypes = array_keys($productTypes);
-        foreach($collection->getItems() as $key => $item) {
+        foreach ($collection->getItems() as $key => $item) {
             if ($item instanceof Mage_Catalog_Model_Product) {
                 $type = $item->getTypeId();
-            } else if ($item instanceof Mage_Sales_Model_Order_Item) {
+            } elseif ($item instanceof Mage_Sales_Model_Order_Item) {
                 $type = $item->getProductType();
-            } else if ($item instanceof Mage_Sales_Model_Quote_Item) {
+            } elseif ($item instanceof Mage_Sales_Model_Quote_Item) {
                 $type = $item->getProductType();
             } else {
                 $type = '';

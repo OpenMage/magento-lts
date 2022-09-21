@@ -109,6 +109,7 @@
  * @method $this setParentProductId(int $value)
  * @method int getProductId()
  * @method $this setProductId(int $value)
+ * @method $this setProductOrderOptions(array $value)
  * @method $this setProductType(string $value)
  * @method float getPriceInclTax()
  * @method $this setPriceInclTax(float $value)
