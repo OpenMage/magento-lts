@@ -38,6 +38,7 @@ class Mage_Paypal_Block_Payment_Info extends Mage_Payment_Block_Info_Cc
         if (Mage_Paypal_Model_Config::getIsCreditCardMethod($this->getInfo()->getMethod())) {
             return parent::getCcTypeName();
         }
+        return null;
     }
 
     /**

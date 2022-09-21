@@ -606,16 +606,18 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $product->setOptionsValidationFail(true);
             $product->getTypeInstance(true)->setStoreFilter($product->getStoreId(), $product);
 
-            $optionCollection = $product->getTypeInstance(true)->getOptionsCollection($product);
+            /** @var Mage_Bundle_Model_Product_Type $productType */
+            $productType = $product->getTypeInstance(true);
 
-            $optionIds = $product->getTypeInstance(true)->getOptionsIds($product);
+            $optionCollection = $productType->getOptionsCollection($product);
+
+            $optionIds = $productType->getOptionsIds($product);
             $selectionIds = [];
 
-            $selectionCollection = $product->getTypeInstance(true)
-                ->getSelectionsCollection(
-                    $optionIds,
-                    $product
-                );
+            $selectionCollection = $productType->getSelectionsCollection(
+                $optionIds,
+                $product
+            );
 
             $options = $optionCollection->appendSelections($selectionCollection, false, $_appendAllSelections);
 

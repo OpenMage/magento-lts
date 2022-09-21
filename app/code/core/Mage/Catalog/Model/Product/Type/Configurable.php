@@ -217,7 +217,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * Retrieve used product attributes
      *
      * @param  Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Type_Configurable_Attribute[]
+     * @return Mage_Catalog_Model_Resource_Eav_Attribute[]
      */
     public function getUsedProductAttributes($product = null)
     {

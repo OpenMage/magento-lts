@@ -84,8 +84,10 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             $customOption = $product->getCustomOption('bundle_selection_ids');
             if ($customOption) {
                 $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
+                /** @var Mage_Bundle_Model_Product_Type $productType */
+                $productType = $product->getTypeInstance(true);
                 /** @var Mage_Bundle_Model_Resource_Selection_Collection $selections */
-                $selections = $product->getTypeInstance(true)->getSelectionsByIds($selectionIds, $product);
+                $selections = $productType->getSelectionsByIds($selectionIds, $product);
                 $selections->addTierPriceData();
                 Mage::dispatchEvent('prepare_catalog_product_collection_prices', [
                     'collection' => $selections,
@@ -468,17 +470,16 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      */
     public function getOptions($product)
     {
-        $product->getTypeInstance(true)
-            ->setStoreFilter($product->getStoreId(), $product);
+        /** @var Mage_Bundle_Model_Product_Type $productType */
+        $productType = $product->getTypeInstance(true);
+        $productType->setStoreFilter($product->getStoreId(), $product);
 
-        $optionCollection = $product->getTypeInstance(true)
-            ->getOptionsCollection($product);
+        $optionCollection = $productType->getOptionsCollection($product);
 
-        $selectionCollection = $product->getTypeInstance(true)
-            ->getSelectionsCollection(
-                $product->getTypeInstance(true)->getOptionsIds($product),
-                $product
-            );
+        $selectionCollection = $productType->getSelectionsCollection(
+            $productType->getOptionsIds($product),
+            $product
+        );
 
         return $optionCollection->appendSelections($selectionCollection, false, false);
     }

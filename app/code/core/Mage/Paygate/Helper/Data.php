@@ -41,12 +41,12 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return message for gateway transaction request
      *
-     * @param  Mage_Payment_Model_Info $payment
-     * @param  string $requestType
-     * @param  string $lastTransactionId
-     * @param  Varien_Object $card
-     * @param float $amount
-     * @param string $exception
+     * @param Mage_Payment_Model_Info $payment
+     * @param string $requestType
+     * @param string $lastTransactionId
+     * @param Varien_Object $card
+     * @param float|false $amount
+     * @param string|false $exception
      * @return bool|string
      */
     public function getTransactionMessage($payment, $requestType, $lastTransactionId, $card, $amount = false,
@@ -60,13 +60,13 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return message for gateway transaction request
      *
-     * @param  Mage_Payment_Model_Info $payment
-     * @param  string $requestType
-     * @param  string $lastTransactionId
-     * @param  Varien_Object $card
-     * @param float $amount
-     * @param string $exception
-     * @param string $additionalMessage Custom message, which will be added to the end of generated message
+     * @param Mage_Payment_Model_Info $payment
+     * @param string $requestType
+     * @param string $lastTransactionId
+     * @param Varien_Object $card
+     * @param float|false $amount
+     * @param string|false $exception
+     * @param string|false $additionalMessage Custom message, which will be added to the end of generated message
      * @return bool|string
      */
     public function getExtendedTransactionMessage($payment, $requestType, $lastTransactionId, $card, $amount = false,
