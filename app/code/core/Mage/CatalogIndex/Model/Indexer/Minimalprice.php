@@ -95,7 +95,9 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
         $priceAttributeId = $this->getTierPriceAttribute()->getId();
         if ($object->isGrouped()) {
             $priceAttributeId = $this->getPriceAttribute()->getId();
-            $associated = $object->getTypeInstance(true)->getAssociatedProducts($object);
+            /** @var Mage_Catalog_Model_Product_Type_Grouped $productType */
+            $productType = $object->getTypeInstance(true);
+            $associated = $productType->getAssociatedProducts($object);
             $searchEntityId = [];
 
             foreach ($associated as $product) {
