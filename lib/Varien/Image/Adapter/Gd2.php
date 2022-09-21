@@ -279,9 +279,13 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             }
         }
         list($r, $g, $b) = $this->_backgroundColor;
-        $color = imagecolorallocate($imageResourceTo, $r, $g, $b);
-        if (!imagefill($imageResourceTo, 0, 0, $color)) {
-            throw new Exception("Failed to fill image background with color {$r} {$g} {$b}.");
+
+        $color = null;
+        if ($r && $g && $b) {
+            $color = imagecolorallocate($imageResourceTo, $r, $g, $b);
+            if (!imagefill($imageResourceTo, 0, 0, $color)) {
+                throw new Exception("Failed to fill image background with color {$r} {$g} {$b}.");
+            }
         }
 
         return $color;

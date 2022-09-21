@@ -204,7 +204,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
 
     protected function _getRendererByType()
     {
-        $type = strtolower($this->getType());
+        $type = $this->getType();
+        if ($type === null) {
+            return 'adminhtml/widget_grid_column_renderer_text';
+        }
+
+        $type = strtolower($type);
         $renderers = $this->getGrid()->getColumnRenderers();
 
         if (is_array($renderers) && isset($renderers[$type])) {
@@ -285,8 +290,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             if (!$rendererClass) {
                 $rendererClass = $this->_getRendererByType();
             }
-            $this->_renderer = $this->getLayout()->createBlock($rendererClass)
-                ->setColumn($this);
+            if ($rendererClass) {
+                $block = $this->getLayout()->createBlock($rendererClass);
+                $this->_renderer = $block->setColumn($this);
+            }
         }
         return $this->_renderer;
     }
@@ -297,9 +304,17 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
                 ->setColumn($this);
     }
 
+    /**
+     * @return string
+     */
     protected function _getFilterByType()
     {
-        $type = strtolower($this->getType());
+        $type = $this->getType();
+        if ($type === null) {
+            return 'adminhtml/widget_grid_column_filter_text';
+        }
+
+        $type = strtolower($type);
         $filters = $this->getGrid()->getColumnFilters();
         if (is_array($filters) && isset($filters[$type])) {
             return $filters[$type];

@@ -25,9 +25,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Customer_Edit_Tab_View
- extends Mage_Adminhtml_Block_Template
- implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_Template implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     protected $_customer;
 
@@ -71,16 +69,19 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
      */
     public function getCreateDate()
     {
-        if ( ! $this->getCustomer()->getCreatedAt()) {
+        if (! $this->getCustomer()->getCreatedAt()) {
             return null;
         }
-        return $this->_getCoreHelper()->formatDate($this->getCustomer()->getCreatedAt(),
-            Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
+        return $this->_getCoreHelper()->formatDate(
+            $this->getCustomer()->getCreatedAt(),
+            Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
+            true
+        );
     }
 
     public function getStoreCreateDate()
     {
-        if ( ! $this->getCustomer()->getCreatedAt()) {
+        if (! $this->getCustomer()->getCreatedAt()) {
             return null;
         }
         $date = Mage::app()->getLocale()->storeDate(
@@ -134,7 +135,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
     {
         $log = $this->getCustomerLog();
         if ($log->getLogoutAt()
-            || strtotime(Varien_Date::now()) - strtotime($log->getLastVisitAt()) > Mage_Log_Model_Visitor::getOnlineMinutesInterval() * 60
+            || ($log->getLastVisitAt() && strtotime(Varien_Date::now()) - strtotime($log->getLastVisitAt()) > Mage_Log_Model_Visitor::getOnlineMinutesInterval() * 60)
         ) {
             return Mage::helper('customer')->__('Offline');
         }
@@ -168,8 +169,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
         $html = '';
         if ($address = $this->getCustomer()->getPrimaryBillingAddress()) {
             $html = $address->format('html');
-        }
-        else {
+        } else {
             $html = Mage::helper('customer')->__('The customer does not have default billing address.');
         }
         return $html;

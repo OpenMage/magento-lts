@@ -412,7 +412,12 @@ final class Mage
      */
     public static function getStoreConfigFlag($path, $store = null)
     {
-        $flag = strtolower(self::getStoreConfig($path, $store));
+        $config = self::getStoreConfig($path, $store);
+        if ($config === null) {
+            return false;
+        }
+
+        $flag = strtolower($config);
         if (!empty($flag) && $flag !== 'false') {
             return true;
         } else {
@@ -512,6 +517,9 @@ final class Mage
      */
     public static function getModel($modelClass = '', $arguments = [])
     {
+        if ($modelClass === null) {
+            return false;
+        }
         return self::getConfig()->getModelInstance($modelClass, $arguments);
     }
 

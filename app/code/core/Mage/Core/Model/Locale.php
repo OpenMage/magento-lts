@@ -832,6 +832,10 @@ class Mage_Core_Model_Locale
      */
     public function isStoreDateInInterval($store, $dateFrom = null, $dateTo = null)
     {
+        if ($dateFrom === null || $dateTo === null) {
+            return false;
+        }
+
         if (!$store instanceof Mage_Core_Model_Store) {
             $store = Mage::app()->getStore($store);
         }

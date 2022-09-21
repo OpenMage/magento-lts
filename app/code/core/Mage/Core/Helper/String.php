@@ -183,7 +183,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
             }
         } // split smartly, keeping words
         else {
-            $split = preg_split('/(' . $wordSeparatorRegex . '+)/siu', $str, null, PREG_SPLIT_DELIM_CAPTURE);
+            $split = preg_split('/(' . $wordSeparatorRegex . '+)/siu', $str, -1, PREG_SPLIT_DELIM_CAPTURE);
             $i        = 0;
             $space    = '';
             $spaceLen = 0;

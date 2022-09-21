@@ -119,6 +119,10 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      */
     public function getAllowedCcTypes()
     {
+        if ($this->_pro->getConfig()->cctypes === null) {
+            return '';
+        }
+
         $ccTypes = explode(',', $this->_pro->getConfig()->cctypes);
         $country = $this->_pro->getConfig()->getMerchantCountry();
 

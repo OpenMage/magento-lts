@@ -123,9 +123,10 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
     {
         if ($this->getColumn()->getGrid()->getSortable() !== false && $this->getColumn()->getSortable() !== false) {
             $className = 'not-sort';
-            $dir = strtolower($this->getColumn()->getDir());
+            $columnDir = $this->getColumn()->getDir();
+            $dir = is_string($columnDir) ? strtolower($columnDir) : $columnDir;
             $nDir= ($dir=='asc') ? 'desc' : 'asc';
-            if ($this->getColumn()->getDir()) {
+            if ($columnDir) {
                 $className = 'sort-arrow-' . $dir;
             }
             $out = '<a href="#" name="' . $this->getColumn()->getId() . '" title="' . $nDir

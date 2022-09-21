@@ -26,6 +26,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setHeaderCss(string $value)
+ * @method $this setShowGlobalIcon(bool $value)
  * @method $this setTitle(string $value)
  */
 class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template

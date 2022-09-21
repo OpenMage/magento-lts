@@ -89,6 +89,9 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if ($r['scope'] !== 'default') {
                 continue;
             }
+            if ($r['value'] === null) {
+                continue;
+            }
             $value = str_replace($substFrom, $substTo, $r['value']);
             $xmlConfig->setNode('default/' . $r['path'], $value);
         }

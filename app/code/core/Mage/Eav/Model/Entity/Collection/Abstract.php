@@ -1161,7 +1161,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             ->from($table, [$entityIdField, 'attribute_id'])
             ->where('entity_type_id =?', $this->getEntity()->getTypeId())
             ->where("$entityIdField IN (?)", array_keys($this->_itemsById))
-            ->where('attribute_id IN (?)', $attributeIds);
+            ->where('attribute_id IN (?)', array_filter($attributeIds));
     }
 
     /**

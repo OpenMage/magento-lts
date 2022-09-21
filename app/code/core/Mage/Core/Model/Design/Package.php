@@ -522,43 +522,43 @@ class Mage_Core_Model_Design_Package
      * @return string
      * @throws Exception
      */
-    public function getSkinUrl($file = null, array $params = [])
-    {
-        Varien_Profiler::start(__METHOD__);
+        public function getSkinUrl($file = null, array $params = [])
+        {
+            Varien_Profiler::start(__METHOD__);
 
-        // Prevent reading files outside of the proper directory while still allowing symlinked files
-        if (strpos($file, '..') !== false) {
-            Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Zend_Log::ERR);
-            throw new Exception('Invalid path requested.');
-        }
+            // Prevent reading files outside of the proper directory while still allowing symlinked files
+            if (is_string($file) && strpos($file, '..') !== false) {
+                Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Zend_Log::ERR);
+                throw new Exception('Invalid path requested.');
+            }
 
-        if (empty($params['_type'])) {
-            $params['_type'] = 'skin';
+            if (empty($params['_type'])) {
+                $params['_type'] = 'skin';
+            }
+            if (empty($params['_default'])) {
+                $params['_default'] = false;
+            }
+            $this->updateParamDefaults($params);
+            if (!empty($file)) {
+                $result = $this->_fallback(
+                    $file,
+                    $params,
+                    $this->_fallback->getFallbackScheme(
+                        $params['_area'],
+                        $params['_package'],
+                        $params['_theme']
+                    )
+                );
+            }
+            $result = $this->getSkinBaseUrl($params) . (empty($file) ? '' : $file);
+            Varien_Profiler::stop(__METHOD__);
+            return $result;
         }
-        if (empty($params['_default'])) {
-            $params['_default'] = false;
-        }
-        $this->updateParamDefaults($params);
-        if (!empty($file)) {
-            $result = $this->_fallback(
-                $file,
-                $params,
-                $this->_fallback->getFallbackScheme(
-                    $params['_area'],
-                    $params['_package'],
-                    $params['_theme']
-                )
-            );
-        }
-        $result = $this->getSkinBaseUrl($params) . (empty($file) ? '' : $file);
-        Varien_Profiler::stop(__METHOD__);
-        return $result;
-    }
 
     /**
-     * Design packages list getter
-     * @return array
-     */
+         * Design packages list getter
+         * @return array
+         */
     public function getPackageList()
     {
         $directory = Mage::getBaseDir('design') . DS . 'frontend';

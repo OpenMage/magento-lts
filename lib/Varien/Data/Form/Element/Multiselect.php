@@ -70,7 +70,12 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
             $this->serialize($this->getHtmlAttributes()) . ' multiple="multiple">' . "\n";
 
         $value = $this->getValue();
-        if (!is_array($value)) {
+
+        if ($value === null) {
+            $value = [];
+        }
+
+        if (is_string($value)) {
             $value = explode(',', $value);
         }
 
@@ -82,8 +87,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
                         $html .= $this->_optionToHtml($groupItem, $value);
                     }
                     $html .= '</optgroup>' . "\n";
-                }
-                else {
+                } else {
                     $html .= $this->_optionToHtml($option, $value);
                 }
             }
@@ -108,18 +112,18 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
      */
     public function getDefaultHtml()
     {
-        $result = ( $this->getNoSpan() === true ) ? '' : '<span class="field-row">'."\n";
+        $result = ($this->getNoSpan() === true) ? '' : '<span class="field-row">'."\n";
         $result.= $this->getLabelHtml();
         $result.= $this->getElementHtml();
 
-        if($this->getSelectAll() && $this->getDeselectAll()) {
+        if ($this->getSelectAll() && $this->getDeselectAll()) {
             $result .= '<a href="#" onclick="return ' . $this->getJsObjectName() . '.selectAll()">' .
                 $this->getSelectAll() . '</a> <span class="separator">&nbsp;|&nbsp;</span>';
             $result .= '<a href="#" onclick="return ' . $this->getJsObjectName() . '.deselectAll()">' .
                 $this->getDeselectAll() . '</a>';
         }
 
-        $result.= ( $this->getNoSpan() === true ) ? '' : '</span>'."\n";
+        $result.= ($this->getNoSpan() === true) ? '' : '</span>'."\n";
 
         $result.= '<script type="text/javascript">' . "\n";
         $result.= '   var ' . $this->getJsObjectName() . ' = {' . "\n";
@@ -148,7 +152,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
      */
     public function getJsObjectName()
     {
-         return $this->getHtmlId() . 'ElementControl';
+        return $this->getHtmlId() . 'ElementControl';
     }
 
     /**

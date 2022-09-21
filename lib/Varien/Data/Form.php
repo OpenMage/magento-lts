@@ -48,9 +48,9 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
      */
     protected $_elementsIndex;
 
-    static protected $_defaultElementRenderer;
-    static protected $_defaultFieldsetRenderer;
-    static protected $_defaultFieldsetElementRenderer;
+    protected static $_defaultElementRenderer;
+    protected static $_defaultFieldsetRenderer;
+    protected static $_defaultFieldsetElementRenderer;
 
     /**
      * @inheritDoc
@@ -198,8 +198,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         foreach ($this->_allElements as $element) {
             if (isset($values[$element->getId()])) {
                 $element->setValue($values[$element->getId()]);
-            }
-            else {
+            } else {
                 $element->setValue(null);
             }
         }
@@ -301,7 +300,8 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         if ($useContainer = $this->getUseContainer()) {
             $html .= '<form '.$this->serialize($this->getHtmlAttributes()).'>';
             $html .= '<div>';
-            if (strtolower($this->getData('method')) == 'post') {
+            $method = $this->getData('method');
+            if (is_string($method) && strtolower($method) == 'post') {
                 $html .= '<input name="form_key" type="hidden" value="'.Mage::getSingleton('core/session')->getFormKey().'" />';
             }
             $html .= '</div>';

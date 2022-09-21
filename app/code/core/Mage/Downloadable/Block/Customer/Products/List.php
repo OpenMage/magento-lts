@@ -45,14 +45,13 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
             ->addFieldToFilter('customer_id', $session->getCustomerId())
             ->addOrder('created_at', 'desc');
         $this->setPurchased($purchased);
+
         $purchasedIds = [];
         /** @var Mage_Downloadable_Model_Link_Purchased_Item $_item */
         foreach ($purchased as $_item) {
             $purchasedIds[] = $_item->getId();
         }
-        if (empty($purchasedIds)) {
-            $purchasedIds = [null];
-        }
+
         $purchasedItems = Mage::getResourceModel('downloadable/link_purchased_item_collection')
             ->addFieldToFilter('purchased_id', ['in' => $purchasedIds])
             ->addFieldToFilter(
@@ -65,6 +64,11 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
                 ]
             )
             ->setOrder('item_id', 'desc');
+
+        if (empty($purchasedIds)) {
+            $purchasedIds = [null];
+        }
+
         $this->setItems($purchasedItems);
     }
 

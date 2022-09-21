@@ -22,6 +22,18 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setCloseText(string $value)
+ * @method $this setCriticalText(string $value)
+ * @method $this setHeaderText(string $value)
+ * @method $this setMajorText(string $value)
+ * @method $this setMinorText(string $value)
+ * @method $this setNoticeText(string $value)
+ * @method $this setNoticeMessageText(string $value)
+ * @method $this setNoticeMessageUrl(string $value)
+ * @method string getNoticeSeverity()
+ * @method $this setNoticeSeverity(string $value)
+ * @method $this setReadDetailsText(string $value)
  */
 class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Notification_Toolbar
 {
@@ -144,8 +156,11 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
         if (is_null($this->_severityIconsUrl)) {
             $this->_severityIconsUrl =
                 (Mage::app()->getFrontController()->getRequest()->isSecure() ? 'https://' : 'http://')
-                . sprintf(Mage::getStoreConfig(self::XML_SEVERITY_ICONS_URL_PATH), Mage::getVersion(),
-                    $this->getNoticeSeverity())
+                . sprintf(
+                    Mage::getStoreConfig(self::XML_SEVERITY_ICONS_URL_PATH),
+                    Mage::getVersion(),
+                    $this->getNoticeSeverity()
+                )
             ;
         }
         return $this->_severityIconsUrl;

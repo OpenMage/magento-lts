@@ -139,6 +139,11 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     public function getStreet($line = 0)
     {
         $street = parent::getData('street');
+
+        if ($street === null) {
+            return '';
+        }
+
         if ($line === -1) {
             return $street;
         } else {
