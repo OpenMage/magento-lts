@@ -316,7 +316,7 @@ class Zend_Currency
             $country = substr($locale, (strpos($locale, '_') + 1));
         } else {
             #require_once 'Zend/Currency/Exception.php';
-//            throw new Zend_Currency_Exception("No region found within the locale '" . (string) $locale . "'");
+            throw new Zend_Currency_Exception("No region found within the locale '" . (string) $locale . "'");
         }
 
         // Get the available currencies for this country
@@ -558,7 +558,7 @@ class Zend_Currency
                 $this->_options['locale'] = $locale;
             } else {
                 #require_once 'Zend/Currency/Exception.php';
-//                throw new Zend_Currency_Exception("No region found within the locale '" . (string) $locale . "'");
+                throw new Zend_Currency_Exception("No region found within the locale '" . (string) $locale . "'");
             }
         } catch (Zend_Locale_Exception $e) {
             #require_once 'Zend/Currency/Exception.php';
