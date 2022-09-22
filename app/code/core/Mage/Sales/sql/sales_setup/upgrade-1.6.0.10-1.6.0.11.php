@@ -25,7 +25,7 @@ $installer->startSetup();
 
 // Add index to sales_flat_order on customer_email for fast lookup, only first 15 bytes
 $keyList = $installer->getConnection()->getIndexList($installer->getTable('sales/order'));
-if (!isset($keyList[strtoupper('customer_email')])) {
+if (!isset($keyList['IDX_SALES_FLAT_ORDER_CUSTOMER_EMAIL'])) {
     $installer->run("
         ALTER TABLE {$installer->getTable('sales/order')}
         ADD INDEX `IDX_SALES_FLAT_ORDER_CUSTOMER_EMAIL` (`customer_email` (15));
