@@ -544,7 +544,9 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         /**
          *   for calculating weee tax discount
          */
+        /** @var Mage_Tax_Model_Config $config */
         $config = $this->_getSingleton('tax/config');
+        /** @var Mage_Tax_Model_Calculation $calculator */
         $calculator = $this->_getSingleton('tax/calculation');
         $request = $calculator->getRateRequest(
             $address,
@@ -1059,7 +1061,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * wrap Mage::getSingleton
      *
      * @param string $name
-     * @return mixed
+     * @return Mage_Core_Model_Abstract
      */
     protected function _getSingleton($name)
     {

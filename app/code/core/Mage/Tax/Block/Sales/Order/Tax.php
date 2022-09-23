@@ -298,7 +298,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
     }
 
     /**
-     * @return mixed
+     * @return Mage_Sales_Model_Order
      */
     public function getOrder()
     {

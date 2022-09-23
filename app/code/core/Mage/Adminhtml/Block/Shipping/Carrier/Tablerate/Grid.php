@@ -90,9 +90,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     }
 
     /**
-     * Retrieve current website id
-     *
-     * @return int
+     * @return string
      */
     public function getConditionName()
     {

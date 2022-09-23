@@ -299,7 +299,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      *
      * @param string $realModule
      * @param string $controller
-     * @return mixed
+     * @return false|string
      * @throws Mage_Core_Exception
      */
     protected function _validateControllerClassName($realModule, $controller)

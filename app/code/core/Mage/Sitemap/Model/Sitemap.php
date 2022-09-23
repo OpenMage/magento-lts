@@ -220,7 +220,9 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         $io->streamWrite('</urlset>');
         $io->streamClose();
 
-        $this->setSitemapTime(Mage::getSingleton('core/date')->gmtDate('Y-m-d H:i:s'));
+        $this->setSitemapTime(
+            Mage::getSingleton('core/date')->gmtDate(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT)
+        );
         $this->save();
 
         return $this;

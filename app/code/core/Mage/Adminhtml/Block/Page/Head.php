@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Page_Head extends Mage_Page_Block_Html_Head
     /**
      * Retrieve Timeout Delay from Config
      *
-     * @return string
+     * @return int
      */
     public function getLoadingTimeout()
     {

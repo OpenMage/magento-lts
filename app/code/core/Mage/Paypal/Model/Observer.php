@@ -29,7 +29,6 @@ class Mage_Paypal_Model_Observer
 {
     /**
      * Goes to reports.paypal.com and fetches Settlement reports.
-     * @return $this
      */
     public function fetchReports()
     {

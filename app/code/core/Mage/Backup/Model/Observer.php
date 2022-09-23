@@ -41,7 +41,7 @@ class Mage_Backup_Model_Observer
     /**
      * Create Backup
      *
-     * @return Mage_Log_Model_Cron
+     * @return $this
      */
     public function scheduledBackup()
     {

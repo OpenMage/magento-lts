@@ -299,7 +299,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
     /**
      * Get result of request
      *
-     * @return mixed
+     * @return Mage_Shipping_Model_Rate_Result|null
      */
     public function getResult()
     {
@@ -1056,7 +1056,7 @@ XMLRequest;
      * Get tracking
      *
      * @param mixed $trackings
-     * @return mixed
+     * @return Mage_Shipping_Model_Rate_Result|null
      */
     public function getTracking($trackings)
     {
@@ -1101,7 +1101,7 @@ XMLAuth;
      * Get cgi tracking
      *
      * @param mixed $trackings
-     * @return mixed
+     * @return false|Mage_Core_Model_Abstract|Mage_Shipping_Model_Tracking_Result
      */
     protected function _getCgiTracking($trackings)
     {
@@ -1130,7 +1130,7 @@ XMLAuth;
      * Get xml tracking
      *
      * @param mixed $trackings
-     * @return mixed
+     * @return Mage_Shipping_Model_Rate_Result|null
      */
     protected function _getXmlTracking($trackings)
     {
@@ -1717,7 +1717,7 @@ XMLAuth;
     /**
      * Return all container types of carrier
      *
-     * @return array|bool
+     * @return array
      */
     public function getContainerTypesAll()
     {
@@ -1745,7 +1745,7 @@ XMLAuth;
      * Return delivery confirmation types of carrier
      *
      * @param Varien_Object|null $params
-     * @return array|bool
+     * @return array
      */
     public function getDeliveryConfirmationTypes(Varien_Object $params = null)
     {

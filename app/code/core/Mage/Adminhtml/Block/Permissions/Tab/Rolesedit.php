@@ -154,7 +154,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
      *
      * @param array $a
      * @param array $b
-     * @return bool
+     * @return int
      */
     protected function _sortTree($a, $b)
     {

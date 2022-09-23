@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
     /**
      * Add to layout accordion block
      *
-     * @return Mage_Adminhtml_Block_Tag_Edit
+     * @return $this
      */
     protected function _prepareLayout()
     {

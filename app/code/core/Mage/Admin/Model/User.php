@@ -471,7 +471,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Check if user is assigned to any role
      *
      * @param int|Mage_Admin_Model_User $user
-     * @return null|bool|array
+     * @return array|null
      */
     public function hasAssigned2Role($user)
     {

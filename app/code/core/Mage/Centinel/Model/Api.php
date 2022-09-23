@@ -221,7 +221,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
     /**
      * Call centinel api authentication method
      *
-     * @return $this
+     * @return Varien_Object
      */
     public function callAuthentication($data)
     {

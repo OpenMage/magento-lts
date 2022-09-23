@@ -270,7 +270,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * Try to create Magento helper for filtration based on $filterData. Return false on failure
      *
      * @param array $filterData
-     * @return bool|Mage_Core_Helper_Abstract
+     * @return Mage_Core_Helper_Abstract
      * @throws Exception
      */
     protected function _getFiltrationHelper($filterData)

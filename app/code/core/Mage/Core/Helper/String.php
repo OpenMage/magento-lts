@@ -285,7 +285,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * @param string $haystack
      * @param string $needle
      * @param int $offset
-     * @return int|false
+     * @return int
      */
     public function strpos($haystack, $needle, $offset = null)
     {

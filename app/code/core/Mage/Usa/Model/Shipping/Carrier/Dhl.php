@@ -381,7 +381,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
     /**
      * Get result of request
      *
-     * @return mixed
+     * @return Mage_Shipping_Model_Rate_Result|null
      */
     public function getResult()
     {
@@ -948,7 +948,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
      * Get tracking
      *
      * @param mixed $trackings
-     * @return mixed
+     * @return Mage_Shipping_Model_Rate_Result|null
      */
     public function getTracking($trackings)
     {

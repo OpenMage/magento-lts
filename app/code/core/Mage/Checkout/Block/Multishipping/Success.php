@@ -28,14 +28,13 @@
 class Mage_Checkout_Block_Multishipping_Success extends Mage_Checkout_Block_Multishipping_Abstract
 {
     /**
-     * @return bool|string
+     * @return array|false
      */
     public function getOrderIds()
     {
         $ids = Mage::getSingleton('core/session')->getOrderIds(true);
         if ($ids && is_array($ids)) {
             return $ids;
-            return implode(', ', $ids);
         }
         return false;
     }

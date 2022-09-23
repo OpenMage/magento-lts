@@ -37,9 +37,7 @@ class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Widget_C
     }
 
     /**
-     * Prepare button and grid
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
