@@ -47,7 +47,7 @@ class Mage_Reports_Model_Resource_Tag_Customer_Collection extends Mage_Tag_Model
     /**
      * get select count sql
      *
-     * @return string
+     * @return Varien_Db_Select
      */
     public function getSelectCountSql()
     {

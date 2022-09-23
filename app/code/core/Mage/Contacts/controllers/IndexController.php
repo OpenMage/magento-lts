@@ -33,7 +33,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
     const XML_PATH_ENABLED          = 'contacts/contacts/enabled';
 
     /**
-     * @return Mage_Core_Controller_Front_Action|void
+     * @return void
      */
     public function preDispatch()
     {

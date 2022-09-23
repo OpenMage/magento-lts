@@ -42,10 +42,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     protected $_buttonsHtml;
 
     /**
-     * Prepare page layout, basing on different registry and request variables
-     *
-     * Generates layout of: creation modes selector, products grid, categories tree, urlrewrite edit form
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {

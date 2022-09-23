@@ -411,7 +411,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Validate customer data and return errors if they are
      *
      * @param Mage_Customer_Model_Customer $customer
-     * @return array|string
+     * @return array
      */
     protected function _getCustomerErrors($customer)
     {

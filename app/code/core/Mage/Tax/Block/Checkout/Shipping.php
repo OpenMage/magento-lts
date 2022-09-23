@@ -72,7 +72,7 @@ class Mage_Tax_Block_Checkout_Shipping extends Mage_Checkout_Block_Total_Default
     /**
      * Get label for shipping include tax
      *
-     * @return float
+     * @return string
      */
     public function getIncludeTaxLabel()
     {
@@ -82,7 +82,7 @@ class Mage_Tax_Block_Checkout_Shipping extends Mage_Checkout_Block_Total_Default
     /**
      * Get label for shipping exclude tax
      *
-     * @return float
+     * @return string
      */
     public function getExcludeTaxLabel()
     {

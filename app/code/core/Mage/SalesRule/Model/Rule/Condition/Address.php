@@ -52,7 +52,7 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
     }
 
     /**
-     * @return mixed
+     * @return Varien_Data_Form_Element_Abstract
      */
     public function getAttributeElement()
     {

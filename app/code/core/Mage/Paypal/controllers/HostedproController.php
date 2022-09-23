@@ -56,7 +56,7 @@ class Mage_Paypal_HostedproController extends Mage_Core_Controller_Front_Action
      * Cancel order, return quote to customer
      *
      * @param string $errorMsg
-     * @return mixed
+     * @return false|string
      */
     protected function _cancelPayment($errorMsg = '')
     {

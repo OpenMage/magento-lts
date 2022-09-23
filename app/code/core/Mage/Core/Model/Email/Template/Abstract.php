@@ -146,7 +146,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      *
      * @param array $variables
      * @param int $storeId
-     * @return mixed
+     * @return array
      */
     protected function _addEmailVariables($variables, $storeId)
     {

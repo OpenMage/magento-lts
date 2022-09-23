@@ -168,7 +168,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
     /**
      * Return number of last page
      *
-     * @return bool
+     * @return float|int
      */
     public function getLastPageNum()
     {

@@ -179,8 +179,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Retrieve save url
      *
+     * @return string
      * @deprecated after 1.4.2.0
-     * @return array
      */
     public function getSaveUrl()
     {

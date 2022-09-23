@@ -122,7 +122,7 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
      * Get Coupon's alphabet as array of chars
      *
      * @param string $format
-     * @return array|bool
+     * @return array
      */
     public function getCharset($format)
     {

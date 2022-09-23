@@ -304,7 +304,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      * Get Custom Options of item
      *
      * @param Mage_Sales_Model_Quote_Item $item
-     * @return array
+     * @return string
      */
     public function getCustomOptions(Mage_Sales_Model_Quote_Item $item)
     {

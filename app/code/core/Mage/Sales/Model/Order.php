@@ -2187,7 +2187,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Check order invoices availability
      *
-     * @return bool
+     * @return int
      */
     public function hasInvoices()
     {

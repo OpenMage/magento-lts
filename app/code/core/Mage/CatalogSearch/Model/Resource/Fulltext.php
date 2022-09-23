@@ -487,7 +487,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      *
      * @param string $field
      * @param string $backendType
-     * @return Zend_Db_Expr
+     * @return string
      */
     protected function _unifyField($field, $backendType = 'varchar')
     {
@@ -811,7 +811,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      *
      * @param int $storeId
      * @param string $date
-     * @return string
+     * @return string|null
      */
     protected function _getStoreDate($storeId, $date = null)
     {

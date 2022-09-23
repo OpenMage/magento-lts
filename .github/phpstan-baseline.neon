@@ -386,11 +386,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Tabs\\:\\:addTabAfter\\(\\) should return Mage_Adminhtml_Block_Widget_Tabs but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
-
-		-
 			message: "#^PHPDoc tag @param references unknown parameter\\: \\$tabNId$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
@@ -449,11 +444,6 @@ parameters:
 			message: "#^Variable \\$values might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Store.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_Url\\:\\:renewSecretUrls\\(\\) should return \\$this\\(Mage_Adminhtml_Model_Url\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/Url.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Controller_Action\\:\\:_setForcedFormKeyActions\\(\\) invoked with 2 parameters, 1 required\\.$#"
@@ -701,22 +691,12 @@ parameters:
 			path: ../app/code/core/Mage/Api2/Model/Route/ApiType.php
 
 		-
-			message: "#^Call to an undefined method Mage_Payment_Model_Info\\:\\:authorize\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Authorizenet/Model/Directpost.php
-
-		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:decrypt\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Authorizenet/Model/Directpost.php
 
 		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:encrypt\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Authorizenet/Model/Directpost.php
-
-		-
-			message: "#^Method Mage_Authorizenet_Model_Directpost\\:\\:authorize\\(\\) should return Mage_Paygate_Model_Authorizenet but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Authorizenet/Model/Directpost.php
 
@@ -1821,11 +1801,6 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
-			message: "#^Binary operation \"\\*\" between float and non\\-falsy\\-string results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Directory/Model/Currency.php
-
-		-
 			message: "#^Variable \\$response might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Directory/Model/Currency/Import/Fixerio.php
@@ -2369,11 +2344,6 @@ parameters:
 			message: "#^Binary operation \"\\-\" between array\\|string and array\\|string results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Ipn.php
-
-		-
-			message: "#^Method Mage_Paypal_Model_Observer\\:\\:fetchReports\\(\\) should return \\$this\\(Mage_Paypal_Model_Observer\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Observer.php
 
 		-
 			message: "#^Variable \\$order in empty\\(\\) always exists and is not falsy\\.$#"
