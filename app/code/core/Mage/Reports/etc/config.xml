@@ -206,4 +206,16 @@
             </dashboard>
         </reports>
     </default>
+    <crontab>
+        <jobs>
+            <aggregate_reports_report_product_viewed_data>
+                <schedule>
+                    <cron_expr>0 0 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>reports/observer::aggregateReportsReportProductViewedData</model>
+                </run>
+            </aggregate_reports_report_product_viewed_data>
+        </jobs>
+    </crontab>
 </config>

@@ -52,7 +52,9 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
         } else {
             $mainProductId = $mainProduct;
         }
-        $old = $mainProduct->getTypeInstance()->getUsedProductIds();
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $mainProduct->getTypeInstance();
+        $old = $productType->getUsedProductIds();
 
         $insert = array_diff($productIds, $old);
         $delete = array_diff($old, $productIds);

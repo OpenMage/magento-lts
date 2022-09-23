@@ -879,7 +879,7 @@ class Zend_Gdata_Gapps extends Zend_Gdata
             } else {
                 #require_once 'Zend/Gdata/App/Exception.php';
                 throw new Zend_Gdata_App_Exception(
-                        "Unable to find '${class}' in registered packages");
+                        "Unable to find '{$class}' in registered packages");
             }
         } else {
             return parent::__call($method, $args);

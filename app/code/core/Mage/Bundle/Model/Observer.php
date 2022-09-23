@@ -194,10 +194,13 @@ class Mage_Bundle_Model_Observer
         /** @var Mage_Catalog_Model_Product $newProduct */
         $newProduct = $observer->getEvent()->getNewProduct();
 
-        $product->getTypeInstance(true)->setStoreFilter($product->getStoreId(), $product);
-        $optionCollection = $product->getTypeInstance(true)->getOptionsCollection($product);
-        $selectionCollection = $product->getTypeInstance(true)->getSelectionsCollection(
-            $product->getTypeInstance(true)->getOptionsIds($product),
+        /** @var Mage_Bundle_Model_Product_Type $productType */
+        $productType = $product->getTypeInstance(true);
+
+        $productType->setStoreFilter($product->getStoreId(), $product);
+        $optionCollection = $productType->getOptionsCollection($product);
+        $selectionCollection = $productType->getSelectionsCollection(
+            $productType->getOptionsIds($product),
             $product
         );
         $optionCollection->appendSelections($selectionCollection);
