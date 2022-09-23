@@ -110,7 +110,6 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             }
         }
 
-        /** @var Varien_Data_Collection_Filesystem $collection */
         $collection = $this->getCollection($path)
             ->setCollectDirs(false)
             ->setCollectFiles(true)

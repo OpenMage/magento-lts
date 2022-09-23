@@ -106,7 +106,9 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
                     $searchValues[] = $value;
                 }
             } else { // we get them from all config attributes if no pre-defined list is passed in
-                $attributes = $product->getTypeInstance(true)->getConfigurableAttributes($product);
+                /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+                $productType = $product->getTypeInstance(true);
+                $attributes = $productType->getConfigurableAttributes($product);
 
                 // Collect valid values of image type attributes
                 foreach ($attributes as $attribute) {

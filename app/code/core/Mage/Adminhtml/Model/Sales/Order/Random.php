@@ -129,7 +129,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
         $this->_quote->getShippingAddress()->importCustomerAddress($customer->getDefaultShippingAddress());
 
         $productCount = rand(3, 10);
-        for ($i=0; $i<$productCount; $i++){
+        for ($i=0; $i<$productCount; $i++) {
             $product = $this->_getRandomProduct();
             if ($product) {
                 $product->setQuoteQty(1);

@@ -92,8 +92,8 @@ class Mage_Paypal_Model_Ipn
      * Get ipn data, send verification to PayPal, run corresponding handler
      *
      * @param array $request
-     * @param Zend_Http_Client_Adapter_Interface $httpAdapter
-     * @throws Exception
+     * @param Zend_Http_Client_Adapter_Interface|null $httpAdapter
+     * @throws Mage_Core_Exception
      */
     public function processIpnRequest(array $request, Zend_Http_Client_Adapter_Interface $httpAdapter = null)
     {
@@ -500,7 +500,7 @@ class Mage_Paypal_Model_Ipn
     protected function _registerPaymentDenial()
     {
         $this->_importPaymentInformation();
-        /** @var Mage_Sales_Model_Order_Payment */
+        /** @var Mage_Sales_Model_Order_Payment $payment */
         $payment = $this->_order->getPayment();
 
         $payment->setTransactionId($this->getRequestData('txn_id'))

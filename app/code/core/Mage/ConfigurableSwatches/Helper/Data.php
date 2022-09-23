@@ -118,17 +118,17 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get swatches product javascript
      *
-     * @return string | null
+     * @return string|null
      */
     public function getSwatchesProductJs()
     {
-        /**
-         * @var Mage_Catalog_Model_Product $product
-         */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::registry('current_product');
         if ($this->isEnabled() && $product) {
             $configAttrs = $this->getSwatchAttributeIds();
-            $configurableAttributes = $product->getTypeInstance(true)->getConfigurableAttributesAsArray($product);
+            /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+            $productType = $product->getTypeInstance(true);
+            $configurableAttributes = $productType->getConfigurableAttributesAsArray($product);
             foreach ($configurableAttributes as $configurableAttribute) {
                 if (in_array($configurableAttribute['attribute_id'], $configAttrs)) {
                     return 'js/configurableswatches/swatches-product.js';

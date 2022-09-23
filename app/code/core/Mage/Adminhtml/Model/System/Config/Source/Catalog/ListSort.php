@@ -51,7 +51,8 @@ class Mage_Adminhtml_Model_System_Config_Source_Catalog_ListSort
      *
      * @return Mage_Catalog_Model_Config
      */
-    protected function _getCatalogConfig() {
+    protected function _getCatalogConfig()
+    {
         return Mage::getSingleton('catalog/config');
     }
 }

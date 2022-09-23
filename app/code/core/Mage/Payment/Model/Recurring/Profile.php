@@ -304,8 +304,9 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     /**
      * Determine nearest possible profile start date
      *
-     * @param Zend_Date $minAllowed
+     * @param Zend_Date|null $minAllowed
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function setNearestStartDatetime(Zend_Date $minAllowed = null)
     {
@@ -462,6 +463,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             case 'reference_id':
                 return Mage::helper('payment')->__('Payment Reference ID');
         }
+        return null;
     }
 
     /**
@@ -494,6 +496,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             case 'init_may_fail':
                 return Mage::helper('payment')->__('Whether to suspend the payment profile if the initial fee fails or add it to the outstanding balance.');
         }
+        return null;
     }
 
     /**

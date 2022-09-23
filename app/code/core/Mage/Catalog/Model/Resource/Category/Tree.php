@@ -68,8 +68,12 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     protected $_storeId                          = null;
 
     /**
+     * @var array
+     */
+    protected $_inactiveItems;
+
+    /**
      * Initialize tree
-     *
      */
     public function __construct()
     {
@@ -359,8 +363,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     protected function _getDefaultCollection($sorted = false)
     {
         $this->_joinUrlRewriteIntoCollection = true;
-        $collection = Mage::getModel('catalog/category')->getCollection();
         /** @var Mage_Catalog_Model_Resource_Category_Collection $collection */
+        $collection = Mage::getModel('catalog/category')->getCollection();
 
         $attributes = Mage::getConfig()->getNode('frontend/category/collection/attributes');
         if ($attributes) {

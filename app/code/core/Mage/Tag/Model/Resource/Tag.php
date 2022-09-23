@@ -281,7 +281,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @deprecated after 1.4.0.0
      *
-     * @param Mage_Tag_Model_Tag|Mage_Tag_Model_Tag $object
+     * @param Mage_Tag_Model_Tag $object
      * @return Mage_Tag_Model_Tag
      */
     public function aggregate($object)

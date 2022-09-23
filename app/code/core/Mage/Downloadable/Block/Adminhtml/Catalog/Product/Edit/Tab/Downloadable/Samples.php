@@ -29,7 +29,6 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
 {
     /**
      * Class constructor
-     *
      */
     public function __construct()
     {
@@ -81,8 +80,10 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
     public function getSampleData()
     {
         $samplesArr = [];
+        /** @var Mage_Downloadable_Model_Product_Type $productType */
+        $productType = $this->getProduct()->getTypeInstance(true);
         /** @var Mage_Downloadable_Model_Sample[] $samples */
-        $samples = $this->getProduct()->getTypeInstance(true)->getSamples($this->getProduct());
+        $samples = $productType->getSamples($this->getProduct());
         foreach ($samples as $item) {
             $tmpSampleItem = [
                 'sample_id' => $item->getId(),

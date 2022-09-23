@@ -44,8 +44,8 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
     /**
      * Set Product object
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Block_Product_View_Options_Abstract
+     * @param Mage_Catalog_Model_Product|null $product
+     * @return $this
      */
     public function setProduct(Mage_Catalog_Model_Product $product = null)
     {

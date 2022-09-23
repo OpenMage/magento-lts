@@ -82,7 +82,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * This value is calculated instead of reading PATH_INFO
      * directly from $_SERVER due to cross-platform differences.
      *
-     * @return string
+     * @return string 'something.html'|'/'|'/path0'|'/path0/path1/'|'/path0/path1/path2'|etc
      */
     public function getOriginalPathInfo()
     {
@@ -237,7 +237,6 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 
     /**
      * @return Zend_Controller_Request_Http
-     * @throws Zend_Controller_Request_Exception
      */
     public function getOriginalRequest()
     {
