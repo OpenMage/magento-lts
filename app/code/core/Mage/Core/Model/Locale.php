@@ -591,7 +591,7 @@ class Mage_Core_Model_Locale
         $timezone = Mage::app()->getStore($store)->getConfig(self::XML_PATH_DEFAULT_TIMEZONE);
         $currentTimezone = @date_default_timezone_get();
         @date_default_timezone_set($timezone);
-        $date = date('Y-m-d H:i:s');
+        $date = date(Varien_Date::DATETIME_PHP_FORMAT);
         @date_default_timezone_set($currentTimezone);
         return strtotime($date);
     }

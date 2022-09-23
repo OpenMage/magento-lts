@@ -72,7 +72,7 @@ File to upload: <input type="file" name="io_file"/> <input type="submit" value="
             $uploader->save($path);
             if ($uploadFile = $uploader->getUploadedFileName()) {
                 $session = Mage::getModel('dataflow/session');
-                $session->setCreatedDate(date('Y-m-d H:i:s'));
+                $session->setCreatedDate(date(Varien_Date::DATETIME_PHP_FORMAT));
                 $session->setDirection('import');
                 $session->setUserId(Mage::getSingleton('admin/session')->getUser()->getId());
                 $session->save();
