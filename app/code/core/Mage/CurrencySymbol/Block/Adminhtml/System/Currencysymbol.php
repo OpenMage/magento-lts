@@ -61,7 +61,7 @@ class Mage_CurrencySymbol_Block_Adminhtml_System_Currencysymbol extends Mage_Adm
     /**
      * Returns page header
      *
-     * @return bool|string
+     * @return string
      */
     public function getHeader()
     {

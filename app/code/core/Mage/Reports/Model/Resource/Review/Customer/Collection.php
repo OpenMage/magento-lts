@@ -121,7 +121,7 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
     /**
      * Get select count sql
      *
-     * @return string
+     * @return Varien_Db_Select
      */
     public function getSelectCountSql()
     {

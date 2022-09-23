@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Form extends Mage_Adminht
     /**
      * Retrieve source
      *
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return Mage_Sales_Model_Order_Shipment
      */
     public function getSource()
     {

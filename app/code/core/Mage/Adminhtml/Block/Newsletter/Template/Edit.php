@@ -314,7 +314,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     /**
      * Retrieve Save As Flag
      *
-     * @return int
+     * @return string
      */
     public function getSaveAsFlag()
     {
@@ -334,7 +334,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     /**
      * Getter for id of current store (the only one in single-store mode and current in multi-stores mode)
      *
-     * @return bool
+     * @return int
      */
     protected function getStoreId()
     {

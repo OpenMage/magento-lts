@@ -159,7 +159,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      * @param int $website
      * @param bool $calculateTax
      * @param bool $ignoreDiscount
-     * @return array|\Varien_Object
+     * @return array
      */
     public function getProductWeeeAttributes(
         $product,

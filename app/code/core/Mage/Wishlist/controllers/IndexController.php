@@ -47,7 +47,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Extend preDispatch
      *
-     * @return Mage_Core_Controller_Front_Action|void
+     * @return void
      */
     public function preDispatch()
     {
@@ -175,7 +175,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Add the item to wish list
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return void
      */
     protected function _addItemToWishList()
     {

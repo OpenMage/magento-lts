@@ -40,9 +40,7 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * Prepare child blocks
-     *
-     * @return Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {

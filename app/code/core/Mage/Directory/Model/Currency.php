@@ -123,7 +123,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * Get currency rate (only base=>allowed)
      *
      * @param string|Mage_Directory_Model_Currency $toCurrency
-     * @return string
+     * @return float|int
      * @throws Mage_Core_Exception
      */
     public function getRate($toCurrency)

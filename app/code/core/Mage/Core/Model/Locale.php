@@ -794,7 +794,7 @@ class Mage_Core_Model_Locale
      * Replace all yy date format to yyyy
      *
      * @param string $currentFormat
-     * @return mixed
+     * @return string|string[]|null
      */
     protected function _convertYearTwoDigitTo4($currentFormat)
     {

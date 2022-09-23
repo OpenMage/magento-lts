@@ -544,7 +544,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * @param Varien_Simplexml_Element $a
      * @param Varien_Simplexml_Element $b
-     * @return bool
+     * @return int
      */
     protected function _sortForm($a, $b)
     {

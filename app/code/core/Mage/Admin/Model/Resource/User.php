@@ -378,7 +378,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * Check if role user exists
      *
      * @param Mage_Core_Model_Abstract|Mage_Admin_Model_User $user
-     * @return array|false
+     * @return array
      */
     public function roleUserExists(Mage_Core_Model_Abstract $user)
     {

@@ -540,7 +540,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * @param null|int $offset
      * @param null|int $lowerPrice
      * @param null|int $upperPrice
-     * @return array|false
+     * @return array
      */
     public function loadPrices($limit, $offset = null, $lowerPrice = null, $upperPrice = null)
     {

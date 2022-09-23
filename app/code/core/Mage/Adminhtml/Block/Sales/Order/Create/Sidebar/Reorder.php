@@ -69,7 +69,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
     /**
      * Retrieve item collection
      *
-     * @return mixed
+     * @return array|false
      */
     public function getItemCollection()
     {
