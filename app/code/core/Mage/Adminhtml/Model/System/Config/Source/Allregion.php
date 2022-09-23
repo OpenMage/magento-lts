@@ -55,7 +55,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Allregion
             }
         }
         $options = $this->_options;
-        if(!$isMultiselect){
+        if (!$isMultiselect) {
             array_unshift($options, ['value'=>'', 'label'=>'']);
         }
 

@@ -22,6 +22,9 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method bool getNoSecret()
+ * @method $this setNoSecret(bool $avlue)
  */
 class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
 {
@@ -86,8 +89,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
 
         if ($cacheSecretKey) {
             $secret = [self::SECRET_KEY_PARAM_NAME => "\${$_controller}/{$_action}\$"];
-        }
-        else {
+        } else {
             $secret = [self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($_controller, $_action)];
         }
         if (is_array($routeParams)) {

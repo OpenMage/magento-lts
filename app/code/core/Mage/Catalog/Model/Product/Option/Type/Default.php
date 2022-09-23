@@ -28,12 +28,13 @@
  * @property string $_formattedOptionValue
  *
  * @method $this setConfigurationItemOption(Varien_Object $value)
- * @method $this setRequest(Varien_Object $value)
- * @method $this setProcessMode(string $value)
  * @method bool getIsValid()
  * @method $this setIsValid(bool $value)
  * @method string getProcessMode()
+ * @method $this setProcessMode(string $value)
+ * @method $this setQuoteItem(Mage_Sales_Model_Quote_Item $value)
  * @method array|int getUserValue()
+ * @method $this setRequest(Varien_Object $value)
  * @method $this setUserValue(array|int $value)
  */
 class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
