@@ -24,6 +24,8 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getField()
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer extends Mage_Core_Model_Config_Data
 {
@@ -82,7 +84,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer extends 
                 $attributeObject->load($attributeObject->getId());
             }
             $attributeObject->setData($dataFieldPrefix . 'is_required', $data['is_required']);
-            $attributeObject->setData($dataFieldPrefix . 'is_visible',  $data['is_visible']);
+            $attributeObject->setData($dataFieldPrefix . 'is_visible', $data['is_visible']);
             $attributeObject->save();
         }
 
@@ -104,7 +106,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer extends 
                 $attributeObject->setWebsite($website);
                 $attributeObject->load($attributeObject->getId());
                 $attributeObject->setData('scope_is_required', null);
-                $attributeObject->setData('scope_is_visible',  null);
+                $attributeObject->setData('scope_is_visible', null);
                 $attributeObject->save();
             }
         }

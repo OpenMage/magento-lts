@@ -33,7 +33,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Language
             $this->_options = Mage::getResourceModel('core/language_collection')->loadData()->toOptionArray();
         }
         $options = $this->_options;
-        if(!$isMultiselect){
+        if (!$isMultiselect) {
             array_unshift($options, ['value'=>'', 'label'=>'']);
         }
         return $options;
