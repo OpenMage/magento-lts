@@ -636,6 +636,11 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Run.php
 
 		-
+			message: "#^Method Mage_Adminhtml_Block_System_Email_Template_Edit\\:\\:getEditMode\\(\\) should return bool but returns int\\|string\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/System/Email/Template/Edit.php
+
+		-
 			message: "#^Method Mage_Adminhtml_Block_System_Email_Template_Edit\\:\\:getUsedCurrentlyForPaths\\(\\) should return string but returns array\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Email/Template/Edit.php
