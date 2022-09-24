@@ -27,6 +27,8 @@
  */
 class Mage_Adminhtml_Helper_Js extends Mage_Core_Helper_Js
 {
+    protected $_moduleName = 'Mage_Adminhtml';
+
     /**
      * Decode serialized grid data
      *

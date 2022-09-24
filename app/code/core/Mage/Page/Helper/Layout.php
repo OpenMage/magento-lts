@@ -27,6 +27,8 @@
  */
 class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Page';
+
     /**
      * Apply page layout handle
      *

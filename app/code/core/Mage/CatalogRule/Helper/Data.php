@@ -25,6 +25,8 @@
  */
 class Mage_CatalogRule_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_CatalogRule';
+
     /**
      * Algorithm for calculating price rule
      *

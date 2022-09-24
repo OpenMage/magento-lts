@@ -27,6 +27,8 @@
  */
 class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Adminhtml';
+
     /**
      * Init layout of product configuration update result
      *

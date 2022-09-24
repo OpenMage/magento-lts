@@ -25,6 +25,8 @@
  */
 class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Uploader';
+
     /**
      * List of pre-defined MIME types
      *

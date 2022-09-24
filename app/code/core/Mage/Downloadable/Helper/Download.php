@@ -32,6 +32,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
 
     const XML_PATH_CONTENT_DISPOSITION  = 'catalog/downloadable/content_disposition';
 
+    protected $_moduleName = 'Mage_Downloadable';
+
     /**
      * Type of link
      *

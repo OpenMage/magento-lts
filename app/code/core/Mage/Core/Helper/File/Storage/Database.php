@@ -27,6 +27,8 @@
  */
 class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Core';
+
     /**
      * Database storage model
      * @var null|Mage_Core_Model_File_Storage_Database

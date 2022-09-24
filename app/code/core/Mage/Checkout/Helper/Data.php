@@ -30,6 +30,8 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_GUEST_CHECKOUT = 'checkout/options/guest_checkout';
     const XML_PATH_CUSTOMER_MUST_BE_LOGGED = 'checkout/options/customer_must_be_logged';
 
+    protected $_moduleName = 'Mage_Checkout';
+
     protected $_agreements = null;
 
     /**

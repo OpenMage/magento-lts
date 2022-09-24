@@ -27,7 +27,9 @@
  */
 class Mage_Bundle_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_NODE_BUNDLE_PRODUCT_TYPE      = 'global/catalog/product/type/bundle';
+    const XML_NODE_BUNDLE_PRODUCT_TYPE = 'global/catalog/product/type/bundle';
+
+    protected $_moduleName = 'Mage_Bundle';
 
     /**
      * Retrieve array of allowed product types for bundle selection product

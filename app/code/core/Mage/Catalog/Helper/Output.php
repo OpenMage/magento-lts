@@ -25,6 +25,8 @@
  */
 class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Catalog';
+
     /**
      * Array of existing handlers
      *

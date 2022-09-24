@@ -27,6 +27,8 @@
  */
 class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Centinel';
+
     /**
      * Return label for cmpi field
      *

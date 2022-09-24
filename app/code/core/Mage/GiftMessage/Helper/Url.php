@@ -27,6 +27,8 @@
  */
 class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
 {
+    protected $_moduleName = 'Mage_GiftMessage';
+
     /**
      * Retrieve gift message save url
      *

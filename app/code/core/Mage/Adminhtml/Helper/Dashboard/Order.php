@@ -27,6 +27,8 @@
  */
 class Mage_Adminhtml_Helper_Dashboard_Order extends Mage_Adminhtml_Helper_Dashboard_Abstract
 {
+    protected $_moduleName = 'Mage_Adminhtml';
+
     protected function _initCollection()
     {
         $isFilter = $this->getParam('store') || $this->getParam('website') || $this->getParam('group');

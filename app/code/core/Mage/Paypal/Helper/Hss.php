@@ -27,6 +27,8 @@
  */
 class Mage_Paypal_Helper_Hss extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Paypal';
+
     /**
      * Hosted Sole Solution methods
      *

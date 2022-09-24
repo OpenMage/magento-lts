@@ -56,6 +56,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const DIVIDE_EPSILON = 10000;
 
+    protected $_moduleName = 'Mage_Core';
+
     /**
      * @var Mage_Core_Model_Encryption
      */

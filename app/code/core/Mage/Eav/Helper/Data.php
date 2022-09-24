@@ -32,6 +32,8 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const XML_PATH_VALIDATOR_DATA_INPUT_TYPES = 'general/validator_data/input_types';
 
+    protected $_moduleName = 'Mage_Eav';
+
     protected $_attributesLockedFields = [];
 
     protected $_entityTypeFrontendClasses = [];

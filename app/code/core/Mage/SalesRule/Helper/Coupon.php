@@ -54,6 +54,8 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
     const XML_CHARSET_NODE      = 'global/salesrule/coupon/charset/%s';
     const XML_CHARSET_SEPARATOR = 'global/salesrule/coupon/separator';
 
+    protected $_moduleName = 'Mage_SalesRule';
+
     /**
      * Get all possible coupon codes formats
      *

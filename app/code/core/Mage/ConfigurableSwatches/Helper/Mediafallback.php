@@ -29,6 +29,8 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
 {
     const MEDIA_GALLERY_ATTRIBUTE_CODE = 'media_gallery';
 
+    protected $_moduleName = 'Mage_ConfigurableSwatches';
+
     /**
      * Set child_attribute_label_mapping on products with attribute label -> product mapping
      * Depends on following product data:

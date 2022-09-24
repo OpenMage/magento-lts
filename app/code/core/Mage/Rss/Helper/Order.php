@@ -27,6 +27,8 @@
  */
 class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Rss';
+
     /**
      * Check whether status notification is allowed
      *

@@ -45,6 +45,8 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_MSRP_EXPLANATION_MESSAGE = 'sales/msrp/explanation_message';
     const XML_PATH_MSRP_EXPLANATION_MESSAGE_WHATS_THIS = 'sales/msrp/explanation_message_whats_this';
 
+    protected $_moduleName = 'Mage_Catalog';
+
     /**
      * Breadcrumb Path cache
      *

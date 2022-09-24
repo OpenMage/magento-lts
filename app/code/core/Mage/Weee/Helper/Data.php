@@ -40,6 +40,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const LOADED_AND_DISPLAY_WITH_TAX = '2';
 
+    protected $_moduleName = 'Mage_Weee';
+
     /**
      * Current store, in the case of backend order, it could be different from admin store
      *

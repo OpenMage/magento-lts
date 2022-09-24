@@ -29,6 +29,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
 {
     const ICONV_CHARSET = 'UTF-8';
 
+    protected $_moduleName = 'Mage_Core';
+
     /**
      * @var Mage_Core_Helper_Array
      */

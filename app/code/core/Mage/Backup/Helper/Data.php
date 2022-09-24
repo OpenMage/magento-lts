@@ -50,6 +50,8 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const TYPE_SNAPSHOT_WITHOUT_MEDIA = 'nomedia';
 
+    protected $_moduleName = 'Mage_Backup';
+
     /**
      * Get all possible backup type values with descriptive title
      *

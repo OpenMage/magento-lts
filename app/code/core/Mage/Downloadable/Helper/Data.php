@@ -27,6 +27,8 @@
  */
 class Mage_Downloadable_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Downloadable';
+
     /**
      * Check is link shareable or not
      *

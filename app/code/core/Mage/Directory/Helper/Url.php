@@ -27,6 +27,8 @@
  */
 class Mage_Directory_Helper_Url extends Mage_Core_Helper_Url
 {
+    protected $_moduleName = 'Mage_Directory';
+
     /**
      * Retrieve switch currency url
      *

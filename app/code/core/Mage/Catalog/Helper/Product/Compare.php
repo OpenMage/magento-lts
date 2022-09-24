@@ -27,6 +27,8 @@
  */
 class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
 {
+    protected $_moduleName = 'Mage_Catalog';
+
     /**
      * Product Compare Items Collection
      *

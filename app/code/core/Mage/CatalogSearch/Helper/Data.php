@@ -35,6 +35,8 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const MAX_QUERY_LEN  = 200;
 
+    protected $_moduleName = 'Mage_CatalogSearch';
+
     /**
      * Query object
      *

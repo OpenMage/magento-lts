@@ -25,6 +25,8 @@
  */
 class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Adminhtml';
+
     /**
      * Display price attribute value in base order currency and in place order currency
      *
