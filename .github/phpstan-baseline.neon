@@ -336,11 +336,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Sidebar.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract\\:\\:canDisplay\\(\\) should return bool but returns int\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Sidebar/Abstract.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection\\:\\:useProductItem\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Sidebar/Compared.php
@@ -456,11 +451,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_System_Config_Form_Fieldset\\:\\:_getCollapseState\\(\\) should return bool but returns int\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Form/Fieldset.php
-
-		-
 			message: "#^Variable \\$attributes might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php
@@ -474,11 +464,6 @@ parameters:
 			message: "#^Variable \\$liStyle might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Run.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_System_Email_Template_Edit\\:\\:getEditMode\\(\\) should return bool but returns int\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Email/Template/Edit.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_System_Email_Template_Edit\\:\\:getUsedCurrentlyForPaths\\(\\) should return string but returns array\\.$#"
