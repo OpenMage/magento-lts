@@ -68,6 +68,10 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function getTranslatorScript()
     {
+        if (!Mage::helper('core')->isDevAllowed() || !Mage::getStoreConfigFlag('dev/translate_inline/active')) { 
+            return;
+        }
+
         $script = 'var Translator = new Translate('.$this->getTranslateJson().');';
         return $this->getScript($script);
     }
