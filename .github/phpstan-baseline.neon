@@ -2736,11 +2736,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Block/Abstract.php
 
 		-
-			message: "#^Method Mage_Core_Block_Abstract\\:\\:getCacheLifetime\\(\\) should return int but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Block/Abstract.php
-
-		-
 			message: "#^Method Mage_Core_Block_Abstract\\:\\:getHelper\\(\\) should return \\$this\\(Mage_Core_Block_Abstract\\) but returns Mage_Core_Block_Abstract\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Block/Abstract.php
@@ -3248,16 +3243,6 @@ parameters:
 		-
 			message: "#^Method Mage_Customer_Block_Form_Register\\:\\:getCountryId\\(\\) should return int but returns string\\.$#"
 			count: 1
-			path: ../app/code/core/Mage/Customer/Block/Form/Register.php
-
-		-
-			message: "#^Method Mage_Customer_Block_Form_Register\\:\\:getRegion\\(\\) should return int but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Block/Form/Register.php
-
-		-
-			message: "#^Method Mage_Customer_Block_Form_Register\\:\\:getRegion\\(\\) should return int but returns true\\.$#"
-			count: 2
 			path: ../app/code/core/Mage/Customer/Block/Form/Register.php
 
 		-
@@ -4341,11 +4326,6 @@ parameters:
 			path: ../app/code/core/Mage/Log/Model/Aggregation.php
 
 		-
-			message: "#^Method Mage_Log_Model_Customer\\:\\:getLoginAtTimestamp\\(\\) should return int but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Log/Model/Customer.php
-
-		-
 			message: "#^Binary operation \"\\+\" between non\\-falsy\\-string and 1 results in an error\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Log/Model/Resource/Log.php
@@ -4424,16 +4404,6 @@ parameters:
 			message: "#^Return type \\(void\\) of method Mage_Oauth_TokenController\\:\\:preDispatch\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Controller_Front_Action\\)\\) of method Mage_Core_Controller_Front_Action\\:\\:preDispatch\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Oauth/controllers/TokenController.php
-
-		-
-			message: "#^Method Mage_Page_Block_Html_Pager\\:\\:getNextJumpPage\\(\\) should return int but returns null\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Page/Block/Html/Pager.php
-
-		-
-			message: "#^Method Mage_Page_Block_Html_Pager\\:\\:getPreviousJumpPage\\(\\) should return int but returns null\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Page/Block/Html/Pager.php
 
 		-
 			message: "#^Variable \\$finish might not be defined\\.$#"
