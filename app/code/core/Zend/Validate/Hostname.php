@@ -2247,8 +2247,8 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
             $status = false;
 
             $origenc = PHP_VERSION_ID < 50600
-                        ? iconv_get_encoding('internal_encoding')
-                        : ini_get('default_charset');
+                ? iconv_get_encoding('internal_encoding')
+                : ini_get('default_charset');
             if (PHP_VERSION_ID < 50600) {
                 iconv_set_encoding('internal_encoding', 'UTF-8');
             } else {
@@ -2317,7 +2317,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
                         if ((strpos($domainPart, '-') === 0)
                             || ((strlen($domainPart) > 2) && (strpos($domainPart, '-', 2) == 2) && (strpos($domainPart, '-', 3) == 3))
                             || (strpos($domainPart, '-') === (strlen($domainPart) - 1))) {
-                                $this->_error(self::INVALID_DASH);
+                            $this->_error(self::INVALID_DASH);
                             $status = false;
                             break 2;
                         }
@@ -2443,9 +2443,9 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
             for ($old_index = $index, $pos = 1, $key = 36; 1 ; $key += 36) {
                 $hex   = ord($encoded[$indexe++]);
                 $digit = ($hex - 48 < 10) ? $hex - 22
-                       : (($hex - 65 < 26) ? $hex - 65
-                       : (($hex - 97 < 26) ? $hex - 97
-                       : 36));
+                    : (($hex - 65 < 26) ? $hex - 65
+                        : (($hex - 97 < 26) ? $hex - 97
+                            : 36));
 
                 $index += $digit * $pos;
                 $tag    = ($key <= $base) ? 1 : (($key >= $base + 26) ? 26 : ($key - $base));
@@ -2511,12 +2511,18 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
      */
     protected function checkDnsRecords($hostName)
     {
-        if (defined('IDNA_NONTRANSITIONAL_TO_ASCII') && defined('INTL_IDNA_VARIANT_UTS46')) {
-            $toAscii = idn_to_ascii($hostName, IDNA_NONTRANSITIONAL_TO_ASCII, INTL_IDNA_VARIANT_UTS46);
+        if (function_exists('idn_to_ascii')) {
+            if (defined('IDNA_NONTRANSITIONAL_TO_ASCII') && defined('INTL_IDNA_VARIANT_UTS46')) {
+                $toAscii = idn_to_ascii($hostName, IDNA_NONTRANSITIONAL_TO_ASCII, INTL_IDNA_VARIANT_UTS46);
+            } else {
+                $toAscii = idn_to_ascii($hostName);
+            }
+            $result = checkdnsrr($toAscii, 'A');
         } else {
-            $toAscii = idn_to_ascii($hostName);
+            $idn = new Net_IDNA2();
+            $result = checkdnsrr($idn->encode($hostName), 'A');
         }
-        $result = checkdnsrr($toAscii, 'A');
+
         return $result;
     }
 }
