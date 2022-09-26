@@ -156,21 +156,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Wishlist.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Customer_Form_Element_File\\:\\:getEscapedValue\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Form/Element/File.php
-
-		-
-			message: "#^Parameter \\#1 \\$index \\(int\\) of method Mage_Adminhtml_Block_Customer_Form_Element_File\\:\\:getEscapedValue\\(\\) should be compatible with parameter \\$index \\(string\\|null\\) of method Varien_Data_Form_Element_Abstract\\:\\:getEscapedValue\\(\\)$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Form/Element/File.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Customer_Form_Element_Image\\:\\:_getPreviewUrl\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Form/Element/Image.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat\\:\\:getValidateButton\\(\\) should return Mage_Adminhtml_Block_Widget_Button but returns Mage_Core_Block_Abstract\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Sales/Order/Address/Form/Renderer/Vat.php
@@ -326,16 +311,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Review/Product/Grid.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Creditmemo_Grid\\:\\:getRowUrl\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Creditmemo/Grid.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Invoice_Grid\\:\\:getRowUrl\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Invoice/Grid.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Sales_Items_Abstract\\:\\:getColumnRenderer\\(\\) should return Mage_Core_Block_Abstract but returns false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Items/Abstract.php
@@ -419,11 +394,6 @@ parameters:
 			message: "#^Return type \\(Mage_Sales_Model_Order_Creditmemo\\) of method Mage_Adminhtml_Block_Sales_Order_Creditmemo_View_Items\\:\\:getSource\\(\\) should be compatible with return type \\(Mage_Sales_Model_Order_Invoice\\) of method Mage_Adminhtml_Block_Sales_Items_Abstract\\:\\:getSource\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/View/Items.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Grid\\:\\:getRowUrl\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Grid.php
 
 		-
 			message: "#^Return type \\(Mage_Sales_Model_Order_Shipment\\) of method Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items\\:\\:getSource\\(\\) should be compatible with return type \\(Mage_Sales_Model_Order_Invoice\\) of method Mage_Adminhtml_Block_Sales_Items_Abstract\\:\\:getSource\\(\\)$#"
@@ -1351,11 +1321,6 @@ parameters:
 			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
 
 		-
-			message: "#^Method Mage_Backup_Model_Resource_Helper_Mysql4\\:\\:getTableCreateSql\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Helper/Mysql4.php
-
-		-
 			message: "#^Parameter \\#1 \\$elementId \\(string\\) of method Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Checkbox\\:\\:setValidationContainer\\(\\) should be compatible with parameter \\$elementId \\(int\\) of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:setValidationContainer\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Composite/Fieldset/Options/Type/Checkbox.php
@@ -1459,11 +1424,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Bundle_Model_Resource_Price_Index\\:\\:reindexProduct\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Bundle/Model/Price/Index.php
-
-		-
-			message: "#^Method Mage_Bundle_Model_Product_Attribute_Source_Price_View\\:\\:getOptionText\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Bundle/Model/Product/Attribute/Source/Price/View.php
 
 		-
 			message: "#^Call to an undefined method Mage_Bundle_Model_Product_Price\\:\\:getPricesTierPrice\\(\\)\\.$#"
@@ -1801,11 +1761,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Helper/Product.php
 
 		-
-			message: "#^Method Mage_Catalog_Helper_Product\\:\\:getProductUrl\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Helper/Product.php
-
-		-
 			message: "#^Property Mage_Catalog_Helper_Product_Compare\\:\\:\\$_itemCollection \\(Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection\\) does not accept Mage_Catalog_Model_Resource_Product_Compare_Item_Collection\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Helper/Product/Compare.php
@@ -1952,11 +1907,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:setStore\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Convert/Parser/Product.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Convert_Parser_Product\\:\\:getProductTypeId\\(\\) should return string but returns false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Convert/Parser/Product.php
 
@@ -2711,11 +2661,6 @@ parameters:
 			path: ../app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php
 
 		-
-			message: "#^Method Mage_CatalogSearch_Model_Resource_Search_Collection\\:\\:_getSearchInOptionSql\\(\\) should return string but returns false\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/CatalogSearch/Model/Resource/Search/Collection.php
-
-		-
 			message: "#^Cannot call method setItem\\(\\) on array\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Checkout/Block/Cart/Abstract.php
@@ -2861,11 +2806,6 @@ parameters:
 			path: ../app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php
 
 		-
-			message: "#^Method Mage_ConfigurableSwatches_Helper_Productimg\\:\\:_resizeSwatchImage\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/ConfigurableSwatches/Helper/Productimg.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 2 parameters, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/ConfigurableSwatches/Helper/Productimg.php
@@ -2931,11 +2871,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Controller/Front/Router.php
 
 		-
-			message: "#^Method Mage_Core_Controller_Request_Http\\:\\:getHttpHost\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Controller/Request/Http.php
-
-		-
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:is\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Controller/Varien/Action.php
@@ -2999,16 +2934,6 @@ parameters:
 			message: "#^Method Mage_Core_Helper_Abstract\\:\\:_getRequest\\(\\) should return Mage_Core_Controller_Request_Http but returns Zend_Controller_Request_Http\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Helper/Abstract.php
-
-		-
-			message: "#^Method Mage_Core_Helper_Http\\:\\:getRemoteAddr\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Helper/Http.php
-
-		-
-			message: "#^Method Mage_Core_Helper_Http\\:\\:getServerAddr\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Helper/Http.php
 
 		-
 			message: "#^Property Mage_Core_Helper_String\\:\\:\\$_arrayHelper \\(Mage_Core_Helper_Array\\) does not accept Mage_Core_Helper_Abstract\\.$#"
@@ -3081,11 +3006,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Config.php
 
 		-
-			message: "#^Method Mage_Core_Model_Config\\:\\:getVarDir\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Config.php
-
-		-
 			message: "#^Property Varien_Simplexml_Config\\:\\:\\$_cacheChecksum \\(unknown_type\\) does not accept null\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Config.php
@@ -3111,11 +3031,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Config.php
 
 		-
-			message: "#^Method Mage_Core_Model_Config_Element\\:\\:getClassName\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Config/Element.php
-
-		-
 			message: "#^Method Mage_Core_Model_Cookie\\:\\:getHttponly\\(\\) should return bool but returns null\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Cookie.php
@@ -3127,21 +3042,6 @@ parameters:
 
 		-
 			message: "#^Binary operation \"\\-\" between string and string results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Date.php
-
-		-
-			message: "#^Method Mage_Core_Model_Date\\:\\:gmtDate\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Date.php
-
-		-
-			message: "#^Method Mage_Core_Model_Date\\:\\:gmtTimestamp\\(\\) should return int but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Date.php
-
-		-
-			message: "#^Method Mage_Core_Model_Date\\:\\:gmtTimestamp\\(\\) should return int but returns string\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Date.php
 
@@ -3716,6 +3616,11 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
+			message: "#^Binary operation \"\\-\" between string and 86400 results in an error\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Dataflow/Model/Resource/Batch/Collection.php
+
+		-
 			message: "#^Method Mage_Directory_Helper_Data\\:\\:getCountriesWithStatesRequired\\(\\) should return array but returns string\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Directory/Helper/Data.php
@@ -3834,11 +3739,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Eav_Model_Resource_Entity_Attribute\\:\\:getUsedInForms\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Attribute.php
-
-		-
-			message: "#^Method Mage_Eav_Model_Attribute_Data_Abstract\\:\\:_applyInputFilter\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Attribute/Data/Abstract.php
 
 		-
 			message: "#^Method Mage_Eav_Model_Attribute_Data_Abstract\\:\\:setRequestScope\\(\\) should return string but returns \\$this\\(Mage_Eav_Model_Attribute_Data_Abstract\\)\\.$#"
@@ -4036,11 +3936,6 @@ parameters:
 			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Group.php
 
 		-
-			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Boolean\\:\\:getOptionText\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Boolean.php
-
-		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:getStoreId\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Table.php
@@ -4101,11 +3996,6 @@ parameters:
 			path: ../app/code/core/Mage/Eav/Model/Entity/Setup.php
 
 		-
-			message: "#^Method Mage_Eav_Model_Entity_Setup\\:\\:getAttributeTable\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Setup\\:\\:getDefaultAttributeGroupId\\(\\) should return int but returns string\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Entity/Setup.php
@@ -4119,11 +4009,6 @@ parameters:
 			message: "#^Variable \\$connection might not be defined\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: "#^Method Mage_Eav_Model_Entity_Type\\:\\:fetchNewIncrementId\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Type.php
 
 		-
 			message: "#^Method Mage_Eav_Model_Entity_Type\\:\\:getValueTablePrefix\\(\\) should return string but returns null\\.$#"
@@ -4721,11 +4606,6 @@ parameters:
 			path: ../app/code/core/Mage/Paygate/Block/Authorizenet/Form/Cc.php
 
 		-
-			message: "#^Method Mage_Paygate_Block_Authorizenet_Form_Cc\\:\\:getPartialAuthorizationConfirmationMessage\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paygate/Block/Authorizenet/Form/Cc.php
-
-		-
 			message: "#^Property Mage_Payment_Block_Info\\:\\:\\$_paymentSpecificInformation \\(Varien_Object\\) does not accept null\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paygate/Block/Authorizenet/Info/Cc.php
@@ -4869,11 +4749,6 @@ parameters:
 			message: "#^Variable \\$isAjax might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
-			message: "#^Method Mage_Paypal_Helper_Data\\:\\:getElementBackendConfig\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Helper/Data.php
 
 		-
 			message: "#^Method Mage_Paypal_Model_Api_Abstract\\:\\:_exportLineItems\\(\\) should return bool but empty return statement found\\.$#"
@@ -5786,11 +5661,6 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Recurring/Profile.php
 
 		-
-			message: "#^Method Mage_Sales_Model_Resource_Order_Abstract\\:\\:getGridTable\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Resource/Order/Abstract.php
-
-		-
 			message: "#^Cannot call method updateOnRelatedRecordChanged\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Resource/Order/Address.php
@@ -6084,11 +5954,6 @@ parameters:
 			message: "#^Property Mage_Tax_Model_Calculation_Rate\\:\\:\\$_titles \\(array\\) does not accept Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Tax/Model/Calculation/Rate.php
-
-		-
-			message: "#^Method Mage_Tax_Model_Class_Source_Product\\:\\:getOptionText\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tax/Model/Class/Source/Product.php
 
 		-
 			message: "#^Method Mage_Tax_Model_Config_Notification\\:\\:_getConfig\\(\\) should return Mage_Core_Model_Config_Data but returns bool\\|Mage_Core_Model_Abstract\\.$#"
