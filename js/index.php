@@ -68,7 +68,7 @@ $lastModified = 0;
 foreach ($files as $f) {
     $fileRealPath = realpath($f);
     // check file path (security)
-    if (strpos($fileRealPath, realpath(dirname(__FILE__))) !== 0) {
+    if (strpos($fileRealPath, realpath(__DIR__)) !== 0) {
         continue;
     }
 

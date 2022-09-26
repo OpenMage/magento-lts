@@ -12,25 +12,25 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Downloadable
+ * @category   Mage
+ * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable products price model
  *
- * @category    Mage
- * @package     Mage_Downloadable
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Downloadable
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Price
 {
     /**
      * Retrieve product final price
      *
-     * @param integer|null $qty
+     * @param int|null $qty
      * @param Mage_Catalog_Model_Product $product
      * @return float
      */
@@ -48,9 +48,10 @@ class Mage_Downloadable_Model_Product_Price extends Mage_Catalog_Model_Product_T
         if ($product->getLinksPurchasedSeparately()) {
             if ($linksIds = $product->getCustomOption('downloadable_link_ids')) {
                 $linkPrice = 0;
+                /** @var Mage_Downloadable_Model_Product_Type $productType */
+                $productType = $product->getTypeInstance(true);
                 /** @var Mage_Downloadable_Model_Link[] $links */
-                $links = $product->getTypeInstance(true)
-                    ->getLinks($product);
+                $links = $productType->getLinks($product);
                 foreach (explode(',', $linksIds->getValue()) as $linkId) {
                     if (isset($links[$linkId])) {
                         $linkPrice += $links[$linkId]->getPrice();

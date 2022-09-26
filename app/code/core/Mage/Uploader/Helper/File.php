@@ -12,20 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Uploader
+ * @category   Mage
+ * @package    Mage_Uploader
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * File Helper
- *
- * @category    Mage
- * @package     Mage_Uploader
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Uploader
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
 {
     /**
@@ -658,10 +655,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
     public function getMimeTypeByExtension($ext)
     {
         $type = 'x' . $ext;
-        if (isset($this->_mimeTypes[$type])) {
-            return $this->_mimeTypes[$type];
-        }
-        return 'application/octet-stream';
+        return $this->_mimeTypes[$type] ?? 'application/octet-stream';
     }
 
     /**
@@ -749,5 +743,4 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
         }
         return (int)$parsedSize;
     }
-
 }

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
 {
@@ -48,8 +48,8 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     /**
      * Retrieve current store categories
      *
-     * @param boolean|string $sorted
-     * @param boolean $asCollection
+     * @param bool|string $sorted
+     * @param bool $asCollection
      * @param bool $toLoad
      * @return array|Mage_Catalog_Model_Resource_Category_Collection|Varien_Data_Collection|Varien_Data_Tree_Node_Collection
      * @throws Mage_Core_Model_Store_Exception
@@ -101,7 +101,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
      * Check if a category can be shown
      *
      * @param  Mage_Catalog_Model_Category|int $category
-     * @return boolean
+     * @return bool
      */
     public function canShow($category)
     {

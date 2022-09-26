@@ -12,22 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Design changes grid
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     /**
      * Class constructor
      */
@@ -81,7 +80,6 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn('date_from', [
             'header'    => Mage::helper('catalogrule')->__('Date From'),
             'align'     => 'left',
-            'width'     => '100px',
             'type'      => 'date',
             'index'     => 'date_from',
         ]);
@@ -89,7 +87,6 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn('date_to', [
             'header'    => Mage::helper('catalogrule')->__('Date To'),
             'align'     => 'left',
-            'width'     => '100px',
             'type'      => 'date',
             'index'     => 'date_to',
         ]);
@@ -117,5 +114,4 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
     {
         return $this->getUrl('*/*/grid', ['_current' => true]);
     }
-
 }

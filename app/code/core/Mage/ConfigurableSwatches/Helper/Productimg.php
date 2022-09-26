@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_ConfigurableSwatches
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_ConfigurableSwatches_Helper_Productimg
+ *
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstract
 {
@@ -67,9 +71,8 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         $text = Mage_ConfigurableSwatches_Helper_Data::normalizeKey($text);
 
         $resultImages = [
-            'standard' => isset($images[$text]) ? $images[$text] : null,
-            'swatch' => isset($images[$text . self::SWATCH_LABEL_SUFFIX]) ? $images[$text . self::SWATCH_LABEL_SUFFIX]
-                : null,
+            'standard' => $images[$text] ?? null,
+            'swatch' => $images[$text . self::SWATCH_LABEL_SUFFIX] ?? null,
         ];
 
         if (!is_null($type) && array_key_exists($type, $resultImages)) {
@@ -103,7 +106,9 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
                     $searchValues[] = $value;
                 }
             } else { // we get them from all config attributes if no pre-defined list is passed in
-                $attributes = $product->getTypeInstance(true)->getConfigurableAttributes($product);
+                /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+                $productType = $product->getTypeInstance(true);
+                $attributes = $productType->getConfigurableAttributes($product);
 
                 // Collect valid values of image type attributes
                 foreach ($attributes as $attribute) {

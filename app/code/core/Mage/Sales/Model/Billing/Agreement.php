@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Billing Agreement abstract model
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Billing_Agreement _getResource()
  * @method Mage_Sales_Model_Resource_Billing_Agreement getResource()
@@ -50,10 +54,6 @@
  * @method $this setReturnUrl(string $value)
  * @method $this setToken(string $value)
  * @method int getBillingAgreementId()
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_AgreementAbstract
 {
@@ -69,7 +69,6 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
 
     /**
      * Init model
-     *
      */
     protected function _construct()
     {
@@ -79,7 +78,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     /**
      * Set created_at parameter
      *
-     * @return Mage_Core_Model_Abstract
+     * @inheritdoc
      */
     protected function _beforeSave()
     {
@@ -118,6 +117,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
             case self::STATUS_CANCELED:
                 return Mage::helper('sales')->__('Canceled');
         }
+        return '';
     }
 
     /**
@@ -149,7 +149,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      * Check for permissions
      *
      * @param int $customerIdSession
-     * @return boolean
+     * @return bool
      */
     public function canPerformAction($customerIdSession)
     {

@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Oauth
+ * @category   Mage
+ * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * oAuth Server
  *
- * @category    Mage
- * @package     Mage_Oauth
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Oauth
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Oauth_Model_Server
 {
@@ -287,8 +287,6 @@ class Mage_Oauth_Model_Server
 
     /**
      * Initialize consumer
-     *
-     * @throws Mage_Oauth_Exception
      */
     protected function _initConsumer()
     {
@@ -305,7 +303,6 @@ class Mage_Oauth_Model_Server
      * Load token object, validate it depending on request type, set access data and save
      *
      * @return $this
-     * @throws Mage_Oauth_Exception
      */
     protected function _initToken()
     {
@@ -426,7 +423,6 @@ class Mage_Oauth_Model_Server
      *
      * @param string $message Exception message
      * @param int $code Exception code
-     * @throws Mage_Oauth_Exception
      */
     protected function _throwException($message = '', $code = 0)
     {
@@ -479,8 +475,6 @@ class Mage_Oauth_Model_Server
 
     /**
      * Validate protocol parameters
-     *
-     * @throws Mage_Oauth_Exception
      */
     protected function _validateProtocolParams()
     {
@@ -522,8 +516,6 @@ class Mage_Oauth_Model_Server
 
     /**
      * Validate signature
-     *
-     * @throws Mage_Oauth_Exception
      */
     protected function _validateSignature()
     {
@@ -665,8 +657,9 @@ class Mage_Oauth_Model_Server
      * Create response string for problem during request and set HTTP error code
      *
      * @param Exception $e
-     * @param Zend_Controller_Response_Http $response OPTIONAL If NULL - will use internal getter
+     * @param Zend_Controller_Response_Http|null $response OPTIONAL If NULL - will use internal getter
      * @return string
+     * @throws Zend_Controller_Response_Exception
      */
     public function reportProblem(Exception $e, Zend_Controller_Response_Http $response = null)
     {

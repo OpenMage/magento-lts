@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_ImportExport
+ * @category   Mage
+ * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import entity abstract model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_ImportExport_Model_Import_Entity_Abstract
 {
@@ -187,9 +187,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      */
     protected $_uniqueAttributes = [];
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         $entityType = Mage::getSingleton('eav/config')->getEntityType($this->getEntityTypeCode());
@@ -215,7 +212,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      * Import data rows.
      *
      * @abstract
-     * @return boolean
+     * @return bool
      */
     abstract protected function _importData();
 
@@ -537,7 +534,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      * @param array $attrParams Attribute params
      * @param array $rowData Row data
      * @param int $rowNum
-     * @return boolean
+     * @return bool
      */
     public function isAttributeValid($attrCode, array $attrParams, array $rowData, $rowNum)
     {
@@ -622,7 +619,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      *
      * @param array $rowData
      * @param int $rowNum
-     * @return boolean
+     * @return bool
      */
     abstract public function validateRow(array $rowData, $rowNum);
 

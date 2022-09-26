@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Cms
+ * @category   Mage
+ * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Cms Page Model
+ *
+ * @category   Mage
+ * @package    Mage_Cms
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Cms_Model_Resource_Page _getResource()
  * @method Mage_Cms_Model_Resource_Page getResource()
@@ -66,10 +70,6 @@
  * @method $this setTitle(string $value)
  * @method string getUpdateTime()
  * @method $this setUpdateTime(string $value)
- *
- * @category    Mage
- * @package     Mage_Cms
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
 {
@@ -91,10 +91,6 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'cms_page';
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('cms/page');

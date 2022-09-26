@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,24 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array getAllowQuoteItemsGiftMessage()
+ * @method $this setAllowQuoteItemsGiftMessage(array $value)
+ * @method string getCurrencyId()
+ * @method $this setCurrencyId(string $value)
+ * @method bool hasCustomerId()
+ * @method int getCustomerId()
+ * @method $this setCustomerId(int $value)
+ * @method int getCustomerGroupId()
+ * @method int|string getOrderId()
+ * @method $this setOrderId(int|string $value)
+ * @method int|string getQuoteId()
+ * @method $this setQuoteId(int|string $value)
+ * @method $this setReordered(int|string $value)
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
+ * @method bool getUseOldShippingMethod(bool $value)
  */
 class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstract
 {
@@ -77,8 +94,7 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
             if ($this->getStoreId() && $this->getQuoteId()) {
                 $this->_quote->setStoreId($this->getStoreId())
                     ->load($this->getQuoteId());
-            }
-            elseif($this->getStoreId() && $this->hasCustomerId()) {
+            } elseif ($this->getStoreId() && $this->hasCustomerId()) {
                 $this->_quote->setStoreId($this->getStoreId())
                     ->setCustomerGroupId(Mage::getStoreConfig(self::XML_PATH_DEFAULT_CREATEACCOUNT_GROUP))
                     ->assignCustomer($this->getCustomer())
@@ -104,7 +120,7 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
         return $this;
     }
 
-/**
+    /**
      * Retrieve customer model object
      * @param bool $forceReload
      * @param bool $useSetStore

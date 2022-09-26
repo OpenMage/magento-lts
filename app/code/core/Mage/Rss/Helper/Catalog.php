@@ -12,20 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Rss
+ * @category   Mage
+ * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Default rss helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Rss
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rss_Helper_Catalog extends Mage_Core_Helper_Abstract
 {
-
     /**
      * @return string
      */
@@ -40,5 +41,4 @@ class Mage_Rss_Helper_Catalog extends Mage_Core_Helper_Abstract
         }
         return $url;
     }
-
 }

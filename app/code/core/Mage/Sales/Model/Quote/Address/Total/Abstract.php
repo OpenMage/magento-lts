@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -115,7 +115,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     }
 
     /**
-     * Set address shich can be used inside totals calculation
+     * Set address which can be used inside totals calculation
      *
      * @param   Mage_Sales_Model_Quote_Address $address
      * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
@@ -238,7 +238,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     }
 
     /**
-     * Whether the item row total may be compouded with others
+     * Whether the item row total may be compounded with others
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @return bool

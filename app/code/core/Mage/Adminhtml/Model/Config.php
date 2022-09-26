@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
 {
@@ -146,7 +146,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      */
     public function getSection($sectionCode=null, $websiteCode=null, $storeCode=null)
     {
-        if ($sectionCode){
+        if ($sectionCode) {
             return  $this->getSections()->$sectionCode;
         } elseif ($websiteCode) {
             return  $this->getSections()->$websiteCode;
@@ -159,10 +159,10 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param Varien_Simplexml_Element $node
      * @param string $websiteCode
      * @param string $storeCode
-     * @param boolean $isField
-     * @return boolean
+     * @param bool $isField
+     * @return bool
      */
-    public function hasChildren ($node, $websiteCode=null, $storeCode=null, $isField=false)
+    public function hasChildren($node, $websiteCode=null, $storeCode=null, $isField=false)
     {
         $showTab = false;
         if ($storeCode) {
@@ -178,22 +178,20 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
                 }
             }
         } elseif (isset($node->show_in_default)) {
-                if ((int)$node->show_in_default) {
-                    $showTab=true;
-                }
+            if ((int)$node->show_in_default) {
+                $showTab=true;
+            }
         }
         if ($showTab) {
             if (isset($node->groups)) {
-                foreach ($node->groups->children() as $children){
-                    if ($this->hasChildren ($children, $websiteCode, $storeCode)) {
+                foreach ($node->groups->children() as $children) {
+                    if ($this->hasChildren($children, $websiteCode, $storeCode)) {
                         return true;
                     }
-
                 }
-            }elseif (isset($node->fields)) {
-
-                foreach ($node->fields->children() as $children){
-                    if ($this->hasChildren ($children, $websiteCode, $storeCode, true)) {
+            } elseif (isset($node->fields)) {
+                foreach ($node->fields->children() as $children) {
+                    if ($this->hasChildren($children, $websiteCode, $storeCode, true)) {
                         return true;
                     }
                 }
@@ -253,8 +251,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
             if (!empty($groupName)) {
                 $path .= '/fields/' . trim($fieldName, '/');
                 $fieldNode = $this->_sections->xpath($path);
-            }
-            else {
+            } else {
                 Mage::throwException(Mage::helper('adminhtml')->__('The group node name must be specified with field node name.'));
             }
         }
@@ -283,8 +280,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
                     $field   = $node->getParent()->getName();
                     if ($explodePathToEntities) {
                         $paths[] = ['section' => $section, 'group' => $group, 'field' => $field];
-                    }
-                    else {
+                    } else {
                         $paths[] = $section . '/' . $group . '/' . $field;
                     }
                 }

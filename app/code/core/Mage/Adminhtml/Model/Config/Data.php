@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,9 +23,23 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array getGroups()
+ * @method $this setGroups(array $value)
+ * @method string getScope()
+ * @method $this setScope(string $value)
+ * @method string getScopeCode()
+ * @method $this setScopeCode(string $value)
+ * @method int getScopeId()
+ * @method $this setScopeId(int $value)
+ * @method string getSection()
+ * @method $this setSection(string $value)
+ * @method string getStore()
+ * @method $this setStore(string $value)
+ * @method string getWebsite()
+ * @method $this setWebsite(string $value)
  */
-
 class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 {
     const SCOPE_DEFAULT  = 'default';
@@ -193,12 +207,10 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                      */
                     if (!$inherit) {
                         $saveTransaction->addObject($dataObject);
-                    }
-                    else {
+                    } else {
                         $deleteTransaction->addObject($dataObject);
                     }
-                }
-                elseif (!$inherit) {
+                } elseif (!$inherit) {
                     $dataObject->unsConfigId();
                     $saveTransaction->addObject($dataObject);
                 }
@@ -340,8 +352,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     'value'     => $data->getValue(),
                     'config_id' => $data->getConfigId()
                 ];
-            }
-            else {
+            } else {
                 $config[$data->getPath()] = $data->getValue();
             }
         }

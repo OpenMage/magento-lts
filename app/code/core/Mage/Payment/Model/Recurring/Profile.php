@@ -12,15 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Payment
+ * @category   Mage
+ * @package    Mage_Payment
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Recurring payment profile
  * Extends from Mage_Core_Abstract for a reason: to make descendants have its own resource
+ *
+ * @category   Mage
+ * @package    Mage_Payment
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method float getBillingAmount()
  * @method string getCurrencyCode()
@@ -300,8 +304,9 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     /**
      * Determine nearest possible profile start date
      *
-     * @param Zend_Date $minAllowed
+     * @param Zend_Date|null $minAllowed
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function setNearestStartDatetime(Zend_Date $minAllowed = null)
     {
@@ -458,6 +463,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             case 'reference_id':
                 return Mage::helper('payment')->__('Payment Reference ID');
         }
+        return null;
     }
 
     /**
@@ -490,6 +496,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             case 'init_may_fail':
                 return Mage::helper('payment')->__('Whether to suspend the payment profile if the initial fee fails or add it to the outstanding balance.');
         }
+        return null;
     }
 
     /**

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Install
+ * @category   Mage
+ * @package    Mage_Install
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,11 +23,10 @@
  *
  * @category   Mage
  * @package    Mage_Install
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Install_Model_Installer extends Varien_Object
 {
-
     /**
      * Installer host response used to check urls
      *
@@ -37,7 +36,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Installer data model used to store data between installation steps
      *
-     * @var Varien_Object
+     * @var Mage_Install_Model_Session
      */
     protected $_dataModel;
 
@@ -54,7 +53,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Get data model
      *
-     * @return Varien_Object
+     * @return Mage_Install_Model_Session
      */
     public function getDataModel()
     {
@@ -237,14 +236,8 @@ class Mage_Install_Model_Installer extends Varien_Object
 
         //run time flag to force saving entered password
         $data->setForceNewPassword(true);
-
         $data->save();
         $data->setRoleIds([1])->saveRelations();
-
-        /*Mage::getModel("permissions/user")->setRoleId(1)
-            ->setUserId($user->getId())
-            ->setFirstname($user->getFirstname())
-            ->add();*/
 
         return true;
     }
@@ -254,7 +247,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Returns TRUE or array of error messages.
      *
      * @param string $key
-     * @return unknown_type
+     * @return string[]|true
      */
     public function validateEncryptionKey($key)
     {
@@ -303,5 +296,4 @@ class Mage_Install_Model_Installer extends Varien_Object
         Mage::app()->saveUseCache($cacheData);
         return $this;
     }
-
 }

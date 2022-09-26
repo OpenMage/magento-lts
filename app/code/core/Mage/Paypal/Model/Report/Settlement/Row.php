@@ -12,16 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /*
  * Model for report rows
- */
-/**
+ *
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Paypal_Model_Resource_Report_Settlement_Row _getResource()
  * @method Mage_Paypal_Model_Resource_Report_Settlement_Row getResource()
  * @method int getReportId()
@@ -56,10 +59,6 @@
  * @method Mage_Paypal_Model_Report_Settlement_Row setCustomField(string $value)
  * @method string getConsumerId()
  * @method Mage_Paypal_Model_Report_Settlement_Row setConsumerId(string $value)
- *
- * @category    Mage
- * @package     Mage_Paypal
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
 {
@@ -77,9 +76,6 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
      */
     protected $_castedAmounts = [];
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('paypal/report_settlement_row');
@@ -104,10 +100,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
             asort($types);
             return $types;
         }
-        if (isset($types[$code])) {
-            return $types[$code];
-        }
-        return $code;
+        return $types[$code] ?? $code;
     }
 
     /**
@@ -119,10 +112,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
     public function getTransactionEvent($code)
     {
         $this->_generateEventLabels();
-        if (isset(self::$_eventList[$code])) {
-            return self::$_eventList[$code];
-        }
-        return $code;
+        return self::$_eventList[$code] ?? $code;
     }
 
     /**
@@ -152,10 +142,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
         if($code === null) {
             return $options;
         }
-        if (isset($options[$code])) {
-            return $options[$code];
-        }
-        return $code;
+        return $options[$code] ?? $code;
     }
 
     /**

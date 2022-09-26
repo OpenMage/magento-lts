@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,9 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -34,9 +36,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
      */
     protected $_configAttributeCodes = null;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct();
@@ -58,10 +57,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         return Mage::registry('current_product');
     }
 
+    /**
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this
+     * @throws Exception
+     */
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
-        if ($column->getId() == 'in_products') {
+        if ($column->getId() === 'in_products') {
             $productIds = $this->_getSelectedProducts();
 
             if (empty($productIds)) {
@@ -72,8 +76,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
 
             $existsProducts = $productIds; // Only for "Yes" Filter we will add created products
 
-            if(count($createdProducts)>0) {
-                if(!is_array($existsProducts)) {
+            if (count($createdProducts) > 0) {
+                if (!is_array($existsProducts)) {
                     $existsProducts = $createdProducts;
                 } else {
                     $existsProducts = array_merge($createdProducts);
@@ -81,12 +85,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             }
 
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('entity_id', ['in'=>$existsProducts]);
+                $this->getCollection()->addFieldToFilter('entity_id', ['in' => $existsProducts]);
             }
-            else {
-                if($productIds) {
-                    $this->getCollection()->addFieldToFilter('entity_id', ['nin'=>$productIds]);
-                }
+            elseif ($productIds) {
+                $this->getCollection()->addFieldToFilter('entity_id', ['nin' => $productIds]);
             }
         }
         else {
@@ -95,6 +97,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         return $this;
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     protected function _getCreatedProducts()
     {
         $products = $this->getRequest()->getPost('new_products', null);
@@ -132,8 +138,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
             Mage::getModel('cataloginventory/stock_item')->addCatalogInventoryToProductCollection($collection);
         }
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $product->getTypeInstance(true);
 
-        foreach ($product->getTypeInstance(true)->getUsedProductAttributes($product) as $attribute) {
+        foreach ($productType->getUsedProductAttributes($product) as $attribute) {
             $collection->addAttributeToSelect($attribute->getAttributeCode());
             $collection->addAttributeToFilter($attribute->getAttributeCode(), ['notnull'=>1]);
         }
@@ -152,7 +160,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     {
         $products = $this->getRequest()->getPost('products', null);
         if (!is_array($products)) {
-            $products = $this->_getProduct()->getTypeInstance(true)->getUsedProductIds($this->_getProduct());
+            /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+            $productType = $this->_getProduct()->getTypeInstance(true);
+            $products = $productType->getUsedProductIds($this->_getProduct());
         }
         return $products;
     }
@@ -160,7 +170,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     /**
      * Check block is readonly
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {
@@ -170,10 +180,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         return $this->_getProduct()->getCompositeReadonly();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Mage_Core_Exception
+     */
     protected function _prepareColumns()
     {
         $product = $this->_getProduct();
-        $attributes = $product->getTypeInstance(true)->getConfigurableAttributes($product);
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $product->getTypeInstance(true);
+        $attributes = $productType->getConfigurableAttributes($product);
 
         if (!$this->isReadonly()) {
             $this->addColumn('in_products', [
@@ -264,6 +280,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         return parent::_prepareColumns();
     }
 
+    /**
+     * @return array
+     */
     public function getEditParamsForAssociated()
     {
         return [
@@ -284,11 +303,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     protected function _getRequiredAttributesIds()
     {
         $attributesIds = [];
-        foreach (
-            $this->_getProduct()
-                ->getTypeInstance(true)
-                ->getConfigurableAttributes($this->_getProduct()) as $attribute
-        ) {
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->_getProduct()->getTypeInstance(true);
+        foreach ($productType->getConfigurableAttributes($this->_getProduct()) as $attribute) {
             $attributesIds[] = $attribute->getProductAttribute()->getId();
         }
 
@@ -298,7 +315,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     public function getOptions($attribute) {
         $result = [];
         foreach ($attribute->getProductAttribute()->getSource()->getAllOptions() as $option) {
-            if($option['value']!='') {
+            if ($option['value'] != '') {
                 $result[$option['value']] = $option['label'];
             }
         }
@@ -320,7 +337,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     {
         if (is_null($this->_configAttributeCodes)) {
             $product = $this->_getProduct();
-            $attributes = $product->getTypeInstance(true)->getConfigurableAttributes($product);
+            /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+            $productType = $product->getTypeInstance(true);
+            $attributes = $productType->getConfigurableAttributes($product);
             $attributeCodes = [];
             foreach ($attributes as $attribute) {
                 $productAttribute = $attribute->getProductAttribute();

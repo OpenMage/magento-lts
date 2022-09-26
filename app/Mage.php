@@ -20,7 +20,7 @@
 
 define('DS', DIRECTORY_SEPARATOR);
 define('PS', PATH_SEPARATOR);
-define('BP', dirname(dirname(__FILE__)));
+define('BP', dirname(__DIR__));
 
 Mage::register('original_include_path', get_include_path());
 
@@ -314,8 +314,8 @@ final class Mage
         }
 
         if ($appRoot === '') {
-            // automagically find application root by dirname of Mage.php
-            $appRoot = dirname(__FILE__);
+            // automagically find application root by __DIR__ constant of Mage.php
+            $appRoot = __DIR__;
         }
 
         $appRoot = realpath($appRoot);
@@ -825,8 +825,8 @@ final class Mage
     /**
      * log facility (??)
      *
-     * @param string $message
-     * @param integer $level
+     * @param array|object|string $message
+     * @param int $level
      * @param string $file
      * @param bool $forceLog
      */

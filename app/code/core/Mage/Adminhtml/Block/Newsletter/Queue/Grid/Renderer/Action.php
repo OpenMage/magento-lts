@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,25 +23,28 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Newsletter_Queue_Grid_Renderer_Action extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
 {
+    /**
+     * @param Mage_Newsletter_Model_Queue $row
+     * @return string
+     */
     public function render(Varien_Object $row)
     {
         $actions = [];
 
-        if($row->getQueueStatus()==Mage_Newsletter_Model_Queue::STATUS_NEVER) {
-               if(!$row->getQueueStartAt() && $row->getSubscribersTotal()) {
+        if ($row->getQueueStatus() == Mage_Newsletter_Model_Queue::STATUS_NEVER) {
+            if (!$row->getQueueStartAt() && $row->getSubscribersTotal()) {
                 $actions[] = [
-                    'url' => $this->getUrl('*/*/start', ['id'=>$row->getId()]),
+                    'url'       => $this->getUrl('*/*/start', ['id'=>$row->getId()]),
                     'caption'	=> Mage::helper('newsletter')->__('Start')
                 ];
             }
-        } else if ($row->getQueueStatus()==Mage_Newsletter_Model_Queue::STATUS_SENDING) {
+        } elseif ($row->getQueueStatus() == Mage_Newsletter_Model_Queue::STATUS_SENDING) {
             $actions[] = [
-                    'url' => $this->getUrl('*/*/pause', ['id'=>$row->getId()]),
+                    'url'       => $this->getUrl('*/*/pause', ['id'=>$row->getId()]),
                     'caption'	=>	Mage::helper('newsletter')->__('Pause')
             ];
 
@@ -50,14 +53,11 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid_Renderer_Action extends Mage_Ad
                 'confirm'	=>	Mage::helper('newsletter')->__('Do you really want to cancel the queue?'),
                 'caption'	=>	Mage::helper('newsletter')->__('Cancel')
             ];
-
-        } else if ($row->getQueueStatus()==Mage_Newsletter_Model_Queue::STATUS_PAUSE) {
-
+        } elseif ($row->getQueueStatus() == Mage_Newsletter_Model_Queue::STATUS_PAUSE) {
             $actions[] = [
-                'url' => $this->getUrl('*/*/resume', ['id'=>$row->getId()]),
+                'url'       => $this->getUrl('*/*/resume', ['id'=>$row->getId()]),
                 'caption'	=>	Mage::helper('newsletter')->__('Resume')
             ];
-
         }
 
         $actions[] = [

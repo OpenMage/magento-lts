@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api2
+ * @category   Mage
+ * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -45,7 +45,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     /**
      * Is resources added to group
      *
-     * @var boolean
+     * @var bool
      */
     protected $_resourcesGrouped = false;
 
@@ -179,11 +179,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                     /** @var Varien_Simplexml_Element $group */
                     $group = $result[0];
 
-                    if (!isset($group->children)) {
-                        $children = new Varien_Simplexml_Element('<children />');
-                    } else {
-                        $children = $group->children;
-                    }
+                    $children = $group->children ?? new Varien_Simplexml_Element('<children />');
                     $node->resource = 1;
                     $children->appendChild($node);
                     $group->appendChild($children);

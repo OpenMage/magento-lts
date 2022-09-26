@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
 {
@@ -220,12 +220,12 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      *
      * @param Mage_Catalog_Model_Category $category
      * @param int $level Nesting level number
-     * @param boolean $isLast Whether ot not this item is last, affects list item class
-     * @param boolean $isFirst Whether ot not this item is first, affects list item class
-     * @param boolean $isOutermost Whether ot not this item is outermost, affects list item class
+     * @param bool $isLast Whether ot not this item is last, affects list item class
+     * @param bool $isFirst Whether ot not this item is first, affects list item class
+     * @param bool $isOutermost Whether ot not this item is outermost, affects list item class
      * @param string $outermostItemClass Extra class of outermost list items
      * @param string $childrenWrapClass If specified wraps children list in div with this class
-     * @param boolean $noEventAttributes Whether ot not to add on* attributes to list item
+     * @param bool $noEventAttributes Whether ot not to add on* attributes to list item
      * @return string
      */
     protected function _renderCategoryMenuItemHtml(
@@ -349,7 +349,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * @deprecated deprecated after 1.4
      * @param Mage_Catalog_Model_Category $category
      * @param int $level Nesting level number
-     * @param boolean $last Whether ot not this item is last, affects list item class
+     * @param bool $last Whether ot not this item is last, affects list item class
      * @return string
      */
     public function drawItem($category, $level = 0, $last = false)

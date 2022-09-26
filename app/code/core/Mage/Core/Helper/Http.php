@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core Http Helper
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
 {
@@ -31,14 +31,12 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
 
     /**
      * Remote address cache
-     *
      * @var string
      */
     protected $_remoteAddr;
 
     /**
      * Validate and retrieve user and password from HTTP
-     *
      * @param string|null $headers
      * @return array
      */
@@ -166,7 +164,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Retrieve HTTP "clean" value
      *
      * @param string $var
-     * @param boolean $clean clean non UTF-8 characters
+     * @param bool $clean clean non UTF-8 characters
      * @return string
      */
     protected function _getHttpCleanValue($var, $clean = true)
@@ -182,7 +180,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP HOST
      *
-     * @param boolean $clean clean non UTF-8 characters
+     * @param bool $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpHost($clean = true)
@@ -193,7 +191,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP USER AGENT
      *
-     * @param boolean $clean clean non UTF-8 characters
+     * @param bool $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpUserAgent($clean = true)
@@ -204,7 +202,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP ACCEPT LANGUAGE
      *
-     * @param boolean $clean clean non UTF-8 characters
+     * @param bool $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpAcceptLanguage($clean = true)
@@ -215,7 +213,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP ACCEPT CHARSET
      *
-     * @param boolean $clean clean non UTF-8 characters
+     * @param bool $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpAcceptCharset($clean = true)
@@ -226,7 +224,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP REFERER
      *
-     * @param boolean $clean clean non UTF-8 characters
+     * @param bool $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpReferer($clean = true)
@@ -238,7 +236,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Returns the REQUEST_URI taking into account
      * platform differences between Apache and IIS
      *
-     * @param boolean $clean clean non UTF-8 characters
+     * @param bool $clean clean non UTF-8 characters
      * @return string
      */
     public function getRequestUri($clean = false)
@@ -254,7 +252,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Validate IP address
      *
      * @param string $address
-     * @return boolean
+     * @return bool
      */
     public function validateIpAddr($address)
     {

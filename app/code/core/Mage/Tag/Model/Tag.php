@@ -12,18 +12,23 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tag
+ * @category   Mage
+ * @package    Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tag model
  *
+ * @category   Mage
+ * @package    Mage_Tag
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Tag_Model_Resource_Tag _getResource()
  * @method Mage_Tag_Model_Resource_Tag getResource()
  * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
+ * @method Mage_Tag_Model_Resource_Tag_Collection getResourceCollection()
  *
  * @method bool hasBasePopularity()
  * @method int getBasePopularity()
@@ -43,12 +48,7 @@
  * @method $this setStoreId(int $value)
  * @method array getVisibleInStoreIds()
  * @method $this setVisibleInStoreIds(array $value)
- *
- * @category    Mage
- * @package     Mage_Tag
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
 {
     const STATUS_DISABLED = -1;
@@ -128,15 +128,15 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      * Product event tags collection getter
      *
      * @param  Varien_Event_Observer $observer
-     * @return Mage_Tag_Model_Mysql4_Tag_Collection
+     * @return Mage_Tag_Model_Resource_Tag_Collection
      */
     protected function _getProductEventTagsCollection(Varien_Event_Observer $observer)
     {
         return $this->getResourceCollection()
-                        ->joinRel()
-                        ->addProductFilter($observer->getEvent()->getProduct()->getId())
-                        ->addTagGroup()
-                        ->load();
+            ->joinRel()
+            ->addProductFilter($observer->getEvent()->getProduct()->getId())
+            ->addTagGroup()
+            ->load();
     }
 
     /**
@@ -425,7 +425,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      * Check whether product is already marked in store with tag
      *
      * @param Mage_Tag_Model_Tag_Relation $relationModel
-     * @return boolean
+     * @return bool
      */
     protected function _checkLinkBetweenTagProduct($relationModel)
     {

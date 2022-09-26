@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,8 +23,8 @@
  * @see mysql4-upgrade-0.7.2-0.7.3.php
  */
 
-$installer = $this;
 /** @var Mage_Customer_Model_Entity_Setup $installer */
+$installer = $this;
 $installer->startSetup();
 
 $attributeId = $installer->getAttributeId('customer', 'email');

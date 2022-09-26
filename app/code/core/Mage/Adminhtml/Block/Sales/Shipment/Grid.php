@@ -12,20 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml sales orders grid
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     /**
      * Initialization
      */
@@ -62,7 +63,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Prepare and add columns to grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
@@ -129,8 +130,8 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Get url for row
      *
-     * @param string $row
-     * @return string
+     * @param Mage_Sales_Model_Order_Shipment $row
+     * @return string|false
      */
     public function getRowUrl($row)
     {
@@ -138,11 +139,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
             return false;
         }
 
-        return $this->getUrl('*/sales_shipment/view',
-            [
-                'shipment_id'=> $row->getId(),
-            ]
-        );
+        return $this->getUrl('*/sales_shipment/view', ['shipment_id' => $row->getId()]);
     }
 
     /**
@@ -178,5 +175,4 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     {
         return $this->getUrl('*/*/*', ['_current' => true]);
     }
-
 }

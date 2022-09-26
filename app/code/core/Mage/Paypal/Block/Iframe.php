@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
+ * @category   Mage
+ * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,14 +29,12 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
 {
     /**
      * Whether the block should be eventually rendered
-     *
      * @var bool
      */
     protected $_shouldRender = false;
 
     /**
      * Order object
-     *
      * @var Mage_Sales_Model_Order
      */
     protected $_order;

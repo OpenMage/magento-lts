@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +29,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
 {
     /**
      * Prepare block children and data
-     *
      */
     protected function _prepareLayout()
     {
@@ -82,14 +81,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
 
         $fieldset->addField('req_text', 'note', [
             'text' => '<ul class="messages"><li class="notice-msg"><ul><li>'
-                    .  $this->__('Only attributes with scope "Global", input type "Dropdown" and Use To Create Configurable Product "Yes" are available.')
-                    . '</li></ul></li></ul>'
+                .  $this->__('Only attributes with scope "Global", input type "Dropdown" and Use To Create Configurable Product "Yes" are available.')
+                . '</li></ul></li></ul>'
         ]);
 
         $hasAttributes = false;
 
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $product->getTypeInstance(true);
+
         foreach ($attributes as $attribute) {
-            if ($product->getTypeInstance(true)->canUseAttribute($attribute, $product)) {
+            if ($productType->canUseAttribute($attribute, $product)) {
                 $hasAttributes = true;
                 $fieldset->addField('attribute_'.$attribute->getAttributeId(), 'checkbox', [
                     'label' => $attribute->getFrontend()->getLabel(),
@@ -103,9 +105,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
 
         if ($hasAttributes) {
             $fieldset->addField('attributes', 'hidden', [
-                        'name'  => 'attribute_validate',
-                        'value' => '',
-                        'class' => 'validate-super-product-attributes'
+                'name'  => 'attribute_validate',
+                'value' => '',
+                'class' => 'validate-super-product-attributes'
             ]);
 
             $fieldset->addField('continue_button', 'note', [

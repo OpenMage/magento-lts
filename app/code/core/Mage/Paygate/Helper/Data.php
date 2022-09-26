@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paygate
+ * @category   Mage
+ * @package    Mage_Paygate
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Paygate data helper
+ *
+ * @category   Mage
+ * @package    Mage_Paygate
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -37,12 +41,12 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return message for gateway transaction request
      *
-     * @param  Mage_Payment_Model_Info $payment
-     * @param  string $requestType
-     * @param  string $lastTransactionId
-     * @param  Varien_Object $card
-     * @param float $amount
-     * @param string $exception
+     * @param Mage_Payment_Model_Info $payment
+     * @param string $requestType
+     * @param string $lastTransactionId
+     * @param Varien_Object $card
+     * @param float|false $amount
+     * @param string|false $exception
      * @return bool|string
      */
     public function getTransactionMessage($payment, $requestType, $lastTransactionId, $card, $amount = false,
@@ -56,13 +60,13 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return message for gateway transaction request
      *
-     * @param  Mage_Payment_Model_Info $payment
-     * @param  string $requestType
-     * @param  string $lastTransactionId
-     * @param  Varien_Object $card
-     * @param float $amount
-     * @param string $exception
-     * @param string $additionalMessage Custom message, which will be added to the end of generated message
+     * @param Mage_Payment_Model_Info $payment
+     * @param string $requestType
+     * @param string $lastTransactionId
+     * @param Varien_Object $card
+     * @param float|false $amount
+     * @param string|false $exception
+     * @param string|false $additionalMessage Custom message, which will be added to the end of generated message
      * @return bool|string
      */
     public function getExtendedTransactionMessage($payment, $requestType, $lastTransactionId, $card, $amount = false,

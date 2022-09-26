@@ -360,7 +360,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      *
      * @param   string $field
      * @param   string $direction
-     * @return  Varien_Data_Collection
+     * @return  $this
      */
     public function setOrder($field, $direction = self::SORT_ORDER_DESC)
     {

@@ -12,13 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_GoogleCheckout
+ * @category   Mage
+ * @package    Mage_GoogleCheckout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
+ * @category   Mage
+ * @package    Mage_GoogleCheckout
+ * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated after 1.13.1.0
  */
 class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstract
@@ -53,7 +56,7 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      *
      * @param Varien_Object $payment
      * @param float $amount
-     * @return $this
+     * @return void
      */
     public function authorize(Varien_Object $payment, $amount)
     {

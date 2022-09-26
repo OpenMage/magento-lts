@@ -12,13 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Shipping
+ * @category   Mage
+ * @package    Mage_Shipping
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
+ * @category   Mage
+ * @package    Mage_Shipping
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method $this setOrderShipment(Mage_Sales_Model_Order_Shipment $orderShipment)
  * @method Mage_Sales_Model_Order_Shipment getOrderShipment()
  *
@@ -80,10 +84,6 @@
  * @method $this setShipperEmail(string $value)
  * @method $this setBaseCurrencyCode(string $value)
  * @method $this setStoreId(int $value)
- *
- * @category    Mage
- * @package     Mage_Shipping
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Shipping_Model_Shipment_Request extends Varien_Object
 {

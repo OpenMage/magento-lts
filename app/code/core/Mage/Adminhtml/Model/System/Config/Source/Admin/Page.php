@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -44,7 +44,6 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         $nonEscapableNbspChar = html_entity_decode('&#160;', ENT_NOQUOTES, 'UTF-8');
 
         foreach ($menuNode as $menu) {
-
             if (!empty($menu['url'])) {
                 $optionArray[] = [
                     'label' => str_repeat($nonEscapableNbspChar, ($menu['level'] * 4)) . $menu['label'],
@@ -54,11 +53,10 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
                 if (isset($menu['children'])) {
                     $this->_createOptions($optionArray, $menu['children']);
                 }
-            }
-            else {
+            } else {
                 $children = [];
 
-                if(isset($menu['children'])) {
+                if (isset($menu['children'])) {
                     $this->_createOptions($children, $menu['children']);
                 }
 

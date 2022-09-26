@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -119,7 +119,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                 if (!$validator->isValidDataForWebsiteAssignmentToProduct($product, $singleData)) {
                     foreach ($validator->getErrors() as $error) {
                         $this->_errorMessage($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST, [
-                            'website_id' => isset($singleData['website_id']) ? $singleData['website_id'] : null,
+                            'website_id' => $singleData['website_id'] ?? null,
                             'product_id' => $product->getId(),
                         ]);
                     }
@@ -161,7 +161,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                         $e->getMessage(),
                         $e->getCode(),
                         [
-                            'website_id' => isset($singleData['website_id']) ? $singleData['website_id'] : null,
+                            'website_id' => $singleData['website_id'] ?? null,
                             'product_id' => $product->getId(),
                         ]
                     );
@@ -171,7 +171,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                     Mage_Api2_Model_Resource::RESOURCE_INTERNAL_ERROR,
                     Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,
                     [
-                        'website_id' => isset($singleData['website_id']) ? $singleData['website_id'] : null,
+                        'website_id' => $singleData['website_id'] ?? null,
                         'product_id' => $product->getId(),
                     ]
                 );

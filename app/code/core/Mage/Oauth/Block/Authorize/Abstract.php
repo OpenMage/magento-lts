@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Oauth
+ * @category   Mage
+ * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -24,16 +24,17 @@
  * @category   Mage
  * @package    Mage_Oauth
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method string getToken()
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setToken() setToken(string $token)
- * @method boolean getIsSimple()
- * @method Mage_Oauth_Block_Authorize_Button setIsSimple() setIsSimple(boolean $flag)
- * @method boolean getHasException()
- * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsException() setHasException(boolean $flag)
- * @method boolean getVerifier()
+ * @method bool getIsSimple()
+ * @method Mage_Oauth_Block_Authorize_Button setIsSimple() setIsSimple(bool $flag)
+ * @method bool getHasException()
+ * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsException() setHasException(bool $flag)
+ * @method bool getVerifier()
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setVerifier() setVerifier(string $verifier)
- * @method boolean getIsLogged()
- * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsLogged() setIsLogged(boolean $flag)
+ * @method bool getIsLogged()
+ * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsLogged() setIsLogged(bool $flag)
  */
 abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Template
 {
@@ -51,9 +52,6 @@ abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Templ
      */
     protected $_consumer;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct();

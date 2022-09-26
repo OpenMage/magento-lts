@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Downloadable
+ * @category   Mage
+ * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable links API model
  *
- * @category    Mage
- * @package     Mage_Downloadable
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Downloadable
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
 {
@@ -88,7 +88,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
      * @param string $resourceType
      * @param string|int|null $store
      * @param string|null $identifierType ('sku'|'id')
-     * @return boolean
+     * @return bool
      */
     public function add($productId, $resource, $resourceType, $store = null, $identifierType = null)
     {
@@ -149,7 +149,9 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
         $product = $this->_getProduct($productId, $store, $identifierType);
 
         $linkArr = [];
-        $links = $product->getTypeInstance(true)->getLinks($product);
+        /** @var Mage_Downloadable_Model_Product_Type $productType */
+        $productType = $product->getTypeInstance(true);
+        $links = $productType->getLinks($product);
         $downloadHelper = Mage::helper('downloadable');
         foreach ($links as $item) {
             $tmpLinkItem = [
@@ -212,7 +214,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
         unset($tmpLinkItem);
         unset($links);
 
-        $samples = $product->getTypeInstance(true)->getSamples($product)->getData();
+        $samples = $productType->getSamples($product)->getData();
         return ['links' => $linkArr, 'samples' => $samples];
     }
 
