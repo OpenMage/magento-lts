@@ -744,8 +744,17 @@ Product.Configurable.prototype = {
         this.updateSaveInput();
     },
     updateSaveInput : function() {
-        $(this.idPrefix + 'save_attributes').value = Object.toJSON(this.attributes);
-        $(this.idPrefix + 'save_links').value = Object.toJSON(this.links);
+        var oldSaveAttributesValue = $(this.idPrefix + 'save_attributes').value;
+        var oldSaveLinksValue = $(this.idPrefix + 'save_links').value;
+        var newSaveAttributesValue = Object.toJSON(this.attributes);
+        var newSaveLinksValue = Object.toJSON(this.links);
+        $(this.idPrefix + 'save_attributes').value = newSaveAttributesValue;
+        $(this.idPrefix + 'save_links').value = newSaveLinksValue;
+        if (oldSaveAttributesValue != newSaveAttributesValue || oldSaveLinksValue != newSaveLinksValue) {
+            try {
+                document.getElementById('configurable_save_attributes').setHasChanges();
+            } catch (e) {}
+        }
     },
     initializeAdvicesForSimpleForm : function() {
         if ($(this.idPrefix + 'simple_form').advicesInited) {

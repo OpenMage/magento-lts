@@ -100,7 +100,7 @@
 
 <script type="text/javascript">
 //<![CDATA[
-var linkTemplate = '<tr>'+
+var linkTemplate = '<tr id="downloadable_link_{{id}}">'+
     '<td>'+
         '<input type="hidden" class="__delete__" name="downloadable[link][{{id}}][is_delete]" value="" />'+
         '<input type="hidden" name="downloadable[link][{{id}}][link_id]" value="{{link_id}}" />'+
@@ -310,6 +310,11 @@ var linkItems = {
         this.itemCount++;
         this.togglePriceFields();
         this.bindRemoveButtons();
+
+        var inputs = $$('#downloadable_link_' + data.id + ' input');
+        inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el));  } )
+        var inputs = $$('#downloadable_link_' + data.id + ' button.delete');
+        inputs.each(function(el) { Event.observe(el, 'click', el.setHasChanges.bind(el));  } )
     },
     remove : function(event){
         var element = $(Event.findElement(event, 'tr'));

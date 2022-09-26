@@ -131,6 +131,9 @@ var groupPriceControl = {
         $('<?php echo $_htmlId; ?>_container').select('input', 'select').each(function(element) {
             Event.observe(element, 'change', element.setHasChanges.bind(element));
         });
+        $('<?php echo $_htmlId; ?>_container').select('button.delete').each(function(element) {
+            Event.observe(element, 'click', element.setHasChanges.bind(element));
+        });
         <?php endif ?>
     },
     disableElement: function(element) {

@@ -67,7 +67,6 @@ selectOptionType = {
     templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
     templateText : OptionTemplateSelectRow,
     add : function(data) {
-
         this.template = new Template(this.templateText, this.templateSyntax);
 
         if (data.target || data.srcElement) {//data is Event (work in IE and Firefox)
@@ -85,6 +84,11 @@ selectOptionType = {
         data.id  = optionId;
 
         Element.insert($(this.div+'_'+data.id), {'bottom':this.template.evaluate(data)});
+
+        var inputs = $$('#product_option_'+data.id+'_select_'+data.select_id+' input', '#product_option_'+data.id+'_select_'+data.select_id+' select', '#product_option_'+data.id+'_select_'+data.select_id+' textarea');
+        inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el)); });
+        var inputs = $$('#product_option_'+data.id+'_select_'+data.select_id+' button');
+        inputs.each(function(el) { Event.observe(el, 'click', el.setHasChanges.bind(el));  });
 
         if (data.checkboxScopeTitle) {
             //set disabled
