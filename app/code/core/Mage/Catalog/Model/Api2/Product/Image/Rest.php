@@ -164,10 +164,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
      */
     protected function _getFileName($data)
     {
-        $fileName = 'image';
-        if (isset($data['file_name']) && $data['file_name']) {
-            $fileName = $data['file_name'];
-        }
+        $fileName = empty($data['file_name']) ? 'image' : $data['file_name'];
         $fileName .= '.' . $this->_getExtensionByMimeType($data['file_mime_type']);
         return $fileName;
     }

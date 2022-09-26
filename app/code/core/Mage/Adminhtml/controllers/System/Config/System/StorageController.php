@@ -76,7 +76,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
         Mage::getSingleton('admin/session')->setSyncProcessStopWatch(false);
 
         $storage = ['type' => (int) $_REQUEST['storage']];
-        if (isset($_REQUEST['connection']) && !empty($_REQUEST['connection'])) {
+        if (!empty($_REQUEST['connection'])) {
             $storage['connection'] = $_REQUEST['connection'];
         }
 
@@ -105,7 +105,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
                 case Mage_Core_Model_File_Storage_Flag::STATE_INACTIVE:
                     $flagData = $flag->getFlagData();
                     if (is_array($flagData)) {
-                        if (isset($flagData['destination']) && !empty($flagData['destination'])) {
+                        if (!empty($flagData['destination'])) {
                             $result['destination'] = $flagData['destination'];
                         }
                     }
@@ -118,8 +118,8 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
                     ) {
                         $flagData = $flag->getFlagData();
                         if (is_array($flagData)
-                            && isset($flagData['source']) && !empty($flagData['source'])
-                            && isset($flagData['destination']) && !empty($flagData['destination'])
+                            && !empty($flagData['source'])
+                            && !empty($flagData['destination'])
                         ) {
                             $result['message'] = Mage::helper('adminhtml')->__('Synchronizing %s to %s', $flagData['source'], $flagData['destination']);
                         } else {
@@ -129,9 +129,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
                         break;
                     } else {
                         $flagData = $flag->getFlagData();
-                        if (is_array($flagData)
-                            && !(isset($flagData['timeout_reached']) && $flagData['timeout_reached'])
-                        ) {
+                        if (is_array($flagData) && empty($flagData['timeout_reached'])) {
                             Mage::logException(new Mage_Exception(
                                 Mage::helper('adminhtml')->__('Timeout limit for response from synchronize process was reached.')
                             ));
@@ -158,7 +156,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
 
                     $flagData = $flag->getFlagData();
                     if (is_array($flagData)) {
-                        if (isset($flagData['has_errors']) && $flagData['has_errors']) {
+                        if (!empty($flagData['has_errors'])) {
                             $result['has_errors'] = true;
                         }
                     }

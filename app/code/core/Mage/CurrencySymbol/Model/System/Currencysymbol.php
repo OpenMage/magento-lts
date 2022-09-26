@@ -167,7 +167,7 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
                 'displayName' => $name
             ];
 
-            if (isset($currentSymbols[$code]) && !empty($currentSymbols[$code])) {
+            if (!empty($currentSymbols[$code])) {
                 $this->_symbolsData[$code]['displaySymbol'] = $currentSymbols[$code];
             } else {
                 $this->_symbolsData[$code]['displaySymbol'] = $this->_symbolsData[$code]['parentSymbol'];

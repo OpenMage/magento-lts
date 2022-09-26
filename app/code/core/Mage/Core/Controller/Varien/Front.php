@@ -139,7 +139,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
         Varien_Profiler::start('mage::app::init_front_controller::collect_routers');
         foreach ($routersInfo as $routerCode => $routerInfo) {
-            if (isset($routerInfo['disabled']) && $routerInfo['disabled']) {
+            if (!empty($routerInfo['disabled'])) {
                 continue;
             }
             if (isset($routerInfo['class'])) {

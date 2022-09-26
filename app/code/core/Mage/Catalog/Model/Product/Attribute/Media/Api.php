@@ -136,7 +136,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 
         $tmpDirectory = Mage::getBaseDir('var') . DS . 'api' . DS . $this->_getSession()->getSessionId();
 
-        if (isset($data['file']['name']) && $data['file']['name']) {
+        if (!empty($data['file']['name'])) {
             $fileName  = $data['file']['name'];
         } else {
             $fileName  = 'image';

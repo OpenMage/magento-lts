@@ -138,7 +138,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             $this->_critical('Missing "type_id" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
         // Validate weight
-        if (isset($data['weight']) && !empty($data['weight']) && $data['weight'] > 0
+        if (!empty($data['weight']) && $data['weight'] > 0
             && !Zend_Validate::is($data['weight'], 'Between', [0, self::MAX_DECIMAL_VALUE])) {
             $this->_addError('The "weight" value is not within the specified range.');
         }
@@ -369,7 +369,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         if (isset($data['stock_data']) && is_array($data['stock_data'])) {
             $stockData = $data['stock_data'];
             $fieldSet = 'stock_data';
-            if (!(isset($stockData['use_config_manage_stock']) && $stockData['use_config_manage_stock'])) {
+            if (empty($stockData['use_config_manage_stock'])) {
                 $this->_validateBoolean($stockData, $fieldSet, 'manage_stock');
             }
             if ($this->_isManageStockEnabled($stockData)) {
@@ -377,11 +377,11 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                 $this->_validatePositiveNumber($stockData, $fieldSet, 'min_qty', false, true, true);
                 $this->_validateNumeric($stockData, $fieldSet, 'notify_stock_qty', false, true);
                 $this->_validateBoolean($stockData, $fieldSet, 'is_qty_decimal');
-                if (isset($stockData['is_qty_decimal']) && (bool) $stockData['is_qty_decimal'] == true) {
+                if (!empty($stockData['is_qty_decimal'])) {
                     $this->_validateBoolean($stockData, $fieldSet, 'is_decimal_divided');
                 }
                 $this->_validateBoolean($stockData, $fieldSet, 'enable_qty_increments', true);
-                if (isset($stockData['enable_qty_increments']) && (bool) $stockData['enable_qty_increments'] == true) {
+                if (!empty($stockData['enable_qty_increments'])) {
                     $this->_validatePositiveNumeric($stockData, $fieldSet, 'qty_increments', false, true);
                 }
                 if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
@@ -409,8 +409,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      */
     protected function _isManageStockEnabled($stockData)
     {
-        if (!(isset($stockData['use_config_manage_stock']) && $stockData['use_config_manage_stock'])) {
-            $manageStock = isset($stockData['manage_stock']) && $stockData['manage_stock'];
+        if (empty($stockData['use_config_manage_stock'])) {
+            $manageStock = !empty($stockData['manage_stock']);
         } else {
             $manageStock = Mage::getStoreConfig(
                 Mage_CatalogInventory_Model_Stock_Item::XML_PATH_ITEM . 'manage_stock'
@@ -615,7 +615,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      */
     protected function _isConfigValueUsed($data, $field)
     {
-        return isset($data["use_config_$field"]) && $data["use_config_$field"];
+        return !empty($data["use_config_$field"]);
     }
 
     /**

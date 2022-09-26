@@ -232,8 +232,8 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      */
     protected function _isManageStockEnabled($stockData)
     {
-        if (!(isset($stockData['use_config_manage_stock']) && $stockData['use_config_manage_stock'])) {
-            $manageStock = isset($stockData['manage_stock']) && $stockData['manage_stock'];
+        if (empty($stockData['use_config_manage_stock'])) {
+            $manageStock = !empty($stockData['manage_stock']);
         } else {
             $manageStock = Mage::getStoreConfig(
                 Mage_CatalogInventory_Model_Stock_Item::XML_PATH_ITEM . 'manage_stock'
@@ -251,7 +251,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      */
     protected function _isConfigValueUsed($data, $field)
     {
-        return isset($data["use_config_$field"]) && $data["use_config_$field"];
+        return !empty($data["use_config_$field"]);
     }
 
     /**

@@ -186,7 +186,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         }
 
         $responseAjax = new Varien_Object();
-        $isNeedCreateLabel = isset($data['create_shipping_label']) && $data['create_shipping_label'];
+        $isNeedCreateLabel = !empty($data['create_shipping_label']);
 
         try {
             $shipment->register();

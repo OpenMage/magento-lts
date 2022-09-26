@@ -330,7 +330,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
 
         if (isset($labels[$storeId])) {
             return $labels[$storeId];
-        } elseif (isset($labels[0]) && $labels[0]) {
+        } elseif (!empty($labels[0])) {
             return $labels[0];
         }
 

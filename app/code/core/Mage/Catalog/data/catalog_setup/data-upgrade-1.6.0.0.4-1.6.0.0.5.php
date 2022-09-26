@@ -39,7 +39,7 @@ foreach ($multiSelectAttributeCodes as $attributeCode) {
 
         if ($result) {
             foreach ($result as $row) {
-                if (isset($row['value']) && !empty($row['value'])) {
+                if (!empty($row['value'])) {
                     // 1,2,,,3,5 --> 1,2,3,5
                     $row['value'] = preg_replace('/,{2,}/', ',', $row['value'], -1, $replaceCnt);
 

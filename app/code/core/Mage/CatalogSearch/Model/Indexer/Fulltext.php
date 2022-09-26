@@ -275,7 +275,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                 $reindexData  = [];
 
                 // check if force reindex required
-                if (isset($attrData['force_reindex_required']) && $attrData['force_reindex_required']) {
+                if (!empty($attrData['force_reindex_required'])) {
                     $rebuildIndex = true;
                     $reindexData['catalogsearch_force_reindex'] = $attrData['force_reindex_required'];
                 }

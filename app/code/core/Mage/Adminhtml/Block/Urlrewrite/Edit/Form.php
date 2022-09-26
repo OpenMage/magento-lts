@@ -127,7 +127,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
              */
             if ($stores && $isFilterAllowed) {
                 foreach ($stores as $i => $store) {
-                    if (isset($store['value']) && $store['value']) {
+                    if (!empty($store['value'])) {
                         $found = false;
                         foreach ($store['value'] as $_k => $_v) {
                             if (isset($_v['value']) && in_array($_v['value'], $entityStores)) {

@@ -117,7 +117,7 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
         $prevKey     = false;
         while ($row = $data->fetch()) {
             $key = "{$row['product_id']}-{$row['website_id']}-{$row['customer_group_id']}";
-            if (isset($stops[$key]) && $stops[$key]) {
+            if (!empty($stops[$key])) {
                 continue;
             }
 

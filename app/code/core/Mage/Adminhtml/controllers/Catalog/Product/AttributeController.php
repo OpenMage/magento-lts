@@ -179,8 +179,8 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
             }
 
             if (!empty($data['option']) && !empty($data['option']['value']) && is_array($data['option']['value'])) {
-                $allowableTags = isset($data['is_html_allowed_on_front']) && $data['is_html_allowed_on_front']
-                    ? sprintf('<%s>', implode('><', $this->_getAllowedTags())) : null;
+                $allowableTags = empty($data['is_html_allowed_on_front'])
+                    ? null : printf('<%s>', implode('><', $this->_getAllowedTags()));
                 foreach ($data['option']['value'] as $key => $values) {
                     foreach ($values as $storeId => $storeLabel) {
                         $data['option']['value'][$key][$storeId]

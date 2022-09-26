@@ -108,7 +108,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
 
             if ($fullInfo) {
                 foreach ($fullInfo as $info) {
-                    if (isset($info['hidden']) && $info['hidden']) {
+                    if (!empty($info['hidden'])) {
                         continue;
                     }
 

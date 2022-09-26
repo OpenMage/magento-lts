@@ -248,13 +248,11 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
      */
     public function saveFile($file, $overwrite = true)
     {
-        if (isset($file['filename']) && !empty($file['filename'])
-            && isset($file['content'])
-        ) {
+        if (!empty($file['filename']) && isset($file['content'])) {
             try {
-                $filename = (isset($file['directory']) && !empty($file['directory']))
-                    ? $file['directory'] . DS . $file['filename']
-                    : $file['filename'];
+                $filename = empty($file['directory'])
+                    ? $file['filename']
+                    : $file['directory'] . DS . $file['filename'];
 
                 return $this->_getResource()
                     ->saveFile($filename, $file['content'], $overwrite);

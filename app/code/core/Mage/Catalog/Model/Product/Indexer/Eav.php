@@ -214,7 +214,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
         $reindexEav   = false;
 
         // check if force reindex required
-        if (isset($attrData['force_reindex_required']) && $attrData['force_reindex_required']) {
+        if (!empty($attrData['force_reindex_required'])) {
             $reindexEav = true;
         }
 

@@ -124,7 +124,7 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
         }
 
         // render customized option view
-        if (isset($optionInfo['custom_view']) && $optionInfo['custom_view']) {
+        if (!empty($optionInfo['custom_view'])) {
             $_default = ['value' => $optionValue];
             if (isset($optionInfo['option_type'])) {
                 try {

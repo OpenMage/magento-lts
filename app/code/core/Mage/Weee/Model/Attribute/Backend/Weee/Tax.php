@@ -119,7 +119,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
                 continue;
             }
 
-            if (isset($tax['state']) && $tax['state']) {
+            if (!empty($tax['state'])) {
                 $state = $tax['state'];
             } else {
                 $state = '*';

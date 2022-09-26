@@ -41,7 +41,7 @@ class Mage_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Mage_Customer_Mode
         $log->loadByCustomer($this->getRequest()->getParam('id'));
 
         $data = parent::_retrieve();
-        $data['is_confirmed'] = (int) !(isset($data['confirmation']) && $data['confirmation']);
+        $data['is_confirmed'] = (int) empty($data['confirmation']);
 
         $lastLoginAt = $log->getLoginAt();
         if ($lastLoginAt !== null) {

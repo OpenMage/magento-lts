@@ -83,7 +83,7 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
         }
 
         foreach ($values as $row) {
-            if (isset($row['delete']) && $row['delete']) {
+            if (!empty($row['delete'])) {
                 continue;
             }
 

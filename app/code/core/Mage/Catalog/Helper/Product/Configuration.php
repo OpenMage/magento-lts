@@ -214,7 +214,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         }
 
         // Render customized option view
-        if (isset($optionInfo['custom_view']) && $optionInfo['custom_view']) {
+        if (!empty($optionInfo['custom_view'])) {
             $_default = ['value' => $optionValue];
             if (isset($optionInfo['option_type'])) {
                 try {

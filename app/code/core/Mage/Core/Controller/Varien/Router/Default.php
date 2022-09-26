@@ -36,9 +36,9 @@ class Mage_Core_Controller_Varien_Router_Default extends Mage_Core_Controller_Va
     public function match(Zend_Controller_Request_Http $request)
     {
         $noRoute        = explode('/', $this->_getNoRouteConfig());
-        $moduleName     = isset($noRoute[0]) && $noRoute[0] ? $noRoute[0] : 'core';
-        $controllerName = isset($noRoute[1]) && $noRoute[1] ? $noRoute[1] : 'index';
-        $actionName     = isset($noRoute[2]) && $noRoute[2] ? $noRoute[2] : 'index';
+        $moduleName     = !empty($noRoute[0]) ? $noRoute[0] : 'core';
+        $controllerName = !empty($noRoute[1]) ? $noRoute[1] : 'index';
+        $actionName     = !empty($noRoute[2]) ? $noRoute[2] : 'index';
 
         if ($this->_isAdmin()) {
             $adminFrontName = (string)Mage::getConfig()->getNode('admin/routers/adminhtml/args/frontName');

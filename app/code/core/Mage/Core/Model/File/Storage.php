@@ -109,7 +109,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
                 return false;
         }
 
-        if (isset($params['init']) && $params['init']) {
+        if (!empty($params['init'])) {
             $model->init();
         }
 
