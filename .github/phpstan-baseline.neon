@@ -136,11 +136,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Renderer/Region.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Filter_Status\\:\\:getCondition\\(\\) should return array but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Newsletter/Grid/Filter/Status.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Customer_Edit_Tab_View\\:\\:getCreateDate\\(\\) should return string but returns null\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View.php
@@ -184,11 +179,6 @@ parameters:
 			message: "#^Variable \\$localminvalue might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Website\\:\\:getCondition\\(\\) should return array but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Newsletter/Subscriber/Grid/Filter/Website.php
 
 		-
 			message: "#^Variable \\$class might not be defined\\.$#"
@@ -301,8 +291,8 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Review/Grid.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Review_Grid_Filter_Type\\:\\:getCondition\\(\\) should return array but returns int\\.$#"
-			count: 3
+			message: "#^Return type \\(int\\) of method Mage_Adminhtml_Block_Review_Grid_Filter_Type\\:\\:getCondition\\(\\) should be compatible with return type \\(array\\|null\\) of method Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select\\:\\:getCondition\\(\\)$#"
+			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Review/Grid/Filter/Type.php
 
 		-
@@ -511,11 +501,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Email/Template/Edit.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_System_Email_Template_Grid_Filter_Type\\:\\:getCondition\\(\\) should return array but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Email/Template/Grid/Filter/Type.php
-
-		-
 			message: "#^Method Mage_Core_Model_Email_Template\\:\\:getProcessedTemplate\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Email/Template/Preview.php
@@ -649,11 +634,6 @@ parameters:
 			message: "#^Method Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime\\:\\:_convertDate\\(\\) should return Zend_Date but returns null\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Filter/Datetime.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select\\:\\:getCondition\\(\\) should return array but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Filter/Select.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Country\\:\\:render\\(\\) should return string but returns null\\.$#"
@@ -1119,11 +1099,6 @@ parameters:
 			message: "#^Method Mage_Api2_Model_Acl_Global_Rule_ResourcePermission\\:\\:setFilterValue\\(\\) should return Mage_Api2_Model_Acl_PermissionInterface but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Api2/Model/Acl/Global/Rule/ResourcePermission.php
-
-		-
-			message: "#^Method Mage_Api2_Model_Acl_Global_Rule_Tree\\:\\:_getTreeNode\\(\\) should return array but returns null\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Api2/Model/Acl/Global/Rule/Tree.php
 
 		-
 			message: "#^Variable \\$operationName might not be defined\\.$#"
@@ -2036,16 +2011,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api/V2.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Product_Attribute_Tierprice_Api\\:\\:prepareTierPrices\\(\\) should return array but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2\\:\\:prepareTierPrices\\(\\) should return array but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api/V2.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item\\:\\:clean\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product/Compare/Item.php
@@ -2691,19 +2656,9 @@ parameters:
 			path: ../app/code/core/Mage/Checkout/Model/Cart/Api.php
 
 		-
-			message: "#^Method Mage_Checkout_Model_Cart_Customer_Api\\:\\:_prepareCustomerAddressData\\(\\) should return array but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Checkout/Model/Cart/Customer/Api.php
-
-		-
 			message: "#^Variable \\$customer might not be defined\\.$#"
 			count: 4
 			path: ../app/code/core/Mage/Checkout/Model/Cart/Customer/Api.php
-
-		-
-			message: "#^Method Mage_Checkout_Model_Cart_Customer_Api_V2\\:\\:_prepareCustomerAddressData\\(\\) should return array but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Checkout/Model/Cart/Customer/Api/V2.php
 
 		-
 			message: "#^Parameter \\#1 \\$data \\(object\\) of method Mage_Checkout_Model_Cart_Customer_Api_V2\\:\\:_prepareCustomerAddressData\\(\\) should be compatible with parameter \\$data \\(array\\) of method Mage_Checkout_Model_Cart_Customer_Api\\:\\:_prepareCustomerAddressData\\(\\)$#"

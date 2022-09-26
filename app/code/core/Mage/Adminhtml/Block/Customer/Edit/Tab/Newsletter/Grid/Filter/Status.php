@@ -42,6 +42,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Filter_Status exten
         parent::__construct();
     }
 
+    /**
+     * @return array
+     */
     protected function _getOptions()
     {
         $result = [];
@@ -52,9 +55,12 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Filter_Status exten
         return $result;
     }
 
+    /**
+     * @return array|null
+     */
     public function getCondition()
     {
-        if(is_null($this->getValue())) {
+        if (is_null($this->getValue())) {
             return null;
         }
 
