@@ -236,7 +236,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve entity table prefix name
      *
-     * @return string
+     * @return string|null
      */
     public function getValueTablePrefix()
     {

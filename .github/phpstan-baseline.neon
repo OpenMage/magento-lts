@@ -126,19 +126,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Helper/Form/Gallery.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price\\:\\:getEscapedValue\\(\\) should return string but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Helper/Form/Price.php
-
-		-
 			message: "#^PHPDoc type Mage_Core_Model_Abstract of property Mage_Adminhtml_Block_Customer_Edit_Renderer_Region\\:\\:\\$_factory is not covariant with PHPDoc type Mage_Core_Model_Factory of overridden property Mage_Core_Block_Abstract\\:\\:\\$_factory\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Renderer/Region.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Customer_Edit_Tab_View\\:\\:getCreateDate\\(\\) should return string but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View.php
 
 		-
 			message: "#^Property Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales\\:\\:\\$_collection \\(Mage_Sales_Model_Entity_Sale_Collection\\) does not accept Varien_Data_Collection_Db\\.$#"
@@ -561,16 +551,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_System_Store_Grid_Render_Group\\:\\:render\\(\\) should return string but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Store/Grid/Render/Group.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_System_Store_Grid_Render_Store\\:\\:render\\(\\) should return string but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Store/Grid/Render/Store.php
-
-		-
 			message: "#^Call to an undefined method Mage_Tag_Model_Resource_Tag_Collection\\:\\:addAttributeToFilter\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Grid/All.php
@@ -634,11 +614,6 @@ parameters:
 			message: "#^Method Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime\\:\\:_convertDate\\(\\) should return Zend_Date but returns null\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Filter/Datetime.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Country\\:\\:render\\(\\) should return string but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Country.php
 
 		-
 			message: "#^Binary operation \"\\*\" between string and 1 results in an error\\.$#"
@@ -1201,11 +1176,6 @@ parameters:
 			path: ../app/code/core/Mage/Api2/Model/Route/ApiType.php
 
 		-
-			message: "#^Method Mage_Authorizenet_Block_Directpost_Form\\:\\:_toHtml\\(\\) should return string but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Authorizenet/Block/Directpost/Form.php
-
-		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:decrypt\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Authorizenet/Model/Directpost.php
@@ -1594,11 +1564,6 @@ parameters:
 			message: "#^Property Mage_Catalog_Block_Product_New\\:\\:\\$_productsCount \\(null\\) does not accept int\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Block/Product/New.php
-
-		-
-			message: "#^Method Mage_Catalog_Block_Product_View_Media\\:\\:getGalleryImageUrl\\(\\) should return string but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/View/Media.php
 
 		-
 			message: "#^Method Mage_Catalog_Block_Product_View_Options_Type_Date\\:\\:_getValueWithLeadingZeros\\(\\) should return string but returns int\\.$#"
@@ -2329,11 +2294,6 @@ parameters:
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item\\:\\:getCount\\(\\) should return int but returns string\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Compare/Item.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Resource_Product_Flat\\:\\:getAttributeSortColumn\\(\\) should return string but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Flat.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Flat\\:\\:getTypeId\\(\\) should return int but returns string\\|null\\.$#"
@@ -3836,16 +3796,6 @@ parameters:
 			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Backend/Abstract.php
 
 		-
-			message: "#^Method Mage_Eav_Model_Entity_Attribute_Backend_Datetime\\:\\:formatDate\\(\\) should return string but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Backend/Datetime.php
-
-		-
-			message: "#^Method Mage_Eav_Model_Entity_Attribute_Frontend_Abstract\\:\\:getInputRendererClass\\(\\) should return string but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Frontend/Abstract.php
-
-		-
 			message: "#^Variable \\$out in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Frontend/Abstract.php
@@ -3924,11 +3874,6 @@ parameters:
 			message: "#^Variable \\$connection might not be defined\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: "#^Method Mage_Eav_Model_Entity_Type\\:\\:getValueTablePrefix\\(\\) should return string but returns null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Type.php
 
 		-
 			message: "#^Method Mage_Eav_Model_Resource_Entity_Attribute\\:\\:_getMaxSortOrder\\(\\) should return int but returns string\\.$#"
