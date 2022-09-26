@@ -311,11 +311,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Review/Product/Grid.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Items_Abstract\\:\\:getColumnRenderer\\(\\) should return Mage_Core_Block_Abstract but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Items/Abstract.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address\\:\\:getAddress\\(\\) should return Mage_Customer_Model_Address but returns Mage_Sales_Model_Quote_Address\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Billing/Address.php
@@ -731,11 +726,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Model/Giftmessage/Save.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Model_Sales_Order_Create\\:\\:_getQuoteItem\\(\\) should return Mage_Sales_Model_Quote_Item but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Model_Sales_Order_Create\\:\\:initFromOrderItem\\(\\) should return Mage_Sales_Model_Quote_Item\\|string but returns \\$this\\(Mage_Adminhtml_Model_Sales_Order_Create\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
@@ -806,11 +796,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Store.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Catalog_CategoryController\\:\\:_initCategory\\(\\) should return Mage_Catalog_Model_Category but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/CategoryController.php
-
-		-
 			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php
@@ -859,11 +844,6 @@ parameters:
 			message: "#^Variable \\$id in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Permissions/VariableController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Promo_WidgetController\\:\\:_initCategory\\(\\) should return Mage_Catalog_Model_Category but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Promo/WidgetController.php
 
 		-
 			message: "#^Cannot call method aggregate\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
@@ -1992,11 +1972,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Catalog_Model_Product\\:\\:duplicate\\(\\) should return \\$this\\(Mage_Catalog_Model_Product\\) but returns Mage_Catalog_Model_Product\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Product\\:\\:getCategoryId\\(\\) should return int but returns false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product.php
 
@@ -3556,11 +3531,6 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Convert/Action/Abstract.php
 
 		-
-			message: "#^Method Mage_Dataflow_Model_Convert_Adapter_Io\\:\\:getResource\\(\\) should return Varien_Io_Abstract but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Convert/Adapter/Io.php
-
-		-
 			message: "#^Call to an undefined method Mage_Dataflow_Model_Convert_Container_Interface\\:\\:getName\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Dataflow/Model/Convert/Container/Collection.php
@@ -3757,11 +3727,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:getEntityTypeCode\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Attribute/Data/File.php
-
-		-
-			message: "#^Method Mage_Eav_Model_Attribute_Data_File\\:\\:extractValue\\(\\) should return array\\|string but returns false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Attribute/Data/File.php
 
@@ -3987,11 +3952,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Varien_Db_Adapter_Interface\\:\\:lastInsertId\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: "#^Method Mage_Eav_Model_Entity_Setup\\:\\:getAttributeId\\(\\) should return int but returns false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Entity/Setup.php
 
@@ -4491,16 +4451,6 @@ parameters:
 			path: ../app/code/core/Mage/Log/Model/Resource/Log.php
 
 		-
-			message: "#^Method Mage_Media_Model_File_Image\\:\\:_getReadAdapter\\(\\) should return Varien_Db_Adapter_Interface but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Media/Model/File/Image.php
-
-		-
-			message: "#^Method Mage_Media_Model_File_Image\\:\\:_getWriteAdapter\\(\\) should return Varien_Db_Adapter_Interface but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Media/Model/File/Image.php
-
-		-
 			message: "#^Method Mage_Media_Model_File_Image\\:\\:getImage\\(\\) should return bool\\|resource but returns GdImage\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Media/Model/File/Image.php
@@ -4696,11 +4646,6 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Block/Express/Review.php
 
 		-
-			message: "#^Method Mage_Paypal_Block_Express_Review\\:\\:getShippingAddress\\(\\) should return Mage_Sales_Model_Quote_Address but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Block/Express/Review.php
-
-		-
 			message: "#^Return type \\(false\\) of method Mage_Paypal_Block_Hosted_Pro_Info\\:\\:getCcTypeName\\(\\) should be compatible with return type \\(string\\|null\\) of method Mage_Paypal_Block_Payment_Info\\:\\:getCcTypeName\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Block/Hosted/Pro/Info.php
@@ -4866,11 +4811,6 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Model/Ipn.php
 
 		-
-			message: "#^Method Mage_Paypal_Model_Payflowlink\\:\\:_getOrderFromResponse\\(\\) should return Mage_Sales_Model_Order but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
 			message: "#^Return type \\(bool\\) of method Mage_Paypal_Model_Payflowlink\\:\\:validate\\(\\) should be compatible with return type \\(\\$this\\(Mage_Payment_Model_Method_Cc\\)\\) of method Mage_Payment_Model_Method_Cc\\:\\:validate\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
@@ -4879,11 +4819,6 @@ parameters:
 			message: "#^Variable \\$order in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Method Mage_Paypal_Model_Payflowpro\\:\\:cancel\\(\\) should return \\$this\\(Mage_Paypal_Model_Payflowpro\\) but returns false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Payflowpro.php
 
 		-
 			message: "#^Property Mage_Paypal_Model_Payflowpro\\:\\:\\$_centinelFieldMap \\(string\\) does not accept default value of type array\\<string, string\\>\\.$#"
