@@ -28,12 +28,13 @@
 class Mage_Catalog_Block_Product_View_Type_Grouped extends Mage_Catalog_Block_Product_View_Abstract
 {
     /**
-     * @return mixed
+     * @return array
      */
     public function getAssociatedProducts()
     {
-        return $this->getProduct()->getTypeInstance(true)
-            ->getAssociatedProducts($this->getProduct());
+        /** @var Mage_Catalog_Model_Product_Type_Grouped $productType */
+        $productType = $this->getProduct()->getTypeInstance(true);
+        return $productType->getAssociatedProducts($this->getProduct());
     }
 
     /**

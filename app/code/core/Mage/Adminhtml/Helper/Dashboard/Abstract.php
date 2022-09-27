@@ -32,14 +32,14 @@ abstract class Mage_Adminhtml_Helper_Dashboard_Abstract extends Mage_Core_Helper
      *
      * @var Mage_Core_Model_Resource_Db_Collection_Abstract|Mage_Eav_Model_Entity_Collection_Abstract|array
      */
-    protected  $_collection;
+    protected $_collection;
 
     /**
      * Parameters for helper
      *
      * @var array
      */
-    protected  $_params = [];
+    protected $_params = [];
 
     public function getCollection()
     {
@@ -49,7 +49,7 @@ abstract class Mage_Adminhtml_Helper_Dashboard_Abstract extends Mage_Core_Helper
         return $this->_collection;
     }
 
-    abstract protected  function _initCollection();
+    abstract protected function _initCollection();
 
     /**
      * Returns collection items
@@ -71,7 +71,7 @@ abstract class Mage_Adminhtml_Helper_Dashboard_Abstract extends Mage_Core_Helper
         $result = [];
         foreach ($this->getItems() as $item) {
             if (is_array($item)) {
-                if(isset($item[$index])) {
+                if (isset($item[$index])) {
                     $result[] = $item[$index];
                 } else {
                     $result[] = null;

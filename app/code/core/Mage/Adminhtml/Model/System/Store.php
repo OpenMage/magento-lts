@@ -192,7 +192,6 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
         }
 
         foreach ($websites as $website) {
-
             $websiteId = $website->getId();
             if ($websiteIds && !in_array($websiteId, $websiteIds)) {
                 continue;
@@ -203,7 +202,6 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
             ];
 
             foreach ($website->getGroups() as $group) {
-
                 $groupId = $group->getId();
                 if ($groupIds && !in_array($groupId, $groupIds)) {
                     continue;
@@ -214,7 +212,6 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
                 ];
 
                 foreach ($group->getStores() as $store) {
-
                     $storeId = $store->getId();
                     if ($storeIds && !in_array($storeId, $storeIds)) {
                         continue;
@@ -318,7 +315,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      * Retrieve Website name by Id
      *
      * @param int $websiteId
-     * @return string
+     * @return string|null
      */
     public function getWebsiteName($websiteId)
     {
@@ -334,7 +331,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      * Retrieve Group name by Id
      *
      * @param int $groupId
-     * @return string
+     * @return string|null
      */
     public function getGroupName($groupId)
     {
@@ -350,7 +347,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      * Retrieve Store name by Id
      *
      * @param int $storeId
-     * @return string
+     * @return string|null
      */
     public function getStoreName($storeId)
     {
@@ -386,8 +383,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
                 $names[]= $this->getStoreNameWithWebsite($id);
             }
             $name = implode(', ', $names);
-        }
-        else {
+        } else {
             if (isset($this->_storeCollection[$storeId])) {
                 $data = $this->_storeCollection[$storeId];
                 $name .= $this->getWebsiteName($data->getWebsiteId());
@@ -441,8 +437,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
             $this->_loadWebsiteCollection();
             $this->_loadGroupCollection();
             $this->_loadStoreCollection();
-        }
-        else {
+        } else {
             switch ($type) {
                 case 'website':
                     $this->_loadWebsiteCollection();
@@ -475,8 +470,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
                 $names[]= $this->getStoreNamePath($id);
             }
             $name = implode(', ', $names);
-        }
-        else {
+        } else {
             if (isset($this->_storeCollection[$storeId])) {
                 $data = $this->_storeCollection[$storeId];
                 $name .= $this->getWebsiteName($data->getWebsiteId());

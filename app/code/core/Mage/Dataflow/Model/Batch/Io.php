@@ -158,7 +158,7 @@ class Mage_Dataflow_Model_Batch_Io
      * # length  bytes have been read
      * # EOF (end of file) is reached
      *
-     * @return string|array
+     * @return false|string
      */
     public function read($csv = false, $delimiter = ',', $enclosure = '"')
     {

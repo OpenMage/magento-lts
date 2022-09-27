@@ -27,7 +27,7 @@
  */
 class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_Abstract
 {
-     /**
+    /**
      * Init layout of product configuration update result
      *
      * @param Mage_Adminhtml_Controller_Action $controller

@@ -65,15 +65,15 @@ class Mage_CatalogIndex_Model_Data_Grouped extends Mage_CatalogIndex_Model_Data_
     /**
      * Get child link table and field settings
      *
-     * @return mixed
+     * @return array
      */
     protected function _getLinkSettings()
     {
         return [
-                    'table'=>'catalog/product_link',
-                    'parent_field'=>'product_id',
-                    'child_field'=>'linked_product_id',
-                    'additional'=> ['link_type_id'=>Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED]
+            'table'=>'catalog/product_link',
+            'parent_field'=>'product_id',
+            'child_field'=>'linked_product_id',
+            'additional'=> ['link_type_id' => Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED]
         ];
     }
 }

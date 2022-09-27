@@ -278,7 +278,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Get sql for get record count
      *
-     * @return string
+     * @return Varien_Db_Select
      */
     public function getSelectCountSql()
     {

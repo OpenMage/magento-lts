@@ -195,9 +195,9 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
     /**
      * Function for comparing two items in collection
      *
-     * @param   Varien_Object $a
-     * @param   Varien_Object $b
-     * @return bool
+     * @param Varien_Object $a
+     * @param Varien_Object $b
+     * @return int
      */
     public function sortByStartDate($a, $b)
     {

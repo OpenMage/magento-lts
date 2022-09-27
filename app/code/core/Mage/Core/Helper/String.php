@@ -183,7 +183,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
             }
         } // split smartly, keeping words
         else {
-            $split = preg_split('/(' . $wordSeparatorRegex . '+)/siu', $str, null, PREG_SPLIT_DELIM_CAPTURE);
+            $split = preg_split('/(' . $wordSeparatorRegex . '+)/siu', $str, -1, PREG_SPLIT_DELIM_CAPTURE);
             $i        = 0;
             $space    = '';
             $spaceLen = 0;
@@ -253,7 +253,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     public function splitWords($str, $uniqueOnly = false, $maxWordLength = 0, $wordSeparatorRegexp = '\s')
     {
         $result = [];
-        $split = preg_split('#' . $wordSeparatorRegexp . '#siu', $str, null, PREG_SPLIT_NO_EMPTY);
+        $split = preg_split('#' . $wordSeparatorRegexp . '#siu', $str, -1, PREG_SPLIT_NO_EMPTY);
         foreach ($split as $word) {
             if ($uniqueOnly) {
                 $result[$word] = $word;
@@ -285,7 +285,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * @param string $haystack
      * @param string $needle
      * @param int $offset
-     * @return int|false
+     * @return int
      */
     public function strpos($haystack, $needle, $offset = null)
     {

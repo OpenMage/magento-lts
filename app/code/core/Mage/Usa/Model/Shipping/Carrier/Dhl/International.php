@@ -271,7 +271,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Prepare and set request in property of current instance
      *
      * @param Varien_Object $request
-     * @return Mage_Usa_Model_Shipping_Carrier_Dhl
+     * @return $this
      */
     public function setRequest(Varien_Object $request)
     {
@@ -769,7 +769,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
     /**
      * Get shipping quotes
      *
-     * @return Mage_Core_Model_Abstract|Mage_Shipping_Model_Rate_Result
+     * @return Mage_Shipping_Model_Rate_Result
      */
     protected function _getQuotes()
     {
@@ -1528,7 +1528,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Get tracking
      *
      * @param mixed $trackings
-     * @return mixed
+     * @return Mage_Shipping_Model_Rate_Result|null
      */
     public function getTracking($trackings)
     {

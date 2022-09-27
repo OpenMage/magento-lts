@@ -1,0 +1,51 @@
+name: "PHPStan Static Code Analyses"
+
+on:
+  # Run on all pushes and on all pull requests.
+  # Prevent the build from running when there are only irrelevant changes.
+  push:
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+jobs:
+  php_stan:
+    runs-on: [ubuntu-latest]
+
+    strategy:
+      matrix:
+        config_files: [
+          '.github/phpstan.neon',
+          '.github/phpstan_experimental_level.neon'
+        ]
+
+    name: PHP Stan ${{ matrix.config_files }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
+
+      - name: ensure existance of ./app/code/local
+        run: mkdir -p app/code/local
+
+      - name: PHPStan Static Analysis
+        run: php vendor/bin/phpstan.phar analyze -c ${{ matrix.config_files }}
+        continue-on-error: ${{ matrix.config_files == '.github/phpstan_experimental_level.neon' }}

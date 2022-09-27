@@ -25,8 +25,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Model_System_Config_Backend_Customer_Password_Link_Expirationperiod
-    extends Mage_Core_Model_Config_Data
+class Mage_Adminhtml_Model_System_Config_Backend_Customer_Password_Link_Expirationperiod extends Mage_Core_Model_Config_Data
 {
     /**
      * Validate expiration period value before saving

@@ -47,7 +47,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
     /**
      * Init actions
      *
-     * @return Mage_Adminhtml_Cms_PageController
+     * @return $this
      */
     protected function _initAction()
     {

@@ -34,7 +34,8 @@ class Mage_CatalogInventory_Block_Stockqty_Type_Grouped extends Mage_CatalogInve
      */
     protected function _getChildProducts()
     {
-        return $this->_getProduct()->getTypeInstance(true)
-            ->getAssociatedProducts($this->_getProduct());
+        /** @var Mage_Catalog_Model_Product_Type_Grouped $productType */
+        $productType = $this->_getProduct()->getTypeInstance(true);
+        return $productType->getAssociatedProducts($this->_getProduct());
     }
 }

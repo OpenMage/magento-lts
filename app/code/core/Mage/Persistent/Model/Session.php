@@ -91,7 +91,10 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      */
     public function getExpiredBefore($store = null)
     {
-        return gmdate('Y-m-d H:i:s', time() - Mage::helper('persistent')->getLifeTime($store));
+        return gmdate(
+            Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT,
+            time() - Mage::helper('persistent')->getLifeTime($store)
+        );
     }
 
     /**
@@ -218,7 +221,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         if ($lifetime) {
             $this->getResource()->deleteExpired(
                 $websiteId,
-                gmdate('Y-m-d H:i:s', time() - $lifetime)
+                gmdate(Varien_Date::DATETIME_PHP_FORMAT, time() - $lifetime)
             );
         }
 
@@ -243,7 +246,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      */
     public function save()
     {
-        $this->setUpdatedAt(gmdate('Y-m-d H:i:s'));
+        $this->setUpdatedAt(gmdate(Varien_Date::DATETIME_PHP_FORMAT));
         return parent::save();
     }
 }

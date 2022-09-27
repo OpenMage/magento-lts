@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Shipping
     /**
      * Get label for shipping include tax
      *
-     * @return float
+     * @return string
      */
     public function getIncludeTaxLabel()
     {
@@ -84,7 +84,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Shipping
     /**
      * Get label for shipping exclude tax
      *
-     * @return float
+     * @return string
      */
     public function getExcludeTaxLabel()
     {

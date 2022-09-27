@@ -67,7 +67,7 @@ class Mage_Core_Model_Observer
                     $description    = Mage::helper('adminhtml')->__('Synchronization of media storages has been successfully completed.');
                 }
 
-                $date = date('Y-m-d H:i:s');
+                $date = date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT);
                 Mage::getModel('adminnotification/inbox')->parse([
                     [
                         'severity'      => $severity,

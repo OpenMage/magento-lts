@@ -721,7 +721,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _splitMultiQuery($sql)
     {
-        $parts = preg_split('#(;|\'|"|\\\\|//|--|\n|/\*|\*/)#', $sql, null,
+        $parts = preg_split('#(;|\'|"|\\\\|//|--|\n|/\*|\*/)#', $sql, -1,
             PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE
         );
 
@@ -1477,7 +1477,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _debugWriteToFile($str)
     {
-        $str = '## ' . date('Y-m-d H:i:s') . "\r\n" . $str;
+        $str = '## ' . date(self::TIMESTAMP_FORMAT) . "\r\n" . $str;
         if (!$this->_debugIoAdapter) {
             $this->_debugIoAdapter = new Varien_Io_File();
             $dir = Mage::getBaseDir() . DS . $this->_debugIoAdapter->dirname($this->_debugFile);

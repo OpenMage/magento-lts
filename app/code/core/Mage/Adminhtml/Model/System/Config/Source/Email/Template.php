@@ -24,12 +24,13 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getPath()
  */
 class Mage_Adminhtml_Model_System_Config_Source_Email_Template extends Varien_Object
 {
     /**
      * Config xpath to email template node
-     *
      */
     const XML_PATH_TEMPLATE_EMAIL = 'global/template/email/';
 
@@ -40,7 +41,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Email_Template extends Varien_Ob
      */
     public function toOptionArray()
     {
-        if(!$collection = Mage::registry('config_system_email_template')) {
+        if (!$collection = Mage::registry('config_system_email_template')) {
             $collection = Mage::getResourceModel('core/email_template_collection')
                 ->load();
 
@@ -63,5 +64,4 @@ class Mage_Adminhtml_Model_System_Config_Source_Email_Template extends Varien_Ob
         );
         return $options;
     }
-
 }

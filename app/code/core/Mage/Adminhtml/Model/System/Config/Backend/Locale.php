@@ -70,8 +70,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_
                     $currencyName = Mage::app()->getLocale()->currency($data->getValue())->getName();
                     if ($match[1] == 'base') {
                         $fieldName = Mage::helper('adminhtml')->__('Base currency');
-                    }
-                    else {
+                    } else {
                         $fieldName = Mage::helper('adminhtml')->__('Display default currency');
                     }
 

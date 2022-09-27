@@ -40,8 +40,9 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
      */
     public function getLinkSelectionRequired()
     {
-        return $this->getProduct()->getTypeInstance(true)
-            ->getLinkSelectionRequired($this->getProduct());
+        /** @var Mage_Downloadable_Model_Product_Type $productType */
+        $productType = $this->getProduct()->getTypeInstance(true);
+        return $productType->getLinkSelectionRequired($this->getProduct());
     }
 
     /**
@@ -49,8 +50,9 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
      */
     public function hasLinks()
     {
-        return $this->getProduct()->getTypeInstance(true)
-            ->hasLinks($this->getProduct());
+        /** @var Mage_Downloadable_Model_Product_Type $productType */
+        $productType = $this->getProduct()->getTypeInstance(true);
+        return $productType->hasLinks($this->getProduct());
     }
 
     /**
@@ -58,8 +60,9 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
      */
     public function getLinks()
     {
-        return $this->getProduct()->getTypeInstance(true)
-            ->getLinks($this->getProduct());
+        /** @var Mage_Downloadable_Model_Product_Type $productType */
+        $productType = $this->getProduct()->getTypeInstance(true);
+        return $productType->getLinks($this->getProduct());
     }
 
     /**

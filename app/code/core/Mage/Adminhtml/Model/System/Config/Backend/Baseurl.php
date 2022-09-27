@@ -39,7 +39,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
             }
         }
 
-        $value = rtrim($value,  '/');
+        $value = rtrim($value, '/');
         /**
          * If value is special ({{}}) we don't need add slash
          */

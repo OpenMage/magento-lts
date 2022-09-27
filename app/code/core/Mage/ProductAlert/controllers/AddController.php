@@ -28,7 +28,7 @@
 class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * @return Mage_Core_Controller_Front_Action|void
+     * @return void
      */
     public function preDispatch()
     {

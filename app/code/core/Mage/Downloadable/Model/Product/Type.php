@@ -33,7 +33,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Get downloadable product links
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return array
+     * @return Mage_Downloadable_Model_Link[]
      */
     public function getLinks($product = null)
     {
@@ -383,6 +383,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * based on link can be purchased separately or not
      *
      * @param Mage_Catalog_Model_Product $product
+     * @return $this
      */
     public function beforeSave($product = null)
     {
@@ -408,6 +409,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
 
         $this->getProduct($product)->setTypeHasOptions($linksExist);
         $this->getProduct($product)->setLinksExist($linksExist);
+        return $this;
     }
 
     /**

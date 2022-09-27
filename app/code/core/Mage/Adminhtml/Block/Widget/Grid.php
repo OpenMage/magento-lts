@@ -24,6 +24,9 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setSortable(bool $value)
+ * @method $this setUseAjax(bool $value)
  */
 class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 {
@@ -83,7 +86,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected $_emptyText;
 
-     /**
+    /**
      * Empty grid text CSS class
      *
      * @var string|null
@@ -446,7 +449,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @return int|void
+     * @return int
      */
     public function getColumnCount()
     {
@@ -1301,7 +1304,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Return array with keys type and value
      *
      * @param string $sheetName
-     * @return string
+     * @return array
      * @throws Exception
      */
     public function getExcelFile($sheetName = '')

@@ -98,7 +98,7 @@ class Mage_Core_Model_Date
     public function gmtDate($format = null, $input = null)
     {
         if (is_null($format)) {
-            $format = 'Y-m-d H:i:s';
+            $format = Varien_Date::DATETIME_PHP_FORMAT;
         }
 
         $date = $this->gmtTimestamp($input);
@@ -121,7 +121,7 @@ class Mage_Core_Model_Date
     public function date($format = null, $input = null)
     {
         if (is_null($format)) {
-            $format = 'Y-m-d H:i:s';
+            $format = Varien_Date::DATETIME_PHP_FORMAT;
         }
 
         return date($format, $this->timestamp($input));

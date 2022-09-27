@@ -223,7 +223,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * Getter for id of current store (the only one in single-store mode and current in multi-stores mode)
      *
-     * @return bool
+     * @return int
      */
     protected function getStoreId()
     {

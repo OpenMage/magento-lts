@@ -24,6 +24,8 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array getGiftmessages()
  */
 class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
 {
@@ -85,7 +87,8 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * @return $this
      * @throws Throwable
      */
-    protected function _saveOne($entityId, $giftmessage) {
+    protected function _saveOne($entityId, $giftmessage)
+    {
         /** @var Mage_GiftMessage_Model_Message $giftmessageModel */
         $giftmessageModel = Mage::getModel('giftmessage/message');
         $entityType = $this->_getMappedType($giftmessage['type']);
@@ -122,7 +125,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
         } elseif (!$giftmessageModel->isMessageEmpty()) {
             $giftmessageModel->save();
             $entityModel->setGiftMessageId($giftmessageModel->getId());
-            if($entityType != 'quote') {
+            if ($entityType != 'quote') {
                 $entityModel->save();
             }
             $this->_saved = true;
@@ -141,7 +144,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      */
     protected function _deleteOne($entityModel, $giftmessageModel=null)
     {
-        if(is_null($giftmessageModel)) {
+        if (is_null($giftmessageModel)) {
             $giftmessageModel = Mage::getModel('giftmessage/message')
                 ->load($entityModel->getGiftMessageId());
         }
@@ -187,7 +190,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      */
     public function getAllowQuoteItems()
     {
-        if(!is_array($this->_getSession()->getAllowQuoteItemsGiftMessage())) {
+        if (!is_array($this->_getSession()->getAllowQuoteItemsGiftMessage())) {
             $this->setAllowQuoteItems([]);
         }
 
@@ -204,7 +207,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
         $result = [];
         foreach ($this->getAllowQuoteItems() as $itemId) {
             $item = $this->_getQuote()->getItemById($itemId);
-            if(!$item) {
+            if (!$item) {
                 continue;
             }
             $result[] = $item->getProduct()->getId();
@@ -220,7 +223,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      */
     public function getIsAllowedQuoteItem($item)
     {
-        if(!in_array($item->getId(), $this->getAllowQuoteItems())) {
+        if (!in_array($item->getId(), $this->getAllowQuoteItems())) {
             if ($item->getGiftMessageId() && $this->isGiftMessagesAvailable($item)) {
                 $this->addAllowQuoteItem($item->getId());
                 return true;
@@ -240,7 +243,9 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     public function isGiftMessagesAvailable($item)
     {
         return Mage::helper('giftmessage/message')->getIsMessagesAvailable(
-            'item', $item, $item->getStore()
+            'item',
+            $item,
+            $item->getStore()
         );
     }
 
@@ -260,7 +265,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
                 ->load($productId);
             $item = $this->_getQuote()->getItemByProduct($product);
 
-            if(!$item) {
+            if (!$item) {
                 continue;
             }
 
@@ -271,7 +276,6 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
                       && isset($data['giftmessage'])) {
                 $allowedItems[] = $item->getId();
             }
-
         }
 
         $allowedItems = array_diff($allowedItems, $deleteAllowedItems);
@@ -285,10 +289,9 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
         $allowedItems = $this->getAllowQuoteItems();
         $deleteAllowedItems = [];
         foreach ($items as $itemId=>$data) {
-
             $item = $this->_getQuote()->getItemById($itemId);
 
-            if(!$item) {
+            if (!$item) {
                 // Clean not exists items
                 $deleteAllowedItems[] = $itemId;
                 continue;
@@ -301,7 +304,6 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
                       && isset($data['giftmessage'])) {
                 $allowedItems[] = $item->getId();
             }
-
         }
 
         $allowedItems = array_diff($allowedItems, $deleteAllowedItems);
