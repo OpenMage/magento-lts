@@ -196,13 +196,10 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             // Only run Emogrify if HTML exists
             if (strlen($html) && $inlineCssFile) {
                 $cssToInline = $this->_getCssFileContent($inlineCssFile);
-                $emogrifier = new Pelago_Emogrifier();
-                $emogrifier->setHtml($html);
-                $emogrifier->setCss($cssToInline);
-                // Don't parse inline <style> tags, since existing tag is intentionally for no-inline styles
-                $emogrifier->setParseInlineStyleTags(false);
-
-                $processedHtml = $emogrifier->emogrify();
+                $emogrifier = \Pelago\Emogrifier\CssInliner::fromHtml($html)
+                    ->inlineCss($cssToInline)
+                    ->disableInlineStyleAttributesParsing();
+                $processedHtml = $emogrifier->render();
             } else {
                 $processedHtml = $html;
             }
