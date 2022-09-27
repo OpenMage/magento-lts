@@ -28,10 +28,6 @@
  */
 class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstract
 {
-    const PRODUCT_ENTITY_TYPE_ID = 4;
-    const STATUS_ATTRIBUTE_ID = 96;
-    const DISABLED_PRODUCT_STATUS = 2;
-
     /**
      * Stores configuration array
      *
@@ -68,12 +64,25 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     protected $_rootChildrenIds             = [];
 
     /**
+     * @var int
+     */
+    protected $_productEntityTypeId;
+
+    /**
+     * @var int
+     */
+    protected $_statusAttributeId;
+
+    /**
      * Load core Url rewrite model
      *
      */
     protected function _construct()
     {
         $this->_init('core/url_rewrite', 'url_rewrite_id');
+        $this->_productEntityTypeId = Mage::getModel('eav/entity')->setType(Mage_Catalog_Model_Product::ENTITY)->getTypeId();
+        $this->_statusAttributeId = Mage::getModel('catalog/resource_eav_attribute')
+            ->loadByCode($this->_productEntityTypeId, 'status')->getId();
     }
 
     /**
@@ -978,10 +987,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         if (!$withDisabled) {
             $select->join(
                 ['cpei' => 'catalog_product_entity_int'],
-                'cpei.entity_id = e.entity_id AND cpei.entity_type_id = ' . self::PRODUCT_ENTITY_TYPE_ID . ' AND cpei.attribute_id = ' . self::STATUS_ATTRIBUTE_ID,
+                'cpei.entity_id = e.entity_id AND cpei.entity_type_id = ' . $this->_productEntityTypeId . ' AND cpei.attribute_id = ' . $this->_statusAttributeId,
                 []
             );
-            $select->where('cpei.value <> ' . self::DISABLED_PRODUCT_STATUS);
+            $select->where('cpei.value <> ' . Mage_Catalog_Model_Product_Status::STATUS_DISABLED);
         }
 
         $rowSet = $adapter->fetchAll($select, $bind);
