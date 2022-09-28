@@ -18,9 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-// Change current directory to the directory of current script
 chdir(__DIR__);
-
 require 'app/bootstrap.php';
 require 'app/Mage.php';
 
@@ -29,8 +27,7 @@ if (!Mage::isInstalled()) {
     exit;
 }
 
-// Only for urls
-// Don't remove this
+// Only for urls, don't remove this
 $_SERVER['SCRIPT_NAME'] = str_replace(basename(__FILE__), 'index.php', $_SERVER['SCRIPT_NAME']);
 $_SERVER['SCRIPT_FILENAME'] = str_replace(basename(__FILE__), 'index.php', $_SERVER['SCRIPT_FILENAME']);
 
