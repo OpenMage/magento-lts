@@ -1155,10 +1155,10 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         $module = $this->getData('module_name');
         if (is_null($module)) {
             $class = get_class($this);
-            if (strpos($class, '\\') !== false) {
-                $module = str_replace('\\', '_', substr($class, 0, strpos($class, '\Block')));
-            } else {
+            if (strpos($class, '_') !== false) {
                 $module = substr($class, 0, strpos($class, '_Block'));
+            } else {
+                $module = str_replace('\\', '_', substr($class, 0, strpos($class, '\Block')));
             }
             $this->setData('module_name', $module);
         }

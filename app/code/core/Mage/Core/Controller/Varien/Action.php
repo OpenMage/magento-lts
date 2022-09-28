@@ -833,18 +833,18 @@ abstract class Mage_Core_Controller_Varien_Action
     {
         if (empty($this->_realModuleName)) {
             $class = get_class($this);
-            if (strpos($class, '\\') !== false) {
-                 $this->_realModuleName = str_replace('\\', '_', substr(
-                    $class,
-                    0,
-                    strpos(strtolower($class), '\\' . strtolower($this->getRequest()->getControllerName() . 'Controller'))
-                ));
-            } else {
+            if (strpos($class, '_') !== false) {
                 $this->_realModuleName = substr(
                     $class,
                     0,
                     strpos(strtolower($class), '_' . strtolower($this->getRequest()->getControllerName() . 'Controller'))
                 );
+            } else {
+                $this->_realModuleName = str_replace('\\', '_', substr(
+                    $class,
+                    0,
+                    strpos(strtolower($class), '\\' . strtolower($this->getRequest()->getControllerName() . 'Controller'))
+                ));
             }
         }
         return $this->_realModuleName;

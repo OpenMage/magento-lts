@@ -627,10 +627,10 @@ final class Mage
      */
     public static function exception($module = 'Mage_Core', $message = '', $code = 0)
     {
-        if (strpos($module, '\\') !== false) {
-            $className = $module . '\Exception';
-        } else {
+        if (strpos($module, '_') !== false) {
             $className = $module . '_Exception';
+        } else {
+            $className = $module . '\Exception';
         }
         return new $className($message, $code);
     }

@@ -1353,16 +1353,16 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             if (empty($className)) {
                 $className = 'mage_'.$group.'_'.$groupType;
             }
-            $usesNamespaces = strpos($className, '\\') !== false;
+            $usesNoNamespaces = strpos($className, '_') !== false;
             if (!empty($class)) {
-                if ($usesNamespaces) {
-                    $className .= '\\' . uc_words($class);
-                } else {
+                if ($usesNoNamespaces) {
                     $className .= '_' . $class;
+                } else {
+                    $className .= '\\' . uc_words($class);
                 }
             }
             $className = uc_words($className);
-            if ($usesNamespaces) {
+            if (!$usesNoNamespaces) {
                 $className = str_replace('_', '\\', $className);
             }
         }
