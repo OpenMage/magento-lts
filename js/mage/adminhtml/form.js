@@ -611,4 +611,6 @@ function setPostcodeOptional(zipElement, country) {
     }
 }
 
-varienGlobalEvents.attachEventHandler("address_country_changed", onAddressCountryChanged);
+if (typeof varienGlobalEvents != 'undefined') {
+    varienGlobalEvents.attachEventHandler("address_country_changed", onAddressCountryChanged);
+}
