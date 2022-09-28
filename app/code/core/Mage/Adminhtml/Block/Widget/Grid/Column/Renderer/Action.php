@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,10 +25,8 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
 {
-
     /**
      * Renders column
      *
@@ -44,13 +36,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
     public function render(Varien_Object $row)
     {
         $actions = $this->getColumn()->getActions();
-        if ( empty($actions) || !is_array($actions) ) {
+        if (empty($actions) || !is_array($actions)) {
             return '&nbsp;';
         }
 
-        if(count($actions) === 1 && !$this->getColumn()->getNoLink()) {
+        if (count($actions) === 1 && !$this->getColumn()->getNoLink()) {
             foreach ($actions as $action) {
-                if ( is_array($action) ) {
+                if (is_array($action)) {
                     return $this->_toLinkHtml($action, $row);
                 }
             }
@@ -59,9 +51,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
         $out = '<select class="action-select" onchange="varienGridAction.execute(this);">'
              . '<option value=""></option>';
         $i = 0;
-        foreach ($actions as $action){
+        foreach ($actions as $action) {
             $i++;
-            if ( is_array($action) ) {
+            if (is_array($action)) {
                 $out .= $this->_toOptionHtml($action, $row);
             }
         }
@@ -72,7 +64,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
     /**
      * Render single action as dropdown option html
      *
-     * @param unknown_type $action
+     * @param array $action
      * @param Varien_Object $row
      * @return string
      */
@@ -83,7 +75,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
         $actionCaption = '';
         $this->_transformActionData($action, $actionCaption, $row);
 
-        $htmlAttibutes = array('value'=>$this->escapeHtml(Mage::helper('core')->jsonEncode($action)));
+        $htmlAttibutes = ['value'=>$this->escapeHtml(Mage::helper('core')->jsonEncode($action))];
         $actionAttributes->setData($htmlAttibutes);
         return '<option ' . $actionAttributes->serialize() . '>' . $actionCaption . '</option>';
     }
@@ -102,7 +94,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
         $actionCaption = '';
         $this->_transformActionData($action, $actionCaption, $row);
 
-        if(isset($action['confirm'])) {
+        if (isset($action['confirm'])) {
             $action['onclick'] = 'return window.confirm(\''
                                . addslashes($this->escapeHtml($action['confirm']))
                                . '\')';
@@ -123,8 +115,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
      */
     protected function _transformActionData(&$action, &$actionCaption, Varien_Object $row)
     {
-        foreach ( $action as $attribute => $value ) {
-            if(isset($action[$attribute]) && !is_array($action[$attribute])) {
+        foreach ($action as $attribute => $value) {
+            if (isset($action[$attribute]) && !is_array($action[$attribute])) {
                 $this->getColumn()->setFormat($action[$attribute]);
                 $action[$attribute] = parent::render($row);
             } else {
@@ -135,12 +127,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
                 case 'caption':
                     $actionCaption = $action['caption'];
                     unset($action['caption']);
-                       break;
+                    break;
 
                 case 'url':
-                    if(is_array($action['url'])) {
-                        $params = array($action['field']=>$this->_getValue($row));
-                        if(isset($action['url']['params'])) {
+                    if (is_array($action['url'])) {
+                        $params = [$action['field']=>$this->_getValue($row)];
+                        if (isset($action['url']['params'])) {
                             $params = array_merge($action['url']['params'], $params);
                         }
                         $action['href'] = $this->getUrl($action['url']['base'], $params);
@@ -149,13 +141,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
                         $action['href'] = $action['url'];
                     }
                     unset($action['url']);
-                       break;
+                    break;
 
                 case 'popup':
                     $action['onclick'] =
                         'popWin(this.href,\'_blank\',\'width=800,height=700,resizable=1,scrollbars=1\');return false;';
                     break;
-
             }
         }
         return $this;

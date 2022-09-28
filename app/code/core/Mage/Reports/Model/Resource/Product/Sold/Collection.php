@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Reports
+ * @category   Mage
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Report Sold Products collection
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_Model_Resource_Product_Collection
 {
@@ -82,15 +75,15 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     protected function _productLimitationJoinWebsite()
     {
         $filters     = $this->_productLimitationFilters;
-        $conditions  = array('product_website.product_id=e.entity_id');
+        $conditions  = ['product_website.product_id=e.entity_id'];
         if (isset($filters['website_ids'])) {
             $conditions[] = $this->getConnection()
                 ->quoteInto('product_website.website_id IN(?)', $filters['website_ids']);
 
             $subQuery = $this->getConnection()->select()
                 ->from(
-                    array('product_website' => $this->getTable('catalog/product_website')),
-                    array('product_website.product_id')
+                    ['product_website' => $this->getTable('catalog/product_website')],
+                    ['product_website.product_id']
                 )
                 ->where(implode(' AND ', $conditions));
             $this->getSelect()->where('e.entity_id IN( ' . $subQuery . ' )');

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Backup
+ * @category   Mage
+ * @package    Mage_Backup
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Backup by cron backend model
@@ -44,7 +37,7 @@ class Mage_Backup_Model_Config_Backend_Cron extends Mage_Core_Model_Config_Data
     /**
      * Cron settings after save
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Log_Cron
+     * @return $this
      */
     protected function _afterSave()
     {
@@ -56,13 +49,13 @@ class Mage_Backup_Model_Config_Backend_Cron extends Mage_Core_Model_Config_Data
         $frequencyMonthly = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_MONTHLY;
 
         if ($enabled) {
-            $cronExprArray = array(
+            $cronExprArray = [
                 intval($time[1]),                                   # Minute
                 intval($time[0]),                                   # Hour
                 ($frequency == $frequencyMonthly) ? '1' : '*',          # Day of the Month
                 '*',                                                    # Month of the Year
                 ($frequency == $frequencyWeekly) ? '1' : '*',           # Day of the Week
-            );
+            ];
             $cronExprString = implode(' ', $cronExprArray);
         }
         else {
@@ -85,5 +78,6 @@ class Mage_Backup_Model_Config_Backend_Cron extends Mage_Core_Model_Config_Data
         catch (Exception $e) {
             Mage::throwException(Mage::helper('backup')->__('Unable to save the cron expression.'));
         }
+        return $this;
     }
 }

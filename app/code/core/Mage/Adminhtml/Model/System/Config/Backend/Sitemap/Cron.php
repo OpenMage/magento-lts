@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,11 +23,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Sitemap_Cron extends Mage_Core_Model_Config_Data
 {
-
     const CRON_STRING_PATH = 'crontab/jobs/sitemap_generate/schedule/cron_expr';
     const CRON_MODEL_PATH = 'crontab/jobs/sitemap_generate/run/model';
 
@@ -45,13 +38,13 @@ class Mage_Adminhtml_Model_System_Config_Backend_Sitemap_Cron extends Mage_Core_
         $frequencyWeekly = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_WEEKLY;
         $frequencyMonthly = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_MONTHLY;
 
-        $cronExprArray = array(
+        $cronExprArray = [
             intval($time[1]),                                   # Minute
             intval($time[0]),                                   # Hour
             ($frequency == $frequencyMonthly) ? '1' : '*',          # Day of the Month
             '*',                                                    # Month of the Year
             ($frequency == $frequencyWeekly) ? '1' : '*',           # Day of the Week
-        );
+        ];
 
         $cronExprString = implode(' ', $cronExprArray);
 
@@ -69,6 +62,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Sitemap_Cron extends Mage_Core_
         } catch (Exception $e) {
             throw new Exception(Mage::helper('cron')->__('Unable to save the cron expression.'));
         }
+        return $this;
     }
-
 }

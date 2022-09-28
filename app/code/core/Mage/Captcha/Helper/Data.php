@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Captcha
+ * @category   Mage
+ * @package    Mage_Captcha
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -57,7 +51,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
      * List uses Models of Captcha
      * @var array
      */
-    protected $_captcha = array();
+    protected $_captcha = [];
 
     /**
      * Get Captcha
@@ -69,7 +63,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (!array_key_exists($formId, $this->_captcha)) {
             $type = $this->getConfigNode('type');
-            $this->_captcha[$formId] = Mage::getModel('captcha/' . $type, array('formId' => $formId));
+            $this->_captcha[$formId] = Mage::getModel('captcha/' . $type, ['formId' => $formId]);
         }
         return $this->_captcha[$formId];
     }
@@ -97,13 +91,13 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     public function getFonts()
     {
         $node = Mage::getConfig()->getNode(Mage_Captcha_Helper_Data::XML_PATH_CAPTCHA_FONTS);
-        $fonts = array();
+        $fonts = [];
         if ($node) {
             foreach ($node->children() as $fontName => $fontNode) {
-                $fonts[$fontName] = array(
+                $fonts[$fontName] = [
                    'label' => (string)$fontNode->label,
                    'path' => Mage::getBaseDir('base') . DS . $fontNode->path
-                );
+                ];
             }
         }
         return $fonts;

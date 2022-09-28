@@ -23,7 +23,7 @@
 #require_once 'Zend/Service/Rackspace/Files.php';
 
 /**
- * List of servers retrived from the GoGrid web service
+ * List of servers retrieved from the GoGrid web service
  *
  * @uses       ArrayAccess
  * @uses       Countable

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Shell
@@ -102,7 +96,7 @@ abstract class Mage_Shell_Abstract
     protected function _getRootPath()
     {
         if (is_null($this->_rootPath)) {
-            $this->_rootPath = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR;
+            $this->_rootPath = dirname(__DIR__) . DIRECTORY_SEPARATOR;
         }
         return $this->_rootPath;
     }

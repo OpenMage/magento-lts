@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,31 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Mage_Adminhtml_Block_Widget_Form
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Prepares attribute set form
      *
@@ -47,21 +35,21 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Ma
             ->load($this->getRequest()->getParam('id'));
 
         $form = new Varien_Data_Form();
-        $fieldset = $form->addFieldset('set_name', array('legend'=> Mage::helper('catalog')->__('Edit Set Name')));
-        $fieldset->addField('attribute_set_name', 'text', array(
+        $fieldset = $form->addFieldset('set_name', ['legend'=> Mage::helper('catalog')->__('Edit Set Name')]);
+        $fieldset->addField('attribute_set_name', 'text', [
             'label' => Mage::helper('catalog')->__('Name'),
             'note' => Mage::helper('catalog')->__('For internal use.'),
             'name' => 'attribute_set_name',
             'required' => true,
             'class' => 'required-entry validate-no-html-tags',
             'value' => $data->getAttributeSetName()
-        ));
+        ]);
 
         if( !$this->getRequest()->getParam('id', false) ) {
-            $fieldset->addField('gotoEdit', 'hidden', array(
+            $fieldset->addField('gotoEdit', 'hidden', [
                 'name' => 'gotoEdit',
                 'value' => '1'
-            ));
+            ]);
 
             $sets = Mage::getModel('eav/entity_attribute_set')
                 ->getResourceCollection()
@@ -70,13 +58,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Ma
                 ->load()
                 ->toOptionArray();
 
-            $fieldset->addField('skeleton_set', 'select', array(
+            $fieldset->addField('skeleton_set', 'select', [
                 'label' => Mage::helper('catalog')->__('Based On'),
                 'name' => 'skeleton_set',
                 'required' => true,
                 'class' => 'required-entry',
                 'values' => $sets,
-            ));
+            ]);
         }
 
         $form->setMethod('post');
@@ -85,5 +73,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Ma
         $form->setAction($this->getUrl('*/*/save'));
         $form->setOnsubmit('return false;');
         $this->setForm($form);
+        return $this;
     }
 }

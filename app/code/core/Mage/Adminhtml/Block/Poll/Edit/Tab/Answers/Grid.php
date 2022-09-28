@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,11 +23,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -54,53 +47,52 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Grid extends Mage_Adminhtml_Blo
 
     protected function _prepareColumns()
     {
-        $this->addColumn('answer_id', array(
+        $this->addColumn('answer_id', [
             'header'    => Mage::helper('poll')->__('ID'),
             'align'     =>'right',
             'width'     => '50px',
             'index'     => 'answer_id',
-        ));
+        ]);
 
-        $this->addColumn('answer_title', array(
+        $this->addColumn('answer_title', [
             'header'    => Mage::helper('poll')->__('Answer Title'),
             'align'     =>'left',
             'index'     => 'answer_title',
-        ));
+        ]);
 
-        $this->addColumn('votes_count', array(
+        $this->addColumn('votes_count', [
             'header'    => Mage::helper('poll')->__('Votes Count'),
             'type'      => 'number',
             'width'     => '50px',
             'index'     => 'votes_count',
-        ));
+        ]);
 
-        $this->addColumn('actions', array(
+        $this->addColumn('actions', [
             'header'    => Mage::helper('poll')->__('Actions'),
             'align'     => 'center',
             'type'      => 'action',
             'width'     => '10px',
             'filter'    => false,
             'sortable'  => false,
-            'actions'   => array(
-                array(
+            'actions'   => [
+                [
                     'caption'   => Mage::helper('poll')->__('Delete'),
                     'onClick'   => 'return answers.delete(\'$answer_id\')',
                     'url'       => '#',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
         return parent::_prepareColumns();
     }
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/poll_answer/edit', array('id' => $row->getId()));
+        return $this->getUrl('*/poll_answer/edit', ['id' => $row->getId()]);
     }
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/poll_answer/grid', array('id' => $this->getRequest()->getParam('id')));
+        return $this->getUrl('*/poll_answer/grid', ['id' => $this->getRequest()->getParam('id')]);
     }
-
 }

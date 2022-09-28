@@ -454,7 +454,7 @@ class Zend_OpenId_Consumer
     }
 
     /**
-     * Retrive assiciation information for given $url from internal cahce or
+     * Retrieve assiciation information for given $url from internal cahce or
      * external storage
      *
      * @param string $url OpenID server url

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Directory
+ * @category   Mage
+ * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Region
+ * @category   Mage
+ * @package    Mage_Directory
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Directory_Model_Resource_Region _getResource()
  * @method Mage_Directory_Model_Resource_Region getResource()
  * @method Mage_Directory_Model_Resource_Region_Collection getCollection()
+ * @method Mage_Directory_Model_Resource_Region_Collection getResourceCollection()
  *
  * @method string getCode()
  * @method $this setCode(string $value)
@@ -38,10 +35,6 @@
  * @method string getDefaultName()
  * @method $this setDefaultName(string $value)
  * @method int getRegionId()
- *
- * @category    Mage
- * @package     Mage_Directory
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Directory_Model_Region extends Mage_Core_Model_Abstract
 {

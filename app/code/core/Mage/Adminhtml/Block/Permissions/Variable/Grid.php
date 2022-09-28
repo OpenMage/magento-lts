@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -33,9 +27,6 @@
  */
 class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Construct
-     */
     public function __construct()
     {
         parent::__construct();
@@ -57,41 +48,41 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * @throws Exception
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('variable_id', array(
+        $this->addColumn('variable_id', [
             'header'    => Mage::helper('adminhtml')->__('ID'),
             'width'     => 5,
             'align'     => 'right',
             'sortable'  => true,
             'index'     => 'variable_id'
-        ));
-        $this->addColumn('variable_name', array(
+        ]);
+        $this->addColumn('variable_name', [
             'header'    => Mage::helper('adminhtml')->__('Variable'),
             'index'     => 'variable_name'
-        ));
-        $this->addColumn('is_allowed', array(
+        ]);
+        $this->addColumn('is_allowed', [
             'header'    => Mage::helper('adminhtml')->__('Status'),
             'index'     => 'is_allowed',
             'type'      => 'options',
-            'options'   => array(
+            'options'   => [
                 '1' => Mage::helper('adminhtml')->__('Allowed'),
-                '0' => Mage::helper('adminhtml')->__('Not allowed')),
-            )
+                '0' => Mage::helper('adminhtml')->__('Not allowed')],
+            ]
         );
 
-        parent::_prepareColumns();
+        return parent::_prepareColumns();
     }
 
     /**
-     * @param $row
+     * @param Mage_Admin_Model_Variable $row
      * @return string
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('variable_id' => $row->getId()));
+        return $this->getUrl('*/*/edit', ['variable_id' => $row->getId()]);
     }
 
     /**
@@ -99,6 +90,6 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/variableGrid', array());
+        return $this->getUrl('*/*/variableGrid', []);
     }
 }

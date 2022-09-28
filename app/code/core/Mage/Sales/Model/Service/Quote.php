@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Quote submit service model
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Service_Quote
 {
@@ -48,14 +46,14 @@ class Mage_Sales_Model_Service_Quote
      *
      * @var array
      */
-    protected $_orderData = array();
+    protected $_orderData = [];
 
     /**
      * List of recurring payment profiles that may have been generated before placing the order
      *
      * @var array
      */
-    protected $_recurringPaymentProfiles = array();
+    protected $_recurringPaymentProfiles = [];
 
     /**
      * Order that may be created during submission
@@ -177,8 +175,8 @@ class Mage_Sales_Model_Service_Quote
         $order->setQuote($quote);
 
         $transaction->addObject($order);
-        $transaction->addCommitCallback(array($order, 'place'));
-        $transaction->addCommitCallback(array($order, 'save'));
+        $transaction->addCommitCallback([$order, 'place']);
+        $transaction->addCommitCallback([$order, 'save']);
 
         Mage::unregister('current_order');
         Mage::register('current_order', $order);
@@ -186,8 +184,8 @@ class Mage_Sales_Model_Service_Quote
         /**
          * We can use configuration data for declare new order status
          */
-        Mage::dispatchEvent('checkout_type_onepage_save_order', array('order'=>$order, 'quote'=>$quote));
-        Mage::dispatchEvent('sales_model_service_quote_submit_before', array('order'=>$order, 'quote'=>$quote));
+        Mage::dispatchEvent('checkout_type_onepage_save_order', ['order'=>$order, 'quote'=>$quote]);
+        Mage::dispatchEvent('sales_model_service_quote_submit_before', ['order'=>$order, 'quote'=>$quote]);
         try {
             $transaction->save();
         } catch (Exception $e) {
@@ -204,12 +202,12 @@ class Mage_Sales_Model_Service_Quote
                 $item->setItemId(null);
             }
 
-            Mage::dispatchEvent('sales_model_service_quote_submit_failure', array('order'=>$order, 'quote'=>$quote));
+            Mage::dispatchEvent('sales_model_service_quote_submit_failure', ['order'=>$order, 'quote'=>$quote]);
             throw $e;
         }
         $this->_inactivateQuote();
-        Mage::dispatchEvent('sales_model_service_quote_submit_success', array('order'=>$order, 'quote'=>$quote));
-        Mage::dispatchEvent('sales_model_service_quote_submit_after', array('order'=>$order, 'quote'=>$quote));
+        Mage::dispatchEvent('sales_model_service_quote_submit_success', ['order'=>$order, 'quote'=>$quote]);
+        Mage::dispatchEvent('sales_model_service_quote_submit_after', ['order'=>$order, 'quote'=>$quote]);
         $this->_order = $order;
         return $order;
     }

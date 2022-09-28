@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Cart Item Configure block
@@ -35,21 +28,21 @@
  */
 class Mage_Checkout_Block_Cart_Item_Configure extends Mage_Core_Block_Template
 {
-
     /**
      * Configure product view blocks
      *
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareLayout()
     {
         // Set custom submit url route for form - to submit updated options to cart
         $block = $this->getLayout()->getBlock('product.info');
         if ($block) {
-             $block->setSubmitRouteData(array(
+             $block->setSubmitRouteData([
                 'route' => 'checkout/cart/updateItemOptions',
-                'params' => array('id' => $this->getRequest()->getParam('id'))
-             ));
+                'params' => ['id' => $this->getRequest()->getParam('id')]
+             ]);
         }
 
         // Set custom template with 'Update Cart' button

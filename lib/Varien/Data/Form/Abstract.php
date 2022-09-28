@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Varien
  * @package     Varien_Data
@@ -59,8 +53,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     protected $_types = array();
 
     /**
-     * Enter description here...
-     *
      * @param array $attributes
      */
     public function __construct($attributes = array())
@@ -69,8 +61,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $type
      * @param string $className
      * @return $this
@@ -82,8 +72,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * Enter description here...
-     *
      * @return Varien_Data_Form_Element_Collection
      */
     public function getElements()
@@ -159,8 +147,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $elementId
      * @return $this
      */
@@ -171,8 +157,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $elementId
      * @param array $config
      * @param bool|string|null $after
@@ -188,8 +172,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $elementId
      * @param array $config
      * @return Varien_Data_Form_Element_Column
@@ -204,8 +186,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * Enter description here...
-     *
      * @param array $arrAttributes
      * @return array
      */

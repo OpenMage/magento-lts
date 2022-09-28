@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ImportExport
+ * @category   Mage
+ * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
 {
@@ -70,14 +64,14 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
      *
      * @var Mage_ImportExport_Model_Import_Entity_Abstract
      */
-    protected static $_entityInvalidatedIndexes = array (
-        'catalog_product' => array (
+    protected static $_entityInvalidatedIndexes = [
+        'catalog_product' => [
             'catalog_product_price',
             'catalog_category_product',
             'catalogsearch_fulltext',
             'catalog_product_flat',
-        )
-    );
+        ]
+    ];
 
     /**
      * Create instance of entity adapter and returns it.
@@ -137,7 +131,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
      */
     public function getOperationResultMessages($validationResult)
     {
-        $messages = array();
+        $messages = [];
         if ($this->getProcessedRowsCount()) {
             if (!$validationResult) {
                 if ($this->getProcessedRowsCount() == $this->getInvalidRowsCount()) {
@@ -317,16 +311,16 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
      */
     public function importSource()
     {
-        $this->setData(array(
+        $this->setData([
             'entity'   => self::getDataSourceModel()->getEntityTypeCode(),
             'behavior' => self::getDataSourceModel()->getBehavior()
-        ));
+        ]);
         $this->addLogComment(Mage::helper('importexport')->__('Begin import of "%s" with "%s" behavior', $this->getEntity(), $this->getBehavior()));
         $result = $this->_getEntityAdapter()->importData();
-        $this->addLogComment(array(
+        $this->addLogComment([
             Mage::helper('importexport')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d', $this->getProcessedRowsCount(), $this->getProcessedEntitiesCount(), $this->getInvalidRowsCount(), $this->getErrorsCount()),
             Mage::helper('importexport')->__('Import has been done successfuly.')
-        ));
+        ]);
         return $result;
     }
 
@@ -342,20 +336,18 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
 
     /**
      * Import source file structure to DB.
-     *
-     * @return void
      */
     public function expandSource()
     {
         $writer  = Mage::getModel('importexport/export_adapter_csv', self::getWorkingDir() . "big0.csv");
-        $regExps = array('last' => '/(.*?)(\d+)$/', 'middle' => '/(.*?)(\d+)(.*)$/');
-        $colReg  = array(
+        $regExps = ['last' => '/(.*?)(\d+)$/', 'middle' => '/(.*?)(\d+)(.*)$/'];
+        $colReg  = [
             'sku' => 'last', 'name' => 'last', 'description' => 'last', 'short_description' => 'last',
             'url_key' => 'middle', 'meta_title' => 'last', 'meta_keyword' => 'last', 'meta_description' => 'last',
             '_links_related_sku' => 'last', '_links_crosssell_sku' => 'last', '_links_upsell_sku' => 'last',
             '_custom_option_sku' => 'middle', '_custom_option_row_sku' => 'middle', '_super_products_sku' => 'last',
             '_associated_sku' => 'last'
-        );
+        ];
         $size = self::DEFAULT_SIZE;
 
         $filename = 'catalog_product.csv';
@@ -380,7 +372,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
                     if (!empty($row[$colName])) {
                         preg_match($regExps[$regExpType], $row[$colName], $m);
 
-                        $row[$colName] = $m[1] . ($m[2] + $size) . ('middle' == $regExpType ? $m[3] : '');
+                        $row[$colName] = $m[1] . ($m[2] + $size) . ($regExpType == 'middle' ? $m[3] : '');
                     }
                 }
                 $writer->writeRow($row);

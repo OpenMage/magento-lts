@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogIndex
+ * @category   Mage
+ * @package    Mage_CatalogIndex
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * CatalogIndex Grouped Products Data Retriever Resource Model
  *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Model_Resource_Data_Abstract
 {
@@ -44,12 +37,12 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
      */
     public function getMinimalPrice($products, $priceAttributes, $store)
     {
-        $result = array();
+        $result = [];
         $store  = Mage::app()->getStore($store);
 
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('catalogindex/price'), array(
-                'customer_group_id', 'value', 'tax_class_id'))
+            ->from($this->getTable('catalogindex/price'), [
+                'customer_group_id', 'value', 'tax_class_id'])
             ->where('entity_id IN(?)', $products)
             ->where('attribute_id IN(?)', $priceAttributes)
             ->where('website_id=?', $store->getWebsiteId());
@@ -68,7 +61,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
                 $retreiver = Mage::getSingleton('catalogindex/retreiver')->getRetreiver($type);
                 foreach ($typeIds as $id) {
                     $finalPrice = $retreiver->getFinalPrice($id, $store, $group);
-                    if ((null === $resultMinimal) || ($finalPrice < $resultMinimal)) {
+                    if (($resultMinimal === null) || ($finalPrice < $resultMinimal)) {
                         $resultMinimal    = $finalPrice;
                         $resultTaxClassId = $retreiver->getTaxClassId($id, $store);
                     }
@@ -78,7 +71,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
                         if ($tier['customer_group_id'] != $customerGroup && !$tier['all_groups']) {
                             continue;
                         }
-                        if ((null === $resultMinimal) || ($tier['value'] < $resultMinimal)) {
+                        if (($resultMinimal === null) || ($tier['value'] < $resultMinimal)) {
                             $resultMinimal    = $tier['value'];
                             $resultTaxClassId = $retreiver->getTaxClassId($tier['entity_id'], $store);
                         }
@@ -91,7 +84,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
                     continue;
                 }
 
-                if ((null === $resultMinimal) || ($one['value'] < $resultMinimal)) {
+                if (($resultMinimal === null) || ($one['value'] < $resultMinimal)) {
                     $resultMinimal = $one['value'];
                     $taxClassId    = $one['tax_class_id'];
                 } else {
@@ -100,11 +93,11 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
             }
 
             if (!is_null($resultMinimal)) {
-                $result[] = array(
+                $result[] = [
                     'customer_group_id' => $customerGroup,
                     'minimal_value'     => $resultMinimal,
                     'tax_class_id'      => $taxClassId
-                );
+                ];
             }
         }
 
@@ -121,7 +114,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
      * @param int $id
      * @param array $additionalWheres
      */
-    protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = array())
+    protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = [])
     {
         $this->_addAttributeFilter($this->_getLinkSelect(), 'required_options', 'l', $idField, $store, 0);
     }

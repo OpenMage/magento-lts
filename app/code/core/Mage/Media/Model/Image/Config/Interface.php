@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,45 +12,37 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Media
+ * @category   Mage
+ * @package    Mage_Media
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Media library image config interface
  *
  * @category   Mage
  * @package    Mage_Media
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_Media_Model_Image_Config_Interface
 {
-
     /**
-     * Retrive base url for media files
+     * Retrieve base url for media files
      *
      * @return string
      */
     public function getBaseMediaUrl();
 
     /**
-     * Retrive base path for media files
+     * Retrieve base path for media files
      *
      * @return string
      */
     public function getBaseMediaPath();
 
     /**
-     * Retrive url for media file
+     * Retrieve url for media file
      *
      * @param string $file
      * @return string
@@ -58,7 +50,7 @@ interface Mage_Media_Model_Image_Config_Interface
     public function getMediaUrl($file);
 
     /**
-     * Retrive file system path for media file
+     * Retrieve file system path for media file
      *
      * @param string $file
      * @return string

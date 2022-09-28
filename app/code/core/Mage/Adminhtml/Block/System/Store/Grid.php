@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,30 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml store grid
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated after 1.13.1.0 use Mage_Adminhtml_Block_System_Store_Tree
  */
 class Mage_Adminhtml_Block_System_Store_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -55,31 +47,30 @@ class Mage_Adminhtml_Block_System_Store_Grid extends Mage_Adminhtml_Block_Widget
 
     protected function _prepareColumns()
     {
-        $this->addColumn('website_title', array(
+        $this->addColumn('website_title', [
             'header'        => Mage::helper('core')->__('Website Name'),
             'align'         =>'left',
             'index'         => 'name',
             'filter_index'  => 'main_table.name',
             'renderer'      => 'adminhtml/system_store_grid_render_website'
-        ));
+        ]);
 
-        $this->addColumn('group_title', array(
+        $this->addColumn('group_title', [
             'header'        => Mage::helper('core')->__('Store Name'),
             'align'         =>'left',
             'index'         => 'group_title',
             'filter_index'  => 'group_table.name',
             'renderer'      => 'adminhtml/system_store_grid_render_group'
-        ));
+        ]);
 
-        $this->addColumn('store_title', array(
+        $this->addColumn('store_title', [
             'header'        => Mage::helper('core')->__('Store View Name'),
             'align'         =>'left',
             'index'         => 'store_title',
             'filter_index'  => 'store_table.name',
             'renderer'      => 'adminhtml/system_store_grid_render_store'
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
-
 }

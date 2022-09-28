@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Core_Controller_Varien_Router_Default extends Mage_Core_Controller_Varien_Router_Abstract
 {
     /**
@@ -32,7 +31,7 @@ class Mage_Core_Controller_Varien_Router_Default extends Mage_Core_Controller_Va
      * change store to default (Possible when enabled Store Code in URL)
      *
      * @param Zend_Controller_Request_Http $request
-     * @return boolean
+     * @return bool
      */
     public function match(Zend_Controller_Request_Http $request)
     {
@@ -71,7 +70,7 @@ class Mage_Core_Controller_Varien_Router_Default extends Mage_Core_Controller_Va
     /**
      * Check if store is admin store
      *
-     * @return boolean
+     * @return bool
      */
     protected function _isAdmin()
     {

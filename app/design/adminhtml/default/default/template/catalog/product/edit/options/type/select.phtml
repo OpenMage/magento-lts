@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     default_default
@@ -73,7 +67,6 @@ selectOptionType = {
     templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
     templateText : OptionTemplateSelectRow,
     add : function(data) {
-
         this.template = new Template(this.templateText, this.templateSyntax);
 
         if (data.target || data.srcElement) {//data is Event (work in IE and Firefox)
@@ -91,6 +84,11 @@ selectOptionType = {
         data.id  = optionId;
 
         Element.insert($(this.div+'_'+data.id), {'bottom':this.template.evaluate(data)});
+
+        var inputs = $$('#product_option_'+data.id+'_select_'+data.select_id+' input', '#product_option_'+data.id+'_select_'+data.select_id+' select', '#product_option_'+data.id+'_select_'+data.select_id+' textarea');
+        inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el)); });
+        var inputs = $$('#product_option_'+data.id+'_select_'+data.select_id+' button');
+        inputs.each(function(el) { Event.observe(el, 'click', el.setHasChanges.bind(el));  });
 
         if (data.checkboxScopeTitle) {
             //set disabled

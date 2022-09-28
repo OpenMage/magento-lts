@@ -69,6 +69,7 @@ class Zend_Reflection_Method extends ReflectionMethod
      * @param  bool $includeDocComment
      * @return int
      */
+    #[ReturnTypeWillChange]
     public function getStartLine($includeDocComment = false)
     {
         if ($includeDocComment) {
@@ -86,6 +87,7 @@ class Zend_Reflection_Method extends ReflectionMethod
      * @param  string $reflectionClass Name of reflection class to use
      * @return Zend_Reflection_Class
      */
+    #[ReturnTypeWillChange]
     public function getDeclaringClass($reflectionClass = 'Zend_Reflection_Class')
     {
         $phpReflection  = parent::getDeclaringClass();
@@ -104,6 +106,7 @@ class Zend_Reflection_Method extends ReflectionMethod
      * @param  string $reflectionClass Name of reflection class to use
      * @return array of Zend_Reflection_Parameter objects
      */
+    #[ReturnTypeWillChange]
     public function getParameters($reflectionClass = 'Zend_Reflection_Parameter')
     {
         $phpReflections  = parent::getParameters();

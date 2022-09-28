@@ -1,5 +1,5 @@
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -10,12 +10,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -750,8 +744,17 @@ Product.Configurable.prototype = {
         this.updateSaveInput();
     },
     updateSaveInput : function() {
-        $(this.idPrefix + 'save_attributes').value = Object.toJSON(this.attributes);
-        $(this.idPrefix + 'save_links').value = Object.toJSON(this.links);
+        var oldSaveAttributesValue = $(this.idPrefix + 'save_attributes').value;
+        var oldSaveLinksValue = $(this.idPrefix + 'save_links').value;
+        var newSaveAttributesValue = Object.toJSON(this.attributes);
+        var newSaveLinksValue = Object.toJSON(this.links);
+        $(this.idPrefix + 'save_attributes').value = newSaveAttributesValue;
+        $(this.idPrefix + 'save_links').value = newSaveLinksValue;
+        if (oldSaveAttributesValue != newSaveAttributesValue || oldSaveLinksValue != newSaveLinksValue) {
+            try {
+                document.getElementById('configurable_save_attributes').setHasChanges();
+            } catch (e) {}
+        }
     },
     initializeAdvicesForSimpleForm : function() {
         if ($(this.idPrefix + 'simple_form').advicesInited) {

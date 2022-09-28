@@ -46,7 +46,7 @@ You can override some defaults using environment variables defined in a file tha
 - `HOST_NAME=your-preferred-hostname`
   - `openmage-7f000001.nip.io` is used by default to resolve to `127.0.0.1`. See [nip.io](https://nip.io) for more info.
 - `HOST_PORT=8888`
-   - `80` is used by default 
+   - `80` is used by default
 - `ADMIN_EMAIL`
 - `ADMIN_USERNAME`
 - `ADMIN_PASSWORD`
@@ -66,7 +66,7 @@ Building
 ===
 
 The Docker images are built using the [meanbee/docker-magento](https://github.com/meanbee/docker-magento) source files so to build new images first
-clone the source files into this directory and then run `docker-compose build`. 
+clone the source files into this directory and then run `docker-compose build`.
 
 ```
 $ git clone https://github.com/meanbee/docker-magento.git

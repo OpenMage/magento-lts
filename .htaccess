@@ -100,6 +100,12 @@
     #RewriteBase /magento/
 
 ############################################
+## Prevent serving "hidden" files like git repository
+
+    RewriteCond %{REQUEST_URI} /\.
+    RewriteRule ^(.*)$ / [R=404,L]
+
+############################################
 ## uncomment next line to enable light API calls processing
 
 #    RewriteRule ^api/([a-z][0-9a-z_]+)/?$ api.php?type=$1 [QSA,L]
@@ -201,12 +207,21 @@
     Allow from all
 
 ###########################################
-## Deny access to release notes to prevent disclosure of the installed Magento version
+## Deny access to other project files to prevent disclosure of the installed Magento version or other information
+## Only robots.txt and manifest.json should be allowed by default
 
-    <Files RELEASE_NOTES.txt>
-        order allow,deny
-        deny from all
-    </Files>
+    <FilesMatch (?<!robots)\.txt$>
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+    <FilesMatch (?<!manifest)\.json$>
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+    <FilesMatch \.(lock|md|sample|sh|yml|yaml)$>
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
 
 ############################################
 ## If running in cluster environment, uncomment this

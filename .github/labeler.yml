@@ -4,6 +4,11 @@
   - .phpstorm.meta.php/*
   - .travis.yml
 
+'phpstan':
+  - .github/phpstan.neon
+  - .github/phpstan-baseline.neon
+  - .github/phpstan_experimental_level.neon
+
 'htaccess':
   - .htaccess
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -36,23 +30,23 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Report type options
      */
-    protected $_reportTypeOptions = array();
+    protected $_reportTypeOptions = [];
 
     /**
      * Report field visibility
      */
-    protected $_fieldVisibility = array();
+    protected $_fieldVisibility = [];
 
     /**
      * Report field opions
      */
-    protected $_fieldOptions = array();
+    protected $_fieldOptions = [];
 
     /**
      * Set field visibility
      *
-     * @param string Field id
-     * @param bool Field visibility
+     * @param string $fieldId Field id
+     * @param bool $visibility Field visibility
      */
     public function setFieldVisibility($fieldId, $visibility)
     {
@@ -62,8 +56,8 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Get field visibility
      *
-     * @param string Field id
-     * @param bool Default field visibility
+     * @param string $fieldId Field id
+     * @param bool $defaultVisibility Default field visibility
      * @return bool
      */
     public function getFieldVisibility($fieldId, $defaultVisibility = true)
@@ -86,10 +80,10 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
         if (is_array($option)) {
             $options = $option;
         } else {
-            $options = array($option => $value);
+            $options = [$option => $value];
         }
         if (!array_key_exists($fieldId, $this->_fieldOptions)) {
-            $this->_fieldOptions[$fieldId] = array();
+            $this->_fieldOptions[$fieldId] = [];
         }
         foreach ($options as $k => $v) {
             $this->_fieldOptions[$fieldId][$k] = $v;
@@ -118,62 +112,62 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
     {
         $actionUrl = $this->getUrl('*/*/sales');
         $form = new Varien_Data_Form(
-            array('id' => 'filter_form', 'action' => $actionUrl, 'method' => 'get')
+            ['id' => 'filter_form', 'action' => $actionUrl, 'method' => 'get']
         );
         $htmlIdPrefix = 'sales_report_';
         $form->setHtmlIdPrefix($htmlIdPrefix);
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('reports')->__('Filter')));
+        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('reports')->__('Filter')]);
 
         $dateFormatIso = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
 
-        $fieldset->addField('store_ids', 'hidden', array(
+        $fieldset->addField('store_ids', 'hidden', [
             'name'  => 'store_ids'
-        ));
+        ]);
 
-        $fieldset->addField('report_type', 'select', array(
+        $fieldset->addField('report_type', 'select', [
             'name'      => 'report_type',
             'options'   => $this->_reportTypeOptions,
             'label'     => Mage::helper('reports')->__('Match Period To'),
-        ));
+        ]);
 
-        $fieldset->addField('period_type', 'select', array(
+        $fieldset->addField('period_type', 'select', [
             'name' => 'period_type',
-            'options' => array(
+            'options' => [
                 'day'   => Mage::helper('reports')->__('Day'),
                 'month' => Mage::helper('reports')->__('Month'),
                 'year'  => Mage::helper('reports')->__('Year')
-            ),
+            ],
             'label' => Mage::helper('reports')->__('Period'),
             'title' => Mage::helper('reports')->__('Period')
-        ));
+        ]);
 
-        $fieldset->addField('from', 'date', array(
+        $fieldset->addField('from', 'date', [
             'name'      => 'from',
             'format'    => $dateFormatIso,
             'image'     => $this->getSkinUrl('images/grid-cal.gif'),
             'label'     => Mage::helper('reports')->__('From'),
             'title'     => Mage::helper('reports')->__('From'),
             'required'  => true
-        ));
+        ]);
 
-        $fieldset->addField('to', 'date', array(
+        $fieldset->addField('to', 'date', [
             'name'      => 'to',
             'format'    => $dateFormatIso,
             'image'     => $this->getSkinUrl('images/grid-cal.gif'),
             'label'     => Mage::helper('reports')->__('To'),
             'title'     => Mage::helper('reports')->__('To'),
             'required'  => true
-        ));
+        ]);
 
-        $fieldset->addField('show_empty_rows', 'select', array(
+        $fieldset->addField('show_empty_rows', 'select', [
             'name'      => 'show_empty_rows',
-            'options'   => array(
+            'options'   => [
                 '1' => Mage::helper('reports')->__('Yes'),
                 '0' => Mage::helper('reports')->__('No')
-            ),
+            ],
             'label'     => Mage::helper('reports')->__('Empty Rows'),
             'title'     => Mage::helper('reports')->__('Empty Rows')
-        ));
+        ]);
 
         $form->setUseContainer(true);
         $this->setForm($form);

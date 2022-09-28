@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml footer block
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
 {
@@ -44,21 +37,33 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
         $this->setShowProfiler(true);
     }
 
+    /**
+     * @return string
+     */
     public function getChangeLocaleUrl()
     {
         return $this->getUrl('adminhtml/index/changeLocale');
     }
 
+    /**
+     * @return string
+     */
     public function getUrlForReferer()
     {
-        return $this->getUrlEncoded('*/*/*',array('_current'=>true));
+        return $this->getUrlEncoded('*/*/*', ['_current'=>true]);
     }
 
+    /**
+     * @return string
+     */
     public function getRefererParamName()
     {
         return Mage_Core_Controller_Varien_Action::PARAM_NAME_URL_ENCODED;
     }
 
+    /**
+     * @return string
+     */
     public function getLanguageSelect()
     {
         $locale  = Mage::app()->getLocale();
@@ -74,9 +79,81 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
                 ->setValue($locale->getLocaleCode())
                 ->setOptions($locale->getTranslatedOptionLocales())
                 ->getHtml();
-            Mage::app()->saveCache($html, $cacheId, array(self::LOCALE_CACHE_TAG), self::LOCALE_CACHE_LIFETIME);
+            Mage::app()->saveCache($html, $cacheId, [self::LOCALE_CACHE_TAG], self::LOCALE_CACHE_LIFETIME);
         }
 
         return $html;
+    }
+
+    /**
+     * @param string $url
+     * @return $this
+     * @deprecated see setReportIssuesUrl()
+     */
+    public function setBugreportUrl(string $url)
+    {
+        return $this->setReportIssuesUrl($url);
+    }
+
+    /**
+     * @return string
+     * @deprecated see getReportIssuesUrl()
+     */
+    public function getBugreportUrl(): string
+    {
+        return $this->getReportIssuesUrl();
+    }
+
+      /**
+     * @param string $url
+     * @return $this
+     */
+    public function setReportIssuesUrl(string $url)
+    {
+        return $this->setData('report_issues_url', $url);
+    }
+
+    /**
+     * @return string
+     */
+    public function getReportIssuesUrl(): string
+    {
+        return (string) $this->_getData('report_issues_url');
+    }
+
+    /**
+     * @param string $url
+     * @return $this
+     * @deprecated see setOpenMageProjectUrl()
+     */
+    public function setConnectWithMagentoUrl(string $url)
+    {
+        return $this->setOpenMageProjectUrl($url);
+    }
+
+    /**
+     * @return string
+     * @deprecated see getOpenMageProjectUrl()
+     */
+    public function getConnectWithMagentoUrl(): string
+    {
+        return $this->getOpenMageProjectUrl();
+    }
+
+    /**
+     * @param string $url
+     * @return $this
+     */
+    public function setOpenMageProjectUrl(string $url)
+    {
+        return $this->setData('openmage_project_url', $url);
+    }
+
+    /**
+     * @return string
+     */
+    public function getOpenMageProjectUrl(): string
+    {
+        return (string) $this->_getData('openmage_project_url');
     }
 }

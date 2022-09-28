@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -25,7 +19,7 @@
  */
 
 // Change current directory to the directory of current script
-chdir(dirname(__FILE__));
+chdir(__DIR__);
 
 require 'app/bootstrap.php';
 require 'app/Mage.php';
@@ -66,7 +60,7 @@ try {
             }
         } else if (!$isShellDisabled) {
             $fileName = escapeshellarg(basename(__FILE__));
-            $cronPath = escapeshellarg(dirname(__FILE__) . '/cron.sh');
+            $cronPath = escapeshellarg(__DIR__ . '/cron.sh');
 
             shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -mdefault 1") . " > /dev/null 2>&1 &");
             shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -malways 1") . " > /dev/null 2>&1 &");

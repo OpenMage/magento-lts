@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Bundle
+ * @category   Mage
+ * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-$installer = $this;
 /** @var Mage_Catalog_Model_Resource_Setup $installer */
-
+$installer = $this;
 $installer->startSetup();
 
 /**
@@ -34,31 +27,31 @@ $installer->startSetup();
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('bundle/option'))
-    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Option Id')
-    ->addColumn('parent_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Option Id')
+    ->addColumn('parent_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
-        ), 'Parent Id')
-    ->addColumn('required', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
-        'unsigned'  => true,
-        'nullable'  => false,
-        'default'   => '0',
-        ), 'Required')
-    ->addColumn('position', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Parent Id')
+    ->addColumn('required', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Position')
-    ->addColumn('type', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        ), 'Type')
+    ], 'Required')
+    ->addColumn('position', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
+        'unsigned'  => true,
+        'nullable'  => false,
+        'default'   => '0',
+    ], 'Position')
+    ->addColumn('type', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
+    ], 'Type')
     ->addIndex(
-        $installer->getIdxName('bundle/option', array('parent_id')),
-        array('parent_id')
+        $installer->getIdxName('bundle/option', ['parent_id']),
+        ['parent_id']
     )
     ->addForeignKey(
         $installer->getFkName('bundle/option', 'parent_id', 'catalog/product', 'entity_id'),
@@ -76,26 +69,26 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('bundle/option_value'))
-    ->addColumn('value_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('value_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Value Id')
-    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Value Id')
+    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
-        ), 'Option Id')
-    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Option Id')
+    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
-        ), 'Store Id')
-    ->addColumn('title', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        ), 'Title')
+    ], 'Store Id')
+    ->addColumn('title', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
+    ], 'Title')
     ->addIndex(
-        $installer->getIdxName('bundle/option_value', array('option_id', 'store_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('option_id', 'store_id'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        $installer->getIdxName('bundle/option_value', ['option_id', 'store_id'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+        ['option_id', 'store_id'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->addForeignKey(
         $installer->getFkName('bundle/option_value', 'option_id', 'bundle/option', 'option_id'),
@@ -113,56 +106,56 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('bundle/selection'))
-    ->addColumn('selection_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('selection_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Selection Id')
-    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Selection Id')
+    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
-        ), 'Option Id')
-    ->addColumn('parent_product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Option Id')
+    ->addColumn('parent_product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
-        ), 'Parent Product Id')
-    ->addColumn('product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Parent Product Id')
+    ->addColumn('product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
-        ), 'Product Id')
-    ->addColumn('position', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-        'unsigned'  => true,
-        'nullable'  => false,
-        'default'   => '0',
-        ), 'Position')
-    ->addColumn('is_default', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Product Id')
+    ->addColumn('position', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Is Default')
-    ->addColumn('selection_price_type', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Position')
+    ->addColumn('is_default', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Selection Price Type')
-    ->addColumn('selection_price_value', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
+    ], 'Is Default')
+    ->addColumn('selection_price_type', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
+        'unsigned'  => true,
+        'nullable'  => false,
+        'default'   => '0',
+    ], 'Selection Price Type')
+    ->addColumn('selection_price_value', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
         'nullable'  => false,
         'default'   => '0.0000',
-        ), 'Selection Price Value')
-    ->addColumn('selection_qty', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Selection Qty')
-    ->addColumn('selection_can_change_qty', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Selection Price Value')
+    ->addColumn('selection_qty', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Selection Qty')
+    ->addColumn('selection_can_change_qty', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'nullable'  => false,
         'default'   => '0',
-        ), 'Selection Can Change Qty')
+    ], 'Selection Can Change Qty')
     ->addIndex(
-        $installer->getIdxName('bundle/selection', array('option_id')),
-        array('option_id')
+        $installer->getIdxName('bundle/selection', ['option_id']),
+        ['option_id']
     )
     ->addIndex(
-        $installer->getIdxName('bundle/selection', array('product_id')),
-        array('product_id')
+        $installer->getIdxName('bundle/selection', ['product_id']),
+        ['product_id']
     )
     ->addForeignKey(
         $installer->getFkName('bundle/selection', 'option_id', 'bundle/option', 'option_id'),
@@ -188,28 +181,28 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('bundle/selection_price'))
-    ->addColumn('selection_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('selection_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Selection Id')
-    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Selection Id')
+    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Website Id')
-    ->addColumn('selection_price_type', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Website Id')
+    ->addColumn('selection_price_type', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Selection Price Type')
-    ->addColumn('selection_price_value', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
+    ], 'Selection Price Type')
+    ->addColumn('selection_price_value', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
         'nullable'  => false,
         'default'   => '0.0000',
-        ), 'Selection Price Value')
+    ], 'Selection Price Value')
     ->addIndex(
-        $installer->getIdxName('bundle/selection_price', array('website_id')),
-        array('website_id')
+        $installer->getIdxName('bundle/selection_price', ['website_id']),
+        ['website_id']
     )
     ->addForeignKey(
         $installer->getFkName('bundle/selection_price', 'website_id', 'core/website', 'website_id'),
@@ -235,34 +228,34 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('bundle/price_index'))
-    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Entity Id')
-    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Entity Id')
+    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Website Id')
-    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Website Id')
+    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Customer Group Id')
-    ->addColumn('min_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
+    ], 'Customer Group Id')
+    ->addColumn('min_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
         'nullable'  => false,
-        ), 'Min Price')
-    ->addColumn('max_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
+    ], 'Min Price')
+    ->addColumn('max_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
         'nullable'  => false,
-        ), 'Max Price')
+    ], 'Max Price')
     ->addIndex(
-        $installer->getIdxName('bundle/price_index', array('website_id')),
-        array('website_id')
+        $installer->getIdxName('bundle/price_index', ['website_id']),
+        ['website_id']
     )
     ->addIndex(
-        $installer->getIdxName('bundle/price_index', array('customer_group_id')),
-        array('customer_group_id')
+        $installer->getIdxName('bundle/price_index', ['customer_group_id']),
+        ['customer_group_id']
     )
     ->addForeignKey(
         $installer->getFkName('bundle/price_index', 'customer_group_id', 'customer/customer_group', 'customer_group_id'),
@@ -296,30 +289,30 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('bundle/stock_index'))
-    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Entity Id')
-    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Entity Id')
+    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Website Id')
-    ->addColumn('stock_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Website Id')
+    ->addColumn('stock_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Stock Id')
-    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Stock Id')
+    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
         'default'   => '0',
-        ), 'Option Id')
-    ->addColumn('stock_status', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Option Id')
+    ->addColumn('stock_status', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'default'   => '0',
-        ), 'Stock Status')
+    ], 'Stock Status')
     ->setComment('Catalog Product Bundle Stock Index');
 $installer->getConnection()->createTable($table);
 
@@ -328,45 +321,45 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('bundle/price_indexer_idx'))
-    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Entity Id')
-    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Entity Id')
+    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Customer Group Id')
-    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Customer Group Id')
+    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Website Id')
-    ->addColumn('tax_class_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Website Id')
+    ->addColumn('tax_class_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'default'   => '0',
-        ), 'Tax Class Id')
-    ->addColumn('price_type', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Tax Class Id')
+    ->addColumn('price_type', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
-        ), 'Price Type')
-    ->addColumn('special_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Special Price')
-    ->addColumn('tier_percent', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Tier Percent')
-    ->addColumn('orig_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Orig Price')
-    ->addColumn('price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Price')
-    ->addColumn('min_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Min Price')
-    ->addColumn('max_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Max Price')
-    ->addColumn('tier_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Tier Price')
-    ->addColumn('base_tier', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Base Tier')
+    ], 'Price Type')
+    ->addColumn('special_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Special Price')
+    ->addColumn('tier_percent', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Tier Percent')
+    ->addColumn('orig_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Orig Price')
+    ->addColumn('price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Price')
+    ->addColumn('min_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Min Price')
+    ->addColumn('max_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Max Price')
+    ->addColumn('tier_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Tier Price')
+    ->addColumn('base_tier', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Base Tier')
     ->setComment('Catalog Product Index Price Bundle Idx');
 $installer->getConnection()->createTable($table);
 
@@ -375,45 +368,45 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('bundle/price_indexer_tmp'))
-    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Entity Id')
-    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Entity Id')
+    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Customer Group Id')
-    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Customer Group Id')
+    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Website Id')
-    ->addColumn('tax_class_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Website Id')
+    ->addColumn('tax_class_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'default'   => '0',
-        ), 'Tax Class Id')
-    ->addColumn('price_type', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Tax Class Id')
+    ->addColumn('price_type', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
-        ), 'Price Type')
-    ->addColumn('special_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Special Price')
-    ->addColumn('tier_percent', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Tier Percent')
-    ->addColumn('orig_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Orig Price')
-    ->addColumn('price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Price')
-    ->addColumn('min_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Min Price')
-    ->addColumn('max_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Max Price')
-    ->addColumn('tier_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Tier Price')
-    ->addColumn('base_tier', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Base Tier')
+    ], 'Price Type')
+    ->addColumn('special_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Special Price')
+    ->addColumn('tier_percent', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Tier Percent')
+    ->addColumn('orig_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Orig Price')
+    ->addColumn('price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Price')
+    ->addColumn('min_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Min Price')
+    ->addColumn('max_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Max Price')
+    ->addColumn('tier_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Tier Price')
+    ->addColumn('base_tier', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Base Tier')
     ->setComment('Catalog Product Index Price Bundle Tmp');
 $installer->getConnection()->createTable($table);
 
@@ -422,45 +415,45 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('bundle/selection_indexer_idx'))
-    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Entity Id')
-    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Entity Id')
+    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Customer Group Id')
-    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Customer Group Id')
+    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Website Id')
-    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-        'unsigned'  => true,
-        'nullable'  => false,
-        'primary'   => true,
-        'default'   => '0',
-        ), 'Option Id')
-    ->addColumn('selection_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Website Id')
+    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
         'default'   => '0',
-        ), 'Selection Id')
-    ->addColumn('group_type', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Option Id')
+    ->addColumn('selection_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
+        'unsigned'  => true,
+        'nullable'  => false,
+        'primary'   => true,
+        'default'   => '0',
+    ], 'Selection Id')
+    ->addColumn('group_type', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'default'   => '0',
-        ), 'Group Type')
-    ->addColumn('is_required', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Group Type')
+    ->addColumn('is_required', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'default'   => '0',
-        ), 'Is Required')
-    ->addColumn('price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Price')
-    ->addColumn('tier_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Tier Price')
+    ], 'Is Required')
+    ->addColumn('price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Price')
+    ->addColumn('tier_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Tier Price')
     ->setComment('Catalog Product Index Price Bundle Sel Idx');
 $installer->getConnection()->createTable($table);
 
@@ -469,45 +462,45 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('bundle/selection_indexer_tmp'))
-    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Entity Id')
-    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Entity Id')
+    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Customer Group Id')
-    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Customer Group Id')
+    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Website Id')
-    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-        'unsigned'  => true,
-        'nullable'  => false,
-        'primary'   => true,
-        'default'   => '0',
-        ), 'Option Id')
-    ->addColumn('selection_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Website Id')
+    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
         'default'   => '0',
-        ), 'Selection Id')
-    ->addColumn('group_type', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Option Id')
+    ->addColumn('selection_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
+        'unsigned'  => true,
+        'nullable'  => false,
+        'primary'   => true,
+        'default'   => '0',
+    ], 'Selection Id')
+    ->addColumn('group_type', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'default'   => '0',
-        ), 'Group Type')
-    ->addColumn('is_required', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Group Type')
+    ->addColumn('is_required', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'default'   => '0',
-        ), 'Is Required')
-    ->addColumn('price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Price')
-    ->addColumn('tier_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Tier Price')
+    ], 'Is Required')
+    ->addColumn('price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Price')
+    ->addColumn('tier_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Tier Price')
     ->setComment('Catalog Product Index Price Bundle Sel Tmp');
 $installer->getConnection()->createTable($table);
 
@@ -516,37 +509,37 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('bundle/option_indexer_idx'))
-    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Entity Id')
-    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Entity Id')
+    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Customer Group Id')
-    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Customer Group Id')
+    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Website Id')
-    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Website Id')
+    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
         'default'   => '0',
-        ), 'Option Id')
-    ->addColumn('min_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Min Price')
-    ->addColumn('alt_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Alt Price')
-    ->addColumn('max_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Max Price')
-    ->addColumn('tier_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Tier Price')
-    ->addColumn('alt_tier_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Alt Tier Price')
+    ], 'Option Id')
+    ->addColumn('min_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Min Price')
+    ->addColumn('alt_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Alt Price')
+    ->addColumn('max_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Max Price')
+    ->addColumn('tier_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Tier Price')
+    ->addColumn('alt_tier_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Alt Tier Price')
     ->setComment('Catalog Product Index Price Bundle Opt Idx');
 $installer->getConnection()->createTable($table);
 
@@ -555,44 +548,44 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('bundle/option_indexer_tmp'))
-    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Entity Id')
-    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Entity Id')
+    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Customer Group Id')
-    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Customer Group Id')
+    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Website Id')
-    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Website Id')
+    ->addColumn('option_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
         'default'   => '0',
-        ), 'Option Id')
-    ->addColumn('min_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Min Price')
-    ->addColumn('alt_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Alt Price')
-    ->addColumn('max_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Max Price')
-    ->addColumn('tier_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Tier Price')
-    ->addColumn('alt_tier_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
-        ), 'Alt Tier Price')
+    ], 'Option Id')
+    ->addColumn('min_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Min Price')
+    ->addColumn('alt_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Alt Price')
+    ->addColumn('max_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Max Price')
+    ->addColumn('tier_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Tier Price')
+    ->addColumn('alt_tier_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', [
+    ], 'Alt Tier Price')
     ->setComment('Catalog Product Index Price Bundle Opt Tmp');
 $installer->getConnection()->createTable($table);
 
 /**
  * Add attributes to the eav/attribute
  */
-$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'price_type', array(
+$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'price_type', [
         'type'              => 'int',
         'backend'           => '',
         'frontend'          => '',
@@ -613,9 +606,9 @@ $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'price_type', array
         'unique'            => false,
         'apply_to'          => 'bundle',
         'is_configurable'   => false
-    ));
+]);
 
-$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'sku_type', array(
+$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'sku_type', [
         'type'              => 'int',
         'backend'           => '',
         'frontend'          => '',
@@ -635,9 +628,9 @@ $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'sku_type', array(
         'unique'            => false,
         'apply_to'          => 'bundle',
         'is_configurable'   => false
-    ));
+]);
 
-$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'weight_type', array(
+$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'weight_type', [
         'type'              => 'int',
         'backend'           => '',
         'frontend'          => '',
@@ -658,9 +651,9 @@ $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'weight_type', arra
         'unique'            => false,
         'apply_to'          => 'bundle',
         'is_configurable'   => false
-    ));
+]);
 
-$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'price_view', array(
+$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'price_view', [
         'group'             => 'Prices',
         'type'              => 'int',
         'backend'           => '',
@@ -682,9 +675,9 @@ $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'price_view', array
         'unique'            => false,
         'apply_to'          => 'bundle',
         'is_configurable'   => false
-    ));
+]);
 
-$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'shipment_type', array(
+$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'shipment_type', [
         'type'              => 'int',
         'backend'           => '',
         'frontend'          => '',
@@ -705,6 +698,6 @@ $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'shipment_type', ar
         'unique'            => false,
         'apply_to'          => 'bundle',
         'is_configurable'   => false
-    ));
+]);
 
 $installer->endSetup();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Widget
 {
@@ -37,6 +31,7 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
      * Retrieve available order
      *
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Core_Exception
      */
     public function getOrder()
     {
@@ -61,14 +56,31 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
         return $obj;
     }
 
+    /**
+     * @param string $code
+     * @param false $strong
+     * @param string $separator
+     * @return string
+     */
     public function displayPriceAttribute($code, $strong = false, $separator = '<br/>')
     {
-        return $this->helper('adminhtml/sales')->displayPriceAttribute($this->getPriceDataObject(), $code, $strong, $separator);
+        /** @var Mage_Adminhtml_Helper_Sales $helper */
+        $helper = $this->helper('adminhtml/sales');
+        return $helper->displayPriceAttribute($this->getPriceDataObject(), $code, $strong, $separator);
     }
 
+    /**
+     * @param float $basePrice
+     * @param float $price
+     * @param false $strong
+     * @param string $separator
+     * @return string
+     */
     public function displayPrices($basePrice, $price, $strong = false, $separator = '<br/>')
     {
-        return $this->helper('adminhtml/sales')->displayPrices($this->getPriceDataObject(), $basePrice, $price, $strong, $separator);
+        /** @var Mage_Adminhtml_Helper_Sales $helper */
+        $helper = $this->helper('adminhtml/sales');
+        return $helper->displayPrices($this->getPriceDataObject(), $basePrice, $price, $strong, $separator);
     }
 
     /**
@@ -78,7 +90,7 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
      */
     public function getOrderTotalData()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -88,9 +100,8 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
      */
     public function getOrderInfoData()
     {
-        return array();
+        return [];
     }
-
 
     /**
      * Retrieve subtotal price include tax html formatted content

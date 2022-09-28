@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,35 +12,28 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart api
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
 {
     public function __construct()
     {
         $this->_storeIdSessionField = "cart_store_id";
-        $this->_attributesMap['quote'] = array('quote_id' => 'entity_id');
-        $this->_attributesMap['quote_customer'] = array('customer_id' => 'entity_id');
-        $this->_attributesMap['quote_address'] = array('address_id' => 'entity_id');
-        $this->_attributesMap['quote_payment'] = array('payment_id' => 'entity_id');
+        $this->_attributesMap['quote'] = ['quote_id' => 'entity_id'];
+        $this->_attributesMap['quote_customer'] = ['customer_id' => 'entity_id'];
+        $this->_attributesMap['quote_address'] = ['address_id' => 'entity_id'];
+        $this->_attributesMap['quote_payment'] = ['payment_id' => 'entity_id'];
     }
 
     /**
@@ -86,7 +79,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
         $result = $this->_getAttributes($quote, 'quote');
         $result['shipping_address'] = $this->_getAttributes($quote->getShippingAddress(), 'quote_address');
         $result['billing_address'] = $this->_getAttributes($quote->getBillingAddress(), 'quote_address');
-        $result['items'] = array();
+        $result['items'] = [];
 
         foreach ($quote->getAllItems() as $item) {
             if ($item->getGiftMessageId() > 0) {
@@ -114,12 +107,12 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
 
         $totals = $quote->getTotals();
 
-        $totalsResult = array();
+        $totalsResult = [];
         foreach ($totals as $total) {
-            $totalsResult[] = array(
+            $totalsResult[] = [
                 "title" => $total->getTitle(),
                 "amount" => $total->getValue()
-            );
+            ];
         }
         return $totalsResult;
     }
@@ -173,7 +166,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
             if ($order) {
                 Mage::dispatchEvent(
                     'checkout_type_onepage_save_order_after',
-                    array('order' => $order, 'quote' => $quote)
+                    ['order' => $order, 'quote' => $quote]
                 );
 
                 try {
@@ -185,7 +178,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
 
             Mage::dispatchEvent(
                 'checkout_submit_all_after',
-                array('order' => $order, 'quote' => $quote)
+                ['order' => $order, 'quote' => $quote]
             );
         } catch (Mage_Core_Exception $e) {
             $this->_fault('create_order_fault', $e->getMessage());
@@ -204,7 +197,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
         $quote = $this->_getQuote($quoteId, $store);
         $storeId = $quote->getStoreId();
 
-        $agreements = array();
+        $agreements = [];
         if (Mage::getStoreConfigFlag('checkout/options/enable_agreements')) {
             $agreementsCollection = Mage::getModel('checkout/agreement')->getCollection()
                     ->addStoreFilter($storeId)

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,20 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product option select type model
  *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Resource_Product_Option_Value_Collection getCollection()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value getResource()
  * @method int getOptionId()
@@ -41,14 +40,10 @@
  * @method float getStorePrice()
  * @method string getStoreTitle()
  * @method string getTitle()
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
 {
-    protected $_values = array();
+    protected $_values = [];
 
     protected $_product;
 
@@ -92,7 +87,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
      */
     public function unsetValues()
     {
-        $this->_values = array();
+        $this->_values = [];
         return $this;
     }
 
@@ -116,8 +111,6 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Enter description here...
-     *
      * @return Mage_Catalog_Model_Product_Option
      */
     public function getOption()
@@ -186,25 +179,20 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     {
         if ($flag && $this->getPriceType() == 'percent') {
             $basePrice = $this->getOption()->getProduct()->getFinalPrice();
-            $price = $basePrice*($this->_getData('price')/100);
-            return $price;
+            return $basePrice*($this->_getData('price')/100);
         }
         return $this->_getData('price');
     }
 
     /**
-     * Enter description here...
-     *
      * @param Mage_Catalog_Model_Product_Option $option
      * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      */
     public function getValuesCollection(Mage_Catalog_Model_Product_Option $option)
     {
-        $collection = Mage::getResourceModel('catalog/product_option_value_collection')
+        return Mage::getResourceModel('catalog/product_option_value_collection')
             ->addFieldToFilter('option_id', $option->getId())
             ->getValues($option->getStoreId());
-
-        return $collection;
     }
 
     /**
@@ -215,11 +203,9 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
      */
     public function getValuesByOption($optionIds, $option_id, $store_id)
     {
-        $collection = Mage::getResourceModel('catalog/product_option_value_collection')
+        return Mage::getResourceModel('catalog/product_option_value_collection')
             ->addFieldToFilter('option_id', $option_id)
             ->getValuesByOption($optionIds, $store_id);
-
-        return $collection;
     }
 
     /**

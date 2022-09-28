@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setBackUrl(string $value)
  * @method $this setErrorUrl(string $value)
@@ -54,7 +48,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
         if ($id = $this->getRequest()->getParam('id')) {
             $this->_address->load($id);
             if ($this->_address->getCustomerId() != Mage::getSingleton('customer/session')->getCustomerId()) {
-                $this->_address->setData(array());
+                $this->_address->setData([]);
             }
         }
 
@@ -73,6 +67,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
         if ($postedData = Mage::getSingleton('customer/session')->getAddressFormData(true)) {
             $this->_address->addData($postedData);
         }
+        return $this;
     }
 
     /**
@@ -126,7 +121,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
      */
     public function getSaveUrl()
     {
-        return Mage::getUrl('customer/address/formPost', array('_secure'=>true, 'id'=>$this->getAddress()->getId()));
+        return Mage::getUrl('customer/address/formPost', ['_secure'=>true, 'id'=>$this->getAddress()->getId()]);
     }
 
     /**

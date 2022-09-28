@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Api2
+ * @category   Mage
+ * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -58,7 +52,7 @@ class Mage_Api2_Model_Server
      *
      * @var array
      */
-    protected static $_apiTypes = array(self::API_TYPE_REST);
+    protected static $_apiTypes = [self::API_TYPE_REST];
 
     /**
      * @var Mage_Api2_Model_Auth_User_Abstract
@@ -99,7 +93,6 @@ class Mage_Api2_Model_Server
         }
         // default case
         try {
-            /** @var Mage_Api2_Model_Auth_User_Abstract $apiUser */
             $apiUser = $this->_authenticate($request);
 
             $this->_route($request)
@@ -127,7 +120,6 @@ class Mage_Api2_Model_Server
      *
      * @param Mage_Api2_Model_Request $request
      * @param Mage_Api2_Model_Response $response
-     * @return void
      * @throws Mage_Api2_Exception
      */
     public function internalCall(Mage_Api2_Model_Request $request, Mage_Api2_Model_Response $response)
@@ -274,11 +266,11 @@ class Mage_Api2_Model_Server
             //add last error to stack
             $response->setException($exception);
 
-            $messages = array();
+            $messages = [];
 
             /** @var Exception $exception */
             foreach ($response->getException() as $exception) {
-                $message = array('code' => $exception->getCode(), 'message' => $exception->getMessage());
+                $message = ['code' => $exception->getCode(), 'message' => $exception->getMessage()];
 
                 if (Mage::getIsDeveloperMode()) {
                     $message['trace'] = $exception->getTraceAsString();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product_Type_Abstract
 {
@@ -128,7 +122,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     public function getAssociatedProducts($product = null)
     {
         if (!$this->getProduct($product)->hasData($this->_keyAssociatedProducts)) {
-            $associatedProducts = array();
+            $associatedProducts = [];
 
             if (!Mage::app()->getStore()->isAdmin()) {
                 $this->setSaleableStatus($product);
@@ -139,7 +133,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                 ->addFilterByRequiredOptions()
                 ->setPositionOrder()
                 ->addStoreFilter($this->getStoreFilter($product))
-                ->addAttributeToFilter('status', array('in' => $this->getStatusFilters($product)));
+                ->addAttributeToFilter('status', ['in' => $this->getStatusFilters($product)]);
 
             foreach ($collection as $item) {
                 $associatedProducts[] = $item;
@@ -161,7 +155,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     {
         $statusFilters = $this->getProduct($product)->getData($this->_keyStatusFilters);
         if (!is_array($statusFilters)) {
-            $statusFilters = array();
+            $statusFilters = [];
         }
 
         $statusFilters[] = $status;
@@ -194,10 +188,10 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     public function getStatusFilters($product = null)
     {
         if (!$this->getProduct($product)->hasData($this->_keyStatusFilters)) {
-            return array(
+            return [
                 Mage_Catalog_Model_Product_Status::STATUS_ENABLED,
                 Mage_Catalog_Model_Product_Status::STATUS_DISABLED
-            );
+            ];
         }
         return $this->getProduct($product)->getData($this->_keyStatusFilters);
     }
@@ -211,7 +205,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     public function getAssociatedProductIds($product = null)
     {
         if (!$this->getProduct($product)->hasData($this->_keyAssociatedProductIds)) {
-            $associatedProductIds = array();
+            $associatedProductIds = [];
             foreach ($this->getAssociatedProducts($product) as $item) {
                 $associatedProductIds[] = $item->getId();
             }
@@ -286,8 +280,8 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
         $isStrictProcessMode = $this->_isStrictProcessMode($processMode);
 
         if (!$isStrictProcessMode || (!empty($productsInfo) && is_array($productsInfo))) {
-            $products = array();
-            $associatedProductsInfo = array();
+            $products = [];
+            $associatedProductsInfo = [];
             $associatedProducts = $this->getAssociatedProducts($product);
             if ($associatedProducts || !$isStrictProcessMode) {
                 foreach ($associatedProducts as $subProduct) {
@@ -310,16 +304,16 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                                 $_result[0]->addCustomOption('product_type', self::TYPE_CODE, $product);
                                 $_result[0]->addCustomOption(
                                     'info_buyRequest',
-                                    serialize(array(
-                                        'super_product_config' => array(
+                                    serialize([
+                                        'super_product_config' => [
                                             'product_type'  => self::TYPE_CODE,
                                             'product_id'    => $product->getId()
-                                        )
-                                    ))
+                                        ]
+                                    ])
                                 );
                                 $products[] = $_result[0];
                             } else {
-                                $associatedProductsInfo[] = array($subProductId => $qty);
+                                $associatedProductsInfo[] = [$subProductId => $qty];
                                 $product->addCustomOption('associated_product_' . $subProductId, $qty);
                             }
                         }
@@ -352,7 +346,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     public function getProductsToPurchaseByReqGroups($product = null)
     {
         $product = $this->getProduct($product);
-        return array($this->getAssociatedProducts($product));
+        return [$this->getAssociatedProducts($product)];
     }
 
     /**
@@ -365,10 +359,8 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     public function processBuyRequest($product, $buyRequest)
     {
         $superGroup = $buyRequest->getSuperGroup();
-        $superGroup = (is_array($superGroup)) ? array_filter($superGroup, 'intval') : array();
+        $superGroup = (is_array($superGroup)) ? array_filter($superGroup, '\intval') : [];
 
-        $options = array('super_group' => $superGroup);
-
-        return $options;
+        return ['super_group' => $superGroup];
     }
 }

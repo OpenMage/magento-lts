@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     default_default
@@ -31,7 +25,7 @@
  */
 ?>
 <?php
-$_data = array(
+$_data = [
     'Please select an option.' => $this->__('Please select an option.'),
     'This is a required field.' => $this->__('This is a required field.'),
     'Please enter a valid number in this field.' => $this->__('Please enter a valid number in this field.'),
@@ -59,7 +53,7 @@ $_data = array(
     'Please enter a number greater than 0 in this field.' => $this->__('Please enter a number greater than 0 in this field.'),
     'Please enter a valid credit card number.' => $this->__('Please enter a valid credit card number.'),
     'Please wait, loading...' => $this->__('Please wait, loading...')
-);
+];
 ?>
 <script type="text/javascript">
     var Translator = new Translate(<?php echo Zend_Json::encode($_data) ?>);

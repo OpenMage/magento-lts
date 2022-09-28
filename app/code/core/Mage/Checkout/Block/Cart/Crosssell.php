@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abstract
 {
@@ -49,7 +43,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
     {
         $items = $this->getData('items');
         if (is_null($items)) {
-            $items = array();
+            $items = [];
             $ninProductIds = $this->_getCartProductIds();
             if ($ninProductIds) {
                 $lastAdded = (int) $this->_getLastAddedProductId();
@@ -107,7 +101,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
     {
         $ids = $this->getData('_cart_product_ids');
         if (is_null($ids)) {
-            $ids = array();
+            $ids = [];
             foreach ($this->getQuote()->getAllItems() as $item) {
                 if ($product = $item->getProduct()) {
                     $ids[] = $product->getId();
@@ -126,7 +120,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
      */
     protected function _getCartProductIdsRel()
     {
-        $productIds = array();
+        $productIds = [];
         foreach ($this->getQuote()->getAllItems() as $quoteItem) {
             $productTypeOpt = $quoteItem->getOptionByCode('product_type');
             if ($productTypeOpt instanceof Mage_Sales_Model_Quote_Item_Option

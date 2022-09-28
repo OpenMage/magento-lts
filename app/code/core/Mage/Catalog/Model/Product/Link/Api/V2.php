@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -41,10 +35,10 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
      * @param int|string $linkedProductId
      * @param array $data
      * @param null $identifierType
-     * @return boolean
+     * @return bool
      * @throws Mage_Api_Exception
      */
-    public function assign($type, $productId, $linkedProductId, $data = array(), $identifierType = null)
+    public function assign($type, $productId, $linkedProductId, $data = [], $identifierType = null)
     {
         $typeId = $this->_getTypeId($type);
 
@@ -61,7 +55,7 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
 
         $links = $this->_collectionToEditableArray($collection);
 
-        $links[(int)$linkedProductId] = array();
+        $links[(int)$linkedProductId] = [];
         foreach ($collection->getLinkModel()->getAttributes() as $attribute) {
             if (isset($data->{$attribute['code']})) {
                 $links[(int)$linkedProductId][$attribute['code']] = $data->{$attribute['code']};
@@ -99,10 +93,10 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
      * @param int|string $linkedProductId
      * @param array $data
      * @param null $identifierType
-     * @return boolean
+     * @return bool
      * @throws Mage_Api_Exception
      */
-    public function update($type, $productId, $linkedProductId, $data = array(), $identifierType = null)
+    public function update($type, $productId, $linkedProductId, $data = [], $identifierType = null)
     {
         $typeId = $this->_getTypeId($type);
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     rwd_default
@@ -33,9 +27,10 @@
 /* @var $this Mage_Catalog_Block_Product_List */
 ?>
 <?php
-$_productCollection=$this->getLoadedProductCollection();
+$_productCollection = $this->getLoadedProductCollection();
+$_productCollectionCount = count($_productCollection);
 $_helper = $this->helper('catalog/output');
-$_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey())));
+$_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
 ?>
 <?php if(!$_productCollection->count()): ?>
     <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
@@ -47,7 +42,7 @@ $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()
             <?php $_iterator = 0; ?>
             <ol class="products-list" id="products-list">
                 <?php foreach ($_productCollection as $_product): ?>
-                    <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif ?>">
+                    <li class="item<?php if(++$_iterator === $_productCollectionCount): ?> last<?php endif ?>">
                         <?php // Product Image ?>
                         <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
                             <?php /* Based on the native RWD styling, product images are displayed at a max of ~400px wide when viewed on a
@@ -89,13 +84,11 @@ $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()
                                 <div class="product-secondary">
                                     <?php if(!$_product->canConfigure() && $_product->isSaleable()): ?>
                                         <p class="action">
+                                            <?php $_cartUrl = $this->getAddToCartUrlCustom($_product, [], false); ?>
                                             <button type="button"
                                                     title="<?php echo $this->quoteEscape($this->__('Add to Cart')) ?>"
                                                     class="button btn-cart"
-                                                    onclick="customFormSubmit(
-                                                            '<?php echo $this->getAddToCartUrlCustom($_product, array(), false) ?>',
-                                                            '<?php echo $_params ?>',
-                                                            'post')">
+                                                    onclick="customFormSubmit('<?php echo $_cartUrl ?>', '<?php echo $_params ?>', 'post')">
                                                 <span><span><?php echo $this->__('Add to Cart') ?></span></span>
                                             </button>
                                         </p>
@@ -106,7 +99,7 @@ $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()
                                     <?php endif ?>
                                     <ul class="add-to-links">
                                         <?php if ($this->helper('wishlist')->isAllow()) : ?>
-                                            <?php $_wishlistUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, array(), false); ?>
+                                            <?php $_wishlistUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, [], false); ?>
                                             <li><a href="#"
                                                    data-url="<?php echo $_wishlistUrl ?>"
                                                    data-params="<?php echo $_params ?>"
@@ -175,13 +168,11 @@ $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()
                             <?php endif ?>
                             <div class="actions">
                                 <?php if(!$_product->canConfigure() && $_product->isSaleable()): ?>
+                                    <?php $_cartUrl = $this->getAddToCartUrlCustom($_product, [], false); ?>
                                     <button type="button"
                                             title="<?php echo $this->quoteEscape($this->__('Add to Cart')) ?>"
                                             class="button btn-cart"
-                                            onclick="customFormSubmit(
-                                                    '<?php echo $this->getAddToCartUrlCustom($_product, array(), false) ?>',
-                                                    '<?php echo $_params ?>',
-                                                    'post')">
+                                            onclick="customFormSubmit('<?php echo $_cartUrl ?>', '<?php echo $_params ?>', 'post')">
                                         <span><span><?php echo $this->__('Add to Cart') ?></span></span>
                                     </button>
                                 <?php elseif($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
@@ -191,7 +182,7 @@ $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()
                                 <?php endif ?>
                                 <ul class="add-to-links">
                                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
-                                        <?php $_wishlistUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, array(), false); ?>
+                                        <?php $_wishlistUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, [], false); ?>
                                         <li>
                                             <a href="#"
                                                data-url="<?php echo $_wishlistUrl ?>"

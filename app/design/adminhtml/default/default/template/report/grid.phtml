@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     default_default
@@ -34,7 +28,7 @@
  *  getPagerVisibility()
  *  getVarNamePage()
  */
-$numColumns = sizeof($this->getColumns());
+$numColumns = count($this->getColumns());
 ?>
 <?php if($this->getCollection()): ?>
     <?php if($this->canDisplayContainer()): ?>
@@ -221,7 +215,7 @@ $numColumns = sizeof($this->getColumns());
         }
         var formParam = new Array('period_date_from', 'period_date_to', 'report_period');
         var paramURL = '';
-        var switchURL = '<?php echo $this->getAbsoluteGridUrl(array('_current' => false)); ?>'.replace(/(store|group|website)\/\d+\//,'');
+        var switchURL = '<?php echo $this->getAbsoluteGridUrl(['_current' => false]); ?>'.replace(/(store|group|website)\/\d+\//,'');
 
         for(var i=0;i<formParam.length;i++){
             if ($(formParam[i]).value && $(formParam[i]).name) {

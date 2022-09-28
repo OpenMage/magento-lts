@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Convert_Adapter_Entity
 {
     const MULTI_DELIMITER = ' , ';
@@ -36,33 +34,33 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
      */
     protected $_customerModel;
     protected $_stores;
-    protected $_attributes = array();
+    protected $_attributes = [];
     protected $_customerGroups;
 
     protected $_billingAddressModel;
     protected $_shippingAddressModel;
 
-    protected $_requiredFields = array();
+    protected $_requiredFields = [];
 
-    protected $_ignoreFields = array();
+    protected $_ignoreFields = [];
 
-    protected $_billingFields = array();
+    protected $_billingFields = [];
 
-    protected $_billingMappedFields = array();
+    protected $_billingMappedFields = [];
 
-    protected $_billingStreetFields = array();
+    protected $_billingStreetFields = [];
 
-    protected $_billingRequiredFields = array();
+    protected $_billingRequiredFields = [];
 
-    protected $_shippingFields = array();
+    protected $_shippingFields = [];
 
-    protected $_shippingMappedFields = array();
+    protected $_shippingMappedFields = [];
 
-    protected $_shippingStreetFields= array();
+    protected $_shippingStreetFields= [];
 
-    protected $_shippingRequiredFields = array();
+    protected $_shippingRequiredFields = [];
 
-    protected $_addressFields = array();
+    protected $_addressFields = [];
 
     protected $_regions;
     protected $_websites;
@@ -172,25 +170,21 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     public function getRegionId($country, $regionName)
     {
         if (is_null($this->_regions)) {
-            $this->_regions = array();
+            $this->_regions = [];
 
             $collection = Mage::getModel('directory/region')
                 ->getCollection();
             /** @var Mage_Directory_Model_Region $region */
             foreach ($collection as $region) {
                 if (!isset($this->_regions[$region->getCountryId()])) {
-                    $this->_regions[$region->getCountryId()] = array();
+                    $this->_regions[$region->getCountryId()] = [];
                 }
 
                 $this->_regions[$region->getCountryId()][$region->getDefaultName()] = $region->getId();
             }
         }
 
-        if (isset($this->_regions[$country][$regionName])) {
-            return $this->_regions[$country][$regionName];
-        }
-
-        return 0;
+        return $this->_regions[$country][$regionName] ?? 0;
     }
 
     /**
@@ -201,10 +195,10 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     public function getCustomerGroups()
     {
         if (is_null($this->_customerGroups)) {
-            $this->_customerGroups = array();
+            $this->_customerGroups = [];
             $collection = Mage::getModel('customer/group')
                 ->getCollection()
-                ->addFieldToFilter('customer_group_id', array('gt'=> 0));
+                ->addFieldToFilter('customer_group_id', ['gt'=> 0]);
             /** @var Mage_Customer_Model_Group $group */
             foreach ($collection as $group) {
                 $this->_customerGroups[$group->getCustomerGroupCode()] = $group->getId();
@@ -282,29 +276,29 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     {
         $addressType = $this->getVar('filter/adressType'); //error in key filter addressType
         if ($addressType=='both') {
-            $addressType = array('default_billing','default_shipping');
+            $addressType = ['default_billing','default_shipping'];
         }
-        $attrFilterArray = array();
+        $attrFilterArray = [];
         $attrFilterArray ['firstname']                  = 'like';
         $attrFilterArray ['lastname']                   = 'like';
         $attrFilterArray ['email']                      = 'like';
         $attrFilterArray ['group']                      = 'eq';
-        $attrFilterArray ['customer_address/telephone'] = array(
+        $attrFilterArray ['customer_address/telephone'] = [
             'type'  => 'like',
             'bind'  => $addressType
-        );
-        $attrFilterArray ['customer_address/postcode']  = array(
+        ];
+        $attrFilterArray ['customer_address/postcode']  = [
             'type'  => 'like',
             'bind'  => $addressType
-        );
-        $attrFilterArray ['customer_address/country']   = array(
+        ];
+        $attrFilterArray ['customer_address/country']   = [
             'type'  => 'eq',
             'bind'  => $addressType
-        );
-        $attrFilterArray ['customer_address/region']    = array(
+        ];
+        $attrFilterArray ['customer_address/region']    = [
             'type'  => 'like',
             'bind'  => $addressType
-        );
+        ];
         $attrFilterArray ['created_at']                 = 'datetimeFromTo';
 
         /*
@@ -318,19 +312,19 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
             $this->setVar('filter/created_at/to', $var . ' 23:59:59');
         }
 
-        $attrToDb = array(
+        $attrToDb = [
             'group'                     => 'group_id',
             'customer_address/country'  => 'customer_address/country_id',
-        );
+        ];
 
         // Added store filter
         if ($storeId = $this->getStoreId()) {
             $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
             if ($websiteId) {
-                $this->_filter[] = array(
+                $this->_filter[] = [
                     'attribute' => 'website_id',
                     'eq'        => $websiteId
-                );
+                ];
             }
         }
 
@@ -344,7 +338,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     public function parse()
     {
         $batchModel = Mage::getSingleton('dataflow/batch');
-        /* @var Mage_Dataflow_Model_Batch $batchModel */
+        /** @var Mage_Dataflow_Model_Batch $batchModel */
 
         $batchImportModel = $batchModel->getBatchImportModel();
         $importIds = $batchImportModel->getIdCollection();
@@ -382,14 +376,14 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
      */
     public function save()
     {
-        $stores = array();
+        $stores = [];
         foreach (Mage::getConfig()->getNode('stores')->children() as $storeNode) {
             $stores[(int)$storeNode->system->store->id] = $storeNode->getName();
         }
 
         $collections = $this->getData();
         if ($collections instanceof Mage_Customer_Model_Entity_Customer_Collection) {
-            $collections = array($collections->getEntity()->getStoreId()=>$collections);
+            $collections = [$collections->getEntity()->getStoreId()=>$collections];
         } elseif (!is_array($collections)) {
             $this->addException(Mage::helper('customer')->__('No customer collections found'), Mage_Dataflow_Model_Convert_Exception::FATAL);
         }
@@ -408,13 +402,8 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
                     if (!$model->getId()) {
                         $new = true;
                         $model->save();
-                        #Mage::getResourceSingleton('catalog_entity/convert')->addProductToStore($model->getId(), 0);
                     }
-                    if (!$new || 0!==$storeId) {
-//                        if (0!==$storeId) {
-//                            Mage::getResourceSingleton('catalog_entity/convert')->addProductToStore($model->getId(), $storeId);
-//                        }
-
+                    if (!$new || $storeId !== 0) {
                         $model->save();
                     }
                     $i++;
@@ -467,7 +456,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
              * Check customer group
              */
             if (empty($importData['group']) || !isset($customerGroups[$importData['group']])) {
-                $value = isset($importData['group']) ? $importData['group'] : '';
+                $value = $importData['group'] ?? '';
                 $message = Mage::helper('catalog')->__('Skipping import row, the value "%s" is not valid for the "%s" field.', $value, 'group');
                 Mage::throwException($message);
             }
@@ -526,7 +515,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
             if ($attribute->getFrontendInput() == 'multiselect') {
                 $value = explode(self::MULTI_DELIMITER, $value);
                 $isArray = true;
-                $setValue = array();
+                $setValue = [];
             }
 
             if ($attribute->usesSource()) {
@@ -610,7 +599,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
             if ($customer->getDefaultBilling()) {
                 $billingAddress->load($customer->getDefaultBilling());
             } else {
-                $billingAddress->setData(array());
+                $billingAddress->setData([]);
             }
 
             foreach ($this->_billingFields as $field) {
@@ -624,7 +613,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
                 }
             }
 
-            $street = array();
+            $street = [];
             foreach ($this->_billingStreetFields as $field) {
                 if (!empty($importData[$field])) {
                     $street[] = $importData[$field];
@@ -635,7 +624,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
             }
 
             $billingAddress->setCountryId($importData['billing_country']);
-            $regionName = isset($importData['billing_region']) ? $importData['billing_region'] : '';
+            $regionName = $importData['billing_region'] ?? '';
             if ($regionName) {
                 $regionId = $this->getRegionId($importData['billing_country'], $regionName);
                 $billingAddress->setRegionId($regionId);
@@ -663,7 +652,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
             if ($customer->getDefaultShipping() && $customer->getDefaultBilling() != $customer->getDefaultShipping()) {
                 $shippingAddress->load($customer->getDefaultShipping());
             } else {
-                $shippingAddress->setData(array());
+                $shippingAddress->setData([]);
             }
 
             foreach ($this->_shippingFields as $field) {
@@ -677,7 +666,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
                 }
             }
 
-            $street = array();
+            $street = [];
             foreach ($this->_shippingStreetFields as $field) {
                 if (!empty($importData[$field])) {
                     $street[] = $importData[$field];
@@ -688,7 +677,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
             }
 
             $shippingAddress->setCountryId($importData['shipping_country']);
-            $regionName = isset($importData['shipping_region']) ? $importData['shipping_region'] : '';
+            $regionName = $importData['shipping_region'] ?? '';
             if ($regionName) {
                 $regionId = $this->getRegionId($importData['shipping_country'], $regionName);
                 $shippingAddress->setRegionId($regionId);
