@@ -24,7 +24,6 @@
     "ext-zlib": "*",
     "colinmollenhour/cache-backend-redis": "^1.14",
     "colinmollenhour/magento-redis-session": "^3.0",
-    "liborm85/composer-vendor-cleaner": "^1.7",
     "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
     "pelago/emogrifier": "^6.0",
     "phpseclib/mcrypt_compat": "^2.0.3",
@@ -77,23 +76,12 @@
     "branch-alias": {
       "dev-main": "1.9.4.x-dev"
     },
-    "magento-root-dir": ".",
-    "magento-deploystrategy": "copy",
-    "magento-deploystrategy-dev": "symlink",
-    "dev-files": {
-      "/": [
-        "*.md"
-      ]
-    }
+    "magento-root-dir": "."
   },
   "config": {
     "allow-plugins": {
       "magento-hackathon/magento-composer-installer": true,
-      "dealerdirect/phpcodesniffer-composer-installer": true,
-      "liborm85/composer-vendor-cleaner": true
-    },
-    "dev-files": {
-      "remove-empty-dirs": false
+      "dealerdirect/phpcodesniffer-composer-installer": true
     },
     "sort-packages": true
   }
