@@ -19,8 +19,6 @@
  */
 
 /**
- * description
- *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>

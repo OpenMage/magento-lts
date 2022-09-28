@@ -167,7 +167,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     /**
      * Remove all cards from payment instance
      *
-     * @return Mage_Paygate_Model_Authorizenet_Cart
+     * @return $this
      */
     public function flushCards()
     {

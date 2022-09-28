@@ -23,7 +23,7 @@ require_once 'Mage/Adminhtml/controllers/Sales/Order/CreateController.php';
  * Admihtml DirtectPost Payment Controller
  *
  * @category   Mage
- * @package    Mage_DirtectPost
+ * @package    Mage_Authorizenet
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController

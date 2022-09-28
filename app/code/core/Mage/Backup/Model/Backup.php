@@ -72,7 +72,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
     /**
      * Checks backup file exists.
      *
-     * @return boolean
+     * @return bool
      */
     public function exists()
     {

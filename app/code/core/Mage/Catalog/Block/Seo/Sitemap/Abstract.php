@@ -46,7 +46,7 @@ abstract class Mage_Catalog_Block_Seo_Sitemap_Abstract extends Mage_Core_Block_T
     /**
      * Get item URL
      *
-     * In most cases should be overriden in descendant blocks
+     * In most cases should be overridden in descendant blocks
      *
      * @param Mage_Catalog_Block_Seo_Sitemap_Abstract $item
      * @return string

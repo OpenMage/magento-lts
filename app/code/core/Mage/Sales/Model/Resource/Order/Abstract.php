@@ -30,21 +30,21 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Is grid available
      *
-     * @var boolean
+     * @var bool
      */
     protected $_grid                         = false;
 
     /**
      * Use additional is object new check for this resource
      *
-     * @var boolean
+     * @var bool
      */
     protected $_useIsObjectNew               = true;
 
     /**
      * Flag for using of increment id
      *
-     * @var boolean
+     * @var bool
      */
     protected $_useIncrementId               = false;
 
@@ -70,15 +70,11 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     protected $_gridColumns                  = null;
 
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix                  = 'sales_resource';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject                  = 'resource';

@@ -15,12 +15,10 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Tabs block
- *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
@@ -28,8 +26,6 @@
 class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
 {
     /**
-     * tabs structure
-     *
      * @var array
      */
     protected $_tabs = [];
@@ -96,7 +92,6 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * @param   string $tabId new tab Id
      * @param   string|array|Varien_Object $tab
      * @param   string $afterTabId
-     * @return  Mage_Adminhtml_Block_Widget_Tabs
      */
     public function addTabAfter($tabId, $tab, $afterTabId)
     {

@@ -76,20 +76,19 @@ class Mage_Core_Helper_Cookie extends Mage_Core_Helper_Abstract
      */
     public function __construct(array $data = [])
     {
-        $this->_currentStore = isset($data['current_store']) ? $data['current_store'] : Mage::app()->getStore();
+        $this->_currentStore = $data['current_store'] ?? Mage::app()->getStore();
 
         if (!$this->_currentStore instanceof Mage_Core_Model_Store) {
             throw new InvalidArgumentException('Required store object is invalid');
         }
 
-        $this->_cookieModel = isset($data['cookie_model'])
-            ? $data['cookie_model'] : Mage::getSingleton('core/cookie');
+        $this->_cookieModel = $data['cookie_model'] ?? Mage::getSingleton('core/cookie');
 
         if (!$this->_cookieModel instanceof Mage_Core_Model_Cookie) {
             throw new InvalidArgumentException('Required cookie object is invalid');
         }
 
-        $this->_website = isset($data['website']) ? $data['website'] : Mage::app()->getWebsite();
+        $this->_website = $data['website'] ?? Mage::app()->getWebsite();
 
         if (!$this->_website instanceof Mage_Core_Model_Website) {
             throw new InvalidArgumentException('Required website object is invalid');

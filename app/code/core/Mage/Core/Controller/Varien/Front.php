@@ -113,10 +113,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      */
     public function getRouter($name)
     {
-        if (isset($this->_routers[$name])) {
-            return $this->_routers[$name];
-        }
-        return false;
+        return $this->_routers[$name] ?? false;
     }
 
     /**
@@ -372,7 +369,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      * Check if requested path starts with one of the admin front names
      *
      * @param Zend_Controller_Request_Http $request
-     * @return boolean
+     * @return bool
      */
     protected function _isAdminFrontNameMatched($request)
     {
@@ -393,7 +390,6 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
         if (is_array($adminFrontNameNodes)) {
             foreach ($adminFrontNameNodes as $frontNameNode) {
-                /** @var SimpleXMLElement $frontNameNode */
                 $adminFrontNames[] = (string)$frontNameNode;
             }
         }

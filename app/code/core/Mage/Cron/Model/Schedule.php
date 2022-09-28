@@ -66,7 +66,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      */
     public function setCronExpr($expr)
     {
-        $e = preg_split('#\s+#', $expr, null, PREG_SPLIT_NO_EMPTY);
+        $e = preg_split('#\s+#', $expr, -1, PREG_SPLIT_NO_EMPTY);
         if (count($e) < 5 || count($e) > 6) {
             throw Mage::exception('Mage_Cron', 'Invalid cron expression: '.$expr);
         }
@@ -81,7 +81,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      * Supports $this->setCronExpr('* 0-5,10-59/5 2-10,15-25 january-june/2 mon-fri')
      *
      * @param string|int $time
-     * @return boolean
+     * @return bool
      */
     public function trySchedule($time)
     {
@@ -226,7 +226,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      * @param string $oldStatus
      * This is used to implement locking for cron jobs.
      *
-     * @return boolean
+     * @return bool
      */
     public function tryLockJob($oldStatus = self::STATUS_PENDING)
     {

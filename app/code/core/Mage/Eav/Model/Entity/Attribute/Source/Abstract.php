@@ -76,14 +76,11 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
         if (count($options)) {
             foreach ($options as $option) {
                 if (isset($option['value']) && $option['value'] == $value) {
-                    return isset($option['label']) ? $option['label'] : $option['value'];
+                    return $option['label'] ?? $option['value'];
                 }
             } // End
         }
-        if (isset($options[$value])) {
-            return $options[$value];
-        }
-        return false;
+        return $options[$value] ?? false;
     }
 
     /**

@@ -136,6 +136,7 @@ var tierPriceControl = {
         $('<?php echo $_htmlId ?>_container').up('table').select('button').each(this.disableElement);
         <?php else: ?>
         $('<?php echo $_htmlId ?>_container').select('input', 'select').each(function(el){ Event.observe(el, 'change', el.setHasChanges.bind(el)); });
+        $('<?php echo $_htmlId ?>_container').select('button.delete').each(function(el){ Event.observe(el, 'click', el.setHasChanges.bind(el)); });
         <?php endif ?>
     },
     disableElement: function(el) {

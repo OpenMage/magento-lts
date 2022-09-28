@@ -30,14 +30,14 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Add order statistics flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_addOrderStatistics           = false;
 
     /**
      * Add order statistics is filter flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_addOrderStatisticsIsFilter   = false;
 
@@ -266,7 +266,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Get select count sql
      *
-     * @return string
+     * @return Varien_Db_Select
      */
     public function getSelectCountSql()
     {

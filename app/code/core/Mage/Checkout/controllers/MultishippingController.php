@@ -433,7 +433,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
     /**
      * Validation of selecting of billing address
      *
-     * @return boolean
+     * @return bool
      */
     protected function _validateBilling()
     {

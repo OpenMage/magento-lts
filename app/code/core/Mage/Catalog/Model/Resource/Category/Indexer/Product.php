@@ -69,10 +69,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
      */
     protected $_storesInfo;
 
-    /**
-     * Model initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/category_product_index', 'category_id');
@@ -317,8 +313,9 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Reindex not anchor root categories
      *
-     * @param array $categoryIds
+     * @param array|null $categoryIds
      * @return $this
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _refreshNotAnchorRootCategories(array $categoryIds = null)
     {

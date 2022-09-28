@@ -41,9 +41,6 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     private $_states;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct(Mage::getConfig()->getNode('global/sales/order'));

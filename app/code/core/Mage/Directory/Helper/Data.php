@@ -92,7 +92,6 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_app;
 
     /**
-     * Constructor for Mage_Directory_Helper_Data
      * @param array $args
      */
     public function __construct(array $args = [])
@@ -197,7 +196,6 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
 
         /** @var Mage_Directory_Model_Region $regionModel */
         $regionModel = $this->_factory->getModel('directory/region');
-        /** @var Mage_Directory_Model_Resource_Region_Collection $collection */
         $collection = $regionModel->getResourceCollection()
             ->addCountryFilter($countryIds)
             ->load();
@@ -266,7 +264,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      * Check whether zip code is optional for specified country code
      *
      * @param string $countryCode
-     * @return boolean
+     * @return bool
      */
     public function isZipCodeOptional($countryCode)
     {
@@ -277,7 +275,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns the list of countries, for which region is required
      *
-     * @param boolean $asJson
+     * @param bool $asJson
      * @return array
      */
     public function getCountriesWithStatesRequired($asJson = false)
@@ -296,7 +294,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getShowNonRequiredState()
     {
-        return (boolean)Mage::getStoreConfig(self::XML_PATH_DISPLAY_ALL_STATES);
+        return (bool)Mage::getStoreConfig(self::XML_PATH_DISPLAY_ALL_STATES);
     }
 
     /**

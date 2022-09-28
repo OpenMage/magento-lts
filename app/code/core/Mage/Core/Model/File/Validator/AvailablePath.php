@@ -74,9 +74,6 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
      */
     protected $_pathsData;
 
-    /**
-     * Construct
-     */
     public function __construct()
     {
         $this->_initMessageTemplates();

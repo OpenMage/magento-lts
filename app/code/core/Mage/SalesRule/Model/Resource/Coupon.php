@@ -27,9 +27,6 @@
  */
 class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Constructor adds unique fields
-     */
     protected function _construct()
     {
         $this->_init('salesrule/coupon', 'coupon_id');

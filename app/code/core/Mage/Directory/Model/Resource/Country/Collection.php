@@ -29,9 +29,6 @@
  */
 class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    /**
-     * Define main table
-     */
     protected function _construct()
     {
         $this->_init('directory/country');

@@ -323,7 +323,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
                 'all_groups'        => $useForAllGroups ? 1 : 0,
                 'customer_group_id' => $customerGroupId,
                 'value'             => $data['price'],
-                'is_percent'        => isset($data['is_percent']) ? $data['is_percent'] : 0,
+                'is_percent'        => $data['is_percent'] ?? 0,
             ], $this->_getAdditionalUniqueFields($data));
         }
 

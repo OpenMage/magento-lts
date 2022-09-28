@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -68,7 +68,7 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setType(string $value)
  * @method $this setSecure(bool $value)
@@ -202,7 +202,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set use_url_cache flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setUseUrlCache($flag)
@@ -621,7 +621,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Set route params
      *
      * @param array $data
-     * @param boolean $unsetOldParams
+     * @param bool $unsetOldParams
      * @return $this
      */
     public function setRouteParams(array $data, $unsetOldParams = true)
@@ -1193,7 +1193,7 @@ class Mage_Core_Model_Url extends Varien_Object
             return $match[1]
                 . $session->getSessionIdQueryParam()
                 . '=' . $session->getEncryptedSessionId()
-                . (isset($match[3]) ? $match[3] : '');
+                . ($match[3] ?? '');
         } else {
             if ($match[1] == '?' && isset($match[3])) {
                 return '?';
@@ -1211,7 +1211,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Check if users originated URL is one of the domain URLs assigned to stores
      *
-     * @return boolean
+     * @return bool
      */
     public function isOwnOriginUrl()
     {

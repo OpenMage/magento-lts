@@ -33,11 +33,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     protected function _getItemQtys()
     {
         $data = $this->getRequest()->getParam('invoice');
-        if (isset($data['items'])) {
-            $qtys = $data['items'];
-        } else {
-            $qtys = [];
-        }
+        $qtys = $data['items'] ?? [];
         return $qtys;
     }
 

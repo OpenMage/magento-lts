@@ -133,7 +133,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     /**
      *  Newsletter module availability
      *
-     *  @return boolean
+     *  @return bool
      */
     public function isNewsletterEnabled()
     {

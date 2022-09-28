@@ -188,7 +188,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
             if ($this->_eavForm->ignoreInvisible() && !$attribute->getIsVisible()) {
                 continue;
             }
-            $attrValue = isset($data[$attribute->getAttributeCode()]) ? $data[$attribute->getAttributeCode()] : null;
+            $attrValue = $data[$attribute->getAttributeCode()] ?? null;
 
             $result = Mage_Eav_Model_Attribute_Data::factory($attribute, $this->_eavForm->getEntity())
                 ->setExtractedData($data)

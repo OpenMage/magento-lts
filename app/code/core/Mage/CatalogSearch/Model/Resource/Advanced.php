@@ -27,10 +27,6 @@
  */
 class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Initialize connection and define catalog product table as main table
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product', 'entity_id');
@@ -68,7 +64,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @param string|array $value
      * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
-     * @return mixed
+     * @return array|false|string|string[]
      */
     public function prepareCondition($attribute, $value, $collection)
     {

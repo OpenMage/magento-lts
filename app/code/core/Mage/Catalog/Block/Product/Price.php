@@ -221,7 +221,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      *
      * If attribute is not found false is returned
      *
-     * @param string|integer|Mage_Core_Model_Config_Element $attribute
+     * @param string|int|Mage_Core_Model_Config_Element $attribute
      * @return Mage_Eav_Model_Entity_Attribute_Abstract | false
      */
     public function getProductAttribute($attribute)

@@ -20,7 +20,7 @@
 
 /**
  * Catalog EAV collection resource abstract model
- * Implement using diferent stores for retrieve attribute values
+ * Implement using different stores for retrieve attribute values
  *
  * @category   Mage
  * @package    Mage_Catalog
@@ -170,11 +170,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
      */
     protected function _joinAttributeToSelect($method, $attribute, $tableAlias, $condition, $fieldCode, $fieldAlias)
     {
-        if (isset($this->_joinAttributes[$fieldCode]['store_id'])) {
-            $store_id = $this->_joinAttributes[$fieldCode]['store_id'];
-        } else {
-            $store_id = $this->getStoreId();
-        }
+        $store_id = $this->_joinAttributes[$fieldCode]['store_id'] ?? $this->getStoreId();
 
         $adapter = $this->getConnection();
 

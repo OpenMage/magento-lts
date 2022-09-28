@@ -1240,7 +1240,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Load event observers for an area (front, admin)
      *
      * @param   string $area
-     * @return  boolean
+     * @return bool
      */
     public function loadEventObservers($area)
     {

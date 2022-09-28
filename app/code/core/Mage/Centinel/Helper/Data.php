@@ -21,9 +21,9 @@
 /**
  * Centinel module base helper
  *
- * @category    Mage
- * @package     Mage_Centinel
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Centinel
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
 {

@@ -33,6 +33,8 @@ class Mage_Downloadable_Product_EditController extends Mage_Downloadable_Adminht
     /**
      * Controller pre-dispatch method
      * Show 404 front page
+     *
+     * @return void
      */
     public function preDispatch()
     {

@@ -33,7 +33,7 @@ class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
         parent::_construct();
     }
     /**
-     * Prepare link attributes as serialized and formated string
+     * Prepare link attributes as serialized and formatted string
      *
      * @return string
      */

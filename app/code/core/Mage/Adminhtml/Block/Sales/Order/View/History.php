@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
      * Customer Notification Applicable check method
      *
      * @param  Mage_Sales_Model_Order_Status_History $history
-     * @return boolean
+     * @return bool
      */
     public function isCustomerNotificationNotApplicable(Mage_Sales_Model_Order_Status_History $history)
     {

@@ -127,7 +127,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
     /**
      * Check if everything is allowed
      *
-     * @return boolean
+     * @return bool
      */
     public function getEverythingAllowed()
     {
@@ -146,7 +146,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
 
         $rootArray = $this->_getNodeJson($resources->admin, 1);
 
-        return Mage::helper('core')->jsonEncode(isset($rootArray['children']) ? $rootArray['children'] : []);
+        return Mage::helper('core')->jsonEncode($rootArray['children'] ?? []);
     }
 
     /**
@@ -154,7 +154,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
      *
      * @param array $a
      * @param array $b
-     * @return boolean
+     * @return int
      */
     protected function _sortTree($a, $b)
     {

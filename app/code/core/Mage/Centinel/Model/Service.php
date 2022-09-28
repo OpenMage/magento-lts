@@ -77,7 +77,6 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Return value from section of centinel config
      *
-     * @param string $path
      * @return string
      */
     protected function _getConfig()

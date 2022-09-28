@@ -241,7 +241,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
      * Check whether given block match allowed block types
      *
      * @param Mage_Core_Model_Layout_Element $block
-     * @return boolean
+     * @return bool
      */
     protected function _filterBlock($block)
     {

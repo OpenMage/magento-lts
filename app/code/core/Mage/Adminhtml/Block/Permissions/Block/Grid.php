@@ -27,9 +27,6 @@
  */
 class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Construct
-     */
     public function __construct()
     {
         parent::__construct();

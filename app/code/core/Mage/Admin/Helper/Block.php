@@ -34,9 +34,6 @@ class Mage_Admin_Helper_Block
      */
     protected $_allowedTypes;
 
-    /**
-     * Construct
-     */
     public function __construct()
     {
         $this->_allowedTypes = Mage::getResourceModel('admin/block')->getAllowedTypes();

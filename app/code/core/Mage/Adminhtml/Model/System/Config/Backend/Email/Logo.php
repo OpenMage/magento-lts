@@ -18,7 +18,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
- /**
+/**
  * Backend model for uploading transactional emails custom logo image
  *
  * @category   Mage
@@ -60,7 +60,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Email_Logo extends Mage_Adminht
     /**
      * Makes a decision about whether to add info about the scope
      *
-     * @return boolean
+     * @return bool
      */
     protected function _addWhetherScopeInfo()
     {

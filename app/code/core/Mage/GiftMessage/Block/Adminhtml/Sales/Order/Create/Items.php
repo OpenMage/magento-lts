@@ -40,7 +40,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items extends Mage_Adm
     /**
      * Indicates that block can display gift messages form
      *
-     * @return boolean
+     * @return bool
      */
     public function canDisplayGiftMessage()
     {

@@ -71,10 +71,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
         ];
 
         if (!is_null($severity)) {
-            if (isset($severities[$severity])) {
-                return $severities[$severity];
-            }
-            return null;
+            return $severities[$severity] ?? null;
         }
 
         return $severities;
@@ -131,7 +128,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
         if (is_array($description)) {
             $description = '<ul><li>' . implode('</li><li>', $description) . '</li></ul>';
         }
-        $date = date('Y-m-d H:i:s');
+        $date = date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT);
         $this->parse([[
             'severity'    => $severity,
             'date_added'  => $date,

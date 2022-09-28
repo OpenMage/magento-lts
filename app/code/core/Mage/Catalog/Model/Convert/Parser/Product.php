@@ -145,10 +145,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     public function getProductTypeName($code)
     {
         $productTypes = $this->getProductTypes();
-        if (isset($productTypes[$code])) {
-            return $productTypes[$code];
-        }
-        return false;
+        return $productTypes[$code] ?? false;
     }
 
     /**
@@ -317,7 +314,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                 }
 
                 // get store ids
-                $storeIds = $this->getStoreIds(isset($row['store']) ? $row['store'] : $this->getVar('store'));
+                $storeIds = $this->getStoreIds($row['store'] ?? $this->getVar('store'));
                 if (!$storeIds) {
                     $this->addException(
                         Mage::helper('catalog')->__('Invalid store specified, skipping the record.'),

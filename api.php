@@ -18,8 +18,8 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-if (version_compare(phpversion(), '7.0.0', '<')===true) {
-    echo 'It looks like you have an invalid PHP version. OpenMage supports PHP 7.0.0 or newer';
+if (version_compare(phpversion(), '7.3.0', '<')===true) {
+    echo 'It looks like you have an invalid PHP version. OpenMage supports PHP 7.3.0 or newer';
     exit;
 }
 

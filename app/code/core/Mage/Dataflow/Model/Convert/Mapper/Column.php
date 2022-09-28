@@ -130,7 +130,7 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
 
             $newRow = [];
             foreach ($attributesToSelect as $field => $mapField) {
-                $newRow[$mapField] = isset($row[$field]) ? $row[$field] : null;
+                $newRow[$mapField] = $row[$field] ?? null;
             }
 
             $batchExport->setBatchData($newRow)

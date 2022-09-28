@@ -47,7 +47,7 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
      *
      * @param string $str The source string
      * @param int $maxWordLength
-     * @return array(0=>words, 1=>terms)
+     * @return array (0=>words, 1=>terms)
      */
     public function prepareTerms($str, $maxWordLength = 0)
     {

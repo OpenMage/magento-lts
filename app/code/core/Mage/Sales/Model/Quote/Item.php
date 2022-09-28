@@ -109,6 +109,7 @@
  * @method $this setParentProductId(int $value)
  * @method int getProductId()
  * @method $this setProductId(int $value)
+ * @method $this setProductOrderOptions(array $value)
  * @method $this setProductType(string $value)
  * @method float getPriceInclTax()
  * @method $this setPriceInclTax(float $value)
@@ -727,7 +728,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Checks that item model has data changes.
      * Call save item options if model isn't need to save in DB
      *
-     * @return boolean
+     * @return bool
      */
     protected function _hasModelChanged()
     {

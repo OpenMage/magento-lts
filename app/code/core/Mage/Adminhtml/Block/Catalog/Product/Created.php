@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
     /**
      * Indentifies edit mode of popup
      *
-     * @return boolean
+     * @return bool
      */
     public function isEdit()
     {
@@ -93,7 +93,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
     public function getAttributes()
     {
         if ($this->getConfigurableProduct()->getId()) {
-            return $this->getConfigurableProduct()->getTypeInstance(true)->getUsedProductAttributes($this->getConfigurableProduct());
+            /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+            $productType = $this->getConfigurableProduct()->getTypeInstance(true);
+            return $productType->getUsedProductAttributes($this->getConfigurableProduct());
         }
 
         $attributes = [];

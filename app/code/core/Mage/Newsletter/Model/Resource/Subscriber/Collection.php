@@ -44,14 +44,14 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Queue joined flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_queueJoinedFlag    = false;
 
     /**
      * Flag that indicates apply of customers info on load
      *
-     * @var boolean
+     * @var bool
      */
     protected $_showCustomersInfo  = false;
 
@@ -62,11 +62,6 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
      */
     protected $_countFilterPart    = [];
 
-    /**
-     * Constructor
-     * Configures collection
-     *
-     */
     protected function _construct()
     {
         parent::_construct();
@@ -206,16 +201,13 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Returns select count sql
      *
-     * @return string
+     * @return Varien_Db_Select
      */
     public function getSelectCountSql()
     {
-
         $select = parent::getSelectCountSql();
         $countSelect = clone $this->getSelect();
-
         $countSelect->reset(Zend_Db_Select::HAVING);
-
         return $select;
     }
 

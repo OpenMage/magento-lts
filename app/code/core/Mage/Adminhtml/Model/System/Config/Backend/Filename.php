@@ -50,8 +50,10 @@ class Mage_Adminhtml_Model_System_Config_Backend_Filename extends Mage_Core_Mode
         // if dev/log setting, validate log file extension.
         if ($configPath == self::DEV_LOG_FILE_PATH || $configPath == self::DEV_LOG_EXCEPTION_FILE_PATH) {
             if (!Mage::helper('log')->isLogFileExtensionValid($value)) {
-                throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__
-                ('Invalid file extension used for log file. Allowed file extensions: log, txt, html, csv'));
+                throw Mage::exception(
+                    'Mage_Core',
+                    Mage::helper('adminhtml')->__('Invalid file extension used for log file. Allowed file extensions: log, txt, html, csv')
+                );
             }
         }
 

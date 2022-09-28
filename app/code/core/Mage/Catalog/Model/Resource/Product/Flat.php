@@ -159,7 +159,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      * Check whether the attribute is a real field in entity table
      * Rewrited for EAV Collection
      *
-     * @param integer|string|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param int|string|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return bool
      */
     public function isAttributeStatic($attribute)

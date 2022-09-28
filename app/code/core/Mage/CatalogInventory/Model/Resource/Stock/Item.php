@@ -27,10 +27,6 @@
  */
 class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Define main table and initialize connection
-     *
-     */
     protected function _construct()
     {
         $this->_init('cataloginventory/stock_item', 'item_id');
@@ -102,7 +98,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     /**
      * Use qty correction for qty column update
      *
-     * @param Varien_Object|Mage_CatalogInventory_Model_Stock_Item $object
+     * @param Mage_CatalogInventory_Model_Stock_Item $object
      * @param string $table
      * @return array
      */

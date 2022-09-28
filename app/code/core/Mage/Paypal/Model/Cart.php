@@ -41,8 +41,7 @@ class Mage_Paypal_Model_Cart
     /**
      * Order or quote instance
      *
-     * @var Mage_Sales_Model_Order
-     * @var Mage_Sales_Model_Quote
+     * @var Mage_Sales_Model_Order|Mage_Sales_Model_Quote
      */
     protected $_salesEntity = null;
 

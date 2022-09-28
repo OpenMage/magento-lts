@@ -39,9 +39,6 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
      */
     protected $disallowedBlockNames = ['install/end'];
 
-    /**
-     * Define main table
-     */
     protected function _construct()
     {
         $this->_init('admin/permission_block', 'block_id');

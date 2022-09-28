@@ -36,14 +36,15 @@ class Mage_Adminhtml_Helper_Dashboard_Order extends Mage_Adminhtml_Helper_Dashbo
 
         if ($this->getParam('store')) {
             $this->_collection->addFieldToFilter('store_id', $this->getParam('store'));
-        } else if ($this->getParam('website')){
+        } elseif ($this->getParam('website')) {
             $storeIds = Mage::app()->getWebsite($this->getParam('website'))->getStoreIds();
             $this->_collection->addFieldToFilter('store_id', ['in' => implode(',', $storeIds)]);
-        } else if ($this->getParam('group')){
+        } elseif ($this->getParam('group')) {
             $storeIds = Mage::app()->getGroup($this->getParam('group'))->getStoreIds();
             $this->_collection->addFieldToFilter('store_id', ['in' => implode(',', $storeIds)]);
         } elseif (!$this->_collection->isLive()) {
-            $this->_collection->addFieldToFilter('store_id',
+            $this->_collection->addFieldToFilter(
+                'store_id',
                 ['eq' => Mage::app()->getStore(Mage_Core_Model_Store::ADMIN_CODE)->getId()]
             );
         }

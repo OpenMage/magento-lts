@@ -27,9 +27,6 @@
  */
 class Mage_Api2_Block_Adminhtml_Attribute extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-    /**
-     * Construct grid container
-     */
     public function __construct()
     {
         parent::__construct();

@@ -55,11 +55,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
             }
         }
 
-        if (isset($_itemsArray[$item->getOrderItem()->getId()])) {
-            return $_itemsArray[$item->getOrderItem()->getId()];
-        } else {
-            return null;
-        }
+        return $_itemsArray[$item->getOrderItem()->getId()] ?? null;
     }
 
     /**

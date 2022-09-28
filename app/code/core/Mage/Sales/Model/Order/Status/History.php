@@ -98,7 +98,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     /**
      * Customer Notification Applicable check method
      *
-     * @return boolean
+     * @return bool
      */
     public function isCustomerNotificationNotApplicable()
     {

@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Prepare and add columns to grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
@@ -130,8 +130,8 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Get url for row
      *
-     * @param string $row
-     * @return string
+     * @param Mage_Sales_Model_Order_Shipment $row
+     * @return string|false
      */
     public function getRowUrl($row)
     {
@@ -139,11 +139,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
             return false;
         }
 
-        return $this->getUrl('*/sales_shipment/view',
-            [
-                'shipment_id'=> $row->getId(),
-            ]
-        );
+        return $this->getUrl('*/sales_shipment/view', ['shipment_id' => $row->getId()]);
     }
 
     /**

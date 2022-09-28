@@ -136,7 +136,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      * File system path correction
      *
      * @param string $path Original path
-     * @param boolean $trim Trim slashes or not
+     * @param bool $trim Trim slashes or not
      * @return string
      */
     public function correctPath($path, $trim = true)
@@ -162,7 +162,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     /**
      * Check whether using static URLs is allowed
      *
-     * @return boolean
+     * @return bool
      */
     public function isUsingStaticUrlsAllowed()
     {

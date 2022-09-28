@@ -27,10 +27,6 @@
  */
 class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice extends Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_Abstract
 {
-    /**
-     * Initialize connection and define main table
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product_attribute_group_price', 'value_id');

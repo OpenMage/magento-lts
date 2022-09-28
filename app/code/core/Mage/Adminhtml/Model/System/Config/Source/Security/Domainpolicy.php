@@ -35,7 +35,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Security_Domainpolicy
      */
     public function __construct($options = [])
     {
-        $this->_helper = isset($options['helper']) ? $options['helper'] : Mage::helper('adminhtml');
+        $this->_helper = $options['helper'] ?? Mage::helper('adminhtml');
     }
 
     /**

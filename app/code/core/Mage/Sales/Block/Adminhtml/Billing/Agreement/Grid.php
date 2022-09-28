@@ -139,7 +139,6 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
         $this->addColumn('created_at', [
             'header'            => Mage::helper('sales')->__('Created At'),
             'index'             => 'agreement_created_at',
-            'width'             => 1,
             'type'              => 'datetime',
             'align'             => 'center',
             'default'           => $this->__('N/A'),
@@ -149,7 +148,6 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
         $this->addColumn('updated_at', [
             'header'            => Mage::helper('sales')->__('Updated At'),
             'index'             => 'agreement_updated_at',
-            'width'             => 1,
             'type'              => 'datetime',
             'align'             => 'center',
             'default'           => $this->__('N/A'),

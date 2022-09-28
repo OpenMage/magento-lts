@@ -38,6 +38,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         if (!Mage::getSingleton('customer/session')->authenticate($this)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
+        return $this;
     }
 
     /**

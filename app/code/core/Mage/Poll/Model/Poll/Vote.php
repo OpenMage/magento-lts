@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Poll
+ * @category   Mage
+ * @package    Mage_Poll
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Pool vote model
+ *
+ * @category   Mage
+ * @package    Mage_Poll
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Poll_Model_Resource_Poll_Vote _getResource()
  * @method Mage_Poll_Model_Resource_Poll_Vote getResource()
@@ -34,10 +38,6 @@
  * @method $this setCustomerId(int $value)
  * @method string getVoteTime()
  * @method $this setVoteTime(string $value)
- *
- * @category    Mage
- * @package     Mage_Poll
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Poll_Model_Poll_Vote extends Mage_Core_Model_Abstract
 {

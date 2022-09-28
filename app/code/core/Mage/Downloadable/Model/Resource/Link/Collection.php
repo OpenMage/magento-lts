@@ -57,7 +57,7 @@ class Mage_Downloadable_Model_Resource_Link_Collection extends Mage_Core_Model_R
     /**
      * Retrieve title for for current store
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function addTitleToResult($storeId = 0)
@@ -84,7 +84,7 @@ class Mage_Downloadable_Model_Resource_Link_Collection extends Mage_Core_Model_R
     /**
      * Retrieve price for for current website
      *
-     * @param integer $websiteId
+     * @param int $websiteId
      * @return $this
      */
     public function addPriceToResult($websiteId)

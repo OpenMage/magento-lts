@@ -27,10 +27,6 @@
  */
 class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Initialize connection and define main table name
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product_index_eav', 'entity_id');

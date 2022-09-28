@@ -32,7 +32,7 @@ class Mage_Paypal_Block_Express_Review_Details extends Mage_Checkout_Block_Cart_
     /**
      * Return review shipping address
      *
-     * @return Mage_Sales_Model_Order_Address
+     * @return Mage_Sales_Model_Quote_Address
      */
     public function getAddress()
     {

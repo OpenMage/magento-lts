@@ -91,7 +91,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Use is object new method for save of object
      *
-     * @var boolean
+     * @var bool
      */
     protected $_useIsObjectNew       = false;
 
@@ -186,7 +186,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
 
     /**
      * Set main entity table name and primary key field name
-     * If field name is ommited {table_name}_id will be used
+     * If field name is omitted {table_name}_id will be used
      *
      * @param string $mainTable
      * @param string|null $idFieldName
@@ -477,8 +477,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     }
 
     /**
-     * Forsed save object data
-     * forsed update If duplicate unique key data
+     * Forced save object data
+     * forced update If duplicate unique key data
      *
      * @deprecated
      * @param Mage_Core_Model_Abstract $object
@@ -550,7 +550,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     }
 
     /**
-     * Unserialize serializeable object fields
+     * Un-serialize serializable object fields
      *
      * @param Mage_Core_Model_Abstract $object
      */
@@ -602,7 +602,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * has really changed comparing with origData
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return boolean
+     * @return bool
      */
     public function hasDataChanged($object)
     {
@@ -755,7 +755,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     }
 
     /**
-     * Serialize serializeable fields of the object
+     * Serialize serializable fields of the object
      *
      * @param Mage_Core_Model_Abstract $object
      */

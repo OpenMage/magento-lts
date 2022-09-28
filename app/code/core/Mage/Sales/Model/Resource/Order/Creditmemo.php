@@ -28,8 +28,6 @@
 class Mage_Sales_Model_Resource_Order_Creditmemo extends Mage_Sales_Model_Resource_Order_Abstract
 {
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix                  = 'sales_order_creditmemo_resource';
@@ -55,10 +53,6 @@ class Mage_Sales_Model_Resource_Order_Creditmemo extends Mage_Sales_Model_Resour
      */
     protected $_entityTypeForIncrementId     = 'creditmemo';
 
-    /**
-     * Model initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('sales/creditmemo', 'entity_id');

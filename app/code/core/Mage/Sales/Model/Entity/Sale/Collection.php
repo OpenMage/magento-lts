@@ -112,7 +112,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
         if (! empty($values)) {
             foreach ($values as $v) {
                 $obj = new Varien_Object($v);
-                $storeName = isset($stores[$obj->getStoreId()]) ? $stores[$obj->getStoreId()] : null;
+                $storeName = $stores[$obj->getStoreId()] ?? null;
 
                 $this->_items[ $v['store_id'] ] = $obj;
                 $this->_items[ $v['store_id'] ]->setStoreName($storeName);
@@ -132,8 +132,8 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     /**
      * Print and/or log query
      *
-     * @param boolean $printQuery
-     * @param boolean $logQuery
+     * @param bool $printQuery
+     * @param bool $logQuery
      * @param null|string $sql
      * @return Mage_Sales_Model_Entity_Sale_Collection
      */

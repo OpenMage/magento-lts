@@ -537,10 +537,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         if (is_null(self::$_statuses)) {
             self::getStatuses();
         }
-        if (isset(self::$_statuses[$statusId])) {
-            return self::$_statuses[$statusId];
-        }
-        return Mage::helper('sales')->__('Unknown Status');
+        return self::$_statuses[$statusId] ?? Mage::helper('sales')->__('Unknown Status');
     }
 
     /**
@@ -640,10 +637,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         if (is_null($code)) {
             return $options;
         }
-        if (isset($options[$code])) {
-            return $options[$code];
-        }
-        return null;
+        return $options[$code] ?? null;
     }
 
     /**
@@ -834,8 +828,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             if (isset($weeeTaxAppliedAmount['total_base_weee_discount'])) {
                 return $weeeTaxAppliedAmount['total_base_weee_discount'];
             } else {
-                $totalDiscount += isset($weeeTaxAppliedAmount['base_weee_discount'])
-                    ? $weeeTaxAppliedAmount['base_weee_discount'] : 0;
+                $totalDiscount += $weeeTaxAppliedAmount['base_weee_discount'] ?? 0;
             }
         }
         return $totalDiscount;
@@ -857,8 +850,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             if (isset($weeeTaxAppliedAmount['total_weee_discount'])) {
                 return $weeeTaxAppliedAmount['total_weee_discount'];
             } else {
-                $totalDiscount += isset($weeeTaxAppliedAmount['weee_discount'])
-                    ? $weeeTaxAppliedAmount['weee_discount'] : 0;
+                $totalDiscount += $weeeTaxAppliedAmount['weee_discount'] ?? 0;
             }
         }
         return $totalDiscount;

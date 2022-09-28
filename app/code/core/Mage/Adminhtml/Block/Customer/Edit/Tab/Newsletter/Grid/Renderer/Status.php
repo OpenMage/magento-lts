@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Status extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
-
     protected static $_statuses;
 
     public function __construct()
@@ -49,11 +48,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Status ext
 
     public static function  getStatus($status)
     {
-        if(isset(self::$_statuses[$status])) {
-            return self::$_statuses[$status];
-        }
-
-        return Mage::helper('customer')->__('Unknown');
+        return self::$_statuses[$status] ?? Mage::helper('customer')->__('Unknown');
     }
-
 }

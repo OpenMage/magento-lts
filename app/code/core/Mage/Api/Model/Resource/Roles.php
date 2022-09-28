@@ -123,7 +123,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
      * Update role users
      *
      * @param Mage_Api_Model_Roles $role
-     * @return boolean
+     * @return bool
      */
     private function _updateRoleUsersAcl(Mage_Api_Model_Roles $role)
     {

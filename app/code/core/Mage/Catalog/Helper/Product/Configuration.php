@@ -98,8 +98,9 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         if ($typeId != Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
              Mage::throwException($this->__('Wrong product type to extract configurable options.'));
         }
-        $attributes = $product->getTypeInstance(true)
-            ->getSelectedAttributesInfo($product);
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $product->getTypeInstance(true);
+        $attributes = $productType->getSelectedAttributesInfo($product);
         return array_merge($attributes, $this->getCustomOptions($item));
     }
 
@@ -118,9 +119,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         }
 
         $options = [];
-        /**
-         * @var Mage_Catalog_Model_Product_Type_Grouped
-         */
+        /** @var Mage_Catalog_Model_Product_Type_Grouped $typeInstance */
         $typeInstance = $product->getTypeInstance(true);
         $associatedProducts = $typeInstance->getAssociatedProducts($product);
 
@@ -197,8 +196,8 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         if (!$params) {
             $params = [];
         }
-        $maxLength = isset($params['max_length']) ? $params['max_length'] : null;
-        $cutReplacer = isset($params['cut_replacer']) ? $params['cut_replacer'] : '...';
+        $maxLength = $params['max_length'] ?? null;
+        $cutReplacer = $params['cut_replacer'] ?? '...';
 
         // Proceed with option
         $optionInfo = [];

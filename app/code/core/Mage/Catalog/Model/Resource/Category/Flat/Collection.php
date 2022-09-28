@@ -28,15 +28,11 @@
 class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix    = 'catalog_category_collection';
 
     /**
-     * Event object name
-     *
      * @var string
      */
     protected $_eventObject    = 'category_collection';
@@ -44,7 +40,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Store id of application
      *
-     * @var integer|null
+     * @var int|null
      */
     protected $_storeId        = null;
 
@@ -120,7 +116,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Set store id
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -133,7 +129,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
      * Return store id.
      * If store id is not set yet, return store of application
      *
-     * @return integer
+     * @return int
      */
     public function getStoreId()
     {
@@ -371,8 +367,8 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Set collection page start and records to show
      *
-     * @param integer $pageNum
-     * @param integer $pageSize
+     * @param int $pageNum
+     * @param int $pageSize
      * @return $this
      */
     public function setPage($pageNum, $pageSize)

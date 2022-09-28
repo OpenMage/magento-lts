@@ -37,7 +37,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated
     protected function _getWasActiveConfigPath(Varien_Data_Form_Element_Abstract $element)
     {
         $groupConfig = $this->getGroup($element)->asArray();
-        return isset($groupConfig['was_enabled_path']) ? $groupConfig['was_enabled_path'] : '';
+        return $groupConfig['was_enabled_path'] ?? '';
     }
 
     /**

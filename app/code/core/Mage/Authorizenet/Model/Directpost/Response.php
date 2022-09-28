@@ -150,7 +150,7 @@ class Mage_Authorizenet_Model_Directpost_Response extends Varien_Object
         $message = '^';
         foreach ($hashFields as $field) {
             $fieldData = $this->getData($field);
-            $message .= (isset($fieldData) ? $fieldData : '') . '^';
+            $message .= ($fieldData ?? '') . '^';
         }
 
         return strtoupper(hash_hmac('sha512', $message, pack('H*', $signatureKey)));

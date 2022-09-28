@@ -89,11 +89,9 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         $attrCode = $this->getAttribute();
         $storeId = $object->getStoreId();
         $defaultStoreId = Mage_Core_Model_App::ADMIN_STORE_ID;
-        $productValues  = isset($this->_entityAttributeValues[$object->getId()])
-            ? $this->_entityAttributeValues[$object->getId()] : [];
-        $defaultValue = isset($productValues[$defaultStoreId])
-            ? $productValues[$defaultStoreId] : $object->getData($attrCode);
-        $value = isset($productValues[$storeId]) ? $productValues[$storeId] : $defaultValue;
+        $productValues  = $this->_entityAttributeValues[$object->getId()] ?? [];
+        $defaultValue = $productValues[$defaultStoreId] ?? $object->getData($attrCode);
+        $value = $productValues[$storeId] ?? $defaultValue;
 
         $value = $this->_prepareDatetimeValue($value, $object);
         $value = $this->_prepareMultiselectValue($value, $object);

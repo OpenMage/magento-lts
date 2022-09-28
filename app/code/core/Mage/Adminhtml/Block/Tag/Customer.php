@@ -27,6 +27,10 @@
  */
 class Mage_Adminhtml_Block_Tag_Customer extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+    /**
+     * Mage_Adminhtml_Block_Tag_Customer constructor.
+     * @throws Exception
+     */
     public function __construct()
     {
         parent::__construct();

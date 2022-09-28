@@ -32,7 +32,7 @@ interface Mage_Api2_Model_Route_Interface
      * returns an array of variables on a successful match.
      *
      * @param Mage_Api2_Model_Request $request
-     * @param boolean $partial Partial path matching
+     * @param bool $partial Partial path matching
      * @return array|false An array of assigned values or a false on a mismatch
      */
     public function match($request, $partial = false);

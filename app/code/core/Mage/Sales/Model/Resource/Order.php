@@ -28,15 +28,11 @@
 class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Abstract
 {
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix                  = 'sales_order_resource';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject                  = 'resource';
@@ -49,9 +45,7 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
     protected $_grid                         = true;
 
     /**
-     * Use increment id
-     *
-     * @var boolean
+     * @var bool
      */
     protected $_useIncrementId               = true;
 
@@ -62,10 +56,6 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
      */
     protected $_entityCodeForIncrementId     = 'order';
 
-    /**
-     * Model Initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('sales/order', 'entity_id');

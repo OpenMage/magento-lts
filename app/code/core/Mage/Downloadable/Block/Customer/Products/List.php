@@ -89,7 +89,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
     /**
      * Return order view url
      *
-     * @param integer $orderId
+     * @param int $orderId
      * @return string
      */
     public function getOrderViewUrl($orderId)

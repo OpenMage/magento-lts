@@ -305,7 +305,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     }
 
     /**
-     * Always take into accoun
+     * Always take into account
      */
     public function getFraudManagementFiltersEnabled()
     {
@@ -537,7 +537,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
 
         $i = 0;
         foreach ($keys as $key) {
-            $to[$key] = isset($street[$i]) ? $street[$i]: '';
+            $to[$key] = $street[$i] ?? '';
             $i++;
         }
     }
@@ -558,7 +558,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * Paypal note: The value for quantity must be a positive integer. Null, zero, or negative numbers are not allowed.
      *
      * @param float|string|int $value
-     * @return string
+     * @return int
      */
     protected function _filterQty($value)
     {

@@ -55,7 +55,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
     /**
      * Clear useless attribute values
      *
-     * @param  Mage_Core_Model_Abstract $object
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $object
      * @return $this
      */
     protected function _clearUselessAttributeValues(Mage_Core_Model_Abstract $object)

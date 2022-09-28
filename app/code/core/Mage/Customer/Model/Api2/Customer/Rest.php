@@ -82,7 +82,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
     protected function _retrieveCollection()
     {
         $data = $this->_getCollectionForRetrieve()->load()->toArray();
-        return isset($data['items']) ? $data['items'] : $data;
+        return $data['items'] ?? $data;
     }
 
     /**

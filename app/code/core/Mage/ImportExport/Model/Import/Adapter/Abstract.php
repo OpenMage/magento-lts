@@ -114,7 +114,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Return the current element.
      *
-     * @return mixed
+     * @return array
      */
     #[\ReturnTypeWillChange]
     public function current()
@@ -162,7 +162,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Checks if current position is valid.
      *
-     * @return boolean Returns true on success or false on failure.
+     * @return bool Returns true on success or false on failure.
      */
     #[\ReturnTypeWillChange]
     public function valid()

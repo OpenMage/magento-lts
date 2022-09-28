@@ -138,8 +138,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
             Mage::getModel('cataloginventory/stock_item')->addCatalogInventoryToProductCollection($collection);
         }
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $product->getTypeInstance(true);
 
-        foreach ($product->getTypeInstance(true)->getUsedProductAttributes($product) as $attribute) {
+        foreach ($productType->getUsedProductAttributes($product) as $attribute) {
             $collection->addAttributeToSelect($attribute->getAttributeCode());
             $collection->addAttributeToFilter($attribute->getAttributeCode(), ['notnull'=>1]);
         }
@@ -158,7 +160,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     {
         $products = $this->getRequest()->getPost('products', null);
         if (!is_array($products)) {
-            $products = $this->_getProduct()->getTypeInstance(true)->getUsedProductIds($this->_getProduct());
+            /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+            $productType = $this->_getProduct()->getTypeInstance(true);
+            $products = $productType->getUsedProductIds($this->_getProduct());
         }
         return $products;
     }
@@ -183,7 +187,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     protected function _prepareColumns()
     {
         $product = $this->_getProduct();
-        $attributes = $product->getTypeInstance(true)->getConfigurableAttributes($product);
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $product->getTypeInstance(true);
+        $attributes = $productType->getConfigurableAttributes($product);
 
         if (!$this->isReadonly()) {
             $this->addColumn('in_products', [
@@ -297,11 +303,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     protected function _getRequiredAttributesIds()
     {
         $attributesIds = [];
-        foreach (
-            $this->_getProduct()
-                ->getTypeInstance(true)
-                ->getConfigurableAttributes($this->_getProduct()) as $attribute
-        ) {
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->_getProduct()->getTypeInstance(true);
+        foreach ($productType->getConfigurableAttributes($this->_getProduct()) as $attribute) {
             $attributesIds[] = $attribute->getProductAttribute()->getId();
         }
 
@@ -333,7 +337,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     {
         if (is_null($this->_configAttributeCodes)) {
             $product = $this->_getProduct();
-            $attributes = $product->getTypeInstance(true)->getConfigurableAttributes($product);
+            /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+            $productType = $product->getTypeInstance(true);
+            $attributes = $productType->getConfigurableAttributes($product);
             $attributeCodes = [];
             foreach ($attributes as $attribute) {
                 $productAttribute = $attribute->getProductAttribute();

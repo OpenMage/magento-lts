@@ -59,7 +59,7 @@ class Mage_Core_Model_Domainpolicy
      */
     public function __construct($options = [])
     {
-        $this->_store = isset($options['store']) ? $options['store'] : Mage::app()->getStore();
+        $this->_store = $options['store'] ?? Mage::app()->getStore();
     }
 
     /**

@@ -279,7 +279,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
      * Remove product custom option
      *
      * @param string $optionId
-     * @return boolean
+     * @return bool
      */
     public function remove($optionId)
     {

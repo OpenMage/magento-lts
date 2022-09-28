@@ -34,7 +34,8 @@ class Mage_CatalogInventory_Block_Stockqty_Type_Configurable extends Mage_Catalo
      */
     protected function _getChildProducts()
     {
-        return $this->_getProduct()->getTypeInstance(true)
-            ->getUsedProducts(null, $this->_getProduct());
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->_getProduct()->getTypeInstance(true);
+        return $productType->getUsedProducts(null, $this->_getProduct());
     }
 }

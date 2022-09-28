@@ -119,10 +119,8 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
     public function setRangeValue($delimitedString)
     {
         $split = explode($this->_rangeDelimiter, $delimitedString, 2);
-        $from = $split[0]; $to = '';
-        if (isset($split[1])) {
-            $to = $split[1];
-        }
+        $from = $split[0];
+        $to = $split[1] ?? '';
         return $this->setRangeValues($from, $to);
     }
 

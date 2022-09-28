@@ -135,7 +135,7 @@ class Mage_Core_Model_Message_Collection
     public function getItems($type = null)
     {
         if ($type) {
-            return isset($this->_messages[$type]) ? $this->_messages[$type] : [];
+            return $this->_messages[$type] ?? [];
         }
 
         $arrRes = [];
@@ -154,7 +154,7 @@ class Mage_Core_Model_Message_Collection
      */
     public function getItemsByType($type)
     {
-        return isset($this->_messages[$type]) ? $this->_messages[$type] : [];
+        return $this->_messages[$type] ?? [];
     }
 
     /**

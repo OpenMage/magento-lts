@@ -82,7 +82,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * This value is calculated instead of reading PATH_INFO
      * directly from $_SERVER due to cross-platform differences.
      *
-     * @return string
+     * @return string 'something.html'|'/'|'/path0'|'/path0/path1/'|'/path0/path1/path2'|etc
      */
     public function getOriginalPathInfo()
     {
@@ -162,7 +162,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                     $stores = Mage::app()->getStores(true, true);
                     if ($storeCode!=='' && isset($stores[$storeCode])) {
                         Mage::app()->setCurrentStore($storeCode);
-                        $pathInfo = '/'.(isset($pathParts[1]) ? $pathParts[1] : '');
+                        $pathInfo = '/'.($pathParts[1] ?? '');
                     } elseif ($storeCode !== '') {
                         $this->setActionName('noRoute');
                     }
@@ -237,7 +237,6 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 
     /**
      * @return Zend_Controller_Request_Http
-     * @throws Zend_Controller_Request_Exception
      */
     public function getOriginalRequest()
     {
@@ -424,10 +423,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     public function getAlias($name)
     {
         $aliases = $this->getAliases();
-        if (isset($aliases[$name])) {
-            return $aliases[$name];
-        }
-        return null;
+        return $aliases[$name] ?? null;
     }
 
     /**
@@ -437,10 +433,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      */
     public function getAliases()
     {
-        if (isset($this->_routingInfo['aliases'])) {
-            return $this->_routingInfo['aliases'];
-        }
-        return parent::getAliases();
+        return $this->_routingInfo['aliases'] ?? parent::getAliases();
     }
 
     /**
@@ -568,7 +561,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Check is Request from AJAX
      *
-     * @return boolean
+     * @return bool
      */
     public function isAjax()
     {
@@ -584,7 +577,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Define that request was forwarded internally
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setInternallyForwarded($flag = true)

@@ -111,8 +111,8 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      * @param string $orderIncrementId
      * @param array $itemsQty
      * @param string $comment
-     * @param boolean $email
-     * @param boolean $includeComment
+     * @param bool $email
+     * @param bool $includeComment
      * @return string
      */
     public function create(
@@ -210,7 +210,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      *
      * @param string $shipmentIncrementId
      * @param int $trackId
-     * @return boolean
+     * @return bool
      */
     public function removeTrack($shipmentIncrementId, $trackId)
     {
@@ -298,9 +298,9 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      *
      * @param string $shipmentIncrementId
      * @param string $comment
-     * @param boolean $email
-     * @param boolean $includeInEmail
-     * @return boolean
+     * @param bool $email
+     * @param bool $includeInEmail
+     * @return bool
      */
     public function addComment($shipmentIncrementId, $comment, $email = false, $includeInEmail = false)
     {

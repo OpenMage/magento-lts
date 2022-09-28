@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_Checkout_Formkey extends Mage_Adminhtml_Block_Templat
      * Check form key validation on checkout.
      * If disabled, show notice.
      *
-     * @return boolean
+     * @return bool
      */
     public function canShow()
     {

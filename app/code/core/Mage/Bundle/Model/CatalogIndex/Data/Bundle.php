@@ -30,7 +30,7 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
     /**
      * Defines when product type has children
      *
-     * @var boolean
+     * @var bool
      */
     protected $_haveChildren = [
                         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS=>false,

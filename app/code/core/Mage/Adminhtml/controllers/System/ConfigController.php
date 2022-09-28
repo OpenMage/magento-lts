@@ -289,6 +289,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return false;
         }
+        return false;
     }
 
     /**

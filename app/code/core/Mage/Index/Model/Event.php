@@ -257,7 +257,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
             $data = [];
         }
         if ($useNamespace && $this->_dataNamespace) {
-            return isset($data[$this->_dataNamespace]) ? $data[$this->_dataNamespace] : [];
+            return $data[$this->_dataNamespace] ?? [];
         }
         return $data;
     }

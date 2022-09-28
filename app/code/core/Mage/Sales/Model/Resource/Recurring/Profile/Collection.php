@@ -28,15 +28,11 @@
 class Mage_Sales_Model_Resource_Recurring_Profile_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix    = 'sales_recurring_profile_collection';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject    = 'recurring_profile_collection';

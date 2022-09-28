@@ -27,7 +27,7 @@
  */
 class Mage_Dataflow_Model_Convert
 {
-    static public function convert($class, $method, $data, array $vars= [])
+    public static function convert($class, $method, $data, array $vars= [])
     {
         if (is_string($class)) {
             $class = new $class();

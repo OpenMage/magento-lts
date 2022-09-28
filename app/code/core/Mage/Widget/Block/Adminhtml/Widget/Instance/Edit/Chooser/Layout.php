@@ -172,7 +172,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
      * Check if given layout handle allowed (do not match not allowed patterns)
      *
      * @param string $layoutHandle
-     * @return boolean
+     * @return bool
      */
     protected function _filterLayoutHandle($layoutHandle)
     {

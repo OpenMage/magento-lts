@@ -65,7 +65,7 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
     /**
      * Load cache
      *
-     * @return boolean
+     * @return bool
      */
     public function loadCache()
     {

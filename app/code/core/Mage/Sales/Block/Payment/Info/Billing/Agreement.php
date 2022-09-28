@@ -31,7 +31,7 @@ class Mage_Sales_Block_Payment_Info_Billing_Agreement extends Mage_Payment_Block
      * Add reference id to payment method information
      *
      * @param Varien_Object|array $transport
-     * @return array|Varien_Object|null
+     * @return Varien_Object|null
      */
     protected function _prepareSpecificInformation($transport = null)
     {

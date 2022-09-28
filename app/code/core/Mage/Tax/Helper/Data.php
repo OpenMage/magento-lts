@@ -19,9 +19,9 @@
  */
 
 /**
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -101,7 +101,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Postcode cut to this length when creating search templates
      *
-     * @var integer
+     * @var int
      */
     protected $_postCodeSubStringLength = 10;
 
@@ -126,7 +126,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return max postcode length to create search templates
      *
-     * @return integer  $len
+     * @return int  $len
      */
     public function getPostCodeSubStringLength()
     {
@@ -1151,11 +1151,11 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$helper->includeInSubtotal($store)) {
             foreach ($source->getAllItems() as $item) {
                 foreach ($helper->getApplied($item) as $tax) {
-                    $weeeDiscount = isset($tax['weee_discount']) ? $tax['weee_discount'] : 0;
+                    $weeeDiscount = $tax['weee_discount'] ?? 0;
                     $title = $tax['title'];
 
-                    $rowAmount = isset($tax['row_amount']) ? $tax['row_amount'] : 0;
-                    $rowAmountInclTax = isset($tax['row_amount_incl_tax']) ? $tax['row_amount_incl_tax'] : 0;
+                    $rowAmount = $tax['row_amount'] ?? 0;
+                    $rowAmountInclTax = $tax['row_amount_incl_tax'] ?? 0;
                     $amountDisplayed = ($helper->isTaxIncluded()) ? $rowAmountInclTax : $rowAmount;
 
                     if (array_key_exists($title, $allWeee)) {
@@ -1205,7 +1205,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * Return whether cross border trade is enabled or not
      *
      * @param   null|int $store
-     * @return boolean
+     * @return bool
      */
     public function isCrossBorderTradeEnabled($store = null)
     {

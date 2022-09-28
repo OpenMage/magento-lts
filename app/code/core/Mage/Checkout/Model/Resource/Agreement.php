@@ -27,10 +27,6 @@
  */
 class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Model initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('checkout/agreement', 'agreement_id');

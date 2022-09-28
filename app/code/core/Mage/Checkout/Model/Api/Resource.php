@@ -166,7 +166,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @param Mage_Core_Model_Abstract $object
      * @param string $type
-     * @param array $attributes
+     * @param array|null $attributes
      * @return array
      */
     protected function _getAttributes($object, $type, array $attributes = null)
@@ -205,7 +205,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @param string $attributeCode
      * @param string $type
-     * @param array $attributes
+     * @param array|null $attributes
      * @return bool
      */
     protected function _isAllowedAttribute($attributeCode, $type, array $attributes = null)

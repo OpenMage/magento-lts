@@ -475,8 +475,6 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
 
     /**
      * Saving quote and create order
-     *
-     * @throws Mage_Core_Exception
      */
     public function saveAction()
     {

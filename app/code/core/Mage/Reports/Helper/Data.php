@@ -19,9 +19,9 @@
  */
 
 /**
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -34,7 +34,7 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return reports flag enabled.
      *
-     * @return boolean
+     * @return bool
      */
 
     public function isReportsEnabled()

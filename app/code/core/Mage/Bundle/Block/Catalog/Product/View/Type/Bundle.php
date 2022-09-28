@@ -90,7 +90,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
     /**
      * Whether the bundle product has any option
      *
-     * @return boolean
+     * @return bool
      */
     public function hasOptions()
     {

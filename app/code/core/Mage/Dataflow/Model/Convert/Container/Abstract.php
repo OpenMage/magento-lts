@@ -233,7 +233,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
     public function getBatchParams($key = null)
     {
         if (!empty($key)) {
-            return isset($this->_batchParams[$key]) ? $this->_batchParams[$key] : null;
+            return $this->_batchParams[$key] ?? null;
         }
         return $this->_batchParams;
     }

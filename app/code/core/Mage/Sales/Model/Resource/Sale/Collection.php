@@ -57,6 +57,11 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     protected $_orderStateCondition = null;
 
     /**
+     * @var array
+     */
+    protected $_orderStateValue;
+
+    /**
      * Set sales order entity and establish read connection
      *
      */
@@ -98,8 +103,8 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
      */
     public function setOrderStateFilter($state, $exclude = false)
     {
-        $this->_orderStateCondition = ($exclude) ? 'NOT IN' : 'IN';
-        $this->_orderStateValue     = (!is_array($state)) ? [$state] : $state;
+        $this->_orderStateCondition = $exclude ? 'NOT IN' : 'IN';
+        $this->_orderStateValue     = !is_array($state) ? [$state] : $state;
         return $this;
     }
 
@@ -178,7 +183,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
         foreach ($data as $v) {
             $storeObject = new Varien_Object($v);
             $storeId     = $v['store_id'];
-            $storeName   = isset($stores[$storeId]) ? $stores[$storeId] : null;
+            $storeName   = $stores[$storeId] ?? null;
             $storeObject->setStoreName($storeName)
                 ->setWebsiteId(Mage::app()->getStore($storeId)->getWebsiteId())
                 ->setAvgNormalized($v['avgsale'] * $v['num_orders']);

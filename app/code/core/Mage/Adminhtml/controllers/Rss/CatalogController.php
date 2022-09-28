@@ -22,7 +22,7 @@
  * Adminhtml Rss Controller
  *
  * @category   Mage
- * @package    Mage_Rss
+ * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Rss_CatalogController extends Mage_Adminhtml_Controller_Rss_Abstract

@@ -111,7 +111,8 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
     }
 
     /**
-     * @return bool
+     * @return false|Mage_Catalog_Model_Resource_Product_Collection
+     * @throws Mage_Core_Exception
      */
     protected function _getProductCollection()
     {

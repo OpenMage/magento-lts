@@ -66,7 +66,7 @@ class Mage_SalesRule_Model_Observer
      * Registered callback: called after an order is placed
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_SalesRule_Model_Observer
+     * @return $this
      */
     public function sales_order_afterPlace($observer)
     {
@@ -123,6 +123,7 @@ class Mage_SalesRule_Model_Observer
                 }
             }
         }
+        return $this;
     }
 
     /**

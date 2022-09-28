@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Indicate that block can display container
      *
-     * @return boolean
+     * @return bool
      * @throws Exception
      */
     public function canDisplayContainer()
@@ -179,8 +179,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Retrieve save url
      *
+     * @return string
      * @deprecated after 1.4.2.0
-     * @return array
      */
     public function getSaveUrl()
     {
@@ -206,7 +206,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * Indicates that block can display giftmessages form
      *
      * @deprecated after 1.4.2.0
-     * @return boolean
+     * @return bool
      */
     public function canDisplayGiftmessage()
     {

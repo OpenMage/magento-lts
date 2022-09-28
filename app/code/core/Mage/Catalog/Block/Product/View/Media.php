@@ -33,7 +33,7 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
     /**
      * Flag, that defines whether gallery is disabled
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isGalleryDisabled;
 

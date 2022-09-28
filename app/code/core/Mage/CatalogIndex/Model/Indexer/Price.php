@@ -59,7 +59,7 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
     /**
      * @param Mage_Catalog_Model_Product $object
      * @param Mage_Eav_Model_Entity_Attribute_Abstract|null $attribute
-     * @return array|mixed
+     * @return array
      */
     public function createIndexData(Mage_Catalog_Model_Product $object, Mage_Eav_Model_Entity_Attribute_Abstract $attribute = null)
     {
@@ -106,7 +106,7 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
     }
 
     /**
-     * @return array|string
+     * @return string
      */
     protected function _getIndexableAttributeConditions()
     {

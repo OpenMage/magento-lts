@@ -65,7 +65,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_M
      * validate
      *
      * @param Varien_Object $object Quote
-     * @return boolean
+     * @return bool
      */
     public function validate(Varien_Object $object)
     {

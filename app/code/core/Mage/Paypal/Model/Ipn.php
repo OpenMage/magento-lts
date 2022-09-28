@@ -85,15 +85,15 @@ class Mage_Paypal_Model_Ipn
         if ($key === null) {
             return $this->_request;
         }
-        return isset($this->_request[$key]) ? $this->_request[$key] : null;
+        return $this->_request[$key] ?? null;
     }
 
     /**
      * Get ipn data, send verification to PayPal, run corresponding handler
      *
      * @param array $request
-     * @param Zend_Http_Client_Adapter_Interface $httpAdapter
-     * @throws Exception
+     * @param Zend_Http_Client_Adapter_Interface|null $httpAdapter
+     * @throws Mage_Core_Exception
      */
     public function processIpnRequest(array $request, Zend_Http_Client_Adapter_Interface $httpAdapter = null)
     {
@@ -275,7 +275,7 @@ class Mage_Paypal_Model_Ipn
         $this->_info = Mage::getSingleton('paypal/info');
         try {
             // Handle payment_status
-            $transactionType = isset($this->_request['txn_type']) ? $this->_request['txn_type'] : null;
+            $transactionType = $this->_request['txn_type'] ?? null;
             switch ($transactionType) {
                 // handle new case created
                 case Mage_Paypal_Model_Info::TXN_TYPE_NEW_CASE:
@@ -303,7 +303,7 @@ class Mage_Paypal_Model_Ipn
      */
     protected function _registerAdjustment()
     {
-        $reasonCode = isset($this->_request['reason_code']) ? $this->_request['reason_code'] : null;
+        $reasonCode = $this->_request['reason_code'] ?? null;
         $reasonComment = $this->_info::explainReasonCode($reasonCode);
         $notificationAmount = $this->_order->getBaseCurrency()->formatTxt($this->_request['mc_gross']);
         /**
@@ -320,11 +320,11 @@ class Mage_Paypal_Model_Ipn
      */
     protected function _registerDispute()
     {
-        $reasonCode = isset($this->_request['reason_code']) ? $this->_request['reason_code'] : null;
+        $reasonCode = $this->_request['reason_code'] ?? null;
         $reasonComment = $this->_info::explainReasonCode($reasonCode);
-        $caseType = isset($this->_request['case_type']) ? $this->_request['case_type'] : null;
+        $caseType = $this->_request['case_type'] ?? null;
         $caseTypeLabel = $this->_info::getCaseTypeLabel($caseType);
-        $caseId = isset($this->_request['case_id']) ? $this->_request['case_id'] : null;
+        $caseId = $this->_request['case_id'] ?? null;
         /**
          *  Add IPN comment about registered dispute
          */
@@ -500,7 +500,7 @@ class Mage_Paypal_Model_Ipn
     protected function _registerPaymentDenial()
     {
         $this->_importPaymentInformation();
-        /** @var Mage_Sales_Model_Order_Payment */
+        /** @var Mage_Sales_Model_Order_Payment $payment */
         $payment = $this->_order->getPayment();
 
         $payment->setTransactionId($this->getRequestData('txn_id'))
@@ -583,15 +583,12 @@ class Mage_Paypal_Model_Ipn
      */
     protected function _registerPaymentReversal()
     {
-        $reasonCode = isset($this->_request['reason_code']) ? $this->_request['reason_code'] : null;
+        $reasonCode = $this->_request['reason_code'] ?? null;
         $reasonComment = $this->_info::explainReasonCode($reasonCode);
         $notificationAmount = $this->_order
             ->getBaseCurrency()
             ->formatTxt($this->_request['mc_gross'] + $this->_request['mc_fee']);
-        $paymentStatus = $this->_filterPaymentStatus(isset($this->_request['payment_status'])
-            ? $this->_request['payment_status']
-            : null
-        );
+        $paymentStatus = $this->_filterPaymentStatus($this->_request['payment_status'] ?? null);
         $orderStatus = ($paymentStatus == Mage_Paypal_Model_Info::PAYMENTSTATUS_REVERSED)
             ? Mage_Paypal_Model_Info::ORDER_STATUS_REVERSED
             : Mage_Paypal_Model_Info::ORDER_STATUS_CANCELED_REVERSAL;

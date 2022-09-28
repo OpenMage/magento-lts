@@ -114,7 +114,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Delete gallery value in db
      *
-     * @param array|integer $valueId
+     * @param array|int $valueId
      * @return $this
      */
     public function deleteGallery($valueId)
@@ -148,8 +148,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Delete gallery value for store in db
      *
-     * @param integer $valueId
-     * @param integer $storeId
+     * @param int $valueId
+     * @param int $storeId
      * @return $this
      */
     public function deleteGalleryValueInStore($valueId, $storeId)
@@ -188,7 +188,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
             $data = [
                 'attribute_id' => $object->getAttribute()->getId(),
                 'entity_id'    => $newProductId,
-                'value'        => (isset($newFiles[$row['value_id']]) ? $newFiles[$row['value_id']] : $row['value'])
+                'value'        => $newFiles[$row['value_id']] ?? $row['value']
             ];
 
             $valueIdMap[$row['value_id']] = $this->insertGallery($data);

@@ -30,7 +30,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custompath extends Mage_C
     /**
      * Check whether redirect should be set
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom
+     * @return $this
      */
     protected function _beforeSave()
     {

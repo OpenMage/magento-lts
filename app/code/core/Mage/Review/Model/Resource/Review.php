@@ -78,7 +78,6 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
 
     /**
      * Define main table. Define other tables name
-     *
      */
     protected function _construct()
     {

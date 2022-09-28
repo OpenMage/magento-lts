@@ -27,9 +27,6 @@
  */
 class Mage_Index_Model_Resource_Lock_Resource extends Mage_Core_Model_Resource
 {
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         $this->_connections = Mage::getSingleton('core/resource')->getConnections();

@@ -43,6 +43,21 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     protected $_quote = false;
 
     /**
+     * @var string
+     */
+    protected $_checkoutType;
+
+    /**
+     * @var string
+     */
+    protected $_configMethod;
+
+    /**
+     * @var string
+     */
+    protected $_configType;
+
+    /**
      * Instantiate config
      */
     protected function _construct()
@@ -142,7 +157,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     {
         try {
             $this->_initToken(false);
-            // TODO verify if this logic of order cancelation is deprecated
+            // TODO verify if this logic of order cancellation is deprecated
             // if there is an order - cancel it
             $orderId = $this->_getCheckoutSession()->getLastOrderId();
             $order = ($orderId) ? Mage::getModel('sales/order')->load($orderId) : false;
@@ -377,7 +392,6 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      * Process PayPal API's processable errors
      *
      * @param Mage_Paypal_Model_Api_ProcessableException $exception
-     * @throws Mage_Paypal_Model_Api_ProcessableException
      */
     protected function _processPaypalApiError($exception)
     {

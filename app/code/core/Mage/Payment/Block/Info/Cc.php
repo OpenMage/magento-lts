@@ -36,10 +36,7 @@ class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
     {
         $types = Mage::getSingleton('payment/config')->getCcTypes();
         $ccType = $this->getInfo()->getCcType();
-        if (isset($types[$ccType])) {
-            return $types[$ccType];
-        }
-        return (empty($ccType)) ? Mage::helper('payment')->__('N/A') : $ccType;
+        return $types[$ccType] ?? (empty($ccType) ? Mage::helper('payment')->__('N/A') : $ccType);
     }
 
     /**

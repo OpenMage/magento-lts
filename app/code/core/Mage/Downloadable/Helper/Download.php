@@ -115,10 +115,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                     $port = (int)$urlProp['port'];
                 }
 
-                $path = '/';
-                if (isset($urlProp['path'])) {
-                    $path = $urlProp['path'];
-                }
+                $path = $urlProp['path'] ?? '/';
                 $query = '';
                 if (isset($urlProp['query'])) {
                     $query = '?' . $urlProp['query'];

@@ -57,7 +57,7 @@ class Mage_Downloadable_Model_Resource_Sample_Collection extends Mage_Core_Model
     /**
      * Add title column to select
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function addTitleToResult($storeId = 0)

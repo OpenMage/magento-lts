@@ -44,10 +44,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
      */
     public function getAttributeObject()
     {
-        if ($this->_attribute === null) {
-            return Mage::registry('entity_attribute');
-        }
-        return $this->_attribute;
+        return $this->_attribute ?? Mage::registry('entity_attribute');
     }
 
     /**

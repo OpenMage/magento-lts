@@ -32,7 +32,7 @@ class Mage_Adminhtml_Model_Email_PathValidator extends Zend_Validate_Abstract
      * If $value fails validation, then this method returns false
      *
      * @param  mixed $value
-     * @return boolean
+     * @return bool
      */
     public function isValid($value)
     {

@@ -25,6 +25,9 @@
  */
 class Mage_Index_Block_Adminhtml_Process_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+    /**
+     * Mage_Index_Block_Adminhtml_Process_Edit constructor.
+     */
     public function __construct()
     {
         $this->_objectId = 'process_id';
@@ -75,5 +78,6 @@ class Mage_Index_Block_Adminhtml_Process_Edit extends Mage_Adminhtml_Block_Widge
         if ($process && $process->getId()) {
             return Mage::helper('index')->__("'%s' Index Process Information", $process->getIndexer()->getName());
         }
+        return '';
     }
 }

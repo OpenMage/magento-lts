@@ -396,7 +396,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array                      $tierPrices
-     * @param boolean                    $includeIndex
+     * @param bool                    $includeIndex
      * @return $this
      */
     public function processTierPrices($product, &$tierPrices, $includeIndex = true)
@@ -470,7 +470,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * Check if the configuration for the particular store causes conflicts
      *
      * @param Mage_Core_Model_Store|null $store
-     * @return boolean
+     * @return bool
      */
     public function validateCatalogPricesAndFptConfiguration($store = null)
     {
@@ -656,8 +656,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
             $weeeAmountInclDiscount += $weeeTaxAppliedAmount['row_amount'];
             if (!$this->includeInSubtotal()) {
-                $weeeAmountInclDiscount -= isset($weeeTaxAppliedAmount['weee_discount'])
-                    ? $weeeTaxAppliedAmount['weee_discount'] : 0;
+                $weeeAmountInclDiscount -= $weeeTaxAppliedAmount['weee_discount'] ?? 0;
             }
         }
         return $weeeAmountInclDiscount;
@@ -678,8 +677,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
             $baseWeeeAmountInclDiscount += $weeeTaxAppliedAmount['base_row_amount'];
             if (!$this->includeInSubtotal()) {
-                $baseWeeeAmountInclDiscount -= isset($weeeTaxAppliedAmount['base_weee_discount'])
-                    ? $weeeTaxAppliedAmount['base_weee_discount'] : 0;
+                $baseWeeeAmountInclDiscount -= $weeeTaxAppliedAmount['base_weee_discount'] ?? 0;
             }
         }
         return $baseWeeeAmountInclDiscount;

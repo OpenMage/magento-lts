@@ -655,10 +655,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
     public function getMimeTypeByExtension($ext)
     {
         $type = 'x' . $ext;
-        if (isset($this->_mimeTypes[$type])) {
-            return $this->_mimeTypes[$type];
-        }
-        return 'application/octet-stream';
+        return $this->_mimeTypes[$type] ?? 'application/octet-stream';
     }
 
     /**

@@ -74,7 +74,7 @@ class Mage_Catalog_Model_Mysql4_Convert
                 $this->_productsBySku[$p['sku']] = $p['entity_id'];
             }
         }
-        return isset($this->_productsBySku[$sku]) ? $this->_productsBySku[$sku] : false;
+        return $this->_productsBySku[$sku] ?? false;
     }
 
     public function addProductToStore($productId, $storeId)

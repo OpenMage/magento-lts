@@ -28,23 +28,15 @@
 class Mage_Sales_Model_Resource_Order_Creditmemo_Grid_Collection extends Mage_Sales_Model_Resource_Order_Creditmemo_Collection
 {
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix    = 'sales_order_creditmemo_grid_collection';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject    = 'order_creditmemo_grid_collection';
 
-    /**
-     * Model initialization
-     *
-     */
     protected function _construct()
     {
         parent::_construct();

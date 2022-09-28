@@ -213,7 +213,7 @@ class Mage_Paypal_Model_Info
      *
      * @param Mage_Payment_Model_Info $payment
      * @param array|Varien_Object|callback $to
-     * @param array $map
+     * @param array|null $map
      * @return array|Varien_Object
      */
     public function &exportFromPayment(Mage_Payment_Model_Info $payment, $to, array $map = null)

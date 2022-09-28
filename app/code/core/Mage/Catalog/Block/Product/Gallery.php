@@ -39,7 +39,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @return mixed
+     * @return Mage_Catalog_Model_Product
      */
     public function getProduct()
     {
@@ -47,7 +47,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @return mixed
+     * @return Varien_Data_Collection
      */
     public function getGalleryCollection()
     {
@@ -55,7 +55,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @return null |null
+     * @return Varien_Object|null
      * @throws Exception
      */
     public function getCurrentImage()
@@ -91,7 +91,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     /**
      * Retrieve image width
      *
-     * @return bool|int
+     * @return false|int
      */
     public function getImageWidth()
     {
@@ -111,7 +111,8 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @return bool
+     * @return false|Varien_Object
+     * @throws Exception
      */
     public function getPreviusImage()
     {
@@ -130,7 +131,8 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @return bool
+     * @return false|Varien_Object
+     * @throws Exception
      */
     public function getNextImage()
     {
@@ -153,23 +155,23 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @return bool|string
+     * @return false|string
      */
     public function getPreviusImageUrl()
     {
         if ($image = $this->getPreviusImage()) {
-            return $this->getUrl('*/*/*', ['_current'=>true, 'image'=>$image->getValueId()]);
+            return $this->getUrl('*/*/*', ['_current' => true, 'image' => $image->getValueId()]);
         }
         return false;
     }
 
     /**
-     * @return bool|string
+     * @return false|string
      */
     public function getNextImageUrl()
     {
         if ($image = $this->getNextImage()) {
-            return $this->getUrl('*/*/*', ['_current'=>true, 'image'=>$image->getValueId()]);
+            return $this->getUrl('*/*/*', ['_current' => true, 'image' => $image->getValueId()]);
         }
         return false;
     }

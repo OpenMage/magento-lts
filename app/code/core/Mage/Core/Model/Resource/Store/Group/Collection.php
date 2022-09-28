@@ -31,7 +31,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
      * Load default flag
      *
      * @deprecated since 1.5.0.0
-     * @var boolean
+     * @var bool
      */
     protected $_loadDefault = false;
 
@@ -48,7 +48,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     /**
      * Set flag for load default (admin) store
      *
-     * @param boolean $loadDefault
+     * @param bool $loadDefault
      *
      * @return $this
      */
@@ -60,7 +60,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     /**
      * Is load default (admin) store
      *
-     * @return boolean
+     * @return bool
      */
     public function getLoadDefault()
     {

@@ -91,7 +91,6 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
             'index' => 'created_at',
             'type' => 'datetime',
             'html_decorators' => ['nobr'],
-            'width' => 1,
         ]);
 
         $this->addColumn('updated_at', [
@@ -99,7 +98,6 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
             'index' => 'updated_at',
             'type' => 'datetime',
             'html_decorators' => ['nobr'],
-            'width' => 1,
         ]);
 
         $methods = [];

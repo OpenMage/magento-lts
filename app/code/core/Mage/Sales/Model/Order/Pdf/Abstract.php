@@ -896,7 +896,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 Mage::throwException(Mage::helper('sales')->__('Invalid draw line data. Please define "lines" array.'));
             }
             $lines  = $itemsProp['lines'];
-            $height = isset($itemsProp['height']) ? $itemsProp['height'] : 10;
+            $height = $itemsProp['height'] ?? 10;
 
             if (empty($itemsProp['shift'])) {
                 $shift = 0;

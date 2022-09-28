@@ -23,14 +23,14 @@
  * @package    Mage_Uploader
  * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @method Mage_Uploader_Model_Config_Browsebutton setDomNodes(array $domNodesIds)
+ * @method $this setDomNodes(array $domNodesIds)
  *      Array of element browse buttons ids
- * @method Mage_Uploader_Model_Config_Browsebutton setIsDirectory(bool $isDirectory)
+ * @method $this setIsDirectory(bool $isDirectory)
  *      Pass in true to allow directories to be selected (Google Chrome only)
- * @method Mage_Uploader_Model_Config_Browsebutton setSingleFile(bool $isSingleFile)
+ * @method $this setSingleFile(bool $isSingleFile)
  *      To prevent multiple file uploads set this to true.
  *      Also look at config parameter singleFile (Mage_Uploader_Model_Config_Uploader setSingleFile())
- * @method Mage_Uploader_Model_Config_Browsebutton setAttributes(array $attributes)
+ * @method $this setAttributes(array $attributes)
  *      Pass object of keys and values to set custom attributes on input fields.
  *      @see http://www.w3.org/TR/html-markup/input.file.html#input.file-attributes
  */

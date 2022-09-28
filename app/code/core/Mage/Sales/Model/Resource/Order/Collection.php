@@ -28,23 +28,15 @@
 class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resource_Collection_Abstract
 {
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix    = 'sales_order_collection';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject    = 'order_collection';
 
-    /**
-     * Model initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('sales/order');
@@ -185,7 +177,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      * Specify collection select filter by attribute value
      *
      * @param array $attributes
-     * @param array|integer|string|null $condition
+     * @param array|int|string|null $condition
      * @return $this
      */
     public function addAttributeToSearchFilter($attributes, $condition = null)

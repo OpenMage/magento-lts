@@ -91,7 +91,7 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
      * @param int|string $linkedProductId
      * @param array $data
      * @param  string $identifierType
-     * @return boolean
+     * @return bool
      */
     public function assign($type, $productId, $linkedProductId, $data = [], $identifierType = null)
     {
@@ -148,7 +148,7 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
      * @param int|string $linkedProductId
      * @param array $data
      * @param  string $identifierType
-     * @return boolean
+     * @return bool
      */
     public function update($type, $productId, $linkedProductId, $data = [], $identifierType = null)
     {
@@ -203,7 +203,7 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
      * @param int|string $productId
      * @param int|string $linkedProductId
      * @param  string $identifierType
-     * @return boolean
+     * @return bool
      */
     public function remove($type, $productId, $linkedProductId, $identifierType = null)
     {

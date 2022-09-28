@@ -192,7 +192,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     {
         if (is_string($status)) {
             $statuses = array_flip(Mage::helper('review')->getReviewStatuses());
-            $status = isset($statuses[$status]) ? $statuses[$status] : 0;
+            $status = $statuses[$status] ?? 0;
         }
         if (is_numeric($status)) {
             $this->addFilter(
@@ -261,8 +261,8 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     /**
      * Load data
      *
-     * @param boolean $printQuery
-     * @param boolean $logQuery
+     * @param bool $printQuery
+     * @param bool $logQuery
      * @return $this
      */
     public function load($printQuery = false, $logQuery = false)

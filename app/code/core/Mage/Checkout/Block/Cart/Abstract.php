@@ -79,10 +79,7 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
      */
     public function getItemRendererInfo($type)
     {
-        if (isset($this->_itemRenders[$type])) {
-            return $this->_itemRenders[$type];
-        }
-        return $this->_itemRenders['default'];
+        return $this->_itemRenders[$type] ?? $this->_itemRenders['default'];
     }
 
     /**

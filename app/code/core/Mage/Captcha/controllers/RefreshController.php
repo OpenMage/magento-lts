@@ -22,7 +22,7 @@
  * Captcha controller
  *
  * @category   Mage
- * @package    Mage_Core
+ * @package    Mage_Captcha
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Captcha_RefreshController extends Mage_Core_Controller_Front_Action

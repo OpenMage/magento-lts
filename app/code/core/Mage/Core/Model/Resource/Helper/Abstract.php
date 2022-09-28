@@ -103,7 +103,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
 
     /**
      * Escapes value, that participates in LIKE, with '\' symbol.
-     * Note: this func cannot be used on its own, because different RDMBS may use different default escape symbols,
+     * Note: this func cannot be used on its own, because different RDBMS may use different default escape symbols,
      * so you should either use addLikeEscape() to produce LIKE construction, or add escape symbol on your own.
      *
      * By default escapes '_', '%' and '\' symbols. If some masking symbols must not be escaped, then you can set

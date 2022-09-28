@@ -100,7 +100,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             $itemData = [];
             $countRows ++; $i = 0;
             foreach ($fieldNames as $field) {
-                $itemData[$field] = isset($csvData[$i]) ? $csvData[$i] : null;
+                $itemData[$field] = $csvData[$i] ?? null;
                 $i ++;
             }
 
@@ -142,7 +142,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         $resultRow = [];
 
         foreach ($this->_fields as $j=>$f) {
-            $resultRow[$f] = isset($line[$j]) ? $line[$j] : '';
+            $resultRow[$f] = $line[$j] ?? '';
         }
         return $resultRow;
     }
@@ -179,7 +179,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             $row = $batchExport->getBatchData();
 
             foreach ($fieldList as $field) {
-                $csvData[] = isset($row[$field]) ? $row[$field] : '';
+                $csvData[] = $row[$field] ?? '';
             }
             $csvData = $this->getCsvString($csvData);
             $io->write($csvData);

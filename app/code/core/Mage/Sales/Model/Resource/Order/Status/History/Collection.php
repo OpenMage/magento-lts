@@ -28,23 +28,15 @@
 class Mage_Sales_Model_Resource_Order_Status_History_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix    = 'sales_order_status_history_collection';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject    = 'order_status_history_collection';
 
-    /**
-     * Model initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('sales/order_status_history');

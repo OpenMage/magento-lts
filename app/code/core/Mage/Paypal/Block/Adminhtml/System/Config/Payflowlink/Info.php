@@ -52,7 +52,7 @@
      *
      * @deprecated since 1.7.0.1
      * @param string $routePath
-     * @return strting
+     * @return string
      */
     public function getFrontendUrl($routePath)
     {

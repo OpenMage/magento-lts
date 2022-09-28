@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -26,7 +26,6 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated after 1.13.1.0 use Mage_Adminhtml_Block_System_Store_Tree
  */
-
 class Mage_Adminhtml_Block_System_Store_Grid_Render_Store
     extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {

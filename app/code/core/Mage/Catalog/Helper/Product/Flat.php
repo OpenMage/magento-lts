@@ -79,14 +79,14 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      * to force EAV for products in quote
      * store settings will be used by default
      *
-     * @var boolean
+     * @var bool
      */
     protected $_forceFlatStatus = false;
 
     /**
      * Old Catalog Product Flat forced status
      *
-     * @var boolean
+     * @var bool
      */
     protected $_forceFlatStatusOld;
 

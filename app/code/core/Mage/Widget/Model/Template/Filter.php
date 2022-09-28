@@ -38,10 +38,7 @@ class Mage_Widget_Model_Template_Filter extends Mage_Cms_Model_Template_Filter
         $params = $this->_getIncludeParameters($construction[2]);
 
         // Determine what name block should have in layout
-        $name = null;
-        if (isset($params['name'])) {
-            $name = $params['name'];
-        }
+        $name = $params['name'] ?? null;
 
         // validate required parameter type or id
         if (!empty($params['type'])) {

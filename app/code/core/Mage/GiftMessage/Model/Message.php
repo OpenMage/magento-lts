@@ -79,7 +79,7 @@ class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
     /**
      * Checks thats gift message is empty
      *
-     * @return boolean
+     * @return bool
      */
     public function isMessageEmpty()
     {

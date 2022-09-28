@@ -72,7 +72,6 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
             'index'  => 'created_at',
             'type'   => 'datetime',
             'align'  => 'center',
-            'width'  => '160'
         ]);
 
         $this->addColumn('used', [

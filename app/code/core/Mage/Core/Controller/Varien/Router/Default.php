@@ -31,7 +31,7 @@ class Mage_Core_Controller_Varien_Router_Default extends Mage_Core_Controller_Va
      * change store to default (Possible when enabled Store Code in URL)
      *
      * @param Zend_Controller_Request_Http $request
-     * @return boolean
+     * @return bool
      */
     public function match(Zend_Controller_Request_Http $request)
     {
@@ -70,7 +70,7 @@ class Mage_Core_Controller_Varien_Router_Default extends Mage_Core_Controller_Va
     /**
      * Check if store is admin store
      *
-     * @return boolean
+     * @return bool
      */
     protected function _isAdmin()
     {

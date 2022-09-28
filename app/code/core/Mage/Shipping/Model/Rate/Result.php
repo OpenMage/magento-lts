@@ -63,7 +63,7 @@ class Mage_Shipping_Model_Rate_Result
     /**
      * Get Error
      *
-     * @return null|bool;
+     * @return null|bool
      */
     public function getError()
     {
@@ -110,7 +110,7 @@ class Mage_Shipping_Model_Rate_Result
      */
     public function getRateById($id)
     {
-        return isset($this->_rates[$id]) ? $this->_rates[$id] : null;
+        return $this->_rates[$id] ?? null;
     }
 
     /**

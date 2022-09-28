@@ -24,6 +24,15 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array getActions()
+ * @method $this setActions(array $value)
+ * @method array getFilterConditionCallback()
+ * @method string getDir()
+ * @method string getFilterIndex()
+ * @method $this setFormat(string $value)
+ * @method string getIndex()
+ * @method bool getNoLink()
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widget
 {

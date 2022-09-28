@@ -109,7 +109,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
     /**
      * Is readonly stock
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {
@@ -142,7 +142,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
     /**
      * Check if product type is virtual
      *
-     * @return boolean
+     * @return bool
      */
     public function isVirtual()
     {

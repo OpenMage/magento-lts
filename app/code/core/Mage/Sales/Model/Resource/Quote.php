@@ -149,9 +149,9 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
     /**
      * Check is order increment id use in sales/order table
      *
-     * @param string|integer $orderIncrementId
+     * @param string|int $orderIncrementId
      *
-     * @return boolean
+     * @return bool
      */
     public function isOrderIncrementIdUsed($orderIncrementId)
     {

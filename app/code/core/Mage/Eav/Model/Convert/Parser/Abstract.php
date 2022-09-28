@@ -97,7 +97,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         if (!$this->_attributeSetsById) {
             $this->loadAttributeSets($entityTypeId);
         }
-        return isset($this->_attributeSetsById[$id]) ? $this->_attributeSetsById[$id] : false;
+        return $this->_attributeSetsById[$id] ?? false;
     }
 
     /**
@@ -110,7 +110,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         if (!$this->_attributeSetsByName) {
             $this->loadAttributeSets($entityTypeId);
         }
-        return isset($this->_attributeSetsByName[$name]) ? $this->_attributeSetsByName[$name] : false;
+        return $this->_attributeSetsByName[$name] ?? false;
     }
 
     /**

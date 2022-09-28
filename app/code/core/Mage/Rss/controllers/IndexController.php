@@ -73,7 +73,7 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
      * Wishlist rss feed action
      * Show all public wishlists and private wishlists that belong to current user
      *
-     * @return mixed
+     * @return void
      */
     public function wishlistAction()
     {

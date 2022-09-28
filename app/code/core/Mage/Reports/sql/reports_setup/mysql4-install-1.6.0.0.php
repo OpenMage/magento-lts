@@ -177,7 +177,7 @@ $table = $installer->getConnection()
     ->setComment('Reports Viewed Product Index Table');
 $installer->getConnection()->createTable($table);
 
-$installFile = dirname(__FILE__) . DS . 'install-1.6.0.0.php';
+$installFile = __DIR__ . DS . 'install-1.6.0.0.php';
 if (file_exists($installFile)) {
     include $installFile;
 }

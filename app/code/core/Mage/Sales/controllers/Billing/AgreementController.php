@@ -31,7 +31,6 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
 {
     /**
      * View billing agreements
-     *
      */
     public function indexAction()
     {
@@ -55,6 +54,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
         if (!$this->_getSession()->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
         }
+        return $this;
     }
 
     /**

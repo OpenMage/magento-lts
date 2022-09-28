@@ -52,12 +52,11 @@ class Mage_Core_Model_Design_Fallback
     protected $_visited;
 
     /**
-     * Constructor
      * @param array $params
      */
     public function __construct(array $params = [])
     {
-        $this->_config = isset($params['config']) ? $params['config'] : Mage::getModel('core/design_config');
+        $this->_config = $params['config'] ?? Mage::getModel('core/design_config');
     }
 
     /**
@@ -67,14 +66,11 @@ class Mage_Core_Model_Design_Fallback
      */
     public function getStore()
     {
-        if ($this->_store === null) {
-            return Mage::app()->getStore();
-        }
-        return $this->_store;
+        return $this->_store ?? Mage::app()->getStore();
     }
 
     /**
-     * @param string|integer|Mage_Core_Model_Store $store
+     * @param string|int|Mage_Core_Model_Store $store
      * @return $this
      */
     public function setStore($store)

@@ -36,7 +36,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Flag that shows if Magento has to check product to be saleable (enabled and/or inStock)
      *
-     * @var boolean
+     * @var bool
      */
     protected $_skipSaleableCheck = false;
 
@@ -190,7 +190,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      *
      * @param Mage_Catalog_Model_Product|int $product
      * @param string $where
-     * @return boolean
+     * @return bool
      */
     public function canShow($product, $where = 'catalog')
     {
@@ -491,7 +491,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Get flag that shows if Magento has to check product to be saleable (enabled and/or inStock)
      *
-     * @return boolean
+     * @return bool
      */
     public function getSkipSaleableCheck()
     {

@@ -61,7 +61,7 @@ class Mage_Api2_Model_Request_Interpreter_Query implements Mage_Api2_Model_Reque
      * Returns true if and only if the query string passes validation.
      *
      * @param  string $query The query to validate
-     * @return boolean
+     * @return bool
      * @link   http://www.faqs.org/rfcs/rfc2396.html
      */
     protected function _validateQuery($query)

@@ -93,7 +93,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_B
 
     public function getWebsiteCount($websiteId)
     {
-        return isset($this->_websiteCounts[$websiteId]) ? $this->_websiteCounts[$websiteId] : 0;
+        return $this->_websiteCounts[$websiteId] ?? 0;
     }
 
     public function getRows()

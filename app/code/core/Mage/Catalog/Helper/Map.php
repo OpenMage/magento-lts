@@ -48,7 +48,7 @@ class Mage_Catalog_Helper_Map extends Mage_Core_Helper_Abstract
     /**
      * Return true if category tree mode enabled
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsUseCategoryTreeMode()
     {

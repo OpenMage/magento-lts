@@ -29,7 +29,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Encrypted extends Mage_Core_Mod
 {
     /**
      * Decrypt value after loading
-     *
      */
     protected function _afterLoad()
     {
@@ -37,6 +36,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Encrypted extends Mage_Core_Mod
         if (!empty($value) && ($decrypted = Mage::helper('core')->decrypt($value))) {
             $this->setValue($decrypted);
         }
+        return $this;
     }
 
     /**

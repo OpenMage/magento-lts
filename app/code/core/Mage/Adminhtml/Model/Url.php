@@ -15,7 +15,16 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method bool getNoSecret()
+ * @method $this setNoSecret(bool $avlue)
  */
 class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
 {
@@ -80,8 +89,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
 
         if ($cacheSecretKey) {
             $secret = [self::SECRET_KEY_PARAM_NAME => "\${$_controller}/{$_action}\$"];
-        }
-        else {
+        } else {
             $secret = [self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($_controller, $_action)];
         }
         if (is_array($routeParams)) {
@@ -122,7 +130,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
     /**
      * Return secret key settings flag
      *
-     * @return boolean
+     * @return bool
      */
     public function useSecretKey()
     {
@@ -153,8 +161,6 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
 
     /**
      * Refresh admin menu cache etc.
-     *
-     * @return $this
      */
     public function renewSecretUrls()
     {

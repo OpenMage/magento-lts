@@ -31,7 +31,7 @@ class Mage_Adminhtml_Controller_Rss_Abstract extends Mage_Adminhtml_Controller_A
      * Check feed enabled in config
      *
      * @param string $code
-     * @return boolean
+     * @return bool
      */
     protected function isFeedEnable($code)
     {
@@ -43,7 +43,7 @@ class Mage_Adminhtml_Controller_Rss_Abstract extends Mage_Adminhtml_Controller_A
      * Do check feed enabled and prepare response
      *
      * @param string $code
-     * @return boolean
+     * @return bool
      */
     protected function checkFeedEnable($code)
     {

@@ -36,6 +36,7 @@ class Mage_Paypal_Model_System_Config_Backend_MerchantCountry extends Mage_Core_
 
     /**
      * Substitute empty value with Default country.
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -49,5 +50,6 @@ class Mage_Paypal_Model_System_Config_Backend_MerchantCountry extends Mage_Core_
             }
             $this->setValue($defaultCountry);
         }
+        return $this;
     }
 }

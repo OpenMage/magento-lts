@@ -150,7 +150,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
         if (isset($data['region'])) {
             $data['region'] = $this->_getRegionIdByNameOrCode(
                 $data['region'],
-                isset($data['country_id']) ? $data['country_id'] : $address->getCountryId()
+                $data['country_id'] ?? $address->getCountryId()
             );
             $data['region_id'] = null; // to avoid overwrite region during update in address model _beforeSave()
         }

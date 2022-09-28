@@ -133,7 +133,7 @@ abstract class Mage_Core_Helper_Abstract
      * Check whether or not the module output is enabled in Configuration
      *
      * @param string $moduleName Full module name
-     * @return boolean
+     * @return bool
      */
     public function isModuleOutputEnabled($moduleName = null)
     {
@@ -155,7 +155,7 @@ abstract class Mage_Core_Helper_Abstract
      * Check is module exists and enabled in global config.
      *
      * @param string $moduleName the full module name, example Mage_Core
-     * @return boolean
+     * @return bool
      */
     public function isModuleEnabled($moduleName = null)
     {
@@ -251,7 +251,7 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * Wrapper for standart strip_tags() function with extra functionality for html entities
+     * Wrapper for standard strip_tags() function with extra functionality for html entities
      *
      * @param string $data
      * @param string $allowableTags
@@ -405,7 +405,7 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     *  base64_dencode() for URLs dencoding
+     *  base64_decode() for URLs decoding
      *
      *  @param    string $url
      *  @return   string

@@ -78,7 +78,6 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'header'    => Mage::helper('backup')->__('Time'),
             'index'     => 'date_object',
             'type'      => 'datetime',
-            'width'     => 200
         ]);
 
         $this->addColumn('display_name', [

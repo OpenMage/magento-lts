@@ -24,15 +24,11 @@
  * @category   Mage
  * @package    Mage_Uploader
  * @author     Magento Core Team <core@magentocommerce.com>
- */
-
-/**
- * @method Mage_Uploader_Model_Config_Misc setMaxSizePlural (string $sizePlural) Set plural info about max upload size
- * @method Mage_Uploader_Model_Config_Misc setMaxSizeInBytes (int $sizeInBytes) Set max upload size in bytes
- * @method Mage_Uploader_Model_Config_Misc setReplaceBrowseWithRemove (bool $replaceBrowseWithRemove)
- *      Replace browse button with remove
  *
- * Class Mage_Uploader_Model_Config_Misc
+ * @method $this setMaxSizePlural (string $sizePlural) Set plural info about max upload size
+ * @method $this setMaxSizeInBytes (int $sizeInBytes) Set max upload size in bytes
+ * @method $this setReplaceBrowseWithRemove (bool $replaceBrowseWithRemove)
+ *      Replace browse button with remove
  */
 class Mage_Uploader_Model_Config_Misc extends Mage_Uploader_Model_Config_Abstract
 {

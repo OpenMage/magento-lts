@@ -125,7 +125,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
      * Set order by position or alphabetically by values in admin
      *
      * @param string $dir direction
-     * @param boolean $sortAlpha sort alphabetically by values in admin
+     * @param bool $sortAlpha sort alphabetically by values in admin
      * @return $this
      */
     public function setPositionOrder($dir = self::SORT_ORDER_ASC, $sortAlpha = false)

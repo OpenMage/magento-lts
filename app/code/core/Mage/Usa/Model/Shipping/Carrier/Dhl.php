@@ -381,7 +381,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
     /**
      * Get result of request
      *
-     * @return mixed
+     * @return Mage_Shipping_Model_Rate_Result|null
      */
     public function getResult()
     {
@@ -905,11 +905,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
             return $codes[$type];
         }
 
-        if (!isset($codes[$type][$code])) {
-            return false;
-        } else {
-            return $codes[$type][$code];
-        }
+        return $codes[$type][$code] ?? false;
     }
 
     /**
@@ -942,7 +938,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
                 }
             }
 
-            $data['term'] = (isset($services[$service]) ? $services[$service] : $desc);
+            $data['term'] = $services[$service] ?? $desc;
             $data['price_total'] = $this->getMethodPrice($totalEstimate, $service);
             $this->_dhlRates[] = ['service' => $service, 'data' => $data];
         }
@@ -952,7 +948,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
      * Get tracking
      *
      * @param mixed $trackings
-     * @return mixed
+     * @return Mage_Shipping_Model_Rate_Result|null
      */
     public function getTracking($trackings)
     {
@@ -1039,7 +1035,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
     /**
      * Parse xml tracking response
      *
-     * @param array $trackingvalue
+     * @param array $trackings
      * @param string $response
      * @return null
      */

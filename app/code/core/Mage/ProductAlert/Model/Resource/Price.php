@@ -27,10 +27,6 @@
  */
 class Mage_ProductAlert_Model_Resource_Price extends Mage_ProductAlert_Model_Resource_Abstract
 {
-    /**
-     * Initialize connection
-     *
-     */
     protected function _construct()
     {
         $this->_init('productalert/price', 'alert_price_id');

@@ -213,7 +213,7 @@ class Mage_Sales_Model_Service_Order
     {
         $totalQty = 0;
         $creditmemo = $this->_convertor->toCreditmemo($this->_order);
-        $qtys = isset($data['qtys']) ? $data['qtys'] : [];
+        $qtys = $data['qtys'] ?? [];
         $this->updateLocaleNumbers($qtys);
 
         foreach ($this->_order->getAllItems() as $orderItem) {
@@ -256,7 +256,7 @@ class Mage_Sales_Model_Service_Order
     public function prepareInvoiceCreditmemo($invoice, $data = [])
     {
         $totalQty = 0;
-        $qtys = isset($data['qtys']) ? $data['qtys'] : [];
+        $qtys = $data['qtys'] ?? [];
         $this->updateLocaleNumbers($qtys);
 
         $creditmemo = $this->_convertor->toCreditmemo($this->_order);
@@ -397,6 +397,7 @@ class Mage_Sales_Model_Service_Order
         } else {
             return $item->getQtyToInvoice() > 0;
         }
+        return false;
     }
 
     /**
@@ -445,6 +446,7 @@ class Mage_Sales_Model_Service_Order
         } else {
             return $item->getQtyToShip()>0;
         }
+        return false;
     }
 
     /**
@@ -483,6 +485,7 @@ class Mage_Sales_Model_Service_Order
         } else {
             return $this->_canRefundNoDummyItem($item, $invoiceQtysRefundLimits);
         }
+        return false;
     }
 
     /**

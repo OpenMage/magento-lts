@@ -542,8 +542,8 @@ class Mage_Core_Model_Locale
      * Create Zend_Date object with date converted to store timezone and store Locale
      *
      * @param   null|string|bool|int|Mage_Core_Model_Store $store Information about store
-     * @param   string|integer|Zend_Date|array|null $date date in UTC
-     * @param   boolean $includeTime flag for including time to date
+     * @param   string|int|Zend_Date|array|null $date date in UTC
+     * @param   bool $includeTime flag for including time to date
      * @param   string|null $format
      * @return  Zend_Date
      */
@@ -566,8 +566,8 @@ class Mage_Core_Model_Locale
      * or in format which was passed as parameter.
      *
      * @param mixed $store Information about store
-     * @param string|integer|Zend_Date|array|null $date date in store's timezone
-     * @param boolean $includeTime flag for including time to date
+     * @param string|int|Zend_Date|array|null $date date in store's timezone
+     * @param bool $includeTime flag for including time to date
      * @param null|string $format
      * @return Zend_Date
      */
@@ -591,7 +591,7 @@ class Mage_Core_Model_Locale
         $timezone = Mage::app()->getStore($store)->getConfig(self::XML_PATH_DEFAULT_TIMEZONE);
         $currentTimezone = @date_default_timezone_get();
         @date_default_timezone_set($timezone);
-        $date = date('Y-m-d H:i:s');
+        $date = date(Varien_Date::DATETIME_PHP_FORMAT);
         @date_default_timezone_set($currentTimezone);
         return strtotime($date);
     }
@@ -794,7 +794,7 @@ class Mage_Core_Model_Locale
      * Replace all yy date format to yyyy
      *
      * @param string $currentFormat
-     * @return mixed
+     * @return string|string[]|null
      */
     protected function _convertYearTwoDigitTo4($currentFormat)
     {

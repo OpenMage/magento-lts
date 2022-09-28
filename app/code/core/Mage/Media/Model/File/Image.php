@@ -109,7 +109,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      * Create tmp image resource for operations
      *
      * @param Mage_Media_Model_Image $object
-     * @return false|resource
+     * @return resource
      */
     public function getTmpImage(Mage_Media_Model_Image $object)
     {

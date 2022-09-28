@@ -101,7 +101,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
      * Add notice message.
      *
      * @param mixed $message Message text
-     * @param boolean $appendImportButton OPTIONAL Append import button to message?
+     * @param bool $appendImportButton OPTIONAL Append import button to message?
      * @return $this
      */
     public function addNotice($message, $appendImportButton = false)
@@ -120,7 +120,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
      * Add success message.
      *
      * @param mixed $message Message text
-     * @param boolean $appendImportButton OPTIONAL Append import button to message?
+     * @param bool $appendImportButton OPTIONAL Append import button to message?
      * @return $this
      */
     public function addSuccess($message, $appendImportButton = false)

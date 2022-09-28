@@ -196,6 +196,11 @@ Bundle.Selection.prototype = {
                 }
             );
         }
+
+        var inputs = $$('#bundle_option_' + data.parentIndex + ' input');
+        inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el));  } )
+        var inputs = $$('#bundle_option_' + data.parentIndex + ' button.delete');
+        inputs.each(function(el) { Event.observe(el, 'click', el.setHasChanges.bind(el));  } )
     },
 
     bindScopeCheckbox : function(){

@@ -21,7 +21,7 @@
 /** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
 
-/** @var Varien_Db_Adapter_Pdo_Mysql */
+/** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 $connection   = $this->getConnection();
 
 $regionTable  = $installer->getTable('directory/country_region');

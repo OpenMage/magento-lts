@@ -27,18 +27,12 @@
  */
 class Mage_Bundle_Model_Resource_Option extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Initialize connection and define resource
-     *
-     */
     protected function _construct()
     {
         $this->_init('bundle/option', 'option_id');
     }
 
     /**
-     * After save process
-     *
      * @param Mage_Core_Model_Abstract|Mage_Bundle_Model_Option $object
      * @return $this
      */

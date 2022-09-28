@@ -21,9 +21,9 @@
 /**
  * Class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Api_Model_Resource_Role_Collection getCollection()
  */

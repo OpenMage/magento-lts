@@ -66,7 +66,6 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
         $this->addColumn('date_added', [
             'header'    => Mage::helper('adminnotification')->__('Date Added'),
             'index'     => 'date_added',
-            'width'     => '150px',
             'type'      => 'datetime'
         ]);
 

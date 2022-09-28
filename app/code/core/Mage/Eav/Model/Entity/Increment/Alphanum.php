@@ -22,12 +22,6 @@
  * @category   Mage
  * @package    Mage_Eav
  * @author     Magento Core Team <core@magentocommerce.com>
- *
- * Properties:
- * - prefix
- * - pad_length
- * - pad_char
- * - last_id
  */
 class Mage_Eav_Model_Entity_Increment_Alphanum extends Mage_Eav_Model_Entity_Increment_Abstract
 {
@@ -47,7 +41,7 @@ class Mage_Eav_Model_Entity_Increment_Alphanum extends Mage_Eav_Model_Entity_Inc
     {
         $lastId = $this->getLastId();
 
-        if (strpos($lastId, $this->getPrefix())===0) {
+        if (strpos($lastId, $this->getPrefix()) === 0) {
             $lastId = substr($lastId, strlen($this->getPrefix()));
         }
 

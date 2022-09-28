@@ -53,16 +53,9 @@
  */
 class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 {
-    /**
-     * Event prefix
-     *
-     * @var string
-     */
     protected $_eventPrefix = 'catalogsearch_query';
 
     /**
-     * Event object key name
-     *
      * @var string
      */
     protected $_eventObject = 'catalogsearch_query';

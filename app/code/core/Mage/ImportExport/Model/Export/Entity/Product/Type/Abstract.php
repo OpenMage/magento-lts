@@ -82,7 +82,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Product_Type_Abstract
      * Add additional data to attribute.
      *
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @return boolean
+     * @return bool
      */
     public function overrideAttribute(Mage_Catalog_Model_Resource_Eav_Attribute $attribute)
     {

@@ -665,7 +665,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Check can page show for unregistered users
      *
-     * @return boolean
+     * @return bool
      */
     protected function _canShowForUnregisteredUsers()
     {

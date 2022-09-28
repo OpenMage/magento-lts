@@ -44,14 +44,14 @@ interface Mage_Adminhtml_Block_Widget_Tab_Interface
     /**
      * Can show tab in tabs
      *
-     * @return boolean
+     * @return bool
      */
     public function canShowTab();
 
     /**
      * Tab is hidden
      *
-     * @return boolean
+     * @return bool
      */
     public function isHidden();
 }

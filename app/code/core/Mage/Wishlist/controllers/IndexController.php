@@ -47,7 +47,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Extend preDispatch
      *
-     * @return Mage_Core_Controller_Front_Action|void
+     * @return void
      */
     public function preDispatch()
     {
@@ -175,7 +175,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Add the item to wish list
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return void
      */
     protected function _addItemToWishList()
     {
@@ -317,7 +317,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
         try {
             $id = (int) $this->getRequest()->getParam('id');
-            /** @var Mage_Wishlist_Model_Item */
+            /** @var Mage_Wishlist_Model_Item $item */
             $item = Mage::getModel('wishlist/item');
             $item->load($id);
             $wishlist = $this->_getWishlist($item->getWishlistId());
@@ -495,11 +495,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         // Set qty
         $qty = $this->getRequest()->getParam('qty');
         if (is_array($qty)) {
-            if (isset($qty[$itemId])) {
-                $qty = $qty[$itemId];
-            } else {
-                $qty = 1;
-            }
+            $qty = $qty[$itemId] ?? 1;
         }
         $qty = (float)$qty;
         if ($qty && $qty>0) {

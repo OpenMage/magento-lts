@@ -173,11 +173,7 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
             }
         }
 
-        if (isset($_itemsArray[$item->getOrderItem()->getId()])) {
-            return $_itemsArray[$item->getOrderItem()->getId()];
-        } else {
-            return null;
-        }
+        return $_itemsArray[$item->getOrderItem()->getId()] ?? null;
     }
 
     /**
