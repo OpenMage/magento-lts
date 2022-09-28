@@ -43,6 +43,7 @@ umask(0);
 $disabledFuncs = array_map('trim', preg_split("/,|\s+/", strtolower(ini_get('disable_functions'))));
 $isShellDisabled = in_array('shell_exec', $disabledFuncs)
     || !str_contains(strtolower(PHP_OS), 'win')
+    || !shell_exec('which expr 2>/dev/null')
     || !shell_exec('which ps 2>/dev/null')
     || !shell_exec('which sed 2>/dev/null');
 
