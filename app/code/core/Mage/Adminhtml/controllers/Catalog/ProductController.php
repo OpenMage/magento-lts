@@ -1060,7 +1060,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $result['attributes'] = [];
 
         /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
-        $productType = $product->getTypeInstance();
+        $productType = $configurableProduct->getTypeInstance();
         foreach ($productType->getConfigurableAttributes() as $attribute) {
             $value = $product->getAttributeText($attribute->getProductAttribute()->getAttributeCode());
             $autogenerateOptions[] = $value;
