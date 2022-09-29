@@ -169,7 +169,7 @@ class Credis_Client {
      * @var string
      */
     protected $host;
-    
+
     /**
      * Port on which the Redis server is running
      * @var integer
@@ -269,12 +269,12 @@ class Credis_Client {
      * @var int
      */
     protected $requests = 0;
-    
+
     /**
      * @var bool
      */
     protected $subscribed = false;
-    
+
 
     /**
      * Creates a Redisent connection to the Redis server on host {@link $host} and port {@link $port}.
@@ -305,7 +305,7 @@ class Credis_Client {
             $this->close();
         }
     }
-    
+
     /**
      * @return bool
      */
@@ -313,7 +313,7 @@ class Credis_Client {
     {
     	return $this->subscribed;
     }
-    
+
     /**
      * Return the host of the Redis instance
      * @return string
@@ -600,7 +600,7 @@ class Credis_Client {
         $this->selectedDb = (int) $index;
         return $response;
     }
-    
+
     /**
      * @param string|array $pattern
      * @return array
@@ -1139,7 +1139,7 @@ class Credis_Client {
      */
     private static function _prepare_command($args)
     {
-        return sprintf('*%d%s%s%s', count($args), CRLF, implode(array_map(array('self', '_map'), $args), CRLF), CRLF);
+        return sprintf('*%d%s%s%s', count($args), CRLF, implode(CRLF, array_map(array('self', '_map'), $args)), CRLF);
     }
 
     private static function _map($arg)

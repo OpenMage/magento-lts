@@ -922,7 +922,7 @@ abstract class Zend_View_Helper_Navigation_HelperAbstract
      * @return string           Normalized ID
      */
     protected function _normalizeId($value)
-    {        
+    {
         if (false === $this->_skipPrefixForId) {
             $prefix = $this->getPrefixForId();
 

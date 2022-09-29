@@ -161,7 +161,7 @@ class Zend_Currency
         }
 
         // Validate the passed number
-        if (!(isset($value)) or (is_numeric($value) === false)) {
+        if (!(isset($value)) || (is_numeric($value) === false)) {
             #require_once 'Zend/Currency/Exception.php';
             throw new Zend_Currency_Exception("Value '$value' has to be numeric");
         }
@@ -877,7 +877,7 @@ class Zend_Currency
                         $value = -1;
                     }
 
-                    if (($value < -1) or ($value > 30)) {
+                    if (($value < -1) || ($value > 30)) {
                         #require_once 'Zend/Currency/Exception.php';
                         throw new Zend_Currency_Exception("'$value' precision has to be between -1 and 30.");
                     }

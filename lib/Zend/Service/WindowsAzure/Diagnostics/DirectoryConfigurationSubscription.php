@@ -37,13 +37,13 @@ class Zend_Service_WindowsAzure_Diagnostics_DirectoryConfigurationSubscription
 {
     /**
      * Constructor
-     * 
+     *
 	 * @param	string	$path					Path
 	 * @param	string	$container				Container
 	 * @param	int		$directoryQuotaInMB		Directory quota in MB
 	 */
-    public function __construct($path, $container, $directoryQuotaInMB = 1024) 
-    {	        
+    public function __construct($path, $container, $directoryQuotaInMB = 1024)
+    {
         $this->_data = array(
             'path'      			=> $path,
             'container' 			=> $container,

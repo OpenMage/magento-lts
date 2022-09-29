@@ -32,14 +32,14 @@ abstract class Zend_Service_SqlAzure_Management_ServiceEntityAbstract
 {
     /**
      * Data
-     * 
+     *
      * @var array
      */
     protected $_data = null;
-    
+
     /**
      * Magic overload for setting properties
-     * 
+     *
      * @param string $name     Name of the property
      * @param string $value    Value to set
      */
@@ -54,7 +54,7 @@ abstract class Zend_Service_SqlAzure_Management_ServiceEntityAbstract
 
     /**
      * Magic overload for getting properties
-     * 
+     *
      * @param string $name     Name of the property
      */
     public function __get($name) {

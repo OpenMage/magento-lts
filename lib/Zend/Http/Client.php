@@ -293,7 +293,7 @@ class Zend_Http_Client
             $this->setConfig($config);
         }
 
-        $this->_queryBracketsEscaped = version_compare(phpversion(), '5.1.3', '>=');
+        $this->_queryBracketsEscaped = true;
     }
 
     /**

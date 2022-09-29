@@ -24,7 +24,7 @@
 /**
  * Event manager: notification system
  *
- * Use the EventManager when you want to create a per-instance notification 
+ * Use the EventManager when you want to create a per-instance notification
  * system for your objects.
  *
  * @category   Zend
@@ -41,8 +41,8 @@ class Zend_EventManager_GlobalEventManager
 
     /**
      * Set the event collection on which this will operate
-     * 
-     * @param  null|Zend_EventManager_EventCollection $events 
+     *
+     * @param  null|Zend_EventManager_EventCollection $events
      * @return void
      */
     public static function setEventCollection(Zend_EventManager_EventCollection $events = null)
@@ -65,10 +65,10 @@ class Zend_EventManager_GlobalEventManager
 
     /**
      * Trigger an event
-     * 
-     * @param  string $event 
-     * @param  object|string $context 
-     * @param  array|object $argv 
+     *
+     * @param  string $event
+     * @param  object|string $context
+     * @param  array|object $argv
      * @return Zend_EventManager_ResponseCollection
      */
     public static function trigger($event, $context, $argv = array())
@@ -77,13 +77,13 @@ class Zend_EventManager_GlobalEventManager
     }
 
     /**
-     * Trigger listeenrs until return value of one causes a callback to evaluate 
+     * Trigger listeenrs until return value of one causes a callback to evaluate
      * to true.
-     * 
-     * @param  string $event 
-     * @param  string|object $context 
-     * @param  array|object $argv 
-     * @param  callback $callback 
+     *
+     * @param  string $event
+     * @param  string|object $context
+     * @param  array|object $argv
+     * @param  callback $callback
      * @return Zend_EventManager_ResponseCollection
      */
     public static function triggerUntil($event, $context, $argv, $callback)
@@ -93,10 +93,10 @@ class Zend_EventManager_GlobalEventManager
 
     /**
      * Attach a listener to an event
-     * 
-     * @param  string $event 
-     * @param  callback $callback 
-     * @param  int $priority 
+     *
+     * @param  string $event
+     * @param  callback $callback
+     * @param  int $priority
      * @return Zend_Stdlib_CallbackHandler
      */
     public static function attach($event, $callback, $priority = 1)
@@ -106,8 +106,8 @@ class Zend_EventManager_GlobalEventManager
 
     /**
      * Detach a callback from a listener
-     * 
-     * @param  Zend_Stdlib_CallbackHandler $listener 
+     *
+     * @param  Zend_Stdlib_CallbackHandler $listener
      * @return bool
      */
     public static function detach(Zend_Stdlib_CallbackHandler $listener)
@@ -117,7 +117,7 @@ class Zend_EventManager_GlobalEventManager
 
     /**
      * Retrieve list of events this object manages
-     * 
+     *
      * @return array
      */
     public static function getEvents()
@@ -127,8 +127,8 @@ class Zend_EventManager_GlobalEventManager
 
     /**
      * Retrieve all listeners for a given event
-     * 
-     * @param  string $event 
+     *
+     * @param  string $event
      * @return Zend_Stdlib_PriorityQueue|array
      */
     public static function getListeners($event)
@@ -138,8 +138,8 @@ class Zend_EventManager_GlobalEventManager
 
     /**
      * Clear all listeners for a given event
-     * 
-     * @param  string $event 
+     *
+     * @param  string $event
      * @return void
      */
     public static function clearListeners($event)

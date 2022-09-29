@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:typens="urn:{{var wsdl.name}}"
+<wsdl:definitions xmlns:typens="urn:OpenMage"
              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
              xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
              xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-             name="{{var wsdl.name}}"
-             targetNamespace="urn:{{var wsdl.name}}">
+             name="OpenMage"
+             targetNamespace="urn:OpenMage">
     <wsdl:types>
-        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:{{var wsdl.name}}">
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:OpenMage">
             <xsd:complexType name="associativeEntity">
                 <xsd:sequence>
                     <xsd:element name="key" type="xsd:string" />
@@ -273,7 +273,7 @@
             <wsdl:output message="typens:endSessionResponse" />
         </wsdl:operation>
         <wsdl:operation name="login">
-            <wsdl:documentation>Login user and retrive session id</wsdl:documentation>
+            <wsdl:documentation>Login user and retrieve session id</wsdl:documentation>
             <wsdl:input message="typens:login" />
             <wsdl:output message="typens:loginResponse" />
         </wsdl:operation>
@@ -373,7 +373,7 @@
             </wsdl:output>
         </wsdl:operation>
     </wsdl:binding>
-    <wsdl:service name="{{var wsdl.name}}Service">
+    <wsdl:service name="OpenMageService">
         <wsdl:port name="{{var wsdl.handler}}Port" binding="typens:{{var wsdl.handler}}Binding">
             <soap:address location="{{var wsdl.url}}" />
         </wsdl:port>

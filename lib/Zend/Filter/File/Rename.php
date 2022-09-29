@@ -142,11 +142,11 @@ class Zend_Filter_File_Rename implements Zend_Filter_Interface
     public function getNewName($value, $source = false)
     {
         $file = $this->_getFileName($value);
-        
+
         if (!is_array($file) || !array_key_exists('source', $file) || !array_key_exists('target', $file)) {
             return $value;
         }
-        
+
         if ($file['source'] == $file['target']) {
             return $value;
         }
@@ -290,7 +290,7 @@ class Zend_Filter_File_Rename implements Zend_Filter_Interface
             return $file;
         }
 
-        if (!isset($rename['target']) or ($rename['target'] == '*')) {
+        if (!isset($rename['target']) || ($rename['target'] == '*')) {
             $rename['target'] = $rename['source'];
         }
 

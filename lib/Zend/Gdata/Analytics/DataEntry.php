@@ -75,7 +75,7 @@ class Zend_Gdata_Analytics_DataEntry extends Zend_Gdata_Entry
     }
 
     /**
-     * @param string $name 
+     * @param string $name
      * @return mixed
      */
     public function getDimension($name)
@@ -87,9 +87,9 @@ class Zend_Gdata_Analytics_DataEntry extends Zend_Gdata_Entry
         }
         return null;
     }
-    
-    /** 
-     * @param string $name 
+
+    /**
+     * @param string $name
      * @return mixed
      */
     public function getMetric($name)
@@ -101,9 +101,9 @@ class Zend_Gdata_Analytics_DataEntry extends Zend_Gdata_Entry
         }
         return null;
     }
-    
+
     /**
-     * @param string $name 
+     * @param string $name
      * @return mixed
      */
     public function getValue($name)

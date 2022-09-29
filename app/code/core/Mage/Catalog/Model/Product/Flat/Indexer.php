@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Product Flat Indexer Model
+ *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Catalog_Model_Resource_Product_Flat_Indexer _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Flat_Indexer getResource()
@@ -46,10 +43,6 @@
  * @method Mage_Catalog_Model_Product_Flat_Indexer setCreatedAt(string $value)
  * @method string getUpdatedAt()
  * @method Mage_Catalog_Model_Product_Flat_Indexer setUpdatedAt(string $value)
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
 {
@@ -76,7 +69,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      * Rebuild Catalog Product Flat Data
      *
      * @param mixed $store
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function rebuild($store = null)
     {
@@ -86,7 +79,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
             $this->_getResource()->prepareFlatTable($store);
         }
         Mage::getSingleton('index/indexer')->processEntityAction(
-            new Varien_Object(array('id' => $store)),
+            new Varien_Object(['id' => $store]),
             self::ENTITY,
             self::EVENT_TYPE_REBUILD
         );
@@ -99,7 +92,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      * @param string $attributeCode
      * @param int $store
      * @param int|array $productIds
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function updateAttribute($attributeCode, $store = null, $productIds = null)
     {
@@ -123,7 +116,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      * Prepare datastorage for catalog product flat
      *
      * @param int $store
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function prepareDataStorage($store = null)
     {
@@ -144,7 +137,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      * Update events observer attributes
      *
      * @param int $store
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function updateEventAttributes($store = null)
     {
@@ -169,7 +162,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      * @param int $productId
      * @param int $status
      * @param int $store
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function updateProductStatus($productId, $status, $store = null)
     {
@@ -183,8 +176,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
         if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
             $this->_getResource()->updateProduct($productId, $store);
             $this->_getResource()->updateChildrenDataFromParent($store, $productId);
-        }
-        else {
+        } else {
             $this->_getResource()->removeProduct($productId, $store);
         }
 
@@ -196,7 +188,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      *
      * @param int|array $productIds
      * @param int $store
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function updateProduct($productIds, $store = null)
     {
@@ -214,7 +206,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
             $resource->updateProduct($productIds, $store);
             $resource->updateRelationProducts($store, $productIds);
             $resource->commit();
-        } catch (Exception $e){
+        } catch (Exception $e) {
             $resource->rollBack();
             throw $e;
         }
@@ -227,7 +219,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      *
      * @param int|array $productIds
      * @param int $store
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function saveProduct($productIds, $store = null)
     {
@@ -245,7 +237,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
             $resource->saveProduct($productIds, $store);
             $resource->updateRelationProducts($store, $productIds);
             $resource->commit();
-        } catch (Exception $e){
+        } catch (Exception $e) {
             $resource->rollBack();
             throw $e;
         }
@@ -258,7 +250,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      *
      * @param int|array $productIds
      * @param int $store
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function removeProduct($productIds, $store = null)
     {
@@ -278,7 +270,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      * Delete store process
      *
      * @param int $store
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function deleteStore($store)
     {
@@ -289,7 +281,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
     /**
      * Rebuild Catalog Product Flat Data for all stores
      *
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function reindexAll()
     {

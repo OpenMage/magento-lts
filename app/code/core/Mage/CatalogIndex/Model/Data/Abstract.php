@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,23 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- * CatalogIndex Data Retreiver Abstract Model
+ * CatalogIndex Data Retriever Abstract Model
  *
  * @category   Mage
  * @package    Mage_CatalogIndex
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_CatalogIndex_Model_Resource_Data_Abstract getResource()
+ *
+ * @method array getMinimalPriceData()
+ * @method $this setMinimalPriceData(array $data)
  */
 class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
 {
@@ -44,18 +42,18 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Defines when product type has children
      *
-     * @var boolean
+     * @var int[]|bool[]
      */
-    protected $_haveChildren = array(
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS=>true,
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES=>true,
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES=>true,
-                        );
+    protected $_haveChildren = [
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS => true,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES => true,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES => true,
+    ];
 
     /**
      * Defines when product type has parents
      *
-     * @var boolean
+     * @var bool
      */
     protected $_haveParents = true;
 
@@ -75,8 +73,8 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      * Return all children ids
      *
      * @param Mage_Core_Model_Store $store
-     * @param int $parentId
-     * @return mixed
+     * @param int|array $parentIds
+     * @return array|false
      */
     public function getChildProductIds($store, $parentIds)
     {
@@ -95,8 +93,8 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      * Return all parent ids
      *
      * @param Mage_Core_Model_Store $store
-     * @param int $childId
-     * @return mixed
+     * @param int|array $childIds
+     * @return array|false
      */
     public function getParentProductIds($store, $childIds)
     {
@@ -117,7 +115,8 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      * @param Mage_Core_Model_Store $store
      * @param array $settings
      * @param int $type
-     * @param int $suppliedId
+     * @param int|array $suppliedId
+     * @return array
      */
     protected function fetchLinkInformation($store, $settings, $type, $suppliedId)
     {
@@ -133,7 +132,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
                 break;
         }
 
-        $additional = array();
+        $additional = [];
         if (isset($settings['additional']) && is_array($settings['additional'])) {
             $additional = $settings['additional'];
         }
@@ -157,31 +156,29 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
         $specialPriceFromId = Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'special_from_date');
         $specialPriceToId = Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'special_to_date');
 
-        $attributes = array($priceId, $specialPriceId, $specialPriceFromId, $specialPriceToId);
+        $attributes = [$priceId, $specialPriceId, $specialPriceFromId, $specialPriceToId];
 
         $productData = $this->getAttributeData($product, $attributes, $store);
         foreach ($productData as $row) {
             switch ($row['attribute_id']) {
                 case $priceId:
                     $basePrice = $row['value'];
-                break;
+                    break;
                 case $specialPriceId:
                     $specialPrice = $row['value'];
-                break;
+                    break;
                 case $specialPriceFromId:
                     $specialPriceFrom = $row['value'];
-                break;
+                    break;
                 case $specialPriceToId:
                     $specialPriceTo = $row['value'];
-                break;
+                    break;
             }
         }
 
-        $finalPrice = Mage::getSingleton('catalog/product_type')
+        return Mage::getSingleton('catalog/product_type')
             ->priceFactory($this->getTypeCode())
             ->calculatePrice($basePrice, $specialPrice, $specialPriceFrom, $specialPriceTo, false, $store, $group, $product);
-
-        return $finalPrice;
     }
 
     /**
@@ -193,14 +190,14 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      */
     public function getMinimalPrice($products, $store)
     {
-        $priceAttributes = array(
+        $priceAttributes = [
             Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'tier_price'),
-            Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'price'));
+            Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'price')];
 
         $data = $this->getResource()->getMinimalPrice($products, $priceAttributes, $store->getId());
 
         $this->setMinimalPriceData($data);
-        $eventData = array('indexer'=>$this, 'product_ids'=>$products, 'store'=>$store);
+        $eventData = ['indexer'=>$this, 'product_ids'=>$products, 'store'=>$store];
         Mage::dispatchEvent('catalogindex_get_minimal_price', $eventData);
         $data = $this->getMinimalPriceData();
 
@@ -217,11 +214,10 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     public function getTaxClassId($productId, $store)
     {
         $attributeId = Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'tax_class_id');
-        $taxClassId  = $this->getResource()->getAttributeData(array($productId), array($attributeId), $store->getId());
+        $taxClassId  = $this->getResource()->getAttributeData([$productId], [$attributeId], $store->getId());
         if (is_array($taxClassId) && isset($taxClassId[0]['value'])) {
             $taxClassId = $taxClassId[0]['value'];
-        }
-        else {
+        } else {
             $taxClassId = 0;
         }
         return $taxClassId;
@@ -240,11 +236,12 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive specified attribute data for specified products from specified store
+     * Retrieve specified attribute data for specified products from specified store
      *
      * @param array $products
      * @param array $attributes
      * @param Mage_Core_Model_Store $store
+     * @return array
      */
     public function getAttributeData($products, $attributes, $store)
     {
@@ -252,7 +249,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive product type code
+     * Retrieve product type code
      *
      * @return string
      */

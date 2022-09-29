@@ -146,10 +146,10 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
      * @var Zend_Oauth_Token
      */
     protected $_token = null;
-    
+
     /**
      * Define the OAuth realm
-     * 
+     *
      * @var string
      */
     protected $_realm = null;

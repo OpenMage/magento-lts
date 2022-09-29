@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,27 +12,25 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
- /**
-  * Totals item block
-  */
+/**
+ * Totals item block
+ *
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_Sales_Order_Totals
 {
     /**
      * Determine display parameters before rendering HTML
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Totals_Item
+     * @return $this
      */
     protected function _beforeToHtml()
     {
@@ -48,16 +46,16 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
     /**
      * Initialize totals object
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Totals_Item
+     * @return $this
      */
     public function initTotals()
     {
-        $total = new Varien_Object(array(
+        $total = new Varien_Object([
             'code'      => $this->getNameInLayout(),
             'block_name'=> $this->getNameInLayout(),
             'area'      => $this->getDisplayArea(),
             'strong'    => $this->getStrong()
-        ));
+        ]);
         if ($this->getBeforeCondition()) {
             $this->getParentBlock()->addTotalBefore($total, $this->getBeforeCondition());
         } else {
@@ -75,7 +73,9 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
      */
     public function displayPrices($baseAmount, $amount)
     {
-        return $this->helper('adminhtml/sales')->displayPrices($this->getOrder(), $baseAmount, $amount);
+        /** @var Mage_Adminhtml_Helper_Sales $helper */
+        $helper = $this->helper('adminhtml/sales');
+        return $helper->displayPrices($this->getOrder(), $baseAmount, $amount);
     }
 
     /**
@@ -88,7 +88,9 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
      */
     public function displayPriceAttribute($code, $strong = false, $separator = '<br/>')
     {
-        return $this->helper('adminhtml/sales')->displayPriceAttribute($this->getSource(), $code, $strong, $separator);
+        /** @var Mage_Adminhtml_Helper_Sales $helper */
+        $helper = $this->helper('adminhtml/sales');
+        return $helper->displayPriceAttribute($this->getSource(), $code, $strong, $separator);
     }
 
     /**

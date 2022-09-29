@@ -105,7 +105,7 @@ class Zend_EventManager_EventManager implements Zend_EventManager_EventCollectio
      *
      * Sets {@link $sharedCollections} to boolean false to disable ability
      * to lazy-load static event manager instance.
-     * 
+     *
      * @return void
      */
     public function unsetSharedCollections()
@@ -261,7 +261,7 @@ class Zend_EventManager_EventManager implements Zend_EventManager_EventCollectio
      * executed. By default, this value is 1; however, you may set it for any
      * integer value. Higher values have higher priority (i.e., execute first).
      *
-     * You can specify "*" for the event name. In such cases, the listener will 
+     * You can specify "*" for the event name. In such cases, the listener will
      * be triggered for every event.
      *
      * @param  string|array|Zend_EventManager_ListenerAggregate $event An event or array of event names. If a ListenerAggregate, proxies to {@link attachAggregate()}.
@@ -525,9 +525,9 @@ class Zend_EventManager_EventManager implements Zend_EventManager_EventCollectio
      * Add listeners to the master queue of listeners
      *
      * Used to inject shared listeners and wildcard listeners.
-     * 
-     * @param  Zend_Stdlib_PriorityQueue $masterListeners 
-     * @param  Zend_Stdlib_PriorityQueue $listeners 
+     *
+     * @param  Zend_Stdlib_PriorityQueue $masterListeners
+     * @param  Zend_Stdlib_PriorityQueue $listeners
      * @return void
      */
     protected function insertListeners($masterListeners, $listeners)

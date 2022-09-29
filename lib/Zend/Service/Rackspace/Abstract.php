@@ -91,13 +91,13 @@ abstract class Zend_Service_Rackspace_Abstract
     protected $cdnUrl;
     /**
      * Server management URL
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $managementUrl;
     /**
      * Do we use ServiceNet?
-     * 
+     *
      * @var boolean
      */
     protected $useServiceNet = false;
@@ -161,7 +161,7 @@ abstract class Zend_Service_Rackspace_Abstract
      *
      * @return string|boolean
      */
-    public function getStorageUrl() 
+    public function getStorageUrl()
     {
         if (empty($this->storageUrl)) {
             if (!$this->authenticate()) {
@@ -175,7 +175,7 @@ abstract class Zend_Service_Rackspace_Abstract
      *
      * @return string|boolean
      */
-    public function getCdnUrl() 
+    public function getCdnUrl()
     {
         if (empty($this->cdnUrl)) {
             if (!$this->authenticate()) {
@@ -186,9 +186,9 @@ abstract class Zend_Service_Rackspace_Abstract
     }
     /**
      * Get the management server URL
-     * 
+     *
      * @return string|boolean
-     */     
+     */
     public function getManagementUrl()
     {
         if (empty($this->managementUrl)) {
@@ -237,13 +237,13 @@ abstract class Zend_Service_Rackspace_Abstract
             throw new Zend_Service_Rackspace_Exception("The authentication URL is not valid");
         }
     }
-    
+
     /**
      * Sets whether to use ServiceNet
-     * 
+     *
      * ServiceNet is Rackspace's internal network. Bandwidth on ServiceNet is
      * not charged.
-     * 
+     *
      * @param boolean $useServiceNet
      */
     public function setServiceNet($useServiceNet = true)
@@ -254,7 +254,7 @@ abstract class Zend_Service_Rackspace_Abstract
 
     /**
      * Get whether we're using ServiceNet
-     * 
+     *
      * @return boolean
      */
     public function getServiceNet()
@@ -281,16 +281,16 @@ abstract class Zend_Service_Rackspace_Abstract
      *
      * @return string
      */
-    public function getErrorMsg() 
+    public function getErrorMsg()
     {
         return $this->errorMsg;
     }
     /**
      * Get the error code of the last HTTP call
-     * 
-     * @return strig 
+     *
+     * @return strig
      */
-    public function getErrorCode() 
+    public function getErrorCode()
     {
         return $this->errorCode;
     }
@@ -308,8 +308,8 @@ abstract class Zend_Service_Rackspace_Abstract
     }
     /**
      * Return true is the last call was successful
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function isSuccessful()
     {
@@ -330,18 +330,18 @@ abstract class Zend_Service_Rackspace_Abstract
         $client = $this->getHttpClient();
         $client->resetParameters(true);
         if ($method == 'PUT' && empty($body)) {
-            // if left at NULL a PUT request will always have 
+            // if left at NULL a PUT request will always have
             // Content-Type: x-url-form-encoded, which breaks copyObject()
-            $client->setEncType(''); 
+            $client->setEncType('');
         }
         if (empty($headers[self::AUTHUSER_HEADER])) {
             $headers[self::AUTHTOKEN]= $this->getToken();
-        } 
+        }
         $client->setMethod($method);
         if (empty($data['format'])) {
             $data['format']= self::API_FORMAT;
         }
-        $client->setParameterGet($data);    
+        $client->setParameterGet($data);
         if (!empty($body)) {
             $client->setRawData($body);
             if (!isset($headers['Content-Type'])) {
@@ -388,5 +388,5 @@ abstract class Zend_Service_Rackspace_Abstract
         $this->errorMsg = $result->getBody();
         $this->errorCode = $result->getStatus();
         return false;
-    } 
+    }
 }

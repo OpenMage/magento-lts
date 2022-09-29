@@ -115,7 +115,7 @@ class Zend_Filter_Encrypt implements Zend_Filter_Interface
     public function __call($method, $options)
     {
         $part = substr($method, 0, 3);
-        if ((($part != 'get') and ($part != 'set')) or !method_exists($this->_adapter, $method)) {
+        if ((($part != 'get') and ($part != 'set')) || !method_exists($this->_adapter, $method)) {
             #require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception("Unknown method '{$method}'");
         }

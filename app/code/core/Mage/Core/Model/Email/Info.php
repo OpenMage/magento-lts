@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -32,9 +26,9 @@
  *  -Bcc: Blind carbon copy to tertiary recipients who receive the message
  *        without anyone else (including the To, Cc, and Bcc recipients) seeing who the tertiary recipients are
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Email_Info extends Varien_Object
 {
@@ -43,55 +37,54 @@ class Mage_Core_Model_Email_Info extends Varien_Object
      *
      * @var array
      */
-    protected $_bccNames = array();
+    protected $_bccNames = [];
 
     /**
      * Email list of "Bcc" recipients
      *
      * @var array
      */
-    protected $_bccEmails = array();
+    protected $_bccEmails = [];
 
     /**
      * Name list of "To" recipients
      *
      * @var array
      */
-    protected $_toNames = array();
+    protected $_toNames = [];
 
     /**
      * Email list of "To" recipients
      *
      * @var array
      */
-    protected $_toEmails = array();
-
+    protected $_toEmails = [];
 
     /**
      * Add new "Bcc" recipient to current email
      *
      * @param string $email
      * @param string|null $name
-     * @return Mage_Core_Model_Email_Info
+     * @return $this
      */
     public function addBcc($email, $name = null)
     {
-        array_push($this->_bccNames, $name);
-        array_push($this->_bccEmails, $email);
+        $this->_bccNames[] = $name;
+        $this->_bccEmails[] = $email;
         return $this;
     }
 
     /**
      * Add new "To" recipient to current email
      *
-     * @param string $email
-     * @param string|null $name
-     * @return Mage_Core_Model_Email_Info
+     * @param array|string $email
+     * @param array|string|null $name
+     * @return $this
      */
     public function addTo($email, $name = null)
     {
-        array_push($this->_toNames, $name);
-        array_push($this->_toEmails, $email);
+        $this->_toNames[] = $name;
+        $this->_toEmails[] = $email;
         return $this;
     }
 

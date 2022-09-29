@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,28 +12,24 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * One page checkout status
  *
  * @category   Mage
- * @category   Mage
  * @package    Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_Form_Container
 {
+    /**
+     * @return Mage_Sales_Model_Quote
+     */
     public function getQuote()
     {
         return Mage::getSingleton('checkout/session')->getQuote();
@@ -42,7 +38,7 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
     /**
      * Check payment method model
      *
-     * @param Mage_Payment_Model_Method_Abstract|null
+     * @param Mage_Payment_Model_Method_Abstract|null $method
      * @return bool
      */
     protected function _canUseMethod($method)
@@ -53,7 +49,7 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
     /**
      * Retrieve code of current payment method
      *
-     * @return mixed
+     * @return false|string
      */
     public function getSelectedMethodCode()
     {
@@ -66,6 +62,7 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
     /**
      * Payment method form html getter
      * @param Mage_Payment_Model_Method_Abstract $method
+     * @return string
      */
     public function getPaymentMethodFormHtml(Mage_Payment_Model_Method_Abstract $method)
     {
@@ -76,6 +73,7 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
      * Return method title for payment selection page
      *
      * @param Mage_Payment_Model_Method_Abstract $method
+     * @return string
      */
     public function getMethodTitle(Mage_Payment_Model_Method_Abstract $method)
     {
@@ -89,11 +87,13 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
     /**
      * Payment method additional label part getter
      * @param Mage_Payment_Model_Method_Abstract $method
+     * @return string
      */
     public function getMethodLabelAfterHtml(Mage_Payment_Model_Method_Abstract $method)
     {
         if ($form = $this->getChild('payment.method.' . $method->getCode())) {
             return $form->getMethodLabelAfterHtml();
         }
+        return '';
     }
 }

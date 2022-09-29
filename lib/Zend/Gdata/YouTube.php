@@ -799,8 +799,8 @@ class Zend_Gdata_YouTube extends Zend_Gdata_Media
      *         Zend_Gdata_YouTube_Inbox_Entry representing the sent message.
      *
      */
-    public function sendVideoMessage($body, $videoEntry = null,
-        $videoId = null, $recipientUserName)
+    public function sendVideoMessage($body, $videoEntry,
+        $videoId, $recipientUserName)
     {
         if (!$videoId && !$videoEntry) {
             #require_once 'Zend/Gdata/App/InvalidArgumentException.php';

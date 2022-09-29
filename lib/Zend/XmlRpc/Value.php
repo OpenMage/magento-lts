@@ -442,7 +442,7 @@ abstract class Zend_XmlRpc_Value
                 foreach ($value->member as $member) {
                     // @todo? If a member doesn't have a <value> tag, we don't add it to the struct
                     // Maybe we want to throw an exception here ?
-                    if (!isset($member->value) or !isset($member->name)) {
+                    if (!isset($member->value) || !isset($member->name)) {
                         continue;
                         //throw new Zend_XmlRpc_Value_Exception('Member of the '. self::XMLRPC_TYPE_STRUCT .' XML-RPC native type must contain a VALUE tag');
                     }
@@ -486,13 +486,15 @@ abstract class Zend_XmlRpc_Value
      */
     protected static function _extractTypeAndValue(SimpleXMLElement $xml, &$type, &$value)
     {
-        list($type, $value) = each($xml);
+        $value = reset($xml);
+        $type = key($xml);
 
         if (!$type and $value === null) {
             $namespaces = array('ex' => 'http://ws.apache.org/xmlrpc/namespaces/extensions');
             foreach ($namespaces as $namespaceName => $namespaceUri) {
                 $namespaceXml = $xml->children($namespaceUri);
-                list($type, $value) = each($namespaceXml);
+                $value = reset($namespaceXml);
+                $type = key($namespaceXml);
                 if ($type !== null) {
                     $type = $namespaceName . ':' . $type;
                     break;

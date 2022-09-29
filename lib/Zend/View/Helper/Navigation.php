@@ -164,11 +164,11 @@ class Zend_View_Helper_Navigation
             // Add navigation helper path at the beginning
             $paths = $this->view->getHelperPaths();
             $this->view->setHelperPath(null);
-            
+
             $this->view->addHelperPath(
                     str_replace('_', '/', self::NS),
                     self::NS);
-            
+
             foreach ($paths as $ns => $path) {
                 $this->view->addHelperPath($path, $ns);
             }

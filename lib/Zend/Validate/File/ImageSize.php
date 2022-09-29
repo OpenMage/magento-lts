@@ -316,7 +316,7 @@ class Zend_Validate_File_ImageSize extends Zend_Validate_Abstract
         $size = @getimagesize($value);
         $this->_setValue($file);
 
-        if (empty($size) or ($size[0] === 0) or ($size[1] === 0)) {
+        if (empty($size) || ($size[0] === 0) || ($size[1] === 0)) {
             return $this->_throw($file, self::NOT_DETECTED);
         }
 

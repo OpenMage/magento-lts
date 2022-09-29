@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Centinel
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Centinel
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * 3D Secure Validation Model
+ *
+ * @category   Mage
+ * @package    Mage_Centinel
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Centinel_Model_Service extends Varien_Object
 {
@@ -43,14 +41,14 @@ class Mage_Centinel_Model_Service extends Varien_Object
      *
      * @var array
      */
-    protected $_cmpiMap = array(
+    protected $_cmpiMap = [
         'lookup_enrolled'      => self::CMPI_ENROLLED,
         'lookup_eci_flag'      => self::CMPI_ECI,
         'authenticate_pa_res_status' => self::CMPI_PARES,
         'authenticate_cavv'          => self::CMPI_CAVV,
         'authenticate_eci_flag'      => self::CMPI_ECI,
         'authenticate_xid'           => self::CMPI_XID,
-    );
+    ];
 
     /**
      * Validation api model
@@ -79,7 +77,6 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Return value from section of centinel config
      *
-     * @param string $path
      * @return string
      */
     protected function _getConfig()
@@ -101,7 +98,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      */
     protected function _generateChecksum($paymentMethodCode, $cardType, $cardNumber, $cardExpMonth, $cardExpYear, $amount, $currencyCode)
     {
-        return md5(implode(func_get_args(), '_'));
+        return md5(implode('_', func_get_args()));
     }
 
     /**
@@ -113,12 +110,12 @@ class Mage_Centinel_Model_Service extends Varien_Object
      */
     private function _getUrl($suffix, $current = false)
     {
-        $params = array(
+        $params = [
             '_secure'  => true,
             '_current' => $current,
             'form_key' => Mage::getSingleton('core/session')->getFormKey(),
             'isIframe' => true
-        );
+        ];
         if (Mage::app()->getStore()->isAdmin()) {
             return Mage::getSingleton('adminhtml/url')->getUrl('*/centinel_index/' . $suffix, $params);
         } else {
@@ -189,7 +186,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      */
     protected function _resetValidationState()
     {
-        $this->_getSession()->setData(array());
+        $this->_getSession()->setData([]);
         $this->_validationState = false;
     }
 
@@ -306,7 +303,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Reset validation state and drop api object
      *
-     * @return Mage_Centinel_Model_Service
+     * @return $this
      */
     public function reset()
     {
@@ -357,13 +354,12 @@ class Mage_Centinel_Model_Service extends Varien_Object
         if (!$validationState && $this->shouldAuthenticate()) {
             throw new Exception('Authentication impossible: validation state is wrong.');
         }
-        $data = array(
+        return [
             'acs_url' => $validationState->getLookupAcsUrl(),
             'pa_req' => $validationState->getLookupPayload(),
             'term_url' => $this->_getUrl('authenticationcomplete', true),
             'md' => $validationState->getLookupTransactionId()
-        );
-        return $data;
+        ];
     }
 
     /**

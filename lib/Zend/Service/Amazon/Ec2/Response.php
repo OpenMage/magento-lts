@@ -121,7 +121,7 @@ class Zend_Service_Amazon_Ec2_Response {
         } catch (Zend_Http_Exception $e) {
             $body = false;
         }
-        
+
         if ($this->_document === null) {
             if ($body !== false) {
                 // turn off libxml error handling

@@ -33,6 +33,7 @@ class Zend_Reflection_Property extends ReflectionProperty
      *
      * @return Zend_Reflection_Class
      */
+    #[ReturnTypeWillChange]
     public function getDeclaringClass($reflectionClass = 'Zend_Reflection_Class')
     {
         $phpReflection  = parent::getDeclaringClass();
@@ -51,6 +52,7 @@ class Zend_Reflection_Property extends ReflectionProperty
      * @param  string $reflectionClass
      * @return Zend_Reflection_Docblock|false False if no docblock defined
      */
+    #[ReturnTypeWillChange]
     public function getDocComment($reflectionClass = 'Zend_Reflection_Docblock')
     {
         $docblock = parent::getDocComment();

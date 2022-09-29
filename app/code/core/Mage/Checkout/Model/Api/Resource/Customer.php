@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -46,13 +40,14 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
      const MODE_REGISTER = Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER;
      const MODE_GUEST    = Mage_Checkout_Model_Type_Onepage::METHOD_GUEST;
 
-
     /**
-     *
+     * @param int $customerId
+     * @return Mage_Customer_Model_Customer
+     * @throws Mage_Api_Exception
      */
     protected function _getCustomer($customerId)
     {
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')
             ->load($customerId);
         if (!$customer->getId()) {
@@ -90,16 +85,16 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     {
         $isNewCustomer = false;
         switch ($quote->getCheckoutMethod()) {
-        case self::MODE_GUEST:
-            $this->_prepareGuestQuote($quote);
-            break;
-        case self::MODE_REGISTER:
-            $this->_prepareNewCustomerQuote($quote);
-            $isNewCustomer = true;
-            break;
-        default:
-            $this->_prepareCustomerQuote($quote);
-            break;
+            case self::MODE_GUEST:
+                $this->_prepareGuestQuote($quote);
+                break;
+            case self::MODE_REGISTER:
+                $this->_prepareNewCustomerQuote($quote);
+                $isNewCustomer = true;
+                break;
+            default:
+                $this->_prepareCustomerQuote($quote);
+                break;
         }
 
         return $isNewCustomer;
@@ -109,7 +104,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
      * Prepare quote for guest checkout order submit
      *
      * @param Mage_Sales_Model_Quote $quote
-     * @return Mage_Checkout_Model_Api_Resource_Customer
+     * @return $this
      */
     protected function _prepareGuestQuote(Mage_Sales_Model_Quote $quote)
     {
@@ -124,7 +119,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
      * Prepare quote for customer registration and customer order submit
      *
      * @param Mage_Sales_Model_Quote $quote
-     * @return Mage_Checkout_Model_Api_Resource_Customer
+     * @return $this
      */
     protected function _prepareNewCustomerQuote(Mage_Sales_Model_Quote $quote)
     {
@@ -133,7 +128,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
 
         //$customer = Mage::getModel('customer/customer');
         $customer = $quote->getCustomer();
-        /* @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customerBilling = $billing->exportCustomerAddress();
         $customer->addAddress($customerBilling);
         $billing->setCustomerAddress($customerBilling);
@@ -149,9 +144,10 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
 
         Mage::helper('core')->copyFieldset('checkout_onepage_quote', 'to_customer', $quote, $customer);
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
+        $customer->setPasswordCreatedAt(time());
         $quote->setCustomer($customer)
             ->setCustomerId(true);
-
+        $quote->setPasswordHash('');
         return $this;
     }
 
@@ -159,7 +155,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
      * Prepare quote for customer order submit
      *
      * @param Mage_Sales_Model_Quote $quote
-     * @return Mage_Checkout_Model_Api_Resource_Customer
+     * @return $this
      */
     protected function _prepareCustomerQuote(Mage_Sales_Model_Quote $quote)
     {
@@ -184,7 +180,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
         }
         if ($shipping && isset($customerShipping) && !$customer->getDefaultShipping()) {
             $customerShipping->setIsDefaultShipping(true);
-        } else if (isset($customerBilling) && !$customer->getDefaultShipping()) {
+        } elseif (isset($customerBilling) && !$customer->getDefaultShipping()) {
             $customerBilling->setIsDefaultShipping(true);
         }
         $quote->setCustomer($customer);
@@ -196,7 +192,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
      * Involve new customer to system
      *
      * @param Mage_Sales_Model_Quote $quote
-     * @return Mage_Checkout_Model_Api_Resource_Customer
+     * @return $this
      */
     public function involveNewCustomer(Mage_Sales_Model_Quote $quote)
     {

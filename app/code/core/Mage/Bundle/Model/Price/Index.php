@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Bundle Product Price Index
+ *
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Bundle_Model_Resource_Price_Index _getResource()
  * @method Mage_Bundle_Model_Resource_Price_Index getResource()
@@ -39,30 +36,12 @@
  * @method Mage_Bundle_Model_Price_Index setMinPrice(float $value)
  * @method float getMaxPrice()
  * @method Mage_Bundle_Model_Price_Index setMaxPrice(float $value)
- *
- * @category    Mage
- * @package     Mage_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
 {
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('bundle/price_index');
-    }
-
-    /**
-     * Retrieve resource instance wrapper
-     *
-     * @return Mage_Bundle_Model_Mysql4_Price_Index
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**
@@ -70,7 +49,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
      *
      * @param int $productId
      * @param int $priceType
-     * @return Mage_Bundle_Model_Price_Index
+     * @return $this
      */
     protected function _reindexProduct($productId, $priceType)
     {
@@ -81,8 +60,8 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
     /**
      * Reindex Bundle product Price Index
      *
-     * @param Mage_Core_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|array|int $products
-     * @return Mage_Bundle_Model_Price_Index
+     * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|array|int $products
+     * @return $this
      */
     public function reindex($products = null)
     {
@@ -93,15 +72,14 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
     /**
      * Add bundle price range index to Product collection
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection
-     * @return Mage_Bundle_Model_Price_Index
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @return $this
      */
     public function addPriceIndexToCollection($collection)
     {
-        $productObjects = array();
-        $productIds     = array();
+        $productObjects = [];
+        $productIds     = [];
         foreach ($collection->getItems() as $product) {
-            /* @var $product Mage_Catalog_Model_Product */
             if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
                 $productIds[] = $product->getEntityId();
                 $productObjects[$product->getEntityId()] = $product;
@@ -120,8 +98,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
                     ->setData('_price_index', true)
                     ->setData('_price_index_min_price', $prices[$productId]['min_price'])
                     ->setData('_price_index_max_price', $prices[$productId]['max_price']);
-            }
-            else {
+            } else {
                 $addOptionsToResult = true;
             }
         }
@@ -137,7 +114,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
      * Add price index to bundle product after load
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Bundle_Model_Price_Index
+     * @return $this
      */
     public function addPriceIndexToProduct($product)
     {

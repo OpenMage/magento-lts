@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,29 +12,34 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Sales_Model_Quote_Address_Total_Discount
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         $quote = $address->getQuote();
-        $eventArgs = array(
+        $eventArgs = [
             'website_id'=>Mage::app()->getStore($quote->getStoreId())->getWebsiteId(),
             'customer_group_id'=>$quote->getCustomerGroupId(),
             'coupon_code'=>$quote->getCouponCode(),
-        );
+        ];
 
         $address->setFreeShipping(0);
         $totalDiscountAmount = 0;
@@ -61,8 +66,7 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
 
                 $subtotalWithDiscount+=$item->getRowTotal();
                 $baseSubtotalWithDiscount+=$item->getBaseRowTotal();
-            }
-            else {
+            } else {
                 /**
                  * Child item discount we calculate for parent
                  */
@@ -94,7 +98,6 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
                          * @todo Parent discount we apply for all children without discount
                          */
                         if (!$child->getDiscountAmount() && $item->getDiscountPercent()) {
-
                         }
                         $totalDiscountAmount += $child->getDiscountAmount();//*$item->getQty();
                         $baseTotalDiscountAmount += $child->getBaseDiscountAmount();//*$item->getQty();
@@ -105,8 +108,7 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
                         $subtotalWithDiscount+=$child->getRowTotalWithDiscount();
                         $baseSubtotalWithDiscount+=$child->getBaseRowTotalWithDiscount();
                     }
-                }
-                else {
+                } else {
                     $eventArgs['item'] = $item;
                     Mage::dispatchEvent('sales_quote_address_discount_item', $eventArgs);
 
@@ -134,6 +136,10 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
         return $this;
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return $this
+     */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         $amount = $address->getDiscountAmount();
@@ -143,13 +149,12 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
             if (strlen($code)) {
                 $title = Mage::helper('sales')->__('Discount (%s)', $code);
             }
-            $address->addTotal(array(
+            $address->addTotal([
                 'code'=>$this->getCode(),
                 'title'=>$title,
                 'value'=>-$amount
-            ));
+            ]);
         }
         return $this;
     }
-
 }

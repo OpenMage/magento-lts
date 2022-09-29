@@ -37,13 +37,13 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationWindowsEventLog
 {
     /**
      * Constructor
-     * 
+     *
 	 * @param	int		$bufferQuotaInMB					Buffer quota in MB
 	 * @param	int		$scheduledTransferPeriodInMinutes	Scheduled transfer period in minutes
 	 * @param	string	$scheduledTransferLogLevelFilter	Scheduled transfer log level filter
 	 */
-    public function __construct($bufferQuotaInMB = 0, $scheduledTransferPeriodInMinutes = 0, $scheduledTransferLogLevelFilter = Zend_Service_WindowsAzure_Diagnostics_LogLevel::UNDEFINED) 
-    {	        
+    public function __construct($bufferQuotaInMB = 0, $scheduledTransferPeriodInMinutes = 0, $scheduledTransferLogLevelFilter = Zend_Service_WindowsAzure_Diagnostics_LogLevel::UNDEFINED)
+    {
         $this->_data = array(
             'bufferquotainmb'        			=> $bufferQuotaInMB,
             'scheduledtransferperiodinminutes' 	=> $scheduledTransferPeriodInMinutes,
@@ -51,20 +51,20 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationWindowsEventLog
         	'subscriptions'						=> array()
         );
     }
-    
+
 	/**
 	 * Add subscription
-	 * 
+	 *
  	 * @param	string	$filter	Event log filter
 	 */
     public function addSubscription($filter)
     {
     	$this->_data['subscriptions'][$filter] = $filter;
     }
-    
+
 	/**
 	 * Remove subscription
-	 * 
+	 *
  	 * @param	string	$filter	Event log filter
 	 */
     public function removeSubscription($filter)

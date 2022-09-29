@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,26 +12,26 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Newsletter
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Newsletter
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Newsletter module observer
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Newsletter
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Newsletter_Model_Observer
 {
-    public function subscribeCustomer($observer)
+    /**
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function subscribeCustomer(Varien_Event_Observer $observer)
     {
         $customer = $observer->getEvent()->getCustomer();
         if (($customer instanceof Mage_Customer_Model_Customer)) {
@@ -43,19 +43,22 @@ class Mage_Newsletter_Model_Observer
     /**
      * Customer delete handler
      *
-     * @param Varien_Object $observer
-     * @return Mage_Newsletter_Model_Observer
+     * @param Varien_Event_Observer $observer
+     * @return $this
      */
-    public function customerDeleted($observer)
+    public function customerDeleted(Varien_Event_Observer $observer)
     {
         $subscriber = Mage::getModel('newsletter/subscriber')
             ->loadByEmail($observer->getEvent()->getCustomer()->getEmail());
-        if($subscriber->getId()) {
+        if ($subscriber->getId()) {
             $subscriber->delete();
         }
         return $this;
     }
 
+    /**
+     * @param Varien_Event_Observer $schedule
+     */
     public function scheduledSend($schedule)
     {
         $countOfQueue  = 3;
@@ -68,6 +71,6 @@ class Mage_Newsletter_Model_Observer
             ->addOnlyForSendingFilter()
             ->load();
 
-         $collection->walk('sendPerSubscriber', array($countOfSubscritions));
+         $collection->walk('sendPerSubscriber', [$countOfSubscritions]);
     }
 }

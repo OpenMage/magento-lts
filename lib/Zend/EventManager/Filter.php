@@ -32,46 +32,46 @@ interface Zend_EventManager_Filter
 {
     /**
      * Execute the filter chain
-     * 
-     * @param  string|object $context 
-     * @param  array $params 
+     *
+     * @param  string|object $context
+     * @param  array $params
      * @return mixed
      */
     public function run($context, array $params = array());
 
     /**
      * Attach an intercepting filter
-     * 
-     * @param  callback $callback 
+     *
+     * @param  callback $callback
      * @return Zend_Stdlib_CallbackHandler
      */
     public function attach($callback);
 
     /**
      * Detach an intercepting filter
-     * 
-     * @param  Zend_Stdlib_CallbackHandler $filter 
+     *
+     * @param  Zend_Stdlib_CallbackHandler $filter
      * @return bool
      */
     public function detach(Zend_Stdlib_CallbackHandler $filter);
 
     /**
      * Get all intercepting filters
-     * 
+     *
      * @return array
      */
     public function getFilters();
 
     /**
      * Clear all filters
-     * 
+     *
      * @return void
      */
     public function clearFilters();
 
     /**
      * Get all filter responses
-     * 
+     *
      * @return Zend_EventManager_ResponseCollection
      */
     public function getResponses();

@@ -53,7 +53,7 @@ class Zend_Tool_Project_Context_Zf_TestPHPUnitConfigFile extends Zend_Tool_Proje
     {
         return 'TestPHPUnitConfigFile';
     }
-    
+
     public function getContents()
     {
         return <<<EOS
@@ -64,10 +64,10 @@ class Zend_Tool_Project_Context_Zf_TestPHPUnitConfigFile extends Zend_Tool_Proje
     <testsuite name="Library Test Suite">
         <directory>./library</directory>
     </testsuite>
-    
+
     <filter>
         <!-- If Zend Framework is inside your project's library, uncomment this filter -->
-        <!-- 
+        <!--
         <whitelist>
             <directory suffix=".php">../../library/Zend</directory>
         </whitelist>

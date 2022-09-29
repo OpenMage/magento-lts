@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml catalog super product configurable tab
@@ -62,7 +55,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Check block is readonly
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {
@@ -72,7 +65,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Check whether attributes of configurable products can be editable
      *
-     * @return boolean
+     * @return bool
      */
     public function isAttributesConfigurationReadonly()
     {
@@ -82,7 +75,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Check whether prices of configurable products can be editable
      *
-     * @return boolean
+     * @return bool
      */
     public function isAttributesPricesReadonly()
     {
@@ -93,7 +86,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Prepare Layout data
      *
-     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -104,11 +97,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
 
         $this->setChild('create_empty',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label' => Mage::helper('catalog')->__('Create Empty'),
                     'class' => 'add',
                     'onclick' => 'superProduct.createEmptyProduct()'
-                ))
+                ])
         );
 
         if ($this->_getProduct()->getId()) {
@@ -119,11 +112,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
 
             $this->setChild('create_from_configurable',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData(array(
+                    ->setData([
                         'label' => Mage::helper('catalog')->__('Copy From Configurable'),
                         'class' => 'add',
                         'onclick' => 'superProduct.createNewProduct()'
-                    ))
+                    ])
             );
         }
 
@@ -147,13 +140,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      */
     public function getAttributesJson()
     {
-        $attributes = $this->_getProduct()->getTypeInstance(true)
-            ->getConfigurableAttributesAsArray($this->_getProduct());
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->_getProduct()->getTypeInstance(true);
+        $attributes = $productType->getConfigurableAttributesAsArray($this->_getProduct());
         if(!$attributes) {
             return '[]';
         } else {
             // Hide price if needed
             foreach ($attributes as &$attribute) {
+                $attribute['label'] = $this->escapeHtml($attribute['label']);
+                $attribute['frontend_label'] = $this->escapeHtml($attribute['frontend_label']);
+                $attribute['store_label'] = $this->escapeHtml($attribute['store_label']);
                 if (isset($attribute['values']) && is_array($attribute['values'])) {
                     foreach ($attribute['values'] as &$attributeValue) {
                         if (!$this->getCanReadPrice()) {
@@ -176,12 +173,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      */
     public function getLinksJson()
     {
-        $products = $this->_getProduct()->getTypeInstance(true)
-            ->getUsedProducts(null, $this->_getProduct());
-        if(!$products) {
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->_getProduct()->getTypeInstance(true);
+        $products = $productType->getUsedProducts(null, $this->_getProduct());
+        if (!$products) {
             return '{}';
         }
-        $data = array();
+        $data = [];
         foreach ($products as $product) {
             $data[$product->getId()] = $this->getConfigurableSettings($product);
         }
@@ -195,15 +193,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      * @return array
      */
     public function getConfigurableSettings($product) {
-        $data = array();
-        $attributes = $this->_getProduct()->getTypeInstance(true)
-            ->getUsedProductAttributes($this->_getProduct());
+        $data = [];
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->_getProduct()->getTypeInstance(true);
+        $attributes = $productType->getUsedProductAttributes($this->_getProduct());
         foreach ($attributes as $attribute) {
-            $data[] = array(
+            $data[] = [
                 'attribute_id' => $attribute->getId(),
                 'label'        => $product->getAttributeText($attribute->getAttributeCode()),
                 'value_index'  => $product->getData($attribute->getAttributeCode())
-            );
+            ];
         }
 
         return $data;
@@ -238,12 +237,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     {
         return $this->getUrl(
             '*/*/new',
-            array(
+            [
                 'set'      => $this->_getProduct()->getAttributeSetId(),
                 'type'     => Mage_Catalog_Model_Product_Type::TYPE_SIMPLE,
                 'required' => $this->_getRequiredAttributesIds(),
                 'popup'    => 1
-            )
+            ]
         );
     }
 
@@ -256,13 +255,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     {
         return $this->getUrl(
             '*/*/new',
-            array(
+            [
                 'set'      => $this->_getProduct()->getAttributeSetId(),
                 'type'     => Mage_Catalog_Model_Product_Type::TYPE_SIMPLE,
                 'required' => $this->_getRequiredAttributesIds(),
                 'popup'    => 1,
                 'product'  => $this->_getProduct()->getId()
-            )
+            ]
         );
     }
 
@@ -275,9 +274,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     {
         return $this->getUrl(
             '*/*/quickCreate',
-            array(
+            [
                 'product'  => $this->_getProduct()->getId()
-            )
+            ]
         );
     }
 
@@ -288,9 +287,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      */
     protected function _getRequiredAttributesIds()
     {
-        $attributesIds = array();
-        $configurableAttributes = $this->_getProduct()
-            ->getTypeInstance(true)->getConfigurableAttributes($this->_getProduct());
+        $attributesIds = [];
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->_getProduct()->getTypeInstance(true);
+        $configurableAttributes = $productType->getConfigurableAttributes($this->_getProduct());
         foreach ($configurableAttributes as $attribute) {
             $attributesIds[] = $attribute->getProductAttribute()->getId();
         }

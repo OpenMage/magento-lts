@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Index
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract lock helper
  *
- * @category Mage
- * @package Mage_Core
- * @author Magento Core Team core@magentocommerce.com
+ * @category   Mage
+ * @package    Mage_Index
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_Index_Model_Resource_Helper_Lock_Interface
 {
@@ -42,7 +36,7 @@ interface Mage_Index_Model_Resource_Helper_Lock_Interface
      * Set lock
      *
      * @param string $name
-     * @return int
+     * @return bool
      */
     public function setLock($name);
 
@@ -50,7 +44,7 @@ interface Mage_Index_Model_Resource_Helper_Lock_Interface
      * Release lock
      *
      * @param string $name
-     * @return int
+     * @return bool
      */
     public function releaseLock($name);
 

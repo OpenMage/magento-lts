@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,7 +25,6 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
@@ -49,11 +42,11 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     /**
      * Prepare grid collection object
      *
-     * @return Mage_Adminhtml_Block_System_Variable_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
-        /* @var $collection Mage_Core_Model_Mysql4_Variable_Collection */
+        /** @var Mage_Core_Model_Resource_Variable_Collection $collection */
         $collection = Mage::getModel('core/variable')->getCollection();
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -62,25 +55,25 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     /**
      * Prepare grid columns
      *
-     * @return Mage_Adminhtml_Block_System_Variable_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('variable_id', array(
+        $this->addColumn('variable_id', [
             'header'    => Mage::helper('adminhtml')->__('Variable ID'),
             'width'     => '1',
             'index'     => 'variable_id',
-        ));
+        ]);
 
-        $this->addColumn('code', array(
+        $this->addColumn('code', [
             'header'    => Mage::helper('adminhtml')->__('Variable Code'),
             'index'     => 'code',
-        ));
+        ]);
 
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    => Mage::helper('adminhtml')->__('Name'),
             'index'     => 'name',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -92,6 +85,6 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('variable_id' => $row->getId()));
+        return $this->getUrl('*/*/edit', ['variable_id' => $row->getId()]);
     }
 }

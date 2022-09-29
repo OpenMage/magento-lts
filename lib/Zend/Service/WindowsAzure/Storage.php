@@ -53,14 +53,14 @@ class Zend_Service_WindowsAzure_Storage
 	const URL_DEV_BLOB      = "127.0.0.1:10000";
 	const URL_DEV_QUEUE     = "127.0.0.1:10001";
 	const URL_DEV_TABLE     = "127.0.0.1:10002";
-	
+
 	/**
 	 * Live storage URLS
 	 */
 	const URL_CLOUD_BLOB    = "blob.core.windows.net";
 	const URL_CLOUD_QUEUE   = "queue.core.windows.net";
 	const URL_CLOUD_TABLE   = "table.core.windows.net";
-	
+
 	/**
 	 * Resource types
 	 */
@@ -70,98 +70,98 @@ class Zend_Service_WindowsAzure_Storage
 	const RESOURCE_TABLE       = "t";
 	const RESOURCE_ENTITY      = "e";
 	const RESOURCE_QUEUE       = "q";
-	
+
 	/**
 	 * HTTP header prefixes
 	 */
 	const PREFIX_PROPERTIES      = "x-ms-prop-";
 	const PREFIX_METADATA        = "x-ms-meta-";
 	const PREFIX_STORAGE_HEADER  = "x-ms-";
-	
+
 	/**
 	 * Current API version
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $_apiVersion = '2009-09-19';
-	
+
 	/**
 	 * Storage host name
 	 *
 	 * @var string
 	 */
 	protected $_host = '';
-	
+
 	/**
 	 * Account name for Windows Azure
 	 *
 	 * @var string
 	 */
 	protected $_accountName = '';
-	
+
 	/**
 	 * Account key for Windows Azure
 	 *
 	 * @var string
 	 */
 	protected $_accountKey = '';
-	
+
 	/**
 	 * Use path-style URI's
 	 *
 	 * @var boolean
 	 */
 	protected $_usePathStyleUri = false;
-	
+
 	/**
 	 * Zend_Service_WindowsAzure_Credentials_CredentialsAbstract instance
 	 *
 	 * @var Zend_Service_WindowsAzure_Credentials_CredentialsAbstract
 	 */
 	protected $_credentials = null;
-	
+
 	/**
 	 * Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract instance
-	 * 
+	 *
 	 * @var Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract
 	 */
 	protected $_retryPolicy = null;
-	
+
 	/**
 	 * Zend_Http_Client channel used for communication with REST services
-	 * 
+	 *
 	 * @var Zend_Http_Client
 	 */
 	protected $_httpClientChannel = null;
-	
+
 	/**
 	 * Use proxy?
-	 * 
+	 *
 	 * @var boolean
 	 */
 	protected $_useProxy = false;
-	
+
 	/**
 	 * Proxy url
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $_proxyUrl = '';
-	
+
 	/**
 	 * Proxy port
-	 * 
+	 *
 	 * @var int
 	 */
 	protected $_proxyPort = 80;
-	
+
 	/**
 	 * Proxy credentials
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $_proxyCredentials = '';
-	
+
 	/**
 	 * Creates a new Zend_Service_WindowsAzure_Storage instance
 	 *
@@ -182,7 +182,7 @@ class Zend_Service_WindowsAzure_Storage
 		$this->_accountName = $accountName;
 		$this->_accountKey = $accountKey;
 		$this->_usePathStyleUri = $usePathStyleUri;
-		
+
 		// Using local storage?
 		if (!$this->_usePathStyleUri
 			&& ($this->_host == self::URL_DEV_BLOB
@@ -192,17 +192,17 @@ class Zend_Service_WindowsAzure_Storage
 			// Local storage
 			$this->_usePathStyleUri = true;
 		}
-		
+
 		if (is_null($this->_credentials)) {
 		    $this->_credentials = new Zend_Service_WindowsAzure_Credentials_SharedKey(
 		    	$this->_accountName, $this->_accountKey, $this->_usePathStyleUri);
 		}
-		
+
 		$this->_retryPolicy = $retryPolicy;
 		if (is_null($this->_retryPolicy)) {
 		    $this->_retryPolicy = Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract::noRetry();
 		}
-		
+
 		// Setup default Zend_Http_Client channel
 		$options = array(
 			'adapter' => 'Zend_Http_Client_Adapter_Proxy'
@@ -216,27 +216,27 @@ class Zend_Service_WindowsAzure_Storage
 		}
 		$this->_httpClientChannel = new Zend_Http_Client(null, $options);
 	}
-	
+
 	/**
 	 * Set the HTTP client channel to use
-	 * 
+	 *
 	 * @param Zend_Http_Client_Adapter_Interface|string $adapterInstance Adapter instance or adapter class name.
 	 */
 	public function setHttpClientChannel($adapterInstance = 'Zend_Http_Client_Adapter_Proxy')
 	{
 		$this->_httpClientChannel->setAdapter($adapterInstance);
 	}
-	
+
     /**
      * Retrieve HTTP client channel
-     * 
+     *
      * @return Zend_Http_Client_Adapter_Interface
      */
     public function getHttpClientChannel()
     {
         return $this->_httpClientChannel;
     }
-	
+
 	/**
 	 * Set retry policy to use when making requests
 	 *
@@ -249,10 +249,10 @@ class Zend_Service_WindowsAzure_Storage
 		    $this->_retryPolicy = Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract::noRetry();
 		}
 	}
-	
+
 	/**
 	 * Set proxy
-	 * 
+	 *
 	 * @param boolean $useProxy         Use proxy?
 	 * @param string  $proxyUrl         Proxy URL
 	 * @param int     $proxyPort        Proxy port
@@ -264,10 +264,10 @@ class Zend_Service_WindowsAzure_Storage
 	    $this->_proxyUrl         = $proxyUrl;
 	    $this->_proxyPort        = $proxyPort;
 	    $this->_proxyCredentials = $proxyCredentials;
-	    
+
 	    if ($this->_useProxy) {
 	    	$credentials = explode(':', $this->_proxyCredentials);
-	    	
+
 	    	$this->_httpClientChannel->setConfig(array(
 				'proxy_host' => $this->_proxyUrl,
 	    		'proxy_port' => $this->_proxyPort,
@@ -283,17 +283,17 @@ class Zend_Service_WindowsAzure_Storage
 	    	));
 	    }
 	}
-	
+
 	/**
 	 * Returns the Windows Azure account name
-	 * 
+	 *
 	 * @return string
 	 */
 	public function getAccountName()
 	{
 		return $this->_accountName;
 	}
-	
+
 	/**
 	 * Get base URL for creating requests
 	 *
@@ -307,10 +307,10 @@ class Zend_Service_WindowsAzure_Storage
 			return 'http://' . $this->_accountName . '.' . $this->_host;
 		}
 	}
-	
+
 	/**
 	 * Set Zend_Service_WindowsAzure_Credentials_CredentialsAbstract instance
-	 * 
+	 *
 	 * @param Zend_Service_WindowsAzure_Credentials_CredentialsAbstract $credentials Zend_Service_WindowsAzure_Credentials_CredentialsAbstract instance to use for request signing.
 	 */
 	public function setCredentials(Zend_Service_WindowsAzure_Credentials_CredentialsAbstract $credentials)
@@ -320,17 +320,17 @@ class Zend_Service_WindowsAzure_Storage
 	    $this->_credentials->setAccountkey($this->_accountKey);
 	    $this->_credentials->setUsePathStyleUri($this->_usePathStyleUri);
 	}
-	
+
 	/**
 	 * Get Zend_Service_WindowsAzure_Credentials_CredentialsAbstract instance
-	 * 
+	 *
 	 * @return Zend_Service_WindowsAzure_Credentials_CredentialsAbstract
 	 */
 	public function getCredentials()
 	{
 	    return $this->_credentials;
 	}
-	
+
 	/**
 	 * Perform request using Zend_Http_Client channel
 	 *
@@ -358,12 +358,12 @@ class Zend_Service_WindowsAzure_Storage
 		if (strpos($path, '/') !== 0) {
 			$path = '/' . $path;
 		}
-			
+
 		// Clean headers
 		if (is_null($headers)) {
 		    $headers = array();
 		}
-		
+
 		// Ensure cUrl will also work correctly:
 		//  - disable Content-Type if required
 		//  - disable Expect: 100 Continue
@@ -374,7 +374,7 @@ class Zend_Service_WindowsAzure_Storage
 
 		// Add version header
 		$headers['x-ms-version'] = $this->_apiVersion;
-		    
+
 		// URL encoding
 		$path           = self::urlencode($path);
 		$queryString    = self::urlencode($queryString);
@@ -385,22 +385,22 @@ class Zend_Service_WindowsAzure_Storage
 		$requestHeaders = $this->_credentials
 						  ->signRequestHeaders($httpVerb, $path, $queryString, $headers, $forTableStorage, $resourceType, $requiredPermission, $rawData);
 
-		// Prepare request 
+		// Prepare request
 		$this->_httpClientChannel->resetParameters(true);
 		$this->_httpClientChannel->setUri($requestUrl);
 		$this->_httpClientChannel->setHeaders($requestHeaders);
 		$this->_httpClientChannel->setRawData($rawData);
-				
+
 		// Execute request
 		$response = $this->_retryPolicy->execute(
 		    array($this->_httpClientChannel, 'request'),
 		    array($httpVerb)
 		);
-		
+
 		return $response;
 	}
-	
-	/** 
+
+	/**
 	 * Parse result from Zend_Http_Response
 	 *
 	 * @param Zend_Http_Response $response Response from HTTP call
@@ -413,27 +413,27 @@ class Zend_Service_WindowsAzure_Storage
 			#require_once 'Zend/Service/WindowsAzure/Exception.php';
 			throw new Zend_Service_WindowsAzure_Exception('Response should not be null.');
 		}
-		
+
         $xml = Zend_Xml_Security::scan($response->getBody());
-        
+
         if ($xml !== false) {
-            // Fetch all namespaces 
-            $namespaces = array_merge($xml->getNamespaces(true), $xml->getDocNamespaces(true)); 
-            
+            // Fetch all namespaces
+            $namespaces = array_merge($xml->getNamespaces(true), $xml->getDocNamespaces(true));
+
             // Register all namespace prefixes
-            foreach ($namespaces as $prefix => $ns) { 
+            foreach ($namespaces as $prefix => $ns) {
                 if ($prefix != '') {
                     $xml->registerXPathNamespace($prefix, $ns);
-                } 
-            } 
+                }
+            }
         }
-        
+
         return $xml;
 	}
-	
+
 	/**
 	 * Generate metadata headers
-	 * 
+	 *
 	 * @param array $metadata
 	 * @return HTTP headers containing metadata
 	 */
@@ -443,7 +443,7 @@ class Zend_Service_WindowsAzure_Storage
 		if (!is_array($metadata)) {
 			return array();
 		}
-		
+
 		// Return headers
 		$headers = array();
 		foreach ($metadata as $key => $value) {
@@ -451,20 +451,20 @@ class Zend_Service_WindowsAzure_Storage
                             #require_once 'Zend/Service/WindowsAzure/Exception.php';
                             throw new Zend_Service_WindowsAzure_Exception('Metadata cannot contain newline characters.');
 			}
-			
+
 			if (!self::isValidMetadataName($key)) {
                             #require_once 'Zend/Service/WindowsAzure/Exception.php';
                             throw new Zend_Service_WindowsAzure_Exception('Metadata name does not adhere to metadata naming conventions. See http://msdn.microsoft.com/en-us/library/aa664670(VS.71).aspx for more information.');
 			}
-			
+
 		    $headers["x-ms-meta-" . strtolower($key)] = $value;
 		}
 		return $headers;
 	}
-	
+
 	/**
 	 * Parse metadata headers
-	 * 
+	 *
 	 * @param array $headers HTTP headers containing metadata
 	 * @return array
 	 */
@@ -474,7 +474,7 @@ class Zend_Service_WindowsAzure_Storage
 		if (!is_array($headers)) {
 			return array();
 		}
-		
+
 		// Return metadata
 		$metadata = array();
 		foreach ($headers as $key => $value) {
@@ -484,10 +484,10 @@ class Zend_Service_WindowsAzure_Storage
 		}
 		return $metadata;
 	}
-	
+
 	/**
 	 * Parse metadata XML
-	 * 
+	 *
 	 * @param SimpleXMLElement $parentElement Element containing the Metadata element.
 	 * @return array
 	 */
@@ -500,30 +500,30 @@ class Zend_Service_WindowsAzure_Storage
 
 		return array();
 	}
-	
+
 	/**
 	 * Generate ISO 8601 compliant date string in UTC time zone
-	 * 
+	 *
 	 * @param int $timestamp
 	 * @return string
 	 */
-	public function isoDate($timestamp = null) 
-	{        
+	public function isoDate($timestamp = null)
+	{
 	    $tz = @date_default_timezone_get();
 	    @date_default_timezone_set('UTC');
-	    
+
 	    if (is_null($timestamp)) {
 	        $timestamp = time();
 	    }
-	        
+
 	    $returnValue = str_replace('+00:00', '.0000000Z', @date('c', $timestamp));
 	    @date_default_timezone_set($tz);
 	    return $returnValue;
 	}
-	
+
 	/**
 	 * URL encode function
-	 * 
+	 *
 	 * @param  string $value Value to encode
 	 * @return string        Encoded value
 	 */
@@ -531,7 +531,7 @@ class Zend_Service_WindowsAzure_Storage
 	{
 	    return str_replace(' ', '%20', $value);
 	}
-	
+
 	/**
 	 * Is valid metadata name?
 	 *
@@ -543,22 +543,22 @@ class Zend_Service_WindowsAzure_Storage
         if (preg_match("/^[a-zA-Z0-9_@][a-zA-Z0-9_]*$/", $metadataName) === 0) {
             return false;
         }
-    
+
         if ($metadataName == '') {
             return false;
         }
 
         return true;
     }
-    
+
     /**
      * Builds a query string from an array of elements
-     * 
+     *
      * @param array     Array of elements
      * @return string   Assembled query string
      */
     public static function createQueryStringFromArray($queryString)
     {
     	return count($queryString) > 0 ? '?' . implode('&', $queryString) : '';
-    }	
+    }
 }

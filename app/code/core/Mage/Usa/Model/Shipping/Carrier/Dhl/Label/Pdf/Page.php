@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Usa
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Usa
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * DHL International (API v1.4) Label Creation
  *
+ * @category   Mage
+ * @package    Mage_Usa
+ * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated now the process of creating the label is on DHL side
- * @category Mage
- * @package  Mage_Usa
- * @author   Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
 {
@@ -80,14 +74,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
     public function getTextWidth($text, Zend_Pdf_Resource_Font $font, $font_size)
     {
         $drawing_text = iconv('', 'UTF-16BE', $text);
-        $characters = array();
+        $characters = [];
         for ($i = 0; $i < strlen($drawing_text); $i++) {
             $characters[] = (ord($drawing_text[$i++]) << 8) | ord($drawing_text[$i]);
         }
         $glyphs = $font->glyphNumbersForCharacters($characters);
         $widths = $font->widthsForGlyphs($glyphs);
-        $text_width = (array_sum($widths) / $font->getUnitsPerEm()) * $font_size;
-        return $text_width;
+        return (array_sum($widths) / $font->getUnitsPerEm()) * $font_size;
     }
 
     /**
@@ -100,7 +93,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      *   Defaults to current locale.
      * @param $align
      * @throws Zend_Pdf_Exception
-     * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page
+     * @return $this
      */
     public function drawText($text, $x, $y, $charEncoding = 'UTF-8', $align = self::ALIGN_LEFT)
     {

@@ -86,7 +86,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
                 $e->getMessage()
             );
         }
- 
+
         if (!xml_parse($this->_file, file_get_contents($filename))) {
             $ex = sprintf('XML error: %s at line %d of file %s',
                           xml_error_string(xml_get_error_code($this->_file)),
@@ -195,7 +195,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
                         $this->_tu = $this->_content;
                     }
 
-                    if (!empty($this->_content) or (!isset($this->_data[$this->_tuv][$this->_tu]))) {
+                    if (!empty($this->_content) || (!isset($this->_data[$this->_tuv][$this->_tu]))) {
                         $this->_data[$this->_tuv][$this->_tu] = $this->_content;
                     }
                     break;

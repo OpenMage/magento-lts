@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Contacts
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Contacts
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,18 +23,23 @@
  *
  * @category   Mage
  * @package    Mage_Contacts
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Contacts_Helper_Data extends Mage_Core_Helper_Abstract
 {
-
     const XML_PATH_ENABLED   = 'contacts/contacts/enabled';
 
+    /**
+     * @return bool
+     */
     public function isEnabled()
     {
-        return Mage::getStoreConfig( self::XML_PATH_ENABLED );
+        return Mage::getStoreConfigFlag(self::XML_PATH_ENABLED);
     }
 
+    /**
+     * @return string
+     */
     public function getUserName()
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
@@ -50,6 +49,9 @@ class Mage_Contacts_Helper_Data extends Mage_Core_Helper_Abstract
         return trim($customer->getName());
     }
 
+    /**
+     * @return string
+     */
     public function getUserEmail()
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {

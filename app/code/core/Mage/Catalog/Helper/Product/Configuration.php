@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,8 +25,7 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstract
-    implements Mage_Catalog_Helper_Product_Configuration_Interface
+class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstract implements Mage_Catalog_Helper_Product_Configuration_Interface
 {
     const XML_PATH_CONFIGURABLE_ALLOWED_TYPES = 'global/catalog/product/type/configurable/allow_product_types';
 
@@ -45,10 +38,10 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
     public function getCustomOptions(Mage_Catalog_Model_Product_Configuration_Item_Interface $item)
     {
         $product = $item->getProduct();
-        $options = array();
+        $options = [];
         $optionIds = $item->getOptionByCode('option_ids');
         if ($optionIds) {
-            $options = array();
+            $options = [];
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
                 $option = $product->getOptionById($optionId);
                 if ($option) {
@@ -58,7 +51,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
                         ->setConfigurationItem($item)
                         ->setConfigurationItemOption($itemOption);
 
-                    if ('file' == $option->getType()) {
+                    if ($option->getType() == 'file') {
                         $downloadParams = $item->getFileDownloadParams();
                         if ($downloadParams) {
                             $url = $downloadParams->getUrl();
@@ -72,21 +65,21 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
                         }
                     }
 
-                    $options[] = array(
+                    $options[] = [
                         'label' => $option->getTitle(),
                         'value' => $group->getFormattedOptionValue($itemOption->getValue()),
                         'print_value' => $group->getPrintableOptionValue($itemOption->getValue()),
                         'option_id' => $option->getId(),
                         'option_type' => $option->getType(),
                         'custom_view' => $group->isCustomizedView()
-                    );
+                    ];
                 }
             }
         }
 
         $addOptions = $item->getOptionByCode('additional_options');
         if ($addOptions) {
-            $options = array_merge($options, unserialize($addOptions->getValue()));
+            $options = array_merge($options, unserialize($addOptions->getValue(), ['allowed_classes' => false]));
         }
 
         return $options;
@@ -105,8 +98,9 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         if ($typeId != Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
              Mage::throwException($this->__('Wrong product type to extract configurable options.'));
         }
-        $attributes = $product->getTypeInstance(true)
-            ->getSelectedAttributesInfo($product);
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $product->getTypeInstance(true);
+        $attributes = $productType->getSelectedAttributesInfo($product);
         return array_merge($attributes, $this->getCustomOptions($item));
     }
 
@@ -124,20 +118,18 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
              Mage::throwException($this->__('Wrong product type to extract configurable options.'));
         }
 
-        $options = array();
-        /**
-         * @var Mage_Catalog_Model_Product_Type_Grouped
-         */
+        $options = [];
+        /** @var Mage_Catalog_Model_Product_Type_Grouped $typeInstance */
         $typeInstance = $product->getTypeInstance(true);
         $associatedProducts = $typeInstance->getAssociatedProducts($product);
 
         if ($associatedProducts) {
             foreach ($associatedProducts as $associatedProduct) {
                 $qty = $item->getOptionByCode('associated_product_' . $associatedProduct->getId());
-                $option = array(
+                $option = [
                     'label' => $associatedProduct->getName(),
                     'value' => ($qty && $qty->getValue()) ? $qty->getValue() : 0
-                );
+                ];
 
                 $options[] = $option;
             }
@@ -151,7 +143,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
                 break;
             }
         }
-        return $isUnConfigured ? array() : $options;
+        return $isUnConfigured ? [] : $options;
     }
 
     /**
@@ -202,13 +194,13 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
     {
         // Init params
         if (!$params) {
-            $params = array();
+            $params = [];
         }
-        $maxLength = isset($params['max_length']) ? $params['max_length'] : null;
-        $cutReplacer = isset($params['cut_replacer']) ? $params['cut_replacer'] : '...';
+        $maxLength = $params['max_length'] ?? null;
+        $cutReplacer = $params['cut_replacer'] ?? '...';
 
         // Proceed with option
-        $optionInfo = array();
+        $optionInfo = [];
 
         // Define input data format
         if (is_array($optionValue)) {
@@ -217,18 +209,18 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
                 if (isset($optionInfo['value'])) {
                     $optionValue = $optionInfo['value'];
                 }
-            } else if (isset($optionValue['value'])) {
+            } elseif (isset($optionValue['value'])) {
                 $optionValue = $optionValue['value'];
             }
         }
 
         // Render customized option view
         if (isset($optionInfo['custom_view']) && $optionInfo['custom_view']) {
-            $_default = array('value' => $optionValue);
+            $_default = ['value' => $optionValue];
             if (isset($optionInfo['option_type'])) {
                 try {
                     $group = Mage::getModel('catalog/product_option')->groupFactory($optionInfo['option_type']);
-                    return array('value' => $group->getCustomizedView($optionInfo));
+                    return ['value' => $group->getCustomizedView($optionInfo)];
                 } catch (Exception $e) {
                     return $_default;
                 }
@@ -237,11 +229,11 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         }
 
         // Truncate standard view
-        $result = array();
+        $result = [];
         if (is_array($optionValue)) {
             $_truncatedValue = implode("\n", $optionValue);
             $_truncatedValue = nl2br($_truncatedValue);
-            return array('value' => $_truncatedValue);
+            return ['value' => $_truncatedValue];
         } else {
             if ($maxLength) {
                 $_truncatedValue = Mage::helper('core/string')->truncate($optionValue, $maxLength, '');
@@ -251,7 +243,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
             $_truncatedValue = nl2br($_truncatedValue);
         }
 
-        $result = array('value' => $_truncatedValue);
+        $result = ['value' => $_truncatedValue];
 
         if ($maxLength && (Mage::helper('core/string')->strlen($optionValue) > $maxLength)) {
             $result['value'] = $result['value'] . $cutReplacer;

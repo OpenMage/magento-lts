@@ -1,44 +1,26 @@
 ############################################
-## uncomment these lines for CGI mode
-## make sure to specify the correct cgi php binary file name
-## it might be /cgi-bin/php-cgi
-
-#    Action php5-cgi /cgi-bin/php5-cgi
-#    AddHandler php5-cgi .php
-
-############################################
 ## GoDaddy specific options
 
 #   Options -MultiViews
 
 ## you might also need to add this line to php.ini
 ##     cgi.fix_pathinfo = 1
-## if it still doesn't work, rename php.ini to php5.ini
-
-############################################
-## this line is specific for 1and1 hosting
-
-    #AddType x-mapp-php5 .php
-    #AddHandler x-mapp-php5 .php
+## if it still doesn't work, rename php.ini to php7.ini
 
 ############################################
 ## default index file
 
     DirectoryIndex index.php
 
-<IfModule mod_php5.c>
+############################################
+## php7 settings
+
+<IfModule mod_php7.c>
 
 ############################################
-## adjust memory limit
+## adjust max execution time
 
-#    php_value memory_limit 64M
-    php_value memory_limit 256M
     php_value max_execution_time 18000
-
-############################################
-## disable magic quotes for php request vars
-
-    php_flag magic_quotes_gpc off
 
 ############################################
 ## disable automatic session start
@@ -55,11 +37,6 @@
 # disable user agent verification to not break multiple image upload
 
     php_flag suhosin.session.cryptua off
-
-###########################################
-# turn off compatibility with PHP4 when dealing with objects
-
-    php_flag zend.ze1_compatibility_mode Off
 
 </IfModule>
 
@@ -123,6 +100,12 @@
     #RewriteBase /magento/
 
 ############################################
+## Prevent serving "hidden" files like git repository
+
+    RewriteCond %{REQUEST_URI} /\.
+    RewriteRule ^(.*)$ / [R=404,L]
+
+############################################
 ## uncomment next line to enable light API calls processing
 
 #    RewriteRule ^api/([a-z][0-9a-z_]+)/?$ api.php?type=$1 [QSA,L]
@@ -145,6 +128,12 @@
     RewriteRule .* - [L,R=405]
 
 <IfModule mod_setenvif.c>
+
+############################################
+## Enable Developer Mode based on OS environment variable
+
+    SetEnvIfExpr "osenv('MAGE_IS_DEVELOPER_MODE') == '1'" MAGE_IS_DEVELOPER_MODE=1
+
     <IfModule mod_headers.c>
 
         ############################################
@@ -198,9 +187,17 @@
 ############################################
 ## Add default Expires header
 ## http://developer.yahoo.com/performance/rules.html#expires
-
-    ExpiresDefault "access plus 1 year"
-
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType text/x-javascript "access plus 1 month"
+    ExpiresByType application/x-shockwave-flash "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresDefault "access plus 2 days"
 </IfModule>
 
 ############################################
@@ -210,12 +207,21 @@
     Allow from all
 
 ###########################################
-## Deny access to release notes to prevent disclosure of the installed Magento version
+## Deny access to other project files to prevent disclosure of the installed Magento version or other information
+## Only robots.txt and manifest.json should be allowed by default
 
-    <Files RELEASE_NOTES.txt>
-        order allow,deny
-        deny from all
-    </Files>
+    <FilesMatch (?<!robots)\.txt$>
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+    <FilesMatch (?<!manifest)\.json$>
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+    <FilesMatch \.(lock|md|sample|sh|yml|yaml)$>
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
 
 ############################################
 ## If running in cluster environment, uncomment this

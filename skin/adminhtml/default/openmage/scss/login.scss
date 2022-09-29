@@ -1,0 +1,234 @@
+@import "variables";
+@import "base";
+@import "fonts";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: $color_mercury_approx;
+  color: $color_mine_shaft_approx;
+  font: 400 12px/1.33 $font_0, sans-serif;
+  background: $color-gray-s;
+  font-size: 13px;
+  overflow-x: hidden;
+
+  &#page-login {
+    background-color: $color-main-xxl;
+    background-image: $url_login_background;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    height: calc(100vh - 120px);
+
+    &:after {
+      display: block;
+      position: fixed;
+      content: '';
+      top: 0;
+      left: 0;
+      background-color: $black_25;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+  }
+}
+
+a {
+  display: inline;
+  color: $color_curious_blue_approx;
+  text-decoration: none;
+
+  &:visited {
+    color: $color_curious_blue_approx;
+  }
+
+  &:focus {
+    color: $color_astral_approx;
+    text-decoration: none;
+  }
+
+  &:hover {
+    color: $color_astral_approx;
+    text-decoration: none;
+  }
+
+  &:active {
+    color: $color_astral_approx;
+    text-decoration: none;
+  }
+
+  &.error span {
+    color: $color_coral_red_approx !important;
+  }
+}
+
+:focus {
+  outline: 0;
+}
+
+h2 {
+  margin-bottom: .5em;
+  line-height: 1.4em;
+  font-size: 1.7em;
+}
+
+p {
+  margin-bottom: .5em;
+}
+
+form {
+  display: inline;
+}
+
+label {
+  color: $color_mine_shaft_approx;
+}
+
+input {
+  vertical-align: middle;
+
+  &.input-text {
+    background: $white;
+    font: 12px $font_3, $font_4, $font_2;
+    border-width: 1px;
+    border-style: solid;
+    border-color: $color_silver_chalice_approx;
+    padding: 2px 2px 3px;
+    line-height: 18px;
+    font-family: $font_0, $font_1;
+
+    &:hover {
+      outline: 2px solid $color_gothic_10_approx;
+    }
+
+    &:focus {
+      //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+      box-shadow: 0 0 0 2px $color_gothic_25_approx;
+    }
+
+    &:disabled {
+      outline: none;
+      opacity: 0.5;
+    }
+  }
+}
+
+.form-button {
+  @extend %extend_20;
+  background-color: $color_action;
+}
+
+#page-login {
+  background: $color_alabaster_approx;
+  text-align: center;
+}
+
+.login-container {
+  width: 345px;
+  padding-left: 200px;
+  background: $url_logo left center no-repeat;
+  margin: 120px 0 0 calc(50vw - 372px);
+
+  .legal {
+    margin: 0;
+    font-size: .95em;
+    background: none;
+    padding: 0;
+    border-style: none;
+    position: fixed;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    color: $color-white-100;
+    //Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    text-shadow: 0 0 5px $black_50;
+  }
+}
+
+.login-form {
+  background: $url_2 no-repeat;
+  text-align: left;
+  background: $color-white-100;
+  border: none;
+  padding: 40px 50px;
+  //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+  box-shadow: 0 30px 150px $black_50;
+
+  .input-box {
+    margin: 10px 0;
+
+    input.input-text {
+      width: calc(100% - 18px) !important;
+      padding: 8px;
+    }
+  }
+
+  h2 {
+    font-size: 1.7em;
+    font-weight: normal;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  .form-buttons {
+    clear: both;
+    text-align: right;
+    margin: 20px 0 0;
+
+    &:after {
+      display: block;
+      clear: both;
+      content: ".";
+      font-size: 0;
+      line-height: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .left {
+      line-height: 32px;
+    }
+  }
+
+  input[type="submit"] {
+    height: 32px;
+  }
+}
+
+.left {
+  float: left;
+}
+
+.login-box .bottom {
+  width: 581px;
+  height: 5px;
+  overflow: hidden;
+  display: none;
+}
+
+.clear:after {
+  display: block;
+  clear: both;
+  content: ".";
+  font-size: 0;
+  line-height: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+ul.messages {
+  list-style-type: none;
+  ul {
+    list-style-type: none;
+  }
+}
+
+.no-display {
+  display:none;
+}

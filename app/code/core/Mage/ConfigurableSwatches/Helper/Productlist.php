@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_ConfigurableSwatches_Helper_Productlist
+ *
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abstract
 {
@@ -54,7 +52,6 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
      * Convert a catalog layer block with the right templates
      *
      * @param string $blockName
-     * @return void
      */
     public function convertLayerBlock($blockName)
     {
@@ -62,7 +59,6 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
             && ($block = Mage::app()->getLayout()->getBlock($blockName))
             && $block instanceof Mage_Catalog_Block_Layer_View
         ) {
-
             // First, set a new template for the attribute that should show as a swatch
             if ($layer = $block->getLayer()) {
                 foreach ($layer->getFilterableAttributes() as $attribute) {
@@ -138,7 +134,7 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
      * See if the swatch matches a filter currently applied to the product list.
      *
      * @param int $optionId
-     * @return boolean
+     * @return bool
      */
     public function swatchMatchesFilter($optionId)
     {

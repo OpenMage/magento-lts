@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Eav Form Type Model
  *
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Eav_Model_Resource_Form_Type _getResource()
  * @method Mage_Eav_Model_Resource_Form_Type getResource()
+ * @method Mage_Eav_Model_Resource_Form_Type_Collection getCollection()
  * @method string getCode()
  * @method Mage_Eav_Model_Form_Type setCode(string $value)
  * @method string getLabel()
@@ -40,10 +38,6 @@
  * @method Mage_Eav_Model_Form_Type setTheme(string $value)
  * @method int getStoreId()
  * @method Mage_Eav_Model_Form_Type setStoreId(int $value)
- *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
 {
@@ -56,31 +50,10 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
         $this->_init('eav/form_type');
-    }
-
-    /**
-     * Retrieve resource instance wrapper
-     *
-     * @return Mage_Eav_Model_Mysql4_Form_Type
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
-    }
-
-    /**
-     * Retrieve resource collection instance wrapper
-     *
-     * @return Mage_Eav_Model_Mysql4_Form_Type_Collection
-     */
-    public function getCollection()
-    {
-        return parent::getCollection();
     }
 
     /**
@@ -100,7 +73,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
      * Set assigned Eav Entity types
      *
      * @param array $entityTypes
-     * @return Mage_Eav_Model_Form_Type
+     * @return $this
      */
     public function setEntityTypes(array $entityTypes)
     {
@@ -112,7 +85,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
      * Assign Entity Type to Form Type
      *
      * @param int $entityTypeId
-     * @return Mage_Eav_Model_Form_Type
+     * @return $this
      */
     public function addEntityType($entityTypeId)
     {
@@ -128,7 +101,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
      * Copy Form Type properties from skeleton form type
      *
      * @param Mage_Eav_Model_Form_Type $skeleton
-     * @return Mage_Eav_Model_Form_Type
+     * @return $this
      */
     public function createFromSkeleton(Mage_Eav_Model_Form_Type $skeleton)
     {
@@ -140,9 +113,9 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
             ->setSortOrder();
 
         // copy fieldsets
-        $fieldsetMap = array();
+        $fieldsetMap = [];
         foreach ($fieldsetCollection as $skeletonFieldset) {
-            /* @var $skeletonFieldset Mage_Eav_Model_Form_Fieldset */
+            /** @var Mage_Eav_Model_Form_Fieldset $skeletonFieldset */
             $fieldset = Mage::getModel('eav/form_fieldset');
             $fieldset->setTypeId($this->getId())
                 ->setCode($skeletonFieldset->getCode())
@@ -154,7 +127,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
 
         // copy elements
         foreach ($elementCollection as $skeletonElement) {
-            /* @var $skeletonElement Mage_Eav_Model_Form_Element */
+            /** @var Mage_Eav_Model_Form_Element $skeletonElement */
             $element = Mage::getModel('eav/form_element');
             $fieldsetId = null;
             if ($skeletonElement->getFieldsetId()) {

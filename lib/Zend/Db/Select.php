@@ -468,7 +468,7 @@ class Zend_Db_Select
      * </code>
      *
      * @param string   $cond  The WHERE condition.
-     * @param mixed    $value OPTIONAL The value to quote into the condition.
+     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL The value to quote into the condition.
      * @param int      $type  OPTIONAL The type of the given value
      * @return Zend_Db_Select This Zend_Db_Select object.
      */
@@ -485,7 +485,7 @@ class Zend_Db_Select
      * Otherwise identical to where().
      *
      * @param string   $cond  The WHERE condition.
-     * @param mixed    $value OPTIONAL The value to quote into the condition.
+     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL The value to quote into the condition.
      * @param int      $type  OPTIONAL The type of the given value
      * @return Zend_Db_Select This Zend_Db_Select object.
      *
@@ -991,7 +991,7 @@ class Zend_Db_Select
      * Internal function for creating the where clause
      *
      * @param string   $condition
-     * @param mixed    $value  optional
+     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float    $value  optional
      * @param string   $type   optional
      * @param boolean  $bool  true = AND, false = OR
      * @return string  clause

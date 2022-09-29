@@ -76,7 +76,7 @@ class Zend_Cache_Backend
     public function setDirectives($directives)
     {
         if (!is_array($directives)) Zend_Cache::throwException('Directives parameter must be an array');
-        while (list($name, $value) = each($directives)) {
+        foreach($directives as $name => $value) {
             if (!is_string($name)) {
                 Zend_Cache::throwException("Incorrect option name : $name");
             }
@@ -175,7 +175,7 @@ class Zend_Cache_Backend
         foreach (array($_ENV, $_SERVER) as $tab) {
             foreach (array('TMPDIR', 'TEMP', 'TMP', 'windir', 'SystemRoot') as $key) {
                 if (isset($tab[$key]) && is_string($tab[$key])) {
-                    if (($key == 'windir') or ($key == 'SystemRoot')) {
+                    if (($key == 'windir') || ($key == 'SystemRoot')) {
                         $dir = realpath($tab[$key] . '\\temp');
                     } else {
                         $dir = realpath($tab[$key]);

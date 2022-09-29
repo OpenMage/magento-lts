@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -71,7 +65,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      *
      * @var array
      */
-    protected $_isEnabled = array();
+    protected $_isEnabled = [];
 
     /**
      * Catalog Product Flat Flag object
@@ -79,6 +73,22 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      * @var Mage_Catalog_Model_Product_Flat_Flag
      */
     protected $_flagObject;
+
+    /**
+     * Catalog Product Flat force status enable/disable
+     * to force EAV for products in quote
+     * store settings will be used by default
+     *
+     * @var bool
+     */
+    protected $_forceFlatStatus = false;
+
+    /**
+     * Old Catalog Product Flat forced status
+     *
+     * @var bool
+     */
+    protected $_forceFlatStatusOld;
 
     /**
      * Retrieve Catalog Product Flat Flag object
@@ -129,8 +139,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     public function isBuiltAllStores()
     {
         $isBuildAll = true;
-        foreach(Mage::app()->getStores(false) as $store) {
-            /** @var $store Mage_Core_Model_Store */
+        foreach (Mage::app()->getStores(false) as $store) {
             $isBuildAll = $isBuildAll && $this->isBuilt($store->getId());
         }
         return $isBuildAll;
@@ -154,5 +163,41 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     public function isAddChildData()
     {
         return intval(Mage::getConfig()->getNode(self::XML_NODE_ADD_CHILD_DATA));
+    }
+
+    /**
+     * Disable Catalog Product Flat
+     *
+     * @param bool $save
+     */
+    public function disableFlatCollection($save = false)
+    {
+        $this->_forceFlatStatus = true;
+
+        if ($save) {
+            $this->_forceFlatStatusOld = $this->_forceFlatStatus;
+        }
+    }
+
+    /**
+     * Reset Catalog Product Flat
+     */
+    public function resetFlatCollection()
+    {
+        if (isset($this->_forceFlatStatusOld)) {
+            $this->_forceFlatStatus = $this->_forceFlatStatusOld;
+        } else {
+            $this->_forceFlatStatus = false;
+        }
+    }
+
+    /**
+     * Checks if Catalog Product Flat was forced disabled
+     *
+     * @return bool
+     */
+    public function isFlatCollectionDisabled()
+    {
+        return $this->_forceFlatStatus;
     }
 }

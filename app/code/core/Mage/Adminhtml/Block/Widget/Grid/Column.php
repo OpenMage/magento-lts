@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,16 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array getActions()
+ * @method $this setActions(array $value)
+ * @method array getFilterConditionCallback()
+ * @method string getDir()
+ * @method string getFilterIndex()
+ * @method $this setFormat(string $value)
+ * @method string getIndex()
+ * @method bool getNoLink()
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widget
 {
@@ -38,11 +41,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     protected $_filter;
     protected $_type;
     protected $_cssClass=null;
-
-    public function __construct($data=array())
-    {
-        parent::__construct($data);
-    }
 
     public function setGrid($grid)
     {
@@ -57,21 +55,33 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         return $this->_grid;
     }
 
+    /**
+     * @return bool
+     */
     public function isLast()
     {
         return $this->getId() == $this->getGrid()->getLastColumnId();
     }
 
+    /**
+     * @return string
+     */
     public function getHtmlProperty()
     {
         return $this->getRenderer()->renderProperty();
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderHtml()
     {
         return $this->getRenderer()->renderHeader();
     }
 
+    /**
+     * @return string|null
+     */
     public function getCssClass()
     {
         if (is_null($this->_cssClass)) {
@@ -85,16 +95,26 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             if ($this->getEditable()) {
                 $this->_cssClass .= ' editable';
             }
+            // Add css class for sorted columns
+            if ($this->hasData('dir')) {
+                $this->_cssClass .= ' sorted';
+            }
         }
 
         return $this->_cssClass;
     }
 
+    /**
+     * @return string|null
+     */
     public function getCssProperty()
     {
         return $this->getRenderer()->renderCss();
     }
 
+    /**
+     * @return string|null
+     */
     public function getHeaderCssClass()
     {
         $class = $this->getData('header_css_class');
@@ -104,9 +124,15 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         if ($this->isLast()) {
             $class .= ' last';
         }
+        if ($this->hasData('dir')) {
+            $class .= ' sorted';
+        }
         return $class;
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderHtmlProperty()
     {
         $str = '';
@@ -353,6 +379,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         return $filterClass;
     }
 
+    /**
+     * @return Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract|false
+     */
     public function getFilter()
     {
         if (!$this->_filter) {
@@ -373,14 +402,16 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         return $this->_filter;
     }
 
+    /**
+     * @return string
+     */
     public function getFilterHtml()
     {
         if ($this->getFilter()) {
             return $this->getFilter()->getHtml();
-        } else {
-            return '&nbsp;';
         }
-        return null;
+
+        return '&nbsp;';
     }
 
     /**

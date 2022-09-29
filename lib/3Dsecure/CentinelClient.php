@@ -48,61 +48,63 @@
 		}
 
 
-		/////////////////////////////////////////////////////////////////////////////////////////////
-		// Function getRequestXml(name)
-		//
-		// Serialize all elements of the request collection into a XML message, and format the required
-		// form payload according to the Centinel XML Message APIs. The form payload is returned from
-		// the function.
-		/////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        // Function getRequestXml(name)
+        //
+        // Serialize all elements of the request collection into a XML message, and format the required
+        // form payload according to the Centinel XML Message APIs. The form payload is returned from
+        // the function.
+        /////////////////////////////////////////////////////////////////////////////////////////////
 
 
-		function getRequestXml(){
-			$queryString = "<CardinalMPI>";
-			foreach ($this->request as $name => $value) {
-				$queryString = $queryString."<".($name).">".($value)."</".($name).">" ;
-			}
-			$queryString = $queryString."</CardinalMPI>";
-			return "cmpi_msg=".urlencode($queryString);
-		}
+        function getRequestXml()
+        {
+            $queryString = "<CardinalMPI>";
+            foreach ($this->request as $name => $value) {
+                $queryString = $queryString . "<" . ($name) . ">" . ($value) . "</" . ($name) . ">";
+            }
+            $queryString = $queryString . "</CardinalMPI>";
+            return "cmpi_msg=" . urlencode($queryString);
+        }
 
-	    /////////////////////////////////////////////////////////////////////////////////////////////
-		// Function sendHttp(url, "", $timeout)
-		//
-		// HTTP POST the form payload to the url using cURL.
-		// form payload according to the Centinel XML Message APIs. The form payload is returned from
-		// the function.
-		/////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        // Function sendHttp(url, "", $timeout)
+        //
+        // HTTP POST the form payload to the url using cURL.
+        // form payload according to the Centinel XML Message APIs. The form payload is returned from
+        // the function.
+        /////////////////////////////////////////////////////////////////////////////////////////////
 
-		function sendHttp($url, $connectTimeout="", $timeout) {
+        function sendHttp($url, $connectTimeout, $timeout)
+        {
 
-		    // verify that the URL uses a supported protocol.
+            // verify that the URL uses a supported protocol.
 
-			if( (strpos($url, "http://")=== 0) || (strpos($url, "https://")=== 0) ) {
+            if ((strpos($url, "http://") === 0) || (strpos($url, "https://") === 0)) {
 
-				//Construct the payload to POST to the url.
+                //Construct the payload to POST to the url.
 
-				$data = $this->getRequestXml();
-				// create a new cURL resource
+                $data = $this->getRequestXml();
+                // create a new cURL resource
 
-				$ch = curl_init($url);
+                $ch = curl_init($url);
 
-				// set URL and other appropriate options
-				curl_setopt($ch, CURLOPT_POST,1);
-				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-				curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,  2);
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-				curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+                // set URL and other appropriate options
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+                curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
 
-				// Execute the request.
+                // Execute the request.
 
-				$result = curl_exec($ch);
-				$succeeded  = curl_errno($ch) == 0 ? true : false;
+                $result = curl_exec($ch);
+                $succeeded = curl_errno($ch) == 0 ? true : false;
 
-				// close cURL resource, and free up system resources
+                // close cURL resource, and free up system resources
 
-				curl_close($ch);
+                curl_close($ch);
 
 				// If Communication was not successful set error result, otherwise
 

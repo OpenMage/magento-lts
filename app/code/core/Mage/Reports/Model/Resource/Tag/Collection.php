@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Report Products Tags collection
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Resource_Tag_Collection extends Mage_Tag_Model_Resource_Popular_Collection
 {
@@ -39,7 +32,7 @@ class Mage_Reports_Model_Resource_Tag_Collection extends Mage_Tag_Model_Resource
      *
      * @deprecated after 1.4.0.1
      *
-     * @return Mage_Reports_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function addGroupByTag()
     {
@@ -50,15 +43,15 @@ class Mage_Reports_Model_Resource_Tag_Collection extends Mage_Tag_Model_Resource
      * Add tag popularity to select by specified store ids
      *
      * @param int|array $storeIds
-     * @return Mage_Reports_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function addPopularity($storeIds)
     {
         $select = $this->getSelect()
             ->joinLeft(
-                array('tr' => $this->getTable('tag/relation')),
+                ['tr' => $this->getTable('tag/relation')],
                 'main_table.tag_id = tr.tag_id AND tr.active = 1',
-                array('popularity' => 'COUNT(tr.tag_id)')
+                ['popularity' => 'COUNT(tr.tag_id)']
             );
         if (!empty($storeIds)) {
             $select->where('tr.store_id IN(?)', $storeIds);

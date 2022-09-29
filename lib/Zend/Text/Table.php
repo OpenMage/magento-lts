@@ -193,7 +193,7 @@ class Zend_Text_Table
         }
 
         foreach ($columnWidths as $columnNum => $columnWidth) {
-            if (is_int($columnWidth) === false or $columnWidth < 1) {
+            if (is_int($columnWidth) === false || $columnWidth < 1) {
                 #require_once 'Zend/Text/Table/Exception.php';
                 throw new Zend_Text_Table_Exception('Column ' . $columnNum . ' has an invalid'
                                                     . ' column width');

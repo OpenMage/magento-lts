@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Payment
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,7 +25,7 @@
  *
  * @category   Mage
  * @package    Mage_Payment
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Payment_Model_Config
 {
@@ -40,12 +34,12 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve active system payments
      *
-     * @param   mixed $store
-     * @return  array
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return array
      */
-    public function getActiveMethods($store=null)
+    public function getActiveMethods($store = null)
     {
-        $methods = array();
+        $methods = [];
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
             if (Mage::getStoreConfigFlag('payment/'.$code.'/active', $store)) {
@@ -63,23 +57,29 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve all system payments
      *
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return array
      */
-    public function getAllMethods($store=null)
+    public function getAllMethods($store = null)
     {
-        $methods = array();
+        $methods = [];
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
             $data = $this->_getMethod($code, $methodConfig);
-            if (false !== $data) {
+            if ($data !== false) {
                 $methods[$code] = $data;
             }
         }
         return $methods;
     }
 
-    protected function _getMethod($code, $config, $store=null)
+    /**
+     * @param string $code
+     * @param array $config
+     * @param null $store
+     * @return false|Mage_Payment_Model_Method_Abstract
+     */
+    protected function _getMethod($code, $config, $store = null)
     {
         if (isset(self::$_methods[$code])) {
             return self::$_methods[$code];
@@ -88,13 +88,10 @@ class Mage_Payment_Model_Config
             return false;
         }
         $modelName = $config['model'];
-
-        $className = Mage::getConfig()->getModelClassName($modelName);
-        if (!mageFindClassFile($className)) {
+        $method = Mage::getModel($modelName);
+        if (!$method) {
             return false;
         }
-
-        $method = Mage::getModel($modelName);
         $method->setId($code)->setStore($store);
         self::$_methods[$code] = $method;
         return self::$_methods[$code];
@@ -109,9 +106,9 @@ class Mage_Payment_Model_Config
     {
         $_types = Mage::getConfig()->getNode('global/payment/cc/types')->asArray();
 
-        uasort($_types, array('Mage_Payment_Model_Config', 'compareCcTypes'));
+        uasort($_types, ['Mage_Payment_Model_Config', 'compareCcTypes']);
 
-        $types = array();
+        $types = [];
         foreach ($_types as $data) {
             if (isset($data['code']) && isset($data['name'])) {
                 $types[$data['code']] = $data['name'];
@@ -142,7 +139,7 @@ class Mage_Payment_Model_Config
      */
     public function getYears()
     {
-        $years = array();
+        $years = [];
         $first = date("Y");
 
         for ($index=0; $index <= 10; $index++) {
@@ -159,7 +156,7 @@ class Mage_Payment_Model_Config
      * @param array $b
      * @return int
      */
-    static function compareCcTypes($a, $b)
+    public static function compareCcTypes($a, $b)
     {
         if (!isset($a['order'])) {
             $a['order'] = 0;
@@ -171,11 +168,10 @@ class Mage_Payment_Model_Config
 
         if ($a['order'] == $b['order']) {
             return 0;
-        } else if ($a['order'] > $b['order']) {
+        } elseif ($a['order'] > $b['order']) {
             return 1;
         } else {
             return -1;
         }
-
     }
 }

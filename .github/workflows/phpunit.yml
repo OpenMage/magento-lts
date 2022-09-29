@@ -1,0 +1,49 @@
+name: OpenMage LTS - Unit Tests
+
+on:
+  # Run on all pushes and on all pull requests.
+  # Prevent the build from running when there are only irrelevant changes.
+  push:
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+jobs:
+  unit-tests:
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: OpenMage/Testfield
+          path: ./
+
+      - name: php & Composer version
+        run: php --version && composer --version
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --ignore-platform-reqs
+
+      - name: Checkout OpenMage repo
+        uses: actions/checkout@v3
+        with:
+          path: openmage
+
+      - name: Install OpenMage dependencies
+        working-directory: ./openmage
+        run: composer install --prefer-dist --no-progress --ignore-platform-reqs
+
+      - name: run phpUnit
+        run: bash ./run_unit_tests.sh
+
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1.6
+        if: always()
+        continue-on-error: true
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: output/*.xml

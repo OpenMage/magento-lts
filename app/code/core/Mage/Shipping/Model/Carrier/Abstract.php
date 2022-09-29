@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,26 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Shipping
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Shipping
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Shipping_Model_Carrier_Abstract
+ *
+ * @category   Mage
+ * @package    Mage_Shipping
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setActiveFlag(bool $value)
+ * @method array getAllowedMethods()
+ * @method array getContainerTypesAll()
+ * @method array getContainerTypesFilter()
+ * @method Mage_Core_Model_Store getStore()
+ * @method $this setStore(Mage_Core_Model_Store $value)
+ */
 abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
 {
     /**
@@ -67,7 +74,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @var array
      */
-    protected $_customizableContainerTypes = array();
+    protected $_customizableContainerTypes = [];
 
     const USA_COUNTRY_ID = 'US';
     const CANADA_COUNTRY_ID = 'CA';
@@ -84,7 +91,21 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = array();
+    protected $_debugReplacePrivateDataKeys = [];
+
+    /**
+     * Raw rate request data
+     *
+     * @var Varien_Object|null
+     */
+    protected $_rawRequest;
+
+    /**
+     * Rate result data
+     *
+     * @var Mage_Shipping_Model_Rate_Result|null
+     */
+    protected $_result;
 
     /**
      * Retrieve information from carrier configuration
@@ -141,7 +162,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Do return of shipment
      * Implementation must be in overridden method
      *
-     * @param $request
+     * @param mixed $request
      * @return Varien_Object
      */
     public function returnOfShipment($request)
@@ -157,7 +178,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      */
     public function getContainerTypes(Varien_Object $params = null)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -170,13 +191,13 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     {
         $containersAll = $this->getContainerTypesAll();
         if (empty($containersAll)) {
-            return array();
+            return [];
         }
         if (empty($params)) {
             return $containersAll;
         }
         $containersFilter   = $this->getContainerTypesFilter();
-        $containersFiltered = array();
+        $containersFiltered = [];
         $method             = $params->getMethod();
         $countryShipper     = $params->getCountryShipper();
         $countryRecipient   = $params->getCountryRecipient();
@@ -190,7 +211,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
 
         if ($countryShipper == self::USA_COUNTRY_ID && $countryRecipient == self::USA_COUNTRY_ID) {
             $direction = 'within_us';
-        } else if ($countryShipper == self::USA_COUNTRY_ID && $countryRecipient != self::USA_COUNTRY_ID) {
+        } elseif ($countryShipper == self::USA_COUNTRY_ID && $countryRecipient != self::USA_COUNTRY_ID) {
             $direction = 'from_us';
         } else {
             return $containersAll;
@@ -231,48 +252,51 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      */
     public function getDeliveryConfirmationTypes(Varien_Object $params = null)
     {
-        return array();
+        return [];
     }
 
+    /**
+     * @param Mage_Shipping_Model_Rate_Request $request
+     * @return $this|bool|false|Mage_Core_Model_Abstract
+     */
     public function checkAvailableShipCountries(Mage_Shipping_Model_Rate_Request $request)
     {
         $speCountriesAllow = $this->getConfigData('sallowspecific');
         /*
         * for specific countries, the flag will be 1
         */
-        if ($speCountriesAllow && $speCountriesAllow == 1){
+        if ($speCountriesAllow && $speCountriesAllow == 1) {
              $showMethod = $this->getConfigData('showmethod');
-             $availableCountries = array();
-             if($this->getConfigData('specificcountry')) {
-                $availableCountries = explode(',',$this->getConfigData('specificcountry'));
-             }
-             if ($availableCountries && in_array($request->getDestCountryId(), $availableCountries)) {
-                 return $this;
-             } elseif ($showMethod && (!$availableCountries || ($availableCountries
+             $availableCountries = [];
+            if ($this->getConfigData('specificcountry')) {
+                $availableCountries = explode(',', $this->getConfigData('specificcountry'));
+            }
+            if ($availableCountries && in_array($request->getDestCountryId(), $availableCountries)) {
+                return $this;
+            } elseif ($showMethod && (!$availableCountries || ($availableCountries
                  && !in_array($request->getDestCountryId(), $availableCountries)))
-             ){
-                   $error = Mage::getModel('shipping/rate_result_error');
-                   $error->setCarrier($this->_code);
-                   $error->setCarrierTitle($this->getConfigData('title'));
-                   $errorMsg = $this->getConfigData('specificerrmsg');
-                   $error->setErrorMessage($errorMsg ? $errorMsg : Mage::helper('shipping')->__('The shipping module is not available for selected delivery country.'));
-                   return $error;
-             } else {
-                 /*
+             ) {
+                  $error = Mage::getModel('shipping/rate_result_error');
+                  $error->setCarrier($this->_code);
+                  $error->setCarrierTitle($this->getConfigData('title'));
+                  $errorMsg = $this->getConfigData('specificerrmsg');
+                  $error->setErrorMessage($errorMsg ? $errorMsg : Mage::helper('shipping')->__('The shipping module is not available for selected delivery country.'));
+                  return $error;
+            } else {
+                /*
                 * The admin set not to show the shipping module if the devliery country is not within specific countries
                 */
                 return false;
-             }
+            }
         }
         return $this;
     }
-
 
     /**
      * Processing additional validation to check is carrier applicable.
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|boolean
+     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|bool
      */
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -303,7 +327,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Check if carrier has shipping tracking option available
      *
-     * @return boolean
+     * @return bool
      */
     public function isTrackingAvailable()
     {
@@ -313,7 +337,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Check if carrier has shipping label option available
      *
-     * @return boolean
+     * @return bool
      */
     public function isShippingLabelsAvailable()
     {
@@ -332,7 +356,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
 
     /**
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return null
      */
     protected function _updateFreeMethodQuote($request)
     {
@@ -347,7 +370,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         $freeRateId = false;
 
         if (is_object($this->_result)) {
-            foreach ($this->_result->getAllRates() as $i=>$item) {
+            foreach ($this->_result->getAllRates() as $i => $item) {
                 if ($item->getMethod() == $freeMethod) {
                     $freeRateId = $i;
                     break;
@@ -417,7 +440,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      */
     public function getFinalPriceWithHandlingFee($cost)
     {
-        $handlingFee = (float) $this->getConfigData('handling_fee');
+        $handlingFee = (float)$this->getConfigData('handling_fee');
         $handlingType = $this->getConfigData('handling_type');
         if (!$handlingType) {
             $handlingType = self::HANDLING_TYPE_FIXED;
@@ -469,7 +492,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      *  Return weight in pounds
      *
-     *  @param integer Weight in someone measure
+     *  @param integer $weight Weight in someone measure
      *  @return float Weight in pounds
      */
     public function convertWeightToLbs($weight)
@@ -480,7 +503,8 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * set the number of boxes for shipping
      *
-     * @return weight
+     * @param int $weight
+     * @return float
      */
     public function getTotalNumOfBoxes($weight)
     {
@@ -510,7 +534,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Check if city option required
      *
-     * @return boolean
+     * @return bool
      */
     public function isCityRequired()
     {
@@ -580,6 +604,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      */
     public function getContentTypes(Varien_Object $params)
     {
-        return array();
+        return [];
     }
 }

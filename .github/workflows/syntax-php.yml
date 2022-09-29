@@ -1,0 +1,41 @@
+name: "PHP Syntax Check"
+
+on:
+  # Run on all pushes and on all pull requests.
+  # Prevent the build from running when there are only irrelevant changes.
+  push:
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+jobs:
+  php_syntax:
+    runs-on: [ubuntu-latest]
+
+    strategy:
+      matrix:
+        php: ['7.3', '8.1', '8.2']
+
+    name: PHP Syntax ${{ matrix.php }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring #optional, setup extensions
+          ini-values: post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
+          coverage: none #optional, setup coverage driver
+
+      - name: Check .php files
+        run: '! find . -not \( -path ./.phpstorm.meta.php -prune \) -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 1> /dev/null | grep "^"'
+
+      - name: Check .phtml files
+        run: '! find app/design -type f -name "*.phtml" -exec php -d error_reporting=32767 -l {} \; 2>&1 1> /dev/null | grep "^"'

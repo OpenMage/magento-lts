@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Abstract items renderer
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Template
 {
@@ -42,7 +35,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      *
      * @var array
      */
-    protected $_itemRenders = array();
+    protected $_itemRenders = [];
 
     /**
      * Renderers for other column with column name key
@@ -52,12 +45,12 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      *
      * @var array
      */
-    protected $_columnRenders = array();
+    protected $_columnRenders = [];
 
     /**
      * Flag - if it is set method canEditQty will return value of it
      *
-     * @var boolean | null
+     * @var bool | null
      */
     protected $_canEditQty = null;
 
@@ -78,15 +71,15 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * @param string $type
      * @param string $block
      * @param string $template
-     * @return Mage_Adminhtml_Block_Sales_Items_Abstract
+     * @return $this
      */
     public function addItemRender($type, $block, $template)
     {
-        $this->_itemRenders[$type] = array(
+        $this->_itemRenders[$type] = [
             'block'     => $block,
             'template'  => $template,
             'renderer'  => null
-        );
+        ];
         return $this;
     }
 
@@ -96,18 +89,18 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * @param string $column
      * @param string $block
      * @param string $template
-     * @return Mage_Adminhtml_Block_Sales_Items_Abstract
+     * @return $this
      */
     public function addColumnRender($column, $block, $template, $type=null)
     {
         if (!is_null($type)) {
             $column .= '_' . $type;
         }
-        $this->_columnRenders[$column] = array(
+        $this->_columnRenders[$column] = [
             'block'     => $block,
             'template'  => $template,
             'renderer'  => null
-        );
+        ];
         return $this;
     }
 
@@ -304,7 +297,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     }
 
     /**
-     * Retrieve price formated html content
+     * Retrieve price formatted html content
      *
      * @param float $basePrice
      * @param float $price
@@ -345,7 +338,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     }
 
     /**
-     * Retrieve include tax html formated content
+     * Retrieve include tax html formatted content
      *
      * @param Varien_Object $item
      * @return string
@@ -371,7 +364,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     }
 
     /**
-     * Retrieve subtotal price include tax html formated content
+     * Retrieve subtotal price include tax html formatted content
      *
      * @param Varien_Object $item
      * @return string
@@ -396,7 +389,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     public function displayTaxCalculation(Varien_Object $item)
     {
         if ($item->getTaxPercent() && $item->getTaxString() == '') {
-            $percents = array($item->getTaxPercent());
+            $percents = [$item->getTaxPercent()];
         } else if ($item->getTaxString()) {
             $percents = explode(Mage_Tax_Model_Config::CALCULATION_STRING_SEPARATOR, $item->getTaxString());
         } else {
@@ -446,7 +439,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     /**
      * Setter for flag _canEditQty
      *
-     * @return Mage_Adminhtml_Block_Sales_Items_Abstract
+     * @return $this
      * @see self::_canEditQty
      * @see self::canEditQty
      */
@@ -458,7 +451,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     /**
      * Check availability to edit quantity of item
      *
-     * @return boolean
+     * @return bool
      */
     public function canEditQty()
     {
@@ -510,7 +503,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     /**
      * Retrieve invoice model instance
      *
-     * @return Mage_Sales_Model_Invoice
+     * @return Mage_Sales_Model_Order_Invoice
      */
     public function getInvoice()
     {
@@ -573,7 +566,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * Return true if can ship partially
      *
      * @param Mage_Sales_Model_Order|null $order
-     * @return boolean
+     * @return bool
      */
     public function canShipPartially($order = null)
     {
@@ -591,7 +584,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * Return true if can ship items partially
      *
      * @param Mage_Sales_Model_Order|null $order
-     * @return boolean
+     * @return bool
      */
     public function canShipPartiallyItem($order = null)
     {
@@ -612,5 +605,4 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
         }
         return true;
     }
-
 }

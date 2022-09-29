@@ -56,7 +56,7 @@ class Zend_Form_Decorator_Form extends Zend_Form_Decorator_Abstract
      * Set view helper for rendering form
      *
      * @param  string $helper
-     * @return Zend_Form_Decorator_Form
+     * @return $this
      */
     public function setHelper($helper)
     {

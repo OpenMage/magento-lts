@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Customer
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,16 +23,26 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Customer_Block_Account_Dashboard_Info extends Mage_Core_Block_Template
 {
+    /**
+     * @var Mage_Newsletter_Model_Subscriber
+     */
+    private $_subscription;
+
+    /**
+     * @return Mage_Customer_Model_Customer
+     */
     public function getCustomer()
     {
         return Mage::getSingleton('customer/session')->getCustomer();
     }
 
+    /**
+     * @return string
+     */
     public function getChangePasswordUrl()
     {
         return Mage::getUrl('*/account/edit/changepass/1');
@@ -51,7 +55,7 @@ class Mage_Customer_Block_Account_Dashboard_Info extends Mage_Core_Block_Templat
      */
     public function getSubscriptionObject()
     {
-        if(is_null($this->_subscription)) {
+        if (is_null($this->_subscription)) {
             $this->_subscription = Mage::getModel('newsletter/subscriber')->loadByCustomer(
                 Mage::getSingleton('customer/session')->getCustomer()
             );
@@ -73,7 +77,7 @@ class Mage_Customer_Block_Account_Dashboard_Info extends Mage_Core_Block_Templat
     /**
      *  Newsletter module availability
      *
-     *  @return boolean
+     *  @return bool
      */
     public function isNewsletterEnabled()
     {

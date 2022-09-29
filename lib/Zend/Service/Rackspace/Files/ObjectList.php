@@ -23,7 +23,7 @@
 #require_once 'Zend/Service/Rackspace/Files.php';
 
 /**
- * List of servers retrived from the GoGrid web service
+ * List of servers retrieved from the GoGrid web service
  *
  * @uses       ArrayAccess
  * @uses       Countable
@@ -52,7 +52,7 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
     protected $service;
     /**
      * The container name of the object list
-     * 
+     *
      * @var string
      */
     protected $container;

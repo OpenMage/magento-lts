@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,26 +12,20 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Grid widget massaction block
  *
- * @method Mage_Sales_Model_Quote setHideFormElement(boolean $value) Hide Form element to prevent IE errors
- * @method boolean getHideFormElement()
+ * @method Mage_Sales_Model_Quote setHideFormElement(bool $value) Hide Form element to prevent IE errors
+ * @method bool getHideFormElement()
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage_Adminhtml_Block_Widget
 {
@@ -40,7 +34,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      *
      * @var array
      */
-    protected $_items = array();
+    protected $_items = [];
 
     /**
      * Sets Massaction template
@@ -90,11 +84,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getItem($itemId)
     {
-        if(isset($this->_items[$itemId])) {
-            return $this->_items[$itemId];
-        }
-
-        return null;
+        return $this->_items[$itemId] ?? null;
     }
 
     /**
@@ -114,7 +104,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getItemsJson()
     {
-        $result = array();
+        $result = [];
         foreach ($this->getItems() as $itemId=>$item) {
             $result[$itemId] = $item->toArray();
         }
@@ -125,17 +115,17 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Retrieve massaction items count
      *
-     * @return integer
+     * @return int
      */
     public function getCount()
     {
-        return sizeof($this->_items);
+        return count($this->_items);
     }
 
     /**
      * Checks are massactions available
      *
-     * @return boolean
+     * @return bool
      */
     public function isAvailable()
     {
@@ -190,8 +180,8 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     public function getSelectedJson()
     {
         if($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
-            $selected = explode(',', $selected);
-            return join(',', $selected);
+            $selected = explode(',', $this->quoteEscape($selected));
+            return implode(',', $selected);
         } else {
             return '';
         }
@@ -205,10 +195,10 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     public function getSelected()
     {
         if($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
-            $selected = explode(',', $selected);
+            $selected = explode(',', $this->quoteEscape($selected));
             return $selected;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -243,7 +233,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         $gridIds = $this->getParentBlock()->getCollection()->getAllIds();
 
         if(!empty($gridIds)) {
-            return join(",", $gridIds);
+            return implode(",", $gridIds);
         }
         return '';
     }
@@ -271,7 +261,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Retrieve select all functionality flag check
      *
-     * @return boolean
+     * @return bool
      */
     public function getUseSelectAll()
     {
@@ -281,12 +271,35 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Retrieve select all functionality flag check
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
      */
     public function setUseSelectAll($flag)
     {
         $this->setData('use_select_all', (bool) $flag);
         return $this;
+    }
+
+    /**
+     * Group items for optgroups
+     *
+     * @return array
+     */
+    public function getGroupedItems(): array
+    {
+        $groupedItems = [
+            'default' => [],
+        ];
+
+        foreach ($this->getItems() as $item) {
+            if ($item->getData('group')) {
+                $groupedItems['grouped'][$item->getData('group')][$item->getId()] = $item;
+            }
+            else {
+                $groupedItems['default'][$item->getId()] = $item;
+            }
+        }
+
+        return $groupedItems;
     }
 }

@@ -165,7 +165,7 @@ class Zend_Text_Table_Column
      */
     public function setColSpan($colSpan)
     {
-        if (is_int($colSpan) === false or $colSpan < 1) {
+        if (is_int($colSpan) === false || $colSpan < 1) {
             #require_once 'Zend/Text/Table/Exception.php';
             throw new Zend_Text_Table_Exception('$colSpan must be an integer and greater than 0');
         }
@@ -196,7 +196,7 @@ class Zend_Text_Table_Column
      */
     public function render($columnWidth, $padding = 0)
     {
-        if (is_int($columnWidth) === false or $columnWidth < 1) {
+        if (is_int($columnWidth) === false || $columnWidth < 1) {
             #require_once 'Zend/Text/Table/Exception.php';
             throw new Zend_Text_Table_Exception('$columnWidth must be an integer and greater than 0');
         }

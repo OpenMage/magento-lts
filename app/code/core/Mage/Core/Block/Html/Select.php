@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * HTML select element block
@@ -31,11 +24,18 @@
  * @category   Mage
  * @package    Mage_Core
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getExtraParams()
+ * @method $this setExtraParams(string $value)
+ * @method string getName()
+ * @method $this setName(string $value)
+ * @method string getValue()
+ * @method $this setValue(string $value)
+ * @method bool getIsRenderToJsTemplate()
  */
 class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
 {
-
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * Get options of the element
@@ -51,7 +51,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      * Set options for the HTML select
      *
      * @param array $options
-     * @return Mage_Core_Block_Html_Select
+     * @return $this
      */
     public function setOptions($options)
     {
@@ -65,11 +65,11 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      * @param string $value  HTML value
      * @param string $label  HTML label
      * @param array  $params HTML attributes
-     * @return Mage_Core_Block_Html_Select
+     * @return $this
      */
-    public function addOption($value, $label, $params=array())
+    public function addOption($value, $label, $params = [])
     {
-        $this->_options[] = array('value' => $value, 'label' => $label, 'params' => $params);
+        $this->_options[] = ['value' => $value, 'label' => $label, 'params' => $params];
         return $this;
     }
 
@@ -77,7 +77,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      * Set element's HTML ID
      *
      * @param string $id ID
-     * @return Mage_Core_Block_Html_Select
+     * @return $this
      */
     public function setId($id)
     {
@@ -89,7 +89,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      * Set element's CSS class
      *
      * @param string $class Class
-     * @return Mage_Core_Block_Html_Select
+     * @return $this
      */
     public function setClass($class)
     {
@@ -101,7 +101,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      * Set element's HTML title
      *
      * @param string $title Title
-     * @return Mage_Core_Block_Html_Select
+     * @return $this
      */
     public function setTitle($title)
     {
@@ -154,11 +154,11 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
             . $this->getClass() . '" title="' . $this->getTitle() . '" ' . $this->getExtraParams() . '>';
         $values = $this->getValue();
 
-        if (!is_array($values)){
+        if (!is_array($values)) {
             if (!is_null($values)) {
-                $values = array($values);
+                $values = [$values];
             } else {
-                $values = array();
+                $values = [];
             }
         }
 
@@ -167,22 +167,22 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
             if ($isArrayOption && is_array($option)) {
                 $value  = $option['value'];
                 $label  = (string)$option['label'];
-                $params = (!empty($option['params'])) ? $option['params'] : array();
+                $params = (!empty($option['params'])) ? $option['params'] : [];
             } else {
                 $value = (string)$key;
                 $label = (string)$option;
                 $isArrayOption = false;
-                $params = array();
+                $params = [];
             }
 
             if (is_array($value)) {
                 $html .= '<optgroup label="' . $label . '">';
                 foreach ($value as $keyGroup => $optionGroup) {
                     if (!is_array($optionGroup)) {
-                        $optionGroup = array(
+                        $optionGroup = [
                             'value' => $keyGroup,
                             'label' => $optionGroup
-                        );
+                        ];
                     }
                     $html .= $this->_optionToHtml(
                         $optionGroup,
@@ -192,11 +192,11 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
                 $html .= '</optgroup>';
             } else {
                 $html .= $this->_optionToHtml(
-                    array(
+                    [
                         'value' => $value,
                         'label' => $label,
                         'params' => $params
-                    ),
+                    ],
                     in_array($value, $values)
                 );
             }
@@ -209,7 +209,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      * Return option HTML node
      *
      * @param array $option
-     * @param boolean $selected
+     * @param bool $selected
      * @return string
      */
     protected function _optionToHtml($option, $selected = false)
@@ -232,11 +232,13 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
             }
         }
 
-        return sprintf('<option value="%s"%s %s>%s</option>',
+        return sprintf(
+            '<option value="%s"%s %s>%s</option>',
             $this->escapeHtml($option['value']),
             $selectedHtml,
             $params,
-            $this->escapeHtml($option['label']));
+            $this->escapeHtml($option['label'])
+        );
     }
 
     /**

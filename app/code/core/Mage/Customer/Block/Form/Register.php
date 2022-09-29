@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,22 +12,23 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Customer
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer register form block
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setBackUrl(string $value)
+ * @method $this setErrorUrl(string $value)
+ * @method $this setShowAddressFields(bool $value)
+ * @method $this setSuccessUrl(string $value)
  */
 class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
 {
@@ -38,6 +39,9 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     protected $_address;
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->getLayout()->getBlock('head')->setTitle(Mage::helper('customer')->__('Create New Customer Account'));
@@ -51,7 +55,9 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     public function getPostActionUrl()
     {
-        return $this->helper('customer')->getRegisterPostUrl();
+        /** @var Mage_Customer_Helper_Data $helper */
+        $helper = $this->helper('customer');
+        return $helper->getRegisterPostUrl();
     }
 
     /**
@@ -63,7 +69,9 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     {
         $url = $this->getData('back_url');
         if (is_null($url)) {
-            $url = $this->helper('customer')->getLoginUrl();
+            /** @var Mage_Customer_Helper_Data $helper */
+            $helper = $this->helper('customer');
+            $url = $helper->getLoginUrl();
         }
         return $url;
     }
@@ -112,9 +120,11 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     public function getRegion()
     {
-        if (false !== ($region = $this->getFormData()->getRegion())) {
+        if ($region = $this->getFormData()->getRegion() !== false) {
             return $region;
-        } else if (false !== ($region = $this->getFormData()->getRegionId())) {
+        }
+
+        if ($region = $this->getFormData()->getRegionId() !== false) {
             return $region;
         }
         return null;
@@ -123,7 +133,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     /**
      *  Newsletter module availability
      *
-     *  @return boolean
+     *  @return bool
      */
     public function isNewsletterEnabled()
     {
@@ -149,7 +159,8 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      * Entity and form code must be defined for the form
      *
      * @param Mage_Customer_Model_Form $form
-     * @return Mage_Customer_Block_Form_Register
+     * @param string|null $scope
+     * @return $this
      */
     public function restoreSessionData(Mage_Customer_Model_Form $form, $scope = null)
     {
@@ -160,5 +171,15 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
         }
 
         return $this;
+    }
+
+    /**
+     * Retrieve minimum length of customer password
+     *
+     * @return int
+     */
+    public function getMinPasswordLength()
+    {
+        return Mage::getModel('customer/customer')->getMinPasswordLength();
     }
 }

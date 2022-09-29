@@ -53,7 +53,7 @@ class Zend_Tool_Project_Context_Zf_TestPHPUnitBootstrapFile extends Zend_Tool_Pr
     {
         return 'TestPHPUnitBootstrapFile';
     }
-    
+
     /**
      * getContents()
      *

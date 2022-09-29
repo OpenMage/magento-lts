@@ -38,9 +38,9 @@ ldml alternate approvalRequirement approvalRequirements attributeOrder attribute
             <attributes element="weekendStart" attribute="time" attributeValue="00:00"/>
         </suppress>
         <validity>
-            <!-- BCP 47 contains many more language codes than we are interested in maintaining as a part of the CLDR --> 
-            <!-- This list contains ONLY those languages considered to be "of interest" as part of CLDR, --> 
-            <!-- and is maintained manually by the CLDR TC --> 
+            <!-- BCP 47 contains many more language codes than we are interested in maintaining as a part of the CLDR -->
+            <!-- This list contains ONLY those languages considered to be "of interest" as part of CLDR, -->
+            <!-- and is maintained manually by the CLDR TC -->
             <variable id="$language" type="choice">
                 aa ab ace ach ada ady ae af afh agq ain ak akk ale alt am an ang anp ar
                 arc arn arp arw as asa ast av awa ay az
@@ -711,7 +711,7 @@ ldml alternate approvalRequirement approvalRequirements attributeOrder attribute
             <!-- specialized lists and types -->
             <variable id="$tzidList" type="list">$tzid</variable>
             <variable id="$casing" type="choice">titlecase-words titlecase-firstword lowercase-words mixed</variable>
-    
+
             <!-- allow may expand in future to a space separated list i.e. ((newitem)?( )?)?(verbatim)? -->
             <variable id="$allow" type="regex">(verbatim)</variable>
             <variable id="$alt" type="regex">((stand-alone|variant|list|secondary|email|www|short|narrow|new|accounting)(-proposed.*)?|(proposed.*))</variable>
@@ -727,7 +727,7 @@ ldml alternate approvalRequirement approvalRequirements attributeOrder attribute
             <variable id="$uri" type="notDoneYet"/>
             <variable id="$variableID" type="regex">[$][a-zA-Z0-9]+</variable>
             <variable id="$version" type="regex">\$.*\$</variable>
-            
+
             <attributeValues attributes="alt" type="choice">$alt</attributeValues>
             <attributeValues attributes="validSubLocales" type="list">$locale</attributeValues>
             <attributeValues elements="alias" attributes="path" type="path">notDoneYet</attributeValues>
@@ -1771,8 +1771,8 @@ ldml alternate approvalRequirement approvalRequirements attributeOrder attribute
             <variantAlias type="POLYTONI" replacement="POLYTON" reason="deprecated"/>
             <variantAlias type="HEPLOC" replacement="ALALC97" reason="deprecated"/>
             <variantAlias type="SAAHO" reason="deprecated"/>
-            <zoneAlias type="Africa/Timbuktu" replacement="Africa/Bamako" reason="deprecated"/>          
-            <zoneAlias type="Pacific/Yap" replacement="Pacific/Truk" reason="deprecated"/>          
+            <zoneAlias type="Africa/Timbuktu" replacement="Africa/Bamako" reason="deprecated"/>
+            <zoneAlias type="Pacific/Yap" replacement="Pacific/Truk" reason="deprecated"/>
             <zoneAlias type="Europe/Belfast" replacement="Europe/London" reason="deprecated"/>
             <zoneAlias type="SystemV/AST4ADT" replacement="America/Halifax" reason="deprecated"/>
             <zoneAlias type="SystemV/EST5EDT" replacement="America/New_York" reason="deprecated"/>
@@ -1789,7 +1789,7 @@ ldml alternate approvalRequirement approvalRequirements attributeOrder attribute
             <zoneAlias type="SystemV/PST8" replacement="Pacific/Pitcairn" reason="deprecated"/>
             <zoneAlias type="SystemV/YST9" replacement="Pacific/Gambier" reason="deprecated"/>
             <zoneAlias type="SystemV/HST10" replacement="Pacific/Honolulu" reason="deprecated"/>
-            <zoneAlias type="HST" replacement="Pacific/Honolulu" reason="deprecated"/>       
+            <zoneAlias type="HST" replacement="Pacific/Honolulu" reason="deprecated"/>
             <zoneAlias type="Atlantic/Jan_Mayen" replacement="Europe/Oslo" reason="deprecated"/>
             <zoneAlias type="America/Shiprock" replacement="America/Denver" reason="deprecated"/>
             <zoneAlias type="Antarctica/South_Pole" replacement="Pacific/Auckland" reason="deprecated"/>

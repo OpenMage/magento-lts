@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
 {
     const XML_PATH_DISPLAY_LAYER_COUNT = 'catalog/search/use_layered_navigation_count';
@@ -31,7 +30,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     /**
      * Get current layer product collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Resource_Product_Collection
+     * @return Mage_CatalogSearch_Model_Resource_Fulltext_Collection
      */
     public function getProductCollection()
     {
@@ -48,7 +47,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     /**
      * Prepare product collection
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Resource_Product_Collection $collection
+     * @param Mage_CatalogSearch_Model_Resource_Fulltext_Collection $collection
      * @return Mage_Catalog_Model_Layer
      */
     public function prepareProductCollection($collection)
@@ -57,8 +56,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addSearchFilter(Mage::helper('catalogsearch')->getQuery()->getQueryText())
             ->setStore(Mage::app()->getStore())
-            ->addMinimalPrice()
-            ->addFinalPrice()
+            ->addPriceData()
             ->addTaxPercents()
             ->addStoreFilter()
             ->addUrlRewrite();
@@ -89,7 +87,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
      * @param   array $additionalTags
      * @return  array
      */
-    public function getStateTags(array $additionalTags = array())
+    public function getStateTags(array $additionalTags = [])
     {
         $additionalTags = parent::getStateTags($additionalTags);
         $additionalTags[] = Mage_CatalogSearch_Model_Query::CACHE_TAG;
@@ -99,8 +97,8 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     /**
      * Add filters to attribute collection
      *
-     * @param   Mage_Catalog_Model_Resource_Eav_Resource_Product_Attribute_Collection $collection
-     * @return  Mage_Catalog_Model_Resource_Eav_Resource_Product_Attribute_Collection
+     * @param   Mage_Catalog_Model_Resource_Product_Attribute_Collection $collection
+     * @return  Mage_Catalog_Model_Resource_Product_Attribute_Collection
      */
     protected function _prepareAttributeCollection($collection)
     {

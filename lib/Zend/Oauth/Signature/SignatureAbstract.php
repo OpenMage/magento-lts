@@ -167,7 +167,7 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
     protected function _toByteValueOrderedQueryString(array $params)
     {
         $return = array();
-        uksort($params, 'strnatcmp');
+        ksort($params);
         foreach ($params as $key => $value) {
             if (is_array($value)) {
                 natsort($value);

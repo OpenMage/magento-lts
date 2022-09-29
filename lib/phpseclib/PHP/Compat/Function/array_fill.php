@@ -14,6 +14,7 @@
  * @version     $Revision: 1.1 $
  * @since       PHP 4.2.0
  */
+/*
 function php_compat_array_fill($start_index, $num, $value)
 {
     if ($num <= 0) {
@@ -39,3 +40,4 @@ if (!function_exists('array_fill')) {
         return php_compat_array_fill($start_index, $num, $value);
     }
 }
+*/

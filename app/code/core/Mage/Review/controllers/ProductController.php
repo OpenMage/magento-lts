@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Review
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Review
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -33,14 +27,16 @@
  */
 class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 {
-
     /**
      * Action list where need check enabled cookie
      *
      * @var array
      */
-    protected $_cookieCheckActions = array('post');
+    protected $_cookieCheckActions = ['post'];
 
+    /**
+     * @return $this|Mage_Core_Controller_Front_Action|void
+     */
     public function preDispatch()
     {
         parent::preDispatch();
@@ -54,7 +50,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         if (!$allowGuest && $action == 'post' && $this->getRequest()->isPost()) {
             if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $this->setFlag('', self::FLAG_NO_DISPATCH, true);
-                Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', array('_current' => true)));
+                Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_current' => true]));
                 Mage::getSingleton('review/session')->setFormData($this->getRequest()->getPost())
                     ->setRedirectUrl($this->_getRefererUrl());
                 $this->_redirectUrl(Mage::helper('customer')->getLoginUrl());
@@ -66,11 +62,11 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize and check product
      *
-     * @return Mage_Catalog_Model_Product
+     * @return Mage_Catalog_Model_Product|false
      */
     protected function _initProduct()
     {
-        Mage::dispatchEvent('review_controller_product_init_before', array('controller_action'=>$this));
+        Mage::dispatchEvent('review_controller_product_init_before', ['controller_action'=>$this]);
         $categoryId = (int) $this->getRequest()->getParam('category', false);
         $productId  = (int) $this->getRequest()->getParam('id');
 
@@ -85,11 +81,11 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         }
 
         try {
-            Mage::dispatchEvent('review_controller_product_init', array('product'=>$product));
-            Mage::dispatchEvent('review_controller_product_init_after', array(
+            Mage::dispatchEvent('review_controller_product_init', ['product'=>$product]);
+            Mage::dispatchEvent('review_controller_product_init_after', [
                 'product'           => $product,
                 'controller_action' => $this
-            ));
+            ]);
         } catch (Mage_Core_Exception $e) {
             Mage::logException($e);
             return false;
@@ -114,7 +110,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         $product = Mage::getModel('catalog/product')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->load($productId);
-        /* @var $product Mage_Catalog_Model_Product */
+        /** @var Mage_Catalog_Model_Product $product */
         if (!$product->getId() || !$product->isVisibleInCatalog() || !$product->isVisibleInSiteVisibility()) {
             return false;
         }
@@ -129,7 +125,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      * Load review model with data by passed id.
      * Return false if review was not loaded or review is not approved.
      *
-     * @param int $productId
+     * @param int $reviewId
      * @return bool|Mage_Review_Model_Review
      */
     protected function _loadReview($reviewId)
@@ -139,7 +135,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         }
 
         $review = Mage::getModel('review/review')->load($reviewId);
-        /* @var $review Mage_Review_Model_Review */
+        /** @var Mage_Review_Model_Review $review */
         if (!$review->getId() || !$review->isApproved() || !$review->isAvailableOnStore(Mage::app()->getStore())) {
             return false;
         }
@@ -162,20 +158,20 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         }
 
         if ($data = Mage::getSingleton('review/session')->getFormData(true)) {
-            $rating = array();
+            $rating = [];
             if (isset($data['ratings']) && is_array($data['ratings'])) {
                 $rating = $data['ratings'];
             }
         } else {
             $data   = $this->getRequest()->getPost();
-            $rating = $this->getRequest()->getParam('ratings', array());
+            $rating = $this->getRequest()->getParam('ratings', []);
         }
 
         if (($product = $this->_initProduct()) && !empty($data)) {
             $session = Mage::getSingleton('core/session');
-            /* @var $session Mage_Core_Model_Session */
+            /** @var Mage_Core_Model_Session $session */
             $review = Mage::getModel('review/review')->setData($this->_cropReviewData($data));
-            /* @var $review Mage_Review_Model_Review */
+            /** @var Mage_Review_Model_Review $review */
 
             $validate = $review->validate();
             if ($validate === true) {
@@ -185,7 +181,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
                         ->setStatusId(Mage_Review_Model_Review::STATUS_PENDING)
                         ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())
                         ->setStoreId(Mage::app()->getStore()->getId())
-                        ->setStores(array(Mage::app()->getStore()->getId()))
+                        ->setStores([Mage::app()->getStore()->getId()])
                         ->save();
 
                     foreach ($rating as $ratingId => $optionId) {
@@ -198,20 +194,17 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
                     $review->aggregate();
                     $session->addSuccess($this->__('Your review has been accepted for moderation.'));
-                }
-                catch (Exception $e) {
+                } catch (Exception $e) {
                     $session->setFormData($data);
                     $session->addError($this->__('Unable to post the review.'));
                 }
-            }
-            else {
+            } else {
                 $session->setFormData($data);
                 if (is_array($validate)) {
                     foreach ($validate as $errorMessage) {
                         $session->addError($errorMessage);
                     }
-                }
-                else {
+                } else {
                     $session->addError($this->__('Unable to post the review.'));
                 }
             }
@@ -241,13 +234,15 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             $this->_initProductLayout($product);
 
             // update breadcrumbs
-            if ($breadcrumbsBlock = $this->getLayout()->getBlock('breadcrumbs')) {
-                $breadcrumbsBlock->addCrumb('product', array(
+            /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbsBlock */
+            $breadcrumbsBlock = $this->getLayout()->getBlock('breadcrumbs');
+            if ($breadcrumbsBlock) {
+                $breadcrumbsBlock->addCrumb('product', [
                     'label'    => $product->getName(),
                     'link'     => $product->getProductUrl(),
                     'readonly' => true,
-                ));
-                $breadcrumbsBlock->addCrumb('reviews', array('label' => Mage::helper('review')->__('Product Reviews')));
+                ]);
+                $breadcrumbsBlock->addCrumb('reviews', ['label' => Mage::helper('review')->__('Product Reviews')]);
             }
 
             $this->renderLayout();
@@ -282,7 +277,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Load specific layout handles by product type id
-     *
+     * @param Mage_Catalog_Model_Product $product
      */
     protected function _initProductLayout($product)
     {
@@ -290,7 +285,6 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
         $update->addHandle('default');
         $this->addActionLayoutHandles();
-
 
         $update->addHandle('PRODUCT_TYPE_'.$product->getTypeId());
 
@@ -304,7 +298,17 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             $this->getLayout()->helper('page/layout')
                 ->applyTemplate($product->getPageLayout());
         }
-        $update->addUpdate($product->getCustomLayoutUpdate());
+        $customLayout = $product->getCustomLayoutUpdate();
+        if ($customLayout) {
+            try {
+                if (!Mage::getModel('core/layout_validator')->isValid($customLayout)) {
+                    $customLayout = '';
+                }
+            } catch (Exception $e) {
+                $customLayout = '';
+            }
+        }
+        $update->addUpdate($customLayout);
         $this->generateLayoutXml()->generateLayoutBlocks();
     }
 
@@ -315,8 +319,8 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      */
     protected function _cropReviewData(array $reviewData)
     {
-        $croppedValues = array();
-        $allowedKeys = array_fill_keys(array('detail', 'title', 'nickname'), true);
+        $croppedValues = [];
+        $allowedKeys = array_fill_keys(['detail', 'title', 'nickname'], true);
 
         foreach ($reviewData as $key => $value) {
             if (isset($allowedKeys[$key])) {

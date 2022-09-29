@@ -31,21 +31,21 @@
  * @subpackage Management
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * 
+ *
  * @property string $Name         The location name.
  */
 class Zend_Service_WindowsAzure_Management_LocationInstance
 	extends Zend_Service_WindowsAzure_Management_ServiceEntityAbstract
-{    
+{
     /**
      * Constructor
-     * 
-     * @param string $name         The location name. 
+     *
+     * @param string $name         The location name.
 	 */
-    public function __construct($name) 
-    {	        
+    public function __construct($name)
+    {
         $this->_data = array(
-            'name'        => $name    
+            'name'        => $name
         );
     }
 }
