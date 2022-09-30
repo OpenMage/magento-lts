@@ -74,7 +74,7 @@ class Mage_Core_Model_File_Validator_Image
     }
 
     /**
-     * Validation callback for checking is file is image
+     * Validation callback for checking if file is image
      *
      * @param  string $filePath Path to temporary uploaded file
      * @return null
@@ -85,8 +85,13 @@ class Mage_Core_Model_File_Validator_Image
         list($imageWidth, $imageHeight, $fileType) = getimagesize($filePath);
         if ($fileType) {
             if ($this->isImageType($fileType)) {
-                /** if 'general/reprocess_images/active' false then skip image reprocessing. */
-                if (!Mage::getStoreConfigFlag('general/reprocess_images/active')) {
+                /** Check deprecated 'general/reprocess_images/active' for BC. If false then skip image reprocessing. */
+                if (Mage::getStoreConfig('general/reprocess_images/active') !== null) {
+                    $imageQuality = Mage::getStoreConfigFlag('general/reprocess_images/active') ? 100 : 0;
+                } else {
+                    $imageQuality = (int) Mage::getStoreConfig('admin/security/reprocess_image_quality');
+                }
+                if ($imageQuality === 0) {
                     return null;
                 }
                 //replace tmp image with re-sampled copy to exclude images with malicious data
@@ -116,7 +121,7 @@ class Mage_Core_Model_File_Validator_Image
                             imagegif($img, $filePath);
                             break;
                         case IMAGETYPE_JPEG:
-                            imagejpeg($img, $filePath, 100);
+                            imagejpeg($img, $filePath, $imageQuality);
                             break;
                         case IMAGETYPE_PNG:
                             imagepng($img, $filePath);
