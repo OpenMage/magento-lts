@@ -1513,6 +1513,7 @@ span.weee {
  */
 
 .toolbar {
+    display: flex;
     margin-top: $box-spacing;
     margin-bottom: 15px;
     border-bottom: 1px solid $c-module-border;
@@ -1551,11 +1552,12 @@ span.weee {
 $toolbar-icon-padding-offset: 8px;
 
 .sorter {
+    flex-grow: 1;
     float: left;
+    white-space: nowrap;
     margin-bottom: 5px;
 
     label {
-        float: left;
         margin-right: 5px;
 
         &:after {
@@ -1565,7 +1567,6 @@ $toolbar-icon-padding-offset: 8px;
 }
 
 .sorter > .sort-by {
-    float: left;
     margin-right: 5px;
     height: 30px;
 
@@ -1590,11 +1591,8 @@ $toolbar-icon-padding-offset: 8px;
 }
 
 .sorter > .view-mode {
-    float: right;
-
     .grid,
     .list {
-        float: left;
         width: 30px;
         height: 30px;
         @extend .icon-sprite;
@@ -1618,8 +1616,8 @@ $toolbar-icon-padding-offset: 8px;
 }
 
 .pager {
+    white-space: nowrap;
     float: right;
-    overflow: hidden;
 
     & > .count-container {
         float: left;
@@ -1758,20 +1756,6 @@ $toolbar-icon-padding-offset: 8px;
         .pager {
             width: 100%;
         }
-
-        .pager {
-            float: left;
-            clear: both;
-
-            .pages {
-                float: left;
-                margin-left: 0;
-            }
-
-            .count-container {
-                float: right;
-            }
-        }
     }
 }
 
@@ -1780,15 +1764,8 @@ $toolbar-icon-padding-offset: 8px;
     .col2-left-layout,
     .col2-right-layout,
     .col3-layout {
-        .sorter,
-        .pager {
-            width: 100%;
-        }
 
         .pager {
-            float: left;
-            clear: both;
-
             .pages {
                 float: left;
                 margin-left: 0;

@@ -1,21 +1,36 @@
-/**
- * OpenMage
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * @category    design
- * @package     rwd_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
- */
+/*
+// ----------------------------------------------
+// Usage example:
+// For IE set $mq-support to false.
+// Set the fixed value.
+// Then use mixins to test whether styles should be applied.
+// ----------------------------------------------
+
+$mq-support: false;
+$mq-fixed-value: 1024;
+
+// Renders at fixed value
+@include bp (min-width, 300px) {
+    div { color:#000; }
+}
+
+// Doesn't render without MQ support
+@include bp (min-width, 1200px) {
+    div { color:#FFF; }
+}
+
+// Doesn't render without MQ support
+@include bp (max-width, 300px) {
+    div { color:#444; }
+}
+
+// Renders at fixed value
+@include bp (max-width, 1200px) {
+    div { color:#888; }
+}
+
+// ----------------------------------------------
+*/
 /* ============================================ *
  * Homepage
  * ============================================ */
@@ -97,7 +112,7 @@ body .promos > li {
   list-style: none;
   text-align: center;
   position: relative;
-  border: 1px solid #cccccc;
+  border: 1px solid #CCCCCC;
   -moz-user-select: none;
   -ms-user-select: none;
   -webkit-user-select: none;
@@ -183,10 +198,10 @@ body .promos > li {
 .cms-index-index h2.subtitle {
   padding: 6px 0;
   text-align: center;
-  color: #3399cc;
+  color: #3399CC;
   font-weight: 600;
-  border-bottom: 1px solid #cccccc;
-  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #CCCCCC;
+  border-top: 1px solid #CCCCCC;
 }
 
 .cms-index-noroute h2.subtitle {
@@ -217,12 +232,12 @@ body .promos > li {
   width: 23% !important;
   margin-right: 2.66667% !important;
   margin-bottom: 10px;
-  border: 1px solid #cccccc;
+  border: 1px solid #CCCCCC;
   padding: 10px;
 }
 
 .catblocks li:hover {
-  border-color: #3399cc;
+  border-color: #3399CC;
 }
 
 @media only screen and (max-width: 770px) {
