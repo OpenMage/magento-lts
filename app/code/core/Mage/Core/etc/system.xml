@@ -1283,7 +1283,6 @@
                         <reprocess_image_quality translate="label comment">
                             <label>Image Reprocess Quality</label>
                             <comment>Optimum value is 85, higher value will increase file size. Set to 0 to turn off images reprocessing, which may cause security risks.</comment>
-                            <frontend_type>text</frontend_type>
                             <validate>required-entry validate-digits validate-digits-range digits-range-0-100</validate>
                             <sort_order>180</sort_order>
                             <show_in_default>1</show_in_default>
