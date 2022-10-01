@@ -440,7 +440,6 @@
                 <extensions_compatibility_mode>1</extensions_compatibility_mode>
                 <session_cookie_lifetime>10800</session_cookie_lifetime>
                 <secure_system_configuration_save_disabled>0</secure_system_configuration_save_disabled>
-                <reprocess_image_quality>85</reprocess_image_quality>
             </security>
         </admin>
         <general>

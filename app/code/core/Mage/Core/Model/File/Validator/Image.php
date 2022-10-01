@@ -75,6 +75,7 @@ class Mage_Core_Model_File_Validator_Image
 
     /**
      * Validation callback for checking if file is image
+     * Destroy malicious code in image by reprocessing
      *
      * @param  string $filePath Path to temporary uploaded file
      * @return null
@@ -85,11 +86,15 @@ class Mage_Core_Model_File_Validator_Image
         list($imageWidth, $imageHeight, $fileType) = getimagesize($filePath);
         if ($fileType) {
             if ($this->isImageType($fileType)) {
-                /** Check deprecated 'general/reprocess_images/active' for BC. If false then skip image reprocessing. */
-                if (Mage::getStoreConfig('general/reprocess_images/active') !== null) {
-                    $imageQuality = Mage::getStoreConfigFlag('general/reprocess_images/active') ? 100 : 0;
+                // Config 'general/reprocess_images/active' is deprecated, replacement is the following:
+                $imageQuality = Mage::getStoreConfig('admin/security/reprocess_image_quality');
+                if ($imageQuality !== null) {
+                    $imageQuality = (int) $imageQuality;
                 } else {
-                    $imageQuality = (int) Mage::getStoreConfig('admin/security/reprocess_image_quality');
+                    // Value not set in backend. For BC, if depcrecated config does not exist, default to 85.
+                    $imageQuality = Mage::getStoreConfig('general/reprocess_images/active') === null
+                        ? 85
+                        : (Mage::getStoreConfigFlag('general/reprocess_images/active') ? 85 : 0);
                 }
                 if ($imageQuality === 0) {
                     return null;
