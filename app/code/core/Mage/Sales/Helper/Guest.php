@@ -27,6 +27,8 @@
  */
 class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
 {
+    protected $_moduleName = 'Mage_Sales';
+
     /**
      * Cookie params
      */

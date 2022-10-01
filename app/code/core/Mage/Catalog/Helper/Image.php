@@ -31,6 +31,8 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     const XML_NODE_PRODUCT_SMALL_IMAGE_WIDTH = 'catalog/product_image/small_width';
     const XML_NODE_PRODUCT_MAX_DIMENSION = 'catalog/product_image/max_dimension';
 
+    protected $_moduleName = 'Mage_Catalog';
+
     /**
      * Current model
      *

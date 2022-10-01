@@ -27,6 +27,8 @@
  */
 abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Adminhtml';
+
     /**
      * Mapping of help page urls depending on module and page route
      *

@@ -42,6 +42,8 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const XML_PATH_DISPLAY_ALL_STATES = 'general/region/display_all';
 
+    protected $_moduleName = 'Mage_Directory';
+
     /**
      * Country collection
      *

@@ -35,6 +35,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const PRICE_CONVERSION_MINUS = 2;
 
+    protected $_moduleName = 'Mage_Tax';
+
     /**
      * Tax configuration object
      *

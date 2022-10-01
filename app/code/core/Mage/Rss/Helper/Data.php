@@ -32,6 +32,8 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const XML_PATH_RSS_ACTIVE = 'rss/config/active';
 
+    protected $_moduleName = 'Mage_Rss';
+
     protected $_rssSession;
 
     protected $_adminSession;

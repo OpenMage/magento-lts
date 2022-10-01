@@ -46,6 +46,8 @@ class Mage_PageCache_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const NO_CACHE_COOKIE = 'external_no_cache';
 
+    protected $_moduleName = 'Mage_PageCache';
+
     /**
      * Check whether external cache is enabled
      *

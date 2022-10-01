@@ -44,6 +44,8 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      */
     const CATALOG_FLAT_PROCESS_CODE = 'catalog_product_flat';
 
+    protected $_moduleName = 'Mage_Catalog';
+
     /**
      * Catalog Product Flat index process code
      *

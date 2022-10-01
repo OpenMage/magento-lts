@@ -39,6 +39,8 @@ class Mage_Sendfriend_Helper_Data extends Mage_Core_Helper_Abstract
     const CHECK_IP      = 1;
     const CHECK_COOKIE  = 0;
 
+    protected $_moduleName = 'Mage_Sendfriend';
+
     /**
      * Check is enabled Module
      *

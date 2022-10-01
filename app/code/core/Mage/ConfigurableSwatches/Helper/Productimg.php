@@ -27,6 +27,8 @@
  */
 class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_ConfigurableSwatches';
+
     /**
      * This array stores product images and separates them:
      * One group keyed by labels that match attribute values, another for all other images

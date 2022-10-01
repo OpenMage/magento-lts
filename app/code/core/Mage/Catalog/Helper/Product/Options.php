@@ -27,6 +27,8 @@
  */
 class Mage_Catalog_Helper_Product_Options extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Catalog';
+
     /**
      * Fetches and outputs file to user browser
      * $info is array with following indexes:

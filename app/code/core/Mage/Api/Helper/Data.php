@@ -29,6 +29,8 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
 {
     const XML_PATH_API_WSI = 'api/config/compliance_wsi';
 
+    protected $_moduleName = 'Mage_Api';
+
     /**
      * Method to find adapter code depending on WS-I compatibility setting
      *

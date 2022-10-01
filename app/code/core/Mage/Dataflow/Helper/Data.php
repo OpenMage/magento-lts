@@ -25,4 +25,5 @@
  */
 class Mage_Dataflow_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Dataflow';
 }

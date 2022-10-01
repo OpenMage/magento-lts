@@ -37,6 +37,8 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
      */
     const PRECISION_VALUE = 0.0001;
 
+    protected $_moduleName = 'Mage_Sales';
+
     /**
      * Check quote amount
      *

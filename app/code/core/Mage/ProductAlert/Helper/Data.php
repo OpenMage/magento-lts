@@ -27,6 +27,8 @@
  */
 class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
 {
+    protected $_moduleName = 'Mage_ProductAlert';
+
     /**
      * Current product instance (override registry one)
      *

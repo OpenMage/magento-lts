@@ -27,6 +27,8 @@
  */
 class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Catalog';
+
     /**
      * Calculation real price
      *

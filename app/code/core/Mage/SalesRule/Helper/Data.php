@@ -25,6 +25,8 @@
  */
 class Mage_SalesRule_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_SalesRule';
+
     /**
      * Set store and base price which will be used during discount calculation to item object
      *
