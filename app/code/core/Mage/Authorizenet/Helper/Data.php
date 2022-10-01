@@ -27,6 +27,8 @@
  */
 class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Authorizenet';
+
     /**
      * Return URL for admin area
      *

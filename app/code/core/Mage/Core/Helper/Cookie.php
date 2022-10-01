@@ -47,6 +47,8 @@ class Mage_Core_Helper_Cookie extends Mage_Core_Helper_Abstract
      */
     const COOKIE_RESTRICTION_NOTICE_CMS_BLOCK_IDENTIFIER = 'cookie_restriction_notice_block';
 
+    protected $_moduleName = 'Mage_Core';
+
     /**
      * Store instance
      *

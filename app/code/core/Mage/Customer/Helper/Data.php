@@ -93,6 +93,8 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     const VAT_CLASS_INVALID     = 'invalid';
     const VAT_CLASS_ERROR       = 'error';
 
+    protected $_moduleName = 'Mage_Customer';
+
     /**
      * @var Mage_Customer_Model_Customer
      */

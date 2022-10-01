@@ -31,6 +31,8 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     const XML_PATH_USE_CATEGORY_CANONICAL_TAG   = 'catalog/seo/category_canonical_tag';
     const XML_PATH_CATEGORY_ROOT_ID             = 'catalog/category/root_id';
 
+    protected $_moduleName = 'Mage_Catalog';
+
     /**
      * Store categories cache
      *

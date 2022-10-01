@@ -31,6 +31,8 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
     public $ERR_NO_PRODUCT_LOADED = 1;
     public $ERR_BAD_CONTROLLER_INTERFACE = 2;
 
+    protected $_moduleName = 'Mage_Catalog';
+
     /**
      * Inits layout for viewing product page
      *

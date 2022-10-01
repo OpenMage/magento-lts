@@ -27,6 +27,8 @@
  */
 class Mage_Core_Helper_Translate extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Core';
+
     /**
      * Save translation data to database for specific area
      *

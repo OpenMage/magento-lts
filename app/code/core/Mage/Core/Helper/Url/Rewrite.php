@@ -39,6 +39,8 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
      */
     const TARGET_PATH_ALLOWED_LENGTH = 255;
 
+    protected $_moduleName = 'Mage_Core';
+
     /**
      * Core func to validate request path
      * If something is wrong with a path it throws localized error message and error code,

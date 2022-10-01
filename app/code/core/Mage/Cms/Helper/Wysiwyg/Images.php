@@ -27,6 +27,8 @@
  */
 class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Cms';
+
     /**
      * Current directory path
      * @var string|false

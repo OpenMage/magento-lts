@@ -38,6 +38,8 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
     const ERROR_QTY =               1;
     const ERROR_QTY_INCREMENTS =    2;
 
+    protected $_moduleName = 'Mage_CatalogInventory';
+
     /**
      * All product types registry in scope of quantity availability
      *

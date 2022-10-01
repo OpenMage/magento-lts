@@ -27,6 +27,8 @@
  */
 class Mage_Core_Helper_Hint extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Core';
+
     /**
      * List of available hints
      *

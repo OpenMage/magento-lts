@@ -27,6 +27,8 @@
  */
 class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
 {
+    protected $_moduleName = 'Mage_Adminhtml';
+
     protected $_locale = null;
     protected $_stores = null;
 

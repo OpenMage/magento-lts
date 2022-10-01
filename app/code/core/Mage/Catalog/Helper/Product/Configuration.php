@@ -29,6 +29,8 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
 {
     const XML_PATH_CONFIGURABLE_ALLOWED_TYPES = 'global/catalog/product/type/configurable/allow_product_types';
 
+    protected $_moduleName = 'Mage_Catalog';
+
     /**
      * Retrieves product configuration options
      *

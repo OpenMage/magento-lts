@@ -27,6 +27,8 @@
  */
 class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Core';
+
     /**
      * Retrieve current url
      *

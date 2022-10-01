@@ -31,6 +31,8 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     const XML_PATH_NO_COOKIES_PAGE      = 'web/default/cms_no_cookies';
     const XML_PATH_HOME_PAGE            = 'web/default/cms_home_page';
 
+    protected $_moduleName = 'Mage_Cms';
+
     /**
     * Renders CMS page on front end
     *

@@ -27,6 +27,8 @@
  */
 class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_ConfigurableSwatches';
+
     /**
      * ID of attribute to be used for swatches on product listing
      *

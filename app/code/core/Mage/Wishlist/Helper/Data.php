@@ -35,6 +35,8 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const XML_PATH_CATALOGINVENTORY_SHOW_OUT_OF_STOCK = 'cataloginventory/options/show_out_of_stock';
 
+    protected $_moduleName = 'Mage_Wishlist';
+
     /**
      * Currently logged in customer
      *

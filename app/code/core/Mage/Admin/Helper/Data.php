@@ -27,6 +27,8 @@
  */
 class Mage_Admin_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Admin';
+
     /**
      * Configuration path to expiration period of reset password link
      */
