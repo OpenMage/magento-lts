@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Website extends Mag
     protected $_websiteCollection = null;
 
     /**
-     * @return array|array[]
+     * @return array[]
      */
     protected function _getOptions()
     {

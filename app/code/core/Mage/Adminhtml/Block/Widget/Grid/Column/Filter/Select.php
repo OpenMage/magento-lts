@@ -28,7 +28,7 @@
 class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
 {
     /**
-     * @return array|array[]
+     * @return array[]
      */
     protected function _getOptions()
     {

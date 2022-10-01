@@ -3471,11 +3471,6 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
-			message: "#^Binary operation \"\\-\" between string and 86400 results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Resource/Batch/Collection.php
-
-		-
 			message: "#^Method Mage_Directory_Helper_Data\\:\\:getCountriesWithStatesRequired\\(\\) should return array but returns string\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Directory/Helper/Data.php
