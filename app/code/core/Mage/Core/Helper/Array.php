@@ -25,6 +25,8 @@
  */
 class Mage_Core_Helper_Array extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Core';
+
     /**
      * Merge array recursive without overwrite keys.
      * PHP function array_merge_recursive merge array

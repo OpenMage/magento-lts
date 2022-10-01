@@ -34,6 +34,8 @@ class Mage_ConfigurableSwatches_Helper_Swatchdimensions extends Mage_Core_Helper
     const DIM_WIDTH = 'width';
     const DIM_HEIGHT = 'height';
 
+    protected $_moduleName = 'Mage_ConfigurableSwatches';
+
     /**
      * The buffer between the "inner" and "outer" dimensions of a swatch
      *

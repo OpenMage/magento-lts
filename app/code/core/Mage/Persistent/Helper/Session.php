@@ -27,6 +27,8 @@
  */
 class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
 {
+    protected $_moduleName = 'Mage_Persistent';
+
     /**
      * Instance of Session Model
      *

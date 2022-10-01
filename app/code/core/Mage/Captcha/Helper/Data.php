@@ -47,6 +47,8 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const XML_PATH_CAPTCHA_FONTS = 'default/captcha/fonts';
 
+    protected $_moduleName = 'Mage_Captcha';
+
     /**
      * List uses Models of Captcha
      * @var array

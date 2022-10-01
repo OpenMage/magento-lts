@@ -32,6 +32,8 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
      */
     const XML_PATH_SWATCH_PRICE = 'configswatches/general/product_list_price_change';
 
+    protected $_moduleName = 'Mage_ConfigurableSwatches';
+
     /**
      * Set swatch_price on products where swatch option_id is set
      * Depends on following product data:

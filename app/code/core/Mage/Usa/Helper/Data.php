@@ -25,6 +25,8 @@
  */
 class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Usa';
+
     /**
      * Convert weight in different measure types
      *

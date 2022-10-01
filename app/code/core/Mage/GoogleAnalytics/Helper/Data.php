@@ -45,6 +45,8 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const TYPE_UNIVERSAL = 'universal';
 
+    protected $_moduleName = 'Mage_GoogleAnalytics';
+
     /**
      * Whether GA is ready to use
      *

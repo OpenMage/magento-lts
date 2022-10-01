@@ -44,6 +44,8 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_USER_TYPES    = 'global/api2/user_types';
     /**#@- */
 
+    protected $_moduleName = 'Mage_Api2';
+
     /**
      * Compare order to be used in adapters list sort
      *

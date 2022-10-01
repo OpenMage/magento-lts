@@ -27,6 +27,8 @@
  */
 class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Downloadable';
+
     /**
      * @see Mage_Uploader_Helper_File::getMimeTypes
      * @var array

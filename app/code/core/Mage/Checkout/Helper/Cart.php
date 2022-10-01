@@ -37,6 +37,8 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
      */
     const COUPON_CODE_MAX_LENGTH = 255;
 
+    protected $_moduleName = 'Mage_Checkout';
+
     /**
      * Retrieve cart instance
      *

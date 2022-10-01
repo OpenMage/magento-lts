@@ -28,6 +28,8 @@
  */
 class Mage_Adminhtml_Helper_Media_Js extends Mage_Core_Helper_Js
 {
+    protected $_moduleName = 'Mage_Adminhtml';
+
     public function __construct()
     {
         $this->_translateData = [

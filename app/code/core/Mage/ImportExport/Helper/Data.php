@@ -34,6 +34,8 @@ class Mage_ImportExport_Helper_Data extends Mage_Core_Helper_Data
     const XML_PATH_BUNCH_SIZE                    = 'general/file/bunch_size';
     const XML_PATH_IMPORT_CONFIGURABLE_PAGE_SIZE = 'system/import_csv/configurable_page_size';
 
+    protected $_moduleName = 'Mage_ImportExport';
+
     /**
      * Maximum size of uploaded files.
      *

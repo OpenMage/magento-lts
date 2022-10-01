@@ -27,6 +27,8 @@
  */
 class Mage_Paypal_Helper_Checkout extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Paypal';
+
     /**
      * Restore last active quote based on checkout session
      *

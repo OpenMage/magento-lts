@@ -27,6 +27,8 @@
  */
 class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Core';
+
     /**
      * Current storage code
      *

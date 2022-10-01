@@ -27,6 +27,8 @@
  */
 class Mage_CatalogInventory_Helper_Minsaleqty
 {
+    protected $_moduleName = 'Mage_CatalogInventory';
+
     /**
      * Retrieve fixed qty value
      *
