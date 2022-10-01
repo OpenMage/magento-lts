@@ -75,7 +75,7 @@
 </div>
 <script type="text/javascript">
 //<![CDATA[>
-var sampleTemplate = '<tr>'+
+var sampleTemplate = '<tr id="downloadable_sample_{{id}}">'+
                         '<td>'+
                             '<input type="hidden" class="__delete__" name="downloadable[sample][{{id}}][is_delete]" value="" />'+
                             '<input type="hidden" name="downloadable[sample][{{id}}][sample_id]" value="{{sample_id}}" />'+
@@ -176,13 +176,20 @@ var sampleItems = {
 
         this.itemCount++;
         this.bindRemoveButtons();
+
+        var inputs = $$('#downloadable_sample_' + data.id + ' input');
+        inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el));  } )
+        var inputs = $$('#downloadable_sample_' + data.id + ' button.delete');
+        inputs.each(function(el) { Event.observe(el, 'click', el.setHasChanges.bind(el));  } )
     },
     remove : function(event){
         var element = $(Event.findElement(event, 'tr'));
         alertAlreadyDisplayed = false;
         if(element){
             element.down('input[type="hidden"].__delete__').value = '1';
-            element.down('div.flex').remove();
+            Element.select(element, 'div.flex').each(function(elm){
+                elm.remove();
+            });
             element.addClassName('no-display');
             element.addClassName('ignore-validate');
             element.hide();
