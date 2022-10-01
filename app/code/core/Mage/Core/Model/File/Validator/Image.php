@@ -88,7 +88,7 @@ class Mage_Core_Model_File_Validator_Image
             if ($this->isImageType($fileType)) {
                 // Config 'general/reprocess_images/active' is deprecated, replacement is the following:
                 $imageQuality = Mage::getStoreConfig('admin/security/reprocess_image_quality');
-                if ($imageQuality !== null) {
+                if ($imageQuality != '') {
                     $imageQuality = (int) $imageQuality;
                 } else {
                     // Value not set in backend. For BC, if depcrecated config does not exist, default to 85.
