@@ -1,6 +1,8 @@
 name: "PHP Security Check"
 
 on:
+  # For testing only
+  push:
   # Allow manually triggering the workflow.
   workflow_dispatch:
   # Trigger automatically every Monday on midnight
