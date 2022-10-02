@@ -2,10 +2,10 @@ name: "PHP Security Check"
 
 on:
   # For testing only
-  pull_request_target:
   # Allow manually triggering the workflow.
-  workflow_dispatch:
   # Trigger automatically every Monday on midnight
+  pull_request_target:
+  workflow_dispatch:
   schedule:
     - cron: '0 0 * * 1'
 
