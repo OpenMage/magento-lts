@@ -65,7 +65,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
      * Collect and get rates
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return bool|Mage_Core_Model_Abstract
+     * @return false|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -197,7 +197,6 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
      * Get Model
      *
      * @param string $modelName
-     *
      * @return Mage_Core_Model_Abstract
      */
     protected function _getModel($modelName)
@@ -209,7 +208,6 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
      * Get Rate
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     *
      * @return Mage_Core_Model_Abstract
      */
     public function getRate(Mage_Shipping_Model_Rate_Request $request)
@@ -222,8 +220,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
      *
      * @param string $type
      * @param string $code
-     *
-     * @return array
+     * @return array|string
      */
     public function getCode($type, $code = '')
     {

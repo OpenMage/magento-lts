@@ -546,19 +546,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Grid/Renderer/Data.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Urlrewrite_Category_Tree\\:\\:getTreeArray\\(\\) should return array but returns string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Urlrewrite/Category/Tree.php
-
-		-
 			message: "#^Variable \\$category in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Urlrewrite/Category/Tree.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Urlrewrite_Selector\\:\\:getSelectorLabel\\(\\) should return array but returns string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Urlrewrite/Selector.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Widget_Container\\:\\:_addButtonChildBlock\\(\\) should return Mage_Adminhtml_Block_Widget_Button but returns Mage_Core_Block_Abstract\\|false\\.$#"
@@ -604,11 +594,6 @@ parameters:
 			message: "#^Binary operation \"\\*\" between string and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Number.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid_Serializer\\:\\:getColumnInputNames\\(\\) should return array but returns string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Serializer.php
 
 		-
 			message: "#^Call to an undefined method Mage_Adminhtml_Block_Widget_Tab_Interface\\:\\:getSkipGenerateContent\\(\\)\\.$#"
@@ -2041,11 +2026,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Product/Type/Configurable/Price.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Product_Type_Price\\:\\:getFormatedTierPrice\\(\\) should return array\\|float but returns string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Type/Price.php
-
-		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:isScopeStore\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Abstract.php
@@ -2491,11 +2471,6 @@ parameters:
 			path: ../app/code/core/Mage/CatalogRule/Model/Rule.php
 
 		-
-			message: "#^Method Mage_CatalogSearch_Block_Advanced_Form\\:\\:getSearchableAttributes\\(\\) should return Varien_Data_Collection_Db but returns array\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogSearch/Block/Advanced/Form.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogSearch/Block/Advanced/Form.php
@@ -2514,11 +2489,6 @@ parameters:
 			message: "#^Variable \\$termKeys might not be defined\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/CatalogSearch/Block/Term.php
-
-		-
-			message: "#^Method Mage_CatalogSearch_Model_Advanced\\:\\:getAttributes\\(\\) should return array but returns Mage_Catalog_Model_Resource_Product_Attribute_Collection\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogSearch/Model/Advanced.php
 
 		-
 			message: "#^Method Mage_CatalogSearch_Model_Advanced\\:\\:getProductCollection\\(\\) should return Mage_CatalogSearch_Model_Resource_Advanced_Collection but returns array\\|float\\|int\\|string\\|false\\|null\\.$#"
@@ -3276,11 +3246,6 @@ parameters:
 			path: ../app/code/core/Mage/Customer/Model/Api2/Customer/Address.php
 
 		-
-			message: "#^Method Mage_Customer_Model_Api2_Customer_Rest_Customer_V1\\:\\:_retrieve\\(\\) should return array but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Api2/Customer/Rest/Customer/V1.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/Model/Convert/Adapter/Customer.php
@@ -3471,11 +3436,6 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
-			message: "#^Method Mage_Directory_Helper_Data\\:\\:getCountriesWithStatesRequired\\(\\) should return array but returns string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Directory/Helper/Data.php
-
-		-
 			message: "#^Property Mage_Directory_Helper_Data\\:\\:\\$_countryCollection \\(Mage_Directory_Model_Resource_Country_Collection\\) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Directory/Helper/Data.php
@@ -3509,16 +3469,6 @@ parameters:
 			message: "#^Property Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links\\:\\:\\$_purchasedSeparatelyAttribute \\(Mage_Catalog_Model_Resource_Eav_Attribute\\) does not accept Mage_Eav_Model_Entity_Attribute\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Downloadable/Block/Adminhtml/Catalog/Product/Edit/Tab/Downloadable/Links.php
-
-		-
-			message: "#^Method Mage_Downloadable_Block_Catalog_Product_Samples\\:\\:getSamples\\(\\) should return array but returns Mage_Downloadable_Model_Resource_Sample_Collection\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Downloadable/Block/Catalog/Product/Samples.php
-
-		-
-			message: "#^Method Mage_Downloadable_Block_Customer_Products_List\\:\\:getRemainingDownloads\\(\\) should return string but returns \\(float\\|int\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Downloadable/Block/Customer/Products/List.php
 
 		-
 			message: "#^Cannot call method streamRead\\(\\) on resource\\.$#"
@@ -5591,16 +5541,6 @@ parameters:
 			path: ../app/code/core/Mage/Shipping/Model/Carrier/Pickup.php
 
 		-
-			message: "#^Method Mage_Shipping_Model_Carrier_Tablerate\\:\\:collectRates\\(\\) should return bool\\|Mage_Core_Model_Abstract but returns Mage_Shipping_Model_Rate_Result\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
-
-		-
-			message: "#^Method Mage_Shipping_Model_Carrier_Tablerate\\:\\:getCode\\(\\) should return array but returns string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
-
-		-
 			message: "#^Method Mage_Shipping_Model_Carrier_Tablerate\\:\\:getRate\\(\\) should return Mage_Core_Model_Abstract but returns array\\|bool\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
@@ -5689,11 +5629,6 @@ parameters:
 			message: "#^Variable \\$productsSku might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Tag/Model/Resource/Customer/Collection.php
-
-		-
-			message: "#^Method Mage_Tag_Model_Resource_Tag\\:\\:loadByName\\(\\) should return array\\|false but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tag/Model/Resource/Tag.php
 
 		-
 			message: "#^Variable \\$result might not be defined\\.$#"
