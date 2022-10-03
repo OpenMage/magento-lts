@@ -4,11 +4,13 @@ on:
   # Run on all pushes and on all pull requests.
   # Prevent the build from running when there are only irrelevant changes.
   push:
-    paths-ignore:
-      - '**.md'
+    paths:
+      - '**.php'
+      - '**.phtml'
   pull_request:
-    paths-ignore:
-      - '**.md'
+    paths:
+      - '**.php'
+      - '**.phtml'
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
