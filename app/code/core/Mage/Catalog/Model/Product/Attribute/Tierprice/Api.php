@@ -55,9 +55,9 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
             $row = [];
             $row['customer_group_id'] = (empty($tierPrice['all_groups']) ? $tierPrice['cust_group'] : 'all');
             $row['website']           = (
-                $tierPrice['website_id'] ?
-                    Mage::app()->getWebsite($tierPrice['website_id'])->getCode() :
-                    'all'
+                $tierPrice['website_id']
+                    ? Mage::app()->getWebsite($tierPrice['website_id'])->getCode()
+                    : 'all'
             );
             $row['qty']               = $tierPrice['price_qty'];
             $row['price']             = $tierPrice['price'];
