@@ -45,15 +45,19 @@ class Mage_Adminhtml_Sales_Order_EditController extends Mage_Adminhtml_Sales_Ord
         $orderId = $this->getRequest()->getParam('order_id');
         $order = Mage::getModel('sales/order')->load($orderId);
 
+        if (!$order->getId()) {
+            $this->_redirect('*/sales_order/');
+            return;
+        }
+
         try {
-            if ($order->getId()) {
-                $this->_getSession()->setUseOldShippingMethod(true);
-                $this->_getOrderCreateModel()->initFromOrder($order);
-                $this->_redirect('*/*');
+            if (!$order->canEdit()) {
+                Mage::throwException(Mage::helper('sales')->__('This order cannot be edited.'));
             }
-            else {
-                $this->_redirect('*/sales_order/');
-            }
+
+            $this->_getSession()->setUseOldShippingMethod(true);
+            $this->_getOrderCreateModel()->initFromOrder($order);
+            $this->_redirect('*/*');
         } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             $this->_redirect('*/sales_order/view', ['order_id' => $orderId]);
