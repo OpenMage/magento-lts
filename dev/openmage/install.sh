@@ -35,7 +35,8 @@ if test -f ../../app/etc/local.xml; then
 fi
 
 echo "Preparing filesystem..."
-chmod 777 ../../app/etc ../../media
+chmod 777 ../../app/etc ../../media ../../var
+chmod g+s ../../app/etc ../../media ../../var
 $dc run --rm --no-deps cli mkdir -p var/cache var/log var/locks var/session
 
 echo "Starting services..."
