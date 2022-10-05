@@ -239,7 +239,7 @@ function expandDetails(el, childClass) {
     }
 }
 
-// Deprecated since 20.0.17
+/** @deprecated since 20.0.17 */
 var isIE = false;
 
 if (!window.Varien)
