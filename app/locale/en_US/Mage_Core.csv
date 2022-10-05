@@ -227,7 +227,7 @@
 "New Website","New Website"
 "No","No"
 "Offloader header","Offloader header"
-"Optimum value is 85 (default), higher value will increase file size. Set to 0 to turn off images reprocessing, which may cause security risks.","Optimum value is 85 (default), higher value will increase file size. Set to 0 to turn off images reprocessing, which may cause security risks."
+"The recommended value is 85, a higher value will increase the file size. You can set the value to 0 to disable image processing, but it may cause security risks.","The recommended value is 85, a higher value will increase the file size. You can set the value to 0 to disable image processing, but it may cause security risks."
 "PHP SOAP extension is required.","PHP SOAP extension is required."
 "Package","Package"
 "Pagination","Pagination"

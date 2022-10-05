@@ -1282,7 +1282,7 @@
                         </crate_admin_user_notification>
                         <reprocess_image_quality translate="label comment">
                             <label>Image Reprocess Quality</label>
-                            <comment>Optimum value is 85 (default), higher value will increase file size. Set to 0 to turn off images reprocessing, which may cause security risks.</comment>
+                            <comment>The recommended value is 85, a higher value will increase the file size. You can set the value to 0 to disable image processing, but it may cause security risks.</comment>
                             <validate>validate-digits validate-digits-range digits-range-0-100</validate>
                             <sort_order>180</sort_order>
                             <show_in_default>1</show_in_default>
