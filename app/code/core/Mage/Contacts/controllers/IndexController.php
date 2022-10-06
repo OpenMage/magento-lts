@@ -70,7 +70,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
             $translate->setTranslateInline(false);
             try {
                 if (!$this->_validateFormKey()) {
-                    Mage::throwException($this->__('Invalid Form Key. Please resubmit your request again'));
+                    Mage::throwException($this->__('Invalid Form Key. Please submit your request again.'));
                 }
 
                 $postObject = new Varien_Object();
