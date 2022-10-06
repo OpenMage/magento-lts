@@ -105,6 +105,9 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
             case self::STORAGE_MEDIA_DATABASE:
                 $connection = $params['connection'] ?? null;
                 $model = Mage::getModel('core/file_storage_database', ['connection' => $connection]);
+                // Always initialize database storage to ensure the table exists
+                // see: https://github.com/OpenMage/magento-lts/pull/2627
+                $params['init'] = true;
                 break;
             default:
                 return false;
