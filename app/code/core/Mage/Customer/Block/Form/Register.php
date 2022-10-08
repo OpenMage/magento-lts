@@ -116,7 +116,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     /**
      * Retrieve customer region identifier
      *
-     * @return bool|null
+     * @return string|int|null
      */
     public function getRegion()
     {
