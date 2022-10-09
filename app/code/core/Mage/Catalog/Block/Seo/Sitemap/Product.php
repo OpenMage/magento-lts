@@ -42,7 +42,9 @@ class Mage_Catalog_Block_Seo_Sitemap_Product extends Mage_Catalog_Block_Seo_Site
             ->addAttributeToSelect('name')
             ->addAttributeToSelect('url_key')
             ->addStoreFilter()
-            ->addAttributeToFilter('status', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+            ->addAttributeToFilter('status', [
+                'in' => Mage::getModel('catalog/product_status')->getVisibleStatusIds()
+            ]);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
 
         $this->setCollection($collection);

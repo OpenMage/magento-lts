@@ -60,7 +60,9 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
             ->addTaxPercents()
             ->addStoreFilter()
             ->addUrlRewrite()
-            ->addAttributeToFilter('status', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+            ->addAttributeToFilter('status', [
+                'in' => Mage::getModel('catalog/product_status')->getVisibleStatusIds()
+            ]);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($collection);
 
         return $this;

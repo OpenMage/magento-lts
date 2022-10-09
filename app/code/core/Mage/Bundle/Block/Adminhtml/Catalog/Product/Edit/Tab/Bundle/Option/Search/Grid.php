@@ -69,7 +69,9 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
             ->addAttributeToFilter('type_id', ['in' => $this->getAllowedSelectionTypes()])
             ->addFilterByRequiredOptions()
             ->addStoreFilter()
-            ->addAttributeToFilter('status', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+            ->addAttributeToFilter('status', [
+                'in' => Mage::getModel('catalog/product_status')->getSaleableStatusIds()
+            ]);
 
         if ($products = $this->_getProducts()) {
             $collection->addIdFilter($this->_getProducts(), true);

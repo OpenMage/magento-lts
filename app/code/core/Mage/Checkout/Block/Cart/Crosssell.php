@@ -165,7 +165,9 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
             ->getProductCollection()
             ->setStoreId(Mage::app()->getStore()->getId())
             ->addStoreFilter()
-            ->addAttributeToFilter('status', Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
+            ->addAttributeToFilter('status', [
+                'in' => Mage::getModel('catalog/product_status')->getSaleableStatusIds()
+            ])
             ->setPageSize($this->_maxItemCount);
         $this->_addProductAttributesAndPrices($collection);
 

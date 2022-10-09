@@ -98,7 +98,9 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
                 ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
                 ->addTagFilter($this->getTag()->getId())
                 ->addStoreFilter(Mage::app()->getStore()->getId())
-                ->addAttributeToFilter('status', Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
+                ->addAttributeToFilter('status', [
+                    'in' => Mage::getModel('catalog/product_status')->getSaleableStatusIds()
+                ])
                 ->addMinimalPrice()
                 ->addUrlRewrite()
                 ->setActiveFilter();

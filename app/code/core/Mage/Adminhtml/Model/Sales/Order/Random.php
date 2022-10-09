@@ -82,7 +82,9 @@ class Mage_Adminhtml_Model_Sales_Order_Random
                 ->addAttributeToSelect('name')
                 ->addAttributeToSelect('sku')
                 ->addAttributeToFilter('type_id', Mage_Catalog_Model_Product_Type::TYPE_SIMPLE)
-                ->addAttributeToFilter('status', Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
+                ->addAttributeToFilter('status', [
+                    'in' => Mage::getModel('catalog/product_status')->getVisibleStatusIds()
+                ])
                 ->load();
         }
         return $this->_productCollection->getItems();
