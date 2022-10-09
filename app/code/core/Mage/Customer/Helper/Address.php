@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,6 +36,8 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     const XML_PATH_VAT_VALIDATION_ENABLED          = 'customer/create_account/auto_group_assign';
     const XML_PATH_VIV_TAX_CALCULATION_ADDRESS_TYPE = 'customer/create_account/tax_calculation_address_type';
     const XML_PATH_VAT_FRONTEND_VISIBILITY = 'customer/create_account/vat_frontend_visibility';
+
+    protected $_moduleName = 'Mage_Customer';
 
     /**
      * Array of Customer Address Attributes

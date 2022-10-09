@@ -15,7 +15,8 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php s+Academic Free License (AFL 3.0)
  */
 -->
@@ -497,10 +498,6 @@
                     </protected>
                 </public_files_valid_paths>
             </file>
-            <!-- NOTE: If you turn off images reprocessing, then your upload images process may cause security risks. -->
-            <reprocess_images>
-                <active>1</active>
-            </reprocess_images>
             <!-- Additional email for notifications -->
             <additional_notification_emails>
                 <!-- On creating a new admin user. You can specify several emails separated by commas. -->
