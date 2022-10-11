@@ -80,7 +80,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     protected function _construct()
     {
         $this->_init('core/url_rewrite', 'url_rewrite_id');
-        $this->_productEntityTypeId = Mage::getModel('eav/entity')->setType(Mage_Catalog_Model_Product::ENTITY)->getTypeId();
+        $this->_productEntityTypeId = Mage::getSingleton('eav/config')->getEntityType(Mage_Catalog_Model_Product::ENTITY)->getId();
         $this->_statusAttributeId = Mage::getModel('catalog/resource_eav_attribute')
             ->loadByCode($this->_productEntityTypeId, 'status')->getId();
     }
