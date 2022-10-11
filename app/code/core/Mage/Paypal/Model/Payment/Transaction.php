@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -92,14 +86,14 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 
     /**
      * Check object before loading by by specified transaction ID
-     * @param $txnId
+     * @param string $txnId
      * @return $this
      */
     protected function _beforeLoadByTxnId($txnId)
     {
         Mage::dispatchEvent(
             $this->_eventPrefix . '_load_by_txn_id_before',
-            $this->_getEventData() + array('txn_id' => $txnId)
+            $this->_getEventData() + ['txn_id' => $txnId]
         );
         return $this;
     }
@@ -121,7 +115,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 
     /**
      * Check object after loading by by specified transaction ID
-     * @param $txnId
+     *
      * @return $this
      */
     protected function _afterLoadByTxnId()
@@ -129,7 +123,6 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         Mage::dispatchEvent($this->_eventPrefix . '_load_by_txn_id_after', $this->_getEventData());
         return $this;
     }
-
 
     /**
      * Additional information setter
@@ -148,7 +141,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         }
         $info = $this->_getData('additional_information');
         if (!$info) {
-            $info = array();
+            $info = [];
         }
         $info[$key] = $value;
         return $this->setData('additional_information', $info);
@@ -163,7 +156,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     {
         $info = $this->_getData('additional_information');
         if (!$info) {
-            $info = array();
+            $info = [];
         }
         if ($key) {
             return (isset($info[$key]) ? $info[$key] : null);
@@ -184,7 +177,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
                 unset($info[$key]);
             }
         } else {
-            $info = array();
+            $info = [];
         }
         return $this->setData('additional_information', $info);
     }
@@ -192,11 +185,12 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     /**
      * Setter/Getter whether transaction is supposed to prevent exceptions on saving
      *
-     * @param bool $failsafe
+     * @param bool|null $setFailsafe
+     * @return bool|$this
      */
     public function isFailsafe($setFailsafe = null)
     {
-        if (null === $setFailsafe) {
+        if ($setFailsafe === null) {
             return $this->_isFailsafe;
         }
         $this->_isFailsafe = (bool)$setFailsafe;
@@ -223,7 +217,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
      */
     protected function _verifyTxnId($txnId)
     {
-        if (null !== $txnId && 0 == strlen($txnId)) {
+        if ($txnId !== null && strlen($txnId) == 0) {
             Mage::throwException(Mage::helper('paypal')->__('Transaction ID must not be empty.'));
         }
     }

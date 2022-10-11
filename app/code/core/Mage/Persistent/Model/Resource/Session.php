@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Persistent
@@ -62,7 +56,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
         if (!$object->getLoadExpired()) {
             $tableName = $this->getMainTable();
             $select->join(
-                array('customer' => $this->getTable('customer/entity')),
+                ['customer' => $this->getTable('customer/entity')],
                 'customer.entity_id = ' . $tableName . '.customer_id'
             )->where($tableName . '.updated_at >= ?', $object->getExpiredBefore());
         }
@@ -78,7 +72,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
      */
     public function deleteByCustomerId($customerId)
     {
-        $this->_getWriteAdapter()->delete($this->getMainTable(), array('customer_id = ?' => $customerId));
+        $this->_getWriteAdapter()->delete($this->getMainTable(), ['customer_id = ?' => $customerId]);
         return $this;
     }
 
@@ -106,10 +100,10 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
     {
         $this->_getWriteAdapter()->delete(
             $this->getMainTable(),
-            array(
+            [
                 'website_id = ?' => $websiteId,
                 'updated_at < ?' => $expiredBefore,
-            )
+            ]
         );
         return $this;
     }

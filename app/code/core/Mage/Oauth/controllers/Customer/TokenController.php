@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Oauth
@@ -96,14 +90,14 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
         $id = $this->getRequest()->getParam('id');
         $status = $this->getRequest()->getParam('status');
 
-        if (0 === (int) $id) {
+        if ((int) $id === 0) {
             // No ID
             $this->_session->addError($this->__('Invalid entry ID.'));
             $this->_redirectBack();
             return;
         }
 
-        if (null === $status) {
+        if ($status === null) {
             // No status selected
             $this->_session->addError($this->__('Invalid revoke status.'));
             $this->_redirectBack();
@@ -151,7 +145,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
     {
         $id = $this->getRequest()->getParam('id');
 
-        if (0 === (int) $id) {
+        if ((int) $id === 0) {
             // No ID
             $this->_session->addError($this->__('Invalid entry ID.'));
             $this->_redirectBack();

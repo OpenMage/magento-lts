@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -107,7 +101,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
      */
     public function getValues()
     {
-        $values = array();
+        $values = [];
         $data = $this->getElement()->getValue();
 
         if (is_array($data)) {
@@ -144,19 +138,19 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     {
         if ($this->_customerGroups === null) {
             if (!Mage::helper('catalog')->isModuleEnabled('Mage_Customer')) {
-                return array();
+                return [];
             }
             $collection = Mage::getModel('customer/group')->getCollection();
             $this->_customerGroups = $this->_getInitialCustomerGroups();
 
             foreach ($collection as $item) {
-                /** @var $item Mage_Customer_Model_Group */
+                /** @var Mage_Customer_Model_Group $item */
                 $this->_customerGroups[$item->getId()] = $item->getCustomerGroupCode();
             }
         }
 
         if ($groupId !== null) {
-            return isset($this->_customerGroups[$groupId]) ? $this->_customerGroups[$groupId] : array();
+            return isset($this->_customerGroups[$groupId]) ? $this->_customerGroups[$groupId] : [];
         }
 
         return $this->_customerGroups;
@@ -169,7 +163,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
      */
     protected function _getInitialCustomerGroups()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -203,33 +197,32 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
             return $this->_websites;
         }
 
-        $this->_websites = array(
-            0 => array(
+        $this->_websites = [
+            0 => [
                 'name' => Mage::helper('catalog')->__('All Websites'),
                 'currency' => Mage::app()->getBaseCurrencyCode()
-            )
-        );
+            ]
+        ];
 
         if (!$this->isScopeGlobal() && $this->getProduct()->getStoreId()) {
-            /** @var $website Mage_Core_Model_Website */
+            /** @var Mage_Core_Model_Website $website */
             $website = Mage::app()->getStore($this->getProduct()->getStoreId())->getWebsite();
 
-            $this->_websites[$website->getId()] = array(
+            $this->_websites[$website->getId()] = [
                 'name' => $website->getName(),
                 'currency' => $website->getBaseCurrencyCode()
-            );
+            ];
         } elseif (!$this->isScopeGlobal()) {
             $websites = Mage::app()->getWebsites(false);
             $productWebsiteIds  = $this->getProduct()->getWebsiteIds();
             foreach ($websites as $website) {
-                /** @var $website Mage_Core_Model_Website */
                 if (!in_array($website->getId(), $productWebsiteIds)) {
                     continue;
                 }
-                $this->_websites[$website->getId()] = array(
+                $this->_websites[$website->getId()] = [
                     'name' => $website->getName(),
                     'currency' => $website->getBaseCurrencyCode()
-                );
+                ];
             }
         }
 

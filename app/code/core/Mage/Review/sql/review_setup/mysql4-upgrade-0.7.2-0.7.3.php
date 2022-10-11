@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Review
@@ -45,7 +39,7 @@ try {
     $total = intval($this->getConnection()->fetchOne($total));
     for ($i = 0; $i < $total; $i += 100) {
         $select = $this->getConnection()->select()
-            ->from($this->getTable('review'), array('review_id', 'entity_pk_value'))
+            ->from($this->getTable('review'), ['review_id', 'entity_pk_value'])
             ->limit(100, $i)
         ;
         $rows = $this->getConnection()->fetchAll($select);

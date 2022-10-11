@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,29 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Reports
+ * @category   Mage
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Reports quote collection
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Resource_Quote_Collection
 {
-
     const SELECT_COUNT_SQL_TYPE_CART = 1;
 
     protected $_selectCountSqlType = 0;
@@ -44,14 +36,14 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
      *
      * @var array
      */
-    protected $_joinedFields     = array();
+    protected $_joinedFields     = [];
 
     /**
      * Map
      *
      * @var array
      */
-    protected $_map              = array('fields' => array('store_id' => 'main_table.store_id'));
+    protected $_map              = ['fields' => ['store_id' => 'main_table.store_id']];
 
     /**
      * Set type for COUNT SQL select
@@ -74,7 +66,6 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
         $this->_useAnalyticFunction = true;
     }
 
-
     /**
      * Prepare for abandoned report
      *
@@ -84,15 +75,14 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
      */
     public function prepareForAbandonedReport($storeIds, $filter = null)
     {
-        $this->addFieldToFilter('items_count', array('neq' => '0'))
+        $this->addFieldToFilter('items_count', ['neq' => '0'])
             ->addFieldToFilter('main_table.is_active', '1')
             ->addSubtotal($storeIds, $filter)
             ->addCustomerData($filter)
             ->setOrder('updated_at');
         if (is_array($storeIds) && !empty($storeIds)) {
-            $this->addFieldToFilter('store_id', array('in' => $storeIds));
+            $this->addFieldToFilter('store_id', ['in' => $storeIds]);
         }
-
 
         return $this;
     }
@@ -115,10 +105,10 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
         $ordersSubSelect = clone $this->getSelect();
         $ordersSubSelect->reset()
             ->from(
-                array('oi' => $this->getTable('sales/order_item')),
-                array(
+                ['oi' => $this->getTable('sales/order_item')],
+                [
                    'orders' => new Zend_Db_Expr('COUNT(1)'),
-                'product_id')
+                'product_id']
             )
             ->group('oi.product_id');
 
@@ -126,32 +116,32 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
             ->useStraightJoin(true)
             ->reset(Zend_Db_Select::COLUMNS)
             ->joinInner(
-                array('quote_items' => $this->getTable('sales/quote_item')),
+                ['quote_items' => $this->getTable('sales/quote_item')],
                 'quote_items.quote_id = main_table.entity_id',
                 null
             )
             ->joinInner(
-                array('e' => $this->getTable('catalog/product')),
+                ['e' => $this->getTable('catalog/product')],
                 'e.entity_id = quote_items.product_id',
                 null
             )
             ->joinInner(
-                array('product_name' => $productAttrNameTable),
+                ['product_name' => $productAttrNameTable],
                 "product_name.entity_id = e.entity_id AND product_name.attribute_id = {$productAttrNameId}",
-                array('name'=>'product_name.value')
+                ['name'=>'product_name.value']
             )
             ->joinInner(
-                array('product_price' => $productAttrPriceTable),
+                ['product_price' => $productAttrPriceTable],
                 "product_price.entity_id = e.entity_id AND product_price.attribute_id = {$productAttrPriceId}",
-                array('price' => new Zend_Db_Expr('product_price.value * main_table.base_to_global_rate'))
+                ['price' => new Zend_Db_Expr('product_price.value * main_table.base_to_global_rate')]
             )
             ->joinLeft(
-                array('order_items' => new Zend_Db_Expr(sprintf('(%s)', $ordersSubSelect))),
+                ['order_items' => new Zend_Db_Expr(sprintf('(%s)', $ordersSubSelect))],
                 'order_items.product_id = e.entity_id',
-                array()
+                []
             )
             ->columns('e.*')
-            ->columns(array('carts' => new Zend_Db_Expr('COUNT(quote_items.item_id)')))
+            ->columns(['carts' => new Zend_Db_Expr('COUNT(quote_items.item_id)')])
             ->columns('order_items.orders')
             ->where('main_table.is_active = ?', 1)
             ->group('quote_items.product_id');
@@ -167,7 +157,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
      */
     public function addStoreFilter($storeIds)
     {
-        $this->addFieldToFilter('store_id', array('in' => $storeIds));
+        $this->addFieldToFilter('store_id', ['in' => $storeIds]);
         return $this;
     }
 
@@ -196,39 +186,39 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
         $attrEmailTableName = $attrEmail->getBackend()->getTable();
 
         $adapter = $this->getSelect()->getAdapter();
-        $customerName = $adapter->getConcatSql(array('cust_fname.value', 'cust_mname.value', 'cust_lname.value',), ' ');
+        $customerName = $adapter->getConcatSql(['cust_fname.value', 'cust_mname.value', 'cust_lname.value',], ' ');
         $this->getSelect()
             ->joinLeft(
-                array('cust_email' => $attrEmailTableName),
+                ['cust_email' => $attrEmailTableName],
                 'cust_email.entity_id = main_table.customer_id',
-                array('email' => 'cust_email.email')
+                ['email' => 'cust_email.email']
             )
             ->joinLeft(
-                array('cust_fname' => $attrFirstnameTableName),
-                implode(' AND ', array(
+                ['cust_fname' => $attrFirstnameTableName],
+                implode(' AND ', [
                     'cust_fname.entity_id = main_table.customer_id',
                     $adapter->quoteInto('cust_fname.attribute_id = ?', (int) $attrFirstnameId),
-                )),
-                array('firstname' => 'cust_fname.value')
+                ]),
+                ['firstname' => 'cust_fname.value']
             )
             ->joinLeft(
-                array('cust_mname' => $attrMiddlenameTableName),
-                implode(' AND ', array(
+                ['cust_mname' => $attrMiddlenameTableName],
+                implode(' AND ', [
                     'cust_mname.entity_id = main_table.customer_id',
                     $adapter->quoteInto('cust_mname.attribute_id = ?', (int) $attrMiddlenameId),
-                )),
-                array('middlename' => 'cust_mname.value')
+                ]),
+                ['middlename' => 'cust_mname.value']
             )
             ->joinLeft(
-                array('cust_lname' => $attrLastnameTableName),
-                implode(' AND ', array(
+                ['cust_lname' => $attrLastnameTableName],
+                implode(' AND ', [
                     'cust_lname.entity_id = main_table.customer_id',
                      $adapter->quoteInto('cust_lname.attribute_id = ?', (int) $attrLastnameId)
-                )),
-                array(
+                ]),
+                [
                     'lastname'      => 'cust_lname.value',
                     'customer_name' => $customerName
-                )
+                ]
             );
 
         $this->_joinedFields['customer_name'] = $customerName;
@@ -258,13 +248,13 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
     public function addSubtotal($storeIds = '', $filter = null)
     {
         if (is_array($storeIds)) {
-            $this->getSelect()->columns(array(
+            $this->getSelect()->columns([
                 'subtotal' => '(main_table.base_subtotal_with_discount*main_table.base_to_global_rate)'
-            ));
+            ]);
             $this->_joinedFields['subtotal'] =
                 '(main_table.base_subtotal_with_discount*main_table.base_to_global_rate)';
         } else {
-            $this->getSelect()->columns(array('subtotal' => 'main_table.base_subtotal_with_discount'));
+            $this->getSelect()->columns(['subtotal' => 'main_table.base_subtotal_with_discount']);
             $this->_joinedFields['subtotal'] = 'main_table.base_subtotal_with_discount';
         }
 

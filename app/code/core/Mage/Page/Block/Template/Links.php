@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Page
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Simple links list block
@@ -39,7 +32,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_links = array();
+    protected $_links = [];
 
     /**
      * Cache key info
@@ -87,25 +80,25 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
         $url = '',
         $title = '',
         $prepare = false,
-        $urlParams = array(),
+        $urlParams = [],
         $position = null,
         $liParams = null,
         $aParams = null,
         $beforeText = '',
         $afterText = ''
     ) {
-        if (is_null($label) || false===$label) {
+        if (is_null($label) || $label === false) {
             return $this;
         }
-        $link = new Varien_Object(array(
+        $link = new Varien_Object([
             'label'         => $label,
-            'url'           => ($prepare ? $this->getUrl($url, (is_array($urlParams) ? $urlParams : array())) : $url),
+            'url'           => ($prepare ? $this->getUrl($url, (is_array($urlParams) ? $urlParams : [])) : $url),
             'title'         => $title,
             'li_params'     => $this->_prepareParams($liParams),
             'a_params'      => $this->_prepareParams($aParams),
             'before_text'   => $beforeText,
             'after_text'    => $afterText,
-        ));
+        ]);
 
         $this->_addIntoPosition($link, $position);
 
@@ -188,7 +181,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     public function getCacheKeyInfo()
     {
         if (is_null($this->_cacheKeyInfo)) {
-            $links = array();
+            $links = [];
             if (!empty($this->_links)) {
                 foreach ($this->_links as $position => $link) {
                     if ($link instanceof Varien_Object) {
@@ -196,10 +189,10 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
                     }
                 }
             }
-            $this->_cacheKeyInfo = parent::getCacheKeyInfo() + array(
+            $this->_cacheKeyInfo = parent::getCacheKeyInfo() + [
                 'links' => base64_encode(serialize($links)),
                 'name' => $this->getNameInLayout()
-            );
+                ];
         }
 
         return $this->_cacheKeyInfo;

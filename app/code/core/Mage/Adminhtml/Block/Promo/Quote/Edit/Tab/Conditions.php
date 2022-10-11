@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * description
  *
- * @category    Mage
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Conditions
     extends Mage_Adminhtml_Block_Widget_Form
@@ -69,18 +62,20 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Conditions
     /**
      * Returns status flag about this tab hidden or not
      *
-     * @return true
+     * @return false
      */
     public function isHidden()
     {
         return false;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareForm()
     {
         $model = Mage::registry('current_promo_quote_rule');
 
-        //$form = new Varien_Data_Form(array('id' => 'edit_form1', 'action' => $this->getData('action'), 'method' => 'post'));
         $form = new Varien_Data_Form();
 
         $form->setHtmlIdPrefix('rule_');
@@ -89,30 +84,17 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Conditions
             ->setTemplate('promo/fieldset.phtml')
             ->setNewChildUrl($this->getUrl('*/promo_quote/newConditionHtml/form/rule_conditions_fieldset'));
 
-        $fieldset = $form->addFieldset('conditions_fieldset', array(
+        $fieldset = $form->addFieldset('conditions_fieldset', [
             'legend'=>Mage::helper('salesrule')->__('Apply the rule only if the following conditions are met (leave blank for all products)')
-        ))->setRenderer($renderer);
+        ])->setRenderer($renderer);
 
-        $fieldset->addField('conditions', 'text', array(
+        $fieldset->addField('conditions', 'text', [
             'name' => 'conditions',
             'label' => Mage::helper('salesrule')->__('Conditions'),
             'title' => Mage::helper('salesrule')->__('Conditions'),
-        ))->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/conditions'));
-/*
-        $fieldset = $form->addFieldset('actions_fieldset', array(
-            'legend'=>Mage::helper('salesrule')->__('Apply the rule to cart items matching the following conditions')
-        ))->setRenderer($renderer);
+        ])->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/conditions'));
 
-        $fieldset->addField('actions', 'text', array(
-            'name' => 'actions',
-            'label' => Mage::helper('salesrule')->__('Apply To'),
-            'title' => Mage::helper('salesrule')->__('Apply To'),
-            'required' => true,
-        ))->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/actions'));
-*/
         $form->setValues($model->getData());
-
-        //$form->setUseContainer(true);
 
         $this->setForm($form);
 

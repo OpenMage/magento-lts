@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -95,7 +89,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     protected $_templateFilter;
     protected $_preprocessFlag = false;
     protected $_mail;
-    protected $_bccEmails = array();
+    protected $_bccEmails = [];
 
     static protected $_defaultTemplates;
 
@@ -210,7 +204,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     }
 
     /**
-     * Retrive default templates from config
+     * Retrieve default templates from config
      *
      * @return array
      */
@@ -224,17 +218,17 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     }
 
     /**
-     * Retrive default templates as options array
+     * Retrieve default templates as options array
      *
      * @return array
      */
     public static function getDefaultTemplatesAsOptionsArray()
     {
-        $options = array(
-            array('value'=>'', 'label'=> '')
-        );
+        $options = [
+            ['value'=>'', 'label'=> '']
+        ];
 
-        $idLabel = array();
+        $idLabel = [];
         foreach (self::getDefaultTemplates() as $templateId => $row) {
             if (isset($row['@']) && isset($row['@']['module'])) {
                 $module = $row['@']['module'];
@@ -245,7 +239,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         }
         asort($idLabel);
         foreach ($idLabel as $templateId => $label) {
-            $options[] = array('value' => $templateId, 'label' => $label);
+            $options[] = ['value' => $templateId, 'label' => $label];
         }
 
         return $options;
@@ -299,7 +293,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @param   array $variables
      * @return  string
      */
-    public function getProcessedTemplate(array $variables = array())
+    public function getProcessedTemplate(array $variables = [])
     {
         $processor = $this->getTemplateFilter();
         $processor->setUseSessionInUrl(false)
@@ -320,8 +314,8 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $variables = $this->_addEmailVariables($variables, $processor->getStoreId());
 
         $processor
-            ->setTemplateProcessor(array($this, 'getTemplateByConfigPath'))
-            ->setIncludeProcessor(array($this, 'getInclude'))
+            ->setTemplateProcessor([$this, 'getTemplateByConfigPath'])
+            ->setIncludeProcessor([$this, 'getInclude'])
             ->setVariables($variables);
 
         try {
@@ -385,7 +379,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @param   array              $variables    template variables
      * @return  boolean
      **/
-    public function send($email, $name = null, array $variables = array())
+    public function send($email, $name = null, array $variables = [])
     {
         if (!$this->isValidForSend()) {
             Mage::logException(new Exception('This letter cannot be sent.')); // translation is intentionally omitted
@@ -422,11 +416,10 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         }
 
         if ($this->hasQueue() && $this->getQueue() instanceof Mage_Core_Model_Email_Queue) {
-            /** @var Mage_Core_Model_Email_Queue $emailQueue */
             $emailQueue = $this->getQueue();
             $emailQueue->clearRecipients();
             $emailQueue->setMessageBody($text);
-            $emailQueue->setMessageParameters(array(
+            $emailQueue->setMessageParameters([
                     'subject'           => $subject,
                     'return_path_email' => $returnPathEmail,
                     'is_plain'          => $this->isPlain(),
@@ -434,9 +427,9 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
                     'from_name'         => $this->getSenderName(),
                     'reply_to'          => $this->getMail()->getReplyTo(),
                     'return_to'         => $this->getMail()->getReturnPath(),
-                ))
+            ])
                 ->addRecipients($emails, $names, Mage_Core_Model_Email_Queue::EMAIL_TYPE_TO)
-                ->addRecipients($this->_bccEmails, array(), Mage_Core_Model_Email_Queue::EMAIL_TYPE_BCC);
+                ->addRecipients($this->_bccEmails, [], Mage_Core_Model_Email_Queue::EMAIL_TYPE_BCC);
             $emailQueue->addMessageToQueue();
 
             return true;
@@ -491,7 +484,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      *
      * @return  $this
      */
-    public function sendTransactional($templateId, $sender, $email, $name, $vars = array(), $storeId = null)
+    public function sendTransactional($templateId, $sender, $email, $name, $vars = [], $storeId = null)
     {
         $this->setSentSuccess(false);
         if (($storeId === null) && $this->getDesignConfig()->getStore()) {
@@ -603,7 +596,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      */
     protected function _parseVariablesString($variablesString)
     {
-        $variables = array();
+        $variables = [];
         if ($variablesString && is_string($variablesString)) {
             $variablesString = str_replace("\n", '', $variablesString);
             $variables = Zend_Json::decode($variablesString);
@@ -619,20 +612,20 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function getVariablesOptionArray($withGroup = false)
     {
-        $optionArray = array();
+        $optionArray = [];
         $variables = $this->_parseVariablesString($this->getData('orig_template_variables'));
         if ($variables) {
             foreach ($variables as $value => $label) {
-                $optionArray[] = array(
+                $optionArray[] = [
                     'value' => '{{' . $value . '}}',
                     'label' => Mage::helper('core')->__('%s', $label)
-                );
+                ];
             }
             if ($withGroup) {
-                $optionArray = array(
+                $optionArray = [
                     'label' => Mage::helper('core')->__('Template Variables'),
                     'value' => $optionArray
-                );
+                ];
             }
         }
         return $optionArray;

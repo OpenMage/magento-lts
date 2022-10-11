@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -25,8 +19,6 @@
  */
 
 /**
- * Enter description here ...
- *
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item _getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection getCollection()
@@ -153,7 +145,10 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
      */
     protected function _initOldFieldsMap()
     {
-        $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('creditmemo_item');
+        // pre 1.6 fields names, old => new
+        $this->_oldFieldsMap = [
+            'base_weee_tax_applied_row_amount' => 'base_weee_tax_applied_row_amnt',
+        ];
         return $this;
     }
 
@@ -176,7 +171,9 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
     public function setOrderItem(Mage_Sales_Model_Order_Item $item)
     {
         $this->_orderItem = $item;
-        $this->setOrderItemId($item->getId());
+        if ($this->getOrderItemId() != $item->getId()) {
+            $this->setOrderItemId($item->getId());
+        }
         return $this;
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sign up for an alert when the product price changes grid
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Stock extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -40,7 +33,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Stock extends Mage_Ad
 
         $this->setId('alertStock');
         $this->setDefaultSort('add_date');
-        $this->setDefaultSort('DESC');
+        $this->setDefaultDir('desc');
         $this->setUseAjax(true);
         $this->setFilterVisibility(false);
         $this->setEmptyText(Mage::helper('catalog')->__('There are no customers for this alert.'));
@@ -64,42 +57,42 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Stock extends Mage_Ad
 
     protected function _prepareColumns()
     {
-        $this->addColumn('firstname', array(
+        $this->addColumn('firstname', [
             'header'    => Mage::helper('catalog')->__('First Name'),
             'index'     => 'firstname',
-        ));
+        ]);
 
-        $this->addColumn('middlename', array(
+        $this->addColumn('middlename', [
             'header'    => Mage::helper('catalog')->__('Middle Name'),
             'index'     => 'middlename',
-        ));
+        ]);
 
-        $this->addColumn('lastname', array(
+        $this->addColumn('lastname', [
             'header'    => Mage::helper('catalog')->__('Last Name'),
             'index'     => 'lastname',
-        ));
+        ]);
 
-        $this->addColumn('email', array(
+        $this->addColumn('email', [
             'header'    => Mage::helper('catalog')->__('Email'),
             'index'     => 'email',
-        ));
+        ]);
 
-        $this->addColumn('add_date', array(
+        $this->addColumn('add_date', [
             'header'    => Mage::helper('catalog')->__('Date Subscribed'),
             'index'     => 'add_date',
             'type'      => 'date'
-        ));
+        ]);
 
-        $this->addColumn('send_date', array(
+        $this->addColumn('send_date', [
             'header'    => Mage::helper('catalog')->__('Last Notification'),
             'index'     => 'send_date',
             'type'      => 'date'
-        ));
+        ]);
 
-        $this->addColumn('send_count', array(
+        $this->addColumn('send_count', [
             'header'    => Mage::helper('catalog')->__('Send Count'),
             'index'     => 'send_count',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -111,9 +104,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Stock extends Mage_Ad
         if ($storeId) {
             $storeId = Mage::app()->getStore($storeId)->getId();
         }
-        return $this->getUrl('*/catalog_product/alertsStockGrid', array(
+        return $this->getUrl('*/catalog_product/alertsStockGrid', [
             'id'    => $productId,
             'store' => $storeId
-        ));
+        ]);
     }
 }

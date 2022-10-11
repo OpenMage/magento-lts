@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Reports
@@ -34,49 +28,49 @@ $installer = $this;
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('reports/compared_product_index'))
-    ->addColumn('index_id', Varien_Db_Ddl_Table::TYPE_BIGINT, null, array(
+    ->addColumn('index_id', Varien_Db_Ddl_Table::TYPE_BIGINT, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Index Id')
-    ->addColumn('visitor_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Index Id')
+    ->addColumn('visitor_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
-        ), 'Visitor Id')
-    ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Visitor Id')
+    ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
-        ), 'Customer Id')
-    ->addColumn('product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Customer Id')
+    ->addColumn('product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
-        ), 'Product Id')
-    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Product Id')
+    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
-        ), 'Store Id')
-    ->addColumn('added_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ], 'Store Id')
+    ->addColumn('added_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
         'nullable'  => false,
-        ), 'Added At')
+    ], 'Added At')
     ->addIndex(
-        $installer->getIdxName('reports/compared_product_index', array('visitor_id', 'product_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('visitor_id', 'product_id'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        $installer->getIdxName('reports/compared_product_index', ['visitor_id', 'product_id'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+        ['visitor_id', 'product_id'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->addIndex(
-        $installer->getIdxName('reports/compared_product_index', array('customer_id', 'product_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('customer_id', 'product_id'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        $installer->getIdxName('reports/compared_product_index', ['customer_id', 'product_id'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+        ['customer_id', 'product_id'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->addIndex(
-        $installer->getIdxName('reports/compared_product_index', array('store_id')),
-        array('store_id')
+        $installer->getIdxName('reports/compared_product_index', ['store_id']),
+        ['store_id']
     )
     ->addIndex(
-        $installer->getIdxName('reports/compared_product_index', array('added_at')),
-        array('added_at')
+        $installer->getIdxName('reports/compared_product_index', ['added_at']),
+        ['added_at']
     )
     ->addIndex(
-        $installer->getIdxName('reports/compared_product_index', array('product_id')),
-        array('product_id')
+        $installer->getIdxName('reports/compared_product_index', ['product_id']),
+        ['product_id']
     )
     ->addForeignKey(
         $installer->getFkName('reports/compared_product_index', 'customer_id', 'customer/entity', 'entity_id'),
@@ -112,49 +106,49 @@ $installer->getConnection()->createTable($table);
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('reports/viewed_product_index'))
-    ->addColumn('index_id', Varien_Db_Ddl_Table::TYPE_BIGINT, null, array(
+    ->addColumn('index_id', Varien_Db_Ddl_Table::TYPE_BIGINT, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Index Id')
-    ->addColumn('visitor_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Index Id')
+    ->addColumn('visitor_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
-        ), 'Visitor Id')
-    ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Visitor Id')
+    ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
-        ), 'Customer Id')
-    ->addColumn('product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Customer Id')
+    ->addColumn('product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
-        ), 'Product Id')
-    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Product Id')
+    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
-        ), 'Store Id')
-    ->addColumn('added_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ], 'Store Id')
+    ->addColumn('added_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
         'nullable'  => false,
-        ), 'Added At')
+    ], 'Added At')
     ->addIndex(
-        $installer->getIdxName('reports/viewed_product_index', array('visitor_id', 'product_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('visitor_id', 'product_id'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        $installer->getIdxName('reports/viewed_product_index', ['visitor_id', 'product_id'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+        ['visitor_id', 'product_id'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->addIndex(
-        $installer->getIdxName('reports/viewed_product_index', array('customer_id', 'product_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('customer_id', 'product_id'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        $installer->getIdxName('reports/viewed_product_index', ['customer_id', 'product_id'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+        ['customer_id', 'product_id'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->addIndex(
-        $installer->getIdxName('reports/viewed_product_index', array('store_id')),
-        array('store_id')
+        $installer->getIdxName('reports/viewed_product_index', ['store_id']),
+        ['store_id']
     )
     ->addIndex(
-        $installer->getIdxName('reports/viewed_product_index', array('added_at')),
-        array('added_at')
+        $installer->getIdxName('reports/viewed_product_index', ['added_at']),
+        ['added_at']
     )
     ->addIndex(
-        $installer->getIdxName('reports/viewed_product_index', array('product_id')),
-        array('product_id')
+        $installer->getIdxName('reports/viewed_product_index', ['product_id']),
+        ['product_id']
     )
     ->addForeignKey(
         $installer->getFkName('reports/viewed_product_index', 'customer_id', 'customer/entity', 'entity_id'),

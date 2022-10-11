@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -40,7 +34,7 @@ class Mage_Paypal_Model_Observer
     {
         try {
             $reports = Mage::getModel('paypal/report_settlement');
-            /* @var $reports Mage_Paypal_Model_Report_Settlement */
+            /** @var Mage_Paypal_Model_Report_Settlement $reports */
             $credentials = $reports->getSftpCredentials(true);
             foreach ($credentials as $config) {
                 try {
@@ -73,7 +67,7 @@ class Mage_Paypal_Model_Observer
      */
     public function saveOrderAfterSubmit(Varien_Event_Observer $observer)
     {
-        /* @var $order Mage_Sales_Model_Order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getData('order');
         Mage::register('hss_order', $order, true);
 
@@ -88,13 +82,13 @@ class Mage_Paypal_Model_Observer
      */
     public function setResponseAfterSaveOrder(Varien_Event_Observer $observer)
     {
-        /* @var $order Mage_Sales_Model_Order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = Mage::registry('hss_order');
 
         if ($order && $order->getId()) {
             $payment = $order->getPayment();
             if ($payment && in_array($payment->getMethod(), Mage::helper('paypal/hss')->getHssMethods())) {
-                /* @var $controller Mage_Core_Controller_Varien_Action */
+                /** @var Mage_Core_Controller_Varien_Action $controller */
                 $controller = $observer->getEvent()->getData('controller_action');
                 $result = Mage::helper('core')->jsonDecode(
                     $controller->getResponse()->getBody('default'),
@@ -104,10 +98,10 @@ class Mage_Paypal_Model_Observer
                 if (empty($result['error'])) {
                     $controller->loadLayout('checkout_onepage_review');
                     $html = $controller->getLayout()->getBlock('paypal.iframe')->toHtml();
-                    $result['update_section'] = array(
+                    $result['update_section'] = [
                         'name' => 'paypaliframe',
                         'html' => $html
-                    );
+                    ];
                     $result['redirect'] = false;
                     $result['success'] = false;
                     $controller->getResponse()->clearHeader('Location');
@@ -123,7 +117,6 @@ class Mage_Paypal_Model_Observer
      * Load country dependent PayPal solutions system configuration
      *
      * @param Varien_Event_Observer $observer
-     * @return void
      */
     public function loadCountryDependentSolutionsConfig(Varien_Event_Observer $observer)
     {

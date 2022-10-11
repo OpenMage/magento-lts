@@ -36,6 +36,7 @@ class Zend_Tool_Project_Profile_Iterator_EnabledResourceFilter extends Recursive
      *
      * @return bool
      */
+    #[ReturnTypeWillChange]
     public function accept()
     {
         return $this->current()->isEnabled();

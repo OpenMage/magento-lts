@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -40,7 +34,6 @@ $installer->getConnection()->dropForeignKey(
     $installer->getTable('api/session'),
     'FK_API_SESSION_USER'
 );
-
 
 /**
  * Drop indexes
@@ -75,213 +68,212 @@ $installer->getConnection()->dropIndex(
     'API_SESSION_SESSID'
 );
 
-
 /*
  * Change columns
  */
-$tables = array(
-    $installer->getTable('api/assert') => array(
-        'columns' => array(
-            'assert_id' => array(
+$tables = [
+    $installer->getTable('api/assert') => [
+        'columns' => [
+            'assert_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Assert id'
-            ),
-            'assert_type' => array(
+            ],
+            'assert_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 20,
                 'comment'   => 'Assert type'
-            ),
-            'assert_data' => array(
+            ],
+            'assert_data' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'Assert additional data'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Api ACL Asserts'
-    ),
-    $installer->getTable('api/role') => array(
-        'columns' => array(
-            'role_id' => array(
+    ],
+    $installer->getTable('api/role') => [
+        'columns' => [
+            'role_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Role id'
-            ),
-            'parent_id' => array(
+            ],
+            'parent_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Parent role id'
-            ),
-            'tree_level' => array(
+            ],
+            'tree_level' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Role level in tree'
-            ),
-            'sort_order' => array(
+            ],
+            'sort_order' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Sort order to display on admin area'
-            ),
-            'role_type' => array(
+            ],
+            'role_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 1,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Role type'
-            ),
-            'user_id' => array(
+            ],
+            'user_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'User id'
-            ),
-            'role_name' => array(
+            ],
+            'role_name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 50,
                 'comment'   => 'Role name'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Api ACL Roles'
-    ),
-    $installer->getTable('api/rule') => array(
-        'columns' => array(
-            'rule_id' => array(
+    ],
+    $installer->getTable('api/rule') => [
+        'columns' => [
+            'rule_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Api rule Id'
-            ),
-            'role_id' => array(
+            ],
+            'role_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Api role Id'
-            ),
-            'resource_id' => array(
+            ],
+            'resource_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Module code'
-            ),
-            'assert_id' => array(
+            ],
+            'assert_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Assert id'
-            ),
-            'role_type' => array(
+            ],
+            'role_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 1,
                 'comment'   => 'Role type'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Api ACL Rules'
-    ),
-    $installer->getTable('api/user') => array(
-        'columns' => array(
-            'user_id' => array(
+    ],
+    $installer->getTable('api/user') => [
+        'columns' => [
+            'user_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'User id'
-            ),
-            'firstname' => array(
+            ],
+            'firstname' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
                 'comment'   => 'First name'
-            ),
-            'lastname' => array(
+            ],
+            'lastname' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
                 'comment'   => 'Last name'
-            ),
-            'email' => array(
+            ],
+            'email' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 128,
                 'comment'   => 'Email'
-            ),
-            'username' => array(
+            ],
+            'username' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 40,
                 'comment'   => 'Nickname'
-            ),
-            'api_key' => array(
+            ],
+            'api_key' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 40,
                 'comment'   => 'Api key'
-            ),
-            'created' => array(
+            ],
+            'created' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
                 'comment'   => 'User record create date'
-            ),
-            'modified' => array(
+            ],
+            'modified' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'User record modify date'
-            ),
-            'lognum' => array(
+            ],
+            'lognum' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Quantity of log ins'
-            ),
-            'reload_acl_flag' => array(
+            ],
+            'reload_acl_flag' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Refresh ACL flag'
-            ),
-            'is_active' => array(
+            ],
+            'is_active' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '1',
                 'comment'   => 'Account status'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Api Users'
-    ),
-    $installer->getTable('api/session') => array(
-        'columns' => array(
-            'user_id' => array(
+    ],
+    $installer->getTable('api/session') => [
+        'columns' => [
+            'user_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'User id'
-            ),
-            'logdate' => array(
+            ],
+            'logdate' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
                 'comment'   => 'Login date'
-            ),
-            'sessid' => array(
+            ],
+            'sessid' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 40,
                 'comment'   => 'Sessioin id'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Api Sessions'
-    )
-);
+    ]
+];
 
 $installer->getConnection()->modifyTables($tables);
 
@@ -289,67 +281,66 @@ $installer->getConnection()->changeColumn(
     $installer->getTable('api/rule'),
     'privileges',
     'api_privileges',
-    array(
+    [
         'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
         'length'    => 20,
         'comment'   => 'Privileges'
-    )
+    ]
 );
 
 $installer->getConnection()->changeColumn(
     $installer->getTable('api/rule'),
     'permission',
     'api_permission',
-    array(
+    [
         'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
         'length'    => 10,
         'comment'   => 'Permission'
-    )
+    ]
 );
-
 
 /**
  * Add indexes
  */
 $installer->getConnection()->addIndex(
     $installer->getTable('api/rule'),
-    $installer->getIdxName('api/rule', array('resource_id', 'role_id')),
-    array('resource_id', 'role_id'),
+    $installer->getIdxName('api/rule', ['resource_id', 'role_id']),
+    ['resource_id', 'role_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('api/rule'),
-    $installer->getIdxName('api/rule', array('role_id', 'resource_id')),
-    array('role_id', 'resource_id'),
+    $installer->getIdxName('api/rule', ['role_id', 'resource_id']),
+    ['role_id', 'resource_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('api/session'),
-    $installer->getIdxName('api/session', array('user_id')),
-    array('user_id'),
+    $installer->getIdxName('api/session', ['user_id']),
+    ['user_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('api/session'),
-    $installer->getIdxName('api/session', array('sessid')),
-    array('sessid'),
+    $installer->getIdxName('api/session', ['sessid']),
+    ['sessid'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('api/role'),
-    $installer->getIdxName('api/role', array('parent_id', 'sort_order')),
-    array('parent_id', 'sort_order'),
+    $installer->getIdxName('api/role', ['parent_id', 'sort_order']),
+    ['parent_id', 'sort_order'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('api/role'),
-    $installer->getIdxName('api/role', array('tree_level')),
-    array('tree_level'),
+    $installer->getIdxName('api/role', ['tree_level']),
+    ['tree_level'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
 );
 

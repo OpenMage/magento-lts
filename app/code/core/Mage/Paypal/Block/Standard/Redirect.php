@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -36,12 +30,12 @@ class Mage_Paypal_Block_Standard_Redirect extends Mage_Core_Block_Abstract
             ->setMethod('POST')
             ->setUseContainer(true);
         foreach ($standard->getStandardCheckoutFormFields() as $field=>$value) {
-            $form->addField($field, 'hidden', array('name'=>$field, 'value'=>$value));
+            $form->addField($field, 'hidden', ['name'=>$field, 'value'=>$value]);
         }
         $idSuffix = Mage::helper('core')->uniqHash();
-        $submitButton = new Varien_Data_Form_Element_Submit(array(
+        $submitButton = new Varien_Data_Form_Element_Submit([
             'value'    => $this->__('Click here if you are not redirected within 10 seconds...'),
-        ));
+        ]);
         $id = "submit_to_paypal_button_{$idSuffix}";
         $submitButton->setId($id);
         $form->addElement($submitButton);

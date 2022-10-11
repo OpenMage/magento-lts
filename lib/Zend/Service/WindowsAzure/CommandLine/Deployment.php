@@ -79,7 +79,7 @@ class Zend_Service_WindowsAzure_CommandLine_Deployment
 	 * @command-example --PackageUrl:"http://acct.blob.core.windows.net/pkgs/service.cspkg"
 	 * @command-example --ServiceConfigLocation:".\ServiceConfiguration.cscfg" --StartImmediately --WaitFor
 	 */
-	public function createFromStorageCommand($subscriptionId, $certificate, $certificatePassphrase, $serviceName, $deploymentName, $label, $staging = false, $production = false, $packageUrl, $serviceConfigurationLocation, $startImmediately = true, $warningsAsErrors = false, $waitForOperation = false)
+	public function createFromStorageCommand($subscriptionId, $certificate, $certificatePassphrase, $serviceName, $deploymentName, $label, $staging , $production , $packageUrl, $serviceConfigurationLocation, $startImmediately = true, $warningsAsErrors = false, $waitForOperation = false)
 	{
 		$deploymentSlot = 'staging';
 		if (!$staging && !$production) {
@@ -90,12 +90,13 @@ class Zend_Service_WindowsAzure_CommandLine_Deployment
 			$deploymentSlot = 'production';
 		}
 
-		$client->createDeployment($serviceName, $deploymentSlot, $deploymentName, $label, $packageUrl, $serviceConfigurationLocation, $startImmediately, $warningsAsErrors);
+		// $client was never set probably dead code
+		/*$client->createDeployment($serviceName, $deploymentSlot, $deploymentName, $label, $packageUrl, $serviceConfigurationLocation, $startImmediately, $warningsAsErrors);
 
 		if ($waitForOperation) {
 			$client->waitForOperation();
 		}
-		echo $client->getLastRequestId();
+		echo $client->getLastRequestId();*/
 	}
 
 	/**
@@ -123,7 +124,7 @@ class Zend_Service_WindowsAzure_CommandLine_Deployment
 	 * @command-example --ServiceConfigLocation:".\ServiceConfiguration.cscfg" --StorageAccount:"mystorage"
 	 * @command-example --StartImmediately --WaitFor
 	 */
-	public function createFromLocalCommand($subscriptionId, $certificate, $certificatePassphrase, $serviceName, $deploymentName, $label, $staging = false, $production = false, $packageLocation, $serviceConfigurationLocation, $storageAccount, $startImmediately = true, $warningsAsErrors = false, $waitForOperation = false)
+	public function createFromLocalCommand($subscriptionId, $certificate, $certificatePassphrase, $serviceName, $deploymentName, $label, $staging , $production, $packageLocation, $serviceConfigurationLocation, $storageAccount, $startImmediately = true, $warningsAsErrors = false, $waitForOperation = false)
 	{
 		$deploymentSlot = 'staging';
 		if (!$staging && !$production) {

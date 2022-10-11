@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart controller
+ *
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 {
@@ -34,7 +32,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
      *
      * @var array
      */
-    protected $_cookieCheckActions = array('add');
+    protected $_cookieCheckActions = ['add'];
 
     /**
      * Retrieve shopping cart model object
@@ -171,7 +169,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         }
 
         // Compose array of messages to add
-        $messages = array();
+        $messages = [];
         foreach ($cart->getQuote()->getMessages() as $message) {
             if ($message) {
                 // Escape HTML entities in quote message to prevent XSS
@@ -200,7 +198,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Add product to shopping cart action
      *
-     * @return void
      * @throws Mage_Exception
      */
     public function addAction()
@@ -214,7 +211,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         try {
             if (isset($params['qty'])) {
                 $filter = new Zend_Filter_LocalizedToNormalized(
-                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                    ['locale' => Mage::app()->getLocale()->getLocaleCode()]
                 );
                 $params['qty'] = $filter->filter($params['qty']);
             }
@@ -244,7 +241,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
              */
             Mage::dispatchEvent(
                 'checkout_cart_add_product_complete',
-                array('product' => $product, 'request' => $this->getRequest(), 'response' => $this->getResponse())
+                ['product' => $product, 'request' => $this->getRequest(), 'response' => $this->getResponse()]
             );
 
             if (!$this->_getSession()->getNoCartRedirect(true)) {
@@ -282,7 +279,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
      */
     public function addgroupAction()
     {
-        $orderItemIds = $this->getRequest()->getParam('order_items', array());
+        $orderItemIds = $this->getRequest()->getParam('order_items', []);
         $customerId   = $this->_getCustomerSession()->getCustomerId();
 
         if (!is_array($orderItemIds) || !$this->_validateFormKey() || !$customerId) {
@@ -295,7 +292,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             ->addFilterByCustomerId($customerId)
             ->addIdFilter($orderItemIds)
             ->load();
-        /* @var Mage_Sales_Model_Mysql4_Order_Item_Collection $itemsCollection */
+        /** @var Mage_Sales_Model_Resource_Order_Item_Collection $itemsCollection */
         $cart = $this->_getCart();
         foreach ($itemsCollection as $item) {
             try {
@@ -366,12 +363,12 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         $params = $this->getRequest()->getParams();
 
         if (!isset($params['options'])) {
-            $params['options'] = array();
+            $params['options'] = [];
         }
         try {
             if (isset($params['qty'])) {
                 $filter = new Zend_Filter_LocalizedToNormalized(
-                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                    ['locale' => Mage::app()->getLocale()->getLocaleCode()]
                 );
                 $params['qty'] = $filter->filter($params['qty']);
             }
@@ -400,7 +397,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
             Mage::dispatchEvent(
                 'checkout_cart_update_item_complete',
-                array('item' => $item, 'request' => $this->getRequest(), 'response' => $this->getResponse())
+                ['item' => $item, 'request' => $this->getRequest(), 'response' => $this->getResponse()]
             );
             if (!$this->_getSession()->getNoCartRedirect(true)) {
                 if (!$cart->getQuote()->getHasError()) {
@@ -468,7 +465,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             $cartData = $this->getRequest()->getParam('cart');
             if (is_array($cartData)) {
                 $filter = new Zend_Filter_LocalizedToNormalized(
-                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                    ['locale' => Mage::app()->getLocale()->getLocaleCode()]
                 );
                 foreach ($cartData as $index => $data) {
                     if (isset($data['qty'])) {
@@ -550,20 +547,18 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             ->setRegion($region)
             ->setCollectShippingRates(true);
         $this->_getQuote()->save();
-        $this->_getSession()->setEstimatedShippingAddressData(array(
+        $this->_getSession()->setEstimatedShippingAddressData([
             'country_id' => $country,
             'postcode'   => $postcode,
             'city'       => $city,
             'region_id'  => $regionId,
             'region'     => $region
-        ));
+        ]);
         $this->_goBack();
     }
 
     /**
      * Estimate update action
-     *
-     * @return null
      */
     public function estimateUpdatePostAction()
     {
@@ -641,7 +636,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             Mage::throwException('Invalid form key');
         }
         $id = (int) $this->getRequest()->getParam('id');
-        $result = array();
+        $result = [];
         if ($id) {
             try {
                 $this->_getCart()->removeItem($id)->save();
@@ -653,7 +648,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
                 $result['success'] = 1;
                 $result['message'] = $this->__('Item was removed successfully.');
-                Mage::dispatchEvent('ajax_cart_remove_item_success', array('id' => $id));
+                Mage::dispatchEvent('ajax_cart_remove_item_success', ['id' => $id]);
             } catch (Exception $e) {
                 $result['success'] = 0;
                 $result['error'] = $this->__('Can not remove the item.');
@@ -674,13 +669,13 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         }
         $id = (int)$this->getRequest()->getParam('id');
         $qty = $this->getRequest()->getParam('qty');
-        $result = array();
+        $result = [];
         if ($id) {
             try {
                 $cart = $this->_getCart();
                 if (isset($qty)) {
                     $filter = new Zend_Filter_LocalizedToNormalized(
-                        array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                        ['locale' => Mage::app()->getLocale()->getLocaleCode()]
                     );
                     $qty = $filter->filter($qty);
                 }

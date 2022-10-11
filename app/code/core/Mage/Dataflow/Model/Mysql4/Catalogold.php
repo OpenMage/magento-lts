@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Dataflow
+ * @category   Mage
+ * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
+ * @category   Mage
+ * @package    Mage_Dataflow
+ * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated after 1.5.0.1
  */
 class Mage_Catalog_Model_Mysql4_Convert
@@ -69,10 +66,10 @@ class Mage_Catalog_Model_Mysql4_Convert
     {
         if (!$this->_productsBySku) {
             $select = $this->getSelect()
-                ->from($this->getTable('catalog/product'), array('entity_id', 'sku'));
+                ->from($this->getTable('catalog/product'), ['entity_id', 'sku']);
             $products = $this->getConnection()->fetchAll($select);
 
-            $this->_productsBySku = array();
+            $this->_productsBySku = [];
             foreach ($products as $p) {
                 $this->_productsBySku[$p['sku']] = $p['entity_id'];
             }
@@ -96,7 +93,7 @@ class Mage_Catalog_Model_Mysql4_Convert
 
     public function exportAttributes()
     {
-        $attributeFields = array(
+        $attributeFields = [
             'attribute_code',
             'frontend_label', 'frontend_input', 'frontend_class', 'frontend_model',
             'backend_type', 'backend_table', 'backend_model',
@@ -104,56 +101,50 @@ class Mage_Catalog_Model_Mysql4_Convert
             'is_visible', 'is_user_defined', 'is_global', 'is_required', 'is_unique',
             'is_visible_on_front', 'is_searchable', 'is_filterable', 'is_comparable',
             'default_value', 'apply_to', 'use_in_super_product',
-        );
+        ];
 
         $select = $this->getSelect()
-            ->from(array('et'=>$this->getTable('eav/entity_type')), 'entity_type_code')
-            ->join(array('a'=>$this->getTable('eav/attribute')), 'a.entity_type_id=et.entity_type_id', $attributeFields)
-            ->where('et.entity_type_code in (?)', array('catalog_product', 'catalog_category'))
+            ->from(['et'=>$this->getTable('eav/entity_type')], 'entity_type_code')
+            ->join(['a'=>$this->getTable('eav/attribute')], 'a.entity_type_id=et.entity_type_id', $attributeFields)
+            ->where('et.entity_type_code in (?)', ['catalog_product', 'catalog_category'])
             ->order('if(not a.is_user_defined, 1, 2)')->order('attribute_code');
 
-        $attributes = $this->getConnection()->fetchAll($select);
-
-        return $attributes;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportAttributeSets()
     {
         $select = $this->getSelect()
-            ->from(array('et'=>$this->getTable('eav/entity_type')), 'entity_type_code')
-            ->join(array('s'=>$this->getTable('eav/attribute_set')), 's.entity_type_id=et.entity_type_id', 'attribute_set_name')
-            ->join(array('g'=>$this->getTable('eav/attribute_group')), 'g.attribute_set_id=s.attribute_set_id', 'attribute_group_name')
-            ->join(array('ea'=>$this->getTable('eav/entity_attribute')), 'ea.attribute_group_id=g.attribute_group_id', array())
-            ->join(array('a'=>$this->getTable('eav/attribute')), 'a.attribute_id=ea.attribute_id', 'attribute_code')
-            ->where('et.entity_type_code in (?)', array('catalog_product', 'catalog_category'))
+            ->from(['et'=>$this->getTable('eav/entity_type')], 'entity_type_code')
+            ->join(['s'=>$this->getTable('eav/attribute_set')], 's.entity_type_id=et.entity_type_id', 'attribute_set_name')
+            ->join(['g'=>$this->getTable('eav/attribute_group')], 'g.attribute_set_id=s.attribute_set_id', 'attribute_group_name')
+            ->join(['ea'=>$this->getTable('eav/entity_attribute')], 'ea.attribute_group_id=g.attribute_group_id', [])
+            ->join(['a'=>$this->getTable('eav/attribute')], 'a.attribute_id=ea.attribute_id', 'attribute_code')
+            ->where('et.entity_type_code in (?)', ['catalog_product', 'catalog_category'])
             ->order('et.entity_type_code')->order('s.sort_order')->order('g.sort_order');
 
-        $sets = $this->getConnection()->fetchAll($select);
-
-        return $sets;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportAttributeOptions()
     {
         $select = $this->getSelect()
-            ->from(array('et'=>$this->getTable('eav/entity_type')), 'entity_type_code')
-            ->join(array('a'=>$this->getTable('eav/attribute')), 'a.entity_type_id=et.entity_type_id', 'attribute_code')
-            ->join(array('ao'=>$this->getTable('eav/attribute_option')), 'ao.attribute_id=a.attribute_id', array())
-            ->where('et.entity_type_code in (?)', array('catalog_product', 'catalog_category'))
+            ->from(['et'=>$this->getTable('eav/entity_type')], 'entity_type_code')
+            ->join(['a'=>$this->getTable('eav/attribute')], 'a.entity_type_id=et.entity_type_id', 'attribute_code')
+            ->join(['ao'=>$this->getTable('eav/attribute_option')], 'ao.attribute_id=a.attribute_id', [])
+            ->where('et.entity_type_code in (?)', ['catalog_product', 'catalog_category'])
             ->order('a.attribute_code')->order('ao.sort_order');
 
         $stores = Mage::getConfig()->getNode('stores')->children();
         foreach ($stores as $storeName=>$storeConfig) {
             $select->joinLeft(
-                array($storeName=>$this->getTable('eav/attribute_option_value')),
+                [$storeName=>$this->getTable('eav/attribute_option_value')],
                 "$storeName.option_id=ao.option_id and $storeName.store_id=".$storeConfig->descend('system/store/id'),
-                array($storeName=>"$storeName.value")
+                [$storeName=>"$storeName.value"]
             );
         }
 
-        $options = $this->getConnection()->fetchAll($select);
-
-        return $options;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportProductLinks()
@@ -162,14 +153,12 @@ class Mage_Catalog_Model_Mysql4_Convert
         $skuCond = ' and sku.store_id=0 and sku.attribute_id='.$this->getSkuAttribute('attribute_id');
 
         $select = $this->getSelect()
-            ->from(array('lt'=>$this->getTable('catalog/product_link_type')), array('link_type'=>'code'))
-            ->join(array('l'=>$this->getTable('catalog/product_link')), 'l.link_type_id=lt.link_type_id', array())
-            ->join(array('sku'=>$skuTable), 'sku.entity_id=l.product_id'.$skuCond, array('sku'=>'value'))
-            ->join(array('linked'=>$skuTable), 'linked.entity_id=l.product_id'.$skuCond, array('linked'=>'value'))
+            ->from(['lt'=>$this->getTable('catalog/product_link_type')], ['link_type'=>'code'])
+            ->join(['l'=>$this->getTable('catalog/product_link')], 'l.link_type_id=lt.link_type_id', [])
+            ->join(['sku'=>$skuTable], 'sku.entity_id=l.product_id'.$skuCond, ['sku'=>'value'])
+            ->join(['linked'=>$skuTable], 'linked.entity_id=l.product_id'.$skuCond, ['linked'=>'value'])
             ->order('sku')->order('link_type');
-        $links = $this->getConnection()->fetchAll($select);
-
-        return $links;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportProductsInCategories()
@@ -178,13 +167,11 @@ class Mage_Catalog_Model_Mysql4_Convert
         $skuCond = ' and sku.store_id=0 and sku.attribute_id='.$this->getSkuAttribute('attribute_id');
 
         $select = $this->getSelect()
-            ->from(array('cp'=>$this->getTable('catalog/category_product')), array('category_id', 'position'))
-            ->join(array('sku'=>$skuTable), 'sku.entity_id=cp.product_id'.$skuCond, array('sku'=>'value'))
+            ->from(['cp'=>$this->getTable('catalog/category_product')], ['category_id', 'position'])
+            ->join(['sku'=>$skuTable], 'sku.entity_id=cp.product_id'.$skuCond, ['sku'=>'value'])
             ->order('category_id')->order('position')->order('sku');
 
-        $prodCats = $this->getConnection()->fetchAll($select);
-
-        return $prodCats;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportProductsInStores()
@@ -193,14 +180,12 @@ class Mage_Catalog_Model_Mysql4_Convert
         $skuCond = ' and sku.store_id=0 and sku.attribute_id='.$this->getSkuAttribute('attribute_id');
 
         $select = $this->getSelect()
-            ->from(array('ps'=>$this->getTable('catalog/product_store')), array())
-            ->join(array('s'=>$this->getTable('core/store')), 's.store_id=ps.store_id', array('store'=>'code'))
-            ->join(array('sku'=>$skuTable), 'sku.entity_id=ps.product_id'.$skuCond, array('sku'=>'value'))
+            ->from(['ps'=>$this->getTable('catalog/product_store')], [])
+            ->join(['s'=>$this->getTable('core/store')], 's.store_id=ps.store_id', ['store'=>'code'])
+            ->join(['sku'=>$skuTable], 'sku.entity_id=ps.product_id'.$skuCond, ['sku'=>'value'])
             ->order('store')->order('sku');
 
-        $prodStores = $this->getConnection()->fetchAll($select);
-
-        return $prodStores;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportCategories()
@@ -209,7 +194,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             ->addAttributeToSelect('*')
             ->load();
 
-        $categories = array();
+        $categories = [];
         foreach ($collection as $object) {
             $row = $object->getData();
             $categories[] = $row;
@@ -221,21 +206,21 @@ class Mage_Catalog_Model_Mysql4_Convert
     public function exportProducts()
     {
         $attrSets = Mage::getResourceModel('eav/entity_attribute_set_collection')->load();
-        $attrSetName = array();
+        $attrSetName = [];
         foreach ($attrSets as $attrSet) {
             $attrSetName[$attrSet->getId()] = $attrSet->getAttributeSetName();
         }
 
         $select = $this->getSelect()
-            ->from(array('ao'=>$this->getTable('eav/attribute_option')), array('attribute_id', 'option_id'))
-            ->join(array('aov'=>$this->getTable('eav/attribute_option_value')), 'aov.option_id=ao.option_id', array('value_id', 'value'))
+            ->from(['ao'=>$this->getTable('eav/attribute_option')], ['attribute_id', 'option_id'])
+            ->join(['aov'=>$this->getTable('eav/attribute_option_value')], 'aov.option_id=ao.option_id', ['value_id', 'value'])
             ->where('aov.store_id=0');
 
         $collection = Mage::getResourceModel('catalog/product_collection')
             ->addAttributeToSelect('*')
             ->load();
 
-        $products = array();
+        $products = [];
         foreach ($collection as $object) {
             $r = $object->getData();
 
@@ -250,7 +235,7 @@ class Mage_Catalog_Model_Mysql4_Convert
 
     public function exportImageGallery()
     {
-        return array();
+        return [];
     }
 
     public function getProductAttributeOption($attribute, $value)

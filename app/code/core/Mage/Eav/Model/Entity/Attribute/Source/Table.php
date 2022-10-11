@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
     /**
@@ -32,7 +30,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
      *
      * @var array
      */
-    protected $_optionsDefault = array();
+    protected $_optionsDefault = [];
 
     /**
      * Retrieve Full Option values array
@@ -45,15 +43,15 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     {
         $storeId = $this->getAttribute()->getStoreId();
         if (!is_array($this->_options)) {
-            $this->_options = array();
+            $this->_options = [];
         }
         if (!is_array($this->_optionsDefault)) {
-            $this->_optionsDefault = array();
+            $this->_optionsDefault = [];
         }
         if (!isset($this->_options[$storeId])) {
             $idPrefix = 'ATTRIBUTE_OPTIONS_ID_' . $this->getAttribute()->getId();
             $tags = array_merge(
-                array('eav', Mage_Core_Model_Translate::CACHE_TAG),
+                ['eav', Mage_Core_Model_Translate::CACHE_TAG],
                 $this->getAttribute()->getCacheTags()
             );
             $collection = Mage::getResourceModel('eav/entity_attribute_option_collection')
@@ -67,7 +65,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
         }
         $options = ($defaultValues ? $this->_optionsDefault[$storeId] : $this->_options[$storeId]);
         if ($withEmpty) {
-            array_unshift($options, array('label' => '', 'value' => ''));
+            array_unshift($options, ['label' => '', 'value' => '']);
         }
 
         return $options;
@@ -90,7 +88,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
         $options = $this->getAllOptions(false);
 
         if ($isMultiple) {
-            $values = array();
+            $values = [];
             foreach ($options as $item) {
                 if (in_array($item['value'], $value)) {
                     $values[] = $item['label'];
@@ -121,18 +119,18 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
         $valueTable2    = $this->getAttribute()->getAttributeCode() . '_t2';
         $collection->getSelect()
             ->joinLeft(
-                array($valueTable1 => $this->getAttribute()->getBackend()->getTable()),
+                [$valueTable1 => $this->getAttribute()->getBackend()->getTable()],
                 "e.entity_id={$valueTable1}.entity_id"
                 . " AND {$valueTable1}.attribute_id='{$this->getAttribute()->getId()}'"
                 . " AND {$valueTable1}.store_id=0",
-                array()
+                []
             )
             ->joinLeft(
-                array($valueTable2 => $this->getAttribute()->getBackend()->getTable()),
+                [$valueTable2 => $this->getAttribute()->getBackend()->getTable()],
                 "e.entity_id={$valueTable2}.entity_id"
                 . " AND {$valueTable2}.attribute_id='{$this->getAttribute()->getId()}'"
                 . " AND {$valueTable2}.store_id='{$collection->getStoreId()}'",
-                array()
+                []
             );
         $valueExpr = $collection->getSelect()->getAdapter()
             ->getCheckSql("{$valueTable2}.value_id > 0", "{$valueTable2}.value", "{$valueTable1}.value");
@@ -153,30 +151,30 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
      */
     public function getFlatColums()
     {
-        $columns = array();
+        $columns = [];
         $attributeCode = $this->getAttribute()->getAttributeCode();
         $isMulti = $this->getAttribute()->getFrontend()->getInputType() == 'multiselect';
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
-            $columns[$attributeCode] = array(
+            $columns[$attributeCode] = [
                 'type'      => $isMulti ? 'text' : 'int',
                 'unsigned'  => false,
                 'is_null'   => true,
                 'default'   => null,
                 'extra'     => null
-            );
+            ];
             if (!$isMulti) {
-                $columns[$attributeCode . '_value'] = array(
+                $columns[$attributeCode . '_value'] = [
                     'type'      => 'varchar(255)',
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
             }
         } else {
             $type = ($isMulti) ? Varien_Db_Ddl_Table::TYPE_TEXT : Varien_Db_Ddl_Table::TYPE_INTEGER;
-            $columns[$attributeCode] = array(
+            $columns[$attributeCode] = [
                 'type'      => $type,
                 'length'    => $isMulti ? '65535' : null,
                 'unsigned'  => false,
@@ -184,9 +182,9 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
                 'default'   => null,
                 'extra'     => null,
                 'comment'   => $attributeCode . ' column'
-            );
+            ];
             if (!$isMulti) {
-                $columns[$attributeCode . '_value'] = array(
+                $columns[$attributeCode . '_value'] = [
                     'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                     'length'    => 255,
                     'unsigned'  => false,
@@ -194,7 +192,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
                     'default'   => null,
                     'extra'     => null,
                     'comment'   => $attributeCode . ' column'
-                );
+                ];
             }
         }
 
@@ -208,22 +206,22 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
      */
     public function getFlatIndexes()
     {
-        $indexes = array();
+        $indexes = [];
 
         $index = sprintf('IDX_%s', strtoupper($this->getAttribute()->getAttributeCode()));
-        $indexes[$index] = array(
+        $indexes[$index] = [
             'type'      => 'index',
-            'fields'    => array($this->getAttribute()->getAttributeCode())
-        );
+            'fields'    => [$this->getAttribute()->getAttributeCode()]
+        ];
 
         $sortable   = $this->getAttribute()->getUsedForSortBy();
         if ($sortable && $this->getAttribute()->getFrontend()->getInputType() != 'multiselect') {
             $index = sprintf('IDX_%s_VALUE', strtoupper($this->getAttribute()->getAttributeCode()));
 
-            $indexes[$index] = array(
+            $indexes[$index] = [
                 'type'      => 'index',
-                'fields'    => array($this->getAttribute()->getAttributeCode() . '_value')
-            );
+                'fields'    => [$this->getAttribute()->getAttributeCode() . '_value']
+            ];
         }
 
         return $indexes;

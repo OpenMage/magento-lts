@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Uploader
@@ -109,20 +103,29 @@ class Mage_Uploader_Model_Config_Uploader extends Mage_Uploader_Model_Config_Abs
      */
     protected function _construct()
     {
+        // Fix error where setting post_max_size or upload_max_filesize to 0
+        // causes the flow.js to make infinite chunks and crash the browser
+        $maxSize = $this->_getHelper()->getDataMaxSizeInBytes();
+
+        if ($maxSize === 0) {
+            $maxSize = PHP_INT_MAX;
+        }
+
         $this
-            ->setChunkSize($this->_getHelper()->getDataMaxSizeInBytes())
+            ->setChunkSize($maxSize)
             ->setWithCredentials(false)
             ->setForceChunkSize(false)
-            ->setQuery(array(
+            ->setQuery([
                 'form_key' => Mage::getSingleton('core/session')->getFormKey()
-            ))
+            ])
             ->setMethod(self::UPLOAD_TYPE)
+            ->setSimultaneousUploads(1)
             ->setAllowDuplicateUploads(true)
             ->setPrioritizeFirstAndLastChunk(false)
             ->setTestChunks(self::TEST_CHUNKS)
             ->setSpeedSmoothingFactor(self::SMOOTH_UPLOAD_FACTOR)
             ->setProgressCallbacksInterval(self::PROGRESS_CALLBACK_INTERVAL)
-            ->setSuccessStatuses(array(200, 201, 202))
-            ->setPermanentErrors(array(404, 415, 500, 501));
+            ->setSuccessStatuses([200, 201, 202])
+            ->setPermanentErrors([404, 415, 500, 501]);
     }
 }

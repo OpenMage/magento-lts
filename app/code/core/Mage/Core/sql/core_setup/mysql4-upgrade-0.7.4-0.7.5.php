@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -25,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -84,7 +78,7 @@ $rows = $installer->getConnection()
         ->select()
         ->from($this->getTable('core_config_data'))
         ->where($installer->getConnection()->quoteInto('path LIKE ?', 'catalog/category/root_id')));
-$rootCategoryIds = array();
+$rootCategoryIds = [];
 foreach ($rows as $row) {
     $rootCategoryIds[$row['scope']][$row['scope_id']] = $row['value'];
 }
@@ -104,25 +98,25 @@ foreach ($websiteRows as $websiteRow) {
             ->limit(0, 1), 'store_id');
 
     // create group for website
-    $installer->getConnection()->insert($this->getTable('core_store_group'), array(
+    $installer->getConnection()->insert($this->getTable('core_store_group'), [
         'website_id'        => $websiteRow['website_id'],
         'name'              => $websiteRow['name'] . ' Store',
         'root_category_id'  => $rootCategoryId,
         'default_store_id'  => $defaultStoreId
-    ));
+    ]);
     $groupId = $installer->getConnection()->lastInsertId();
     // set group for store(s)
     $installer->getConnection()
         ->update(
             $this->getTable('core_store'),
-            array('group_id'=>$groupId),
+            ['group_id'=>$groupId],
             $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id'])
         );
     // set created group as default for website
     $installer->getConnection()
         ->update(
             $this->getTable('core_website'),
-            array('default_group_id'=>$groupId),
+            ['default_group_id'=>$groupId],
             $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id'])
         );
 }

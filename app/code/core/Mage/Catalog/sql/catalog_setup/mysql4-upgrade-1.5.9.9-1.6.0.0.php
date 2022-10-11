@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Catalog_Model_Resource_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -367,170 +361,169 @@ $installer->getConnection()->dropForeignKey(
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/category', 'datetime')),
+    $installer->getTable(['catalog/category', 'datetime']),
     'FK_CATALOG_CATEGORY_ENTITY_DATETIME_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/category', 'datetime')),
+    $installer->getTable(['catalog/category', 'datetime']),
     'FK_CATALOG_CATEGORY_ENTITY_DATETIME_ENTITY'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/category', 'datetime')),
+    $installer->getTable(['catalog/category', 'datetime']),
     'FK_CATALOG_CATEGORY_ENTITY_DATETIME_STORE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/category', 'decimal')),
+    $installer->getTable(['catalog/category', 'decimal']),
     'FK_CATALOG_CATEGORY_ENTITY_DECIMAL_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/category', 'decimal')),
+    $installer->getTable(['catalog/category', 'decimal']),
     'FK_CATALOG_CATEGORY_ENTITY_DECIMAL_ENTITY'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/category', 'decimal')),
+    $installer->getTable(['catalog/category', 'decimal']),
     'FK_CATALOG_CATEGORY_ENTITY_DECIMAL_STORE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/category', 'int')),
+    $installer->getTable(['catalog/category', 'int']),
     'FK_CATALOG_CATEGORY_EMTITY_INT_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/category', 'int')),
+    $installer->getTable(['catalog/category', 'int']),
     'FK_CATALOG_CATEGORY_EMTITY_INT_ENTITY'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/category', 'int')),
+    $installer->getTable(['catalog/category', 'int']),
     'FK_CATALOG_CATEGORY_EMTITY_INT_STORE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/category', 'text')),
+    $installer->getTable(['catalog/category', 'text']),
     'FK_CATALOG_CATEGORY_ENTITY_TEXT_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/category', 'text')),
+    $installer->getTable(['catalog/category', 'text']),
     'FK_CATALOG_CATEGORY_ENTITY_TEXT_ENTITY'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/category', 'text')),
+    $installer->getTable(['catalog/category', 'text']),
     'FK_CATALOG_CATEGORY_ENTITY_TEXT_STORE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/category', 'varchar')),
+    $installer->getTable(['catalog/category', 'varchar']),
     'FK_CATALOG_CATEGORY_ENTITY_VARCHAR_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/category', 'varchar')),
+    $installer->getTable(['catalog/category', 'varchar']),
     'FK_CATALOG_CATEGORY_ENTITY_VARCHAR_ENTITY'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/category', 'varchar')),
+    $installer->getTable(['catalog/category', 'varchar']),
     'FK_CATALOG_CATEGORY_ENTITY_VARCHAR_STORE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'datetime')),
+    $installer->getTable(['catalog/product', 'datetime']),
     'FK_CATALOG_PRODUCT_ENTITY_DATETIME_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'datetime')),
+    $installer->getTable(['catalog/product', 'datetime']),
     'FK_CATALOG_PRODUCT_ENTITY_DATETIME_STORE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'datetime')),
+    $installer->getTable(['catalog/product', 'datetime']),
     'FK_CATALOG_PROD_ENTITY_DATETIME_PROD_ENTITY'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'decimal')),
+    $installer->getTable(['catalog/product', 'decimal']),
     'FK_CATALOG_PRODUCT_ENTITY_DECIMAL_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'decimal')),
+    $installer->getTable(['catalog/product', 'decimal']),
     'FK_CATALOG_PRODUCT_ENTITY_DECIMAL_STORE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'decimal')),
+    $installer->getTable(['catalog/product', 'decimal']),
     'FK_CATALOG_PROD_ENTITY_DECIMAL_PROD_ENTITY'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'gallery')),
+    $installer->getTable(['catalog/product', 'gallery']),
     'FK_CATALOG_PRODUCT_ENTITY_GALLERY_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'gallery')),
+    $installer->getTable(['catalog/product', 'gallery']),
     'FK_CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'gallery')),
+    $installer->getTable(['catalog/product', 'gallery']),
     'FK_CATALOG_PRODUCT_ENTITY_GALLERY_STORE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'int')),
+    $installer->getTable(['catalog/product', 'int']),
     'FK_CATALOG_PRODUCT_ENTITY_INT_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'int')),
+    $installer->getTable(['catalog/product', 'int']),
     'FK_CATALOG_PRODUCT_ENTITY_INT_PRODUCT_ENTITY'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'int')),
+    $installer->getTable(['catalog/product', 'int']),
     'FK_CATALOG_PRODUCT_ENTITY_INT_STORE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'text')),
+    $installer->getTable(['catalog/product', 'text']),
     'FK_CATALOG_PRODUCT_ENTITY_TEXT_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'text')),
+    $installer->getTable(['catalog/product', 'text']),
     'FK_CATALOG_PRODUCT_ENTITY_TEXT_PRODUCT_ENTITY'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'text')),
+    $installer->getTable(['catalog/product', 'text']),
     'FK_CATALOG_PRODUCT_ENTITY_TEXT_STORE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'varchar')),
+    $installer->getTable(['catalog/product', 'varchar']),
     'FK_CATALOG_PRODUCT_ENTITY_VARCHAR_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'varchar')),
+    $installer->getTable(['catalog/product', 'varchar']),
     'FK_CATALOG_PRODUCT_ENTITY_VARCHAR_STORE'
 );
 
 $installer->getConnection()->dropForeignKey(
-    $installer->getTable(array('catalog/product', 'varchar')),
+    $installer->getTable(['catalog/product', 'varchar']),
     'FK_CATALOG_PROD_ENTITY_VARCHAR_PROD_ENTITY'
 );
-
 
 /**
  * Drop indexes
@@ -1096,1433 +1089,1432 @@ $installer->getConnection()->dropIndex(
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'datetime')),
+    $installer->getTable(['catalog/category', 'datetime']),
     'IDX_BASE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'datetime')),
+    $installer->getTable(['catalog/category', 'datetime']),
     'FK_ATTRIBUTE_DATETIME_ENTITY'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'datetime')),
+    $installer->getTable(['catalog/category', 'datetime']),
     'FK_CATALOG_CATEGORY_ENTITY_DATETIME_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'datetime')),
+    $installer->getTable(['catalog/category', 'datetime']),
     'FK_CATALOG_CATEGORY_ENTITY_DATETIME_STORE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'decimal')),
+    $installer->getTable(['catalog/category', 'decimal']),
     'IDX_BASE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'decimal')),
+    $installer->getTable(['catalog/category', 'decimal']),
     'FK_ATTRIBUTE_DECIMAL_ENTITY'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'decimal')),
+    $installer->getTable(['catalog/category', 'decimal']),
     'FK_CATALOG_CATEGORY_ENTITY_DECIMAL_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'decimal')),
+    $installer->getTable(['catalog/category', 'decimal']),
     'FK_CATALOG_CATEGORY_ENTITY_DECIMAL_STORE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'int')),
+    $installer->getTable(['catalog/category', 'int']),
     'IDX_BASE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'int')),
+    $installer->getTable(['catalog/category', 'int']),
     'FK_ATTRIBUTE_INT_ENTITY'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'int')),
+    $installer->getTable(['catalog/category', 'int']),
     'FK_CATALOG_CATEGORY_EMTITY_INT_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'int')),
+    $installer->getTable(['catalog/category', 'int']),
     'FK_CATALOG_CATEGORY_EMTITY_INT_STORE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'text')),
+    $installer->getTable(['catalog/category', 'text']),
     'IDX_BASE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'text')),
+    $installer->getTable(['catalog/category', 'text']),
     'FK_ATTRIBUTE_TEXT_ENTITY'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'text')),
+    $installer->getTable(['catalog/category', 'text']),
     'FK_CATALOG_CATEGORY_ENTITY_TEXT_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'text')),
+    $installer->getTable(['catalog/category', 'text']),
     'FK_CATALOG_CATEGORY_ENTITY_TEXT_STORE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'varchar')),
+    $installer->getTable(['catalog/category', 'varchar']),
     'IDX_BASE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'varchar')),
+    $installer->getTable(['catalog/category', 'varchar']),
     'FK_ATTRIBUTE_VARCHAR_ENTITY'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'varchar')),
+    $installer->getTable(['catalog/category', 'varchar']),
     'FK_CATALOG_CATEGORY_ENTITY_VARCHAR_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/category', 'varchar')),
+    $installer->getTable(['catalog/category', 'varchar']),
     'FK_CATALOG_CATEGORY_ENTITY_VARCHAR_STORE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'datetime')),
+    $installer->getTable(['catalog/product', 'datetime']),
     'IDX_ATTRIBUTE_VALUE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'datetime')),
+    $installer->getTable(['catalog/product', 'datetime']),
     'FK_CATALOG_PRODUCT_ENTITY_DATETIME_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'datetime')),
+    $installer->getTable(['catalog/product', 'datetime']),
     'FK_CATALOG_PRODUCT_ENTITY_DATETIME_STORE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'datetime')),
+    $installer->getTable(['catalog/product', 'datetime']),
     'FK_CATALOG_PRODUCT_ENTITY_DATETIME_PRODUCT_ENTITY'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'decimal')),
+    $installer->getTable(['catalog/product', 'decimal']),
     'IDX_ATTRIBUTE_VALUE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'decimal')),
+    $installer->getTable(['catalog/product', 'decimal']),
     'FK_CATALOG_PRODUCT_ENTITY_DECIMAL_STORE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'decimal')),
+    $installer->getTable(['catalog/product', 'decimal']),
     'FK_CATALOG_PRODUCT_ENTITY_DECIMAL_PRODUCT_ENTITY'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'decimal')),
+    $installer->getTable(['catalog/product', 'decimal']),
     'FK_CATALOG_PRODUCT_ENTITY_DECIMAL_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'gallery')),
+    $installer->getTable(['catalog/product', 'gallery']),
     'IDX_BASE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'gallery')),
+    $installer->getTable(['catalog/product', 'gallery']),
     'FK_ATTRIBUTE_GALLERY_ENTITY'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'gallery')),
+    $installer->getTable(['catalog/product', 'gallery']),
     'FK_CATALOG_CATEGORY_ENTITY_GALLERY_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'gallery')),
+    $installer->getTable(['catalog/product', 'gallery']),
     'FK_CATALOG_CATEGORY_ENTITY_GALLERY_STORE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'int')),
+    $installer->getTable(['catalog/product', 'int']),
     'IDX_ATTRIBUTE_VALUE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'int')),
+    $installer->getTable(['catalog/product', 'int']),
     'FK_CATALOG_PRODUCT_ENTITY_INT_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'int')),
+    $installer->getTable(['catalog/product', 'int']),
     'FK_CATALOG_PRODUCT_ENTITY_INT_STORE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'int')),
+    $installer->getTable(['catalog/product', 'int']),
     'FK_CATALOG_PRODUCT_ENTITY_INT_PRODUCT_ENTITY'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'text')),
+    $installer->getTable(['catalog/product', 'text']),
     'IDX_ATTRIBUTE_VALUE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'text')),
+    $installer->getTable(['catalog/product', 'text']),
     'FK_CATALOG_PRODUCT_ENTITY_TEXT_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'text')),
+    $installer->getTable(['catalog/product', 'text']),
     'FK_CATALOG_PRODUCT_ENTITY_TEXT_STORE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'text')),
+    $installer->getTable(['catalog/product', 'text']),
     'FK_CATALOG_PRODUCT_ENTITY_TEXT_PRODUCT_ENTITY'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'varchar')),
+    $installer->getTable(['catalog/product', 'varchar']),
     'IDX_ATTRIBUTE_VALUE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'varchar')),
+    $installer->getTable(['catalog/product', 'varchar']),
     'FK_CATALOG_PRODUCT_ENTITY_VARCHAR_ATTRIBUTE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'varchar')),
+    $installer->getTable(['catalog/product', 'varchar']),
     'FK_CATALOG_PRODUCT_ENTITY_VARCHAR_STORE'
 );
 
 $installer->getConnection()->dropIndex(
-    $installer->getTable(array('catalog/product', 'varchar')),
+    $installer->getTable(['catalog/product', 'varchar']),
     'FK_CATALOG_PRODUCT_ENTITY_VARCHAR_PRODUCT_ENTITY'
 );
-
 
 /**
  * Change columns
  */
-$tables = array(
-    $installer->getTable('catalog/product') => array(
-        'columns' => array(
-            'entity_id' => array(
+$tables = [
+    $installer->getTable('catalog/product') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Entity ID'
-            ),
-            'entity_type_id' => array(
+            ],
+            'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Entity Type ID'
-            ),
-            'attribute_set_id' => array(
+            ],
+            'attribute_set_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Attribute Set ID'
-            ),
-            'type_id' => array(
+            ],
+            'type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
                 'nullable'  => false,
                 'default'   => 'simple',
                 'comment'   => 'Type ID'
-            ),
-            'sku' => array(
+            ],
+            'sku' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 64,
                 'comment'   => 'SKU'
-            ),
-            'has_options' => array(
+            ],
+            'has_options' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Has Options'
-            ),
-            'required_options' => array(
+            ],
+            'required_options' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Required Options'
-            ),
-            'created_at' => array(
+            ],
+            'created_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'Creation Time'
-            ),
-            'updated_at' => array(
+            ],
+            'updated_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'Update Time'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Table'
-    ),
-    $installer->getTable('catalog/category') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/category') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Entity ID'
-            ),
-            'entity_type_id' => array(
+            ],
+            'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Entity Type ID'
-            ),
-            'attribute_set_id' => array(
+            ],
+            'attribute_set_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Attriute Set ID'
-            ),
-            'parent_id' => array(
+            ],
+            'parent_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Parent Category ID'
-            ),
-            'created_at' => array(
+            ],
+            'created_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'Creation Time'
-            ),
-            'updated_at' => array(
+            ],
+            'updated_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'Update Time'
-            ),
-            'path' => array(
+            ],
+            'path' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
                 'comment'   => 'Tree Path'
-            ),
-            'position' => array(
+            ],
+            'position' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Position'
-            ),
-            'level' => array(
+            ],
+            'level' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Tree Level'
-            ),
-            'children_count' => array(
+            ],
+            'children_count' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Child Count'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Category Table'
-    ),
-    $installer->getTable('catalog/category_product') => array(
-        'columns' => array(
-            'category_id' => array(
+    ],
+    $installer->getTable('catalog/category_product') => [
+        'columns' => [
+            'category_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Category ID'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Product ID'
-            ),
-            'position' => array(
+            ],
+            'position' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Position'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product To Category Linkage Table'
-    ),
-    $installer->getTable('catalog/category_product_index') => array(
-        'columns' => array(
-            'category_id' => array(
+    ],
+    $installer->getTable('catalog/category_product_index') => [
+        'columns' => [
+            'category_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Category ID'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Product ID'
-            ),
-            'position' => array(
+            ],
+            'position' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'comment'   => 'Position'
-            ),
-            'is_parent' => array(
+            ],
+            'is_parent' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Parent'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Store ID'
-            ),
-            'visibility' => array(
+            ],
+            'visibility' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Visibility'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Category Product Index'
-    ),
-    $installer->getTable('catalog/compare_item') => array(
-        'columns' => array(
-            'catalog_compare_item_id' => array(
+    ],
+    $installer->getTable('catalog/compare_item') => [
+        'columns' => [
+            'catalog_compare_item_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Compare Item ID'
-            ),
-            'visitor_id' => array(
+            ],
+            'visitor_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Visitor ID'
-            ),
-            'customer_id' => array(
+            ],
+            'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'comment'   => 'Customer ID'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'comment'   => 'Store ID'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Compare Table'
-    ),
-    $installer->getTable('catalog/product_website') => array(
-        'columns' => array(
-            'product_id' => array(
+    ],
+    $installer->getTable('catalog/product_website') => [
+        'columns' => [
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Product ID'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product To Website Linkage Table'
-    ),
-    $installer->getTable('catalog/product_enabled_index') => array(
-        'columns' => array(
-            'product_id' => array(
+    ],
+    $installer->getTable('catalog/product_enabled_index') => [
+        'columns' => [
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Product ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Store ID'
-            ),
-            'visibility' => array(
+            ],
+            'visibility' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Visibility'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Visibility Index Table'
-    ),
-    $installer->getTable('catalog/product_link_type') => array(
-        'columns' => array(
-            'link_type_id' => array(
+    ],
+    $installer->getTable('catalog/product_link_type') => [
+        'columns' => [
+            'link_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Link Type ID'
-            ),
-            'code' => array(
+            ],
+            'code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
                 'nullable'  => false,
                 'comment'   => 'Code'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Link Type Table'
-    ),
-    $installer->getTable('catalog/product_link') => array(
-        'columns' => array(
-            'link_id' => array(
+    ],
+    $installer->getTable('catalog/product_link') => [
+        'columns' => [
+            'link_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Link ID'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product ID'
-            ),
-            'linked_product_id' => array(
+            ],
+            'linked_product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Linked Product ID'
-            ),
-            'link_type_id' => array(
+            ],
+            'link_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Link Type ID'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product To Product Linkage Table'
-    ),
-    $installer->getTable('catalog/product_link_attribute') => array(
-        'columns' => array(
-            'product_link_attribute_id' => array(
+    ],
+    $installer->getTable('catalog/product_link_attribute') => [
+        'columns' => [
+            'product_link_attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Product Link Attribute ID'
-            ),
-            'link_type_id' => array(
+            ],
+            'link_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Link Type ID'
-            ),
-            'product_link_attribute_code' => array(
+            ],
+            'product_link_attribute_code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
                 'nullable'  => false,
                 'comment'   => 'Product Link Attribute Code'
-            ),
-            'data_type' => array(
+            ],
+            'data_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
                 'nullable'  => false,
                 'comment'   => 'Data Type'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Link Attribute Table'
-    ),
-    $installer->getTable('catalog/product_link_attribute_decimal') => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable('catalog/product_link_attribute_decimal') => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'product_link_attribute_id' => array(
+            ],
+            'product_link_attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'comment'   => 'Product Link Attribute ID'
-            ),
-            'link_id' => array(
+            ],
+            'link_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Link ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Link Decimal Attribute Table'
-    ),
-    $installer->getTable('catalog/product_link_attribute_int') => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable('catalog/product_link_attribute_int') => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'product_link_attribute_id' => array(
+            ],
+            'product_link_attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'comment'   => 'Product Link Attribute ID'
-            ),
-            'link_id' => array(
+            ],
+            'link_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Link ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Link Integer Attribute Table'
-    ),
-    $installer->getTable('catalog/product_link_attribute_varchar') => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable('catalog/product_link_attribute_varchar') => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'product_link_attribute_id' => array(
+            ],
+            'product_link_attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product Link Attribute ID'
-            ),
-            'link_id' => array(
+            ],
+            'link_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Link ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Link Varchar Attribute Table'
-    ),
-    $installer->getTable('catalog/product_super_attribute') => array(
-        'columns' => array(
-            'product_super_attribute_id' => array(
+    ],
+    $installer->getTable('catalog/product_super_attribute') => [
+        'columns' => [
+            'product_super_attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Product Super Attribute ID'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Attribute ID'
-            ),
-            'position' => array(
+            ],
+            'position' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Position'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Super Attribute Table'
-    ),
-    $installer->getTable('catalog/product_super_attribute_label') => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable('catalog/product_super_attribute_label') => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'product_super_attribute_id' => array(
+            ],
+            'product_super_attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product Super Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Store ID'
-            ),
-            'use_default' => array(
+            ],
+            'use_default' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'default'   => '0',
                 'comment'   => 'Use Default Value'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Super Attribute Label Table'
-    ),
-    $installer->getTable('catalog/product_super_attribute_pricing') => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable('catalog/product_super_attribute_pricing') => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'product_super_attribute_id' => array(
+            ],
+            'product_super_attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product Super Attribute ID'
-            ),
-            'value_index' => array(
+            ],
+            'value_index' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
                 'comment'   => 'Value Index'
-            ),
-            'is_percent' => array(
+            ],
+            'is_percent' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'default'   => '0',
                 'comment'   => 'Is Percent'
-            ),
-            'pricing_value' => array(
+            ],
+            'pricing_value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Pricing Value'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Super Attribute Pricing Table'
-    ),
-    $installer->getTable('catalog/product_super_link') => array(
-        'columns' => array(
-            'link_id' => array(
+    ],
+    $installer->getTable('catalog/product_super_link') => [
+        'columns' => [
+            'link_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Link ID'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product ID'
-            ),
-            'parent_id' => array(
+            ],
+            'parent_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Parent ID'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Super Link Table'
-    ),
-    $installer->getTable('catalog/product_attribute_tier_price') => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable('catalog/product_attribute_tier_price') => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'entity_id' => array(
+            ],
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'all_groups' => array(
+            ],
+            'all_groups' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
                 'comment'   => 'Is Applicable To All Customer Groups'
-            ),
-            'customer_group_id' => array(
+            ],
+            'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Customer Group ID'
-            ),
-            'qty' => array(
+            ],
+            'qty' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '1.0000',
                 'comment'   => 'QTY'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
                 'comment'   => 'Value'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Tier Price Attribute Backend Table'
-    ),
-    $installer->getTable('catalog/product_attribute_media_gallery') => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable('catalog/product_attribute_media_gallery') => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Attribute ID'
-            ),
-            'entity_id' => array(
+            ],
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Media Gallery Attribute Backend Table'
-    ),
-    $installer->getTable('catalog/product_attribute_media_gallery_value') => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable('catalog/product_attribute_media_gallery_value') => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Value ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Store ID'
-            ),
-            'label' => array(
+            ],
+            'label' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Label'
-            ),
-            'position' => array(
+            ],
+            'position' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'comment'   => 'Position'
-            ),
-            'disabled' => array(
+            ],
+            'disabled' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Disabled'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Media Gallery Attribute Value Table'
-    ),
-    $installer->getTable('catalog/product_option') => array(
-        'columns' => array(
-            'option_id' => array(
+    ],
+    $installer->getTable('catalog/product_option') => [
+        'columns' => [
+            'option_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Option ID'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product ID'
-            ),
-            'type' => array(
+            ],
+            'type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 50,
                 'nullable'  => false,
                 'comment'   => 'Type'
-            ),
-            'is_require' => array(
+            ],
+            'is_require' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '1',
                 'comment'   => 'Is Required'
-            ),
-            'sku' => array(
+            ],
+            'sku' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 64,
                 'comment'   => 'SKU'
-            ),
-            'max_characters' => array(
+            ],
+            'max_characters' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'comment'   => 'Max Characters'
-            ),
-            'file_extension' => array(
+            ],
+            'file_extension' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 50,
                 'comment'   => 'File Extension'
-            ),
-            'image_size_x' => array(
+            ],
+            'image_size_x' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'comment'   => 'Image Size X'
-            ),
-            'image_size_y' => array(
+            ],
+            'image_size_y' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'comment'   => 'Image Size Y'
-            ),
-            'sort_order' => array(
+            ],
+            'sort_order' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Sort Order'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Option Table'
-    ),
-    $installer->getTable('catalog/product_option_price') => array(
-        'columns' => array(
-            'option_price_id' => array(
+    ],
+    $installer->getTable('catalog/product_option_price') => [
+        'columns' => [
+            'option_price_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Option Price ID'
-            ),
-            'option_id' => array(
+            ],
+            'option_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Option ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Store ID'
-            ),
-            'price' => array(
+            ],
+            'price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
                 'comment'   => 'Price'
-            ),
-            'price_type' => array(
+            ],
+            'price_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 7,
                 'nullable'  => false,
                 'default'   => 'fixed',
                 'comment'   => 'Price Type'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Option Price Table'
-    ),
-    $installer->getTable('catalog/product_option_title') => array(
-        'columns' => array(
-            'option_title_id' => array(
+    ],
+    $installer->getTable('catalog/product_option_title') => [
+        'columns' => [
+            'option_title_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Option Title ID'
-            ),
-            'option_id' => array(
+            ],
+            'option_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Option ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Store ID'
-            ),
-            'title' => array(
+            ],
+            'title' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
                 'comment'   => 'Title'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Option Title Table'
-    ),
-    $installer->getTable('catalog/product_option_type_value') => array(
-        'columns' => array(
-            'option_type_id' => array(
+    ],
+    $installer->getTable('catalog/product_option_type_value') => [
+        'columns' => [
+            'option_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Option Type ID'
-            ),
-            'option_id' => array(
+            ],
+            'option_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Option ID'
-            ),
-            'sku' => array(
+            ],
+            'sku' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 64,
                 'comment'   => 'SKU'
-            ),
-            'sort_order' => array(
+            ],
+            'sort_order' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Sort Order'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Option Type Value Table'
-    ),
-    $installer->getTable('catalog/product_option_type_price') => array(
-        'columns' => array(
-            'option_type_price_id' => array(
+    ],
+    $installer->getTable('catalog/product_option_type_price') => [
+        'columns' => [
+            'option_type_price_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Option Type Price ID'
-            ),
-            'option_type_id' => array(
+            ],
+            'option_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Option Type ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Store ID'
-            ),
-            'price' => array(
+            ],
+            'price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
                 'comment'   => 'Price'
-            ),
-            'price_type' => array(
+            ],
+            'price_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 7,
                 'nullable'  => false,
                 'default'   => 'fixed',
                 'comment'   => 'Price Type'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Option Type Price Table'
-    ),
-    $installer->getTable('catalog/product_option_type_title') => array(
-        'columns' => array(
-            'option_type_title_id' => array(
+    ],
+    $installer->getTable('catalog/product_option_type_title') => [
+        'columns' => [
+            'option_type_title_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Option Type Title ID'
-            ),
-            'option_type_id' => array(
+            ],
+            'option_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Option Type ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Store ID'
-            ),
-            'title' => array(
+            ],
+            'title' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
                 'comment'   => 'Title'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Option Type Title Table'
-    ),
-    $installer->getTable('catalog/eav_attribute') => array(
-        'columns' => array(
-            'attribute_id' => array(
+    ],
+    $installer->getTable('catalog/eav_attribute') => [
+        'columns' => [
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Attribute ID'
-            ),
-            'frontend_input_renderer' => array(
+            ],
+            'frontend_input_renderer' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Frontend Input Renderer'
-            ),
-            'is_global' => array(
+            ],
+            'is_global' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
                 'comment'   => 'Is Global'
-            ),
-            'is_visible' => array(
+            ],
+            'is_visible' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
                 'comment'   => 'Is Visible'
-            ),
-            'is_searchable' => array(
+            ],
+            'is_searchable' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Searchable'
-            ),
-            'is_filterable' => array(
+            ],
+            'is_filterable' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Filterable'
-            ),
-            'is_comparable' => array(
+            ],
+            'is_comparable' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Comparable'
-            ),
-            'is_visible_on_front' => array(
+            ],
+            'is_visible_on_front' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Visible On Front'
-            ),
-            'is_html_allowed_on_front' => array(
+            ],
+            'is_html_allowed_on_front' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is HTML Allowed On Front'
-            ),
-            'is_used_for_price_rules' => array(
+            ],
+            'is_used_for_price_rules' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Used For Price Rules'
-            ),
-            'is_filterable_in_search' => array(
+            ],
+            'is_filterable_in_search' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Filterable In Search'
-            ),
-            'used_in_product_listing' => array(
+            ],
+            'used_in_product_listing' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Used In Product Listing'
-            ),
-            'used_for_sort_by' => array(
+            ],
+            'used_for_sort_by' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Used For Sorting'
-            ),
-            'is_configurable' => array(
+            ],
+            'is_configurable' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
                 'comment'   => 'Is Configurable'
-            ),
-            'apply_to' => array(
+            ],
+            'apply_to' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Apply To'
-            ),
-            'is_visible_in_advanced_search' => array(
+            ],
+            'is_visible_in_advanced_search' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Visible In Advanced Search'
-            ),
-            'position' => array(
+            ],
+            'position' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Position'
-            ),
-            'is_wysiwyg_enabled' => array(
+            ],
+            'is_wysiwyg_enabled' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is WYSIWYG Enabled'
-            ),
-            'is_used_for_promo_rules' => array(
+            ],
+            'is_used_for_promo_rules' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Used For Promo Rules'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog EAV Attribute Table'
-    ),
-    $installer->getTable('catalog/product_relation') => array(
-        'columns' => array(
-            'parent_id' => array(
+    ],
+    $installer->getTable('catalog/product_relation') => [
+        'columns' => [
+            'parent_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Parent ID'
-            ),
-            'child_id' => array(
+            ],
+            'child_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Child ID'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Relation Table'
-    ),
-    $installer->getTable('catalog/product_index_eav') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_index_eav') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Store ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product EAV Index Table'
-    ),
-    $installer->getTable('catalog/product_index_eav_decimal') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_index_eav_decimal') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Store ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
@@ -2530,773 +2522,773 @@ $tables = array(
                 'primary'   => true,
                 'default'   => '0.0000',
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product EAV Decimal Index Table'
-    ),
-    $installer->getTable('catalog/product_index_price') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_index_price') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'customer_group_id' => array(
+            ],
+            'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Customer Group ID'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            ),
-            'tax_class_id' => array(
+            ],
+            'tax_class_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'default'   => '0',
                 'comment'   => 'Tax Class ID'
-            ),
-            'price' => array(
+            ],
+            'price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Price'
-            ),
-            'final_price' => array(
+            ],
+            'final_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Final Price'
-            ),
-            'min_price' => array(
+            ],
+            'min_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Min Price'
-            ),
-            'max_price' => array(
+            ],
+            'max_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Max Price'
-            ),
-            'tier_price' => array(
+            ],
+            'tier_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Tier Price'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Price Index Table'
-    ),
-    $installer->getTable('catalog/product_index_tier_price') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_index_tier_price') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'customer_group_id' => array(
+            ],
+            'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Customer Group ID'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            ),
-            'min_price' => array(
+            ],
+            'min_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Min Price'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Tier Price Index Table'
-    ),
-    $installer->getTable('catalog/product_index_website') => array(
-        'columns' => array(
-            'website_id' => array(
+    ],
+    $installer->getTable('catalog/product_index_website') => [
+        'columns' => [
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            ),
-            'rate' => array(
+            ],
+            'rate' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_FLOAT,
                 'default'   => '1',
                 'comment'   => 'Rate'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Website Index Table'
-    ),
-    $installer->getTable('catalog/product_price_indexer_cfg_option_aggregate_idx') => array(
-        'columns' => array(
-            'parent_id' => array(
+    ],
+    $installer->getTable('catalog/product_price_indexer_cfg_option_aggregate_idx') => [
+        'columns' => [
+            'parent_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Parent ID'
-            ),
-            'child_id' => array(
+            ],
+            'child_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Child ID'
-            ),
-            'customer_group_id' => array(
+            ],
+            'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Customer Group ID'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            ),
-            'price' => array(
+            ],
+            'price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Price'
-            ),
-            'tier_price' => array(
+            ],
+            'tier_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Tier Price'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Price Indexer Config Option Aggregate Index '
-    ),
-    $installer->getTable('catalog/product_price_indexer_cfg_option_aggregate_tmp') => array(
-        'columns' => array(
-            'parent_id' => array(
+    ],
+    $installer->getTable('catalog/product_price_indexer_cfg_option_aggregate_tmp') => [
+        'columns' => [
+            'parent_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Parent ID'
-            ),
-            'child_id' => array(
+            ],
+            'child_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Child ID'
-            ),
-            'customer_group_id' => array(
+            ],
+            'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Customer Group ID'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            ),
-            'price' => array(
+            ],
+            'price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Price'
-            ),
-            'tier_price' => array(
+            ],
+            'tier_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Tier Price'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Price Indexer Config Option Aggregate Temp Table',
         'engine'  => 'InnoDB'
-    ),
-    $installer->getTable('catalog/product_price_indexer_cfg_option_idx') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_price_indexer_cfg_option_idx') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'customer_group_id' => array(
+            ],
+            'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Customer Group ID'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            ),
-            'min_price' => array(
+            ],
+            'min_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Min Price'
-            ),
-            'max_price' => array(
+            ],
+            'max_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Max Price'
-            ),
-            'tier_price' => array(
+            ],
+            'tier_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Tier Price'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Price Indexer Config Option Index Table'
-    ),
-    $installer->getTable('catalog/product_price_indexer_cfg_option_tmp') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_price_indexer_cfg_option_tmp') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'customer_group_id' => array(
+            ],
+            'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Customer Group ID'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            ),
-            'min_price' => array(
+            ],
+            'min_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Min Price'
-            ),
-            'max_price' => array(
+            ],
+            'max_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Max Price'
-            ),
-            'tier_price' => array(
+            ],
+            'tier_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Tier Price'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Price Indexer Config Option Temp Table',
         'engine'  => 'InnoDB'
-    ),
-    $installer->getTable('catalog/product_price_indexer_final_idx') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_price_indexer_final_idx') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'customer_group_id' => array(
+            ],
+            'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Customer Group ID'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            ),
-            'tax_class_id' => array(
+            ],
+            'tax_class_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'default'   => '0',
                 'comment'   => 'Tax Class ID'
-            ),
-            'orig_price' => array(
+            ],
+            'orig_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Original Price'
-            ),
-            'price' => array(
+            ],
+            'price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Price'
-            ),
-            'min_price' => array(
+            ],
+            'min_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Min Price'
-            ),
-            'max_price' => array(
+            ],
+            'max_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Max Price'
-            ),
-            'tier_price' => array(
+            ],
+            'tier_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Tier Price'
-            ),
-            'base_tier' => array(
+            ],
+            'base_tier' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Base Tier'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Price Indexer Final Index Table'
-    ),
-    $installer->getTable('catalog/product_price_indexer_final_tmp') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_price_indexer_final_tmp') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'customer_group_id' => array(
+            ],
+            'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Customer Group ID'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            ),
-            'tax_class_id' => array(
+            ],
+            'tax_class_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'default'   => '0',
                 'comment'   => 'Tax Class ID'
-            ),
-            'orig_price' => array(
+            ],
+            'orig_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Original Price'
-            ),
-            'price' => array(
+            ],
+            'price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Price'
-            ),
-            'min_price' => array(
+            ],
+            'min_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Min Price'
-            ),
-            'max_price' => array(
+            ],
+            'max_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Max Price'
-            ),
-            'tier_price' => array(
+            ],
+            'tier_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Tier Price'
-            ),
-            'base_tier' => array(
+            ],
+            'base_tier' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Base Tier'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Price Indexer Final Temp Table',
         'engine'  => 'InnoDB'
-    ),
-    $installer->getTable('catalog/product_price_indexer_option_idx') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_price_indexer_option_idx') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'customer_group_id' => array(
+            ],
+            'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Customer Group ID'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            ),
-            'min_price' => array(
+            ],
+            'min_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Min Price'
-            ),
-            'max_price' => array(
+            ],
+            'max_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Max Price'
-            ),
-            'tier_price' => array(
+            ],
+            'tier_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Tier Price'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Price Indexer Option Index Table'
-    ),
-    $installer->getTable('catalog/product_price_indexer_option_tmp') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_price_indexer_option_tmp') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'customer_group_id' => array(
+            ],
+            'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Customer Group ID'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            ),
-            'min_price' => array(
+            ],
+            'min_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Min Price'
-            ),
-            'max_price' => array(
+            ],
+            'max_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Max Price'
-            ),
-            'tier_price' => array(
+            ],
+            'tier_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Tier Price'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Price Indexer Option Temp Table',
         'engine'  => 'InnoDB'
-    ),
-    $installer->getTable('catalog/product_price_indexer_option_aggregate_idx') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_price_indexer_option_aggregate_idx') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'customer_group_id' => array(
+            ],
+            'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Customer Group ID'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            ),
-            'option_id' => array(
+            ],
+            'option_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Option ID'
-            ),
-            'min_price' => array(
+            ],
+            'min_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Min Price'
-            ),
-            'max_price' => array(
+            ],
+            'max_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Max Price'
-            ),
-            'tier_price' => array(
+            ],
+            'tier_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Tier Price'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Price Indexer Option Aggregate Index Table'
-    ),
-    $installer->getTable('catalog/product_price_indexer_option_aggregate_tmp') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_price_indexer_option_aggregate_tmp') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'customer_group_id' => array(
+            ],
+            'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Customer Group ID'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            ),
-            'option_id' => array(
+            ],
+            'option_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Option ID'
-            ),
-            'min_price' => array(
+            ],
+            'min_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Min Price'
-            ),
-            'max_price' => array(
+            ],
+            'max_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Max Price'
-            ),
-            'tier_price' => array(
+            ],
+            'tier_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Tier Price'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Price Indexer Option Aggregate Temp Table',
         'engine'  => 'InnoDB'
-    ),
-    $installer->getTable('catalog/product_eav_indexer_idx') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_eav_indexer_idx') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Store ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product EAV Indexer Index Table'
-    ),
-    $installer->getTable('catalog/product_eav_indexer_tmp') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_eav_indexer_tmp') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Store ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product EAV Indexer Temp Table',
         'engine'  => 'InnoDB'
-    ),
-    $installer->getTable('catalog/product_eav_decimal_indexer_idx') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_eav_decimal_indexer_idx') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Store ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
@@ -3304,37 +3296,37 @@ $tables = array(
                 'primary'   => true,
                 'default'   => '0.0000',
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product EAV Decimal Indexer Index Table'
-    ),
-    $installer->getTable('catalog/product_eav_decimal_indexer_tmp') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_eav_decimal_indexer_tmp') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Store ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
@@ -3342,827 +3334,827 @@ $tables = array(
                 'primary'   => true,
                 'default'   => '0.0000',
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product EAV Decimal Indexer Temp Table',
         'engine'  => 'InnoDB'
-    ),
-    $installer->getTable('catalog/product_price_indexer_idx') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_price_indexer_idx') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'customer_group_id' => array(
+            ],
+            'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Customer Group ID'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            ),
-            'tax_class_id' => array(
+            ],
+            'tax_class_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'default'   => '0',
                 'comment'   => 'Tax Class ID'
-            ),
-            'price' => array(
+            ],
+            'price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Price'
-            ),
-            'final_price' => array(
+            ],
+            'final_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Final Price'
-            ),
-            'min_price' => array(
+            ],
+            'min_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Min Price'
-            ),
-            'max_price' => array(
+            ],
+            'max_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Max Price'
-            ),
-            'tier_price' => array(
+            ],
+            'tier_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Tier Price'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Price Indexer Index Table'
-    ),
-    $installer->getTable('catalog/product_price_indexer_tmp') => array(
-        'columns' => array(
-            'entity_id' => array(
+    ],
+    $installer->getTable('catalog/product_price_indexer_tmp') => [
+        'columns' => [
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Entity ID'
-            ),
-            'customer_group_id' => array(
+            ],
+            'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Customer Group ID'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            ),
-            'tax_class_id' => array(
+            ],
+            'tax_class_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'default'   => '0',
                 'comment'   => 'Tax Class ID'
-            ),
-            'price' => array(
+            ],
+            'price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Price'
-            ),
-            'final_price' => array(
+            ],
+            'final_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Final Price'
-            ),
-            'min_price' => array(
+            ],
+            'min_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Min Price'
-            ),
-            'max_price' => array(
+            ],
+            'max_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Max Price'
-            ),
-            'tier_price' => array(
+            ],
+            'tier_price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Tier Price'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Price Indexer Temp Table',
         'engine'  => 'InnoDB'
-    ),
-    $installer->getTable('catalog/category_product_indexer_idx') => array(
-        'columns' => array(
-            'category_id' => array(
+    ],
+    $installer->getTable('catalog/category_product_indexer_idx') => [
+        'columns' => [
+            'category_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Category ID'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product ID'
-            ),
-            'position' => array(
+            ],
+            'position' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Position'
-            ),
-            'is_parent' => array(
+            ],
+            'is_parent' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Parent'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Store ID'
-            ),
-            'visibility' => array(
+            ],
+            'visibility' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Visibility'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Category Product Indexer Index Table'
-    ),
-    $installer->getTable('catalog/category_product_indexer_tmp') => array(
-        'columns' => array(
-            'category_id' => array(
+    ],
+    $installer->getTable('catalog/category_product_indexer_tmp') => [
+        'columns' => [
+            'category_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Category ID'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product ID'
-            ),
-            'position' => array(
+            ],
+            'position' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Position'
-            ),
-            'is_parent' => array(
+            ],
+            'is_parent' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Parent'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Store ID'
-            ),
-            'visibility' => array(
+            ],
+            'visibility' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Visibility'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Category Product Indexer Temp Table',
         'engine'  => 'InnoDB'
-    ),
-    $installer->getTable('catalog/category_product_enabled_indexer_idx') => array(
-        'columns' => array(
-            'product_id' => array(
+    ],
+    $installer->getTable('catalog/category_product_enabled_indexer_idx') => [
+        'columns' => [
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product ID'
-            ),
-            'visibility' => array(
+            ],
+            'visibility' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Visibility'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Category Product Enabled Indexer Index Table'
-    ),
-    $installer->getTable('catalog/category_product_enabled_indexer_tmp') => array(
-        'columns' => array(
-            'product_id' => array(
+    ],
+    $installer->getTable('catalog/category_product_enabled_indexer_tmp') => [
+        'columns' => [
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product ID'
-            ),
-            'visibility' => array(
+            ],
+            'visibility' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Visibility'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Category Product Enabled Indexer Temp Table',
         'engine'  => 'InnoDB'
-    ),
-    $installer->getTable('catalog/category_anchor_indexer_idx') => array(
-        'columns' => array(
-            'category_id' => array(
+    ],
+    $installer->getTable('catalog/category_anchor_indexer_idx') => [
+        'columns' => [
+            'category_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Category ID'
-            ),
-            'path' => array(
+            ],
+            'path' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
                 'comment'   => 'Path'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Category Anchor Indexer Index Table'
-    ),
-    $installer->getTable('catalog/category_anchor_indexer_tmp') => array(
-        'columns' => array(
-            'category_id' => array(
+    ],
+    $installer->getTable('catalog/category_anchor_indexer_tmp') => [
+        'columns' => [
+            'category_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Category ID'
-            ),
-            'path' => array(
+            ],
+            'path' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
                 'comment'   => 'Path'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Category Anchor Indexer Temp Table',
         'engine'  => 'InnoDB'
-    ),
-    $installer->getTable('catalog/category_anchor_products_indexer_idx') => array(
-        'columns' => array(
-            'category_id' => array(
+    ],
+    $installer->getTable('catalog/category_anchor_products_indexer_idx') => [
+        'columns' => [
+            'category_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Category ID'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product ID'
-            ),
-            'position' => array(
+            ],
+            'position' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'comment'   => 'Position'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Category Anchor Product Indexer Index Table'
-    ),
-    $installer->getTable('catalog/category_anchor_products_indexer_tmp') => array(
-        'columns' => array(
-            'category_id' => array(
+    ],
+    $installer->getTable('catalog/category_anchor_products_indexer_tmp') => [
+        'columns' => [
+            'category_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Category ID'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product ID'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Category Anchor Product Indexer Temp Table',
         'engine'  => 'InnoDB'
-    ),
-    $installer->getTable(array('catalog/product','datetime')) => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable(['catalog/product','datetime']) => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'entity_type_id' => array(
+            ],
+            'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity Type ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Store ID'
-            ),
-            'entity_id' => array(
+            ],
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DATETIME,
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Datetime Attribute Backend Table'
-    ),
-    $installer->getTable(array('catalog/product','decimal')) => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable(['catalog/product','decimal']) => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'entity_type_id' => array(
+            ],
+            'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity Type ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Store ID'
-            ),
-            'entity_id' => array(
+            ],
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Decimal Attribute Backend Table'
-    ),
-    $installer->getTable(array('catalog/product','int')) => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable(['catalog/product','int']) => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'entity_type_id' => array(
+            ],
+            'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity Type ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Store ID'
-            ),
-            'entity_id' => array(
+            ],
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Integer Attribute Backend Table'
-    ),
-    $installer->getTable(array('catalog/product','text')) => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable(['catalog/product','text']) => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'entity_type_id' => array(
+            ],
+            'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity Type ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Store ID'
-            ),
-            'entity_id' => array(
+            ],
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Text Attribute Backend Table'
-    ),
-    $installer->getTable(array('catalog/product','varchar')) => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable(['catalog/product','varchar']) => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'entity_type_id' => array(
+            ],
+            'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity Type ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Store ID'
-            ),
-            'entity_id' => array(
+            ],
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Varchar Attribute Backend Table'
-    ),
-    $installer->getTable(array('catalog/product','gallery')) => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable(['catalog/product','gallery']) => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'entity_type_id' => array(
+            ],
+            'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity Type ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Store ID'
-            ),
-            'entity_id' => array(
+            ],
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity ID'
-            ),
-            'position' => array(
+            ],
+            'position' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'comment'   => 'Position'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Product Gallery Attribute Backend Table'
-    ),
-    $installer->getTable(array('catalog/category','datetime')) => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable(['catalog/category','datetime']) => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'entity_type_id' => array(
+            ],
+            'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity Type ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Store ID'
-            ),
-            'entity_id' => array(
+            ],
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DATETIME,
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Category Datetime Attribute Backend Table'
-    ),
-    $installer->getTable(array('catalog/category','decimal')) => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable(['catalog/category','decimal']) => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'entity_type_id' => array(
+            ],
+            'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity Type ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Store ID'
-            ),
-            'entity_id' => array(
+            ],
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Category Decimal Attribute Backend Table'
-    ),
-    $installer->getTable(array('catalog/category','int')) => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable(['catalog/category','int']) => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'entity_type_id' => array(
+            ],
+            'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity Type ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Store ID'
-            ),
-            'entity_id' => array(
+            ],
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Category Integer Attribute Backend Table'
-    ),
-    $installer->getTable(array('catalog/category','text')) => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable(['catalog/category','text']) => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'entity_type_id' => array(
+            ],
+            'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity Type ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Store ID'
-            ),
-            'entity_id' => array(
+            ],
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Category Text Attribute Backend Table'
-    ),
-    $installer->getTable(array('catalog/category','varchar')) => array(
-        'columns' => array(
-            'value_id' => array(
+    ],
+    $installer->getTable(['catalog/category','varchar']) => [
+        'columns' => [
+            'value_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Value ID'
-            ),
-            'entity_type_id' => array(
+            ],
+            'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity Type ID'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Attribute ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Store ID'
-            ),
-            'entity_id' => array(
+            ],
+            'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Entity ID'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Value'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Catalog Category Varchar Attribute Backend Table'
-    ),
-    $installer->getTable('core/url_rewrite') => array(
-        'columns' => array(
-            'category_id' => array(
+    ],
+    $installer->getTable('core/url_rewrite') => [
+        'columns' => [
+            'category_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => true,
                 'comment'   => 'Category Id'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => true,
                 'comment'   => 'Product Id'
-            )
-        )
-    )
-);
+            ]
+        ]
+    ]
+];
 
 $installer->getConnection()->modifyTables($tables);
 
@@ -4170,10 +4162,10 @@ $installer->getConnection()->changeColumn(
     $installer->getTable('catalog/product_index_website'),
     'date',
     'website_date',
-    array(
+    [
         'type'      => Varien_Db_Ddl_Table::TYPE_DATE,
         'comment'   => 'Website Date'
-    )
+    ]
 );
 
 /**
@@ -4181,39 +4173,39 @@ $installer->getConnection()->changeColumn(
  */
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/category_anchor_indexer_idx'),
-    $installer->getIdxName('catalog/category_anchor_indexer_idx', array('category_id')),
-    array('category_id')
+    $installer->getIdxName('catalog/category_anchor_indexer_idx', ['category_id']),
+    ['category_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/category_anchor_indexer_tmp'),
-    $installer->getIdxName('catalog/category_anchor_indexer_tmp', array('category_id')),
-    array('category_id')
+    $installer->getIdxName('catalog/category_anchor_indexer_tmp', ['category_id']),
+    ['category_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/category'),
-    $installer->getIdxName('catalog/category', array('level')),
-    array('level')
+    $installer->getIdxName('catalog/category', ['level']),
+    ['level']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/category_product'),
     'PRIMARY',
-    array('category_id', 'product_id'),
+    ['category_id', 'product_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/category_product'),
-    $installer->getIdxName('catalog/category_product', array('product_id')),
-    array('product_id')
+    $installer->getIdxName('catalog/category_product', ['product_id']),
+    ['product_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/category_product_index'),
     'PRIMARY',
-    array('category_id', 'product_id', 'store_id'),
+    ['category_id', 'product_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY
 );
 
@@ -4221,1007 +4213,1006 @@ $installer->getConnection()->addIndex(
     $installer->getTable('catalog/category_product_index'),
     $installer->getIdxName(
         'catalog/category_product_index',
-        array('product_id', 'store_id', 'category_id', 'visibility')
+        ['product_id', 'store_id', 'category_id', 'visibility']
     ),
-    array('product_id', 'store_id', 'category_id', 'visibility')
+    ['product_id', 'store_id', 'category_id', 'visibility']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/category_product_index'),
     $installer->getIdxName(
         'catalog/category_product_index',
-        array('store_id', 'category_id', 'visibility', 'is_parent', 'position')
+        ['store_id', 'category_id', 'visibility', 'is_parent', 'position']
     ),
-    array('store_id', 'category_id', 'visibility', 'is_parent', 'position')
+    ['store_id', 'category_id', 'visibility', 'is_parent', 'position']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/category_product_index'),
     $installer->getIdxName(
         'catalog/category_product_index',
-        array('product_id', 'store_id', 'category_id', 'visibility')
+        ['product_id', 'store_id', 'category_id', 'visibility']
     ),
-    array('product_id', 'store_id', 'category_id', 'visibility')
+    ['product_id', 'store_id', 'category_id', 'visibility']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/category_product_enabled_indexer_idx'),
-    $installer->getIdxName('catalog/category_product_enabled_indexer_idx', array('product_id')),
-    array('product_id')
+    $installer->getIdxName('catalog/category_product_enabled_indexer_idx', ['product_id']),
+    ['product_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/category_product_enabled_indexer_tmp'),
-    $installer->getIdxName('catalog/category_product_enabled_indexer_tmp', array('product_id')),
-    array('product_id')
+    $installer->getIdxName('catalog/category_product_enabled_indexer_tmp', ['product_id']),
+    ['product_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/category_product_indexer_idx'),
-    $installer->getIdxName('catalog/category_product_indexer_idx', array('product_id', 'category_id', 'store_id')),
-    array('product_id', 'category_id', 'store_id')
+    $installer->getIdxName('catalog/category_product_indexer_idx', ['product_id', 'category_id', 'store_id']),
+    ['product_id', 'category_id', 'store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/compare_item'),
-    $installer->getIdxName('catalog/compare_item', array('customer_id')),
-    array('customer_id')
+    $installer->getIdxName('catalog/compare_item', ['customer_id']),
+    ['customer_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/compare_item'),
-    $installer->getIdxName('catalog/compare_item', array('product_id')),
-    array('product_id')
+    $installer->getIdxName('catalog/compare_item', ['product_id']),
+    ['product_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/compare_item'),
-    $installer->getIdxName('catalog/compare_item', array('visitor_id', 'product_id')),
-    array('visitor_id', 'product_id')
+    $installer->getIdxName('catalog/compare_item', ['visitor_id', 'product_id']),
+    ['visitor_id', 'product_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/compare_item'),
-    $installer->getIdxName('catalog/compare_item', array('customer_id', 'product_id')),
-    array('customer_id', 'product_id')
+    $installer->getIdxName('catalog/compare_item', ['customer_id', 'product_id']),
+    ['customer_id', 'product_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/compare_item'),
-    $installer->getIdxName('catalog/compare_item', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('catalog/compare_item', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/eav_attribute'),
-    $installer->getIdxName('catalog/eav_attribute', array('used_for_sort_by')),
-    array('used_for_sort_by')
+    $installer->getIdxName('catalog/eav_attribute', ['used_for_sort_by']),
+    ['used_for_sort_by']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/eav_attribute'),
-    $installer->getIdxName('catalog/eav_attribute', array('used_in_product_listing')),
-    array('used_in_product_listing')
+    $installer->getIdxName('catalog/eav_attribute', ['used_in_product_listing']),
+    ['used_in_product_listing']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_enabled_index'),
-    $installer->getIdxName('catalog/product_enabled_index', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('catalog/product_enabled_index', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_enabled_index'),
     'PRIMARY',
-    array('product_id', 'store_id'),
+    ['product_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product'),
-    $installer->getIdxName('catalog/product', array('entity_type_id')),
-    array('entity_type_id')
+    $installer->getIdxName('catalog/product', ['entity_type_id']),
+    ['entity_type_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product'),
-    $installer->getIdxName('catalog/product', array('attribute_set_id')),
-    array('attribute_set_id')
+    $installer->getIdxName('catalog/product', ['attribute_set_id']),
+    ['attribute_set_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product'),
-    $installer->getIdxName('catalog/product', array('sku')),
-    array('sku')
+    $installer->getIdxName('catalog/product', ['sku']),
+    ['sku']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_attribute_media_gallery'),
-    $installer->getIdxName('catalog/product_attribute_media_gallery', array('attribute_id')),
-    array('attribute_id')
+    $installer->getIdxName('catalog/product_attribute_media_gallery', ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_attribute_media_gallery'),
-    $installer->getIdxName('catalog/product_attribute_media_gallery', array('entity_id')),
-    array('entity_id')
+    $installer->getIdxName('catalog/product_attribute_media_gallery', ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_attribute_media_gallery_value'),
-    $installer->getIdxName('catalog/product_attribute_media_gallery_value', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('catalog/product_attribute_media_gallery_value', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_attribute_tier_price'),
     $installer->getIdxName(
         'catalog/product_attribute_tier_price',
-        array('entity_id', 'all_groups', 'customer_group_id', 'qty', 'website_id')
+        ['entity_id', 'all_groups', 'customer_group_id', 'qty', 'website_id']
     ),
-    array('entity_id', 'all_groups', 'customer_group_id', 'qty', 'website_id'),
+    ['entity_id', 'all_groups', 'customer_group_id', 'qty', 'website_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_attribute_tier_price'),
-    $installer->getIdxName('catalog/product_attribute_tier_price', array('entity_id')),
-    array('entity_id')
+    $installer->getIdxName('catalog/product_attribute_tier_price', ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_attribute_tier_price'),
-    $installer->getIdxName('catalog/product_attribute_tier_price', array('customer_group_id')),
-    array('customer_group_id')
+    $installer->getIdxName('catalog/product_attribute_tier_price', ['customer_group_id']),
+    ['customer_group_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_attribute_tier_price'),
-    $installer->getIdxName('catalog/product_attribute_tier_price', array('website_id')),
-    array('website_id')
+    $installer->getIdxName('catalog/product_attribute_tier_price', ['website_id']),
+    ['website_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_index_eav'),
-    $installer->getIdxName('catalog/product_index_eav', array('entity_id')),
-    array('entity_id')
+    $installer->getIdxName('catalog/product_index_eav', ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_index_eav'),
-    $installer->getIdxName('catalog/product_index_eav', array('attribute_id')),
-    array('attribute_id')
+    $installer->getIdxName('catalog/product_index_eav', ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_index_eav'),
-    $installer->getIdxName('catalog/product_index_eav', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('catalog/product_index_eav', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_index_eav'),
-    $installer->getIdxName('catalog/product_index_eav', array('value')),
-    array('value')
+    $installer->getIdxName('catalog/product_index_eav', ['value']),
+    ['value']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_index_eav_decimal'),
-    $installer->getIdxName('catalog/product_index_eav_decimal', array('entity_id')),
-    array('entity_id')
+    $installer->getIdxName('catalog/product_index_eav_decimal', ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_index_eav_decimal'),
-    $installer->getIdxName('catalog/product_index_eav_decimal', array('attribute_id')),
-    array('attribute_id')
+    $installer->getIdxName('catalog/product_index_eav_decimal', ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_index_eav_decimal'),
-    $installer->getIdxName('catalog/product_index_eav_decimal', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('catalog/product_index_eav_decimal', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_index_eav_decimal'),
-    $installer->getIdxName('catalog/product_index_eav_decimal', array('value')),
-    array('value')
+    $installer->getIdxName('catalog/product_index_eav_decimal', ['value']),
+    ['value']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_eav_decimal_indexer_idx'),
-    $installer->getIdxName('catalog/product_eav_decimal_indexer_idx', array('entity_id')),
-    array('entity_id')
+    $installer->getIdxName('catalog/product_eav_decimal_indexer_idx', ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_eav_decimal_indexer_idx'),
-    $installer->getIdxName('catalog/product_eav_decimal_indexer_idx', array('attribute_id')),
-    array('attribute_id')
+    $installer->getIdxName('catalog/product_eav_decimal_indexer_idx', ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_eav_decimal_indexer_idx'),
-    $installer->getIdxName('catalog/product_eav_decimal_indexer_idx', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('catalog/product_eav_decimal_indexer_idx', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_eav_decimal_indexer_idx'),
-    $installer->getIdxName('catalog/product_eav_decimal_indexer_idx', array('value')),
-    array('value')
+    $installer->getIdxName('catalog/product_eav_decimal_indexer_idx', ['value']),
+    ['value']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_eav_decimal_indexer_tmp'),
-    $installer->getIdxName('catalog/product_eav_decimal_indexer_tmp', array('entity_id')),
-    array('entity_id')
+    $installer->getIdxName('catalog/product_eav_decimal_indexer_tmp', ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_eav_decimal_indexer_tmp'),
-    $installer->getIdxName('catalog/product_eav_decimal_indexer_tmp', array('attribute_id')),
-    array('attribute_id')
+    $installer->getIdxName('catalog/product_eav_decimal_indexer_tmp', ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_eav_decimal_indexer_tmp'),
-    $installer->getIdxName('catalog/product_eav_decimal_indexer_tmp', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('catalog/product_eav_decimal_indexer_tmp', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_eav_decimal_indexer_tmp'),
-    $installer->getIdxName('catalog/product_eav_decimal_indexer_tmp', array('value')),
-    array('value')
+    $installer->getIdxName('catalog/product_eav_decimal_indexer_tmp', ['value']),
+    ['value']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_eav_indexer_idx'),
-    $installer->getIdxName('catalog/product_eav_indexer_idx', array('entity_id')),
-    array('entity_id')
+    $installer->getIdxName('catalog/product_eav_indexer_idx', ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_eav_indexer_idx'),
-    $installer->getIdxName('catalog/product_eav_indexer_idx', array('attribute_id')),
-    array('attribute_id')
+    $installer->getIdxName('catalog/product_eav_indexer_idx', ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_eav_indexer_idx'),
-    $installer->getIdxName('catalog/product_eav_indexer_idx', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('catalog/product_eav_indexer_idx', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_eav_indexer_idx'),
-    $installer->getIdxName('catalog/product_eav_indexer_idx', array('value')),
-    array('value')
+    $installer->getIdxName('catalog/product_eav_indexer_idx', ['value']),
+    ['value']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_eav_indexer_tmp'),
-    $installer->getIdxName('catalog/product_eav_indexer_tmp', array('entity_id')),
-    array('entity_id')
+    $installer->getIdxName('catalog/product_eav_indexer_tmp', ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_eav_indexer_tmp'),
-    $installer->getIdxName('catalog/product_eav_indexer_tmp', array('attribute_id')),
-    array('attribute_id')
+    $installer->getIdxName('catalog/product_eav_indexer_tmp', ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_eav_indexer_tmp'),
-    $installer->getIdxName('catalog/product_eav_indexer_tmp', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('catalog/product_eav_indexer_tmp', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_eav_indexer_tmp'),
-    $installer->getIdxName('catalog/product_eav_indexer_tmp', array('value')),
-    array('value')
+    $installer->getIdxName('catalog/product_eav_indexer_tmp', ['value']),
+    ['value']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_index_price'),
-    $installer->getIdxName('catalog/product_index_price', array('customer_group_id')),
-    array('customer_group_id')
+    $installer->getIdxName('catalog/product_index_price', ['customer_group_id']),
+    ['customer_group_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_index_price'),
-    $installer->getIdxName('catalog/product_index_price', array('website_id')),
-    array('website_id')
+    $installer->getIdxName('catalog/product_index_price', ['website_id']),
+    ['website_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_index_price'),
-    $installer->getIdxName('catalog/product_index_price', array('min_price')),
-    array('min_price')
+    $installer->getIdxName('catalog/product_index_price', ['min_price']),
+    ['min_price']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_price_indexer_idx'),
-    $installer->getIdxName('catalog/product_price_indexer_idx', array('customer_group_id')),
-    array('customer_group_id')
+    $installer->getIdxName('catalog/product_price_indexer_idx', ['customer_group_id']),
+    ['customer_group_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_price_indexer_idx'),
-    $installer->getIdxName('catalog/product_price_indexer_idx', array('website_id')),
-    array('website_id')
+    $installer->getIdxName('catalog/product_price_indexer_idx', ['website_id']),
+    ['website_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_price_indexer_idx'),
-    $installer->getIdxName('catalog/product_price_indexer_idx', array('min_price')),
-    array('min_price')
+    $installer->getIdxName('catalog/product_price_indexer_idx', ['min_price']),
+    ['min_price']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_price_indexer_tmp'),
-    $installer->getIdxName('catalog/product_price_indexer_tmp', array('customer_group_id')),
-    array('customer_group_id')
+    $installer->getIdxName('catalog/product_price_indexer_tmp', ['customer_group_id']),
+    ['customer_group_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_price_indexer_tmp'),
-    $installer->getIdxName('catalog/product_price_indexer_tmp', array('website_id')),
-    array('website_id')
+    $installer->getIdxName('catalog/product_price_indexer_tmp', ['website_id']),
+    ['website_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_price_indexer_tmp'),
-    $installer->getIdxName('catalog/product_price_indexer_tmp', array('min_price')),
-    array('min_price')
+    $installer->getIdxName('catalog/product_price_indexer_tmp', ['min_price']),
+    ['min_price']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_index_tier_price'),
-    $installer->getIdxName('catalog/product_index_tier_price', array('customer_group_id')),
-    array('customer_group_id')
+    $installer->getIdxName('catalog/product_index_tier_price', ['customer_group_id']),
+    ['customer_group_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_index_tier_price'),
-    $installer->getIdxName('catalog/product_index_tier_price', array('website_id')),
-    array('website_id')
+    $installer->getIdxName('catalog/product_index_tier_price', ['website_id']),
+    ['website_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_index_website'),
-    $installer->getIdxName('catalog/product_index_website', array('website_date')),
-    array('website_date')
+    $installer->getIdxName('catalog/product_index_website', ['website_date']),
+    ['website_date']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_link'),
     $installer->getIdxName(
         'catalog/product_link',
-        array('link_type_id', 'product_id', 'linked_product_id'),
+        ['link_type_id', 'product_id', 'linked_product_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('link_type_id', 'product_id', 'linked_product_id'),
+    ['link_type_id', 'product_id', 'linked_product_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_link'),
-    $installer->getIdxName('catalog/product_link', array('product_id')),
-    array('product_id')
+    $installer->getIdxName('catalog/product_link', ['product_id']),
+    ['product_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_link'),
-    $installer->getIdxName('catalog/product_link', array('linked_product_id')),
-    array('linked_product_id')
+    $installer->getIdxName('catalog/product_link', ['linked_product_id']),
+    ['linked_product_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_link'),
-    $installer->getIdxName('catalog/product_link', array('link_type_id')),
-    array('link_type_id')
+    $installer->getIdxName('catalog/product_link', ['link_type_id']),
+    ['link_type_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_link_attribute'),
-    $installer->getIdxName('catalog/product_link_attribute', array('link_type_id')),
-    array('link_type_id')
+    $installer->getIdxName('catalog/product_link_attribute', ['link_type_id']),
+    ['link_type_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_link_attribute_decimal'),
     $installer->getIdxName(
         'catalog/product_link_attribute_decimal',
-        array('product_link_attribute_id', 'link_id'),
+        ['product_link_attribute_id', 'link_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('product_link_attribute_id', 'link_id'),
+    ['product_link_attribute_id', 'link_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_link_attribute_decimal'),
-    $installer->getIdxName('catalog/product_link_attribute_decimal', array('product_link_attribute_id')),
-    array('product_link_attribute_id')
+    $installer->getIdxName('catalog/product_link_attribute_decimal', ['product_link_attribute_id']),
+    ['product_link_attribute_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_link_attribute_decimal'),
-    $installer->getIdxName('catalog/product_link_attribute_decimal', array('link_id')),
-    array('link_id')
+    $installer->getIdxName('catalog/product_link_attribute_decimal', ['link_id']),
+    ['link_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_link_attribute_int'),
     $installer->getIdxName(
         'catalog/product_link_attribute_int',
-        array('product_link_attribute_id', 'link_id'),
+        ['product_link_attribute_id', 'link_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('product_link_attribute_id', 'link_id'),
+    ['product_link_attribute_id', 'link_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_link_attribute_int'),
-    $installer->getIdxName('catalog/product_link_attribute_int', array('product_link_attribute_id')),
-    array('product_link_attribute_id')
+    $installer->getIdxName('catalog/product_link_attribute_int', ['product_link_attribute_id']),
+    ['product_link_attribute_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_link_attribute_int'),
-    $installer->getIdxName('catalog/product_link_attribute_int', array('link_id')),
-    array('link_id')
+    $installer->getIdxName('catalog/product_link_attribute_int', ['link_id']),
+    ['link_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_link_attribute_varchar'),
     $installer->getIdxName(
         'catalog/product_link_attribute_varchar',
-        array('product_link_attribute_id', 'link_id'),
+        ['product_link_attribute_id', 'link_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('product_link_attribute_id', 'link_id'),
+    ['product_link_attribute_id', 'link_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_link_attribute_varchar'),
-    $installer->getIdxName('catalog/product_link_attribute_varchar', array('product_link_attribute_id')),
-    array('product_link_attribute_id')
+    $installer->getIdxName('catalog/product_link_attribute_varchar', ['product_link_attribute_id']),
+    ['product_link_attribute_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_link_attribute_varchar'),
-    $installer->getIdxName('catalog/product_link_attribute_varchar', array('link_id')),
-    array('link_id')
+    $installer->getIdxName('catalog/product_link_attribute_varchar', ['link_id']),
+    ['link_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_option'),
-    $installer->getIdxName('catalog/product_option', array('product_id')),
-    array('product_id')
+    $installer->getIdxName('catalog/product_option', ['product_id']),
+    ['product_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_option_price'),
     $installer->getIdxName(
         'catalog/product_option_price',
-        array('option_id', 'store_id'),
+        ['option_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('option_id', 'store_id'),
+    ['option_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_option_price'),
-    $installer->getIdxName('catalog/product_option_price', array('option_id')),
-    array('option_id')
+    $installer->getIdxName('catalog/product_option_price', ['option_id']),
+    ['option_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_option_price'),
-    $installer->getIdxName('catalog/product_option_price', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('catalog/product_option_price', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_option_title'),
     $installer->getIdxName(
         'catalog/product_option_title',
-        array('option_id', 'store_id'),
+        ['option_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('option_id', 'store_id'),
+    ['option_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_option_title'),
-    $installer->getIdxName('catalog/product_option_title', array('option_id')),
-    array('option_id')
+    $installer->getIdxName('catalog/product_option_title', ['option_id']),
+    ['option_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_option_title'),
-    $installer->getIdxName('catalog/product_option_title', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('catalog/product_option_title', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_option_type_price'),
     $installer->getIdxName(
         'catalog/product_option_type_price',
-        array('option_type_id', 'store_id'),
+        ['option_type_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('option_type_id', 'store_id'),
+    ['option_type_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_option_type_price'),
-    $installer->getIdxName('catalog/product_option_type_price', array('option_type_id')),
-    array('option_type_id')
+    $installer->getIdxName('catalog/product_option_type_price', ['option_type_id']),
+    ['option_type_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_option_type_price'),
-    $installer->getIdxName('catalog/product_option_type_price', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('catalog/product_option_type_price', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_option_type_title'),
     $installer->getIdxName(
         'catalog/product_option_type_title',
-        array('option_type_id', 'store_id'),
+        ['option_type_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('option_type_id', 'store_id'),
+    ['option_type_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_option_type_title'),
-    $installer->getIdxName('catalog/product_option_type_title', array('option_type_id')),
-    array('option_type_id')
+    $installer->getIdxName('catalog/product_option_type_title', ['option_type_id']),
+    ['option_type_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_option_type_title'),
-    $installer->getIdxName('catalog/product_option_type_title', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('catalog/product_option_type_title', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_option_type_value'),
-    $installer->getIdxName('catalog/product_option_type_value', array('option_id')),
-    array('option_id')
+    $installer->getIdxName('catalog/product_option_type_value', ['option_id']),
+    ['option_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_relation'),
-    $installer->getIdxName('catalog/product_relation', array('child_id')),
-    array('child_id')
+    $installer->getIdxName('catalog/product_relation', ['child_id']),
+    ['child_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_super_attribute'),
     $installer->getIdxName(
         'catalog/product_super_attribute',
-        array('product_id', 'attribute_id'),
+        ['product_id', 'attribute_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('product_id', 'attribute_id'),
+    ['product_id', 'attribute_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_super_attribute'),
-    $installer->getIdxName('catalog/product_super_attribute', array('product_id')),
-    array('product_id')
+    $installer->getIdxName('catalog/product_super_attribute', ['product_id']),
+    ['product_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_super_attribute_label'),
     $installer->getIdxName(
         'catalog/product_super_attribute_label',
-        array('product_super_attribute_id', 'store_id'),
+        ['product_super_attribute_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('product_super_attribute_id', 'store_id'),
+    ['product_super_attribute_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_super_attribute_label'),
-    $installer->getIdxName('catalog/product_super_attribute_label', array('product_super_attribute_id')),
-    array('product_super_attribute_id')
+    $installer->getIdxName('catalog/product_super_attribute_label', ['product_super_attribute_id']),
+    ['product_super_attribute_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_super_attribute_label'),
-    $installer->getIdxName('catalog/product_super_attribute_label', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('catalog/product_super_attribute_label', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_super_attribute_pricing'),
     $installer->getIdxName(
         'catalog/product_super_attribute_pricing',
-        array('product_super_attribute_id', 'value_index', 'website_id'),
+        ['product_super_attribute_id', 'value_index', 'website_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('product_super_attribute_id', 'value_index', 'website_id'),
+    ['product_super_attribute_id', 'value_index', 'website_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_super_attribute_pricing'),
-    $installer->getIdxName('catalog/product_super_attribute_pricing', array('product_super_attribute_id')),
-    array('product_super_attribute_id')
+    $installer->getIdxName('catalog/product_super_attribute_pricing', ['product_super_attribute_id']),
+    ['product_super_attribute_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_super_attribute_pricing'),
-    $installer->getIdxName('catalog/product_super_attribute_pricing', array('website_id')),
-    array('website_id')
+    $installer->getIdxName('catalog/product_super_attribute_pricing', ['website_id']),
+    ['website_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_super_link'),
     $installer->getIdxName(
         'catalog/product_super_link',
-        array('product_id', 'parent_id'),
+        ['product_id', 'parent_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('product_id', 'parent_id'),
+    ['product_id', 'parent_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_super_link'),
-    $installer->getIdxName('catalog/product_super_link', array('parent_id')),
-    array('parent_id')
+    $installer->getIdxName('catalog/product_super_link', ['parent_id']),
+    ['parent_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_super_link'),
-    $installer->getIdxName('catalog/product_super_link', array('product_id')),
-    array('product_id')
+    $installer->getIdxName('catalog/product_super_link', ['product_id']),
+    ['product_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_website'),
-    $installer->getIdxName('catalog/product_website', array('website_id')),
-    array('website_id')
+    $installer->getIdxName('catalog/product_website', ['website_id']),
+    ['website_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'datetime')),
+    $installer->getTable(['catalog/category', 'datetime']),
     $installer->getIdxName(
-        array('catalog/category', 'datetime'),
-        array('entity_type_id', 'entity_id', 'attribute_id', 'store_id'),
+        ['catalog/category', 'datetime'],
+        ['entity_type_id', 'entity_id', 'attribute_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('entity_type_id', 'entity_id', 'attribute_id', 'store_id'),
+    ['entity_type_id', 'entity_id', 'attribute_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'datetime')),
-    $installer->getIdxName(array('catalog/category', 'datetime'), array('entity_id')),
-    array('entity_id')
+    $installer->getTable(['catalog/category', 'datetime']),
+    $installer->getIdxName(['catalog/category', 'datetime'], ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'datetime')),
-    $installer->getIdxName(array('catalog/category', 'datetime'), array('attribute_id')),
-    array('attribute_id')
+    $installer->getTable(['catalog/category', 'datetime']),
+    $installer->getIdxName(['catalog/category', 'datetime'], ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'datetime')),
-    $installer->getIdxName(array('catalog/category', 'datetime'), array('store_id')),
-    array('store_id')
+    $installer->getTable(['catalog/category', 'datetime']),
+    $installer->getIdxName(['catalog/category', 'datetime'], ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'decimal')),
+    $installer->getTable(['catalog/category', 'decimal']),
     $installer->getIdxName(
-        array('catalog/category', 'decimal'),
-        array('entity_type_id', 'entity_id', 'attribute_id', 'store_id'),
+        ['catalog/category', 'decimal'],
+        ['entity_type_id', 'entity_id', 'attribute_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('entity_type_id', 'entity_id', 'attribute_id', 'store_id'),
+    ['entity_type_id', 'entity_id', 'attribute_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'decimal')),
-    $installer->getIdxName(array('catalog/category', 'decimal'), array('entity_id')),
-    array('entity_id')
+    $installer->getTable(['catalog/category', 'decimal']),
+    $installer->getIdxName(['catalog/category', 'decimal'], ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'decimal')),
-    $installer->getIdxName(array('catalog/category', 'decimal'), array('attribute_id')),
-    array('attribute_id')
+    $installer->getTable(['catalog/category', 'decimal']),
+    $installer->getIdxName(['catalog/category', 'decimal'], ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'decimal')),
-    $installer->getIdxName(array('catalog/category', 'decimal'), array('store_id')),
-    array('store_id')
+    $installer->getTable(['catalog/category', 'decimal']),
+    $installer->getIdxName(['catalog/category', 'decimal'], ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'int')),
+    $installer->getTable(['catalog/category', 'int']),
     $installer->getIdxName(
-        array('catalog/category', 'int'),
-        array('entity_type_id', 'entity_id', 'attribute_id', 'store_id'),
+        ['catalog/category', 'int'],
+        ['entity_type_id', 'entity_id', 'attribute_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('entity_type_id', 'entity_id', 'attribute_id', 'store_id'),
+    ['entity_type_id', 'entity_id', 'attribute_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'int')),
-    $installer->getIdxName(array('catalog/category', 'int'), array('entity_id')),
-    array('entity_id')
+    $installer->getTable(['catalog/category', 'int']),
+    $installer->getIdxName(['catalog/category', 'int'], ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'int')),
-    $installer->getIdxName(array('catalog/category', 'int'), array('attribute_id')),
-    array('attribute_id')
+    $installer->getTable(['catalog/category', 'int']),
+    $installer->getIdxName(['catalog/category', 'int'], ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'int')),
-    $installer->getIdxName(array('catalog/category', 'int'), array('store_id')),
-    array('store_id')
+    $installer->getTable(['catalog/category', 'int']),
+    $installer->getIdxName(['catalog/category', 'int'], ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'text')),
+    $installer->getTable(['catalog/category', 'text']),
     $installer->getIdxName(
-        array('catalog/category', 'text'),
-        array('entity_type_id', 'entity_id', 'attribute_id', 'store_id'),
+        ['catalog/category', 'text'],
+        ['entity_type_id', 'entity_id', 'attribute_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('entity_type_id', 'entity_id', 'attribute_id', 'store_id'),
+    ['entity_type_id', 'entity_id', 'attribute_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'text')),
-    $installer->getIdxName(array('catalog/category', 'text'), array('entity_id')),
-    array('entity_id')
+    $installer->getTable(['catalog/category', 'text']),
+    $installer->getIdxName(['catalog/category', 'text'], ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'text')),
-    $installer->getIdxName(array('catalog/category', 'text'), array('attribute_id')),
-    array('attribute_id')
+    $installer->getTable(['catalog/category', 'text']),
+    $installer->getIdxName(['catalog/category', 'text'], ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'text')),
-    $installer->getIdxName(array('catalog/category', 'text'), array('store_id')),
-    array('store_id')
+    $installer->getTable(['catalog/category', 'text']),
+    $installer->getIdxName(['catalog/category', 'text'], ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'varchar')),
+    $installer->getTable(['catalog/category', 'varchar']),
     $installer->getIdxName(
-        array('catalog/category', 'varchar'),
-        array('entity_type_id', 'entity_id', 'attribute_id', 'store_id'),
+        ['catalog/category', 'varchar'],
+        ['entity_type_id', 'entity_id', 'attribute_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('entity_type_id', 'entity_id', 'attribute_id', 'store_id'),
+    ['entity_type_id', 'entity_id', 'attribute_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'varchar')),
-    $installer->getIdxName(array('catalog/category', 'varchar'), array('entity_id')),
-    array('entity_id')
+    $installer->getTable(['catalog/category', 'varchar']),
+    $installer->getIdxName(['catalog/category', 'varchar'], ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'varchar')),
-    $installer->getIdxName(array('catalog/category', 'varchar'), array('attribute_id')),
-    array('attribute_id')
+    $installer->getTable(['catalog/category', 'varchar']),
+    $installer->getIdxName(['catalog/category', 'varchar'], ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/category', 'varchar')),
-    $installer->getIdxName(array('catalog/category', 'varchar'), array('store_id')),
-    array('store_id')
+    $installer->getTable(['catalog/category', 'varchar']),
+    $installer->getIdxName(['catalog/category', 'varchar'], ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'datetime')),
+    $installer->getTable(['catalog/product', 'datetime']),
     $installer->getIdxName(
-        array('catalog/product', 'datetime'),
-        array('entity_id', 'attribute_id', 'store_id'),
+        ['catalog/product', 'datetime'],
+        ['entity_id', 'attribute_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('entity_id', 'attribute_id', 'store_id'),
+    ['entity_id', 'attribute_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'datetime')),
-    $installer->getIdxName(array('catalog/product', 'datetime'), array('attribute_id')),
-    array('attribute_id')
+    $installer->getTable(['catalog/product', 'datetime']),
+    $installer->getIdxName(['catalog/product', 'datetime'], ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'datetime')),
-    $installer->getIdxName(array('catalog/product', 'datetime'), array('store_id')),
-    array('store_id')
+    $installer->getTable(['catalog/product', 'datetime']),
+    $installer->getIdxName(['catalog/product', 'datetime'], ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'datetime')),
-    $installer->getIdxName(array('catalog/product', 'datetime'), array('entity_id')),
-    array('entity_id')
+    $installer->getTable(['catalog/product', 'datetime']),
+    $installer->getIdxName(['catalog/product', 'datetime'], ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'decimal')),
+    $installer->getTable(['catalog/product', 'decimal']),
     $installer->getIdxName(
-        array('catalog/product', 'decimal'),
-        array('entity_id', 'attribute_id', 'store_id'),
+        ['catalog/product', 'decimal'],
+        ['entity_id', 'attribute_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('entity_id', 'attribute_id', 'store_id'),
+    ['entity_id', 'attribute_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'decimal')),
-    $installer->getIdxName(array('catalog/product', 'decimal'), array('store_id')),
-    array('store_id')
+    $installer->getTable(['catalog/product', 'decimal']),
+    $installer->getIdxName(['catalog/product', 'decimal'], ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'decimal')),
-    $installer->getIdxName(array('catalog/product', 'decimal'), array('entity_id')),
-    array('entity_id')
+    $installer->getTable(['catalog/product', 'decimal']),
+    $installer->getIdxName(['catalog/product', 'decimal'], ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'decimal')),
-    $installer->getIdxName(array('catalog/product', 'decimal'), array('attribute_id')),
-    array('attribute_id')
+    $installer->getTable(['catalog/product', 'decimal']),
+    $installer->getIdxName(['catalog/product', 'decimal'], ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'gallery')),
+    $installer->getTable(['catalog/product', 'gallery']),
     $installer->getIdxName(
-        array('catalog/product', 'gallery'),
-        array('entity_type_id', 'entity_id', 'attribute_id', 'store_id'),
+        ['catalog/product', 'gallery'],
+        ['entity_type_id', 'entity_id', 'attribute_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('entity_type_id', 'entity_id', 'attribute_id', 'store_id'),
+    ['entity_type_id', 'entity_id', 'attribute_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'gallery')),
-    $installer->getIdxName(array('catalog/product', 'gallery'), array('entity_id')),
-    array('entity_id')
+    $installer->getTable(['catalog/product', 'gallery']),
+    $installer->getIdxName(['catalog/product', 'gallery'], ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'gallery')),
-    $installer->getIdxName(array('catalog/product', 'gallery'), array('attribute_id')),
-    array('attribute_id')
+    $installer->getTable(['catalog/product', 'gallery']),
+    $installer->getIdxName(['catalog/product', 'gallery'], ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'gallery')),
-    $installer->getIdxName(array('catalog/product', 'gallery'), array('store_id')),
-    array('store_id')
+    $installer->getTable(['catalog/product', 'gallery']),
+    $installer->getIdxName(['catalog/product', 'gallery'], ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'int')),
+    $installer->getTable(['catalog/product', 'int']),
     $installer->getIdxName(
-        array('catalog/product', 'int'),
-        array('entity_id', 'attribute_id', 'store_id'),
+        ['catalog/product', 'int'],
+        ['entity_id', 'attribute_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('entity_id', 'attribute_id', 'store_id'),
+    ['entity_id', 'attribute_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'int')),
-    $installer->getIdxName(array('catalog/product', 'int'), array('attribute_id')),
-    array('attribute_id')
+    $installer->getTable(['catalog/product', 'int']),
+    $installer->getIdxName(['catalog/product', 'int'], ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'int')),
-    $installer->getIdxName(array('catalog/product', 'int'), array('store_id')),
-    array('store_id')
+    $installer->getTable(['catalog/product', 'int']),
+    $installer->getIdxName(['catalog/product', 'int'], ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'int')),
-    $installer->getIdxName(array('catalog/product', 'int'), array('entity_id')),
-    array('entity_id')
+    $installer->getTable(['catalog/product', 'int']),
+    $installer->getIdxName(['catalog/product', 'int'], ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'text')),
+    $installer->getTable(['catalog/product', 'text']),
     $installer->getIdxName(
-        array('catalog/product', 'text'),
-        array('entity_id', 'attribute_id', 'store_id'),
+        ['catalog/product', 'text'],
+        ['entity_id', 'attribute_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('entity_id', 'attribute_id', 'store_id'),
+    ['entity_id', 'attribute_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'text')),
-    $installer->getIdxName(array('catalog/product', 'text'), array('attribute_id')),
-    array('attribute_id')
+    $installer->getTable(['catalog/product', 'text']),
+    $installer->getIdxName(['catalog/product', 'text'], ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'text')),
-    $installer->getIdxName(array('catalog/product', 'text'), array('store_id')),
-    array('store_id')
+    $installer->getTable(['catalog/product', 'text']),
+    $installer->getIdxName(['catalog/product', 'text'], ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'text')),
-    $installer->getIdxName(array('catalog/product', 'text'), array('entity_id')),
-    array('entity_id')
+    $installer->getTable(['catalog/product', 'text']),
+    $installer->getIdxName(['catalog/product', 'text'], ['entity_id']),
+    ['entity_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'varchar')),
+    $installer->getTable(['catalog/product', 'varchar']),
     $installer->getIdxName(
-        array('catalog/product', 'varchar'),
-        array('entity_id', 'attribute_id', 'store_id'),
+        ['catalog/product', 'varchar'],
+        ['entity_id', 'attribute_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('entity_id', 'attribute_id', 'store_id'),
+    ['entity_id', 'attribute_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'varchar')),
-    $installer->getIdxName(array('catalog/product', 'varchar'), array('attribute_id')),
-    array('attribute_id')
+    $installer->getTable(['catalog/product', 'varchar']),
+    $installer->getIdxName(['catalog/product', 'varchar'], ['attribute_id']),
+    ['attribute_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'varchar')),
-    $installer->getIdxName(array('catalog/product', 'varchar'), array('store_id')),
-    array('store_id')
+    $installer->getTable(['catalog/product', 'varchar']),
+    $installer->getIdxName(['catalog/product', 'varchar'], ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
-    $installer->getTable(array('catalog/product', 'varchar')),
-    $installer->getIdxName(array('catalog/product', 'varchar'), array('entity_id')),
-    array('entity_id')
+    $installer->getTable(['catalog/product', 'varchar']),
+    $installer->getIdxName(['catalog/product', 'varchar'], ['entity_id']),
+    ['entity_id']
 );
-
 
 /**
  * Add foreign keys
@@ -5802,264 +5793,264 @@ $installer->getConnection()->addForeignKey(
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/category', 'datetime'), 'attribute_id', 'eav/attribute', 'attribute_id'),
-    $installer->getTable(array('catalog/category', 'datetime')),
+    $installer->getFkName(['catalog/category', 'datetime'], 'attribute_id', 'eav/attribute', 'attribute_id'),
+    $installer->getTable(['catalog/category', 'datetime']),
     'attribute_id',
     $installer->getTable('eav/attribute'),
     'attribute_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/category', 'datetime'), 'entity_id', 'catalog/category', 'entity_id'),
-    $installer->getTable(array('catalog/category', 'datetime')),
+    $installer->getFkName(['catalog/category', 'datetime'], 'entity_id', 'catalog/category', 'entity_id'),
+    $installer->getTable(['catalog/category', 'datetime']),
     'entity_id',
     $installer->getTable('catalog/category'),
     'entity_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/category', 'datetime'), 'store_id', 'core/store', 'store_id'),
-    $installer->getTable(array('catalog/category', 'datetime')),
+    $installer->getFkName(['catalog/category', 'datetime'], 'store_id', 'core/store', 'store_id'),
+    $installer->getTable(['catalog/category', 'datetime']),
     'store_id',
     $installer->getTable('core/store'),
     'store_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/category', 'decimal'), 'attribute_id', 'eav/attribute', 'attribute_id'),
-    $installer->getTable(array('catalog/category', 'decimal')),
+    $installer->getFkName(['catalog/category', 'decimal'], 'attribute_id', 'eav/attribute', 'attribute_id'),
+    $installer->getTable(['catalog/category', 'decimal']),
     'attribute_id',
     $installer->getTable('eav/attribute'),
     'attribute_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/category', 'decimal'), 'entity_id', 'catalog/category', 'entity_id'),
-    $installer->getTable(array('catalog/category', 'decimal')),
+    $installer->getFkName(['catalog/category', 'decimal'], 'entity_id', 'catalog/category', 'entity_id'),
+    $installer->getTable(['catalog/category', 'decimal']),
     'entity_id',
     $installer->getTable('catalog/category'),
     'entity_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/category', 'decimal'), 'store_id', 'core/store', 'store_id'),
-    $installer->getTable(array('catalog/category', 'decimal')),
+    $installer->getFkName(['catalog/category', 'decimal'], 'store_id', 'core/store', 'store_id'),
+    $installer->getTable(['catalog/category', 'decimal']),
     'store_id',
     $installer->getTable('core/store'),
     'store_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/category', 'int'), 'attribute_id', 'eav/attribute', 'attribute_id'),
-    $installer->getTable(array('catalog/category', 'int')),
+    $installer->getFkName(['catalog/category', 'int'], 'attribute_id', 'eav/attribute', 'attribute_id'),
+    $installer->getTable(['catalog/category', 'int']),
     'attribute_id',
     $installer->getTable('eav/attribute'),
     'attribute_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/category', 'int'), 'entity_id', 'catalog/category', 'entity_id'),
-    $installer->getTable(array('catalog/category', 'int')),
+    $installer->getFkName(['catalog/category', 'int'], 'entity_id', 'catalog/category', 'entity_id'),
+    $installer->getTable(['catalog/category', 'int']),
     'entity_id',
     $installer->getTable('catalog/category'),
     'entity_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/category', 'int'), 'store_id', 'core/store', 'store_id'),
-    $installer->getTable(array('catalog/category', 'int')),
+    $installer->getFkName(['catalog/category', 'int'], 'store_id', 'core/store', 'store_id'),
+    $installer->getTable(['catalog/category', 'int']),
     'store_id',
     $installer->getTable('core/store'),
     'store_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/category', 'text'), 'attribute_id', 'eav/attribute', 'attribute_id'),
-    $installer->getTable(array('catalog/category', 'text')),
+    $installer->getFkName(['catalog/category', 'text'], 'attribute_id', 'eav/attribute', 'attribute_id'),
+    $installer->getTable(['catalog/category', 'text']),
     'attribute_id',
     $installer->getTable('eav/attribute'),
     'attribute_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/category', 'text'), 'entity_id', 'catalog/category', 'entity_id'),
-    $installer->getTable(array('catalog/category', 'text')),
+    $installer->getFkName(['catalog/category', 'text'], 'entity_id', 'catalog/category', 'entity_id'),
+    $installer->getTable(['catalog/category', 'text']),
     'entity_id',
     $installer->getTable('catalog/category'),
     'entity_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/category', 'text'), 'store_id', 'core/store', 'store_id'),
-    $installer->getTable(array('catalog/category', 'text')),
+    $installer->getFkName(['catalog/category', 'text'], 'store_id', 'core/store', 'store_id'),
+    $installer->getTable(['catalog/category', 'text']),
     'store_id',
     $installer->getTable('core/store'),
     'store_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/category', 'varchar'), 'attribute_id', 'eav/attribute', 'attribute_id'),
-    $installer->getTable(array('catalog/category', 'varchar')),
+    $installer->getFkName(['catalog/category', 'varchar'], 'attribute_id', 'eav/attribute', 'attribute_id'),
+    $installer->getTable(['catalog/category', 'varchar']),
     'attribute_id',
     $installer->getTable('eav/attribute'),
     'attribute_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/category', 'varchar'), 'entity_id', 'catalog/category', 'entity_id'),
-    $installer->getTable(array('catalog/category', 'varchar')),
+    $installer->getFkName(['catalog/category', 'varchar'], 'entity_id', 'catalog/category', 'entity_id'),
+    $installer->getTable(['catalog/category', 'varchar']),
     'entity_id',
     $installer->getTable('catalog/category'),
     'entity_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/category', 'varchar'), 'store_id', 'core/store', 'store_id'),
-    $installer->getTable(array('catalog/category', 'varchar')),
+    $installer->getFkName(['catalog/category', 'varchar'], 'store_id', 'core/store', 'store_id'),
+    $installer->getTable(['catalog/category', 'varchar']),
     'store_id',
     $installer->getTable('core/store'),
     'store_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'datetime'), 'attribute_id', 'eav/attribute', 'attribute_id'),
-    $installer->getTable(array('catalog/product', 'datetime')),
+    $installer->getFkName(['catalog/product', 'datetime'], 'attribute_id', 'eav/attribute', 'attribute_id'),
+    $installer->getTable(['catalog/product', 'datetime']),
     'attribute_id',
     $installer->getTable('eav/attribute'),
     'attribute_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'datetime'), 'entity_id', 'catalog/product', 'entity_id'),
-    $installer->getTable(array('catalog/product', 'datetime')),
+    $installer->getFkName(['catalog/product', 'datetime'], 'entity_id', 'catalog/product', 'entity_id'),
+    $installer->getTable(['catalog/product', 'datetime']),
     'entity_id',
     $installer->getTable('catalog/product'),
     'entity_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'datetime'), 'store_id', 'core/store', 'store_id'),
-    $installer->getTable(array('catalog/product', 'datetime')),
+    $installer->getFkName(['catalog/product', 'datetime'], 'store_id', 'core/store', 'store_id'),
+    $installer->getTable(['catalog/product', 'datetime']),
     'store_id',
     $installer->getTable('core/store'),
     'store_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'decimal'), 'attribute_id', 'eav/attribute', 'attribute_id'),
-    $installer->getTable(array('catalog/product', 'decimal')),
+    $installer->getFkName(['catalog/product', 'decimal'], 'attribute_id', 'eav/attribute', 'attribute_id'),
+    $installer->getTable(['catalog/product', 'decimal']),
     'attribute_id',
     $installer->getTable('eav/attribute'),
     'attribute_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'decimal'), 'entity_id', 'catalog/product', 'entity_id'),
-    $installer->getTable(array('catalog/product', 'decimal')),
+    $installer->getFkName(['catalog/product', 'decimal'], 'entity_id', 'catalog/product', 'entity_id'),
+    $installer->getTable(['catalog/product', 'decimal']),
     'entity_id',
     $installer->getTable('catalog/product'),
     'entity_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'decimal'), 'store_id', 'core/store', 'store_id'),
-    $installer->getTable(array('catalog/product', 'decimal')),
+    $installer->getFkName(['catalog/product', 'decimal'], 'store_id', 'core/store', 'store_id'),
+    $installer->getTable(['catalog/product', 'decimal']),
     'store_id',
     $installer->getTable('core/store'),
     'store_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'gallery'), 'attribute_id', 'eav/attribute', 'attribute_id'),
-    $installer->getTable(array('catalog/product', 'gallery')),
+    $installer->getFkName(['catalog/product', 'gallery'], 'attribute_id', 'eav/attribute', 'attribute_id'),
+    $installer->getTable(['catalog/product', 'gallery']),
     'attribute_id',
     $installer->getTable('eav/attribute'),
     'attribute_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'gallery'), 'entity_id', 'catalog/product', 'entity_id'),
-    $installer->getTable(array('catalog/product', 'gallery')),
+    $installer->getFkName(['catalog/product', 'gallery'], 'entity_id', 'catalog/product', 'entity_id'),
+    $installer->getTable(['catalog/product', 'gallery']),
     'entity_id',
     $installer->getTable('catalog/product'),
     'entity_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'gallery'), 'store_id', 'core/store', 'store_id'),
-    $installer->getTable(array('catalog/product', 'gallery')),
+    $installer->getFkName(['catalog/product', 'gallery'], 'store_id', 'core/store', 'store_id'),
+    $installer->getTable(['catalog/product', 'gallery']),
     'store_id',
     $installer->getTable('core/store'),
     'store_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'int'), 'attribute_id', 'eav/attribute', 'attribute_id'),
-    $installer->getTable(array('catalog/product', 'int')),
+    $installer->getFkName(['catalog/product', 'int'], 'attribute_id', 'eav/attribute', 'attribute_id'),
+    $installer->getTable(['catalog/product', 'int']),
     'attribute_id',
     $installer->getTable('eav/attribute'),
     'attribute_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'int'), 'entity_id', 'catalog/product', 'entity_id'),
-    $installer->getTable(array('catalog/product', 'int')),
+    $installer->getFkName(['catalog/product', 'int'], 'entity_id', 'catalog/product', 'entity_id'),
+    $installer->getTable(['catalog/product', 'int']),
     'entity_id',
     $installer->getTable('catalog/product'),
     'entity_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'int'), 'store_id', 'core/store', 'store_id'),
-    $installer->getTable(array('catalog/product', 'int')),
+    $installer->getFkName(['catalog/product', 'int'], 'store_id', 'core/store', 'store_id'),
+    $installer->getTable(['catalog/product', 'int']),
     'store_id',
     $installer->getTable('core/store'),
     'store_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'text'), 'attribute_id', 'eav/attribute', 'attribute_id'),
-    $installer->getTable(array('catalog/product', 'text')),
+    $installer->getFkName(['catalog/product', 'text'], 'attribute_id', 'eav/attribute', 'attribute_id'),
+    $installer->getTable(['catalog/product', 'text']),
     'attribute_id',
     $installer->getTable('eav/attribute'),
     'attribute_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'text'), 'entity_id', 'catalog/product', 'entity_id'),
-    $installer->getTable(array('catalog/product', 'text')),
+    $installer->getFkName(['catalog/product', 'text'], 'entity_id', 'catalog/product', 'entity_id'),
+    $installer->getTable(['catalog/product', 'text']),
     'entity_id',
     $installer->getTable('catalog/product'),
     'entity_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'text'), 'store_id', 'core/store', 'store_id'),
-    $installer->getTable(array('catalog/product', 'text')),
+    $installer->getFkName(['catalog/product', 'text'], 'store_id', 'core/store', 'store_id'),
+    $installer->getTable(['catalog/product', 'text']),
     'store_id',
     $installer->getTable('core/store'),
     'store_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'varchar'), 'attribute_id', 'eav/attribute', 'attribute_id'),
-    $installer->getTable(array('catalog/product', 'varchar')),
+    $installer->getFkName(['catalog/product', 'varchar'], 'attribute_id', 'eav/attribute', 'attribute_id'),
+    $installer->getTable(['catalog/product', 'varchar']),
     'attribute_id',
     $installer->getTable('eav/attribute'),
     'attribute_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'varchar'), 'entity_id', 'catalog/product', 'entity_id'),
-    $installer->getTable(array('catalog/product', 'varchar')),
+    $installer->getFkName(['catalog/product', 'varchar'], 'entity_id', 'catalog/product', 'entity_id'),
+    $installer->getTable(['catalog/product', 'varchar']),
     'entity_id',
     $installer->getTable('catalog/product'),
     'entity_id'
 );
 
 $installer->getConnection()->addForeignKey(
-    $installer->getFkName(array('catalog/product', 'varchar'), 'store_id', 'core/store', 'store_id'),
-    $installer->getTable(array('catalog/product', 'varchar')),
+    $installer->getFkName(['catalog/product', 'varchar'], 'store_id', 'core/store', 'store_id'),
+    $installer->getTable(['catalog/product', 'varchar']),
     'store_id',
     $installer->getTable('core/store'),
     'store_id'

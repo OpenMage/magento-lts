@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Oauth
@@ -50,7 +44,7 @@ class Mage_Oauth_Model_Observer
      */
     public function afterCustomerLogin(Varien_Event_Observer $observer)
     {
-        if (null !== $this->_getOauthToken()) {
+        if ($this->_getOauthToken() !== null) {
             $userType = Mage_Oauth_Model_Token::USER_TYPE_CUSTOMER;
             $url = Mage::helper('oauth')->getAuthorizeUrl($userType);
             Mage::app()->getResponse()
@@ -68,7 +62,7 @@ class Mage_Oauth_Model_Observer
      */
     public function afterAdminLogin(Varien_Event_Observer $observer)
     {
-        if (null !== $this->_getOauthToken()) {
+        if ($this->_getOauthToken() !== null) {
             $userType = Mage_Oauth_Model_Token::USER_TYPE_ADMIN;
             $url = Mage::helper('oauth')->getAuthorizeUrl($userType);
             Mage::app()->getResponse()
@@ -86,7 +80,7 @@ class Mage_Oauth_Model_Observer
      */
     public function afterAdminLoginFailed(Varien_Event_Observer $observer)
     {
-        if (null !== $this->_getOauthToken()) {
+        if ($this->_getOauthToken() !== null) {
             /** @var Mage_Admin_Model_Session $session */
             $session = Mage::getSingleton('admin/session');
             $session->addError($observer->getException()->getMessage());

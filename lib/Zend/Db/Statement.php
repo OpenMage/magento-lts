@@ -180,20 +180,20 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         // get the character for value quoting
         // this should be '
         $q = $this->_adapter->quote('a');
-        $q = $q[0];        
+        $q = $q[0];
         // get the value used as an escaped quote,
         // e.g. \' or ''
         $qe = $this->_adapter->quote($q);
         $qe = substr($qe, 1, 2);
-        $qe = preg_quote($qe);
+        $qe = preg_quote($qe, '/');
         $escapeChar = substr($qe,0,1);
         // remove 'foo\'bar'
         if (!empty($q)) {
-            $escapeChar = preg_quote($escapeChar);
+            $escapeChar = preg_quote($escapeChar, '/');
             // this segfaults only after 65,000 characters instead of 9,000
             $sql = preg_replace("/$q([^$q{$escapeChar}]*|($qe)*)*$q/s", '', $sql);
         }
-        
+
         // get a version of the SQL statement with all quoted
         // values and delimited identifiers stripped out
         // remove "foo\"bar"
@@ -207,7 +207,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         // e.g. \" or "" or \`
         $de = $this->_adapter->quoteIdentifier($d);
         $de = substr($de, 1, 2);
-        $de = preg_quote($de);
+        $de = preg_quote($de, '/');
         // Note: $de and $d where never used..., now they are:
         $sql = preg_replace("/$d($de|\\\\{2}|[^$d])*$d/Us", '', $sql);
         return $sql;

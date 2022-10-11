@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Shipping
+ * @category   Mage
+ * @package    Mage_Shipping
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Shipping_Model_Carrier_Abstract
+ *
+ * @category   Mage
+ * @package    Mage_Shipping
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setActiveFlag(bool $value)
  * @method array getAllowedMethods()
@@ -76,7 +74,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @var array
      */
-    protected $_customizableContainerTypes = array();
+    protected $_customizableContainerTypes = [];
 
     const USA_COUNTRY_ID = 'US';
     const CANADA_COUNTRY_ID = 'CA';
@@ -93,7 +91,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = array();
+    protected $_debugReplacePrivateDataKeys = [];
 
     /**
      * Retrieve information from carrier configuration
@@ -166,7 +164,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      */
     public function getContainerTypes(Varien_Object $params = null)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -179,13 +177,13 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     {
         $containersAll = $this->getContainerTypesAll();
         if (empty($containersAll)) {
-            return array();
+            return [];
         }
         if (empty($params)) {
             return $containersAll;
         }
         $containersFilter   = $this->getContainerTypesFilter();
-        $containersFiltered = array();
+        $containersFiltered = [];
         $method             = $params->getMethod();
         $countryShipper     = $params->getCountryShipper();
         $countryRecipient   = $params->getCountryRecipient();
@@ -240,7 +238,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      */
     public function getDeliveryConfirmationTypes(Varien_Object $params = null)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -255,7 +253,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         */
         if ($speCountriesAllow && $speCountriesAllow == 1) {
              $showMethod = $this->getConfigData('showmethod');
-             $availableCountries = array();
+             $availableCountries = [];
             if ($this->getConfigData('specificcountry')) {
                 $availableCountries = explode(',', $this->getConfigData('specificcountry'));
             }
@@ -279,7 +277,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         }
         return $this;
     }
-
 
     /**
      * Processing additional validation to check is carrier applicable.
@@ -345,7 +342,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
 
     /**
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return null
      */
     protected function _updateFreeMethodQuote($request)
     {
@@ -594,6 +590,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      */
     public function getContentTypes(Varien_Object $params)
     {
-        return array();
+        return [];
     }
 }

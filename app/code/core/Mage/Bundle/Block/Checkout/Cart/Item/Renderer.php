@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Bundle
@@ -56,8 +50,7 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
     protected function _getSelectionFinalPrice($selectionProduct)
     {
         $helper = Mage::helper('bundle/catalog_product_configuration');
-        $result = $helper->getSelectionFinalPrice($this->getItem(), $selectionProduct);
-        return $result;
+        return $helper->getSelectionFinalPrice($this->getItem(), $selectionProduct);
     }
 
     /**
@@ -89,17 +82,17 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
      */
     public function getMessages()
     {
-        $messages = array();
+        $messages = [];
         $quoteItem = $this->getItem();
 
         // Add basic messages occuring during this page load
         $baseMessages = $quoteItem->getMessage(false);
         if ($baseMessages) {
             foreach ($baseMessages as $message) {
-                $messages[] = array(
+                $messages[] = [
                     'text' => $message,
                     'type' => $quoteItem->getHasError() ? 'error' : 'notice'
-                );
+                ];
             }
         }
 

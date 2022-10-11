@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction
     extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
@@ -45,7 +39,7 @@ class Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction
         $html = '';
         $actions = $this->getColumn()->getActions();
         if (!empty($actions) && is_array($actions)) {
-            $links = array();
+            $links = [];
             foreach ($actions as $action) {
                 if (is_array($action)) {
                     $link = $this->_toLinkHtml($action, $row);

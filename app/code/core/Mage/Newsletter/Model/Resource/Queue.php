@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Newsletter queue resource model
@@ -73,7 +66,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
                 if (in_array($subscriberId, $usedIds)) {
                     continue;
                 }
-                $data = array();
+                $data = [];
                 $data['queue_id'] = $queue->getId();
                 $data['subscriber_id'] = $subscriberId;
                 $adapter->insert($this->getTable('newsletter/queue_link'), $data);
@@ -95,10 +88,10 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
         try {
             $adapter->delete(
                 $this->getTable('newsletter/queue_link'),
-                array(
+                [
                     'queue_id = ?' => $queue->getId(),
                     'letter_sent_at IS NULL'
-                )
+                ]
             );
 
             $adapter->commit();
@@ -118,16 +111,16 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
         $adapter = $this->_getWriteAdapter();
         $adapter->delete(
             $this->getTable('newsletter/queue_store_link'),
-            array('queue_id = ?' => $queue->getId())
+            ['queue_id = ?' => $queue->getId()]
         );
 
         $stores = $queue->getStores();
         if (!is_array($stores)) {
-            $stores = array();
+            $stores = [];
         }
 
         foreach ($stores as $storeId) {
-            $data = array();
+            $data = [];
             $data['store_id'] = $storeId;
             $data['queue_id'] = $queue->getId();
             $adapter->insert($this->getTable('newsletter/queue_store_link'), $data);
@@ -139,11 +132,11 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
         }
 
         $subscribers = Mage::getResourceSingleton('newsletter/subscriber_collection')
-            ->addFieldToFilter('store_id', array('in'=>$stores))
+            ->addFieldToFilter('store_id', ['in'=>$stores])
             ->useOnlySubscribed()
             ->load();
 
-        $subscriberIds = array();
+        $subscriberIds = [];
 
         /** @var Mage_Newsletter_Model_Subscriber $subscriber */
         foreach ($subscribers as $subscriber) {
@@ -169,8 +162,8 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
         $select = $adapter->select()->from($this->getTable('newsletter/queue_store_link'), 'store_id')
             ->where('queue_id = :queue_id');
 
-        if (!($result = $adapter->fetchCol($select, array('queue_id'=>$queue->getId())))) {
-            $result = array();
+        if (!($result = $adapter->fetchCol($select, ['queue_id'=>$queue->getId()]))) {
+            $result = [];
         }
 
         return $result;

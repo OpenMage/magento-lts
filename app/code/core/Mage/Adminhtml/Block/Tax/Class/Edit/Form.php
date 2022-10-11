@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,9 +23,8 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Tax_Class_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     public function __construct()
@@ -44,11 +37,11 @@ class Mage_Adminhtml_Block_Tax_Class_Edit_Form extends Mage_Adminhtml_Block_Widg
     protected function _prepareForm()
     {
         $model  = Mage::registry('tax_class');
-        $form   = new Varien_Data_Form(array(
+        $form   = new Varien_Data_Form([
             'id'        => 'edit_form',
             'action'    => $this->getData('action'),
             'method'    => 'post'
-        ));
+        ]);
 
         $classType  = $this->getClassType();
 
@@ -57,37 +50,37 @@ class Mage_Adminhtml_Block_Tax_Class_Edit_Form extends Mage_Adminhtml_Block_Widg
             : Mage::helper('cms')->__('Product Tax Class Information')
         );
 
-        $fieldset   = $form->addFieldset('base_fieldset', array(
+        $fieldset   = $form->addFieldset('base_fieldset', [
             'legend'    => $classType == Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER
                 ? Mage::helper('tax')->__('Customer Tax Class Information')
                 : Mage::helper('tax')->__('Product Tax Class Information')
-        ));
+        ]);
 
         $fieldset->addField('class_name', 'text',
-            array(
+            [
                 'name'  => 'class_name',
                 'label' => Mage::helper('tax')->__('Class Name'),
                 'class' => 'required-entry',
                 'value' => $model->getClassName(),
                 'required' => true,
-            )
+            ]
         );
 
         $fieldset->addField('class_type', 'hidden',
-            array(
+            [
                 'name'      => 'class_type',
                 'value'     => $classType,
                 'no_span'   => true
-            )
+            ]
         );
 
         if ($model->getId()) {
             $fieldset->addField('class_id', 'hidden',
-                array(
+                [
                     'name'      => 'class_id',
                     'value'     => $model->getId(),
                     'no_span'   => true
-                )
+                ]
             );
         }
 

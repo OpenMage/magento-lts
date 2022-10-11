@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Report_Grid_Abstract
 {
@@ -51,7 +45,7 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
 
     protected function _prepareColumns()
     {
-        $this->addColumn('period', array(
+        $this->addColumn('period', [
             'header'            => Mage::helper('sales')->__('Period'),
             'index'             => 'period',
             'width'             => '100',
@@ -60,39 +54,39 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
             'renderer'          => 'adminhtml/report_sales_grid_column_renderer_date',
             'totals_label'      => Mage::helper('sales')->__('Total'),
             'subtotals_label'   => Mage::helper('sales')->__('Subtotal'),
-            'html_decorators' => array('nobr'),
-        ));
+            'html_decorators' => ['nobr'],
+        ]);
 
-        $this->addColumn('code', array(
+        $this->addColumn('code', [
             'header'    => Mage::helper('sales')->__('Tax'),
             'index'     => 'code',
             'type'      => 'string',
             'sortable'  => false
-        ));
+        ]);
 
-        $this->addColumn('percent', array(
+        $this->addColumn('percent', [
             'header'    => Mage::helper('sales')->__('Rate'),
             'index'     => 'percent',
             'type'      => 'number',
             'width'     => '100',
             'sortable'  => false
-        ));
+        ]);
 
-        $this->addColumn('orders_count', array(
+        $this->addColumn('orders_count', [
             'header'    => Mage::helper('sales')->__('Number of Orders'),
             'index'     => 'orders_count',
             'total'     => 'sum',
             'type'      => 'number',
             'width'     => '100',
             'sortable'  => false
-        ));
+        ]);
 
         if ($this->getFilterData()->getStoreIds()) {
             $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
         }
         $currencyCode = $this->getCurrentCurrencyCode();
 
-        $this->addColumn('tax_base_amount_sum', array(
+        $this->addColumn('tax_base_amount_sum', [
             'header'        => Mage::helper('sales')->__('Tax Amount'),
             'type'          => 'currency',
             'currency_code' => $currencyCode,
@@ -100,7 +94,7 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
             'total'         => 'sum',
             'sortable'      => false,
             'rate'          => $this->getRate($currencyCode),
-        ));
+        ]);
 
         $this->addExportType('*/*/exportTaxCsv', Mage::helper('adminhtml')->__('CSV'));
         $this->addExportType('*/*/exportTaxExcel', Mage::helper('adminhtml')->__('Excel XML'));
@@ -119,7 +113,7 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
         $filterData = $this->getFilterData();
         if(!$filterData->hasData('order_statuses')) {
             $orderConfig = Mage::getModel('sales/order_config');
-            $statusValues = array();
+            $statusValues = [];
             $canceledStatuses = $orderConfig->getStateStatuses(Mage_Sales_Model_Order::STATE_CANCELED);
             foreach ($orderConfig->getStatuses() as $code => $label) {
                 if (!isset($canceledStatuses[$code])) {

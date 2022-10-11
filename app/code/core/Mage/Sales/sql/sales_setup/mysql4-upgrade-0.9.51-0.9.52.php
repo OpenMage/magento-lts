@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -25,22 +19,22 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 
 $tableOrder         = $this->getTable('sales_order');
 $tableOrderItem     = $this->getTable('sales_flat_order_item');
 
 $select = $installer->getConnection()->select()
-    ->from($tableOrderItem, array(
+    ->from($tableOrderItem, [
         'total_qty_ordered'   => 'SUM(qty_ordered)',
-        'entity_id'           => 'order_id'))
-    ->group(array('order_id'));
+        'entity_id'           => 'order_id'])
+    ->group(['order_id']);
 
 $installer->run('CREATE TEMPORARY TABLE `tmp_order_items` ' . $select->assemble());
 
 $select->reset()
-    ->join('tmp_order_items', 'tmp_order_items.entity_id = order.entity_id', array('total_qty_ordered', 'entity_id'));
-$sqlQuery = $select->crossUpdateFromSelect(array('order' => $tableOrder));
+    ->join('tmp_order_items', 'tmp_order_items.entity_id = order.entity_id', ['total_qty_ordered', 'entity_id']);
+$sqlQuery = $select->crossUpdateFromSelect(['order' => $tableOrder]);
 $installer->getConnection()->query($sqlQuery);
 
 $installer->run('DROP TEMPORARY TABLE `tmp_order_items`');

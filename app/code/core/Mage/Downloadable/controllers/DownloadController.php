@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,28 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Downloadable
+ * @category   Mage
+ * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Download controller
  *
- * @category    Mage
- * @package     Mage_Downloadable
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Downloadable
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Action
 {
-
     /**
      * Return core session object
      *
@@ -55,15 +48,13 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
     }
 
     /**
-     * @param $resource
-     * @param $resourceType
+     * @param string $resource
+     * @param string $resourceType
      * @throws Zend_Controller_Response_Exception
      */
     protected function _processDownload($resource, $resourceType)
     {
         $helper = Mage::helper('downloadable/download');
-        /* @var Mage_Downloadable_Helper_Download $helper */
-
         $helper->setResource($resource, $resourceType);
 
         $fileName       = $helper->getFilename();
@@ -190,7 +181,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
                 $this->_getCustomerSession()->authenticate($this);
                 $this->_getCustomerSession()->setBeforeAuthUrl(
                     Mage::getUrl('downloadable/customer/products/'),
-                    array('_secure' => true)
+                    ['_secure' => true]
                 );
                 return ;
             }

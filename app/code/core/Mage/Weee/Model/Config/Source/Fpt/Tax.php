@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Weee
@@ -33,11 +27,11 @@ class Mage_Weee_Model_Config_Source_Fpt_Tax
     public function toOptionArray()
     {
         $weeeHelper = $this->_getHelper('weee');
-        return array(
-            array('value' => 0, 'label' => $weeeHelper->__('Not Taxed')),
-            array('value' => 1, 'label' => $weeeHelper->__('Taxed')),
-            array('value' => 2, 'label' => $weeeHelper->__('Loaded and Displayed with Tax')),
-        );
+        return [
+            ['value' => 0, 'label' => $weeeHelper->__('Not Taxed')],
+            ['value' => 1, 'label' => $weeeHelper->__('Taxed')],
+            ['value' => 2, 'label' => $weeeHelper->__('Loaded and Displayed with Tax')],
+        ];
     }
 
     /**

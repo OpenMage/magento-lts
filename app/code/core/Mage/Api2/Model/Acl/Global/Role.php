@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -67,8 +61,6 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
-     * @return void
      */
     protected function _construct()
     {
@@ -82,7 +74,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     protected function _beforeSave()
     {
-        if ($this->isObjectNew() && null === $this->getCreatedAt()) {
+        if ($this->isObjectNew() && $this->getCreatedAt() === null) {
             $this->setCreatedAt(Varien_Date::now());
         } else {
             $this->setUpdatedAt(Varien_Date::now());
@@ -131,7 +123,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     public function getPermissionModel()
     {
-        if (null == $this->_permissionModel) {
+        if ($this->_permissionModel == null) {
             $this->_permissionModel = Mage::getModel('api2/acl_global_rule_resourcePermission');
         }
         return $this->_permissionModel;
@@ -144,10 +136,10 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     public static function getSystemRoles()
     {
-        return array(
+        return [
             self::ROLE_GUEST_ID,
             self::ROLE_CUSTOMER_ID
-        );
+        ];
     }
 
     /**

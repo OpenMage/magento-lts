@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Varien
  * @package     Varien_Event
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -26,7 +20,7 @@
 
 /**
  * Event observer collection
- * 
+ *
  * @category   Varien
  * @package    Varien_Event
  * @author      Magento Core Team <core@magentocommerce.com>
@@ -39,7 +33,7 @@ class Varien_Event_Observer_Collection
      * @var array
      */
     protected $_observers;
-    
+
     /**
      * Initializes observers
      *
@@ -48,7 +42,7 @@ class Varien_Event_Observer_Collection
     {
         $this->_observers = array();
     }
-    
+
     /**
      * Returns all observers in the collection
      *
@@ -58,7 +52,7 @@ class Varien_Event_Observer_Collection
     {
         return $this->_observers;
     }
-    
+
     /**
      * Returns observer by its name
      *
@@ -69,7 +63,7 @@ class Varien_Event_Observer_Collection
     {
         return $this->_observers[$observerName];
     }
-    
+
     /**
      * Adds an observer to the collection
      *
@@ -81,7 +75,7 @@ class Varien_Event_Observer_Collection
         $this->_observers[$observer->getName()] = $observer;
         return $this;
     }
-    
+
     /**
      * Removes an observer from the collection by its name
      *
@@ -93,7 +87,7 @@ class Varien_Event_Observer_Collection
         unset($this->_observers[$observerName]);
         return $this;
     }
-    
+
     /**
      * Dispatches an event to all observers in the collection
      *

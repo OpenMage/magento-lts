@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,6 +28,12 @@
 class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/config';
+
+    /**
      * Whether current section is allowed
      *
      * @var bool
@@ -41,7 +41,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     protected $_isSectionAllowedFlag = true;
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      * Check if current section is found and is allowed
      *
      * @return $this
@@ -68,7 +68,6 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Edit configuration section
-     *
      */
     public function editAction()
     {
@@ -89,22 +88,26 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $section      = $sections->$current;
         $hasChildren  = $configFields->hasChildren($section, $website, $store);
         if (!$hasChildren && $current) {
-            $this->_redirect('*/*/', array('website'=>$website, 'store'=>$store));
+            $this->_redirect('*/*/', ['website'=>$website, 'store'=>$store]);
         }
 
         $this->loadLayout();
 
         $this->_setActiveMenu('system/config');
-        $this->getLayout()->getBlock('menu')->setAdditionalCacheKeyInfo(array($current));
+        $this->getLayout()->getBlock('menu')->setAdditionalCacheKeyInfo([$current]);
 
         $this->_addBreadcrumb(Mage::helper('adminhtml')->__('System'), Mage::helper('adminhtml')->__('System'),
             $this->getUrl('*/system'));
 
+        /** @var Mage_Adminhtml_Block_System_Config_Tabs $block */
+        $block = $this->getLayout()->createBlock('adminhtml/system_config_tabs');
         $this->getLayout()->getBlock('left')
-            ->append($this->getLayout()->createBlock('adminhtml/system_config_tabs')->initTabs());
+            ->append($block->initTabs());
 
         if ($this->_isSectionAllowedFlag) {
-            $this->_addContent($this->getLayout()->createBlock('adminhtml/system_config_edit')->initForm());
+            /** @var Mage_Adminhtml_Block_System_Config_Edit $block */
+            $block = $this->getLayout()->createBlock('adminhtml/system_config_edit');
+            $this->_addContent($block->initForm());
 
             $this->_addJs($this->getLayout()
                 ->createBlock('adminhtml/template')
@@ -122,12 +125,11 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Save configuration
-     *
      */
     public function saveAction()
     {
         $session = Mage::getSingleton('adminhtml/session');
-        /* @var $session Mage_Adminhtml_Model_Session */
+        /** @var Mage_Adminhtml_Model_Session $session */
 
         $groups = $this->getRequest()->getPost('groups');
 
@@ -140,7 +142,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
                 if (is_array($group)) {
                     foreach ($group['fields'] as $fieldName => $field) {
                         if (!empty($field['value'])) {
-                            $groups[$groupName]['fields'][$fieldName] = array('value' => $field['value']);
+                            $groups[$groupName]['fields'][$fieldName] = ['value' => $field['value']];
                         }
                     }
                 }
@@ -166,16 +168,16 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
             // reinit configuration
             Mage::getConfig()->reinit();
-            Mage::dispatchEvent('admin_system_config_section_save_after', array(
+            Mage::dispatchEvent('admin_system_config_section_save_after', [
                 'website' => $website,
                 'store'   => $store,
                 'section' => $section
-            ));
+            ]);
             Mage::app()->reinitStores();
 
             // website and store codes can be used in event implementation, so set them as well
             Mage::dispatchEvent("admin_system_config_changed_section_{$section}",
-                array('website' => $website, 'store' => $store)
+                ['website' => $website, 'store' => $store]
             );
             $session->addSuccess(Mage::helper('adminhtml')->__('The configuration has been saved.'));
         }
@@ -192,7 +194,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
         $this->_saveState($this->getRequest()->getPost('config_state'));
 
-        $this->_redirect('*/*/edit', array('_current' => array('section', 'website', 'store')));
+        $this->_redirect('*/*/edit', ['_current' => ['section', 'website', 'store']]);
     }
 
     /**
@@ -212,10 +214,10 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     protected function _saveAdvanced()
     {
         Mage::app()->cleanCache(
-            array(
+            [
                 'layout',
                 Mage_Core_Model_Layout_Update::LAYOUT_GENERAL_CACHE_TAG
-            ));
+            ]);
     }
 
     /**
@@ -228,9 +230,9 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
                     && $this->getRequest()->getParam('container') != ''
                         && $this->getRequest()->getParam('value') != '') {
 
-            $configState = array(
+            $configState = [
                 $this->getRequest()->getParam('container') => $this->getRequest()->getParam('value')
-            );
+            ];
             $this->_saveState($configState);
             $this->getResponse()->setBody('success');
         }
@@ -243,7 +245,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     public function exportTableratesAction()
     {
         $fileName   = 'tablerates.csv';
-        /** @var $gridBlock Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid */
+        /** @var Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid $gridBlock */
         $gridBlock  = $this->getLayout()->createBlock('adminhtml/shipping_carrier_tablerate_grid');
         $website    = Mage::app()->getWebsite($this->getRequest()->getParam('website'));
         if ($this->getRequest()->getParam('conditionName')) {
@@ -254,16 +256,6 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $gridBlock->setWebsiteId($website->getId())->setConditionName($conditionName);
         $content    = $gridBlock->getCsvFile();
         $this->_prepareDownloadResponse($fileName, $content);
-    }
-
-    /**
-     * Check is allow modify system configuration
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/config');
     }
 
     /**
@@ -305,16 +297,16 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
      * @param array $configState
      * @return bool
      */
-    protected function _saveState($configState = array())
+    protected function _saveState($configState = [])
     {
         $adminUser = Mage::getSingleton('admin/session')->getUser();
         if (is_array($configState)) {
             $extra = $adminUser->getExtra();
             if (!is_array($extra)) {
-                $extra = array();
+                $extra = [];
             }
             if (!isset($extra['configState'])) {
-                $extra['configState'] = array();
+                $extra['configState'] = [];
             }
             foreach ($configState as $fieldset => $state) {
                 $extra['configState'][$fieldset] = $state;

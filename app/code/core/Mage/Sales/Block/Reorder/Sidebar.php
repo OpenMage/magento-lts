@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -62,7 +56,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
             ->addAttributeToFilter('customer_id', $customerId)
             ->addAttributeToFilter(
                 'state',
-                array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates())
+                ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()]
             )
             ->addAttributeToSort('created_at', 'desc')
             ->setPage(1, 1);
@@ -78,7 +72,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      */
     public function getItems()
     {
-        $items = array();
+        $items = [];
         $order = $this->getLastOrder();
         $limit = 5;
 
@@ -116,7 +110,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      */
     public function getFormActionUrl()
     {
-        return $this->getUrl('checkout/cart/addgroup', array('_secure' => true));
+        return $this->getUrl('checkout/cart/addgroup', ['_secure' => true]);
     }
 
     /**
@@ -176,7 +170,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      */
     protected function _getItemProducts()
     {
-        $products =  array();
+        $products =  [];
         foreach ($this->getItems() as $item) {
             $products[] = $item->getProduct();
         }

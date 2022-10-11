@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,39 +12,34 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Reports
+ * @category   Mage
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Events model
  *
- * @method Mage_Reports_Model_Resource_Event _getResource()
- * @method Mage_Reports_Model_Resource_Event getResource()
- * @method string getLoggedAt()
- * @method Mage_Reports_Model_Event setLoggedAt(string $value)
- * @method int getEventTypeId()
- * @method Mage_Reports_Model_Event setEventTypeId(int $value)
- * @method int getObjectId()
- * @method Mage_Reports_Model_Event setObjectId(int $value)
- * @method int getSubjectId()
- * @method Mage_Reports_Model_Event setSubjectId(int $value)
- * @method int getSubtype()
- * @method Mage_Reports_Model_Event setSubtype(int $value)
- * @method int getStoreId()
- * @method Mage_Reports_Model_Event setStoreId(int $value)
- *
  * @category    Mage
  * @package     Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Reports_Model_Resource_Event _getResource()
+ * @method Mage_Reports_Model_Resource_Event getResource()
+ * @method Mage_Reports_Model_Resource_Event_Collection getCollection()
+ * @method string getLoggedAt()
+ * @method $this setLoggedAt(string $value)
+ * @method int getEventTypeId()
+ * @method $this setEventTypeId(int $value)
+ * @method int getObjectId()
+ * @method $this setObjectId(int $value)
+ * @method int getSubjectId()
+ * @method $this setSubjectId(int $value)
+ * @method int getSubtype()
+ * @method $this setSubtype(int $value)
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
  */
 class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
 {
@@ -86,7 +81,7 @@ class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
     public function updateCustomerType($visitorId, $customerId, $types = null)
     {
         if (is_null($types)) {
-            $types = array();
+            $types = [];
             foreach (Mage::getModel('reports/event_type')->getCollection() as $eventType) {
                 if ($eventType->getCustomerLogin()) {
                     $types[$eventType->getId()] = $eventType->getId();

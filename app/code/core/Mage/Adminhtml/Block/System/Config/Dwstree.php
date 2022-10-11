@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Config_Dwstree extends Mage_Adminhtml_Block_Widget_Tabs
 {
@@ -51,20 +45,20 @@ class Mage_Adminhtml_Block_System_Config_Dwstree extends Mage_Adminhtml_Block_Wi
         $websitesConfig = Mage::getConfig()->getNode('websites');
         $storesConfig = Mage::getConfig()->getNode('stores');
 
-        $this->addTab('default', array(
+        $this->addTab('default', [
             'label'  => Mage::helper('adminhtml')->__('Default Config'),
-            'url'    => $this->getUrl('*/*/*', array('section'=>$section)),
+            'url'    => $this->getUrl('*/*/*', ['section'=>$section]),
             'class' => 'default',
-        ));
+        ]);
 
         foreach ($websitesConfig->children() as $wCode=>$wConfig) {
             $wName = (string)$wConfig->descend('system/website/name');
-            $wUrl = $this->getUrl('*/*/*', array('section'=>$section, 'website'=>$wCode));
-            $this->addTab('website_'.$wCode, array(
+            $wUrl = $this->getUrl('*/*/*', ['section'=>$section, 'website'=>$wCode]);
+            $this->addTab('website_'.$wCode, [
                 'label' => $wName,
                 'url'   => $wUrl,
                 'class' => 'website',
-            ));
+            ]);
             if ($curWebsite===$wCode) {
                 if ($curStore) {
                     $this->_addBreadcrumb($wName, '', $wUrl);
@@ -74,11 +68,11 @@ class Mage_Adminhtml_Block_System_Config_Dwstree extends Mage_Adminhtml_Block_Wi
             }
             foreach ($wConfig->descend('system/stores')->children() as $sCode=>$sId) {
                 $sName = (string)$storesConfig->descend($sCode.'/system/store/name');
-                $this->addTab('store_'.$sCode, array(
+                $this->addTab('store_'.$sCode, [
                     'label' => $sName,
-                    'url'   => $this->getUrl('*/*/*', array('section'=>$section, 'website'=>$wCode, 'store'=>$sCode)),
+                    'url'   => $this->getUrl('*/*/*', ['section'=>$section, 'website'=>$wCode, 'store'=>$sCode]),
                     'class' => 'store',
-                ));
+                ]);
                 if ($curStore===$sCode) {
                     $this->_addBreadcrumb($sName);
                 }

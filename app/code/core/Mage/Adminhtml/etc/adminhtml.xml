@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -170,35 +164,35 @@
                                 <sort_order>20</sort_order>
                                 <children>
                                     <general translate="title">
-                                        <title>General Section</title>
+                                        <title>General</title>
                                         <sort_order>20</sort_order>
                                     </general>
                                     <web translate="title">
-                                        <title>Web Section</title>
+                                        <title>Web</title>
                                         <sort_order>30</sort_order>
                                     </web>
                                     <design translate="title">
-                                        <title>Design Section</title>
+                                        <title>Design</title>
                                         <sort_order>40</sort_order>
                                     </design>
                                     <system translate="title">
-                                        <title>System Section</title>
+                                        <title>System</title>
                                         <sort_order>80</sort_order>
                                     </system>
                                     <advanced translate="title">
-                                        <title>Advanced Section</title>
+                                        <title>Advanced</title>
                                         <sort_order>90</sort_order>
                                     </advanced>
                                     <trans_email translate="title">
-                                        <title>Store Email Addresses Section</title>
+                                        <title>Store Email Addresses</title>
                                         <sort_order>100</sort_order>
                                     </trans_email>
                                     <dev translate="title">
-                                        <title>Developer Section</title>
+                                        <title>Developer</title>
                                         <sort_order>110</sort_order>
                                     </dev>
                                     <currency translate="title">
-                                        <title>Currency Setup Section</title>
+                                        <title>Currency Setup</title>
                                         <sort_order>120</sort_order>
                                     </currency>
                                     <sendfriend translate="title">
@@ -206,7 +200,7 @@
                                         <sort_order>140</sort_order>
                                     </sendfriend>
                                     <admin translate="title">
-                                        <title>Advanced Admin Section</title>
+                                        <title>Admin</title>
                                         <sort_order>100</sort_order>
                                     </admin>
                                 </children>

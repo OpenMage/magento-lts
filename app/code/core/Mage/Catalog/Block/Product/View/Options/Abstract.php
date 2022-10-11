@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Product options abstract type block
@@ -94,14 +87,15 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
 
     /**
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getFormatedPrice()
     {
         if ($option = $this->getOption()) {
-            return $this->_formatPrice(array(
-                'is_percent'    => ($option->getPriceType() == 'percent'),
-                'pricing_value' => $option->getPrice($option->getPriceType() == 'percent')
-            ));
+            return $this->_formatPrice([
+                'is_percent'    => ($option->getPriceType() === 'percent'),
+                'pricing_value' => $option->getPrice($option->getPriceType() === 'percent')
+            ]);
         }
         return '';
     }
@@ -112,6 +106,7 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
      * @param array $value
      * @param bool $flag
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _formatPrice($value, $flag = true)
     {
@@ -128,18 +123,20 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
             $value['pricing_value'] = 0 - $value['pricing_value'];
         }
 
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
+
         $priceStr = $sign;
         $_priceInclTax = $this->getPrice($value['pricing_value'], true);
         $_priceExclTax = $this->getPrice($value['pricing_value']);
         if ($taxHelper->displayPriceIncludingTax()) {
-            $priceStr .= $this->helper('core')->currencyByStore($_priceInclTax, $store, true, $flag);
+            $priceStr .= $helper::currencyByStore($_priceInclTax, $store, true, $flag);
         } elseif ($taxHelper->displayPriceExcludingTax()) {
-            $priceStr .= $this->helper('core')->currencyByStore($_priceExclTax, $store, true, $flag);
+            $priceStr .= $helper::currencyByStore($_priceExclTax, $store, true, $flag);
         } elseif ($taxHelper->displayBothPrices()) {
-            $priceStr .= $this->helper('core')->currencyByStore($_priceExclTax, $store, true, $flag);
+            $priceStr .= $helper::currencyByStore($_priceExclTax, $store, true, $flag);
             if ($_priceInclTax != $_priceExclTax) {
-                $priceStr .= ' ('.$sign.$this->helper('core')
-                    ->currencyByStore($_priceInclTax, $store, true, $flag).' '.$this->__('Incl. Tax').')';
+                $priceStr .= ' ('.$sign.$helper::currencyByStore($_priceInclTax, $store, true, $flag).' '.$this->__('Incl. Tax').')';
             }
         }
 
@@ -156,6 +153,7 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
      * @param float $price
      * @param bool $includingTax
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getPrice($price, $includingTax = null)
     {
@@ -175,7 +173,9 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
      */
     public function getCurrencyPrice($price)
     {
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
         $store = $this->getProduct()->getStore();
-        return $this->helper('core')->currencyByStore($price, $store, false);
+        return $helper::currencyByStore($price, $store, false);
     }
 }

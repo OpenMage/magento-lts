@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog product links collection
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -118,7 +111,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
     public function addLinkTypeIdFilter()
     {
         if ($this->_linkTypeId) {
-            $this->addFieldToFilter('link_type_id', array('eq' => $this->_linkTypeId));
+            $this->addFieldToFilter('link_type_id', ['eq' => $this->_linkTypeId]);
         }
         return $this;
     }
@@ -131,7 +124,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
     public function addProductIdFilter()
     {
         if ($this->getProduct() && $this->getProduct()->getId()) {
-            $this->addFieldToFilter('product_id', array('eq' => $this->getProduct()->getId()));
+            $this->addFieldToFilter('product_id', ['eq' => $this->getProduct()->getId()]);
         }
         return $this;
     }
@@ -154,10 +147,10 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
 
             $aliasInCondition = $adapter->quoteColumnAs($alias, null);
             $this->getSelect()->joinLeft(
-                array($alias => $table),
+                [$alias => $table],
                 $aliasInCondition . '.link_id = main_table.link_id AND '
                     . $aliasInCondition . '.product_link_attribute_id = ' . (int) $attribute['id'],
-                array($attribute['code'] => 'value')
+                [$attribute['code'] => 'value']
             );
         }
 

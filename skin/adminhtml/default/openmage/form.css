@@ -280,7 +280,7 @@ button.add-variable span {
   padding: 0;
 }
 .form-list td.label label {
-  padding: 5px 15px 0 0;
+  padding: 0 15px 0 0;
 }
 .form-list td.scope-label {
   color: #999;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Config data model
  *
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Core_Model_Resource_Config_Data _getResource()
  * @method Mage_Core_Model_Resource_Config_Data getResource()
+ * @method Mage_Core_Model_Resource_Config_Data_Collection getCollection()
  * @method string getScope()
  * @method $this setScope(string $value)
  * @method int getScopeId()
@@ -40,10 +38,6 @@
  * @method $this setValue(string $value)
  * @method string getStoreCode()
  * @method string getWebsiteCode()
- *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
 {
@@ -109,7 +103,6 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
         }
         return (string) Mage::getConfig()->getNode('default/' . $path);
     }
-
 
     /**
      * Get value by key for new user data from <section>/groups/<group>/fields/<field>

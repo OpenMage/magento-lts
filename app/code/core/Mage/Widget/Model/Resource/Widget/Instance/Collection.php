@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Widget
+ * @category   Mage
+ * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Widget Instance Collection
  *
- * @category    Mage
- * @package     Mage_Widget
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Widget
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -39,8 +32,7 @@ class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Mo
      *
      * @var array
      */
-    protected $_map = array('fields' => array('type' => 'instance_type'));
-
+    protected $_map = ['fields' => ['type' => 'instance_type']];
 
     /**
      * Constructor
@@ -59,17 +51,17 @@ class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Mo
      * @param boolean $withDefaultStore if TRUE also filter by store id '0'
      * @return $this
      */
-    public function addStoreFilter($storeIds = array(), $withDefaultStore = true)
+    public function addStoreFilter($storeIds = [], $withDefaultStore = true)
     {
         if (!is_array($storeIds)) {
-            $storeIds = array($storeIds);
+            $storeIds = [$storeIds];
         }
         if ($withDefaultStore && !in_array('0', $storeIds)) {
             array_unshift($storeIds, 0);
         }
-        $where = array();
+        $where = [];
         foreach ($storeIds as $storeId) {
-            $where[] = $this->_getConditionSql('store_ids', array('finset' => $storeId));
+            $where[] = $this->_getConditionSql('store_ids', ['finset' => $storeId]);
         }
 
         $this->_select->where(implode(' OR ', $where));

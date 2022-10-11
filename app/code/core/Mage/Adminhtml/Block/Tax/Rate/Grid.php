@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -46,15 +45,15 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
 
     protected function _prepareColumns()
     {
-        $this->addColumn('code', array(
+        $this->addColumn('code', [
             'header'        => Mage::helper('tax')->__('Tax Identifier'),
             'header_export' => Mage::helper('tax')->__('Code'),
             'align'         =>'left',
             'index'         => 'code',
             'filter_index'  => 'main_table.code',
-        ));
+        ]);
 
-        $this->addColumn('tax_country_id', array(
+        $this->addColumn('tax_country_id', [
             'header'        => Mage::helper('tax')->__('Country'),
             'type'          => 'country',
             'align'         => 'left',
@@ -62,32 +61,32 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
             'filter_index'  => 'main_table.tax_country_id',
             'renderer'      => 'adminhtml/tax_rate_grid_renderer_country',
             'sortable'      => false
-        ));
+        ]);
 
-        $this->addColumn('region_name', array(
+        $this->addColumn('region_name', [
             'header'        => Mage::helper('tax')->__('State/Region'),
             'header_export' => Mage::helper('tax')->__('State'),
             'align'         =>'left',
             'index'         => 'region_name',
             'filter_index'  => 'region_table.code',
             'default'       => '*',
-        ));
+        ]);
 
-        $this->addColumn('tax_postcode', array(
+        $this->addColumn('tax_postcode', [
             'header'        => Mage::helper('tax')->__('Zip/Post Code'),
             'align'         =>'left',
             'index'         => 'tax_postcode',
             'default'       => '*',
-        ));
+        ]);
 
-        $this->addColumn('rate', array(
+        $this->addColumn('rate', [
             'header'        => Mage::helper('tax')->__('Rate'),
             'align'         =>'right',
             'index'         => 'rate',
             'type'          => 'number',
             'default'       => '0.00',
             'renderer'      => 'adminhtml/tax_rate_grid_renderer_data',
-        ));
+        ]);
 
         $this->addExportType('*/*/exportCsv', Mage::helper('tax')->__('CSV'));
         $this->addExportType('*/*/exportXml', Mage::helper('tax')->__('Excel XML'));
@@ -97,8 +96,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('rate' => $row->getTaxCalculationRateId()));
+        return $this->getUrl('*/*/edit', ['rate' => $row->getTaxCalculationRateId()]);
     }
-
 }
 

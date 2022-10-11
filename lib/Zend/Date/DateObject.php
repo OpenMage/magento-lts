@@ -313,10 +313,10 @@ abstract class Zend_Date_DateObject {
 
         if (abs($timestamp) <= 0x7FFFFFFF) {
             // See ZF-11992
-            // "o" will sometimes resolve to the previous year (see 
-            // http://php.net/date ; it's part of the ISO 8601 
-            // standard). However, this is not desired, so replacing 
-            // all occurrences of "o" not preceded by a backslash 
+            // "o" will sometimes resolve to the previous year (see
+            // http://php.net/date ; it's part of the ISO 8601
+            // standard). However, this is not desired, so replacing
+            // all occurrences of "o" not preceded by a backslash
             // with "Y"
             $format = preg_replace('/(?<!\\\\)o/', 'Y', $format);
             $result = ($gmt) ? @gmdate($format, $timestamp) : @date($format, $timestamp);

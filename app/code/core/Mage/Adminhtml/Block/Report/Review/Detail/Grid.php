@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,11 +23,13 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
+    /**
+     * Mage_Adminhtml_Block_Report_Review_Detail_Grid constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -42,50 +38,43 @@ class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Bloc
 
     protected function _prepareCollection()
     {
-
-        //$collection = Mage::getModel('review/review')->getProductCollection();
-
-        //$collection->getSelect()
-        //    ->where('rt.entity_pk_value='.(int)$this->getRequest()->getParam('id'));
-
-        //$collection->getEntity()->setStore(0);
-
         $collection = Mage::getResourceModel('reports/review_collection')
             ->addProductFilter((int)$this->getRequest()->getParam('id'));
-
         $this->setCollection($collection);
-
         parent::_prepareCollection();
-
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
 
-        $this->addColumn('nickname', array(
+        $this->addColumn('nickname', [
             'header'    =>Mage::helper('reports')->__('Customer'),
             'width'     =>'100px',
             'index'     =>'nickname'
-        ));
+        ]);
 
-        $this->addColumn('title', array(
+        $this->addColumn('title', [
             'header'    =>Mage::helper('reports')->__('Title'),
             'width'     =>'150px',
             'index'     =>'title'
-        ));
+        ]);
 
-        $this->addColumn('detail', array(
+        $this->addColumn('detail', [
             'header'    =>Mage::helper('reports')->__('Detail'),
             'index'     =>'detail'
-        ));
+        ]);
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('created_at', [
             'header'    =>Mage::helper('reports')->__('Created At'),
             'index'     =>'created_at',
             'width'     =>'200px',
             'type'      =>'datetime'
-        ));
+        ]);
 
         $this->setFilterVisibility(false);
 
@@ -94,6 +83,5 @@ class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Bloc
 
         return parent::_prepareColumns();
     }
-
 }
 

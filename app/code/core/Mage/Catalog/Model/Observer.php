@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Observer
@@ -49,7 +42,7 @@ class Mage_Catalog_Model_Observer
             /** @var Mage_Catalog_Helper_Category_Flat $categoryFlatHelper */
             $categoryFlatHelper = Mage::helper('catalog/category_flat');
             if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
-                Mage::getResourceModel('catalog/category_flat')->synchronize(null, array($store->getId()));
+                Mage::getResourceModel('catalog/category_flat')->synchronize(null, [$store->getId()]);
             }
             Mage::getResourceSingleton('catalog/product')->refreshEnabledIndex($store);
         }
@@ -64,14 +57,14 @@ class Mage_Catalog_Model_Observer
      */
     public function storeAdd(Varien_Event_Observer $observer)
     {
-        /* @var Mage_Core_Model_Store $store */
+        /** @var Mage_Core_Model_Store $store */
         $store = $observer->getEvent()->getStore();
         Mage::app()->reinitStores();
         Mage::getConfig()->reinit();
         /** @var Mage_Catalog_Helper_Category_Flat $categoryFlatHelper */
         $categoryFlatHelper = Mage::helper('catalog/category_flat');
         if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
-            Mage::getResourceModel('catalog/category_flat')->synchronize(null, array($store->getId()));
+            Mage::getResourceModel('catalog/category_flat')->synchronize(null, [$store->getId()]);
         }
         Mage::getResourceModel('catalog/product')->refreshEnabledIndex($store);
         return $this;
@@ -85,7 +78,7 @@ class Mage_Catalog_Model_Observer
      */
     public function storeGroupSave(Varien_Event_Observer $observer)
     {
-        /* @var Mage_Core_Model_Store_Group $group */
+        /** @var Mage_Core_Model_Store_Group $group */
         $group = $observer->getEvent()->getGroup();
         if ($group->dataHasChangedFor('root_category_id') || $group->dataHasChangedFor('website_id')) {
             Mage::app()->reinitStores();
@@ -93,7 +86,7 @@ class Mage_Catalog_Model_Observer
                 /** @var Mage_Catalog_Helper_Category_Flat $categoryFlatHelper */
                 $categoryFlatHelper = Mage::helper('catalog/category_flat');
                 if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
-                    Mage::getResourceModel('catalog/category_flat')->synchronize(null, array($store->getId()));
+                    Mage::getResourceModel('catalog/category_flat')->synchronize(null, [$store->getId()]);
                 }
             }
         }
@@ -182,7 +175,6 @@ class Mage_Catalog_Model_Observer
      * Checking whether the using static urls in WYSIWYG allowed event
      *
      * @param Varien_Event_Observer $observer
-     * @return void
      */
     public function catalogCheckIsUsingStaticUrlsAllowed(Varien_Event_Observer $observer)
     {
@@ -244,12 +236,12 @@ class Mage_Catalog_Model_Observer
             }
 
             $tree = $parentCategoryNode->getTree();
-            $categoryData = array(
+            $categoryData = [
                 'name' => $category->getName(),
                 'id' => $nodeId,
                 'url' => Mage::helper('catalog/category')->getCategoryUrl($category),
                 'is_active' => $this->_isActiveMenuCategory($category)
-            );
+            ];
             $categoryNode = new Varien_Data_Tree_Node($categoryData, 'id', $tree, $parentCategoryNode);
             $parentCategoryNode->addChild($categoryNode);
 

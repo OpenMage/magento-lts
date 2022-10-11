@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Centinel
+ * @category   Mage
+ * @package    Mage_Centinel
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * 3D Secure Validation Api
+ *
+ * @category   Mage
+ * @package    Mage_Centinel
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Centinel_Model_Api extends Varien_Object
 {
@@ -34,9 +32,9 @@ class Mage_Centinel_Model_Api extends Varien_Object
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = array('TransactionPwd', 'CardNumber', 'CardExpMonth', 'CardExpYear');
+    protected $_debugReplacePrivateDataKeys = ['TransactionPwd', 'CardNumber', 'CardExpMonth', 'CardExpYear'];
 
-    protected static $_iso4217Currencies = array(
+    protected static $_iso4217Currencies = [
         'AED' => '784', 'AFN' => '971',
         'ALL' => '008', 'AMD' => '051', 'ANG' => '532', 'AOA' => '973', 'ARS' => '032', 'AUD' => '036', 'AWG' => '533',
         'AZN' => '944', 'BAM' => '977', 'BBD' => '052', 'BDT' => '050', 'BGN' => '975', 'BHD' => '048', 'BIF' => '108',
@@ -63,7 +61,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
         'VUV' => '548', 'WST' => '882', 'XAF' => '950', 'XAG' => '961', 'XAU' => '959', 'XBA' => '955', 'XBB' => '956',
         'XBC' => '957', 'XBD' => '958', 'XCD' => '951', 'XDR' => '960', 'XOF' => '952', 'XPD' => '964', 'XPF' => '953',
         'XPT' => '962', 'XTS' => '963', 'XXX' => '999', 'YER' => '886', 'ZAR' => '710', 'ZMK' => '894', 'ZWL' => '932',
-    );
+    ];
 
     /**
      * Centinel validation client
@@ -128,24 +126,24 @@ class Mage_Centinel_Model_Api extends Varien_Object
     /**
      * Call centinel api methods by given method name and data
      *
-     * @param $method string
-     * @param $data array
+     * @param string $method
+     * @param array $data
      *
      * @return Mage_Centinel_Model_Api_Client
      */
     protected function _call($method, $data)
     {
         $client = $this->_getClientInstance();
-        $request = array_merge(array(
+        $request = array_merge([
             'MsgType'         => $method,
             'Version'         => $this->_getVersion(),
             'ProcessorId'     => $this->getProcessorId(),
             'MerchantId'      => $this->getMerchantId(),
             'TransactionPwd'  => $this->getTransactionPwd(),
             'TransactionType' => $this->_getTransactionType(),
-        ), $data);
+        ], $data);
 
-        $debugData = array('request' => $request);
+        $debugData = ['request' => $request];
 
         try {
             foreach($request as $key => $val) {
@@ -153,7 +151,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
             }
             $client->sendHttp($this->_getApiEndpointUrl(), $this->_getTimeoutConnect(), $this->_getTimeoutRead());
         } catch (Exception $e) {
-            $debugData['response'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
+            $debugData['response'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
             $this->_debug($debugData);
             throw $e;
         }
@@ -200,14 +198,14 @@ class Mage_Centinel_Model_Api extends Varien_Object
             );
         }
 
-        $clientResponse = $this->_call('cmpi_lookup', array(
+        $clientResponse = $this->_call('cmpi_lookup', [
             'Amount' => round($data->getAmount() * 100),
             'CurrencyCode' => $currencyNumber,
             'CardNumber' =>  $data->getCardNumber(),
             'CardExpMonth'=> $month,
             'CardExpYear' =>  $data->getCardExpYear(),
             'OrderNumber' => $data->getOrderNumber()
-        ));
+        ]);
 
         $result->setErrorNo($clientResponse->getValue('ErrorNo'));
         $result->setErrorDesc($clientResponse->getValue('ErrorDesc'));
@@ -229,10 +227,10 @@ class Mage_Centinel_Model_Api extends Varien_Object
     {
         $result = new Varien_Object();
 
-        $clientResponse = $this->_call('cmpi_authenticate', array(
+        $clientResponse = $this->_call('cmpi_authenticate', [
             'TransactionId' => $data->getTransactionId(),
             'PAResPayload'  => $data->getPaResPayload(),
-        ));
+        ]);
 
         $result->setErrorNo($clientResponse->getValue('ErrorNo'));
         $result->setErrorDesc($clientResponse->getValue('ErrorDesc'));

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -42,12 +36,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Ajax_Serializer extends Mage
 
     public function getProductsJSON()
     {
-        $result = array();
+        $result = [];
         if ($this->getProducts()) {
             $isEntityId = $this->getIsEntityId();
             foreach ($this->getProducts() as $product) {
                 $id = $isEntityId ? $product->getEntityId() : $product->getId();
-                $result[$id] = $product->toArray(array('qty', 'position'));
+                $result[$id] = $product->toArray(['qty', 'position']);
             }
         }
         return $result ? Zend_Json::encode($result) : '{}';

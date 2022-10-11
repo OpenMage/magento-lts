@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Product Price Template Block
@@ -39,7 +32,7 @@ class Mage_Catalog_Block_Product_Price_Template extends Mage_Core_Block_Abstract
      *
      * @var array
      */
-    protected $_priceBlockTypes = array();
+    protected $_priceBlockTypes = [];
 
     /**
      * Retrieve array of Price Block Types
@@ -65,10 +58,10 @@ class Mage_Catalog_Block_Product_Price_Template extends Mage_Core_Block_Abstract
     public function addPriceBlockType($type, $block = '', $template = '')
     {
         if ($type) {
-            $this->_priceBlockTypes[$type] = array(
+            $this->_priceBlockTypes[$type] = [
                 'block'     => $block,
                 'template'  => $template
-            );
+            ];
         }
 
         return $this;

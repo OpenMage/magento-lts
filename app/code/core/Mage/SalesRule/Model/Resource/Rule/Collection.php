@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_SalesRule
+ * @category   Mage
+ * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sales Rules resource collection model
  *
- * @category    Mage
- * @package     Mage_SalesRule
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Resource_Rule_Collection_Abstract
 {
@@ -39,18 +32,18 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
      *
      * @var array
      */
-    protected $_associatedEntitiesMap = array(
-        'website' => array(
+    protected $_associatedEntitiesMap = [
+        'website' => [
             'associations_table' => 'salesrule/website',
             'rule_id_field'      => 'rule_id',
             'entity_id_field'    => 'website_id'
-        ),
-        'customer_group' => array(
+        ],
+        'customer_group' => [
             'associations_table' => 'salesrule/customer_group',
             'rule_id_field'      => 'rule_id',
             'entity_id_field'    => 'customer_group_id'
-        )
-    );
+        ]
+    ];
 
     /**
      * Set resource model and determine field mapping
@@ -70,7 +63,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
      * @param int $customerGroupId
      * @param string $couponCode
      * @param string|null $now
-     * @use $this->addWebsiteGroupDateFilter()
+     * @uses Mage_SalesRule_Model_Resource_Rule_Collection::addWebsiteGroupDateFilter()
      *
      * @return $this
      */
@@ -87,12 +80,12 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
             $connection = $this->getConnection();
             if (strlen($couponCode)) {
                 $select->joinLeft(
-                    array('rule_coupons' => $this->getTable('salesrule/coupon')),
+                    ['rule_coupons' => $this->getTable('salesrule/coupon')],
                     $connection->quoteInto(
                         'main_table.rule_id = rule_coupons.rule_id AND main_table.coupon_type != ?',
                         Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON
                     ),
-                    array('code')
+                    ['code']
                 );
 
                 $noCouponCondition = $connection->quoteInto(
@@ -100,7 +93,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
                     Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON
                 );
 
-                $orWhereConditions = array(
+                $orWhereConditions = [
                     $connection->quoteInto(
                         '(main_table.coupon_type = ? AND rule_coupons.type = 0)',
                         Mage_SalesRule_Model_Rule::COUPON_TYPE_AUTO
@@ -113,7 +106,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
                         '(main_table.coupon_type = ? AND main_table.use_auto_generation = 0 AND rule_coupons.type = 0)',
                         Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC
                     ),
-                );
+                ];
                 $orWhereCondition = implode(' OR ', $orWhereConditions);
                 $select->where(
                     $noCouponCondition . ' OR ((' . $orWhereCondition . ') AND rule_coupons.code = ?)',
@@ -137,7 +130,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
      * @param int $websiteId
      * @param int $customerGroupId
      * @param string|null $now
-     * @use $this->addWebsiteFilter()
+     * @uses Mage_SalesRule_Model_Resource_Rule_Collection::addWebsiteFilter()
      *
      * @return $this
      */
@@ -154,14 +147,14 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
             $connection = $this->getConnection();
             $this->getSelect()
                 ->joinInner(
-                    array('customer_group_ids' => $this->getTable($entityInfo['associations_table'])),
+                    ['customer_group_ids' => $this->getTable($entityInfo['associations_table'])],
                     $connection->quoteInto(
                         'main_table.' . $entityInfo['rule_id_field']
                             . ' = customer_group_ids.' . $entityInfo['rule_id_field']
                             . ' AND customer_group_ids.' . $entityInfo['entity_id_field'] . ' = ?',
                         (int)$customerGroupId
                     ),
-                    array()
+                    []
                 )
                 ->where('from_date is null or from_date <= ?', $now)
                 ->where('to_date is null or to_date >= ?', $now);
@@ -184,9 +177,9 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
         parent::_initSelect();
         $this->getSelect()
             ->joinLeft(
-                array('rule_coupons' => $this->getTable('salesrule/coupon')),
+                ['rule_coupons' => $this->getTable('salesrule/coupon')],
                 'main_table.rule_id = rule_coupons.rule_id AND rule_coupons.is_primary = 1',
-                array('code')
+                ['code']
             );
         return $this;
     }
@@ -200,11 +193,11 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
      */
     public function addAttributeInConditionFilter($attributeCode)
     {
-        $match = sprintf('%%%s%%', substr(serialize(array('attribute' => $attributeCode)), 5, -1));
+        $match = sprintf('%%%s%%', substr(serialize(['attribute' => $attributeCode]), 5, -1));
         $field = $this->_getMappedField('conditions_serialized');
-        $cCond = $this->_getConditionSql($field, array('like' => $match));
+        $cCond = $this->_getConditionSql($field, ['like' => $match]);
         $field = $this->_getMappedField('actions_serialized');
-        $aCond = $this->_getConditionSql($field, array('like' => $match));
+        $aCond = $this->_getConditionSql($field, ['like' => $match]);
 
         $this->getSelect()->where(sprintf('(%s OR %s)', $cCond, $aCond), null, Varien_Db_Select::TYPE_CONDITION);
 
@@ -220,7 +213,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
     {
         $this->addFieldToFilter(
             'main_table.use_auto_generation',
-            array('neq' => 1)
+            ['neq' => 1]
         );
 
         return $this;

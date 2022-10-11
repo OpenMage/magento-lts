@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -30,10 +24,15 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Resource_Product_Link_Product_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adminhtml_Block_Widget_Grid
     implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    /**
+     * Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -42,15 +41,21 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         $this->setSkipGenerateContent(true);
         $this->setUseAjax(true);
         if ($this->_getProduct()->getId()) {
-            $this->setDefaultFilter(array('in_products'=>1));
+            $this->setDefaultFilter(['in_products'=>1]);
         }
     }
 
+    /**
+     * @return string
+     */
     public function getTabUrl()
     {
-        return $this->getUrl('*/*/superGroup', array('_current'=>true));
+        return $this->getUrl('*/*/superGroup', ['_current'=>true]);
     }
 
+    /**
+     * @return string
+     */
     public function getTabClass()
     {
         return 'ajax';
@@ -66,22 +71,24 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         return Mage::registry('current_product');
     }
 
+    /**
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this
+     */
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
-        if ($column->getId() == 'in_products') {
+        if ($column->getId() === 'in_products') {
             $productIds = $this->_getSelectedProducts();
             if (empty($productIds)) {
                 $productIds = 0;
             }
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('entity_id', array('in'=>$productIds));
+                $this->getCollection()->addFieldToFilter('entity_id', ['in' => $productIds]);
+            } else {
+                $this->getCollection()->addFieldToFilter('entity_id', ['nin' => $productIds]);
             }
-            else {
-                $this->getCollection()->addFieldToFilter('entity_id', array('nin'=>$productIds));
-            }
-        }
-        else {
+        } else {
             parent::_addColumnFilterToCollection($column);
         }
 
@@ -89,13 +96,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     }
 
     /**
-     * Prepare collection
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
-        $allowProductTypes = array();
+        $allowProductTypes = [];
         $allowProductTypeNodes = Mage::getConfig()
             ->getNode('global/catalog/product/type/grouped/allow_product_types')->children();
         foreach ($allowProductTypeNodes as $type) {
@@ -110,46 +115,50 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             ->addAttributeToFilter('type_id', $allowProductTypes);
 
         if ($this->getIsReadonly() === true) {
-            $collection->addFieldToFilter('entity_id', array('in' => $this->_getSelectedProducts()));
+            $collection->addFieldToFilter('entity_id', ['in' => $this->_getSelectedProducts()]);
         }
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
-        $this->addColumn('in_products', array(
+        $this->addColumn('in_products', [
             'header_css_class' => 'a-center',
             'type'      => 'checkbox',
             'name'      => 'in_products',
             'values'    => $this->_getSelectedProducts(),
             'align'     => 'center',
             'index'     => 'entity_id'
-        ));
+        ]);
 
-        $this->addColumn('entity_id', array(
+        $this->addColumn('entity_id', [
             'header'    => Mage::helper('catalog')->__('ID'),
             'sortable'  => true,
             'width'     => '60px',
             'index'     => 'entity_id'
-        ));
-        $this->addColumn('name', array(
+        ]);
+        $this->addColumn('name', [
             'header'    => Mage::helper('catalog')->__('Name'),
             'index'     => 'name'
-        ));
-        $this->addColumn('sku', array(
+        ]);
+        $this->addColumn('sku', [
             'header'    => Mage::helper('catalog')->__('SKU'),
             'width'     => '80px',
             'index'     => 'sku'
-        ));
-        $this->addColumn('price', array(
+        ]);
+        $this->addColumn('price', [
             'header'    => Mage::helper('catalog')->__('Price'),
             'type'      => 'currency',
             'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
             'index'     => 'price'
-        ));
+        ]);
 
-        $this->addColumn('qty', array(
+        $this->addColumn('qty', [
             'header'    => Mage::helper('catalog')->__('Default Qty'),
             'name'      => 'qty',
             'type'      => 'number',
@@ -157,10 +166,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             'index'     => 'qty',
             'width'     => '1',
             'editable'  => true,
-            'filter_condition_callback' => array($this, '_addLinkModelFilterCallback')
-        ));
+            'filter_condition_callback' => [$this, '_addLinkModelFilterCallback']
+        ]);
 
-        $this->addColumn('position', array(
+        $this->addColumn('position', [
             'header'    => Mage::helper('catalog')->__('Position'),
             'name'      => 'position',
             'type'      => 'number',
@@ -169,8 +178,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             'width'     => '1',
             'editable'  => true,
             'edit_only' => !$this->_getProduct()->getId(),
-            'filter_condition_callback' => array($this, '_addLinkModelFilterCallback')
-        ));
+            'filter_condition_callback' => [$this, '_addLinkModelFilterCallback']
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -182,8 +191,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
      */
     public function getGridUrl()
     {
-        return $this->_getData('grid_url')
-            ? $this->_getData('grid_url') : $this->getUrl('*/*/superGroupGridOnly', array('_current'=>true));
+        return $this->_getData('grid_url') ?: $this->getUrl('*/*/superGroupGridOnly', ['_current' => true]);
     }
 
     /**
@@ -209,12 +217,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     {
         $associatedProducts = Mage::registry('current_product')->getTypeInstance(true)
             ->getAssociatedProducts(Mage::registry('current_product'));
-        $products = array();
+        $products = [];
         foreach ($associatedProducts as $product) {
-            $products[$product->getId()] = array(
+            $products[$product->getId()] = [
                 'qty'       => $product->getQty(),
                 'position'  => $product->getPosition()
-            );
+            ];
         }
         return $products;
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,12 +23,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-//    protected $_saveParametersInSession = true;
-
     public function __construct()
     {
         parent::__construct();
@@ -56,7 +48,7 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
             $storeId = '';
         }
 
-        /** @var $collection Mage_Reports_Model_Resource_Product_Lowstock_Collection  */
+        /** @var Mage_Reports_Model_Resource_Product_Lowstock_Collection $collection  */
         $collection = Mage::getResourceModel('reports/product_lowstock_collection')
             ->addAttributeToSelect('*')
             ->setStoreId($storeId)
@@ -76,19 +68,19 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
 
     protected function _prepareColumns()
     {
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    =>Mage::helper('reports')->__('Product Name'),
             'sortable'  =>false,
             'index'     =>'name'
-        ));
+        ]);
 
-        $this->addColumn('sku', array(
+        $this->addColumn('sku', [
             'header'    =>Mage::helper('reports')->__('Product SKU'),
             'sortable'  =>false,
             'index'     =>'sku'
-        ));
+        ]);
 
-        $this->addColumn('qty', array(
+        $this->addColumn('qty', [
             'header'    =>Mage::helper('reports')->__('Stock Qty'),
             'width'     =>'215px',
             'align'     =>'right',
@@ -96,7 +88,7 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
             'filter'    =>'adminhtml/widget_grid_column_filter_range',
             'index'     =>'qty',
             'type'      =>'number'
-        ));
+        ]);
 
         $this->addExportType('*/*/exportLowstockCsv', Mage::helper('reports')->__('CSV'));
         $this->addExportType('*/*/exportLowstockExcel', Mage::helper('reports')->__('Excel XML'));

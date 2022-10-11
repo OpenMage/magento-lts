@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Order entity resource model with aggregation by created at
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_Resource_Report_Abstract
 {
@@ -89,13 +82,13 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
             $this->_clearTableByDateRange($this->getMainTable(), $from, $to, $subSelect);
 
             $periodExpr = $adapter->getDatePartSql($this->getStoreTZOffsetQuery(
-                array('o' => $this->getTable('sales/order')),
+                ['o' => $this->getTable('sales/order')],
                 'o.' . $aggregationField,
                 $from,
                 $to
             ));
             // Columns list
-            $columns = array(
+            $columns = [
                 // convert dates from UTC to current admin timezone
                 'period'                         => $periodExpr,
                 'store_id'                       => 'o.store_id',
@@ -212,37 +205,37 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
                         $adapter->getIfNullSql('o.base_to_global_rate', 0)
                     )
                 )
-            );
+            ];
 
             $select          = $adapter->select();
             $selectOrderItem = $adapter->select();
 
             $qtyCanceledExpr = $adapter->getIfNullSql('qty_canceled', 0);
-            $cols            = array(
+            $cols            = [
                 'order_id'           => 'order_id',
                 'total_qty_ordered'  => new Zend_Db_Expr("SUM(qty_ordered - {$qtyCanceledExpr})"),
                 'total_qty_invoiced' => new Zend_Db_Expr('SUM(qty_invoiced)'),
-            );
+            ];
             $selectOrderItem->from($this->getTable('sales/order_item'), $cols)
                 ->where('parent_item_id IS NULL')
                 ->group('order_id');
 
-            $select->from(array('o' => $this->getTable('sales/order')), $columns)
-                ->join(array('oi' => $selectOrderItem), 'oi.order_id = o.entity_id', array())
-                ->where('o.state NOT IN (?)', array(
+            $select->from(['o' => $this->getTable('sales/order')], $columns)
+                ->join(['oi' => $selectOrderItem], 'oi.order_id = o.entity_id', [])
+                ->where('o.state NOT IN (?)', [
                     Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
                     Mage_Sales_Model_Order::STATE_NEW
-                ));
+                ]);
 
             if ($subSelect !== null) {
                 $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
-            $select->group(array(
+            $select->group([
                 $periodExpr,
                 'o.store_id',
                 'o.status',
-            ));
+            ]);
 
             $adapter->query($select->insertFromSelect($this->getMainTable(), array_keys($columns)));
 
@@ -262,10 +255,10 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
                 $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
-            $select->group(array(
+            $select->group([
                 'period',
                 'order_status'
-            ));
+            ]);
             $adapter->query($select->insertFromSelect($this->getMainTable(), array_keys($columns)));
             $adapter->commit();
         } catch (Exception $e) {

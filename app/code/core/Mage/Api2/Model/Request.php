@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -84,7 +78,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     protected function _getInterpreter()
     {
-        if (null === $this->_interpreter) {
+        if ($this->_interpreter === null) {
             $this->_interpreter = Mage_Api2_Model_Request_Interpreter::factory($this->getContentType());
         }
         return $this->_interpreter;
@@ -97,8 +91,8 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     public function getAcceptTypes()
     {
-        $qualityToTypes = array();
-        $orderedTypes   = array();
+        $qualityToTypes = [];
+        $orderedTypes   = [];
 
         foreach (preg_split('/,\s*/', $this->getHeader('Accept')) as $definition) {
             $typeWithQ = explode(';', $definition);
@@ -113,7 +107,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             if ($typeWithQ) {
                 $qAndValue = explode('=', $typeWithQ[0]);
 
-                if (2 == count($qAndValue)) {
+                if (count($qAndValue) == 2) {
                     $quality = $qAndValue[1];
                 }
             }
@@ -145,7 +139,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     public function getBodyParams()
     {
-        if (null == $this->_bodyParams) {
+        if ($this->_bodyParams == null) {
             $this->_bodyParams = $this->_getInterpreter()->interpret((string)$this->getRawBody());
         }
         return $this->_bodyParams;
@@ -210,12 +204,12 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             throw new Mage_Api2_Exception('Invalid request method', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
         // Map HTTP methods to classic CRUD verbs
-        $operationByMethod = array(
+        $operationByMethod = [
             'GET'    => Mage_Api2_Model_Resource::OPERATION_RETRIEVE,
             'POST'   => Mage_Api2_Model_Resource::OPERATION_CREATE,
             'PUT'    => Mage_Api2_Model_Resource::OPERATION_UPDATE,
             'DELETE' => Mage_Api2_Model_Resource::OPERATION_DELETE
-        );
+        ];
 
         return $operationByMethod[$this->getMethod()];
     }
@@ -267,7 +261,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     public function getRequestedAttributes()
     {
-        $include = $this->getQuery(self::QUERY_PARAM_REQ_ATTRS, array());
+        $include = $this->getQuery(self::QUERY_PARAM_REQ_ATTRS, []);
 
         //transform comma-separated list
         if (!is_array($include)) {

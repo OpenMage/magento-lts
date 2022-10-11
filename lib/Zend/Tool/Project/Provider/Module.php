@@ -139,7 +139,7 @@ class Zend_Tool_Project_Provider_Module
         // determine if testing is enabled in the project
         #require_once 'Zend/Tool/Project/Provider/Test.php';
         //$testingEnabled = Zend_Tool_Project_Provider_Test::isTestingEnabled($this->_loadedProfile);
-        
+
         $resources = self::createResources($this->_loadedProfile, $name);
 
         $response = $this->_registry->getResponse();

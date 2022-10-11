@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,42 +12,36 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Sales_Model_Entity_Setup $installer */
+/** @var Mage_Sales_Model_Entity_Setup $installer */
 $installer = $this;
 
 // Setup data to configure
-$frequencies = array(
-    Mage_Sales_Model_Mysql4_Report_Bestsellers::AGGREGATION_DAILY,
-    Mage_Sales_Model_Mysql4_Report_Bestsellers::AGGREGATION_MONTHLY,
-    Mage_Sales_Model_Mysql4_Report_Bestsellers::AGGREGATION_YEARLY
-);
+$frequencies = [
+    Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_DAILY,
+    Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_MONTHLY,
+    Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_YEARLY
+];
 
-$foreignKeys = array(
-    array(
+$foreignKeys = [
+    [
         'name' => 'FK_PRODUCT_ORDERED_AGGREGATED_%s_STORE_ID',
         'column' => 'store_id',
         'refTable' => 'core/store',
         'refColumn' => 'store_id'
-    ),
-    array(
+    ],
+    [
         'name' => 'FK_PRODUCT_ORDERED_AGGREGATED_%s_PRODUCT_ID',
         'column' => 'product_id',
         'refTable' => 'catalog/product',
         'refColumn' => 'entity_id'
-    )
-);
+    ]
+];
 
 /*
  * Alter foreign keys to add 'CASCADE' instead of 'SET_NULL' action

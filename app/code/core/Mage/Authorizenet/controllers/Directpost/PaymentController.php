@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Authorizenet
@@ -70,10 +64,10 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
         $data = $this->getRequest()->getPost();
         unset($data['redirect_parent']);
         unset($data['redirect']);
-        /* @var $paymentMethod Mage_Authorizenet_Model_DirectPost */
+        /** @var Mage_Authorizenet_Model_Directpost $paymentMethod */
         $paymentMethod = Mage::getModel('authorizenet/directpost');
 
-        $result = array();
+        $result = [];
         if (!empty($data['x_invoice_num'])) {
             $result['x_invoice_num'] = $data['x_invoice_num'];
         }
@@ -117,7 +111,7 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
         $redirectParams = $this->getRequest()->getParams();
         unset($redirectParams['redirect_parent']);
         unset($redirectParams['redirect']);
-        $params = array();
+        $params = [];
         if (!empty($redirectParams['success'])
             && isset($redirectParams['x_invoice_num'])
             && isset($redirectParams['controller_action_name'])
@@ -151,10 +145,10 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
                 $this->getRequest()->getParams()
             );
         } else {
-            $result = array(
+            $result = [
                 'error_messages' => $this->__('Please, choose payment method'),
                 'goto_section'   => 'payment'
-            );
+            ];
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
@@ -166,7 +160,7 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
     public function returnQuoteAction()
     {
         $this->_returnCustomerQuote();
-        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array('success' => 1)));
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(['success' => 1]));
     }
 
     /**
@@ -182,14 +176,14 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
             $this->_getDirectPostSession()
                 ->isCheckoutOrderIncrementIdExist($incrementId)
         ) {
-            /* @var $order Mage_Sales_Model_Order */
+            /** @var Mage_Sales_Model_Order $order */
             $order = Mage::getModel('sales/order')->loadByIncrementId($incrementId);
             if ($order->getId()) {
                 $quote = Mage::getModel('sales/quote')
                     ->load($order->getQuoteId());
                 if ($quote->getId()) {
                     $quote->setIsActive(1)
-                        ->setReservedOrderId(NULL)
+                        ->setReservedOrderId(null)
                         ->save();
                     $this->_getCheckout()->replaceQuote($quote);
                 }

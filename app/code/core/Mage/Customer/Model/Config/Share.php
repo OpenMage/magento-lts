@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -38,7 +32,7 @@ class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
      *
      */
     const XML_PATH_CUSTOMER_ACCOUNT_SHARE = 'customer/account_share/scope';
-    
+
     /**
      * Possible customer sharing scopes
      *
@@ -73,10 +67,10 @@ class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
      */
     public function toOptionArray()
     {
-        return array(
+        return [
             self::SHARE_GLOBAL  => Mage::helper('customer')->__('Global'),
             self::SHARE_WEBSITE => Mage::helper('customer')->__('Per Website'),
-        );
+        ];
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method bool hasAllowProducts()
  */
@@ -40,14 +34,14 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      *
      * @var array
      */
-    protected $_prices      = array();
+    protected $_prices      = [];
 
     /**
      * Prepared prices
      *
      * @var array
      */
-    protected $_resPrices   = array();
+    protected $_resPrices   = [];
 
     /**
      * Get helper for calculation purposes
@@ -97,7 +91,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     public function getAllowProducts()
     {
         if (!$this->hasAllowProducts()) {
-            $products = array();
+            $products = [];
             $skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck();
             $allProducts = $this->getProduct()->getTypeInstance(true)
                 ->getUsedProducts(null, $this->getProduct());
@@ -132,7 +126,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      */
     protected function _getAdditionalConfig()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -142,8 +136,8 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      */
     public function getJsonConfig()
     {
-        $attributes = array();
-        $options    = array();
+        $attributes = [];
+        $options    = [];
         $store      = $this->getCurrentStore();
         $taxHelper  = Mage::helper('tax');
         $currentProduct = $this->getProduct();
@@ -151,9 +145,9 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
         $preconfiguredFlag = $currentProduct->hasPreconfiguredValues();
         if ($preconfiguredFlag) {
             $preconfiguredValues = $currentProduct->getPreconfiguredValues();
-            $defaultValues       = array();
+            $defaultValues       = [];
         }
-        $productStock = array();
+        $productStock = [];
         foreach ($this->getAllowProducts() as $product) {
             $productId  = $product->getId();
             $productStock[$productId] = $product->getStockItem()->getIsInStock();
@@ -162,31 +156,31 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                 $productAttributeId = $productAttribute->getId();
                 $attributeValue     = $product->getData($productAttribute->getAttributeCode());
                 if (!isset($options[$productAttributeId])) {
-                    $options[$productAttributeId] = array();
+                    $options[$productAttributeId] = [];
                 }
 
                 if (!isset($options[$productAttributeId][$attributeValue])) {
-                    $options[$productAttributeId][$attributeValue] = array();
+                    $options[$productAttributeId][$attributeValue] = [];
                 }
                 $options[$productAttributeId][$attributeValue][] = $productId;
             }
         }
 
-        $this->_resPrices = array(
+        $this->_resPrices = [
             $this->_preparePrice($currentProduct->getFinalPrice())
-        );
+        ];
 
         foreach ($this->getAllowAttributes() as $attribute) {
             $productAttribute = $attribute->getProductAttribute();
             $attributeId = $productAttribute->getId();
-            $info = array(
+            $info = [
                'id'        => $productAttribute->getId(),
                'code'      => $productAttribute->getAttributeCode(),
                'label'     => $attribute->getLabel(),
-               'options'   => array()
-            );
+               'options'   => []
+            ];
 
-            $optionPrices = array();
+            $optionPrices = [];
             $prices = $attribute->getPrices();
             if (is_array($prices)) {
                 foreach ($prices as $value) {
@@ -199,29 +193,29 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                     $currentProduct->setParentId(true);
                     Mage::dispatchEvent(
                         'catalog_product_type_configurable_price',
-                        array('product' => $currentProduct)
+                        ['product' => $currentProduct]
                     );
                     $configurablePrice = $currentProduct->getConfigurablePrice();
 
                     if (isset($options[$attributeId][$value['value_index']])) {
                         $productsIndexOptions = $options[$attributeId][$value['value_index']];
-                        $productsIndex = array();
+                        $productsIndex = [];
                         foreach ($productsIndexOptions as $productIndex) {
                             if ($productStock[$productIndex]) {
                                 $productsIndex[] = $productIndex;
                             }
                         }
                     } else {
-                        $productsIndex = array();
+                        $productsIndex = [];
                     }
 
-                    $info['options'][] = array(
+                    $info['options'][] = [
                         'id'        => $value['value_index'],
                         'label'     => $value['label'],
                         'price'     => $configurablePrice,
                         'oldPrice'  => $this->_prepareOldPrice($value['pricing_value'], $value['is_percent']),
                         'products'  => $productsIndex,
-                    );
+                    ];
                     $optionPrices[] = $configurablePrice;
                 }
             }
@@ -259,16 +253,16 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
         $_request->setProductClassId($currentProduct->getTaxClassId());
         $currentTax = $taxCalculation->getRate($_request);
 
-        $taxConfig = array(
+        $taxConfig = [
             'includeTax'        => $taxHelper->priceIncludesTax(),
             'showIncludeTax'    => $taxHelper->displayPriceIncludingTax(),
             'showBothPrices'    => $taxHelper->displayBothPrices(),
             'defaultTax'        => $defaultTax,
             'currentTax'        => $currentTax,
             'inclTaxTitle'      => Mage::helper('catalog')->__('Incl. Tax')
-        );
+        ];
 
-        $config = array(
+        $config = [
             'attributes'        => $attributes,
             'template'          => str_replace('%s', '#{price}', $store->getCurrentCurrency()->getOutputFormat()),
             'basePrice'         => $this->_registerJsPrice($this->_convertPrice($currentProduct->getFinalPrice())),
@@ -276,7 +270,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             'productId'         => $currentProduct->getId(),
             'chooseText'        => Mage::helper('catalog')->__('Choose an Option...'),
             'taxConfig'         => $taxConfig
-        );
+        ];
 
         if ($preconfiguredFlag && !empty($defaultValues)) {
             $config['defaultValues'] = $defaultValues;

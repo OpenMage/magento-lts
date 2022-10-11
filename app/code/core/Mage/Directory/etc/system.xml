@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Directory
@@ -95,7 +89,6 @@
                         </active>
                         <timeout translate="label">
                             <label>Connection Timeout in Seconds</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -130,7 +123,6 @@
                         </active>
                         <timeout translate="label">
                             <label>Connection Timeout in Seconds</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -149,7 +141,6 @@
                 </fixerio>
                 <import translate="label">
                     <label>Scheduled Import Settings</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>50</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -166,7 +157,6 @@
                         </enabled>
                         <error_email translate="label">
                             <label>Error Email Recipient</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-email</validate>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
@@ -226,7 +216,6 @@
             <groups>
                 <currency translate="label">
                     <label>Currency</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>50</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -265,7 +254,6 @@
                 </country>
                 <region translate="label">
                     <label>States Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>4</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>

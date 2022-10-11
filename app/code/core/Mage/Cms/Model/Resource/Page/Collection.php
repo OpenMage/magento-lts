@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Cms
+ * @category   Mage
+ * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CMS page collection
  *
- * @category    Mage
- * @package     Mage_Cms
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Cms
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -69,8 +63,8 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
      */
     public function toOptionIdArray()
     {
-        $res = array();
-        $existingIdentifiers = array();
+        $res = [];
+        $existingIdentifiers = [];
         foreach ($this as $item) {
             $identifier = $item->getData('identifier');
 
@@ -111,7 +105,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
             $connection = $this->getConnection();
             if (count($items)) {
                 $select = $connection->select()
-                        ->from(array('cps'=>$this->getTable('cms/page_store')))
+                        ->from(['cps'=>$this->getTable('cms/page_store')])
                         ->where('cps.page_id IN (?)', $items);
 
                 if ($result = $connection->fetchPairs($select)) {
@@ -148,18 +142,18 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
     {
         if (!$this->getFlag('store_filter_added')) {
             if ($store instanceof Mage_Core_Model_Store) {
-                $store = array($store->getId());
+                $store = [$store->getId()];
             }
 
             if (!is_array($store)) {
-                $store = array($store);
+                $store = [$store];
             }
 
             if ($withAdmin) {
                 $store[] = Mage_Core_Model_App::ADMIN_STORE_ID;
             }
 
-            $this->addFilter('store', array('in' => $store), 'public');
+            $this->addFilter('store', ['in' => $store], 'public');
         }
         return $this;
     }
@@ -171,9 +165,9 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
     {
         if ($this->getFilter('store')) {
             $this->getSelect()->join(
-                array('store_table' => $this->getTable('cms/page_store')),
+                ['store_table' => $this->getTable('cms/page_store')],
                 'main_table.page_id = store_table.page_id',
-                array()
+                []
             )->group('main_table.page_id');
 
             /*

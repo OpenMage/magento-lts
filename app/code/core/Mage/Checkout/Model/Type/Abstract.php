@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
 {
@@ -96,7 +90,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     /**
      * Retrieve customer default shipping address
      *
-     * @return Mage_Customer_Model_Address || false
+     * @return Mage_Customer_Model_Address | false
      */
     public function getCustomerDefaultShippingAddress()
     {
@@ -143,7 +137,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
      */
     protected function _createOrderFromAddress($address)
     {
-        $order = Mage::getModel('sales/order')->createFromQuoteAddress($address)
+        return Mage::getModel('sales/order')->createFromQuoteAddress($address)
             ->setCustomerId($this->getCustomer()->getId())
             ->setGlobalCurrencyCode('USD')
             ->setBaseCurrencyCode('USD')
@@ -151,7 +145,6 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
             ->setOrderCurrencyCode('USD')
             ->setStoreToBaseRate(1)
             ->setStoreToOrderRate(1);
-        return $order;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -44,15 +38,14 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         $request = Mage::app()->getRequest();
         $port = $request->getServer('SERVER_PORT');
         if ($port) {
-            $defaultPorts = array(
+            $defaultPorts = [
                 Mage_Core_Controller_Request_Http::DEFAULT_HTTP_PORT,
                 Mage_Core_Controller_Request_Http::DEFAULT_HTTPS_PORT
-            );
+            ];
             $port = (in_array($port, $defaultPorts)) ? '' : ':' . $port;
         }
         $url = $request->getScheme() . '://' . $request->getHttpHost() . $port . $request->getServer('REQUEST_URI');
         return $this->escapeUrl($url);
-//        return $this->_getUrl('*/*/*', array('_current' => true, '_use_rewrite' => true));
     }
 
     /**
@@ -113,16 +106,15 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function addRequestParam($url, $param)
     {
-        $startDelimiter = (false === strpos($url, '?'))? '?' : '&';
+        $startDelimiter = (strpos($url, '?') === false)? '?' : '&';
 
-        $arrQueryParams = array();
+        $arrQueryParams = [];
         foreach ($param as $key => $value) {
             if (is_numeric($key) || is_object($value)) {
                 continue;
             }
 
             if (is_array($value)) {
-                // $key[]=$value1&$key[]=$value2 ...
                 $arrQueryParams[] = $key . '[]=' . implode('&' . $key . '[]=', $value);
             } elseif (is_null($value)) {
                 $arrQueryParams[] = $key;
@@ -164,7 +156,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      * @param array $arguments
      * @return Mage_Core_Model_Abstract
      */
-    protected function _getSingletonModel($name, $arguments = array())
+    protected function _getSingletonModel($name, $arguments = [])
     {
         return Mage::getSingleton($name, $arguments);
     }

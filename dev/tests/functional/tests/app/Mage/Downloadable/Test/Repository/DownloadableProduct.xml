@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Tests
  * @package     Tests_Functional
@@ -62,7 +56,7 @@
                 </item>
             </field>
         </dataset>
-        
+
         <dataset name="with_two_separately_links">
             <field name="name" xsi:type="string">Downloadable product %isolation%</field>
             <field name="sku" xsi:type="string">downloadable_product_%isolation%</field>

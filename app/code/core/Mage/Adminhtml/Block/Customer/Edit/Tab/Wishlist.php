@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml customer orders grid block
@@ -31,6 +24,8 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Wishlist_Model_Resource_Item_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -52,7 +47,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     /**
      * List of helpers to show options for product cells
      */
-    protected $_productHelpers = array();
+    protected $_productHelpers = [];
 
     /**
      * Initialize Grid
@@ -114,67 +109,67 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('product_name', array(
+        $this->addColumn('product_name', [
             'header'    => Mage::helper('catalog')->__('Product Name'),
             'index'     => 'product_name',
             'renderer'  => 'adminhtml/customer_edit_tab_view_grid_renderer_item'
-        ));
+        ]);
 
-        $this->addColumn('description', array(
+        $this->addColumn('description', [
             'header'    => Mage::helper('wishlist')->__('User Description'),
             'index'     => 'description',
             'renderer'  => 'adminhtml/customer_edit_tab_wishlist_grid_renderer_description'
-        ));
+        ]);
 
-        $this->addColumn('qty', array(
+        $this->addColumn('qty', [
             'header'    => Mage::helper('catalog')->__('Qty'),
             'index'     => 'qty',
             'type'      => 'number',
             'width'     => '60px'
-        ));
+        ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store', array(
+            $this->addColumn('store', [
                 'header'    => Mage::helper('wishlist')->__('Added From'),
                 'index'     => 'store_id',
                 'type'      => 'store',
                 'width'     => '160px'
-            ));
+            ]);
         }
 
-        $this->addColumn('added_at', array(
+        $this->addColumn('added_at', [
             'header'    => Mage::helper('wishlist')->__('Date Added'),
             'index'     => 'added_at',
             'gmtoffset' => true,
             'type'      => 'date'
-        ));
+        ]);
 
-        $this->addColumn('days', array(
+        $this->addColumn('days', [
             'header'    => Mage::helper('wishlist')->__('Days in Wishlist'),
             'index'     => 'days_in_wishlist',
             'type'      => 'number'
-        ));
+        ]);
 
-        $this->addColumn('action', array(
+        $this->addColumn('action', [
             'header'    => Mage::helper('customer')->__('Action'),
             'index'     => 'wishlist_item_id',
             'renderer'  => 'adminhtml/customer_grid_renderer_multiaction',
             'filter'    => false,
             'sortable'  => false,
-            'actions'   => array(
-                array(
+            'actions'   => [
+                [
                     'caption'   => Mage::helper('customer')->__('Configure'),
                     'url'       => 'javascript:void(0)',
                     'process'   => 'configurable',
                     'control_object' => 'wishlistControl'
-                ),
-                array(
+                ],
+                [
                     'caption'   => Mage::helper('customer')->__('Delete'),
                     'url'       => '#',
                     'onclick'   => 'return wishlistControl.removeItem($wishlist_item_id);'
-                )
-            )
-        ));
+                ]
+            ]
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -186,7 +181,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/wishlist', array('_current'=>true));
+        return $this->getUrl('*/*/wishlist', ['_current'=>true]);
     }
 
     /**
@@ -197,7 +192,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      */
     protected function _addColumnFilterToCollection($column)
     {
-        /* @var $collection Mage_Wishlist_Model_Mysql4_Item_Collection */
+        /** @var Mage_Wishlist_Model_Resource_Item_Collection $collection */
         $collection = $this->getCollection();
         $value = $column->getFilter()->getValue();
         if ($collection && $value) {
@@ -248,7 +243,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      */
     public function getGridParentHtml()
     {
-        $templateName = Mage::getDesign()->getTemplateFilename($this->_parentTemplate, array('_relative'=>true));
+        $templateName = Mage::getDesign()->getTemplateFilename($this->_parentTemplate, ['_relative'=>true]);
         return $this->fetchView($templateName);
     }
 
@@ -259,7 +254,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/catalog_product/edit', array('id' => $row->getProductId()));
+        return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);
     }
 
     /**

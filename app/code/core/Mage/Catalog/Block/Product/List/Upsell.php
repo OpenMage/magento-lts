@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -47,7 +41,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
 
     protected $_itemCollection;
 
-    protected $_itemLimits = array();
+    protected $_itemLimits = [];
 
     /**
      * @return $this
@@ -55,7 +49,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
     protected function _prepareData()
     {
         $product = Mage::registry('product');
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $this->_itemCollection = $product->getUpSellProductCollection()
             ->setPositionOrder()
             ->addStoreFilter()
@@ -68,7 +62,6 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
 
             $this->_addProductAttributesAndPrices($this->_itemCollection);
         }
-//        Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($this->_itemCollection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($this->_itemCollection);
 
         if ($this->getItemLimit('upsell') > 0) {
@@ -80,11 +73,11 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         /**
          * Updating collection with desired items
          */
-        Mage::dispatchEvent('catalog_product_upsell', array(
+        Mage::dispatchEvent('catalog_product_upsell', [
             'product'       => $product,
             'collection'    => $this->_itemCollection,
             'limit'         => $this->getItemLimit()
-        ));
+        ]);
 
         foreach ($this->_itemCollection as $product) {
             $product->setDoNotUseCategoryId(true);

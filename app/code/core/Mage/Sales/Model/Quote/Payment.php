@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -119,7 +113,9 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
     public function setQuote(Mage_Sales_Model_Quote $quote)
     {
         $this->_quote = $quote;
-        $this->setQuoteId($quote->getId());
+        if ($this->getQuoteId() != $quote->getId()) {
+            $this->setQuoteId($quote->getId());
+        }
         return $this;
     }
 
@@ -147,10 +143,10 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
         $data = new Varien_Object($data);
         Mage::dispatchEvent(
             $this->_eventPrefix . '_import_data_before',
-            array(
+            [
                 $this->_eventObject=>$this,
                 'input'=>$data,
-            )
+            ]
         );
 
         $this->setMethod($data->getMethod());

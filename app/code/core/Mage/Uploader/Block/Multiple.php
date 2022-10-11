@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Uploader
@@ -32,7 +26,6 @@ class Mage_Uploader_Block_Multiple extends Mage_Uploader_Block_Abstract
      */
     const DEFAULT_UPLOAD_BUTTON_ID_SUFFIX = 'upload';
 
-
     /**
      * Prepare layout, create upload button
      *
@@ -45,16 +38,16 @@ class Mage_Uploader_Block_Multiple extends Mage_Uploader_Block_Abstract
         $this->setChild(
             'upload_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData(array(
+                ->addData([
                     'id'      => $this->getElementId(self::DEFAULT_UPLOAD_BUTTON_ID_SUFFIX),
                     'label'   => Mage::helper('uploader')->__('Upload Files'),
                     'type'    => 'button',
-                ))
+                ])
         );
 
-        $this->_addElementIdsMapping(array(
-            'upload' => $this->_prepareElementsIds(array(self::DEFAULT_UPLOAD_BUTTON_ID_SUFFIX))
-        ));
+        $this->_addElementIdsMapping([
+            'upload' => $this->_prepareElementsIds([self::DEFAULT_UPLOAD_BUTTON_ID_SUFFIX])
+        ]);
 
         return $this;
     }

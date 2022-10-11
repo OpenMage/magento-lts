@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,22 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product status functionality model
  *
+ * @method Mage_Catalog_Model_Resource_Product_Status _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Status getResource()
  * @method int getProductId()
  * @method Mage_Catalog_Model_Product_Status setProductId(int $value)
@@ -54,21 +48,10 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
         $this->_init('catalog/product_status');
-    }
-
-    /**
-     * Retrieve resource model wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**
@@ -91,7 +74,6 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      */
     public function addVisibleFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
-        //$collection->addAttributeToFilter('status', array('in'=>$this->getVisibleStatusIds()));
         return $this;
     }
 
@@ -104,7 +86,6 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      */
     public function addSaleableFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
-        //$collection->addAttributeToFilter('status', array('in'=>$this->getSaleableStatusIds()));
         return $this;
     }
 
@@ -115,7 +96,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      */
     public function getVisibleStatusIds()
     {
-        return array(self::STATUS_ENABLED);
+        return [self::STATUS_ENABLED];
     }
 
     /**
@@ -126,7 +107,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      */
     public function getSaleableStatusIds()
     {
-        return array(self::STATUS_ENABLED);
+        return [self::STATUS_ENABLED];
     }
 
     /**
@@ -136,10 +117,10 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      */
     public static function getOptionArray()
     {
-        return array(
+        return [
             self::STATUS_ENABLED    => Mage::helper('catalog')->__('Enabled'),
             self::STATUS_DISABLED   => Mage::helper('catalog')->__('Disabled')
-        );
+        ];
     }
 
     /**
@@ -160,7 +141,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     public static function getAllOption()
     {
         $options = self::getOptionArray();
-        array_unshift($options, array('value'=>'', 'label'=>''));
+        array_unshift($options, ['value'=>'', 'label'=>'']);
         return $options;
     }
 
@@ -171,17 +152,17 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      */
     public static function getAllOptions()
     {
-        $res = array(
-            array(
+        $res = [
+            [
                 'value' => '',
                 'label' => Mage::helper('catalog')->__('-- Please Select --')
-            )
-        );
+            ]
+        ];
         foreach (self::getOptionArray() as $index => $value) {
-            $res[] = array(
+            $res[] = [
                'value' => $index,
                'label' => $value
-            );
+            ];
         }
         return $res;
     }
@@ -195,7 +176,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     public static function getOptionText($optionId)
     {
         $options = self::getOptionArray();
-        return isset($options[$optionId]) ? $options[$optionId] : null;
+        return $options[$optionId] ?? null;
     }
 
     /**
@@ -209,7 +190,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     public function updateProductStatus($productId, $storeId, $value)
     {
         Mage::getSingleton('catalog/product_action')
-            ->updateAttributes(array($productId), array('status' => $value), $storeId);
+            ->updateAttributes([$productId], ['status' => $value], $storeId);
 
         // add back compatibility event
         /** @var Mage_Catalog_Model_Resource_Eav_Attribute $status */
@@ -218,17 +199,17 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
             $website = Mage::app()->getStore($storeId)->getWebsite();
             $stores  = $website->getStoreIds();
         } elseif ($status->isScopeStore()) {
-            $stores = array($storeId);
+            $stores = [$storeId];
         } else {
             $stores = array_keys(Mage::app()->getStores());
         }
 
         foreach ($stores as $storeId) {
-            Mage::dispatchEvent('catalog_product_status_update', array(
+            Mage::dispatchEvent('catalog_product_status_update', [
                 'product_id'    => $productId,
                 'store_id'      => $storeId,
                 'status'        => $value
-            ));
+            ]);
         }
 
         return $this;
@@ -259,11 +240,11 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     public function getFlatColums()
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
-        $column = array(
+        $column = [
             'unsigned'  => true,
             'default'   => null,
             'extra'     => null
-        );
+        ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
             $column['type']     = 'tinyint';
@@ -274,7 +255,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
             $column['comment']  = 'Catalog Product Status ' . $attributeCode . ' column';
         }
 
-        return array($attributeCode => $column);
+        return [$attributeCode => $column];
     }
 
     /**
@@ -284,13 +265,13 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      */
     public function getFlatIndexes()
     {
-        $indexes = array();
+        $indexes = [];
 
         $index = 'IDX_' . strtoupper($this->getAttribute()->getAttributeCode());
-        $indexes[$index] = array(
+        $indexes[$index] = [
             'type'      => 'index',
-            'fields'    => array($this->getAttribute()->getAttributeCode())
-        );
+            'fields'    => [$this->getAttribute()->getAttributeCode()]
+        ];
 
         return $indexes;
     }
@@ -347,11 +328,11 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
             $tableName = $attributeCode . '_t';
             $collection->getSelect()
                 ->joinLeft(
-                    array($tableName => $attributeTable),
+                    [$tableName => $attributeTable],
                     "e.entity_id={$tableName}.entity_id"
                         . " AND {$tableName}.attribute_id='{$attributeId}'"
                         . " AND {$tableName}.store_id='0'",
-                    array()
+                    []
                 );
             $valueExpr = $tableName . '.value';
         } else {
@@ -359,18 +340,18 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
             $valueTable2 = $attributeCode . '_t2';
             $collection->getSelect()
                 ->joinLeft(
-                    array($valueTable1 => $attributeTable),
+                    [$valueTable1 => $attributeTable],
                     "e.entity_id={$valueTable1}.entity_id"
                         . " AND {$valueTable1}.attribute_id='{$attributeId}'"
                         . " AND {$valueTable1}.store_id='0'",
-                    array()
+                    []
                 )
                 ->joinLeft(
-                    array($valueTable2 => $attributeTable),
+                    [$valueTable2 => $attributeTable],
                     "e.entity_id={$valueTable2}.entity_id"
                         . " AND {$valueTable2}.attribute_id='{$attributeId}'"
                         . " AND {$valueTable2}.store_id='{$collection->getStoreId()}'",
-                    array()
+                    []
                 );
 
                 $valueExpr = $collection->getConnection()->getCheckSql(

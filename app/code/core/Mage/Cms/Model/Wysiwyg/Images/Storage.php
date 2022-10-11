@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Cms
@@ -69,7 +63,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             }
         }
 
-        $conditions = array('reg_exp' => array(), 'plain' => array());
+        $conditions = ['reg_exp' => [], 'plain' => []];
 
         foreach ($this->getConfig()->dirs->exclude->children() as $dir) {
             $conditions[$dir->getAttribute('regexp') ? 'reg_exp' : 'plain'][(string) $dir] = true;
@@ -143,7 +137,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 
                 // generate thumbnail "on the fly" if it does not exists
                 if (! $thumbUrl) {
-                    $thumbUrl = Mage::getSingleton('adminhtml/url')->getUrl('*/*/thumbnail', array('file' => $item->getId()));
+                    $thumbUrl = Mage::getSingleton('adminhtml/url')->getUrl('*/*/thumbnail', ['file' => $item->getId()]);
                 }
 
                 $size = @getimagesize($item->getFilename());
@@ -207,13 +201,12 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
                 Mage::getModel('core/file_storage_directory_database')->createRecursive($relativePath);
             }
 
-            $result = array(
+            return [
                 'name'          => $name,
                 'short_name'    => $this->getHelper()->getShortFilename($name),
                 'path'          => $newPath,
                 'id'            => $this->getHelper()->convertPathToId($newPath)
-            );
-            return $result;
+            ];
         }
         Mage::throwException(Mage::helper('cms')->__('Cannot create new directory.'));
     }
@@ -222,7 +215,6 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * Recursively delete directory from storage
      *
      * @param string $path Target dir
-     * @return void
      */
     public function deleteDirectory($path)
     {
@@ -271,7 +263,6 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         return $this;
     }
 
-
     /**
      * Upload and resize new file
      *
@@ -305,13 +296,13 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if ($type == 'image') {
             $this->resizeFile($targetPath . DS . $uploader->getUploadedFileName(), true);
         }
-        $result['cookie'] = array(
+        $result['cookie'] = [
             'name'     => session_name(),
             'value'    => $this->getSession()->getSessionId(),
             'lifetime' => $this->getSession()->getCookieLifetime(),
             'path'     => $this->getSession()->getCookiePath(),
             'domain'   => $this->getSession()->getCookieDomain()
-        );
+        ];
 
         return $result;
     }

@@ -89,7 +89,7 @@ class Zend_Gdata_Analytics extends Zend_Gdata
 
     /**
      * Retrieve account feed object
-     * 
+     *
      * @param string|Zend_Uri_Uri $uri
      * @return Zend_Gdata_Analytics_AccountFeed
      */
@@ -103,7 +103,7 @@ class Zend_Gdata_Analytics extends Zend_Gdata
 
     /**
      * Retrieve data feed object
-     * 
+     *
      * @param string|Zend_Uri_Uri $uri
      * @return Zend_Gdata_Analytics_DataFeed
      */
@@ -117,14 +117,14 @@ class Zend_Gdata_Analytics extends Zend_Gdata
 
     /**
      * Returns a new DataQuery object.
-     * 
+     *
      * @return Zend_Gdata_Analytics_DataQuery
      */
     public function newDataQuery()
     {
         return new Zend_Gdata_Analytics_DataQuery();
     }
-    
+
     /**
      * Returns a new AccountQuery object.
      *

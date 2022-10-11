@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,30 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Coupon codes grid
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct();
@@ -71,40 +62,40 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('code', array(
+        $this->addColumn('code', [
             'header' => Mage::helper('salesrule')->__('Coupon Code'),
             'index'  => 'code'
-        ));
+        ]);
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('created_at', [
             'header' => Mage::helper('salesrule')->__('Created On'),
             'index'  => 'created_at',
             'type'   => 'datetime',
             'align'  => 'center',
             'width'  => '160'
-        ));
+        ]);
 
-        $this->addColumn('used', array(
+        $this->addColumn('used', [
             'header'   => Mage::helper('salesrule')->__('Used'),
             'index'    => 'times_used',
             'width'    => '100',
             'type'     => 'options',
-            'options'  => array(
+            'options'  => [
                 Mage::helper('adminhtml')->__('No'),
                 Mage::helper('adminhtml')->__('Yes')
-            ),
+            ],
             'renderer' => 'adminhtml/promo_quote_edit_tab_coupons_grid_column_renderer_used',
-            'filter_condition_callback' => array(
+            'filter_condition_callback' => [
                 Mage::getResourceModel('salesrule/coupon_collection'), 'addIsUsedFilterCallback'
-            )
-        ));
+            ]
+        ]);
 
-        $this->addColumn('times_used', array(
+        $this->addColumn('times_used', [
             'header' => Mage::helper('salesrule')->__('Times Used'),
             'index'  => 'times_used',
             'width'  => '50',
             'type'   => 'number',
-        ));
+        ]);
 
         $this->addExportType('*/*/exportCouponsCsv', Mage::helper('customer')->__('CSV'));
         $this->addExportType('*/*/exportCouponsXml', Mage::helper('customer')->__('Excel XML'));
@@ -123,12 +114,12 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
         $this->getMassactionBlock()->setUseAjax(true);
         $this->getMassactionBlock()->setHideFormElement(true);
 
-        $this->getMassactionBlock()->addItem('delete', array(
+        $this->getMassactionBlock()->addItem('delete', [
              'label'=> Mage::helper('adminhtml')->__('Delete'),
-             'url'  => $this->getUrl('*/*/couponsMassDelete', array('_current' => true)),
+             'url'  => $this->getUrl('*/*/couponsMassDelete', ['_current' => true]),
              'confirm' => Mage::helper('salesrule')->__('Are you sure you want to delete the selected coupon(s)?'),
              'complete' => 'refreshCouponCodesGrid'
-        ));
+        ]);
 
         return $this;
     }
@@ -140,6 +131,6 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/couponsGrid', array('_current'=> true));
+        return $this->getUrl('*/*/couponsGrid', ['_current'=> true]);
     }
 }

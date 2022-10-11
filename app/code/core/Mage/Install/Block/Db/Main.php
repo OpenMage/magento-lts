@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Install
@@ -36,7 +30,7 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_databases       = array();
+    protected $_databases       = [];
 
     /**
      * Adding customized database block template for database model type
@@ -48,11 +42,11 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
      */
     public function addDatabaseBlock($type, $block, $template)
     {
-        $this->_databases[$type] = array(
+        $this->_databases[$type] = [
             'block'     => $block,
             'template'  => $template,
             'instance'  => null
-        );
+        ];
 
         return $this;
     }
@@ -86,7 +80,7 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
      */
     public function getDatabaseBlocks()
     {
-        $databases = array();
+        $databases = [];
         foreach ($this->_databases as $type => $blockData) {
             $databases[] = $this->getDatabaseBlock($type);
         }

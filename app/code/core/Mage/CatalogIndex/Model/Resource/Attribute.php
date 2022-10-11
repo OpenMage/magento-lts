@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,40 +12,27 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogIndex
+ * @category   Mage
+ * @package    Mage_CatalogIndex
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Attribute index resource model
  *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model_Resource_Abstract
 {
-    /**
-     * Enter description here ...
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalogindex/eav', 'index_id');
     }
 
     /**
-     * Enter description here ...
-     *
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param string $filter
      * @param int|array $entityFilter
@@ -67,8 +54,6 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     }
 
     /**
-     * Enter description here ...
-     *
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param Zend_Db_Select $entitySelect
      * @return array
@@ -81,19 +66,18 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 
-        $fields = array('count'=>'COUNT(index.entity_id)', 'index.value');
+        $fields = ['count'=>'COUNT(index.entity_id)', 'index.value'];
 
         $select->columns($fields)
-            ->join(array('index'=>$this->getMainTable()), 'index.entity_id=e.entity_id', array())
+            ->join(['index'=>$this->getMainTable()], 'index.entity_id=e.entity_id', [])
             ->where('index.store_id = ?', $this->getStoreId())
             ->where('index.attribute_id = ?', $attribute->getId())
             ->group('index.value');
 
         $select = $select->__toString();
-//        $alias = $this->_getReadAdapter()->quoteTableAs($this->getMainTable(), 'index');
         $result = $this->_getReadAdapter()->fetchAll($select);
 
-        $counts = array();
+        $counts = [];
         foreach ($result as $row) {
             $counts[$row['value']] = $row['count'];
         }
@@ -101,8 +85,6 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     }
 
     /**
-     * Enter description here ...
-     *
      * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param string $value
@@ -113,16 +95,11 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
         /**
          * Will be used after SQL review
          */
-//        if ($collection->isEnabledFlat()) {
-//            $collection->getSelect()->where("e.{$attribute->getAttributeCode()}=?", $value);
-//            return $this;
-//        }
-
         $alias = 'attr_index_'.$attribute->getId();
         $collection->getSelect()->join(
-            array($alias => $this->getMainTable()),
+            [$alias => $this->getMainTable()],
             $alias.'.entity_id=e.entity_id',
-            array()
+            []
         )
         ->where($alias.'.store_id = ?', $this->getStoreId())
         ->where($alias.'.attribute_id = ?', $attribute->getId())

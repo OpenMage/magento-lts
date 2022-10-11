@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,22 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
+ * @category   Mage
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales module base helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
 {
@@ -68,7 +64,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             $email          = $post['oar_email'];
             $zip            = $post['oar_zip'];
 
-            if (empty($incrementId) || empty($lastName) || empty($type) || (!in_array($type, array('email', 'zip')))
+            if (empty($incrementId) || empty($lastName) || empty($type) || (!in_array($type, ['email', 'zip']))
                 || ($type == 'email' && empty($email)) || ($type == 'zip' && empty($zip))) {
                 $errors = true;
             }
@@ -133,21 +129,22 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
      */
     public function getBreadcrumbs($controller)
     {
+        /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
         $breadcrumbs = $controller->getLayout()->getBlock('breadcrumbs');
         $breadcrumbs->addCrumb(
             'home',
-            array(
+            [
                 'label' => $this->__('Home'),
                 'title' => $this->__('Go to Home Page'),
                 'link'  => Mage::getBaseUrl()
-            )
+            ]
         );
         $breadcrumbs->addCrumb(
             'cms_page',
-            array(
+            [
                 'label' => $this->__('Order Information'),
                 'title' => $this->__('Order Information')
-            )
+            ]
         );
     }
 

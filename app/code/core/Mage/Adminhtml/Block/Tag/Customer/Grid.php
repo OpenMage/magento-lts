@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,11 +23,12 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Tag_Model_Resource_Customer_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -42,16 +37,20 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
         $this->setDefaultDir('ASC');
         $this->setUseAjax(true);
     }
-    /*
+
+    /**
      * Retrieves Grid Url
      *
      * @return string
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/customer', array('_current' => true));
+        return $this->getUrl('*/*/customer', ['_current' => true]);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $tagId = Mage::registry('current_tag')->getId();
@@ -67,60 +66,67 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _afterLoadCollection()
     {
         $this->getCollection()->addProductName();
         return parent::_afterLoadCollection();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
-        $this->addColumn('customer_id', array(
+        $this->addColumn('customer_id', [
             'header'        => Mage::helper('tag')->__('ID'),
             'width'         => 50,
             'align'         => 'right',
             'index'         => 'entity_id',
-        ));
+        ]);
 
-        $this->addColumn('firstname', array(
+        $this->addColumn('firstname', [
             'header'    => Mage::helper('tag')->__('First Name'),
             'index'     => 'firstname',
-        ));
+        ]);
 
-        $this->addColumn('middlename', array(
+        $this->addColumn('middlename', [
             'header'    => Mage::helper('tag')->__('Middle Name'),
             'index'     => 'middlename',
-        ));
+        ]);
 
-        $this->addColumn('lastname', array(
+        $this->addColumn('lastname', [
             'header'    => Mage::helper('tag')->__('Last Name'),
             'index'     => 'lastname',
-        ));
+        ]);
 
-        $this->addColumn('product', array(
+        $this->addColumn('product', [
             'header'    => Mage::helper('tag')->__('Product Name'),
             'filter'    => false,
             'sortable'  => false,
             'index'     => 'product',
-        ));
+        ]);
 
-        $this->addColumn('product_sku', array(
+        $this->addColumn('product_sku', [
             'header'    => Mage::helper('tag')->__('Product SKU'),
             'filter'    => false,
             'sortable'  => false,
             'width'     => 50,
             'align'     => 'right',
             'index'     => 'product_sku',
-        ));
-
-
+        ]);
 
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/customer/edit', array('id' => $row->getId()));
+        return $this->getUrl('*/customer/edit', ['id' => $row->getId()]);
     }
-
 }

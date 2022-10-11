@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Bundle
+ * @category   Mage
+ * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Bundle Resource Model
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource_Data_Abstract
 {
@@ -40,17 +33,17 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
      *
      * @param int $productId
      * @param array $columns
-     * @return Zend_DB_Select
+     * @return Zend_Db_Select
      */
-    protected function _getSelect($productId, $columns = array())
+    protected function _getSelect($productId, $columns = [])
     {
         return $this->_getReadAdapter()->select()
-            ->from(array("bundle_option" => $this->getTable('bundle/option')), array('type', 'option_id'))
+            ->from(["bundle_option" => $this->getTable('bundle/option')], ['type', 'option_id'])
             ->where("bundle_option.parent_id = ?", $productId)
             ->where("bundle_option.required = 1")
             ->joinLeft(
-                array(
-                "bundle_selection" => $this->getTable('bundle/selection')),
+                [
+                "bundle_selection" => $this->getTable('bundle/selection')],
                 "bundle_selection.option_id = bundle_option.option_id",
                 $columns
             );
@@ -66,7 +59,7 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
     {
         return $this->_getReadAdapter()->fetchAll($this->_getSelect(
             $productId,
-            array("*")
+            ["*"]
         ));
     }
 
@@ -79,15 +72,15 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
     {
         $quoteItemIds = $this->_getReadAdapter()->fetchCol(
             $this->_getReadAdapter()->select()
-            ->from($this->getTable('sales/quote_item'), array('item_id'))
+            ->from($this->getTable('sales/quote_item'), ['item_id'])
             ->where('product_id = :product_id'),
-            array('product_id' => $productId)
+            ['product_id' => $productId]
         );
 
         if ($quoteItemIds) {
             $this->_getWriteAdapter()->delete(
                 $this->getTable('sales/quote_item'),
-                array('parent_item_id IN(?)' => $quoteItemIds)
+                ['parent_item_id IN(?)' => $quoteItemIds]
             );
         }
     }
@@ -100,9 +93,9 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
      */
     public function dropAllUnneededSelections($productId, $ids)
     {
-        $where = array(
+        $where = [
             'parent_product_id = ?' => $productId
-        );
+        ];
         if (!empty($ids)) {
             $where['selection_id NOT IN (?) '] = $ids;
         }

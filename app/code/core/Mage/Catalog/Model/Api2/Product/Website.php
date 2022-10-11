@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -42,7 +36,7 @@ class Mage_Catalog_Model_Api2_Product_Website extends Mage_Api2_Model_Resource
      */
     protected function _loadProductById($id)
     {
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product')->load($id);
         if (!$product->getId()) {
             $this->_critical(sprintf('Product #%s not found.', $id), Mage_Api2_Model_Server::HTTP_NOT_FOUND);
@@ -59,7 +53,7 @@ class Mage_Catalog_Model_Api2_Product_Website extends Mage_Api2_Model_Resource
      */
     protected function _loadWebsiteById($id)
     {
-        /* @var Mage_Core_Model_Website $website */
+        /** @var Mage_Core_Model_Website $website */
         $website = Mage::getModel('core/website')->load($id);
         if (!$website->getId()) {
             $this->_critical(sprintf('Website #%s not found.', $id), Mage_Api2_Model_Server::HTTP_NOT_FOUND);

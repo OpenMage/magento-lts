@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
@@ -54,7 +48,6 @@
                 </seo>
                 <search translate="label" module="catalogsearch">
                     <label>Catalog Search</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>500</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -62,7 +55,6 @@
                     <fields>
                         <min_query_length translate="label">
                             <label>Minimal Query Length</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-digits</validate>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
@@ -71,7 +63,6 @@
                         </min_query_length>
                         <max_query_length translate="label">
                             <label>Maximum Query Length</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-digits</validate>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
@@ -80,7 +71,6 @@
                         </max_query_length>
                         <max_query_words translate="label comment">
                             <label>Maximum Query Words Count</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-digits</validate>
                             <sort_order>15</sort_order>
                             <show_in_default>1</show_in_default>
@@ -98,9 +88,18 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </search_type>
+                        <search_separator translate="label">
+                            <label>Fulltext Separator</label>
+                            <frontend_type>select</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_catalog_search_separator</backend_model>
+                            <source_model>adminhtml/system_config_source_catalog_search_separator</source_model>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </search_separator>
                         <use_layered_navigation_count translate="label comment">
                             <label>Apply Layered Navigation if Search Results are Less Than</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-digits</validate>
                             <sort_order>25</sort_order>
                             <show_in_default>1</show_in_default>

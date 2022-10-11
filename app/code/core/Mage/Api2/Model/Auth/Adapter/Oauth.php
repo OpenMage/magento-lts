@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -45,7 +39,7 @@ class Mage_Api2_Model_Auth_Adapter_Oauth extends Mage_Api2_Model_Auth_Adapter_Ab
     {
         /** @var Mage_Oauth_Model_Server $oauthServer */
         $oauthServer   = Mage::getModel('oauth/server', $request);
-        $userParamsObj = (object) array('type' => null, 'id' => null);
+        $userParamsObj = (object) ['type' => null, 'id' => null];
 
         try {
             $token    = $oauthServer->checkAccessRequest();
@@ -73,6 +67,6 @@ class Mage_Api2_Model_Auth_Adapter_Oauth extends Mage_Api2_Model_Auth_Adapter_Ab
     {
         $headerValue = $request->getHeader('Authorization');
 
-        return $headerValue && 'oauth' === strtolower(substr($headerValue, 0, 5));
+        return $headerValue && strtolower(substr($headerValue, 0, 5)) === 'oauth';
     }
 }

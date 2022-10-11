@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Widget
@@ -92,10 +86,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         }
         $mainFieldsetHtmlId = 'options_fieldset' . md5($this->getWidgetType());
         $this->setMainFieldsetHtmlId($mainFieldsetHtmlId);
-        $fieldset = $this->getForm()->addFieldset($mainFieldsetHtmlId, array(
+        $fieldset = $this->getForm()->addFieldset($mainFieldsetHtmlId, [
             'legend'    => $this->helper('widget')->__('Widget Options'),
             'class'     => 'fieldset-wide',
-        ));
+        ]);
         $this->setData('main_fieldset', $fieldset);
 
         // add dependence javascript block
@@ -142,13 +136,13 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
 
         // prepare element data with values (either from request of from default values)
         $fieldName = $parameter->getKey();
-        $data = array(
+        $data = [
             'name'      => $form->addSuffixToName($fieldName, 'parameters'),
             'label'     => $this->_translationHelper->__($parameter->getLabel()),
             'required'  => $parameter->getRequired(),
             'class'     => 'widget-option',
             'note'      => $this->_translationHelper->__($parameter->getDescription()),
-        );
+        ];
 
         if ($values = $this->getWidgetValues()) {
             $data['value'] = (isset($values[$fieldName]) ? $values[$fieldName] : '');
@@ -163,12 +157,12 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         // prepare element dropdown values
         if ($values  = $parameter->getValues()) {
             // dropdown options are specified in configuration
-            $data['values'] = array();
+            $data['values'] = [];
             foreach ($values as $option) {
-                $data['values'][] = array(
+                $data['values'][] = [
                     'label' => $this->_translationHelper->__($option['label']),
                     'value' => $option['value']
-                );
+                ];
             }
         } // otherwise, a source model is specified
         elseif ($sourceModel = $parameter->getSourceModel()) {
@@ -182,7 +176,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         if (!$parameter->getVisible()) {
             $fieldType = 'hidden';
         } // just an element renderer
-        elseif (false !== strpos($fieldType, '/')) {
+        elseif (strpos($fieldType, '/') !== false) {
             $fieldRenderer = $this->getLayout()->createBlock($fieldType);
             $fieldType = $this->_defaultElementType;
         }

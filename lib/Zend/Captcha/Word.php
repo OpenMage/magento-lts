@@ -250,7 +250,7 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
         $this->_useNumbers = $_useNumbers;
         return $this;
     }
-    
+
     /**
      * Get session object
      *

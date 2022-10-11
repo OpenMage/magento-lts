@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,32 +12,31 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Adminhtml_Block_Notification_Baseurl extends Mage_Adminhtml_Block_Template
 {
     /**
      * Get url for config settings where base url option can be changed
      *
-     * @return string | false
+     * @return string|false
      */
     public function getConfigUrl()
     {
         $defaultUnsecure= (string) Mage::getConfig()->getNode('default/'.Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL);
         $defaultSecure  = (string) Mage::getConfig()->getNode('default/'.Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL);
 
-        if ($defaultSecure == '{{base_url}}' || $defaultUnsecure == '{{base_url}}') {
-            return $this->getUrl('adminhtml/system_config/edit', array('section'=>'web'));
+        if ($defaultSecure === '{{base_url}}' || $defaultUnsecure === '{{base_url}}') {
+            return $this->getUrl('adminhtml/system_config/edit', ['section'=>'web']);
         }
 
         $configData = Mage::getModel('core/config_data');
@@ -46,13 +45,13 @@ class Mage_Adminhtml_Block_Notification_Baseurl extends Mage_Adminhtml_Block_Tem
 
         $url = false;
         foreach ($dataCollection as $data) {
-            if ($data->getScope() == 'stores') {
+            if ($data->getScope() === 'stores') {
                 $code = Mage::app()->getStore($data->getScopeId())->getCode();
-                $url = $this->getUrl('adminhtml/system_config/edit', array('section'=>'web', 'store'=>$code));
+                $url = $this->getUrl('adminhtml/system_config/edit', ['section'=>'web', 'store'=>$code]);
             }
-            if ($data->getScope() == 'websites') {
+            if ($data->getScope() === 'websites') {
                 $code = Mage::app()->getWebsite($data->getScopeId())->getCode();
-                $url = $this->getUrl('adminhtml/system_config/edit', array('section'=>'web', 'website'=>$code));
+                $url = $this->getUrl('adminhtml/system_config/edit', ['section'=>'web', 'website'=>$code]);
             }
 
             if ($url) {

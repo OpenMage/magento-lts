@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
@@ -49,7 +43,7 @@ class Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item extends Mage_Ap
             $this->_addError('Invalid value for "item_id" in request.');
         } else {
             // Validate Stock Item
-            /* @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
+            /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
             $stockItem = Mage::getModel('cataloginventory/stock_item')->load($data['item_id']);
             if (!$stockItem->getId()) {
                 $this->_addError(sprintf('StockItem #%d not found.', $data['item_id']));

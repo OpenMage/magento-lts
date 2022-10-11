@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Translation resource model
@@ -53,7 +46,7 @@ class Mage_Core_Model_Resource_Translate extends Mage_Core_Model_Resource_Db_Abs
     public function getTranslationArray($storeId = null, $locale = null)
     {
         if (!Mage::isInstalled()) {
-            return array();
+            return [];
         }
 
         if (is_null($storeId)) {
@@ -62,19 +55,19 @@ class Mage_Core_Model_Resource_Translate extends Mage_Core_Model_Resource_Db_Abs
 
         $adapter = $this->_getReadAdapter();
         if (!$adapter) {
-            return array();
+            return [];
         }
 
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('string', 'translate'))
+            ->from($this->getMainTable(), ['string', 'translate'])
             ->where('store_id IN (0 , :store_id)')
             ->where('locale = :locale')
             ->order('store_id');
 
-        $bind = array(
+        $bind = [
             ':locale'   => (string)$locale,
             ':store_id' => $storeId
-        );
+        ];
 
         return $adapter->fetchPairs($select, $bind);
     }
@@ -89,7 +82,7 @@ class Mage_Core_Model_Resource_Translate extends Mage_Core_Model_Resource_Db_Abs
     public function getTranslationArrayByStrings(array $strings, $storeId = null)
     {
         if (!Mage::isInstalled()) {
-            return array();
+            return [];
         }
 
         if (is_null($storeId)) {
@@ -98,18 +91,18 @@ class Mage_Core_Model_Resource_Translate extends Mage_Core_Model_Resource_Db_Abs
 
         $adapter = $this->_getReadAdapter();
         if (!$adapter) {
-            return array();
+            return [];
         }
 
         if (empty($strings)) {
-            return array();
+            return [];
         }
 
-        $bind = array(
+        $bind = [
             ':store_id'   => $storeId
-        );
+        ];
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('string', 'translate'))
+            ->from($this->getMainTable(), ['string', 'translate'])
             ->where('string IN (?)', $strings)
             ->where('store_id = :store_id');
 

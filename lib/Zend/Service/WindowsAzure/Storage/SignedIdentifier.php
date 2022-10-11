@@ -31,7 +31,7 @@
  * @subpackage Storage
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * 
+ *
  * @property string $Id           Id for the signed identifier
  * @property string $Start        The time at which the Shared Access Signature becomes valid.
  * @property string $Expiry       The time at which the Shared Access Signature becomes invalid.
@@ -42,13 +42,13 @@ class Zend_Service_WindowsAzure_Storage_SignedIdentifier
 {
     /**
      * Constructor
-     * 
+     *
      * @param string $id           Id for the signed identifier
      * @param string $start        The time at which the Shared Access Signature becomes valid.
      * @param string $expiry       The time at which the Shared Access Signature becomes invalid.
      * @param string $permissions  Signed permissions - read (r), write (w), delete (d) and list (l)
      */
-    public function __construct($id = '', $start = '', $expiry = '', $permissions = '') 
+    public function __construct($id = '', $start = '', $expiry = '', $permissions = '')
     {
         $this->_data = array(
             'id'           => $id,

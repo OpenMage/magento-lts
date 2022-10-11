@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Review
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Review resource model
@@ -81,7 +74,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      *
      * @var array
      */
-    private $_deleteCache   = array();
+    private $_deleteCache   = [];
 
     /**
      * Define main table. Define other tables name
@@ -132,7 +125,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
             $stores[] = 0;
             $object->setStores($stores);
         } elseif ($object->hasData('stores')) {
-            $object->setStores(array($object->getStores(), 0));
+            $object->setStores([$object->getStores(), 0]);
         }
         return $this;
     }
@@ -150,18 +143,18 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
         /**
          * save detail
          */
-        $detail = array(
+        $detail = [
             'title'     => $object->getTitle(),
             'detail'    => $object->getDetail(),
             'nickname'  => $object->getNickname(),
-        );
+        ];
         $select = $adapter->select()
             ->from($this->_reviewDetailTable, 'detail_id')
             ->where('review_id = :review_id');
-        $detailId = $adapter->fetchOne($select, array(':review_id' => $object->getId()));
+        $detailId = $adapter->fetchOne($select, [':review_id' => $object->getId()]);
 
         if ($detailId) {
-            $condition = array("detail_id = ?" => $detailId);
+            $condition = ["detail_id = ?" => $detailId];
             $adapter->update($this->_reviewDetailTable, $detail, $condition);
         } else {
             $detail['store_id']   = $object->getStoreId();
@@ -170,26 +163,25 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
             $adapter->insert($this->_reviewDetailTable, $detail);
         }
 
-
         /**
          * save stores
          */
         $stores = $object->getStores();
         if (!empty($stores)) {
-            $condition = array('review_id = ?' => $object->getId());
+            $condition = ['review_id = ?' => $object->getId()];
             $adapter->delete($this->_reviewStoreTable, $condition);
 
-            $insertedStoreIds = array();
+            $insertedStoreIds = [];
             foreach ($stores as $storeId) {
                 if (in_array($storeId, $insertedStoreIds)) {
                     continue;
                 }
 
                 $insertedStoreIds[] = $storeId;
-                $storeInsert = array(
+                $storeInsert = [
                     'store_id' => $storeId,
                     'review_id'=> $object->getId()
-                );
+                ];
                 $adapter->insert($this->_reviewStoreTable, $storeInsert);
             }
         }
@@ -214,11 +206,11 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from($this->_reviewStoreTable, array('store_id'))
+            ->from($this->_reviewStoreTable, ['store_id'])
             ->where('review_id = :review_id');
-        $stores = $adapter->fetchCol($select, array(':review_id' => $object->getId()));
+        $stores = $adapter->fetchCol($select, [':review_id' => $object->getId()]);
         if (empty($stores) && Mage::app()->isSingleStoreMode()) {
-            $object->setStores(array(Mage::app()->getStore(true)->getId()));
+            $object->setStores([Mage::app()->getStore(true)->getId()]);
         } else {
             $object->setStores($stores);
         }
@@ -234,10 +226,10 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
         // prepare rating ids, that depend on review
-        $this->_deleteCache = array(
+        $this->_deleteCache = [
             'ratingIds'     => $this->_loadVotedRatingIds($object->getId()),
             'entityPkValue' => $object->getEntityPkValue()
-        );
+        ];
         return $this;
     }
 
@@ -249,6 +241,25 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      */
     public function afterDeleteCommit(Mage_Core_Model_Abstract $object)
     {
+        $read_adapter = $this->_getReadAdapter();
+        $select = $read_adapter->select()
+            ->from(
+                $this->_reviewTable,
+                [
+                    'review_count' => new Zend_Db_Expr('COUNT(*)')
+                ]
+            )
+            ->where("entity_id = ?", $object->getEntityId())
+            ->where("entity_pk_value = ?", $object->getEntityPkValue());
+        $total_reviews = $read_adapter->fetchOne($select);
+        if ($total_reviews == 0) {
+            $this->_getWriteAdapter()->delete($this->_aggregateTable, [
+                'entity_type = ?'   => $object->getEntityId(),
+                'entity_pk_value = ?' => $object->getEntityPkValue()
+            ]);
+            return $this;
+        }
+
         $this->aggregate($object);
 
         // reaggregate ratings, that depended on this review
@@ -256,7 +267,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
             $this->_deleteCache['ratingIds'],
             $this->_deleteCache['entityPkValue']
         );
-        $this->_deleteCache = array();
+        $this->_deleteCache = [];
 
         return $this;
     }
@@ -275,17 +286,17 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
         $select = $adapter->select()
             ->from(
                 $this->_reviewTable,
-                array(
+                [
                     'review_count' => new Zend_Db_Expr('COUNT(*)')
-                )
+                ]
             )
             ->where("{$this->_reviewTable}.entity_pk_value = :pk_value");
-        $bind = array(':pk_value' => $entityPkValue);
+        $bind = [':pk_value' => $entityPkValue];
         if ($storeId > 0) {
             $select->join(
-                array('store'=>$this->_reviewStoreTable),
+                ['store'=>$this->_reviewStoreTable],
                 $this->_reviewTable.'.review_id=store.review_id AND store.store_id = :store_id',
-                array()
+                []
             );
             $bind[':store_id'] = (int)$storeId;
         }
@@ -329,11 +340,11 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
                 ->where('entity_pk_value = :pk_value')
                 ->where('entity_type = :entity_type')
                 ->where('store_id = :store_id');
-            $bind = array(
+            $bind = [
                 ':pk_value'    => $object->getEntityPkValue(),
                 ':entity_type' => $object->getEntityId(),
                 ':store_id'    =>$ratingSummaryObject->getStoreId()
-            );
+            ];
             $oldData = $readAdapter->fetchRow($select, $bind);
 
             $data = new Varien_Object();
@@ -347,7 +358,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
             $writeAdapter->beginTransaction();
             try {
                 if ($oldData['primary_id'] > 0) {
-                    $condition = array("{$this->_aggregateTable}.primary_id = ?" => $oldData['primary_id']);
+                    $condition = ["{$this->_aggregateTable}.primary_id = ?" => $oldData['primary_id']];
                     $writeAdapter->update($this->_aggregateTable, $data->getData(), $condition);
                 } else {
                     $writeAdapter->insert($this->_aggregateTable, $data->getData());
@@ -369,13 +380,13 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     {
         $adapter = $this->_getReadAdapter();
         if (empty($reviewId)) {
-            return array();
+            return [];
         }
         $select = $adapter->select()
-            ->from(array('v' => $this->getTable('rating/rating_option_vote')), 'r.rating_id')
-            ->joinInner(array('r' => $this->getTable('rating/rating')), 'v.rating_id=r.rating_id')
+            ->from(['v' => $this->getTable('rating/rating_option_vote')], 'r.rating_id')
+            ->joinInner(['r' => $this->getTable('rating/rating')], 'v.rating_id=r.rating_id')
             ->where('v.review_id = :revire_id');
-        return $adapter->fetchCol($select, array(':revire_id' => $reviewId));
+        return $adapter->fetchCol($select, [':revire_id' => $reviewId]);
     }
 
     /**
@@ -389,7 +400,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     protected function _aggregateRatings($ratingIds, $entityPkValue)
     {
         if ($ratingIds && !is_array($ratingIds)) {
-            $ratingIds = array((int)$ratingIds);
+            $ratingIds = [(int)$ratingIds];
         }
         if ($ratingIds && $entityPkValue
             && ($resource = Mage::getResourceSingleton('rating/rating_option'))
@@ -425,9 +436,9 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from($this->_reviewEntityTable, array('entity_id'))
+            ->from($this->_reviewEntityTable, ['entity_id'])
             ->where('entity_code = :entity_code');
-        return $adapter->fetchOne($select, array(':entity_code' => $entityCode));
+        return $adapter->fetchOne($select, [':entity_code' => $entityCode]);
     }
 
     /**
@@ -439,14 +450,14 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      */
     public function deleteReviewsByProductId($productId)
     {
-        $this->_getWriteAdapter()->delete($this->_reviewTable, array(
+        $this->_getWriteAdapter()->delete($this->_reviewTable, [
             'entity_pk_value=?' => $productId,
             'entity_id=?' => $this->getEntityIdByCode(Mage_Review_Model_Review::ENTITY_PRODUCT_CODE)
-        ));
-        $this->_getWriteAdapter()->delete($this->getTable('review/review_aggregate'), array(
+        ]);
+        $this->_getWriteAdapter()->delete($this->getTable('review/review_aggregate'), [
             'entity_pk_value=?' => $productId,
             'entity_type=?' => $this->getEntityIdByCode(Mage_Review_Model_Review::ENTITY_PRODUCT_CODE)
-        ));
+        ]);
         return $this;
     }
 }

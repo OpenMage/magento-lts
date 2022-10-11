@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Captcha
+ * @category   Mage
+ * @package    Mage_Captcha
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -45,14 +39,14 @@ abstract class Mage_Captcha_Model_Config_Form_Abstract extends Mage_Core_Model_C
      */
     public function toOptionArray()
     {
-        $optionArray = array();
-        /* @var Mage_Core_Model_Config_Element $backendNode */
+        $optionArray = [];
+        /** @var Mage_Core_Model_Config_Element $backendNode */
         $backendNode = Mage::getConfig()->getNode($this->_configPath);
         if ($backendNode) {
             foreach ($backendNode->children() as $formNode) {
-                /* @var Mage_Core_Model_Config_Element $formNode */
+                /** @var Mage_Core_Model_Config_Element $formNode */
                 if (!empty($formNode->label)) {
-                    $optionArray[] = array('label' => (string)$formNode->label, 'value' => $formNode->getName());
+                    $optionArray[] = ['label' => (string)$formNode->label, 'value' => $formNode->getName()];
                 }
             }
         }

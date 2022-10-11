@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Downloadable Product  Samples resource model
@@ -53,18 +46,18 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
     {
         $writeAdapter   = $this->_getWriteAdapter();
         $sampleTitleTable = $this->getTable('downloadable/sample_title');
-        $bind = array(
+        $bind = [
             ':sample_id' => $sampleObject->getId(),
             ':store_id'  => (int)$sampleObject->getStoreId()
-        );
+        ];
         $select = $writeAdapter->select()
             ->from($sampleTitleTable)
             ->where('sample_id=:sample_id AND store_id=:store_id');
         if ($writeAdapter->fetchOne($select, $bind)) {
-            $where = array(
+            $where = [
                 'sample_id = ?' => $sampleObject->getId(),
                 'store_id = ?'  => (int)$sampleObject->getStoreId()
-            );
+            ];
             if ($sampleObject->getUseDefaultTitle()) {
                 $writeAdapter->delete(
                     $sampleTitleTable,
@@ -73,7 +66,7 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
             } else {
                 $writeAdapter->update(
                     $sampleTitleTable,
-                    array('title' => $sampleObject->getTitle()),
+                    ['title' => $sampleObject->getTitle()],
                     $where
                 );
             }
@@ -81,11 +74,11 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
             if (!$sampleObject->getUseDefaultTitle()) {
                 $writeAdapter->insert(
                     $sampleTitleTable,
-                    array(
+                    [
                         'sample_id' => $sampleObject->getId(),
                         'store_id'  => (int)$sampleObject->getStoreId(),
                         'title'     => $sampleObject->getTitle(),
-                    )
+                    ]
                 );
             }
         }
@@ -104,9 +97,9 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
         $writeAdapter = $this->_getWriteAdapter();
         $where = '';
         if ($items instanceof Mage_Downloadable_Model_Sample) {
-            $where = array('sample_id = ?'    => $items->getId());
+            $where = ['sample_id = ?'    => $items->getId()];
         } else {
-            $where = array('sample_id in (?)' => $items);
+            $where = ['sample_id in (?)' => $items];
         }
         if ($where) {
             $writeAdapter->delete(
@@ -133,22 +126,22 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
         $adapter = $this->_getReadAdapter();
         $ifNullDefaultTitle = $adapter->getIfNullSql('st.title', 'd.title');
         $select = $adapter->select()
-            ->from(array('m' => $this->getMainTable()), null)
+            ->from(['m' => $this->getMainTable()], null)
             ->join(
-                array('d' => $this->getTable('downloadable/sample_title')),
+                ['d' => $this->getTable('downloadable/sample_title')],
                 'd.sample_id=m.sample_id AND d.store_id=0',
-                array()
+                []
             )
             ->joinLeft(
-                array('st' => $this->getTable('downloadable/sample_title')),
+                ['st' => $this->getTable('downloadable/sample_title')],
                 'st.sample_id=m.sample_id AND st.store_id=:store_id',
-                array('title' => $ifNullDefaultTitle)
+                ['title' => $ifNullDefaultTitle]
             )
             ->where('m.product_id=:product_id', $productId);
-        $bind = array(
+        $bind = [
             ':store_id'   => (int)$storeId,
             ':product_id' => $productId
-        );
+        ];
 
         return $adapter->fetchCol($select, $bind);
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog url rewrite resource model
@@ -46,14 +39,14 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @var array
      */
-    protected $_categoryAttributes          = array();
+    protected $_categoryAttributes          = [];
 
     /**
      * Product attribute properties cache
      *
      * @var array
      */
-    protected $_productAttributes           = array();
+    protected $_productAttributes           = [];
 
     /**
      * Limit products for select
@@ -67,7 +60,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @var array
      */
-    protected $_rootChildrenIds             = array();
+    protected $_rootChildrenIds             = [];
 
     /**
      * Load core Url rewrite model
@@ -129,10 +122,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             ->from($this->getMainTable())
             ->where('store_id = :store_id')
             ->where('id_path = :id_path');
-        $bind = array(
+        $bind = [
             'store_id' => (int)$storeId,
             'id_path'  => $idPath
-        );
+        ];
         $row = $adapter->fetchRow($select, $bind);
 
         if (!$row) {
@@ -158,10 +151,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             ->from($this->getMainTable())
             ->where('store_id = :store_id')
             ->where('request_path = :request_path');
-        $bind = array(
+        $bind = [
             'request_path'  => $requestPath,
             'store_id'      => (int)$storeId
-        );
+        ];
         $row = $adapter->fetchRow($select, $bind);
 
         if (!$row) {
@@ -185,8 +178,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     {
         $adapter = $this->_getWriteAdapter();
         $requestPathField = new Zend_Db_Expr($adapter->quoteIdentifier('request_path'));
+        /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('eav');
         //select increment part of request path and cast expression to integer
-        $urlIncrementPartExpression = Mage::getResourceHelper('eav')
+        $urlIncrementPartExpression = $helper
             ->getCastToIntExpression($adapter->getSubstringSql(
                 $requestPathField,
                 strlen($prefix) + 1,
@@ -196,13 +191,13 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             ->from($this->getMainTable(), new Zend_Db_Expr('MAX(' . $urlIncrementPartExpression . ')'))
             ->where('store_id = :store_id')
             ->where('request_path LIKE :request_path')
-            ->where($adapter->prepareSqlCondition('request_path', array(
+            ->where($adapter->prepareSqlCondition('request_path', [
                 'regexp' => '^' . preg_quote($prefix) . '[0-9]*' . preg_quote($suffix) . '$'
-            )));
-        $bind = array(
+            ]));
+        $bind = [
             'store_id'            => (int)$storeId,
             'request_path'        => $prefix . '%' . $suffix,
-        );
+        ];
 
         return (int)$adapter->fetchOne($select, $bind);
     }
@@ -221,7 +216,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             ->from($this->getMainTable(), 'request_path')
             ->where('store_id = :store_id')
             ->where('request_path IN (?)', $paths);
-        $data = $adapter->fetchCol($select, array('store_id' => $storeId));
+        $data = $adapter->fetchCol($select, ['store_id' => $storeId]);
         $paths = array_diff($paths, $data);
         if (empty($paths)) {
             return false;
@@ -241,17 +236,17 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function prepareRewrites($storeId, $categoryIds = null, $productIds = null)
     {
-        $rewrites   = array();
+        $rewrites   = [];
         $adapter    = $this->_getWriteAdapter();
         $select     = $adapter->select()
             ->from($this->getMainTable())
             ->where('store_id = :store_id')
             ->where('is_system = ?', 1);
-        $bind = array('store_id' => $storeId);
+        $bind = ['store_id' => $storeId];
         if ($categoryIds === null) {
             $select->where('category_id IS NULL');
         } elseif ($categoryIds) {
-            $catIds = is_array($categoryIds) ? $categoryIds : array($categoryIds);
+            $catIds = is_array($categoryIds) ? $categoryIds : [$categoryIds];
 
             // Check maybe we request products and root category id is within categoryIds,
             // it's a separate case because root category products are stored with NULL categoryId
@@ -306,13 +301,13 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         if ($rewrite && $rewrite->getId()) {
             if ($rewriteData['request_path'] != $rewrite->getRequestPath()) {
                 // Update existing rewrites history and avoid chain redirects
-                $where = array('target_path = ?' => $rewrite->getRequestPath());
+                $where = ['target_path = ?' => $rewrite->getRequestPath()];
                 if ($rewrite->getStoreId()) {
                     $where['store_id = ?'] = (int)$rewrite->getStoreId();
                 }
                 $adapter->update(
                     $this->getMainTable(),
-                    array('target_path' => $rewriteData['request_path']),
+                    ['target_path' => $rewriteData['request_path']],
                     $where
                 );
             }
@@ -354,24 +349,24 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         if (!isset($this->_categoryAttributes[$attributeCode])) {
             $attribute = $this->getCategoryModel()->getResource()->getAttribute($attributeCode);
 
-            $this->_categoryAttributes[$attributeCode] = array(
+            $this->_categoryAttributes[$attributeCode] = [
                 'entity_type_id' => $attribute->getEntityTypeId(),
                 'attribute_id'   => $attribute->getId(),
                 'table'          => $attribute->getBackend()->getTable(),
                 'is_global'      => $attribute->getIsGlobal()
-            );
+            ];
             unset($attribute);
         }
 
         $attributeTable = $this->_categoryAttributes[$attributeCode]['table'];
 
-        $attributeData = array(
+        $attributeData = [
             'entity_type_id'    => $this->_categoryAttributes[$attributeCode]['entity_type_id'],
             'attribute_id'      => $this->_categoryAttributes[$attributeCode]['attribute_id'],
             'store_id'          => $category->getStoreId(),
             'entity_id'         => $category->getId(),
             'value'             => $category->getData($attributeCode)
-        );
+        ];
 
         if ($this->_categoryAttributes[$attributeCode]['is_global'] || $category->getStoreId() == 0) {
             $attributeData['store_id'] = 0;
@@ -386,7 +381,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         $row = $adapter->fetchRow($select);
         if ($row) {
-            $whereCond = array('value_id = ?' => $row['value_id']);
+            $whereCond = ['value_id = ?' => $row['value_id']];
             $adapter->update($attributeTable, $attributeData, $whereCond);
         } else {
             $adapter->insert($attributeTable, $attributeData);
@@ -403,7 +398,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
             $row = $adapter->fetchRow($select);
             if ($row) {
-                $whereCond = array('value_id = ?' => $row['value_id']);
+                $whereCond = ['value_id = ?' => $row['value_id']];
                 $adapter->update($attributeTable, $attributeData, $whereCond);
             } else {
                 $adapter->insert($attributeTable, $attributeData);
@@ -428,33 +423,33 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         if (!isset($this->_categoryAttributes[$attributeCode])) {
             $attribute = $this->getCategoryModel()->getResource()->getAttribute($attributeCode);
 
-            $this->_categoryAttributes[$attributeCode] = array(
+            $this->_categoryAttributes[$attributeCode] = [
                 'entity_type_id' => $attribute->getEntityTypeId(),
                 'attribute_id'   => $attribute->getId(),
                 'table'          => $attribute->getBackend()->getTable(),
                 'is_global'      => $attribute->getIsGlobal(),
                 'is_static'      => $attribute->isStatic()
-            );
+            ];
             unset($attribute);
         }
 
         if (!is_array($categoryIds)) {
-            $categoryIds = array($categoryIds);
+            $categoryIds = [$categoryIds];
         }
 
         $attributeTable = $this->_categoryAttributes[$attributeCode]['table'];
         $select         = $adapter->select();
-        $bind           = array();
+        $bind           = [];
         if ($this->_categoryAttributes[$attributeCode]['is_static']) {
             $select
                 ->from(
                     $this->getTable('catalog/category'),
-                    array('value' => $attributeCode, 'entity_id' => 'entity_id')
+                    ['value' => $attributeCode, 'entity_id' => 'entity_id']
                 )
                 ->where('entity_id IN(?)', $categoryIds);
         } elseif ($this->_categoryAttributes[$attributeCode]['is_global'] || $storeId == 0) {
             $select
-                ->from($attributeTable, array('entity_id', 'value'))
+                ->from($attributeTable, ['entity_id', 'value'])
                 ->where('attribute_id = :attribute_id')
                 ->where('store_id = ?', 0)
                 ->where('entity_id IN(?)', $categoryIds);
@@ -463,13 +458,13 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $valueExpr = $adapter->getCheckSql('t2.value_id > 0', 't2.value', 't1.value');
             $select
                 ->from(
-                    array('t1' => $attributeTable),
-                    array('entity_id', 'value' => $valueExpr)
+                    ['t1' => $attributeTable],
+                    ['entity_id', 'value' => $valueExpr]
                 )
                 ->joinLeft(
-                    array('t2' => $attributeTable),
+                    ['t2' => $attributeTable],
                     't1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id = :store_id',
-                    array()
+                    []
                 )
                 ->where('t1.store_id = ?', 0)
                 ->where('t1.attribute_id = :attribute_id')
@@ -481,7 +476,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         $rowSet = $adapter->fetchAll($select, $bind);
 
-        $attributes = array();
+        $attributes = [];
         foreach ($rowSet as $row) {
             $attributes[$row['entity_id']] = $row['value'];
         }
@@ -508,24 +503,24 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         if (!isset($this->_productAttributes[$attributeCode])) {
             $attribute = $this->getProductModel()->getResource()->getAttribute($attributeCode);
 
-            $this->_productAttributes[$attributeCode] = array(
+            $this->_productAttributes[$attributeCode] = [
                 'entity_type_id' => $attribute->getEntityTypeId(),
                 'attribute_id'   => $attribute->getId(),
                 'table'          => $attribute->getBackend()->getTable(),
                 'is_global'      => $attribute->getIsGlobal()
-            );
+            ];
             unset($attribute);
         }
 
         $attributeTable = $this->_productAttributes[$attributeCode]['table'];
 
-        $attributeData = array(
+        $attributeData = [
             'entity_type_id'    => $this->_productAttributes[$attributeCode]['entity_type_id'],
             'attribute_id'      => $this->_productAttributes[$attributeCode]['attribute_id'],
             'store_id'          => $product->getStoreId(),
             'entity_id'         => $product->getId(),
             'value'             => $product->getData($attributeCode)
-        );
+        ];
 
         if ($this->_productAttributes[$attributeCode]['is_global'] || $product->getStoreId() == 0) {
             $attributeData['store_id'] = 0;
@@ -540,7 +535,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         $row = $adapter->fetchRow($select);
         if ($row) {
-            $whereCond = array('value_id = ?' => $row['value_id']);
+            $whereCond = ['value_id = ?' => $row['value_id']];
             $adapter->update($attributeTable, $attributeData, $whereCond);
         } else {
             $adapter->insert($attributeTable, $attributeData);
@@ -557,7 +552,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
             $row = $adapter->fetchRow($select);
             if ($row) {
-                $whereCond = array('value_id = ?' => $row['value_id']);
+                $whereCond = ['value_id = ?' => $row['value_id']];
                 $adapter->update($attributeTable, $attributeData, $whereCond);
             } else {
                 $adapter->insert($attributeTable, $attributeData);
@@ -582,24 +577,24 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         if (!isset($this->_productAttributes[$attributeCode])) {
             $attribute = $this->getProductModel()->getResource()->getAttribute($attributeCode);
 
-            $this->_productAttributes[$attributeCode] = array(
+            $this->_productAttributes[$attributeCode] = [
                 'entity_type_id' => $attribute->getEntityTypeId(),
                 'attribute_id'   => $attribute->getId(),
                 'table'          => $attribute->getBackend()->getTable(),
                 'is_global'      => $attribute->getIsGlobal()
-            );
+            ];
             unset($attribute);
         }
 
         if (!is_array($productIds)) {
-            $productIds = array($productIds);
+            $productIds = [$productIds];
         }
-        $bind = array('attribute_id' => $this->_productAttributes[$attributeCode]['attribute_id']);
+        $bind = ['attribute_id' => $this->_productAttributes[$attributeCode]['attribute_id']];
         $select = $adapter->select();
         $attributeTable = $this->_productAttributes[$attributeCode]['table'];
         if ($this->_productAttributes[$attributeCode]['is_global'] || $storeId == 0) {
             $select
-                ->from($attributeTable, array('entity_id', 'value'))
+                ->from($attributeTable, ['entity_id', 'value'])
                 ->where('attribute_id = :attribute_id')
                 ->where('store_id = ?', 0)
                 ->where('entity_id IN(?)', $productIds);
@@ -607,13 +602,13 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $valueExpr = $adapter->getCheckSql('t2.value_id > 0', 't2.value', 't1.value');
             $select
                 ->from(
-                    array('t1' => $attributeTable),
-                    array('entity_id', 'value' => $valueExpr)
+                    ['t1' => $attributeTable],
+                    ['entity_id', 'value' => $valueExpr]
                 )
                 ->joinLeft(
-                    array('t2' => $attributeTable),
+                    ['t2' => $attributeTable],
                     't1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id=:store_id',
-                    array()
+                    []
                 )
                 ->where('t1.store_id = ?', 0)
                 ->where('t1.attribute_id = :attribute_id')
@@ -623,7 +618,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         $rowSet = $adapter->fetchAll($select, $bind);
 
-        $attributes = array();
+        $attributes = [];
         foreach ($rowSet as $row) {
             $attributes[$row['entity_id']] = $row['value'];
         }
@@ -662,9 +657,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      */
     protected function _prepareStoreRootCategories($stores)
     {
-        $rootCategoryIds = array();
+        $rootCategoryIds = [];
         foreach ($stores as $store) {
-            $rootCategoryIds[$store->getRootCategoryId()] = $store->getRootCategoryId();
+            $rootCategoryId = $store->getRootCategoryId();
+            $rootCategoryIds[$rootCategoryId] = $rootCategoryId;
         }
         if ($rootCategoryIds) {
             $categories = $this->_getCategories($rootCategoryIds);
@@ -694,27 +690,27 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     {
         $isActiveAttribute = Mage::getSingleton('eav/config')
             ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_active');
-        $categories        = array();
+        $categories        = [];
         $adapter           = $this->_getReadAdapter();
 
         if (!is_array($categoryIds)) {
-            $categoryIds = array($categoryIds);
+            $categoryIds = [$categoryIds];
         }
         $isActiveExpr = $adapter->getCheckSql('c.value_id > 0', 'c.value', 'd.value');
         $select = $adapter->select()
-            ->from(array('main_table' => $this->getTable('catalog/category')), array(
+            ->from(['main_table' => $this->getTable('catalog/category')], [
                 'main_table.entity_id',
                 'main_table.parent_id',
                 'main_table.level',
                 'is_active' => $isActiveExpr,
-                'main_table.path'));
+                'main_table.path']);
 
         // Prepare variables for checking whether categories belong to store
         if ($path === null) {
             $select->where('main_table.entity_id IN(?)', $categoryIds);
         } else {
             // Ensure that path ends with '/', otherwise we can get wrong results - e.g. $path = '1/2' will get '1/20'
-            if (substr($path, -1) != '/') {
+            if (substr($path, -1) !== '/') {
                 $path .= '/';
             }
 
@@ -722,26 +718,26 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                 ->where('main_table.path LIKE ?', $path . '%')
                 ->order('main_table.path');
         }
-        $table = $this->getTable(array('catalog/category', 'int'));
+        $table = $this->getTable(['catalog/category', 'int']);
         $select->joinLeft(
-            array('d' => $table),
+            ['d' => $table],
             'd.attribute_id = :attribute_id AND d.store_id = 0 AND d.entity_id = main_table.entity_id',
-            array()
+            []
         )
         ->joinLeft(
-            array('c' => $table),
+            ['c' => $table],
             'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = main_table.entity_id',
-            array()
+            []
         );
 
         if ($storeId !== null) {
             $rootCategoryPath = $this->getStores($storeId)->getRootCategoryPath();
             $rootCategoryPathLength = strlen($rootCategoryPath);
         }
-        $bind = array(
+        $bind = [
             'attribute_id' => (int)$isActiveAttribute->getId(),
             'store_id'     => (int)$storeId
-        );
+        ];
 
         $rowSet = $adapter->fetchAll($select, $bind);
         foreach ($rowSet as $row) {
@@ -753,7 +749,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                 }
                 // Second - check non-root category - that it's really a descendant, not a simple string match
                 if ((strlen($row['path']) > $rootCategoryPathLength)
-                    && ($row['path'][$rootCategoryPathLength] != '/')) {
+                    && ($row['path'][$rootCategoryPathLength] !== '/')) {
                     continue;
                 }
             }
@@ -768,7 +764,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         unset($rowSet);
 
         if ($storeId !== null && $categories) {
-            foreach (array('name', 'url_key', 'url_path') as $attributeCode) {
+            foreach (['name', 'url_key', 'url_path'] as $attributeCode) {
                 $attributes = $this->_getCategoryAttribute(
                     $attributeCode,
                     array_keys($categories),
@@ -832,20 +828,20 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         }
 
         $categories = $this->_getCategories(null, $category->getStoreId(), $category->getPath() . '/');
-        $category->setChilds(array());
+        $category->setChilds([]);
         foreach ($categories as $child) {
             if (!is_array($child->getChilds())) {
-                $child->setChilds(array());
+                $child->setChilds([]);
             }
             if ($child->getParentId() == $category->getId()) {
-                $category->setChilds($category->getChilds() + array($child->getId() => $child));
+                $category->setChilds($category->getChilds() + [$child->getId() => $child]);
             } else {
                 if (isset($categories[$child->getParentId()])) {
                     if (!is_array($categories[$child->getParentId()]->getChilds())) {
-                        $categories[$child->getParentId()]->setChilds(array());
+                        $categories[$child->getParentId()]->setChilds([]);
                     }
                     $categories[$child->getParentId()]->setChilds(
-                        $categories[$child->getParentId()]->getChilds() + array($child->getId() => $child)
+                        $categories[$child->getParentId()]->getChilds() + [$child->getId() => $child]
                     );
                 }
             }
@@ -871,10 +867,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             // Select all descedant category ids
             $adapter = $this->_getReadAdapter();
             $select = $adapter->select()
-                ->from(array($this->getTable('catalog/category')), array('entity_id'))
+                ->from([$this->getTable('catalog/category')], ['entity_id'])
                 ->where('path LIKE ?', $categoryPath . '/%');
 
-            $categoryIds = array();
+            $categoryIds = [];
             $rowSet = $adapter->fetchAll($select);
             foreach ($rowSet as $row) {
                 $categoryIds[$row['entity_id']] = $row['entity_id'];
@@ -924,10 +920,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         }
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from($this->getTable('catalog/category_product'), array('product_id'))
+            ->from($this->getTable('catalog/category_product'), ['product_id'])
             ->where('category_id = :category_id')
             ->order('product_id');
-        $bind = array('category_id' => $categoryId);
+        $bind = ['category_id' => $categoryId];
 
         return $adapter->fetchCol($select, $bind);
     }
@@ -943,25 +939,25 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      */
     protected function _getProducts($productIds, $storeId, $entityId, &$lastEntityId)
     {
-        $products   = array();
+        $products   = [];
         $websiteId  = Mage::app()->getStore($storeId)->getWebsiteId();
         $adapter    = $this->_getReadAdapter();
         if ($productIds !== null) {
             if (!is_array($productIds)) {
-                $productIds = array($productIds);
+                $productIds = [$productIds];
             }
         }
-        $bind = array(
+        $bind = [
             'website_id' => (int)$websiteId,
             'entity_id'  => (int)$entityId,
-        );
+        ];
         $select = $adapter->select()
             ->useStraightJoin(true)
-            ->from(array('e' => $this->getTable('catalog/product')), array('entity_id'))
+            ->from(['e' => $this->getTable('catalog/product')], ['entity_id'])
             ->join(
-                array('w' => $this->getTable('catalog/product_website')),
+                ['w' => $this->getTable('catalog/product_website')],
                 'e.entity_id = w.product_id AND w.website_id = :website_id',
-                array()
+                []
             )
             ->where('e.entity_id > :entity_id')
             ->order('e.entity_id')
@@ -974,7 +970,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         foreach ($rowSet as $row) {
             $product = new Varien_Object($row);
             $product->setIdFieldName('entity_id');
-            $product->setCategoryIds(array());
+            $product->setCategoryIds([]);
             $product->setStoreId($storeId);
             $products[$product->getId()] = $product;
             $lastEntityId = $product->getId();
@@ -986,7 +982,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $select = $adapter->select()
                 ->from(
                     $this->getTable('catalog/category_product'),
-                    array('product_id', 'category_id')
+                    ['product_id', 'category_id']
                 )
                 ->where('product_id IN(?)', array_keys($products));
             $categories = $adapter->fetchAll($select);
@@ -997,7 +993,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                 $products[$productId]->setCategoryIds($categoryIds);
             }
 
-            foreach (array('name', 'url_key', 'url_path') as $attributeCode) {
+            foreach (['name', 'url_key', 'url_path'] as $attributeCode) {
                 $attributes = $this->_getProductAttribute($attributeCode, array_keys($products), $storeId);
                 foreach ($attributes as $productId => $attributeValue) {
                     $products[$productId]->setData($attributeCode, $attributeValue);
@@ -1048,7 +1044,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     {
         $productIds = $this->getProductIdsByCategory($category);
         if (!$productIds) {
-            return array();
+            return [];
         }
         return $this->_getProducts($productIds, $category->getStoreId(), $lastEntityId, $lastEntityId);
     }
@@ -1064,19 +1060,19 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     {
         $adapter = $this->_getWriteAdapter();
         $select = $adapter->select()
-            ->from(array('tur' => $this->getMainTable()), $this->getIdFieldName())
+            ->from(['tur' => $this->getMainTable()], $this->getIdFieldName())
             ->joinLeft(
-                array('tcp' => $this->getTable('catalog/category_product')),
+                ['tcp' => $this->getTable('catalog/category_product')],
                 'tur.category_id = tcp.category_id AND tur.product_id = tcp.product_id',
-                array()
+                []
             )
             ->where('tur.store_id = :store_id')
             ->where('tur.category_id IS NOT NULL')
             ->where('tur.product_id IS NOT NULL')
             ->where('tcp.category_id IS NULL');
-        $rewriteIds = $adapter->fetchCol($select, array('store_id' => $storeId));
+        $rewriteIds = $adapter->fetchCol($select, ['store_id' => $storeId]);
         if ($rewriteIds) {
-            $where = array($this->getIdFieldName() . ' IN(?)' => $rewriteIds);
+            $where = [$this->getIdFieldName() . ' IN(?)' => $rewriteIds];
             $adapter->delete($this->getMainTable(), $where);
         }
 
@@ -1095,12 +1091,12 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * @param array $excludeCategoryIds Array of category Ids that should be skipped
      * @return $this
      */
-    public function clearProductRewrites($productId, $storeId, $excludeCategoryIds = array())
+    public function clearProductRewrites($productId, $storeId, $excludeCategoryIds = [])
     {
-        $where = array(
+        $where = [
             'product_id = ?' => $productId,
             'store_id = ?' => $storeId
-        );
+        ];
 
         if (!empty($excludeCategoryIds)) {
             $where['category_id NOT IN (?)'] = $excludeCategoryIds;
@@ -1131,11 +1127,11 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         $categoryIds = $this->getRootChildrenIds($rootCategoryId, $store->getRootCategoryPath());
 
         // Remove all store catalog rewrites that are for some category or cartegory/product not within store categories
-        $where   = array(
+        $where   = [
             'store_id = ?' => $storeId,
             'category_id IS NOT NULL', // For sure check that it's a catalog rewrite
             'category_id NOT IN (?)' => $categoryIds
-        );
+        ];
 
         $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
 
@@ -1158,16 +1154,16 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     {
         $store   = $this->getStores($storeId);
         $adapter = $this->_getReadAdapter();
-        $bind    = array(
+        $bind    = [
             'website_id' => (int)$store->getWebsiteId(),
             'store_id'   => (int)$storeId
-        );
+        ];
         $select = $adapter->select()
-            ->from(array('rewrite' => $this->getMainTable()), $this->getIdFieldName())
+            ->from(['rewrite' => $this->getMainTable()], $this->getIdFieldName())
             ->joinLeft(
-                array('website' => $this->getTable('catalog/product_website')),
+                ['website' => $this->getTable('catalog/product_website')],
                 'rewrite.product_id = website.product_id AND website.website_id = :website_id',
-                array()
+                []
             )->where('rewrite.store_id = :store_id')
             ->where('rewrite.category_id IS NULL');
         if ($productId) {
@@ -1179,7 +1175,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         $rewriteIds = $adapter->fetchCol($select, $bind);
         if ($rewriteIds) {
-            $where = array($this->getIdFieldName() . ' IN(?)' => $rewriteIds);
+            $where = [$this->getIdFieldName() . ' IN(?)' => $rewriteIds];
             $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
         }
 
@@ -1227,7 +1223,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         // Notice that we don't include category_id = NULL in case of root category,
         // because product removed from all categories but assigned to store's website is still
         // assumed to be in root cat. Unassigned products must be removed by other routine.
-        $condition = array('category_id = ?' => $categoryId);
+        $condition = ['category_id = ?' => $categoryId];
         if (empty($productIds)) {
             $condition[] = 'product_id IS NOT NULL';
         } else {
@@ -1256,7 +1252,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function getRewriteByProductStore(array $products)
     {
-        $result = array();
+        $result = [];
 
         if (empty($products)) {
             return $result;
@@ -1265,26 +1261,26 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         $select = $adapter->select()
             ->from(
-                array('i' => $this->getTable('catalog/category_product_index')),
-                array('product_id', 'store_id', 'visibility')
+                ['i' => $this->getTable('catalog/category_product_index')],
+                ['product_id', 'store_id', 'visibility']
             )
             ->joinLeft(
-                array('r' => $this->getMainTable()),
+                ['r' => $this->getMainTable()],
                 'i.product_id = r.product_id AND i.store_id=r.store_id AND r.category_id IS NULL',
-                array('request_path')
+                ['request_path']
             );
 
-        $bind = array();
+        $bind = [];
         foreach ($products as $productId => $storeId) {
             $catId = Mage::app()->getStore($storeId)->getRootCategoryId();
             $productBind = 'product_id' . $productId;
             $storeBind   = 'store_id' . $storeId;
             $catBind     = 'category_id' . $catId;
-            $cond  = '(' . implode(' AND ', array(
+            $cond  = '(' . implode(' AND ', [
                 'i.product_id = :' . $productBind,
                 'i.store_id = :' . $storeBind,
                 'i.category_id = :' . $catBind,
-            )) . ')';
+                ]) . ')';
             $bind[$productBind] = $productId;
             $bind[$storeBind]   = $storeId;
             $bind[$catBind]     = $catId;
@@ -1293,11 +1289,11 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         $rowSet = $adapter->fetchAll($select, $bind);
         foreach ($rowSet as $row) {
-            $result[$row['product_id']] = array(
+            $result[$row['product_id']] = [
                 'store_id'      => $row['store_id'],
                 'visibility'    => $row['visibility'],
                 'url_rewrite'   => $row['request_path'],
-            );
+            ];
         }
 
         return $result;
@@ -1312,7 +1308,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * @param array $_checkedPaths internal varible to prevent infinite loops.
      * @return string | bool
      */
-    public function findFinalTargetPath($requestPath, $storeId, &$_checkedPaths = array())
+    public function findFinalTargetPath($requestPath, $storeId, &$_checkedPaths = [])
     {
         if (in_array($requestPath, $_checkedPaths)) {
             return false;
@@ -1321,7 +1317,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         $_checkedPaths[] = $requestPath;
 
         $select = $this->_getWriteAdapter()->select()
-            ->from($this->getMainTable(), array('target_path', 'id_path'))
+            ->from($this->getMainTable(), ['target_path', 'id_path'])
             ->where('store_id = ?', $storeId)
             ->where('request_path = ?', $requestPath);
 
@@ -1342,7 +1338,6 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param string $requestPath
      * @param int $storeId
-     * @return void
      */
     public function deleteRewrite($requestPath, $storeId)
     {
@@ -1355,14 +1350,13 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * @param string $requestPath
      * @param int $storeId
      * @param bool $rp whether check rewrite option to be "Redirect = Permanent"
-     * @return void
      */
     public function deleteRewriteRecord($requestPath, $storeId, $rp = false)
     {
-        $conditions =  array(
+        $conditions =  [
             'store_id = ?' => $storeId,
             'request_path = ?' => $requestPath,
-        );
+        ];
         if ($rp) {
             $conditions['options = ?'] = 'RP';
         }

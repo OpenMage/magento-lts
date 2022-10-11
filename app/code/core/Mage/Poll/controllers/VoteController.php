@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Poll
@@ -38,12 +32,10 @@ class Mage_Poll_VoteController extends Mage_Core_Controller_Front_Action
      *
      * @var array
      */
-    protected $_cookieCheckActions = array('add');
+    protected $_cookieCheckActions = ['add'];
 
     /**
      * Add Vote to Poll
-     *
-     * @return void
      */
     public function addAction()
     {
@@ -66,10 +58,10 @@ class Mage_Poll_VoteController extends Mage_Core_Controller_Front_Action
             Mage::getSingleton('core/session')->setJustVotedPoll($pollId);
             Mage::dispatchEvent(
                 'poll_vote_add',
-                array(
+                [
                     'poll'  => $poll,
                     'vote'  => $vote
-                )
+                ]
             );
         }
         $this->_redirectReferer();

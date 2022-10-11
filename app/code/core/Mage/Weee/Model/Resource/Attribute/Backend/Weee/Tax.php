@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Weee
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog product WEEE tax backend attribute model
@@ -53,12 +46,12 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
     public function loadProductData($product, $attribute)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), array(
+            ->from($this->getMainTable(), [
                 'website_id',
                 'country',
                 'state',
                 'value'
-            ))
+            ])
             ->where('entity_id = ?', (int)$product->getId())
             ->where('attribute_id = ?', (int)$attribute->getId());
         if ($attribute->isScopeGlobal()) {
@@ -66,7 +59,7 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
         } else {
             $storeId = $product->getStoreId();
             if ($storeId) {
-                $select->where('website_id IN (?)', array(0, Mage::app()->getStore($storeId)->getWebsiteId()));
+                $select->where('website_id IN (?)', [0, Mage::app()->getStore($storeId)->getWebsiteId()]);
             }
         }
         return $this->_getReadAdapter()->fetchAll($select);
@@ -81,16 +74,16 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
      */
     public function deleteProductData($product, $attribute)
     {
-        $where = array(
+        $where = [
             'entity_id = ?'    => (int)$product->getId(),
             'attribute_id = ?' => (int)$attribute->getId()
-        );
+        ];
 
         $adapter   = $this->_getWriteAdapter();
         if (!$attribute->isScopeGlobal()) {
             $storeId = $product->getStoreId();
             if ($storeId) {
-                $where['website_id IN(?)'] =  array(0, Mage::app()->getStore($storeId)->getWebsiteId());
+                $where['website_id IN(?)'] =  [0, Mage::app()->getStore($storeId)->getWebsiteId()];
             }
         }
         $adapter->delete($this->getMainTable(), $where);

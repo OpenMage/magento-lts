@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Product options block
@@ -34,9 +27,12 @@
  */
 class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
 {
+    /**
+     * @var Mage_Catalog_Model_Product
+     */
     protected $_product;
 
-    protected $_optionRenders = array();
+    protected $_optionRenders = [];
 
     public function __construct()
     {
@@ -87,11 +83,11 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      */
     public function addOptionRenderer($type, $block, $template)
     {
-        $this->_optionRenders[$type] = array(
+        $this->_optionRenders[$type] = [
             'block' => $block,
             'template' => $template,
             'renderer' => null
-        );
+        ];
         return $this;
     }
 
@@ -111,7 +107,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
     }
 
     /**
-     * @param $type
+     * @param string $type
      * @return string
      */
     public function getGroupOfOption($type)
@@ -150,7 +146,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      */
     protected function _getPriceConfiguration($option)
     {
-        $data = array();
+        $data = [];
         $data['price']      = Mage::helper('core')->currency($option->getPrice(true), false, false);
         $data['oldPrice']   = Mage::helper('core')->currency($option->getPrice(false), false, false);
         $data['priceValue'] = $option->getPrice(false);
@@ -167,15 +163,14 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      */
     public function getJsonConfig()
     {
-        $config = array();
+        $config = [];
 
         foreach ($this->getOptions() as $option) {
-            /* @var Mage_Catalog_Model_Product_Option $option */
+            /** @var Mage_Catalog_Model_Product_Option $option */
             $priceValue = 0;
             if ($option->getGroupByType() == Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
-                $_tmpPriceValues = array();
+                $_tmpPriceValues = [];
                 foreach ($option->getValues() as $value) {
-                    /* @var Mage_Catalog_Model_Product_Option_Value $value */
                     $id = $value->getId();
                     $_tmpPriceValues[$id] = $this->_getPriceConfiguration($value);
                 }

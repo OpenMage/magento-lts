@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -51,7 +45,7 @@ class Mage_Api2_Model_Response extends Zend_Controller_Response_Http
      *
      * @var array
      */
-    protected $_messages = array();
+    protected $_messages = [];
 
     /**
      * Set header appropriate to specified MIME type
@@ -74,7 +68,7 @@ class Mage_Api2_Model_Response extends Zend_Controller_Response_Http
      * return Mage_Api2_Model_Response
      * @return Mage_Api2_Model_Response
      */
-    public function addMessage($message, $code, $params = array(), $type = self::MESSAGE_TYPE_ERROR)
+    public function addMessage($message, $code, $params = [], $type = self::MESSAGE_TYPE_ERROR)
     {
         $params['message'] = $message;
         $params['code'] = $code;
@@ -109,7 +103,7 @@ class Mage_Api2_Model_Response extends Zend_Controller_Response_Http
      */
     public function clearMessages()
     {
-        $this->_messages = array();
+        $this->_messages = [];
         return $this;
     }
 }

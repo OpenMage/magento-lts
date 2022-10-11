@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Page
@@ -53,7 +47,7 @@ class Mage_Page_Block_Html_Topmenu_Renderer extends Mage_Page_Block_Html_Topmenu
         }
 
         $includeFilePath = realpath(Mage::getBaseDir('design') . DS . $this->getTemplateFile());
-        if (strpos($this->getTemplateFile(), '..') === FALSE) {
+        if (strpos($this->getTemplateFile(), '..') === false) {
             $this->_templateFile = $includeFilePath;
         } else {
             throw new Exception('Not valid template file:' . $this->_templateFile);
@@ -63,8 +57,6 @@ class Mage_Page_Block_Html_Topmenu_Renderer extends Mage_Page_Block_Html_Topmenu
 
     /**
      * Add cache tags
-     *
-     * @return void
      */
     protected function _addCacheTags()
     {

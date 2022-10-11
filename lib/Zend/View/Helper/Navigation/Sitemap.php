@@ -253,10 +253,10 @@ class Zend_View_Helper_Navigation_Sitemap
     {
         $href = $page->getHref();
 
-        if (!isset($href{0})) {
+        if (!isset($href[0])) {
             // no href
             return '';
-        } elseif ($href{0} == '/') {
+        } elseif ($href[0] == '/') {
             // href is relative to root; use serverUrl helper
             $url = $this->getServerUrl() . $href;
         } elseif (preg_match('/^[a-z]+:/im', (string) $href)) {

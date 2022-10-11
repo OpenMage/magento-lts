@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -308,6 +302,7 @@
                 <title>Order Comments</title>
                 <privileges>
                     <admin>
+                        <create>1</create>
                         <retrieve>1</retrieve>
                     </admin>
                     <customer>
@@ -328,6 +323,10 @@
                     </customer>
                 </force_attributes>
                 <routes>
+                    <route_entity>
+                        <route>/orders/comments/:comment_id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
                     <route_collection>
                         <route>/orders/:id/comments</route>
                         <action_type>collection</action_type>

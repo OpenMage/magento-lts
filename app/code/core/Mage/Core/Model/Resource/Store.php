@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -49,10 +43,10 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
      */
     protected function _initUniqueFields()
     {
-        $this->_uniqueFields = array(array(
+        $this->_uniqueFields = [[
             'field' => 'code',
             'title' => Mage::helper('core')->__('Store with the same code')
-        ));
+        ]];
         return $this;
     }
 
@@ -96,10 +90,10 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $model)
     {
-        $where = array(
+        $where = [
             'scope = ?'    => 'stores',
             'scope_id = ?' => $model->getStoreId()
-        );
+        ];
 
         $this->_getWriteAdapter()->delete(
             $this->getTable('core/config_data'),
@@ -119,15 +113,15 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     {
         $adapter    = $this->_getWriteAdapter();
 
-        $bindValues = array('group_id' => (int)$groupId);
+        $bindValues = ['group_id' => (int)$groupId];
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('count' => 'COUNT(*)'))
+            ->from($this->getMainTable(), ['count' => 'COUNT(*)'])
             ->where('group_id = :group_id');
         $count  = $adapter->fetchOne($select, $bindValues);
 
         if ($count == 1) {
-            $bind  = array('default_store_id' => (int)$storeId);
-            $where = array('group_id = ?' => (int)$groupId);
+            $bind  = ['default_store_id' => (int)$storeId];
+            $where = ['group_id = ?' => (int)$groupId];
             $adapter->update($this->getTable('core/store_group'), $bind, $where);
         }
 
@@ -150,8 +144,8 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
             $storeId = $adapter->fetchOne($select, 'default_store_id');
 
             if ($storeId == $model->getId()) {
-                $bind = array('default_store_id' => Mage_Core_Model_App::ADMIN_STORE_ID);
-                $where = array('group_id = ?' => $model->getOriginalGroupId());
+                $bind = ['default_store_id' => Mage_Core_Model_App::ADMIN_STORE_ID];
+                $where = ['group_id = ?' => $model->getOriginalGroupId()];
                 $this->_getWriteAdapter()->update($this->getTable('core/store_group'), $bind, $where);
             }
         }

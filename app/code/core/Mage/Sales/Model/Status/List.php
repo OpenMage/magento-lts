@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -40,7 +34,7 @@ class Mage_Sales_Model_Status_List
      *
      * @var array
      */
-    protected $_items = array();
+    protected $_items = [];
 
     /**
      * Adds status information to the list of items.
@@ -53,12 +47,12 @@ class Mage_Sales_Model_Status_List
      */
     public function addItem($origin = null, $code = null, $message = null, $additionalData = null)
     {
-        $this->_items[] = array(
+        $this->_items[] = [
             'origin' => $origin,
             'code' => $code,
             'message' => $message,
             'additionalData' => $additionalData
-        );
+        ];
         return $this;
     }
 
@@ -85,11 +79,11 @@ class Mage_Sales_Model_Status_List
     {
         $items = $this->getItems();
         if (!$items) {
-            return array();
+            return [];
         }
 
-        $indexes = array();
-        $paramKeys = array('origin', 'code', 'message');
+        $indexes = [];
+        $paramKeys = ['origin', 'code', 'message'];
         foreach ($items as $index => $item) {
             $remove = true;
             foreach ($paramKeys as $key) {
@@ -118,20 +112,20 @@ class Mage_Sales_Model_Status_List
      */
     public function removeItems($indexes)
     {
-        if (!array($indexes)) {
-            $indexes = array($indexes);
+        if (![$indexes]) {
+            $indexes = [$indexes];
         }
         if (!$indexes) {
-            return array();
+            return [];
         }
 
         $items = $this->getItems();
         if (!$items) {
-            return array();
+            return [];
         }
 
-        $newItems = array();
-        $removedItems = array();
+        $newItems = [];
+        $removedItems = [];
         foreach ($items as $indexNow => $item) {
             if (in_array($indexNow, $indexes)) {
                 $removedItems[] = $item;
@@ -151,7 +145,7 @@ class Mage_Sales_Model_Status_List
      */
     public function clear()
     {
-        $this->_items = array();
+        $this->_items = [];
         return $this;
     }
 }

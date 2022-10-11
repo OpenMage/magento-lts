@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_PaypalUk
@@ -37,7 +31,7 @@ class Mage_PaypalUk_Model_Api_Express_Nvp extends Mage_PaypalUk_Model_Api_Nvp
         $paypalNvp = new Mage_Paypal_Model_Api_Nvp();
         $this->_setExpressCheckoutResponse = $paypalNvp->_setExpressCheckoutResponse;
         $index = array_search('PPREF', $this->_doExpressCheckoutPaymentResponse);
-        if (false !== $index) {
+        if ($index !== false) {
             unset($this->_doExpressCheckoutPaymentResponse[$index]);
         }
         $this->_doExpressCheckoutPaymentResponse[] = 'PAYMENTINFO_0_TRANSACTIONID';

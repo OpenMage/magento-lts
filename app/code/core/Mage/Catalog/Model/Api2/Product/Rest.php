@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -76,9 +70,9 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
         $collection->addStoreFilter($store->getId())
             ->addPriceData($this->_getCustomerGroupId(), $store->getWebsiteId())
             ->addAttributeToSelect(array_diff($availableAttributes, $entityOnlyAttributes))
-            ->addAttributeToFilter('visibility', array(
-                'neq' => Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE))
-            ->addAttributeToFilter('status', array('eq' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED));
+            ->addAttributeToFilter('visibility', [
+                'neq' => Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE])
+            ->addAttributeToFilter('status', ['eq' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED]);
         $this->_applyCategoryFilter($collection);
         $this->_applyCollectionModifiers($collection);
         $products = $collection->load();
@@ -138,7 +132,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             $cartHelper = Mage::helper('checkout/cart');
             $productData['buy_now_url'] = $cartHelper->getAddUrl($product);
 
-            /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
             $stockItem = $product->getStockItem();
             if (!$stockItem) {
                 $stockItem = Mage::getModel('cataloginventory/stock_item');
@@ -377,19 +370,19 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     }
 
     /**
-     * Retrive tier prices in special format
+     * Retrieve tier prices in special format
      *
      * @return array
      */
     protected function _getTierPrices()
     {
-        $tierPrices = array();
+        $tierPrices = [];
         foreach ($this->_getProduct()->getTierPrice() as $tierPrice) {
-            $tierPrices[] = array(
+            $tierPrices[] = [
                 'qty' => $tierPrice['price_qty'],
                 'price_with_tax' => $this->_applyTaxToPrice($tierPrice['price']),
                 'price_without_tax' => $this->_applyTaxToPrice($tierPrice['price'], false)
-            );
+            ];
         }
         return $tierPrices;
     }

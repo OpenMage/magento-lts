@@ -38,11 +38,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     </modules>
     <global>
         <models>
-            <core_mysql4>
-                <rewrite>
-                    <session>Cm_RedisSession_Model_Session</session>
-                </rewrite>
-            </core_mysql4>
+            <cm_redissession>
+                <class>Cm_RedisSession_Model</class>
+            </cm_redissession>
         </models>
     </global>
 </config>

@@ -1,5 +1,5 @@
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,19 +11,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-(function(flowFactory, window, document) {
+(function(window, document) {
 'use strict';
     window.Uploader = Class.create({
 
@@ -49,7 +43,7 @@
         elements: [],
 
         /**
-         * @type {(FustyFlow|Flow)} Uploader object instance
+         * @type {(Flow)} Uploader object instance
          */
         uploader: {},
 
@@ -113,8 +107,7 @@
             this.uploaderConfig = config.uploaderConfig;
             this.browseConfig = config.browseConfig;
             this.miscConfig =  config.miscConfig;
-
-            this.uploader = flowFactory(this.uploaderConfig);
+            this.uploader = new Flow(this.uploaderConfig);
 
             this.attachEvents();
 
@@ -439,7 +432,7 @@
          * @private
          */
         _checkFileSize: function (file) {
-            return file.size > this.miscConfig.maxSizeInBytes;
+            return this.miscConfig.maxSizeInBytes && file.size > this.miscConfig.maxSizeInBytes;
         },
 
         /**
@@ -505,4 +498,4 @@
             ;
         }
     });
-})(fustyFlowFactory, window, document);
+})(window, document);

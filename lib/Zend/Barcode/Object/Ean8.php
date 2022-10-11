@@ -123,7 +123,7 @@ class Zend_Barcode_Object_Ean8 extends Zend_Barcode_Object_Ean13
             $leftPosition = $this->getQuietZone() + (3 * $this->_barThinWidth) * $this->_factor;
             for ($i = 0; $i < $this->_barcodeLength; $i ++) {
                 $this->_addText(
-                    $text{$i},
+                    $text[$i],
                     $this->_fontSize * $this->_factor,
                     $this->_rotate(
                         $leftPosition,

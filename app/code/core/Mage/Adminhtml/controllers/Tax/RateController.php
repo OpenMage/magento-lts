@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,14 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
@@ -44,10 +38,12 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
              ->_title($this->__('Tax'))
              ->_title($this->__('Manage Tax Zones and Rates'));
 
+        /** @var Mage_Adminhtml_Block_Tax_Rate_Toolbar_Add $block */
+        $block = $this->getLayout()->createBlock('adminhtml/tax_rate_toolbar_add', 'tax_rate_toolbar');
         $this->_initAction()
             ->_addBreadcrumb(Mage::helper('tax')->__('Manage Tax Rates'), Mage::helper('tax')->__('Manage Tax Rates'))
             ->_addContent(
-                $this->getLayout()->createBlock('adminhtml/tax_rate_toolbar_add', 'tax_rate_toolbar')
+                $block
                     ->assign('createUrl', $this->getUrl('*/tax_rate/add'))
                     ->assign('header', Mage::helper('tax')->__('Manage Tax Rates'))
             )
@@ -57,7 +53,6 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Show Add Form
-     *
      */
     public function addAction()
     {
@@ -75,11 +70,13 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             $rateModel->setTaxPostcode($rateModel->getZipFrom() . '-' . $rateModel->getZipTo());
         }
 
+        /** @var Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save $block */
+        $block = $this->getLayout()->createBlock('adminhtml/tax_rate_toolbar_save');
         $this->_initAction()
             ->_addBreadcrumb(Mage::helper('tax')->__('Manage Tax Rates'), Mage::helper('tax')->__('Manage Tax Rates'), $this->getUrl('*/tax_rate'))
             ->_addBreadcrumb(Mage::helper('tax')->__('New Tax Rate'), Mage::helper('tax')->__('New Tax Rate'))
             ->_addContent(
-                $this->getLayout()->createBlock('adminhtml/tax_rate_toolbar_save')
+                $block
                 ->assign('header', Mage::helper('tax')->__('Add New Tax Rate'))
                 ->assign('form', $this->getLayout()->createBlock('adminhtml/tax_rate_form'))
             )
@@ -89,7 +86,8 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     /**
      * Save Rate and Data
      *
-     * @return bool
+     * @return true|void
+     * @throws Throwable
      */
     public function saveAction()
     {
@@ -126,7 +124,6 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Show Edit Form
-     *
      */
     public function editAction()
     {
@@ -152,11 +149,13 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
         $this->_title(sprintf("%s", $rateModel->getCode()));
 
+        /** @var Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save $block */
+        $block = $this->getLayout()->createBlock('adminhtml/tax_rate_toolbar_save');
         $this->_initAction()
             ->_addBreadcrumb(Mage::helper('tax')->__('Manage Tax Rates'), Mage::helper('tax')->__('Manage Tax Rates'), $this->getUrl('*/tax_rate'))
             ->_addBreadcrumb(Mage::helper('tax')->__('Edit Tax Rate'), Mage::helper('tax')->__('Edit Tax Rate'))
             ->_addContent(
-                $this->getLayout()->createBlock('adminhtml/tax_rate_toolbar_save')
+                $block
                 ->assign('header', Mage::helper('tax')->__('Edit Tax Rate'))
                 ->assign('form', $this->getLayout()->createBlock('adminhtml/tax_rate_form'))
             )
@@ -166,7 +165,8 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     /**
      * Delete Rate and Data
      *
-     * @return bool
+     * @return true|void
+     * @throws Throwable
      */
     public function deleteAction()
     {
@@ -201,7 +201,6 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Export rates grid to CSV format
-     *
      */
     public function exportCsvAction()
     {
@@ -286,7 +285,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
         $csvData = $csvObject->getData($fileName);
 
         /** checks columns */
-        $csvFields  = array(
+        $csvFields  = [
             0   => Mage::helper('tax')->__('Code'),
             1   => Mage::helper('tax')->__('Country'),
             2   => Mage::helper('tax')->__('State'),
@@ -295,11 +294,10 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             5   => Mage::helper('tax')->__('Zip/Post is Range'),
             6   => Mage::helper('tax')->__('Range From'),
             7   => Mage::helper('tax')->__('Range To')
-        );
+        ];
 
-
-        $stores = array();
-        $unset = array();
+        $stores = [];
+        $unset = [];
         $storeCollection = Mage::getModel('core/store')->getCollection()->setLoadDefault(false);
         $cvsFieldsNum = count($csvFields);
         $cvsDataNum   = count($csvData[0]);
@@ -319,7 +317,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
         }
 
-        $regions = array();
+        $regions = [];
 
         if ($unset) {
             foreach ($unset as $u) {
@@ -327,7 +325,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             }
         }
         if ($csvData[0] == $csvFields) {
-            /** @var $helper Mage_Adminhtml_Helper_Data */
+            /** @var Mage_Adminhtml_Helper_Data $helper */
             $helper = Mage::helper('adminhtml');
 
             foreach ($csvData as $k => $v) {
@@ -367,7 +365,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 }
 
                 if (!empty($regions[$v[1]][$v[2]])) {
-                    $rateData  = array(
+                    $rateData  = [
                         'code'           => $v[0],
                         'tax_country_id' => $v[1],
                         'tax_region_id'  => ($regions[$v[1]][$v[2]] == '*') ? 0 : $regions[$v[1]][$v[2]],
@@ -376,14 +374,14 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                         'zip_is_range'   => $v[5],
                         'zip_from'       => $v[6],
                         'zip_to'         => $v[7],
-                    );
+                    ];
 
                     $rateModel = Mage::getModel('tax/calculation_rate')->loadByCode($rateData['code']);
                     foreach($rateData as $dataName => $dataValue) {
                         $rateModel->setData($dataName, $dataValue);
                     }
 
-                    $titles = array();
+                    $titles = [];
                     foreach ($stores as $field=>$id) {
                         $titles[$id] = $v[$field];
                     }
@@ -404,7 +402,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     public function exportPostAction()
     {
         /** start csv content and set template */
-        $headers = new Varien_Object(array(
+        $headers = new Varien_Object([
             'code'         => Mage::helper('tax')->__('Code'),
             'country_name' => Mage::helper('tax')->__('Country'),
             'region_name'  => Mage::helper('tax')->__('State'),
@@ -413,13 +411,13 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             'zip_is_range' => Mage::helper('tax')->__('Zip/Post is Range'),
             'zip_from'     => Mage::helper('tax')->__('Range From'),
             'zip_to'       => Mage::helper('tax')->__('Range To')
-        ));
+        ]);
         $template = '"{{code}}","{{country_name}}","{{region_name}}","{{tax_postcode}}","{{rate}}"'
                 . ',"{{zip_is_range}}","{{zip_from}}","{{zip_to}}"';
         $content = $headers->toString($template);
 
-        $storeTaxTitleTemplate       = array();
-        $taxCalculationRateTitleDict = array();
+        $storeTaxTitleTemplate       = [];
+        $taxCalculationRateTitleDict = [];
 
         foreach (Mage::getModel('core/store')->getCollection()->setLoadDefault(false) as $store) {
             $storeTitle = 'title_' . $store->getId();
@@ -463,6 +461,9 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
         $this->_prepareDownloadResponse('tax_rates.csv', $content);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _isAllowed()
     {
 
@@ -470,13 +471,9 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
         switch ($action) {
             case 'importexport':
                 return Mage::getSingleton('admin/session')->isAllowed('sales/tax/import_export');
-                break;
             case 'index':
-                return Mage::getSingleton('admin/session')->isAllowed('sales/tax/rates');
-                break;
             default:
                 return Mage::getSingleton('admin/session')->isAllowed('sales/tax/rates');
-                break;
         }
     }
 }

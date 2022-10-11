@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Tax rate resource model
@@ -49,10 +42,10 @@ class Mage_Tax_Model_Resource_Calculation_Rule extends Mage_Core_Model_Resource_
      */
     protected function _initUniqueFields()
     {
-        $this->_uniqueFields = array(array(
-            'field' => array('code'),
+        $this->_uniqueFields = [[
+            'field' => ['code'],
             'title' => Mage::helper('tax')->__('Code'),
-        ));
+        ]];
         return $this;
     }
 
@@ -69,11 +62,11 @@ class Mage_Tax_Model_Resource_Calculation_Rule extends Mage_Core_Model_Resource_
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from(array('main' => $this->getTable('tax/tax_calculation')), null)
+            ->from(['main' => $this->getTable('tax/tax_calculation')], null)
             ->joinLeft(
-                array('d' => $this->getTable('tax/tax_calculation_rule')),
+                ['d' => $this->getTable('tax/tax_calculation_rule')],
                 'd.tax_calculation_rule_id = main.tax_calculation_rule_id',
-                array('d.code')
+                ['d.code']
             )
             ->where('main.tax_calculation_rate_id in (?)', $rateId)
             ->where('main.customer_tax_class_id in (?)', $customerTaxClassId)

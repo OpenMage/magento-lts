@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -36,6 +30,7 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Shipping extends Mage_Eav_
 {
     /**
      * @param Varien_Object $object
+     * @return $this
      */
     public function beforeSave($object)
     {
@@ -43,17 +38,19 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Shipping extends Mage_Eav_
         if (is_null($shippingAddressId)) {
             $object->unsetShippingAddressId();
         }
+        return $this;
     }
 
     /**
      * @param Varien_Object $object
+     * @return $this
      * @throws Exception
      */
     public function afterSave($object)
     {
         $shippingAddressId = false;
         foreach ($object->getAddressesCollection() as $address) {
-            if ('shipping' == $address->getAddressType()) {
+            if ($address->getAddressType() == 'shipping') {
                 $shippingAddressId = $address->getId();
             }
         }
@@ -61,5 +58,6 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Shipping extends Mage_Eav_
             $object->setShippingAddressId($shippingAddressId);
             $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getAttributeCode());
         }
+        return $this;
     }
 }

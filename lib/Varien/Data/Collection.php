@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Varien
  * @package     Varien_Data
@@ -449,7 +443,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      *
      * Returns array with results of callback for each item
      *
-     * @param string $callback
+     * @param callable $callback
      * @param array $args
      * @return array
      */
@@ -470,7 +464,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     }
 
     /**
-     * @param string $obj_method
+     * @param callable $obj_method
      * @param array $args
      */
     public function each($obj_method, $args = array())
@@ -755,6 +749,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Implementation of IteratorAggregate::getIterator()
      */
+    #[ReturnTypeWillChange]
     public function getIterator()
     {
         $this->load();
@@ -762,10 +757,11 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     }
 
     /**
-     * Retireve count of collection loaded items
+     * Retrieve count of collection loaded items
      *
      * @return int
      */
+    #[ReturnTypeWillChange]
     public function count()
     {
         $this->load();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Newsletter subscriber resource model
@@ -97,10 +90,10 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
             ->from($this->getMainTable())
             ->where('subscriber_email=:subscriber_email');
 
-        $result = $this->_read->fetchRow($select, array('subscriber_email'=>$subscriberEmail));
+        $result = $this->_read->fetchRow($select, ['subscriber_email'=>$subscriberEmail]);
 
         if (!$result) {
-            return array();
+            return [];
         }
 
         return $result;
@@ -118,7 +111,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
             ->from($this->getMainTable())
             ->where('customer_id=:customer_id');
 
-        $result = $this->_read->fetchRow($select, array('customer_id'=>$customer->getId()));
+        $result = $this->_read->fetchRow($select, ['customer_id'=>$customer->getId()]);
 
         if ($result) {
             return $result;
@@ -126,15 +119,19 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
 
         $select = $this->_read->select()
             ->from($this->getMainTable())
-            ->where('subscriber_email=:subscriber_email');
+            ->where('subscriber_email=:subscriber_email')
+            ->where('store_id=:store_id');
 
-        $result = $this->_read->fetchRow($select, array('subscriber_email'=>$customer->getEmail()));
+        $result = $this->_read->fetchRow(
+            $select,
+            ['subscriber_email'=>$customer->getEmail(), 'store_id' => $customer->getStoreId()]
+        );
 
         if ($result) {
             return $result;
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -159,10 +156,10 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
         $this->_write->beginTransaction();
         try {
             $data['letter_sent_at'] = Mage::getSingleton('core/date')->gmtDate();
-            $this->_write->update($this->_subscriberLinkTable, $data, array(
+            $this->_write->update($this->_subscriberLinkTable, $data, [
                 'subscriber_id = ?' => $subscriber->getId(),
                 'queue_id = ?' => $queue->getId()
-            ));
+            ]);
             $this->_write->commit();
         } catch (Exception $e) {
             $this->_write->rollBack();

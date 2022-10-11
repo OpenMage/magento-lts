@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Media library js helper
@@ -38,7 +31,7 @@ class Mage_Adminhtml_Helper_Media_Js extends Mage_Core_Helper_Js
 
     public function __construct()
     {
-         $this->_translateData = array(
+         $this->_translateData = [
             'Complete' => $this->__('Complete'),
             'File size should be more than 0 bytes' => $this->__('File size should be more than 0 bytes'),
             'Upload Security Error' => $this->__('Upload Security Error'),
@@ -50,7 +43,7 @@ class Mage_Adminhtml_Helper_Media_Js extends Mage_Core_Helper_Js
             'Mb' => $this->__('Mb'),
             'Kb' => $this->__('Kb'),
             'b' => $this->__('b')
-         );
+         ];
     }
 
     /**

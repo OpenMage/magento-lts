@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Shipping
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 class Mage_Shipping_Model_Rate_Result
 {
@@ -32,7 +25,7 @@ class Mage_Shipping_Model_Rate_Result
      *
      * @var array
      */
-    protected $_rates = array();
+    protected $_rates = [];
 
     /**
      * Shipping errors
@@ -48,7 +41,7 @@ class Mage_Shipping_Model_Rate_Result
      */
     public function reset()
     {
-        $this->_rates = array();
+        $this->_rates = [];
         return $this;
     }
 
@@ -56,7 +49,6 @@ class Mage_Shipping_Model_Rate_Result
      * Set Error
      *
      * @param bool $error
-     * @return void
      */
     public function setError($error)
     {
@@ -124,7 +116,7 @@ class Mage_Shipping_Model_Rate_Result
      */
     public function getRatesByCarrier($carrier)
     {
-        $result = array();
+        $result = [];
         foreach ($this->_rates as $rate) {
             if ($rate->getCarrier() === $carrier) {
                 $result[] = $rate;
@@ -141,15 +133,15 @@ class Mage_Shipping_Model_Rate_Result
     public function asArray()
     {
         $currencyFilter = Mage::app()->getStore()->getPriceFilter();
-        $rates = array();
+        $rates = [];
         $allRates = $this->getAllRates();
         foreach ($allRates as $rate) {
             $rates[$rate->getCarrier()]['title'] = $rate->getCarrierTitle();
-            $rates[$rate->getCarrier()]['methods'][$rate->getMethod()] = array(
+            $rates[$rate->getCarrier()]['methods'][$rate->getMethod()] = [
                 'title' => $rate->getMethodTitle(),
                 'price' => $rate->getPrice(),
                 'price_formatted' => $currencyFilter->filter($rate->getPrice()),
-            );
+            ];
         }
         return $rates;
     }
@@ -182,7 +174,7 @@ class Mage_Shipping_Model_Rate_Result
         if (!is_array($this->_rates) || !count($this->_rates)) {
             return $this;
         }
-        /* @var Mage_Shipping_Model_Rate_Result_Method $rate */
+        /** @var Mage_Shipping_Model_Rate_Result_Method $rate */
         foreach ($this->_rates as $i => $rate) {
             $tmp[$i] = $rate->getPrice();
         }

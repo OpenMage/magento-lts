@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -74,16 +68,16 @@ class Mage_Core_Model_Observer
                 }
 
                 $date = date('Y-m-d H:i:s');
-                Mage::getModel('adminnotification/inbox')->parse(array(
-                    array(
+                Mage::getModel('adminnotification/inbox')->parse([
+                    [
                         'severity'      => $severity,
                         'date_added'    => $date,
                         'title'         => $title,
                         'description'   => $description,
                         'url'           => '',
                         'internal'      => true
-                    )
-                ));
+                    ]
+                ]);
 
                 $flag->setState(Mage_Core_Model_File_Storage_Flag::STATE_NOTIFIED)->save();
             }
@@ -104,7 +98,6 @@ class Mage_Core_Model_Observer
         Mage::app()->getCache()->clean(Zend_Cache::CLEANING_MODE_OLD);
         Mage::dispatchEvent('core_clean_cache');
     }
-
 
     /**
      * Cleans cache by tags

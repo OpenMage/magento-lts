@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Payment
@@ -30,7 +24,6 @@
         <payment translate="label" module="payment">
             <label>Payment Methods</label>
             <tab>sales</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>400</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -38,7 +31,6 @@
             <groups>
                 <checkmo translate="label">
                     <label>Check / Money Order</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -64,7 +56,6 @@
                         </order_status>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -73,7 +64,6 @@
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -115,7 +105,6 @@
                         </mailing_address>
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>98</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -123,7 +112,6 @@
                         </min_order_total>
                         <max_order_total translate="label">
                             <label>Maximum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>99</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -135,7 +123,6 @@
                 </checkmo>
                 <free translate="label">
                     <label>Zero Subtotal Checkout</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -173,7 +160,6 @@
                         </payment_action>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -182,7 +168,6 @@
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -210,7 +195,6 @@
 <!--
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>98</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -218,7 +202,6 @@
                         </min_order_total>
                         <max_order_total translate="label">
                             <label>Maximum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>99</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -231,7 +214,6 @@
                 </free>
                 <purchaseorder translate="label">
                     <label>Purchase Order</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>32</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -257,7 +239,6 @@
                         </order_status>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -266,7 +247,6 @@
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -293,7 +273,6 @@
                         </specificcountry>
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>98</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -301,7 +280,6 @@
                         </min_order_total>
                         <max_order_total translate="label">
                             <label>Maximum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>99</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -313,7 +291,6 @@
                 </purchaseorder>
                 <banktransfer translate="label">
                     <label>Bank Transfer Payment</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -330,7 +307,6 @@
                         </active>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -374,7 +350,6 @@
                         </instructions>
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>98</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -382,7 +357,6 @@
                         </min_order_total>
                         <max_order_total translate="label">
                             <label>Maximum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>99</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -390,7 +364,6 @@
                         </max_order_total>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -400,7 +373,6 @@
                 </banktransfer>
                 <cashondelivery translate="label">
                     <label>Cash On Delivery Payment</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -417,7 +389,6 @@
                         </active>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -461,7 +432,6 @@
                         </instructions>
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>98</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -469,7 +439,6 @@
                         </min_order_total>
                         <max_order_total translate="label">
                             <label>Maximum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>99</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -477,7 +446,6 @@
                         </max_order_total>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

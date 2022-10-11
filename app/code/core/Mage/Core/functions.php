@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -70,10 +64,12 @@ function uc_words($str, $destSep = '_', $srcSep = '_')
  *
  * @param bool $dayOnly
  * @return string
+ * @deprecated use equivalent Varien method directly
+ * @see Varien_Date::now()
  */
 function now($dayOnly = false)
 {
-    return date($dayOnly ? 'Y-m-d' : 'Y-m-d H:i:s');
+    return Varien_Date::now($dayOnly);
 }
 
 /**
@@ -401,22 +397,64 @@ if (!function_exists('hash_equals')) {
             $result |= (ord($known_string[$i]) ^ ord($user_string[$i]));
         }
 
-        return 0 === $result;
+        return $result === 0;
     }
 }
 
-if (version_compare(PHP_VERSION, '7.0.0', '<') && !function_exists('random_int')) {
+/**
+ * polyfill for PHP 8.0 function "str_contains"
+ */
+if (!function_exists('str_contains')) {
     /**
-     * Generates pseudo-random integers
-     *
-     * @param int $min
-     * @param int $max
-     * @return int Returns random integer in the range $min to $max, inclusive.
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
      */
-    function random_int($min, $max)
+    function str_contains($haystack, $needle)
     {
-        mt_srand();
+        return $needle === '' || strpos($haystack, $needle) !== false;
+    }
+}
 
-        return mt_rand($min, $max);
+/**
+ * polyfill for PHP 8.0 function "str_starts_with"
+ */
+if (!function_exists('str_starts_with')) {
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
+     */
+    function str_starts_with($haystack, $needle)
+    {
+        return strncmp($haystack, $needle, \strlen($needle)) === 0;
+    }
+}
+
+/**
+ * polyfill for PHP 8.0 function "str_ends_with"
+ */
+if (!function_exists('str_ends_with')) {
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
+     */
+    function str_ends_with($haystack,  $needle)
+    {
+        return $needle === '' || ($haystack !== '' && substr_compare($haystack, $needle, -\strlen($needle)) === 0);
+    }
+}
+
+/**
+ * polyfill for PHP 7.3 function "is_countable"
+ */
+if (!function_exists('is_countable')) {
+    /**
+     * @param mixed $value
+     * @return bool
+     */
+    function is_countable($value) {
+        return is_array($value) || $value instanceof Countable || $value instanceof ResourceBundle || $value instanceof SimpleXMLElement;
     }
 }

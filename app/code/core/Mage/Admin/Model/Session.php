@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Admin
+ * @category   Mage
+ * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Auth session model
  *
- * @category    Mage
- * @package     Mage_Admin
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Admin
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Admin_Model_Acl getAcl()
  * @method $this setAcl(Mage_Admin_Model_Acl $acl)
@@ -92,17 +85,14 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * Class constructor
      * @param array $parameters
      */
-    public function __construct($parameters = array())
+    public function __construct($parameters = [])
     {
-        /** @var Mage_Admin_Model_Redirectpolicy _urlPolicy */
         $this->_urlPolicy = (!empty($parameters['redirectPolicy'])) ?
             $parameters['redirectPolicy'] : Mage::getModel('admin/redirectpolicy');
 
-        /** @var Mage_Core_Controller_Response_Http _response */
         $this->_response = (!empty($parameters['response'])) ?
             $parameters['response'] : new Mage_Core_Controller_Response_Http();
 
-        /** @var Mage_Core_Model_Factory $user */
         $this->_factory = (!empty($parameters['factory'])) ?
             $parameters['factory'] : Mage::getModel('core/factory');
 
@@ -181,7 +171,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 $alternativeUrl = $this->_getRequestUri($request);
                 $redirectUrl = $this->_urlPolicy->getRedirectUrl($user, $request, $alternativeUrl);
                 if ($redirectUrl) {
-                    Mage::dispatchEvent('admin_session_user_login_success', array('user' => $user));
+                    Mage::dispatchEvent('admin_session_user_login_success', ['user' => $user]);
                     $this->_response->clearHeaders()
                         ->setRedirect($redirectUrl)
                         ->sendHeadersAndExit();
@@ -303,7 +293,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     protected function _getRequestUri($request = null)
     {
         if (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
-            return Mage::getSingleton('adminhtml/url')->getUrl('*/*/*', array('_current' => true));
+            return Mage::getSingleton('adminhtml/url')->getUrl('*/*/*', ['_current' => true]);
         } elseif ($request) {
             return $request->getRequestUri();
         } else {
@@ -318,15 +308,14 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param string $username
      * @param string $message
      * @param Mage_Core_Controller_Request_Http|null $request
-     * @return void
      */
     protected function _loginFailed($e, $request, $username, $message)
     {
         try {
-            Mage::dispatchEvent('admin_session_user_login_failed', array(
+            Mage::dispatchEvent('admin_session_user_login_failed', [
                 'user_name' => $username,
                 'exception' => $e
-            ));
+            ]);
         } catch (Exception $e) {
         }
 

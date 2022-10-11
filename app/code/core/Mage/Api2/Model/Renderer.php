@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -47,7 +41,7 @@ abstract class Mage_Api2_Model_Renderer
         $adapters = $helper->getResponseRenderAdapters();
 
         if (!is_array($acceptTypes)) {
-            $acceptTypes = array($acceptTypes);
+            $acceptTypes = [$acceptTypes];
         }
 
         $type = null;
@@ -65,7 +59,7 @@ abstract class Mage_Api2_Model_Renderer
         }
 
         //if server can't respond in any of accepted types it SHOULD send 406(not acceptable)
-        if (null === $adapterPath) {
+        if ($adapterPath === null) {
             throw new Mage_Api2_Exception(
                 'Server can not understand Accept HTTP header media type.',
                 Mage_Api2_Model_Server::HTTP_NOT_ACCEPTABLE

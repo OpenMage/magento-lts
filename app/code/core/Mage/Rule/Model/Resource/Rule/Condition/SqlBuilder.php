@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Rule
@@ -38,7 +32,7 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
      *
      * @param array $config
      */
-    public function __construct(array $config = array())
+    public function __construct(array $config = [])
     {
         $this->_adapter = isset($config['adapter'])
             ? $config['adapter']
@@ -91,22 +85,22 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
         }
         $field = $this->_adapter->quoteIdentifier($field);
 
-        if (is_array($value) && in_array($operator, array('==', '!=', '>=', '<=', '>', '<', '{}', '!{}'))) {
-            $results = array();
+        if (is_array($value) && in_array($operator, ['==', '!=', '>=', '<=', '>', '<', '{}', '!{}'])) {
+            $results = [];
             foreach ($value as $v) {
                 $results[] = $this->_adapter->quoteInto("{$field}{$selectOperator}", $v);
             }
             $result = implode(' AND ', $results);
-        } elseif (in_array($operator, array('()', '!()', '[]', '![]'))) {
+        } elseif (in_array($operator, ['()', '!()', '[]', '![]'])) {
             if (!is_array($value)) {
-                $value = array($value);
+                $value = [$value];
             }
 
-            $results = array();
+            $results = [];
             foreach ($value as $v) {
                 $results[] = $this->_adapter->quoteInto("{$selectOperator}", $v);
             }
-            $result = implode(in_array($operator, array('()', '!()')) ? ' OR ' : ' AND ', $results);
+            $result = implode(in_array($operator, ['()', '!()']) ? ' OR ' : ' AND ', $results);
         } else {
             $result = $this->_adapter->quoteInto("{$field}{$selectOperator}", $value);
         }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category   Mage
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart block
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getCartTemplate()
  * @method string getEmptyTemplate()
@@ -40,23 +34,13 @@
 class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 {
     /**
-     * Prepare Quote Item Product URLs
-     *
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Prepare cart items URLs
      *
      * @deprecated after 1.7.0.2
      */
     public function prepareItemUrls()
     {
-        $products = array();
-        /* @var Mage_Sales_Model_Quote_Item $item */
+        $products = [];
         foreach ($this->getItems() as $item) {
             $product    = $item->getProduct();
             $option     = $item->getOptionByCode('product_type');
@@ -91,7 +75,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 
     public function chooseTemplate()
     {
-        $itemsCount = $this->getItemsCount() ? $this->getItemsCount() : $this->getQuote()->getItemsCount();
+        $itemsCount = $this->getItemsCount() ?: $this->getQuote()->getItemsCount();
         if ($itemsCount) {
             $this->setTemplate($this->getCartTemplate());
         } else {
@@ -134,7 +118,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      */
     public function getCheckoutUrl()
     {
-        return $this->getUrl('checkout/onepage', array('_secure'=>true));
+        return $this->getUrl('checkout/onepage', ['_secure'=>true]);
     }
 
     /**
@@ -144,7 +128,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      */
     public function getFormActionUrl()
     {
-        return $this->getUrl('checkout/cart/updatePost', array('_secure' => $this->_isSecure()));
+        return $this->getUrl('checkout/cart/updatePost', ['_secure' => $this->_isSecure()]);
     }
 
     /**
@@ -168,7 +152,9 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      */
     public function getIsVirtual()
     {
-        return $this->helper('checkout/cart')->getIsVirtualQuote();
+        /** @var Mage_Checkout_Helper_Cart $helper */
+        $helper = $this->helper('checkout/cart');
+        return $helper->getIsVirtualQuote();
     }
 
     /**
@@ -182,7 +168,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
         if ($this->getChild($nameInLayout) instanceof Mage_Core_Block_Abstract) {
             return $this->getChild($nameInLayout)->getSortedChildren();
         }
-        return array();
+        return [];
     }
 
     /**
@@ -190,6 +176,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      *
      * @param string $name Block name in layout
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getMethodHtml($name)
     {

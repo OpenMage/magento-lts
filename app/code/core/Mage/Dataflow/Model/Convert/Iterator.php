@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Dataflow
@@ -31,14 +25,14 @@ class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_C
         $import = Mage::getResourceModel('dataflow/import');
         $total = $import->loadTotalBySessionId($sessionId);
 
-        $callbacks = array();
+        $callbacks = [];
         if ($mapperCb = $this->_parseCallback($this->getVar('mapper'), 'mapRow')) {
             $callbacks[] = $mapperCb;
         }
         if ($adapterCb = $this->_parseCallback($this->getVar('adapter'), 'saveRow')) {
             $callbacks[] = $adapterCb;
         }
-        $callbacks[] = array($this, 'updateProgress');
+        $callbacks[] = [$this, 'updateProgress'];
 
         echo $this->_getProgressBarHtml($sessionId, $total['cnt']);
 
@@ -106,7 +100,7 @@ function updateProgress(sessionId, idx, time, memory) {
             . $args['row']['session_id'] . '", "' . $args['idx'] . '", "' . time() . '", "' . $memory . '");</script>';
         echo '<li>' . $memory . '</li>';
 
-        return array();
+        return [];
     }
 
     protected function _parseCallback($callback, $defaultMethod=null)
@@ -120,6 +114,6 @@ function updateProgress(sessionId, idx, time, memory) {
         if (!($method = $match[3] ? $match[3] : $defaultMethod)) {
             return false;
         }
-        return array($model, $method);
+        return [$model, $method];
     }
 }

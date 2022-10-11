@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Tax
@@ -53,30 +47,30 @@ class Mage_Tax_Model_Sales_Pdf_Shipping extends Mage_Sales_Model_Order_Pdf_Total
         $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
 
         if ($config->displaySalesShippingBoth($store)) {
-            $totals = array(
-                array(
+            $totals = [
+                [
                     'amount'    => $this->getAmountPrefix().$amount,
                     'label'     => Mage::helper('tax')->__('Shipping (Excl. Tax)') . ':',
                     'font_size' => $fontSize
-                ),
-                array(
+                ],
+                [
                     'amount'    => $this->getAmountPrefix().$amountInclTax,
                     'label'     => Mage::helper('tax')->__('Shipping (Incl. Tax)') . ':',
                     'font_size' => $fontSize
-                ),
-            );
+                ],
+            ];
         } elseif ($config->displaySalesShippingInclTax($store)) {
-            $totals = array(array(
+            $totals = [[
                 'amount'    => $this->getAmountPrefix().$amountInclTax,
                 'label'     => Mage::helper('sales')->__($this->getTitle()) . ':',
                 'font_size' => $fontSize
-            ));
+            ]];
         } else {
-            $totals = array(array(
+            $totals = [[
                 'amount'    => $this->getAmountPrefix().$amount,
                 'label'     => Mage::helper('sales')->__($this->getTitle()) . ':',
                 'font_size' => $fontSize
-            ));
+            ]];
         }
 
         return $totals;

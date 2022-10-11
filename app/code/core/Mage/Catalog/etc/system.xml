@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -37,7 +31,6 @@
             <class>separator-top</class>
             <label>Catalog</label>
             <tab>catalog</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>40</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -45,7 +38,6 @@
             <groups>
                 <frontend translate="label">
                     <label>Frontend</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>100</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -63,7 +55,6 @@
                         <grid_per_page_values translate="label comment">
                             <label>Products per Page on Grid Allowed Values</label>
                             <comment>Comma-separated.</comment>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-per-page-value-list</validate>
                             <!--<source_model>adminhtml/system_config_source_catalog_gridPerPage</source_model>-->
                             <sort_order>2</sort_order>
@@ -74,7 +65,6 @@
                         <grid_per_page translate="label comment">
                             <label>Products per Page on Grid Default Value</label>
                             <comment>Must be in the allowed values list.</comment>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-per-page-value</validate>
                             <!--<source_model>adminhtml/system_config_source_catalog_gridPerPage</source_model>-->
                             <sort_order>3</sort_order>
@@ -85,7 +75,6 @@
                         <list_per_page_values translate="label comment">
                             <label>Products per Page on List Allowed Values</label>
                             <comment>Comma-separated.</comment>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-per-page-value-list</validate>
                             <!--<source_model>adminhtml/system_config_source_catalog_gridPerPage</source_model>-->
                             <sort_order>4</sort_order>
@@ -96,7 +85,6 @@
                         <list_per_page translate="label comment">
                             <label>Products per Page on List Default Value</label>
                             <comment>Must be in the allowed values list.</comment>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-per-page-value</validate>
                             <!--<source_model>adminhtml/system_config_source_catalog_listPerPage</source_model>-->
                             <sort_order>5</sort_order>
@@ -161,7 +149,6 @@
                 </frontend>
                 <sitemap translate="label">
                     <label>Sitemap</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>100</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -178,7 +165,6 @@
                         </tree_mode>
                         <lines_perpage translate="label">
                             <label>Minimum Lines per Page</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -196,7 +182,6 @@
                         <base_width translate="label comment">
                             <label>Base Image Width</label>
                             <comment>Maximum width base product image will be scaled down to in pixels</comment>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -205,7 +190,6 @@
                         <small_width translate="label comment">
                             <label>Small Image Width</label>
                             <comment>Maximum width small product image will be scaled down to in pixels</comment>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -214,7 +198,6 @@
                         <max_dimension translate="label comment">
                             <label>Maximum resolution for upload image</label>
                             <comment>Maximum width and height resolutions for upload image</comment>
-                            <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -223,7 +206,6 @@
                         <progressive_threshold translate="label comment">
                             <label>Enable Progressive Images Threshold</label>
                             <comment>Minimum size in megapixel for progressive JPEG resize</comment>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number</validate>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
@@ -255,7 +237,6 @@
 
                 <seo translate="label">
                     <label>Search Engine Optimizations</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>500</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -263,7 +244,6 @@
                     <fields>
                         <category_url_suffix translate="label comment">
                             <label>Category URL Suffix</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>catalog/system_config_backend_catalog_url_rewrite_suffix</backend_model>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
@@ -273,7 +253,6 @@
                         </category_url_suffix>
                         <product_url_suffix translate="label comment">
                             <label>Product URL Suffix</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>catalog/system_config_backend_catalog_url_rewrite_suffix</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
@@ -302,7 +281,6 @@
                         </save_rewrites_history>
                         <title_separator translate="label">
                             <label>Page Title Separator</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>6</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -331,7 +309,6 @@
 
                 <price translate="label">
                     <label>Price</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>400</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -377,7 +354,6 @@
                         </price_range_calculation>
                         <price_range_step translate="label">
                             <label>Default Price Navigation Step</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-number-range number-range-0.01-1000000000</validate>
                             <sort_order>15</sort_order>
                             <show_in_default>1</show_in_default>
@@ -388,7 +364,6 @@
                         <price_range_max_intervals translate="label comment">
                             <label>Maximum Number of Price Intervals</label>
                             <comment>Maximum number of price intervals is 100</comment>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-digits validate-digits-range digits-range-2-100</validate>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
@@ -410,7 +385,6 @@
                         <interval_division_limit translate="label comment">
                             <label>Interval Division Limit</label>
                             <comment>Please specify the number of products, that will not be divided into subintervals.</comment>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -422,7 +396,6 @@
                 </layered_navigation>
                 <navigation translate="label">
                     <label>Category Top Navigation</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>500</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -430,7 +403,6 @@
                     <fields>
                         <max_depth translate="label">
                             <label>Maximal Depth</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                         </max_depth>
@@ -438,7 +410,6 @@
                 </navigation>
                 <custom_options translate="label">
                     <label>Date &amp; Time Custom Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>700</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -474,7 +445,6 @@
                         <year_range translate="label comment">
                             <label>Year Range</label>
                             <comment>Use four-digit year format.</comment>
-                            <frontend_type>text</frontend_type>
                             <frontend_model>adminhtml/catalog_form_renderer_config_yearRange</frontend_model>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
@@ -486,7 +456,6 @@
 <!--
                 <layer translate="label">
                     <label>Layered Navigation</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>450</sort_order>
                     <show_in_default>1</show_in_default>
                     <fields>
@@ -516,7 +485,6 @@
                     <fields>
                         <size translate="label">
                             <label>Watermark Default Size</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -525,7 +493,6 @@
                         </size>
                         <imageOpacity translate="label">
                             <label>Watermark Opacity, Percent</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>150</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -578,7 +545,6 @@
             <groups>
                 <msrp translate="label">
                     <label>Minimum Advertised Price</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>110</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>

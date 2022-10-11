@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Wishlist shared items controllers
@@ -96,18 +89,18 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
         $itemId = (int) $this->getRequest()->getParam('item');
         $code = $this->getRequest()->getParam('code');
 
-        /* @var Mage_Wishlist_Model_Item $item */
+        /** @var Mage_Wishlist_Model_Item $item */
         $item = Mage::getModel('wishlist/item')->load($itemId);
         $wishlist = Mage::getModel('wishlist/wishlist')->loadByCode($code);
-        $redirectUrl = Mage::getUrl('*/*/index', array('code' => $code));
+        $redirectUrl = Mage::getUrl('*/*/index', ['code' => $code]);
 
-        /* @var Mage_Wishlist_Model_Session $session */
+        /** @var Mage_Wishlist_Model_Session $session */
         $session    = Mage::getSingleton('wishlist/session');
         $cart       = Mage::getSingleton('checkout/cart');
 
         try {
             $options = Mage::getModel('wishlist/item_option')->getCollection()
-                    ->addItemFilter(array($itemId));
+                    ->addItemFilter([$itemId]);
             $item->setOptions($options->getOptionsByItem($itemId));
 
             $item->addToCart($cart);

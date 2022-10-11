@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Admin
+ * @category   Mage
+ * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -35,7 +29,6 @@ $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('admin/rule'),
     'FK_ADMIN_RULE'
 );
-
 
 /**
  * Drop indexes
@@ -65,255 +58,252 @@ $installer->getConnection()->dropIndex(
     'UNQ_ADMIN_USER_USERNAME'
 );
 
-
 /**
  * Change columns
  */
-$tables = array(
-    $installer->getTable('admin/user') => array(
-        'columns' => array(
-            'user_id' => array(
+$tables = [
+    $installer->getTable('admin/user') => [
+        'columns' => [
+            'user_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'User ID'
-            ),
-            'firstname' => array(
+            ],
+            'firstname' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
                 'comment'   => 'User First Name'
-            ),
-            'lastname' => array(
+            ],
+            'lastname' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
                 'comment'   => 'User Last Name'
-            ),
-            'email' => array(
+            ],
+            'email' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 128,
                 'comment'   => 'User Email'
-            ),
-            'username' => array(
+            ],
+            'username' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 40,
                 'comment'   => 'User Login'
-            ),
-            'password' => array(
+            ],
+            'password' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 100,
                 'comment'   => 'User Password'
-            ),
-            'created' => array(
+            ],
+            'created' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
                 'comment'   => 'User Created Time'
-            ),
-            'modified' => array(
+            ],
+            'modified' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'User Modified Time'
-            ),
-            'logdate' => array(
+            ],
+            'logdate' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'User Last Login Time'
-            ),
-            'lognum' => array(
+            ],
+            'lognum' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'User Login Number'
-            ),
-            'reload_acl_flag' => array(
+            ],
+            'reload_acl_flag' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Reload ACL'
-            ),
-            'is_active' => array(
+            ],
+            'is_active' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '1',
                 'comment'   => 'User Is Active'
-            ),
-            'extra' => array(
+            ],
+            'extra' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'User Extra Data'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Admin User Table'
-    ),
-    $installer->getTable('admin/role') => array(
-        'columns' => array(
-            'role_id' => array(
+    ],
+    $installer->getTable('admin/role') => [
+        'columns' => [
+            'role_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Role ID'
-            ),
-            'parent_id' => array(
+            ],
+            'parent_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Parent Role ID'
-            ),
-            'tree_level' => array(
+            ],
+            'tree_level' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Role Tree Level'
-            ),
-            'sort_order' => array(
+            ],
+            'sort_order' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Role Sort Order'
-            ),
-            'role_type' => array(
+            ],
+            'role_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 1,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Role Type'
-            ),
-            'user_id' => array(
+            ],
+            'user_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'User ID'
-            ),
-            'role_name' => array(
+            ],
+            'role_name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 50,
                 'nullable'  => false,
                 'comment'   => 'Role Name'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Admin Role Table'
-    ),
-    $installer->getTable('admin/rule') => array(
-        'columns' => array(
-            'rule_id' => array(
+    ],
+    $installer->getTable('admin/rule') => [
+        'columns' => [
+            'rule_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Rule ID'
-            ),
-            'role_id' => array(
+            ],
+            'role_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Role ID'
-            ),
-            'resource_id' => array(
+            ],
+            'resource_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
                 'comment'   => 'Resource ID'
-            ),
-            'privileges' => array(
+            ],
+            'privileges' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 20,
                 'comment'   => 'Privileges'
-            ),
-            'assert_id' => array(
+            ],
+            'assert_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Assert ID'
-            ),
-            'role_type' => array(
+            ],
+            'role_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 1,
                 'comment'   => 'Role Type'
-            ),
-            'permission' => array(
+            ],
+            'permission' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 10,
                 'comment'   => 'Permission'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Admin Rule Table'
-    ),
-    $installer->getTable('admin/assert') => array(
-        'columns' => array(
-            'assert_id' => array(
+    ],
+    $installer->getTable('admin/assert') => [
+        'columns' => [
+            'assert_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Assert ID'
-            ),
-            'assert_type' => array(
+            ],
+            'assert_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 20,
                 'nullable'  => false,
                 'comment'   => 'Assert Type'
-            ),
-            'assert_data' => array(
+            ],
+            'assert_data' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'Assert Data'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Admin Assert Table'
-    )
-);
+    ]
+];
 
 $installer->getConnection()->modifyTables($tables);
-
 
 /**
  * Add indexes
  */
 $installer->getConnection()->addIndex(
     $installer->getTable('admin/role'),
-    $installer->getIdxName('admin/role', array('parent_id', 'sort_order')),
-    array('parent_id', 'sort_order')
+    $installer->getIdxName('admin/role', ['parent_id', 'sort_order']),
+    ['parent_id', 'sort_order']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('admin/role'),
-    $installer->getIdxName('admin/role', array('tree_level')),
-    array('tree_level')
+    $installer->getIdxName('admin/role', ['tree_level']),
+    ['tree_level']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('admin/rule'),
-    $installer->getIdxName('admin/rule', array('resource_id', 'role_id')),
-    array('resource_id', 'role_id')
+    $installer->getIdxName('admin/rule', ['resource_id', 'role_id']),
+    ['resource_id', 'role_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('admin/rule'),
-    $installer->getIdxName('admin/rule', array('role_id', 'resource_id')),
-    array('role_id', 'resource_id')
+    $installer->getIdxName('admin/rule', ['role_id', 'resource_id']),
+    ['role_id', 'resource_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('admin/user'),
     $installer->getIdxName(
         'admin/user',
-        array('username'),
+        ['username'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('username'),
+    ['username'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
-
 
 /**
  * Add foreign keys

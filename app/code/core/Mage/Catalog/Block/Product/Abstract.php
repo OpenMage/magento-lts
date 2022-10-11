@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Product Abstract Block
@@ -39,7 +32,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      *
      * @var array
      */
-    protected $_priceBlock = array();
+    protected $_priceBlock = [];
 
     /**
      * Default price block
@@ -67,7 +60,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      *
      * @var array
      */
-    protected $_priceBlockTypes = array();
+    protected $_priceBlockTypes = [];
 
     /**
      * Flag which allow/disallow to use link for as low as price
@@ -95,7 +88,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      *
      * @var array
      */
-    protected $_columnCountLayoutDepend = array();
+    protected $_columnCountLayoutDepend = [];
 
     /**
      * Default MAP renderer type
@@ -122,7 +115,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param array $additional
      * @return string
      */
-    public function getAddToCartUrl($product, $additional = array())
+    public function getAddToCartUrl($product, $additional = [])
     {
         return $this->getAddToCartUrlCustom($product, $additional);
     }
@@ -134,7 +127,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param array $arguments
      * @return Mage_Core_Model_Abstract
      */
-    protected function _getSingletonModel($className, $arguments = array())
+    protected function _getSingletonModel($className, $arguments = [])
     {
         return Mage::getSingleton($className, $arguments);
     }
@@ -148,7 +141,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param array $additional
      * @return string
      */
-    public function getSubmitUrl($product, $additional = array())
+    public function getSubmitUrl($product, $additional = [])
     {
         return $this->getSubmitUrlCustom($product, $additional);
     }
@@ -222,7 +215,6 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         return $this->_priceBlockDefaultTemplate;
     }
 
-
     /**
      * Prepares and returns block to render some product type
      *
@@ -275,10 +267,10 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     public function addPriceBlockType($type, $block = '', $template = '')
     {
         if ($type) {
-            $this->_priceBlockTypes[$type] = array(
+            $this->_priceBlockTypes[$type] = [
                 'block' => $block,
                 'template' => $template
-            );
+            ];
         }
     }
 
@@ -289,6 +281,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param bool $templateType
      * @param bool $displayIfNoReviews
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getReviewsSummaryHtml(
         Mage_Catalog_Model_Product $product,
@@ -328,9 +321,9 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         if (!$this->_reviewsHelperBlock) {
             if (!Mage::helper('catalog')->isModuleEnabled('Mage_Review')) {
                 return false;
-            } else {
-                $this->_reviewsHelperBlock = $this->getLayout()->createBlock('review/helper');
             }
+
+            $this->_reviewsHelperBlock = $this->getLayout()->createBlock('review/helper');
         }
 
         return true;
@@ -383,15 +376,12 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
             ->callParentToHtml();
     }
 
-    /*
+    /**
      * Calls the object's to Html method.
      * This method exists to make the code more testable.
      * By having a protected wrapper for the final method toHtml, we can 'mock' out this method
      * when unit testing
      *
-     *  @return string
-     */
-    /**
      * @return string
      */
     protected function callParentToHtml()
@@ -404,6 +394,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      *
      * @param Mage_Catalog_Model_Product $product
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getTierPrices($product = null)
     {
@@ -412,7 +403,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         }
         $prices = $product->getFormatedTierPrice();
 
-        $res = array();
+        $res = [];
         if (is_array($prices)) {
             foreach ($prices as $price) {
                 $price['price_qty'] = $price['price_qty'] * 1;
@@ -429,7 +420,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
                 }
 
                 if ($price['price'] < $_productPrice) {
-                    $price['savePercent'] = ceil(100 - ((100 / $_productPrice) * $price['price']));
+                    $price['savePercent'] = ceil(100 - round((100 / $_productPrice) * $price['price']));
 
                     $tierPrice = Mage::app()->getStore()->convertPrice(
                         Mage::helper('tax')->getPrice($product, $price['website_price'])
@@ -508,7 +499,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param array $additional the route params
      * @return string
      */
-    public function getProductUrl($product, $additional = array())
+    public function getProductUrl($product, $additional = [])
     {
         if ($this->hasProductUrl($product)) {
             if (!isset($additional['_escape'])) {
@@ -592,11 +583,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getColumnCountLayoutDepend($pageLayout)
     {
-        if (isset($this->_columnCountLayoutDepend[$pageLayout])) {
-            return $this->_columnCountLayoutDepend[$pageLayout];
-        }
-
-        return false;
+        return $this->_columnCountLayoutDepend[$pageLayout] ?? false;
     }
 
     /**
@@ -606,7 +593,9 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getPageLayout()
     {
-        return $this->helper('page/layout')->getCurrentPageLayout();
+        /** @var Mage_Page_Helper_Layout $helper */
+        $helper = $this->helper('page/layout');
+        return $helper->getCurrentPageLayout();
     }
 
     /**
@@ -627,8 +616,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function displayProductStockStatus()
     {
-        $statusInfo = new Varien_Object(array('display_status' => true));
-        Mage::dispatchEvent('catalog_block_product_status_display', array('status' => $statusInfo));
+        $statusInfo = new Varien_Object(['display_status' => true]);
+        Mage::dispatchEvent('catalog_block_product_status_display', ['status' => $statusInfo]);
         return (boolean)$statusInfo->getDisplayStatus();
     }
 
@@ -641,10 +630,13 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getAddToWishlistUrlCustom($product, $addFormKey = true)
     {
+        /** @var Mage_Wishlist_Helper_Data $helper */
+        $helper = $this->helper('wishlist');
+
         if (!$addFormKey) {
-            return $this->helper('wishlist')->getAddUrlWithCustomParams($product, array(), false);
+            return $helper->getAddUrlWithCustomParams($product, [], false);
         }
-        return $this->helper('wishlist')->getAddUrl($product);
+        return $helper->getAddUrl($product);
     }
 
     /**
@@ -656,22 +648,25 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getAddToCompareUrlCustom($product, $addFormKey = true)
     {
+        /** @var Mage_Catalog_Helper_Product_Compare $helper */
+        $helper = $this->helper('catalog/product_compare');
+
         if (!$addFormKey) {
-            return $this->helper('catalog/product_compare')->getAddUrlCustom($product, false);
+            return $helper->getAddUrlCustom($product, false);
         }
-        return $this->helper('catalog/product_compare')->getAddUrl($product);
+        return $helper->getAddUrl($product);
     }
 
     /**
      * If exists price template block, retrieve price blocks from it
      *
-     * @return Mage_Catalog_Block_Product_Abstract
+     * @return $this
      */
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
 
-        /* @var Mage_Catalog_Block_Product_Price_Template $block */
+        /** @var Mage_Catalog_Block_Product_Price_Template $block */
         $block = $this->getLayout()->getBlock('catalog_product_price_template');
         if ($block) {
             foreach ($block->getPriceBlockTypes() as $type => $priceBlock) {
@@ -691,25 +686,29 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param bool $addFormKey
      * @return string
      */
-    public function  getAddToCartUrlCustom($product, $additional = array(), $addFormKey = true)
+    public function getAddToCartUrlCustom($product, $additional = [], $addFormKey = true)
     {
+        /** @var Mage_Checkout_Helper_Cart $helper */
+        $helper = $this->helper('checkout/cart');
+
         if (!$product->getTypeInstance(true)->hasRequiredOptions($product)) {
             if (!$addFormKey) {
-                return $this->helper('checkout/cart')->getAddUrlCustom($product, $additional, false);
+                return $helper->getAddUrlCustom($product, $additional, false);
             }
-            return $this->helper('checkout/cart')->getAddUrl($product, $additional);
+            return $helper->getAddUrl($product, $additional);
         }
+
         if ($addFormKey) {
             $additional = array_merge(
                 $additional,
-                array(Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey())
+                [Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey()]
             );
         }
         if (!isset($additional['_escape'])) {
             $additional['_escape'] = true;
         }
         if (!isset($additional['_query'])) {
-            $additional['_query'] = array();
+            $additional['_query'] = [];
         }
         $additional['_query']['options'] = 'cart';
         return $this->getProductUrl($product, $additional);
@@ -725,19 +724,17 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param bool $addFormKey
      * @return string
      */
-    public function getSubmitUrlCustom($product, $additional = array(), $addFormKey = true)
+    public function getSubmitUrlCustom($product, $additional = [], $addFormKey = true)
     {
         $submitRouteData = $this->getData('submit_route_data');
         if ($submitRouteData) {
             $route = $submitRouteData['route'];
-            $params = isset($submitRouteData['params']) ? $submitRouteData['params'] : array();
+            $params = $submitRouteData['params'] ?? [];
             $submitUrl = $this->getUrl($route, array_merge($params, $additional));
+        } elseif ($addFormKey) {
+            $submitUrl = $this->getAddToCartUrl($product, $additional);
         } else {
-            if ($addFormKey) {
-                $submitUrl = $this->getAddToCartUrl($product, $additional);
-            } else {
-                $submitUrl = $this->getAddToCartUrlCustom($product, $additional, false);
-            }
+            $submitUrl = $this->getAddToCartUrlCustom($product, $additional, false);
         }
         return $submitUrl;
     }

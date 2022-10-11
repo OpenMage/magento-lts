@@ -146,7 +146,7 @@ class Zend_Tool_Project_Provider_DbTable
     /**
      * @param string $module        Module name action should be applied to.
      * @param bool $forceOverwrite  Whether should force overwriting previous classes generated
-     * @return void 
+     * @return void
      */
     public function createFromDatabase($module = null, $forceOverwrite = false)
     {

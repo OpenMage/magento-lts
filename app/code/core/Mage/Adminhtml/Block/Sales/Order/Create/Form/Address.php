@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order create address form
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
     extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
@@ -74,7 +68,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
     public function getAddressCollectionJson()
     {
         $addressForm = $this->_getAddressForm();
-        $data = array();
+        $data = [];
 
         $emptyAddress = $this->getCustomer()
             ->getAddressById(null)
@@ -98,11 +92,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
      */
     protected function _prepareForm()
     {
-        $fieldset = $this->_form->addFieldset('main', array(
+        $fieldset = $this->_form->addFieldset('main', [
             'no_container' => true
-        ));
+        ]);
 
-        /* @var $addressModel Mage_Customer_Model_Address */
+        /** @var Mage_Customer_Model_Address $addressModel */
         $addressModel = Mage::getModel('customer/address');
 
         $addressForm = $this->_getAddressForm()
@@ -117,7 +111,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
 
         $prefixElement = $this->_form->getElement('prefix');
         if ($prefixElement) {
-            $prefixOptions = $this->helper('customer')->getNamePrefixOptions($this->getStore());
+            /** @var Mage_Customer_Helper_Data $helper */
+            $helper = $this->helper('customer');
+            $prefixOptions = $helper->getNamePrefixOptions($this->getStore());
             if (!empty($prefixOptions)) {
                 $fieldset->removeField($prefixElement->getId());
                 $prefixField = $fieldset->addField($prefixElement->getId(),
@@ -134,7 +130,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
 
         $suffixElement = $this->_form->getElement('suffix');
         if ($suffixElement) {
-            $suffixOptions = $this->helper('customer')->getNameSuffixOptions($this->getStore());
+            /** @var Mage_Customer_Helper_Data $helper */
+            $helper = $this->helper('customer');
+            $suffixOptions = $helper->getNameSuffixOptions($this->getStore());
             if (!empty($suffixOptions)) {
                 $fieldset->removeField($suffixElement->getId());
                 $suffixField = $fieldset->addField($suffixElement->getId(),
@@ -148,7 +146,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
                 }
             }
         }
-
 
         $regionElement = $this->_form->getElement('region_id');
         if ($regionElement) {
@@ -192,7 +189,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
      */
     protected function _addAdditionalFormElementData(Varien_Data_Form_Element_Abstract $element)
     {
-        if ($element->getId() == 'region_id') {
+        if ($element->getId() === 'region_id') {
             $element->setNoDisplay(true);
         }
         return $this;
@@ -201,7 +198,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
     /**
      * Return customer address id
      *
-     * @return int|boolean
+     * @return false
      */
     public function getAddressId()
     {

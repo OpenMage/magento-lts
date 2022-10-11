@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogSearch
+ * @category   Mage
+ * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Collection Advanced
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
@@ -48,8 +41,8 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
             foreach ($fields as $table => $conditions) {
                 foreach ($conditions as $attributeId => $conditionValue) {
                     $select = $conn->select();
-                    $select->from(array('t1' => $table), 'entity_id');
-                    $conditionData = array();
+                    $select->from(['t1' => $table], 'entity_id');
+                    $conditionData = [];
 
                     if (!is_numeric($attributeId)) {
                         $field = 't1.'.$attributeId;
@@ -60,9 +53,9 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                 . ' AND t2.store_id=?';
 
                         $select->joinLeft(
-                            array('t2' => $table),
+                            ['t2' => $table],
                             $conn->quoteInto($onCondition, $storeId),
-                            array()
+                            []
                         );
                         $select->where('t1.store_id = ?', 0);
                         $select->where('t1.attribute_id = ?', $attributeId);
@@ -76,15 +69,15 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
 
                     if (is_array($conditionValue)) {
                         if (isset($conditionValue['in'])) {
-                            $conditionData[] = array('in' => $conditionValue['in']);
+                            $conditionData[] = ['in' => $conditionValue['in']];
                         } elseif (isset($conditionValue['in_set'])) {
-                            $conditionParts = array();
+                            $conditionParts = [];
                             foreach ($conditionValue['in_set'] as $value) {
-                                $conditionParts[] = array('finset' => $value);
+                                $conditionParts[] = ['finset' => $value];
                             }
                             $conditionData[] = $conditionParts;
                         } elseif (isset($conditionValue['like'])) {
-                            $conditionData[] = array ('like' => $conditionValue['like']);
+                            $conditionData[] = ['like' => $conditionValue['like']];
                         } elseif (isset($conditionValue['from']) && isset($conditionValue['to'])) {
                             $invalidDateMessage = Mage::helper('catalogsearch')->__('Specified date is invalid.');
                             if ($conditionValue['from']) {
@@ -98,7 +91,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                         $conditionValue['from'] = Mage::getSingleton('core/date')->gmtDate();
                                     }
                                 }
-                                $conditionData[] = array('gteq' => $conditionValue['from']);
+                                $conditionData[] = ['gteq' => $conditionValue['from']];
                             }
                             if ($conditionValue['to']) {
                                 if (!Zend_Date::isDate($conditionValue['to'])) {
@@ -111,11 +104,11 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                         $conditionValue['to'] = Mage::getSingleton('core/date')->gmtDate();
                                     }
                                 }
-                                $conditionData[] = array('lteq' => $conditionValue['to']);
+                                $conditionData[] = ['lteq' => $conditionValue['to']];
                             }
                         }
                     } else {
-                        $conditionData[] = array('eq' => $conditionValue);
+                        $conditionData[] = ['eq' => $conditionValue];
                     }
 
                     foreach ($conditionData as $data) {
@@ -128,7 +121,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                     $previousSelect = $select;
                 }
             }
-            $this->addFieldToFilter('entity_id', array('in' => new Zend_Db_Expr($select)));
+            $this->addFieldToFilter('entity_id', ['in' => new Zend_Db_Expr($select)]);
         }
 
         return $this;

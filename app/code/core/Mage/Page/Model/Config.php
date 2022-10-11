@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Page
+ * @category   Mage
+ * @package    Mage_Page
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -51,7 +45,7 @@ class Mage_Page_Model_Config
     protected function _initPageLayouts()
     {
         if ($this->_pageLayouts === null) {
-            $this->_pageLayouts = array();
+            $this->_pageLayouts = [];
             $this->_appendPageLayouts(self::XML_PATH_CMS_LAYOUTS);
             $this->_appendPageLayouts(self::XML_PATH_PAGE_LAYOUTS);
         }
@@ -70,16 +64,16 @@ class Mage_Page_Model_Config
             return $this;
         }
         if (!is_array($this->_pageLayouts)) {
-            $this->_pageLayouts = array();
+            $this->_pageLayouts = [];
         }
         foreach (Mage::getConfig()->getNode($xmlPath)->children() as $layoutCode => $layoutConfig) {
-            $this->_pageLayouts[$layoutCode] = new Varien_Object(array(
+            $this->_pageLayouts[$layoutCode] = new Varien_Object([
                 'label'         => Mage::helper('page')->__((string)$layoutConfig->label),
                 'code'          => $layoutCode,
                 'template'      => (string)$layoutConfig->template,
                 'layout_handle' => (string)$layoutConfig->layout_handle,
                 'is_default'    => (int)$layoutConfig->is_default,
-            ));
+            ]);
         }
         return $this;
     }
@@ -119,7 +113,7 @@ class Mage_Page_Model_Config
      */
     public function getPageLayoutHandles()
     {
-        $handles = array();
+        $handles = [];
 
         foreach ($this->getPageLayouts() as $layout) {
             $handles[$layout->getCode()] = $layout->getLayoutHandle();

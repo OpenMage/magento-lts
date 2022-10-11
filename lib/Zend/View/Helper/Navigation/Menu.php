@@ -113,7 +113,7 @@ class Zend_View_Helper_Navigation_Menu
      * @var string
      */
     protected $_innerIndent = '    ';
-    
+
     /**
      * View helper entry point:
      * Retrieves helper and optionally sets container to operate on
@@ -285,10 +285,10 @@ class Zend_View_Helper_Navigation_Menu
     {
         return $this->_onlyActiveBranch;
     }
-    
+
     /**
      * Sets a flag indicating whether to expand all sibling nodes of the active branch
-     * 
+     *
      * @param  bool $flag                        [optional] expand all siblings of
      *                                           nodes in the active branch. Default is true.
      * @return Zend_View_Helper_Navigation_Menu  fluent interface, returns self
@@ -311,7 +311,7 @@ class Zend_View_Helper_Navigation_Menu
     {
         return $this->_expandSiblingNodesOfActiveBranch;
     }
-    
+
     /**
      * Enables/disables rendering of parents when only rendering active branch
      *

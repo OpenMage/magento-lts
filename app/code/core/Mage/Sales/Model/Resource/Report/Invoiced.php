@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Invoice report resource model
@@ -76,6 +69,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
         $table       = $this->getTable('sales/invoiced_aggregated');
         $sourceTable = $this->getTable('sales/invoice');
         $orderTable  = $this->getTable('sales/order');
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
         $helper      = Mage::getResourceHelper('core');
         $adapter     = $this->_getWriteAdapter();
 
@@ -86,7 +80,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 $subSelect = $this->_getTableDateRangeRelatedSelect(
                     $sourceTable,
                     $orderTable,
-                    array('order_id'=>'entity_id'),
+                    ['order_id'=>'entity_id'],
                     'created_at',
                     'updated_at',
                     $from,
@@ -100,13 +94,13 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
             // convert dates from UTC to current admin timezone
             $periodExpr = $adapter->getDatePartSql(
                 $this->getStoreTZOffsetQuery(
-                    array('source_table' => $sourceTable),
+                    ['source_table' => $sourceTable],
                     'source_table.created_at',
                     $from,
                     $to
                 )
             );
-            $columns = array(
+            $columns = [
                 // convert dates from UTC to current admin timezone
                 'period'                => $periodExpr,
                 'store_id'              => 'order_table.store_id',
@@ -121,21 +115,21 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                     'SUM((order_table.base_total_invoiced - order_table.base_total_paid)'
                     . ' * order_table.base_to_global_rate)'
                 )
-            );
+            ];
 
             $select = $adapter->select();
-            $select->from(array('source_table' => $sourceTable), $columns)
+            $select->from(['source_table' => $sourceTable], $columns)
                 ->joinInner(
-                    array('order_table' => $orderTable),
+                    ['order_table' => $orderTable],
                     $adapter->quoteInto(
                         'source_table.order_id = order_table.entity_id AND order_table.state <> ?',
                         Mage_Sales_Model_Order::STATE_CANCELED
                     ),
-                    array()
+                    []
                 );
 
             $filterSubSelect = $adapter->select();
-            $filterSubSelect->from(array('filter_source_table' => $sourceTable), 'MAX(filter_source_table.entity_id)')
+            $filterSubSelect->from(['filter_source_table' => $sourceTable], 'MAX(filter_source_table.entity_id)')
                 ->where('filter_source_table.order_id = source_table.order_id');
 
             if ($subSelect !== null) {
@@ -145,18 +139,18 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
             $select->where('source_table.entity_id = (?)', new Zend_Db_Expr($filterSubSelect));
             unset($filterSubSelect);
 
-            $select->group(array(
+            $select->group([
                 $periodExpr,
                 'order_table.store_id',
                 'order_table.status'
-            ));
+            ]);
 
             $select->having('orders_count > 0');
             $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $table, array_keys($columns));
             $adapter->query($insertQuery);
             $select->reset();
 
-            $columns = array(
+            $columns = [
                 'period'                => 'period',
                 'store_id'              => new Zend_Db_Expr(Mage_Core_Model_App::ADMIN_STORE_ID),
                 'order_status'          => 'order_status',
@@ -165,7 +159,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 'invoiced'              => new Zend_Db_Expr('SUM(invoiced)'),
                 'invoiced_captured'     => new Zend_Db_Expr('SUM(invoiced_captured)'),
                 'invoiced_not_captured' => new Zend_Db_Expr('SUM(invoiced_not_captured)')
-            );
+            ];
 
             $select
                 ->from($table, $columns)
@@ -175,10 +169,10 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
-            $select->group(array(
+            $select->group([
                 'period',
                 'order_status'
-            ));
+            ]);
 
             $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $table, array_keys($columns));
             $adapter->query($insertQuery);
@@ -204,7 +198,6 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
         $sourceTable = $this->getTable('sales/order');
         $adapter     = $this->_getWriteAdapter();
 
-
         if ($from !== null || $to !== null) {
             $subSelect = $this->_getTableDateRangeSelect($sourceTable, 'created_at', 'updated_at', $from, $to);
         } else {
@@ -222,7 +215,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 )
             );
 
-            $columns = array(
+            $columns = [
                 'period'                => $periodExpr,
                 'store_id'              => 'store_id',
                 'order_status'          => 'status',
@@ -256,7 +249,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                     )
                 )
 
-            );
+            ];
 
             $select = $adapter->select();
             $select->from($sourceTable, $columns)
@@ -266,20 +259,21 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
             $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
         }
 
-            $select->group(array(
+            $select->group([
                 $periodExpr,
                 'store_id',
                 'status'
-            ));
+            ]);
 
             $select->having('orders_count > 0');
 
+            /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
             $helper      = Mage::getResourceHelper('core');
             $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $table, array_keys($columns));
             $adapter->query($insertQuery);
             $select->reset();
 
-            $columns = array(
+            $columns = [
                 'period'                => 'period',
                 'store_id'              => new Zend_Db_Expr(Mage_Core_Model_App::ADMIN_STORE_ID),
                 'order_status'          => 'order_status',
@@ -288,7 +282,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 'invoiced'              => new Zend_Db_Expr('SUM(invoiced)'),
                 'invoiced_captured'     => new Zend_Db_Expr('SUM(invoiced_captured)'),
                 'invoiced_not_captured' => new Zend_Db_Expr('SUM(invoiced_not_captured)')
-            );
+            ];
 
             $select->from($table, $columns)
                 ->where('store_id <> ?', 0);
@@ -297,15 +291,15 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
             $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
         }
 
-            $select->group(array(
+            $select->group([
                 'period',
                 'order_status'
-            ));
+            ]);
 
+            /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
             $helper      = Mage::getResourceHelper('core');
             $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $table, array_keys($columns));
             $adapter->query($insertQuery);
-
 
         return $this;
     }

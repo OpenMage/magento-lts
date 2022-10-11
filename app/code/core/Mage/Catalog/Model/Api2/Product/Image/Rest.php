@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -43,12 +37,12 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
      *
      * @var array
      */
-    protected $_mimeTypes = array(
+    protected $_mimeTypes = [
         'image/jpg'  => 'jpg',
         'image/jpeg' => 'jpg',
         'image/gif'  => 'gif',
         'image/png'  => 'png'
-    );
+    ];
 
     /**
      * Retrieve product image data for customer and guest roles
@@ -58,7 +52,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
      */
     protected function _retrieve()
     {
-        $imageData = array();
+        $imageData = [];
         $imageId = (int)$this->getRequest()->getParam('image');
         $galleryData = $this->_getProduct()->getData(self::GALLERY_ATTRIBUTE_CODE);
 
@@ -84,7 +78,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
      */
     protected function _retrieveCollection()
     {
-        $images = array();
+        $images = [];
         $galleryData = $this->_getProduct()->getData(self::GALLERY_ATTRIBUTE_CODE);
         if (isset($galleryData['images']) && is_array($galleryData['images'])) {
             foreach ($galleryData['images'] as $image) {
@@ -125,15 +119,14 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
      */
     protected function _formatImageData($image)
     {
-        $result = array(
+        return [
             'id'        => $image['value_id'],
             'label'     => $image['label'],
             'position'  => $image['position'],
             'exclude'   => $image['disabled'],
             'url'       => $this->_getMediaConfig()->getMediaUrl($image['file']),
             'types'     => $this->_getImageTypesAssignedToProduct($image['file'])
-        );
-        return $result;
+        ];
     }
 
     /**
@@ -144,7 +137,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
      */
     protected function _getImageTypesAssignedToProduct($imageFile)
     {
-        $types = array();
+        $types = [];
         foreach ($this->_getProduct()->getMediaAttributes() as $attribute) {
             if ($this->_getProduct()->getData($attribute->getAttributeCode()) == $imageFile) {
                 $types[] = $attribute->getAttributeCode();

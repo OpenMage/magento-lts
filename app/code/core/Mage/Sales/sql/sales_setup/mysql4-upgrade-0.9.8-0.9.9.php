@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -25,8 +19,8 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 
-$installer->addAttribute('invoice', 'store_id', array('type'=>'static'));
-$installer->addAttribute('creditmemo', 'store_id', array('type'=>'static'));
-$installer->addAttribute('shipment', 'store_id', array('type'=>'static'));
+$installer->addAttribute('invoice', 'store_id', ['type'=>'static']);
+$installer->addAttribute('creditmemo', 'store_id', ['type'=>'static']);
+$installer->addAttribute('shipment', 'store_id', ['type'=>'static']);

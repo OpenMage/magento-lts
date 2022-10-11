@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -37,7 +31,7 @@ class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
     /**
      * @var array
      */
-    protected $_links = array();
+    protected $_links = [];
 
     /**
      * @var bool
@@ -51,14 +45,14 @@ class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
      * @param array $urlParams
      * @return $this
      */
-    public function addLink($name, $path, $label, $urlParams = array())
+    public function addLink($name, $path, $label, $urlParams = [])
     {
-        $this->_links[$name] = new Varien_Object(array(
+        $this->_links[$name] = new Varien_Object([
             'name' => $name,
             'path' => $path,
             'label' => $label,
             'url' => $this->getUrl($path, $urlParams),
-        ));
+        ]);
         return $this;
     }
 

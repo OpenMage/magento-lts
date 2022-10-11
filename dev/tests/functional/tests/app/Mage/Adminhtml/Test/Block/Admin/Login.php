@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Tests
  * @package     Tests_Functional
@@ -61,7 +55,7 @@ class Login extends Form
      * @param Mapper $mapper
      * @param BrowserInterface $browser
      * @param SequenceSorterInterface $sequenceSorter
-     * @param array $config [optional]
+     * @param array $config
      * @param Dashboard $dashboard
      */
     public function __construct(
@@ -70,7 +64,7 @@ class Login extends Form
         Mapper $mapper,
         BrowserInterface $browser,
         SequenceSorterInterface $sequenceSorter,
-        array $config = [],
+        array $config,
         Dashboard $dashboard
     ) {
         parent::__construct($element, $blockFactory, $mapper, $browser, $sequenceSorter, $config);

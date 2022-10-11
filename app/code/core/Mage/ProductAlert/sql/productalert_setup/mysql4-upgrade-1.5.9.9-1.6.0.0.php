@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_ProductAlert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -61,7 +55,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_PRODUCT_ALERT_STOCK_WEBSITE'
 );
 
-
 /**
  * Drop indexes
  */
@@ -95,177 +88,174 @@ $installer->getConnection()->dropIndex(
     'FK_PRODUCT_ALERT_STOCK_WEBSITE'
 );
 
-
 /**
  * Change columns
  */
-$tables = array(
-    $installer->getTable('productalert/price') => array(
-        'columns' => array(
-            'alert_price_id' => array(
+$tables = [
+    $installer->getTable('productalert/price') => [
+        'columns' => [
+            'alert_price_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Product alert price id'
-            ),
-            'customer_id' => array(
+            ],
+            'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Customer id'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product id'
-            ),
-            'price' => array(
+            ],
+            'price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
                 'comment'   => 'Price amount'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Website id'
-            ),
-            'add_date' => array(
+            ],
+            'add_date' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
                 'comment'   => 'Product alert add date'
-            ),
-            'last_send_date' => array(
+            ],
+            'last_send_date' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'Product alert last send date'
-            ),
-            'send_count' => array(
+            ],
+            'send_count' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product alert send count'
-            ),
-            'status' => array(
+            ],
+            'status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product alert status'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Product Alert Price'
-    ),
-    $installer->getTable('productalert/stock') => array(
-        'columns' => array(
-            'alert_stock_id' => array(
+    ],
+    $installer->getTable('productalert/stock') => [
+        'columns' => [
+            'alert_stock_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Product alert stock id'
-            ),
-            'customer_id' => array(
+            ],
+            'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Customer id'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product id'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Website id'
-            ),
-            'add_date' => array(
+            ],
+            'add_date' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
                 'comment'   => 'Product alert add date'
-            ),
-            'send_date' => array(
+            ],
+            'send_date' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'Product alert send date'
-            ),
-            'send_count' => array(
+            ],
+            'send_count' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Send Count'
-            ),
-            'status' => array(
+            ],
+            'status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Product alert status'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Product Alert Stock'
-    )
-);
+    ]
+];
 
 $installer->getConnection()->modifyTables($tables);
-
 
 /**
  * Add indexes
  */
 $installer->getConnection()->addIndex(
     $installer->getTable('productalert/price'),
-    $installer->getIdxName('productalert/price', array('customer_id')),
-    array('customer_id')
+    $installer->getIdxName('productalert/price', ['customer_id']),
+    ['customer_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('productalert/price'),
-    $installer->getIdxName('productalert/price', array('product_id')),
-    array('product_id')
+    $installer->getIdxName('productalert/price', ['product_id']),
+    ['product_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('productalert/price'),
-    $installer->getIdxName('productalert/price', array('website_id')),
-    array('website_id')
+    $installer->getIdxName('productalert/price', ['website_id']),
+    ['website_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('productalert/stock'),
-    $installer->getIdxName('productalert/stock', array('customer_id')),
-    array('customer_id')
+    $installer->getIdxName('productalert/stock', ['customer_id']),
+    ['customer_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('productalert/stock'),
-    $installer->getIdxName('productalert/stock', array('product_id')),
-    array('product_id')
+    $installer->getIdxName('productalert/stock', ['product_id']),
+    ['product_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('productalert/stock'),
-    $installer->getIdxName('productalert/stock', array('website_id')),
-    array('website_id')
+    $installer->getIdxName('productalert/stock', ['website_id']),
+    ['website_id']
 );
-
 
 /**
  * Add foreign keys

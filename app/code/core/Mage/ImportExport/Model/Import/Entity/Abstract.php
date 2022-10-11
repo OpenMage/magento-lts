@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ImportExport
+ * @category   Mage
+ * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import entity abstract model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_ImportExport_Model_Import_Entity_Abstract
 {
@@ -75,7 +69,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Error counter.
@@ -103,49 +97,49 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      *
      * @var array
      */
-    protected $_indexValueAttributes = array();
+    protected $_indexValueAttributes = [];
 
     /**
      * Array of invalid rows numbers.
      *
      * @var array
      */
-    protected $_invalidRows = array();
+    protected $_invalidRows = [];
 
     /**
      * Validation failure message template definitions.
      *
      * @var array
      */
-    protected $_messageTemplates = array();
+    protected $_messageTemplates = [];
 
     /**
      * Notice messages.
      *
      * @var array
      */
-    protected $_notices = array();
+    protected $_notices = [];
 
     /**
      * Entity model parameters.
      *
      * @var array
      */
-    protected $_parameters = array();
+    protected $_parameters = [];
 
     /**
      * Column names that holds values with particular meaning.
      *
      * @var array
      */
-    protected $_particularAttributes = array();
+    protected $_particularAttributes = [];
 
     /**
      * Permanent entity columns.
      *
      * @var array
      */
-    protected $_permanentAttributes = array();
+    protected $_permanentAttributes = [];
 
     /**
      * Number of entities processed by validation.
@@ -170,14 +164,14 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      *
      * @var array
      */
-    protected $_rowsToSkip = array();
+    protected $_rowsToSkip = [];
 
     /**
      * Array of numbers of validated rows as keys and boolean TRUE as values.
      *
      * @var array
      */
-    protected $_validatedRows = array();
+    protected $_validatedRows = [];
 
     /**
      * Source model.
@@ -191,12 +185,10 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      *
      * @var array
      */
-    protected $_uniqueAttributes = array();
+    protected $_uniqueAttributes = [];
 
     /**
      * Constructor.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -268,11 +260,13 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     {
         $source          = $this->_getSource();
         $productDataSize = 0;
-        $bunchRows       = array();
+        $bunchRows       = [];
         $startNewBunch   = false;
-        $nextRowBackup   = array();
-        $maxDataSize = Mage::getResourceHelper('importexport')->getMaxDataSize();
-        $bunchSize = Mage::helper('importexport')->getBunchSize();
+        $nextRowBackup   = [];
+        /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
+        $helper          = Mage::getResourceHelper('importexport');
+        $maxDataSize     = $helper->getMaxDataSize();
+        $bunchSize       = Mage::helper('importexport')->getBunchSize();
 
         /** @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper = Mage::helper("core");
@@ -287,7 +281,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 $bunchRows       = $nextRowBackup;
                 $productDataSize = strlen(serialize($bunchRows));
                 $startNewBunch   = false;
-                $nextRowBackup   = array();
+                $nextRowBackup   = [];
             }
             if ($source->valid()) {
                 if ($this->_errorsCount >= $this->_errorsLimit) { // errors limit check
@@ -305,7 +299,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
 
                     if (($productDataSize + $rowSize) >= $maxDataSize || $isBunchSizeExceeded) {
                         $startNewBunch = true;
-                        $nextRowBackup = array($source->key() => $rowData);
+                        $nextRowBackup = [$source->key() => $rowData];
                     } else {
                         $bunchRows[$source->key()] = $rowData;
                         $productDataSize += $rowSize;
@@ -327,7 +321,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      */
     public function addRowError($errorCode, $errorRowNum, $colName = null)
     {
-        $this->_errors[$errorCode][] = array($errorRowNum + 1, $colName); // one added for human readability
+        $this->_errors[$errorCode][] = [$errorRowNum + 1, $colName]; // one added for human readability
         $this->_invalidRows[$errorRowNum] = true;
         $this->_errorsCount ++;
 
@@ -355,9 +349,9 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      * @param array $indexValAttrs OPTIONAL Additional attributes' codes with index values.
      * @return array
      */
-    public function getAttributeOptions(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $indexValAttrs = array())
+    public function getAttributeOptions(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $indexValAttrs = [])
     {
-        $options = array();
+        $options = [];
 
         if ($attribute->usesSource()) {
             // merge global entity index value attributes
@@ -371,7 +365,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
 
             try {
                 foreach ($attribute->getSource()->getAllOptions(false) as $option) {
-                    $value = is_array($option['value']) ? $option['value'] : array($option);
+                    $value = is_array($option['value']) ? $option['value'] : [$option];
                     foreach ($value as $innerOption) {
                         if (strlen($innerOption['value'])) { // skip ' -- Please Select -- ' option
                             $options[strtolower($innerOption[$index])] = $innerOption['value'];
@@ -427,7 +421,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     public function getErrorMessages()
     {
         $translator = Mage::helper('importexport');
-        $messages   = array();
+        $messages   = [];
 
         foreach ($this->_errors as $errorCode => $errorRows) {
             if (isset($this->_messageTemplates[$errorCode])) {
@@ -598,7 +592,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     public function isDataValid()
     {
         $this->validateData();
-        return 0 == $this->_errorsCount;
+        return $this->_errorsCount == 0;
     }
 
     /**
@@ -676,11 +670,11 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
             }
 
             // initialize validation related attributes
-            $this->_errors = array();
-            $this->_invalidRows = array();
+            $this->_errors = [];
+            $this->_invalidRows = [];
 
             // check attribute columns names validity
-            $invalidColumns = array();
+            $invalidColumns = [];
 
             foreach ($this->_getSource()->getColNames() as $colName) {
                 if (!preg_match('/^[a-z][a-z0-9_]*$/', $colName) && !$this->isAttributeParticular($colName)) {

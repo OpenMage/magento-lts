@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Widget
@@ -34,7 +28,13 @@
 class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Wisywyg widget plugin main page
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'cms/widget_instance';
+
+    /**
+     * Wysiwyg widget plugin main page
      */
     public function indexAction()
     {
@@ -68,7 +68,7 @@ class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_A
                 $this->renderLayout();
             }
         } catch (Mage_Core_Exception $e) {
-            $result = array('error' => true, 'message' => $e->getMessage());
+            $result = ['error' => true, 'message' => $e->getMessage()];
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
@@ -79,19 +79,9 @@ class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_A
     public function buildWidgetAction()
     {
         $type = $this->getRequest()->getPost('widget_type');
-        $params = $this->getRequest()->getPost('parameters', array());
+        $params = $this->getRequest()->getPost('parameters', []);
         $asIs = $this->getRequest()->getPost('as_is');
         $html = Mage::getSingleton('widget/widget')->getWidgetDeclaration($type, $params, $asIs);
         $this->getResponse()->setBody($html);
-    }
-
-    /**
-     * Check is allowed access to action
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('cms/widget_instance');
     }
 }

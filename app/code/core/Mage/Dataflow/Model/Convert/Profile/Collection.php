@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,34 +12,26 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Dataflow
+ * @category   Mage
+ * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Convert profile collection
  *
  * @category   Mage
  * @package    Mage_Dataflow
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Dataflow_Model_Convert_Profile_Collection
 {
-
     protected $_xml;
 
     protected $_containers;
 
-    protected $_profiles = array();
+    protected $_profiles = [];
 
     protected $_simplexmlDefaultClass = 'Varien_Simplexml_Element';
 
@@ -64,7 +56,6 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
     {
         return $this->getContainers()->getItem($name);
     }
-
 
     public function addContainer($name, Mage_Dataflow_Model_Convert_Container_Interface $container)
     {
@@ -160,10 +151,10 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
 
             $country = '';
 
-            /** @var $varNode Varien_Simplexml_Element */
+            /** @var Varien_Simplexml_Element $varNode */
             foreach ($actionNode->var as $key => $varNode) {
                 if ($varNode['name'] == 'map') {
-                    $mapData = array();
+                    $mapData = [];
                     foreach ($varNode->map as $mapNode) {
                         $mapData[(string)$mapNode['name']] = (string)$mapNode;
                     }
@@ -175,16 +166,16 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
                      * Get state name from directory by iso name
                      * (only for US)
                      */
-                    if ($value && 'filter/country' == (string)$varNode['name']) {
+                    if ($value && (string)$varNode['name'] == 'filter/country') {
                         /**
                          * Save country for convert state iso to name (for US only)
                          */
                         $country = $value;
-                    } elseif ($value && 'filter/region' == (string)$varNode['name'] && 'US' == $country) {
+                    } elseif ($value && (string)$varNode['name'] == 'filter/region' && $country == 'US') {
                         /**
                          * Get state name by iso for US
                          */
-                        /** @var $region Mage_Directory_Model_Region */
+                        /** @var Mage_Directory_Model_Region $region */
                         $region = Mage::getModel('directory/region');
 
                         $state = $region->loadByCode($value, $country)->getDefaultName();
@@ -200,5 +191,4 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
 
         return $this;
     }
-
 }

@@ -47,7 +47,7 @@ abstract class Zend_Mobile_Push_Abstract implements Zend_Mobile_Push_Interface
 
     /**
      * Connect to the Push Server
-     * 
+     *
      * @return Zend_Mobile_Push_Abstract
      */
     public function connect()

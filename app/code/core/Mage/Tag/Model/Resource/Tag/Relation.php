@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Tag Relation resource model
@@ -53,10 +46,10 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
     {
         if ($model->getTagId() && $model->getCustomerId()) {
             $read = $this->_getReadAdapter();
-            $bind = array(
+            $bind = [
                 'tag_id'      => $model->getTagId(),
                 'customer_id' => $model->getCustomerId()
-            );
+            ];
 
             $select = $read->select()
                 ->from($this->getMainTable())
@@ -77,7 +70,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
                 $bind['sore_id'] = $model->getStoreId();
             }
             $data = $read->fetchRow($select, $bind);
-            $model->setData(( is_array($data) ) ? $data : array());
+            $model->setData(( is_array($data) ) ? $data : []);
         }
 
         return $this;
@@ -91,9 +84,9 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
      */
     public function getProductIds($model)
     {
-        $bind = array(
+        $bind = [
             'tag_id' => $model->getTagId()
-        );
+        ];
         $select = $this->_getReadAdapter()->select()
             ->from($this->getMainTable(), 'product_id')
             ->where($this->getMainTable() . '.tag_id=:tag_id');
@@ -128,7 +121,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
      */
     public function getRelatedTagIds($model)
     {
-        $productIds = (is_array($model->getProductId())) ? $model->getProductId() : array($model->getProductId());
+        $productIds = (is_array($model->getProductId())) ? $model->getProductId() : [$model->getProductId()];
         $select = $this->_getReadAdapter()->select()
             ->from($this->getMainTable(), 'tag_id')
             ->where("product_id IN(?)", $productIds)
@@ -145,12 +138,12 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
      */
     public function deactivate($tagId, $customerId)
     {
-        $condition = array(
+        $condition = [
             'tag_id = ?'      => $tagId,
             'customer_id = ?' => $customerId
-        );
+        ];
 
-        $data = array('active' => Mage_Tag_Model_Tag_Relation::STATUS_NOT_ACTIVE);
+        $data = ['active' => Mage_Tag_Model_Tag_Relation::STATUS_NOT_ACTIVE];
         $this->_getWriteAdapter()->update($this->getMainTable(), $data, $condition);
         return $this;
     }
@@ -165,10 +158,10 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
     {
         $addedIds = $model->getAddedProductIds();
 
-        $bind = array(
+        $bind = [
             'tag_id'   => $model->getTagId(),
             'store_id' => $model->getStoreId()
-        );
+        ];
         $write = $this->_getWriteAdapter();
 
         $select = $write->select()
@@ -181,24 +174,24 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
         $delete = array_diff($oldRelationIds, $addedIds);
 
         if (!empty($insert)) {
-            $insertData = array();
+            $insertData = [];
             foreach ($insert as $value) {
-                $insertData[] = array(
+                $insertData[] = [
                     'tag_id'        => $model->getTagId(),
                     'store_id'      => $model->getStoreId(),
                     'product_id'    => $value,
                     'customer_id'   => $model->getCustomerId(),
                     'created_at'    => $this->formatDate(time())
-                );
+                ];
             }
             $write->insertMultiple($this->getMainTable(), $insertData);
         }
 
         if (!empty($delete)) {
-            $write->delete($this->getMainTable(), array(
+            $write->delete($this->getMainTable(), [
                 'product_id IN (?)' => $delete,
                 'store_id = ?'      => $model->getStoreId(),
-            ));
+            ]);
         }
 
         return $this;

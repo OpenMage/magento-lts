@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -61,24 +55,24 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
     /**
      * @var array
      */
-    protected $_matchedEntities = array(
-        Mage_Catalog_Model_Product::ENTITY => array(
+    protected $_matchedEntities = [
+        Mage_Catalog_Model_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE,
             Mage_Index_Model_Event::TYPE_MASS_ACTION
-        ),
-        Mage_Catalog_Model_Category::ENTITY => array(
+        ],
+        Mage_Catalog_Model_Category::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-        Mage_Core_Model_Store::ENTITY => array(
+        ],
+        Mage_Core_Model_Store::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-        Mage_Core_Model_Store_Group::ENTITY => array(
+        ],
+        Mage_Core_Model_Store_Group::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-        Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => array(
+        ],
+        Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        )
-    );
+        ]
+    ];
 
     /**
      * Initialize resource
@@ -148,7 +142,6 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
         return $result;
     }
 
-
     /**
      * Register data required by process in event object
      * Check if category ids was changed
@@ -191,7 +184,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
     {
         $eventType = $event->getType();
         if ($eventType == Mage_Index_Model_Event::TYPE_SAVE) {
-            /** @var Varien_Object|Mage_Catalog_Model_Product $product */
+            /** @var Mage_Catalog_Model_Product $product */
             $product = $event->getDataObject();
             /**
              * Check if product categories data was changed
@@ -201,9 +194,8 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
                 $event->addNewData('category_ids', $product->getCategoryIds());
             }
         } elseif ($eventType == Mage_Index_Model_Event::TYPE_MASS_ACTION) {
-            /* @var Varien_Object $actionObject */
             $actionObject = $event->getDataObject();
-            $attributes   = array('status', 'visibility');
+            $attributes   = ['status', 'visibility'];
             $rebuildIndex = false;
 
             // check if attributes changed

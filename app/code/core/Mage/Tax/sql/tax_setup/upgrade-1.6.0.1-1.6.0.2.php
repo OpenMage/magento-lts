@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Tax
@@ -32,36 +26,36 @@ $installer = $this;
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('tax/sales_order_tax_item'))
-    ->addColumn('tax_item_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('tax_item_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Tax Item Id')
-    ->addColumn('tax_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Tax Item Id')
+    ->addColumn('tax_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
-        ), 'Tax Id')
-    ->addColumn('item_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Tax Id')
+    ->addColumn('item_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
-        ), 'Item Id')
+    ], 'Item Id')
     ->addIndex(
-        $installer->getIdxName('tax/sales_order_tax_item', array('tax_id')),
-        array('tax_id')
+        $installer->getIdxName('tax/sales_order_tax_item', ['tax_id']),
+        ['tax_id']
     )
     ->addIndex(
-        $installer->getIdxName('tax/sales_order_tax_item', array('item_id')),
-        array('item_id')
+        $installer->getIdxName('tax/sales_order_tax_item', ['item_id']),
+        ['item_id']
     )
     ->addIndex(
         $installer->getIdxName(
             'tax/sales_order_tax_item',
-            array('tax_id', 'item_id'),
+            ['tax_id', 'item_id'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('tax_id', 'item_id'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        ['tax_id', 'item_id'],
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->addForeignKey(
         $installer->getFkName(

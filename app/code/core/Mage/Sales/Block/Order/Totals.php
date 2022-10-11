@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -100,24 +94,23 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     {
         $source = $this->getSource();
 
-        $this->_totals = array();
-        $this->_totals['subtotal'] = new Varien_Object(array(
+        $this->_totals = [];
+        $this->_totals['subtotal'] = new Varien_Object([
             'code'  => 'subtotal',
             'value' => $source->getSubtotal(),
             'label' => $this->__('Subtotal')
-        ));
-
+        ]);
 
         /**
          * Add shipping
          */
         if (!$source->getIsVirtual() && ((float) $source->getShippingAmount() || $source->getShippingDescription())) {
-            $this->_totals['shipping'] = new Varien_Object(array(
+            $this->_totals['shipping'] = new Varien_Object([
                 'code'  => 'shipping',
                 'field' => 'shipping_amount',
                 'value' => $this->getSource()->getShippingAmount(),
                 'label' => $this->__('Shipping & Handling')
-            ));
+            ]);
         }
 
         /**
@@ -129,32 +122,32 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
             } else {
                 $discountLabel = $this->__('Discount');
             }
-            $this->_totals['discount'] = new Varien_Object(array(
+            $this->_totals['discount'] = new Varien_Object([
                 'code'  => 'discount',
                 'field' => 'discount_amount',
                 'value' => $source->getDiscountAmount(),
                 'label' => $discountLabel
-            ));
+            ]);
         }
 
-        $this->_totals['grand_total'] = new Varien_Object(array(
+        $this->_totals['grand_total'] = new Varien_Object([
             'code'  => 'grand_total',
             'field'  => 'grand_total',
             'strong'=> true,
             'value' => $source->getGrandTotal(),
             'label' => $this->__('Grand Total')
-        ));
+        ]);
 
         /**
          * Base grandtotal
          */
         if ($this->getOrder()->isCurrencyDifferent()) {
-            $this->_totals['base_grandtotal'] = new Varien_Object(array(
+            $this->_totals['base_grandtotal'] = new Varien_Object([
                 'code'  => 'base_grandtotal',
                 'value' => $this->getOrder()->formatBasePrice($source->getBaseGrandTotal()),
                 'label' => $this->__('Grand Total to be Charged'),
                 'is_formated' => true,
-            ));
+            ]);
         }
         return $this;
     }
@@ -169,7 +162,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     public function addTotal(Varien_Object $total, $after = null)
     {
         if ($after !== null && $after != 'last' && $after != 'first') {
-            $totals = array();
+            $totals = [];
             $added = false;
             foreach ($this->_totals as $code => $item) {
                 $totals[$code] = $item;
@@ -187,7 +180,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
         } elseif ($after=='last') {
             $this->_totals[$total->getCode()] = $total;
         } elseif ($after=='first') {
-            $totals = array($total->getCode()=>$total);
+            $totals = [$total->getCode()=>$total];
             $this->_totals = array_merge($totals, $this->_totals);
         } else {
             $last = array_pop($this->_totals);
@@ -208,11 +201,11 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     {
         if ($before !== null) {
             if (!is_array($before)) {
-                $before = array($before);
+                $before = [$before];
             }
             foreach ($before as $beforeTotals) {
                 if (isset($this->_totals[$beforeTotals])) {
-                    $totals = array();
+                    $totals = [];
                     foreach ($this->_totals as $code => $item) {
                         if ($code == $beforeTotals) {
                             $totals[$total->getCode()] = $total;
@@ -224,7 +217,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
                 }
             }
         }
-        $totals = array();
+        $totals = [];
         $first = array_shift($this->_totals);
         $totals[$first->getCode()] = $first;
         $totals[$total->getCode()] = $total;
@@ -285,7 +278,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      */
     public function getTotals($area = null)
     {
-        $totals = array();
+        $totals = [];
         if ($area === null) {
             $totals = $this->_totals;
         } else {

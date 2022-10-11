@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -35,13 +29,15 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
     public $ERR_NO_PRODUCT_LOADED = 1;
     public $ERR_BAD_CONTROLLER_INTERFACE = 2;
 
-     /**
+    /**
      * Inits layout for viewing product page
      *
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Core_Controller_Front_Action $controller
      *
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Mage_Core_Exception
      */
     public function initProductLayout($product, $controller)
     {
@@ -78,10 +74,11 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
         }
 
         $currentCategory = Mage::registry('current_category');
+        /** @var Mage_Page_Block_Html $root */
         $root = $controller->getLayout()->getBlock('root');
         if ($root) {
             $controllerClass = $controller->getFullActionName();
-            if ($controllerClass != 'catalog-product-view') {
+            if ($controllerClass !== 'catalog-product-view') {
                 $root->addBodyClass('catalog-product-view');
             }
             $root->addBodyClass('product-' . $product->getUrlKey());
@@ -117,7 +114,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
             $params = new Varien_Object();
         }
 
-        // Standard algorithm to prepare and rendern product view page
+        // Standard algorithm to prepare and render a product view page
         $product = $productHelper->initProduct($productId, $controller, $params);
         if (!$product) {
             throw new Mage_Core_Exception($this->__('Product is not loaded'), $this->ERR_NO_PRODUCT_LOADED);
@@ -132,7 +129,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
             $product->setConfigureMode($params->getConfigureMode());
         }
 
-        Mage::dispatchEvent('catalog_controller_product_view', array('product' => $product));
+        Mage::dispatchEvent('catalog_controller_product_view', ['product' => $product]);
 
         if ($params->getSpecifyOptions()) {
             $notice = $product->getTypeInstance(true)->getSpecifyOptionMessage();
@@ -143,7 +140,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
 
         $this->initProductLayout($product, $controller);
 
-        $controller->initLayoutMessages(array('catalog/session', 'tag/session', 'checkout/session'))
+        $controller->initLayoutMessages(['catalog/session', 'tag/session', 'checkout/session'])
             ->renderLayout();
 
         return $this;

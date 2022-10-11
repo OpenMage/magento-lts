@@ -227,7 +227,7 @@ class Zend_Http_Response_Stream extends Zend_Http_Response
             fclose($this->stream);
             $this->stream = null;
         }
-        if($this->_cleanup) {
+        if($this->_cleanup && is_string($this->stream_name) && file_exists($this->stream_name)) {
             @unlink($this->stream_name);
         }
     }

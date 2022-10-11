@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Usa
@@ -109,7 +103,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf
                     (string)$piece->LicensePlate,
                     (string)$piece->LicensePlateBarCode
                 );
-            array_push($pdf->pages, $page);
+            $pdf->pages[] = $page;
             $i++;
         }
         return $pdf->render();
