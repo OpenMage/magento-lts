@@ -15,7 +15,8 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php s+Academic Free License (AFL 3.0)
  */
 -->
@@ -1280,6 +1281,15 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </crate_admin_user_notification>
+                        <reprocess_image_quality translate="label comment">
+                            <label>Image Reprocess Quality</label>
+                            <comment>The recommended value is 85, a higher value will increase the file size. You can set the value to 0 to disable image processing, but it may cause security risks.</comment>
+                            <validate>validate-digits validate-digits-range digits-range-0-100</validate>
+                            <sort_order>180</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </reprocess_image_quality>
                     </fields>
                 </security>
                 <dashboard translate="label">

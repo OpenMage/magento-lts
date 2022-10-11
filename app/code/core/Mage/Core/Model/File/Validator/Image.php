@@ -8,14 +8,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -74,7 +75,8 @@ class Mage_Core_Model_File_Validator_Image
     }
 
     /**
-     * Validation callback for checking is file is image
+     * Validation callback for checking if file is image
+     * Destroy malicious code in image by reprocessing
      *
      * @param  string $filePath Path to temporary uploaded file
      * @return null
@@ -85,8 +87,17 @@ class Mage_Core_Model_File_Validator_Image
         list($imageWidth, $imageHeight, $fileType) = getimagesize($filePath);
         if ($fileType) {
             if ($this->isImageType($fileType)) {
-                /** if 'general/reprocess_images/active' false then skip image reprocessing. */
-                if (!Mage::getStoreConfigFlag('general/reprocess_images/active')) {
+                // Config 'general/reprocess_images/active' is deprecated, replacement is the following:
+                $imageQuality = Mage::getStoreConfig('admin/security/reprocess_image_quality');
+                if ($imageQuality != '') {
+                    $imageQuality = (int) $imageQuality;
+                } else {
+                    // Value not set in backend. For BC, if depcrecated config does not exist, default to 85.
+                    $imageQuality = Mage::getStoreConfig('general/reprocess_images/active') === null
+                        ? 85
+                        : (Mage::getStoreConfigFlag('general/reprocess_images/active') ? 85 : 0);
+                }
+                if ($imageQuality === 0) {
                     return null;
                 }
                 //replace tmp image with re-sampled copy to exclude images with malicious data
@@ -116,7 +127,7 @@ class Mage_Core_Model_File_Validator_Image
                             imagegif($img, $filePath);
                             break;
                         case IMAGETYPE_JPEG:
-                            imagejpeg($img, $filePath, 100);
+                            imagejpeg($img, $filePath, $imageQuality);
                             break;
                         case IMAGETYPE_PNG:
                             imagepng($img, $filePath);
