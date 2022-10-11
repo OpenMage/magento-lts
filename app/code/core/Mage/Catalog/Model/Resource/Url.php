@@ -1102,7 +1102,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         $rewriteIds = $adapter->fetchCol($select, $bind);
         if ($rewriteIds) {
-            $where = array($this->getIdFieldName() . ' IN(?)' => $rewriteIds);
+            $where = [$this->getIdFieldName() . ' IN(?)' => $rewriteIds];
             $adapter->delete($this->getMainTable(), $where);
         }
 
@@ -1137,7 +1137,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         $adapter = $this->_getWriteAdapter();
 
-        $table = $this->getTable(array('catalog/category', 'int'));
+        $table = $this->getTable(['catalog/category', 'int']);
         $select = $adapter->select()
             ->from(['tur' => $this->getMainTable()], $this->getIdFieldName())
             ->joinLeft(
@@ -1186,7 +1186,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         $bind = ['store_id' => $storeId];
         $select = $adapter->select()
-            ->from(array('tur' => $this->getMainTable()), $this->getIdFieldName())
+            ->from(['tur' => $this->getMainTable()], $this->getIdFieldName())
             ->where('tur.store_id = :store_id')
             ->where('tur.is_system = 1');
 
@@ -1200,31 +1200,31 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             // (either to other category or deleted), so rewrite "category_id-product_id" is invalid
             if ($productUseCategories) {
                 $select->joinLeft(
-                        array('tcp' => $this->getTable('catalog/category_product')),
+                        ['tcp' => $this->getTable('catalog/category_product')],
                         'tur.category_id = tcp.category_id AND tur.product_id = tcp.product_id',
-                        array()
+                        []
                     )
                     ->where('tcp.category_id IS NULL');
             }
 
         } else {
             // Find products, cartegories and cartegory/product rewrites for disabled products or cartegories
-            $productTable = $this->getTable(array('catalog/product', 'int'));
-            $categoryTable = $this->getTable(array('catalog/category', 'int'));
+            $productTable = $this->getTable(['catalog/product', 'int']);
+            $categoryTable = $this->getTable(['catalog/category', 'int']);
             $select->joinLeft(
                 ['cpei' => $productTable],
                 'cpei.entity_id = tur.product_id AND cpei.attribute_id = :product_status_attribute_id',
                 []
                 )
                 ->joinLeft(
-                    array('ccei1' => $categoryTable),
+                    ['ccei1' => $categoryTable],
                     'ccei1.attribute_id = :is_active_category_attribute_id AND ccei1.store_id = 0 AND ccei1.entity_id = tur.category_id',
-                    array()
+                    []
                 )
                 ->joinLeft(
-                    array('ccei2' => $categoryTable),
+                    ['ccei2' => $categoryTable],
                     'ccei2.attribute_id = :is_active_category_attribute_id AND ccei2.store_id = :store_id AND ccei2.entity_id = tur.category_id',
-                    array()
+                    []
             );
             $productStatusAttributeId = Mage::getSingleton('eav/config')
                 ->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'status');
@@ -1241,9 +1241,9 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             if ($productUseCategories) {
                 $select
                     ->joinLeft(
-                        array('tcp' => $this->getTable('catalog/category_product')),
+                        ['tcp' => $this->getTable('catalog/category_product')],
                         'tcp.category_id = tur.category_id AND tcp.product_id = tur.product_id',
-                        array()
+                        []
                     );
                 // product_is_disabled OR (category is disabled) OR (cartegory/product rewrite AND product were moved away from the category)
                 $where ='(cpei.value = 2 OR (IF(ccei2.value_id > 0, ccei2.value, ccei1.value) = 0) OR (tur.category_id IS NOT NULL AND tur.product_id IS NOT NULL AND tcp.category_id IS NULL))';

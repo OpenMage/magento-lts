@@ -184,19 +184,19 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
         $dataChange = false;
         $products = [];
 
-        if (is_a($product, Mage_Catalog_Model_Product_Action::class)) {
+        if ($product instanceof Mage_Catalog_Model_Product_Action) {
             $attributesData = $product->getData('attributes_data');
             $productsIds = $product->getData('product_ids');
             $dataChange = isset($attributesData['status']) && isset($productsIds) && count($productsIds) > 0;
             if ($dataChange) {
                 $products = Mage::getModel('catalog/product')->getCollection()
-                    ->addFieldToFilter('entity_id', array('in'=> $productsIds));
+                    ->addFieldToFilter('entity_id', ['in'=> $productsIds]);
             } else {
                 return;
             }
         }
 
-        if (is_a($product, Mage_Catalog_Model_Product::class)) {
+        if ($product instanceof Mage_Catalog_Model_Product) {
             $dataChange =
                 (
                     $product->dataHasChangedFor('url_key')

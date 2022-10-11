@@ -499,7 +499,7 @@ class Mage_Catalog_Model_Url
         $product = $this->getResource()->getProduct($productId, $storeId, $this->createForDisabled);
         if (!$product) {
             // Product doesn't belong to this store - clear all its url rewrites including root one
-            $this->getResource()->clearProductRewrites($productId, $storeId, array());
+            $this->getResource()->clearProductRewrites($productId, $storeId, []);
             return $this;
         }
 
