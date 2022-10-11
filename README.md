@@ -116,6 +116,7 @@ Do not use 20.x.x if you need IE support.
 - removed module `Mage_PageCache` [#2258](https://github.com/OpenMage/magento-lts/pull/2258)
 - removed lib/flex containing unused ActionScript "file uploader" files [#2271](https://github.com/OpenMage/magento-lts/pull/2271)
 - enabled website level config cache [#2355](https://github.com/OpenMage/magento-lts/pull/2355)
+- make overrides of Mage_Core_Model_Resource_Db_Abstract::delete respect parent api [#1257](https://github.com/OpenMage/magento-lts/pull/1257)
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
