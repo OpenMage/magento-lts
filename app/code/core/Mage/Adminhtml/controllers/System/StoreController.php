@@ -222,6 +222,12 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
                         if ($postData['store']['store_id']) {
                             $storeModel->load($postData['store']['store_id']);
                         }
+                        if ($postData['store']['is_active'] == 1 && $storeModel->getIsActive() == 0) {
+                            $indexer = Mage::getModel('index/process');
+                            $indexer
+                                ->load('catalog_product_attribute', 'indexer_code')
+                                ->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
+                        }
                         $storeModel->setData($postData['store']);
                         if ($postData['store']['store_id'] == '') {
                             $storeModel->setId(null);
