@@ -121,11 +121,11 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     public function getRegion()
     {
-        if (($region = $this->getFormData()->getRegion()) !== false) {
+        if ($region = $this->getFormData()->getRegion() !== false) {
             return $region;
         }
 
-        if (($region = $this->getFormData()->getRegionId()) !== false) {
+        if ($region = $this->getFormData()->getRegionId() !== false) {
             return $region;
         }
         return null;
