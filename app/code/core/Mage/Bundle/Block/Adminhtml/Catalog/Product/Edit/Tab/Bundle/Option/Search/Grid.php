@@ -71,7 +71,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
             ->addFilterByRequiredOptions()
             ->addStoreFilter()
             ->addAttributeToFilter('status', [
-                'in' => Mage::getModel('catalog/product_status')->getSaleableStatusIds()
+                'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()
             ]);
 
         if ($products = $this->_getProducts()) {
