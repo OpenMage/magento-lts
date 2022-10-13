@@ -330,7 +330,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             ->addTaxPercents()
             ->addStoreFilter()
             ->addAttributeToFilter('status', [
-                'in' => Mage::getModel('catalog/product_status')->getVisibleStatusIds()
+                'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds()
             ]);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($collection);
 

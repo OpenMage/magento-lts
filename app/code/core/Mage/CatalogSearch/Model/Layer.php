@@ -62,7 +62,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
             ->addStoreFilter()
             ->addUrlRewrite()
             ->addAttributeToFilter('status', [
-                'in' => Mage::getModel('catalog/product_status')->getVisibleStatusIds()
+                'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds()
             ]);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($collection);
 
