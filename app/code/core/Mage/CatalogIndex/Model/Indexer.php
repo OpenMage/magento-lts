@@ -294,7 +294,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                     $collection = $this->_getProductCollection($store, $products);
                     $collection->addAttributeToFilter(
                         'status',
-                        ['in'=>Mage::getModel('catalog/product_status')->getSaleableStatusIds()]
+                        ['in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()]
                     );
                     $collection->addFieldToFilter('type_id', $type);
                     $this->_walkCollection($collection, $store, [], $priceAttributeCodes);
