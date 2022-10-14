@@ -37,18 +37,18 @@ class Mage_Catalog_Block_Seo_Sitemap_Product extends Mage_Catalog_Block_Seo_Site
      */
     protected function _prepareLayout()
     {
-        $collection = Mage::getModel('catalog/product')->getCollection();
         /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
-
-        $collection->addAttributeToSelect('name');
-        $collection->addAttributeToSelect('url_key');
-        $collection->addStoreFilter();
-
-        Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
+        $collection = Mage::getModel('catalog/product')->getCollection();
+        $collection
+            ->addAttributeToSelect('name')
+            ->addAttributeToSelect('url_key')
+            ->addStoreFilter()
+            ->addAttributeToFilter('status', [
+                'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds()
+            ]);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
 
         $this->setCollection($collection);
-
         return $this;
     }
 
