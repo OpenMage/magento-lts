@@ -151,7 +151,8 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
                     ['t2' => $table],
                     $this->getConnection()->quoteInto(
                         't1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id = ?',
-                        $this->getStoreId()),
+                        $this->getStoreId()
+                    ),
                     []
                 )
                 ->where('t1.attribute_id IN (?)', $attributeIds)
@@ -172,7 +173,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
      * Retrieve SQL for search entities by option
      *
      * @param string $query
-     * @return string
+     * @return false|string
      */
     protected function _getSearchInOptionSql($query)
     {
@@ -205,17 +206,23 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
         $ifStoreId = $this->getConnection()->getIfNullSql('s.store_id', 'd.store_id');
         $ifValue   = $this->getConnection()->getCheckSql('s.value_id > 0', 's.value', 'd.value');
         $select = $this->getConnection()->select()
-            ->from(['d'=>$optionValueTable],
-                   ['option_id',
-                         'o.attribute_id',
-                         'store_id' => $ifStoreId,
-                         'a.frontend_input'])
-            ->joinLeft(['s'=>$optionValueTable],
+            ->from(
+                ['d'=>$optionValueTable],
+                ['option_id',
+                      'o.attribute_id',
+                      'store_id' => $ifStoreId,
+                      'a.frontend_input']
+            )
+            ->joinLeft(
+                ['s'=>$optionValueTable],
                 $this->getConnection()->quoteInto('s.option_id = d.option_id AND s.store_id=?', $storeId),
-                [])
-            ->join(['o'=>$optionTable],
+                []
+            )
+            ->join(
+                ['o'=>$optionTable],
                 'o.option_id=d.option_id',
-                [])
+                []
+            )
             ->join(['a' => $attributesTable], 'o.attribute_id=a.attribute_id', [])
             ->where('d.store_id=0')
             ->where('o.attribute_id IN (?)', $attributeIds)

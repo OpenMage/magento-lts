@@ -69,7 +69,7 @@ class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Return last login at in Unix time format
      *
-     * @return int
+     * @return int|null
      */
     public function getLoginAtTimestamp()
     {

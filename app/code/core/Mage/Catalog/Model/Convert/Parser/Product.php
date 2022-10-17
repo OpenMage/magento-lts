@@ -153,7 +153,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
      * Retrieve product type code by name
      *
      * @param string $name
-     * @return string
+     * @return string|false
      */
     public function getProductTypeId($name)
     {

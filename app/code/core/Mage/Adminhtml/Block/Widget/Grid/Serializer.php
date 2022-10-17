@@ -56,8 +56,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
             foreach ($names as $name) {
                 $this->addColumnInputName($name);
             }
-        }
-        else {
+        } else {
             if (!in_array($names, $this->_inputsToSerialize)) {
                 $this->_inputsToSerialize[] = $names;
             }
@@ -68,7 +67,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
      * Get grid column input names to serialize
      *
      * @param bool $asJSON
-     * @return array
+     * @return array|string
      */
     public function getColumnInputNames($asJSON = false)
     {
@@ -88,8 +87,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
         $result = [];
         if ($serializeData = $this->getSerializeData()) {
             $result = $serializeData;
-        }
-        elseif (!empty($this->_inputsToSerialize)) {
+        } elseif (!empty($this->_inputsToSerialize)) {
             return '{}';
         }
         return Mage::helper('core')->jsonEncode($result);

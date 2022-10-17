@@ -41,7 +41,7 @@ class Mage_Downloadable_Block_Catalog_Product_Samples extends Mage_Catalog_Block
     /**
      * Get downloadable product samples
      *
-     * @return array
+     * @return Mage_Downloadable_Model_Resource_Sample_Collection
      */
     public function getSamples()
     {

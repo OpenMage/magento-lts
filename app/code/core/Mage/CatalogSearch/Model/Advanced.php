@@ -104,7 +104,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     /**
      * Retrieve array of attributes used in advanced search
      *
-     * @return array
+     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
      */
     public function getAttributes()
     {

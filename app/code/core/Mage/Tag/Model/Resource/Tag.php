@@ -52,7 +52,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param Mage_Tag_Model_Tag $model
      * @param string $name
-     * @return array|false
+     * @return false|void
      */
     public function loadByName($model, $name)
     {
@@ -67,7 +67,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
                 ->where('name = :name');
             $data = $read->fetchRow($select, ['name' => $name]);
 
-            $model->setData(( is_array($data) ) ? $data : []);
+           $model->setData(is_array($data) ? $data : []);
         } else {
             return false;
         }

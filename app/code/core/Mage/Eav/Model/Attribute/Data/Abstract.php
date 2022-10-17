@@ -184,7 +184,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Apply attribute input filter to value
      *
      * @param string $value
-     * @return string
+     * @return false|string
      */
     protected function _applyInputFilter($value)
     {

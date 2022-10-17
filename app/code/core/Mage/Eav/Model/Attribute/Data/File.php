@@ -39,7 +39,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
      * Extract data from request and return value
      *
      * @param Zend_Controller_Request_Http $request
-     * @return array|string
+     * @return false|array|string
      */
     public function extractValue(Zend_Controller_Request_Http $request)
     {

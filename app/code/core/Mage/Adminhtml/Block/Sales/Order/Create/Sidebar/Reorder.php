@@ -42,6 +42,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
         $this->setDataId('reorder');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Last Ordered Items');
@@ -86,16 +89,25 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
         return false;
     }
 
+    /**
+     * @return false
+     */
     public function canDisplayItemQty()
     {
         return false;
     }
 
+    /**
+     * @return false
+     */
     public function canRemoveItems()
     {
         return false;
     }
 
+    /**
+     * @return false
+     */
     public function canDisplayPrice()
     {
         return false;

@@ -26,14 +26,18 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Customer_Edit_Tab_View
- extends Mage_Adminhtml_Block_Template
- implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_Template implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    /**
+     * @var Mage_Customer_Model_Customer
+     */
     protected $_customer;
 
     protected $_customerLog;
 
+    /**
+     * @return Mage_Customer_Model_Customer
+     */
     public function getCustomer()
     {
         if (!$this->_customer) {
@@ -42,6 +46,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
         return $this->_customer;
     }
 
+    /**
+     * @return string|void
+     */
     public function getGroupName()
     {
         if ($groupId = $this->getCustomer()->getGroupId()) {
@@ -77,9 +84,12 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
             : null;
     }
 
+    /**
+     * @return string|null
+     */
     public function getStoreCreateDate()
     {
-        if ( ! $this->getCustomer()->getCreatedAt()) {
+        if (! $this->getCustomer()->getCreatedAt()) {
             return null;
         }
         $date = Mage::app()->getLocale()->storeDate(
@@ -108,6 +118,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
             : Mage::helper('customer')->__('Never');
     }
 
+    /**
+     * @return string
+     */
     public function getStoreLastLoginDate()
     {
         if ($date = $this->getCustomerLog()->getLoginAtTimestamp()) {
@@ -127,6 +140,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
             ->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
     }
 
+    /**
+     * @return string
+     */
     public function getCurrentStatus()
     {
         $log = $this->getCustomerLog();
@@ -138,6 +154,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
         return Mage::helper('customer')->__('Online');
     }
 
+    /**
+     * @return string
+     */
     public function getIsConfirmedStatus()
     {
         $this->getCustomer();
@@ -160,38 +179,55 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
         return $this->getCustomer()->getStoreId();
     }
 
+    /**
+     * @return string
+     */
     public function getBillingAddressHtml()
     {
         $html = '';
         if ($address = $this->getCustomer()->getPrimaryBillingAddress()) {
             $html = $address->format('html');
-        }
-        else {
+        } else {
             $html = Mage::helper('customer')->__('The customer does not have default billing address.');
         }
         return $html;
     }
 
+    /**
+     * @return string
+     */
     public function getAccordionHtml()
     {
         return $this->getChildHtml('accordion');
     }
 
+    /**
+     * @return string
+     */
     public function getSalesHtml()
     {
         return $this->getChildHtml('sales');
     }
 
+    /**
+     * @return string
+     */
     public function getTabLabel()
     {
         return Mage::helper('customer')->__('Customer View');
     }
 
+    /**
+     * @return string
+     */
     public function getTabTitle()
     {
         return Mage::helper('customer')->__('Customer View');
     }
 
+    /**
+     * @return bool
+     */
     public function canShowTab()
     {
         if (Mage::registry('current_customer')->getId()) {
@@ -200,6 +236,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function isHidden()
     {
         if (Mage::registry('current_customer')->getId()) {
@@ -209,9 +248,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
     }
 
     /**
-     * @deprecated
      * Return instance of core helper
      *
+     * @deprecated
      * @return Mage_Core_Helper_Data
      */
     protected function _getCoreHelper()

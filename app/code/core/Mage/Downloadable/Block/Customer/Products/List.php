@@ -113,7 +113,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
      * Return number of left downloads or unlimited
      *
      * @param Mage_Downloadable_Model_Link_Purchased_Item $item
-     * @return string
+     * @return int|string
      */
     public function getRemainingDownloads($item)
     {

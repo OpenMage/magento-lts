@@ -223,7 +223,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     /**
      * Retrieve Input Renderer Class
      *
-     * @return string
+     * @return string|null
      */
     public function getInputRendererClass()
     {

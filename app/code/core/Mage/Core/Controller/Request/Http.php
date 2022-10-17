@@ -323,7 +323,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Retrieve HTTP HOST
      *
      * @param bool $trimPort
-     * @return string
+     * @return false|string
      */
     public function getHttpHost($trimPort = true)
     {

@@ -189,7 +189,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
     /**
      * Return edit flag for block
      *
-     * @return bool
+     * @return int|string
      */
     public function getEditMode()
     {
