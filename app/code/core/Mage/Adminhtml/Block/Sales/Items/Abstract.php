@@ -132,7 +132,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      *
      * @param string $column
      * @param string $compositePart
-     * @return Mage_Core_Block_Abstract
+     * @return false|Mage_Core_Block_Abstract
      */
     public function getColumnRenderer($column, $compositePart='')
     {

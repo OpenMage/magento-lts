@@ -977,7 +977,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param mixed $entityTypeId
      * @param mixed $id
-     * @return int
+     * @return false|int
      */
     public function getAttributeId($entityTypeId, $id)
     {
@@ -995,7 +995,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param int|string $entityTypeId Entity Type id or Entity Type code
      * @param int|string $id Attribute id or Attribute code
-     * @return string
+     * @return string|false
      */
     public function getAttributeTable($entityTypeId, $id)
     {

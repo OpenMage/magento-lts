@@ -330,7 +330,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Check response from Payflow gateway.
      *
-     * @return Mage_Sales_Model_Order in case of validation passed
+     * @return false|Mage_Sales_Model_Order in case of validation passed
      * @throws Mage_Core_Exception in other cases
      */
     protected function _getOrderFromResponse()

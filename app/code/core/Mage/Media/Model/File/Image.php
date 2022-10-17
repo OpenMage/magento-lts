@@ -28,16 +28,25 @@
  */
 class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
 {
+    /**
+     * @return $this
+     */
     protected function _construct()
     {
         return $this;
     }
 
+    /**
+     * @return Varien_Db_Adapter_Interface|false
+     */
     protected function _getReadAdapter()
     {
         return false;
     }
 
+    /**
+     * @return Varien_Db_Adapter_Interface|false
+     */
     protected function _getWriteAdapter()
     {
         return false;

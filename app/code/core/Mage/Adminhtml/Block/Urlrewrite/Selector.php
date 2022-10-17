@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Selector extends Mage_Core_Block_Template
     /**
      * Label getter
      *
-     * @return array
+     * @return string
      */
     public function getSelectorLabel()
     {

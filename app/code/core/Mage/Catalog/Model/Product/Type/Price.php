@@ -303,7 +303,7 @@ class Mage_Catalog_Model_Product_Type_Price
      *
      * @param float|null $qty
      * @param Mage_Catalog_Model_Product $product
-     * @return  array|float
+     * @return  array|float|string
      */
     public function getFormatedTierPrice($qty, $product)
     {

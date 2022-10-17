@@ -1180,7 +1180,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @param   string $path
      * @param   string $type
-     * @return  string
+     * @return  false|string
      */
     public function getVarDir($path = null, $type = 'var')
     {

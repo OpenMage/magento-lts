@@ -77,7 +77,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     /**
      * Return quote shipping address
      *
-     * @return Mage_Sales_Model_Quote_Address
+     * @return Mage_Sales_Model_Quote_Address|false
      */
     public function getShippingAddress()
     {

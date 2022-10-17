@@ -80,7 +80,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
 
     /**
      * Return Image URL
-     * @return string
+     * @return string|false
      */
     protected function _getPreviewUrl()
     {

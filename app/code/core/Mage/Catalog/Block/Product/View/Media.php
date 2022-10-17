@@ -70,7 +70,7 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
      * Retrieve gallery image url
      *
      * @param null|Varien_Object $image
-     * @return string
+     * @return string|null
      */
     public function getGalleryImageUrl($image)
     {

@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Viewed extends Mage_Adminh
     /**
      * Retrieve display block availability
      *
-     * @return bool
+     * @return int|false
      */
     public function canDisplay()
     {
@@ -47,13 +47,16 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Viewed extends Mage_Adminh
     /**
      * Retrieve availability removing items in block
      *
-     * @return bool
+     * @return false
      */
     public function canRemoveItems()
     {
         return false;
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Recently Viewed');

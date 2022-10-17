@@ -54,11 +54,12 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
 
         foreach ($tierPrices as $tierPrice) {
             $row = [];
-            $row['customer_group_id'] = (empty($tierPrice['all_groups']) ? $tierPrice['cust_group'] : 'all' );
-            $row['website']           = ($tierPrice['website_id'] ?
-                            Mage::app()->getWebsite($tierPrice['website_id'])->getCode() :
-                            'all'
-                    );
+            $row['customer_group_id'] = (empty($tierPrice['all_groups']) ? $tierPrice['cust_group'] : 'all');
+            $row['website']           = (
+                $tierPrice['website_id']
+                    ? Mage::app()->getWebsite($tierPrice['website_id'])->getCode()
+                    : 'all'
+            );
             $row['qty']               = $tierPrice['price_qty'];
             $row['price']             = $tierPrice['price'];
 
@@ -113,7 +114,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
      *
      *  @param      Mage_Catalog_Model_Product $product
      *  @param      array $tierPrices
-     *  @return     array
+     *  @return     array|null
      */
     public function prepareTierPrices($product, $tierPrices = null)
     {

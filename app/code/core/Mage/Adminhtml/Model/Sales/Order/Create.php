@@ -145,7 +145,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Retrieve quote item
      *
      * @param   int|Mage_Sales_Model_Quote_Item $item
-     * @return  Mage_Sales_Model_Quote_Item
+     * @return  Mage_Sales_Model_Quote_Item|false
      */
     protected function _getQuoteItem($item)
     {
