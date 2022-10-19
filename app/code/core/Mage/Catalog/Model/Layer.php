@@ -115,10 +115,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addPriceData()
             ->addTaxPercents()
-            ->addUrlRewrite($this->getCurrentCategory()->getId())
-            ->addAttributeToFilter('status', [
-                'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds()
-            ]);
+            ->addUrlRewrite($this->getCurrentCategory()->getId());
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
 
         return $this;
