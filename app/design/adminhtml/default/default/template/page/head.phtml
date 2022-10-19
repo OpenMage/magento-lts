@@ -18,6 +18,8 @@
  * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/** @var Mage_Adminhtml_Block_Page_Head $this */
 ?>
 <meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>"/>
 <meta name="robots" content="noindex, nofollow"/>
@@ -31,12 +33,13 @@
     var BASE_URL = '<?php echo $this->getUrl('*') ?>';
     var SKIN_URL = '<?php echo $this->jsQuoteEscape($this->getSkinUrl()) ?>';
     var FORM_KEY = '<?php echo $this->getFormKey() ?>';
-    var LOADING_TIMEOUT = <?php echo $this->getLoadingTimeout() ?>;
+    <?php # BC: cast to INT in case of non-existing method getLoadingTimeout() in 3rd-party code?>
+    var LOADING_TIMEOUT = <?php echo (int)$this->getLoadingTimeout() ?>;
 </script>
 
 <?php echo $this->getCssJsHtml() ?>
 
-<?php if($this->getCanLoadExtJs()): ?>
+<?php if ($this->getCanLoadExtJs()): ?>
 <script type="text/javascript">
     Ext.BLANK_IMAGE_URL = BLANK_IMG;
     Ext.UpdateManager.defaults.loadScripts = false;
@@ -44,7 +47,7 @@
 </script>
 <?php endif ?>
 
-<?php if($this->getCanLoadTinyMce()): // TinyMCE is broken when loaded through index.php ?>
+<?php if ($this->getCanLoadTinyMce()): // TinyMCE is broken when loaded through index.php?>
 <script type="text/javascript" src="<?php echo $this->getJsUrl() ?>tiny_mce/tiny_mce.js"></script>
 <?php endif ?>
 

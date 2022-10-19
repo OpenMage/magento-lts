@@ -50,6 +50,7 @@ class Mage_Adminhtml_Block_Page_Head extends Mage_Page_Block_Html_Head
      * Retrieve Timeout Delay from Config
      *
      * @return int
+     * @since 19.4.18 / 20.0.16
      */
     public function getLoadingTimeout()
     {
