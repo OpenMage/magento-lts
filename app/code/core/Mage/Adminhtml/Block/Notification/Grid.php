@@ -110,7 +110,7 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param Varien_Object $row
+     * @param Mage_AdminNotification_Model_Inbox $row
      * @return string
      */
     public function getRowClass(Varien_Object $row)
