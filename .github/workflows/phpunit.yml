@@ -22,8 +22,8 @@ jobs:
           repository: OpenMage/Testfield
           path: ./
 
-      - name: php & Composer version
-        run: php --version && composer --version
+      - name: Validate composer
+        run: composer validate --strict
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --ignore-platform-reqs
