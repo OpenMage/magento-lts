@@ -4288,12 +4288,12 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
 
     function pageScrollXY() {
       var x = 0, y = 0;
-      if (Object.isNumber(window.pageXOffset)) {
-        x = window.pageXOffset;
-        y = window.pageYOffset;
-      } else if (document.body && (document.body.scrollLeft || document.body.scrollTop)) {
+      if (document.body) {
         x = document.body.scrollLeft;
         y = document.body.scrollTop;
+      } else if (Object.isNumber(window.pageXOffset)) {
+        x = window.pageXOffset;
+        y = window.pageYOffset;
       } else if (docEl && (docEl.scrollLeft || docEl.scrollTop)) {
         x = docEl.scrollLeft;
         y = docEl.scrollTop;
@@ -4303,7 +4303,6 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
 
     var pageXY = pageScrollXY();
 
-
     if (options.setWidth || options.setHeight) {
       layout = Element.getLayout(source);
     }
@@ -4312,8 +4311,6 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
       styles.left = (p[0] + pageXY.x - delta[0] + options.offsetLeft) + 'px';
     if (options.setTop)
       styles.top  = (p[1] + pageXY.y - delta[1] + options.offsetTop)  + 'px';
-
-    var currentLayout = element.getLayout();
 
     if (options.setWidth) {
       styles.width = layout.get('width')  + 'px';
