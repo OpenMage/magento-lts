@@ -23,7 +23,7 @@ jobs:
           path: ./
 
       - name: Validate composer
-        run: composer validate --strict
+        run: composer validate
 
       - name: Get composer cache directory
         id: composer-cache
