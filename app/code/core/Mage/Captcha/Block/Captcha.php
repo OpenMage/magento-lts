@@ -37,7 +37,7 @@ class Mage_Captcha_Block_Captcha extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
-        if (Mage::getStoreConfigFlag(Mage::app()->getStore()->isAdmin() ? 'admin/captcha/enable' : 'customer/captcha/enable')) {
+        if (Mage::helper('captcha')->isEnabled()) {
             $blockPath = Mage::helper('captcha')->getCaptcha($this->getFormId())->getBlockName();
             $block = $this->getLayout()->createBlock($blockPath);
             $block->setData($this->getData());
