@@ -144,8 +144,9 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 
         $nodeIds = [];
         foreach ($this->getNodes() as $node) {
-            if (!in_array($node->getId(), $exclude)) {
-                $nodeIds[] = $node->getId();
+            $id = $node->getId();
+            if (!in_array($id, $exclude)) {
+                $nodeIds[] = $id;
             }
         }
         $collection->addIdFilter($nodeIds);
@@ -167,9 +168,9 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
             $collection->load();
 
             foreach ($collection as $category) {
-                if ($this->getNodeById($category->getId())) {
-                    $this->getNodeById($category->getId())
-                        ->addData($category->getData());
+                $node = $this->getNodeById($category->getId());
+                if ($node) {
+                    $node->addData($category->getData());
                 }
             }
 
