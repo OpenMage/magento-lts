@@ -68,7 +68,7 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
-        if ($this->getCaptchaModel()->isRequired()) {
+        if (Mage::getStoreConfigFlag(Mage::app()->getStore()->isAdmin() ? 'admin/captcha/enable' : 'customer/captcha/enable') && $this->getCaptchaModel()->isRequired()) {
             $this->getCaptchaModel()->generate();
             return parent::_toHtml();
         }
