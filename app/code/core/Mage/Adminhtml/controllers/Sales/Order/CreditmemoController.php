@@ -197,7 +197,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             $this->_setActiveMenu('sales/order')
                 ->renderLayout();
         } else {
-            $this->_forward('noRoute');
+            $this->_redirect('*/*');
         }
     }
 
