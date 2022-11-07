@@ -20,7 +20,7 @@
  */
 
 /**
- * Currency rate import model (From fixer.io)
+ * Currency rate import model (from Fixer API / Apilayer.com formerly fixer.io)
  *
  * @category   Mage
  * @package    Mage_Directory
@@ -66,8 +66,8 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
     {
         $this->_httpClient = new Varien_Http_Client();
         if (empty($this->_url)) {
-            $this->_url = 'http://data.fixer.io/api/latest'
-                . '?access_key={{ACCESS_KEY}}&base={{CURRENCY_FROM}}&symbols={{CURRENCY_TO}}';
+            $this->_url = 'https://api.apilayer.com/fixer/latest'
+                . '?apikey={{ACCESS_KEY}}&base={{CURRENCY_FROM}}&symbols={{CURRENCY_TO}}';
         }
     }
 
