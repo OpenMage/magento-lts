@@ -6,6 +6,8 @@ on:
   push:
     paths:
       - '**.php'
+      - '.github/phpstan*'
+      - '.github/workflows/phpstan*'
   pull_request:
     paths:
       - '**.php'
