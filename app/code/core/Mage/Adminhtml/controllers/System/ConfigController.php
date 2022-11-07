@@ -132,7 +132,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $session = Mage::getSingleton('adminhtml/session');
         /** @var Mage_Adminhtml_Model_Session $session */
 
-        $groups = $this->getRequest()->getPost('groups');
+        $groups = $this->getRequest()->getPost('groups', []);
 
         if (isset($_FILES['groups']['name']) && is_array($_FILES['groups']['name'])) {
             /**
@@ -180,7 +180,10 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             Mage::dispatchEvent("admin_system_config_changed_section_{$section}",
                 ['website' => $website, 'store' => $store]
             );
-            $session->addSuccess(Mage::helper('adminhtml')->__('The configuration has been saved.'));
+
+            if (!empty($groups)) {
+                $session->addSuccess(Mage::helper('adminhtml')->__('The configuration has been saved.'));
+            }
         }
         catch (Mage_Core_Exception $e) {
             foreach(explode("\n", $e->getMessage()) as $message) {
