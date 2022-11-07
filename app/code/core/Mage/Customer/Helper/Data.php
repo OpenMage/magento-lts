@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -92,6 +93,8 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     const VAT_CLASS_INTRA_UNION = 'intra_union';
     const VAT_CLASS_INVALID     = 'invalid';
     const VAT_CLASS_ERROR       = 'error';
+
+    protected $_moduleName = 'Mage_Customer';
 
     /**
      * @var Mage_Customer_Model_Customer
@@ -581,7 +584,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             // Send request to service
             $result = $soapClient->checkVatApprox($requestParams);
 
-            $gatewayResponse->setIsValid((boolean) $result->valid);
+            $gatewayResponse->setIsValid((bool) $result->valid);
             $gatewayResponse->setRequestDate((string) $result->requestDate);
             $gatewayResponse->setRequestIdentifier((string) $result->requestIdentifier);
             $gatewayResponse->setRequestSuccess(true);
@@ -602,7 +605,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $requesterCountryCode
      * @param string $requesterVatNumber
      *
-     * @return boolean
+     * @return bool
      */
     public function canCheckVatNumber($countryCode, $vatNumber, $requesterCountryCode, $requesterVatNumber)
     {
@@ -728,7 +731,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Create SOAP client based on VAT validation service WSDL
      *
-     * @param boolean $trace
+     * @param bool $trace
      * @return SoapClient
      */
     protected function _createVatNumberValidationSoapClient($trace = false)

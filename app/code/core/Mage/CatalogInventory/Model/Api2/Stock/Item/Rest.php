@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -47,7 +48,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
     protected function _retrieveCollection()
     {
         $data = $this->_getCollectionForRetrieve()->load()->toArray();
-        return isset($data['items']) ? $data['items'] : $data;
+        return $data['items'] ?? $data;
     }
 
     /**
@@ -117,7 +118,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
                 if (!$validator->isValidSingleItemDataForMultiUpdate($itemData)) {
                     foreach ($validator->getErrors() as $error) {
                         $this->_errorMessage($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST, [
-                            'item_id' => isset($itemData['item_id']) ? $itemData['item_id'] : null
+                            'item_id' => $itemData['item_id'] ?? null
                         ]);
                     }
                     $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
@@ -137,7 +138,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
                 // pre-validation errors are already added
                 if ($e->getMessage() != self::RESOURCE_DATA_PRE_VALIDATION_ERROR) {
                     $this->_errorMessage($e->getMessage(), $e->getCode(), [
-                        'item_id' => isset($itemData['item_id']) ? $itemData['item_id'] : null
+                        'item_id' => $itemData['item_id'] ?? null
                     ]);
                 }
             } catch (Exception $e) {
@@ -145,7 +146,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
                     Mage_Api2_Model_Resource::RESOURCE_INTERNAL_ERROR,
                     Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,
                     [
-                        'item_id' => isset($itemData['item_id']) ? $itemData['item_id'] : null
+                        'item_id' => $itemData['item_id'] ?? null
                     ]
                 );
             }

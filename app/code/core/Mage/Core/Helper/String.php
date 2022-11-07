@@ -7,25 +7,30 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core data helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
 {
     const ICONV_CHARSET = 'UTF-8';
+
+    protected $_moduleName = 'Mage_Core';
 
     /**
      * @var Mage_Core_Helper_Array
@@ -101,7 +106,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * Split string and appending $insert string after $needle
      *
      * @param string $str
-     * @param integer $length
+     * @param int $length
      * @param string $needle
      * @param string $insert
      * @return string
@@ -181,7 +186,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
             }
         } // split smartly, keeping words
         else {
-            $split = preg_split('/(' . $wordSeparatorRegex . '+)/siu', $str, null, PREG_SPLIT_DELIM_CAPTURE);
+            $split = preg_split('/(' . $wordSeparatorRegex . '+)/siu', $str, -1, PREG_SPLIT_DELIM_CAPTURE);
             $i        = 0;
             $space    = '';
             $spaceLen = 0;
@@ -251,7 +256,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     public function splitWords($str, $uniqueOnly = false, $maxWordLength = 0, $wordSeparatorRegexp = '\s')
     {
         $result = [];
-        $split = preg_split('#' . $wordSeparatorRegexp . '#siu', $str, null, PREG_SPLIT_NO_EMPTY);
+        $split = preg_split('#' . $wordSeparatorRegexp . '#siu', $str, -1, PREG_SPLIT_NO_EMPTY);
         foreach ($split as $word) {
             if ($uniqueOnly) {
                 $result[$word] = $word;
@@ -283,7 +288,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * @param string $haystack
      * @param string $needle
      * @param int $offset
-     * @return int|false
+     * @return int
      */
     public function strpos($haystack, $needle, $offset = null)
     {
@@ -483,7 +488,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * Unicode compatible ord() method
      *
      * @param  string $c char to get value from
-     * @return integer
+     * @return int
      */
     public function uniOrd($c)
     {

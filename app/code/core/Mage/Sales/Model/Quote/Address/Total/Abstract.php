@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -115,7 +116,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     }
 
     /**
-     * Set address shich can be used inside totals calculation
+     * Set address which can be used inside totals calculation
      *
      * @param   Mage_Sales_Model_Quote_Address $address
      * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
@@ -238,7 +239,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     }
 
     /**
-     * Whether the item row total may be compouded with others
+     * Whether the item row total may be compounded with others
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @return bool

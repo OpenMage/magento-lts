@@ -7,20 +7,21 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category    Mage
  * @package     Mage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 define('DS', DIRECTORY_SEPARATOR);
 define('PS', PATH_SEPARATOR);
-define('BP', dirname(dirname(__FILE__)));
+define('BP', dirname(__DIR__));
 
 Mage::register('original_include_path', get_include_path());
 
@@ -317,8 +318,8 @@ final class Mage
         }
 
         if ($appRoot === '') {
-            // automagically find application root by dirname of Mage.php
-            $appRoot = dirname(__FILE__);
+            // automagically find application root by __DIR__ constant of Mage.php
+            $appRoot = __DIR__;
         }
 
         $appRoot = realpath($appRoot);

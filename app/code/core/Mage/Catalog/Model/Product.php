@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2015-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product model
+ *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Catalog_Model_Resource_Product _getResource()
  * @method Mage_Catalog_Model_Resource_Product getResource()
@@ -256,10 +261,6 @@
  * @method bool hasWishlistStoreId()
  * @method int getWishlistStoreId()
  * @method $this setWishlistStoreId(int $value)
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 {
@@ -325,14 +326,14 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Flag for available duplicate function
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isDuplicable = true;
 
     /**
      * Flag for get Price function
      *
-     * @var boolean
+     * @var bool
      */
     protected $_calculatePrice = true;
 
@@ -533,7 +534,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Retrieve product id by sku
      *
      * @param   string $sku
-     * @return  integer
+     * @return  int
      */
     public function getIdBySku($sku)
     {
@@ -543,7 +544,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve product category id
      *
-     * @return int
+     * @return int|false
      */
     public function getCategoryId()
     {
@@ -831,6 +832,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $indexer = Mage::getSingleton('index/indexer');
 
         $indexer->processEntityAction($this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE);
+        return $this;
     }
 
     /**
@@ -908,7 +910,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Get formated by currency tier price
+     * Get formatted by currency tier price
      *
      * @param   double $qty
      * @return  array | double
@@ -919,7 +921,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Get formated by currency product price
+     * Get formatted by currency product price
      *
      * @return  array|double
      */
@@ -953,10 +955,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function getFinalPrice($qty = null)
     {
         $price = $this->_getData('final_price');
-        if ($price !== null) {
-            return $price;
-        }
-        return $this->getPriceModel()->getFinalPrice($qty, $this);
+        return $price ?? $this->getPriceModel()->getFinalPrice($qty, $this);
     }
 
     /**
@@ -1257,7 +1256,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                     continue;
                 }
                 $image['url'] = $this->getMediaConfig()->getMediaUrl($image['file']);
-                $image['id'] = isset($image['value_id']) ? $image['value_id'] : null;
+                $image['id'] = $image['value_id'] ?? null;
                 $image['path'] = $this->getMediaConfig()->getMediaPath($image['file']);
                 $images->addItem(new Varien_Object($image));
             }
@@ -1273,8 +1272,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param string        $file              file path of image in file system
      * @param string|array  $mediaAttribute    code of attribute with type 'media_image',
      *                                          leave blank if image should be only in gallery
-     * @param boolean       $move              if true, it will move source file
-     * @param boolean       $exclude           mark image as disabled in product page view
+     * @param bool       $move              if true, it will move source file
+     * @param bool       $exclude           mark image as disabled in product page view
      * @return $this
      */
     public function addImageToMediaGallery($file, $mediaAttribute = null, $move = false, $exclude = true)
@@ -1504,7 +1503,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Checks product can be duplicated
      *
-     * @return boolean
+     * @return bool
      */
     public function isDuplicable()
     {
@@ -1514,12 +1513,12 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Set is duplicable flag
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setIsDuplicable($value)
     {
-        $this->_isDuplicable = (boolean) $value;
+        $this->_isDuplicable = (bool) $value;
         return $this;
     }
 
@@ -1885,11 +1884,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getOptionById($optionId)
     {
-        if (isset($this->_options[$optionId])) {
-            return $this->_options[$optionId];
-        }
-
-        return null;
+        return $this->_options[$optionId] ?? null;
     }
 
     /**
@@ -1962,10 +1957,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getCustomOption($code)
     {
-        if (isset($this->_customOptions[$code])) {
-            return $this->_customOptions[$code];
-        }
-        return null;
+        return $this->_customOptions[$code] ?? null;
     }
 
     /**
@@ -2089,7 +2081,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      *  Check whether attribute reserved or not
      *
      *  @param Mage_Catalog_Model_Entity_Attribute $attribute Attribute model object
-     *  @return boolean
+     *  @return bool
      */
     public function isReservedAttribute($attribute)
     {
@@ -2126,7 +2118,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Get cahce tags associated with object id
+     * Get cache tags associated with object id
      *
      * @return array
      */
@@ -2141,7 +2133,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Remove model onject related cache
+     * Remove model object related cache
      *
      * @return Mage_Core_Model_Abstract
      */
@@ -2158,7 +2150,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Check for empty SKU on each product
      *
      * @param  array $productIds
-     * @return boolean|null
+     * @return bool|null
      */
     public function isProductsHasSku(array $productIds)
     {

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -122,8 +123,6 @@ abstract class Mage_Core_Controller_Varien_Action
     protected $_removeDefaultTitle = false;
 
     /**
-     * Constructor
-     *
      * @param Zend_Controller_Request_Abstract $request
      * @param Zend_Controller_Response_Abstract $response
      * @param array $invokeArgs
@@ -868,7 +867,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * 1. core_module/core_controller/core_action to new_module/new_controller/new_action
      * 2. all other actions of core_module/core_controller to new_module/new_controller
      *
-     * @return boolean true if rewrite happened
+     * @return bool true if rewrite happened
      */
     protected function _rewrite()
     {
@@ -931,7 +930,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * bar / <default title>
      *
      * @see self::_renderTitles()
-     * @param string|false|-1|null $text
+     * @param string|false|int|null $text
      * @param bool $resetIfExists
      * @return $this
      */

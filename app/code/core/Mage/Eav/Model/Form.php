@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,7 +94,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Is AJAX request flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isAjax          = false;
 
@@ -344,7 +345,7 @@ abstract class Mage_Eav_Model_Form
      *
      * @param Zend_Controller_Request_Http $request
      * @param string $scope the request scope
-     * @param boolean $scopeOnly search value only in scope or search value in global too
+     * @param bool $scopeOnly search value only in scope or search value in global too
      * @return array
      */
     public function extractData(Zend_Controller_Request_Http $request, $scope = null, $scopeOnly = true)
@@ -366,7 +367,7 @@ abstract class Mage_Eav_Model_Form
      * Validate data array and return true or array of errors
      *
      * @param array $data
-     * @return boolean|array
+     * @return bool|array
      */
     public function validateData(array $data)
     {
@@ -439,7 +440,7 @@ abstract class Mage_Eav_Model_Form
     }
 
     /**
-     * Return array of entity formated values
+     * Return array of entity formatted values
      *
      * @param string $format
      * @return array
@@ -478,7 +479,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Set is AJAX Request flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Eav_Model_Form
      */
     public function setIsAjaxRequest($flag = true)
@@ -490,7 +491,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Return is AJAX Request
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsAjaxRequest()
     {

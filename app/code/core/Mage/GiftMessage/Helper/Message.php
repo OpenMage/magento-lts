@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_GiftMessage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_GiftMessage
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +24,7 @@
  *
  * @category   Mage
  * @package    Mage_GiftMessage
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
 {
@@ -34,10 +35,12 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     const XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS = 'sales/gift_options/allow_items';
     const XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ORDER = 'sales/gift_options/allow_order';
 
+    protected $_moduleName = 'Mage_GiftMessage';
+
     /**
      * Next id for edit gift message block
      *
-     * @var integer
+     * @var int
      */
     protected $_nextId = 0;
 
@@ -73,7 +76,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      *
      * @param string $type
      * @param Varien_Object $entity
-     * @param boolean $dontDisplayContainer
+     * @param bool $dontDisplayContainer
      * @return string
      */
     public function getInline($type, Varien_Object $entity, $dontDisplayContainer = false)
@@ -184,7 +187,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     }
 
     /**
-     * Retrieve escaped and preformated gift message text for specified entity
+     * Retrieve escaped and preformatted gift message text for specified entity
      *
      * @param Varien_Object $entity
      * @return string|null
@@ -234,7 +237,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Check availability for internal cached data with specified key
      *
      * @param string $key
-     * @return boolean
+     * @return bool
      */
     public function isCached($key)
     {
@@ -292,7 +295,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Retrieve gift message with specified id
      *
-     * @param integer $messageId
+     * @param int $messageId
      * @return Mage_GiftMessage_Model_Message
      */
     public function getGiftMessage($messageId = null)

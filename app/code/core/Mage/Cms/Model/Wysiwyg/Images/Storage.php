@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Cms
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Cms
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wysiwyg Images model
  *
- * @category    Mage
- * @package     Mage_Cms
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Cms
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 {
@@ -110,7 +111,6 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             }
         }
 
-        /** @var Varien_Data_Collection_Filesystem $collection */
         $collection = $this->getCollection($path)
             ->setCollectDirs(false)
             ->setCollectFiles(true)
@@ -311,7 +311,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * Thumbnail path getter
      *
      * @param  string $filePath original file path
-     * @param  boolean $checkFile OPTIONAL is it necessary to check file availability
+     * @param bool $checkFile OPTIONAL is it necessary to check file availability
      * @return string | false
      */
     public function getThumbnailPath($filePath, $checkFile = false)
@@ -333,7 +333,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * Thumbnail URL getter
      *
      * @param  string $filePath original file path
-     * @param  boolean $checkFile OPTIONAL is it necessary to check file availability
+     * @param bool $checkFile OPTIONAL is it necessary to check file availability
      * @return string|false
      */
     public function getThumbnailUrl($filePath, $checkFile = false)

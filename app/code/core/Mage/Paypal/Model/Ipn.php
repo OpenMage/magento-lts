@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * PayPal Instant Payment Notification processor model
+ *
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Ipn
 {
@@ -81,15 +86,15 @@ class Mage_Paypal_Model_Ipn
         if ($key === null) {
             return $this->_request;
         }
-        return isset($this->_request[$key]) ? $this->_request[$key] : null;
+        return $this->_request[$key] ?? null;
     }
 
     /**
      * Get ipn data, send verification to PayPal, run corresponding handler
      *
      * @param array $request
-     * @param Zend_Http_Client_Adapter_Interface $httpAdapter
-     * @throws Exception
+     * @param Zend_Http_Client_Adapter_Interface|null $httpAdapter
+     * @throws Mage_Core_Exception
      */
     public function processIpnRequest(array $request, Zend_Http_Client_Adapter_Interface $httpAdapter = null)
     {
@@ -271,7 +276,7 @@ class Mage_Paypal_Model_Ipn
         $this->_info = Mage::getSingleton('paypal/info');
         try {
             // Handle payment_status
-            $transactionType = isset($this->_request['txn_type']) ? $this->_request['txn_type'] : null;
+            $transactionType = $this->_request['txn_type'] ?? null;
             switch ($transactionType) {
                 // handle new case created
                 case Mage_Paypal_Model_Info::TXN_TYPE_NEW_CASE:
@@ -299,7 +304,7 @@ class Mage_Paypal_Model_Ipn
      */
     protected function _registerAdjustment()
     {
-        $reasonCode = isset($this->_request['reason_code']) ? $this->_request['reason_code'] : null;
+        $reasonCode = $this->_request['reason_code'] ?? null;
         $reasonComment = $this->_info::explainReasonCode($reasonCode);
         $notificationAmount = $this->_order->getBaseCurrency()->formatTxt($this->_request['mc_gross']);
         /**
@@ -316,11 +321,11 @@ class Mage_Paypal_Model_Ipn
      */
     protected function _registerDispute()
     {
-        $reasonCode = isset($this->_request['reason_code']) ? $this->_request['reason_code'] : null;
+        $reasonCode = $this->_request['reason_code'] ?? null;
         $reasonComment = $this->_info::explainReasonCode($reasonCode);
-        $caseType = isset($this->_request['case_type']) ? $this->_request['case_type'] : null;
+        $caseType = $this->_request['case_type'] ?? null;
         $caseTypeLabel = $this->_info::getCaseTypeLabel($caseType);
-        $caseId = isset($this->_request['case_id']) ? $this->_request['case_id'] : null;
+        $caseId = $this->_request['case_id'] ?? null;
         /**
          *  Add IPN comment about registered dispute
          */
@@ -496,7 +501,7 @@ class Mage_Paypal_Model_Ipn
     protected function _registerPaymentDenial()
     {
         $this->_importPaymentInformation();
-        /** @var Mage_Sales_Model_Order_Payment */
+        /** @var Mage_Sales_Model_Order_Payment $payment */
         $payment = $this->_order->getPayment();
 
         $payment->setTransactionId($this->getRequestData('txn_id'))
@@ -579,15 +584,12 @@ class Mage_Paypal_Model_Ipn
      */
     protected function _registerPaymentReversal()
     {
-        $reasonCode = isset($this->_request['reason_code']) ? $this->_request['reason_code'] : null;
+        $reasonCode = $this->_request['reason_code'] ?? null;
         $reasonComment = $this->_info::explainReasonCode($reasonCode);
         $notificationAmount = $this->_order
             ->getBaseCurrency()
             ->formatTxt($this->_request['mc_gross'] + $this->_request['mc_fee']);
-        $paymentStatus = $this->_filterPaymentStatus(isset($this->_request['payment_status'])
-            ? $this->_request['payment_status']
-            : null
-        );
+        $paymentStatus = $this->_filterPaymentStatus($this->_request['payment_status'] ?? null);
         $orderStatus = ($paymentStatus == Mage_Paypal_Model_Info::PAYMENTSTATUS_REVERSED)
             ? Mage_Paypal_Model_Info::ORDER_STATUS_REVERSED
             : Mage_Paypal_Model_Info::ORDER_STATUS_CANCELED_REVERSAL;

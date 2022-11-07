@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,6 +28,10 @@
  *  sales_quote_save_after
  *  sales_quote_delete_before
  *  sales_quote_delete_after
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Quote _getResource()
  * @method Mage_Sales_Model_Resource_Quote getResource()
@@ -179,10 +184,6 @@
  * @method $this setWebsite(Mage_Core_Model_Website $value)
  *
  * @method $this setXForwardedFor(string $value)
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 {
@@ -458,10 +459,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Assign customer model to quote with billing and shipping address change
      *
-     * @param  Mage_Customer_Model_Customer    $customer
-     * @param  Mage_Sales_Model_Quote_Address  $billingAddress
-     * @param  Mage_Sales_Model_Quote_Address  $shippingAddress
+     * @param Mage_Customer_Model_Customer $customer
+     * @param Mage_Sales_Model_Quote_Address|null $billingAddress
+     * @param Mage_Sales_Model_Quote_Address|null $shippingAddress
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function assignCustomerWithAddressChange(
         Mage_Customer_Model_Customer    $customer,
@@ -2045,7 +2047,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Return quote checkout method code
      *
      * @deprecated after 1.4 beta1 it is checkout module responsibility
-     * @param boolean $originalMethod if true return defined method from begining
+     * @param bool $originalMethod if true return defined method from begining
      * @return string
      */
     public function getCheckoutMethod($originalMethod = false)

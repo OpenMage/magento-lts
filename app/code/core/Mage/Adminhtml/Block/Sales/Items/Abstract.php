@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +51,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     /**
      * Flag - if it is set method canEditQty will return value of it
      *
-     * @var boolean | null
+     * @var bool | null
      */
     protected $_canEditQty = null;
 
@@ -131,7 +132,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      *
      * @param string $column
      * @param string $compositePart
-     * @return Mage_Core_Block_Abstract
+     * @return false|Mage_Core_Block_Abstract
      */
     public function getColumnRenderer($column, $compositePart='')
     {
@@ -297,7 +298,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     }
 
     /**
-     * Retrieve price formated html content
+     * Retrieve price formatted html content
      *
      * @param float $basePrice
      * @param float $price
@@ -338,7 +339,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     }
 
     /**
-     * Retrieve include tax html formated content
+     * Retrieve include tax html formatted content
      *
      * @param Varien_Object $item
      * @return string
@@ -364,7 +365,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     }
 
     /**
-     * Retrieve subtotal price include tax html formated content
+     * Retrieve subtotal price include tax html formatted content
      *
      * @param Varien_Object $item
      * @return string
@@ -451,7 +452,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     /**
      * Check availability to edit quantity of item
      *
-     * @return boolean
+     * @return bool
      */
     public function canEditQty()
     {
@@ -566,7 +567,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * Return true if can ship partially
      *
      * @param Mage_Sales_Model_Order|null $order
-     * @return boolean
+     * @return bool
      */
     public function canShipPartially($order = null)
     {
@@ -584,7 +585,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * Return true if can ship items partially
      *
      * @param Mage_Sales_Model_Order|null $order
-     * @return boolean
+     * @return bool
      */
     public function canShipPartiallyItem($order = null)
     {

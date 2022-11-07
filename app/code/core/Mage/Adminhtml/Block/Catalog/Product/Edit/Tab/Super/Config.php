@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +56,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Check block is readonly
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {
@@ -65,7 +66,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Check whether attributes of configurable products can be editable
      *
-     * @return boolean
+     * @return bool
      */
     public function isAttributesConfigurationReadonly()
     {
@@ -75,7 +76,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Check whether prices of configurable products can be editable
      *
-     * @return boolean
+     * @return bool
      */
     public function isAttributesPricesReadonly()
     {
@@ -140,8 +141,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      */
     public function getAttributesJson()
     {
-        $attributes = $this->_getProduct()->getTypeInstance(true)
-            ->getConfigurableAttributesAsArray($this->_getProduct());
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->_getProduct()->getTypeInstance(true);
+        $attributes = $productType->getConfigurableAttributesAsArray($this->_getProduct());
         if(!$attributes) {
             return '[]';
         } else {
@@ -172,9 +174,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      */
     public function getLinksJson()
     {
-        $products = $this->_getProduct()->getTypeInstance(true)
-            ->getUsedProducts(null, $this->_getProduct());
-        if(!$products) {
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->_getProduct()->getTypeInstance(true);
+        $products = $productType->getUsedProducts(null, $this->_getProduct());
+        if (!$products) {
             return '{}';
         }
         $data = [];
@@ -192,8 +195,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      */
     public function getConfigurableSettings($product) {
         $data = [];
-        $attributes = $this->_getProduct()->getTypeInstance(true)
-            ->getUsedProductAttributes($this->_getProduct());
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->_getProduct()->getTypeInstance(true);
+        $attributes = $productType->getUsedProductAttributes($this->_getProduct());
         foreach ($attributes as $attribute) {
             $data[] = [
                 'attribute_id' => $attribute->getId(),
@@ -285,8 +289,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     protected function _getRequiredAttributesIds()
     {
         $attributesIds = [];
-        $configurableAttributes = $this->_getProduct()
-            ->getTypeInstance(true)->getConfigurableAttributes($this->_getProduct());
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->_getProduct()->getTypeInstance(true);
+        $configurableAttributes = $productType->getConfigurableAttributes($this->_getProduct());
         foreach ($configurableAttributes as $attribute) {
             $attributesIds[] = $attribute->getProductAttribute()->getId();
         }

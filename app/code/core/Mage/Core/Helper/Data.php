@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core data helper
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -55,6 +56,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * Const for correct dividing decimal values
      */
     const DIVIDE_EPSILON = 10000;
+
+    protected $_moduleName = 'Mage_Core';
 
     /**
      * @var Mage_Core_Model_Encryption
@@ -268,7 +271,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * Generate salted hash from password
      *
      * @param string $password
-     * @param string|integer|boolean $salt
+     * @param string|int|bool $salt
      * @return string
      */
     public function getHash($password, $salt = false)
@@ -398,7 +401,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $allowedIps = Mage::getStoreConfig(self::XML_PATH_DEV_ALLOW_IPS, $storeId);
         $remoteAddr = Mage::helper('core/http')->getRemoteAddr();
         if (!empty($allowedIps) && !empty($remoteAddr)) {
-            $allowedIps = preg_split('#\s*,\s*#', $allowedIps, null, PREG_SPLIT_NO_EMPTY);
+            $allowedIps = preg_split('#\s*,\s*#', $allowedIps, -1, PREG_SPLIT_NO_EMPTY);
             if (array_search($remoteAddr, $allowedIps) === false
                 && array_search(Mage::helper('core/http')->getHttpHost(), $allowedIps) === false) {
                 $allow = false;
@@ -452,7 +455,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param array|Varien_Object $source
      * @param array|Varien_Object $target
      * @param string $root
-     * @return boolean
+     * @return bool
      */
     public function copyFieldset($fieldset, $aspect, $source, $target, $root = 'global')
     {
@@ -475,7 +478,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             if ($sourceIsArray) {
-                $value = isset($source[$code]) ? $source[$code] : null;
+                $value = $source[$code] ?? null;
             } else {
                 $value = $source->getDataUsingMethod($code);
             }
@@ -680,7 +683,7 @@ XML;
      * Encode the mixed $valueToEncode into the JSON format
      *
      * @param mixed $valueToEncode
-     * @param  boolean $cycleCheck Optional; whether or not to check for object recursion; off by default
+     * @param bool $cycleCheck Optional; whether or not to check for object recursion; off by default
      * @param  array $options Additional options used during encoding
      * @return string
      */
@@ -776,7 +779,10 @@ XML;
                 } else {
                     $targetMtime = filemtime($targetFile);
                     foreach ($srcFiles as $file) {
-                        if (!file_exists($file) || @filemtime($file) > $targetMtime) {
+                        if (!file_exists($file)) {
+                            // no translation intentionally
+                            throw new Exception(sprintf('File %s not found.', $file));
+                        } elseif (@filemtime($file) > $targetMtime) {
                             $shouldMerge = true;
                             break;
                         }

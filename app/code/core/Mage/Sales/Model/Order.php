@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2015-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,6 +28,10 @@
  *  sales_order_save_after
  *  sales_order_delete_before
  *  sales_order_delete_after
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Order _getResource()
  * @method Mage_Sales_Model_Resource_Order getResource()
@@ -360,10 +365,6 @@
  *
  * @method string getXForwardedFor()
  * @method $this setXForwardedFor(string $value)
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 {
@@ -504,9 +505,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected $_historyEntityName = self::HISTORY_ENTITY_NAME;
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('sales/order');
@@ -548,26 +546,23 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve can flag for action (edit, unhold, etc..)
      *
      * @param string $action
-     * @return boolean|null
+     * @return bool|null
      */
     public function getActionFlag($action)
     {
-        if (isset($this->_actionFlag[$action])) {
-            return $this->_actionFlag[$action];
-        }
-        return null;
+        return $this->_actionFlag[$action] ?? null;
     }
 
     /**
      * Set can flag value for action (edit, unhold, etc...)
      *
      * @param string $action
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setActionFlag($action, $flag)
     {
-        $this->_actionFlag[$action] = (boolean) $flag;
+        $this->_actionFlag[$action] = (bool) $flag;
         return $this;
     }
 
@@ -589,7 +584,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function setCanSendNewEmailFlag($flag)
     {
-        $this->_canSendNewEmailFlag = (boolean) $flag;
+        $this->_canSendNewEmailFlag = (bool) $flag;
         return $this;
     }
 
@@ -1483,7 +1478,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Queue email with order update information
      *
-     * @param boolean $notifyCustomer
+     * @param bool $notifyCustomer
      * @param string $comment
      * @param bool $forceMode if true then email will be sent regardless of the fact that it was already sent previously
      *
@@ -1995,7 +1990,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Get formated price value including order currency rate to order website currency
+     * Get formatted price value including order currency rate to order website currency
      *
      * @param   float $price
      * @param   bool  $addBrackets
@@ -2018,7 +2013,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Retrieve text formated price value includeing order rate
+     * Retrieve text formatted price value including order rate
      *
      * @param   float $price
      * @return  string
@@ -2198,7 +2193,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Check order invoices availability
      *
-     * @return bool
+     * @return int
      */
     public function hasInvoices()
     {
@@ -2275,7 +2270,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Get formated order created date in store timezone
+     * Get formatted order created date in store timezone
      *
      * @param   string $format date format type (short|medium|long|full)
      * @return  string

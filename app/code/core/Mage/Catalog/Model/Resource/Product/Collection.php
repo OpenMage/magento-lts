@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,7 +26,7 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @method Mage_Catalog_Model_Product getItemById(int|string $value)
+ * @method Mage_Catalog_Model_Product getItemById($value)
  * @method Mage_Catalog_Model_Product[] getItems()
  */
 class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Collection_Abstract
@@ -329,7 +330,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         }
         $storeId = $this->getStoreId();
         if (!isset($this->_flatEnabled[$storeId])) {
-            /** @var Mage_Catalog_Helper_Product_Flat $flatHelper */
             $flatHelper = $this->getFlatHelper();
             $this->_flatEnabled[$storeId] = $flatHelper->isAccessible() && $flatHelper->isBuilt($storeId);
         }
@@ -578,7 +578,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Add collection filters by identifiers
      *
      * @param mixed $productId
-     * @param boolean $exclude
+     * @param bool $exclude
      * @return $this
      */
     public function addIdFilter($productId, $exclude = false)
@@ -753,11 +753,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             ->group('e.entity_type_id');
 
         $data = $this->getConnection()->fetchRow($select);
-        if (isset($data[$fieldAlias])) {
-            return $data[$fieldAlias];
-        }
-
-        return null;
+        return $data[$fieldAlias] ?? null;
     }
 
     /**
@@ -803,7 +799,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Retrieve product count by some value of attribute
      *
      * @param string $attribute
-     * @return array($value=>$count)
+     * @return array ($value=>$count)
      */
     public function getAttributeValueCount($attribute)
     {
@@ -1056,10 +1052,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         }
 
         foreach ($categoryCollection as $category) {
-            $_count = 0;
-            if (isset($productCounts[$category->getId()])) {
-                $_count = $productCounts[$category->getId()];
-            }
+            $_count = $productCounts[$category->getId()] ?? 0;
             $category->setProductCount($_count);
         }
 
@@ -1306,7 +1299,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Retrieve all ids
      *
-     * @param boolean $resetCache
+     * @param bool $resetCache
      * @return array
      */
     public function getAllIdsCache($resetCache = false)
@@ -1827,9 +1820,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     {
         Mage::dispatchEvent('catalog_product_collection_apply_limitations_before', [
             'collection'  => $this,
-            'category_id' => isset($this->_productLimitationFilters['category_id'])
-                ? $this->_productLimitationFilters['category_id']
-                : null,
+            'category_id' => $this->_productLimitationFilters['category_id'] ?? null,
         ]);
         $this->_prepareProductLimitationFilters();
         $this->_productLimitationJoinWebsite();

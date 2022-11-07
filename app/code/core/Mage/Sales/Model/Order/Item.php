@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Sales_Model_Order_Item
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Order_Item _getResource()
  * @method Mage_Sales_Model_Resource_Order_Item getResource()
@@ -190,14 +195,9 @@
  * @method $this setQuoteParentItemId(int $value)
  * @method int getParentProductId()
  * @method int getQuoteParentItemId()
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
 {
-
     const STATUS_PENDING        = 1; // No items shipped, invoiced, canceled, refunded nor backordered
     const STATUS_SHIPPED        = 2; // When qty ordered - [qty canceled + qty returned] = qty shipped
     const STATUS_INVOICED       = 9; // When qty ordered - [qty canceled + qty returned] = qty invoiced
@@ -543,10 +543,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         if (is_null(self::$_statuses)) {
             self::getStatuses();
         }
-        if (isset(self::$_statuses[$statusId])) {
-            return self::$_statuses[$statusId];
-        }
-        return Mage::helper('sales')->__('Unknown Status');
+        return self::$_statuses[$statusId] ?? Mage::helper('sales')->__('Unknown Status');
     }
 
     /**
@@ -646,10 +643,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         if (is_null($code)) {
             return $options;
         }
-        if (isset($options[$code])) {
-            return $options[$code];
-        }
-        return null;
+        return $options[$code] ?? null;
     }
 
     /**
@@ -840,8 +834,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             if (isset($weeeTaxAppliedAmount['total_base_weee_discount'])) {
                 return $weeeTaxAppliedAmount['total_base_weee_discount'];
             } else {
-                $totalDiscount += isset($weeeTaxAppliedAmount['base_weee_discount'])
-                    ? $weeeTaxAppliedAmount['base_weee_discount'] : 0;
+                $totalDiscount += $weeeTaxAppliedAmount['base_weee_discount'] ?? 0;
             }
         }
         return $totalDiscount;
@@ -863,8 +856,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             if (isset($weeeTaxAppliedAmount['total_weee_discount'])) {
                 return $weeeTaxAppliedAmount['total_weee_discount'];
             } else {
-                $totalDiscount += isset($weeeTaxAppliedAmount['weee_discount'])
-                    ? $weeeTaxAppliedAmount['weee_discount'] : 0;
+                $totalDiscount += $weeeTaxAppliedAmount['weee_discount'] ?? 0;
             }
         }
         return $totalDiscount;

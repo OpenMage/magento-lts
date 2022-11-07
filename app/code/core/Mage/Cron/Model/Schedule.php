@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Cron
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Cron
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Crontab schedule model
+ *
+ * @category   Mage
+ * @package    Mage_Cron
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Cron_Model_Resource_Schedule _getResource()
  * @method Mage_Cron_Model_Resource_Schedule getResource()
@@ -41,10 +46,6 @@
  * @method $this unsScheduleId()
  * @method array[]|false|string[] getCronExprArr()
  * @method $this setCronExprArr(array[]|false|string[] $value)
- *
- * @category    Mage
- * @package     Mage_Cron
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 {
@@ -66,7 +67,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      */
     public function setCronExpr($expr)
     {
-        $e = preg_split('#\s+#', $expr, null, PREG_SPLIT_NO_EMPTY);
+        $e = preg_split('#\s+#', $expr, -1, PREG_SPLIT_NO_EMPTY);
         if (count($e) < 5 || count($e) > 6) {
             throw Mage::exception('Mage_Cron', 'Invalid cron expression: '.$expr);
         }
@@ -81,7 +82,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      * Supports $this->setCronExpr('* 0-5,10-59/5 2-10,15-25 january-june/2 mon-fri')
      *
      * @param string|int $time
-     * @return boolean
+     * @return bool
      */
     public function trySchedule($time)
     {
@@ -226,7 +227,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      * @param string $oldStatus
      * This is used to implement locking for cron jobs.
      *
-     * @return boolean
+     * @return bool
      */
     public function tryLockJob($oldStatus = self::STATUS_PENDING)
     {

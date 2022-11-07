@@ -7,30 +7,27 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Api
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * ACL user resource
  *
- * @category    Mage
- * @package     Mage_Api
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Api
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Resource initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('api/user', 'user_id');
@@ -67,7 +64,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         $data = [
             'lognum'  => $user->getLognum()+1,
         ];
-        $condition = $this->_getReadAdapter()->quoteInto('user_id=?', $user->getUserId());
+        $condition = $this->_getReadAdapter()->quoteInto('user_id = ?', $user->getUserId());
         $this->_getWriteAdapter()->update($this->getTable('api/user'), $data, $condition);
         return $this;
     }
@@ -263,7 +260,6 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         }
 
         $adapter = $this->_getWriteAdapter();
-
         $adapter->beginTransaction();
 
         try {
@@ -275,21 +271,22 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
                 $rid = intval($rid);
                 if ($rid > 0) {
                     //$row = $this->load($user, $rid);
+                    $row = ['tree_level' => 0];
                 } else {
                     $row = ['tree_level' => 0];
                 }
-                $row = ['tree_level' => 0];
 
                 $data = [
-                    'parent_id'     => $rid,
-                    'tree_level'    => $row['tree_level'] + 1,
-                    'sort_order'    => 0,
-                    'role_type'     => Mage_Api_Model_Acl::ROLE_TYPE_USER,
-                    'user_id'       => $user->getId(),
-                    'role_name'     => $user->getFirstname()
+                    'parent_id'  => $rid,
+                    'tree_level' => $row['tree_level'] + 1,
+                    'sort_order' => 0,
+                    'role_type'  => Mage_Api_Model_Acl::ROLE_TYPE_USER,
+                    'user_id'    => $user->getId(),
+                    'role_name'  => $user->getFirstname()
                 ];
                 $adapter->insert($this->getTable('api/role'), $data);
             }
+
             $adapter->commit();
         } catch (Mage_Core_Exception $e) {
             $adapter->rollBack();
@@ -353,12 +350,12 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             $role = new Varien_Object(['tree_level' => 0]);
         }
         $adapter->insert($this->getTable('api/role'), [
-            'parent_id' => $user->getRoleId(),
-            'tree_level'=> ($role->getTreeLevel() + 1),
-            'sort_order'=> 0,
-            'role_type' => Mage_Api_Model_Acl::ROLE_TYPE_USER,
-            'user_id'   => $user->getUserId(),
-            'role_name' => $user->getFirstname()
+            'parent_id'  => $user->getRoleId(),
+            'tree_level' => $role->getTreeLevel() + 1,
+            'sort_order' => 0,
+            'role_type'  => Mage_Api_Model_Acl::ROLE_TYPE_USER,
+            'user_id'    => $user->getUserId(),
+            'role_name'  => $user->getFirstname()
         ]);
 
         return $this;
@@ -383,9 +380,10 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         $table     = $this->getTable('api/role');
 
         $condition = [
-            "{$table}.user_id = ?"  => $user->getUserId(),
-            "{$table}.parent_id = ?"=> $user->getRoleId()
+            $table.'.user_id = ?'   => (int) $user->getUserId(),
+            $table.'.parent_id = ?' => (int) $user->getRoleId()
         ];
+
         $adapter->delete($table, $condition);
         return $this;
     }
@@ -400,8 +398,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     {
         $result = [];
         if ($user->getUserId() > 0) {
-            $adapter    = $this->_getReadAdapter();
-            $select     = $adapter->select()->from($this->getTable('api/role'))
+            $adapter = $this->_getReadAdapter();
+            $select  = $adapter->select()->from($this->getTable('api/role'))
                 ->where('parent_id = ?', $user->getRoleId())
                 ->where('user_id = ?', $user->getUserId());
             $result = $adapter->fetchCol($select);

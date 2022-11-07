@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -112,7 +113,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
         if (! empty($values)) {
             foreach ($values as $v) {
                 $obj = new Varien_Object($v);
-                $storeName = isset($stores[$obj->getStoreId()]) ? $stores[$obj->getStoreId()] : null;
+                $storeName = $stores[$obj->getStoreId()] ?? null;
 
                 $this->_items[ $v['store_id'] ] = $obj;
                 $this->_items[ $v['store_id'] ]->setStoreName($storeName);
@@ -132,8 +133,8 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     /**
      * Print and/or log query
      *
-     * @param boolean $printQuery
-     * @param boolean $logQuery
+     * @param bool $printQuery
+     * @param bool $logQuery
      * @param null|string $sql
      * @return Mage_Sales_Model_Entity_Sale_Collection
      */

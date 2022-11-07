@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,7 +60,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                     }
                 } elseif (in_array($store, $website->getStoreIds())) {
                     $storeId = Mage::app()->getStore($store);
-                    $ids = ($categoryId === null)? $store->getRootCategoryId() : $categoryId;
+                    $ids = $categoryId ?? $store->getRootCategoryId();
                 } else {
                     $this->_fault('store_not_exists');
                 }
@@ -83,7 +84,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             }
         } // load all root categories
         else {
-            $ids = ($categoryId === null)? Mage_Catalog_Model_Category::TREE_ROOT_ID : $categoryId;
+            $ids = $categoryId ?? Mage_Catalog_Model_Category::TREE_ROOT_ID;
         }
 
         $collection = Mage::getModel('catalog/category')->getCollection()
@@ -304,7 +305,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $categoryId
      * @param array $categoryData
      * @param string|int $store
-     * @return boolean
+     * @return bool
      */
     public function update($categoryId, $categoryData, $store = null)
     {
@@ -348,7 +349,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $categoryId
      * @param int $parentId
      * @param int $afterId
-     * @return boolean
+     * @return bool
      */
     public function move($categoryId, $parentId, $afterId = null)
     {
@@ -378,7 +379,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * Delete category
      *
      * @param int $categoryId
-     * @return boolean
+     * @return bool
      */
     public function delete($categoryId)
     {
@@ -453,7 +454,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $productId
      * @param int $position
      * @param null|string $identifierType Should be 'sku' when working with SKU's. Leave null when using ID's
-     * @return boolean
+     * @return bool
      * @throws Mage_Api_Exception
      */
     public function assignProduct($categoryId, $productId, $position = null, $identifierType = null)
@@ -480,7 +481,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $productId
      * @param int $position
      * @param null $identifierType
-     * @return boolean
+     * @return bool
      * @throws Mage_Api_Exception
      */
     public function updateProduct($categoryId, $productId, $position = null, $identifierType = null)
@@ -509,7 +510,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $categoryId
      * @param int $productId
      * @param null $identifierType
-     * @return boolean
+     * @return bool
      * @throws Mage_Api_Exception
      */
     public function removeProduct($categoryId, $productId, $identifierType = null)

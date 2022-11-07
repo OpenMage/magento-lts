@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Weee
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Weee
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Model to calculate Weee amount
+ *
+ * @category   Mage
+ * @package    Mage_Weee
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Weee_Model_Resource_Tax _getResource()
  * @method Mage_Weee_Model_Resource_Tax getResource()
@@ -90,8 +95,8 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      * @param Mage_Customer_Model_Address_Abstract $shipping
      * @param Mage_Customer_Model_Address_Abstract $billing
      * @param mixed $website
-     * @param boolean $calculateTax
-     * @param boolean $ignoreDiscount
+     * @param bool $calculateTax
+     * @param bool $ignoreDiscount
      * @return float
      */
     public function getWeeeAmount(
@@ -120,7 +125,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
     /**
      * Get a list of Weee attribute codes
      *
-     * @param boolean $forceEnabled
+     * @param bool $forceEnabled
      * @return array
      */
     public function getWeeeAttributeCodes($forceEnabled = false)
@@ -153,9 +158,9 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      * @param Mage_Sales_Model_Quote_Address $shipping
      * @param Mage_Sales_Model_Quote_Address $billing
      * @param int $website
-     * @param boolean $calculateTax
-     * @param boolean $ignoreDiscount
-     * @return array|\Varien_Object
+     * @param bool $calculateTax
+     * @param bool $ignoreDiscount
+     * @return array
      */
     public function getProductWeeeAttributes(
         $product,

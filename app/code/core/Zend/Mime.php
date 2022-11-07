@@ -287,8 +287,6 @@ class Zend_Mime
     }
 
     /**
-     * Constructor
-     *
      * @param null|string $boundary
      * @access public
      * @return void

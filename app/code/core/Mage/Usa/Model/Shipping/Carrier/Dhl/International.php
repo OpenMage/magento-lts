@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Usa
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Usa
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * DHL International (API v1.4)
  *
- * @category Mage
- * @package  Mage_Usa
- * @author   Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Usa
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Usa_Model_Shipping_Carrier_Dhl_International
     extends Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract
@@ -271,7 +272,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Prepare and set request in property of current instance
      *
      * @param Varien_Object $request
-     * @return Mage_Usa_Model_Shipping_Carrier_Dhl
+     * @return $this
      */
     public function setRequest(Varien_Object $request)
     {
@@ -452,11 +453,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
         }
 
         $code = strtoupper($code);
-        if (!isset($codes[$type][$code])) {
-            return false;
-        } else {
-            return $codes[$type][$code];
-        }
+        return $codes[$type][$code] ?? false;
     }
 
     /**
@@ -528,7 +525,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
     {
         $contentType = $this->getConfigData('content_type');
         $dhlProducts = $this->getDhlProducts($contentType);
-        return isset($dhlProducts[$code]) ? $dhlProducts[$code] : false;
+        return $dhlProducts[$code] ?? false;
     }
 
     /**
@@ -773,7 +770,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
     /**
      * Get shipping quotes
      *
-     * @return Mage_Core_Model_Abstract|Mage_Shipping_Model_Rate_Result
+     * @return Mage_Shipping_Model_Rate_Result
      */
     protected function _getQuotes()
     {
@@ -926,11 +923,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
                     ) {
                         $code = null;
                         $data = null;
-                        if (isset($xml->Response->Status->Condition)) {
-                            $nodeCondition = $xml->Response->Status->Condition;
-                        } else {
-                            $nodeCondition = $xml->GetQuoteResponse->Note->Condition;
-                        }
+                        $nodeCondition = $xml->Response->Status->Condition ?? $xml->GetQuoteResponse->Note->Condition;
 
                         if ($this->_isShippingLabelFlag) {
                             foreach ($nodeCondition as $condition) {
@@ -1097,10 +1090,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
     /**
      * Get Country Params by Country Code
      *
-     * @param string $countryCode
+     * @param string $countryCode ISO 3166 Codes (Countries) A2
      * @return Varien_Object
-     *
-     * @see $countryCode ISO 3166 Codes (Countries) A2
      */
     protected function getCountryParams($countryCode)
     {
@@ -1112,7 +1103,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
         if (isset($this->_countryParams->$countryCode)) {
             $countryParams = new Varien_Object($this->_countryParams->$countryCode->asArray());
         }
-        return isset($countryParams) ? $countryParams : new Varien_Object();
+        return $countryParams ?? new Varien_Object();
     }
 
     /**
@@ -1134,7 +1125,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Processing additional validation to check is carrier applicable.
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|boolean
+     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|bool
      */
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -1538,7 +1529,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Get tracking
      *
      * @param mixed $trackings
-     * @return mixed
+     * @return Mage_Shipping_Model_Rate_Result|null
      */
     public function getTracking($trackings)
     {

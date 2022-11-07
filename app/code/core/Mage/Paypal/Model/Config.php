@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -599,6 +600,33 @@ class Mage_Paypal_Model_Config
         'zh_XC',
     ];
 
+    public $allow_ba_signup;
+    public $api_cert;
+    public $api_password;
+    public $api_signature;
+    public $api_username;
+    public $apiAuthentication;
+    public $apiPassword;
+    public $apiSignature;
+    public $apiUsername;
+    public $business_account;
+    public $businessAccount;
+    public $buttonFlavor;
+    public $buttonType;
+    public $cctypes;
+    public $debug;
+    public $lineItemsEnabled;
+    public $lineItemsSummary;
+    public $paymentAction;
+    public $paymentMarkSize;
+    public $requireBillingAddress;
+    public $sandboxFlag;
+    public $solutionType;
+    public $transferShippingOptions;
+    public $verifyPeer;
+    public $visible_on_cart;
+    public $visible_on_product;
+
     /**
      * Set method and store id, if specified
      *
@@ -924,7 +952,7 @@ class Mage_Paypal_Model_Config
         if ($countryCode === null) {
             return $countryMethods;
         }
-        return isset($countryMethods[$countryCode]) ? $countryMethods[$countryCode] : $countryMethods['other'];
+        return $countryMethods[$countryCode] ?? $countryMethods['other'];
     }
 
     /**
@@ -1235,7 +1263,7 @@ class Mage_Paypal_Model_Config
      * Return PayPal logo URL with additional options
      *
      * @param string $localeCode Supported locale code
-     * @param string $type One of supported logo types
+     * @param string|false $type One of supported logo types
      * @return string|bool Logo Image URL or false if logo disabled in configuration
      */
     public function getAdditionalOptionsLogoUrl($localeCode, $type = false)
@@ -1335,6 +1363,7 @@ class Mage_Paypal_Model_Config
             case self::PAYMENT_ACTION_ORDER:
                 return Mage_Payment_Model_Method_Abstract::ACTION_ORDER;
         }
+        return null;
     }
 
     /**
@@ -1627,6 +1656,7 @@ class Mage_Paypal_Model_Config
             case 'JP': case 'MX': case 'NL': case 'PL': case 'SG': case 'ES': case 'CH': case 'UK': case 'US':
                 return $code;
         }
+        return null;
     }
 
     /**

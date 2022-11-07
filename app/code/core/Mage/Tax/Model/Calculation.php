@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -126,9 +127,6 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      */
     protected $_taxHelper;
 
-    /**
-     * Constructor
-     */
     protected function _construct()
     {
         $this->_init('tax/calculation');
@@ -616,7 +614,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * Get the calculation process
      *
      * @param array $rates
-     * @return mixed
+     * @return array
      */
     public function reproduceProcess($rates)
     {
@@ -627,7 +625,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * Get rates by customer tax class
      *
      * @param int $customerTaxClass
-     * @return mixed
+     * @return array
      */
     public function getRatesByCustomerTaxClass($customerTaxClass)
     {
@@ -639,7 +637,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      *
      * @param int $customerTaxClass
      * @param int $productTaxClass
-     * @return mixed
+     * @return array
      */
     public function getRatesByCustomerAndProductTaxClasses($customerTaxClass, $productTaxClass)
     {
@@ -652,8 +650,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      *
      * @param   float $price
      * @param   float $taxRate
-     * @param   boolean $priceIncludeTax
-     * @param   boolean $round
+     * @param   bool $priceIncludeTax
+     * @param   bool $round
      * @return  float
      */
     public function calcTaxAmount($price, $taxRate, $priceIncludeTax = false, $round = true)

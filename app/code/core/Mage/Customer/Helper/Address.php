@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,6 +36,8 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     const XML_PATH_VAT_VALIDATION_ENABLED          = 'customer/create_account/auto_group_assign';
     const XML_PATH_VIV_TAX_CALCULATION_ADDRESS_TYPE = 'customer/create_account/tax_calculation_address_type';
     const XML_PATH_VAT_FRONTEND_VISIBILITY = 'customer/create_account/vat_frontend_visibility';
+
+    protected $_moduleName = 'Mage_Customer';
 
     /**
      * Array of Customer Address Attributes
@@ -177,8 +180,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     public function getAttributeValidationClass($attributeCode)
     {
         /** @var Mage_Customer_Model_Attribute $attribute */
-        $attribute = isset($this->_attributes[$attributeCode]) ? $this->_attributes[$attributeCode]
-            : Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);
+        $attribute = $this->_attributes[$attributeCode] ?? Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);
         $class = $attribute ? $attribute->getFrontend()->getClass() : '';
 
         if (in_array($attributeCode, ['firstname', 'middlename', 'lastname', 'prefix', 'suffix', 'taxvat'])) {
@@ -282,7 +284,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Check if VAT ID address attribute has to be shown on frontend (on Customer Address management forms)
      *
-     * @return boolean
+     * @return bool
      */
     public function isVatAttributeVisible()
     {

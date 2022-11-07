@@ -7,17 +7,23 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Backup
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Backup
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Backup
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Mysql4
 {
     /**
@@ -55,7 +61,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
             foreach ($this->_foreignKeys as $table => $foreignKeys) {
                 $sql .= $this->_buildForeignKeysAlterTableSql($table, $foreignKeys);
             }
-        } else if (isset($this->_foreignKeys[$tableName])) {
+        } elseif (isset($this->_foreignKeys[$tableName])) {
             $foreignKeys = $this->_foreignKeys[$tableName];
             $sql = $this->_buildForeignKeysAlterTableSql($tableName, $foreignKeys);
         }
@@ -76,7 +82,8 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
             return '';
         }
 
-        return sprintf("ALTER TABLE %s\n  %s;\n",
+        return sprintf(
+            "ALTER TABLE %s\n  %s;\n",
             $this->_getReadAdapter()->quoteIdentifier($tableName),
             implode(",\n  ", $foreignKeys)
         );
@@ -86,7 +93,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
      * Get create script for table
      *
      * @param string $tableName
-     * @param boolean $addDropIfExists
+     * @param bool $addDropIfExists
      * @return string
      */
     public function getTableCreateScript($tableName, $addDropIfExists = false)
@@ -109,7 +116,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
      *
      * @param string $tableName
      * @param bool $withForeignKeys
-     * @return string
+     * @return false|string
      */
     public function getTableCreateSql($tableName, $withForeignKeys = false)
     {
@@ -131,13 +138,14 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
 
         if (is_array($matches)) {
             foreach ($matches as $match) {
-                $this->_foreignKeys[$tableName][] = sprintf('ADD CONSTRAINT %s FOREIGN KEY (%s) REFERENCES %s (%s)%s%s',
+                $this->_foreignKeys[$tableName][] = sprintf(
+                    'ADD CONSTRAINT %s FOREIGN KEY (%s) REFERENCES %s (%s)%s%s',
                     $adapter->quoteIdentifier($match[1]),
                     $adapter->quoteIdentifier($match[2]),
                     $adapter->quoteIdentifier($match[3]),
                     $adapter->quoteIdentifier($match[4]),
-                    isset($match[5]) ? $match[5] : '',
-                    isset($match[7]) ? $match[7] : ''
+                    $match[5] ?? '',
+                    $match[7] ?? ''
                 );
             }
         }

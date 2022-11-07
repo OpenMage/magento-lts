@@ -7,21 +7,22 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Backup
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category    Mage
- * @package     Mage_Backup
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Backup
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -49,6 +50,8 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      * Backup type constant for full system backup excluding media folder
      */
     const TYPE_SNAPSHOT_WITHOUT_MEDIA = 'nomedia';
+
+    protected $_moduleName = 'Mage_Backup';
 
     /**
      * Get all possible backup type values with descriptive title
@@ -109,7 +112,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
     public function getExtensionByType($type)
     {
         $extensions = $this->getExtensions();
-        return isset($extensions[$type]) ? $extensions[$type] : '';
+        return $extensions[$type] ?? '';
     }
 
     /**
@@ -143,7 +146,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check Permission for Rollback
      *
-     * @return boolean
+     * @return bool
      */
     public function isRollbackAllowed(){
         return Mage::getSingleton('admin/session')->isAllowed('system/tools/backup/rollback' );
