@@ -80,10 +80,12 @@
     <button type="button" onclick="window.location='<?php echo $this->getUrl('customer/address/form') ?>';" class="button"><span><span><?php echo $this->__('New Address') ?></span></span></button>
 </div>
 <script type="text/javascript">
+//<![CDATA[
     function deleteAddress(addressId) {
-        if(confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Are you sure you want to delete this address?')) ?>')) {
-            window.location='<?php echo $this->getUrl("customer/address/delete") ?>address/'+addressId;
+        if (confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Are you sure you want to delete this address?')) ?>')) {
+            window.location="<?php echo $this->getUrl('customer/address/delete') ?>address/"+addressId;
         }
         return false;
     }
+//]]>
 </script>
