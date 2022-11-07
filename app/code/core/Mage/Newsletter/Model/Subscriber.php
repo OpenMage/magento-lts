@@ -359,20 +359,16 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 
         $this->setIsStatusChanged(true);
 
-        try {
-            $this->save();
-            if ($isConfirmNeed === true
-                && $isOwnSubscribes === false
-            ) {
-                $this->sendConfirmationRequestEmail();
-            } else {
-                $this->sendConfirmationSuccessEmail();
-            }
-
-            return $this->getStatus();
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
+        $this->save();
+        if ($isConfirmNeed === true
+            && $isOwnSubscribes === false
+        ) {
+            $this->sendConfirmationRequestEmail();
+        } else {
+            $this->sendConfirmationSuccessEmail();
         }
+
+        return $this->getStatus();
     }
 
     /**
