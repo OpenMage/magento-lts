@@ -205,6 +205,7 @@
 "Cannot add tracking number.","Cannot add tracking number."
 "Cannot create an invoice without products.","Cannot create an invoice without products."
 "Cannot create credit memo for the order.","Cannot create credit memo for the order."
+"The credit memo no longer exists.","The credit memo no longer exists."
 "Cannot delete the design change.","Cannot delete the design change."
 "Cannot delete tracking number.","Cannot delete tracking number."
 "Cannot do shipment for the order separately from invoice.","Cannot do shipment for the order separately from invoice."
