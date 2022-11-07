@@ -31,7 +31,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
     const XML_PATH_EXPORT_LOCAL_VALID_PATH = 'general/file/importexport_local_valid_paths';
 
     /**
-     * @return Varien_Io_Abstract
+     * @return Varien_Io_Abstract|false
      */
     public function getResource($forWrite = false)
     {
@@ -50,7 +50,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                           . DS . $ioConfig['filename'];
                     /** @var Mage_Core_Model_File_Validator_AvailablePath $validator */
                     $validator = Mage::getModel('core/file_validator_availablePath');
-                    $validator->setPaths( Mage::getStoreConfig(self::XML_PATH_EXPORT_LOCAL_VALID_PATH) );
+                    $validator->setPaths(Mage::getStoreConfig(self::XML_PATH_EXPORT_LOCAL_VALID_PATH));
                     if (!$validator->isValid($path)) {
                         foreach ($validator->getMessages() as $message) {
                             Mage::throwException($message);
@@ -60,7 +60,6 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
 
                     if (preg_match('#^' . preg_quote(DS, '#').'#', $this->getVar('path')) ||
                         preg_match('#^[a-z]:' . preg_quote(DS, '#') . '#i', $this->getVar('path'))) {
-
                         $path = $this->_resource->getCleanPath($this->getVar('path'));
                     } else {
                         $baseDir = Mage::getBaseDir();

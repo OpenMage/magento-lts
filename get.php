@@ -141,6 +141,11 @@ if (substr_count($relativeFilename, '/') > 10) {
     sendNotFoundPage();
 }
 
+// Nothing to do if DB storage is disabled
+if (!Mage::helper('core/file_storage_database')->checkDbUsage()) {
+    sendNotFoundPage();
+}
+
 $localStorage = Mage::getModel('core/file_storage_file');
 $remoteStorage = Mage::getModel('core/file_storage_database');
 try {

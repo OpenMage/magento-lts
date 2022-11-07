@@ -188,8 +188,8 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
     /**
      * Return escaped value
      *
-     * @param int $index
-     * @return string
+     * @param string|null $index
+     * @return false|string
      */
     public function getEscapedValue($index = null)
     {

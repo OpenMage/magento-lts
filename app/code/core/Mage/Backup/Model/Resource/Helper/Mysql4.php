@@ -61,7 +61,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
             foreach ($this->_foreignKeys as $table => $foreignKeys) {
                 $sql .= $this->_buildForeignKeysAlterTableSql($table, $foreignKeys);
             }
-        } else if (isset($this->_foreignKeys[$tableName])) {
+        } elseif (isset($this->_foreignKeys[$tableName])) {
             $foreignKeys = $this->_foreignKeys[$tableName];
             $sql = $this->_buildForeignKeysAlterTableSql($tableName, $foreignKeys);
         }
@@ -82,7 +82,8 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
             return '';
         }
 
-        return sprintf("ALTER TABLE %s\n  %s;\n",
+        return sprintf(
+            "ALTER TABLE %s\n  %s;\n",
             $this->_getReadAdapter()->quoteIdentifier($tableName),
             implode(",\n  ", $foreignKeys)
         );
@@ -115,7 +116,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
      *
      * @param string $tableName
      * @param bool $withForeignKeys
-     * @return string
+     * @return false|string
      */
     public function getTableCreateSql($tableName, $withForeignKeys = false)
     {
@@ -137,7 +138,8 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
 
         if (is_array($matches)) {
             foreach ($matches as $match) {
-                $this->_foreignKeys[$tableName][] = sprintf('ADD CONSTRAINT %s FOREIGN KEY (%s) REFERENCES %s (%s)%s%s',
+                $this->_foreignKeys[$tableName][] = sprintf(
+                    'ADD CONSTRAINT %s FOREIGN KEY (%s) REFERENCES %s (%s)%s%s',
                     $adapter->quoteIdentifier($match[1]),
                     $adapter->quoteIdentifier($match[2]),
                     $adapter->quoteIdentifier($match[3]),

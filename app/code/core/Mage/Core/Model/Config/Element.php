@@ -50,7 +50,7 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * @return string
+     * @return false|string
      */
     public function getClassName()
     {

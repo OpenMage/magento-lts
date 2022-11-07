@@ -58,7 +58,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Retrieve product view page url
      *
      * @param   Mage_Catalog_Model_Product|string|int $product
-     * @return  string
+     * @return  string|false
      */
     public function getProductUrl($product)
     {

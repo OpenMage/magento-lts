@@ -46,6 +46,10 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
         return 'sales/order_creditmemo_grid_collection';
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass());
@@ -53,6 +57,10 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('increment_id', [
@@ -100,7 +108,8 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
             'currency'  => 'order_currency_code',
         ]);
 
-        $this->addColumn('action',
+        $this->addColumn(
+            'action',
             [
                 'header'    => Mage::helper('sales')->__('Action'),
                 'width'     => '50px',
@@ -116,7 +125,8 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
                 'filter'    => false,
                 'sortable'  => false,
                 'is_system' => true
-            ]);
+            ]
+        );
 
         $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
         $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel XML'));
@@ -124,6 +134,9 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
         return parent::_prepareColumns();
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('entity_id');
@@ -138,19 +151,27 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
         return $this;
     }
 
+    /**
+     * @param Mage_Sales_Model_Order_Creditmemo $row
+     * @return false|string
+     */
     public function getRowUrl($row)
     {
         if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/creditmemo')) {
             return false;
         }
 
-        return $this->getUrl('*/sales_creditmemo/view',
+        return $this->getUrl(
+            '*/sales_creditmemo/view',
             [
                 'creditmemo_id'=> $row->getId(),
             ]
         );
     }
 
+    /**
+     * @return string
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/*', ['_current' => true]);

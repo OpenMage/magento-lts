@@ -44,9 +44,11 @@ class Mage_Adminhtml_Promo_WidgetController extends Mage_Adminhtml_Controller_Ac
         switch ($request->getParam('attribute')) {
             case 'sku':
                 $block = $this->getLayout()->createBlock(
-                    'adminhtml/promo_widget_chooser_sku', 'promo_widget_chooser_sku',
+                    'adminhtml/promo_widget_chooser_sku',
+                    'promo_widget_chooser_sku',
                     ['js_form_object' => $request->getParam('form'),
-                    ]);
+                    ]
+                );
                 break;
 
             case 'category_ids':
@@ -65,9 +67,10 @@ class Mage_Adminhtml_Promo_WidgetController extends Mage_Adminhtml_Controller_Ac
                 }
 
                 $block = $this->getLayout()->createBlock(
-                        'adminhtml/catalog_category_checkboxes_tree', 'promo_widget_chooser_category_ids',
-                        ['js_form_object' => $request->getParam('form')]
-                    )
+                    'adminhtml/catalog_category_checkboxes_tree',
+                    'promo_widget_chooser_category_ids',
+                    ['js_form_object' => $request->getParam('form')]
+                )
                     ->setCategoryIds($ids)
                 ;
                 break;
@@ -103,11 +106,11 @@ class Mage_Adminhtml_Promo_WidgetController extends Mage_Adminhtml_Controller_Ac
     /**
      * Initialize category object in registry
      *
-     * @return Mage_Catalog_Model_Category
+     * @return Mage_Catalog_Model_Category|false
      */
     protected function _initCategory()
     {
-        $categoryId = (int) $this->getRequest()->getParam('id',false);
+        $categoryId = (int) $this->getRequest()->getParam('id', false);
         $storeId    = (int) $this->getRequest()->getParam('store');
 
         $category   = Mage::getModel('catalog/category');

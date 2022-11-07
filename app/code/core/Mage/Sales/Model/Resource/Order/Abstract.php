@@ -261,7 +261,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Retrieve grid table
      *
-     * @return string
+     * @return string|false
      */
     public function getGridTable()
     {

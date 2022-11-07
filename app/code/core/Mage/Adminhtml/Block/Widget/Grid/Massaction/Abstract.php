@@ -22,11 +22,13 @@
 /**
  * Grid widget massaction block
  *
- * @method Mage_Sales_Model_Quote setHideFormElement(bool $value) Hide Form element to prevent IE errors
- * @method bool getHideFormElement()
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setFormFieldName(string $value)
+ * @method $this setHideFormElement(bool $value) Hide Form element to prevent IE errors
+ * @method bool getHideFormElement()
  */
 abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage_Adminhtml_Block_Widget
 {

@@ -278,7 +278,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param string $tag
      * @param int $width
      * @param int $height
-     * @return string
+     * @return false|string
      */
     protected function _resizeSwatchImage($filename, $tag, $width, $height)
     {

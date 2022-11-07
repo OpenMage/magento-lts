@@ -118,7 +118,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Retrieve Client Remote Address
      *
      * @param bool $ipToLong converting IP to long format
-     * @return string IPv4|long
+     * @return false|string IPv4|long
      */
     public function getRemoteAddr($ipToLong = false)
     {
@@ -152,7 +152,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Retrieve Server IP address
      *
      * @param bool $ipToLong converting IP to long format
-     * @return string IPv4|long
+     * @return false|string IPv4|long
      */
     public function getServerAddr($ipToLong = false)
     {
