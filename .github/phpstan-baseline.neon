@@ -776,6 +776,21 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/Report/StatisticsController.php
 
 		-
+			message: "#^Method Mage_Adminhtml_Sales_Order_ShipmentController\\:\\:getShippingItemsGridAction\\(\\) should return Mage_Core_Controller_Response_Http but returns Zend_Controller_Response_Abstract\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
+
+		-
+			message: "#^Method Mage_Adminhtml_Controller_Action\\:\\:_setForcedFormKeyActions\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
+
+		-
+			message: "#^Variable \\$pdf might not be defined\\.$#"
+			count: 4
+			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
+
+		-
 			message: "#^Variable \\$data in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
@@ -1911,6 +1926,16 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Product/Indexer/Eav.php
 
 		-
+			message: "#^Parameter \\#5 \\$identifierType \\(null\\) of method Mage_Catalog_Model_Product_Link_Api_V2\\:\\:assign\\(\\) should be compatible with parameter \\$identifierType \\(string\\) of method Mage_Catalog_Model_Product_Link_Api\\:\\:assign\\(\\)$#"
+			count: 1
+			path: ../app/code/core/Mage/Catalog/Model/Product/Link/Api/V2.php
+
+		-
+			message: "#^Parameter \\#5 \\$identifierType \\(null\\) of method Mage_Catalog_Model_Product_Link_Api_V2\\:\\:update\\(\\) should be compatible with parameter \\$identifierType \\(string\\) of method Mage_Catalog_Model_Product_Link_Api\\:\\:update\\(\\)$#"
+			count: 1
+			path: ../app/code/core/Mage/Catalog/Model/Product/Link/Api/V2.php
+
+		-
 			message: "#^Method Mage_Catalog_Model_Product_Option\\:\\:getValuesCollection\\(\\) should return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Value_Collection but returns Mage_Catalog_Model_Resource_Product_Option_Value_Collection\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product/Option.php
@@ -1939,6 +1964,11 @@ parameters:
 			message: "#^Method Mage_Catalog_Model_Product_Type\\:\\:priceFactory\\(\\) should return Mage_Catalog_Model_Product_Type_Price but returns Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product/Type.php
+
+		-
+			message: "#^Cannot access offset 'pricing_value' on true\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Catalog/Model/Product/Type/Configurable/Price.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Resource_Category\\:\\:checkId\\(\\) should return bool but returns string\\.$#"
@@ -2176,6 +2206,11 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Url.php
 
 		-
+			message: "#^Call to an undefined method Mage_CatalogIndex_Model_Resource_Attribute\\:\\:checkCount\\(\\)\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/CatalogIndex/Model/Attribute.php
+
+		-
 			message: "#^Property Mage_CatalogIndex_Model_Data_Abstract\\:\\:\\$_typeInstance \\(Mage_Catalog_Model_Product_Type_Abstract\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogIndex/Model/Data/Abstract.php
@@ -2396,9 +2431,44 @@ parameters:
 			path: ../app/code/core/Mage/Checkout/Model/Cart.php
 
 		-
+			message: "#^Variable \\$order might not be defined\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Checkout/Model/Cart/Api.php
+
+		-
+			message: "#^Variable \\$quote might not be defined\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Checkout/Model/Cart/Api.php
+
+		-
+			message: "#^Variable \\$customer might not be defined\\.$#"
+			count: 4
+			path: ../app/code/core/Mage/Checkout/Model/Cart/Customer/Api.php
+
+		-
+			message: "#^Parameter \\#1 \\$data \\(object\\) of method Mage_Checkout_Model_Cart_Customer_Api_V2\\:\\:_prepareCustomerAddressData\\(\\) should be compatible with parameter \\$data \\(array\\) of method Mage_Checkout_Model_Cart_Customer_Api\\:\\:_prepareCustomerAddressData\\(\\)$#"
+			count: 1
+			path: ../app/code/core/Mage/Checkout/Model/Cart/Customer/Api/V2.php
+
+		-
+			message: "#^Parameter \\#1 \\$data \\(object\\) of method Mage_Checkout_Model_Cart_Customer_Api_V2\\:\\:_prepareCustomerData\\(\\) should be compatible with parameter \\$data \\(array\\) of method Mage_Checkout_Model_Cart_Customer_Api\\:\\:_prepareCustomerData\\(\\)$#"
+			count: 1
+			path: ../app/code/core/Mage/Checkout/Model/Cart/Customer/Api/V2.php
+
+		-
 			message: "#^Parameter \\#1 \\$data \\(object\\) of method Mage_Checkout_Model_Cart_Payment_Api_V2\\:\\:_preparePaymentData\\(\\) should be compatible with parameter \\$data \\(array\\) of method Mage_Checkout_Model_Cart_Payment_Api\\:\\:_preparePaymentData\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Checkout/Model/Cart/Payment/Api/V2.php
+
+		-
+			message: "#^Method Mage_Checkout_Model_Cart_Product_Api_V2\\:\\:_prepareProductsData\\(\\) should return array but returns mixed\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Checkout/Model/Cart/Product/Api/V2.php
+
+		-
+			message: "#^Variable \\$ratesResult might not be defined\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Checkout/Model/Cart/Shipping/Api.php
 
 		-
 			message: "#^Method Mage_Checkout_Model_Session\\:\\:getQuoteId\\(\\) invoked with 1 parameter, 0 required\\.$#"
