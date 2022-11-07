@@ -101,6 +101,10 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
         $orderId = $this->getRequest()->getParam('order_id');
         if ($creditmemoId) {
             $creditmemo = Mage::getModel('sales/order_creditmemo')->load($creditmemoId);
+            if (!$creditmemo->getId()) {
+                $this->_getSession()->addError($this->__('The credit memo no longer exists.'));
+                return false;
+            }
         } elseif ($orderId) {
             $data   = $this->getRequest()->getParam('creditmemo');
             $order  = Mage::getModel('sales/order')->load($orderId);
@@ -193,7 +197,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             $this->_setActiveMenu('sales/order')
                 ->renderLayout();
         } else {
-            $this->_forward('noRoute');
+            $this->_redirect('*/*');
         }
     }
 
