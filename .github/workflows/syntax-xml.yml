@@ -6,9 +6,11 @@ on:
   push:
     paths:
       - '**.xml'
+      - '.github/workflows/syntax-xml.yml'
   pull_request:
     paths:
       - '**.xml'
+      - '.github/workflows/syntax-xml.yml'
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
