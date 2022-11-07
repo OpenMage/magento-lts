@@ -6,9 +6,11 @@ on:
   push:
     paths:
       - '**.php'
+      - '.github/workflows/phpunit*'
   pull_request:
     paths:
       - '**.php'
+      - '.github/workflows/phpunit*'
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
