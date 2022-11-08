@@ -161,7 +161,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if (Mage::app()->getFrontController()->getRequest()->isSecure() && empty($cookieParams['secure'])) {
             $secureCookieName = $this->getSessionName() . '_cid';
             $cookieValue = $cookie->get($secureCookieName);
-          
+
             // Migrate old cookie from 'frontend'
             if ( ! $cookieValue
                 && $sessionName === \Mage_Core_Controller_Front_Action::SESSION_NAMESPACE
@@ -172,7 +172,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 $cookie->set($secureCookieName, $cookieValue);
                 $cookie->delete('frontend_cid');
             }
-          
+
             // Set secure cookie check value in session if not yet set
             if (!isset($_SESSION[self::SECURE_COOKIE_CHECK_KEY])) {
                 $cookieValue = Mage::helper('core')->getRandomString(16);
@@ -574,7 +574,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
         return $parts;
     }
-    
+
     /**
      * @return array
      */

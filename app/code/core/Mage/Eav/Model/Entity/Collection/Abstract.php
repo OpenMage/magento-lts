@@ -165,7 +165,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         if ($this->getEntity()->getEntityTable() === Mage_Eav_Model_Entity::DEFAULT_ENTITY_TABLE && $this->getEntity()->getTypeId()) {
             $this->addAttributeToFilter('entity_type_id', $this->getEntity()->getTypeId());
         }
-        
+
         return $this;
     }
 
@@ -1128,7 +1128,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
                     } else {
                         $select = $selects;
                     }
-                    
+
                     $values = $this->getConnection()->fetchAll($select);
                 } catch (Exception $e) {
                     Mage::printException($e, $select);
