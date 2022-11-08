@@ -253,7 +253,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         $unit = substr($memoryLimit, -1);
         $value = (int)substr($memoryLimit, 0, -1);
 
-        if ($unit == 'K') {
+        if ($unit === 'K') {
             return $value * 1024;
         }
         if ($unit == 'M') {
