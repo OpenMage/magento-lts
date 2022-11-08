@@ -3896,11 +3896,6 @@ parameters:
 			path: ../app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php
 
 		-
-			message: "#^Binary operation \"\\+\" between string and 50\\|int\\<100, max\\> results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/ImportExport/Model/Import.php
-
-		-
 			message: "#^Cannot access offset 'file' on bool\\|void\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/ImportExport/Model/Import.php
