@@ -150,7 +150,7 @@ class Mage_Core_Model_Date
         }
 
         $date      = Mage::app()->getLocale()->date($result);
-        $timestamp = $date->get(Zend_Date::TIMESTAMP) - $date->get(Zend_Date::TIMEZONE_SECS);
+        $timestamp = (int)$date->get(Zend_Date::TIMESTAMP) - (int)$date->get(Zend_Date::TIMEZONE_SECS);
 
         unset($date);
         return $timestamp;
@@ -174,7 +174,7 @@ class Mage_Core_Model_Date
         }
 
         $date      = Mage::app()->getLocale()->date($result);
-        $timestamp = $date->get(Zend_Date::TIMESTAMP) + $date->get(Zend_Date::TIMEZONE_SECS);
+        $timestamp = (int)$date->get(Zend_Date::TIMESTAMP) + (int)$date->get(Zend_Date::TIMEZONE_SECS);
 
         unset($date);
         return $timestamp;

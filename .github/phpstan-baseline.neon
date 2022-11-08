@@ -2846,16 +2846,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Cookie.php
 
 		-
-			message: "#^Binary operation \"\\+\" between string and string results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Date.php
-
-		-
-			message: "#^Binary operation \"\\-\" between string and string results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Date.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Design\\:\\:validate\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Design.php
