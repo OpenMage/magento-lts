@@ -2341,11 +2341,6 @@ parameters:
 			path: ../app/code/core/Mage/CatalogIndex/Model/Resource/Indexer/Abstract.php
 
 		-
-			message: "#^Binary operation \"\\*\" between string and float results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogIndex/Model/Resource/Price.php
-
-		-
 			message: "#^Method Mage_CatalogIndex_Model_Retreiver\\:\\:getRetreiver\\(\\) should return Mage_CatalogIndex_Model_Data_Abstract but returns Mage_Core_Model_Abstract\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogIndex/Model/Retreiver.php

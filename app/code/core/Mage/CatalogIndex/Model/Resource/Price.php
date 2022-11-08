@@ -86,7 +86,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
     /**
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param Zend_Db_Select $entitySelect
-     * @return float|int
+     * @return float
      */
     public function getMaxValue($attribute, $entitySelect)
     {
@@ -117,7 +117,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
             ->where('price_table.website_id = ?', $this->getWebsiteId())
             ->where('price_table.attribute_id = ?', $attribute->getId());
 
-        return $this->_getReadAdapter()->fetchOne($select)*$this->getRate();
+        return (float)$this->_getReadAdapter()->fetchOne($select) * $this->getRate();
     }
 
     /**
