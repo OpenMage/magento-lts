@@ -4186,11 +4186,6 @@ parameters:
 			path: ../app/code/core/Mage/Log/Model/Aggregation.php
 
 		-
-			message: "#^Binary operation \"\\+\" between non\\-falsy\\-string and 1 results in an error\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Log/Model/Resource/Log.php
-
-		-
 			message: "#^Method Mage_Media_Model_File_Image\\:\\:getImage\\(\\) should return bool\\|resource but returns GdImage\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Media/Model/File/Image.php

@@ -123,7 +123,7 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
         $timeLimit = $this->formatDate(Mage::getModel('core/date')->gmtTimestamp() - $time);
 
         // retrieve last active customer log id
-        $lastLogId = $readAdapter->fetchOne(
+        $lastLogId = (int)$readAdapter->fetchOne(
             $readAdapter->select()
                 ->from($this->getTable('log/customer'), 'log_id')
                 ->where('login_at < ?', $timeLimit)
