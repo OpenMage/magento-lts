@@ -276,7 +276,7 @@ class Mage_Core_Model_Resource_Setup
         $dataVer= $this->_getResource()->getDataVersion($this->_resourceName);
         $configVer = (string)$this->_moduleConfig->version;
         if ($dataVer !== false) {
-             $status = version_compare($configVer, $dataVer);
+            $status = version_compare($configVer, $dataVer);
             if ($status == self::VERSION_COMPARE_GREATER) {
                 $this->_upgradeData($dataVer, $configVer);
             }
@@ -306,7 +306,7 @@ class Mage_Core_Model_Resource_Setup
 
         // Module is installed
         if ($dbVer !== false) {
-             $status = version_compare($configVer, $dbVer);
+            $status = version_compare($configVer, $dbVer);
             switch ($status) {
                 case self::VERSION_COMPARE_LOWER:
                     $this->_rollbackResourceDb($configVer, $dbVer);
@@ -699,7 +699,7 @@ class Mage_Core_Model_Resource_Setup
         return $arrRes;
     }
 
-/******************* UTILITY METHODS *****************/
+    /******************* UTILITY METHODS *****************/
 
     /**
      * Retrieve row or field from table by id or string and parent id
@@ -737,7 +737,7 @@ class Mage_Core_Model_Resource_Setup
         return $this->_setupCache[$table][$parentId][$id][$field] ?? false;
     }
 
-     /**
+    /**
      * Delete table row
      *
      * @param string $table
@@ -850,7 +850,7 @@ class Mage_Core_Model_Resource_Setup
         return $this->getConnection()->isTableExists($table);
     }
 
-/******************* CONFIG *****************/
+    /******************* CONFIG *****************/
 
     /**
      * Undefined
@@ -947,7 +947,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Retrieve 32bit UNIQUE HASH for a Table index
      *
-     * @param string $tableName
+     * @param array|string $tableName
      * @param array|string $fields
      * @param string $indexType
      * @return string
@@ -960,9 +960,9 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Retrieve 32bit UNIQUE HASH for a Table foreign key
      *
-     * @param string $priTableName  the target table name
+     * @param array|string $priTableName  the target table name
      * @param string $priColumnName the target table column name
-     * @param string $refTableName  the reference table name
+     * @param array|string $refTableName  the reference table name
      * @param string $refColumnName the reference table column name
      * @return string
      */

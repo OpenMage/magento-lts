@@ -393,7 +393,7 @@ class Mage_Core_Model_Resource
     /**
      * Retrieve 32bit UNIQUE HASH for a Table index
      *
-     * @param string $tableName
+     * @param array|string $tableName
      * @param array|string $fields
      * @param string $indexType
      * @return string
@@ -407,9 +407,9 @@ class Mage_Core_Model_Resource
     /**
      * Retrieve 32bit UNIQUE HASH for a Table foreign key
      *
-     * @param string $priTableName  the target table name
+     * @param array|string $priTableName  the target table name
      * @param string $priColumnName the target table column name
-     * @param string $refTableName  the reference table name
+     * @param array|string $refTableName  the reference table name
      * @param string $refColumnName the reference table column name
      * @return string
      */

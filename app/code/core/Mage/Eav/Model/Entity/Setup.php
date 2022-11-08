@@ -110,7 +110,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-/******************* ENTITY TYPES *****************/
+    /******************* ENTITY TYPES *****************/
 
     /**
      * Add an entity type
@@ -160,7 +160,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Update entity row
      *
      * @param string $code
-     * @param string $field
+     * @param array|string $field
      * @param string $value
      * @return $this
      */
@@ -228,7 +228,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-/******************* ATTRIBUTE SETS *****************/
+    /******************* ATTRIBUTE SETS *****************/
 
     /**
      * Retrieve Attribute Set Sort order
@@ -245,7 +245,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 ->from($this->getTable('eav/attribute_set'), 'MAX(sort_order)')
                 ->where('entity_type_id = :entity_type_id');
 
-            $sortOrder = $this->_conn->fetchOne($select, $bind) + 1;
+            $sortOrder = (int)$this->_conn->fetchOne($select, $bind) + 1;
         }
 
         return $sortOrder;
@@ -397,7 +397,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Retrieve Default Attribute Set for Entity Type
      *
      * @param string|int $entityType
-     * @return int
+     * @return string
      */
     public function getDefaultAttributeSetId($entityType)
     {
@@ -414,7 +414,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this->getConnection()->fetchOne($select, $bind);
     }
 
-/******************* ATTRIBUTE GROUPS *****************/
+    /******************* ATTRIBUTE GROUPS *****************/
 
     /**
      * Retrieve Attribute Group Sort order
@@ -432,7 +432,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 ->from($this->getTable('eav/attribute_group'), 'MAX(sort_order)')
                 ->where('attribute_set_id = :attribute_set_id');
 
-            $sortOrder = $this->_conn->fetchOne($select, $bind) + 1;
+            $sortOrder = (int)$this->_conn->fetchOne($select, $bind) + 1;
         }
 
         return $sortOrder;
@@ -581,7 +581,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param string|int $entityType
      * @param int $attributeSetId
-     * @return int
+     * @return string
      */
     public function getDefaultAttributeGroupId($entityType, $attributeSetId = null)
     {
@@ -599,7 +599,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this->getConnection()->fetchOne($select, $bind);
     }
 
-/******************* ATTRIBUTES *****************/
+    /******************* ATTRIBUTES *****************/
 
     /**
      * Retrieve value from array by key or return default value
@@ -607,7 +607,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param array $array
      * @param string $key
      * @param string $default
-     * @return string
+     * @return mixed
      */
     protected function _getValue($array, $key, $default = null)
     {
@@ -811,7 +811,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param mixed $entityTypeId
      * @param mixed $id
-     * @param string $field
+     * @param array|string $field
      * @param mixed $value
      * @param int $sortOrder
      * @return $this
@@ -828,7 +828,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param mixed $entityTypeId
      * @param mixed $id
-     * @param string $field
+     * @param array|string $field
      * @param mixed $value
      * @param int $sortOrder
      * @return $this
@@ -1069,7 +1069,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 ->from($this->getTable('eav/entity_attribute'), 'MAX(sort_order)')
                 ->where('attribute_group_id = :attribute_group_id');
 
-            $sortOrder = $this->_conn->fetchOne($select, $bind) + 1;
+            $sortOrder = (int)$this->_conn->fetchOne($select, $bind) + 1;
         }
 
         return $sortOrder;
@@ -1178,7 +1178,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     ->where('attribute_set_id = :attribute_set_id')
                     ->where('attribute_id = :attribute_id');
 
-                $sortOrder = $this->getConnection()->fetchOne($select, $bind) + 10;
+                $sortOrder = (int)$this->getConnection()->fetchOne($select, $bind) + 10;
             }
             $sortOrder = is_numeric($sortOrder) ? $sortOrder : 1;
             $data['sort_order'] = $sortOrder;
@@ -1188,7 +1188,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-/******************* BULK INSTALL *****************/
+    /******************* BULK INSTALL *****************/
 
     /**
      * Install entities
@@ -1242,7 +1242,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-/****************************** CREATE ENTITY TABLES ***********************************/
+    /****************************** CREATE ENTITY TABLES ***********************************/
 
     /**
      * Create entity tables

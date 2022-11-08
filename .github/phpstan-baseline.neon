@@ -3716,32 +3716,7 @@ parameters:
 			path: ../app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
 
 		-
-			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: "#^Binary operation \"\\+\" between string and 1 results in an error\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: "#^Binary operation \"\\+\" between string and 10 results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
 			message: "#^Call to an undefined method Varien_Db_Adapter_Interface\\:\\:lastInsertId\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: "#^Method Mage_Eav_Model_Entity_Setup\\:\\:getDefaultAttributeGroupId\\(\\) should return int but returns string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: "#^Method Mage_Eav_Model_Entity_Setup\\:\\:getDefaultAttributeSetId\\(\\) should return int but returns string\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Entity/Setup.php
 
