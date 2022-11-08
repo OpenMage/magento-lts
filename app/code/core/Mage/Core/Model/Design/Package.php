@@ -63,7 +63,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Package theme
      *
-     * @var string
+     * @var array
      */
     protected $_theme;
 
@@ -398,7 +398,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Get filename by specified theme parameters
      *
-     * @param array $file
+     * @param string $file
      * @param array $params
      * @return string
      */

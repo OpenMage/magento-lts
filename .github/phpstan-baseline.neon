@@ -2836,21 +2836,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Design/Config.php
 
 		-
-			message: "#^Binary operation \"\\.\" between non\\-falsy\\-string and array results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
-			message: "#^Cannot assign offset 'layout'\\|'locale'\\|'skin'\\|'template' to string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
-			message: "#^Cannot assign offset string to string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
 			message: "#^Method Zend_Mail\\:\\:addBcc\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Email/Queue.php
