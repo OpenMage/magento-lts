@@ -250,14 +250,17 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
             $memoryLimit = "128M";
         }
 
-        if (substr($memoryLimit, -1) == 'K') {
-            return substr($memoryLimit, 0, -1) * 1024;
+        $unit = substr($memoryLimit, -1);
+        $value = (int)substr($memoryLimit, 0, -1);
+
+        if ($unit == 'K') {
+            return $value * 1024;
         }
-        if (substr($memoryLimit, -1) == 'M') {
-            return substr($memoryLimit, 0, -1) * 1024 * 1024;
+        if ($unit == 'M') {
+            return $value * 1024 * 1024;
         }
-        if (substr($memoryLimit, -1) == 'G') {
-            return substr($memoryLimit, 0, -1) * 1024 * 1024 * 1024;
+        if ($unit == 'G') {
+            return $value * 1024 * 1024 * 1024;
         }
         return $memoryLimit;
     }

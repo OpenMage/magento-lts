@@ -1956,11 +1956,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Product/Flat/Indexer.php
 
 		-
-			message: "#^Binary operation \"\\*\" between string and 1024 results in an error\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Catalog/Model/Product/Image.php
-
-		-
 			message: "#^Cannot call method isIndexable\\(\\) on Mage_Eav_Model_Entity_Attribute_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product/Indexer/Eav.php
