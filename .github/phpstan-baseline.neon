@@ -5761,26 +5761,6 @@ parameters:
 			path: ../app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
 
 		-
-			message: "#^Binary operation \"\\*\" between string and 1024 results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Uploader/Helper/File.php
-
-		-
-			message: "#^Binary operation \"\\*\" between string and 1048576 results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Uploader/Helper/File.php
-
-		-
-			message: "#^Binary operation \"\\*\" between string and 1073741824 results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Uploader/Helper/File.php
-
-		-
-			message: "#^Binary operation \"\\*\" between string and 1099511627776 results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Uploader/Helper/File.php
-
-		-
 			message: "#^Method Mage_Widget_Block_Adminhtml_Widget_Chooser\\:\\:getConfig\\(\\) should return Varien_Object but returns mixed\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Widget/Block/Adminhtml/Widget/Chooser.php
