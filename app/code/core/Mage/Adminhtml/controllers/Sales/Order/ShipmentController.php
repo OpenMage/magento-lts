@@ -53,6 +53,10 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         $orderId = $this->getRequest()->getParam('order_id');
         if ($shipmentId) {
             $shipment = Mage::getModel('sales/order_shipment')->load($shipmentId);
+            if (!$shipment->getId()) {
+                $this->_getSession()->addError($this->__('The shipment no longer exists.'));
+                return false;
+            }
         } elseif ($orderId) {
             $order      = Mage::getModel('sales/order')->load($orderId);
 
@@ -133,7 +137,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             $this->_setActiveMenu('sales/order')
                 ->renderLayout();
         } else {
-            $this->_forward('noRoute');
+            $this->_redirect('*/*/');
         }
     }
 

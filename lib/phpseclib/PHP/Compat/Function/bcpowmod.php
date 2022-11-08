@@ -54,7 +54,7 @@ function php_compat_bcpowmod($x, $y, $modulus, $scale = 0)
         $y = bcdiv($y, '2');
     }
 
-    return $t;    
+    return $t;
 }
 
 
