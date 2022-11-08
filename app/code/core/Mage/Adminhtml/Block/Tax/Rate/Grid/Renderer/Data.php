@@ -27,14 +27,18 @@
  */
 class Mage_Adminhtml_Block_Tax_Rate_Grid_Renderer_Data extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
-    protected function _getValue (Varien_Object $row)
+    /**
+     * @param Mage_Tax_Model_Calculation_Rate $row
+     * @return float|string|null
+     */
+    protected function _getValue(Varien_Object $row)
     {
         $data = parent::_getValue($row);
         if (intval($data) == $data) {
             return (string) number_format($data, 2);
         }
         if (!is_null($data)) {
-            return $data * 1;
+            return (float)$data;
         }
         return $this->getColumn()->getDefault();
     }

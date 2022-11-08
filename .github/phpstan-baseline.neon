@@ -541,11 +541,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Grid/All.php
 
 		-
-			message: "#^Binary operation \"\\*\" between string and 1 results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Grid/Renderer/Data.php
-
-		-
 			message: "#^Variable \\$category in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Urlrewrite/Category/Tree.php
