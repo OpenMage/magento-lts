@@ -97,7 +97,11 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
         $this->_title($this->__('Edit Review'));
 
         $this->loadLayout();
-        $this->_setActiveMenu('catalog/reviews_ratings/reviews/all');
+        if ($this->getRequest()->getParam('ret') === 'pending') {
+            $this->_setActiveMenu('catalog/reviews_ratings/reviews/pending');
+        } else {
+            $this->_setActiveMenu('catalog/reviews_ratings/reviews/all');
+        }
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/review_edit'));
 
