@@ -2261,16 +2261,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Abstract.php
 
 		-
-			message: "#^Binary operation \"\\*\" between string and 0\\.3 results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
-
-		-
-			message: "#^Binary operation \"\\+\" between int\\<0, max\\> and string results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface\\:\\:getIsComposite\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php

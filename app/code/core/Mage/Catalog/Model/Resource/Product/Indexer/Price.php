@@ -215,7 +215,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         $write  = $this->_getWriteAdapter();
         $select = $write->select()
             ->from($this->getTable('catalog/product'), 'COUNT(*)');
-        $pCount = $write->fetchOne($select);
+        $pCount = (int)$write->fetchOne($select);
 
         // if affected more 30% of all products - run reindex all products
         if ($pCount * 0.3 < count($processIds)) {
@@ -226,11 +226,11 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         $select = $write->select()
             ->from($this->getTable('catalog/product_relation'), 'COUNT(DISTINCT parent_id)')
             ->where('child_id IN(?)', $processIds);
-        $aCount = $write->fetchOne($select);
+        $aCount = (int)$write->fetchOne($select);
         $select = $write->select()
             ->from($this->getTable('catalog/product_relation'), 'COUNT(DISTINCT child_id)')
             ->where('parent_id IN(?)', $processIds);
-        $bCount = $write->fetchOne($select);
+        $bCount = (int)$write->fetchOne($select);
 
         // if affected with relations more 30% of all products - run reindex all products
         if ($pCount * 0.3 < count($processIds) + $aCount + $bCount) {
