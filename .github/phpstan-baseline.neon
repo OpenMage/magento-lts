@@ -586,11 +586,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Filter/Datetime.php
 
 		-
-			message: "#^Binary operation \"\\*\" between string and 1 results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Number.php
-
-		-
 			message: "#^Call to an undefined method Mage_Adminhtml_Block_Widget_Tab_Interface\\:\\:getSkipGenerateContent\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
