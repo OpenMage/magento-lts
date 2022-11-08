@@ -5486,11 +5486,6 @@ parameters:
 			path: ../app/code/core/Mage/SalesRule/Model/Quote/Nominal/Discount.php
 
 		-
-			message: "#^Binary operation \"\\+\\=\" between string and \\-1\\|1 results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Resource/Coupon/Usage.php
-
-		-
 			message: "#^Method Mage_SalesRule_Model_Resource_Report_Collection\\:\\:_applyRulesFilter\\(\\) should return \\$this\\(Mage_SalesRule_Model_Resource_Report_Collection\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/SalesRule/Model/Resource/Report/Collection.php
