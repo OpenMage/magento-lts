@@ -79,7 +79,7 @@ class Mage_Paypal_Model_Ipn
      * IPN request data getter
      *
      * @param string $key
-     * @return array|string
+     * @return array|string|null
      */
     public function getRequestData($key = null)
     {
@@ -192,7 +192,7 @@ class Mage_Paypal_Model_Ipn
                 $this->_debugData['exception'] = sprintf('Wrong order ID: "%s".', $id);
                 $this->_debug();
                 Mage::app()->getResponse()
-                    ->setHeader('HTTP/1.1','503 Service Unavailable')
+                    ->setHeader('HTTP/1.1', '503 Service Unavailable')
                     ->sendResponse();
                 exit;
             }
@@ -229,7 +229,8 @@ class Mage_Paypal_Model_Ipn
             // re-initialize config with the method code and store id
             $methodCode = $this->_recurringProfile->getMethodCode();
             $this->_config = Mage::getModel(
-                'paypal/config', [$methodCode, $this->_recurringProfile->getStoreId()]
+                'paypal/config',
+                [$methodCode, $this->_recurringProfile->getStoreId()]
             );
             if (!$this->_config->isMethodActive($methodCode) || !$this->_config->isMethodAvailable()) {
                 throw new Exception(sprintf('Method "%s" is not available.', $methodCode));
@@ -256,7 +257,9 @@ class Mage_Paypal_Model_Ipn
             if (strtolower($merchantEmail) != strtolower($receiverEmail)) {
                 throw new Exception(
                     sprintf(
-                        'Requested %s and configured %s merchant emails do not match.', $receiverEmail, $merchantEmail
+                        'Requested %s and configured %s merchant emails do not match.',
+                        $receiverEmail,
+                        $merchantEmail
                     )
                 );
             }
@@ -425,7 +428,7 @@ class Mage_Paypal_Model_Ipn
      */
     protected function _registerRecurringProfilePaymentCapture()
     {
-        $price = $this->getRequestData('mc_gross') - $this->getRequestData('tax') -  $this->getRequestData('shipping');
+        $price = (float)$this->getRequestData('mc_gross') - (float)$this->getRequestData('tax') -  (float)$this->getRequestData('shipping');
         $productItemInfo = new Varien_Object;
         $type = trim($this->getRequestData('period_type'));
         if ($type == 'Trial') {
@@ -528,7 +531,7 @@ class Mage_Paypal_Model_Ipn
     {
         $this->_importPaymentInformation();
 
-        foreach ($this->_order->getInvoiceCollection() as $invoice){
+        foreach ($this->_order->getInvoiceCollection() as $invoice) {
             $invoice->cancel()->save();
         }
 
@@ -800,10 +803,10 @@ class Mage_Paypal_Model_Ipn
             case 'Voided':    return Mage_Paypal_Model_Info::PAYMENTSTATUS_VOIDED;
         }
         return '';
-// documented in NVP, but not documented in IPN:
-//Mage_Paypal_Model_Info::PAYMENTSTATUS_NONE
-//Mage_Paypal_Model_Info::PAYMENTSTATUS_INPROGRESS
-//Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDEDPART
+        // documented in NVP, but not documented in IPN:
+        //Mage_Paypal_Model_Info::PAYMENTSTATUS_NONE
+        //Mage_Paypal_Model_Info::PAYMENTSTATUS_INPROGRESS
+        //Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDEDPART
     }
 
     /**
