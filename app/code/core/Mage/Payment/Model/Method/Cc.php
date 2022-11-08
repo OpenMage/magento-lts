@@ -240,7 +240,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         $numSum = 0;
 
         for ($i=0; $i<strlen($cardNumber); $i++) {
-            $currentNum = substr($cardNumber, $i, 1);
+            $currentNum = (int)substr($cardNumber, $i, 1);
 
             /**
              * Double every second digit
