@@ -28,7 +28,7 @@
  *
  * @method string|false getAttribute()
  * @method $this setAttribute(string|false $value)
- * @method array getAttributeOption()
+ * @method array|string getAttributeOption()
  * @method bool getExplicitApply()
  * @method $this setJsFormObject(string  $value)
  * @method $this setIsValueParsed(string|false $value)
@@ -252,7 +252,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @return array
+     * @return array|string
      */
     public function getAttributeName()
     {
@@ -298,7 +298,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @return array
+     * @return array|string
      */
     public function getOperatorName()
     {
@@ -733,7 +733,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             case '>=':
             case '<':
                 if (!is_scalar($validatedValue)) {
-                        return false;
+                    return false;
                 } else {
                     $result = $validatedValue >= $value;
                 }
