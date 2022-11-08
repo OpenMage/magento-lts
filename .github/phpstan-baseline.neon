@@ -3006,11 +3006,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Resource/Setup.php
 
 		-
-			message: "#^Binary operation \"\\.\" between string and array results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Resource/Setup/Query/Modifier.php
-
-		-
 			message: "#^Parameter \\#2 \\$clear \\(bool\\) of method Mage_Core_Model_Session_Abstract_Varien\\:\\:getData\\(\\) should be compatible with parameter \\$index \\(int\\|string\\) of method Varien_Object\\:\\:getData\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Session/Abstract/Varien.php
