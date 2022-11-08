@@ -38,7 +38,7 @@ class Mage_Eav_Model_Convert_Adapter_Grid extends Mage_Dataflow_Model_Convert_Ad
     protected $_entityType;
 
     /**
-     * @return string
+     * @return Mage_Eav_Model_Entity_Interface
      */
     public function getEntity()
     {
