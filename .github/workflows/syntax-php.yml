@@ -7,10 +7,12 @@ on:
     paths:
       - '**.php'
       - '**.phtml'
+      - '.github/workflows/syntax-php.yml'
   pull_request:
     paths:
       - '**.php'
       - '**.phtml'
+      - '.github/workflows/syntax-php.yml'
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
