@@ -256,7 +256,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         if ($unit === 'K') {
             return $value * 1024;
         }
-        if ($unit == 'M') {
+        if ($unit === 'M') {
             return $value * 1024 * 1024;
         }
         if ($unit == 'G') {
