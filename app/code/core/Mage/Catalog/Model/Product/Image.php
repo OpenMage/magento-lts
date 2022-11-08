@@ -338,7 +338,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     {
         $this->_isBaseFilePlaceholder = false;
 
-        if (($file) && (strpos($file, '/', 0) !== 0)) {
+        if (($file) && (strpos($file, '/') !== 0)) {
             $file = '/' . $file;
         }
         $baseDir = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
@@ -508,7 +508,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      *
      * @param string $file
      * @param string $position
-     * @param string $size
+     * @param array $size
      * @param int $width
      * @param int $heigth
      * @param int $imageOpacity
