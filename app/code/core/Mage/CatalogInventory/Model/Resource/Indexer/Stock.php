@@ -165,7 +165,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
         $processIds = $data['reindex_stock_product_ids'];
         $select = $adapter->select()
             ->from($this->getTable('catalog/product'), 'COUNT(*)');
-        $pCount = $adapter->fetchOne($select);
+        $pCount = (int)$adapter->fetchOne($select);
 
         // if affected more 30% of all products - run reindex all products
         if ($pCount * 0.3 < count($processIds)) {
@@ -176,11 +176,11 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
         $select = $adapter->select()
             ->from($this->getTable('catalog/product_relation'), 'COUNT(DISTINCT parent_id)')
             ->where('child_id IN(?)', $processIds);
-        $aCount = $adapter->fetchOne($select);
+        $aCount = (int)$adapter->fetchOne($select);
         $select = $adapter->select()
             ->from($this->getTable('catalog/product_relation'), 'COUNT(DISTINCT child_id)')
             ->where('parent_id IN(?)', $processIds);
-        $bCount = $adapter->fetchOne($select);
+        $bCount = (int)$adapter->fetchOne($select);
 
         // if affected with relations more 30% of all products - run reindex all products
         if ($pCount * 0.3 < count($processIds) + $aCount + $bCount) {

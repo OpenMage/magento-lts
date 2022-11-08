@@ -2376,16 +2376,6 @@ parameters:
 			path: ../app/code/core/Mage/CatalogInventory/Model/Observer.php
 
 		-
-			message: "#^Binary operation \"\\*\" between string and 0\\.3 results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
-
-		-
-			message: "#^Binary operation \"\\+\" between int\\<0, max\\> and string results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
-
-		-
 			message: "#^Cannot call method setTypeId\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
