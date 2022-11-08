@@ -2151,16 +2151,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
 		-
-			message: "#^Binary operation \"\\-\" between int and non\\-falsy\\-string results in an error\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Layer/Filter/Price.php
-
-		-
-			message: "#^Binary operation \"\\-\" between non\\-falsy\\-string and 1 results in an error\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Layer/Filter/Price.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Resource_Category\\:\\:refreshProductIndex\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product.php
