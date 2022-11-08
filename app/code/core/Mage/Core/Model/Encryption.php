@@ -126,7 +126,7 @@ class Mage_Core_Model_Encryption
      */
     public function validateHash($password, $hash)
     {
-        if (strlen($password) > 256)
+        if (strlen($password) > Mage_Customer_Model_Customer::MAXIMUM_PASSWORD_LENGTH)
             return false;
 
         return $this->validateHashByVersion($password, $hash, self::HASH_VERSION_LATEST)
