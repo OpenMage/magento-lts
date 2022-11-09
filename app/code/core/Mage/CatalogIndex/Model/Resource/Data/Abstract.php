@@ -76,7 +76,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
     /**
      * Retrieve specified attribute data for specified products from specified store
      *
-     * @param array $products
+     * @param array|int $products
      * @param array $attributes
      * @param int $store
      * @return array
@@ -184,7 +184,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      * @param array $products
      * @param array $priceAttributes
      * @param int $store
-     * @return mixed
+     * @return array
      */
     public function getMinimalPrice($products, $priceAttributes, $store)
     {
@@ -205,7 +205,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      *
      * @param array $products
      * @param int $website
-     * @return mixed
+     * @return array
      */
     public function getTierPrices($products, $website)
     {

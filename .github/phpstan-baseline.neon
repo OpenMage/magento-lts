@@ -1296,11 +1296,6 @@ parameters:
 			path: ../app/code/core/Mage/Bundle/Model/Product/Price.php
 
 		-
-			message: "#^Method Mage_Bundle_Model_Product_Price\\:\\:getOptions\\(\\) should return Mage_Bundle_Model_Resource_Option_Collection but returns array\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Bundle/Model/Product/Price.php
-
-		-
 			message: "#^Method Mage_Bundle_Model_Product_Price\\:\\:getPrice\\(\\) should return string but returns int\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Bundle/Model/Product/Price.php

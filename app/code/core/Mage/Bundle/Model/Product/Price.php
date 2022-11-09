@@ -87,7 +87,6 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                 $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
                 /** @var Mage_Bundle_Model_Product_Type $productType */
                 $productType = $product->getTypeInstance(true);
-                /** @var Mage_Bundle_Model_Resource_Selection_Collection $selections */
                 $selections = $productType->getSelectionsByIds($selectionIds, $product);
                 $selections->addTierPriceData();
                 Mage::dispatchEvent('prepare_catalog_product_collection_prices', [
@@ -467,7 +466,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * Get Options with attached Selections collection
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Bundle_Model_Resource_Option_Collection
+     * @return array|Mage_Bundle_Model_Option[]
      */
     public function getOptions($product)
     {
@@ -554,7 +553,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param Mage_Catalog_Model_Product $bundleProduct
      * @param Mage_Catalog_Model_Product $selectionProduct
      * @param float $bundleQty
-     * @param float $selectionQty
+     * @param float|null $selectionQty
      * @param bool $multiplyQty
      * @param bool $takeTierPrice
      * @return float
