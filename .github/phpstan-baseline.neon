@@ -5421,16 +5421,6 @@ parameters:
 			path: ../app/code/core/Mage/Tax/Helper/Data.php
 
 		-
-			message: "#^Property Mage_Tax_Model_Calculation\\:\\:\\$_customer \\(Mage_Customer_Model_Customer\\) does not accept false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tax/Model/Calculation.php
-
-		-
-			message: "#^Property Mage_Tax_Model_Calculation\\:\\:\\$_defaultCustomerTaxClass \\(string\\) does not accept int\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tax/Model/Calculation.php
-
-		-
 			message: "#^Property Mage_Tax_Model_Calculation_Rate\\:\\:\\$_titles \\(array\\) does not accept Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Tax/Model/Calculation/Rate.php
