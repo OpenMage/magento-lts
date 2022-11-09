@@ -4836,21 +4836,6 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Order/Invoice.php
 
 		-
-			message: "#^Property Mage_Sales_Model_Order_Invoice\\:\\:\\$_comments \\(iterable\\<Mage_Sales_Model_Order_Invoice_Comment\\>&Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order/Invoice.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Order_Invoice\\:\\:\\$_items \\(iterable\\<Mage_Sales_Model_Order_Invoice_Item\\>&Mage_Sales_Model_Resource_Order_Invoice_Item_Collection\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order/Invoice.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Order_Invoice\\:\\:\\$_order \\(Mage_Sales_Model_Order\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order/Invoice.php
-
-		-
 			message: "#^Property Varien_Object\\:\\:\\$_origData \\(array\\) does not accept null\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Order/Invoice.php
