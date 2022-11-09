@@ -1536,46 +1536,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Helper/Data.php
 
 		-
-			message: "#^Property Mage_Catalog_Helper_Image\\:\\:\\$_angle \\(int\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Helper/Image.php
-
-		-
-			message: "#^Property Mage_Catalog_Helper_Image\\:\\:\\$_imageFile \\(string\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Helper/Image.php
-
-		-
-			message: "#^Property Mage_Catalog_Helper_Image\\:\\:\\$_model \\(Mage_Catalog_Model_Product_Image\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Helper/Image.php
-
-		-
-			message: "#^Property Mage_Catalog_Helper_Image\\:\\:\\$_product \\(Mage_Catalog_Model_Product\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Helper/Image.php
-
-		-
-			message: "#^Property Mage_Catalog_Helper_Image\\:\\:\\$_watermark \\(string\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Helper/Image.php
-
-		-
-			message: "#^Property Mage_Catalog_Helper_Image\\:\\:\\$_watermarkImageOpacity \\(int\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Helper/Image.php
-
-		-
-			message: "#^Property Mage_Catalog_Helper_Image\\:\\:\\$_watermarkPosition \\(string\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Helper/Image.php
-
-		-
-			message: "#^Property Mage_Catalog_Helper_Image\\:\\:\\$_watermarkSize \\(string\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Helper/Image.php
-
-		-
 			message: "#^Property Mage_Catalog_Helper_Output\\:\\:\\$_templateProcessor \\(Varien_Filter_Template\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Helper/Output.php
