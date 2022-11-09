@@ -966,11 +966,6 @@ parameters:
 			path: ../app/code/core/Mage/Api2/Block/Adminhtml/Roles/Tab/Resources.php
 
 		-
-			message: "#^Cannot access offset 'order' on int\\.$#"
-			count: 4
-			path: ../app/code/core/Mage/Api2/Helper/Data.php
-
-		-
 			message: "#^Variable \\$adapters might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Api2/Helper/Data.php
