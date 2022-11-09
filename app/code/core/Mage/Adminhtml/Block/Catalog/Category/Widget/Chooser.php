@@ -72,8 +72,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     public function prepareElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $uniqId = Mage::helper('core')->uniqHash($element->getId());
-        $sourceUrl = $this->getUrl('*/catalog_category_widget/chooser',
-            ['uniq_id' => $uniqId, 'use_massaction' => false]);
+        $sourceUrl = $this->getUrl(
+            '*/catalog_category_widget/chooser',
+            ['uniq_id' => $uniqId, 'use_massaction' => false]
+        );
 
         $chooser = $this->getLayout()->createBlock('widget/adminhtml_widget_chooser')
             ->setElement($element)
@@ -156,7 +158,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
      *
      * @param Varien_Data_Tree_Node|array $node
      * @param int $level
-     * @return string
+     * @return array
      */
     protected function _getNodeJson($node, $level = 0)
     {
@@ -172,7 +174,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     /**
      * Adds some extra params to categories collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection
+     * @return Mage_Catalog_Model_Resource_Category_Collection
      */
     public function getCategoryCollection()
     {

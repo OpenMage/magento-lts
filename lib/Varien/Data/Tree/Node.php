@@ -22,18 +22,23 @@
 /**
  * Data tree node
  *
- * @method int getLevel()
- * @method string getClass()
- * @method string getPositionClass()
- * @method string getOutermostClass()
- * @method Varien_Data_Tree_Node setOutermostClass(string $class)
- * @method Varien_Data_Tree_Node setChildrenWrapClass(string $class)
- * @method bool getIsFirst()
- * @method bool getIsLast()
- *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setChecked(bool $value)
+ * @method $this setChildrenWrapClass(string $class)
+ * @method string getClass()
+ * @method $this setDisabled(bool $value)
+ * @method bool getIsAnchor()
+ * @method bool getIsFirst()
+ * @method bool getIsLast()
+ * @method $this setIsVisible(bool $value)
+ * @method int getLevel()
+ * @method $this setName(string $value)
+ * @method string getOutermostClass()
+ * @method $this setOutermostClass(string $class)
+ * @method string getPositionClass()
  */
 class Varien_Data_Tree_Node extends Varien_Object
 {

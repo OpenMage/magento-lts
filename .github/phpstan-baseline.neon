@@ -46,27 +46,7 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Cache/Grid.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree\\:\\:_getNodeJson\\(\\) should return string but returns array\\<string, mixed\\>\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Checkboxes/Tree.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Category_Tree\\:\\:_getNodeJson\\(\\) should return string but returns array\\<string, mixed\\>\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tree.php
-
-		-
-			message: "#^Cannot assign offset 'checked' to string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Widget/Chooser.php
-
-		-
 			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Widget/Chooser.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser\\:\\:_getNodeJson\\(\\) should return string but returns array\\<string, mixed\\>\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Widget/Chooser.php
 
@@ -89,16 +69,6 @@ parameters:
 			message: "#^Return type \\(void\\) of method Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes\\:\\:_prepareForm\\(\\) should be compatible with return type \\(\\$this\\(Mage_Adminhtml_Block_Widget_Form\\)\\) of method Mage_Adminhtml_Block_Widget_Form\\:\\:_prepareForm\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Attributes.php
-
-		-
-			message: "#^Cannot assign offset 'expanded' to string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Categories.php
-
-		-
-			message: "#^Return type \\(array\\) of method Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories\\:\\:_getNodeJson\\(\\) should be compatible with return type \\(string\\) of method Mage_Adminhtml_Block_Catalog_Category_Tree\\:\\:_getNodeJson\\(\\)$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Categories.php
 
 		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 2 parameters, 0 required\\.$#"
