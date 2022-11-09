@@ -4036,16 +4036,6 @@ parameters:
 			path: ../app/code/core/Mage/Install/Model/Config.php
 
 		-
-			message: "#^Constant data not found\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Install/Model/Installer.php
-
-		-
-			message: "#^Property Mage_Install_Model_Installer\\:\\:\\$_dataModel \\(Mage_Install_Model_Session\\) does not accept Varien_Object\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Install/Model/Installer.php
-
-		-
 			message: "#^Call to an undefined method Mage_Install_Model_Installer_Db_Abstract\\:\\:getVersion\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Install/Model/Installer/Db.php

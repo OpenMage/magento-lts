@@ -67,7 +67,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Set data model to store data between installation steps
      *
-     * @param Varien_Object $model
+     * @param Mage_Install_Model_Session $model
      * @return $this
      */
     public function setDataModel(Varien_Object $model)
@@ -164,8 +164,7 @@ class Mage_Install_Model_Installer extends Varien_Object
             if (!empty($data['use_secure_admin'])) {
                 $setupModel->setConfigData(Mage_Core_Model_Store::XML_PATH_SECURE_IN_ADMINHTML, 1);
             }
-        }
-        elseif (!empty($data['unsecure_base_url'])) {
+        } elseif (!empty($data['unsecure_base_url'])) {
             $setupModel->setConfigData(Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL, $unsecureBaseUrl);
         }
 
@@ -193,7 +192,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Returns TRUE or array of error messages.
      *
      * @param array $data
-     * @return mixed
+     * @return array|false|Mage_Admin_Model_User
      */
     public function validateAndPrepareAdministrator($data)
     {
@@ -230,7 +229,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         //to support old logic checking if real data was passed
         if (is_array($data)) {
             $data = $this->validateAndPrepareAdministrator($data);
-            if (is_array(data)) {
+            if (is_array($data)) {
                 throw new Exception(Mage::helper('install')->__('Please correct the user data and try again.'));
             }
         }
@@ -285,6 +284,9 @@ class Mage_Install_Model_Installer extends Varien_Object
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function finish()
     {
         Mage::getSingleton('install/installer_config')->replaceTmpInstallDate();
