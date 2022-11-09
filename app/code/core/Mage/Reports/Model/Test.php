@@ -7,29 +7,27 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Model  for flex reports
  *
  * @category   Mage
  * @package    Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Reports_Model_Test extends Varien_Object
 {
-
     /**
      * @return false|string
      */
@@ -51,7 +49,7 @@ class Mage_Reports_Model_Test extends Varien_Object
         $root = $dom -> documentElement;
         $rows = $root -> getElementsByTagName('row');
 
-        $childsToRemove = array();
+        $childsToRemove = [];
         for ($i = 0; $i < $rows -> length; $i++) {
             for ($j = 0; $j < $rows -> item($i) -> childNodes -> length; $j ++) {
                 if ($rows -> item($i) -> childNodes -> item($j) -> nodeType == XML_ELEMENT_NODE
@@ -89,14 +87,14 @@ class Mage_Reports_Model_Test extends Varien_Object
 
         $startPoint = time() - 24*60*60;
 
-        $allData = array();
+        $allData = [];
         $countOfStartData = 12;
         for ($i = 1; $i<= $countOfStartData; $i++) {
-            $allData[] = array( 'time'=>date("Y-m-d H:i", $startPoint), 'value'=>rand(1, 100) );
+            $allData[] = ['time'=>date("Y-m-d H:i", $startPoint), 'value'=>rand(1, 100)];
             $startPoint += 30*60;
         }
 
-        $allData[] = array( 'time'=>date("Y-m-d H:i", $startPoint+(90*60)));
+        $allData[] = ['time'=>date("Y-m-d H:i", $startPoint+(90*60))];
 
         $session -> setData('startPoint', $startPoint);
 
@@ -110,18 +108,16 @@ class Mage_Reports_Model_Test extends Varien_Object
     {
         $session = Mage::getModel('review/session');
 
-
         $startPoint = $session->getData('startPoint');
 
         $reset = 12;
 
-
-        $newData  = array(
-            array( 'time'=> date("Y-m-d H:i", $startPoint), 'value'=>rand(1, 100) )
-        );
+        $newData  = [
+            ['time'=> date("Y-m-d H:i", $startPoint), 'value'=>rand(1, 100)]
+        ];
 
         $startPoint += 30*60;
-        $newData[]  = array( 'time'=> date("Y-m-d H:i", $startPoint+(90*60)) );
+        $newData[]  = ['time'=> date("Y-m-d H:i", $startPoint+(90*60))];
 
         $session->setData('startPoint', $startPoint);
 

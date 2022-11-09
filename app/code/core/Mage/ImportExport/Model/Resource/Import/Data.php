@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * ImportExport import data resource model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resource_Db_Abstract implements IteratorAggregate
 {
@@ -32,9 +33,6 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
      */
     protected $_iterator = null;
 
-    /**
-     * Resource initialization
-     */
     protected function _construct()
     {
         $this->_init('importexport/importdata', 'id');
@@ -50,7 +48,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
     {
         $adapter = $this->_getWriteAdapter();
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('data'))
+            ->from($this->getMainTable(), ['data'])
             ->order('id ASC');
         $stmt = $adapter->query($select);
 
@@ -87,7 +85,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
         $adapter = $this->_getReadAdapter();
         $behaviors = array_unique($adapter->fetchCol(
             $adapter->select()
-                ->from($this->getMainTable(), array('behavior'))
+                ->from($this->getMainTable(), ['behavior'])
         ));
         if (count($behaviors) != 1) {
             Mage::throwException(Mage::helper('importexport')->__('Error in data structure: behaviors are mixed'));
@@ -106,7 +104,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
         $adapter = $this->_getReadAdapter();
         $entityCodes = array_unique($adapter->fetchCol(
             $adapter->select()
-                ->from($this->getMainTable(), array('entity'))
+                ->from($this->getMainTable(), ['entity'])
         ));
         if (count($entityCodes) != 1) {
             Mage::throwException(Mage::helper('importexport')->__('Error in data structure: entity codes are mixed'));
@@ -121,7 +119,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
      */
     public function getNextBunch()
     {
-        if (null === $this->_iterator) {
+        if ($this->_iterator === null) {
             $this->_iterator = $this->getIterator();
             $this->_iterator->rewind();
         }
@@ -148,7 +146,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
     {
         return $this->_getWriteAdapter()->insert(
             $this->getMainTable(),
-            array('behavior' => $behavior, 'entity' => $entity, 'data' => Mage::helper('core')->jsonEncode($data))
+            ['behavior' => $behavior, 'entity' => $entity, 'data' => Mage::helper('core')->jsonEncode($data)]
         );
     }
 }

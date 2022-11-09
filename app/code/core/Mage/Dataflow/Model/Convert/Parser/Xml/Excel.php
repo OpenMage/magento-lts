@@ -7,24 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Dataflow
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Dataflow
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Convert excel xml parser
  *
  * @category   Mage
  * @package    Mage_Dataflow
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_Convert_Parser_Abstract
 {
@@ -180,13 +180,13 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             $wsName = $worksheet->getAttribute('ss:Name');
             $rows = $worksheet->getElementsByTagName('Row');
             $firstRow = true;
-            $fieldNames = array();
-            $wsData = array();
+            $fieldNames = [];
+            $wsData = [];
             $i = 0;
             foreach ($rows as $rowSet) {
                 $index = 1;
                 $cells = $rowSet->getElementsByTagName('Cell');
-                $rowData = array();
+                $rowData = [];
                 foreach ($cells as $cell) {
                     $value = $cell->getElementsByTagName('Data')->item(0)->nodeValue;
                     $ind = $cell->getAttribute('ss:Index');
@@ -290,8 +290,8 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             return $this;
         }
 
-        $xmlData  = array();
-        $itemData = array();
+        $xmlData  = [];
+        $itemData = [];
         $cellIndex = 0;
         foreach ($xmlElement->Row->children() as $cell) {
             if (is_null($this->_parseFieldNames)) {
@@ -315,7 +315,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         $i = 0;
         foreach ($this->_parseFieldNames as $field) {
-            $itemData[$field] = isset($xmlData[$i]) ? $xmlData[$i] : null;
+            $itemData[$field] = $xmlData[$i] ?? null;
             $i ++;
         }
 
@@ -371,12 +371,12 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         }
 
         foreach ($batchExportIds as $batchExportId) {
-            $xmlData = array();
+            $xmlData = [];
             $batchExport->load($batchExportId);
             $row = $batchExport->getBatchData();
 
             foreach ($fieldList as $field) {
-                $xmlData[] = isset($row[$field]) ? $row[$field] : '';
+                $xmlData[] = $row[$field] ?? '';
             }
             $xmlData = $this->_getXmlString($xmlData);
             $io->write($xmlData);
@@ -395,7 +395,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
      * @param array $fields
      * @return string
      */
-    protected function _getXmlString(array $fields = array())
+    protected function _getXmlString(array $fields = [])
     {
         $xmlHeader = '<?xml version="1.0"?>' . "\n";
         $xmlRegexp = '/^<cell><row>(.*)?<\/row><\/cell>\s?$/ms';
@@ -405,7 +405,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             $this->_xmlElement = new SimpleXMLElement($xmlString, LIBXML_NOBLANKS);
         }
 
-        $xmlData = array();
+        $xmlData = [];
         $xmlData[] = '<Row>';
         foreach ($fields as $value) {
             $this->_xmlElement->row = htmlspecialchars($value);
@@ -417,7 +417,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             } else {
                 $dataType = 'String';
             }
-            $value = str_replace(array("\r\n", "\r", "\n"), '&#10;', $value);
+            $value = str_replace(["\r\n", "\r", "\n"], '&#10;', $value);
 
             $xmlData[] = '<Cell><Data ss:Type="' . $dataType . '">' . $value . '</Data></Cell>';
         }

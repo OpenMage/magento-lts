@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sendfriend
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sendfriend
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Email to a Friend Product Controller
  *
- * @category    Mage
- * @package     Mage_Sedfriend
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sendfriend
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Action
 {
@@ -37,9 +38,9 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
     {
         parent::preDispatch();
 
-        /* @var Mage_Sendfriend_Helper_Data $helper */
+        /** @var Mage_Sendfriend_Helper_Data $helper */
         $helper = Mage::helper('sendfriend');
-        /* @var Mage_Customer_Model_Session $session */
+        /** @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton('customer/session');
 
         if (!$helper->isEnabled()) {
@@ -50,9 +51,9 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
         if (!$helper->isAllowForGuest() && !$session->authenticate($this)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             if ($this->getRequest()->getActionName() == 'sendemail') {
-                $session->setBeforeAuthUrl(Mage::getUrl('*/*/send', array(
+                $session->setBeforeAuthUrl(Mage::getUrl('*/*/send', [
                     '_current' => true
-                )));
+                ]));
                 Mage::getSingleton('catalog/session')
                     ->setSendfriendFormData($this->getRequest()->getPost());
             }
@@ -122,7 +123,7 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
         $this->loadLayout();
         $this->_initLayoutMessages('catalog/session');
 
-        Mage::dispatchEvent('sendfriend_product', array('product' => $product));
+        Mage::dispatchEvent('sendfriend_product', ['product' => $product]);
         $data = Mage::getSingleton('catalog/session')->getSendfriendFormData();
         if ($data) {
             Mage::getSingleton('catalog/session')->setSendfriendFormData(true);
@@ -142,7 +143,7 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
     public function sendmailAction()
     {
         if (!$this->_validateFormKey()) {
-            return $this->_redirect('*/*/send', array('_current' => true));
+            return $this->_redirect('*/*/send', ['_current' => true]);
         }
 
         $product    = $this->_initProduct();
@@ -192,6 +193,6 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
         // save form data
         Mage::getSingleton('catalog/session')->setSendfriendFormData($data);
 
-        $this->_redirectError(Mage::getUrl('*/*/send', array('_current' => true)));
+        $this->_redirectError(Mage::getUrl('*/*/send', ['_current' => true]));
     }
 }

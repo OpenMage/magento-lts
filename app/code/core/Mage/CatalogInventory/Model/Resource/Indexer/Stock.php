@@ -7,24 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * CatalogInventory Stock Status Indexer Resource Model
  *
- * @category    Mage
- * @package     Mage_CatalogInventory
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract
 {
@@ -43,10 +43,6 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
      */
     protected $_defaultIndexer   = 'cataloginventory/indexer_stock_default';
 
-    /**
-     * Initialize connection and define main table
-     *
-     */
     protected function _construct()
     {
         $this->_init('cataloginventory/stock_status', 'product_id');
@@ -81,7 +77,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
     {
         $adapter = $this->_getWriteAdapter();
         if (!is_array($productIds)) {
-            $productIds = array($productIds);
+            $productIds = [$productIds];
         }
         $parentIds = $this->getRelationsByChild($productIds);
         if ($parentIds) {
@@ -92,11 +88,11 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
 
         // retrieve product types by processIds
         $select = $adapter->select()
-            ->from($this->getTable('catalog/product'), array('entity_id', 'type_id'))
+            ->from($this->getTable('catalog/product'), ['entity_id', 'type_id'])
             ->where('entity_id IN(?)', $processIds);
         $pairs  = $adapter->fetchPairs($select);
 
-        $byType = array();
+        $byType = [];
         foreach ($pairs as $productId => $typeId) {
             $byType[$typeId][$productId] = $productId;
         }
@@ -133,7 +129,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
 
         $adapter = $this->_getWriteAdapter();
 
-        $parentIds  = array();
+        $parentIds  = [];
         foreach ($data['reindex_stock_parent_ids'] as $parentId => $parentType) {
             $parentIds[$parentType][$parentId] = $parentId;
         }
@@ -191,7 +187,6 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
             return $this->reindexAll();
         }
 
-
         // retrieve affected parent relation products
         $parentIds = $this->getRelationsByChild($processIds);
         if ($parentIds) {
@@ -200,10 +195,10 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
 
         // retrieve products types
         $select = $adapter->select()
-            ->from($this->getTable('catalog/product'), array('entity_id', 'type_id'))
+            ->from($this->getTable('catalog/product'), ['entity_id', 'type_id'])
             ->where('entity_id IN(?)', $processIds);
         $query  = $select->query(Zend_Db::FETCH_ASSOC);
-        $byType = array();
+        $byType = [];
         while ($row = $query->fetch()) {
             $byType[$row['type_id']][] = $row['entity_id'];
         }
@@ -258,14 +253,10 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
     protected function _getTypeIndexers()
     {
         if (is_null($this->_indexers)) {
-            $this->_indexers = array();
+            $this->_indexers = [];
             $types = Mage::getSingleton('catalog/product_type')->getTypesByPriority();
             foreach ($types as $typeId => $typeInfo) {
-                if (isset($typeInfo['stock_indexer'])) {
-                    $modelName = $typeInfo['stock_indexer'];
-                } else {
-                    $modelName = $this->_defaultIndexer;
-                }
+                $modelName = $typeInfo['stock_indexer'] ?? $this->_defaultIndexer;
                 $isComposite = !empty($typeInfo['composite']);
                 $indexer = Mage::getResourceModel($modelName)
                     ->setTypeId($typeId)
@@ -303,14 +294,14 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
     {
         $write = $this->_getWriteAdapter();
         $select = $write->select()
-            ->from(array('l' => $this->getTable('catalog/product_relation')), array('parent_id'))
+            ->from(['l' => $this->getTable('catalog/product_relation')], ['parent_id'])
             ->join(
-                array('e' => $this->getTable('catalog/product')),
+                ['e' => $this->getTable('catalog/product')],
                 'l.parent_id=e.entity_id',
-                array('e.type_id')
+                ['e.type_id']
             )
             ->where('l.child_id = :child_id');
-        return $write->fetchPairs($select, array(':child_id' => $childId));
+        return $write->fetchPairs($select, [':child_id' => $childId]);
     }
 
     /**

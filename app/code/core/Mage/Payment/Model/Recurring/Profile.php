@@ -7,20 +7,25 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Payment
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Recurring payment profile
  * Extends from Mage_Core_Abstract for a reason: to make descendants have its own resource
+ *
+ * @category   Mage
+ * @package    Mage_Payment
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method float getBillingAmount()
  * @method string getCurrencyCode()
@@ -68,7 +73,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      *
@@ -95,7 +100,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_paymentMethods = array();
+    protected $_paymentMethods = [];
 
     /**
      * Check whether the object data is valid
@@ -106,7 +111,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     public function isValid()
     {
         $this->_filterValues();
-        $this->_errors = array();
+        $this->_errors = [];
 
         // start date, order ref ID, schedule description
         if (!$this->getStartDatetime()) {
@@ -146,7 +151,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         if (!$this->getBillingAmount() || 0 >= $this->getBillingAmount()) {
             $this->_errors['billing_amount'][] = Mage::helper('payment')->__('Wrong or empty billing amount specified.');
         }
-        foreach (array('trial_billing_abount', 'shipping_amount', 'tax_amount', 'init_amount') as $key) {
+        foreach (['trial_billing_abount', 'shipping_amount', 'tax_amount', 'init_amount'] as $key) {
             if ($this->hasData($key) && 0 >= $this->getData($key)) {
                 $this->_errors[$key][] = Mage::helper('payment')->__('Wrong %s specified.', $this->getFieldLabel($key));
             }
@@ -183,7 +188,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     public function getValidationErrors($isGrouped = true, $asMessage = false)
     {
         if ($isGrouped && $this->_errors) {
-            $result = array();
+            $result = [];
             foreach ($this->_errors as $row) {
                 $result[] = implode(' ', $row);
             }
@@ -281,18 +286,18 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      */
     public function exportScheduleInfo()
     {
-        $result = array(
-            new Varien_Object(array(
+        $result = [
+            new Varien_Object([
                 'title'    => Mage::helper('payment')->__('Billing Period'),
                 'schedule' => $this->_renderSchedule('period_unit', 'period_frequency', 'period_max_cycles'),
-            ))
-        );
+            ])
+        ];
         $trial = $this->_renderSchedule('trial_period_unit', 'trial_period_frequency', 'trial_period_max_cycles');
         if ($trial) {
-            $result[] = new Varien_Object(array(
+            $result[] = new Varien_Object([
                 'title'    => Mage::helper('payment')->__('Trial Period'),
                 'schedule' => $trial,
-            ));
+            ]);
         }
         return $result;
     }
@@ -300,8 +305,9 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     /**
      * Determine nearest possible profile start date
      *
-     * @param Zend_Date $minAllowed
+     * @param Zend_Date|null $minAllowed
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function setNearestStartDatetime(Zend_Date $minAllowed = null)
     {
@@ -365,16 +371,16 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      */
     public function getAllPeriodUnits($withLabels = true)
     {
-        $units = array(
+        $units = [
             self::PERIOD_UNIT_DAY,
             self::PERIOD_UNIT_WEEK,
             self::PERIOD_UNIT_SEMI_MONTH,
             self::PERIOD_UNIT_MONTH,
             self::PERIOD_UNIT_YEAR
-        );
+        ];
 
         if ($withLabels) {
-            $result = array();
+            $result = [];
             foreach ($units as $unit) {
                 $result[$unit] = $this->getPeriodUnitLabel($unit);
             }
@@ -458,6 +464,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             case 'reference_id':
                 return Mage::helper('payment')->__('Payment Reference ID');
         }
+        return null;
     }
 
     /**
@@ -490,6 +497,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             case 'init_may_fail':
                 return Mage::helper('payment')->__('Whether to suspend the payment profile if the initial fee fails or add it to the outstanding balance.');
         }
+        return null;
     }
 
     /**
@@ -533,19 +541,19 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         }
 
         // unset redundant values, if empty
-        foreach (array('schedule_description',
+        foreach (['schedule_description',
             'suspension_threshold', 'bill_failed_later', 'period_frequency', 'period_max_cycles', 'reference_id',
-            'trial_period_unit', 'trial_period_frequency', 'trial_period_max_cycles', 'init_may_fail') as $key) {
-            if ($this->hasData($key) && (!$this->getData($key) || '0' == $this->getData($key))) {
+            'trial_period_unit', 'trial_period_frequency', 'trial_period_max_cycles', 'init_may_fail'] as $key) {
+            if ($this->hasData($key) && (!$this->getData($key) || $this->getData($key) == '0')) {
                 $this->unsetData($key);
             }
         }
 
         // cast amounts
-        foreach (array(
-            'billing_amount', 'trial_billing_amount', 'shipping_amount', 'tax_amount', 'init_amount') as $key) {
+        foreach ([
+            'billing_amount', 'trial_billing_amount', 'shipping_amount', 'tax_amount', 'init_amount'] as $key) {
             if ($this->hasData($key)) {
-                if (!$this->getData($key) || 0 == $this->getData($key)) {
+                if (!$this->getData($key) || $this->getData($key) == 0) {
                     $this->unsetData($key);
                 } else {
                     $this->setData($key, sprintf('%.4F', $this->getData($key)));
@@ -645,7 +653,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      */
     protected function _renderSchedule($periodKey, $frequencyKey, $cyclesKey)
     {
-        $result = array();
+        $result = [];
 
         $period = $this->_getData($periodKey);
         $frequency = (int)$this->_getData($frequencyKey);

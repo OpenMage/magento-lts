@@ -7,26 +7,29 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Database saving file helper
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Core';
+
     /**
      * Database storage model
      * @var null|Mage_Core_Model_File_Storage_Database
@@ -61,7 +64,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      */
     public function checkDbUsage()
     {
-        if (null === $this->_useDb) {
+        if ($this->_useDb === null) {
             $currentStorage = (int) Mage::app()->getConfig()
                 ->getNode(Mage_Core_Model_File_Storage::XML_PATH_STORAGE_MEDIA);
             $this->_useDb = ($currentStorage == Mage_Core_Model_File_Storage::STORAGE_MEDIA_DATABASE);
@@ -257,17 +260,17 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      * @param array $result
      * @return string
      */
-    public function saveUploadedFile($result = array())
+    public function saveUploadedFile($result = [])
     {
         if ($this->checkDbUsage()) {
-            $path = rtrim(str_replace(array('\\', '/'), DS, $result['path']), DS);
+            $path = rtrim(str_replace(['\\', '/'], DS, $result['path']), DS);
             $file = '/' . ltrim($result['file'], '\\/');
 
             $uniqueResultFile = $this->getUniqueFilename($path, $file);
 
             if ($uniqueResultFile !== $file) {
                 $ioFile = new Varien_Io_File();
-                $ioFile->open(array('path' => $path));
+                $ioFile->open(['path' => $path]);
                 $ioFile->mv($path . $file, $path . $uniqueResultFile);
             }
             $this->saveFile($path . $uniqueResultFile);
@@ -297,7 +300,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      */
     public function getMediaBaseDir()
     {
-        if (null === $this->_mediaBaseDirectory) {
+        if ($this->_mediaBaseDirectory === null) {
             $this->_mediaBaseDirectory = rtrim(Mage::getBaseDir('media'), '\\/');
         }
         return $this->_mediaBaseDirectory;

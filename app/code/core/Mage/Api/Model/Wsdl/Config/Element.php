@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Api
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Wsdl element model
  *
  * @category   Mage
- * @package    Mage_Core
+ * @package    Mage_Api
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
 {
@@ -51,7 +52,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      * Extends one node
      *
      * @param Varien_Simplexml_Element $source
-     * @param boolean $overwrite
+     * @param bool $overwrite
      * @param string $elmNamespace
      * @return Varien_Simplexml_Element
      */
@@ -147,7 +148,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      */
     public function getAttributes($source, $namespace = null)
     {
-        $attributes = array();
+        $attributes = [];
         if (!is_null($namespace)) {
             $attributes[$namespace] = $source->attributes($namespace);
             return $attributes;
@@ -183,7 +184,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      */
     protected static function _getChildren($source)
     {
-        $children = array();
+        $children = [];
         $namespaces = $source->getNamespaces(true);
 
         $isWsi = Mage::helper('api/data')->isComplianceWSI();

@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Backup
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Backup
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -55,7 +56,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
     {
         $backupData = Mage::helper('backup')->extractDataFromFilename($fileName);
 
-        $this->addData(array(
+        $this->addData([
             'id'   => $filePath . DS . $fileName,
             'time' => (int)$backupData->getTime(),
             'path' => $filePath,
@@ -63,7 +64,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
             'display_name' => Mage::helper('backup')->nameToDisplayName($backupData->getName()),
             'name' => $backupData->getName(),
             'date_object' => new Zend_Date((int)$backupData->getTime(), Mage::app()->getLocale()->getLocaleCode())
-        ));
+        ]);
 
         $this->setType($backupData->getType());
         return $this;
@@ -72,7 +73,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
     /**
      * Checks backup file exists.
      *
-     * @return boolean
+     * @return bool
      */
     public function exists()
     {
@@ -142,7 +143,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
 
         $ioProxy = new Varien_Io_File();
         $ioProxy->setAllowCreateFolders(true);
-        $ioProxy->open(array('path'=>$this->getPath()));
+        $ioProxy->open(['path'=>$this->getPath()]);
 
         $compress = 0;
         if (extension_loaded("zlib")) {
@@ -217,7 +218,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
         }
 
         $ioProxy = new Varien_Io_File();
-        $ioProxy->open(array('path'=>$this->getPath()));
+        $ioProxy->open(['path'=>$this->getPath()]);
         $ioProxy->rm($this->getFileName());
         return $this;
     }
@@ -334,7 +335,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
         }
 
         $ioAdapter = new Varien_Io_File();
-        $ioAdapter->open(array('path' => $this->getPath()));
+        $ioAdapter->open(['path' => $this->getPath()]);
 
         $ioAdapter->streamOpen($this->getFileName(), 'r');
         while ($buffer = $ioAdapter->streamRead()) {

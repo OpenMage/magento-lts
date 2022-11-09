@@ -7,24 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Admin
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Configuration for Admin model
  *
  * @category   Mage
  * @package    Mage_Admin
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Admin_Model_Config extends Varien_Simplexml_Config
 {
@@ -43,7 +43,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
         parent::__construct();
         $this->setCacheId('adminhtml_acl_menu_config');
 
-        /* @var Varien_Simplexml_Config $adminhtmlConfig */
+        /** @var Varien_Simplexml_Config $adminhtmlConfig */
         $adminhtmlConfig = Mage::app()->loadCache($this->getCacheId());
         if ($adminhtmlConfig) {
             $this->_adminhtmlConfig = new Varien_Simplexml_Config($adminhtmlConfig);
@@ -70,7 +70,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
                 Mage::app()->saveCache(
                     $adminhtmlConfig->getXmlString(),
                     $this->getCacheId(),
-                    array(Mage_Core_Model_Config::CACHE_TAG)
+                    [Mage_Core_Model_Config::CACHE_TAG]
                 );
             }
         }
@@ -104,14 +104,12 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
             $children = $resource->children->children();
         }
 
-
-
         if (empty($children)) {
             return $this;
         }
 
         foreach ($children as $res) {
-            if (1 == $res->disabled) {
+            if ($res->disabled == 1) {
                 continue;
             }
             $this->loadAclResources($acl, $res, $resourceName);
@@ -128,15 +126,11 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
     public function getAclAssert($name = '')
     {
         $asserts = $this->getNode("admin/acl/asserts");
-        if ('' === $name) {
+        if ($name === '') {
             return $asserts;
         }
 
-        if (isset($asserts->$name)) {
-            return $asserts->$name;
-        }
-
-        return false;
+        return $asserts->$name ?? false;
     }
 
     /**
@@ -148,15 +142,11 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
     public function getAclPrivilegeSet($name = '')
     {
         $sets = $this->getNode("admin/acl/privilegeSets");
-        if ('' === $name) {
+        if ($name === '') {
             return $sets;
         }
 
-        if (isset($sets->$name)) {
-            return $sets->$name;
-        }
-
-        return false;
+        return $sets->$name ?? false;
     }
 
     /**

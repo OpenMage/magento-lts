@@ -780,6 +780,7 @@
 "There is no update for the payment.","There is no update for the payment."
 "This message will be shown in shopping cart when subtotal after discount less than minimum amount.","This message will be shown in shopping cart when subtotal after discount less than minimum amount."
 "This operation requires an existing transaction object.","This operation requires an existing transaction object."
+"This order cannot be edited.","This order cannot be edited."
 "This order contains (%s) items and therefore cannot be edited through the admin interface at this time, if you wish to continue editing the (%s) items will be removed, the order will be canceled and a new order will be placed.","This order contains (%s) items and therefore cannot be edited through the admin interface at this time, if you wish to continue editing the (%s) items will be removed, the order will be canceled and a new order will be placed."
 "This order no longer exists.","This order no longer exists."
 "This product does not have any configurable options","This product does not have any configurable options"

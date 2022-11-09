@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,7 +28,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtml_Block_Catalog_Category_Tree
 {
-    protected $_selectedCategories = array();
+    protected $_selectedCategories = [];
 
     /**
      * Block construction
@@ -72,7 +73,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     {
         $uniqId = Mage::helper('core')->uniqHash($element->getId());
         $sourceUrl = $this->getUrl('*/catalog_category_widget/chooser',
-            array('uniq_id' => $uniqId, 'use_massaction' => false));
+            ['uniq_id' => $uniqId, 'use_massaction' => false]);
 
         $chooser = $this->getLayout()->createBlock('widget/adminhtml_widget_chooser')
             ->setElement($element)
@@ -185,10 +186,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
      */
     public function getLoadTreeUrl($expanded=null)
     {
-        return $this->getUrl('*/catalog_category_widget/categoriesJson', array(
+        return $this->getUrl('*/catalog_category_widget/categoriesJson', [
             '_current'=>true,
             'uniq_id' => $this->getId(),
             'use_massaction' => $this->getUseMassaction(),
-        ));
+        ]);
     }
 }

@@ -7,34 +7,34 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Uploader
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Uploader
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * File Helper
- *
- * @category    Mage
- * @package     Mage_Uploader
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Uploader
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Uploader';
+
     /**
      * List of pre-defined MIME types
      *
      * @var array
      */
     protected $_mimeTypes =
-        array(
+        [
             'x123' => 'application/vnd.lotus-1-2-3',
             'x3dml' => 'text/vnd.in3d.3dml',
             'x3g2' => 'video/3gpp2',
@@ -633,7 +633,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
             'xzaz' => 'application/vnd.zzazz.deck+xml',
             'xzip' => 'application/zip',
             'xzmm' => 'application/vnd.handheld-entertainment+xml',
-        );
+        ];
 
     /**
      * Extend list of MIME types if needed from config
@@ -658,10 +658,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
     public function getMimeTypeByExtension($ext)
     {
         $type = 'x' . $ext;
-        if (isset($this->_mimeTypes[$type])) {
-            return $this->_mimeTypes[$type];
-        }
-        return 'application/octet-stream';
+        return $this->_mimeTypes[$type] ?? 'application/octet-stream';
     }
 
     /**
@@ -686,7 +683,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
             $extensionsList = array_map('trim', explode(',', $extensionsList));
         }
 
-        return array_map(array($this, 'getMimeTypeByExtension'), $extensionsList);
+        return array_map([$this, 'getMimeTypeByExtension'], $extensionsList);
     }
 
     /**
@@ -749,5 +746,4 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
         }
         return (int)$parsedSize;
     }
-
 }

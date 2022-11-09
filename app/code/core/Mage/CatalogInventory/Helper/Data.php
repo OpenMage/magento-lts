@@ -7,19 +7,22 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Catalo
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -35,6 +38,8 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const ERROR_QTY =               1;
     const ERROR_QTY_INCREMENTS =    2;
+
+    protected $_moduleName = 'Mage_CatalogInventory';
 
     /**
      * All product types registry in scope of quantity availability
@@ -52,10 +57,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
     public function isQty($productTypeId)
     {
         $this->getIsQtyTypeIds();
-        if (!isset(self::$_isQtyTypeIds[$productTypeId])) {
-            return false;
-        }
-        return self::$_isQtyTypeIds[$productTypeId];
+        return self::$_isQtyTypeIds[$productTypeId] ?? false;
     }
 
     /**
@@ -66,14 +68,14 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getIsQtyTypeIds($filter = null)
     {
-        if (null === self::$_isQtyTypeIds) {
-            self::$_isQtyTypeIds = array();
+        if (self::$_isQtyTypeIds === null) {
+            self::$_isQtyTypeIds = [];
             $productTypesXml = Mage::getConfig()->getNode('global/catalog/product/type');
             foreach ($productTypesXml->children() as $typeId => $configXml) {
                 self::$_isQtyTypeIds[$typeId] = (bool)$configXml->is_qty;
             }
         }
-        if (null === $filter) {
+        if ($filter === null) {
             return self::$_isQtyTypeIds;
         }
         $result = self::$_isQtyTypeIds;
@@ -92,7 +94,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getConfigItemOptions()
     {
-        return array(
+        return [
             'min_qty',
             'backorders',
             'min_sale_qty',
@@ -102,7 +104,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
             'enable_qty_increments',
             'qty_increments',
             'is_decimal_divided',
-        );
+        ];
     }
 
     /**

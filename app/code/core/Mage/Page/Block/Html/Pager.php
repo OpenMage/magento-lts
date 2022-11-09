@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Page
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Page
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,16 +24,15 @@
  *
  * @category   Mage
  * @package    Mage_Page
- * @author      Magento Core Team <core@magentocommerce.com>
- *
- * @todo        separate order, mode and pager
+ * @author     Magento Core Team <core@magentocommerce.com>
+ * @todo       Separate order, mode and pager
  */
 class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
 {
     protected $_collection = null;
     protected $_pageVarName    = 'p';
     protected $_limitVarName   = 'limit';
-    protected $_availableLimit = array(10=>10,20=>20,50=>50);
+    protected $_availableLimit = [10=>10,20=>20,50=>50];
     protected $_dispersion     = 3;
     protected $_displayPages   = 5;
     protected $_showPerPage    = true;
@@ -143,7 +143,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     }
 
     /**
-     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     public function getCollection()
     {
@@ -298,7 +298,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     {
         $collection = $this->getCollection();
 
-        $pages = array();
+        $pages = [];
         if ($collection->getLastPageNumber() <= $this->_displayPages) {
             $pages = range(1, $collection->getLastPageNumber());
         } else {
@@ -359,7 +359,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function getPageUrl($page)
     {
-        return $this->getPagerUrl(array($this->getPageVarName()=>$page));
+        return $this->getPagerUrl([$this->getPageVarName()=>$page]);
     }
 
     /**
@@ -368,16 +368,16 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function getLimitUrl($limit)
     {
-        return $this->getPagerUrl(array($this->getLimitVarName()=>$limit));
+        return $this->getPagerUrl([$this->getLimitVarName()=>$limit]);
     }
 
     /**
      * @param array $params
      * @return string
      */
-    public function getPagerUrl($params = array())
+    public function getPagerUrl($params = [])
     {
-        $urlParams = array();
+        $urlParams = [];
         $urlParams['_current']  = true;
         $urlParams['_escape']   = true;
         $urlParams['_use_rewrite']   = true;
@@ -422,7 +422,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     /**
      * Return page number of Previous jump
      *
-     * @return int
+     * @return int|null
      */
     public function getPreviousJumpPage()
     {
@@ -450,7 +450,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     /**
      * Return page number of Next jump
      *
-     * @return int
+     * @return int|null
      */
     public function getNextJumpPage()
     {

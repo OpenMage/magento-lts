@@ -7,22 +7,28 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_Varien_Router_Abstract
 {
-    protected $_modules = array();
-    protected $_routes = array();
-    protected $_dispatchData = array();
+    protected $_modules = [];
+    protected $_routes = [];
+    protected $_dispatchData = [];
 
     /**
      * @param string $configArea
@@ -30,7 +36,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function collectRoutes($configArea, $useRouterName)
     {
-        $routers = array();
+        $routers = [];
         $routersConfigNode = Mage::getConfig()->getNode($configArea.'/routers');
         if ($routersConfigNode) {
             $routers = $routersConfigNode->children();
@@ -38,7 +44,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         foreach ($routers as $routerName => $routerConfig) {
             $use = (string)$routerConfig->use;
             if ($use == $useRouterName) {
-                $modules = array((string)$routerConfig->args->module);
+                $modules = [(string)$routerConfig->args->module];
                 if ($routerConfig->args->modules) {
                     /** @var Varien_Simplexml_Element $customModule */
                     foreach ($routerConfig->args->modules->children() as $customModule) {
@@ -70,11 +76,11 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
     public function fetchDefault()
     {
-        $this->getFront()->setDefault(array(
+        $this->getFront()->setDefault([
             'module' => 'core',
             'controller' => 'index',
             'action' => 'index'
-        ));
+        ]);
     }
 
     /**
@@ -281,7 +287,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      * Check if current controller instance is allowed in current router.
      *
      * @param Mage_Core_Controller_Varien_Action $controllerInstance
-     * @return boolean
+     * @return bool
      */
     protected function _validateControllerInstance($controllerInstance)
     {
@@ -294,7 +300,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      *
      * @param string $realModule
      * @param string $controller
-     * @return mixed
+     * @return false|string
      * @throws Mage_Core_Exception
      */
     protected function _validateControllerClassName($realModule, $controller)
@@ -371,10 +377,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function getModuleByFrontName($frontName)
     {
-        if (isset($this->_modules[$frontName])) {
-            return $this->_modules[$frontName];
-        }
-        return false;
+        return $this->_modules[$frontName] ?? false;
     }
 
     /**
@@ -399,10 +402,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function getFrontNameByRoute($routeName)
     {
-        if (isset($this->_routes[$routeName])) {
-            return $this->_routes[$routeName];
-        }
-        return false;
+        return $this->_routes[$routeName] ?? false;
     }
 
     /**
@@ -437,7 +437,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function validateControllerFileName($fileName)
     {
-        if ($fileName && is_readable($fileName) && false===strpos($fileName, '//')) {
+        if ($fileName && is_readable($fileName) && strpos($fileName, '//') === false) {
             return true;
         }
         return false;
@@ -450,8 +450,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function getControllerClassName($realModule, $controller)
     {
-        $class = $realModule.'_'.uc_words($controller).'Controller';
-        return $class;
+        return $realModule.'_'.uc_words($controller).'Controller';
     }
 
     /**

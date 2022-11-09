@@ -7,20 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Product Eav Indexer Model
+ *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Eav _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Eav getResource()
@@ -31,38 +35,37 @@
  * @method Mage_Catalog_Model_Product_Indexer_Eav setStoreId(int $value)
  * @method int getValue()
  * @method Mage_Catalog_Model_Product_Indexer_Eav setValue(int $value)
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Abstract
 {
     /**
      * @var array
      */
-    protected $_matchedEntities = array(
-        Mage_Catalog_Model_Product::ENTITY => array(
+    protected $_matchedEntities = [
+        Mage_Catalog_Model_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE,
             Mage_Index_Model_Event::TYPE_DELETE,
             Mage_Index_Model_Event::TYPE_MASS_ACTION,
-        ),
-        Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY => array(
+        ],
+        Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE,
-        ),
-        Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => array(
+        ],
+        Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        )
-    );
+        ],
+        Mage_Core_Model_Store::ENTITY => [
+            Mage_Index_Model_Event::TYPE_SAVE
+        ]
+    ];
 
     /**
      * The list of attributes that have an effect on other attributes
      *
      * @var array
      */
-    protected $_dependentAttributes = array(
+    protected $_dependentAttributes = [
         'status'
-    );
+    ];
 
     /**
      * Retrieve Indexer name
@@ -84,10 +87,6 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
         return Mage::helper('catalog')->__('Index product attributes for layered navigation building');
     }
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product_indexer_eav');
@@ -124,6 +123,14 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
             }
         } elseif ($entity == Mage_Catalog_Model_Convert_Adapter_Product::ENTITY) {
             $event->addNewData('catalog_product_eav_reindex_all', true);
+        } elseif ($entity == Mage_Core_Model_Store::ENTITY) {
+            if ($event->getType() === Mage_Index_Model_Event::TYPE_SAVE) {
+                /** @var Mage_Core_Model_Store $store */
+                $store = $event->getDataObject();
+                if ($store->getOrigData('is_active') != $store->getIsActive() && $store->getIsActive()) {
+                    $event->getProcess()->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
+                }
+            }
         }
     }
 
@@ -166,7 +173,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      */
     protected function _registerCatalogProductSaveEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product    = $event->getDataObject();
         $attributes = $product->getAttributes();
         $reindexEav = $product->getForceReindexRequired();
@@ -195,7 +202,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      */
     protected function _registerCatalogProductDeleteEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product    = $event->getDataObject();
 
         $parentIds  = $this->_getResource()->getRelationsByChild($product->getId());
@@ -214,7 +221,6 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      */
     protected function _registerCatalogProductMassActionEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Varien_Object $actionObject */
         $actionObject = $event->getDataObject();
         $attrData     = $actionObject->getAttributesData();
         $reindexEav   = false;
@@ -255,7 +261,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      */
     protected function _registerCatalogAttributeSaveEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
+        /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         $attribute = $event->getDataObject();
         if ($attribute->isIndexable()) {
             $before = $attribute->getOrigData('is_filterable')

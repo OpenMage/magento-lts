@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +24,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Controller_Action
 {
@@ -37,7 +38,7 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
     {
         try {
             $uploader = new Mage_Core_Model_File_Uploader('image');
-            $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
+            $uploader->setAllowedExtensions(['jpg','jpeg','gif','png']);
             $uploader->addValidateCallback('catalog_product_image',
                 Mage::helper('catalog/image'), 'validateUploadFile');
             $uploader->setAllowRenameFiles(true);
@@ -51,10 +52,10 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
                 Mage::getSingleton('catalog/product_media_config')->getBaseTmpMediaPath()
             );
 
-            Mage::dispatchEvent('catalog_product_gallery_upload_image_after', array(
+            Mage::dispatchEvent('catalog_product_gallery_upload_image_after', [
                 'result' => $result,
                 'action' => $this
-            ));
+            ]);
 
             /**
              * Workaround for prototype 1.7 methods "isJSON", "evalJSON" on Windows OS
@@ -64,18 +65,18 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
 
             $result['url'] = Mage::getSingleton('catalog/product_media_config')->getTmpMediaUrl($result['file']);
             $result['file'] = $result['file'] . '.tmp';
-            $result['cookie'] = array(
+            $result['cookie'] = [
                 'name'     => session_name(),
                 'value'    => $this->_getSession()->getSessionId(),
                 'lifetime' => $this->_getSession()->getCookieLifetime(),
                 'path'     => $this->_getSession()->getCookiePath(),
                 'domain'   => $this->_getSession()->getCookieDomain()
-            );
+            ];
 
         } catch (Exception $e) {
-            $result = array(
+            $result = [
                 'error' => $e->getMessage(),
-                'errorcode' => $e->getCode());
+                'errorcode' => $e->getCode()];
         }
 
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));

@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Google sitemap controller
  *
  * @category   Mage
- * @package    Mage_Sitemap
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
 {
@@ -154,9 +155,9 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
                             'Please enter a sitemap name with at most %s characters.',
                             self::MAXIMUM_SITEMAP_NAME_LENGTH
                         ));
-                    $this->_redirect('*/*/edit', array(
+                    $this->_redirect('*/*/edit', [
                         'sitemap_id' => $this->getRequest()->getParam('sitemap_id')
-                    ));
+                    ]);
                     return;
                 }
                 /** @var Mage_Core_Model_File_Validator_AvailablePath $validator */
@@ -171,8 +172,8 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
                     // save data in session
                     Mage::getSingleton('adminhtml/session')->setFormData($data);
                     // redirect to edit form
-                    $this->_redirect('*/*/edit', array(
-                        'sitemap_id' => $this->getRequest()->getParam('sitemap_id')));
+                    $this->_redirect('*/*/edit', [
+                        'sitemap_id' => $this->getRequest()->getParam('sitemap_id')]);
                     return;
                 }
             }
@@ -199,7 +200,7 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
 
                 // check if 'Save and Continue'
                 if ($this->getRequest()->getParam('back')) {
-                    $this->_redirect('*/*/edit', array('sitemap_id' => $model->getId()));
+                    $this->_redirect('*/*/edit', ['sitemap_id' => $model->getId()]);
                     return;
                 }
                 // go to grid or forward to generate action
@@ -217,8 +218,8 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
                 // save data in session
                 Mage::getSingleton('adminhtml/session')->setFormData($data);
                 // redirect to edit form
-                $this->_redirect('*/*/edit', array(
-                    'sitemap_id' => $this->getRequest()->getParam('sitemap_id')));
+                $this->_redirect('*/*/edit', [
+                    'sitemap_id' => $this->getRequest()->getParam('sitemap_id')]);
                 return;
             }
         }
@@ -235,11 +236,11 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
         if ($id = $this->getRequest()->getParam('sitemap_id')) {
             try {
                 // init model and delete
+                /** @var Mage_Sitemap_Model_Sitemap $model */
                 $model = Mage::getModel('sitemap/sitemap');
                 $model->setId($id);
                 // init and load sitemap model
 
-                /* @var $sitemap Mage_Sitemap_Model_Sitemap */
                 $model->load($id);
                 // delete file
                 if ($model->getSitemapFilename() && file_exists($model->getPreparedFilename())){
@@ -257,7 +258,7 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 // go back to edit form
-                $this->_redirect('*/*/edit', array('sitemap_id' => $id));
+                $this->_redirect('*/*/edit', ['sitemap_id' => $id]);
                 return;
             }
         }
@@ -276,7 +277,7 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
         // init and load sitemap model
         $id = $this->getRequest()->getParam('sitemap_id');
         $sitemap = Mage::getModel('sitemap/sitemap');
-        /* @var $sitemap Mage_Sitemap_Model_Sitemap */
+        /** @var Mage_Sitemap_Model_Sitemap $sitemap */
         $sitemap->load($id);
         // if sitemap record exists
         if ($sitemap->getId()) {

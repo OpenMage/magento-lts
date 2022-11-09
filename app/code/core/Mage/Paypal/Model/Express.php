@@ -7,20 +7,22 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- *
- * PayPal Express Module
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     implements Mage_Payment_Model_Recurring_Profile_MethodInterface
@@ -73,7 +75,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      */
     protected $_authorizationCountKey = 'authorization_count';
 
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         $proInstance = array_shift($params);
         if ($proInstance && ($proInstance instanceof Mage_Paypal_Model_Pro)) {
@@ -93,7 +95,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     protected function _setApiProcessableErrors()
     {
         return $this->_pro->getApi()->setProcessableErrors(
-            array(
+            [
                 Mage_Paypal_Model_Api_ProcessableException::API_INTERNAL_ERROR,
                 Mage_Paypal_Model_Api_ProcessableException::API_UNABLE_PROCESS_PAYMENT_ERROR_CODE,
                 Mage_Paypal_Model_Api_ProcessableException::API_DO_EXPRESS_CHECKOUT_FAIL,
@@ -103,7 +105,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
                 Mage_Paypal_Model_Api_ProcessableException::API_COUNTRY_FILTER_DECLINE,
                 Mage_Paypal_Model_Api_ProcessableException::API_MAXIMUM_AMOUNT_FILTER_DECLINE,
                 Mage_Paypal_Model_Api_ProcessableException::API_OTHER_FILTER_DECLINE
-            ));
+            ]);
     }
 
     /**
@@ -116,7 +118,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     public function setStore($store)
     {
         $this->setData('store', $store);
-        if (null === $store) {
+        if ($store === null) {
             $store = Mage::app()->getStore()->getId();
         }
         $this->_pro->getConfig()->setStoreId(is_object($store) ? $store->getId() : $store);
@@ -368,7 +370,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
             }
         }
 
-        if (false === $this->_pro->capture($payment, $amount)) {
+        if ($this->_pro->capture($payment, $amount) === false) {
             $this->_placeOrder($payment, $amount);
         }
 
@@ -539,7 +541,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         $result = parent::assignData($data);
         $key = Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT;
         if (is_array($data)) {
-            $this->getInfoInstance()->setAdditionalInformation($key, isset($data[$key]) ? $data[$key] : null);
+            $this->getInfoInstance()->setAdditionalInformation($key, $data[$key] ?? null);
         }
         elseif ($data instanceof Varien_Object) {
             $this->getInfoInstance()->setAdditionalInformation($key, $data->getData($key));
@@ -569,7 +571,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
             ->setNotifyUrl(Mage::getUrl('paypal/ipn/'))
             ->setInvNum($order->getIncrementId())
             ->setCurrencyCode($order->getBaseCurrencyCode())
-            ->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
+            ->setPaypalCart(Mage::getModel('paypal/cart', [$order]))
             ->setIsLineItemsEnabled($this->_pro->getConfig()->lineItemsEnabled);
 
         // call api and get details from it
@@ -593,10 +595,10 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
             );
 
         if ($api->getBillingAgreementId()) {
-            $payment->setBillingAgreementData(array(
+            $payment->setBillingAgreementData([
                 'billing_agreement_id'  => $api->getBillingAgreementId(),
                 'method_code'           => Mage_Paypal_Model_Config::METHOD_BILLING_AGREEMENT
-            ));
+            ]);
         }
 
         $this->_pro->importPaymentInfo($api, $payment);
@@ -696,12 +698,12 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      *
      * @param Mage_Sales_Model_Order_Payment_Transaction $transaction
      * @param int $period
-     * @return boolean
+     * @return bool
      */
     protected function _isTransactionExpired(Mage_Sales_Model_Order_Payment_Transaction $transaction, $period)
     {
         $period = intval($period);
-        if (0 == $period) {
+        if ($period == 0) {
             return true;
         }
 

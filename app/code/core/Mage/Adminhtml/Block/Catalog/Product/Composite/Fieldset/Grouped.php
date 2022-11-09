@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +24,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Mage_Catalog_Block_Product_View_Type_Grouped
 {
@@ -48,6 +49,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
      * Retrieve product
      *
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getProduct()
     {
@@ -66,12 +68,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
      * Retrieve array of associated products
      *
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getAssociatedProducts()
     {
         $product = $this->getProduct();
-        $result = $product->getTypeInstance(true)
-            ->getAssociatedProducts($product);
+        /** @var Mage_Catalog_Model_Product_Type_Grouped $productType */
+        $productType = $product->getTypeInstance(true);
+        $result = $productType->getAssociatedProducts($product);
 
         $storeId = $product->getStoreId();
         foreach ($result as $item) {
@@ -81,11 +85,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
         return $result;
     }
 
-
     /**
      * Set preconfigured values to grouped associated products
      *
      * @return Mage_Catalog_Block_Product_View_Type_Grouped
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function setPreconfiguredValue() {
         $configValues = $this->getProduct()->getPreconfiguredValues()->getSuperGroup();
@@ -115,6 +119,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
      * Checks whether block is last fieldset in popup
      *
      * @return bool
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getIsLastFieldset()
     {
@@ -131,10 +136,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
      *
      * @param float $price
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrencyPrice($price)
     {
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
         $store = $this->getProduct()->getStore();
-        return $this->helper('core')->currencyByStore($price, $store, false);
+        return $helper::currencyByStore($price, $store, false);
     }
 }

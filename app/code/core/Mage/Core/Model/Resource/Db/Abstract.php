@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract resource model class
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Resource_Abstract
 {
@@ -51,7 +52,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var array
      */
-    protected $_connections          = array();
+    protected $_connections          = [];
 
     /**
      * Resource model name that contains entities (names of tables)
@@ -65,7 +66,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var array
      */
-    protected $_tables               = array();
+    protected $_tables               = [];
 
     /**
      * Main table name
@@ -91,7 +92,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Use is object new method for save of object
      *
-     * @var boolean
+     * @var bool
      */
     protected $_useIsObjectNew       = false;
 
@@ -100,7 +101,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var array
      */
-    protected $_fieldsForUpdate      = array();
+    protected $_fieldsForUpdate      = [];
 
     /**
      * Fields of main table
@@ -138,7 +139,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var array
      */
-    protected $_serializableFields   = array();
+    protected $_serializableFields   = [];
 
     /**
      * Standard resource model initialization
@@ -186,7 +187,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
 
     /**
      * Set main entity table name and primary key field name
-     * If field name is ommited {table_name}_id will be used
+     * If field name is omitted {table_name}_id will be used
      *
      * @param string $mainTable
      * @param string|null $idFieldName
@@ -261,7 +262,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
 
         if (strpos($entityName, '/')) {
             if (!is_null($entitySuffix)) {
-                $modelEntity = array($entityName, $entitySuffix);
+                $modelEntity = [$entityName, $entitySuffix];
             } else {
                 $modelEntity = $entityName;
             }
@@ -269,7 +270,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         } elseif (!empty($this->_resourceModel)) {
             $entityName = sprintf('%s/%s', $this->_resourceModel, $entityName);
             if (!is_null($entitySuffix)) {
-                $modelEntity = array($entityName, $entitySuffix);
+                $modelEntity = [$entityName, $entitySuffix];
             } else {
                 $modelEntity = $entityName;
             }
@@ -283,7 +284,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         return $this->_tables[$cacheName];
     }
 
-
     /**
      * Retrieve table name for the entity separated value
      *
@@ -293,7 +293,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      */
     public function getValueTable($entityName, $valueType)
     {
-        return $this->getTable(array($entityName, $valueType));
+        return $this->getTable([$entityName, $valueType]);
     }
 
     /**
@@ -414,10 +414,9 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
 
         $value  = $this->_getReadAdapter()->prepareColumnValue($fields[$field], $value);
         $field  = $this->_getReadAdapter()->quoteIdentifier(sprintf('%s.%s', $this->getMainTable(), $field));
-        $select = $this->_getReadAdapter()->select()
+        return $this->_getReadAdapter()->select()
             ->from($this->getMainTable())
             ->where($field . '=?', $value);
-        return $select;
     }
 
     /**
@@ -446,7 +445,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
                 $this->_getWriteAdapter()->update($this->getMainTable(), $data, $condition);
             } else {
                 $select = $this->_getWriteAdapter()->select()
-                    ->from($this->getMainTable(), array($this->getIdFieldName()))
+                    ->from($this->getMainTable(), [$this->getIdFieldName()])
                     ->where($condition);
                 if ($this->_getWriteAdapter()->fetchOne($select) !== false) {
                     $data = $this->_prepareDataForSave($object);
@@ -479,8 +478,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     }
 
     /**
-     * Forsed save object data
-     * forsed update If duplicate unique key data
+     * Forced save object data
+     * forced update If duplicate unique key data
      *
      * @deprecated
      * @param Mage_Core_Model_Abstract $object
@@ -511,6 +510,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @param Mage_Core_Model_Abstract $object
      * @return $this
+     * @throws Exception
      */
     public function delete(Mage_Core_Model_Abstract $object)
     {
@@ -547,12 +547,12 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      */
     public function resetUniqueField()
     {
-        $this->_uniqueFields = array();
+        $this->_uniqueFields = [];
          return $this;
     }
 
     /**
-     * Unserialize serializeable object fields
+     * Un-serialize serializable object fields
      *
      * @param Mage_Core_Model_Abstract $object
      */
@@ -571,7 +571,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      */
     protected function _initUniqueFields()
     {
-        $this->_uniqueFields = array();
+        $this->_uniqueFields = [];
         return $this;
     }
 
@@ -604,7 +604,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * has really changed comparing with origData
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return boolean
+     * @return bool
      */
     public function hasDataChanged($object)
     {
@@ -643,15 +643,15 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      */
     protected function _checkUnique(Mage_Core_Model_Abstract $object)
     {
-        $existent = array();
+        $existent = [];
         $fields = $this->getUniqueFields();
         if (!empty($fields)) {
             if (!is_array($fields)) {
-                $this->_uniqueFields = array(
-                    array(
+                $this->_uniqueFields = [
+                    [
                         'field' => $fields,
                         'title' => $fields
-                ));
+                    ]];
             }
 
             $data = new Varien_Object($this->_prepareDataForSave($object));
@@ -757,7 +757,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     }
 
     /**
-     * Serialize serializeable fields of the object
+     * Serialize serializable fields of the object
      *
      * @param Mage_Core_Model_Abstract $object
      */

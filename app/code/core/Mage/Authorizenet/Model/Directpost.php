@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Authorizenet
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Authorizenet
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -62,7 +63,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      *
      * @param  Varien_Object $payment
      * @param  float $amount
-     * @return Mage_Paygate_Model_Authorizenet
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function authorize(Varien_Object $payment, $amount)
@@ -328,6 +329,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         switch ($paymentAction) {
             case self::ACTION_AUTHORIZE:
             case self::ACTION_AUTHORIZE_CAPTURE:
+                /** @var Mage_Authorizenet_Model_Directpost $payment */
                 $payment = $this->getInfoInstance();
                 $order = $payment->getOrder();
                 $order->setCanSendNewEmailFlag(false);
@@ -358,7 +360,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             ->setDataFromOrder($order, $this)
             ->signRequestData();
 
-        $this->_debug(array('request' => $request->getData()));
+        $this->_debug(['request' => $request->getData()]);
 
         return $request;
     }
@@ -406,9 +408,9 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      */
     public function process(array $responseData)
     {
-        $debugData = array(
+        $debugData = [
             'response' => $responseData
-        );
+        ];
         $this->_debug($debugData);
 
         $this->setResponseData($responseData);
@@ -423,7 +425,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         $responseText = $this->_wrapGatewayError($response->getXResponseReasonText());
         $isError = false;
         if ($orderIncrementId) {
-            /* @var $order Mage_Sales_Model_Order */
+            /** @var Mage_Sales_Model_Order $order */
             $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
             //check payment method
             $payment = $order->getPayment();
@@ -497,7 +499,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      */
     public function checkTransId()
     {
-        if (!$this->getResponse()->getXTransId() && ('0' !== $this->getResponse()->getXTransId())) {
+        if (!$this->getResponse()->getXTransId() && ($this->getResponse()->getXTransId() !== '0')) {
             Mage::throwException(
                 Mage::helper('authorizenet')->__('Payment authorization error. Transacion id is empty.')
             );

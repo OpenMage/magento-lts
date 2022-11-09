@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Api2
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -44,6 +45,8 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_USER_TYPES    = 'global/api2/user_types';
     /**#@- */
 
+    protected $_moduleName = 'Mage_Api2';
+
     /**
      * Compare order to be used in adapters list sort
      *
@@ -70,7 +73,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
         $adapters = Mage::getConfig()->getNode(self::XML_PATH_AUTH_ADAPTERS);
 
         if (!$adapters) {
-            return array();
+            return [];
         }
         $adapters = $adapters->asArray();
 
@@ -82,7 +85,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
             }
             $adapters = (array) $adapters;
         }
-        uasort($adapters, array('Mage_Api2_Helper_Data', '_compareOrder'));
+        uasort($adapters, ['Mage_Api2_Helper_Data', '_compareOrder']);
 
         return $adapters;
     }
@@ -94,7 +97,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getUserTypes()
     {
-        $userModels = array();
+        $userModels = [];
         $types = Mage::getConfig()->getNode(self::XML_PATH_USER_TYPES);
 
         if ($types) {
@@ -153,7 +156,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
 
         $attributes = $resource->getAllowedAttributes($userType, $resourceId, $operation);
 
-        return ($attributes === false || $attributes === null ? array() : explode(',', $attributes));
+        return ($attributes === false || $attributes === null ? [] : explode(',', $attributes));
     }
 
     /**

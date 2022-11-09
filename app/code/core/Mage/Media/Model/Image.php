@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Media
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Media
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +24,7 @@
  *
  * @category   Mage
  * @package    Mage_Media
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getFileName()
  * @method $this setFileName(string $value)
@@ -32,32 +33,27 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
 {
     /**
      * Image config instance
-     *
      * @var Mage_Media_Model_Image_Config_Interface
      */
     protected $_config;
 
     /**
      * Image resource
-     *
      * @var resource
      */
     protected $_image;
 
     /**
      * Tmp image resource
-     *
      * @var resource
      */
     protected $_tmpImage;
 
     /**
      * Params for filename generation
-     *
      * @var array
      */
-    protected $_params = array();
-
+    protected $_params = [];
 
     protected function _construct()
     {
@@ -66,7 +62,6 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
 
     /**
      * Set media image config instance
-     *
      * @param Mage_Media_Model_Image_Config_Interface $config
      * @return Mage_Media_Model_Image
      */
@@ -78,7 +73,6 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
 
     /**
      * Retrieve media image config instance
-     *
      * @return Mage_Media_Model_Image_Config_Interface
      */
     public function getConfig()
@@ -223,11 +217,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
      */
     public function getParam($param)
     {
-        if (isset($this->_params[$param])) {
-            return $this->_params[$param];
-        }
-
-        return null;
+        return $this->_params[$param] ?? null;
     }
 
     /**
@@ -258,8 +248,8 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     public function getSpecialLink($file, $size, $extension = null, $watermark = null)
     {
         $this->_removeResources();
-        $this->setData(array());
-        $this->setParam(array());
+        $this->setData([]);
+        $this->setParam([]);
         $this->setFileName($file);
 
         $this->addParam('size', $size);
@@ -286,7 +276,6 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
             $this->getDestanationDimensions()
                 ->setWidth($rate*$this->getDimensions()->getWidth())
                 ->setHeight($rate*$this->getDimensions()->getHeight());
-
 
             $this->_getResource()->resize($this);
             $this->_getResource()->watermark($this);

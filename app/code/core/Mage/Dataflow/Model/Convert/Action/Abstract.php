@@ -7,17 +7,17 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Dataflow
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Dataflow
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Convert action abstract
@@ -26,12 +26,11 @@
  *
  * @category   Mage
  * @package    Mage_Dataflow
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Dataflow_Model_Convert_Action_Abstract
     implements Mage_Dataflow_Model_Convert_Action_Interface
 {
-
     /**
      * Action parameters
      *
@@ -48,7 +47,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
      */
     protected $_profile;
 
-    protected $_actions = array();
+    protected $_actions = [];
 
     /**
      * Action's container
@@ -68,10 +67,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
      */
     public function getParam($key, $default=null)
     {
-        if (!isset($this->_params[$key])) {
-            return $default;
-        }
-        return $this->_params[$key];
+        return $this->_params[$key] ?? $default;
     }
 
     /**
@@ -210,7 +206,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
      *
      * @return Mage_Dataflow_Model_Convert_Action_Abstract
      */
-    public function run(array $args=array())
+    public function run(array $args= [])
     {
         if ($method = $this->getParam('method')) {
             if (!method_exists($this->getContainer(), $method)) {
@@ -226,7 +222,6 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
                 $this->getContainer()->setData($this->getContainer($this->getParam('from'))->getData());
             }
 
-
             $this->getContainer()->$method($args);
 
             if ($this->getParam('to')) {
@@ -238,7 +233,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
         return $this;
     }
 
-    public function runActions(array $args=array())
+    public function runActions(array $args= [])
     {
         if (empty($this->_actions)) {
             return $this;

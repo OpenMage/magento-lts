@@ -7,17 +7,17 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category    Varien
  * @package     Varien_Image
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 {
@@ -64,15 +64,13 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $this->_fileName = $filename;
         $this->getMimeType();
         $this->_getFileAttributes();
-        if ($this->_isMemoryLimitReached()) {
-            throw new Varien_Exception('Memory limit has been reached.');
-        }
         $this->_imageHandler = call_user_func($this->_getCallback('create'), $this->_fileName);
     }
 
     /**
      * Checks whether memory limit is reached.
      *
+     * @deprecated
      * @return bool
      */
     protected function _isMemoryLimitReached()
@@ -95,11 +93,10 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      * Notation in value is supported only for PHP
      * Shorthand byte options are case insensitive
      *
+     * @deprecated
      * @param string $memoryValue
-     *
      * @throws Varien_Exception
      * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
-     *
      * @return int
      */
     protected function _convertToByte($memoryValue)
@@ -617,7 +614,6 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $this->_imageSrcWidth = imagesx($this->_imageHandler);
         $this->_imageSrcHeight = imagesy($this->_imageHandler);
     }
-
 
     /*
      * Fixes saving PNG alpha channel

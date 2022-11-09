@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales order shipment model
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Order_Shipment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment getResource()
@@ -52,10 +57,6 @@
  * @method $this setTotalWeight(float $value)
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 {
@@ -143,7 +144,6 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         return $this;
     }
 
-
     /**
      * Declare order for shipment
      *
@@ -157,7 +157,6 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
             ->setStoreId($order->getStoreId());
         return $this;
     }
-
 
     /**
      * Retrieve hash code of current order
@@ -257,7 +256,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      */
     public function getAllItems()
     {
-        $items = array();
+        $items = [];
         foreach ($this->getItemsCollection() as $item) {
             if (!$item->isDeleted()) {
                 $items[] =  $item;
@@ -296,7 +295,6 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         return $this;
     }
 
-
     /**
      * @return Mage_Sales_Model_Resource_Order_Shipment_Track_Collection
      */
@@ -320,7 +318,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      */
     public function getAllTracks()
     {
-        $tracks = array();
+        $tracks = [];
         foreach ($this->getTracksCollection() as $track) {
             if (!$track->isDeleted()) {
                 $tracks[] =  $track;
@@ -425,7 +423,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * Send email with shipment data
      *
-     * @param boolean $notifyCustomer
+     * @param bool $notifyCustomer
      * @param string $comment
      * @return $this
      */
@@ -446,8 +444,10 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         }
 
         // Start store emulation process
-        $appEmulation = Mage::getSingleton('core/app_emulation');
-        $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
+        if ($storeId != Mage::app()->getStore()->getId()) {
+            $appEmulation = Mage::getSingleton('core/app_emulation');
+            $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
+        }
 
         try {
             // Retrieve specified view block from appropriate design package (depends on emulated store)
@@ -455,14 +455,18 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 ->setIsSecureMode(true);
             $paymentBlock->getMethod()->setStore($storeId);
             $paymentBlockHtml = $paymentBlock->toHtml();
-        } catch (Exception $exception) {
+        } catch (Exception $e) {
             // Stop store emulation process
-            $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
-            throw $exception;
+            if (isset($appEmulation, $initialEnvironmentInfo)) {
+                $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
+            }
+            throw $e;
         }
 
         // Stop store emulation process
-        $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
+        if (isset($appEmulation, $initialEnvironmentInfo)) {
+            $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
+        }
 
         // Retrieve corresponding email template id and customer name
         if ($order->getCustomerIsGuest()) {
@@ -499,13 +503,13 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         $mailer->setSender(Mage::getStoreConfig(self::XML_PATH_EMAIL_IDENTITY, $storeId));
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId($templateId);
-        $mailer->setTemplateParams(array(
+        $mailer->setTemplateParams([
                 'order'        => $order,
                 'shipment'     => $this,
                 'comment'      => $comment,
                 'billing'      => $order->getBillingAddress(),
                 'payment_html' => $paymentBlockHtml
-            ));
+        ]);
         $mailer->send();
 
         return $this;
@@ -514,7 +518,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * Send email with shipment update information
      *
-     * @param boolean $notifyCustomer
+     * @param bool $notifyCustomer
      * @param string $comment
      * @return $this
      */
@@ -569,12 +573,12 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         $mailer->setSender(Mage::getStoreConfig(self::XML_PATH_UPDATE_EMAIL_IDENTITY, $storeId));
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId($templateId);
-        $mailer->setTemplateParams(array(
+        $mailer->setTemplateParams([
                 'order'    => $order,
                 'shipment' => $this,
                 'comment'  => $comment,
                 'billing'  => $order->getBillingAddress()
-            ));
+        ]);
         $mailer->send();
 
         return $this;
@@ -600,7 +604,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      */
     protected function _beforeSave()
     {
-        if ((!$this->getId() || null !== $this->_items) && !count($this->getAllItems())) {
+        if ((!$this->getId() || $this->_items !== null) && !count($this->getAllItems())) {
             Mage::throwException(
                 Mage::helper('sales')->__('Cannot create an empty shipment.')
             );
@@ -635,19 +639,19 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      */
     protected function _afterSave()
     {
-        if (null !== $this->_items) {
+        if ($this->_items !== null) {
             foreach ($this->_items as $item) {
                 $item->save();
             }
         }
 
-        if (null !== $this->_tracks) {
+        if ($this->_tracks !== null) {
             foreach ($this->_tracks as $track) {
                 $track->save();
             }
         }
 
-        if (null !== $this->_comments) {
+        if ($this->_comments !== null) {
             foreach ($this->_comments as $comment) {
                 $comment->save();
             }

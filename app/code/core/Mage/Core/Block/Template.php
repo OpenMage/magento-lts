@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2015-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -26,6 +27,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setContentHeading(string $value)
+ * @method $this setDestElementId(string $value)
  * @method $this setFormAction(string $value)
  * @method $this setIdSuffix(string $value)
  * @method $this setProduct(Mage_Catalog_Model_Product $value)
@@ -51,7 +53,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      *
      * @var array
      */
-    protected $_viewVars = array();
+    protected $_viewVars = [];
 
     protected $_baseUrl;
 
@@ -117,13 +119,12 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      */
     public function getTemplateFile()
     {
-        $params = array('_relative'=>true);
+        $params = ['_relative'=>true];
         $area = $this->getArea();
         if ($area) {
             $params['_area'] = $area;
         }
-        $templateName = Mage::getDesign()->getTemplateFilename($this->getTemplate(), $params);
-        return $templateName;
+        return Mage::getDesign()->getTemplateFilename($this->getTemplate(), $params);
     }
 
     /**
@@ -140,7 +141,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      *
      * @param   string|array $key
      * @param   mixed $value
-     * @return  Mage_Core_Block_Template
+     * @return  $this
      */
     public function assign($key, $value = null)
     {
@@ -162,10 +163,10 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      */
     public function setScriptPath($dir)
     {
-        if (strpos($dir, '..') === FALSE && ($dir === Mage::getBaseDir('design') || strpos(realpath($dir), realpath(Mage::getBaseDir('design'))) === 0)) {
+        if (strpos($dir, '..') === false && ($dir === Mage::getBaseDir('design') || strpos(realpath($dir), realpath(Mage::getBaseDir('design'))) === 0)) {
             $this->_viewDir = $dir;
         } else {
-            Mage::log('Not valid script path:' . $dir, Zend_Log::CRIT, null, null, true);
+            Mage::log('Not valid script path:' . $dir, Zend_Log::CRIT, null, true);
         }
         return $this;
     }
@@ -250,7 +251,7 @@ HTML;
 
         try {
             if (
-                strpos($this->_viewDir . DS . $fileName, '..') === FALSE
+                strpos($this->_viewDir . DS . $fileName, '..') === false
                 &&
                 ($this->_viewDir == Mage::getBaseDir('design') || strpos(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))) === 0)
             ) {
@@ -259,9 +260,12 @@ HTML;
                 $thisClass = get_class($this);
                 Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Zend_Log::CRIT, null, true);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             ob_get_clean();
-            throw $e;
+            if (Mage::getIsDeveloperMode()) {
+                throw $e;
+            }
+            Mage::logException($e);
         }
 
         if ($hints) {
@@ -285,8 +289,7 @@ HTML;
     public function renderView()
     {
         $this->setScriptPath(Mage::getBaseDir('design'));
-        $html = $this->fetchView($this->getTemplateFile());
-        return $html;
+        return $this->fetchView($this->getTemplateFile());
     }
 
     /**
@@ -299,8 +302,7 @@ HTML;
         if (!$this->getTemplate()) {
             return '';
         }
-        $html = $this->renderView();
-        return $html;
+        return $this->renderView();
     }
 
     /**
@@ -349,12 +351,12 @@ HTML;
      */
     public function getCacheKeyInfo()
     {
-        return array(
+        return [
             'BLOCK_TPL',
             Mage::app()->getStore()->getCode(),
             $this->getTemplateFile(),
             'template' => $this->getTemplate()
-        );
+        ];
     }
 
     /**
@@ -365,6 +367,6 @@ HTML;
      */
     protected function _getAllowSymlinks()
     {
-        return FALSE;
+        return false;
     }
 }

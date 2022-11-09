@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category    Mage
  * @package     Mage_HTTP
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -52,7 +53,6 @@ class Mage_HTTP_Client_Socket
      */
     private $_headers = array();
 
-
     /**
      * Fields for POST method - hash
      * @var array
@@ -83,7 +83,6 @@ class Mage_HTTP_Client_Socket
      */
     private $_responseStatus = 0;
 
-
     /**
      * Request timeout
      * @var int
@@ -95,7 +94,6 @@ class Mage_HTTP_Client_Socket
      * @var int
      */
     private $_redirectCount = 0;
-
 
     /**
      * Set request timeout, msec
@@ -226,7 +224,6 @@ class Mage_HTTP_Client_Socket
         $this->setCookies(array());
     }
 
-
     /**
      * Make GET request
      *
@@ -260,7 +257,6 @@ class Mage_HTTP_Client_Socket
             throw new InvalidArgumentException("Uri doesn't contain host part");
         }
 
-
         if(!empty($parts['path'])) {
             $requestUri = $parts['path'];
         } else {
@@ -280,7 +276,6 @@ class Mage_HTTP_Client_Socket
         $this->makeRequest("POST", $this->parseUrl($uri), $params);
     }
 
-
     /**
      * Get response headers
      *
@@ -290,7 +285,6 @@ class Mage_HTTP_Client_Socket
     {
         return $this->_responseHeaders;
     }
-
 
     /**
      * Get response body
@@ -327,7 +321,6 @@ class Mage_HTTP_Client_Socket
         }
         return $out;
     }
-
 
     /**
      * Get cookies array with details
@@ -427,7 +420,6 @@ class Mage_HTTP_Client_Socket
         $this->processResponseBody();
     }
 
-
     /**
      * Process redirect
      */
@@ -435,7 +427,6 @@ class Mage_HTTP_Client_Socket
     {
         // TODO: implement redircets support
     }
-
 
     /**
      * Get response status code

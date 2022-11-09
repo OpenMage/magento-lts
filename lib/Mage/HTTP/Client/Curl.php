@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category    Mage
  * @package     Mage_HTTP
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -52,7 +53,6 @@ implements Mage_HTTP_IClient
      */
     protected $_headers = array();
 
-
     /**
      * Fields for POST method - hash
      * @var array
@@ -83,7 +83,6 @@ implements Mage_HTTP_IClient
      */
     protected $_responseStatus = 0;
 
-
     /**
      * Request timeout in seconds
      * @var int
@@ -102,7 +101,6 @@ implements Mage_HTTP_IClient
      */
     protected $_ch;
 
-
     /**
      * User ovverides options hash
      * Are applied before curl_exec
@@ -110,7 +108,6 @@ implements Mage_HTTP_IClient
      * @var array();
      */
     protected $_curlUserOptions = array();
-
 
     /**
      * Header count, used while parsing headers
@@ -222,7 +219,6 @@ implements Mage_HTTP_IClient
         $this->setCookies(array());
     }
 
-
     /**
      * Make GET request
      *
@@ -242,7 +238,6 @@ implements Mage_HTTP_IClient
         $this->makeRequest("POST", $uri, $params);
     }
 
-
     /**
      * Get response headers
      *
@@ -252,7 +247,6 @@ implements Mage_HTTP_IClient
     {
         return $this->_responseHeaders;
     }
-
 
     /**
      * Get response body
@@ -289,7 +283,6 @@ implements Mage_HTTP_IClient
         }
         return $out;
     }
-
 
     /**
      * Get cookies array with details
@@ -383,7 +376,6 @@ implements Mage_HTTP_IClient
         $this->curlOption(CURLOPT_RETURNTRANSFER, 1);
         $this->curlOption(CURLOPT_HEADERFUNCTION, array($this,'parseHeaders'));
 
-
         if(count($this->_curlUserOptions)) {
             foreach($this->_curlUserOptions as $k=>$v) {
                 $this->curlOption($k, $v);
@@ -409,7 +401,6 @@ implements Mage_HTTP_IClient
     {
         throw new Exception($string);
     }
-
 
     /**
      * Parse headers - CURL callback functin

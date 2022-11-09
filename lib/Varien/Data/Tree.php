@@ -7,17 +7,17 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category    Varien
  * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Data tree
@@ -36,18 +36,12 @@ class Varien_Data_Tree
      */
     protected $_nodes;
 
-    /**
-     * Enter description here...
-     *
-     */
     public function __construct()
     {
         $this->_nodes = new Varien_Data_Tree_Node_Collection($this);
     }
 
     /**
-     * Enter description here...
-     *
      * @return Varien_Data_Tree
      */
     public function getTree()
@@ -56,8 +50,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $parentNode
      */
     public function load($parentNode=null)
@@ -65,8 +57,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param int $nodeId
      */
     public function loadNode($nodeId)
@@ -74,8 +64,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param array|Varien_Data_Tree_Node $data
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
@@ -95,8 +83,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $node
      * @param Varien_Data_Tree_Node $parent
      * @return Varien_Data_Tree_Node
@@ -112,8 +98,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $node
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
@@ -123,8 +107,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $node
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
@@ -134,8 +116,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $node
      * @return Varien_Data_Tree
      */
@@ -150,8 +130,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
      */
@@ -160,8 +138,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $node
      */
     public function getChild($node)
@@ -169,8 +145,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $node
      */
     public function getChildren($node)
@@ -178,8 +152,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @return Varien_Data_Tree_Node_Collection
      */
     public function getNodes()
@@ -188,8 +160,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param int $nodeId
      * @return Varien_Data_Tree_Node
      */
@@ -199,8 +169,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $node
      * @return array
      */

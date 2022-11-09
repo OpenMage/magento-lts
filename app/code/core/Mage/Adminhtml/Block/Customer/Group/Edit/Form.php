@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +24,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
@@ -36,19 +37,19 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
         $form = new Varien_Data_Form();
         $customerGroup = Mage::registry('current_group');
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('customer')->__('Group Information')));
+        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('customer')->__('Group Information')]);
 
         $validateClass = sprintf('required-entry validate-length maximum-length-%d',
             Mage_Customer_Model_Group::GROUP_CODE_MAX_LENGTH);
         $name = $fieldset->addField('customer_group_code', 'text',
-            array(
+            [
                 'name'  => 'code',
                 'label' => Mage::helper('customer')->__('Group Name'),
                 'title' => Mage::helper('customer')->__('Group Name'),
                 'note'  => Mage::helper('customer')->__('Maximum length must be less then %s symbols', Mage_Customer_Model_Group::GROUP_CODE_MAX_LENGTH),
                 'class' => $validateClass,
                 'required' => true,
-            )
+            ]
         );
 
         if ($customerGroup->getId()==0 && $customerGroup->getCustomerGroupCode() ) {
@@ -56,23 +57,23 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
         }
 
         $fieldset->addField('tax_class_id', 'select',
-            array(
+            [
                 'name'  => 'tax_class',
                 'label' => Mage::helper('customer')->__('Tax Class'),
                 'title' => Mage::helper('customer')->__('Tax Class'),
                 'class' => 'required-entry',
                 'required' => true,
                 'values' => Mage::getSingleton('tax/class_source_customer')->toOptionArray()
-            )
+            ]
         );
 
         if (!is_null($customerGroup->getId())) {
             // If edit add id
             $form->addField('id', 'hidden',
-                array(
+                [
                     'name'  => 'id',
                     'value' => $customerGroup->getId(),
-                )
+                ]
             );
         }
 

@@ -7,17 +7,17 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Oauth
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Customer My Applications list block
@@ -106,7 +106,7 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
     {
         return Mage::getUrl(
             'oauth/customer_token/revoke/',
-            array('id' => $model->getId(), 'status' => (int) !$model->getRevoked())
+            ['id' => $model->getId(), 'status' => (int) !$model->getRevoked()]
         );
     }
 
@@ -118,7 +118,7 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
      */
     public function getDeleteLink(Mage_Oauth_Model_Token $model)
     {
-        return Mage::getUrl('oauth/customer_token/delete/', array('id' => $model->getId()));
+        return Mage::getUrl('oauth/customer_token/delete/', ['id' => $model->getId()]);
     }
 
     /**
@@ -129,10 +129,10 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
      */
     public function getStatusLabel($revokedStatus)
     {
-        $labels = array(
+        $labels = [
             $this->__('Enabled'),
             $this->__('Disabled')
-        );
+        ];
         return $labels[$revokedStatus];
     }
 
@@ -144,10 +144,10 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
      */
     public function getChangeStatusLabel($revokedStatus)
     {
-        $labels = array(
+        $labels = [
             $this->__('Disable'),
             $this->__('Enable')
-        );
+        ];
         return $labels[$revokedStatus];
     }
 
@@ -159,10 +159,10 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
      */
     public function getChangeStatusConfirmMessage($revokedStatus)
     {
-        $messages = array(
+        $messages = [
             $this->__('Are you sure you want to disable this application?'),
             $this->__('Are you sure you want to enable this application?')
-        );
+        ];
         return $messages[$revokedStatus];
     }
 }

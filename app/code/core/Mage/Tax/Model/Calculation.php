@@ -7,21 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tax
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tax Calculation Model
  *
- * @author Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Tax
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Tax_Model_Resource_Calculation _getResource()
  * @method Mage_Tax_Model_Resource_Calculation getResource()
@@ -51,7 +54,6 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      */
     const CALC_TAX_BEFORE_DISCOUNT_ON_INCL      = '0_1';
 
-
     /**
      * Identifier constant for Tax calculation after discount excluding TAX
      */
@@ -62,19 +64,18 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      */
     const CALC_TAX_AFTER_DISCOUNT_ON_INCL       = '1_1';
 
-
     /**
      * Identifier constant for unit based calculation
      */
-    protected $_rates                           = array();
+    protected $_rates                           = [];
     /**
      * Identifier constant for row based calculation
      */
-    protected $_ctc                             = array();
+    protected $_ctc                             = [];
     /**
      * Identifier constant for total based calculation
      */
-    protected $_ptc                             = array();
+    protected $_ptc                             = [];
 
     /**
      * CALC_UNIT_BASE
@@ -96,14 +97,14 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_rateCache = array();
+    protected $_rateCache = [];
 
     /**
      * Store the rate calculation process
      *
      * @var array
      */
-    protected $_rateCalculationProcess = array();
+    protected $_rateCalculationProcess = [];
 
     /**
      * Hold the customer
@@ -126,9 +127,6 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      */
     protected $_taxHelper;
 
-    /**
-     * Constructor
-     */
     protected function _construct()
     {
         $this->_init('tax/calculation');
@@ -139,7 +137,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         parent::__construct();
         $this->_taxHelper = !empty($args['helper']) ? $args['helper'] : Mage::helper('tax');
@@ -257,15 +255,15 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         $value = $this->getRateValue();
         $id = $this->getRateId();
 
-        $rate = array(
-            'code' => $title, 'title' => $title, 'percent' => $value, 'position' => 1, 'priority' => 1);
+        $rate = [
+            'code' => $title, 'title' => $title, 'percent' => $value, 'position' => 1, 'priority' => 1];
 
-        $process = array();
+        $process = [];
         $process['percent'] = $value;
         $process['id'] = "{$id}-{$value}";
         $process['rates'][] = $rate;
 
-        return array($process);
+        return [$process];
     }
 
     /**
@@ -285,8 +283,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
             $this->unsRateValue();
             $this->unsCalculationProcess();
             $this->unsEventModuleId();
-            Mage::dispatchEvent('tax_rate_data_fetch', array(
-                'request' => $request));
+            Mage::dispatchEvent('tax_rate_data_fetch', [
+                'request' => $request]);
             if (!$this->hasRateValue()) {
                 $rateInfo = $this->_getResource()->getRateInfo($request);
                 $this->setCalculationProcess($rateInfo['process']);
@@ -516,7 +514,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         $productClassId2 = $second->getProductClassId(); // Save to set it back later
 
         // Ids are equal for both requests, so take any of them to process
-        $ids = is_array($productClassId1) ? $productClassId1 : array($productClassId1);
+        $ids = is_array($productClassId1) ? $productClassId1 : [$productClassId1];
         $identical = true;
         foreach ($ids as $productClassId) {
             $first->setProductClassId($productClassId);
@@ -547,7 +545,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      */
     protected function _getRates($request, $fieldName, $type)
     {
-        $result = array();
+        $result = [];
         $classes = Mage::getModel('tax/class')->getCollection()
             ->addFieldToFilter('class_type', $type)
             ->load();
@@ -591,7 +589,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     public function getAppliedRates($request)
     {
         if (!$request->getCountryId() || !$request->getCustomerClassId() || !$request->getProductClassId()) {
-            return array();
+            return [];
         }
 
         $cacheKey = $this->_getRequestCacheKey($request);
@@ -616,7 +614,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * Get the calculation process
      *
      * @param array $rates
-     * @return mixed
+     * @return array
      */
     public function reproduceProcess($rates)
     {
@@ -627,7 +625,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * Get rates by customer tax class
      *
      * @param int $customerTaxClass
-     * @return mixed
+     * @return array
      */
     public function getRatesByCustomerTaxClass($customerTaxClass)
     {
@@ -639,7 +637,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      *
      * @param int $customerTaxClass
      * @param int $productTaxClass
-     * @return mixed
+     * @return array
      */
     public function getRatesByCustomerAndProductTaxClasses($customerTaxClass, $productTaxClass)
     {
@@ -652,8 +650,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      *
      * @param   float $price
      * @param   float $taxRate
-     * @param   boolean $priceIncludeTax
-     * @param   boolean $round
+     * @param   bool $priceIncludeTax
+     * @param   bool $round
      * @return  float
      */
     public function calcTaxAmount($price, $taxRate, $priceIncludeTax = false, $round = true)

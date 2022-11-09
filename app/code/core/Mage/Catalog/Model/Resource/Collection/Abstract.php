@@ -7,25 +7,25 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog EAV collection resource abstract model
- * Implement using diferent stores for retrieve attribute values
+ * Implement using different stores for retrieve attribute values
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Entity_Collection_Abstract
 {
@@ -94,7 +94,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
      * @return Varien_Db_Select|Zend_Db_Select
      * @throws Mage_Core_Exception
      */
-    protected function _getLoadAttributesSelect($table, $attributeIds = array())
+    protected function _getLoadAttributesSelect($table, $attributeIds = [])
     {
         if (empty($attributeIds)) {
             $attributeIds = $this->_selectAttributes;
@@ -104,17 +104,17 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         if ($storeId) {
             $adapter        = $this->getConnection();
             $entityIdField  = $this->getEntity()->getEntityIdField();
-            $joinCondition  = array(
+            $joinCondition  = [
                 't_s.attribute_id = t_d.attribute_id',
                 't_s.entity_id = t_d.entity_id',
                 $adapter->quoteInto('t_s.store_id = ?', $storeId)
-            );
+            ];
             $select = $adapter->select()
-                ->from(array('t_d' => $table), array($entityIdField, 'attribute_id'))
+                ->from(['t_d' => $table], [$entityIdField, 'attribute_id'])
                 ->joinLeft(
-                    array('t_s' => $table),
+                    ['t_s' => $table],
                     implode(' AND ', $joinCondition),
-                    array()
+                    []
                 )
                 ->where('t_d.entity_type_id = ?', $this->getEntity()->getTypeId())
                 ->where("t_d.{$entityIdField} IN (?)", array_keys($this->_itemsById))
@@ -138,6 +138,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
     {
         $storeId = $this->getStoreId();
         if ($storeId) {
+            /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
             $helper = Mage::getResourceHelper('eav');
             $adapter        = $this->getConnection();
             $valueExpr      = $adapter->getCheckSql(
@@ -146,11 +147,11 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
                 $helper->prepareEavAttributeValue('t_s.value', $type)
             );
 
-            $select->columns(array(
+            $select->columns([
                 'default_value' => $helper->prepareEavAttributeValue('t_d.value', $type),
                 'store_value'   => $helper->prepareEavAttributeValue('t_s.value', $type),
                 'value'         => $valueExpr
-            ));
+            ]);
         } else {
             $select = parent::_addLoadAttributesSelectValues($select, $table, $type);
         }
@@ -170,11 +171,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
      */
     protected function _joinAttributeToSelect($method, $attribute, $tableAlias, $condition, $fieldCode, $fieldAlias)
     {
-        if (isset($this->_joinAttributes[$fieldCode]['store_id'])) {
-            $store_id = $this->_joinAttributes[$fieldCode]['store_id'];
-        } else {
-            $store_id = $this->getStoreId();
-        }
+        $store_id = $this->_joinAttributes[$fieldCode]['store_id'] ?? $this->getStoreId();
 
         $adapter = $this->getConnection();
 
@@ -196,9 +193,9 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
             );
 
             $this->getSelect()->$method(
-                array($defAlias => $attribute->getBackend()->getTable()),
+                [$defAlias => $attribute->getBackend()->getTable()],
                 $defCondition,
-                array()
+                []
             );
 
             $method = 'joinLeft';

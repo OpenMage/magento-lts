@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_GiftMessage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_GiftMessage
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -38,7 +39,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
         if (is_array($arr)) {
             return $arr;
         }
-        return array();
+        return [];
     }
 
     /**
@@ -59,11 +60,11 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
         try {
             Mage::dispatchEvent(
                 'checkout_controller_onepage_save_shipping_method',
-                array('request' => $request, 'quote' => $quote)
+                ['request' => $request, 'quote' => $quote]
             );
-            return array('entityId' => $entityId, 'result' => true, 'error' => '');
+            return ['entityId' => $entityId, 'result' => true, 'error' => ''];
         } catch (Exception $e) {
-            return array('entityId' => $entityId, 'result' => false, 'error' => $e->getMessage());
+            return ['entityId' => $entityId, 'result' => false, 'error' => $e->getMessage()];
         }
     }
 
@@ -77,7 +78,6 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
      */
     public function setForQuote($quoteId, $giftMessage, $store = null)
     {
-        /** @var Mage_Sales_Model_Quote $quote */
         $quote = $this->_getQuote($quoteId, $store);
 
         $giftMessage = $this->_prepareData($giftMessage);
@@ -86,7 +86,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
         }
 
         $giftMessage['type'] = 'quote';
-        $giftMessages = array($quoteId => $giftMessage);
+        $giftMessages = [$quoteId => $giftMessage];
         $request = new Mage_Core_Controller_Request_Http();
         $request->setParam("giftmessage", $giftMessages);
 
@@ -103,7 +103,6 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
      */
     public function setForQuoteProduct($quoteId, $productsAndMessages, $store = null)
     {
-        /** @var Mage_Sales_Model_Quote $quote */
         $quote = $this->_getQuote($quoteId, $store);
 
         $productsAndMessages = $this->_prepareData($productsAndMessages);
@@ -114,10 +113,10 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
         if (count($productsAndMessages) == 2
                 && isset($productsAndMessages['product'])
                 && isset($productsAndMessages['message'])) {
-            $productsAndMessages = array($productsAndMessages);
+            $productsAndMessages = [$productsAndMessages];
         }
 
-        $results = array();
+        $results = [];
         foreach ($productsAndMessages as $productAndMessage) {
             if (isset($productAndMessage['product']) && isset($productAndMessage['message'])) {
                 $product = $this->_prepareData($productAndMessage['product']);
@@ -162,13 +161,12 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
             $this->_fault("quote_item_not_exists");
         }
 
-        /** @var Mage_Sales_Model_Quote $quote */
         $quote = $this->_getQuote($quoteItem->getQuoteId(), $store);
 
         $giftMessage = $this->_prepareData($giftMessage);
         $giftMessage['type'] = 'quote_item';
 
-        $giftMessages = array($quoteItem->getId() => $giftMessage);
+        $giftMessages = [$quoteItem->getId() => $giftMessage];
 
         $request = new Mage_Core_Controller_Request_Http();
         $request->setParam("giftmessage", $giftMessages);

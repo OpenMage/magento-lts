@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +24,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
     extends Mage_Adminhtml_Block_Template
@@ -55,7 +56,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
     {
         $order = $this->getOrder();
 
-        $history = array();
+        $history = [];
         foreach ($order->getAllStatusHistory() as $orderComment){
             $history[] = $this->_prepareHistoryItem(
                 $orderComment->getStatusLabel(),
@@ -124,7 +125,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
             );
         }
 
-        usort($history, array(__CLASS__, "_sortHistoryByTimestamp"));
+        usort($history, [__CLASS__, "_sortHistoryByTimestamp"]);
         return $history;
     }
 
@@ -141,10 +142,10 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
         if (!isset($item['created_at'])) {
             return '';
         }
-        if ('date' === $dateType) {
-            return $this->helper('core')->formatDate($item['created_at'], $format);
+        if ($dateType === 'date') {
+            return $this->formatDate($item['created_at'], $format);
         }
-        return $this->helper('core')->formatTime($item['created_at'], $format);
+        return $this->formatTime($item['created_at'], $format);
     }
 
     /**
@@ -162,7 +163,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
      * Check whether status history comment is with customer notification
      *
      * @param array $item
-     * @param boolean $isSimpleCheck
+     * @param bool $isSimpleCheck
      * @return bool
      */
     public function isItemNotified(array $item, $isSimpleCheck = true)
@@ -170,7 +171,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
         if ($isSimpleCheck) {
             return !empty($item['notified']);
         }
-        return isset($item['notified']) && false !== $item['notified'];
+        return isset($item['notified']) && $item['notified'] !== false;
     }
 
     /**
@@ -183,7 +184,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
     {
         $strItemComment = '';
         if (isset($item['comment'])) {
-            $allowedTags = array('b', 'br', 'strong', 'i', 'u', 'a');
+            $allowedTags = ['b', 'br', 'strong', 'i', 'u', 'a'];
             /** @var Mage_Adminhtml_Helper_Sales $salesHelper */
             $salesHelper = Mage::helper('adminhtml/sales');
             $strItemComment = $salesHelper->escapeHtmlWithLinks($item['comment'], $allowedTags);
@@ -202,12 +203,12 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
      */
     protected function _prepareHistoryItem($label, $notified, $created, $comment = '')
     {
-        return array(
+        return [
             'title'      => $label,
             'notified'   => $notified,
             'comment'    => $comment,
             'created_at' => $created
-        );
+        ];
     }
 
     /**
@@ -257,13 +258,13 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
      */
     public function getTabUrl()
     {
-        return $this->getUrl('*/*/commentsHistory', array('_current' => true));
+        return $this->getUrl('*/*/commentsHistory', ['_current' => true]);
     }
 
     /**
      * Can Show Tab
      *
-     * @return boolean
+     * @return bool
      */
     public function canShowTab()
     {
@@ -273,7 +274,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
     /**
      * Is Hidden
      *
-     * @return boolean
+     * @return bool
      */
     public function isHidden()
     {
@@ -284,7 +285,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
      * Customer Notification Applicable check method
      *
      * @param array $historyItem
-     * @return boolean
+     * @return bool
      */
     public function isCustomerNotificationNotApplicable($historyItem)
     {

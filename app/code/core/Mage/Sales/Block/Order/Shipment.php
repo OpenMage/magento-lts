@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +24,7 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
 {
@@ -38,12 +39,17 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
+        /** @var Mage_Page_Block_Html_Head $headBlock */
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
             $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
         }
+
+        /** @var Mage_Payment_Helper_Data $helper */
+        $helper = $this->helper('payment');
         $this->setChild(
             'payment_info',
-            $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
+            $helper->getInfoBlock($this->getOrder()->getPayment())
         );
     }
 
@@ -97,7 +103,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
      */
     public function getInvoiceUrl($order)
     {
-        return Mage::getUrl('*/*/invoice', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/invoice', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -106,7 +112,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
      */
     public function getViewUrl($order)
     {
-        return Mage::getUrl('*/*/view', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/view', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -115,9 +121,8 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
      */
     public function getCreditmemoUrl($order)
     {
-        return Mage::getUrl('*/*/creditmemo', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/creditmemo', ['order_id' => $order->getId()]);
     }
-
 
     /**
      * @param Mage_Sales_Model_Order_Shipment $shipment
@@ -125,7 +130,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
      */
     public function getPrintShipmentUrl($shipment)
     {
-        return Mage::getUrl('*/*/printShipment', array('shipment_id' => $shipment->getId()));
+        return Mage::getUrl('*/*/printShipment', ['shipment_id' => $shipment->getId()]);
     }
 
     /**
@@ -134,6 +139,6 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
      */
     public function getPrintAllShipmentsUrl($order)
     {
-        return Mage::getUrl('*/*/printShipment', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/printShipment', ['order_id' => $order->getId()]);
     }
 }

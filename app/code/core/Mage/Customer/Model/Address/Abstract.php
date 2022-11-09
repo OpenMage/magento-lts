@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Customer
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Address abstract model
+ *
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getCustomerId()
  * @method string getFirstname()
@@ -59,10 +64,6 @@
  * @method $this setSuffix(string $value)
  * @method $this unsRegion()
  * @method bool getShouldIgnoreValidation()
- *
- * @category   Mage
- * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 {
@@ -91,21 +92,21 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Directory country models
      *
      * @var array
      */
-    static protected $_countryModels = array();
+    static protected $_countryModels = [];
 
     /**
      * Directory region models
      *
      * @var array
      */
-    static protected $_regionModels = array();
+    static protected $_regionModels = [];
 
     /**
      * Get full customer name
@@ -139,11 +140,11 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     public function getStreet($line = 0)
     {
         $street = parent::getData('street');
-        if (-1 === $line) {
+        if ($line === -1) {
             return $street;
         } else {
             $arr = is_array($street) ? $street : explode("\n", $street);
-            if (0 === $line || $line === null) {
+            if ($line === 0 || $line === null) {
                 return $arr;
             } elseif (isset($arr[$line-1])) {
                 return $arr[$line-1];
@@ -394,7 +395,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
             || !$formatType->getRenderer()) {
             return null;
         }
-        Mage::dispatchEvent('customer_address_format', array('type' => $formatType, 'address' => $this));
+        Mage::dispatchEvent('customer_address_format', ['type' => $formatType, 'address' => $this]);
         return $formatType->getRenderer()->render($this);
     }
 
@@ -431,7 +432,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 
         $this->_basicCheck();
 
-        Mage::dispatchEvent('customer_address_validation_after', array('address' => $this));
+        Mage::dispatchEvent('customer_address_validation_after', ['address' => $this]);
 
         $errors = $this->_getErrors();
 
@@ -500,7 +501,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive errors
+     * Retrieve errors
      *
      * @return array
      */
@@ -516,7 +517,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      */
     protected function _resetErrors()
     {
-        $this->_errors = array();
+        $this->_errors = [];
         return $this;
     }
 }

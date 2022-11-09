@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Admin
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Admin Roles Model
+ *
+ * @category   Mage
+ * @package    Mage_Admin
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Admin_Model_Resource_Roles _getResource()
  * @method Mage_Admin_Model_Resource_Roles getResource()
@@ -39,10 +44,6 @@
  * @method $this setRoleName(string $value)
  * @method string getName()
  * @method int getPid()
- *
- * @category    Mage
- * @package     Mage_Admin
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
 {
@@ -51,9 +52,6 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'admin_roles';
 
-    /**
-     * Constructor
-     */
     protected function _construct()
     {
         $this->_init('admin/roles');
@@ -146,7 +144,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
             $level = -1;
         } else {
             $resourceName = $parentName;
-            if (!in_array($resource->getName(), array('title', 'sort_order', 'children', 'disabled'))) {
+            if (!in_array($resource->getName(), ['title', 'sort_order', 'children', 'disabled'])) {
                 $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
 
                 //assigning module for its' children nodes
@@ -171,7 +169,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
         //check children and run recursion if they exists
         $children = $resource->children();
         foreach ($children as $key => $child) {
-            if (1 == $child->disabled) {
+            if ($child->disabled == 1) {
                 $resource->{$key} = null;
                 continue;
             }

@@ -7,19 +7,22 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tax
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Catalog data helper
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -32,6 +35,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * Price conversion constat for negative
      */
     const PRICE_CONVERSION_MINUS = 2;
+
+    protected $_moduleName = 'Mage_Tax';
 
     /**
      * Tax configuration object
@@ -99,7 +104,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Postcode cut to this length when creating search templates
      *
-     * @var integer
+     * @var int
      */
     protected $_postCodeSubStringLength = 10;
 
@@ -115,7 +120,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_config = Mage::getSingleton('tax/config');
         $this->_app = !empty($args['app']) ? $args['app'] : Mage::app();
@@ -124,7 +129,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return max postcode length to create search templates
      *
-     * @return integer  $len
+     * @return int  $len
      */
     public function getPostCodeSubStringLength()
     {
@@ -351,7 +356,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_config->displaySalesPricesBoth($store);
     }
 
-
     /**
      * Check if we need display price include and exclude tax for order/invoice subtotal
      *
@@ -442,7 +446,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_getAllRatesByProductClass($store);
     }
 
-
     /**
      * Get all tax rates JSON for all product tax classes of specific store
      *
@@ -455,7 +458,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     protected function _getAllRatesByProductClass($store = null)
     {
-        $result = array();
+        $result = [];
         $calc = Mage::getSingleton('tax/calculation');
         $rates = $calc->getRatesForAllProductTaxClasses($calc->getDefaultRateRequest($store));
 
@@ -625,8 +628,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $priceExclTax         = $this->_calculatePrice($storePriceInclTax, $storePercent, false, false);
         $customerTax          = $this->getCalculator()->calcTaxAmount($priceExclTax, $customerPercent, false, false);
-        $customerPriceInclTax = $store->roundPrice($priceExclTax + $customerTax);
-        return $customerPriceInclTax;
+        return $store->roundPrice($priceExclTax + $customerTax);
     }
 
     /**
@@ -829,10 +831,10 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
 
         $defaultTaxString = $currentTaxString = '';
 
-        $rateToVariable = array(
+        $rateToVariable = [
             'defaultTaxString' => 'defaultTaxes',
             'currentTaxString' => 'currentTaxes',
-        );
+        ];
         foreach ($rateToVariable as $rateVariable => $rateArray) {
             if ($$rateArray && is_array($$rateArray)) {
                 $$rateVariable = '';
@@ -877,26 +879,26 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $taxClassAttribute = Mage::getModel('eav/entity_attribute')
             ->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'tax_class_id');
-        $joinConditionD = implode(' AND ', array(
+        $joinConditionD = implode(' AND ', [
             "tax_class_d.entity_id = {$priceTable}.entity_id",
             $select->getAdapter()->quoteInto('tax_class_d.attribute_id = ?', (int)$taxClassAttribute->getId()),
             'tax_class_d.store_id = 0'
-        ));
-        $joinConditionC = implode(' AND ', array(
+        ]);
+        $joinConditionC = implode(' AND ', [
             "tax_class_c.entity_id = {$priceTable}.entity_id",
             $select->getAdapter()->quoteInto('tax_class_c.attribute_id = ?', (int)$taxClassAttribute->getId()),
             $select->getAdapter()->quoteInto('tax_class_c.store_id = ?', (int)$storeId)
-        ));
+        ]);
         $select
             ->joinLeft(
-                array('tax_class_d' => $taxClassAttribute->getBackend()->getTable()),
+                ['tax_class_d' => $taxClassAttribute->getBackend()->getTable()],
                 $joinConditionD,
-                array()
+                []
             )
             ->joinLeft(
-                array('tax_class_c' => $taxClassAttribute->getBackend()->getTable()),
+                ['tax_class_c' => $taxClassAttribute->getBackend()->getTable()],
                 $joinConditionC,
-                array()
+                []
             );
 
         return $this;
@@ -998,7 +1000,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             $current = $source;
         }
 
-        $taxClassAmount = array();
+        $taxClassAmount = [];
         if ($current && $source) {
             if ($current == $source) {
                 // use the actuals
@@ -1112,7 +1114,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             $current = $source;
         }
 
-        $taxClassAmount = array();
+        $taxClassAmount = [];
         if ($current && $source) {
             if ($current->getShippingTaxAmount() != 0 && $current->getBaseShippingTaxAmount() != 0) {
                 $taxClassAmount[0]['tax_amount'] = $current->getShippingTaxAmount();
@@ -1137,7 +1139,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getAllWeee($source = null)
     {
-        $allWeee = array();
+        $allWeee = [];
         $store = $this->_app->getStore();
 
         if (Mage::registry('current_invoice')) {
@@ -1152,11 +1154,11 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$helper->includeInSubtotal($store)) {
             foreach ($source->getAllItems() as $item) {
                 foreach ($helper->getApplied($item) as $tax) {
-                    $weeeDiscount = isset($tax['weee_discount']) ? $tax['weee_discount'] : 0;
+                    $weeeDiscount = $tax['weee_discount'] ?? 0;
                     $title = $tax['title'];
 
-                    $rowAmount = isset($tax['row_amount']) ? $tax['row_amount'] : 0;
-                    $rowAmountInclTax = isset($tax['row_amount_incl_tax']) ? $tax['row_amount_incl_tax'] : 0;
+                    $rowAmount = $tax['row_amount'] ?? 0;
+                    $rowAmountInclTax = $tax['row_amount_incl_tax'] ?? 0;
                     $amountDisplayed = ($helper->isTaxIncluded()) ? $rowAmountInclTax : $rowAmount;
 
                     if (array_key_exists($title, $allWeee)) {
@@ -1206,7 +1208,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * Return whether cross border trade is enabled or not
      *
      * @param   null|int $store
-     * @return boolean
+     * @return bool
      */
     public function isCrossBorderTradeEnabled($store = null)
     {

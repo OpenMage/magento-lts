@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -26,11 +27,11 @@
  *  - original_price - product price before any calculations
  *  - calculation_price - prices for item totals calculation
  *  - custom_price - new price that can be declared by user and recalculated during calculation process
- *  - original_custom_price - original defined value of custom price without any convertion
+ *  - original_custom_price - original defined value of custom price without any conversion
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Quote_Address getAddress()
  * @method $this setAddress(Mage_Sales_Model_Quote_Address $value)
@@ -184,13 +185,18 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      *
      * @var array
      */
-    protected $_children    = array();
+    protected $_children    = [];
 
     /**
      *
      * @var array
      */
-    protected $_messages    = array();
+    protected $_messages    = [];
+
+    /**
+     * @var array
+     */
+    protected $_optionsByCode;
 
     /**
      * Retrieve Quote instance
@@ -250,7 +256,6 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         return $this;
     }
 
-
     /**
      * Set parent item
      *
@@ -280,7 +285,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     }
 
     /**
-     * Get chil items
+     * Get child items
      *
      * @return $this[]
      */
@@ -312,7 +317,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     {
         $messagesExists = $this->getMessage(false);
         if (!is_array($messages)) {
-            $messages = array($messages);
+            $messages = [$messages];
         }
         foreach ($messages as $message) {
             if (!in_array($message, $messagesExists)) {
@@ -372,7 +377,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     public function clearMessage()
     {
         $this->unsMessage(); // For older compatibility, when we kept message inside data array
-        $this->_messages = array();
+        $this->_messages = [];
         return $this;
     }
 
@@ -573,7 +578,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     public function isNominal()
     {
         if (!$this->hasData('is_nominal')) {
-            $this->setData('is_nominal', $this->getProduct() ? '1' == $this->getProduct()->getIsRecurring() : false);
+            $this->setData('is_nominal', $this->getProduct() ? $this->getProduct()->getIsRecurring() == '1' : false);
         }
         return $this->_getData('is_nominal');
     }
@@ -697,8 +702,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     {
         $this->setId(null);
         $this->_parentItem  = null;
-        $this->_children    = array();
-        $this->_messages    = array();
+        $this->_children    = [];
+        $this->_messages    = [];
         return $this;
     }
 
@@ -716,14 +721,14 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             $calculate = $this->getProduct()->getPriceType();
         }
 
-        if ((null !== $calculate) && (int)$calculate === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
+        if (($calculate !== null) && (int)$calculate === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
             return true;
         }
         return false;
     }
 
     /**
-     * Checking can we ship product separatelly (each child separately)
+     * Checking can we ship product separately (each child separately)
      * or each parent product item can be shipped only like one item
      *
      * @return bool
@@ -736,7 +741,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             $shipmentType = $this->getProduct()->getShipmentType();
         }
 
-        if ((null !== $shipmentType) &&
+        if (($shipmentType !== null) &&
             (int)$shipmentType === Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
             return true;
         }
@@ -812,7 +817,6 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     {
         return $this->_getData('tax_amount');
     }
-
 
     /**
      * Get item base tax amount

@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Rolesedit Tab Display Block
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form
     implements Mage_Adminhtml_Block_Widget_Tab_Interface
@@ -91,7 +92,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
 
         $rules_set = Mage::getResourceModel('admin/rules_collection')->getByRoles($rid)->load();
 
-        $selrids = array();
+        $selrids = [];
 
         /** @var Mage_Admin_Model_Rules $item */
         foreach ($rules_set->getItems() as $item) {
@@ -117,7 +118,6 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
             }
         }
 
-
         $this->setSelectedResources($selrids);
 
         $this->setTemplate('permissions/rolesedit.phtml');
@@ -128,7 +128,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
     /**
      * Check if everything is allowed
      *
-     * @return boolean
+     * @return bool
      */
     public function getEverythingAllowed()
     {
@@ -147,9 +147,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
 
         $rootArray = $this->_getNodeJson($resources->admin, 1);
 
-        $json = Mage::helper('core')->jsonEncode(isset($rootArray['children']) ? $rootArray['children'] : array());
-
-        return $json;
+        return Mage::helper('core')->jsonEncode($rootArray['children'] ?? []);
     }
 
     /**
@@ -157,7 +155,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
      *
      * @param array $a
      * @param array $b
-     * @return boolean
+     * @return int
      */
     protected function _sortTree($a, $b)
     {
@@ -173,7 +171,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
      */
     protected function _getNodeJson($node, $level = 0)
     {
-        $item = array();
+        $item = [];
         $selres = $this->getSelectedResources();
 
         if ($level != 0) {
@@ -194,7 +192,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         }
 
         if ($children) {
-            $item['children'] = array();
+            $item['children'] = [];
             //$item['cls'] = 'fiche-node';
             foreach ($children as $child) {
                 if ($child->getName() != 'title' && $child->getName() != 'sort_order') {
@@ -209,7 +207,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
                 }
             }
             if (!empty($item['children'])) {
-                usort($item['children'], array($this, '_sortTree'));
+                usort($item['children'], [$this, '_sortTree']);
             }
         }
         return $item;

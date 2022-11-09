@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -44,47 +45,47 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
         $page->setFillColor(new Zend_Pdf_Color_Rgb(0, 0, 0));
 
         //columns headers
-        $lines[0][] = array(
+        $lines[0][] = [
             'text' => Mage::helper('sales')->__('Products'),
             'feed' => 35
-        );
+        ];
 
-        $lines[0][] = array(
+        $lines[0][] = [
             'text'  => Mage::helper('sales')->__('SKU'),
             'feed'  => 290,
             'align' => 'right'
-        );
+        ];
 
-        $lines[0][] = array(
+        $lines[0][] = [
             'text'  => Mage::helper('sales')->__('Qty'),
             'feed'  => 435,
             'align' => 'right'
-        );
+        ];
 
-        $lines[0][] = array(
+        $lines[0][] = [
             'text'  => Mage::helper('sales')->__('Price'),
             'feed'  => 360,
             'align' => 'right'
-        );
+        ];
 
-        $lines[0][] = array(
+        $lines[0][] = [
             'text'  => Mage::helper('sales')->__('Tax'),
             'feed'  => 495,
             'align' => 'right'
-        );
+        ];
 
-        $lines[0][] = array(
+        $lines[0][] = [
             'text'  => Mage::helper('sales')->__('Subtotal'),
             'feed'  => 565,
             'align' => 'right'
-        );
+        ];
 
-        $lineBlock = array(
+        $lineBlock = [
             'lines'  => $lines,
             'height' => 5
-        );
+        ];
 
-        $this->drawLineBlocks($page, array($lineBlock), array('table_header' => true));
+        $this->drawLineBlocks($page, [$lineBlock], ['table_header' => true]);
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
         $this->y -= 20;
     }
@@ -95,7 +96,7 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
      * @param  Mage_Sales_Model_Order_Invoice[] $invoices
      * @return Zend_Pdf
      */
-    public function getPdf($invoices = array())
+    public function getPdf($invoices = [])
     {
         $this->_beforeGetPdf();
         $this->_initRenderer('invoice');
@@ -154,7 +155,7 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
      * @param  array $settings
      * @return Zend_Pdf_Page
      */
-    public function newPage(array $settings = array())
+    public function newPage(array $settings = [])
     {
         /* Add new table head */
         $page = $this->_getPdf()->newPage(Zend_Pdf_Page::SIZE_A4);

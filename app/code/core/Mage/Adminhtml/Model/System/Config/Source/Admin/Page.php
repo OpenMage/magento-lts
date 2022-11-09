@@ -7,17 +7,17 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Admin system config sturtup page
@@ -32,7 +32,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
 
     public function toOptionArray()
     {
-        $options = array();
+        $options = [];
         $menu    = $this->_buildMenuArray();
 
         $this->_createOptions($options, $menu);
@@ -45,28 +45,26 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         $nonEscapableNbspChar = html_entity_decode('&#160;', ENT_NOQUOTES, 'UTF-8');
 
         foreach ($menuNode as $menu) {
-
             if (!empty($menu['url'])) {
-                $optionArray[] = array(
+                $optionArray[] = [
                     'label' => str_repeat($nonEscapableNbspChar, ($menu['level'] * 4)) . $menu['label'],
                     'value' => $menu['path'],
-                );
+                ];
 
                 if (isset($menu['children'])) {
                     $this->_createOptions($optionArray, $menu['children']);
                 }
-            }
-            else {
-                $children = array();
+            } else {
+                $children = [];
 
-                if(isset($menu['children'])) {
+                if (isset($menu['children'])) {
                     $this->_createOptions($children, $menu['children']);
                 }
 
-                $optionArray[] = array(
+                $optionArray[] = [
                     'label' => str_repeat($nonEscapableNbspChar, ($menu['level'] * 4)) . $menu['label'],
                     'value' => $children,
-                );
+                ];
             }
         }
     }
@@ -85,16 +83,16 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
             $parent = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
         }
 
-        $parentArr = array();
+        $parentArr = [];
         $sortOrder = 0;
         foreach ($parent->children() as $childName=>$child) {
-            if ((1 == $child->disabled)
+            if (($child->disabled == 1)
                 || ($child->depends && !$this->_checkDepends($child->depends))
             ) {
                 continue;
             }
 
-            $menuArr = array();
+            $menuArr = [];
             $menuArr['label'] = $this->_getHelperValue($child);
 
             $menuArr['sort_order'] = $child->sort_order ? (int)$child->sort_order : $sortOrder;
@@ -116,7 +114,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
             $sortOrder++;
         }
 
-        uasort($parentArr, array($this, '_sortMenu'));
+        uasort($parentArr, [$this, '_sortMenu']);
 
         foreach ($parentArr as $key => $value) {
             $last = $key;

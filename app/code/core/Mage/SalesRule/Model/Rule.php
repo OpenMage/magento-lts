@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping Cart Rule data model
+ *
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_SalesRule_Model_Resource_Rule _getResource()
  * @method Mage_SalesRule_Model_Resource_Rule getResource()
@@ -71,10 +76,6 @@
  * @method int getRuleId()
  * @method bool hasStoreLabels()
  * @method $this setStoreLabels(array $value)
- *
- * @category    Mage
- * @package     Mage_SalesRule
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
 {
@@ -135,7 +136,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @var array
      */
-    protected $_labels = array();
+    protected $_labels = [];
 
     /**
      * Rule's primary coupon
@@ -163,7 +164,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @var array
      */
-    protected $_validatedAddresses = array();
+    protected $_validatedAddresses = [];
 
     /**
      * Set resource model and Id field name
@@ -272,7 +273,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     public static function getCouponCodeGenerator()
     {
         if (!self::$_couponCodeGenerator) {
-            return Mage::getSingleton('salesrule/coupon_codegenerator', array('length' => 16));
+            return Mage::getSingleton('salesrule/coupon_codegenerator', ['length' => 16]);
         }
         return self::$_couponCodeGenerator;
     }
@@ -375,15 +376,15 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     public function getCouponTypes()
     {
         if ($this->_couponTypes === null) {
-            $this->_couponTypes = array(
+            $this->_couponTypes = [
                 Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON => Mage::helper('salesrule')->__('No Coupon'),
                 Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC  => Mage::helper('salesrule')->__('Specific Coupon'),
-            );
-            $transport = new Varien_Object(array(
+            ];
+            $transport = new Varien_Object([
                 'coupon_types'                => $this->_couponTypes,
                 'is_coupon_type_auto_visible' => false
-            ));
-            Mage::dispatchEvent('salesrule_rule_get_coupon_types', array('transport' => $transport));
+            ]);
+            Mage::dispatchEvent('salesrule_rule_get_coupon_types', ['transport' => $transport]);
             $this->_couponTypes = $transport->getCouponTypes();
             if ($transport->getIsCouponTypeAutoVisible()) {
                 $this->_couponTypes[Mage_SalesRule_Model_Rule::COUPON_TYPE_AUTO] = Mage::helper('salesrule')->__('Auto');
@@ -482,7 +483,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     public function getIsValidForAddress($address)
     {
         $addressId = $this->_getAddressId($address);
-        return isset($this->_validatedAddresses[$addressId]) ? $this->_validatedAddresses[$addressId] : false;
+        return $this->_validatedAddresses[$addressId] ?? false;
     }
 
     /**
@@ -498,10 +499,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
         }
         return $address;
     }
-
-
-
-
 
     /**
      * Collect all product attributes used in serialized rule's action or condition
@@ -545,7 +542,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @return array
      */
-    public function toArray(array $arrAttributes = array())
+    public function toArray(array $arrAttributes = [])
     {
         return parent::toArray($arrAttributes);
     }

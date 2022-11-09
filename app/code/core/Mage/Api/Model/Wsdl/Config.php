@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Api
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -56,7 +57,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     public static function getNamespacesPrefix()
     {
         if (is_null(self::$_namespacesPrefix)) {
-            self::$_namespacesPrefix = array();
+            self::$_namespacesPrefix = [];
             $config = Mage::getSingleton('api/config')->getNode('v2/wsdl/prefix')->children();
             foreach ($config as $prefix => $namespace) {
                 self::$_namespacesPrefix[$namespace->asArray()] = $prefix;
@@ -89,7 +90,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
      * @param int|false|null $lifetime
      * @return bool|Mage_Core_Model_App
      */
-    protected function _saveCache($data, $id, $tags = array(), $lifetime = false)
+    protected function _saveCache($data, $id, $tags = [], $lifetime = false)
     {
         return Mage::app()->saveCache($data, $id, $tags, $lifetime);
     }
@@ -144,7 +145,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
         }
 
         if (Mage::app()->useCache('config')) {
-            $this->saveCache(array('config'));
+            $this->saveCache(['config']);
         }
 
         return $this;

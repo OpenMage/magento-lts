@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Admin
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Admin observer model
  *
- * @category    Mage
- * @package     Mage_Admin
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Admin
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Admin_Model_Observer
 {
@@ -39,18 +40,17 @@ class Mage_Admin_Model_Observer
         /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
 
-        /** @var Mage_Core_Controller_Request_Http $request */
         $request = Mage::app()->getRequest();
         $user = $session->getUser();
 
         $requestedActionName = strtolower($request->getActionName());
-        $openActions = array(
+        $openActions = [
             'forgotpassword',
             'resetpassword',
             'resetpasswordpost',
             'logout',
             'refresh' // captcha refresh
-        );
+        ];
         if (in_array($requestedActionName, $openActions)) {
             $request->setDispatched(true);
         } else {
@@ -65,8 +65,8 @@ class Mage_Admin_Model_Observer
 
                     if ($coreSession->validateFormKey($request->getPost("form_key"))) {
                         $postLogin = $request->getPost('login');
-                        $username = isset($postLogin['username']) ? $postLogin['username'] : '';
-                        $password = isset($postLogin['password']) ? $postLogin['password'] : '';
+                        $username = $postLogin['username'] ?? '';
+                        $password = $postLogin['password'] ?? '';
                         $session->login($username, $password, $request);
                         $request->setPost('login', null);
                     } else {

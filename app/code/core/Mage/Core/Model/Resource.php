@@ -7,20 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Resources and connections registry and factory
  *
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Resource
 {
@@ -38,28 +42,28 @@ class Mage_Core_Model_Resource
      *
      * @var array
      */
-    protected $_connectionTypes    = array();
+    protected $_connectionTypes    = [];
 
     /**
      * Instances of actual connections
      *
      * @var Varien_Db_Adapter_Interface[]|false
      */
-    protected $_connections        = array();
+    protected $_connections        = [];
 
     /**
      * Names of actual connections that wait to set cache
      *
      * @var array
      */
-    protected $_skippedConnections = array();
+    protected $_skippedConnections = [];
 
     /**
      * Registry of resource entities
      *
      * @var array
      */
-    protected $_entities           = array();
+    protected $_entities           = [];
 
     /**
      * Mapped tables cache array
@@ -279,12 +283,12 @@ class Mage_Core_Model_Resource
             $tableName = $modelEntity;
         }
 
-        Mage::dispatchEvent('resource_get_tablename', array(
+        Mage::dispatchEvent('resource_get_tablename', [
             'resource'      => $this,
             'model_entity'  => $modelEntity,
             'table_name'    => $tableName,
             'table_suffix'  => $tableSuffix
-        ));
+        ]);
 
         $mappedTableName = $this->getMappedTableName($tableName);
         if ($mappedTableName) {
@@ -321,11 +325,7 @@ class Mage_Core_Model_Resource
      */
     public function getMappedTableName($tableName)
     {
-        if (isset($this->_mappedTableNames[$tableName])) {
-            return $this->_mappedTableNames[$tableName];
-        } else {
-            return false;
-        }
+        return $this->_mappedTableNames[$tableName] ?? false;
     }
 
     /**

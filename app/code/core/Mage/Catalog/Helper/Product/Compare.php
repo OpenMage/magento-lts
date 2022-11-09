@@ -7,17 +7,17 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Product Compare Helper
@@ -28,6 +28,8 @@
  */
 class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
 {
+    protected $_moduleName = 'Mage_Catalog';
+
     /**
      * Product Compare Items Collection
      *
@@ -90,20 +92,14 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      * Mage_Catalog_Helper_Product_Compare constructor.
      * @param array $data
      */
-    public function __construct(array $data = array())
+    public function __construct(array $data = [])
     {
-        $this->_logCondition = isset($data['log_condition'])
-            ? $data['log_condition'] : Mage::helper('log');
-        $this->_catalogSession = isset($data['catalog_session'])
-            ? $data['catalog_session'] : Mage::getSingleton('catalog/session');
-        $this->_customerSession = isset($data['customer_session'])
-            ? $data['customer_session'] : Mage::getSingleton('customer/session');
-        $this->_coreSession = isset($data['core_session'])
-            ? $data['core_session'] :  Mage::getSingleton('core/session');
-        $this->_productVisibility = isset($data['product_visibility'])
-            ? $data['product_visibility'] : Mage::getSingleton('catalog/product_visibility');
-        $this->_logVisitor = isset($data['log_visitor'])
-            ? $data['log_visitor'] : Mage::getSingleton('log/visitor');
+        $this->_logCondition = $data['log_condition'] ?? Mage::helper('log');
+        $this->_catalogSession = $data['catalog_session'] ?? Mage::getSingleton('catalog/session');
+        $this->_customerSession = $data['customer_session'] ?? Mage::getSingleton('customer/session');
+        $this->_coreSession = $data['core_session'] ?? Mage::getSingleton('core/session');
+        $this->_productVisibility = $data['product_visibility'] ?? Mage::getSingleton('catalog/product_visibility');
+        $this->_logVisitor = $data['log_visitor'] ?? Mage::getSingleton('log/visitor');
     }
 
     /**
@@ -123,15 +119,15 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function getListUrl()
     {
-        $itemIds = array();
+        $itemIds = [];
         foreach ($this->getItemCollection() as $item) {
             $itemIds[] = $item->getId();
         }
 
-         $params = array(
+         $params = [
             'items' => implode(',', $itemIds),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
-        );
+         ];
 
         return $this->_getUrl('catalog/product_compare', $params);
     }
@@ -188,10 +184,10 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function getRemoveUrl($item)
     {
-        $params = array(
+        $params = [
             'product' => $item->getId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
-        );
+        ];
         return $this->_getUrl('catalog/product_compare/remove', $params);
     }
 
@@ -202,9 +198,9 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function getClearListUrl()
     {
-        $params = array(
+        $params = [
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
-        );
+        ];
         return $this->_getUrl('catalog/product_compare/clear', $params);
     }
 
@@ -377,10 +373,10 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     public function getAddToCartUrlCustom($product, $addFormKey = true)
     {
         $beforeCompareUrl = $this->_catalogSession->getBeforeCompareUrl();
-        $params = array(
+        $params = [
             'product' => $product->getId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl($beforeCompareUrl),
-        );
+        ];
         if ($addFormKey) {
             $params[Mage_Core_Model_Url::FORM_KEY] = $this->_coreSession->getFormKey();
         }
@@ -397,10 +393,10 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     protected function _getUrlCustomParams($product, $addFormKey = true, $url = null)
     {
-        $params = array(
+        $params = [
             'product' => $product->getId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl($url),
-        );
+        ];
         if ($addFormKey) {
             $params[Mage_Core_Model_Url::FORM_KEY] = $this->_coreSession->getFormKey();
         }

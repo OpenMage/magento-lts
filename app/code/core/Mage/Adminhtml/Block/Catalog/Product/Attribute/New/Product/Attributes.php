@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +24,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes extends Mage_Adminhtml_Block_Catalog_Form
 {
@@ -37,11 +38,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
          */
         $form->setDataObject(Mage::registry('product'));
 
-        $fieldset = $form->addFieldset('group_fields', array());
+        $fieldset = $form->addFieldset('group_fields', []);
 
         $attributes = $this->getGroupAttributes();
 
-        $this->_setFieldset($attributes, $fieldset, array('gallery'));
+        $this->_setFieldset($attributes, $fieldset, ['gallery']);
 
         $values = Mage::registry('product')->getData();
         /**
@@ -55,7 +56,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
             }
         }
 
-        Mage::dispatchEvent('adminhtml_catalog_product_edit_prepare_form', array('form'=>$form));
+        Mage::dispatchEvent('adminhtml_catalog_product_edit_prepare_form', ['form'=>$form]);
         $form->addValues($values);
         $form->setFieldNameSuffix('product');
         $this->setForm($form);
@@ -64,15 +65,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
 
     protected function _getAdditionalElementTypes()
     {
-        $result = array(
+        $result = [
             'price'   => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_price'),
             'image'   => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_image'),
             'boolean' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_boolean')
-        );
+        ];
 
         $response = new Varien_Object();
-        $response->setTypes(array());
-        Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', array('response'=>$response));
+        $response->setTypes([]);
+        Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', ['response'=>$response]);
 
         foreach ($response->getTypes() as $typeName=>$typeClass) {
             $result[$typeName] = $typeClass;

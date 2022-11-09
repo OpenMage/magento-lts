@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category    Varien
  * @package     Varien_Db
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -26,7 +27,6 @@
  * @package    Varien_Db
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 
 require_once 'Varien/Db/Tree/Exception.php';
 Zend_Loader::loadClass('Zend_Db_Select');
@@ -96,7 +96,6 @@ class Varien_Db_Tree
             throw new Varien_Db_Tree_Exception('db object is not set in config');
         }
 
-
         if (!empty($config['table'])) {
             $this->setTable($config['table']);
         }
@@ -124,7 +123,6 @@ class Varien_Db_Tree
         } else {
             $this->setLevelField('level');
         }
-
 
         if (!empty($config['pid'])) {
             $this->setPidField($config['pid']);
@@ -297,14 +295,12 @@ class Varien_Db_Tree
         ->from(array('t2'=>$this->_table))
         ->from(array('t3'=>$this->_table), new Zend_Db_Expr('MAX(t3.'.$this->_right.') AS max_right'));
 
-
         $sql->where('t1.'.$this->_left.' <> t2.'.$this->_left)
         ->where('t1.'.$this->_left.' <> t2.'.$this->_right)
         ->where('t1.'.$this->_right.' <> t2.'.$this->_right);
 
         $sql->group('t1.'.$this->_id);
         $sql->having('max_right <> SQRT(4 * rep + 1) + 1');
-
 
         return $this->_db->fetchAll($sql);
     }
@@ -342,12 +338,10 @@ class Varien_Db_Tree
         }
     }
 
-
     public function moveNode($eId, $pId, $aId = 0) {
 
         $eInfo = $this->getNodeInfo($eId);
         $pInfo = $this->getNodeInfo($pId);
-
 
         $leftId = $eInfo[$this->_left];
         $rightId = $eInfo[$this->_right];
@@ -359,7 +353,7 @@ class Varien_Db_Tree
 
         if ($eId == $pId || $leftId == $leftIdP || ($leftIdP >= $leftId && $leftIdP <= $rightId) || ($level == $levelP+1 && $leftId > $leftIdP && $rightId < $rightIdP)) {
             echo "alert('cant_move_tree');";
-            return FALSE;
+            return false;
         }
 
         if ($leftIdP < $leftId && $rightIdP > $rightId && $levelP < $level - 1) {
@@ -407,7 +401,6 @@ class Varien_Db_Tree
         }
     }
 
-
     public function __moveNode($eId, $pId, $aId = 0) {
 
         $eInfo = $this->getNodeInfo($eId);
@@ -441,7 +434,6 @@ class Varien_Db_Tree
             $right_key_near = $pInfo[$this->_right] - 1;
         }
 
-
         $skew_level = $pInfo[$this->_level] - $eInfo[$this->_level] + 1;
         $skew_tree = $eInfo[$this->_right] - $eInfo[$this->_left] + 1;
 
@@ -467,7 +459,6 @@ class Varien_Db_Tree
                 WHERE
                     '.$this->_right.' > '.$left_key.' AND '.$this->_left.' <= '.$right_key_near;
         }
-
 
         $this->_db->beginTransaction();
         try {

@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Payment
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Base payment iformation block
+ *
+ * @category   Mage
+ * @package    Mage_Payment
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method bool hasIsSecureMode()
  */
@@ -81,7 +86,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
      */
     public function getChildPdfAsArray()
     {
-        $result = array();
+        $result = [];
         foreach ($this->getChild() as $child) {
             if (method_exists($child, 'toPdf')) {
                 $result[] = $child->toPdf();
@@ -110,10 +115,10 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     public function getValueAsArray($value, $escapeHtml = false)
     {
         if (empty($value)) {
-            return array();
+            return [];
         }
         if (!is_array($value)) {
-            $value = array($value);
+            $value = [$value];
         }
         if ($escapeHtml) {
             foreach ($value as $_key => $_val) {
@@ -152,17 +157,17 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
      */
     protected function _prepareSpecificInformation($transport = null)
     {
-        if (null === $this->_paymentSpecificInformation) {
-            if (null === $transport) {
+        if ($this->_paymentSpecificInformation === null) {
+            if ($transport === null) {
                 $transport = new Varien_Object;
             } elseif (is_array($transport)) {
                 $transport = new Varien_Object($transport);
             }
-            Mage::dispatchEvent('payment_info_block_prepare_specific_information', array(
+            Mage::dispatchEvent('payment_info_block_prepare_specific_information', [
                 'transport' => $transport,
                 'payment'   => $this->getInfo(),
                 'block'     => $this,
-            ));
+            ]);
             $this->_paymentSpecificInformation = $transport;
         }
         return $this->_paymentSpecificInformation;

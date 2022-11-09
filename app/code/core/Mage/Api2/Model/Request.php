@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Api2
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -78,7 +79,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     protected function _getInterpreter()
     {
-        if (null === $this->_interpreter) {
+        if ($this->_interpreter === null) {
             $this->_interpreter = Mage_Api2_Model_Request_Interpreter::factory($this->getContentType());
         }
         return $this->_interpreter;
@@ -91,8 +92,8 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     public function getAcceptTypes()
     {
-        $qualityToTypes = array();
-        $orderedTypes   = array();
+        $qualityToTypes = [];
+        $orderedTypes   = [];
 
         foreach (preg_split('/,\s*/', $this->getHeader('Accept')) as $definition) {
             $typeWithQ = explode(';', $definition);
@@ -107,7 +108,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             if ($typeWithQ) {
                 $qAndValue = explode('=', $typeWithQ[0]);
 
-                if (2 == count($qAndValue)) {
+                if (count($qAndValue) == 2) {
                     $quality = $qAndValue[1];
                 }
             }
@@ -129,7 +130,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     public function getApiType()
     {
         // getParam() is not used to avoid parameter fetch from $_GET or $_POST
-        return isset($this->_params['api_type']) ? $this->_params['api_type'] : null;
+        return $this->_params['api_type'] ?? null;
     }
 
     /**
@@ -139,7 +140,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     public function getBodyParams()
     {
-        if (null == $this->_bodyParams) {
+        if ($this->_bodyParams == null) {
             $this->_bodyParams = $this->_getInterpreter()->interpret((string)$this->getRawBody());
         }
         return $this->_bodyParams;
@@ -189,7 +190,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     public function getModel()
     {
         // getParam() is not used to avoid parameter fetch from $_GET or $_POST
-        return isset($this->_params['model']) ? $this->_params['model'] : null;
+        return $this->_params['model'] ?? null;
     }
 
     /**
@@ -204,12 +205,12 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             throw new Mage_Api2_Exception('Invalid request method', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
         // Map HTTP methods to classic CRUD verbs
-        $operationByMethod = array(
+        $operationByMethod = [
             'GET'    => Mage_Api2_Model_Resource::OPERATION_RETRIEVE,
             'POST'   => Mage_Api2_Model_Resource::OPERATION_CREATE,
             'PUT'    => Mage_Api2_Model_Resource::OPERATION_UPDATE,
             'DELETE' => Mage_Api2_Model_Resource::OPERATION_DELETE
-        );
+        ];
 
         return $operationByMethod[$this->getMethod()];
     }
@@ -261,7 +262,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     public function getRequestedAttributes()
     {
-        $include = $this->getQuery(self::QUERY_PARAM_REQ_ATTRS, array());
+        $include = $this->getQuery(self::QUERY_PARAM_REQ_ATTRS, []);
 
         //transform comma-separated list
         if (!is_array($include)) {
@@ -278,7 +279,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     public function getResourceType()
     {
         // getParam() is not used to avoid parameter fetch from $_GET or $_POST
-        return isset($this->_params['type']) ? $this->_params['type'] : null;
+        return $this->_params['type'] ?? null;
     }
 
     /**
@@ -299,7 +300,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     public function getActionType()
     {
         // getParam() is not used to avoid parameter fetch from $_GET or $_POST
-        return isset($this->_params['action_type']) ? $this->_params['action_type'] : null;
+        return $this->_params['action_type'] ?? null;
     }
 
     /**

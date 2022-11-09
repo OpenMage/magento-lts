@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Rss
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,7 +28,6 @@
  */
 class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
 {
-
     /**
      * Cache tag constant for feed reviews
      *
@@ -40,7 +40,7 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
      */
     protected function _construct()
     {
-        $this->setCacheTags(array(self::CACHE_TAG));
+        $this->setCacheTags([self::CACHE_TAG]);
         /*
         * setting cache to save the rss for 10 minutes
         */
@@ -60,12 +60,12 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
         Mage::helper('rss')->disableFlat();
 
         $rssObj = Mage::getModel('rss/rss');
-        $data = array(
+        $data = [
             'title' => $title,
             'description' => $title,
             'link'        => $newUrl,
             'charset'     => 'UTF-8',
-        );
+        ];
         $rssObj->_addHeader($data);
 
         $reviewModel = Mage::getModel('review/review');
@@ -75,12 +75,12 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
             ->addAttributeToSelect('name', 'inner')
             ->setDateOrder();
 
-        Mage::dispatchEvent('rss_catalog_review_collection_select', array('collection' => $collection));
+        Mage::dispatchEvent('rss_catalog_review_collection_select', ['collection' => $collection]);
 
         Mage::getSingleton('core/resource_iterator')->walk(
             $collection->getSelect(),
-            array(array($this, 'addReviewItemXmlCallback')),
-            array('rssObj'=> $rssObj, 'reviewModel'=> $reviewModel));
+            [[$this, 'addReviewItemXmlCallback']],
+            ['rssObj'=> $rssObj, 'reviewModel'=> $reviewModel]);
         return $rssObj->createRssXml();
     }
 
@@ -96,10 +96,10 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
 
         $store = Mage::app()->getStore($row['store_id']);
         $urlModel = Mage::getModel('core/url')->setStore($store);
-        $productUrl = $urlModel->getUrl('catalog/product/view', array('id' => $row['entity_id']));
+        $productUrl = $urlModel->getUrl('catalog/product/view', ['id' => $row['entity_id']]);
         $reviewUrl = Mage::helper('adminhtml')->getUrl(
             'adminhtml/catalog_product_review/edit/',
-            array('id' => $row['review_id'], '_secure' => true, '_nosecret' => true));
+            ['id' => $row['review_id'], '_secure' => true, '_nosecret' => true]);
         $storeName = $store->getName();
 
         $description = '<p>'
@@ -109,11 +109,11 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
                      . $this->__('Store: %s <br/>', $storeName )
                      . $this->__('click <a href="%s">here</a> to view the review', $reviewUrl)
                      . '</p>';
-        $data = array(
+        $data = [
             'title'         => $this->__('Product: "%s" review By: %s', $row['name'], $row['nickname']),
             'link'          => 'test',
             'description'   => $description,
-        );
+        ];
         $rssObj->_addEntry($data);
     }
 }

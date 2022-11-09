@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle selection product grid
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method bool getFirstShow()
  * @method string getIndex()
@@ -66,9 +67,12 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
             ->addAttributeToSelect('sku')
             ->addAttributeToSelect('price')
             ->addAttributeToSelect('attribute_set_id')
-            ->addAttributeToFilter('type_id', array('in' => $this->getAllowedSelectionTypes()))
+            ->addAttributeToFilter('type_id', ['in' => $this->getAllowedSelectionTypes()])
             ->addFilterByRequiredOptions()
-            ->addStoreFilter();
+            ->addStoreFilter()
+            ->addAttributeToFilter('status', [
+                'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()
+            ]);
 
         if ($products = $this->_getProducts()) {
             $collection->addIdFilter($this->_getProducts(), true);
@@ -78,8 +82,6 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
             $collection->addIdFilter('-1');
             $this->setEmptyText($this->__('Please enter search conditions to view products.'));
         }
-
-        Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($collection);
 
         $this->setCollection($collection);
 
@@ -93,17 +95,17 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('id', array(
+        $this->addColumn('id', [
             'header'    => Mage::helper('sales')->__('ID'),
             'sortable'  => true,
             'width'     => '60px',
             'index'     => 'entity_id'
-        ));
-        $this->addColumn('name', array(
+        ]);
+        $this->addColumn('name', [
             'header'    => Mage::helper('sales')->__('Product Name'),
             'index'     => 'name',
             'column_css_class'=> 'name'
-        ));
+        ]);
 
         $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
             ->setEntityTypeFilter(Mage::getModel('catalog/product')->getResource()->getTypeId())
@@ -112,40 +114,40 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
 
         $this->addColumn(
             'set_name',
-            array(
+            [
                 'header'=> Mage::helper('catalog')->__('Attrib. Set Name'),
                 'width' => '100px',
                 'index' => 'attribute_set_id',
                 'type'  => 'options',
                 'options' => $sets,
-            )
+            ]
         );
 
-        $this->addColumn('sku', array(
+        $this->addColumn('sku', [
             'header'    => Mage::helper('sales')->__('SKU'),
             'width'     => '80px',
             'index'     => 'sku',
             'column_css_class'=> 'sku'
-        ));
-        $this->addColumn('price', array(
+        ]);
+        $this->addColumn('price', [
             'header'    => Mage::helper('sales')->__('Price'),
             'align'     => 'center',
             'type'      => 'currency',
             'currency_code' => $this->getStore()->getCurrentCurrencyCode(),
             'rate'      => $this->getStore()->getBaseCurrency()->getRate($this->getStore()->getCurrentCurrencyCode()),
             'index'     => 'price'
-        ));
+        ]);
 
-        $this->addColumn('is_selected', array(
+        $this->addColumn('is_selected', [
             'header_css_class' => 'a-center',
             'type'      => 'checkbox',
             'name'      => 'in_selected',
             'align'     => 'center',
             'values'    => $this->_getSelectedProducts(),
             'index'     => 'entity_id',
-        ));
+        ]);
 
-        $this->addColumn('qty', array(
+        $this->addColumn('qty', [
             'filter'    => false,
             'sortable'  => false,
             'header'    => Mage::helper('sales')->__('Qty to Add'),
@@ -156,7 +158,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
             'validate_class' => 'validate-number',
             'index'     => 'qty',
             'width'     => '130px',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -167,7 +169,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/bundle_selection/grid', array('index' => $this->getIndex(), 'productss' => implode(',', $this->_getProducts())));
+        return $this->getUrl('*/bundle_selection/grid', ['index' => $this->getIndex(), 'productss' => implode(',', $this->_getProducts())]);
     }
 
     /**
@@ -176,8 +178,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
      */
     protected function _getSelectedProducts()
     {
-        $products = $this->getRequest()->getPost('selected_products', array());
-        return $products;
+        return $this->getRequest()->getPost('selected_products', []);
     }
 
     /**
@@ -191,7 +192,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
         } elseif ($productss = $this->getRequest()->getParam('productss', null)) {
             return explode(',', $productss);
         } else {
-            return array();
+            return [];
         }
     }
 

@@ -7,17 +7,17 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Product visibilite model and attribute source model
@@ -94,7 +94,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      */
     public function getVisibleInCatalogIds()
     {
-        return array(self::VISIBILITY_IN_CATALOG, self::VISIBILITY_BOTH);
+        return [self::VISIBILITY_IN_CATALOG, self::VISIBILITY_BOTH];
     }
 
     /**
@@ -104,7 +104,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      */
     public function getVisibleInSearchIds()
     {
-        return array(self::VISIBILITY_IN_SEARCH, self::VISIBILITY_BOTH);
+        return [self::VISIBILITY_IN_SEARCH, self::VISIBILITY_BOTH];
     }
 
     /**
@@ -114,7 +114,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      */
     public function getVisibleInSiteIds()
     {
-        return array(self::VISIBILITY_IN_SEARCH, self::VISIBILITY_IN_CATALOG, self::VISIBILITY_BOTH);
+        return [self::VISIBILITY_IN_SEARCH, self::VISIBILITY_IN_CATALOG, self::VISIBILITY_BOTH];
     }
 
     /**
@@ -124,12 +124,12 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      */
     public static function getOptionArray()
     {
-        return array(
+        return [
             self::VISIBILITY_NOT_VISIBLE=> Mage::helper('catalog')->__('Not Visible Individually'),
             self::VISIBILITY_IN_CATALOG => Mage::helper('catalog')->__('Catalog'),
             self::VISIBILITY_IN_SEARCH  => Mage::helper('catalog')->__('Search'),
             self::VISIBILITY_BOTH       => Mage::helper('catalog')->__('Catalog, Search')
-        );
+        ];
     }
 
     /**
@@ -150,7 +150,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     public static function getAllOption()
     {
         $options = self::getOptionArray();
-        array_unshift($options, array('value'=>'', 'label'=>''));
+        array_unshift($options, ['value'=>'', 'label'=>'']);
         return $options;
     }
 
@@ -161,13 +161,13 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      */
     public static function getAllOptions()
     {
-        $res = array();
-        $res[] = array('value'=>'', 'label'=> Mage::helper('catalog')->__('-- Please Select --'));
+        $res = [];
+        $res[] = ['value'=>'', 'label'=> Mage::helper('catalog')->__('-- Please Select --')];
         foreach (self::getOptionArray() as $index => $value) {
-            $res[] = array(
+            $res[] = [
                'value' => $index,
                'label' => $value
-            );
+            ];
         }
         return $res;
     }
@@ -181,7 +181,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     public static function getOptionText($optionId)
     {
         $options = self::getOptionArray();
-        return isset($options[$optionId]) ? $options[$optionId] : null;
+        return $options[$optionId] ?? null;
     }
 
     /**
@@ -192,11 +192,11 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     public function getFlatColums()
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
-        $column = array(
+        $column = [
             'unsigned'  => true,
             'default'   => null,
             'extra'     => null
-        );
+        ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
             $column['type']     = 'tinyint';
@@ -207,7 +207,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
             $column['comment']  = 'Catalog Product Visibility ' . $attributeCode . ' column';
         }
 
-        return array($attributeCode => $column);
+        return [$attributeCode => $column];
     }
 
     /**
@@ -217,7 +217,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      */
     public function getFlatIndexes()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -272,11 +272,11 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
             $tableName = $attributeCode . '_t';
             $collection->getSelect()
                 ->joinLeft(
-                    array($tableName => $attributeTable),
+                    [$tableName => $attributeTable],
                     "e.entity_id={$tableName}.entity_id"
                         . " AND {$tableName}.attribute_id='{$attributeId}'"
                         . " AND {$tableName}.store_id='0'",
-                    array()
+                    []
                 );
             $valueExpr = $tableName . '.value';
         } else {
@@ -284,18 +284,18 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
             $valueTable2 = $attributeCode . '_t2';
             $collection->getSelect()
                 ->joinLeft(
-                    array($valueTable1 => $attributeTable),
+                    [$valueTable1 => $attributeTable],
                     "e.entity_id={$valueTable1}.entity_id"
                         . " AND {$valueTable1}.attribute_id='{$attributeId}'"
                         . " AND {$valueTable1}.store_id='0'",
-                    array()
+                    []
                 )
                 ->joinLeft(
-                    array($valueTable2 => $attributeTable),
+                    [$valueTable2 => $attributeTable],
                     "e.entity_id={$valueTable2}.entity_id"
                         . " AND {$valueTable2}.attribute_id='{$attributeId}'"
                         . " AND {$valueTable2}.store_id='{$collection->getStoreId()}'",
-                    array()
+                    []
                 );
                 $valueExpr = $collection->getConnection()->getCheckSql(
                     $valueTable2 . '.value_id > 0',

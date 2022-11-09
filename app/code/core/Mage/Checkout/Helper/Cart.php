@@ -7,21 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
 {
@@ -34,6 +37,8 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
      * Maximal coupon code length according to database table definitions (longer codes are truncated)
      */
     const COUPON_CODE_MAX_LENGTH = 255;
+
+    protected $_moduleName = 'Mage_Checkout';
 
     /**
      * Retrieve cart instance
@@ -52,7 +57,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
      * @param array $additional
      * @return string
      */
-    public function getAddUrl($product, $additional = array())
+    public function getAddUrl($product, $additional = [])
     {
         return $this->getAddUrlCustom($product, $additional);
     }
@@ -76,10 +81,10 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
      */
     public function getRemoveUrl($item)
     {
-        $params = array(
+        $params = [
             'id' => $item->getId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_BASE64_URL => $this->getCurrentBase64Url()
-        );
+        ];
         return $this->_getUrl('checkout/cart/delete', $params);
     }
 
@@ -162,13 +167,13 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
      * @param bool $addFormKey
      * @return string
      */
-    public function getAddUrlCustom($product, $additional = array(), $addFormKey = true)
+    public function getAddUrlCustom($product, $additional = [], $addFormKey = true)
     {
-        $routeParams = array(
+        $routeParams = [
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->_getHelperInstance('core')
                 ->urlEncode($this->getCurrentUrl()),
             'product' => $product->getEntityId(),
-        );
+        ];
         if ($addFormKey) {
             $routeParams[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
         }

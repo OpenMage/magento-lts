@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -70,9 +71,9 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
         $collection->addStoreFilter($store->getId())
             ->addPriceData($this->_getCustomerGroupId(), $store->getWebsiteId())
             ->addAttributeToSelect(array_diff($availableAttributes, $entityOnlyAttributes))
-            ->addAttributeToFilter('visibility', array(
-                'neq' => Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE))
-            ->addAttributeToFilter('status', array('eq' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED));
+            ->addAttributeToFilter('visibility', [
+                'neq' => Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE])
+            ->addAttributeToFilter('status', ['eq' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED]);
         $this->_applyCategoryFilter($collection);
         $this->_applyCollectionModifiers($collection);
         $products = $collection->load();
@@ -132,7 +133,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             $cartHelper = Mage::helper('checkout/cart');
             $productData['buy_now_url'] = $cartHelper->getAddUrl($product);
 
-            /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
             $stockItem = $product->getStockItem();
             if (!$stockItem) {
                 $stockItem = Mage::getModel('cataloginventory/stock_item');
@@ -377,13 +377,13 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
      */
     protected function _getTierPrices()
     {
-        $tierPrices = array();
+        $tierPrices = [];
         foreach ($this->_getProduct()->getTierPrice() as $tierPrice) {
-            $tierPrices[] = array(
+            $tierPrices[] = [
                 'qty' => $tierPrice['price_qty'],
                 'price_with_tax' => $this->_applyTaxToPrice($tierPrice['price']),
                 'price_without_tax' => $this->_applyTaxToPrice($tierPrice['price'], false)
-            );
+            ];
         }
         return $tierPrices;
     }

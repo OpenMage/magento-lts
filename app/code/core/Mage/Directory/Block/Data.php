@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Directory
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -72,7 +73,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
         } else {
             $options = $this->getCountryCollection()->toOptionArray();
             if (Mage::app()->useCache('config')) {
-                Mage::app()->saveCache(serialize($options), $cacheKey, array('config'));
+                Mage::app()->saveCache(serialize($options), $cacheKey, ['config']);
             }
         }
         $html = $this->getLayout()->createBlock('core/html_select')
@@ -117,7 +118,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
         } else {
             $options = $this->getRegionCollection()->toOptionArray();
             if (Mage::app()->useCache('config')) {
-                Mage::app()->saveCache(serialize($options), $cacheKey, array('config'));
+                Mage::app()->saveCache(serialize($options), $cacheKey, ['config']);
             }
         }
         $html = $this->getLayout()->createBlock('core/html_select')
@@ -152,23 +153,23 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
         Varien_Profiler::start('TEST: '.__METHOD__);
         $regionsJs = $this->getData('regions_js');
         if (!$regionsJs) {
-            $countryIds = array();
+            $countryIds = [];
             foreach ($this->getCountryCollection() as $country) {
                 $countryIds[] = $country->getCountryId();
             }
             $collection = Mage::getModel('directory/region')->getResourceCollection()
                 ->addCountryFilter($countryIds)
                 ->load();
-            $regions = array();
+            $regions = [];
             /** @var Mage_Directory_Model_Region $region */
             foreach ($collection as $region) {
                 if (!$region->getRegionId()) {
                     continue;
                 }
-                $regions[$region->getCountryId()][$region->getRegionId()] = array(
+                $regions[$region->getCountryId()][$region->getRegionId()] = [
                     'code'=>$region->getCode(),
                     'name'=>$region->getName()
-                );
+                ];
             }
             $regionsJs = Mage::helper('core')->jsonEncode($regions);
         }

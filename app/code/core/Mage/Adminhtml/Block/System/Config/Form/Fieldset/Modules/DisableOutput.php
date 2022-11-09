@@ -7,18 +7,23 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput
     extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
 {
@@ -35,7 +40,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput
         $dispatchResult = new Varien_Object($modules);
         Mage::dispatchEvent(
             'adminhtml_system_config_advanced_disableoutput_render_before',
-            array('modules' => $dispatchResult)
+            ['modules' => $dispatchResult]
         );
         $modules = $dispatchResult->toArray();
 
@@ -55,7 +60,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput
     protected function _getDummyElement()
     {
         if (empty($this->_dummyElement)) {
-            $this->_dummyElement = new Varien_Object(array('show_in_default'=>1, 'show_in_website'=>1));
+            $this->_dummyElement = new Varien_Object(['show_in_default'=>1, 'show_in_website'=>1]);
         }
         return $this->_dummyElement;
     }
@@ -71,10 +76,10 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput
     protected function _getValues()
     {
         if (empty($this->_values)) {
-            $this->_values = array(
-                array('label'=>Mage::helper('adminhtml')->__('Enable'), 'value'=>0),
-                array('label'=>Mage::helper('adminhtml')->__('Disable'), 'value'=>1),
-            );
+            $this->_values = [
+                ['label'=>Mage::helper('adminhtml')->__('Enable'), 'value'=>0],
+                ['label'=>Mage::helper('adminhtml')->__('Disable'), 'value'=>1],
+            ];
         }
         return $this->_values;
     }
@@ -94,7 +99,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput
         $e = $this->_getDummyElement();
 
         $field = $fieldset->addField($moduleName, 'select',
-            array(
+            [
                 'name'          => 'groups[modules_disable_output][fields]['.$moduleName.'][value]',
                 'label'         => $moduleName,
                 'value'         => $data,
@@ -102,7 +107,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput
                 'inherit'       => $inherit,
                 'can_use_default_value' => $this->getForm()->canUseDefaultValue($e),
                 'can_use_website_value' => $this->getForm()->canUseWebsiteValue($e),
-            ))->setRenderer($this->_getFieldRenderer());
+            ])->setRenderer($this->_getFieldRenderer());
 
         return $field->toHtml();
     }

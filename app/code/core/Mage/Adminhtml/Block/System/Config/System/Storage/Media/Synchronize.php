@@ -7,17 +7,17 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Synchronize button renderer
@@ -89,11 +89,11 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize
     public function getButtonHtml()
     {
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData(array(
+            ->setData([
                 'id'        => 'synchronize_button',
                 'label'     => $this->helper('adminhtml')->__('Synchronize'),
                 'onclick'   => 'javascript:synchronize(); return false;'
-            ));
+            ]);
 
         return $button->toHtml();
     }
@@ -126,9 +126,9 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize
             $connectionName = '';
         }
 
-        return array(
+        return [
             'storage_type'      => $storageType,
             'connection_name'   => $connectionName
-        );
+        ];
     }
 }

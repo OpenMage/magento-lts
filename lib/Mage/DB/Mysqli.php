@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category    Mage
  * @package     Mage_DB
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -55,7 +56,6 @@ class Mage_DB_Mysqli
      * @var unknown_type
      */
     private $fetch_mode = MYSQLI_ASSOC;
-
 
     /**
      * Constructor
@@ -268,7 +268,6 @@ class Mage_DB_Mysqli
         return $this->fetchGroupedArrayByKey($sql, $key, $forcedArrayMode);
     }
 
-
     /**
      * Escape field names
      * @param array $arrNames
@@ -300,7 +299,6 @@ class Mage_DB_Mysqli
         }
         return $out;
     }
-
 
     /**
      * Throw connect exception
@@ -406,7 +404,6 @@ class Mage_DB_Mysqli
         return $this->query($sql);
     }
 
-
     /**
      * Set table data by condition
      * @param $table
@@ -427,7 +424,6 @@ class Mage_DB_Mysqli
         $sql = "UPDATE {$table} SET {$set} WHERE {$condition}";
         return $this->query($sql);
     }
-
 
     /**
      * Update entry by pk
@@ -452,7 +448,6 @@ class Mage_DB_Mysqli
         $sql = "UPDATE {$table} SET {$set} WHERE {$key} = {$value}";
         return $this->query($sql);
     }
-
 
     /**
      * Convert ids to string
@@ -482,7 +477,6 @@ class Mage_DB_Mysqli
         $condition = is_scalar($ids) ? " = {$vals} " : " IN ({$vals}) ";
         return $condition;
     }
-
 
     /**
      * Delete items by id

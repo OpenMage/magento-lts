@@ -7,26 +7,29 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Downloadable
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable Products File Helper
  *
- * @category    Mage
- * @package     Mage_Downloadable
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Downloadable
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Downloadable';
+
     /**
      * @see Mage_Uploader_Helper_File::getMimeTypes
      * @var array
@@ -99,10 +102,10 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
         $ioObject = new Varien_Io_File();
         $destDirectory = dirname($this->getFilePath($basePath, $file));
         try {
-            $ioObject->open(array('path'=>$destDirectory));
+            $ioObject->open(['path'=>$destDirectory]);
         } catch (Exception $e) {
             $ioObject->mkdir($destDirectory, 0777, true);
-            $ioObject->open(array('path'=>$destDirectory));
+            $ioObject->open(['path'=>$destDirectory]);
         }
 
         if (strrpos($file, '.tmp') == strlen($file)-4) {

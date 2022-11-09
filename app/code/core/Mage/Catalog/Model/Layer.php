@@ -7,24 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog view layer model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setStore(int $value)
  */
@@ -35,7 +35,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      *
      * @var array
      */
-    protected $_productCollections = array();
+    protected $_productCollections = [];
 
     /**
      * Key which can be used for load/save aggregation data
@@ -76,11 +76,11 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      * @param   array $additionalTags
      * @return  array
      */
-    public function getStateTags(array $additionalTags = array())
+    public function getStateTags(array $additionalTags = [])
     {
-        $additionalTags = array_merge($additionalTags, array(
+        $additionalTags = array_merge($additionalTags, [
             Mage_Catalog_Model_Category::CACHE_TAG.$this->getCurrentCategory()->getId()
-        ));
+        ]);
 
         return $additionalTags;
     }
@@ -116,8 +116,6 @@ class Mage_Catalog_Model_Layer extends Varien_Object
             ->addPriceData()
             ->addTaxPercents()
             ->addUrlRewrite($this->getCurrentCategory()->getId());
-
-        Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
 
         return $this;
@@ -210,7 +208,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     {
         $setIds = $this->_getSetIds();
         if (!$setIds) {
-            return array();
+            return [];
         }
         /** @var Mage_Catalog_Model_Resource_Product_Attribute_Collection $collection */
         $collection = Mage::getResourceModel('catalog/product_attribute_collection');

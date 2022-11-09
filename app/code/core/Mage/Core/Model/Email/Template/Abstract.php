@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Template model
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getInlineCssFile()
  * @method $this setTemplateType(int $value)
@@ -39,7 +40,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
     const XML_PATH_DESIGN_EMAIL_LOGO_HEIGHT     = 'design/email/logo_height';
     const XML_PATH_CSS_NON_INLINE_FILES         = 'design/email/css_non_inline';
 
-    protected $_cssFileCache = array();
+    protected $_cssFileCache = [];
 
     /**
      * Get template code for template directive
@@ -146,7 +147,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      *
      * @param array $variables
      * @param int $storeId
-     * @return mixed
+     * @return array
      */
     protected function _addEmailVariables($variables, $storeId)
     {
@@ -160,14 +161,14 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             $variables['logo_alt'] = $this->_getLogoAlt($storeId);
         }
 
-        $defaultValuesMap = array(
+        $defaultValuesMap = [
             "logo_width" => self::XML_PATH_DESIGN_EMAIL_LOGO_WIDTH,
             "logo_height" => self::XML_PATH_DESIGN_EMAIL_LOGO_HEIGHT,
             "phone" => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
             "store_phone" => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
             "store_hours" => Mage_Core_Model_Store::XML_PATH_STORE_STORE_HOURS,
             "store_email" => Mage_Customer_Helper_Data::XML_PATH_SUPPORT_EMAIL,
-        );
+        ];
 
         foreach ($defaultValuesMap as $variableName => $configValue) {
             if (!isset($variables[$variableName])) {
@@ -228,14 +229,14 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
 
         $filePath = Mage::getDesign()->getFilename(
             'css' . DS . $filename,
-            array(
+            [
                 '_type' => 'skin',
                 '_default' => false,
                 '_store' => $storeId,
                 '_area' => $area,
                 '_package' => $package,
                 '_theme' => $theme,
-            )
+            ]
         );
         $validator = new Zend_Validate_File_Extension('css');
 

@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +24,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -54,30 +55,30 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('title', array(
+        $this->addColumn('title', [
             'header'    => Mage::helper('cms')->__('Title'),
             'align'     => 'left',
             'index'     => 'title',
-        ));
+        ]);
 
-        $this->addColumn('identifier', array(
+        $this->addColumn('identifier', [
             'header'    => Mage::helper('cms')->__('URL Key'),
             'align'     => 'left',
             'index'     => 'identifier'
-        ));
+        ]);
 
-        $this->addColumn('root_template', array(
+        $this->addColumn('root_template', [
             'header'    => Mage::helper('cms')->__('Layout'),
             'index'     => 'root_template',
             'type'      => 'options',
             'options'   => Mage::getSingleton('page/source_layout')->getOptions(),
-        ));
+        ]);
 
         /**
          * Check is single store mode
          */
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', array(
+            $this->addColumn('store_id', [
                 'header'        => Mage::helper('cms')->__('Store View'),
                 'index'         => 'store_id',
                 'type'          => 'store',
@@ -85,36 +86,36 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'store_view'    => true,
                 'sortable'      => false,
                 'filter_condition_callback'
-                                => array($this, '_filterStoreCondition'),
-            ));
+                                => [$this, '_filterStoreCondition'],
+            ]);
         }
 
-        $this->addColumn('is_active', array(
+        $this->addColumn('is_active', [
             'header'    => Mage::helper('cms')->__('Status'),
             'index'     => 'is_active',
             'type'      => 'options',
             'options'   => Mage::getSingleton('cms/page')->getAvailableStatuses()
-        ));
+        ]);
 
-        $this->addColumn('creation_time', array(
+        $this->addColumn('creation_time', [
             'header'    => Mage::helper('cms')->__('Date Created'),
             'index'     => 'creation_time',
             'type'      => 'datetime',
-        ));
+        ]);
 
-        $this->addColumn('update_time', array(
+        $this->addColumn('update_time', [
             'header'    => Mage::helper('cms')->__('Last Modified'),
             'index'     => 'update_time',
             'type'      => 'datetime',
-        ));
+        ]);
 
-        $this->addColumn('page_actions', array(
+        $this->addColumn('page_actions', [
             'header'    => Mage::helper('cms')->__('Action'),
             'width'     => 10,
             'sortable'  => false,
             'filter'    => false,
             'renderer'  => 'adminhtml/cms_page_grid_renderer_action',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -146,6 +147,6 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('page_id' => $row->getId()));
+        return $this->getUrl('*/*/edit', ['page_id' => $row->getId()]);
     }
 }

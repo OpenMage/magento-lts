@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -25,7 +26,6 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
 {
     /**
@@ -43,16 +43,16 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
     {
         $templateCode = $this->getOrigTemplateCode();
         if (!$templateCode) {
-            return array();
+            return [];
         }
 
-        $paths = array();
+        $paths = [];
         Mage::getSingleton('adminhtml/config')->getSections();
 
         // find nodes which are using $templateCode value
         $defaultCfgNodes = Mage::getConfig()->getXpath('default/*/*[*="' . $templateCode . '"]');
         if (!is_array($defaultCfgNodes)) {
-            return array();
+            return [];
         }
 
         foreach ($defaultCfgNodes as $node) {
@@ -60,7 +60,7 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
             $sectionName = $node->getParent()->getName();
             $groupName = $node->getName();
             $fieldName = substr($templateCode, strlen($sectionName . '_' . $groupName . '_'));
-            $paths[] = array('path' => implode('/', array($sectionName, $groupName, $fieldName)));
+            $paths[] = ['path' => implode('/', [$sectionName, $groupName, $fieldName])];
         }
         return $paths;
     }
@@ -74,21 +74,20 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
     {
         $templateId = $this->getId();
         if (!$templateId) {
-            return array();
+            return [];
         }
 
-        $paths = array();
+        $paths = [];
         $configSections = Mage::getSingleton('adminhtml/config')->getSections();
 
         // look for node entries in all system.xml that use source_model=adminhtml/system_config_source_email_template
         // they are will be templates, what we try find
         $sysCfgNodes = $configSections->xpath(self::XML_PATH_TEMPLATE_EMAIL);
         if (!is_array($sysCfgNodes)) {
-            return array();
+            return [];
         }
 
         foreach ($sysCfgNodes as $fieldNode) {
-
             $groupNode = $fieldNode->getParent()->getParent();
             $sectionNode = $groupNode->getParent()->getParent();
 
@@ -97,12 +96,12 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
             $groupName = $groupNode->getName();
             $fieldName = $fieldNode->getName();
 
-            $paths[] = implode('/', array($sectionName, $groupName, $fieldName));
+            $paths[] = implode('/', [$sectionName, $groupName, $fieldName]);
         }
 
         $configData = $this->_getResource()->getSystemConfigByPathsAndTemplateId($paths, $templateId);
         if (!$configData) {
-            return array();
+            return [];
         }
 
         return $configData;
@@ -113,7 +112,8 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
      *
      * @return $this
      */
-    protected function _afterDelete() {
+    protected function _afterDelete()
+    {
         $paths = $this->getSystemConfigPathsWhereUsedCurrently();
         foreach ($paths as $path) {
             $configDataCollection = Mage::getModel('core/config_data')

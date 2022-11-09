@@ -7,17 +7,17 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Persistent
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Persistent
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Persistent Session Model
@@ -45,7 +45,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_unserializableFields = array('persistent_id', 'key', 'customer_id', 'website_id', 'info', 'updated_at');
+    protected $_unserializableFields = ['persistent_id', 'key', 'customer_id', 'website_id', 'info', 'updated_at'];
 
     /**
      * If model loads expired sessions
@@ -92,7 +92,10 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      */
     public function getExpiredBefore($store = null)
     {
-        return gmdate('Y-m-d H:i:s', time() - Mage::helper('persistent')->getLifeTime($store));
+        return gmdate(
+            Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT,
+            time() - Mage::helper('persistent')->getLifeTime($store)
+        );
     }
 
     /**
@@ -106,7 +109,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         parent::_beforeSave();
 
         // Setting info
-        $info = array();
+        $info = [];
         foreach ($this->getData() as $index => $value) {
             if (!in_array($index, $this->_unserializableFields)) {
                 $info[$index] = $value;
@@ -219,7 +222,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         if ($lifetime) {
             $this->getResource()->deleteExpired(
                 $websiteId,
-                gmdate('Y-m-d H:i:s', time() - $lifetime)
+                gmdate(Varien_Date::DATETIME_PHP_FORMAT, time() - $lifetime)
             );
         }
 
@@ -244,7 +247,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      */
     public function save()
     {
-        $this->setUpdatedAt(gmdate('Y-m-d H:i:s'));
+        $this->setUpdatedAt(gmdate(Varien_Date::DATETIME_PHP_FORMAT));
         return parent::save();
     }
 }

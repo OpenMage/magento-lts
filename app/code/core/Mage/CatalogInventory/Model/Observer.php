@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +24,7 @@
  *
  * @category   Mage
  * @package    Mage_CatalogInventory
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogInventory_Model_Observer
 {
@@ -302,7 +303,7 @@ class Mage_CatalogInventory_Model_Observer
     public function checkQuoteItemQty($observer)
     {
         $quoteItem = $observer->getEvent()->getItem();
-        /* @var Mage_Sales_Model_Quote_Item $quoteItem */
+        /** @var Mage_Sales_Model_Quote_Item $quoteItem */
         if (!$quoteItem || !$quoteItem->getProductId() || !$quoteItem->getQuote()
             || $quoteItem->getQuote()->getIsSuperMode()) {
             return $this;
@@ -387,7 +388,7 @@ class Mage_CatalogInventory_Model_Observer
                     $stockItem->setProductName($quoteItem->getName());
                 }
 
-                /* @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
+                /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
                 if (!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item) {
                     Mage::throwException(
                         Mage::helper('cataloginventory')->__('The stock item for Product in option is not valid.')
@@ -456,7 +457,7 @@ class Mage_CatalogInventory_Model_Observer
                 $stockItem->unsIsChildItem();
             }
         } else {
-            /* @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
+            /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
             if (!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item) {
                 Mage::throwException(Mage::helper('cataloginventory')->__('The stock item for Product is not valid.'));
             }
@@ -785,11 +786,11 @@ class Mage_CatalogInventory_Model_Observer
      */
     public function refundOrderInventory($observer)
     {
-        /* @var Mage_Sales_Model_Order_Creditmemo $creditmemo */
+        /** @var Mage_Sales_Model_Order_Creditmemo $creditmemo */
         $creditmemo = $observer->getEvent()->getCreditmemo();
         $items = [];
         foreach ($creditmemo->getAllItems() as $item) {
-            /* @var Mage_Sales_Model_Order_Creditmemo_Item $item */
+            /** @var Mage_Sales_Model_Order_Creditmemo_Item $item */
             $return = false;
             if ($item->hasBackToStock()) {
                 if ($item->getBackToStock() && $item->getQty()) {
@@ -800,7 +801,7 @@ class Mage_CatalogInventory_Model_Observer
             }
             if ($return) {
                 $parentOrderId = $item->getOrderItem()->getParentItemId();
-                /* @var Mage_Sales_Model_Order_Creditmemo_Item $parentItem */
+                /** @var Mage_Sales_Model_Order_Creditmemo_Item $parentItem */
                 $parentItem = $parentOrderId ? $creditmemo->getItemByOrderId($parentOrderId) : false;
                 $qty = $parentItem ? ($parentItem->getQty() * $item->getQty()) : $item->getQty();
                 if (isset($items[$item->getProductId()])) {

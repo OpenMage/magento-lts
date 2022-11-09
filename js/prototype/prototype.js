@@ -4271,55 +4271,68 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
       offsetLeft: 0
     }, options || {});
 
-    var docEl = document.documentElement;
-
+    // Find page position of source.
     source  = $(source);
     element = $(element);
     var p, delta, layout, styles = {};
 
+    var isAbsolute = Element.getStyle(element, 'position') === 'absolute';
+    var parent = Element.getOffsetParent(element);
+
     if (options.setLeft || options.setTop) {
+      // We start by measuring the source's viewport offset.
       p = Element.viewportOffset(source);
+
+      // If the element we're altering is `position: fixed`, that's all the
+      // information we need: later we'll apply that offset to the `top` and
+      // `left` properties directly.
       delta = [0, 0];
-      if (Element.getStyle(element, 'position') === 'absolute') {
-        var parent = Element.getOffsetParent(element);
-        if (parent !== document.body) delta = Element.viewportOffset(parent);
+
+      // But if it's `position: absolute`, we have to know where its offset
+      // parent is positioned and take those measurements into account as
+      // well.
+      if (isAbsolute && parent !== document.body) {
+        delta = Element.viewportOffset(parent);
       }
     }
 
     function pageScrollXY() {
       var x = 0, y = 0;
       if (Object.isNumber(window.pageXOffset)) {
+        // Modern browsers.
         x = window.pageXOffset;
         y = window.pageYOffset;
       } else if (document.body && (document.body.scrollLeft || document.body.scrollTop)) {
         x = document.body.scrollLeft;
         y = document.body.scrollTop;
-      } else if (docEl && (docEl.scrollLeft || docEl.scrollTop)) {
-        x = docEl.scrollLeft;
-        y = docEl.scrollTop;
       }
       return { x: x, y: y };
     }
 
-    var pageXY = pageScrollXY();
+    // When the offset parent is the document body, we need to account for
+    // scroll offsets when we set `top` and `left`. (Unless the element is
+    // `position: fixed`; in that case we should always ignore scroll
+    // position.)
+    var pageXY = (isAbsolute && parent === document.body) ? pageScrollXY() : { x: 0, y: 0 };
 
-
-    if (options.setWidth || options.setHeight) {
-      layout = Element.getLayout(source);
-    }
-
+    // Set position.
     if (options.setLeft)
       styles.left = (p[0] + pageXY.x - delta[0] + options.offsetLeft) + 'px';
     if (options.setTop)
       styles.top  = (p[1] + pageXY.y - delta[1] + options.offsetTop)  + 'px';
 
-    var currentLayout = element.getLayout();
+    if (options.setWidth || options.setHeight) {
+      layout = Element.getLayout(source);
 
-    if (options.setWidth) {
-      styles.width = layout.get('width')  + 'px';
-    }
-    if (options.setHeight) {
-      styles.height = layout.get('height') + 'px';
+      // Use content box when setting width/height. If padding/border are
+      // different between source and target, that's for the user to fix;
+      // there's no good option for us.
+      if (options.setWidth) {
+        styles.width = layout.get('width')  + 'px';
+      }
+      if (options.setHeight) {
+        styles.height = layout.get('height') + 'px';
+      }
     }
 
     return Element.setStyle(element, styles);

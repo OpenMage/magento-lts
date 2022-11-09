@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Api
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -62,7 +63,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
             unset($queryParams['wsdl']);
         }
 
-        $wsdlConfig->setUrl(Mage::helper('api')->getServiceUrl('*/*/*', array('_query' => $queryParams), true));
+        $wsdlConfig->setUrl(Mage::helper('api')->getServiceUrl('*/*/*', ['_query' => $queryParams], true));
         $wsdlConfig->setName('Magento');
         $wsdlConfig->setHandler($this->getHandler());
         return $wsdlConfig;
@@ -111,9 +112,9 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     {
         $controller = $this->getData('controller');
 
-        if (null === $controller) {
+        if ($controller === null) {
             $controller = new Varien_Object(
-                array('request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse())
+                ['request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse()]
             );
 
             $this->setData('controller', $controller);
@@ -134,13 +135,13 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
         if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
             // Generating wsdl content from template
             $io = new Varien_Io_File();
-            $io->open(array('path'=>Mage::getModuleDir('etc', 'Mage_Api')));
+            $io->open(['path'=>Mage::getModuleDir('etc', 'Mage_Api')]);
 
             $wsdlContent = $io->read('wsdl.xml');
 
             $template = Mage::getModel('core/email_template_filter');
 
-            $template->setVariables(array('wsdl' => $this->wsdlConfig));
+            $template->setVariables(['wsdl' => $this->wsdlConfig]);
 
             $this->getController()->getResponse()
                 ->clearHeaders()
@@ -201,7 +202,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     /**
      * Check whether Soap extension is loaded
      *
-     * @return boolean
+     * @return bool
      */
     protected function _extensionLoaded()
     {
@@ -222,7 +223,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
             ->setUseSession(false);
 
         $wsdlUrl = $params !== null
-            ? Mage::helper('api')->getServiceUrl('*/*/*', array('_current' => true, '_query' => $params))
+            ? Mage::helper('api')->getServiceUrl('*/*/*', ['_current' => true, '_query' => $params])
             : Mage::helper('api')->getServiceUrl('*/*/*');
 
         if ($withAuth) {
@@ -266,14 +267,14 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
             $retry = false;
             try {
                 $this->_soap = new Zend_Soap_Server(
-                    $this->getWsdlUrl(array("wsdl" => 1)),
-                    array('encoding' => $apiConfigCharset)
+                    $this->getWsdlUrl(["wsdl" => 1]),
+                    ['encoding' => $apiConfigCharset]
                 );
             } catch (SoapFault $e) {
-                if (false !== strpos(
+                if (strpos(
                     $e->getMessage(),
                     "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'"
-                )
+                ) !== false
                 ) {
                     $retry = true;
                     sleep(1);

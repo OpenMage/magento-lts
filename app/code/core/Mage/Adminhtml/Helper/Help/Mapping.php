@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,17 +24,19 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Adminhtml';
+
     /**
      * Mapping of help page urls depending on module and page route
      *
      * @var array
      */
-    protected $_moduleMappings = array(
-        'Mage_Adminhtml' => array(
+    protected $_moduleMappings = [
+        'Mage_Adminhtml' => [
             /* Dashboard */
             'dashboard' => 'store-operations/reports-dashboard.html',
             /* Sales */
@@ -181,32 +184,32 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
             'system_config/edit/section/system' => 'configuration/advanced/system.html',
             'system_config/edit/section/advanced' => 'configuration/advanced/advanced.html',
             'system_config/edit/section/dev' => 'configuration/advanced/developer.html',
-        ),
-        'Mage_Widget_Adminhtml' => array(
+        ],
+        'Mage_Widget_Adminhtml' => [
             'widget_instance' => 'cms/widgets.html',
-        ),
-        'Mage_Paypal_Adminhtml' => array(
+        ],
+        'Mage_Paypal_Adminhtml' => [
             'paypal_reports' => 'store-operations/reports-available.html',
-        ),
-        'Mage_Api2_Adminhtml' => array(
+        ],
+        'Mage_Api2_Adminhtml' => [
             'api2_attribute' => 'system-operations/web-services.html',
-        ),
-        'Mage_Oauth_Adminhtml' => array(
+        ],
+        'Mage_Oauth_Adminhtml' => [
             'oauth_consumer' => 'system-operations/web-services.html',
             'oauth_authorizedTokens' => 'system-operations/web-services.html',
             'oauth_admin_token' => 'system-operations/web-services.html',
-        ),
-        'Mage_ImportExport_Adminhtml' => array(
+        ],
+        'Mage_ImportExport_Adminhtml' => [
             'import' => 'store-operations/data-import.html',
             'export' => 'store-operations/data-export.html',
-        ),
-        'Mage_Connect_Adminhtml' => array(
+        ],
+        'Mage_Connect_Adminhtml' => [
             'extension_custom/edit' => 'magento/magento-connect.html'
-        ),
-        'Mage_Index_Adminhtml' => array(
+        ],
+        'Mage_Index_Adminhtml' => [
             'process/list' => 'system-operations/index-management.html'
-        ),
-    );
+        ],
+    ];
 
     /**
      * Compose reconstructed URL using mapping
@@ -218,7 +221,7 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
      */
     protected function findInMapping($frontModule, $controllerName, $actionName)
     {
-        if ($actionName === 'index' ) {
+        if ($actionName === 'index') {
             $targetToFind = $controllerName;
         } else {
             $targetToFind = $controllerName . '/' . $actionName;
@@ -241,5 +244,4 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
     {
         return Mage::getConfig()->getNode('default/help/target_version');
     }
-
 }

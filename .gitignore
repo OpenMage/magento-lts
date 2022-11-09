@@ -52,3 +52,9 @@
 
 # ddev
 .ddev/config.yaml
+
+# scss-cache
+/skin/*/*/*/scss/.sass-cache
+
+# .phar (n98-magerun, ...)
+*.phar

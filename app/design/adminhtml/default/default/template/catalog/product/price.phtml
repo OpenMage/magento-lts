@@ -7,15 +7,16 @@
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 
@@ -51,7 +52,7 @@ $_exclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
 $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax = true);
 ?>
 <?php $_weeeTaxAmount = $_weeeHelper->getAmount($_product, null, null, $_website); ?>
-<?php if ($_weeeHelper->typeOfDisplay($_product, array(1,2,4))): ?>
+<?php if ($_weeeHelper->typeOfDisplay($_product, [1,2,4])): ?>
     <?php $_weeeTaxAmount = $_weeeHelper->getAmount($_product, null, null, $_website); ?>
     <?php $_weeeTaxAttributes = $_weeeHelper->getProductWeeeAttributesForRenderer($_product, null, null, $_website); ?>
 <?php endif ?>
@@ -355,7 +356,7 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
 <?php if ($this->getDisplayMinimalPrice() && $_minimalPriceValue && $_minimalPriceValue < $_product->getFinalPrice()): ?>
 
     <?php $_minimalPriceDisplayValue = $_minimalPrice; ?>
-    <?php if ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($_product, array(0, 1, 4))): ?>
+    <?php if ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($_product, [0, 1, 4])): ?>
         <?php $_minimalPriceDisplayValue = $_minimalPrice+$_weeeTaxAmount; ?>
     <?php endif ?>
 

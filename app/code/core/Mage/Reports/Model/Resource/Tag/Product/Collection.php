@@ -7,24 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Report Products Tags collection
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_Resource_Product_Collection
 {
@@ -46,11 +46,11 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
         $select = clone $this->getSelect();
 
         $select->reset()
-            ->from(array('rel' => $this->getTable('tag/relation')), 'COUNT(DISTINCT rel.tag_id)')
+            ->from(['rel' => $this->getTable('tag/relation')], 'COUNT(DISTINCT rel.tag_id)')
             ->where('rel.product_id = e.entity_id');
 
         $this->getSelect()
-            ->columns(array('utaged' => new Zend_Db_Expr(sprintf('(%s)', $select))));
+            ->columns(['utaged' => new Zend_Db_Expr(sprintf('(%s)', $select))]);
         return $this;
     }
 
@@ -62,7 +62,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     public function addAllTagedCount()
     {
         $this->getSelect()
-            ->columns(array('taged' => 'COUNT(relation.tag_id)'));
+            ->columns(['taged' => 'COUNT(relation.tag_id)']);
         return $this;
     }
 
@@ -74,7 +74,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     public function addTagedCount()
     {
         $this->getSelect()
-            ->columns(array('taged' => 'COUNT(relation.tag_relation_id)'));
+            ->columns(['taged' => 'COUNT(relation.tag_relation_id)']);
 
         return $this;
     }
@@ -148,14 +148,14 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
         $this->addAttributeToSelect('name');
         $this->getSelect()
             ->join(
-                array('relation' => $this->getTable('tag/relation')),
+                ['relation' => $this->getTable('tag/relation')],
                 'relation.product_id = e.entity_id',
-                array()
+                []
             )
             ->join(
-                array('t' => $this->getTable('tag/tag')),
+                ['t' => $this->getTable('tag/tag')],
                 't.tag_id = relation.tag_id',
-                array('tag_id',  'status', 'tag_name' => 'name')
+                ['tag_id',  'status', 'tag_name' => 'name']
             );
 
         return $this;

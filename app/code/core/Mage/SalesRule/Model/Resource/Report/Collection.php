@@ -7,24 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sales report coupons collection
  *
- * @category    Mage
- * @package     Mage_SalesRule
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_Resource_Report_Collection_Abstract
 {
@@ -47,7 +47,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
      *
      * @var array
      */
-    protected $_selectedColumns    = array();
+    protected $_selectedColumns    = [];
 
     /**
      * array where rules ids stored
@@ -76,9 +76,9 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
     protected function _getSelectedColumns()
     {
         $adapter = $this->getConnection();
-        if ('month' == $this->_period) {
+        if ($this->_period == 'month') {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m');
-        } elseif ('year' == $this->_period) {
+        } elseif ($this->_period == 'year') {
             $this->_periodFormat =
                 $adapter->getDateExtractSql('period', Varien_Db_Adapter_Interface::INTERVAL_YEAR);
         } else {
@@ -86,7 +86,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
         }
 
         if (!$this->isTotals() && !$this->isSubTotals()) {
-            $this->_selectedColumns = array(
+            $this->_selectedColumns = [
                 'period'                  => $this->_periodFormat,
                 'coupon_code',
                 'rule_name',
@@ -97,7 +97,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
                 'subtotal_amount_actual'  => 'SUM(subtotal_amount_actual)',
                 'discount_amount_actual'  => 'SUM(discount_amount_actual)',
                 'total_amount_actual'     => 'SUM(total_amount_actual)',
-            );
+            ];
         }
 
         if ($this->isTotals()) {
@@ -107,7 +107,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
         if ($this->isSubTotals()) {
             $this->_selectedColumns =
                 $this->getAggregatedColumns() +
-                    array('period' => $this->_periodFormat);
+                    ['period' => $this->_periodFormat];
         }
 
         return $this->_selectedColumns;
@@ -124,10 +124,10 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
         if ($this->isSubTotals()) {
             $this->getSelect()->group($this->_periodFormat);
         } elseif (!$this->isTotals()) {
-            $this->getSelect()->group(array(
+            $this->getSelect()->group([
                 $this->_periodFormat,
                 'coupon_code'
-            ));
+            ]);
         }
 
         return $this;
@@ -158,7 +158,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
 
         $rulesList = Mage::getResourceModel('salesrule/report_rule')->getUniqRulesNamesList();
 
-        $rulesFilterSqlParts = array();
+        $rulesFilterSqlParts = [];
 
         foreach ($this->_rulesIdsFilter as $ruleId) {
             if (!isset($rulesList[$ruleId])) {

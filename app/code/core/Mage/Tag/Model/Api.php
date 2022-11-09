@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tag
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -36,9 +37,9 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function items($productId, $store = null)
     {
-        $result = array();
+        $result = [];
         // fields list to return
-        $fieldsForResult = array('tag_id', 'name');
+        $fieldsForResult = ['tag_id', 'name'];
 
         /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product')->load($productId);
@@ -70,7 +71,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function info($tagId, $store)
     {
-        $result = array();
+        $result = [];
         $storeId = $this->_getStoreId($store);
         /** @var Mage_Tag_Model_Tag $tag */
         $tag = Mage::getModel('tag/tag')->setStoreId($storeId)->setAddBasePopularity()->load($tagId);
@@ -81,7 +82,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
         $result['name'] = $tag->getName();
         $result['base_popularity'] = (is_numeric($tag->getBasePopularity())) ? $tag->getBasePopularity() : 0;
         // retrieve array($productId => $popularity, ...)
-        $result['products'] = array();
+        $result['products'] = [];
         $relatedProductsCollection = $tag->getEntityCollection()->addTagFilter($tagId)
             ->addStoreFilter($storeId)->addPopularity($tagId);
         /** @var Mage_Catalog_Model_Product $product */
@@ -167,8 +168,8 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
         }
         if (isset($data['status'])) {
             // validate tag status
-            if (!in_array($data['status'], array(
-                $tag->getApprovedStatus(), $tag->getPendingStatus(), $tag->getDisabledStatus()))) {
+            if (!in_array($data['status'], [
+                $tag->getApprovedStatus(), $tag->getPendingStatus(), $tag->getDisabledStatus()])) {
                 $this->_fault('invalid_data');
             }
             $tag->setStatus($data['status']);
