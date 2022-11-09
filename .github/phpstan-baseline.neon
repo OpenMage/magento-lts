@@ -3526,16 +3526,6 @@ parameters:
 			path: ../app/code/core/Mage/Eav/Model/Entity/Setup.php
 
 		-
-			message: "#^Method Mage_Eav_Model_Resource_Entity_Attribute\\:\\:_getMaxSortOrder\\(\\) should return int but returns string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Resource/Entity/Attribute.php
-
-		-
-			message: "#^Method Mage_Eav_Model_Resource_Entity_Attribute\\:\\:getIdByCode\\(\\) should return int but returns string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Resource/Entity/Attribute.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Resource_Entity_Attribute_Group\\:\\:_getMaxSortOrder\\(\\) should return int but returns string\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Resource/Entity/Attribute/Group.php

@@ -118,7 +118,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 ->where('attribute_set_id = :attribute_set_id')
                 ->where('attribute_group_id = :attribute_group_id');
 
-            return $adapter->fetchOne($select, $bind);
+            return (int)$adapter->fetchOne($select, $bind);
         }
 
         return 0;
@@ -389,7 +389,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             ->where('t.entity_type_code = :entity_type_code')
             ->where('a.attribute_code = :attribute_code');
 
-        return $adapter->fetchOne($select, $bind);
+        return (int)$adapter->fetchOne($select, $bind);
     }
 
     /**

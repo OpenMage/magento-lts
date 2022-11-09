@@ -37,6 +37,7 @@
  * @method $this setIsFilterable(int $value)
  * @method array getFilterOptions()
  * @method $this setFrontendLabel(string $value)
+ * @method $this setStoreLabels(array $value)
  * @method $this unsIsVisible()
  */
 class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Abstract
