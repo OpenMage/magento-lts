@@ -2981,16 +2981,6 @@ parameters:
 			path: ../app/code/core/Mage/Cron/Model/Observer.php
 
 		-
-			message: "#^Property Mage_CurrencySymbol_Model_System_Currencysymbol\\:\\:\\$_storeId \\(string\\|null\\) does not accept int\\|null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CurrencySymbol/Model/System/Currencysymbol.php
-
-		-
-			message: "#^Property Mage_CurrencySymbol_Model_System_Currencysymbol\\:\\:\\$_websiteId \\(string\\|null\\) does not accept int\\|null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CurrencySymbol/Model/System/Currencysymbol.php
-
-		-
 			message: "#^Call to an undefined method Mage_Wishlist_Model_Resource_Item_Collection\\:\\:addAttributeToSelect\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/Block/Account/Dashboard/Sidebar.php
