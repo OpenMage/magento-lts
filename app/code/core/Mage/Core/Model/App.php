@@ -1162,7 +1162,7 @@ class Mage_Core_Model_App
      * Loading cache data
      *
      * @param   string $id
-     * @return  mixed
+     * @return  string|int|false
      */
     public function loadCache($id)
     {
