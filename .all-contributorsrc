@@ -1351,6 +1351,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "rfeese",
+      "name": "Roger Feese",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7074181?v=4",
+      "profile": "https://github.com/rfeese",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
