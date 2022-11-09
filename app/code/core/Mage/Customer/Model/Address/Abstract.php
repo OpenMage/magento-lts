@@ -37,7 +37,7 @@
  * @method $this setCity(string $value)
  * @method string getTelephone()
  * @method $this setTelephone(string $value)
- * @method int getCountryId()
+ * @method string getCountryId()
  * @method $this setCountryId(string $value)
  * @method string getPostcode()
  * @method $this setPostcode(string $value)
@@ -99,14 +99,14 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    static protected $_countryModels = [];
+    protected static $_countryModels = [];
 
     /**
      * Directory region models
      *
      * @var array
      */
-    static protected $_regionModels = [];
+    protected static $_regionModels = [];
 
     /**
      * Get full customer name
@@ -135,7 +135,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      * get address street
      *
      * @param   int $line address line index
-     * @return  string
+     * @return  array|string
      */
     public function getStreet($line = 0)
     {

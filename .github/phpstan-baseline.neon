@@ -3001,16 +3001,6 @@ parameters:
 			path: ../app/code/core/Mage/Customer/Block/Account/Navigation.php
 
 		-
-			message: "#^Method Mage_Customer_Block_Address_Edit\\:\\:getCountryId\\(\\) should return int but returns string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Block/Address/Edit.php
-
-		-
-			message: "#^Return type \\(int\\) of method Mage_Customer_Block_Address_Edit\\:\\:getCountryId\\(\\) should be compatible with return type \\(string\\) of method Mage_Directory_Block_Data\\:\\:getCountryId\\(\\)$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Block/Address/Edit.php
-
-		-
 			message: "#^Method Mage_Customer_Block_Newsletter\\:\\:getAction\\(\\) should return Mage_Core_Controller_Varien_Action but returns string\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/Block/Newsletter.php
@@ -3019,16 +3009,6 @@ parameters:
 			message: "#^Property Mage_Customer_Helper_Data\\:\\:\\$_groups \\(Mage_Customer_Model_Entity_Group_Collection\\) does not accept Mage_Customer_Model_Resource_Group_Collection\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/Helper/Data.php
-
-		-
-			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Address/Abstract.php
-
-		-
-			message: "#^Method Mage_Customer_Model_Address_Abstract\\:\\:getStreet\\(\\) should return string but returns array\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Address/Abstract.php
 
 		-
 			message: "#^Cannot access property \\$is_default_billing on array\\.$#"
