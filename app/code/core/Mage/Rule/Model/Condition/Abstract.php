@@ -28,15 +28,15 @@
  *
  * @method string|false getAttribute()
  * @method $this setAttribute(string|false $value)
- * @method array|string getAttributeOption()
+ * @method array|string getAttributeOption(string $value = null)
  * @method bool getExplicitApply()
- * @method $this setJsFormObject(string  $value)
+ * @method $this setJsFormObject(string $value)
  * @method $this setIsValueParsed(string|false $value)
  * @method string|false getOperator()
  * @method $this setOperator(string|false $value)
  * @method array getOperatorByInputType()
  * @method $this setOperatorByInputType(array $value)
- * @method array getOperatorOption(string $value)
+ * @method array|string getOperatorOption(string $value = null)
  * @method $this setOperatorOption(array $value)
  * @method array getOperatorOptions()
  * @method bool hasValueParsed()
@@ -252,7 +252,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @return array|string
+     * @return string
      */
     public function getAttributeName()
     {
@@ -298,7 +298,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @return array|string
+     * @return string
      */
     public function getOperatorName()
     {
