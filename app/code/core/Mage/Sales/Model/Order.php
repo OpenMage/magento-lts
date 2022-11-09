@@ -441,42 +441,42 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     protected $_eventObject = 'order';
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Address_Collection|Mage_Sales_Model_Order_Address[]
+     * @var Mage_Sales_Model_Resource_Order_Address_Collection|Mage_Sales_Model_Order_Address[]|null
      */
     protected $_addresses       = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Item_Collection|Mage_Sales_Model_Order_Item[]
+     * @var Mage_Sales_Model_Resource_Order_Item_Collection|Mage_Sales_Model_Order_Item[]|null
      */
     protected $_items           = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Payment_Collection|Mage_Sales_Model_Order_Payment[]
+     * @var Mage_Sales_Model_Resource_Order_Payment_Collection|Mage_Sales_Model_Order_Payment[]|null
      */
     protected $_payments        = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Status_History_Collection|Mage_Sales_Model_Order_Status_History[]
+     * @var Mage_Sales_Model_Resource_Order_Status_History_Collection|Mage_Sales_Model_Order_Status_History[]|null
      */
     protected $_statusHistory   = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Invoice_Collection
+     * @var Mage_Sales_Model_Resource_Order_Invoice_Collection|Mage_Sales_Model_Order_Invoice[]|null
      */
     protected $_invoices;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Shipment_Track_Collection
+     * @var Mage_Sales_Model_Resource_Order_Shipment_Track_Collection|Mage_Sales_Model_Order_Shipment_Track[]|null
      */
     protected $_tracks;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Shipment_Collection|false
+     * @var Mage_Sales_Model_Resource_Order_Shipment_Collection|Mage_Sales_Model_Order_Shipment[]|null
      */
     protected $_shipments;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Creditmemo_Collection|Mage_Sales_Model_Order_Creditmemo[]|false
+     * @var Mage_Sales_Model_Resource_Order_Creditmemo_Collection|Mage_Sales_Model_Order_Creditmemo[]|null
      */
     protected $_creditmemos;
 
@@ -510,7 +510,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $this->_init('sales/order');
     }
 
-     /**
+    /**
      * Init mapping array of short fields to
      * its full names
      *
@@ -1576,7 +1576,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return false;
     }
 
-/*********************** ADDRESSES ***************************/
+    /*********************** ADDRESSES ***************************/
 
     /**
      * @return Mage_Sales_Model_Resource_Order_Address_Collection
@@ -1795,7 +1795,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return true;
     }
 
-/*********************** PAYMENTS ***************************/
+    /*********************** PAYMENTS ***************************/
 
     /**
      * @return Mage_Sales_Model_Resource_Order_Payment_Collection
@@ -1871,7 +1871,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $payment;
     }
 
-/*********************** STATUSES ***************************/
+    /*********************** STATUSES ***************************/
 
     /**
      * @param bool $reload
@@ -2129,7 +2129,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $this->_invoices;
     }
 
-     /**
+    /**
      * Retrieve order shipments collection
      *
      * @return Mage_Sales_Model_Resource_Order_Shipment_Collection|false

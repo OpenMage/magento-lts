@@ -4821,46 +4821,6 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Entity/Quote/Address/Attribute/Frontend/Tax.php
 
 		-
-			message: "#^Property Mage_Sales_Model_Order\\:\\:\\$_addresses \\(iterable\\<Mage_Sales_Model_Order_Address\\>&Mage_Sales_Model_Resource_Order_Address_Collection\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Order\\:\\:\\$_creditmemos \\(\\(iterable\\<Mage_Sales_Model_Order_Creditmemo\\>&Mage_Sales_Model_Resource_Order_Creditmemo_Collection\\)\\|false\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Order\\:\\:\\$_invoices \\(Mage_Sales_Model_Resource_Order_Invoice_Collection\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Order\\:\\:\\$_items \\(iterable\\<Mage_Sales_Model_Order_Item\\>&Mage_Sales_Model_Resource_Order_Item_Collection\\) does not accept null\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Order\\:\\:\\$_payments \\(iterable\\<Mage_Sales_Model_Order_Payment\\>&Mage_Sales_Model_Resource_Order_Payment_Collection\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Order\\:\\:\\$_shipments \\(Mage_Sales_Model_Resource_Order_Shipment_Collection\\|false\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Order\\:\\:\\$_statusHistory \\(iterable\\<Mage_Sales_Model_Order_Status_History\\>&Mage_Sales_Model_Resource_Order_Status_History_Collection\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Order\\:\\:\\$_tracks \\(Mage_Sales_Model_Resource_Order_Shipment_Track_Collection\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order.php
-
-		-
 			message: "#^Variable \\$oldArea might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Order/Api.php
