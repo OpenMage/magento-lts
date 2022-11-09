@@ -5416,11 +5416,6 @@ parameters:
 			path: ../app/code/core/Mage/Tax/Helper/Data.php
 
 		-
-			message: "#^Method Mage_Tax_Helper_Data\\:\\:needPriceConversion\\(\\) should return int\\|false but returns bool\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tax/Helper/Data.php
-
-		-
 			message: "#^Method Mage_Tax_Model_Config_Notification\\:\\:_getConfig\\(\\) should return Mage_Core_Model_Config_Data but returns bool\\|Mage_Core_Model_Abstract\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Tax/Model/Config/Notification.php

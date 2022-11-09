@@ -239,7 +239,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * If it necessary will be returned conversion type (minus or plus)
      *
      * @param   mixed $store
-     * @return  false | int
+     * @return  int|bool
      */
     public function needPriceConversion($store = null)
     {
@@ -472,7 +472,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get product price with all tax settings processing
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param Mage_Catalog_Model_Product|Varien_Object $product
      * @param float $price inputed product price
      * @param bool $includingTax return price include tax flag
      * @param null|Mage_Customer_Model_Address $shippingAddress
