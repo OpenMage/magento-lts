@@ -686,11 +686,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Random.php
 
 		-
-			message: "#^Cannot access offset 'file' on bool\\|void\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/File.php
-
-		-
 			message: "#^Comparison operation \"\\=\\=\" between \\(Varien_Simplexml_Element\\|null\\) and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Source/Admin/Page.php
@@ -719,21 +714,6 @@ parameters:
 			message: "#^Return type \\(Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute\\) of method Mage_Adminhtml_Catalog_Product_Action_AttributeController\\:\\:_getHelper\\(\\) should be compatible with return type \\(Mage_Adminhtml_Helper_Data\\) of method Mage_Adminhtml_Controller_Action\\:\\:_getHelper\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php
-
-		-
-			message: "#^Cannot access offset 'tmp_name' on bool\\|void\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/GalleryController.php
-
-		-
-			message: "#^Offset 'file' does not exist on array\\{path\\: \\(array\\<int, string\\>\\|string\\), url\\: string\\}\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/GalleryController.php
-
-		-
-			message: "#^Offset 'file' does not exist on array\\{path\\: \\(array\\<int, string\\>\\|string\\)\\}\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/GalleryController.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Controller_Action\\:\\:_setForcedFormKeyActions\\(\\) invoked with 2 parameters, 1 required\\.$#"
@@ -1736,11 +1716,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Category/Attribute/Api.php
 
 		-
-			message: "#^Cannot access offset 'file' on bool\\|void\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Category/Attribute/Backend/Image.php
-
-		-
 			message: "#^Property Mage_Catalog_Model_Category_Url\\:\\:\\$_url \\(Mage_Core_Model_Url\\) does not accept bool\\|Mage_Core_Model_Abstract\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Category/Url.php
@@ -2586,11 +2561,6 @@ parameters:
 			path: ../app/code/core/Mage/Checkout/controllers/OnepageController.php
 
 		-
-			message: "#^Cannot access offset 'cookie' on void\\|true\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php
-
-		-
 			message: "#^Method Mage_Cms_Model_Wysiwyg_Images_Storage\\:\\:getConfig\\(\\) should return Mage_Core_Model_Config_Element but returns Varien_Simplexml_Element\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php
@@ -3406,16 +3376,6 @@ parameters:
 			path: ../app/code/core/Mage/Downloadable/Helper/Download.php
 
 		-
-			message: "#^Cannot access offset 'file' on bool\\|void\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Downloadable/Model/Link/Api.php
-
-		-
-			message: "#^Offset 'file' does not exist on array\\{status\\: 'new'\\}\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Downloadable/Model/Link/Api.php
-
-		-
 			message: "#^Variable \\$downloadableModel might not be defined\\.$#"
 			count: 3
 			path: ../app/code/core/Mage/Downloadable/Model/Link/Api.php
@@ -3429,11 +3389,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$resource \\(object\\) of method Mage_Downloadable_Model_Link_Api_V2\\:\\:add\\(\\) should be compatible with parameter \\$resource \\(array\\) of method Mage_Downloadable_Model_Link_Api\\:\\:add\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Downloadable/Model/Link/Api/V2.php
-
-		-
-			message: "#^Cannot access offset 'tmp_name' on bool\\|void\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Downloadable/controllers/Adminhtml/Downloadable/FileController.php
 
 		-
 			message: "#^Method Mage_Customer_Model_Session\\:\\:setBeforeAuthUrl\\(\\) invoked with 2 parameters, 1 required\\.$#"
@@ -3861,16 +3816,6 @@ parameters:
 			path: ../app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php
 
 		-
-			message: "#^Cannot access offset 'file' on bool\\|void\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/ImportExport/Model/Import.php
-
-		-
-			message: "#^Cannot access offset 'path' on bool\\|void\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/ImportExport/Model/Import.php
-
-		-
 			message: "#^Property Mage_ImportExport_Model_Import\\:\\:\\$_entityAdapter \\(Mage_ImportExport_Model_Import_Entity_Abstract\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/ImportExport/Model/Import.php
@@ -4024,11 +3969,6 @@ parameters:
 			message: "#^Variable \\$productData might not be defined\\.$#"
 			count: 3
 			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Product/Type/Grouped.php
-
-		-
-			message: "#^Cannot access offset 'name' on bool\\|void\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/ImportExport/Model/Import/Uploader.php
 
 		-
 			message: "#^Property Varien_File_Uploader\\:\\:\\$_uploadType \\(string\\) does not accept int\\.$#"
