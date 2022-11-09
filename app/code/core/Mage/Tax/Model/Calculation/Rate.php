@@ -46,18 +46,18 @@
  * @method array getTitle()
  * @method $this setTitle(array $value)
  * @method int getZipIsRange()
- * @method $this setZipIsRange(int $value)
+ * @method $this setZipIsRange(int|null $value)
  * @method int getZipFrom()
- * @method $this setZipFrom(int $value)
+ * @method $this setZipFrom(int|null $value)
  * @method int getZipTo()
- * @method $this setZipTo(int $value)
+ * @method $this setZipTo(int|null $value)
  */
 class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
 {
     /**
      * List of tax titles
      *
-     * @var array
+     * @var Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection
      */
     protected $_titles = null;
 
@@ -214,7 +214,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     /**
      * Returns the list of tax titles
      *
-     * @return array
+     * @return Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection
      */
     public function getTitles()
     {
