@@ -29,7 +29,6 @@
  * @package    Mage_Paypal
  * @author     Magento Core Team <core@magentocommerce.com>
  */
- */
 class Mage_Paypal_Block_Paylater_Cart_Message extends Mage_Paypal_Block_Paylater_Message
 {
 }
