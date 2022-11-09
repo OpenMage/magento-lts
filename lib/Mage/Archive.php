@@ -27,7 +27,6 @@
  */
 class Mage_Archive
 {
-
     /**
     * Archiver is used for compress.
     */
@@ -41,7 +40,7 @@ class Mage_Archive
     /**
     * Current archiver is used for compress.
     *
-    * @var Mage_Archiver_Tar|Mage_Archiver_Gz|Mage_Archiver_Bz
+    * @var Mage_Archive_Tar|Mage_Archive_Gz|Mage_Archive_Bz
     */
     protected $_archiver=null;
 
@@ -69,11 +68,11 @@ class Mage_Archive
     * Create object of current archiver by $extension.
     *
     * @param string $extension
-    * @return Mage_Archiver_Tar|Mage_Archiver_Gz|Mage_Archiver_Bz
+    * @return Mage_Archive_Tar|Mage_Archive_Gz|Mage_Archive_Bz
     */
     protected function _getArchiver($extension)
     {
-        if(array_key_exists(strtolower($extension), $this->_formats)) {
+        if (array_key_exists(strtolower($extension), $this->_formats)) {
             $format = $this->_formats[$extension];
         } else {
             $format = self::DEFAULT_ARCHIVER;
@@ -92,7 +91,7 @@ class Mage_Archive
     protected function _getArchivers($source)
     {
         $ext = pathinfo($source, PATHINFO_EXTENSION);
-        if(!isset($this->_formats[$ext])) {
+        if (!isset($this->_formats[$ext])) {
             return array();
         }
         $format = $this->_formats[$ext];
@@ -115,7 +114,7 @@ class Mage_Archive
     {
         $archivers = $this->_getArchivers($destination);
         $interimSource = '';
-        for ($i=0; $i<count($archivers); $i++ ) {
+        for ($i=0; $i<count($archivers); $i++) {
             if ($i == (count($archivers) - 1)) {
                 $packed = $destination;
             } else {
@@ -212,4 +211,3 @@ class Mage_Archive
         return false;
     }
 }
-
