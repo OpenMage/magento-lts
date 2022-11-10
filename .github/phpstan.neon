@@ -14,7 +14,6 @@ parameters:
         - %currentWorkingDirectory%/app/code/core/Mage/Centinel
         - %currentWorkingDirectory%/app/code/core/Mage/PaypalUk
         - %currentWorkingDirectory%/app/code/core/Mage/Usa
-        - %currentWorkingDirectory%/app/code/core/Mage/Weee
 
         #incompatible interfaces
         - */app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php
@@ -63,6 +62,7 @@ parameters:
         - */lib/Varien/Image/Adapter.php
 
         # todo check
+        - */app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
         - */lib/Varien/Directory/Collection.php
     level: 3
     checkFunctionNameCase: true

@@ -384,7 +384,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns original amount
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return int
+     * @return int|float
      */
     public function getOriginalAmount($product)
     {
@@ -478,7 +478,9 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     public function validateCatalogPricesAndFptConfiguration($store = null)
     {
         // Check the configuration - Weee enabled and catalog display
-        $priceIncludesTax = $this->_getHelper('tax')->priceIncludesTax($store);
+        /** @var Mage_Tax_Helper_Data $helper */
+        $helper = $this->_getHelper('tax');
+        $priceIncludesTax = $helper->priceIncludesTax($store);
         // $priceIncludesTax = Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_PRICE_INCLUDES_TAX, $store);
         $fptTaxConfig = $this->getTaxType($store);
 

@@ -97,7 +97,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      * @param mixed $website
      * @param bool $calculateTax
      * @param bool $ignoreDiscount
-     * @return float
+     * @return int|float
      */
     public function getWeeeAmount(
         $product,
@@ -222,7 +222,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
 
                 $order = ['state ' . Varien_Db_Select::SQL_DESC, 'website_id ' . Varien_Db_Select::SQL_DESC];
                 $attributeSelect->order($order);
-                $value = $this->getResource()->getReadConnection()->fetchOne($attributeSelect);
+                $value = (float)$this->getResource()->getReadConnection()->fetchOne($attributeSelect);
 
                 if ($value) {
                     if ($discountPercent) {

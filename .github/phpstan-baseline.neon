@@ -5316,6 +5316,21 @@ parameters:
 			path: ../app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
 
 		-
+			message: "#^Variable \\$title in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Weee/Helper/Data.php
+
+		-
+			message: "#^Return type \\(\\$this\\(Mage_Weee_Model_Attribute_Backend_Weee_Tax\\)\\) of method Mage_Weee_Model_Attribute_Backend_Weee_Tax\\:\\:validate\\(\\) should be compatible with return type \\(bool\\) of method Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\:\\:validate\\(\\)$#"
+			count: 1
+			path: ../app/code/core/Mage/Weee/Model/Attribute/Backend/Weee/Tax.php
+
+		-
+			message: "#^Method Mage_Core_Model_Abstract\\:\\:_init\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Weee/Model/Tax.php
+
+		-
 			message: "#^Method Mage_Widget_Block_Adminhtml_Widget_Chooser\\:\\:getConfig\\(\\) should return Varien_Object but returns mixed\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Widget/Block/Adminhtml/Widget/Chooser.php
@@ -5679,51 +5694,6 @@ parameters:
 			message: "#^Variable \\$sql might not be defined\\.$#"
 			count: 2
 			path: ../lib/Varien/Db/Tree.php
-
-		-
-			message: "#^Declaration of Varien_Directory_Collection\\:\\:addItem\\(IFactory \\$item\\) should be compatible with Varien_Data_Collection\\:\\:addItem\\(Varien_Object \\$item\\)$#"
-			count: 1
-			path: ../lib/Varien/Directory/Collection.php
-
-		-
-			message: "#^Declaration of Varien_Directory_Collection\\:\\:toArray\\(&\\$arr\\) should be compatible with Varien_Data_Collection\\:\\:toArray\\(\\$arrRequiredFields \\= Array\\)$#"
-			count: 1
-			path: ../lib/Varien/Directory/Collection.php
-
-		-
-			message: "#^Declaration of Varien_Directory_Collection\\:\\:toXml\\(&\\$xml, \\$recursionLevel \\= 0, \\$addOpenTag \\= true, \\$rootName \\= 'Struct'\\) should be compatible with Varien_Data_Collection\\:\\:toXml\\(\\)$#"
-			count: 1
-			path: ../lib/Varien/Directory/Collection.php
-
-		-
-			message: "#^Default value of the parameter \\#2 \\$isRecursion \\(string\\) of method Varien_Directory_Collection\\:\\:setPath\\(\\) is incompatible with type bool\\.$#"
-			count: 1
-			path: ../lib/Varien/Directory/Collection.php
-
-		-
-			message: "#^Method Varien_Directory_Collection\\:\\:_renderFilters\\(\\) should return Varien_Data_Collection but return statement is missing\\.$#"
-			count: 1
-			path: ../lib/Varien/Directory/Collection.php
-
-		-
-			message: "#^Method Varien_Directory_Collection\\:\\:toArray\\(\\) should return array but return statement is missing\\.$#"
-			count: 1
-			path: ../lib/Varien/Directory/Collection.php
-
-		-
-			message: "#^Method Varien_Directory_Collection\\:\\:toXml\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../lib/Varien/Directory/Collection.php
-
-		-
-			message: "#^PHPDoc tag @param references unknown parameter\\: \\$files$#"
-			count: 1
-			path: ../lib/Varien/Directory/Collection.php
-
-		-
-			message: "#^Undefined variable\\: \\$this$#"
-			count: 1
-			path: ../lib/Varien/Directory/Collection.php
 
 		-
 			message: "#^Binary operation \"\\.\\=\" between array and non\\-falsy\\-string results in an error\\.$#"
