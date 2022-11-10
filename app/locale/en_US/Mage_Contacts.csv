@@ -1,5 +1,5 @@
 "* Required Fields","* Required Fields"
-"<strong style="color:red">Important!</strong> Enabling this option means that your custom templates used for contact form must contain <code>form_key</code> block output. Otherwise contact form will not work.","<strong style="color:red">Important!</strong> Enabling this option means that your custom templates used for contact form must contain <code>form_key</code> block output. Otherwise contact form will not work."
+"<strong style=""color:red"">Important!</strong> Enabling this option means that your custom templates used for contact form must contain <code>form_key</code> block output. Otherwise contact form will not work.","<strong style=""color:red"">Important!</strong> Enabling this option means that your custom templates used for contact form must contain <code>form_key</code> block output. Otherwise contact form will not work."
 "Comment","Comment"
 "Contact Form","Contact Form"
 "Contact Information","Contact Information"
