@@ -3,6 +3,5 @@ includes:
 parameters:
     paths:
          - %currentWorkingDirectory%/app/code/core/Mage
-         - %currentWorkingDirectory%/lib/Magento
          - %currentWorkingDirectory%/lib/Varien
     level: 4

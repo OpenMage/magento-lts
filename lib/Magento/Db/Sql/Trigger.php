@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Magento
- * @package     Magento_Db
+ * @category   Magento
+ * @package    Magento_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -22,8 +22,8 @@
 /**
  * Magento_Db_Sql_Trigger
  *
- * @category    Magento
- * @package     Magento_Db
+ * @category   Magento
+ * @package    Magento_Db
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Magento_Db_Sql_Trigger
@@ -50,28 +50,28 @@ class Magento_Db_Sql_Trigger
      *
      * @var array
      */
-    protected $_parts = array();
+    protected $_parts = [];
 
     /**
      * Allowed time types
      *
      * @var array
      */
-    protected $_timeTypes = array(
+    protected $_timeTypes = [
         self::SQL_TIME_AFTER,
         self::SQL_TIME_BEFORE
-    );
+    ];
 
     /**
      * Allowed event types
      *
      * @var array
      */
-    protected $_eventTypes = array(
+    protected $_eventTypes = [
         self::SQL_EVENT_INSERT,
         self::SQL_EVENT_UPDATE,
         self::SQL_EVENT_DELETE
-    );
+    ];
 
     /**
      * Initial trigger structure, for MySQL scope is always "FOR EACH ROW".
@@ -79,13 +79,13 @@ class Magento_Db_Sql_Trigger
      *
      * @var array
      */
-    protected static $_partsInit = array(
+    protected static $_partsInit = [
         self::TARGET    => null,
         self::TIME      => self::SQL_TIME_AFTER,
         self::EVENT     => null,
         self::SCOPE     => self::SQL_FOR_EACH_ROW,
-        self::BODY      => array()
-    );
+        self::BODY      => []
+    ];
 
     /**
      * Constructor
@@ -271,7 +271,7 @@ class Magento_Db_Sql_Trigger
     public function setBody($body)
     {
         if (!is_array($body)) {
-            $body = array($body);
+            $body = [$body];
         }
         $this->_setPart(self::BODY, $body);
         return $this;

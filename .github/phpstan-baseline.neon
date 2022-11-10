@@ -5449,3 +5449,8 @@ parameters:
 			message: "#^Function mysqli_connect_error invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../lib/Mage/DB/Mysqli.php
+
+		-
+			message: "#^Argument of an invalid type Zend_Db_Statement_Interface supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: ../lib/Magento/Db/Object/Trigger.php

@@ -7,6 +7,7 @@ parameters:
     paths:
          - %currentWorkingDirectory%/app/code/core/Mage
          - %currentWorkingDirectory%/lib/Mage
+         - %currentWorkingDirectory%/lib/Magento
     excludePaths:
         #todo DOCblocks
         - %currentWorkingDirectory%/app/code/core/Mage/Centinel
@@ -47,6 +48,9 @@ parameters:
         # Too much noise from "Variable $this might not be defined"
         - */app/code/core/*/*/data/*
         - */app/code/core/*/*/sql/*
+
+        # requires mycrypt
+        - */lib/Magento/Crypt.php
     level: 3
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
