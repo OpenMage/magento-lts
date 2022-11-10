@@ -13,7 +13,7 @@
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
- * @package     Mage_Backup
+ * @package    Mage_Backup
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -22,8 +22,8 @@
  * Extended version of Mage_Archive_Tar that supports filtering
  *
  * @category   Mage
- * @package     Mage_Backup
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @package    Mage_Backup
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Backup_Archive_Tar extends Mage_Archive_Tar
 {

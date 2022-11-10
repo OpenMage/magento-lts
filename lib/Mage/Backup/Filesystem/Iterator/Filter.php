@@ -23,8 +23,8 @@
  * Filter Iterator
  *
  * @category   Mage
- * @package     Mage_Backup
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @package    Mage_Backup
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Backup_Filesystem_Iterator_Filter extends FilterIterator
 {

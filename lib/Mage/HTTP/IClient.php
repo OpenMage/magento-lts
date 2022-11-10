@@ -23,8 +23,8 @@
  * Interface for different HTTP clients
  *
  * @category   Mage
- * @package     Mage_HTTP
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @package    Mage_HTTP
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_HTTP_IClient
 {

@@ -22,8 +22,8 @@
  * Class to work with backups
  *
  * @category   Mage
- * @package     Mage_Backup
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @package    Mage_Backup
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Backup
 {

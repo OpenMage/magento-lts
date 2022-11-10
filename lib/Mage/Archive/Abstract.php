@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Archive
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Archive_Abstract
 {

@@ -22,8 +22,8 @@
  * Class for Exception
  *
  * @category   Mage
- * @package     Mage
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @package    Mage
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Exception extends Exception
 {

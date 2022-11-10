@@ -22,8 +22,8 @@
  * Filesystem rollback workers abstract class
  *
  * @category   Mage
- * @package     Mage_Backup
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @package    Mage_Backup
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Backup_Filesystem_Rollback_Abstract
 {

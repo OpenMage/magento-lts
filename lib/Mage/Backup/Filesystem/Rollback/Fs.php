@@ -22,8 +22,8 @@
  * Rollback worker for rolling back via local filesystem
  *
  * @category   Mage
- * @package     Mage_Backup
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @package    Mage_Backup
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Backup_Filesystem_Rollback_Fs extends Mage_Backup_Filesystem_Rollback_Abstract
 {

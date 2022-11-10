@@ -23,7 +23,7 @@
  *
  * @category   Magento
  * @package    Magento_Db
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Magento_Db_Sql_Select extends Varien_Db_Select
 {

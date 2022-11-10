@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Archive
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Archive_Bz extends Mage_Archive_Abstract implements Mage_Archive_Interface
 {
