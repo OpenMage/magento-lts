@@ -148,7 +148,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * Get currency rate (base=>allowed or allowed=>base)
      *
      * @param string|Mage_Directory_Model_Currency $toCurrency
-     * @return string
+     * @return float|int
      * @throws Mage_Core_Exception
      */
     public function getAnyRate($toCurrency)
@@ -347,7 +347,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * Save currency rates
      *
      * @param array $rates
-     * @return object
+     * @return $this
      */
     public function saveRates($rates)
     {

@@ -26,9 +26,7 @@
  * @package    Mage_Usa
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Usa_Model_Shipping_Carrier_Dhl
-    extends Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract
-    implements Mage_Shipping_Model_Carrier_Interface
+class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
     /**
      * Code of the carrier
@@ -47,7 +45,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
     /**
      * Rate request data
      *
-     * @var Mage_Shipping_Model_Rate_Request|null
+     * @var Varien_Object|null
      */
     protected $_request = null;
 
@@ -59,9 +57,14 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
     protected $_rawRequest = null;
 
     /**
+     * @var Varien_Object|null
+     */
+    protected $_rawTrackRequest = null;
+
+    /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|null
+     * @var Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
      */
     protected $_result = null;
 
@@ -333,7 +336,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         $r->setOrigEmail(Mage::getStoreConfig('trans_email/ident_general/email', $r->getStoreId()));
         $r->setOrigCity($request->getOrigCity());
         $r->setOrigPostal($request->getOrigPostal());
-        $originStreet1 = Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_ADDRESS1,$r->getStoreId());
+        $originStreet1 = Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_ADDRESS1, $r->getStoreId());
         $originStreet2 = Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_ADDRESS2, $r->getStoreId());
         $r->setOrigStreet($request->getOrigStreet() ? $request->getOrigStreet() : $originStreet2);
         $r->setOrigStreetLine2($request->getOrigStreetLine2());
@@ -392,7 +395,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
     /**
      * Get quotes
      *
-     * @return Mage_Shipping_Model_Rate_Result
+     * @return Mage_Shipping_Model_Rate_Result|Varien_Object
      */
     protected function _getQuotes()
     {
@@ -537,8 +540,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
 
                 $debugData['result'] = $responseBody;
                 $this->_setCachedQuotes($request, $responseBody);
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
                 $responseBody = '';
             }
@@ -706,13 +708,15 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
 
         $receiverAddress = $receiver->addChild('Address');
         $receiverAddress->addChild('Street', htmlspecialchars($r->getDestStreet() ? $r->getDestStreet() : 'N/A'));
-        $receiverAddress->addChild('StreetLine2',
-                                   htmlspecialchars($r->getDestStreetLine2() ? $r->getDestStreetLine2() : 'N/A')
+        $receiverAddress->addChild(
+            'StreetLine2',
+            htmlspecialchars($r->getDestStreetLine2() ? $r->getDestStreetLine2() : 'N/A')
         );
         $receiverAddress->addChild('City', htmlspecialchars($r->getDestCity()));
         $receiverAddress->addChild('State', htmlspecialchars($r->getDestState()));
-        $receiverAddress->addChild('CompanyName',
-                                   htmlspecialchars($r->getDestCompanyName() ? $r->getDestCompanyName() : 'N/A')
+        $receiverAddress->addChild(
+            'CompanyName',
+            htmlspecialchars($r->getDestCompanyName() ? $r->getDestCompanyName() : 'N/A')
         );
 
         /*
@@ -768,7 +772,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
                             $shipXml = $xml->IntlShipment;
                             $this->_parseXmlObject($shipXml);
                         }
-                        $shipXml = (($r->getDestCountryId() == self::USA_COUNTRY_ID)
+                        $shipXml = (
+                            ($r->getDestCountryId() == self::USA_COUNTRY_ID)
                             ? $xml->Shipment
                             : $xml->IntlShipment
                         );
@@ -812,7 +817,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
                     $rate->setPrice($data['price_total']);
                     $result->append($rate);
                 }
-            } else if (!empty($this->_errors)) {
+            } elseif (!empty($this->_errors)) {
                 $error = Mage::getModel('shipping/rate_result_error');
                 $error->setCarrier('dhl');
                 $error->setCarrierTitle($this->getConfigData('title'));
@@ -965,8 +970,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
 
     /**
      * Set tracking request
-     *
-     * @return null
      */
     protected function setTrackingReqeust()
     {
@@ -1038,7 +1041,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
      *
      * @param array $trackings
      * @param string $response
-     * @return null
      */
     protected function _parseXmlTrackingResponse($trackings, $response)
     {
@@ -1080,8 +1082,9 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
                                         * Code 0== airbill  found
                                         */
                                         $rArr['service'] = (string)$txml->Service->Desc;
-                                        if (isset($txml->Weight))
+                                        if (isset($txml->Weight)) {
                                             $rArr['weight'] = (string)$txml->Weight . " lbs";
+                                        }
                                         if (isset($txml->Delivery)) {
                                             $rArr['deliverydate'] = (string)$txml->Delivery->Date;
                                             $rArr['deliverytime'] = (string)$txml->Delivery->Time . ':00';
@@ -1100,7 +1103,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
 
                                         $packageProgress = [];
                                         if (isset($txml->TrackingHistory) && isset($txml->TrackingHistory->Status)) {
-
                                             foreach ($txml->TrackingHistory->Status as $thistory) {
                                                 $tempArr = [];
                                                 $tempArr['activity'] = (string)$thistory->StatusDesc;
@@ -1140,23 +1142,21 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
                                                 $packageProgress[] = $tempArr;
                                             }
                                             $rArr['progressdetail'] = $packageProgress;
-
                                         }
                                         $resultArr[$tracknum] = $rArr;
                                     } else {
                                         $description = (string)$txml->Result->Desc;
-                                        if ($description)
+                                        if ($description) {
                                             $errorArr[$tracknum] = Mage::helper('usa')->__('Error #%s: %s', $code, $description);
-                                        else
+                                        } else {
                                             $errorArr[$tracknum] = Mage::helper('usa')->__('Unable to retrieve tracking');
+                                        }
                                     }
                                 } else {
                                     $errorArr[$tracknum] = Mage::helper('usa')->__('Unable to retrieve tracking');
                                 }
-
                             }
                         }
-
                     }
                 }
             } else {
@@ -1192,7 +1192,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
                 $error->setTracking($t);
                 $error->setErrorMessage($errorTitle);
                 $result->append($error);
-
             }
         }
         $this->_result = $result;
@@ -1219,7 +1218,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
                 }
             }
         }
-        if (empty($statuses)) {
+        if ($statuses === '') {
             $statuses = Mage::helper('usa')->__('Empty response');
         }
         return $statuses;
@@ -1282,7 +1281,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
      * Map request to shipment
      *
      * @param Varien_Object $request
-     * @return null
      */
     protected function _mapRequestToShipment(Varien_Object $request)
     {

@@ -10,9 +10,6 @@ parameters:
          - %currentWorkingDirectory%/lib/Magento
          - %currentWorkingDirectory%/lib/Varien
     excludePaths:
-        #todo DOCblocks
-        - %currentWorkingDirectory%/app/code/core/Mage/Usa
-
         #incompatible interfaces
         - */app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php
         - */app/code/core/Mage/Admin/Model/Acl/Assert/Time.php
@@ -34,6 +31,9 @@ parameters:
 
         # Cannot declare class Varien_Date, because the name is already in use
         - */app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
+
+        # Cannot declare class XMLParser, because the name is already in use
+        - */app/code/core/Mage/Centinel/Model/Api/Client.php
 
         # Class phpseclib\Net\SSH2 not found.
         - */Paypal/Model/Report/Settlement.php
