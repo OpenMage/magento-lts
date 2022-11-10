@@ -3286,26 +3286,6 @@ parameters:
 			path: ../app/code/core/Mage/Eav/Model/Config.php
 
 		-
-			message: "#^Property Mage_Eav_Model_Config\\:\\:\\$_attributeData \\(array\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Config.php
-
-		-
-			message: "#^Property Mage_Eav_Model_Config\\:\\:\\$_entityData \\(array\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Config.php
-
-		-
-			message: "#^Property Mage_Eav_Model_Config\\:\\:\\$_objects \\(array\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Config.php
-
-		-
-			message: "#^Property Mage_Eav_Model_Config\\:\\:\\$_references \\(array\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Config.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Convert_Adapter_Entity\\:\\:_getCollectionForLoad\\(\\) should return Mage_Eav_Model_Entity_Collection but returns Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Convert/Adapter/Entity.php

@@ -34,14 +34,14 @@ class Mage_Eav_Model_Config
     /**
      * Entity types data
      *
-     * @var array
+     * @var array|null
      */
     protected $_entityData;
 
     /**
      * Attributes data
      *
-     * @var array
+     * @var array|null
      */
     protected $_attributeData;
 
@@ -71,7 +71,7 @@ class Mage_Eav_Model_Config
      *
      * array ($objectId => $object)
      *
-     * @var array
+     * @var array|null
      */
     protected $_objects;
 
@@ -83,7 +83,7 @@ class Mage_Eav_Model_Config
      *      'entities'  => array ($entityId => $entityCode)
      * )
      *
-     * @var array
+     * @var array|null
      */
     protected $_references;
 
