@@ -3021,26 +3021,6 @@ parameters:
 			path: ../app/code/core/Mage/Customer/Model/Customer.php
 
 		-
-			message: "#^Property Mage_Customer_Model_Customer\\:\\:\\$_addresses \\(array\\<Mage_Customer_Model_Address\\>\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Customer.php
-
-		-
-			message: "#^Property Mage_Customer_Model_Customer\\:\\:\\$_addressesCollection \\(Mage_Customer_Model_Entity_Address_Collection\\) does not accept Mage_Customer_Model_Resource_Address_Collection\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Customer.php
-
-		-
-			message: "#^Property Mage_Customer_Model_Customer\\:\\:\\$_addressesCollection \\(Mage_Customer_Model_Entity_Address_Collection\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Customer.php
-
-		-
-			message: "#^Property Mage_Customer_Model_Customer\\:\\:\\$_attributes \\(array\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Customer.php
-
-		-
 			message: "#^Parameter \\#1 \\$data \\(stdClass\\) of method Mage_Customer_Model_Customer_Api_V2\\:\\:_prepareData\\(\\) should be compatible with parameter \\$data \\(array\\) of method Mage_Customer_Model_Customer_Api\\:\\:_prepareData\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/Model/Customer/Api/V2.php
