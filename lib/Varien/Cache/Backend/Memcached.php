@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Cache
+ * @category   Varien
+ * @package    Varien_Cache
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -23,9 +23,7 @@
  *
  * @deprecated after 1.7.0.2
  */
-class Varien_Cache_Backend_Memcached
-    extends Zend_Cache_Backend_Memcached
-    implements Zend_Cache_Backend_ExtendedInterface
+class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implements Zend_Cache_Backend_ExtendedInterface
 {
     /**
      * Maximum chunk of data that could be saved in one memcache cell (1 MiB)
@@ -43,7 +41,7 @@ class Varien_Cache_Backend_Memcached
      * @throws Varien_Exception
      * @param array $options @see Zend_Cache_Backend_Memcached::__construct()
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         parent::__construct($options);
 
@@ -75,7 +73,6 @@ class Varien_Cache_Backend_Memcached
      *
      * @param string $id     ID of data's info cell
      * @param int    $chunks Number of chunks to remove (basically, the number after '{splitted}|')
-     * @return null
      */
     protected function _cleanTheMess($id, $chunks)
     {
@@ -89,13 +86,13 @@ class Varien_Cache_Backend_Memcached
     /**
      * Save data to memcached, split it into chunks if data size is bigger than memcached slab size.
      *
-     * @param string $data             @see Zend_Cache_Backend_Memcached::save()
-     * @param string $id               @see Zend_Cache_Backend_Memcached::save()
-     * @param array  $tags             @see Zend_Cache_Backend_Memcached::save()
-     * @param bool   $specificLifetime @see Zend_Cache_Backend_Memcached::save()
+     * @param string $data               @see Zend_Cache_Backend_Memcached::save()
+     * @param string $id                 @see Zend_Cache_Backend_Memcached::save()
+     * @param array  $tags               @see Zend_Cache_Backend_Memcached::save()
+     * @param int|bool $specificLifetime @see Zend_Cache_Backend_Memcached::save()
      * @return bool
      */
-    public function save($data, $id, $tags = array(), $specificLifetime = false)
+    public function save($data, $id, $tags = [], $specificLifetime = false)
     {
         if (is_string($data) && (strlen($data) > $this->_options['slab_size'])) {
             $dataChunks = str_split($data, $this->_options['slab_size']);
@@ -131,7 +128,7 @@ class Varien_Cache_Backend_Memcached
 
             $arr = explode('|', $data);
             $chunks = isset($arr[1]) ? $arr[1] : false;
-            $chunkData = array();
+            $chunkData = [];
 
             if ($chunks && is_numeric($chunks)) {
                 for ($i = 0; $i < $chunks; $i++) {

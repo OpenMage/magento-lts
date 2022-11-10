@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Event
+ * @category   Varien
+ * @package    Varien_Event
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Event
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getCronExpr()
  * @method bool hasNow()
@@ -38,7 +38,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
      * Supports $this->setCronExpr('* 0-5,10-59/5 2-10,15-25 january-june/2 mon-fri')
      *
      * @param Varien_Event $event
-     * @return boolean
+     * @return bool
      */
     public function isValidFor(Varien_Event $event)
     {
@@ -80,8 +80,8 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         // handle multiple options
-        if (strpos($expr,',')!==false) {
-            foreach (explode(',',$expr) as $e) {
+        if (strpos($expr, ',')!==false) {
+            foreach (explode(',', $expr) as $e) {
                 if ($this->matchCronExpression($e, $num)) {
                     return true;
                 }
@@ -90,7 +90,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         // handle modulus
-        if (strpos($expr,'/')!==false) {
+        if (strpos($expr, '/')!==false) {
             $e = explode('/', $expr);
             if (count($e) !== 2) {
                 return false;
@@ -105,7 +105,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         // handle range
-        if (strpos($expr,'-')!==false) {
+        if (strpos($expr, '-')!==false) {
             $e = explode('-', $expr);
             if (count($e) !== 2) {
                 return false;
@@ -129,7 +129,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
      */
     public function getNumeric($value)
     {
-        static $data = array(
+        static $data = [
             'jan'=>1,
             'feb'=>2,
             'mar'=>3,
@@ -150,14 +150,14 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
             'thu'=>4,
             'fri'=>5,
             'sat'=>6,
-        );
+        ];
 
         if (is_numeric($value)) {
             return $value;
         }
 
         if (is_string($value)) {
-            $value = strtolower(substr($value,0,3));
+            $value = strtolower(substr($value, 0, 3));
             if (isset($data[$value])) {
                 return $data[$value];
             }

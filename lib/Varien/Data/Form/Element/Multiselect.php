@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Data
+ * @category   Varien
+ * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setSize(int $value)
  * @method bool getCanBeEmpty()
@@ -37,7 +37,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
      * Varien_Data_Form_Element_Multiselect constructor.
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
         $this->setType('select');
@@ -83,8 +83,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
                         $html .= $this->_optionToHtml($groupItem, $value);
                     }
                     $html .= '</optgroup>' . "\n";
-                }
-                else {
+                } else {
                     $html .= $this->_optionToHtml($option, $value);
                 }
             }
@@ -101,7 +100,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
      */
     public function getHtmlAttributes()
     {
-        return array('title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'size', 'tabindex');
+        return ['title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'size', 'tabindex'];
     }
 
     /**
@@ -109,18 +108,18 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
      */
     public function getDefaultHtml()
     {
-        $result = ( $this->getNoSpan() === true ) ? '' : '<span class="field-row">'."\n";
+        $result = ($this->getNoSpan() === true) ? '' : '<span class="field-row">'."\n";
         $result.= $this->getLabelHtml();
         $result.= $this->getElementHtml();
 
-        if($this->getSelectAll() && $this->getDeselectAll()) {
+        if ($this->getSelectAll() && $this->getDeselectAll()) {
             $result .= '<a href="#" onclick="return ' . $this->getJsObjectName() . '.selectAll()">' .
                 $this->getSelectAll() . '</a> <span class="separator">&nbsp;|&nbsp;</span>';
             $result .= '<a href="#" onclick="return ' . $this->getJsObjectName() . '.deselectAll()">' .
                 $this->getDeselectAll() . '</a>';
         }
 
-        $result.= ( $this->getNoSpan() === true ) ? '' : '</span>'."\n";
+        $result.= ($this->getNoSpan() === true) ? '' : '</span>'."\n";
 
         $result.= '<script type="text/javascript">' . "\n";
         $result.= '   var ' . $this->getJsObjectName() . ' = {' . "\n";
@@ -149,7 +148,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
      */
     public function getJsObjectName()
     {
-         return $this->getHtmlId() . 'ElementControl';
+        return $this->getHtmlId() . 'ElementControl';
     }
 
     /**

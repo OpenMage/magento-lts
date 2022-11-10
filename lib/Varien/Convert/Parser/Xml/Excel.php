@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Convert
+ * @category   Varien
+ * @package    Varien_Convert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Convert
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
 {
@@ -44,16 +44,18 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
 
         $worksheets = $dom->getElementsByTagName('Worksheet');
 
+        $data = [];
+
         foreach ($worksheets as $worksheet) {
             $wsName = $worksheet->getAttribute('ss:Name');
             $rows = $worksheet->getElementsByTagName('Row');
             $firstRow = true;
-            $fieldNames = array();
-            $wsData = array();
+            $fieldNames = [];
+            $wsData = [];
             foreach ($rows as $row) {
                 $index = 1;
                 $cells = $row->getElementsByTagName('Cell');
-                $rowData = array();
+                $rowData = [];
                 foreach ($cells as $cell) {
                     $value = $cell->getElementsByTagName('Data')->item(0)->nodeValue;
                     $ind = $cell->getAttribute('ss:Index');
@@ -93,7 +95,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
     public function unparse()
     {
         if ($wsName = $this->getVar('single_sheet')) {
-            $data = array($wsName => $this->getData());
+            $data = [$wsName => $this->getData()];
         } else {
             $data = $this->getData();
         }
@@ -200,7 +202,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
             $this->_xmlElement = new SimpleXMLElement($xmlString, LIBXML_NOBLANKS);
         }
 
-        $xmlData = array();
+        $xmlData = [];
         $xmlData[] = '<Row>';
         foreach ($row as $value) {
             $this->_xmlElement->row = htmlspecialchars($value);

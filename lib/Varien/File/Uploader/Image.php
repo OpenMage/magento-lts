@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_File
+ * @category   Varien
+ * @package    Varien_File
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -23,15 +23,16 @@
  *
  * @deprecated after 1.4.0.0-rc1
  * @file        Image.php
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Varien_File_Uploader_Image extends Varien_File_Uploader
 {
+    protected $uploader;
 
-    function __construct($file=null)
+    public function __construct($file=null)
     {
-        register_shutdown_function(array($this, 'destruct'));
+        register_shutdown_function([$this, 'destruct']);
         $this->newUploader($file);
     }
 
@@ -51,8 +52,8 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
     {
         $this->uploader->image_resize = true;
 
-        $this->uploader->image_ratio_x = ( $width == null ) ? true : false;
-        $this->uploader->image_ratio_y = ( $height == null ) ? true : false;
+        $this->uploader->image_ratio_x = ($width == null) ? true : false;
+        $this->uploader->image_ratio_y = ($height == null) ? true : false;
 
         $this->uploader->image_x = $width;
         $this->uploader->image_y = $height;
@@ -79,7 +80,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * Default value is h (flip horizontally)
      *
      * @access public
-     * @var string;
+     * @param string $type
      */
     public function flip($type="h")
     {
@@ -156,7 +157,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      */
     public function addWatermark($fileName=null, $position="BL", $absoluteX=null, $absoluteY=null)
     {
-        if( !isset($fileName) ) {
+        if (!isset($fileName)) {
             return;
         }
 
@@ -187,7 +188,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      */
     public function addReflection($height="10%", $space=0, $color="#FFFFFF", $opacity=60)
     {
-        if( intval($height) == 0 ) {
+        if (intval($height) == 0) {
             return;
         }
 
@@ -204,7 +205,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      */
     public function addText($string="")
     {
-        if( trim($string) == "" ) {
+        if (trim($string) == "") {
             return;
         }
 
@@ -223,7 +224,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
 
     public function setTextVisibilityPercent($percent)
     {
-        $this->uploader->image_text_percent = $visibilityPercent;
+        $this->uploader->image_text_percent = $percent;
     }
 
     public function setTextBackgroundColor($color)
@@ -361,4 +362,3 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
 // ft:php
 // fileformat:unix
 // tabstop:4
-?>

@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Filter
+ * @category   Varien
+ * @package    Varien_Filter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,9 +24,8 @@
  *
  * @category   Varien
  * @package    Varien_Filter
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Varien_Filter_Template implements Zend_Filter_Interface
 {
     /**
@@ -45,7 +44,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      *
      * @var array
      */
-    protected $_templateVars = array();
+    protected $_templateVars = [];
 
     /**
      * Template processor
@@ -68,7 +67,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      */
     public function setVariables(array $variables)
     {
-        foreach($variables as $name=>$value) {
+        foreach ($variables as $name=>$value) {
             $this->_templateVars[$name] = $value;
         }
         return $this;
@@ -126,15 +125,15 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     public function filter($value)
     {
         // "depend" and "if" operands should be first
-        foreach (array(
+        foreach ([
             self::CONSTRUCTION_DEPEND_PATTERN => 'dependDirective',
             self::CONSTRUCTION_IF_PATTERN     => 'ifDirective',
-            ) as $pattern => $directive) {
+                 ] as $pattern => $directive) {
             if (preg_match_all($pattern, $value, $constructions, PREG_SET_ORDER)) {
-                foreach($constructions as $index => $construction) {
+                foreach ($constructions as $index => $construction) {
                     $replacedValue = '';
-                    $callback = array($this, $directive);
-                    if(!is_callable($callback)) {
+                    $callback = [$this, $directive];
+                    if (!is_callable($callback)) {
                         continue;
                     }
                     try {
@@ -147,11 +146,11 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             }
         }
 
-        if(preg_match_all(self::CONSTRUCTION_PATTERN, $value, $constructions, PREG_SET_ORDER)) {
-            foreach($constructions as $index=>$construction) {
+        if (preg_match_all(self::CONSTRUCTION_PATTERN, $value, $constructions, PREG_SET_ORDER)) {
+            foreach ($constructions as $index=>$construction) {
                 $replacedValue = '';
-                $callback = array($this, $construction[1].'Directive');
-                if(!is_callable($callback)) {
+                $callback = [$this, $construction[1].'Directive'];
+                if (!is_callable($callback)) {
                     continue;
                 }
                 try {
@@ -180,7 +179,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     {
         // Processing of {include template=... [...]} statement
         $includeParameters = $this->_getIncludeParameters($construction[2]);
-        if(!isset($includeParameters['template']) || !$this->getIncludeProcessor()) {
+        if (!isset($includeParameters['template']) || !$this->getIncludeProcessor()) {
             // Not specified template or not seted include processor
             $replacedValue = '{Error in include processing}';
         } else {
@@ -226,7 +225,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             return $construction[0];
         }
 
-        if($this->_getVariable($construction[1], '')=='') {
+        if ($this->_getVariable($construction[1], '')=='') {
             return '';
         } else {
             return $construction[2];
@@ -239,7 +238,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             return $construction[0];
         }
 
-        if($this->_getVariable($construction[1], '') == '') {
+        if ($this->_getVariable($construction[1], '') == '') {
             if (isset($construction[3]) && isset($construction[4])) {
                 return $construction[4];
             }
@@ -268,13 +267,13 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         return $params;
     }
 
-     /**
-     * Return variable value for var construction
-     *
-     * @param string $value raw parameters
-     * @param string $default default value
-     * @return string
-     */
+    /**
+    * Return variable value for var construction
+    *
+    * @param string $value raw parameters
+    * @param string $default default value
+    * @return string
+    */
     protected function _getVariable($value, $default='{no_value_defined}')
     {
         Varien_Profiler::start("email_template_proccessing_variables");
@@ -283,9 +282,9 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         $stackVars = $tokenizer->tokenize();
         $result = $default;
         $last = 0;
-        /** @var $emailPathValidator Mage_Adminhtml_Model_Email_PathValidator */
+        /** @var Mage_Adminhtml_Model_Email_PathValidator $emailPathValidator */
         $emailPathValidator = $this->getEmailPathValidator();
-        for($i = 0; $i < count($stackVars); $i ++) {
+        for ($i = 0; $i < count($stackVars); $i ++) {
             if ($i == 0 && isset($this->_templateVars[$stackVars[$i]['name']])) {
                 // Getting of template value
                 $stackVars[$i]['variable'] =& $this->_templateVars[$stackVars[$i]['name']];
@@ -306,8 +305,8 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                             $isEncrypted = $emailPathValidator->isValid($stackVars[$i]['args']);
                         }
                         $stackVars[$i]['variable'] = call_user_func_array(
-                            array($stackVars[$i-1]['variable'], $stackVars[$i]['name']),
-                            !$isEncrypted ? $stackVars[$i]['args'] : array(null)
+                            [$stackVars[$i-1]['variable'], $stackVars[$i]['name']],
+                            !$isEncrypted ? $stackVars[$i]['args'] : [null]
                         );
                     }
                 }
@@ -315,7 +314,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             }
         }
 
-        if(isset($stackVars[$last]['variable'])) {
+        if (isset($stackVars[$last]['variable'])) {
             // If value for construction exists set it
             $result = $stackVars[$last]['variable'];
         }
@@ -326,7 +325,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Retrieve model object
      *
-     * @return Mage_Core_Model_Abstract
+     * @return Mage_Adminhtml_Model_Email_PathValidator
      */
     protected function getEmailPathValidator()
     {

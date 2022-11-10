@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Data
+ * @category   Varien
+ * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -228,7 +228,7 @@ class Varien_Data_Tree_Node extends Varien_Object
      * @param array $nodes
      * @return Varien_Data_Tree_Node[]
      */
-    public function getAllChildNodes(&$nodes = array())
+    public function getAllChildNodes(&$nodes = [])
     {
         foreach ($this->_childNodes as $node) {
             $nodes[$node->getId()] = $node;
@@ -303,7 +303,7 @@ class Varien_Data_Tree_Node extends Varien_Object
      * @param array $prevNodes
      * @return array
      */
-    public function getPath(&$prevNodes = array())
+    public function getPath(&$prevNodes = [])
     {
         if ($this->_parent) {
             array_push($prevNodes, $this);

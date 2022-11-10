@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Db
+ * @category   Varien
+ * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -162,11 +162,10 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         while ($this->getConnection()->next_result()) {
             if ($result = $this->getConnection()->store_result()) {
                 $result->free_result();
-            } elseif($this->getConnection()->error) {
+            } elseif ($this->getConnection()->error) {
                 throw new Zend_Db_Adapter_Mysqli_Exception('clear_result: '.$this->getConnection()->error);
             }
         }
-
     }
 
     public function dropForeignKey($table, $fk)
@@ -199,9 +198,15 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      * @param string $onUpdate
      * @param string $onDelete
      */
-    public function addConstraint($fkName, $tableName, $keyName, $refTableName,
-        $refKeyName, $onDelete = 'cascade', $onUpdate = 'cascade')
-    {
+    public function addConstraint(
+        $fkName,
+        $tableName,
+        $keyName,
+        $refTableName,
+        $refKeyName,
+        $onDelete = 'cascade',
+        $onUpdate = 'cascade'
+    ) {
         if (substr($fkName, 0, 3) != 'FK_') {
             $fkName = 'FK_' . $fkName;
         }
@@ -245,13 +250,13 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
 
         $create = $this->raw_fetchRow('SHOW CREATE TABLE `'.$tableName.'`', 'Create Table');
 
-        $alterDrop = array();
+        $alterDrop = [];
         $alterDrop[] = 'DROP COLUMN `'.$columnName.'`';
 
         /**
          * find foreign keys for column
          */
-        $matches = array();
+        $matches = [];
         preg_match_all('/CONSTRAINT `([^`]*)` FOREIGN KEY \(`([^`]*)`\)/', $create, $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
             if ($match[2] == $columnName) {

@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Data
+ * @category   Varien
+ * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method array getOptions()
  */
@@ -34,7 +34,7 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
      * Varien_Data_Form_Element_Select constructor.
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
         $this->setType('select');
@@ -52,26 +52,26 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
 
         $value = $this->getValue();
         if (!is_array($value)) {
-            $value = array($value);
+            $value = [$value];
         }
 
         if ($values = $this->getValues()) {
             foreach ($values as $key => $option) {
                 if (!is_array($option)) {
-                    $html.= $this->_optionToHtml(array(
-                        'value' => $key,
-                        'label' => $option),
+                    $html.= $this->_optionToHtml(
+                        [
+                            'value' => $key,
+                            'label' => $option
+                        ],
                         $value
                     );
-                }
-                elseif (is_array($option['value'])) {
+                } elseif (is_array($option['value'])) {
                     $html.='<optgroup label="'.$option['label'].'">'."\n";
                     foreach ($option['value'] as $groupItem) {
                         $html.= $this->_optionToHtml($groupItem, $value);
                     }
                     $html.='</optgroup>'."\n";
-                }
-                else {
+                } else {
                     $html.= $this->_optionToHtml($option, $value);
                 }
             }
@@ -95,8 +95,7 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
                 $html .= $this->_optionToHtml($groupItem, $selected);
             }
             $html .='</optgroup>'."\n";
-        }
-        else {
+        } else {
             $html = '<option value="'.$this->_escape($option['value']).'"';
             $html.= isset($option['title']) ? 'title="'.$this->_escape($option['title']).'"' : '';
             $html.= isset($option['style']) ? 'style="'.$option['style'].'"' : '';
@@ -114,12 +113,12 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
         if (empty($values)) {
             $options = $this->getOptions();
             if (is_array($options)) {
-                $values = array();
+                $values = [];
                 foreach ($options as  $value => $label) {
-                    $values[] = array('value' => $value, 'label' => $label);
+                    $values[] = ['value' => $value, 'label' => $label];
                 }
             } elseif (is_string($options)) {
-                $values = array( array('value' => $options, 'label' => $options) );
+                $values = [['value' => $options, 'label' => $options]];
             }
             $this->setValues($values);
         }
@@ -130,6 +129,6 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
      */
     public function getHtmlAttributes()
     {
-        return array('title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly', 'tabindex');
+        return ['title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly', 'tabindex'];
     }
 }

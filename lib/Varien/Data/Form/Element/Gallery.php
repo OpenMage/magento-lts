@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Data
+ * @category   Varien
+ * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
 {
@@ -50,10 +50,12 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
         $widgetButton = $this->getForm()->getParent()->getLayout();
         $buttonHtml = $widgetButton->createBlock('adminhtml/widget_button')
                 ->setData(
-                    array(
+                    [
                         'label'     => 'Add New Image',
                         'onclick'   => 'addNewImg()',
-                        'class'     => 'add'))
+                        'class'     => 'add'
+                    ]
+                )
                 ->toHtml();
 
         $html .= '<tfoot class="gallery">';
@@ -87,18 +89,18 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
 
         $html .= '</tbody></table>';
 
-/*
-        $html .= '<script language="javascript">
-                    var multi_selector = new MultiSelector( document.getElementById( "gallery" ),
-                    "'.$this->getName().'",
-                    -1,
-                        \'<a href="file:///%file%" target="_blank" onclick="imagePreview(\\\''.$this->getHtmlId().'_image_new_%id%\\\');return false;"><img src="file:///%file%" width="50" align="absmiddle" class="small-image-preview" style="padding-bottom:3px; width:"></a> <div id="'.$this->getHtmlId().'_image_new_%id%" style="display:none" class="image-preview"><img src="file:///%file%"></div>\',
-                        "",
-                        \'<input type="file" name="'.parent::getName().'[new_image][%id%][%j%]" size="1" />\'
-                    );
-                    multi_selector.addElement( document.getElementById( "'.$this->getHtmlId().'" ) );
-                    </script>';
-*/
+        /*
+                $html .= '<script language="javascript">
+                            var multi_selector = new MultiSelector( document.getElementById( "gallery" ),
+                            "'.$this->getName().'",
+                            -1,
+                                \'<a href="file:///%file%" target="_blank" onclick="imagePreview(\\\''.$this->getHtmlId().'_image_new_%id%\\\');return false;"><img src="file:///%file%" width="50" align="absmiddle" class="small-image-preview" style="padding-bottom:3px; width:"></a> <div id="'.$this->getHtmlId().'_image_new_%id%" style="display:none" class="image-preview"><img src="file:///%file%"></div>\',
+                                "",
+                                \'<input type="file" name="'.parent::getName().'[new_image][%id%][%j%]" size="1" />\'
+                            );
+                            multi_selector.addElement( document.getElementById( "'.$this->getHtmlId().'" ) );
+                            </script>';
+        */
 
         $name = $this->getName();
         $parentName = parent::getName();

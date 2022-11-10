@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Data
+ * @category   Varien
+ * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -49,14 +49,14 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
      */
     protected $_elementsIndex;
 
-    static protected $_defaultElementRenderer;
-    static protected $_defaultFieldsetRenderer;
-    static protected $_defaultFieldsetElementRenderer;
+    protected static $_defaultElementRenderer;
+    protected static $_defaultFieldsetRenderer;
+    protected static $_defaultFieldsetElementRenderer;
 
     /**
      * @inheritDoc
      */
-    public function __construct($attributes = array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->_allElements = new Varien_Data_Form_Element_Collection($this);
@@ -116,7 +116,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
      */
     public function getHtmlAttributes()
     {
-        return array('id', 'name', 'method', 'action', 'enctype', 'class', 'onsubmit');
+        return ['id', 'name', 'method', 'action', 'enctype', 'class', 'onsubmit'];
     }
 
     /**
@@ -199,8 +199,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         foreach ($this->_allElements as $element) {
             if (isset($values[$element->getId()])) {
                 $element->setValue($values[$element->getId()]);
-            }
-            else {
+            } else {
                 $element->setValue(null);
             }
         }

@@ -8,6 +8,7 @@ parameters:
          - %currentWorkingDirectory%/app/code/core/Mage
          - %currentWorkingDirectory%/lib/Mage
          - %currentWorkingDirectory%/lib/Magento
+         - %currentWorkingDirectory%/lib/Varien
     excludePaths:
         #todo DOCblocks
         - %currentWorkingDirectory%/app/code/core/Mage/Centinel
@@ -32,12 +33,14 @@ parameters:
         - */app/code/core/Mage/Dataflow/Model/Session/Adapter/Http.php
         - */app/code/core/Mage/Dataflow/Model/Convert/Iterator/Http.php
         - */app/code/core/Mage/Dataflow/Model/Convert/Iterator/File/Csv.php
+        - */lib/Varien/Convert/Validator/Column.php
 
         # Cannot declare class Varien_Date, because the name is already in use
         - */app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
 
         # Class phpseclib\Net\SSH2 not found.
         - */Paypal/Model/Report/Settlement.php
+        - */lib/Varien/Io/Sftp.php
 
         # Class backup/db was not found while trying to analyse it
         - */Adminhtml/controllers/System/BackupController.php
@@ -49,8 +52,18 @@ parameters:
         - */app/code/core/*/*/data/*
         - */app/code/core/*/*/sql/*
 
-        # requires mycrypt
+        # requires Mycrypt
         - */lib/Magento/Crypt.php
+        - */lib/Varien/Crypt/Mcrypt.php
+
+        # requires Eaccelerator
+        - */lib/Varien/Cache/Backend/Eaccelerator.php
+
+        # Instantiated class not found
+        - */lib/Varien/Image/Adapter.php
+
+        # todo check
+        - */lib/Varien/Directory/Collection.php
     level: 3
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true

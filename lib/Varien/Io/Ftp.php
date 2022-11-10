@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Io
+ * @category   Varien
+ * @package    Varien_Io
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Io
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Io_Ftp extends Varien_Io_Abstract
 {
@@ -74,9 +74,9 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * - file_mode   default FTP_BINARY
      *
      * @param array $args
-     * @return boolean
+     * @return bool
      */
-    public function open(array $args=array())
+    public function open(array $args= [])
     {
         if (empty($args['host'])) {
             $this->_error = self::ERROR_EMPTY_HOST;
@@ -144,7 +144,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * Close a connection
      *
-     * @return boolean
+     * @return bool
      */
     public function close()
     {
@@ -157,8 +157,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @todo implement $mode and $recursive
      * @param string $dir
      * @param int $mode
-     * @param boolean $recursive
-     * @return boolean
+     * @param bool $recursive
+     * @return bool
      */
     public function mkdir($dir, $mode=0777, $recursive=true)
     {
@@ -169,7 +169,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Delete a directory
      *
      * @param string $dir
-     * @return boolean
+     * @return bool
      */
     public function rmdir($dir, $recursive=false)
     {
@@ -190,7 +190,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Change current working directory
      *
      * @param string $dir
-     * @return boolean
+     * @return bool
      */
     public function cd($dir)
     {
@@ -202,7 +202,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $filename
      * @param string|resource|null $dest destination file name, stream, or if null will return file contents
-     * @return string
+     * @return string|false
      */
     public function read($filename, $dest=null)
     {
@@ -235,7 +235,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $filename
      * @param string|resource $src filename, string data or source stream
-     * @return int|boolean
+     * @return int|bool
      */
     public function write($filename, $src, $mode=null)
     {
@@ -265,7 +265,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Delete a file
      *
      * @param string $filename
-     * @return boolean
+     * @return bool
      */
     public function rm($filename)
     {
@@ -277,7 +277,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $src
      * @param string $dest
-     * @return boolean
+     * @return bool
      */
     public function mv($src, $dest)
     {
@@ -289,7 +289,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $filename
      * @param int $mode
-     * @return boolean
+     * @return bool
      */
     public function chmod($filename, $mode)
     {
@@ -300,12 +300,12 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     {
         $ls = @ftp_nlist($this->_conn, '.');
 
-        $list = array();
+        $list = [];
         foreach ($ls as $file) {
-            $list[] = array(
+            $list[] = [
                 'text'=>$file,
                 'id'=>$this->pwd().'/'.$file,
-            );
+            ];
         }
 
         return $list;
@@ -314,7 +314,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     protected function _tmpFilename($new=false)
     {
         if ($new || !$this->_tmpFilename) {
-            $this->_tmpFilename = tempnam( md5(uniqid(rand(), true)), '' );
+            $this->_tmpFilename = tempnam(md5(uniqid(rand(), true)), '');
         }
         return $this->_tmpFilename;
     }

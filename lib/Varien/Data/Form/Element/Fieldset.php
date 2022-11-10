@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Data
+ * @category   Varien
+ * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getLegend()
  */
@@ -47,7 +47,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
     /**
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
         $this->_renderer = Varien_Data_Form::getFieldsetRenderer();
@@ -59,7 +59,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      */
     public function getElementHtml()
     {
-        $html = '<fieldset id="'.$this->getHtmlId().'"'.$this->serialize(array('class')).'>'."\n";
+        $html = '<fieldset id="'.$this->getHtmlId().'"'.$this->serialize(['class']).'>'."\n";
         if ($this->getLegend()) {
             $html.= '<legend>'.$this->getLegend().'</legend>'."\n";
         }
@@ -111,7 +111,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      * @param string $elementId
      * @param string $type
      * @param array $config
-     * @param boolean $after
+     * @param bool $after
      * @return Varien_Data_Form_Element_Abstract
      */
     public function addField($elementId, $type, $config, $after=false)
@@ -144,7 +144,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      */
     public function getSortedElements()
     {
-        $elements = array();
+        $elements = [];
         // sort children by value by specified key
         if ($this->_sortChildrenByKey) {
             $sortKey = $this->_sortChildrenByKey;
@@ -159,8 +159,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
             }
             ksort($elements, $this->_sortChildrenDirection);
             $elements = array_values($elements);
-        }
-        else {
+        } else {
             foreach ($this->getElements() as $element) {
                 $elements[] = $element;
             }

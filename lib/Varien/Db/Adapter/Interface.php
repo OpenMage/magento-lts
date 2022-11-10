@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Db
+ * @category   Varien
+ * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -22,9 +22,9 @@
 /**
  * Varien Database Adapter Interface
  *
- * @category    Varien
- * @package     Varien_Db
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Varien
+ * @package    Varien_Db
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Varien_Db_Adapter_Interface
 {
@@ -110,7 +110,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string $tableName
      * @param string $schemaName
-     * @return boolean
+     * @return bool
      */
     public function dropTable($tableName, $schemaName = null);
 
@@ -119,7 +119,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string $tableName
      * @param string $schemaName
-     * @return boolean
+     * @return bool
      */
     public function dropTemporaryTable($tableName, $schemaName = null);
 
@@ -137,7 +137,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string $tableName
      * @param string $schemaName
-     * @return boolean
+     * @return bool
      */
     public function isTableExists($tableName, $schemaName = null);
 
@@ -195,7 +195,7 @@ interface Varien_Db_Adapter_Interface
      * @param string $tableName
      * @param string $columnName
      * @param array|string $definition
-     * @param boolean $flushData
+     * @param bool $flushData
      * @param string $schemaName
      * @return Varien_Db_Adapter_Pdo_Mysql
      */
@@ -207,7 +207,7 @@ interface Varien_Db_Adapter_Interface
      * @param string $oldTableName
      * @param string $newTableName
      * @param string $schemaName
-     * @return boolean
+     * @return bool
      */
     public function renameTable($oldTableName, $newTableName, $schemaName = null);
 
@@ -216,7 +216,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param array $tablePairs array('oldName' => 'Name1', 'newName' => 'Name2')
      *
-     * @return boolean
+     * @return bool
      * @throws Zend_Db_Exception
      */
     public function renameTablesBatch(array $tablePairs);
@@ -244,12 +244,18 @@ interface Varien_Db_Adapter_Interface
      * @param string $oldColumnName
      * @param string $newColumnName
      * @param array|string $definition
-     * @param boolean $flushData        flush table statistic
+     * @param bool $flushData        flush table statistic
      * @param string $schemaName
      * @return Varien_Db_Adapter_Interface
      */
-    public function changeColumn($tableName, $oldColumnName, $newColumnName, $definition, $flushData = false,
-        $schemaName = null);
+    public function changeColumn(
+        $tableName,
+        $oldColumnName,
+        $newColumnName,
+        $definition,
+        $flushData = false,
+        $schemaName = null
+    );
 
     /**
      * Modify the column definition
@@ -257,7 +263,7 @@ interface Varien_Db_Adapter_Interface
      * @param string $tableName
      * @param string $columnName
      * @param array|string $definition
-     * @param boolean $flushData
+     * @param bool $flushData
      * @param string $schemaName
      * @return Varien_Db_Adapter_Interface
      */
@@ -269,7 +275,7 @@ interface Varien_Db_Adapter_Interface
      * @param string $tableName
      * @param string $columnName
      * @param string $schemaName
-     * @return boolean
+     * @return bool
      */
     public function dropColumn($tableName, $columnName, $schemaName = null);
 
@@ -279,7 +285,7 @@ interface Varien_Db_Adapter_Interface
      * @param string $tableName
      * @param string $columnName
      * @param string $schemaName
-     * @return boolean
+     * @return bool
      */
     public function tableColumnExists($tableName, $columnName, $schemaName = null);
 
@@ -340,14 +346,23 @@ interface Varien_Db_Adapter_Interface
      * @param string $refColumnName
      * @param string $onDelete
      * @param string $onUpdate
-     * @param boolean $purge            trying remove invalid data
+     * @param bool $purge            trying remove invalid data
      * @param string $schemaName
      * @param string $refSchemaName
      * @return Varien_Db_Adapter_Interface
      */
-    public function addForeignKey($fkName, $tableName, $columnName, $refTableName, $refColumnName,
-        $onDelete = self::FK_ACTION_CASCADE, $onUpdate = self::FK_ACTION_CASCADE,
-        $purge = false, $schemaName = null, $refSchemaName = null);
+    public function addForeignKey(
+        $fkName,
+        $tableName,
+        $columnName,
+        $refTableName,
+        $refColumnName,
+        $onDelete = self::FK_ACTION_CASCADE,
+        $onUpdate = self::FK_ACTION_CASCADE,
+        $purge = false,
+        $schemaName = null,
+        $refSchemaName = null
+    );
 
     /**
      * Drop the Foreign Key from table
@@ -399,7 +414,7 @@ interface Varien_Db_Adapter_Interface
      * @param array $fields update fields pairs or values
      * @return int The number of affected rows.
      */
-    public function insertOnDuplicate($table, array $data, array $fields = array());
+    public function insertOnDuplicate($table, array $data, array $fields = []);
 
     /**
      * Inserts a table multiply rows with specified data.
@@ -475,7 +490,7 @@ interface Varien_Db_Adapter_Interface
      * @param  mixed  $bind An array of data or data itself to bind to the placeholders.
      * @return Zend_Db_Statement_Interface
      */
-    public function query($sql, $bind = array());
+    public function query($sql, $bind = []);
 
     /**
      * Executes a SQL statement(s)
@@ -494,7 +509,7 @@ interface Varien_Db_Adapter_Interface
      * @param mixed                 $fetchMode Override current fetch mode.
      * @return array
      */
-    public function fetchAll($sql, $bind = array(), $fetchMode = null);
+    public function fetchAll($sql, $bind = [], $fetchMode = null);
 
     /**
      * Fetches the first row of the SQL result.
@@ -505,7 +520,7 @@ interface Varien_Db_Adapter_Interface
      * @param mixed                 $fetchMode Override current fetch mode.
      * @return array
      */
-    public function fetchRow($sql, $bind = array(), $fetchMode = null);
+    public function fetchRow($sql, $bind = [], $fetchMode = null);
 
     /**
      * Fetches all SQL result rows as an associative array.
@@ -520,7 +535,7 @@ interface Varien_Db_Adapter_Interface
      * @param mixed $bind Data to bind into SELECT placeholders.
      * @return array
      */
-    public function fetchAssoc($sql, $bind = array());
+    public function fetchAssoc($sql, $bind = []);
 
     /**
      * Fetches the first column of all SQL result rows as an array.
@@ -531,7 +546,7 @@ interface Varien_Db_Adapter_Interface
      * @param mixed $bind Data to bind into SELECT placeholders.
      * @return array
      */
-    public function fetchCol($sql, $bind = array());
+    public function fetchCol($sql, $bind = []);
 
     /**
      * Fetches all SQL result rows as an array of key-value pairs.
@@ -543,7 +558,7 @@ interface Varien_Db_Adapter_Interface
      * @param mixed $bind Data to bind into SELECT placeholders.
      * @return array
      */
-    public function fetchPairs($sql, $bind = array());
+    public function fetchPairs($sql, $bind = []);
 
     /**
      * Fetches the first column of the first row of the SQL result.
@@ -552,7 +567,7 @@ interface Varien_Db_Adapter_Interface
      * @param mixed $bind Data to bind into SELECT placeholders.
      * @return string
      */
-    public function fetchOne($sql, $bind = array());
+    public function fetchOne($sql, $bind = []);
 
     /**
      * Safely quotes a value for an SQL statement.
@@ -606,7 +621,7 @@ interface Varien_Db_Adapter_Interface
      * the adapter.
      *
      * @param string|array|Zend_Db_Expr $ident The identifier.
-     * @param boolean $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
+     * @param bool $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string The quoted identifier.
      */
     public function quoteIdentifier($ident, $auto = false);
@@ -616,7 +631,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string|array|Zend_Db_Expr $ident The identifier or expression.
      * @param string $alias An alias for the column.
-     * @param boolean $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
+     * @param bool $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string The quoted identifier and alias.
      */
     public function quoteColumnAs($ident, $alias, $auto = false);
@@ -626,7 +641,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string|array|Zend_Db_Expr $ident The identifier or expression.
      * @param string $alias An alias for the table.
-     * @param boolean $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
+     * @param bool $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string The quoted identifier and alias.
      */
     public function quoteTableAs($ident, $alias = null, $auto = false);
@@ -635,7 +650,7 @@ interface Varien_Db_Adapter_Interface
      * Format Date to internal database date format
      *
      * @param int|string|Zend_Date $date
-     * @param boolean $includeTime
+     * @param bool $includeTime
      * @return Zend_Db_Expr
      */
     public function formatDate($date, $includeTime = true);
@@ -773,8 +788,8 @@ interface Varien_Db_Adapter_Interface
     /**
      * Returns valid IFNULL expression
      *
-     * @param string $column
-     * @param string $value OPTIONAL. Applies when $expression is NULL
+     * @param string $expression
+     * @param string|int $value OPTIONAL. Applies when $expression is NULL
      * @return Zend_Db_Expr
      */
 
@@ -963,7 +978,7 @@ interface Varien_Db_Adapter_Interface
      * @param bool|int $mode
      * @return string
      */
-    public function insertFromSelect(Varien_Db_Select $select, $table, array $fields = array(), $mode = false);
+    public function insertFromSelect(Varien_Db_Select $select, $table, array $fields = [], $mode = false);
 
     /**
      * Get insert queries in array for insert by range with step parameter
@@ -1005,7 +1020,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Check if the database support STRAIGHT JOIN
      *
-     * @return boolean
+     * @return bool
      */
     public function supportStraightJoin();
 

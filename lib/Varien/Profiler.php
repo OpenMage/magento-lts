@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Profiler
+ * @category   Varien
+ * @package    Varien_Profiler
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -27,9 +27,9 @@ class Varien_Profiler
      *
      * @var array
      */
-    static private $_timers = array();
-    static private $_enabled = false;
-    static private $_memory_get_usage = false;
+    private static $_timers = [];
+    private static $_enabled = false;
+    private static $_memory_get_usage = false;
 
     public static function enable()
     {
@@ -44,13 +44,13 @@ class Varien_Profiler
 
     public static function reset($timerName)
     {
-        self::$_timers[$timerName] = array(
+        self::$_timers[$timerName] = [
             'start'=>false,
             'count'=>0,
             'sum'=>0,
             'realmem'=>0,
             'emalloc'=>0,
-        );
+        ];
     }
 
     public static function resume($timerName)
@@ -149,13 +149,14 @@ class Varien_Profiler
      * Output SQl Zend_Db_Profiler
      *
      */
-    public static function getSqlProfiler($res) {
-        if(!$res){
+    public static function getSqlProfiler($res)
+    {
+        if (!$res) {
             return '';
         }
         $out = '';
         $profiler = $res->getProfiler();
-        if($profiler->getEnabled()) {
+        if ($profiler->getEnabled()) {
             $totalTime    = $profiler->getTotalElapsedSecs();
             $queryCount   = $profiler->getTotalNumQueries();
             $longestTime  = 0;
