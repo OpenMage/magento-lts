@@ -12,7 +12,7 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
+ * @category   Mage
  * @package     Mage_Backup
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -21,7 +21,7 @@
 /**
  * Extended version of Mage_Archive_Tar that supports filtering
  *
- * @category    Mage
+ * @category   Mage
  * @package     Mage_Backup
  * @author      Magento Core Team <core@magentocommerce.com>
  */
@@ -32,7 +32,7 @@ class Mage_Backup_Archive_Tar extends Mage_Archive_Tar
      *
      * @var array()
      */
-    protected $_skipFiles = array();
+    protected $_skipFiles = [];
 
     /**
      * Overridden Mage_Archive_Tar::_createTar method that does the same actions as it's parent but filters

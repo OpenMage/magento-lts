@@ -12,22 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Xml
+ * @category   Mage
+ * @package    Mage_Xml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 class Mage_Xml_Parser
 {
     protected $_dom = null;
     protected $_currentDom;
-    protected $_content = array();
+    protected $_content = [];
 
     public function __construct()
     {
         $this->_dom = new DOMDocument;
         $this->_currentDom = $this->_dom;
-        return $this;
     }
 
     public function getDom()
@@ -57,7 +57,7 @@ class Mage_Xml_Parser
         if (!$currentNode) {
             $currentNode = $this->getDom();
         }
-        $content = array();
+        $content = [];
         foreach ($currentNode->childNodes as $node) {
             switch ($node->nodeType) {
                 case XML_ELEMENT_NODE:
@@ -66,17 +66,17 @@ class Mage_Xml_Parser
                     if ($node->hasChildNodes()) {
                         $value = $this->_xmlToArray($node);
                     }
-                    $attributes = array();
+                    $attributes = [];
                     if ($node->hasAttributes()) {
-                        foreach($node->attributes as $attribute) {
-                            $attributes += array($attribute->name=>$attribute->value);
+                        foreach ($node->attributes as $attribute) {
+                            $attributes += [$attribute->name=>$attribute->value];
                         }
-                        $value = array('_value'=>$value, '_attribute'=>$attributes);
+                        $value = ['_value'=>$value, '_attribute'=>$attributes];
                     }
                     if (isset($content[$node->nodeName])) {
                         if (!isset($content[$node->nodeName][0]) || !is_array($content[$node->nodeName][0])) {
                             $oldValue = $content[$node->nodeName];
-                            $content[$node->nodeName] = array();
+                            $content[$node->nodeName] = [];
                             $content[$node->nodeName][] = $oldValue;
                         }
                         $content[$node->nodeName][] = $value;
@@ -105,5 +105,4 @@ class Mage_Xml_Parser
         $this->getDom()->loadXML($string);
         return $this;
     }
-
 }

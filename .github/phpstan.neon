@@ -6,6 +6,7 @@ parameters:
     magentoRootPath: %currentWorkingDirectory%
     paths:
          - %currentWorkingDirectory%/app/code/core/Mage
+         - %currentWorkingDirectory%/lib/Mage
     excludePaths:
         #todo DOCblocks
         - %currentWorkingDirectory%/app/code/core/Mage/Centinel

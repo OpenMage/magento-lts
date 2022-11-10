@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_HTTP
+ * @category   Mage
+ * @package    Mage_HTTP
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -22,35 +22,30 @@
 /**
  * Factory for HTTP client classes
  *
- * @category    Mage
+ * @category   Mage
  * @package     Mage_HTTP
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_HTTP_Client
 {
-
     /**
      * Disallow to instantiate - pvt constructor
      */
     private function __construct()
     {
-
     }
 
     /**
      * Factory for HTTP client
-     * @param string/false $frontend  'curl'/'socket' or false for auto-detect
+     * @param string|false $frontend 'curl'/'socket' or false for auto-detect
      * @return Mage_HTTP_IClient
      */
     public static function getInstance($frontend = false)
     {
-        if(false === $frontend)
-        {
+        if (false === $frontend) {
             $frontend = self::detectFrontend();
         }
-        if(false === $frontend)
-        {
+        if (false === $frontend) {
             throw new Exception("Cannot find frontend automatically, set it manually");
         }
 
@@ -63,16 +58,16 @@ class Mage_HTTP_Client
      * Detects frontend type.
      * Priority is given to CURL
      *
-     * @return string/bool
+     * @return string|false
      */
     protected static function detectFrontend()
     {
-       if(function_exists("curl_init")) {
-              return "curl";
-       }
-       if(function_exists("fsockopen")) {
-              return "socket";
-       }
-       return false;
+        if (function_exists("curl_init")) {
+            return "curl";
+        }
+        if (function_exists("fsockopen")) {
+            return "socket";
+        }
+        return false;
     }
 }

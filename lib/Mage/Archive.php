@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Archive
+ * @category   Mage
+ * @package    Mage_Archive
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -21,8 +21,8 @@
 /**
  * Class to work with archives
  *
- * @category    Mage
- * @package     Mage_Archive
+ * @category   Mage
+ * @package    Mage_Archive
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Archive
@@ -49,7 +49,7 @@ class Mage_Archive
     *
     * @var array
     */
-    protected $_formats = array(
+    protected $_formats = [
         'tar'        => 'tar',
         'gz'         => 'gz',
         'gzip'       => 'gz',
@@ -62,7 +62,7 @@ class Mage_Archive
         'tbz'        => 'tar.bz',
         'tbzip'      => 'tar.bz',
         'tbz2'       => 'tar.bz',
-        'tbzip2'     => 'tar.bz');
+        'tbzip2'     => 'tar.bz'];
 
     /**
     * Create object of current archiver by $extension.
@@ -92,14 +92,14 @@ class Mage_Archive
     {
         $ext = pathinfo($source, PATHINFO_EXTENSION);
         if (!isset($this->_formats[$ext])) {
-            return array();
+            return [];
         }
         $format = $this->_formats[$ext];
         if ($format) {
             $archivers = explode('.', $format);
             return $archivers;
         }
-        return array();
+        return [];
     }
 
     /**
