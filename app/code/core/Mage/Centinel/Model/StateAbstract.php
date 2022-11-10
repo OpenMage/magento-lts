@@ -30,7 +30,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
     /**
      * Storage data model
      *
-     * @var Varien_Object
+     * @var Varien_Object|false
      */
     private $_dataStorage = false;
 

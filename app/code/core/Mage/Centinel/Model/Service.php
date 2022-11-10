@@ -54,14 +54,14 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Validation api model
      *
-     * @var Mage_Centinel_Model_Api
+     * @var Mage_Centinel_Model_Api|null
      */
     protected $_api;
 
     /**
      * Validation state model
      *
-     * @var Mage_Centinel_Model_StateAbstract
+     * @var Mage_Centinel_Model_StateAbstract|false
      */
     protected $_validationState;
 
@@ -78,7 +78,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Return value from section of centinel config
      *
-     * @return string
+     * @return Mage_Centinel_Model_Config
      */
     protected function _getConfig()
     {
@@ -151,7 +151,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      * Create and return validation state model for card type
      *
      * @param string $cardType
-     * @return Mage_Centinel_Model_StateAbstract
+     * @return Mage_Centinel_Model_StateAbstract|Mage_Core_Model_Abstract|false
      */
     protected function _getValidationStateModel($cardType)
     {
@@ -165,7 +165,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      * Return validation state model
      *
      * @param string $cardType
-     * @return Mage_Centinel_Model_StateAbstract
+     * @return Mage_Centinel_Model_StateAbstract|Mage_Core_Model_Abstract|false
      */
     protected function _getValidationState($cardType = null)
     {
@@ -374,11 +374,11 @@ class Mage_Centinel_Model_Service extends Varien_Object
         return $validationState && $validationState->isAuthenticateSuccessful();
     }
 
-     /**
+    /**
      * Export cmpi lookups and authentication information stored in session into array
      *
      * @param mixed $to
-     * @param array $map
+     * @param array|false $map
      * @return mixed $to
      */
     public function exportCmpiData($to, $map = false)

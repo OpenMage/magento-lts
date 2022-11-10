@@ -61,7 +61,6 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
 
     /**
      * Process autentication start action
-     *
      */
     public function authenticationStartAction()
     {
@@ -73,12 +72,11 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
 
     /**
      * Process autentication complete action
-     *
      */
     public function authenticationCompleteAction()
     {
         try {
-           if ($validator = $this->_getValidator()) {
+            if ($validator = $this->_getValidator()) {
                 $request = $this->getRequest();
 
                 $data = new Varien_Object();
@@ -118,4 +116,3 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
         return false;
     }
 }
-
