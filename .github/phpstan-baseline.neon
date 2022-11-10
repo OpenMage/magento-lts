@@ -3341,31 +3341,6 @@ parameters:
 			path: ../app/code/core/Mage/Eav/Model/Convert/Adapter/Entity.php
 
 		-
-			message: "#^Binary operation \"\\.\" between Mage_Eav_Model_Entity_Interface and '_collection' results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
-
-		-
-			message: "#^Cannot call method addData\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
-
-		-
-			message: "#^Cannot call method getId\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
-
-		-
-			message: "#^Variable \\$collection might not be defined\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
-
-		-
-			message: "#^Variable \\$entity might not be defined\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Abstract\\:\\:_getReadAdapter\\(\\) should return Magento_Db_Adapter_Pdo_Mysql but returns Varien_Db_Adapter_Pdo_Mysql\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Entity/Abstract.php
