@@ -4336,6 +4336,11 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/controllers/PayflowadvancedController.php
 
 		-
+			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$payment_action\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php
+
+		-
 			message: "#^Variable \\$key might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Poll/Block/ActivePoll.php
