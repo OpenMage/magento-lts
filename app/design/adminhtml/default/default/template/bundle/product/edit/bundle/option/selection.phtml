@@ -48,7 +48,7 @@ var bundleTemplateRow ='<td>' +
                 '    <input type="hidden" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][delete]" value="" class="delete">' +
                 '    {{name}}<br />' +
                 '   <div  class="nobr">' +
-                '        <strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong> {{sku}}' +
+                '        <strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong> <a href="<?php echo $this->getUrl('*/catalog_product/edit', ['store' => $this->getRequest()->getParam('store')]) ?>id/{{product_id}}/">{{sku}}</a>' +
                 '    </div>' +
                 '</td>' +
                 <?php if ($this->getCanReadPrice() !== false) : ?>
@@ -122,8 +122,12 @@ Bundle.Selection.prototype = {
 
         var option_type = $(bOption.idLabel + '_' + parentIndex + '_type');
 
-        if(!data){
+        if (!data) {
             var data = {};
+        }
+
+        if (data.selection_qty) {
+            data.selection_qty = parseFloat(data.selection_qty);
         }
 
         if (data.can_read_price != undefined && !data.can_read_price) {
