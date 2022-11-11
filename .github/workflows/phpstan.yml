@@ -8,11 +8,13 @@ on:
       - '**.php'
       - '.github/phpstan*'
       - '.github/workflows/phpstan*'
+      - 'composer*'
   pull_request:
     paths:
       - '**.php'
       - '.github/phpstan*'
       - '.github/workflows/phpstan*'
+      - 'composer*'
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
