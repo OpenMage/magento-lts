@@ -10,6 +10,8 @@ parameters:
          - %currentWorkingDirectory%/lib/Magento
          - %currentWorkingDirectory%/lib/Varien
     excludePaths:
+        - */app/code/core/Mage/Centinel
+
         #incompatible interfaces
         - */app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php
         - */app/code/core/Mage/Admin/Model/Acl/Assert/Time.php
