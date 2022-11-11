@@ -1656,21 +1656,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Layer/Filter/Attribute.php
 
 		-
-			message: "#^Parameter \\#2 \\$filterBlock \\(Varien_Object\\) of method Mage_Catalog_Model_Layer_Filter_Attribute\\:\\:apply\\(\\) should be compatible with parameter \\$filterBlock \\(null\\) of method Mage_Catalog_Model_Layer_Filter_Abstract\\:\\:apply\\(\\)$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Layer/Filter/Attribute.php
-
-		-
-			message: "#^Argument of an invalid type int supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
-			message: "#^Parameter \\#2 \\$filterBlock \\(Mage_Catalog_Block_Layer_Filter_Decimal\\) of method Mage_Catalog_Model_Layer_Filter_Decimal\\:\\:apply\\(\\) should be compatible with parameter \\$filterBlock \\(null\\) of method Mage_Catalog_Model_Layer_Filter_Abstract\\:\\:apply\\(\\)$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
 			message: "#^Argument of an invalid type int\\<min, \\-1\\>\\|int\\<1, max\\> supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Layer/Filter/Price.php
