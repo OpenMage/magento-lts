@@ -51,7 +51,9 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      */
     protected function _getHelper()
     {
-        return $this->helper('catalog/product_type_composite');
+        /** @var Mage_Catalog_Helper_Product_Type_Composite $helper */
+        $helper = $this->helper('catalog/product_type_composite');
+        return $helper;
     }
 
     /**
