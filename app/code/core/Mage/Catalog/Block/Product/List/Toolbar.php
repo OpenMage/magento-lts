@@ -83,7 +83,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * List of available view types
      *
-     * @var string
+     * @var array
      */
     protected $_availableMode       = [];
 

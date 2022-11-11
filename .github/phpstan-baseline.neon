@@ -1353,11 +1353,6 @@ parameters:
 		-
 			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
 			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Breadcrumbs.php
-
-		-
-			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
-			count: 1
 			path: ../app/code/core/Mage/Catalog/Block/Navigation.php
 
 		-
@@ -1401,17 +1396,7 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Block/Product/List/Toolbar.php
 
 		-
-			message: "#^Property Mage_Catalog_Block_Product_List_Toolbar\\:\\:\\$_availableMode \\(string\\) does not accept array\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/List/Toolbar.php
-
-		-
-			message: "#^Property Mage_Catalog_Block_Product_List_Toolbar\\:\\:\\$_availableMode \\(string\\) does not accept array\\<string, string\\>\\.$#"
-			count: 4
-			path: ../app/code/core/Mage/Catalog/Block/Product/List/Toolbar.php
-
-		-
-			message: "#^Property Mage_Catalog_Block_Product_List_Toolbar\\:\\:\\$_availableMode \\(string\\) does not accept default value of type array\\.$#"
+			message: "#^Method Mage_Catalog_Block_Product_List_Toolbar\\:\\:getModes\\(\\) should return string but returns array\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Block/Product/List/Toolbar.php
 
@@ -1479,11 +1464,6 @@ parameters:
 			message: "#^Variable \\$store might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Block/Widget/Link.php
-
-		-
-			message: "#^Property Mage_Catalog_Helper_Data\\:\\:\\$_categoryPath \\(string\\) does not accept array\\<string, array\\<string, string\\>\\>\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Helper/Data.php
 
 		-
 			message: "#^Property Mage_Catalog_Helper_Output\\:\\:\\$_templateProcessor \\(Varien_Filter_Template\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
