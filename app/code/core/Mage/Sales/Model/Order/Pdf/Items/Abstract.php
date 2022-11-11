@@ -348,7 +348,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      * Return item Sku
      *
      * @param Mage_Sales_Model_Order_Invoice_Item|Mage_Sales_Model_Order_Creditmemo_Item $item
-     * @return string
+     * @return array|string
      */
     public function getSku($item)
     {

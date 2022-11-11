@@ -431,16 +431,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Run.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_System_Email_Template_Edit\\:\\:getUsedCurrentlyForPaths\\(\\) should return string but returns array\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Email/Template/Edit.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_System_Email_Template_Edit\\:\\:getUsedDefaultForPaths\\(\\) should return string but returns array\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Email/Template/Edit.php
-
-		-
 			message: "#^Method Mage_Core_Model_Email_Template\\:\\:getProcessedTemplate\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Email/Template/Preview.php
@@ -4584,11 +4574,6 @@ parameters:
 			message: "#^Variable \\$creditmemo might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Order/Pdf/Creditmemo.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Order_Pdf_Items_Abstract\\:\\:getSku\\(\\) should return string but returns array\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order/Pdf/Items/Abstract.php
 
 		-
 			message: "#^Variable \\$shipment might not be defined\\.$#"
