@@ -38,14 +38,14 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
     /**
      * Manage Stock flag
      *
-     * @var bool
+     * @var int
      */
     protected $_isConfigManageStock;
 
     /**
      * Backorders
      *
-     * @var bool
+     * @var int
      */
     protected $_isConfigBackorders;
 

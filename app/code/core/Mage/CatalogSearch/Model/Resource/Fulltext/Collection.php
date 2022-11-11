@@ -43,7 +43,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     /**
      * Sort order by relevance
      *
-     * @var null
+     * @var int|null
      */
     protected $_relevanceSortOrder = SORT_DESC;
 

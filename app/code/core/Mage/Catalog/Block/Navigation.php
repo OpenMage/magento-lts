@@ -38,7 +38,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * Current category key
      *
-     * @var string
+     * @var string|int
      */
     protected $_currentCategoryKey;
 

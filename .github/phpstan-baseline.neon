@@ -391,11 +391,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/Shipments.php
 
 		-
-			message: "#^Property Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid\\:\\:\\$_conditionName \\(string\\) does not accept int\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Shipping/Carrier/Tablerate/Grid.php
-
-		-
 			message: "#^Property Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset\\:\\:\\$_element \\(Varien_Data_Form_Element_Fieldset\\) does not accept Varien_Data_Form_Element_Abstract\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Store/Switcher/Form/Renderer/Fieldset.php
@@ -1381,11 +1376,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Block/Navigation.php
 
 		-
-			message: "#^Property Mage_Catalog_Block_Navigation\\:\\:\\$_currentCategoryKey \\(string\\) does not accept int\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Navigation.php
-
-		-
 			message: "#^Variable \\$htmlChildren in empty\\(\\) always exists and is always falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Block/Navigation.php
@@ -1439,11 +1429,6 @@ parameters:
 			message: "#^Property Mage_Catalog_Block_Product_List_Toolbar\\:\\:\\$_collection \\(Mage_Core_Model_Resource_Db_Collection_Abstract\\) does not accept Varien_Data_Collection\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Block/Product/List/Toolbar.php
-
-		-
-			message: "#^Property Mage_Catalog_Block_Product_New\\:\\:\\$_productsCount \\(null\\) does not accept int\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Catalog/Block/Product/New.php
 
 		-
 			message: "#^Method Mage_Catalog_Block_Product_View_Options_Type_Date\\:\\:_getValueWithLeadingZeros\\(\\) should return string but returns int\\.$#"
@@ -2216,16 +2201,6 @@ parameters:
 			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
 
 		-
-			message: "#^Property Mage_CatalogInventory_Model_Resource_Stock\\:\\:\\$_isConfigBackorders \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Stock.php
-
-		-
-			message: "#^Property Mage_CatalogInventory_Model_Resource_Stock\\:\\:\\$_isConfigManageStock \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Stock.php
-
-		-
 			message: "#^Return type \\(Varien_Db_Select\\) of method Mage_CatalogInventory_Model_Resource_Stock_Item_Collection\\:\\:_initSelect\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Model_Resource_Db_Collection_Abstract\\)\\) of method Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:_initSelect\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Stock/Item/Collection.php
@@ -2299,16 +2274,6 @@ parameters:
 			message: "#^Variable \\$select might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogSearch/Model/Resource/Advanced/Collection.php
-
-		-
-			message: "#^Property Mage_CatalogSearch_Model_Resource_Fulltext_Collection\\:\\:\\$_relevanceSortOrder \\(null\\) does not accept default value of type int\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php
-
-		-
-			message: "#^Property Mage_CatalogSearch_Model_Resource_Fulltext_Collection\\:\\:\\$_relevanceSortOrder \\(null\\) does not accept int\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php
 
 		-
 			message: "#^Cannot call method setItem\\(\\) on array\\.$#"
@@ -4289,16 +4254,6 @@ parameters:
 			message: "#^Variable \\$productViewEvent might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Reports/Model/Resource/Product/Collection.php
-
-		-
-			message: "#^Property Mage_Reports_Model_Resource_Report_Collection\\:\\:\\$_from \\(string\\) does not accept int\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Reports/Model/Resource/Report/Collection.php
-
-		-
-			message: "#^Property Mage_Reports_Model_Resource_Report_Collection\\:\\:\\$_to \\(string\\) does not accept int\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Reports/Model/Resource/Report/Collection.php
 
 		-
 			message: "#^Comparison operation \"\\!\\=\" between array\\|int and 0 results in an error\\.$#"
