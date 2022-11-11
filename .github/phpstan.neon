@@ -20,6 +20,8 @@ parameters:
 
         # deprecated _getHelper()
         - */app/code/core/Mage/Adminhtml/Controller/Rss/Abstract.php
+        - */app/code/core/Mage/Adminhtml/controllers/Rss/OrderController.php
+        - */app/code/core/Mage/Adminhtml/controllers/Rss/CatalogController.php
 
         # contains 1 abstract method and must therefore be declared abstract or implement the remaining methods
         - */app/code/core/Mage/Dataflow/Model/Session/Adapter/Http.php
