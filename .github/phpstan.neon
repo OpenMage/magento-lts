@@ -32,6 +32,7 @@ parameters:
 
         # Cannot declare class XMLParser, because the name is already in use
         - */app/code/core/Mage/Centinel/Model/Api.php
+        - */app/code/core/Mage/Centinel/Model/Api/Client.php
 
         # Class phpseclib\Net\SSH2 not found.
         - */app/code/core/Mage/Paypal/Model/Report/Settlement.php
