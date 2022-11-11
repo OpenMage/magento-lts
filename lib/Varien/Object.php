@@ -44,7 +44,7 @@ class Varien_Object implements ArrayAccess
     /**
     * Original data that was loaded
     *
-    * @var array
+    * @var array|null
     */
     protected $_origData;
 

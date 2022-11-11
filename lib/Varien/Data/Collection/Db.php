@@ -69,7 +69,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * All collection data array
      * Used for getData method
      *
-     * @var array
+     * @var array|null
      */
     protected $_data = null;
 

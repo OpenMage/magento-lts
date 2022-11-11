@@ -1121,11 +1121,6 @@ parameters:
 			path: ../app/code/core/Mage/Backup/Helper/Data.php
 
 		-
-			message: "#^Property Mage_Backup_Model_Backup\\:\\:\\$_handler \\(resource\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Backup.php
-
-		-
 			message: "#^Variable \\$filePath might not be defined\\.$#"
 			count: 4
 			path: ../app/code/core/Mage/Backup/Model/Backup.php
@@ -1294,11 +1289,6 @@ parameters:
 			message: "#^Variable \\$selections in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Bundle/Model/Product/Type.php
-
-		-
-			message: "#^Property Mage_Bundle_Model_Resource_Option_Collection\\:\\:\\$_itemIds \\(array\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Bundle/Model/Resource/Option/Collection.php
 
 		-
 			message: "#^Variable \\$basePrice might not be defined\\.$#"
@@ -2096,21 +2086,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
 
 		-
-			message: "#^Property Mage_Catalog_Model_Resource_Product_Collection\\:\\:\\$_allIdsCache \\(array\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
-
-		-
-			message: "#^Property Mage_Catalog_Model_Resource_Product_Collection\\:\\:\\$_productCountSelect \\(Zend_Db_Select\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
-
-		-
-			message: "#^Property Mage_Catalog_Model_Resource_Product_Collection\\:\\:\\$_urlRewriteCategory \\(int\\) does not accept default value of type string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
-
-		-
 			message: "#^Variable \\$websiteId might not be defined\\.$#"
 			count: 3
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
@@ -2154,11 +2129,6 @@ parameters:
 			message: "#^Variable \\$rootCategoryPathLength might not be defined\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Url.php
-
-		-
-			message: "#^Property Mage_Catalog_Model_Url\\:\\:\\$_rewrite \\(Varien_Object\\) does not accept null\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Catalog/Model/Url.php
 
 		-
 			message: "#^Call to an undefined method Mage_CatalogIndex_Model_Resource_Attribute\\:\\:checkCount\\(\\)\\.$#"
@@ -2259,11 +2229,6 @@ parameters:
 			message: "#^Return type \\(Varien_Db_Select\\) of method Mage_CatalogInventory_Model_Resource_Stock_Item_Collection\\:\\:_initSelect\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Model_Resource_Db_Collection_Abstract\\)\\) of method Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:_initSelect\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Stock/Item/Collection.php
-
-		-
-			message: "#^Property Mage_CatalogInventory_Model_Stock_Item\\:\\:\\$_productInstance \\(Mage_Catalog_Model_Product\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogInventory/Model/Stock/Item.php
 
 		-
 			message: "#^Variable \\$parentItem in empty\\(\\) always exists and is not falsy\\.$#"
@@ -2631,11 +2596,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/App.php
 
 		-
-			message: "#^Property Mage_Core_Model_App\\:\\:\\$_website \\(Mage_Core_Model_Website\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/App.php
-
-		-
 			message: "#^Variable \\$id in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/App.php
@@ -2766,11 +2726,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Layout/Update.php
 
 		-
-			message: "#^Property Mage_Core_Model_Locale\\:\\:\\$_locale \\(Zend_Locale\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Locale.php
-
-		-
 			message: "#^Method Mage_Core_Model_Message_Collection\\:\\:getMessageByIdentifier\\(\\) should return Mage_Core_Model_Message_Abstract\\|null but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Message/Collection.php
@@ -2836,19 +2791,9 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Resource/File/Storage/Directory/Database.php
 
 		-
-			message: "#^Property Mage_Core_Model_Resource_File_Storage_File\\:\\:\\$filePointer \\(resource\\) does not accept null\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Core/Model/Resource/File/Storage/File.php
-
-		-
 			message: "#^PHPDoc tag @param for parameter \\$callbacks with type array\\|string is not subtype of native type array\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Resource/Iterator.php
-
-		-
-			message: "#^Static property Mage_Core_Model_Resource_Resource\\:\\:\\$_dataVersions \\(array\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Resource/Resource.php
 
 		-
 			message: "#^Property Mage_Core_Model_Resource_Session\\:\\:\\$_lifeTime \\(int\\) does not accept string\\|false\\.$#"
@@ -2923,11 +2868,6 @@ parameters:
 		-
 			message: "#^Property Mage_Core_Model_Template\\:\\:\\$_emulatedDesignConfig \\(Varien_Object\\) does not accept false\\.$#"
 			count: 2
-			path: ../app/code/core/Mage/Core/Model/Template.php
-
-		-
-			message: "#^Property Mage_Core_Model_Template\\:\\:\\$_initialEnvironmentInfo \\(Varien_Object\\) does not accept null\\.$#"
-			count: 1
 			path: ../app/code/core/Mage/Core/Model/Template.php
 
 		-
@@ -3257,11 +3197,6 @@ parameters:
 
 		-
 			message: "#^Property Mage_Eav_Model_Attribute_Data_Abstract\\:\\:\\$_attribite \\(Mage_Eav_Model_Attribute\\) does not accept Mage_Eav_Model_Entity_Attribute_Abstract\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Attribute/Data/Abstract.php
-
-		-
-			message: "#^Property Mage_Eav_Model_Attribute_Data_Abstract\\:\\:\\$_dateFilterFormat \\(string\\) does not accept null\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Attribute/Data/Abstract.php
 
@@ -3751,11 +3686,6 @@ parameters:
 			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Product/Type/Grouped.php
 
 		-
-			message: "#^Property Mage_ImportExport_Model_Resource_Import_Data\\:\\:\\$_iterator \\(IteratorIterator\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/ImportExport/Model/Resource/Import/Data.php
-
-		-
 			message: "#^Method Mage_Index_Model_Lock\\:\\:getInstance\\(\\) should return \\$this\\(Mage_Index_Model_Lock\\) but returns Mage_Index_Model_Lock\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Index/Model/Lock.php
@@ -3784,16 +3714,6 @@ parameters:
 			message: "#^Return type \\(int\\|null\\) of method Mage_Index_Model_Lock_Storage_Db\\:\\:releaseLock\\(\\) should be compatible with return type \\(bool\\) of method Mage_Index_Model_Lock_Storage_Interface\\:\\:releaseLock\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Index/Model/Lock/Storage/Db.php
-
-		-
-			message: "#^Property Varien_Data_Collection\\:\\:\\$_totalRecords \\(int\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Index/Model/Resource/Event/Collection.php
-
-		-
-			message: "#^Property Varien_Data_Collection_Db\\:\\:\\$_data \\(array\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Index/Model/Resource/Event/Collection.php
 
 		-
 			message: "#^Return type \\(Varien_Db_Adapter_Interface\\|false\\) of method Mage_Index_Model_Resource_Lock_Resource\\:\\:_getDefaultConnection\\(\\) should be compatible with return type \\(string\\) of method Mage_Core_Model_Resource\\:\\:_getDefaultConnection\\(\\)$#"
@@ -3866,16 +3786,6 @@ parameters:
 			path: ../app/code/core/Mage/Media/Model/File/Image.php
 
 		-
-			message: "#^Property Mage_Media_Model_Image\\:\\:\\$_image \\(resource\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Media/Model/Image.php
-
-		-
-			message: "#^Property Mage_Media_Model_Image\\:\\:\\$_tmpImage \\(resource\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Media/Model/Image.php
-
-		-
 			message: "#^Method Mage_Newsletter_Model_Problem\\:\\:getSubscriber\\(\\) should return Mage_Newsletter_Model_Subscriber but returns null\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Newsletter/Model/Problem.php
@@ -3889,11 +3799,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getBackend\\(\\)\\.$#"
 			count: 3
 			path: ../app/code/core/Mage/Newsletter/Model/Resource/Subscriber/Collection.php
-
-		-
-			message: "#^Property Mage_Newsletter_Model_Template\\:\\:\\$_mail \\(Zend_Mail\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Newsletter/Model/Template.php
 
 		-
 			message: "#^Method Mage_Newsletter_ManageController\\:\\:saveAction\\(\\) should return Mage_Newsletter_ManageController but return statement is missing\\.$#"
@@ -3951,11 +3856,6 @@ parameters:
 			path: ../app/code/core/Mage/Paygate/Block/Authorizenet/Form/Cc.php
 
 		-
-			message: "#^Property Mage_Payment_Block_Info\\:\\:\\$_paymentSpecificInformation \\(Varien_Object\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paygate/Block/Authorizenet/Info/Cc.php
-
-		-
 			message: "#^Cannot assign new offset to string\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paygate/Model/Authorizenet.php
@@ -3979,11 +3879,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:cancelPartialAuthorization\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paygate/controllers/Authorizenet/PaymentController.php
-
-		-
-			message: "#^Property Mage_Core_Block_Template\\:\\:\\$_template \\(string\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Payment/Block/Catalog/Product/View/Profile.php
 
 		-
 			message: "#^Property Mage_Payment_Block_Catalog_Product_View_Profile\\:\\:\\$_profile \\(Mage_Payment_Model_Recurring_Profile\\) does not accept default value of type false\\.$#"
@@ -4014,11 +3909,6 @@ parameters:
 			message: "#^Method Mage_Payment_Model_Recurring_Profile\\:\\:exportStartDatetime\\(\\) should return string\\|Zend_Date but empty return statement found\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Payment/Model/Recurring/Profile.php
-
-		-
-			message: "#^Property Mage_Paypal_Block_Adminhtml_System_Config_Field_Country\\:\\:\\$_defaultCountry \\(string\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Field/Country.php
 
 		-
 			message: "#^Method Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Group\\:\\:_getCollapseState\\(\\) should return bool but returns int\\.$#"
@@ -4186,16 +4076,6 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Model/Hostedpro.php
 
 		-
-			message: "#^Property Mage_Paypal_Model_Ipn\\:\\:\\$_order \\(Mage_Sales_Model_Order\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Ipn.php
-
-		-
-			message: "#^Property Mage_Paypal_Model_Ipn\\:\\:\\$_recurringProfile \\(Mage_Sales_Model_Recurring_Profile\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Ipn.php
-
-		-
 			message: "#^Return type \\(bool\\) of method Mage_Paypal_Model_Payflowlink\\:\\:validate\\(\\) should be compatible with return type \\(\\$this\\(Mage_Payment_Model_Method_Cc\\)\\) of method Mage_Payment_Model_Method_Cc\\:\\:validate\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
@@ -4221,12 +4101,7 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Model/Pro.php
 
 		-
-			message: "#^Property Mage_Paypal_Model_Pro\\:\\:\\$_api \\(Mage_Paypal_Model_Api_Nvp\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Pro.php
-
-		-
-			message: "#^Property Mage_Paypal_Model_Pro\\:\\:\\$_api \\(Mage_Paypal_Model_Api_Nvp\\) does not accept null\\.$#"
+			message: "#^Property Mage_Paypal_Model_Pro\\:\\:\\$_api \\(Mage_Paypal_Model_Api_Nvp\\|null\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Pro.php
 
@@ -4309,11 +4184,6 @@ parameters:
 			message: "#^Method Mage_ProductAlert_Helper_Data\\:\\:createBlock\\(\\) should return string but returns Mage_Core_Block_Abstract\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/ProductAlert/Helper/Data.php
-
-		-
-			message: "#^Property Mage_ProductAlert_Model_Email\\:\\:\\$_customer \\(Mage_Customer_Model_Customer\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/ProductAlert/Model/Email.php
 
 		-
 			message: "#^Property Mage_ProductAlert_Model_Email\\:\\:\\$_priceBlock \\(Mage_ProductAlert_Block_Email_Price\\) does not accept string\\.$#"
@@ -4551,12 +4421,12 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Block/Order/Comments.php
 
 		-
-			message: "#^Property Mage_Sales_Block_Order_Comments\\:\\:\\$_commentCollection \\(Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract\\) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
+			message: "#^Method Mage_Sales_Block_Order_Comments\\:\\:getComments\\(\\) should return Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract but returns Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Block/Order/Comments.php
 
 		-
-			message: "#^Property Mage_Sales_Block_Order_Comments\\:\\:\\$_commentCollection \\(Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract\\) does not accept null\\.$#"
+			message: "#^Property Mage_Sales_Block_Order_Comments\\:\\:\\$_commentCollection \\(Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract\\|null\\) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Block/Order/Comments.php
 
@@ -4691,11 +4561,6 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Order/Invoice.php
 
 		-
-			message: "#^Property Varien_Object\\:\\:\\$_origData \\(array\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order/Invoice.php
-
-		-
 			message: "#^Property Mage_Sales_Model_Order_Invoice_Item\\:\\:\\$_orderItem \\(Mage_Sales_Model_Order_Item\\) does not accept Varien_Object\\|null\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Order/Invoice/Item.php
@@ -4806,11 +4671,6 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Quote/Address.php
 
 		-
-			message: "#^Property Mage_Sales_Model_Quote_Address\\:\\:\\$_nominalOnly \\(bool\\) does not accept null\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Sales/Model/Quote/Address.php
-
-		-
 			message: "#^Variable \\$totalInstance might not be defined\\.$#"
 			count: 3
 			path: ../app/code/core/Mage/Sales/Model/Quote/Address.php
@@ -4876,11 +4736,6 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Quote/Item.php
 
 		-
-			message: "#^Property Mage_Sales_Model_Quote_Item\\:\\:\\$_quote \\(Mage_Sales_Model_Quote\\) does not accept null\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Quote/Item.php
-
-		-
 			message: "#^Return type \\(void\\) of method Mage_Sales_Model_Quote_Item\\:\\:__clone\\(\\) should be compatible with return type \\(\\$this\\(Mage_Sales_Model_Quote_Item_Abstract\\)\\) of method Mage_Sales_Model_Quote_Item_Abstract\\:\\:__clone\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Quote/Item.php
@@ -4891,12 +4746,7 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Quote/Item/Abstract.php
 
 		-
-			message: "#^Method Mage_Sales_Model_Quote_Item_Abstract\\:\\:getParentItem\\(\\) should return \\$this\\(Mage_Sales_Model_Quote_Item_Abstract\\) but returns Mage_Sales_Model_Quote_Item_Abstract\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Quote/Item/Abstract.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Quote_Item_Abstract\\:\\:\\$_parentItem \\(Mage_Sales_Model_Quote_Item_Abstract\\) does not accept null\\.$#"
+			message: "#^Method Mage_Sales_Model_Quote_Item_Abstract\\:\\:getParentItem\\(\\) should return \\$this\\(Mage_Sales_Model_Quote_Item_Abstract\\) but returns Mage_Sales_Model_Quote_Item_Abstract\\|null\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Quote/Item/Abstract.php
 
@@ -5526,13 +5376,8 @@ parameters:
 			path: ../lib/Varien/Data/Collection/Db.php
 
 		-
-			message: "#^Property Varien_Data_Collection\\:\\:\\$_totalRecords \\(int\\) does not accept string\\.$#"
+			message: "#^Property Varien_Data_Collection\\:\\:\\$_totalRecords \\(int\\|null\\) does not accept string\\.$#"
 			count: 1
-			path: ../lib/Varien/Data/Collection/Db.php
-
-		-
-			message: "#^Property Varien_Data_Collection_Db\\:\\:\\$_data \\(array\\) does not accept null\\.$#"
-			count: 2
 			path: ../lib/Varien/Data/Collection/Db.php
 
 		-

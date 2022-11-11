@@ -41,7 +41,7 @@ class Mage_Core_Model_Resource_File_Storage_File
      */
     protected $_ignoredFiles;
 
-    /** @var resource */
+    /** @var resource|null */
     protected $filePointer;
 
     /** @var null|string[] */

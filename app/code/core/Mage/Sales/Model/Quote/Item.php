@@ -187,7 +187,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Quote model object
      *
-     * @var Mage_Sales_Model_Quote
+     * @var Mage_Sales_Model_Quote|null
      */
     protected $_quote;
 

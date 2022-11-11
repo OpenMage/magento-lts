@@ -38,14 +38,14 @@ class Mage_Paypal_Model_Ipn
     /**
      * Store order instance
      *
-     * @var Mage_Sales_Model_Order
+     * @var Mage_Sales_Model_Order|null
      */
     protected $_order = null;
 
     /**
      * Recurring profile instance
      *
-     * @var Mage_Sales_Model_Recurring_Profile
+     * @var Mage_Sales_Model_Recurring_Profile|null
      */
     protected $_recurringProfile = null;
 

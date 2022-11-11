@@ -40,7 +40,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     /**
      * Add filter by entity
      *
-     * @param string | array $entity
+     * @param string|array $entity
      * @return $this
      */
     public function addEntityFilter($entity)

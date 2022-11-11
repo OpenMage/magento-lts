@@ -176,7 +176,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Parent item for sub items for bundle product, configurable product, etc.
      *
-     * @var Mage_Sales_Model_Quote_Item_Abstract
+     * @var Mage_Sales_Model_Quote_Item_Abstract|null
      */
     protected $_parentItem  = null;
 

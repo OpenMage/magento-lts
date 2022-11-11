@@ -99,7 +99,7 @@ class Mage_Core_Model_App
     /**
      * Application website object
      *
-     * @var Mage_Core_Model_Website
+     * @var Mage_Core_Model_Website|null
      */
     protected $_website;
 

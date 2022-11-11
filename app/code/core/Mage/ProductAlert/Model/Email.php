@@ -49,7 +49,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     /**
      * Customer model
      *
-     * @var Mage_Customer_Model_Customer
+     * @var Mage_Customer_Model_Customer|null
      */
     protected $_customer;
 

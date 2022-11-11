@@ -57,7 +57,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * Initial environment information
      * @see self::_applyDesignConfig()
      *
-     * @var Varien_Object
+     * @var Varien_Object|null
      */
     protected $_initialEnvironmentInfo = null;
 

@@ -41,7 +41,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
     /**
      * Gz file pointer
      *
-     * @var resource
+     * @var resource|null
      */
     protected $_handler = null;
 

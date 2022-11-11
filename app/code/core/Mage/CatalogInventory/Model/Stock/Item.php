@@ -137,7 +137,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Associated product instance
      *
-     * @var Mage_Catalog_Model_Product
+     * @var Mage_Catalog_Model_Product|null
      */
     protected $_productInstance = null;
 
