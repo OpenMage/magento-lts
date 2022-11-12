@@ -20,7 +20,7 @@ jobs:
   php_stan:
     runs-on: [ubuntu-latest]
 
-    name: PHP Stan
+    name: PHPStan
 
     steps:
       - name: Checkout code
