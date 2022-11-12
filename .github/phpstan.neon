@@ -63,9 +63,6 @@ parameters:
         # Instantiated class not found
         - */lib/Varien/Image/Adapter.php
 
-        # Uncaught Error: Xdebug has detected a possible infinite loop, and aborted your script with a stack depth of '256'
-        - */lib/Varien/Db/Tree.php
-
         # todo check
         - */app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
         - */app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
