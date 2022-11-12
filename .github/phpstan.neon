@@ -17,6 +17,8 @@ parameters:
         - */app/code/core/Mage/Api/Model/Acl/Assert/Time.php
         - */app/code/core/Mage/Adminhtml/Block/Widget/Grid/Block.php
         - */app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
+        - */lib/Varien/Directory/Collection.php
+        - */lib/Varien/File/Object
 
         # deprecated _getHelper()
         - */app/code/core/Mage/Adminhtml/Controller/Rss/Abstract.php
@@ -63,7 +65,6 @@ parameters:
         # todo check
         - */app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
         - */app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
-        - */lib/Varien/Directory/Collection.php
     level: 3
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
