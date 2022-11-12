@@ -18,6 +18,7 @@ parameters:
         - */app/code/core/Mage/Adminhtml/Block/Widget/Grid/Block.php
         - */app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
         - */lib/Varien/Directory/Collection.php
+        - */lib/Varien/Directory/Factory.php
         - */lib/Varien/File/Object.php
 
         # deprecated _getHelper()
