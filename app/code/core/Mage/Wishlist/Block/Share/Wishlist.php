@@ -31,7 +31,7 @@ class Mage_Wishlist_Block_Share_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Customer instance
      *
-     * @var Mage_Customer_Model_Customer
+     * @var Mage_Customer_Model_Customer|null
      */
     protected $_customer = null;
 
@@ -45,6 +45,7 @@ class Mage_Wishlist_Block_Share_Wishlist extends Mage_Wishlist_Block_Abstract
     {
         parent::_prepareLayout();
 
+        /** @var Mage_Page_Block_Html_Head $headBlock */
         $headBlock = $this->getLayout()->getBlock('head');
         if ($headBlock) {
             $headBlock->setTitle($this->getHeader());

@@ -119,7 +119,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Set quantity. If quantity is less than 0 - set it to 1
      *
-     * @param int $qty
+     * @param int|float $qty
      * @return $this
      */
     public function setQty($qty)
@@ -216,6 +216,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         if ($hasDataChanges && !$this->_flagOptionsSaved) {
             $this->_saveItemOptions();
         }
+        return $this;
     }
 
     /**
@@ -596,7 +597,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Add option to item
      *
-     * @param   Mage_Wishlist_Model_Item_Option $option
+     * @param   array|Mage_Wishlist_Model_Item_Option|Varien_Object $option
      * @return  $this
      */
     public function addOption($option)

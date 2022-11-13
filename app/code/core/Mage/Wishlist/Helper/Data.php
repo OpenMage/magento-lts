@@ -41,28 +41,28 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Currently logged in customer
      *
-     * @var Mage_Customer_Model_Customer
+     * @var Mage_Customer_Model_Customer|null
      */
     protected $_currentCustomer = null;
 
     /**
      * Customer Wishlist instance
      *
-     * @var Mage_Wishlist_Model_Wishlist
+     * @var Mage_Wishlist_Model_Wishlist|null
      */
     protected $_wishlist = null;
 
     /**
      * Wishlist Product Items Collection
      *
-     * @var Mage_Wishlist_Model_Resource_Product_Collection
+     * @var Mage_Wishlist_Model_Resource_Product_Collection|null
      */
     protected $_productCollection = null;
 
     /**
      * Wishlist Items Collection
      *
-     * @var Mage_Wishlist_Model_Resource_Item_Collection
+     * @var Mage_Wishlist_Model_Resource_Item_Collection|null
      */
     protected $_wishlistItemCollection = null;
 

@@ -899,7 +899,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Retrieve item model object by item identifier
      *
      * @param   int $itemId
-     * @return  Mage_Sales_Model_Quote_Item
+     * @return  Mage_Sales_Model_Quote_Item|null
      */
     public function getItemById($itemId)
     {

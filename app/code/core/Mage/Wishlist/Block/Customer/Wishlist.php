@@ -48,15 +48,17 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Preparing global layout
      *
-     * @return void
+     * @return $this
      */
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
+        /** @var Mage_Page_Block_Html_Head $headBlock */
         $headBlock = $this->getLayout()->getBlock('head');
         if ($headBlock) {
             $headBlock->setTitle($this->__('My Wishlist'));
         }
+        return $this;
     }
 
     /**

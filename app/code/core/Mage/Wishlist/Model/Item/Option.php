@@ -128,13 +128,10 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
 
     /**
      * Clone option object
-     *
-     * @return $this
      */
     public function __clone()
     {
         $this->setId(null);
         $this->_item    = null;
-        return $this;
     }
 }

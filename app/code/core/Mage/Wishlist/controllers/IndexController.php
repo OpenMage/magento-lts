@@ -48,7 +48,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Extend preDispatch
      *
-     * @return void
+     * @return $this
      */
     public function preDispatch()
     {
@@ -63,8 +63,9 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         }
         if (!Mage::getStoreConfigFlag('wishlist/general/active')) {
             $this->norouteAction();
-            return;
+            return $this;
         }
+        return $this;
     }
 
     /**
@@ -182,7 +183,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     {
         $wishlist = $this->_getWishlist();
         if (!$wishlist) {
-            return $this->norouteAction();
+            $this->norouteAction();
+            return;
         }
 
         $session = Mage::getSingleton('customer/session');
@@ -724,14 +726,16 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         $option = Mage::getModel('wishlist/item_option')->load($this->getRequest()->getParam('id'));
 
         if (!$option->getId()) {
-            return $this->_forward('noRoute');
+            $this->_forward('noRoute');
+            return;
         }
 
         $optionId = null;
         if (strpos($option->getCode(), Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX) === 0) {
-            $optionId = str_replace(Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX, '', $option->getCode());
+            $optionId = (string)str_replace(Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX, '', $option->getCode());
             if ((int)$optionId != $optionId) {
-                return $this->_forward('noRoute');
+                $this->_forward('noRoute');
+                return;
             }
         }
         $productOption = Mage::getModel('catalog/product_option')->load($optionId);
@@ -741,7 +745,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             || $productOption->getProductId() != $option->getProductId()
             || $productOption->getType() != 'file'
         ) {
-            return $this->_forward('noRoute');
+            $this->_forward('noRoute');
+            return;
         }
 
         try {

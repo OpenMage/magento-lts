@@ -69,6 +69,7 @@ parameters:
     level: 5
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
+    treatPhpDocTypesAsCertain: false
 
 #    universalObjectCratesClasses:
 #        - Varien_Object
