@@ -53,7 +53,7 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
      * Initialize mcrypt module
      *
      * @param string $key cipher private key
-     * @return Varien_Crypt_Mcrypt
+     * @return $this
      */
     public function init($key)
     {

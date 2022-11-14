@@ -128,7 +128,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      *
      * @param string $key
      * @param int $direction
-     * @return Varien_Data_Form_Element_Fieldset
+     * @return $this
      */
     public function setSortElementsByAttribute($key, $direction = SORT_ASC)
     {

@@ -42,7 +42,7 @@ class Varien_Data_Tree
     }
 
     /**
-     * @return Varien_Data_Tree
+     * @return $this
      */
     public function getTree()
     {
@@ -117,7 +117,7 @@ class Varien_Data_Tree
 
     /**
      * @param Varien_Data_Tree_Node $node
-     * @return Varien_Data_Tree
+     * @return $this
      */
     public function removeNode($node)
     {

@@ -101,7 +101,7 @@ class Varien_Object_Cache
     /**
      * Singleton factory
      *
-     * @return Varien_Object_Cache
+     * @return $this
      */
     public static function singleton()
     {

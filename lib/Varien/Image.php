@@ -29,7 +29,7 @@
 class Varien_Image
 {
     /**
-     * @var Varien_Image_Adapter_Abstract|Varien_Image_Adapter_Gd2
+     * @var Varien_Image_Adapter_Abstract|Varien_Image_Adapter_Gd2|null
      */
     protected $_adapter;
 
@@ -252,7 +252,7 @@ class Varien_Image
      * Set watermark position
      *
      * @param string $position
-     * @return Varien_Image
+     * @return $this
      */
     public function setWatermarkPosition($position)
     {
@@ -264,7 +264,7 @@ class Varien_Image
      * Set watermark image opacity
      *
      * @param int $imageOpacity
-     * @return Varien_Image
+     * @return $this
      */
     public function setWatermarkImageOpacity($imageOpacity)
     {
@@ -276,7 +276,7 @@ class Varien_Image
      * Set watermark width
      *
      * @param int $width
-     * @return Varien_Image
+     * @return $this
      */
     public function setWatermarkWidth($width)
     {
@@ -288,7 +288,7 @@ class Varien_Image
      * Set watermark heigth
      *
      * @param int $heigth
-     * @return Varien_Image
+     * @return $this
      */
     public function setWatermarkHeigth($heigth)
     {

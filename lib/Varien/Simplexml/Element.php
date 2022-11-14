@@ -55,7 +55,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      *
      * Currently using xpath
      *
-     * @return Varien_Simplexml_Element
+     * @return $this
      */
     public function getParent()
     {
@@ -331,7 +331,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * Appends $source to current node
      *
      * @param Varien_Simplexml_Element $source
-     * @return Varien_Simplexml_Element
+     * @return $this
      */
     public function appendChild($source)
     {
@@ -361,7 +361,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      *
      * @param Varien_Simplexml_Element $source
      * @param bool $overwrite
-     * @return Varien_Simplexml_Element
+     * @return $this
      */
     public function extend($source, $overwrite=false)
     {
@@ -381,7 +381,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      *
      * @param Varien_Simplexml_Element $source
      * @param bool $overwrite
-     * @return Varien_Simplexml_Element
+     * @return $this
      */
     public function extendChild($source, $overwrite=false)
     {

@@ -73,7 +73,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
      *
      * @param string $key
      * @param mixed $value
-     * @return Varien_Convert_Action_Abstract
+     * @return $this
      */
     public function setParam($key, $value=null)
     {
@@ -99,7 +99,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
      * Set all action parameters
      *
      * @param array $params
-     * @return Varien_Convert_Action_Abstract
+     * @return $this
      */
     public function setParams($params)
     {
@@ -121,7 +121,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
      * Set profile instance the action belongs to
      *
      * @param Varien_Convert_Profile_Abstract $profile
-     * @return Varien_Convert_Action_Abstract
+     * @return $this
      */
     public function setProfile(Varien_Convert_Profile_Abstract $profile)
     {
@@ -133,7 +133,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
      * Set action's container
      *
      * @param Varien_Convert_Container_Abstract $container
-     * @return Varien_Convert_Action_Abstract
+     * @return $this
      */
     public function setContainer(Varien_Convert_Container_Interface $container)
     {
@@ -164,7 +164,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
     /**
      * Run current action
      *
-     * @return Varien_Convert_Action_Abstract
+     * @return $this
      */
     public function run()
     {

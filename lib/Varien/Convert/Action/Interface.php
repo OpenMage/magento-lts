@@ -31,7 +31,7 @@ interface Varien_Convert_Action_Interface
     /**
      * Run current action
      *
-     * @return Varien_Convert_Action_Abstract
+     * @return $this
      */
     public function run();
 }

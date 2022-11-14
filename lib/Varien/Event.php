@@ -62,7 +62,7 @@ class Varien_Event extends Varien_Object
      * Register an observer for the event
      *
      * @param Varien_Event_Observer $observer
-     * @return Varien_Event
+     * @return $this
      */
     public function addObserver(Varien_Event_Observer $observer)
     {
@@ -74,7 +74,7 @@ class Varien_Event extends Varien_Object
      * Removes an observer by its name
      *
      * @param string $observerName
-     * @return Varien_Event
+     * @return $this
      */
     public function removeObserverByName($observerName)
     {
@@ -85,7 +85,7 @@ class Varien_Event extends Varien_Object
     /**
      * Dispatches the event to registered observers
      *
-     * @return Varien_Event
+     * @return $this
      */
     public function dispatch()
     {

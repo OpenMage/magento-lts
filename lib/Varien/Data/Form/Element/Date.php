@@ -79,7 +79,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
      * @param mixed $value
      * @param string $format
      * @param string $locale
-     * @return Varien_Data_Form_Element_Date
+     * @return $this
      */
     public function setValue($value, $format = null, $locale = null)
     {

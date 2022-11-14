@@ -25,7 +25,7 @@
 class Varien_Autoload
 {
     /**
-     * @var Varien_Autoload
+     * @var Varien_Autoload|null
      */
     protected static $_instance;
 

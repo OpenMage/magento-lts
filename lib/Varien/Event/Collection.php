@@ -99,7 +99,7 @@ class Varien_Event_Collection
      * Register an event for this collection
      *
      * @param Varien_Event $event
-     * @return Varien_Event_Collection
+     * @return $this
      */
     public function addEvent(Varien_Event $event)
     {
@@ -114,7 +114,7 @@ class Varien_Event_Collection
      * If not it will be registered as global observer
      *
      * @param Varien_Event_Observer $observer
-     * @return Varien_Event_Collection
+     * @return $this
      */
     public function addObserver(Varien_Event_Observer $observer)
     {
@@ -134,7 +134,7 @@ class Varien_Event_Collection
      *
      * @param string $eventName
      * @param array $data
-     * @return Varien_Event_Collection
+     * @return $this
      */
     public function dispatch($eventName, array $data= [])
     {

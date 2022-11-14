@@ -128,7 +128,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string $tableName
      * @param string $schemaName
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function truncateTable($tableName, $schemaName = null);
 
@@ -231,7 +231,7 @@ interface Varien_Db_Adapter_Interface
      * @param string $columnName
      * @param array|string $definition  string specific or universal array DB Server definition
      * @param string $schemaName
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function addColumn($tableName, $columnName, $definition, $schemaName = null);
 
@@ -246,7 +246,7 @@ interface Varien_Db_Adapter_Interface
      * @param array|string $definition
      * @param bool $flushData        flush table statistic
      * @param string $schemaName
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function changeColumn(
         $tableName,
@@ -265,7 +265,7 @@ interface Varien_Db_Adapter_Interface
      * @param array|string $definition
      * @param bool $flushData
      * @param string $schemaName
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function modifyColumn($tableName, $columnName, $definition, $flushData = false, $schemaName = null);
 
@@ -349,7 +349,7 @@ interface Varien_Db_Adapter_Interface
      * @param bool $purge            trying remove invalid data
      * @param string $schemaName
      * @param string $refSchemaName
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function addForeignKey(
         $fkName,
@@ -370,7 +370,7 @@ interface Varien_Db_Adapter_Interface
      * @param string $tableName
      * @param string $fkName
      * @param string $schemaName
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function dropForeignKey($tableName, $fkName, $schemaName = null);
 
@@ -496,7 +496,7 @@ interface Varien_Db_Adapter_Interface
      * Executes a SQL statement(s)
      *
      * @param string $sql
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function multiQuery($sql);
 
@@ -658,14 +658,14 @@ interface Varien_Db_Adapter_Interface
     /**
      * Run additional environment before setup
      *
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function startSetup();
 
     /**
      * Run additional environment after setup
      *
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function endSetup();
 
@@ -673,21 +673,21 @@ interface Varien_Db_Adapter_Interface
      * Set cache adapter
      *
      * @param Zend_Cache_Backend_Interface $adapter
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function setCacheAdapter($adapter);
 
     /**
      * Allow DDL caching
      *
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function allowDdlCache();
 
     /**
      * Disallow DDL caching
      *
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function disallowDdlCache();
 
@@ -697,7 +697,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string $tableName
      * @param string $schemaName OPTIONAL
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function resetDdlCache($tableName = null, $schemaName = null);
 
@@ -706,7 +706,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string $tableCacheKey
      * @param int $ddlType
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function saveDdlCache($tableCacheKey, $ddlType, $data);
 
@@ -956,7 +956,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string $tableName
      * @param string $schemaName
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function disableTableKeys($tableName, $schemaName = null);
 
@@ -965,7 +965,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string $tableName
      * @param string $schemaName
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function enableTableKeys($tableName, $schemaName = null);
 
@@ -1030,7 +1030,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param Varien_Db_Select $select
      * @param string $field
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function orderRand(Varien_Db_Select $select, $field = null);
 
@@ -1076,7 +1076,7 @@ interface Varien_Db_Adapter_Interface
      * Drop trigger
      *
      * @param string $triggerName
-     * @return Varien_Db_Adapter_Interface
+     * @return $this
      */
     public function dropTrigger($triggerName);
 

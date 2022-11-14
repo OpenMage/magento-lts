@@ -186,7 +186,7 @@ class Varien_Db_Ddl_Table
      * Set table name
      *
      * @param string $name
-     * @return Varien_Db_Ddl_Table
+     * @return $this
      */
     public function setName($name)
     {
@@ -201,7 +201,7 @@ class Varien_Db_Ddl_Table
      * Set schema name
      *
      * @param string $name
-     * @return Varien_Db_Ddl_Table
+     * @return $this
      */
     public function setSchema($name)
     {
@@ -213,7 +213,7 @@ class Varien_Db_Ddl_Table
      * Set comment for table
      *
      * @param string $comment
-     * @return Varien_Db_Ddl_Table
+     * @return $this
      */
     public function setComment($comment)
     {
@@ -274,7 +274,7 @@ class Varien_Db_Ddl_Table
      * @param array $options array of additional options
      * @param string $comment column description
      * @throws Zend_Db_Exception
-     * @return Varien_Db_Ddl_Table
+     * @return $this
      */
     public function addColumn($name, $type, $size = null, $options = [], $comment = null)
     {
@@ -434,7 +434,7 @@ class Varien_Db_Ddl_Table
      * @param string $onDelete      the action on delete row
      * @param string $onUpdate      the action on update
      * @throws Zend_Db_Exception
-     * @return Varien_Db_Ddl_Table
+     * @return $this
      */
     public function addForeignKey($fkName, $column, $refTable, $refColumn, $onDelete = null, $onUpdate = null)
     {
@@ -483,7 +483,7 @@ class Varien_Db_Ddl_Table
      * @param string $indexName     the index name
      * @param array|string $fields  array of columns or column string
      * @param array $options        array of additional options
-     * @return Varien_Db_Ddl_Table
+     * @return $this
      */
     public function addIndex($indexName, $fields, $options = [])
     {
@@ -561,7 +561,7 @@ class Varien_Db_Ddl_Table
      *
      * @param array $column
      * @see $this->_columns
-     * @return Varien_Db_Ddl_Table
+     * @return $this
      */
     public function setColumn($column)
     {

@@ -161,7 +161,7 @@ class Varien_File_Uploader
      * After save logic
      *
      * @param  array $result
-     * @return Varien_File_Uploader
+     * @return $this
      */
     protected function _afterSave($result)
     {
@@ -291,7 +291,7 @@ class Varien_File_Uploader
      * @param object $callbackObject
      * @param string $callbackMethod    Method name of $callbackObject. It must
      *                                  have interface (string $tmpFilePath)
-     * @return Varien_File_Uploader
+     * @return $this
      */
     public function addValidateCallback($callbackName, $callbackObject, $callbackMethod)
     {
@@ -307,7 +307,7 @@ class Varien_File_Uploader
      *
      * @param string $callbackName
      * @access public
-     * @return Varien_File_Uploader
+     * @return $this
      */
     public function removeValidateCallback($callbackName)
     {
@@ -392,7 +392,7 @@ class Varien_File_Uploader
      *
      * @param mixed $flag
      * @access public
-     * @return Varien_File_Uploader
+     * @return $this
      */
     public function setAllowCreateFolders($flag)
     {
@@ -405,7 +405,7 @@ class Varien_File_Uploader
      *
      * @param mixed $flag
      * @access public
-     * @return Varien_File_Uploader
+     * @return $this
      */
     public function setAllowRenameFiles($flag)
     {
@@ -418,7 +418,7 @@ class Varien_File_Uploader
      *
      * @param mixed $flag
      * @access public
-     * @return Varien_File_Uploader
+     * @return $this
      */
     public function setFilesDispersion($flag)
     {
@@ -430,7 +430,7 @@ class Varien_File_Uploader
      * Filenames Case-sensitivity  setter
      *
      * @param mixed $flag
-     * @return Varien_File_Uploader
+     * @return $this
      */
     public function setFilenamesCaseSensitivity($flag)
     {
@@ -450,7 +450,7 @@ class Varien_File_Uploader
      * Set valid MIME-types.
      *
      * @param array $mimeTypes
-     * @return Varien_File_Uploader
+     * @return $this
      */
     public function setValidMimeTypes($mimeTypes = [])
     {

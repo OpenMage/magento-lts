@@ -4341,7 +4341,7 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Category.php
 
 		-
-			message: "#^Property Mage_Catalog_Model_Resource_Category\\:\\:\\$_tree \\(Varien_Data_Tree_Db\\) does not accept Varien_Data_Tree_Dbp\\.$#"
+			message: "#^Property Mage_Catalog_Model_Resource_Category\\:\\:\\$_tree \\(Varien_Data_Tree_Db\\) does not accept Mage_Catalog_Model_Resource_Category_Tree\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Category.php
 
@@ -13446,11 +13446,6 @@ parameters:
 			path: ../lib/Magento/Profiler/OutputAbstract.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: ../lib/Varien/Autoload.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 3
 			path: ../lib/Varien/Cache/Backend/Database.php
@@ -13706,11 +13701,6 @@ parameters:
 			path: ../lib/Varien/Data/Tree/Dbp.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: ../lib/Varien/Data/Tree/Node.php
-
-		-
 			message: "#^Method Varien_Data_Tree\\:\\:load\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
 			count: 1
 			path: ../lib/Varien/Data/Tree/Node.php
@@ -13806,22 +13796,17 @@ parameters:
 			path: ../lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
-			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:addForeignKey\\(\\) should return Varien_Db_Adapter_Pdo_Mysql but returns Zend_Db_Statement_Interface\\.$#"
+			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:addForeignKey\\(\\) should return \\$this\\(Varien_Db_Adapter_Pdo_Mysql\\) but returns Zend_Db_Statement_Interface\\.$#"
 			count: 1
 			path: ../lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
-			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:changeColumn\\(\\) should return Varien_Db_Adapter_Pdo_Mysql but returns Zend_Db_Statement_Interface\\.$#"
+			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:changeColumn\\(\\) should return \\$this\\(Varien_Db_Adapter_Pdo_Mysql\\) but returns Zend_Db_Statement_Interface\\.$#"
 			count: 1
 			path: ../lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
 			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:dropColumn\\(\\) should return bool but returns Zend_Db_Statement_Interface\\.$#"
-			count: 1
-			path: ../lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
-			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:dropTemporaryTable\\(\\) should return bool but returns \\$this\\(Varien_Db_Adapter_Pdo_Mysql\\)\\.$#"
 			count: 1
 			path: ../lib/Varien/Db/Adapter/Pdo/Mysql.php
 
@@ -13846,12 +13831,17 @@ parameters:
 			path: ../lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
-			message: "#^Return type \\(array\\) of method Varien_Db_Adapter_Pdo_Mysql\\:\\:multiQuery\\(\\) should be compatible with return type \\(Varien_Db_Adapter_Interface\\) of method Varien_Db_Adapter_Interface\\:\\:multiQuery\\(\\)$#"
+			message: "#^Return type \\(\\$this\\(Varien_Db_Adapter_Pdo_Mysql\\)\\) of method Varien_Db_Adapter_Pdo_Mysql\\:\\:dropTemporaryTable\\(\\) should be compatible with return type \\(bool\\) of method Varien_Db_Adapter_Interface\\:\\:dropTemporaryTable\\(\\)$#"
 			count: 1
 			path: ../lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
-			message: "#^Return type \\(bool\\|int\\) of method Varien_Db_Adapter_Pdo_Mysql\\:\\:addColumn\\(\\) should be compatible with return type \\(Varien_Db_Adapter_Interface\\) of method Varien_Db_Adapter_Interface\\:\\:addColumn\\(\\)$#"
+			message: "#^Return type \\(array\\) of method Varien_Db_Adapter_Pdo_Mysql\\:\\:multiQuery\\(\\) should be compatible with return type \\(\\$this\\(Varien_Db_Adapter_Interface\\)\\) of method Varien_Db_Adapter_Interface\\:\\:multiQuery\\(\\)$#"
+			count: 1
+			path: ../lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Return type \\(bool\\|int\\) of method Varien_Db_Adapter_Pdo_Mysql\\:\\:addColumn\\(\\) should be compatible with return type \\(\\$this\\(Varien_Db_Adapter_Interface\\)\\) of method Varien_Db_Adapter_Interface\\:\\:addColumn\\(\\)$#"
 			count: 1
 			path: ../lib/Varien/Db/Adapter/Pdo/Mysql.php
 
@@ -14021,11 +14011,6 @@ parameters:
 			path: ../lib/Varien/Image.php
 
 		-
-			message: "#^Property Varien_Image\\:\\:\\$_adapter \\(Varien_Image_Adapter_Abstract\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: ../lib/Varien/Image.php
-
-		-
 			message: "#^Method Varien_Image_Adapter_Abstract\\:\\:backgroundColor\\(\\) should return array but empty return statement found\\.$#"
 			count: 2
 			path: ../lib/Varien/Image/Adapter/Abstract.php
@@ -14161,6 +14146,11 @@ parameters:
 			path: ../lib/Varien/Object/Cache.php
 
 		-
+			message: "#^Method Varien_Object_Cache\\:\\:singleton\\(\\) should return \\$this\\(Varien_Object_Cache\\) but returns Varien_Object_Cache\\.$#"
+			count: 1
+			path: ../lib/Varien/Object/Cache.php
+
+		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: ../lib/Varien/Object/Cache.php
@@ -14239,6 +14229,11 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
 			count: 1
 			path: ../lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Method Varien_Simplexml_Element\\:\\:getParent\\(\\) should return \\$this\\(Varien_Simplexml_Element\\) but returns Varien_Simplexml_Element\\.$#"
+			count: 1
+			path: ../lib/Varien/Simplexml/Element.php
 
 		-
 			message: "#^Parameter \\#1 \\$filename of method Varien_Simplexml_Element\\:\\:asNiceXml\\(\\) expects string, int given\\.$#"
