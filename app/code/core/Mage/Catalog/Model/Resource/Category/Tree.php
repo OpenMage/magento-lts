@@ -143,8 +143,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         }
 
         $nodeIds = [];
-        foreach ($this->getNodes() as $node) {
-            $id = $node->getId();
+        foreach ($this->getNodes() as $id => $node) {
             if (!in_array($id, $exclude)) {
                 $nodeIds[] = $id;
             }
@@ -174,8 +173,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
                 }
             }
 
-            foreach ($this->getNodes() as $node) {
-                if (!$collection->getItemById($node->getId()) && $node->getParent()) {
+            foreach ($this->getNodes() as $id => $node) {
+                if (!$collection->getItemById($id) && $node->getParent()) {
                     $this->removeNode($node);
                 }
             }

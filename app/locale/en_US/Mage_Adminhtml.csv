@@ -208,6 +208,7 @@
 "The credit memo no longer exists.","The credit memo no longer exists."
 "Cannot delete the design change.","Cannot delete the design change."
 "Cannot delete tracking number.","Cannot delete tracking number."
+"The shipment no longer exists.","The shipment no longer exists."
 "Cannot do shipment for the order separately from invoice.","Cannot do shipment for the order separately from invoice."
 "Cannot do shipment for the order.","Cannot do shipment for the order."
 "Cannot initialize shipment for adding tracking number.","Cannot initialize shipment for adding tracking number."

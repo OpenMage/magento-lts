@@ -57,6 +57,16 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_captcha = [];
 
     /**
+     * @return bool
+     * @since 19.4.19 / 20.0.17
+     */
+    public function isEnabled(): bool
+    {
+        $path = Mage::app()->getStore()->isAdmin() ? 'admin/captcha/enable' : 'customer/captcha/enable';
+        return Mage::getStoreConfigFlag($path);
+    }
+
+    /**
      * Get Captcha
      *
      * @param string $formId
