@@ -736,12 +736,12 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/GalleryController.php
 
 		-
-			message: "#^Offset 'file' does not exist on array\\{path\\: \\(array\\|string\\), url\\: string\\}\\.$#"
+			message: "#^Offset 'file' does not exist on array\\{path\\: \\(array\\<int, string\\>\\|string\\), url\\: string\\}\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/GalleryController.php
 
 		-
-			message: "#^Offset 'file' does not exist on array\\{path\\: \\(array\\|string\\)\\}\\.$#"
+			message: "#^Offset 'file' does not exist on array\\{path\\: \\(array\\<int, string\\>\\|string\\)\\}\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/GalleryController.php
 
@@ -2264,11 +2264,6 @@ parameters:
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Flat\\:\\:getTypeId\\(\\) should return int but returns string\\|null\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Flat.php
-
-		-
-			message: "#^Comparison operation \"\\>\" between int\\<0, max\\> and Varien_Simplexml_Element\\|false results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Flat/Indexer.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Indexer_Abstract\\:\\:_getAttribute\\(\\) should return Mage_Catalog_Model_Resource_Eav_Attribute but returns Mage_Eav_Model_Entity_Attribute_Abstract\\|false\\.$#"
@@ -3971,6 +3966,11 @@ parameters:
 			path: ../app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php
 
 		-
+			message: "#^Binary operation \"\\+\" between string and 50\\|int\\<100, max\\> results in an error\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/ImportExport/Model/Import.php
+
+		-
 			message: "#^Cannot access offset 'file' on bool\\|void\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/ImportExport/Model/Import.php
@@ -5471,7 +5471,7 @@ parameters:
 			path: ../app/code/core/Mage/Sales/controllers/Billing/AgreementController.php
 
 		-
-			message: "#^Comparison operation \"\\!\\=\" between int and \\(array\\|string\\) results in an error\\.$#"
+			message: "#^Comparison operation \"\\!\\=\" between int and \\(array\\<int, string\\>\\|string\\) results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/controllers/DownloadController.php
 
@@ -5841,7 +5841,7 @@ parameters:
 			path: ../app/code/core/Mage/Wishlist/Model/Wishlist.php
 
 		-
-			message: "#^Comparison operation \"\\!\\=\" between int and \\(array\\|string\\) results in an error\\.$#"
+			message: "#^Comparison operation \"\\!\\=\" between int and \\(array\\<int, string\\>\\|string\\) results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Wishlist/controllers/IndexController.php
 
