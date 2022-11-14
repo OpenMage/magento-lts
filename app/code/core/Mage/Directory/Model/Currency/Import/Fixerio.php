@@ -43,7 +43,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
      *
      * @var string
      */
-    protected $_url = '';
+    protected $_url = 'https://api.apilayer.com/fixer/latest?apikey={{ACCESS_KEY}}&base={{CURRENCY_FROM}}&symbols={{CURRENCY_TO}}';
 
     /**
      * Information messages stack
@@ -52,7 +52,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
      */
     protected $_messages = [];
 
-     /**
+    /**
      * HTTP client
      *
      * @var Varien_Http_Client
@@ -65,10 +65,6 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
     public function __construct()
     {
         $this->_httpClient = new Varien_Http_Client();
-        if (empty($this->_url)) {
-            $this->_url = 'https://api.apilayer.com/fixer/latest'
-                . '?apikey={{ACCESS_KEY}}&base={{CURRENCY_FROM}}&symbols={{CURRENCY_TO}}';
-        }
     }
 
     /**
