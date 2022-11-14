@@ -196,7 +196,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Read response from server
      *
-     * @return string
+     * @return string|false
      */
     public function read()
     {
