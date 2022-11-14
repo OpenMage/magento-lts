@@ -106,7 +106,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment><![CDATA[<a href='https://www.currencyconverterapi.com'</a>https://www.currencyconverterapi.com]]></comment>
+                            <comment><![CDATA[<a href='https://www.currencyconverterapi.com'>https://www.currencyconverterapi.com</a>]]></comment>
                             <validate>required-entry</validate>
                             <depends>
                                 <active>1</active>
@@ -148,7 +148,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment><![CDATA[<a href='https://apilayer.com/marketplace/currency_data-api'</a>https://apilayer.com/marketplace/currency_data-api]]></comment>
+                            <comment><![CDATA[<a href='https://apilayer.com/marketplace/currency_data-api'>https://apilayer.com/marketplace/currency_data-api</a>]]></comment>
                             <validate>required-entry</validate>
                             <depends>
                                 <active>1</active>
