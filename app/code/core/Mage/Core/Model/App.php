@@ -92,7 +92,7 @@ class Mage_Core_Model_App
     /**
      * Application store object
      *
-     * @var Mage_Core_Model_Store
+     * @var Mage_Core_Model_Store|null
      */
     protected $_store;
 
@@ -106,14 +106,14 @@ class Mage_Core_Model_App
     /**
      * Application location object
      *
-     * @var Mage_Core_Model_Locale
+     * @var Mage_Core_Model_Locale|null
      */
     protected $_locale;
 
     /**
      * Application translate object
      *
-     * @var Mage_Core_Model_Translate
+     * @var Mage_Core_Model_Translate|null
      */
     protected $_translator;
 
@@ -127,7 +127,7 @@ class Mage_Core_Model_App
     /**
      * Application layout object
      *
-     * @var Mage_Core_Model_Layout
+     * @var Mage_Core_Model_Layout|null
      */
     protected $_layout;
 
@@ -141,14 +141,14 @@ class Mage_Core_Model_App
     /**
      * Application front controller
      *
-     * @var Mage_Core_Controller_Varien_Front
+     * @var Mage_Core_Controller_Varien_Front|null
      */
     protected $_frontController;
 
     /**
      * Cache object
      *
-     * @var Mage_Core_Model_Cache
+     * @var Mage_Core_Model_Cache|null
      */
     protected $_cache;
 
@@ -202,14 +202,14 @@ class Mage_Core_Model_App
     /**
      * Request object
      *
-     * @var Mage_Core_Controller_Request_Http
+     * @var Mage_Core_Controller_Request_Http|null
      */
     protected $_request;
 
     /**
      * Response object
      *
-     * @var Zend_Controller_Response_Http
+     * @var Mage_Core_Controller_Response_Http|null
      */
     protected $_response;
 
@@ -505,7 +505,7 @@ class Mage_Core_Model_App
             $this->_checkCookieStore($scopeType);
             $this->_checkGetStore($scopeType);
         }
-        $this->_useSessionInUrl = $this->getStore()->getConfig(
+        $this->_useSessionInUrl = (bool)$this->getStore()->getConfig(
             Mage_Core_Model_Session_Abstract::XML_PATH_USE_FRONTEND_SID
         );
         return $this;
@@ -715,7 +715,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve store code or null by store group
      *
-     * @param int $group
+     * @param int|string $group
      * @return string|null
      */
     protected function _getStoreByGroup($group)
@@ -749,7 +749,7 @@ class Mage_Core_Model_App
     /**
      * Set current default store
      *
-     * @param string $store
+     * @param Mage_Core_Model_Store|string $store
      * @return $this
      */
     public function setCurrentStore($store)
@@ -827,7 +827,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve application store object
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $id
+     * @param null|string|bool|int|Mage_Core_Model_Store|Varien_Object $id
      * @return Mage_Core_Model_Store
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -933,7 +933,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve default store for default group and website
      *
-     * @return Mage_Core_Model_Store
+     * @return Mage_Core_Model_Store|null
      */
     public function getDefaultStoreView()
     {
@@ -1121,7 +1121,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve front controller object
      *
-     * @return Mage_Core_Controller_Varien_Front
+     * @return Mage_Core_Controller_Varien_Front|null
      */
     public function getFrontController()
     {
@@ -1175,7 +1175,7 @@ class Mage_Core_Model_App
      * @param   mixed $data
      * @param   string $id
      * @param   array $tags
-     * @param null|false|int $lifeTime
+     * @param   null|false|int $lifeTime
      * @return  $this
      */
     public function saveCache($data, $id, $tags = [], $lifeTime = false)

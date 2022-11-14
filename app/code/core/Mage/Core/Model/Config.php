@@ -181,7 +181,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Resource model
      * Used for operations with DB
      *
-     * @var Mage_Core_Model_Resource_Config
+     * @var Mage_Core_Model_Resource_Config|null
      */
     protected $_resourceModel;
 
@@ -386,7 +386,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $this->_loadDeclaredModules();
 
         $resourceConfig = sprintf('config.%s.xml', $this->_getResourceConnectionModel('core'));
-        $this->loadModulesConfiguration(['config.xml',$resourceConfig], $this);
+        $this->loadModulesConfiguration(['config.xml', $resourceConfig], $this);
 
         /**
          * Prevent local.xml directives overwriting
@@ -617,7 +617,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Load cached data by identifier
      *
      * @param   string $id
-     * @return  string
+     * @return  string|false
      */
     protected function _loadCache($id)
     {
@@ -627,7 +627,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Save cache data
      *
-     * @param   string $data
+     * @param   mixed $data
      * @param   string $id
      * @param   array $tags
      * @param   false|int $lifetime
@@ -663,7 +663,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Configuration cache clean process
      *
-     * @return $this
+     * @return Mage_Core_Model_Config
      */
     public function cleanCache()
     {
@@ -735,7 +735,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                     Mage::throwException(Mage::helper('core')->__('Unknown scope "%s".', $scope));
                 }
             }
-            $path = $scope . ($scopeCode ? '/' . $scopeCode : '' ) . (empty($path) ? '' : '/' . $path);
+            $path = $scope . ($scopeCode ? '/' . $scopeCode : '') . (empty($path) ? '' : '/' . $path);
         }
 
         /**
@@ -1012,10 +1012,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Iterate all active modules "etc" folders and combine data from
      * specidied xml file name to one object
      *
-     * @param string $fileName
-     * @param null|Mage_Core_Model_Config_Base $mergeToObject
+     * @param array|string $fileName
+     * @param Varien_Simplexml_Config|null $mergeToObject
      * @param null $mergeModel
-     * @return Mage_Core_Model_Config_Base
+     * @return Varien_Simplexml_Config
      */
     public function loadModulesConfiguration($fileName, $mergeToObject = null, $mergeModel = null)
     {
@@ -1080,7 +1080,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 $host = $hostArr[0];
                 $port = isset(
                     $hostArr[1]
-                ) && (!$secure && $hostArr[1]!=80 || $secure && $hostArr[1]!=443
+                ) && (
+                    !$secure && $hostArr[1]!=80 || $secure && $hostArr[1]!=443
                 ) ? ':'.$hostArr[1] : '';
                 $path = Mage::app()->getRequest()->getBasePath();
 
@@ -1438,7 +1439,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Will instantiate Mage_Catalog_Model_Resource_Product
      *
      * @param string $modelClass
-     * @param array|object $constructArguments
+     * @param array|object|string $constructArguments
      * @return Mage_Core_Model_Abstract|false
      * @see Mage_Catalog_Model_Resource_Product
      */
@@ -1457,7 +1458,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
     /**
      * @param string $path
-     * @return bool
+     * @return false|object
      */
     public function getNodeClassInstance($path)
     {

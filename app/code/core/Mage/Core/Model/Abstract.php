@@ -78,7 +78,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      *
      * When you use true - all cache will be clean
      *
-     * @var string|true
+     * @var array|string|bool
      */
     protected $_cacheTag    = false;
 
@@ -161,7 +161,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Retrieve model object identifier
      *
-     * @return int|string
+     * @return int|string|null
      */
     public function getId()
     {

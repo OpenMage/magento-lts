@@ -175,7 +175,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Cache flag
      *
-     * @var bool
+     * @var true
      */
     protected $_cacheTag    = true;
 
@@ -194,21 +194,21 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Price filter
      *
-     * @var Mage_Directory_Model_Currency_Filter
+     * @var Mage_Directory_Model_Currency_Filter|Varien_Filter_Sprintf|null
      */
     protected $_priceFilter;
 
     /**
      * Website model
      *
-     * @var Mage_Core_Model_Website
+     * @var Mage_Core_Model_Website|null
      */
     protected $_website;
 
     /**
      * Group model
      *
-     * @var Mage_Core_Model_Store_Group
+     * @var Mage_Core_Model_Store_Group|null
      */
     protected $_group;
 
@@ -250,7 +250,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Session entity
      *
-     * @var Mage_Core_Model_Session_Abstract
+     * @var Mage_Core_Model_Session|null
      */
     protected $_session;
 
@@ -836,7 +836,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve store base currency
      *
-     * @return Mage_Directory_Model_Currency
+     * @return Mage_Directory_Model_Currency|mixed
      */
     public function getBaseCurrency()
     {
@@ -861,7 +861,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve store default currency
      *
-     * @return Mage_Directory_Model_Currency
+     * @return Mage_Directory_Model_Currency|mixed
      */
     public function getDefaultCurrency()
     {
@@ -958,7 +958,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve store current currency
      *
-     * @return Mage_Directory_Model_Currency
+     * @return Mage_Directory_Model_Currency|mixed
      */
     public function getCurrentCurrency()
     {
@@ -968,7 +968,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $currency     = Mage::getModel('directory/currency')->load($this->getCurrentCurrencyCode());
             $baseCurrency = $this->getBaseCurrency();
 
-            if (! $baseCurrency->getRate($currency)) {
+            if (!$baseCurrency->getRate($currency)) {
                 $currency = $baseCurrency;
                 $this->setCurrentCurrencyCode($baseCurrency->getCode());
             }
@@ -992,10 +992,10 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Convert price from default currency to current currency
      *
-     * @param   double $price
+     * @param   float $price
      * @param   bool $format             Format price to currency format
      * @param   bool $includeContainer   Enclose into <span class="price"><span>
-     * @return  double
+     * @return  float
      */
     public function convertPrice($price, $format = false, $includeContainer = true)
     {
@@ -1015,7 +1015,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Round price
      *
      * @param mixed $price
-     * @return double
+     * @return float
      */
     public function roundPrice($price)
     {
@@ -1025,9 +1025,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Format price with currency filter (taking rate into consideration)
      *
-     * @param   double $price
+     * @param   float $price
      * @param   bool $includeContainer
-     * @return  string
+     * @return  float|string
      */
     public function formatPrice($price, $includeContainer = true)
     {
@@ -1040,7 +1040,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Get store price filter
      *
-     * @return Varien_Filter_Sprintf
+     * @return Mage_Directory_Model_Currency_Filter|Varien_Filter_Sprintf
      */
     public function getPriceFilter()
     {

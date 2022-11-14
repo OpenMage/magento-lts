@@ -740,7 +740,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Fetch collection data
      *
-     * @param   Zend_Db_Select $select
+     * @param   Zend_Db_Select|string $select
      * @return  array
      */
     protected function _fetchAll($select)

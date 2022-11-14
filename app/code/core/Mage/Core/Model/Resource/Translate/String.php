@@ -154,7 +154,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
      *
      * @param string $string
      * @param string $locale
-     * @param int|null $storeId
+     * @param int|false|null $storeId
      * @return $this
      */
     public function deleteTranslate($string, $locale = null, $storeId = null)

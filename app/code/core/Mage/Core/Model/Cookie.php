@@ -39,7 +39,7 @@ class Mage_Core_Model_Cookie
     /**
      * Store object
      *
-     * @var Mage_Core_Model_Store
+     * @var Mage_Core_Model_Store|null
      */
     protected $_store;
 
@@ -159,7 +159,7 @@ class Mage_Core_Model_Cookie
     /**
      * Retrieve use HTTP only flag
      *
-     * @return bool
+     * @return bool|null
      */
     public function getHttponly()
     {
@@ -207,7 +207,7 @@ class Mage_Core_Model_Cookie
      *
      * @param string $name The cookie name
      * @param string $value The cookie value
-     * @param int $period Lifetime period
+     * @param int|true $period Lifetime period
      * @param string $path
      * @param string $domain
      * @param int|bool $secure

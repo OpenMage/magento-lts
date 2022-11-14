@@ -225,7 +225,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Retrieve current layout object
      *
-     * @return Mage_Core_Model_Layout
+     * @return Mage_Core_Model_Layout|false
      */
     public function getLayout()
     {

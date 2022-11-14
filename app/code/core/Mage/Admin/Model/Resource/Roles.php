@@ -89,7 +89,7 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Process role after saving
      *
-     * @param Mage_Core_Model_Abstract $role
+     * @param Mage_Admin_Model_Roles $role
      * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $role)

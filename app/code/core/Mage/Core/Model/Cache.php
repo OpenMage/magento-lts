@@ -96,7 +96,7 @@ class Mage_Core_Model_Cache
     /**
      * List of allowed cache options
      *
-     * @var array
+     * @var array|null
      */
     protected $_allowedCacheOptions;
 

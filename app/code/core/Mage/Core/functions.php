@@ -130,7 +130,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 
     // PEAR specific message handling
     if (stripos($errfile.$errstr, 'pear') !== false) {
-         // ignore strict and deprecated notices
+        // ignore strict and deprecated notices
         if (($errno == E_STRICT) || ($errno == E_DEPRECATED)) {
             return true;
         }
@@ -231,21 +231,11 @@ function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 function mageSendErrorHeader()
 {
     return;
-    if (!isset($_SERVER['SCRIPT_NAME'])) {
-        return;
-    }
-    $action = Mage::app()->getRequest()->getBasePath()."bugreport.php";
-    echo '<form id="error_report" method="post" style="display:none" action="'.$action.'"><textarea name="error">';
 }
 
 function mageSendErrorFooter()
 {
     return;
-    if (!isset($_SERVER['SCRIPT_NAME'])) {
-        return;
-    }
-    echo '</textarea></form><script type="text/javascript">document.getElementById("error_report").submit()</script>';
-    exit;
 }
 
 /**
@@ -268,7 +258,7 @@ function mageDelTree($path)
 
 /**
  * @param string $string
- * @param string $delimiter
+ * @param non-empty-string $delimiter
  * @param string $enclosure
  * @param string $escape
  * @return array
@@ -432,9 +422,8 @@ if (!function_exists('str_ends_with')) {
      * @param string $needle
      * @return bool
      */
-    function str_ends_with($haystack,  $needle)
+    function str_ends_with($haystack, $needle)
     {
         return $needle === '' || ($haystack !== '' && substr_compare($haystack, $needle, -\strlen($needle)) === 0);
     }
 }
-

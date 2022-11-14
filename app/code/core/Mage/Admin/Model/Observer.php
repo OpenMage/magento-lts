@@ -70,7 +70,7 @@ class Mage_Admin_Model_Observer
                         $session->login($username, $password, $request);
                         $request->setPost('login', null);
                     } else {
-                        if ($request && !$request->getParam('messageSent')) {
+                        if (!$request->getParam('messageSent')) {
                             Mage::getSingleton('adminhtml/session')->addError(
                                 Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.')
                             );

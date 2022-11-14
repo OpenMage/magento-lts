@@ -41,7 +41,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
     /**
      * Data at storage
      *
-     * @var array
+     * @var array|null
      */
     protected $_data = null;
 
@@ -249,9 +249,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
      */
     public function saveFile($file, $overwrite = true)
     {
-        if (isset($file['filename']) && !empty($file['filename'])
-            && isset($file['content'])
-        ) {
+        if (isset($file['filename']) && !empty($file['filename']) && isset($file['xcontent'])) {
             try {
                 $filename = (isset($file['directory']) && !empty($file['directory']))
                     ? $file['directory'] . DS . $file['filename']

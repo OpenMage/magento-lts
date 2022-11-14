@@ -61,7 +61,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * Cache tag for clear cache in after save and after delete
      *
-     * @var mixed | array | string | boolean
+     * @var array|string|bool
      */
     protected $_cacheTag = false;
 
@@ -300,7 +300,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
         }
 
         if (Mage::getStoreConfig('web/url/use_store') && $storeCode = Mage::app()->getStore()->getCode()) {
-                $targetUrl = $request->getBaseUrl(). '/' . $storeCode . '/' .$this->getTargetPath();
+            $targetUrl = $request->getBaseUrl(). '/' . $storeCode . '/' .$this->getTargetPath();
         }
 
         $queryString = $this->_getQueryString();
@@ -342,7 +342,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     }
 
     /**
-     * @return int
+     * @return int|false|null
      */
     public function getStoreId()
     {

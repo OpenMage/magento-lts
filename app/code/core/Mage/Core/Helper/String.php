@@ -33,7 +33,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_Core';
 
     /**
-     * @var Mage_Core_Helper_Array
+     * @var Mage_Core_Helper_Array|null
      */
     protected $_arrayHelper;
 
@@ -462,7 +462,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Set array helper
      *
-     * @param Mage_Core_Helper_Abstract|Mage_Core_Helper_Array $helper
+     * @param Mage_Core_Helper_Array $helper
      * @return $this
      */
     public function setArrayHelper(Mage_Core_Helper_Abstract $helper)

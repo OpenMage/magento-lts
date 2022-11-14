@@ -32,7 +32,7 @@ class Mage_Core_Model_Resource_Iterator extends Varien_Object
      * Walk over records fetched from query one by one using callback function
      *
      * @param Zend_Db_Statement_Interface|Zend_Db_Select|string $query
-     * @param array|string $callbacks
+     * @param array $callbacks
      * @param array $args
      * @param Varien_Db_Adapter_Interface $adapter
      * @return $this

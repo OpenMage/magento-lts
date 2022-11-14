@@ -36,7 +36,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     /**
      * Session lifetime
      *
-     * @var int
+     * @var int|null
      */
     protected $_lifeTime;
 
@@ -50,7 +50,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     /**
      * Database read connection
      *
-     * @var Varien_Db_Adapter_Interface
+     * @var Varien_Db_Adapter_Interface|bool
      */
     protected $_read;
 

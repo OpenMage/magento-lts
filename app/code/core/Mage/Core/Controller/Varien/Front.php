@@ -136,6 +136,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     {
         Mage::dispatchEvent('controller_front_init_before', ['front'=>$this]);
 
+        /** @var array $routersInfo */
         $routersInfo = Mage::app()->getStore()->getConfig(self::XML_STORE_ROUTERS_PATH);
 
         Varien_Profiler::start('mage::app::init_front_controller::collect_routers');
@@ -191,7 +192,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             }
         }
         Varien_Profiler::stop('mage::dispatch::routers_match');
-        if ($i>100) {
+        if ($i > 100) {
             Mage::throwException('Front controller reached 100 router match iterations');
         }
         // This event gives possibility to launch something before sending output (allow cookie setting)
@@ -212,16 +213,18 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     protected function _getRequestRewriteController()
     {
         $className = (string)Mage::getConfig()->getNode('global/request_rewrite/model');
-        return Mage::getSingleton('core/factory')->getModel($className, [
+        /** @var Mage_Core_Model_Url_Rewrite_Request $model */
+        $model = Mage::getSingleton('core/factory')->getModel($className, [
             'routers' => $this->getRouters(),
         ]);
+        return $model;
     }
 
     /**
      * Returns router instance by route name
      *
      * @param string $routeName
-     * @return Mage_Core_Controller_Varien_Router_Abstract
+     * @return Mage_Core_Controller_Varien_Router_Abstract|false
      */
     public function getRouterByRoute($routeName)
     {

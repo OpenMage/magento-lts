@@ -665,7 +665,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * $hook must be either array with 'object' and 'method' entries, or null to remove hook.
      * Previous hook is returned.
      *
-     * @param array $hook
+     * @param array|null $hook
      * @return mixed
      */
     public function setQueryHook($hook)

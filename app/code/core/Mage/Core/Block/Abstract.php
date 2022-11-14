@@ -69,7 +69,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Parent layout of the block
      *
-     * @var Mage_Core_Model_Layout
+     * @var Mage_Core_Model_Layout|null
      */
     protected $_layout;
 
@@ -132,7 +132,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Messages block instance
      *
-     * @var Mage_Core_Block_Messages
+     * @var Mage_Core_Block_Messages|null
      */
     protected $_messagesBlock = null;
 
@@ -184,14 +184,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Factory instance
      *
-     * @var Mage_Core_Model_Factory
+     * @var Mage_Core_Model_Factory|null
      */
     protected $_factory;
 
     /**
      * Application instance
      *
-     * @var Mage_Core_Model_App
+     * @var Mage_Core_Model_App|null
      */
     protected $_app;
 
@@ -247,7 +247,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve request object
      *
-     * @return Mage_Core_Controller_Request_Http
+     * @return Mage_Core_Controller_Request_Http|null
      * @throws Exception
      */
     public function getRequest()
@@ -264,7 +264,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve parent block
      *
-     * @return $this
+     * @return Mage_Core_Block_Abstract
      */
     public function getParentBlock()
     {
@@ -323,7 +323,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve layout object
      *
-     * @return Mage_Core_Model_Layout
+     * @return Mage_Core_Model_Layout|null
      */
     public function getLayout()
     {
@@ -427,7 +427,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * Wrapper for method "setData"
      *
-     * @param   string $name
+     * @param   string|array $name
      * @param   mixed $value
      * @return  $this
      */
@@ -999,7 +999,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     protected function _getUrlModel()
     {
-        return Mage::getModel($this->_getUrlModelClass());
+        /** @var Mage_Core_Model_Url $model */
+        $model = Mage::getModel($this->_getUrlModelClass());
+        return $model;
     }
 
     /**
@@ -1095,7 +1097,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Return block helper
      *
      * @param string $type
-     * @return $this
+     * @return Mage_Core_Block_Abstract
      */
     public function getHelper($type)
     {

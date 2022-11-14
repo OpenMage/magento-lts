@@ -123,7 +123,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * or string 'my_field_name' - will be autoconverted to
      *      array( array( 'field' => 'my_field_name', 'title' => 'my_field_name' ) )
      *
-     * @var array
+     * @var array|null
      */
     protected $_uniqueFields         = null;
 
@@ -300,7 +300,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Get connection by name or type
      *
      * @param string $connectionName
-     * @return Magento_Db_Adapter_Pdo_Mysql
+     * @return Magento_Db_Adapter_Pdo_Mysql|false
      */
     protected function _getConnection($connectionName)
     {
@@ -330,7 +330,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Retrieve connection for read data
      *
-     * @return Magento_Db_Adapter_Pdo_Mysql
+     * @return Magento_Db_Adapter_Pdo_Mysql|false
      */
     protected function _getReadAdapter()
     {
@@ -348,7 +348,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Retrieve connection for write data
      *
-     * @return Magento_Db_Adapter_Pdo_Mysql
+     * @return Magento_Db_Adapter_Pdo_Mysql|false
      */
     protected function _getWriteAdapter()
     {
@@ -547,7 +547,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     public function resetUniqueField()
     {
         $this->_uniqueFields = [];
-         return $this;
+        return $this;
     }
 
     /**

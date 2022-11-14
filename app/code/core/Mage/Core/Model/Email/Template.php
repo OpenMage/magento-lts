@@ -92,7 +92,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     protected $_mail;
     protected $_bccEmails = [];
 
-    static protected $_defaultTemplates;
+    protected static $_defaultTemplates;
 
     /**
      * Initialize email template model
@@ -337,15 +337,11 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Makes additional text preparations for HTML templates
      *
+     * @param string|null $html
      * @return string
-     */
-    /**
-     * @param null $html
-     * @return null|string
      */
     public function getPreparedTemplateText($html = null)
     {
-
         if ($this->isPlain() && $html) {
             return $html;
         } elseif ($this->isPlain()) {
@@ -400,7 +396,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $variables['name'] = reset($names);
 
         $this->setUseAbsoluteLinks(true);
-        $text = $this->getProcessedTemplate($variables, true);
+        $text = $this->getProcessedTemplate($variables);
         $subject = $this->getProcessedTemplateSubject($variables);
 
         $setReturnPath = Mage::getStoreConfig(self::XML_PATH_SENDING_SET_RETURN_PATH);

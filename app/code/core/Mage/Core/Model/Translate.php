@@ -46,14 +46,14 @@ class Mage_Core_Model_Translate
     /**
      * Locale name
      *
-     * @var string
+     * @var string|null
      */
     protected $_locale;
 
     /**
      * Translation object
      *
-     * @var Zend_Translate
+     * @var Zend_Translate|null
      */
     protected $_translate;
 
@@ -69,14 +69,14 @@ class Mage_Core_Model_Translate
     /**
      * Cache identifier
      *
-     * @var string
+     * @var string|null
      */
     protected $_cacheId;
 
     /**
      * Translation data
      *
-     * @var array
+     * @var array|null
      */
     protected $_data = [];
 
@@ -203,7 +203,7 @@ class Mage_Core_Model_Translate
      * Loading data from module translation files
      *
      * @param string $moduleName
-     * @param string $files
+     * @param array $files
      * @param bool $forceReload
      * @return $this
      */
@@ -220,7 +220,7 @@ class Mage_Core_Model_Translate
      * Adding translation data
      *
      * @param array $data
-     * @param string $scope
+     * @param string|false $scope
      * @param bool $forceReload
      * @return $this
      */

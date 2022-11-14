@@ -42,14 +42,14 @@ class Mage_Core_Model_Design_Package
     /**
      * Current Store for generation ofr base_dir and base_url
      *
-     * @var string|integer|Mage_Core_Model_Store
+     * @var string|int|Mage_Core_Model_Store|null
      */
     protected $_store = null;
 
     /**
      * Package area
      *
-     * @var string
+     * @var string|null
      */
     protected $_area;
 
@@ -82,12 +82,12 @@ class Mage_Core_Model_Design_Package
     protected $_callbackFileDir;
 
     /**
-     * @var Mage_Core_Model_Design_Config
+     * @var Mage_Core_Model_Design_Config|null
      */
     protected $_config = null;
 
     /**
-     * @var Mage_Core_Model_Design_Fallback
+     * @var Mage_Core_Model_Design_Fallback|null
      */
     protected $_fallback = null;
 

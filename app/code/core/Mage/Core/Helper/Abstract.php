@@ -228,7 +228,7 @@ abstract class Mage_Core_Helper_Abstract
         return $result;
     }
 
-     /**
+    /**
      * Remove html tags, but leave "<" and ">" signs
      *
      * @param   string $html

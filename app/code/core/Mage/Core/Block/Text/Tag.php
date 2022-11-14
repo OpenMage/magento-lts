@@ -42,7 +42,7 @@ class Mage_Core_Block_Text_Tag extends Mage_Core_Block_Text
 
     /**
      * @param string|array $param
-     * @param null $value
+     * @param string|null $value
      * @return $this
      */
     public function setTagParam($param, $value = null)

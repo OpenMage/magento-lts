@@ -45,7 +45,7 @@ class Mage_Core_Model_Translate_Inline
     /**
      * Is enabled and allowed inline translates flags
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_isAllowed;
 
@@ -254,8 +254,7 @@ class Mage_Core_Model_Translate_Inline
         $trigImg = Mage::getDesign()->getSkinUrl('images/fam_book_open.png');
 
         ob_start();
-        $magentoSkinUrl = Mage::getDesign()->getSkinUrl('lib/prototype/windows/themes/magento.css');
-?>
+        $magentoSkinUrl = Mage::getDesign()->getSkinUrl('lib/prototype/windows/themes/magento.css'); ?>
 <!-- script type="text/javascript" src="<?php echo $baseJsUrl ?>prototype/effects.js"></script -->
 <script type="text/javascript" src="<?php echo $baseJsUrl ?>prototype/window.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo $baseJsUrl ?>prototype/windows/themes/default.css"/>
@@ -524,7 +523,7 @@ class Mage_Core_Model_Translate_Inline
             }
             $length = $end - $from  + $tagLength + 3;
         }
-        if (preg_match('#<\\\\?\/' . $tagName .'\s*?>#i', $body, $tagMatch, null, $end)) {
+        if (preg_match('#<\\\\?\/' . $tagName .'\s*?>#i', $body, $tagMatch, 0, $end)) {
             return $end + strlen($tagMatch[0]);
         } else {
             return false;

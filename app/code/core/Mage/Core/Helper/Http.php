@@ -34,7 +34,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
 
     /**
      * Remote address cache
-     * @var string
+     * @var string|null
      */
     protected $_remoteAddr;
 

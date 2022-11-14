@@ -151,7 +151,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Use Session ID for generate URL
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_useSession;
 
