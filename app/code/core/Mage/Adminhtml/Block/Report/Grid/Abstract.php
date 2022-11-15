@@ -116,8 +116,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                     $filterFieldId = $k;
                     $filterFieldValue = $v;
                 }
-                if (
-                    !$filterData->hasData($filterFieldId) ||
+                if (!$filterData->hasData($filterFieldId) ||
                     $filterData->getData($filterFieldId) != $filterFieldValue
                 ) {
                     return $this;  // don't add column
@@ -168,8 +167,8 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
 
         $orderStatuses = $filterData->getData('order_statuses');
         if (is_array($orderStatuses)) {
-            if (count($orderStatuses) == 1 && strpos($orderStatuses[0],',')!== false) {
-                $filterData->setData('order_statuses', explode(',',$orderStatuses[0]));
+            if (count($orderStatuses) == 1 && strpos($orderStatuses[0], ',')!== false) {
+                $filterData->setData('order_statuses', explode(',', $orderStatuses[0]));
             }
         }
 

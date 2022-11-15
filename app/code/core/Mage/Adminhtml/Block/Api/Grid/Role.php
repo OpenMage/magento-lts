@@ -48,7 +48,6 @@ class Mage_Adminhtml_Block_Api_Grid_Role extends Mage_Adminhtml_Block_Widget_Gri
 
     protected function _prepareColumns()
     {
-
         $this->addColumn('role_id', [
             'header'    =>Mage::helper('adminhtml')->__('ID'),
             'index'     =>'role_id',

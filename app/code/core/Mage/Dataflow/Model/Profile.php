@@ -155,7 +155,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $profileHistory = Mage::getModel('dataflow/profile_history');
 
         $adminUserId = $this->getAdminUserId();
-        if($adminUserId) {
+        if ($adminUserId) {
             $profileHistory->setUserId($adminUserId);
         }
 
@@ -181,8 +181,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     $uploader->save($path);
                     $uploadFile = $uploader->getUploadedFileName();
 
-                    if (
-                        $_FILES['file_' . ($index + 1)]['type'] == "text/csv"
+                    if ($_FILES['file_' . ($index + 1)]['type'] == "text/csv"
                         || $_FILES['file_' . ($index + 1)]['type'] == "application/vnd.ms-excel"
                     ) {
                         $fileData = $csvParser->getData($path . $uploadFile);
@@ -286,8 +285,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 
             $profile->setDataflowProfile($this->getData());
             $profile->run();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             echo $e;
         }
 
@@ -367,11 +365,11 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $mapXml = '';
 
         if (isset($p['map']) && is_array($p['map'])) {
-            foreach ($p['map'] as $side=>$fields) {
+            foreach ($p['map'] as $side => $fields) {
                 if (!is_array($fields)) {
                     continue;
                 }
-                foreach ($fields['db'] as $i=>$k) {
+                foreach ($fields['db'] as $i => $k) {
                     if ($k=='' || $k=='0') {
                         unset($p['map'][$side]['db'][$i]);
                         unset($p['map'][$side]['file'][$i]);
@@ -386,7 +384,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $to = $map[$import?'db':'file'];
             $mapXml .= '    <var name="map">' . $nl;
             $parseFileXmlInter .= '    <var name="map">' . $nl;
-            foreach ($from as $i=>$f) {
+            foreach ($from as $i => $f) {
                 $mapXml .= '        <map name="' . $f . '"><![CDATA[' . $to[$i] . ']]></map>' . $nl;
                 $parseFileXmlInter .= '        <map name="' . $f . '"><![CDATA[' . $to[$i] . ']]></map>' . $nl;
             }
@@ -429,8 +427,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         } else {
             $entityXml = '<action type="' . $adapters[$this->getEntityType()] . '" method="load">' . $nl;
             $entityXml .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $nl;
-            foreach ($p[$this->getEntityType()]['filter'] as $f=>$v) {
-
+            foreach ($p[$this->getEntityType()]['filter'] as $f => $v) {
                 if (empty($v)) {
                     continue;
                 }
@@ -438,8 +435,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     $entityXml .= '    <var name="filter/' . $f . '"><![CDATA[' . $v . ']]></var>' . $nl;
                     $parseFileXmlInter .= '    <var name="filter/' . $f . '"><![CDATA[' . $v . ']]></var>' . $nl;
                 } elseif (is_array($v)) {
-                    foreach ($v as $a=>$b) {
-
+                    foreach ($v as $a => $b) {
                         if (strlen($b) == 0) {
                             continue;
                         }
@@ -474,16 +470,15 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 $xml .= '</action>';
             }
             //$xml = $interactiveXml.$fileXml.$parseFileXml.$mapXml.$parseDataXml.$entityXml;
-
         } else {
             $xml = $entityXml . $parseDataXml . $mapXml . $parseFileXml . $fileXml . $interactiveXml;
         }
 
         $this->setGuiData($p);
         $this->setActionsXml($xml);
-/*echo "<pre>" . print_r($p,1) . "</pre>";
-echo "<xmp>" . $xml . "</xmp>";
-die;*/
+        /*echo "<pre>" . print_r($p,1) . "</pre>";
+        echo "<xmp>" . $xml . "</xmp>";
+        die;*/
         return $this;
     }
 

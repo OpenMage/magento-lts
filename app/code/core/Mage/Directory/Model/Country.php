@@ -39,7 +39,7 @@
  */
 class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
 {
-    static public $_format = [];
+    public static $_format = [];
 
     protected function _construct()
     {

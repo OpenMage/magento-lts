@@ -110,9 +110,11 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                     return $this;
                 }
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+                // no break
             case self::RESPONSE_CODE_DECLINED:
             case self::RESPONSE_CODE_ERROR:
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+                // no break
             default:
                 Mage::throwException(Mage::helper('paygate')->__('Payment capturing error.'));
         }
@@ -171,9 +173,11 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                     return $this;
                 }
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+                // no break
             case self::RESPONSE_CODE_DECLINED:
             case self::RESPONSE_CODE_ERROR:
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+                // no break
             default:
                 Mage::throwException(Mage::helper('paygate')->__('Payment voiding error.'));
         }
@@ -263,9 +267,11 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                     return $this;
                 }
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+                // no break
             case self::RESPONSE_CODE_DECLINED:
             case self::RESPONSE_CODE_ERROR:
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+                // no break
             default:
                 Mage::throwException(Mage::helper('paygate')->__('Payment refunding error.'));
         }
@@ -486,6 +492,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             case self::RESPONSE_CODE_DECLINED:
             case self::RESPONSE_CODE_ERROR:
                 Mage::throwException($this->_wrapGatewayError($this->getResponse()->getXResponseReasonText()));
+                // no break
             default:
                 Mage::throwException(Mage::helper('authorizenet')->__('Payment authorization error.'));
         }
@@ -515,7 +522,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      */
     protected function _matchAmount($amount)
     {
-         return sprintf('%.2F', $amount) == sprintf('%.2F', $this->getResponse()->getXAmount());
+        return sprintf('%.2F', $amount) == sprintf('%.2F', $this->getResponse()->getXAmount());
     }
 
     /**

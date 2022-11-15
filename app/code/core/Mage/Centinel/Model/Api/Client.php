@@ -37,7 +37,6 @@ class Mage_Centinel_Model_Api_Client extends CentinelClient
     {
         // verify that the URL uses a supported protocol.
         if ((strpos($url, "http://") === 0) || (strpos($url, "https://") === 0)) {
-
             //Construct the payload to POST to the url.
             $data = $this->getRequestXml();
 
@@ -45,7 +44,7 @@ class Mage_Centinel_Model_Api_Client extends CentinelClient
             $ch = curl_init($url);
 
             // set URL and other appropriate options
-            curl_setopt($ch, CURLOPT_POST ,1);
+            curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

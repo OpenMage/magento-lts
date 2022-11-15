@@ -52,7 +52,7 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
         $this->loadLayout()
             ->_setActiveMenu('sales/order')
             ->_addBreadcrumb($this->__('Sales'), $this->__('Sales'))
-            ->_addBreadcrumb($this->__('Invoices'),$this->__('Invoices'));
+            ->_addBreadcrumb($this->__('Invoices'), $this->__('Invoices'));
         return $this;
     }
 

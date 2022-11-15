@@ -36,7 +36,7 @@ class Mage_Paypal_Block_Standard_Redirect extends Mage_Core_Block_Abstract
             ->setName('paypal_standard_checkout')
             ->setMethod('POST')
             ->setUseContainer(true);
-        foreach ($standard->getStandardCheckoutFormFields() as $field=>$value) {
+        foreach ($standard->getStandardCheckoutFormFields() as $field => $value) {
             $form->addField($field, 'hidden', ['name'=>$field, 'value'=>$value]);
         }
         $idSuffix = Mage::helper('core')->uniqHash();

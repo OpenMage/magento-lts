@@ -250,8 +250,7 @@ HTML;
         }
 
         try {
-            if (
-                strpos($this->_viewDir . DS . $fileName, '..') === false
+            if (strpos($this->_viewDir . DS . $fileName, '..') === false
                 &&
                 ($this->_viewDir == Mage::getBaseDir('design') || strpos(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))) === 0)
             ) {

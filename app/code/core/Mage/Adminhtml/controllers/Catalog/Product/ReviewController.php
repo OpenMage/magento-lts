@@ -141,8 +141,8 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                         ->addOptionInfo()
                         ->load()
                         ->addRatingOptions();
-                    foreach ($arrRatingId as $ratingId=>$optionId) {
-                        if($vote = $votes->getItemByColumnValue('rating_id', $ratingId)) {
+                    foreach ($arrRatingId as $ratingId => $optionId) {
+                        if ($vote = $votes->getItemByColumnValue('rating_id', $ratingId)) {
                             Mage::getModel('rating/rating')
                                 ->setVoteId($vote->getId())
                                 ->setReviewId($review->getId())
@@ -160,7 +160,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                     $session->addSuccess(Mage::helper('catalog')->__('The review has been saved.'));
                 } catch (Mage_Core_Exception $e) {
                     $session->addError($e->getMessage());
-                } catch (Exception $e){
+                } catch (Exception $e) {
                     $session->addException($e, Mage::helper('catalog')->__('An error occurred while saving this review.'));
                 }
             }
@@ -181,7 +181,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                 ->delete();
 
             $session->addSuccess(Mage::helper('catalog')->__('The review has been deleted'));
-            if( $this->getRequest()->getParam('ret') == 'pending' ) {
+            if ($this->getRequest()->getParam('ret') == 'pending') {
                 $this->getResponse()->setRedirect($this->getUrl('*/*/pending'));
             } else {
                 $this->getResponse()->setRedirect($this->getUrl('*/*/'));
@@ -189,7 +189,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
             return;
         } catch (Mage_Core_Exception $e) {
             $session->addError($e->getMessage());
-        } catch (Exception $e){
+        } catch (Exception $e) {
             $session->addException($e, Mage::helper('catalog')->__('An error occurred while deleting this review.'));
         }
 
@@ -201,8 +201,8 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
         $reviewsIds = $this->getRequest()->getParam('reviews');
         $session    = Mage::getSingleton('adminhtml/session');
 
-        if(!is_array($reviewsIds)) {
-             $session->addError(Mage::helper('adminhtml')->__('Please select review(s).'));
+        if (!is_array($reviewsIds)) {
+            $session->addError(Mage::helper('adminhtml')->__('Please select review(s).'));
         } else {
             try {
                 foreach ($reviewsIds as $reviewId) {
@@ -214,7 +214,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                 );
             } catch (Mage_Core_Exception $e) {
                 $session->addError($e->getMessage());
-            } catch (Exception $e){
+            } catch (Exception $e) {
                 $session->addException($e, Mage::helper('adminhtml')->__('An error occurred while deleting record(s).'));
             }
         }
@@ -227,8 +227,8 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
         $reviewsIds = $this->getRequest()->getParam('reviews');
         $session    = Mage::getSingleton('adminhtml/session');
 
-        if(!is_array($reviewsIds)) {
-             $session->addError(Mage::helper('adminhtml')->__('Please select review(s).'));
+        if (!is_array($reviewsIds)) {
+            $session->addError(Mage::helper('adminhtml')->__('Please select review(s).'));
         } else {
             /** @var Mage_Adminhtml_Model_Session $session */
             try {
@@ -257,8 +257,8 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
         $reviewsIds = $this->getRequest()->getParam('reviews');
         $session    = Mage::getSingleton('adminhtml/session');
 
-        if(!is_array($reviewsIds)) {
-             $session->addError(Mage::helper('adminhtml')->__('Please select review(s).'));
+        if (!is_array($reviewsIds)) {
+            $session->addError(Mage::helper('adminhtml')->__('Please select review(s).'));
         } else {
             $session = Mage::getSingleton('adminhtml/session');
             /** @var Mage_Adminhtml_Model_Session $session */
@@ -296,7 +296,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
     {
         $response = new Varien_Object();
         $id = $this->getRequest()->getParam('id');
-        if( intval($id) > 0 ) {
+        if (intval($id) > 0) {
             $product = Mage::getModel('catalog/product')
                 ->load($id);
 
@@ -318,7 +318,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
         if ($data = $this->getRequest()->getPost()) {
             if (Mage::app()->isSingleStoreMode()) {
                 $data['stores'] = [Mage::app()->getStore(true)->getId()];
-            } else  if (isset($data['select_stores'])) {
+            } elseif (isset($data['select_stores'])) {
                 $data['stores'] = $data['select_stores'];
             }
 
@@ -336,7 +336,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                     ->save();
 
                 $arrRatingId = $this->getRequest()->getParam('ratings', []);
-                foreach ($arrRatingId as $ratingId=>$optionId) {
+                foreach ($arrRatingId as $ratingId => $optionId) {
                     Mage::getModel('rating/rating')
                        ->setRatingId($ratingId)
                        ->setReviewId($review->getId())
@@ -346,7 +346,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                 $review->aggregate();
 
                 $session->addSuccess(Mage::helper('catalog')->__('The review has been saved.'));
-                if( $this->getRequest()->getParam('ret') == 'pending' ) {
+                if ($this->getRequest()->getParam('ret') == 'pending') {
                     $this->getResponse()->setRedirect($this->getUrl('*/*/pending'));
                 } else {
                     $this->getResponse()->setRedirect($this->getUrl('*/*/'));

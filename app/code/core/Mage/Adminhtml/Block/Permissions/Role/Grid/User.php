@@ -47,14 +47,12 @@ class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Blo
             }
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('user_id', ['in'=>$inRoleIds]);
-            }
-            else {
-                if($inRoleIds) {
+            } else {
+                if ($inRoleIds) {
                     $this->getCollection()->addFieldToFilter('user_id', ['nin'=>$inRoleIds]);
                 }
             }
-        }
-        else {
+        } else {
             parent::_addColumnFilterToCollection($column);
         }
         return $this;
@@ -121,23 +119,23 @@ class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Blo
             'options'   => ['1' => Mage::helper('adminhtml')->__('Active'), '0' => Mage::helper('adminhtml')->__('Inactive')],
         ]);
 
-       /*
-        $this->addColumn('grid_actions',
-            array(
-                'header'=>Mage::helper('adminhtml')->__('Actions'),
-                'width'=>5,
-                'sortable'=>false,
-                'filter'    =>false,
-                'type' => 'action',
-                'actions'   => array(
-                                    array(
-                                        'caption' => Mage::helper('adminhtml')->__('Remove'),
-                                        'onClick' => 'role.deleteFromRole($role_id);'
-                                    )
-                                )
-            )
-        );
-        */
+        /*
+         $this->addColumn('grid_actions',
+             array(
+                 'header'=>Mage::helper('adminhtml')->__('Actions'),
+                 'width'=>5,
+                 'sortable'=>false,
+                 'filter'    =>false,
+                 'type' => 'action',
+                 'actions'   => array(
+                                     array(
+                                         'caption' => Mage::helper('adminhtml')->__('Remove'),
+                                         'onClick' => 'role.deleteFromRole($role_id);'
+                                     )
+                                 )
+             )
+         );
+         */
 
         return parent::_prepareColumns();
     }
@@ -148,23 +146,25 @@ class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Blo
         return $this->getUrl('*/*/editrolegrid', ['rid' => $roleId]);
     }
 
-    protected function _getUsers($json=false)
+    protected function _getUsers($json = false)
     {
-        if ( $this->getRequest()->getParam('in_role_user') != "" ) {
+        if ($this->getRequest()->getParam('in_role_user') != "") {
             return $this->getRequest()->getParam('in_role_user');
         }
-        $roleId = ( $this->getRequest()->getParam('rid') > 0 ) ? $this->getRequest()->getParam('rid') : Mage::registry('RID');
+        $roleId = ($this->getRequest()->getParam('rid') > 0) ? $this->getRequest()->getParam('rid') : Mage::registry('RID');
         $users  = Mage::getModel('admin/roles')->setId($roleId)->getRoleUsers();
         if (count($users)) {
-            if ( $json ) {
+            if ($json) {
                 $jsonUsers = [];
-                foreach($users as $usrid) $jsonUsers[$usrid] = 0;
+                foreach ($users as $usrid) {
+                    $jsonUsers[$usrid] = 0;
+                }
                 return Mage::helper('core')->jsonEncode((object)$jsonUsers);
             } else {
                 return array_values($users);
             }
         } else {
-            if ( $json ) {
+            if ($json) {
                 return '{}';
             } else {
                 return [];
@@ -172,4 +172,3 @@ class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Blo
         }
     }
 }
-

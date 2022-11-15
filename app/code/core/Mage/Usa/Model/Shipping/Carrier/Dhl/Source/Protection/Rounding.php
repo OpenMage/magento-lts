@@ -30,7 +30,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Source_Protection_Rounding
     {
         $carrier = Mage::getSingleton('usa/shipping_carrier_dhl');
         $arr = [];
-        foreach ($carrier->getAdditionalProtectionRoundingTypes() as $k=>$v) {
+        foreach ($carrier->getAdditionalProtectionRoundingTypes() as $k => $v) {
             $arr[] = ['value'=>$k, 'label'=>$v];
         }
         return $arr;

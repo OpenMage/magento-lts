@@ -28,8 +28,8 @@
  */
 class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
 {
-    const XML_PATH_CHECKOUT_SIDEBAR_COUNT                  = 'checkout/sidebar/count';
-    const XML_PATH_CHECKOUT_MINICART_VISIBLE_ITEMS_COUNT   = 'checkout/cart/minicart_visible_items';
+    public const XML_PATH_CHECKOUT_SIDEBAR_COUNT                  = 'checkout/sidebar/count';
+    public const XML_PATH_CHECKOUT_MINICART_VISIBLE_ITEMS_COUNT   = 'checkout/cart/minicart_visible_items';
 
     /**
      * Class constructor
@@ -293,7 +293,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
 
         return array_merge(
             parent::getCacheTags(),
-            (!$quoteTags)? [] : $quoteTags,
+            (!$quoteTags) ? [] : $quoteTags,
             $this->getItemsTags($items)
         );
     }

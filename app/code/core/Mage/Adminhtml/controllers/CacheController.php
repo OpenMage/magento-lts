@@ -152,11 +152,9 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
             $this->_getSession()->addSuccess(
                 Mage::helper('adminhtml')->__('The JavaScript/CSS cache has been cleaned.')
             );
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_getSession()->addException(
                 $e,
                 Mage::helper('adminhtml')->__('An error occurred while clearing the JavaScript/CSS cache.')
@@ -176,11 +174,9 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
             $this->_getSession()->addSuccess(
                 Mage::helper('adminhtml')->__('The image cache was cleaned.')
             );
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_getSession()->addException(
                 $e,
                 Mage::helper('adminhtml')->__('An error occurred while clearing the image cache.')
@@ -200,11 +196,9 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
             $this->_getSession()->addSuccess(
                 Mage::helper('adminhtml')->__('The configurable swatches image cache was cleaned.')
             );
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_getSession()->addException(
                 $e,
                 Mage::helper('adminhtml')->__('An error occurred while clearing the configurable swatches image cache.')

@@ -130,7 +130,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 
     // PEAR specific message handling
     if (stripos($errfile.$errstr, 'pear') !== false) {
-         // ignore strict and deprecated notices
+        // ignore strict and deprecated notices
         if (($errno == E_STRICT) || ($errno == E_DEPRECATED)) {
             return true;
         }
@@ -432,9 +432,8 @@ if (!function_exists('str_ends_with')) {
      * @param string $needle
      * @return bool
      */
-    function str_ends_with($haystack,  $needle)
+    function str_ends_with($haystack, $needle)
     {
         return $needle === '' || ($haystack !== '' && substr_compare($haystack, $needle, -\strlen($needle)) === 0);
     }
 }
-

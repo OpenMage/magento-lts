@@ -34,7 +34,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
     protected function _prepareLayout()
     {
         $onclick = "setSuperSettings('".$this->getContinueUrl()."','attribute-checkbox', 'attributes')";
-        $this->setChild('continue_button',
+        $this->setChild(
+            'continue_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Continue'),
@@ -114,8 +115,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
             $fieldset->addField('continue_button', 'note', [
                 'text' => $this->getChildHtml('continue_button'),
             ]);
-        }
-        else {
+        } else {
             $fieldset->addField('note_text', 'note', [
                 'text' => $this->__('This attribute set does not have attributes which we can use for configurable product')
             ]);

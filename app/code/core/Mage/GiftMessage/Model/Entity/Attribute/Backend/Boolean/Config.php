@@ -71,6 +71,6 @@ class Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config extends Mag
 
         $value = $object->getData($this->getAttribute()->getAttributeCode());
 
-        return in_array($value, $optionsAllowed)? true : false;
+        return in_array($value, $optionsAllowed) ? true : false;
     }
 }

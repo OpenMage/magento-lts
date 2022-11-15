@@ -661,7 +661,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareMassaction()
     {
-
         return $this;
     }
 
@@ -985,11 +984,11 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         return $this;
     }
 
-     /**
-     * Retrieve rss lists types
-     *
-     * @return array
-     */
+    /**
+    * Retrieve rss lists types
+    *
+    * @return array
+    */
     public function getRssLists()
     {
         return empty($this->_rssLists) ? false : $this->_rssLists;

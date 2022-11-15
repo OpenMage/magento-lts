@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
         return $this->getReportIssuesUrl();
     }
 
-      /**
+    /**
      * @param string $url
      * @return $this
      */

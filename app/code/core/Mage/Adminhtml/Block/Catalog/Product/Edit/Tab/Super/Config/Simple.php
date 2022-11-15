@@ -26,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
-    extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes
+class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes
 {
     /**
      * Link to currently editing product
@@ -107,13 +106,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
                     $element->setValues($attribute->getFrontend()->getSelectOptions());
                 }
             }
-
         }
 
         /* Configurable attributes */
         foreach ($usedAttributes as $attribute) {
             $attributeCode =  $attribute->getAttributeCode();
-            $fieldset->addField( 'simple_product_' . $attributeCode, 'select',  [
+            $fieldset->addField('simple_product_' . $attributeCode, 'select', [
                 'label' => $attribute->getFrontend()->getLabel(),
                 'name'  => $attributeCode,
                 'values' => $attribute->getSource()->getAllOptions(true, true),
@@ -159,7 +157,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
             'is_qty_decimal'                => 0
         ];
 
-        foreach ($stockHiddenFields as $fieldName=>$fieldValue) {
+        foreach ($stockHiddenFields as $fieldName => $fieldValue) {
             $fieldset->addField('simple_product_inventory_' . $fieldName, 'hidden', [
                 'name'  => 'stock_data[' . $fieldName .']',
                 'value' => $fieldValue

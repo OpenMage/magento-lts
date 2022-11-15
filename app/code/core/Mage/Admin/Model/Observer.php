@@ -132,8 +132,7 @@ class Mage_Admin_Model_Observer
             return;
         }
 
-        if (
-            !(bool) $user->getPasswordUpgraded()
+        if (!(bool) $user->getPasswordUpgraded()
             && !Mage::helper('core')->getEncryptor()->validateHashByVersion(
                 $password,
                 $user->getPassword(),

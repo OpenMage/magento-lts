@@ -35,7 +35,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit extends Mage_Adminhtml
 
         parent::__construct();
 
-        if($this->getRequest()->getParam('popup')) {
+        if ($this->getRequest()->getParam('popup')) {
             $this->_removeButton('back');
             $this->_addButton(
                 'close',
@@ -76,8 +76,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit extends Mage_Adminhtml
                 $frontendLabel = $frontendLabel[0];
             }
             return Mage::helper('catalog')->__('Edit Product Attribute "%s"', $this->escapeHtml($frontendLabel));
-        }
-        else {
+        } else {
             return Mage::helper('catalog')->__('New Product Attribute');
         }
     }

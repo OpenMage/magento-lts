@@ -28,7 +28,7 @@
  */
 class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_REVIEW_GUETS_ALLOW = 'catalog/review/allow_guest';
+    public const XML_REVIEW_GUETS_ALLOW = 'catalog/review/allow_guest';
 
     protected $_moduleName = 'Mage_Review';
 

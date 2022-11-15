@@ -100,4 +100,3 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         return $this->getUrl('*/*/edit', ['rate' => $row->getTaxCalculationRateId()]);
     }
 }
-

@@ -115,4 +115,3 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Grid extends Mage_Adminhtml_Block_
         return $this->getUrl('*/*/edit', ['id'=>$row->getId()]);
     }
 }
-

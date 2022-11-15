@@ -127,7 +127,7 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
      * @param bool $useSetStore
      * @return Mage_Customer_Model_Customer
      */
-    public function getCustomer($forceReload=false, $useSetStore=false)
+    public function getCustomer($forceReload = false, $useSetStore = false)
     {
         if (is_null($this->_customer) || $forceReload) {
             $this->_customer = Mage::getModel('customer/customer');

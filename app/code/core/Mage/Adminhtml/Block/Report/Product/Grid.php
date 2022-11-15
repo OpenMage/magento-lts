@@ -125,4 +125,3 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
         return parent::_prepareColumns();
     }
 }
-

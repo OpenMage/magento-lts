@@ -30,7 +30,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
 {
     protected function _prepareForm()
     {
-
         $form = new Varien_Data_Form();
         /**
          * Initialize product object as form property
@@ -75,7 +74,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
         $response->setTypes([]);
         Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', ['response'=>$response]);
 
-        foreach ($response->getTypes() as $typeName=>$typeClass) {
+        foreach ($response->getTypes() as $typeName => $typeClass) {
             $result[$typeName] = $typeClass;
         }
 

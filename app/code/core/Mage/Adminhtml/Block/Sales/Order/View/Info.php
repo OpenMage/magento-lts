@@ -148,7 +148,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
      * @param string $label
      * @return string
      */
-    public function getAddressEditLink($address, $label='')
+    public function getAddressEditLink($address, $label = '')
     {
         if (empty($label)) {
             $label = $this->__('Edit');

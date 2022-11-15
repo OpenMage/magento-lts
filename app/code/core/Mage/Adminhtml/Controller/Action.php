@@ -121,7 +121,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * @return $this
      */
-    protected function _addBreadcrumb($label, $title, $link=null)
+    protected function _addBreadcrumb($label, $title, $link = null)
     {
         /** @var Mage_Adminhtml_Block_Widget_Breadcrumbs $block */
         $block = $this->getLayout()->getBlock('breadcrumbs');
@@ -199,10 +199,10 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
                     'message' => $_keyErrorMsg
                 ]));
             } else {
-                if (!$_isValidFormKey){
+                if (!$_isValidFormKey) {
                     Mage::getSingleton('adminhtml/session')->addError($_keyErrorMsg);
                 }
-                $this->_redirect( Mage::getSingleton('admin/session')->getUser()->getStartupPageUrl() );
+                $this->_redirect(Mage::getSingleton('admin/session')->getUser()->getStartupPageUrl());
             }
             return $this;
         }
@@ -284,7 +284,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     public function deniedAction()
     {
-        $this->getResponse()->setHeader('HTTP/1.1','403 Forbidden');
+        $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
         if (!Mage::getSingleton('admin/session')->isLoggedIn()) {
             $this->_redirect('*/index/login');
             return;
@@ -293,7 +293,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         $this->renderLayout();
     }
 
-    public function loadLayout($ids=null, $generateBlocks=true, $generateXml=true)
+    public function loadLayout($ids = null, $generateBlocks = true, $generateXml = true)
     {
         parent::loadLayout($ids, $generateBlocks, $generateXml);
         $this->_initLayoutMessages('adminhtml/session');
@@ -302,8 +302,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     public function norouteAction($coreRoute = null)
     {
-        $this->getResponse()->setHeader('HTTP/1.1','404 Not Found');
-        $this->getResponse()->setHeader('Status','404 File not found');
+        $this->getResponse()->setHeader('HTTP/1.1', '404 Not Found');
+        $this->getResponse()->setHeader('Status', '404 File not found');
         $this->loadLayout(['default', 'adminhtml_noroute']);
         $this->renderLayout();
     }
@@ -351,7 +351,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * @param   string $defaultUrl
      * @return  Mage_Adminhtml_Controller_Action
      */
-    protected function _redirectReferer($defaultUrl=null)
+    protected function _redirectReferer($defaultUrl = null)
     {
         $defaultUrl = empty($defaultUrl) ? $this->getUrl('*') : $defaultUrl;
         parent::_redirectReferer($defaultUrl);
@@ -365,7 +365,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * @param array $arguments
      * @return $this
      */
-    protected function _redirect($path, $arguments= [])
+    protected function _redirect($path, $arguments = [])
     {
         $this->_getSession()->setIsUrlNotice($this->getFlag('', self::FLAG_IS_URLS_CHECKED));
         $this->getResponse()->setRedirect($this->getUrl($path, $arguments));
@@ -385,7 +385,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * @param   array $params
      * @return  string
      */
-    public function getUrl($route='', $params= [])
+    public function getUrl($route = '', $params = [])
     {
         return Mage::helper('adminhtml')->getUrl($route, $params);
     }

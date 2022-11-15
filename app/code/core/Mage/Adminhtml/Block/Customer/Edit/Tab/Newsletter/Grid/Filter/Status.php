@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Filter_Status exten
     protected function _getOptions()
     {
         $result = [];
-        foreach (self::$_statuses as $code=>$label) {
+        foreach (self::$_statuses as $code => $label) {
             $result[] = ['value'=>$code, 'label'=>Mage::helper('customer')->__($label)];
         }
 

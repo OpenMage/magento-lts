@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_System_Config_Dwstree extends Mage_Adminhtml_Block_Wi
             'class' => 'default',
         ]);
 
-        foreach ($websitesConfig->children() as $wCode=>$wConfig) {
+        foreach ($websitesConfig->children() as $wCode => $wConfig) {
             $wName = (string)$wConfig->descend('system/website/name');
             $wUrl = $this->getUrl('*/*/*', ['section'=>$section, 'website'=>$wCode]);
             $this->addTab('website_'.$wCode, [
@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_System_Config_Dwstree extends Mage_Adminhtml_Block_Wi
                     $this->_addBreadcrumb($wName);
                 }
             }
-            foreach ($wConfig->descend('system/stores')->children() as $sCode=>$sId) {
+            foreach ($wConfig->descend('system/stores')->children() as $sCode => $sId) {
                 $sName = (string)$storesConfig->descend($sCode.'/system/store/name');
                 $this->addTab('store_'.$sCode, [
                     'label' => $sName,

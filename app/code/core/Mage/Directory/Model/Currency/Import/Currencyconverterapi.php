@@ -52,11 +52,11 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
      */
     protected $_messages = [];
 
-     /**
-     * HTTP client
-     *
-     * @var Varien_Http_Client
-     */
+    /**
+    * HTTP client
+    *
+    * @var Varien_Http_Client
+    */
     protected $_httpClient;
 
     /**

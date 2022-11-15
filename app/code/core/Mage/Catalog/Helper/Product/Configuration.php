@@ -99,7 +99,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         $product = $item->getProduct();
         $typeId = $product->getTypeId();
         if ($typeId != Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
-             Mage::throwException($this->__('Wrong product type to extract configurable options.'));
+            Mage::throwException($this->__('Wrong product type to extract configurable options.'));
         }
         /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
         $productType = $product->getTypeInstance(true);
@@ -118,7 +118,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         $product = $item->getProduct();
         $typeId = $product->getTypeId();
         if ($typeId != Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE) {
-             Mage::throwException($this->__('Wrong product type to extract configurable options.'));
+            Mage::throwException($this->__('Wrong product type to extract configurable options.'));
         }
 
         $options = [];

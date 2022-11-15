@@ -82,6 +82,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 if (!is_writable($this->getSessionSavePath())) {
                     break;
                 }
+                // no break
             default:
                 session_save_path($this->getSessionSavePath());
                 session_module_name($moduleName);
@@ -158,7 +159,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             $cookieValue = $cookie->get($secureCookieName);
 
             // Migrate old cookie from 'frontend'
-            if ( ! $cookieValue
+            if (!$cookieValue
                 && $sessionName === \Mage_Core_Controller_Front_Action::SESSION_NAMESPACE
                 && $cookie->get('frontend_cid')
             ) {
@@ -173,13 +174,11 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 $cookieValue = Mage::helper('core')->getRandomString(16);
                 $cookie->set($secureCookieName, $cookieValue, null, null, null, true, true);
                 $_SESSION[self::SECURE_COOKIE_CHECK_KEY] = md5($cookieValue);
-            }
-            // Renew secret check value cookie if it is valid
-            else if (is_string($cookieValue) && $_SESSION[self::SECURE_COOKIE_CHECK_KEY] === md5($cookieValue)) {
+            } elseif (is_string($cookieValue) && $_SESSION[self::SECURE_COOKIE_CHECK_KEY] === md5($cookieValue)) {
+                // Renew secret check value cookie if it is valid
                 $cookie->renew($secureCookieName, null, null, null, true, true);
-            }
-            // Secure cookie check value is invalid, regenerate session
-            else {
+            } else {
+                // Secure cookie check value is invalid, regenerate session
                 session_regenerate_id(false);
                 $sessionHosts = $this->getSessionHosts();
                 $currentCookieDomain = $cookie->getDomain();

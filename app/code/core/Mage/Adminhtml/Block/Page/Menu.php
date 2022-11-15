@@ -121,7 +121,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      * @param int $level
      * @return array
      */
-    protected function _buildMenuArray(Varien_Simplexml_Element $parent, $path='', $level=0)
+    protected function _buildMenuArray(Varien_Simplexml_Element $parent, $path = '', $level = 0)
     {
         $parentArr = [];
         $sortOrder = 0;
@@ -171,7 +171,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 
         uasort($parentArr, [$this, '_sortMenu']);
 
-        foreach($parentArr as $key => $value) {
+        foreach ($parentArr as $key => $value) {
             $last = $key;
         }
         if (isset($last)) {

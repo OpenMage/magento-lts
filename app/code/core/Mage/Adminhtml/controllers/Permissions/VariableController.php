@@ -153,7 +153,6 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
 
                 $this->_redirect('*/*/');
                 return;
-
             } catch (Exception $e) {
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());

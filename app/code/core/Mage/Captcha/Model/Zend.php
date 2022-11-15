@@ -282,11 +282,11 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
         return Mage::getSingleton('customer/session');
     }
 
-     /**
-     * Return full URL to captcha image
-     *
-     * @return string
-     */
+    /**
+    * Return full URL to captcha image
+    *
+    * @return string
+    */
     public function getImgSrc()
     {
         return $this->getImgUrl() . $this->getId() . $this->getSuffix();

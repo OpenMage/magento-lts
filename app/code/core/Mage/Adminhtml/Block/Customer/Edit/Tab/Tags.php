@@ -112,5 +112,4 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tags extends Mage_Adminhtml_Block_W
     {
         return $this->getUrl('*/*/index', ['_current'=>true]);
     }
-
 }

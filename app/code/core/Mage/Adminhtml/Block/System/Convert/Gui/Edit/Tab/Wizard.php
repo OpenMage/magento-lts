@@ -246,7 +246,8 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
      *
      * @return Mage_Adminhtml_Model_System_Store
      */
-    protected function _getStoreModel() {
+    protected function _getStoreModel()
+    {
         if (is_null($this->_storeModel)) {
             $this->_storeModel = Mage::getSingleton('adminhtml/system_store');
         }
@@ -290,4 +291,3 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
         return $this->_shortDateFormat;
     }
 }
-

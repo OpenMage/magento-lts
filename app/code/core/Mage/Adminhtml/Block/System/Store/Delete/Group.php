@@ -34,7 +34,8 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
 
         $this->setTemplate('system/store/delete_group.phtml');
         $this->setAction($this->getUrl('*/*/deleteGroupPost', ['group_id'=>$itemId]));
-        $this->setChild('confirm_deletion_button',
+        $this->setChild(
+            'confirm_deletion_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Delete Store'),
@@ -43,7 +44,8 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
                 ])
         );
         $onClick = "setLocation('".$this->getUrl('*/*/editGroup', ['group_id'=>$itemId])."')";
-        $this->setChild('cancel_button',
+        $this->setChild(
+            'cancel_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Cancel'),
@@ -51,7 +53,8 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
                     'class'     => 'cancel'
                 ])
         );
-        $this->setChild('back_button',
+        $this->setChild(
+            'back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Back'),

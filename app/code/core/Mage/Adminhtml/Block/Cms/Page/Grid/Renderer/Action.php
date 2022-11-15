@@ -24,8 +24,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Cms_Page_Grid_Renderer_Action
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Cms_Page_Grid_Renderer_Action extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     public function render(Varien_Object $row)
     {
@@ -35,7 +34,8 @@ class Mage_Adminhtml_Block_Cms_Page_Grid_Renderer_Action
         } else {
             $urlModel = Mage::getModel('core/url')->setStore($row->getData('_first_store_id'));
             $href = $urlModel->getUrl(
-                $row->getIdentifier(), [
+                $row->getIdentifier(),
+                [
                     '_current' => false,
                     '_query'   => '___store=' . $row->getStoreCode(),
                 ]

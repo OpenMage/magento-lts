@@ -58,7 +58,8 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('agreement_id',
+        $this->addColumn(
+            'agreement_id',
             [
                 'header'=>Mage::helper('checkout')->__('ID'),
                 'align' =>'right',
@@ -75,7 +76,8 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
             'type'      => 'text',
         ]);
 
-        $this->addColumn('name',
+        $this->addColumn(
+            'name',
             [
                 'header'=>Mage::helper('checkout')->__('Condition Name'),
                 'index' => 'name'

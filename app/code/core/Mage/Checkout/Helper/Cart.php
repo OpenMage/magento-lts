@@ -184,8 +184,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
             $routeParams['_store'] = $product->getUrlDataObject()->getStoreId();
             $routeParams['_store_to_url'] = true;
         }
-        if (
-            $this->_getRequest()->getRouteName() == 'checkout'
+        if ($this->_getRequest()->getRouteName() == 'checkout'
             && $this->_getRequest()->getControllerName() == 'cart'
         ) {
             $routeParams['in_cart'] = 1;

@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
 
     protected function _addColumnFilterToCollection($column)
     {
-        $field = ( $column->getFilterIndex() ) ? $column->getFilterIndex() : $column->getIndex();
+        $field = ($column->getFilterIndex()) ? $column->getFilterIndex() : $column->getIndex();
         $skip = ['subtotal', 'customer_name', 'email'/*, 'created_at', 'updated_at'*/];
 
         if (in_array($field, $skip)) {
@@ -102,9 +102,9 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
 
         if ($this->getRequest()->getParam('website')) {
             $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
-        } else if ($this->getRequest()->getParam('group')) {
+        } elseif ($this->getRequest()->getParam('group')) {
             $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
-        } else if ($this->getRequest()->getParam('store')) {
+        } elseif ($this->getRequest()->getParam('store')) {
             $storeIds = [(int)$this->getRequest()->getParam('store')];
         } else {
             $storeIds = [];

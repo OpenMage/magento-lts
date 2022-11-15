@@ -235,10 +235,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
 
         // build selects of entity ids for specified options ids by frontend input
         $selects = [];
-        foreach ([
-            'select'      => 'eq',
-            'multiselect' => 'finset']
-                 as $frontendInput => $condition) {
+        foreach (['select' => 'eq', 'multiselect' => 'finset'] as $frontendInput => $condition) {
             if (isset($attributeTables[$frontendInput])) {
                 $where = [];
                 foreach ($options as $option) {

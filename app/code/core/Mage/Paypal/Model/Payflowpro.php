@@ -435,13 +435,13 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
         return $result;
     }
 
-     /**
-      * Return request object with information for 'authorization' or 'sale' action
-      *
-      * @param Mage_Sales_Model_Order_Payment $payment
-      * @param float $amount
-      * @return Varien_Object
-      */
+    /**
+     * Return request object with information for 'authorization' or 'sale' action
+     *
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param float $amount
+     * @return Varien_Object
+     */
     protected function _buildPlaceRequest(Varien_Object $payment, $amount)
     {
         $request = $this->_buildBasicRequest($payment);
@@ -497,12 +497,12 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
         return $request;
     }
 
-     /**
-      * Return request object with basic information for gateway request
-      *
-      * @param Mage_Sales_Model_Order_Payment $payment
-      * @return Varien_Object
-      */
+    /**
+     * Return request object with basic information for gateway request
+     *
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @return Varien_Object
+     */
     protected function _buildBasicRequest(Varien_Object $payment)
     {
         $request = new Varien_Object();
@@ -519,21 +519,21 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
         return $request;
     }
 
-     /**
-      * Return unique value for request
-      *
-      * @return string
-      */
+    /**
+     * Return unique value for request
+     *
+     * @return string
+     */
     protected function _generateRequestId()
     {
         return Mage::helper('core')->uniqHash();
     }
 
-     /**
-      * If response is failed throw exception
-      *
-      * @throws Mage_Core_Exception
-      */
+    /**
+     * If response is failed throw exception
+     *
+     * @throws Mage_Core_Exception
+     */
     protected function _processErrors(Varien_Object $response)
     {
         if ($response->getResultCode() == self::RESPONSE_CODE_VOID_ERROR) {

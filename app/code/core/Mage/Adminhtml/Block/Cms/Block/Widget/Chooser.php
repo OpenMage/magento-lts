@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
      *
      * @param array $arguments Object data
      */
-    public function __construct($arguments= [])
+    public function __construct($arguments = [])
     {
         parent::__construct($arguments);
         $this->setDefaultSort('block_id');

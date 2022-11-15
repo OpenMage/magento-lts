@@ -26,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Report_Grid_Column_Renderer_Customer
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Report_Grid_Column_Renderer_Customer extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
      * Renders grid column
@@ -43,7 +42,8 @@ class Mage_Adminhtml_Block_Report_Grid_Column_Renderer_Customer
             return Mage::helper('adminhtml')->__('Show Reviews');
         }
 
-        return sprintf('<a href="%s">%s</a>',
+        return sprintf(
+            '<a href="%s">%s</a>',
             $this->getUrl('*/catalog_product_review', ['customerId' => $id]),
             Mage::helper('adminhtml')->__('Show Reviews')
         );

@@ -53,8 +53,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
             } elseif ($userRoles) {
                 $this->getCollection()->addFieldToFilter('role_id', ['nin'=>$userRoles]);
             }
-        }
-        else {
+        } else {
             parent::_addColumnFilterToCollection($column);
         }
         return $this;
@@ -111,13 +110,13 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
      */
     protected function _getSelectedRoles($json = false)
     {
-        if ( $this->getRequest()->getParam('user_roles') != "" ) {
+        if ($this->getRequest()->getParam('user_roles') != "") {
             return $this->getRequest()->getParam('user_roles');
         }
         $uRoles = Mage::registry('api_user')->getRoles();
         if ($json) {
             $jsonRoles = [];
-            foreach($uRoles as $urid) {
+            foreach ($uRoles as $urid) {
                 $jsonRoles[$urid] = 0;
             }
             return Mage::helper('core')->jsonEncode((object)$jsonRoles);

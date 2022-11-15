@@ -549,8 +549,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     public function getDefaultProductValue($fieldName, $productType)
     {
         $fieldData = $this->getFieldset($fieldName) ? (array) $this->getFieldset($fieldName) : null;
-        if (
-            !empty($fieldData)
+        if (!empty($fieldData)
             && ((is_array($fieldData['product_type']) && array_key_exists($productType, $fieldData['product_type'])) || (is_object($fieldData['product_type']) && property_exists($fieldData['product_type'], $productType)))
             && (bool)$fieldData['use_config']
         ) {

@@ -240,7 +240,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             if ($isNeedCreateLabel) {
                 $responseAjax->setError(true);
                 $responseAjax->setMessage(
-                    Mage::helper('sales')->__('An error occurred while creating shipping label.'));
+                    Mage::helper('sales')->__('An error occurred while creating shipping label.')
+                );
             } else {
                 $this->_getSession()->addError($this->__('Cannot save shipment.'));
                 $this->_redirect('*/*/new', ['order_id' => $this->getRequest()->getParam('order_id')]);
@@ -394,7 +395,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             ];
         }
 
-        if ( is_object($response)){
+        if (is_object($response)) {
             $className = Mage::getConfig()->getBlockClassName('adminhtml/template');
             $block = new $className();
             $block->setType('adminhtml/template')
@@ -464,7 +465,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * @param array $qtys
      * @return bool
      */
-    protected function _needToAddDummy($item, $qtys) {
+    protected function _needToAddDummy($item, $qtys)
+    {
         if ($item->getHasChildren()) {
             foreach ($item->getChildrenItems() as $child) {
                 if ($child->getIsVirtual()) {
@@ -600,10 +602,10 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             Mage::logException($e);
             $this->_getSession()
                 ->addError(Mage::helper('sales')->__('An error occurred while creating shipping label.'));
-       }
-       $this->_redirect('*/sales_order_shipment/view', [
+        }
+        $this->_redirect('*/sales_order_shipment/view', [
            'shipment_id' => $this->getRequest()->getParam('shipment_id')
-       ]);
+        ]);
     }
 
     /**
@@ -615,11 +617,12 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
         if ($shipment) {
             $pdf = Mage::getModel('sales/order_pdf_shipment_packaging')->getPdf($shipment);
-            $this->_prepareDownloadResponse('packingslip'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf',
-                $pdf->render(), 'application/pdf'
+            $this->_prepareDownloadResponse(
+                'packingslip'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf',
+                $pdf->render(),
+                'application/pdf'
             );
-        }
-        else {
+        } else {
             $this->_forward('noRoute');
         }
     }
@@ -745,6 +748,6 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 ->createBlock('adminhtml/sales_order_shipment_packaging_grid')
                 ->setIndex($this->getRequest()->getParam('index'))
                 ->toHtml()
-           );
+        );
     }
 }

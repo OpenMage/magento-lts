@@ -59,8 +59,8 @@ class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
      */
     public function getButtonUrl($itemId, $type, $params = [])
     {
-         $params = array_merge($params, ['item'=>$itemId, 'type'=>$type]);
-         return $this->_getUrl('giftmessage/index/button', $params);
+        $params = array_merge($params, ['item'=>$itemId, 'type'=>$type]);
+        return $this->_getUrl('giftmessage/index/button', $params);
     }
 
     /**
@@ -73,8 +73,8 @@ class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
      */
     public function getRemoveUrl($itemId, $type, $params = [])
     {
-         $params = array_merge($params, ['item'=>$itemId, 'type'=>$type]);
-         return $this->_getUrl('giftmessage/index/remove', $params);
+        $params = array_merge($params, ['item'=>$itemId, 'type'=>$type]);
+        return $this->_getUrl('giftmessage/index/remove', $params);
     }
 
     /**

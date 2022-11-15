@@ -110,7 +110,6 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
         $data = $this->getRequest()->getPost();
         $isNew = $this->getRequest()->getParam('is_new');
         if ($data) {
-
             $statusCode = $this->getRequest()->getParam('status');
 
             //filter tags in labels/status

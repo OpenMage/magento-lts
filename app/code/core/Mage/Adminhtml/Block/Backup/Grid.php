@@ -114,7 +114,7 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'filter'    => false
         ]);
 
-        if (Mage::helper('backup')->isRollbackAllowed()){
+        if (Mage::helper('backup')->isRollbackAllowed()) {
             $this->addColumn('action', [
                     'header'   => Mage::helper('backup')->__('Action'),
                     'type'     => 'action',

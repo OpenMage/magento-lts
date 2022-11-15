@@ -58,10 +58,9 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
         }
         $dir = dir($path);
         while (($entry = $dir->read()) !== false) {
-            if($entry != '.'
+            if ($entry != '.'
                && $entry != '..'
-               && strtolower(substr($entry, strrpos($entry, '.') + 1)) == $this->getParseType())
-            {
+               && strtolower(substr($entry, strrpos($entry, '.') + 1)) == $this->getParseType()) {
                 $files[] = $entry;
             }
         }
@@ -73,7 +72,8 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
     public function getParseType()
     {
         $data = Mage::registry('current_convert_profile')->getGuiData();
-        if ($data)
+        if ($data) {
             return ($data['parse']['type'] == 'excel_xml') ? 'xml': $data['parse']['type'];
+        }
     }
 }

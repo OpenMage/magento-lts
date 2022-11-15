@@ -24,9 +24,10 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form {
-
-    public function __construct() {
+class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form
+{
+    public function __construct()
+    {
         parent::__construct();
 
         $rid = Mage::app()->getRequest()->getParam('rid', false);
@@ -39,8 +40,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
 
         foreach ($rules_set->getItems() as $item) {
             if (array_key_exists(strtolower($item->getResource_id()), $resources)
-                && $item->getApiPermission() == 'allow')
-            {
+                && $item->getApiPermission() == 'allow') {
                 $resources[$item->getResource_id()]['checked'] = true;
                 $selrids[] = $item->getResource_id();
             }
@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
         $rid = Mage::app()->getRequest()->getParam('rid', false);
         $resources = Mage::getModel('api/roles')->getResourcesTree();
 
-        $rootArray = $this->_getNodeJson($resources,1);
+        $rootArray = $this->_getNodeJson($resources, 1);
 
         return Mage::helper('core')->jsonEncode($rootArray['children'] ?? []);
     }
@@ -73,7 +73,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
         return $a['sort_order']<$b['sort_order'] ? -1 : ($a['sort_order']>$b['sort_order'] ? 1 : 0);
     }
 
-    protected function _getNodeJson($node, $level=0)
+    protected function _getNodeJson($node, $level = 0)
     {
         $item = [];
         $selres = $this->getSelectedResources();
@@ -83,8 +83,9 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
             $item['sort_order']= isset($node->sort_order) ? (string)$node->sort_order : 0;
             $item['id']  = (string)$node->attributes()->aclpath;
 
-            if (in_array($item['id'], $selres))
+            if (in_array($item['id'], $selres)) {
                 $item['checked'] = true;
+            }
         }
         if (isset($node->children)) {
             $children = $node->children->children();

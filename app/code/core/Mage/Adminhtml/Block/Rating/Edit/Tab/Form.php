@@ -60,13 +60,13 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
             $form->setValues(Mage::getSingleton('adminhtml/session')->getRatingData());
             $data = Mage::getSingleton('adminhtml/session')->getRatingData();
             if (isset($data['rating_codes'])) {
-               $this->_setRatingCodes($data['rating_codes']);
+                $this->_setRatingCodes($data['rating_codes']);
             }
             Mage::getSingleton('adminhtml/session')->setRatingData(null);
         } elseif (Mage::registry('rating_data')) {
             $form->setValues(Mage::registry('rating_data')->getData());
             if (Mage::registry('rating_data')->getRatingCodes()) {
-               $this->_setRatingCodes(Mage::registry('rating_data')->getRatingCodes());
+                $this->_setRatingCodes(Mage::registry('rating_data')->getRatingCodes());
             }
         }
 
@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
 
             $i = 1;
             foreach ($collection->getItems() as $item) {
-                $fieldset->addField('option_code_' . $item->getId() , 'hidden', [
+                $fieldset->addField('option_code_' . $item->getId(), 'hidden', [
                     'required' => true,
                     'name' => 'option_title[' . $item->getId() . ']',
                     'value' => ($item->getCode()) ? $item->getCode() : $i,
@@ -121,10 +121,11 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
         return parent::_prepareForm();
     }
 
-    protected function _setRatingCodes($ratingCodes) {
-        foreach($ratingCodes as $store=>$value) {
-            if($element = $this->getForm()->getElement('rating_code_' . $store)) {
-               $element->setValue($value);
+    protected function _setRatingCodes($ratingCodes)
+    {
+        foreach ($ratingCodes as $store => $value) {
+            if ($element = $this->getForm()->getElement('rating_code_' . $store)) {
+                $element->setValue($value);
             }
         }
     }

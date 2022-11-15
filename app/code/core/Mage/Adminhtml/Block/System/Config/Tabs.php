@@ -86,7 +86,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
             $sectionAllowed = $this->checkSectionPermissions($code);
             if ((empty($current) && $sectionAllowed)) {
-
                 $current = $code;
                 $this->getRequest()->setParam('section', $current);
             }
@@ -102,7 +101,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                     $this->_addBreadcrumb($label, '', $url->getUrl('*/*/*', ['section'=>$code]));
                 }
             }
-            if ( $sectionAllowed && $hasChildren) {
+            if ($sectionAllowed && $hasChildren) {
                 $this->addSection($code, (string)$section->tab, [
                     'class'     => (string)$section->class,
                     'label'     => $label,
@@ -165,8 +164,8 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
      */
     public function addSection($code, $tabCode, $config)
     {
-        if($tab = $this->getTab($tabCode)) {
-            if(!$tab->getSections()) {
+        if ($tab = $this->getTab($tabCode)) {
+            if (!$tab->getSections()) {
                 $tab->setSections(new Varien_Data_Collection());
             }
             $section = new Varien_Object($config);
@@ -308,7 +307,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
      * @param string $code
      * @return bool
      */
-    public function checkSectionPermissions($code=null)
+    public function checkSectionPermissions($code = null)
     {
         static $permissions;
 
@@ -321,10 +320,9 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
         }
 
         $showTab = false;
-        if ( $permissions->isAllowed('system/config/'.$code) ) {
+        if ($permissions->isAllowed('system/config/'.$code)) {
             $showTab = true;
         }
         return $showTab;
     }
-
 }

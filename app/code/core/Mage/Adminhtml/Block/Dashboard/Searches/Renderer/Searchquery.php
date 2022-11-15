@@ -26,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Dashboard_Searches_Renderer_Searchquery
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Dashboard_Searches_Renderer_Searchquery extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     public function render(Varien_Object $row)
     {
@@ -35,8 +34,7 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Renderer_Searchquery
         if (Mage::helper('core/string')->strlen($value) > 30) {
             $value = '<span title="'. $this->escapeHtml($value) .'">'
                 . $this->escapeHtml(Mage::helper('core/string')->truncate($value, 30)) . '</span>';
-        }
-        else {
+        } else {
             $value = $this->escapeHtml($value);
         }
         return $value;

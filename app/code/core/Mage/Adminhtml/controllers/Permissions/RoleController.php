@@ -164,7 +164,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
         $currentUser = Mage::getModel('admin/user')->setId(Mage::getSingleton('admin/session')->getUser()->getId());
 
-        if (in_array($role->getId(), $currentUser->getRoles()) ) {
+        if (in_array($role->getId(), $currentUser->getRoles())) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('Self-assigned roles cannot be deleted.'));
             $this->_redirect('*/*/editrole', ['rid' => $role->getId()]);
             return;
@@ -197,8 +197,9 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         $oldRoleUsers = array_keys($oldRoleUsers);
 
         $isAll = $this->getRequest()->getParam('all');
-        if ($isAll)
+        if ($isAll) {
             $resource = ['all'];
+        }
 
         $role = $this->_initRole('role_id');
         if (!$role->getId() && $rid) {

@@ -110,7 +110,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-/******************* ENTITY TYPES *****************/
+    /******************* ENTITY TYPES *****************/
 
     /**
      * Add an entity type
@@ -228,7 +228,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-/******************* ATTRIBUTE SETS *****************/
+    /******************* ATTRIBUTE SETS *****************/
 
     /**
      * Retrieve Attribute Set Sort order
@@ -414,7 +414,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this->getConnection()->fetchOne($select, $bind);
     }
 
-/******************* ATTRIBUTE GROUPS *****************/
+    /******************* ATTRIBUTE GROUPS *****************/
 
     /**
      * Retrieve Attribute Group Sort order
@@ -599,7 +599,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this->getConnection()->fetchOne($select, $bind);
     }
 
-/******************* ATTRIBUTES *****************/
+    /******************* ATTRIBUTES *****************/
 
     /**
      * Retrieve value from array by key or return default value
@@ -1188,7 +1188,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-/******************* BULK INSTALL *****************/
+    /******************* BULK INSTALL *****************/
 
     /**
      * Install entities
@@ -1242,7 +1242,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-/****************************** CREATE ENTITY TABLES ***********************************/
+    /****************************** CREATE ENTITY TABLES ***********************************/
 
     /**
      * Create entity tables

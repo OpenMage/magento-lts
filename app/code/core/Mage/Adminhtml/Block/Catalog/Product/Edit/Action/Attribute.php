@@ -30,7 +30,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
 {
     protected function _prepareLayout()
     {
-        $this->setChild('back_button',
+        $this->setChild(
+            'back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Back'),
@@ -39,7 +40,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
                 ])
         );
 
-        $this->setChild('reset_button',
+        $this->setChild(
+            'reset_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Reset'),
@@ -47,7 +49,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
                 ])
         );
 
-        $this->setChild('save_button',
+        $this->setChild(
+            'save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Save'),
@@ -93,7 +96,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
      *
      * @return string
      */
-     public function getCancelButtonHtml()
+    public function getCancelButtonHtml()
     {
         return $this->getChildHtml('reset_button');
     }

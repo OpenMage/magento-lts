@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
         return $this->getUrl('*/*/*', $params);
     }
 
-    protected function _addBreadcrumb($label, $title=null, $link=null)
+    protected function _addBreadcrumb($label, $title = null, $link = null)
     {
         /** @var Mage_Adminhtml_Block_Widget_Breadcrumbs $block */
         $block = $this->getLayout()->getBlock('breadcrumbs');
@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
      * @param string $id
      * @return string
      */
-    public function getButtonHtml($label, $onclick, $class='', $id=null)
+    public function getButtonHtml($label, $onclick, $class = '', $id = null)
     {
         return $this->getLayout()->createBlock('adminhtml/widget_button')
             ->setData([
@@ -95,4 +95,3 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
         return '<img src="'.$this->getSkinUrl('images/fam_link.gif').'" alt="'.$this->__('Global Attribute').'" title="'.$this->__('This attribute shares the same value in all the stores').'" class="attribute-global"/>';
     }
 }
-

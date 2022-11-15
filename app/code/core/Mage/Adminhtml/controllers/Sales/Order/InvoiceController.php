@@ -147,8 +147,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             $block->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
 
             $this->renderLayout();
-        }
-        else {
+        } else {
             $this->_forward('noRoute');
         }
     }
@@ -232,7 +231,6 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
         try {
             $invoice = $this->_initInvoice();
             if ($invoice) {
-
                 if (!empty($data['capture_case'])) {
                     $invoice->setRequestedCaptureCase($data['capture_case']);
                 }
@@ -417,7 +415,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      * @param array $qtys
      * @return bool
      */
-    protected function _needToAddDummy($item, $qtys) {
+    protected function _needToAddDummy($item, $qtys)
+    {
         if ($item->getHasChildren()) {
             foreach ($item->getChildrenItems() as $child) {
                 if (isset($qtys[$child->getId()]) && $qtys[$child->getId()] > 0) {
@@ -447,7 +446,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      * @param array $qtys
      * @return bool
      */
-    protected function _needToAddDummyForShipment($item, $qtys) {
+    protected function _needToAddDummyForShipment($item, $qtys)
+    {
         if ($item->getHasChildren()) {
             foreach ($item->getChildrenItems() as $child) {
                 if ($child->getIsVirtual()) {

@@ -135,7 +135,6 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
      */
     public function getMethodParams($modelName, $methodName)
     {
-
         $method = new ReflectionMethod($modelName, $methodName);
 
         return $method->getParameters();
@@ -150,7 +149,6 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
      */
     public function prepareArgs($params, $args)
     {
-
         $callArgs = [];
 
         /** @var ReflectionParameter $parameter */

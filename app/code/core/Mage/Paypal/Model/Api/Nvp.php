@@ -823,7 +823,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     {
         $request = $this->_exportToRequest($this->_updateBillingAgreementRequest);
         try {
-        $response = $this->call('BillAgreementUpdate', $request);
+            $response = $this->call('BillAgreementUpdate', $request);
         } catch (Mage_Core_Exception $e) {
             if (in_array(10201, $this->_callErrors)) {
                 $this->setIsBillingAgreementAlreadyCancelled(true);
@@ -1051,7 +1051,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         }
 
         $errorMessages = implode(' ', array_values($errorMessages));
-        $exceptionLogMessage = sprintf('PayPal NVP gateway errors: %s Correlation ID: %s. Version: %s.',
+        $exceptionLogMessage = sprintf(
+            'PayPal NVP gateway errors: %s Correlation ID: %s. Version: %s.',
             $errorMessages,
             $response['CORRELATIONID'] ?? '',
             $response['VERSION'] ?? ''
@@ -1111,8 +1112,11 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
         for ($i = 0; isset($response["L_ERRORCODE{$i}"]); $i++) {
             $errorCode = $response["L_ERRORCODE{$i}"];
-            $errorMessage = $this->_formatErrorMessage($errorCode, $response["L_SHORTMESSAGE{$i}"],
-                $response["L_LONGMESSAGE{$i}"]);
+            $errorMessage = $this->_formatErrorMessage(
+                $errorCode,
+                $response["L_SHORTMESSAGE{$i}"],
+                $response["L_LONGMESSAGE{$i}"]
+            );
             $errors[] = [
                 'code'    => $errorCode,
                 'message' => $errorMessage
@@ -1180,19 +1184,19 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
         $nvpstr = strpos($nvpstr, "\r\n\r\n")!==false ? substr($nvpstr, strpos($nvpstr, "\r\n\r\n")+4) : $nvpstr;
 
-        while(strlen($nvpstr)) {
+        while (strlen($nvpstr)) {
             //postion of Key
-            $keypos= strpos($nvpstr,'=');
+            $keypos= strpos($nvpstr, '=');
             //position of value
-            $valuepos = strpos($nvpstr,'&') ? strpos($nvpstr,'&'): strlen($nvpstr);
+            $valuepos = strpos($nvpstr, '&') ? strpos($nvpstr, '&'): strlen($nvpstr);
 
             /*getting the Key and Value values and storing in a Associative Array*/
-            $keyval=substr($nvpstr,$intial,$keypos);
-            $valval=substr($nvpstr,$keypos+1,$valuepos-$keypos-1);
+            $keyval=substr($nvpstr, $intial, $keypos);
+            $valval=substr($nvpstr, $keypos+1, $valuepos-$keypos-1);
             //decoding the respose
-            $nvpArray[urldecode($keyval)] =urldecode( $valval);
-            $nvpstr=substr($nvpstr,$valuepos+1,strlen($nvpstr));
-         }
+            $nvpArray[urldecode($keyval)] =urldecode($valval);
+            $nvpstr=substr($nvpstr, $valuepos+1, strlen($nvpstr));
+        }
         return $nvpArray;
     }
 
@@ -1245,8 +1249,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     {
         // merge street addresses into 1
         if ($address->hasStreet2()) {
-             $address->setStreet(implode("\n", [$address->getStreet(), $address->getStreet2()]));
-             $address->unsStreet2();
+            $address->setStreet(implode("\n", [$address->getStreet(), $address->getStreet2()]));
+            $address->unsStreet2();
         }
         // attempt to fetch region_id from directory
         if ($address->getCountryId() && $address->getRegion()) {
@@ -1369,11 +1373,16 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     protected function _filterPeriodUnit($value)
     {
         switch ($value) {
-            case 'day':        return 'Day';
-            case 'week':       return 'Week';
-            case 'semi_month': return 'SemiMonth';
-            case 'month':      return 'Month';
-            case 'year':       return 'Year';
+            case 'day':
+                return 'Day';
+            case 'week':
+                return 'Week';
+            case 'semi_month':
+                return 'SemiMonth';
+            case 'month':
+                return 'Month';
+            case 'year':
+                return 'Year';
         }
     }
 
@@ -1397,8 +1406,10 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     protected function _filterBillingAgreementStatus($value)
     {
         switch ($value) {
-            case 'canceled':    return 'Canceled';
-            case 'active':      return 'Active';
+            case 'canceled':
+                return 'Canceled';
+            case 'active':
+                return 'Active';
         }
     }
 
@@ -1411,19 +1422,32 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     protected function _filterPaymentStatusFromNvpToInfo($value)
     {
         switch ($value) {
-            case 'None': return Mage_Paypal_Model_Info::PAYMENTSTATUS_NONE;
-            case 'Completed': return Mage_Paypal_Model_Info::PAYMENTSTATUS_COMPLETED;
-            case 'Denied': return Mage_Paypal_Model_Info::PAYMENTSTATUS_DENIED;
-            case 'Expired': return Mage_Paypal_Model_Info::PAYMENTSTATUS_EXPIRED;
-            case 'Failed': return Mage_Paypal_Model_Info::PAYMENTSTATUS_FAILED;
-            case 'In-Progress': return Mage_Paypal_Model_Info::PAYMENTSTATUS_INPROGRESS;
-            case 'Pending': return Mage_Paypal_Model_Info::PAYMENTSTATUS_PENDING;
-            case 'Refunded': return Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDED;
-            case 'Partially-Refunded': return Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDEDPART;
-            case 'Reversed': return Mage_Paypal_Model_Info::PAYMENTSTATUS_REVERSED;
-            case 'Canceled-Reversal': return Mage_Paypal_Model_Info::PAYMENTSTATUS_UNREVERSED;
-            case 'Processed': return Mage_Paypal_Model_Info::PAYMENTSTATUS_PROCESSED;
-            case 'Voided': return Mage_Paypal_Model_Info::PAYMENTSTATUS_VOIDED;
+            case 'None':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_NONE;
+            case 'Completed':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_COMPLETED;
+            case 'Denied':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_DENIED;
+            case 'Expired':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_EXPIRED;
+            case 'Failed':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_FAILED;
+            case 'In-Progress':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_INPROGRESS;
+            case 'Pending':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_PENDING;
+            case 'Refunded':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDED;
+            case 'Partially-Refunded':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDEDPART;
+            case 'Reversed':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_REVERSED;
+            case 'Canceled-Reversal':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_UNREVERSED;
+            case 'Processed':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_PROCESSED;
+            case 'Voided':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_VOIDED;
         }
     }
 
@@ -1452,9 +1476,12 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     protected function _filterRecurringProfileActionToNvp($value)
     {
         switch ($value) {
-            case 'cancel': return 'Cancel';
-            case 'suspend':  return 'Suspend';
-            case 'activate': return 'Reactivate';
+            case 'cancel':
+                return 'Cancel';
+            case 'suspend':
+                return 'Suspend';
+            case 'activate':
+                return 'Reactivate';
         }
     }
 

@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
      *
      * @param array $arguments
      */
-    public function __construct($arguments= [])
+    public function __construct($arguments = [])
     {
         parent::__construct($arguments);
         $this->setDefaultSort('rule_id');
@@ -115,12 +115,12 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
      */
     protected function _prepareColumns()
     {
-       $this->addColumn('rule_id', [
+        $this->addColumn('rule_id', [
             'header'    => Mage::helper('salesrule')->__('ID'),
             'align'     => 'right',
             'width'     => '50px',
             'index'     => 'rule_id',
-       ]);
+        ]);
 
         $this->addColumn('name', [
             'header'    => Mage::helper('salesrule')->__('Rule Name'),

@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
      *
      * @param array $arguments Object data
      */
-    public function __construct($arguments= [])
+    public function __construct($arguments = [])
     {
         parent::__construct($arguments);
         //$this->setDefaultSort('name');

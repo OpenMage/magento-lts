@@ -32,9 +32,9 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
     /**
      * Text align constants
      */
-    const ALIGN_RIGHT = 'right';
-    const ALIGN_LEFT = 'left';
-    const ALIGN_CENTER = 'center';
+    public const ALIGN_RIGHT = 'right';
+    public const ALIGN_LEFT = 'left';
+    public const ALIGN_CENTER = 'center';
 
     /**
      * Dhl International Label Creation Class Pdf Page constructor

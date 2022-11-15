@@ -83,4 +83,3 @@ class Mage_Adminhtml_Block_Tag_Grid_Products extends Mage_Adminhtml_Block_Widget
         return parent::_prepareColumns();
     }
 }
-

@@ -29,12 +29,12 @@
  */
 class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Model_Entity_Attribute_Backend_Datetime
 {
-   /**
-    * Get attribute value for save.
-    *
-    * @param Varien_Object $object
-    * @return string|bool
-    */
+    /**
+     * Get attribute value for save.
+     *
+     * @param Varien_Object $object
+     * @return string|bool
+     */
     protected function _getValueForSave($object)
     {
         $attributeName  = $this->getAttribute()->getName();
@@ -45,13 +45,13 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
         return $startDate;
     }
 
-   /**
-    * Before save hook.
-    * Prepare attribute value for save
-    *
-    * @param Varien_Object $object
-    * @return $this
-    */
+    /**
+     * Before save hook.
+     * Prepare attribute value for save
+     *
+     * @param Varien_Object $object
+     * @return $this
+     */
     public function beforeSave($object)
     {
         $startDate = $this->_getValueForSave($object);
@@ -62,14 +62,14 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
         return $this;
     }
 
-   /**
-    * Product from date attribute validate function.
-    * In case invalid data throws exception.
-    *
-    * @param Mage_Catalog_Model_Product $object
-    * @throws Mage_Eav_Model_Entity_Attribute_Exception
-    * @return bool
-    */
+    /**
+     * Product from date attribute validate function.
+     * In case invalid data throws exception.
+     *
+     * @param Mage_Catalog_Model_Product $object
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
+     * @return bool
+     */
     public function validate($object)
     {
         $attr      = $this->getAttribute();

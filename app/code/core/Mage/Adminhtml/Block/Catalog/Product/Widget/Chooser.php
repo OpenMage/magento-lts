@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
      *
      * @param array $arguments Object data
      */
-    public function __construct($arguments= [])
+    public function __construct($arguments = [])
     {
         parent::__construct($arguments);
         $this->setDefaultSort('name');

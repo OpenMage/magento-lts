@@ -680,6 +680,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     } else {
                         break;
                     }
+                    // no break
                 case Varien_Db_Ddl_Table::TYPE_DECIMAL:
                     $options = $column['PRECISION'] . ',' . $column['SCALE'];
                     $_is_unsigned = null;
@@ -1230,7 +1231,8 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $select = $this->_getReadAdapter()->select()
             ->from(
                 $this->getTable('catalog/category_product'),
-                ['product_id', 'position'])
+                ['product_id', 'position']
+            )
             ->where('category_id = :category_id');
         $bind = ['category_id' => (int)$category->getId()];
         return $this->_getReadAdapter()->fetchPairs($select, $bind);

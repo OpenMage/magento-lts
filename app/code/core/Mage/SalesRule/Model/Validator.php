@@ -569,6 +569,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             switch ($rule->getSimpleAction()) {
                 case Mage_SalesRule_Model_Rule::TO_PERCENT_ACTION:
                     $rulePercent = max(0, 100 - $rule->getDiscountAmount());
+                    // no break
                 case Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION:
                     foreach ($items as $item) {
                         $weeeTaxAppliedAmounts = $helper->getApplied($item);
@@ -770,6 +771,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             switch ($rule->getSimpleAction()) {
                 case Mage_SalesRule_Model_Rule::TO_PERCENT_ACTION:
                     $rulePercent = max(0, 100-$rule->getDiscountAmount());
+                    // no break
                 case Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION:
                     $discountAmount    = ($shippingAmount - $address->getShippingDiscountAmount()) * $rulePercent/100;
                     $baseDiscountAmount = ($baseShippingAmount -

@@ -26,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group
-    extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstract
+class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstract
 {
     /**
      * Initialize block
@@ -93,7 +92,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group
      *
      * @return int
      */
-    public function getIsPercent() {
+    public function getIsPercent()
+    {
         return $this->getData('is_percent') ? $this->getData('is_percent') : 0;
     }
 }

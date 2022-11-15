@@ -241,7 +241,6 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                 } catch (Exception $e) {
                     Mage::logException($e);
                 }
-
             }
         }
 

@@ -70,8 +70,8 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     /**
      * Possible customer address types
      */
-    const TYPE_BILLING  = 'billing';
-    const TYPE_SHIPPING = 'shipping';
+    public const TYPE_BILLING  = 'billing';
+    public const TYPE_SHIPPING = 'shipping';
 
     /**
      * Prefix of model events
@@ -99,14 +99,14 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    static protected $_countryModels = [];
+    protected static $_countryModels = [];
 
     /**
      * Directory region models
      *
      * @var array
      */
-    static protected $_regionModels = [];
+    protected static $_regionModels = [];
 
     /**
      * Get full customer name

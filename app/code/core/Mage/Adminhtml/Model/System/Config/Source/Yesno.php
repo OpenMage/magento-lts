@@ -51,5 +51,4 @@ class Mage_Adminhtml_Model_System_Config_Source_Yesno
             1 => Mage::helper('adminhtml')->__('Yes'),
         ];
     }
-
 }

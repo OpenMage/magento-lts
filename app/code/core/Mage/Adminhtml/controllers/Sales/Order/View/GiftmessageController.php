@@ -54,9 +54,9 @@ class Mage_Adminhtml_Sales_Order_View_GiftmessageController extends Mage_Adminht
             $this->_getSession()->addError(Mage::helper('giftmessage')->__('An error occurred while saving the gift message.'));
         }
 
-        if($this->getRequest()->getParam('type')=='order_item') {
+        if ($this->getRequest()->getParam('type')=='order_item') {
             $this->getResponse()->setBody(
-                 $this->_getGiftmessageSaveModel()->getSaved() ? 'YES' : 'NO'
+                $this->_getGiftmessageSaveModel()->getSaved() ? 'YES' : 'NO'
             );
         } else {
             $this->getResponse()->setBody(

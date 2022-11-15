@@ -54,13 +54,13 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
                     $fields = $line;
                     continue;
                 } else {
-                    foreach ($line as $j=>$f) {
+                    foreach ($line as $j => $f) {
                         $fields[$j] = 'column'.($j+1);
                     }
                 }
             }
             $row = [];
-            foreach ($fields as $j=>$f) {
+            foreach ($fields as $j => $f) {
                 $row[$f] = $line[$j];
             }
             /*
@@ -111,7 +111,7 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
             }
             $lines[] = implode($fDel, $line);
         }
-        foreach ($data as $i=>$row) {
+        foreach ($data as $i => $row) {
             $line = [];
             foreach ($fields as $f) {
                 /*

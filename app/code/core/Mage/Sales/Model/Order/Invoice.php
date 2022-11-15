@@ -1011,7 +1011,6 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      */
     protected function _afterSave()
     {
-
         if ($this->_items !== null) {
             /**
              * Save invoice items

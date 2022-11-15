@@ -97,10 +97,10 @@ class Mage_Paypal_Model_Config
     const EC_FLAVOR_STATIC  = 'static';
     const EC_BUTTON_TYPE_SHORTCUT = 'ecshortcut';
     const EC_BUTTON_TYPE_MARK     = 'ecmark';
-    const PAYMENT_MARK_37x23   = '37x23';
-    const PAYMENT_MARK_50x34   = '50x34';
-    const PAYMENT_MARK_60x38   = '60x38';
-    const PAYMENT_MARK_180x113 = '180x113';
+    const PAYMENT_MARK_37X23   = '37x23';
+    const PAYMENT_MARK_50X34   = '50x34';
+    const PAYMENT_MARK_60X38   = '60x38';
+    const PAYMENT_MARK_180X113 = '180x113';
 
     const DEFAULT_LOGO_TYPE = 'wePrefer_150x60';
 
@@ -800,8 +800,7 @@ class Mage_Paypal_Model_Config
         if ($key == 'payment_action'
             && $value != self::PAYMENT_ACTION_SALE
             && $this->_methodCode == self::METHOD_WPP_EXPRESS
-            && $this->shouldUseUnilateralPayments())
-        {
+            && $this->shouldUseUnilateralPayments()) {
             return self::PAYMENT_ACTION_SALE;
         }
         return $value;
@@ -1057,15 +1056,16 @@ class Mage_Paypal_Model_Config
         ]);
     }
 
-     /**
-     * PayPal web URL generic getter
-     *
-     * @param array $params
-     * @return string
-     */
+    /**
+    * PayPal web URL generic getter
+    *
+    * @param array $params
+    * @return string
+    */
     public function getPaypalUrl(array $params = [])
     {
-        return sprintf('https://www.%spaypal.com/cgi-bin/webscr%s',
+        return sprintf(
+            'https://www.%spaypal.com/cgi-bin/webscr%s',
             $this->sandboxFlag ? 'sandbox.' : '',
             $params ? '?' . http_build_query($params) : ''
         );
@@ -1115,8 +1115,10 @@ class Mage_Paypal_Model_Config
         if ($this->buttonType === self::EC_BUTTON_TYPE_MARK) {
             return $this->getPaymentMarkImageUrl($localeCode);
         }
-        return sprintf('https://www.paypal.com/%s/i/btn/btn_xpressCheckout.gif',
-            $this->_getSupportedLocaleCode($localeCode));
+        return sprintf(
+            'https://www.paypal.com/%s/i/btn/btn_xpressCheckout.gif',
+            $this->_getSupportedLocaleCode($localeCode)
+        );
     }
 
     /**
@@ -1144,16 +1146,19 @@ class Mage_Paypal_Model_Config
             $staticSize = $this->paymentMarkSize;
         }
         switch ($staticSize) {
-            case self::PAYMENT_MARK_37x23:
-            case self::PAYMENT_MARK_50x34:
-            case self::PAYMENT_MARK_60x38:
-            case self::PAYMENT_MARK_180x113:
+            case self::PAYMENT_MARK_37X23:
+            case self::PAYMENT_MARK_50X34:
+            case self::PAYMENT_MARK_60X38:
+            case self::PAYMENT_MARK_180X113:
                 break;
             default:
-                $staticSize = self::PAYMENT_MARK_37x23;
+                $staticSize = self::PAYMENT_MARK_37X23;
         }
-        return sprintf('https://www.paypal.com/%s/i/logo/PayPal_mark_%s.gif',
-            $this->_getSupportedLocaleCode($localeCode), $staticSize);
+        return sprintf(
+            'https://www.paypal.com/%s/i/logo/PayPal_mark_%s.gif',
+            $this->_getSupportedLocaleCode($localeCode),
+            $staticSize
+        );
     }
 
     /**
@@ -1176,7 +1181,8 @@ class Mage_Paypal_Model_Config
                 $locale->revert();
             }
         }
-        return sprintf('https://www.paypal.com/%s/cgi-bin/webscr?cmd=xpt/Marketing/popup/OLCWhatIsPayPal-outside',
+        return sprintf(
+            'https://www.paypal.com/%s/cgi-bin/webscr?cmd=xpt/Marketing/popup/OLCWhatIsPayPal-outside',
             strtolower($countryCode)
         );
     }
@@ -1191,9 +1197,11 @@ class Mage_Paypal_Model_Config
      */
     public function getSolutionImageUrl($localeCode, $isVertical = false, $isEcheck = false)
     {
-        return sprintf('https://www.paypal.com/%s/i/bnr/%s_solution_PP%s.gif',
+        return sprintf(
+            'https://www.paypal.com/%s/i/bnr/%s_solution_PP%s.gif',
             $this->_getSupportedLocaleCode($localeCode),
-            $isVertical ? 'vertical' : 'horizontal', $isEcheck ? 'eCheck' : ''
+            $isVertical ? 'vertical' : 'horizontal',
+            $isEcheck ? 'eCheck' : ''
         );
     }
 
@@ -1209,7 +1217,7 @@ class Mage_Paypal_Model_Config
 
         $imageType = 'logo';
         $domain = 'paypal.com';
-        list (,$country) = explode('_', $locale);
+        list(, $country) = explode('_', $locale);
         $countryPrefix = $country . '/';
 
         switch ($locale) {
@@ -1559,8 +1567,10 @@ class Mage_Paypal_Model_Config
                 $params['pal'] = $pal;
             }
         }
-        return sprintf('https://fpdbs%s.paypal.com/dynamicimageweb?%s',
-            $this->sandboxFlag ? '.sandbox' : '', http_build_query($params)
+        return sprintf(
+            'https://fpdbs%s.paypal.com/dynamicimageweb?%s',
+            $this->sandboxFlag ? '.sandbox' : '',
+            http_build_query($params)
         );
     }
 
@@ -1651,9 +1661,25 @@ class Mage_Paypal_Model_Config
             case 'GB':
                 return 'UK';
             // Australia, Austria, Belgium, Canada, China, France, Germany, Hong Kong, Italy
-            case 'AU': case 'AT': case 'BE': case 'CA': case 'CN': case 'FR': case 'DE': case 'HK': case 'IT':
+            case 'AU':
+            case 'AT':
+            case 'BE':
+            case 'CA':
+            case 'CN':
+            case 'FR':
+            case 'DE':
+            case 'HK':
+            case 'IT':
             // Japan, Mexico, Netherlands, Poland, Singapore, Spain, Switzerland, United Kingdom, United States
-            case 'JP': case 'MX': case 'NL': case 'PL': case 'SG': case 'ES': case 'CH': case 'UK': case 'US':
+            case 'JP':
+            case 'MX':
+            case 'NL':
+            case 'PL':
+            case 'SG':
+            case 'ES':
+            case 'CH':
+            case 'UK':
+            case 'US':
                 return $code;
         }
         return null;
@@ -1667,8 +1693,7 @@ class Mage_Paypal_Model_Config
      */
     protected function _mapStandardFieldset($fieldName)
     {
-        switch ($fieldName)
-        {
+        switch ($fieldName) {
             case 'line_items_summary':
             case 'sandbox_flag':
                 return 'payment/' . self::METHOD_WPS . "/{$fieldName}";
@@ -1685,8 +1710,7 @@ class Mage_Paypal_Model_Config
      */
     protected function _mapExpressFieldset($fieldName)
     {
-        switch ($fieldName)
-        {
+        switch ($fieldName) {
             case 'transfer_shipping_options':
             case 'solution_type':
             case 'visible_on_cart':
@@ -1710,8 +1734,7 @@ class Mage_Paypal_Model_Config
      */
     protected function _mapBmlFieldset($fieldName)
     {
-        switch ($fieldName)
-        {
+        switch ($fieldName) {
             case 'allow_ba_signup':
                 return "payment/" . self::METHOD_WPP_EXPRESS . "/{$fieldName}";
             default:
@@ -1727,8 +1750,7 @@ class Mage_Paypal_Model_Config
      */
     protected function _mapBmlUkFieldset($fieldName)
     {
-        switch ($fieldName)
-        {
+        switch ($fieldName) {
             case 'allow_ba_signup':
                 return "payment/" . self::METHOD_WPP_PE_EXPRESS . "/{$fieldName}";
             default:
@@ -1744,8 +1766,7 @@ class Mage_Paypal_Model_Config
      */
     protected function _mapDirectFieldset($fieldName)
     {
-        switch ($fieldName)
-        {
+        switch ($fieldName) {
             case 'useccv':
             case 'centinel':
             case 'centinel_is_mode_strict':
@@ -1764,8 +1785,7 @@ class Mage_Paypal_Model_Config
      */
     protected function _mapWppFieldset($fieldName)
     {
-        switch ($fieldName)
-        {
+        switch ($fieldName) {
             case 'api_authentication':
             case 'api_username':
             case 'api_password':
@@ -1844,8 +1864,7 @@ class Mage_Paypal_Model_Config
      */
     protected function _mapGeneralFieldset($fieldName)
     {
-        switch ($fieldName)
-        {
+        switch ($fieldName) {
             case 'business_account':
             case 'merchant_country':
                 return "paypal/general/{$fieldName}";
@@ -1865,8 +1884,7 @@ class Mage_Paypal_Model_Config
         if (!$this->_methodCode) {
             return null;
         }
-        switch ($fieldName)
-        {
+        switch ($fieldName) {
             case 'active':
             case 'title':
             case 'payment_action':

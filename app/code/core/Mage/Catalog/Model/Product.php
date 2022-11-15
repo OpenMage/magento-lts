@@ -981,9 +981,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         return $this->_getData('special_to_date');
     }
 
-/*******************************************************************************
- ** Linked products API
- */
+    /*******************************************************************************
+     ** Linked products API
+     */
     /**
      * Retrieve array of related roducts
      *
@@ -1193,9 +1193,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         return $collection;
     }
 
-/*******************************************************************************
- ** Media API
- */
+    /*******************************************************************************
+     ** Media API
+     */
     /**
      * Retrieve attributes for media gallery
      *

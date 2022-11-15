@@ -40,15 +40,13 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Form extends Mage_Adminhtml_Blo
                     'label'     => Mage::helper('poll')->__('Answer Title'),
                     'maxlength' => '255',
                     'no_span'   => true,
-            ]
-        );
+            ]);
 
         $fieldset->addField('poll_id', 'hidden', [
                     'name'      => 'poll_id',
                     'no_span'   => true,
                     'value'     => $this->getRequest()->getParam('id'),
-            ]
-        );
+            ]);
 
         $fieldset->addField('add_button', 'note', [
                     'text' => $this->getLayout()->createBlock('adminhtml/widget_button')
@@ -58,8 +56,7 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Form extends Mage_Adminhtml_Blo
                                         'class'     => 'add',
                                     ])->toHtml(),
                     'no_span'   => true,
-            ]
-        );
+            ]);
 
         $this->setForm($form);
         return $this;

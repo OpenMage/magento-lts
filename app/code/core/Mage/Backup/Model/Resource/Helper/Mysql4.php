@@ -89,13 +89,13 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
         );
     }
 
-     /**
-     * Get create script for table
-     *
-     * @param string $tableName
-     * @param bool $addDropIfExists
-     * @return string
-     */
+    /**
+    * Get create script for table
+    *
+    * @param string $tableName
+    * @param bool $addDropIfExists
+    * @return string
+    */
     public function getTableCreateScript($tableName, $addDropIfExists = false)
     {
         $script = '';

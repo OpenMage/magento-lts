@@ -77,13 +77,11 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 } catch (Mage_Core_Model_Store_Exception $e) {
                     $this->_fault('store_not_exists');
                 }
-            } // load children of specified category id
-            else {
+            } else { // load children of specified category id
                 $storeId = $this->_getStoreId($store);
                 $ids = (int)$categoryId;
             }
-        } // load all root categories
-        else {
+        } else { // load all root categories
             $ids = $categoryId ?? Mage_Catalog_Model_Category::TREE_ROOT_ID;
         }
 

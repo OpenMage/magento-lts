@@ -36,7 +36,6 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
 
     protected function _prepareCollection()
     {
-
         $collection = Mage::getResourceModel('reports/tag_customer_collection');
 
         $collection->addStatusFilter(Mage_Tag_Model_Tag::STATUS_APPROVED)
@@ -49,7 +48,6 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
 
     protected function _prepareColumns()
     {
-
         $this->addColumn('entity_id', [
             'header'    =>Mage::helper('reports')->__('ID'),
             'width'     => '50px',
@@ -74,7 +72,8 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
             'index'     =>'taged'
         ]);
 
-        $this->addColumn('action',
+        $this->addColumn(
+            'action',
             [
                 'header'    => Mage::helper('catalog')->__('Action'),
                 'width'     => '100%',
@@ -93,7 +92,8 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
                 'filter'    => false,
                 'sortable'  => false,
                 'index'     => 'stores',
-            ]);
+            ]
+        );
 
         $this->setFilterVisibility(false);
 
@@ -108,4 +108,3 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
         return $this->getUrl('*/*/customerDetail', ['id'=>$row->getId()]);
     }
 }
-

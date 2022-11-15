@@ -46,7 +46,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
             '_query' => false
         ]);
 
-        $this->setChild('add_sub_button',
+        $this->setChild(
+            'add_sub_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Add Subcategory'),
@@ -58,7 +59,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         );
 
         if ($this->canAddRootCategory()) {
-            $this->setChild('add_root_button',
+            $this->setChild(
+                'add_root_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Add Root Category'),
@@ -69,7 +71,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
             );
         }
 
-        $this->setChild('store_switcher',
+        $this->setChild(
+            'store_switcher',
             $this->getLayout()->createBlock('adminhtml/store_switcher')
                 ->setSwitchUrl($this->getUrl('*/*/*', ['_current'=>true, '_query'=>false, 'store'=>null]))
                 ->setTemplate('store/switcher/enhanced.phtml')
@@ -126,11 +129,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         return $this->getChildHtml('store_switcher');
     }
 
-    public function getLoadTreeUrl($expanded=null)
+    public function getLoadTreeUrl($expanded = null)
     {
         $params = ['_current'=>true, 'id'=>null,'store'=>null];
-        if (
-            (is_null($expanded) && Mage::getSingleton('admin/session')->getIsTreeWasExpanded())
+        if ((is_null($expanded) && Mage::getSingleton('admin/session')->getIsTreeWasExpanded())
             || $expanded == true) {
             $params['expand_all'] = true;
         }
@@ -160,13 +162,13 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         return $this->getUrl('*/catalog_category/move', ['store'=>$this->getRequest()->getParam('store')]);
     }
 
-    public function getTree($parenNodeCategory=null)
+    public function getTree($parenNodeCategory = null)
     {
-           $rootArray = $this->_getNodeJson($this->getRoot($parenNodeCategory));
+        $rootArray = $this->_getNodeJson($this->getRoot($parenNodeCategory));
         return $rootArray['children'] ?? [];
     }
 
-    public function getTreeJson($parenNodeCategory=null)
+    public function getTreeJson($parenNodeCategory = null)
     {
         $rootArray = $this->_getNodeJson($this->getRoot($parenNodeCategory));
         return Mage::helper('core')->jsonEncode($rootArray['children'] ?? []);
@@ -267,7 +269,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     {
         $result = $this->escapeHtml($node->getName());
         if ($this->_withProductCount) {
-             $result .= ' (' . $node->getProductCount() . ')';
+            $result .= ' (' . $node->getProductCount() . ')';
         }
         return $result;
     }
@@ -279,7 +281,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
             'category' => $node
         ]);
 
-        Mage::dispatchEvent('adminhtml_catalog_category_tree_is_moveable',
+        Mage::dispatchEvent(
+            'adminhtml_catalog_category_tree_is_moveable',
             ['options'=>$options]
         );
 

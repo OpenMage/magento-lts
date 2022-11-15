@@ -73,7 +73,8 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
 
         $useDefault = false;
         if ($this->getVariable()->getId() && $this->getVariable()->getStoreId()) {
-            $useDefault = !((bool)$this->getVariable()->getStoreHtmlValue()
+            $useDefault = !(
+                (bool)$this->getVariable()->getStoreHtmlValue()
                 || (bool)$this->getVariable()->getStorePlainValue()
             );
             $this->getVariable()->setUseDefaultValue((int)$useDefault);

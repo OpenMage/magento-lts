@@ -668,8 +668,7 @@ XML;
                 $array[$key] = trim((string)$value);
                 if (empty($array[$key]) && !empty($value)) {
                     $array[$key] = self::xmlToAssoc($value);
-                } // untrim strings values
-                else {
+                } else { // untrim strings values
                     $array[$key] = (string)$value;
                 }
             }

@@ -35,7 +35,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Range extends Mage_Adminhtm
         return $html;
     }
 
-    public function getValue($index=null)
+    public function getValue($index = null)
     {
         if ($index) {
             return $this->getData('value', $index);

@@ -36,7 +36,8 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
         /*
         * setting cache to save the rss for 10 minutes
         */
-        $this->setCacheKey('rss_catalog_category_'
+        $this->setCacheKey(
+            'rss_catalog_category_'
             . $this->getRequest()->getParam('cid') . '_'
             . $this->getRequest()->getParam('store_id') . '_'
             . Mage::getModel('customer/session')->getId()
@@ -75,7 +76,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                 $_collection->addAttributeToSelect('url_key')
                     ->addAttributeToSelect('name')
                     ->addAttributeToSelect('is_anchor')
-                    ->addAttributeToFilter('is_active',1)
+                    ->addAttributeToFilter('is_active', 1)
                     ->addIdFilter($category->getChildren())
                     ->load()
                 ;
@@ -91,7 +92,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                 */
                 $_productCollection = $currentCategory
                     ->getProductCollection()
-                    ->addAttributeToSort('updated_at','desc')
+                    ->addAttributeToSort('updated_at', 'desc')
                     ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds())
                     ->setCurPage(1)
                     ->setPageSize(50)
@@ -136,7 +137,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                      . '<td  style="text-decoration:none;">' . $product->getDescription();
 
         if ($product->getAllowedPriceInRss()) {
-            $description.= $this->getPriceHtml($product,true);
+            $description.= $this->getPriceHtml($product, true);
         }
 
         $description .= '</td></tr></table>';

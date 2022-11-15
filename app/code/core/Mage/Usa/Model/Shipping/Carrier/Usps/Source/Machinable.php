@@ -30,7 +30,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Machinable
     {
         $usps = Mage::getSingleton('usa/shipping_carrier_usps');
         $arr = [];
-        foreach ($usps->getCode('machinable') as $k=>$v) {
+        foreach ($usps->getCode('machinable') as $k => $v) {
             $arr[] = ['value'=>$k, 'label'=>$v];
         }
         return $arr;

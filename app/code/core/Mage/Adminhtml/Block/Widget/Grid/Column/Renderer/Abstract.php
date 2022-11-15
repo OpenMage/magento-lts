@@ -27,8 +27,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 
-abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
-    extends Mage_Adminhtml_Block_Abstract implements Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Interface
+abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends Mage_Adminhtml_Block_Abstract implements Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Interface
 {
     protected $_defaultWidth;
     protected $_column;
@@ -150,8 +149,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
             $customWidth = $this->getColumn()->getData('width');
             if (($customWidth === null) || (preg_match('/^[0-9]+%?$/', $customWidth))) {
                 $width = $customWidth;
-            }
-            elseif (preg_match('/^([0-9]+)px$/', $customWidth, $matches)) {
+            } elseif (preg_match('/^([0-9]+)px$/', $customWidth, $matches)) {
                 $width = (int)$matches[1];
             }
         }

@@ -117,7 +117,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         return count($this->getCustomer()->getAddresses());
     }
 
-/* */
+    /* */
     /**
      * @param string $type
      * @return string
@@ -246,5 +246,5 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     {
         return true;
     }
-/* */
+    /* */
 }

@@ -352,11 +352,11 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
                     []
                 );
 
-                $valueExpr = $collection->getConnection()->getCheckSql(
-                    $valueTable2 . '.value_id > 0',
-                    $valueTable2 . '.value',
-                    $valueTable1 . '.value'
-                );
+            $valueExpr = $collection->getConnection()->getCheckSql(
+                $valueTable2 . '.value_id > 0',
+                $valueTable2 . '.value',
+                $valueTable1 . '.value'
+            );
         }
 
         $collection->getSelect()->order($valueExpr . ' ' . $dir);

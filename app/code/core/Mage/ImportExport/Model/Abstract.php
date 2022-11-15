@@ -36,7 +36,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
      * Log directory
      *
      */
-    const LOG_DIRECTORY = 'log/import_export/';
+    public const LOG_DIRECTORY = 'log/import_export/';
 
     /**
      * Enable loging

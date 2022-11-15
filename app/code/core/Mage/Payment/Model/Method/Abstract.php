@@ -496,7 +496,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function refund(Varien_Object $payment, $amount)
     {
-
         if (!$this->canRefund()) {
             Mage::throwException(Mage::helper('payment')->__('Refund action is not available.'));
         }
@@ -642,11 +641,11 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         return $this;
     }
 
-   /**
-     * Prepare info instance for save
-     *
-     * @return $this
-     */
+    /**
+      * Prepare info instance for save
+      *
+      * @return $this
+      */
     public function prepareSave()
     {
         return $this;

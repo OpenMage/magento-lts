@@ -110,7 +110,7 @@ function updateProgress(sessionId, idx, time, memory) {
         return [];
     }
 
-    protected function _parseCallback($callback, $defaultMethod=null)
+    protected function _parseCallback($callback, $defaultMethod = null)
     {
         if (!preg_match('#^([a-z0-9_/]+)(::([a-z0-9_]+))?$#i', $callback, $match)) {
             return false;

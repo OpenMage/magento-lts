@@ -56,8 +56,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
                 'label'     => Mage::helper('sales')->__('Cancel'),
                 'class'     => 'delete',
                 'onclick'   => 'setLocation(\''.$this->getCancelUrl().'\')'
-                ]
-            );
+                ]);
         }
 
         if ($this->_isAllowedAction('emails')) {
@@ -81,8 +80,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
                     'label'     => Mage::helper('sales')->__('Credit Memo'),
                     'class'     => 'go',
                     'onclick'   => 'setLocation(\''.$this->getCreditMemoUrl().'\')'
-                    ]
-                );
+                    ]);
             }
         }
 
@@ -91,8 +89,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
                 'label'     => Mage::helper('sales')->__('Capture'),
                 'class'     => 'save',
                 'onclick'   => 'setLocation(\''.$this->getCaptureUrl().'\')'
-                ]
-            );
+                ]);
         }
 
         if ($this->getInvoice()->canVoid()) {
@@ -100,8 +97,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
                 'label'     => Mage::helper('sales')->__('Void'),
                 'class'     => 'save',
                 'onclick'   => 'setLocation(\''.$this->getVoidUrl().'\')'
-                ]
-            );
+                ]);
         }
 
         if ($this->getInvoice()->getId()) {
@@ -109,8 +105,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
                 'label'     => Mage::helper('sales')->__('Print'),
                 'class'     => 'save',
                 'onclick'   => 'setLocation(\''.$this->getPrintUrl().'\')'
-                ]
-            );
+                ]);
         }
     }
 
@@ -131,8 +126,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
     {
         if ($this->getInvoice()->getEmailSent()) {
             $emailSent = Mage::helper('sales')->__('the invoice email was sent');
-        }
-        else {
+        } else {
             $emailSent = Mage::helper('sales')->__('the invoice email is not sent');
         }
         return Mage::helper('sales')->__('Invoice #%1$s | %2$s | %4$s (%3$s)', $this->getInvoice()->getIncrementId(), $this->getInvoice()->getStateName(), $emailSent, $this->formatDate($this->getInvoice()->getCreatedAtDate(), 'medium', true));
@@ -148,7 +142,8 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
             [
                 'order_id'  => $this->getInvoice()->getOrderId(),
                 'active_tab'=> 'order_invoices'
-            ]);
+            ]
+        );
     }
 
     /**

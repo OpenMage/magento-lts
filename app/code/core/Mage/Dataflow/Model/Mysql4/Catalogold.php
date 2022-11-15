@@ -46,7 +46,7 @@ class Mage_Catalog_Model_Mysql4_Convert
         return Mage::getSingleton('core/resource')->getTableName($table);
     }
 
-    public function getProductEntity($field=null)
+    public function getProductEntity($field = null)
     {
         if (!$this->_productEntity) {
             $this->_productEntity = Mage::getResourceModel('catalog/product')
@@ -55,7 +55,7 @@ class Mage_Catalog_Model_Mysql4_Convert
         return is_null($field) ? $this->_productEntity : $this->_productEntity->getData($field);
     }
 
-    public function getSkuAttribute($field='attribute_id')
+    public function getSkuAttribute($field = 'attribute_id')
     {
         if (!$this->_skuAttribute) {
             $this->_skuAttribute = $this->getProductEntity()->getAttribute('sku');
@@ -84,7 +84,7 @@ class Mage_Catalog_Model_Mysql4_Convert
         $table = $this->getTable('catalog/product_store');
         try {
             if (!$write->fetchOne("select * from $table where product_id=".(int)$productId." and store_id=".(int)$storeId)) {
-               $write->query("insert into $table (product_id, store_id) values (".(int)$productId.",".(int)$storeId.")");
+                $write->query("insert into $table (product_id, store_id) values (".(int)$productId.",".(int)$storeId.")");
             }
         } catch (Exception $e) {
             throw $e;
@@ -137,7 +137,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             ->order('a.attribute_code')->order('ao.sort_order');
 
         $stores = Mage::getConfig()->getNode('stores')->children();
-        foreach ($stores as $storeName=>$storeConfig) {
+        foreach ($stores as $storeName => $storeConfig) {
             $select->joinLeft(
                 [$storeName=>$this->getTable('eav/attribute_option_value')],
                 "$storeName.option_id=ao.option_id and $storeName.store_id=".$storeConfig->descend('system/store/id'),

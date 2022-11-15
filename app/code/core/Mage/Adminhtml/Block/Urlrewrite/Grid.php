@@ -115,4 +115,3 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
         //return $this->getUrl('*/*/view', array('id' => $row->getId()));
     }
 }
-

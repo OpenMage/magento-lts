@@ -28,7 +28,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Boolean extends Varien_Data_Form_Element_Select
 {
-    public function __construct($attributes= [])
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->setValues([

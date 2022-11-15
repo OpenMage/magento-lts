@@ -32,7 +32,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'cms/widget_instance';
+    public const ADMIN_RESOURCE = 'cms/widget_instance';
 
     /**
      * Session getter

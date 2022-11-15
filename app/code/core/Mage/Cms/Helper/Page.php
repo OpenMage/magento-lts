@@ -48,14 +48,14 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         return $this->_renderPage($action, $pageId);
     }
 
-   /**
-    * Renders CMS page
-    *
-    * @param Mage_Core_Controller_Varien_Action $action
-    * @param string $pageId
-    * @param bool $renderLayout
-    * @return bool
-    */
+    /**
+     * Renders CMS page
+     *
+     * @param Mage_Core_Controller_Varien_Action $action
+     * @param string $pageId
+     * @param bool $renderLayout
+     * @return bool
+     */
     protected function _renderPage(Mage_Core_Controller_Varien_Action  $action, $pageId = null, $renderLayout = true)
     {
         $page = Mage::getSingleton('cms/page');

@@ -48,4 +48,3 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Upload extends Mage_Admin
         return min($this->getPostMaxSize(), $this->getUploadMaxSize());
     }
 }
-

@@ -243,7 +243,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             $oldTypes = [];
             foreach ($product->getMediaAttributes() as $attribute) {
                 if ($product->getData($attribute->getAttributeCode()) == $file) {
-                     $oldTypes[] = $attribute->getAttributeCode();
+                    $oldTypes[] = $attribute->getAttributeCode();
                 }
             }
 

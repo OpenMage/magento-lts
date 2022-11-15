@@ -28,7 +28,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Country
 {
     protected $_options;
 
-    public function toOptionArray($isMultiselect=false)
+    public function toOptionArray($isMultiselect = false)
     {
         if (!$this->_options) {
             $this->_options = Mage::getResourceModel('directory/country_collection')->loadData()->toOptionArray(false);

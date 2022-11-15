@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         if ($this->getCustomerId() || $this->getRequest()->getParam('customerId', false)) {
             $customerId = $this->getCustomerId();
-            if (!$customerId){
+            if (!$customerId) {
                 $customerId = $this->getRequest()->getParam('customerId');
             }
             $this->setCustomerId($customerId);
@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'index'         => 'review_created_at',
         ]);
 
-        if( !Mage::registry('usePendingFilter') ) {
+        if (!Mage::registry('usePendingFilter')) {
             $this->addColumn('status', [
                 'header'        => Mage::helper('review')->__('Status'),
                 'align'         => 'left',
@@ -168,7 +168,8 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'escape'    => true
         ]);
 
-        $this->addColumn('action',
+        $this->addColumn(
+            'action',
             [
                 'header'    => Mage::helper('adminhtml')->__('Action'),
                 'width'     => '50px',
@@ -182,7 +183,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
                             'params'=> [
                                 'productId' => $this->getProductId(),
                                 'customerId' => $this->getCustomerId(),
-                                'ret'       => ( Mage::registry('usePendingFilter') ) ? 'pending' : null
+                                'ret'       => (Mage::registry('usePendingFilter')) ? 'pending' : null
                             ]
                         ],
                          'field'   => 'id'
@@ -190,7 +191,8 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 ],
                 'filter'    => false,
                 'sortable'  => false
-            ]);
+            ]
+        );
 
         $this->addRssList('rss/catalog/review', Mage::helper('catalog')->__('Pending Reviews RSS'));
 
@@ -243,13 +245,13 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'id' => $row->getReviewId(),
             'productId' => $this->getProductId(),
             'customerId' => $this->getCustomerId(),
-            'ret'       => ( Mage::registry('usePendingFilter') ) ? 'pending' : null,
+            'ret'       => (Mage::registry('usePendingFilter')) ? 'pending' : null,
         ]);
     }
 
     public function getGridUrl()
     {
-        if( $this->getProductId() || $this->getCustomerId() ) {
+        if ($this->getProductId() || $this->getCustomerId()) {
             return $this->getUrl(
                 '*/catalog_product_review/' . (Mage::registry('usePendingFilter') ? 'pending' : ''),
                 [

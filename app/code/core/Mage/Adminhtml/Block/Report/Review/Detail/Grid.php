@@ -52,7 +52,6 @@ class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Bloc
      */
     protected function _prepareColumns()
     {
-
         $this->addColumn('nickname', [
             'header'    =>Mage::helper('reports')->__('Customer'),
             'width'     =>'100px',
@@ -85,4 +84,3 @@ class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Bloc
         return parent::_prepareColumns();
     }
 }
-

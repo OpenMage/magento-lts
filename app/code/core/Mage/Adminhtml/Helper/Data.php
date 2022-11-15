@@ -105,7 +105,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
         return $this;
     }
 
-    public static function getUrl($route='', $params= [])
+    public static function getUrl($route = '', $params = [])
     {
         return Mage::getModel('adminhtml/url')->getUrl($route, $params);
     }

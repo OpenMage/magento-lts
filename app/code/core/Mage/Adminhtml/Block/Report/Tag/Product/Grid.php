@@ -36,7 +36,6 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Grid extends Mage_Adminhtml_Block_
 
     protected function _prepareCollection()
     {
-
         $collection = Mage::getResourceModel('reports/tag_product_collection');
 
         $collection->addUniqueTagedCount()
@@ -50,7 +49,6 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Grid extends Mage_Adminhtml_Block_
 
     protected function _prepareColumns()
     {
-
         $this->addColumn('entity_id', [
             'header'    =>Mage::helper('reports')->__('ID'),
             'width'     =>'50px',
@@ -77,7 +75,8 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Grid extends Mage_Adminhtml_Block_
             'index'     =>'taged'
         ]);
 
-        $this->addColumn('action',
+        $this->addColumn(
+            'action',
             [
                 'header'    => Mage::helper('catalog')->__('Action'),
                 'width'     => '100%',
@@ -96,7 +95,8 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Grid extends Mage_Adminhtml_Block_
                 'filter'    => false,
                 'sortable'  => false,
                 'index'     => 'stores',
-            ]);
+            ]
+        );
 
         $this->setFilterVisibility(false);
 

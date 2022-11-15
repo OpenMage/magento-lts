@@ -38,7 +38,8 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned extends Mage_Adminhtml_Bloc
 
     protected function _prepareLayout()
     {
-        $this->setChild('store_switcher',
+        $this->setChild(
+            'store_switcher',
             $this->getLayout()->createBlock('adminhtml/store_switcher')
                 ->setUseConfirm(false)
                 ->setSwitchUrl($this->getUrl('*/*/*', ['store'=>null]))

@@ -26,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
-    extends Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
+class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
 {
     /**
      * Adding product form elements for editing attribute
@@ -99,8 +98,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
             Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL =>Mage::helper('catalog')->__('Global'),
         ];
 
-        if (
-            $attributeObject->getAttributeCode() === 'status'
+        if ($attributeObject->getAttributeCode() === 'status'
             || $attributeObject->getAttributeCode() === 'tax_class_id'
         ) {
             unset($scopes[Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE]);
@@ -246,8 +244,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
             ->addFieldMap("is_html_allowed_on_front", 'html_allowed_on_front')
             ->addFieldMap("frontend_input", 'frontend_input_type')
             ->addFieldDependence('wysiwyg_enabled', 'frontend_input_type', 'textarea')
-            ->addFieldDependence('html_allowed_on_front', 'wysiwyg_enabled', '0')
-        );
+            ->addFieldDependence('html_allowed_on_front', 'wysiwyg_enabled', '0'));
 
         Mage::dispatchEvent('adminhtml_catalog_product_attribute_edit_prepare_form', [
             'form'      => $form,
