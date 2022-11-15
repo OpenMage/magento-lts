@@ -6,9 +6,13 @@ on:
   push:
     paths:
       - '**.php'
+      - '.github/phpstan*'
+      - '.github/workflows/phpstan*'
   pull_request:
     paths:
       - '**.php'
+      - '.github/phpstan*'
+      - '.github/workflows/phpstan*'
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
