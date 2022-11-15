@@ -43,7 +43,7 @@ $obsoleteAcl = [
 
 $installer->getConnection()->delete(
     $installer->getTable('admin/rule'),
-    'resource_id IN ("' . implode('","', $obsoleteAcl) . '")'
+    ['resource_id IN (?)' => $obsoleteAcl]
 );
 
 $installer->endSetup();
