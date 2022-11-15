@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -94,7 +95,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             'code',
             [
                 'header' => Mage::helper('tax')->__('Name'),
-                'align' =>'left',
+                'align' => 'left',
                 'index' => 'code',
                 'filter_index' => 'code',
             ]
@@ -105,7 +106,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             [
                 'header' => Mage::helper('tax')->__('Customer Tax Class'),
                 'sortable'  => false,
-                'align' =>'left',
+                'align' => 'left',
                 'index' => 'customer_tax_classes',
                 'filter_index' => 'ctc.customer_tax_class_id',
                 'type'    => 'options',
@@ -120,7 +121,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             [
                 'header' => Mage::helper('tax')->__('Product Tax Class'),
                 'sortable'  => false,
-                'align' =>'left',
+                'align' => 'left',
                 'index' => 'product_tax_classes',
                 'filter_index' => 'ptc.product_tax_class_id',
                 'type'    => 'options',

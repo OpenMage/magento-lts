@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -328,7 +329,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
             }
         }
         $ret = $this->getRequest()->getParam('ret') ? $this->getRequest()->getParam('ret') : 'index';
-        $this->_redirect('*/*/'.$ret);
+        $this->_redirect('*/*/' . $ret);
     }
 
     /**

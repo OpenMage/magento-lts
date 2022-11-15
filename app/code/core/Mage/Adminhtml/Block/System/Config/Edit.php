@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,7 @@
  */
 class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widget
 {
-    const DEFAULT_SECTION_BLOCK = 'adminhtml/system_config_form';
+    public const DEFAULT_SECTION_BLOCK = 'adminhtml/system_config_form';
 
     protected $_section;
 
@@ -80,7 +81,7 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', ['_current'=>true]);
+        return $this->getUrl('*/*/save', ['_current' => true]);
     }
 
     /**

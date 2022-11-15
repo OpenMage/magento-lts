@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,6 @@
  */
 class Mage_System_Ftp
 {
-
     /**
      * Connection object
      *
@@ -45,7 +45,7 @@ class Mage_System_Ftp
     protected function checkConnected()
     {
         if (!$this->_conn) {
-            throw new Exception(__CLASS__." - no connection established with server");
+            throw new Exception(__CLASS__ . " - no connection established with server");
         }
     }
 
@@ -72,14 +72,14 @@ class Mage_System_Ftp
     {
         $this->checkConnected();
         $dir = explode("/", $path);
-        $path= "";
+        $path = "";
         $ret = true;
-        for ($i=0; $i < count($dir); $i++) {
-            $path .= "/" .$dir[$i];
+        for ($i = 0; $i < count($dir); $i++) {
+            $path .= "/" . $dir[$i];
             if (!@ftp_chdir($this->_conn, $path)) {
                 @ftp_chdir($this->_conn, "/");
                 if (!@ftp_mkdir($this->_conn, $path)) {
-                    $ret=false;
+                    $ret = false;
                     break;
                 } else {
                     @ftp_chmod($this->_conn, $mode, $path);
@@ -254,8 +254,8 @@ class Mage_System_Ftp
         }
 
         if (!$globalPathMode) {
-            $dirname = $cwd."/".$dirname;
-            $remote = $cwd."/".$remote;
+            $dirname = $cwd . "/" . $dirname;
+            $remote = $cwd . "/" . $remote;
         }
         $res = $this->mkdirRecursive($dirname, $dirMode);
         $this->chdir($cwd);
@@ -423,7 +423,7 @@ class Mage_System_Ftp
         $globalPathMode = substr($path, 0, 1) == "/";
 
         $file = basename($path);
-        $dir = $globalPathMode ? dirname($path) : $this->getcwd()."/".$path;
+        $dir = $globalPathMode ? dirname($path) : $this->getcwd() . "/" . $path;
         $data = $this->ls($dir);
         foreach ($data as $row) {
             if ($file == $row['name']) {
@@ -445,7 +445,7 @@ class Mage_System_Ftp
      */
     public function ls($dir = "/", $recursive = false)
     {
-        $dir= $this->correctFilePath($dir);
+        $dir = $this->correctFilePath($dir);
         $rawfiles = (array) $this->rawlist($dir, $recursive);
         $structure = [];
         $arraypointer = &$structure;

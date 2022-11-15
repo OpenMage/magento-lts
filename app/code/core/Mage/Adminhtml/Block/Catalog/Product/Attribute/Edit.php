@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -83,11 +84,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit extends Mage_Adminhtml
 
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', ['_current'=>true]);
+        return $this->getUrl('*/*/validate', ['_current' => true]);
     }
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/'.$this->_controller.'/save', ['_current'=>true, 'back'=>null]);
+        return $this->getUrl('*/' . $this->_controller . '/save', ['_current' => true, 'back' => null]);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -49,9 +50,9 @@ class Varien_Data_Form_Element_Label extends Varien_Data_Form_Element_Abstract
     public function getElementHtml()
     {
         $html = $this->getBold() ? '<strong>' : '';
-        $html.= $this->getEscapedValue();
-        $html.= $this->getBold() ? '</strong>' : '';
-        $html.= $this->getAfterElementHtml();
+        $html .= $this->getEscapedValue();
+        $html .= $this->getBold() ? '</strong>' : '';
+        $html .= $this->getAfterElementHtml();
         return $html;
     }
 }

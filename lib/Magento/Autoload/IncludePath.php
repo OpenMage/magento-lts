@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -17,6 +18,7 @@
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 namespace Magento\Autoload;
 
 class IncludePath
@@ -24,7 +26,7 @@ class IncludePath
     /**
      * Namespaces separator
      */
-    const NS_SEPARATOR = '\\';
+    public const NS_SEPARATOR = '\\';
 
     /**
      * Find a file in include path

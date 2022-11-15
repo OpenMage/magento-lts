@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/api/roles';
+    public const ADMIN_RESOURCE = 'system/api/roles';
 
     /**
      * Controller pre-dispatch method

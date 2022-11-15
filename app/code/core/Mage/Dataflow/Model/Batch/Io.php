@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,8 +29,8 @@
  */
 class Mage_Dataflow_Model_Batch_Io
 {
-    const TMP_DIR = '/var/tmp/';
-    const TMP_NAME = 'batch_%d.tmp';
+    public const TMP_DIR = '/var/tmp/';
+    public const TMP_NAME = 'batch_%d.tmp';
 
     /**
      * Dataflow Batch model

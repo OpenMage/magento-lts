@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -23,7 +24,7 @@
 $installer = $this;
 $installer->startSetup();
 
-$installer->addAttribute('order', 'can_ship_partially', ['type'=>'int']);
-$installer->addAttribute('order', 'can_ship_partially_item', ['type'=>'int']);
+$installer->addAttribute('order', 'can_ship_partially', ['type' => 'int']);
+$installer->addAttribute('order', 'can_ship_partially_item', ['type' => 'int']);
 
 $installer->endSetup();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,7 +34,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Sku extends Mage_Eav_Model_En
      *
      * @var int
      */
-    const SKU_MAX_LENGTH = 64;
+    public const SKU_MAX_LENGTH = 64;
 
     /**
      * Validate SKU

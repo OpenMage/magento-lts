@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,7 @@
  */
 class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate_Abstract
 {
-    const PROTECTED_EXTENSION = 'protectedExtension';
+    public const PROTECTED_EXTENSION = 'protectedExtension';
 
     /**
      * The file extension

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -78,7 +79,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             'back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'label'     => Mage::helper('catalog')->__('Back'),
-                'onclick'   => 'setLocation(\''.$this->getUrl('*/*/').'\')',
+                'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/') . '\')',
                 'class'     => 'back'
             ])
         );

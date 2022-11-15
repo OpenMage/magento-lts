@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,7 @@
  */
 class Mage_Admin_Model_Observer
 {
-    const FLAG_NO_LOGIN = 'no-login';
+    public const FLAG_NO_LOGIN = 'no-login';
 
     /**
      * Handler for controller_action_predispatch event

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -505,7 +506,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
             $rate = $this->getRate($request);
             if ($rate) {
                 $row = [
-                    'value'         => $rate/100,
+                    'value'         => $rate / 100,
                     'country'       => $one['country'],
                     'state'         => $one['region_code'],
                     'postcode'      => $one['postcode'],

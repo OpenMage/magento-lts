@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'customer/manage';
+    public const ADMIN_RESOURCE = 'customer/manage';
 
     /**
      * Controller pre-dispatch method
@@ -222,7 +223,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             }
 
             $errors = null;
-            if ($customer->getId()&& !empty($data['account']['new_password'])
+            if ($customer->getId() && !empty($data['account']['new_password'])
                 && Mage::helper('customer')->getIsRequireAdminUserToChangeUserPassword()
             ) {
                 //Validate current admin password
@@ -403,7 +404,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                     Mage::helper('adminhtml')->__('An error occurred while saving the customer.')
                 );
                 $this->_getSession()->setCustomerData($data);
-                $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', ['id'=>$customer->getId()]));
+                $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', ['id' => $customer->getId()]));
                 return;
             }
         }

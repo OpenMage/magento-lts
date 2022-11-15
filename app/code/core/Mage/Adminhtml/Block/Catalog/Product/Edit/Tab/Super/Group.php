@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -41,7 +42,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         $this->setSkipGenerateContent(true);
         $this->setUseAjax(true);
         if ($this->_getProduct()->getId()) {
-            $this->setDefaultFilter(['in_products'=>1]);
+            $this->setDefaultFilter(['in_products' => 1]);
         }
     }
 
@@ -50,7 +51,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
      */
     public function getTabUrl()
     {
-        return $this->getUrl('*/*/superGroup', ['_current'=>true]);
+        return $this->getUrl('*/*/superGroup', ['_current' => true]);
     }
 
     /**

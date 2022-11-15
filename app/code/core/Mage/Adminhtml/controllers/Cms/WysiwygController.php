@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Cms_WysiwygController extends Mage_Adminhtml_Controller_Act
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'cms';
+    public const ADMIN_RESOURCE = 'cms';
 
     /**
      * Template directives callback

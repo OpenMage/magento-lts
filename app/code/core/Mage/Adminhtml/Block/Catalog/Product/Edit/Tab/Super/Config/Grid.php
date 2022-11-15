@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -142,7 +143,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
 
         foreach ($productType->getUsedProductAttributes($product) as $attribute) {
             $collection->addAttributeToSelect($attribute->getAttributeCode());
-            $collection->addAttributeToFilter($attribute->getAttributeCode(), ['notnull'=>1]);
+            $collection->addAttributeToFilter($attribute->getAttributeCode(), ['notnull' => 1]);
         }
 
         $this->setCollection($collection);
@@ -222,7 +223,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         $this->addColumn(
             'set_name',
             [
-                'header'=> Mage::helper('catalog')->__('Attrib. Set Name'),
+                'header' => Mage::helper('catalog')->__('Attrib. Set Name'),
                 'width' => '130px',
                 'index' => 'attribute_set_id',
                 'type'  => 'options',
@@ -329,7 +330,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/superConfig', ['_current'=>true]);
+        return $this->getUrl('*/*/superConfig', ['_current' => true]);
     }
 
     /**

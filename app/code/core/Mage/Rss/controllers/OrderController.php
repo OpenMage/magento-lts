@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -46,7 +47,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
             if (Mage::app()->getStore()->isCurrentlySecure()) {
                 Mage::helper('rss')->authFrontend();
             } else {
-                $this->_redirect('rss/order/customer', ['_secure'=>true]);
+                $this->_redirect('rss/order/customer', ['_secure' => true]);
                 return $this;
             }
         }

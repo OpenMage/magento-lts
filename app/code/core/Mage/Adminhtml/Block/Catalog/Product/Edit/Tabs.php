@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -62,11 +63,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                     }
                 }
 
-                if (count($attributes)==0) {
+                if (count($attributes) == 0) {
                     continue;
                 }
 
-                $this->addTab('group_'.$group->getId(), [
+                $this->addTab('group_' . $group->getId(), [
                     'label'     => Mage::helper('catalog')->__($group->getAttributeGroupName()),
                     'content'   => $this->_translateHtml($this->getLayout()->createBlock(
                         $this->getAttributeTabBlock(),

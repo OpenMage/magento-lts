@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -103,7 +104,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
      */
     public function getUpdateUrl()
     {
-        return $this->getUrl('*/*/updateQty', ['order_id'=>$this->getShipment()->getOrderId()]);
+        return $this->getUrl('*/*/updateQty', ['order_id' => $this->getShipment()->getOrderId()]);
     }
 
     /**

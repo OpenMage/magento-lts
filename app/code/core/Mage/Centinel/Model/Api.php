@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -203,7 +204,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
             'Amount' => round($data->getAmount() * 100),
             'CurrencyCode' => $currencyNumber,
             'CardNumber' =>  $data->getCardNumber(),
-            'CardExpMonth'=> $month,
+            'CardExpMonth' => $month,
             'CardExpYear' =>  $data->getCardExpYear(),
             'OrderNumber' => $data->getOrderNumber()
         ]);

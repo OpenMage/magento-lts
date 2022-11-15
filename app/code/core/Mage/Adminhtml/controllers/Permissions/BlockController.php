@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/acl/blocks';
+    public const ADMIN_RESOURCE = 'system/acl/blocks';
 
     /**
      * @return $this

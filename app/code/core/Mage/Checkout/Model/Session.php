@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -101,7 +102,7 @@
  */
 class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
 {
-    const CHECKOUT_STATE_BEGIN = 'begin';
+    public const CHECKOUT_STATE_BEGIN = 'begin';
 
     /**
      * Quote instance
@@ -230,7 +231,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
                     $this->setQuoteId($quote->getId());
                 } else {
                     $quote->setIsCheckoutCart(true);
-                    Mage::dispatchEvent('checkout_quote_init', ['quote'=>$quote]);
+                    Mage::dispatchEvent('checkout_quote_init', ['quote' => $quote]);
                 }
             }
 
@@ -471,7 +472,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function clear()
     {
-        Mage::dispatchEvent('checkout_quote_destroy', ['quote'=>$this->getQuote()]);
+        Mage::dispatchEvent('checkout_quote_destroy', ['quote' => $this->getQuote()]);
         $this->_quote = null;
         $this->setQuoteId(null);
         $this->setLastSuccessQuoteId(null);

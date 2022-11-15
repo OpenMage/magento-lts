@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Product_Options_Type
 {
-    const PRODUCT_OPTIONS_GROUPS_PATH = 'global/catalog/product/options/custom/groups';
+    public const PRODUCT_OPTIONS_GROUPS_PATH = 'global/catalog/product/options/custom/groups';
 
     public function toOptionArray()
     {

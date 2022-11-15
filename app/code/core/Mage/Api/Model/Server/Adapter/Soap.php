@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -135,7 +136,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
         if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
             // Generating wsdl content from template
             $io = new Varien_Io_File();
-            $io->open(['path'=>Mage::getModuleDir('etc', 'Mage_Api')]);
+            $io->open(['path' => Mage::getModuleDir('etc', 'Mage_Api')]);
 
             $wsdlContent = $io->read('wsdl.xml');
 
@@ -145,11 +146,11 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
 
             $this->getController()->getResponse()
                 ->clearHeaders()
-                ->setHeader('Content-Type', 'text/xml; charset='.$apiConfigCharset)
+                ->setHeader('Content-Type', 'text/xml; charset=' . $apiConfigCharset)
                 ->setBody(
                     preg_replace(
                         '/<\?xml version="([^\"]+)"([^\>]+)>/i',
-                        '<?xml version="$1" encoding="'.$apiConfigCharset.'"?>',
+                        '<?xml version="$1" encoding="' . $apiConfigCharset . '"?>',
                         $template->filter($wsdlContent)
                     )
                 );
@@ -159,11 +160,11 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
 
                 $this->getController()->getResponse()
                     ->clearHeaders()
-                    ->setHeader('Content-Type', 'text/xml; charset='.$apiConfigCharset)
+                    ->setHeader('Content-Type', 'text/xml; charset=' . $apiConfigCharset)
                     ->setBody(
                         preg_replace(
                             '/<\?xml version="([^\"]+)"([^\>]+)>/i',
-                            '<?xml version="$1" encoding="'.$apiConfigCharset.'"?>',
+                            '<?xml version="$1" encoding="' . $apiConfigCharset . '"?>',
                             $this->_soap->handle()
                         )
                     );
@@ -274,7 +275,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                 if (strpos(
                     $e->getMessage(),
                     "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'"
-                ) !== false
+                    ) !== false
                 ) {
                     $retry = true;
                     sleep(1);

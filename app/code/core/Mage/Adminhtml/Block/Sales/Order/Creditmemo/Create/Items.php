@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -36,7 +37,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
      */
     protected function _prepareLayout()
     {
-        $onclick = "submitAndReloadArea($('creditmemo_item_container'),'".$this->getUpdateUrl()."')";
+        $onclick = "submitAndReloadArea($('creditmemo_item_container'),'" . $this->getUpdateUrl() . "')";
         $this->setChild(
             'update_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
@@ -153,8 +154,8 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
     public function getUpdateUrl()
     {
         return $this->getUrl('*/*/updateQty', [
-                'order_id'=>$this->getCreditmemo()->getOrderId(),
-                'invoice_id'=>$this->getRequest()->getParam('invoice_id', null),
+                'order_id' => $this->getCreditmemo()->getOrderId(),
+                'invoice_id' => $this->getRequest()->getParam('invoice_id', null),
         ]);
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,7 @@
  */
 abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Data_Collection_Db
 {
-    const CACHE_TAG = 'COLLECTION_DATA';
+    public const CACHE_TAG = 'COLLECTION_DATA';
 
     /**
      * Model name
@@ -245,7 +246,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
 
                 $columnEntry = ['main_table', $field, $alias];
                 array_splice($columns, $insertIndex, 0, [$columnEntry]); // Insert column
-                $insertIndex ++;
+                $insertIndex++;
             }
         } else {
             array_unshift($columns, ['main_table', '*', null]);
@@ -341,7 +342,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     {
         // validate alias
         if (!is_array($fields)) {
-            $fields = [$fields=>$fields];
+            $fields = [$fields => $fields];
         }
 
         $fullExpression = $expression;
@@ -349,7 +350,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
             $fullExpression = str_replace('{{' . $fieldKey . '}}', $fieldItem, $fullExpression);
         }
 
-        $this->getSelect()->columns([$alias=>new Zend_Db_Expr($fullExpression)]);
+        $this->getSelect()->columns([$alias => new Zend_Db_Expr($fullExpression)]);
 
         return $this;
     }
@@ -580,7 +581,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
         parent::_beforeLoad();
         Mage::dispatchEvent('core_collection_abstract_load_before', ['collection' => $this]);
         if ($this->_eventPrefix && $this->_eventObject) {
-            Mage::dispatchEvent($this->_eventPrefix.'_load_before', [
+            Mage::dispatchEvent($this->_eventPrefix . '_load_before', [
                 $this->_eventObject => $this
             ]);
         }
@@ -631,7 +632,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
         }
         Mage::dispatchEvent('core_collection_abstract_load_after', ['collection' => $this]);
         if ($this->_eventPrefix && $this->_eventObject) {
-            Mage::dispatchEvent($this->_eventPrefix.'_load_after', [
+            Mage::dispatchEvent($this->_eventPrefix . '_load_after', [
                 $this->_eventObject => $this
             ]);
         }

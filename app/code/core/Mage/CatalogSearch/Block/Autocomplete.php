@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -72,7 +73,7 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
             $html .= $this->escapeHtml($item['title']) . '</li>';
         }
 
-        $html.= '</ul>';
+        $html .= '</ul>';
 
         return $html;
     }
@@ -92,7 +93,7 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
             foreach ($collection as $item) {
                 $_data = [
                     'title' => $item->getQueryText(),
-                    'row_class' => (++$counter)%2 ? 'odd' : 'even',
+                    'row_class' => (++$counter) % 2 ? 'odd' : 'even',
                     'num_of_results' => $item->getNumResults()
                 ];
 

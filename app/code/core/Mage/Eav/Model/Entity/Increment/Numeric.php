@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -41,7 +42,7 @@ class Mage_Eav_Model_Entity_Increment_Numeric extends Mage_Eav_Model_Entity_Incr
             $last = (int)$last;
         }
 
-        $next = $last+1;
+        $next = $last + 1;
 
         return $this->format($next);
     }

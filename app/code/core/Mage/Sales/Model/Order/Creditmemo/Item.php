@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -243,7 +244,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
     public function cancel()
     {
         $this->getOrderItem()->setQtyRefunded(
-            $this->getOrderItem()->getQtyRefunded()-$this->getQty()
+            $this->getOrderItem()->getQtyRefunded() - $this->getQty()
         );
         $this->getOrderItem()->setTaxRefunded(
             $this->getOrderItem()->getTaxRefunded()

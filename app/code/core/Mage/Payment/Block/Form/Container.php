@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -88,7 +89,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
     public function setMethodFormTemplate($method = '', $template = '')
     {
         if (!empty($method) && !empty($template)) {
-            if ($block = $this->getChild('payment.method.'.$method)) {
+            if ($block = $this->getChild('payment.method.' . $method)) {
                 $block->setTemplate($template);
             }
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -57,7 +58,7 @@ foreach ($data as $entityCode => $ratings) {
         //Fill table rating/rating_option
         $ratingId = $installer->getConnection()->lastInsertId($installer->getTable('rating'));
         $optionData = [];
-        for ($i = 1; $i <= 5; $i ++) {
+        for ($i = 1; $i <= 5; $i++) {
             $optionData[] = [
                 'rating_id' => $ratingId,
                 'code'      => (string)$i,

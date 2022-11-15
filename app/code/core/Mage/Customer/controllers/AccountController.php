@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -199,7 +200,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             if ($session->isLoggedIn()) {
                 if (!Mage::getStoreConfigFlag(
                     Mage_Customer_Helper_Data::XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD
-                )) {
+                    )) {
                     $referer = $this->getRequest()->getParam(Mage_Customer_Helper_Data::REFERER_QUERY_PARAM_NAME);
                     if ($referer) {
                         // Rebuild referer URL to handle the case when SID was changed

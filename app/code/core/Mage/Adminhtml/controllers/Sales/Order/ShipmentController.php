@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -149,7 +150,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         /**
          * Clear old values for shipment qty's
          */
-        $this->_redirect('*/*/new', ['order_id'=>$this->getRequest()->getParam('order_id')]);
+        $this->_redirect('*/*/new', ['order_id' => $this->getRequest()->getParam('order_id')]);
     }
 
     /**
@@ -169,7 +170,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 ->_setActiveMenu('sales/order')
                 ->renderLayout();
         } else {
-            $this->_redirect('*/sales_order/view', ['order_id'=>$this->getRequest()->getParam('order_id')]);
+            $this->_redirect('*/sales_order/view', ['order_id' => $this->getRequest()->getParam('order_id')]);
         }
     }
 
@@ -529,7 +530,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         $outputPdf = $this->_combineLabelsPdf($labelsContent);
         $shipment->setShippingLabel($outputPdf->render());
         $carrierCode = $carrier->getCarrierCode();
-        $carrierTitle = Mage::getStoreConfig('carriers/'.$carrierCode.'/title', $shipment->getStoreId());
+        $carrierTitle = Mage::getStoreConfig('carriers/' . $carrierCode . '/title', $shipment->getStoreId());
         if ($trackingNumbers) {
             foreach ($trackingNumbers as $trackingNumber) {
                 $track = Mage::getModel('sales/order_shipment_track')
@@ -618,7 +619,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         if ($shipment) {
             $pdf = Mage::getModel('sales/order_pdf_shipment_packaging')->getPdf($shipment);
             $this->_prepareDownloadResponse(
-                'packingslip'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf',
+                'packingslip' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s') . '.pdf',
                 $pdf->render(),
                 'application/pdf'
             );

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -215,7 +216,7 @@ class Mage_Bundle_Model_Observer
                     'required' => $option->getData('required'),
                     'position' => $option->getData('position'),
                     'type' => $option->getData('type'),
-                    'title' => $option->getData('title')?$option->getData('title'):$option->getData('default_title'),
+                    'title' => $option->getData('title') ? $option->getData('title') : $option->getData('default_title'),
                     'delete' => ''
             ];
             foreach ($option->getSelections() as $selection) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -37,7 +38,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
      */
     protected function _beforeToHtml()
     {
-        $onclick = "submitAndReloadArea($('invoice_item_container'),'".$this->getUpdateUrl()."')";
+        $onclick = "submitAndReloadArea($('invoice_item_container'),'" . $this->getUpdateUrl() . "')";
         $this->setChild(
             'update_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
@@ -156,7 +157,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
 
     public function getUpdateUrl()
     {
-        return $this->getUrl('*/*/updateQty', ['order_id'=>$this->getInvoice()->getOrderId()]);
+        return $this->getUrl('*/*/updateQty', ['order_id' => $this->getInvoice()->getOrderId()]);
     }
 
     /**

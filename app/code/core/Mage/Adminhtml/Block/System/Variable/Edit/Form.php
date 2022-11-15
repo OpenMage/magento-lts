@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -52,8 +53,8 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
         ]);
 
         $fieldset = $form->addFieldset('base', [
-            'legend'=>Mage::helper('adminhtml')->__('Variable'),
-            'class'=>'fieldset-wide'
+            'legend' => Mage::helper('adminhtml')->__('Variable'),
+            'class' => 'fieldset-wide'
         ]);
 
         $fieldset->addField('code', 'text', [

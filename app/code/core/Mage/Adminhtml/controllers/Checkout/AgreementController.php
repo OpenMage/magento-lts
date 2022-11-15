@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'sales/checkoutagreement';
+    public const ADMIN_RESOURCE = 'sales/checkoutagreement';
 
     /**
      * Controller pre-dispatch method

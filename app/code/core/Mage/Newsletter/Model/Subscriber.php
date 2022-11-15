@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -246,7 +247,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      */
     public function isSubscribed()
     {
-        if ($this->getId() && $this->getStatus()==self::STATUS_SUBSCRIBED) {
+        if ($this->getId() && $this->getStatus() == self::STATUS_SUBSCRIBED) {
             return true;
         }
 
@@ -278,7 +279,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         if (!empty($data) && $customer->getId() && !$this->getCustomerId()) {
             $this->setCustomerId($customer->getId());
             $this->setSubscriberConfirmCode($this->randomSequence());
-            if ($this->getStatus()==self::STATUS_NOT_ACTIVE) {
+            if ($this->getStatus() == self::STATUS_NOT_ACTIVE) {
                 $this->setStatus($customer->getIsSubscribed() ? self::STATUS_SUBSCRIBED : self::STATUS_UNSUBSCRIBED);
             }
             $this->save();
@@ -297,11 +298,11 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         $id = '';
         $par = [];
         $char = array_merge(range('a', 'z'), range(0, 9));
-        $charLen = count($char)-1;
-        for ($i=0; $i<$length; $i++) {
+        $charLen = count($char) - 1;
+        for ($i = 0; $i < $length; $i++) {
             $disc = mt_rand(0, $charLen);
             $par[$i] = $char[$disc];
-            $id = $id.$char[$disc];
+            $id = $id . $char[$disc];
         }
         return $id;
     }
@@ -476,7 +477,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      */
     public function confirm($code)
     {
-        if ($this->getCode()==$code) {
+        if ($this->getCode() == $code) {
             $this->setStatus(self::STATUS_SUBSCRIBED)
                 ->setIsStatusChanged(true)
                 ->save();
@@ -510,7 +511,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         }
 
         if (!Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_TEMPLATE)
-           || !Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_IDENTITY)
+            || !Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_IDENTITY)
         ) {
             return $this;
         }
@@ -527,7 +528,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_IDENTITY),
             $this->getEmail(),
             $this->getName(),
-            ['subscriber'=>$this]
+            ['subscriber' => $this]
         );
 
         $translate->setTranslateInline(true);
@@ -547,7 +548,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         }
 
         if (!Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_TEMPLATE)
-           || !Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_IDENTITY)
+            || !Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_IDENTITY)
         ) {
             return $this;
         }
@@ -564,7 +565,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_IDENTITY),
             $this->getEmail(),
             $this->getName(),
-            ['subscriber'=>$this]
+            ['subscriber' => $this]
         );
 
         $translate->setTranslateInline(true);
@@ -583,7 +584,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             return $this;
         }
         if (!Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_TEMPLATE)
-           || !Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY)
+            || !Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY)
         ) {
             return $this;
         }
@@ -600,7 +601,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY),
             $this->getEmail(),
             $this->getName(),
-            ['subscriber'=>$this]
+            ['subscriber' => $this]
         );
 
         $translate->setTranslateInline(true);

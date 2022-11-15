@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -48,7 +49,7 @@ File to upload: <input type="file" name="io_file"/> <input type="submit" value="
     {
         if ($this->getVars()) {
             foreach ($this->getVars() as $key => $value) {
-                header($key.': '.$value);
+                header($key . ': ' . $value);
             }
         }
         echo $this->getData();
@@ -69,7 +70,7 @@ File to upload: <input type="file" name="io_file"/> <input type="submit" value="
         if (!empty($_FILES['io_file']['tmp_name'])) {
             $uploader = new Mage_Core_Model_File_Uploader('io_file');
             $uploader->setAllowedExtensions(['csv','xml']);
-            $path = Mage::app()->getConfig()->getTempVarDir().'/import/';
+            $path = Mage::app()->getConfig()->getTempVarDir() . '/import/';
             $uploader->save($path);
             if ($uploadFile = $uploader->getUploadedFileName()) {
                 $session = Mage::getModel('dataflow/session');
@@ -78,11 +79,11 @@ File to upload: <input type="file" name="io_file"/> <input type="submit" value="
                 $session->setUserId(Mage::getSingleton('admin/session')->getUser()->getId());
                 $session->save();
                 $sessionId = $session->getId();
-                $newFilename = 'import_'.$sessionId.'_'.$uploadFile;
-                rename($path.$uploadFile, $path.$newFilename);
+                $newFilename = 'import_' . $sessionId . '_' . $uploadFile;
+                rename($path . $uploadFile, $path . $newFilename);
                 $session->setFile($newFilename);
                 $session->save();
-                $this->setData(file_get_contents($path.$newFilename));
+                $this->setData(file_get_contents($path . $newFilename));
                 Mage::register('current_dataflow_session_id', $sessionId);
             }
         }

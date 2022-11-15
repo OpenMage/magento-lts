@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -27,8 +28,8 @@
  */
 class Magento_Db_Object_View extends Magento_Db_Object implements Magento_Db_Object_Interface
 {
-    const ALGORITHM_MERGE       = 'MERGE';
-    const ALGORITHM_TEMPTABLE   = 'TEMPTABLE';
+    public const ALGORITHM_MERGE       = 'MERGE';
+    public const ALGORITHM_TEMPTABLE   = 'TEMPTABLE';
 
     /**
      * @var string

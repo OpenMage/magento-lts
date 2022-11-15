@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -37,7 +38,7 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
         $form = new Varien_Data_Form();
         $customerGroup = Mage::registry('current_group');
 
-        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('customer')->__('Group Information')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('customer')->__('Group Information')]);
 
         $validateClass = sprintf(
             'required-entry validate-length maximum-length-%d',
@@ -56,7 +57,7 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
             ]
         );
 
-        if ($customerGroup->getId()==0 && $customerGroup->getCustomerGroupCode()) {
+        if ($customerGroup->getId() == 0 && $customerGroup->getCustomerGroupCode()) {
             $name->setDisabled(true);
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -61,8 +62,8 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
         $this->addColumn(
             'agreement_id',
             [
-                'header'=>Mage::helper('checkout')->__('ID'),
-                'align' =>'right',
+                'header' => Mage::helper('checkout')->__('ID'),
+                'align' => 'right',
                 'width' => '50px',
                 'index' => 'agreement_id'
             ]
@@ -70,7 +71,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
 
         $this->addColumn('position', [
             'header'    => Mage::helper('adminhtml')->__('Position'),
-            'align'     =>'right',
+            'align'     => 'right',
             'width'     => '50px',
             'index'     => 'position',
             'type'      => 'text',
@@ -79,7 +80,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
         $this->addColumn(
             'name',
             [
-                'header'=>Mage::helper('checkout')->__('Condition Name'),
+                'header' => Mage::helper('checkout')->__('Condition Name'),
                 'index' => 'name'
             ]
         );

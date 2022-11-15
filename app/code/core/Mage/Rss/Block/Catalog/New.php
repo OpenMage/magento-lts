@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -104,7 +105,7 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
         Mage::getSingleton('core/resource_iterator')->walk(
             $products->getSelect(),
             [[$this, 'addNewItemXmlCallback']],
-            ['rssObj'=> $rssObj, 'product'=>$product]
+            ['rssObj' => $rssObj, 'product' => $product]
         );
 
         return $rssObj->createRssXml();
@@ -135,16 +136,16 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
 
         $product->setData($args['row']);
         $description = '<table><tr>'
-            . '<td><a href="'.$product->getProductUrl().'"><img src="'
+            . '<td><a href="' . $product->getProductUrl() . '"><img src="'
             . $helper->init($product, 'thumbnail')->resize(75, 75)
-            .'" border="0" align="left" height="75" width="75"></a></td>'.
-            '<td  style="text-decoration:none;">'.$product->getDescription();
+            . '" border="0" align="left" height="75" width="75"></a></td>' .
+            '<td  style="text-decoration:none;">' . $product->getDescription();
 
         if ($allowedPriceInRss) {
             $description .= $this->getPriceHtml($product, true);
         }
 
-        $description .= '</td>'.
+        $description .= '</td>' .
             '</tr></table>';
 
         $rssObj = $args['rssObj'];

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -39,14 +40,14 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
         $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
         if ($breadcrumbs) {
             $breadcrumbs->addCrumb('home', [
-                'label'=>Mage::helper('catalogsearch')->__('Home'),
-                'title'=>Mage::helper('catalogsearch')->__('Go to Home Page'),
-                'link'=>Mage::getBaseUrl()
+                'label' => Mage::helper('catalogsearch')->__('Home'),
+                'title' => Mage::helper('catalogsearch')->__('Go to Home Page'),
+                'link' => Mage::getBaseUrl()
             ])->addCrumb('search', [
-                'label'=>Mage::helper('catalogsearch')->__('Catalog Advanced Search'),
-                'link'=>$this->getUrl('*/*/')
+                'label' => Mage::helper('catalogsearch')->__('Catalog Advanced Search'),
+                'link' => $this->getUrl('*/*/')
             ])->addCrumb('search_result', [
-                'label'=>Mage::helper('catalogsearch')->__('Results')
+                'label' => Mage::helper('catalogsearch')->__('Results')
             ]);
         }
         return parent::_prepareLayout();
@@ -139,6 +140,6 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
         $left = array_slice($searchCriterias, 0, $middle);
         $right = array_slice($searchCriterias, $middle);
 
-        return ['left'=>$left, 'right'=>$right];
+        return ['left' => $left, 'right' => $right];
     }
 }

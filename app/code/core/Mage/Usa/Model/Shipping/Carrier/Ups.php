@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -149,7 +150,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
             $r->setProduct($request->getLimitMethod());
         } else {
             $r->setAction($this->getCode('action', 'all'));
-            $r->setProduct('GND'.$this->getConfigData('dest_type'));
+            $r->setProduct('GND' . $this->getConfigData('dest_type'));
         }
 
         if ($request->getUpsPickup()) {
@@ -223,7 +224,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
 
         //for UPS, puero rico state for US will assume as puerto rico country
         if ($destCountry == self::USA_COUNTRY_ID
-            && ($request->getDestPostcode()=='00912' || $request->getDestRegionCode()==self::PUERTORICO_COUNTRY_ID)
+            && ($request->getDestPostcode() == '00912' || $request->getDestRegionCode() == self::PUERTORICO_COUNTRY_ID)
         ) {
             $destCountry = self::PUERTORICO_COUNTRY_ID;
         }
@@ -247,7 +248,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
         $weight = $this->_getCorrectWeight($weight);
 
         $r->setWeight($weight);
-        if ($request->getFreeMethodWeight()!=$request->getPackageWeight()) {
+        if ($request->getFreeMethodWeight() != $request->getPackageWeight()) {
             $r->setFreeMethodWeight($request->getFreeMethodWeight());
         }
 
@@ -289,7 +290,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
         }
 
         //rounds a number to one significant figure
-        $weight = ceil($weight*10) / 10;
+        $weight = ceil($weight * 10) / 10;
 
         return $weight;
     }
@@ -376,7 +377,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
                 }
                 $client = new Zend_Http_Client();
                 $client->setUri($url);
-                $client->setConfig(['maxredirects'=>0, 'timeout'=>30]);
+                $client->setConfig(['maxredirects' => 0, 'timeout' => 30]);
                 $client->setParameterGet($params);
                 $response = $client->request();
                 $responseBody = $response->getBody();
@@ -402,7 +403,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
      */
     public function getShipmentByCode($code, $origin = null)
     {
-        if ($origin===null) {
+        if ($origin === null) {
             $origin = $this->getConfigData('origin_shipment');
         }
         $arr = $this->getCode('originShipment', $origin);
@@ -424,7 +425,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
         $costArr = [];
         $priceArr = [];
         $errorTitle = Mage::helper('usa')->__('Unknown error');
-        if (strlen(trim($response))>0) {
+        if (strlen(trim($response)) > 0) {
             $rRows = explode("\n", $response);
             $allowedMethods = explode(",", $this->getConfigData('allowed_methods'));
             foreach ($rRows as $rRow) {
@@ -488,12 +489,12 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     public function getCode($type, $code = '')
     {
         $codes = [
-            'action'=> [
-                'single'=>'3',
-                'all'=>'4',
+            'action' => [
+                'single' => '3',
+                'all' => '4',
             ],
 
-            'originShipment'=> [
+            'originShipment' => [
                 // United States Domestic Shipments
                 'United States Domestic Shipments' => [
                     '01' => Mage::helper('usa')->__('UPS Next Day Air'),
@@ -583,7 +584,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
                 ]
             ],
 
-            'method'=> [
+            'method' => [
                 '1DM'    => Mage::helper('usa')->__('Next Day Air Early AM'),
                 '1DML'   => Mage::helper('usa')->__('Next Day Air Early AM Letter'),
                 '1DA'    => Mage::helper('usa')->__('Next Day Air'),
@@ -608,15 +609,15 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
                 'XPD'    => Mage::helper('usa')->__('Worldwide Expedited'),
             ],
 
-            'pickup'=> [
-                'RDP'    => ["label"=>'Regular Daily Pickup',"code"=>"01"],
-                'OCA'    => ["label"=>'On Call Air',"code"=>"07"],
-                'OTP'    => ["label"=>'One Time Pickup',"code"=>"06"],
-                'LC'     => ["label"=>'Letter Center',"code"=>"19"],
-                'CC'     => ["label"=>'Customer Counter',"code"=>"03"],
+            'pickup' => [
+                'RDP'    => ["label" => 'Regular Daily Pickup',"code" => "01"],
+                'OCA'    => ["label" => 'On Call Air',"code" => "07"],
+                'OTP'    => ["label" => 'One Time Pickup',"code" => "06"],
+                'LC'     => ["label" => 'Letter Center',"code" => "19"],
+                'CC'     => ["label" => 'Customer Counter',"code" => "03"],
             ],
 
-            'container'=> [
+            'container' => [
                 'CP'     => '00', // Customer Packaging
                 'ULE'    => '01', // UPS Letter Envelope
                 'CSP'    => '02', // Customer Supplied Package
@@ -631,7 +632,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
                 'LEB'    => '2c', // Large Express Box
             ],
 
-            'container_description'=> [
+            'container_description' => [
                 'CP'     => Mage::helper('usa')->__('Customer Packaging'),
                 'ULE'    => Mage::helper('usa')->__('UPS Letter Envelope'),
                 'CSP'    => Mage::helper('usa')->__('Customer Supplied Package'),
@@ -646,17 +647,17 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
                 'LEB'    => Mage::helper('usa')->__('Large Express Box'),
             ],
 
-            'dest_type'=> [
+            'dest_type' => [
                 'RES'    => '01', // Residential
                 'COM'    => '02', // Commercial
             ],
 
-            'dest_type_description'=> [
+            'dest_type_description' => [
                 'RES'    => Mage::helper('usa')->__('Residential'),
                 'COM'    => Mage::helper('usa')->__('Commercial'),
             ],
 
-            'unit_of_measure'=> [
+            'unit_of_measure' => [
                 'LBS'   =>  Mage::helper('usa')->__('Pounds'),
                 'KGS'   =>  Mage::helper('usa')->__('Kilograms'),
             ],
@@ -784,7 +785,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
         }
 
         $this->setXMLAccessRequest();
-        $xmlRequest=$this->_xmlAccessRequest;
+        $xmlRequest = $this->_xmlAccessRequest;
 
         $r = $this->_rawRequest;
         $params = [
@@ -878,7 +879,7 @@ XMLRequest;
 XMLRequest;
 
         $xmlRequest .= (
-            $params['49_residential']==='01'
+            $params['49_residential'] === '01'
                   ? "<ResidentialAddressIndicator>{$params['49_residential']}</ResidentialAddressIndicator>"
                   : ''
         );
@@ -966,12 +967,12 @@ XMLRequest;
     {
         $costArr = [];
         $priceArr = [];
-        if (strlen(trim($xmlResponse))>0) {
+        if (strlen(trim($xmlResponse)) > 0) {
             $xml = new Varien_Simplexml_Config();
             $xml->loadString($xmlResponse);
             $arr = $xml->getXpath("//RatingServiceSelectionResponse/Response/ResponseStatusCode/text()");
             $success = (int)$arr[0];
-            if ($success===1) {
+            if ($success === 1) {
                 $arr = $xml->getXpath("//RatingServiceSelectionResponse/RatedShipment");
                 $allowedMethods = explode(",", $this->getConfigData('allowed_methods'));
 
@@ -1065,9 +1066,9 @@ XMLRequest;
             $trackings = [$trackings];
         }
 
-        if ($this->getConfigData('type')=='UPS') {
+        if ($this->getConfigData('type') == 'UPS') {
             $this->_getCgiTracking($trackings);
-        } elseif ($this->getConfigData('type')=='UPS_XML') {
+        } elseif ($this->getConfigData('type') == 'UPS_XML') {
             $this->setXMLAccessRequest();
             $this->_getXmlTracking($trackings);
         }
@@ -1140,7 +1141,7 @@ XMLAuth;
         }
 
         foreach ($trackings as $tracking) {
-            $xmlRequest=$this->_xmlAccessRequest;
+            $xmlRequest = $this->_xmlAccessRequest;
 
             /*
             * RequestOption==>'activity' or '1' to request all activities
@@ -1200,7 +1201,7 @@ XMLAuth;
             $arr = $xml->getXpath("//TrackResponse/Response/ResponseStatusCode/text()");
             $success = (int)$arr[0][0];
 
-            if ($success===1) {
+            if ($success === 1) {
                 $arr = $xml->getXpath("//TrackResponse/Shipment/Service/Description/text()");
                 $resultArr['service'] = (string)$arr[0];
 
@@ -1217,9 +1218,9 @@ XMLAuth;
 
                 $activityTags = $xml->getXpath("//TrackResponse/Shipment/Package/Activity");
                 if ($activityTags) {
-                    $i=1;
+                    $i = 1;
                     foreach ($activityTags as $activityTag) {
-                        $addArr= [];
+                        $addArr = [];
                         if (isset($activityTag->ActivityLocation->Address->City)) {
                             $addArr[] = (string)$activityTag->ActivityLocation->Address->City;
                         }
@@ -1241,22 +1242,22 @@ XMLAuth;
                         $timeArr[] = substr($time, 2, 2);
                         $timeArr[] = substr($time, -2, 2);
 
-                        if ($i==1) {
+                        if ($i == 1) {
                             $resultArr['status'] = (string)$activityTag->Status->StatusType->Description;
                             $resultArr['deliverydate'] = implode('-', $dateArr);//YYYY-MM-DD
                             $resultArr['deliverytime'] = implode(':', $timeArr);//HH:MM:SS
                             $resultArr['deliverylocation'] = (string)$activityTag->ActivityLocation->Description;
                             $resultArr['signedby'] = (string)$activityTag->ActivityLocation->SignedForByName;
                             if ($addArr) {
-                                $resultArr['deliveryto']=implode(', ', $addArr);
+                                $resultArr['deliveryto'] = implode(', ', $addArr);
                             }
                         } else {
-                            $tempArr= [];
+                            $tempArr = [];
                             $tempArr['activity'] = (string)$activityTag->Status->StatusType->Description;
                             $tempArr['deliverydate'] = implode('-', $dateArr);//YYYY-MM-DD
                             $tempArr['deliverytime'] = implode(':', $timeArr);//HH:MM:SS
                             if ($addArr) {
-                                $tempArr['deliverylocation']=implode(', ', $addArr);
+                                $tempArr['deliverylocation'] = implode(', ', $addArr);
                             }
                             $packageProgress[] = $tempArr;
                         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -40,7 +41,7 @@ class Varien_Convert_Adapter_Http_Curl extends Varien_Convert_Adapter_Abstract
         }
 
         // use Varien curl adapter
-        $http = new Varien_Http_Adapter_Curl;
+        $http = new Varien_Http_Adapter_Curl();
 
         // send GET request
         $http->write('GET', $uri);

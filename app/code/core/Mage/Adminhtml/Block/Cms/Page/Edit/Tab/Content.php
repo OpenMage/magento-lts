@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -61,7 +62,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content extends Mage_Adminhtml_Bloc
 
         $form->setHtmlIdPrefix('page_');
 
-        $fieldset = $form->addFieldset('content_fieldset', ['legend'=>Mage::helper('cms')->__('Content'),'class'=>'fieldset-wide']);
+        $fieldset = $form->addFieldset('content_fieldset', ['legend' => Mage::helper('cms')->__('Content'),'class' => 'fieldset-wide']);
 
         $wysiwygConfig = Mage::getSingleton('cms/wysiwyg_config')->getConfig(
             ['tab_id' => $this->getTabId()]

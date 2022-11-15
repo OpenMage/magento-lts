@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Adminhtml_Catalog_Product_GroupController extends Mage_Adminhtml_Cont
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'catalog/products';
+    public const ADMIN_RESOURCE = 'catalog/products';
 
     public function saveAction()
     {

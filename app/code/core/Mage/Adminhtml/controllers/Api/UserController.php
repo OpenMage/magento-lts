@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -30,7 +31,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/api/users';
+    public const ADMIN_RESOURCE = 'system/api/users';
 
     /**
      * Controller pre-dispatch method

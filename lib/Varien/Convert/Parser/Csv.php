@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,26 +34,26 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         $fDel = $this->getVar('delimiter', ',');
         $fEnc = $this->getVar('enclose', '"');
 
-        if ($fDel=='\\t') {
+        if ($fDel == '\\t') {
             $fDel = "\t";
         }
 
         // fixed for multibyte characters
-        setlocale(LC_ALL, Mage::app()->getLocale()->getLocaleCode().'.UTF-8');
+        setlocale(LC_ALL, Mage::app()->getLocale()->getLocaleCode() . '.UTF-8');
 
         $fp = tmpfile();
         fputs($fp, $this->getData());
         fseek($fp, 0);
 
         $data = [];
-        for ($i=0; $line = fgetcsv($fp, 4096, $fDel, $fEnc); $i++) {
-            if (0==$i) {
+        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc); $i++) {
+            if (0 == $i) {
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
                     continue;
                 } else {
                     foreach ($line as $j => $f) {
-                        $fields[$j] = 'column'.($j+1);
+                        $fields[$j] = 'column' . ($j + 1);
                     }
                 }
             }
@@ -73,12 +74,12 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         $fDel = $this->getVar('delimiter', ',');
         $fEnc = $this->getVar('enclose', '"');
 
-        if ($fDel=='\\t') {
+        if ($fDel == '\\t') {
             $fDel = "\t";
         }
 
         // fixed for multibyte characters
-        setlocale(LC_ALL, Mage::app()->getLocale()->getLocaleCode().'.UTF-8');
+        setlocale(LC_ALL, Mage::app()->getLocale()->getLocaleCode() . '.UTF-8');
 
         $fp = tmpfile();
         fputs($fp, $this->getData());
@@ -88,14 +89,14 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         $sessionId = Mage::registry('current_dataflow_session_id');
         $import = Mage::getModel('dataflow/import');
         $map = new Varien_Convert_Mapper_Column();
-        for ($i=0; $line = fgetcsv($fp, 4096, $fDel, $fEnc); $i++) {
-            if (0==$i) {
+        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc); $i++) {
+            if (0 == $i) {
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
                     continue;
                 } else {
                     foreach ($line as $j => $f) {
-                        $fields[$j] = 'column'.($j+1);
+                        $fields[$j] = 'column' . ($j + 1);
                     }
                 }
             }
@@ -115,7 +116,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         fclose($fp);
         unset($sessionId);
         return $this;
-    } // end
+    }
 
     public function unparse()
     {
@@ -126,7 +127,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         $fEsc = $this->getVar('escape', '\\');
         $lDel = "\r\n";
 
-        if ($fDel=='\\t') {
+        if ($fDel == '\\t') {
             $fDel = "\t";
         }
 
@@ -137,7 +138,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         if ($this->getVar('fieldnames')) {
             $line = [];
             foreach ($fields as $f) {
-                $line[] = $fEnc.str_replace(['"', '\\'], [$fEsc.'"', $fEsc.'\\'], $f).$fEnc;
+                $line[] = $fEnc . str_replace(['"', '\\'], [$fEsc . '"', $fEsc . '\\'], $f) . $fEnc;
             }
             $lines[] = implode($fDel, $line);
         }
@@ -150,9 +151,9 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
                     echo str_replace('"', '\"',$tmp).'<br>';
                 }
                 */
-                $v = isset($row[$f]) ? str_replace(['"', '\\'], [$fEnc.'"', $fEsc.'\\'], $row[$f]) : '';
+                $v = isset($row[$f]) ? str_replace(['"', '\\'], [$fEnc . '"', $fEsc . '\\'], $row[$f]) : '';
 
-                $line[] = $fEnc.$v.$fEnc;
+                $line[] = $fEnc . $v . $fEnc;
             }
             $lines[] = implode($fDel, $line);
         }

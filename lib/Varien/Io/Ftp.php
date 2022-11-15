@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,13 +29,13 @@
  */
 class Varien_Io_Ftp extends Varien_Io_Abstract
 {
-    const ERROR_EMPTY_HOST = 1;
-    const ERROR_INVALID_CONNECTION = 2;
-    const ERROR_INVALID_LOGIN = 3;
-    const ERROR_INVALID_PATH = 4;
-    const ERROR_INVALID_MODE = 5;
-    const ERROR_INVALID_DESTINATION = 6;
-    const ERROR_INVALID_SOURCE = 7;
+    public const ERROR_EMPTY_HOST = 1;
+    public const ERROR_INVALID_CONNECTION = 2;
+    public const ERROR_INVALID_LOGIN = 3;
+    public const ERROR_INVALID_PATH = 4;
+    public const ERROR_INVALID_MODE = 5;
+    public const ERROR_INVALID_DESTINATION = 6;
+    public const ERROR_INVALID_SOURCE = 7;
 
     /**
      * Connection config
@@ -303,8 +304,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         $list = [];
         foreach ($ls as $file) {
             $list[] = [
-                'text'=>$file,
-                'id'=>$this->pwd().'/'.$file,
+                'text' => $file,
+                'id' => $this->pwd() . '/' . $file,
             ];
         }
 

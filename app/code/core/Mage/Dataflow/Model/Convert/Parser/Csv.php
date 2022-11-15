@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -35,7 +36,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
     public function parse()
     {
         // fixed for multibyte characters
-        setlocale(LC_ALL, Mage::app()->getLocale()->getLocaleCode().'.UTF-8');
+        setlocale(LC_ALL, Mage::app()->getLocale()->getLocaleCode() . '.UTF-8');
 
         $fDel = $this->getVar('delimiter', ',');
         $fEnc = $this->getVar('enclose', '"');
@@ -97,11 +98,11 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             }
 
             $itemData = [];
-            $countRows ++;
+            $countRows++;
             $i = 0;
             foreach ($fieldNames as $field) {
                 $itemData[$field] = $csvData[$i] ?? null;
-                $i ++;
+                $i++;
             }
 
             $batchImportModel = $this->getBatchImportModel()
@@ -208,8 +209,8 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
 
         $line = [];
         foreach ($this->_fields as $f) {
-            $v = isset($row[$f]) ? str_replace(['"', '\\'], [$fEnc.'"', $fEsc.'\\'], $row[$f]) : '';
-            $line[] = $fEnc.$v.$fEnc;
+            $v = isset($row[$f]) ? str_replace(['"', '\\'], [$fEnc . '"', $fEsc . '\\'], $row[$f]) : '';
+            $line[] = $fEnc . $v . $fEnc;
         }
 
         return implode($fDel, $line);
@@ -246,7 +247,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
                 $str2 = $enclosure;
                 $escaped = 0;
                 $len = strlen($value);
-                for ($i=0; $i<$len; $i++) {
+                for ($i = 0; $i < $len; $i++) {
                     if ($value[$i] == $escapeChar) {
                         $escaped = 1;
                     } elseif (!$escaped && $value[$i] == $enclosure) {
@@ -257,9 +258,9 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
                     $str2 .= $value[$i];
                 }
                 $str2 .= $enclosure;
-                $str .= $str2.$delimiter;
+                $str .= $str2 . $delimiter;
             } else {
-                $str .= $enclosure.$value.$enclosure.$delimiter;
+                $str .= $enclosure . $value . $enclosure . $delimiter;
             }
         }
         return substr($str, 0, -1) . "\n";

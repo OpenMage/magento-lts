@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -53,7 +54,7 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
     {
         $comps = $this->getComponents();
         if (is_readable($component)) {
-            $comps[$component] = ['mtime'=>filemtime($component)];
+            $comps[$component] = ['mtime' => filemtime($component)];
         }
         $this->setComponents($comps);
 
@@ -73,7 +74,7 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
         }
         // check that no source files were changed or check file exsists
         foreach ($data as $sourceFile => $stat) {
-            if (empty($stat['mtime']) || !is_file($sourceFile) || filemtime($sourceFile)!==$stat['mtime']) {
+            if (empty($stat['mtime']) || !is_file($sourceFile) || filemtime($sourceFile) !== $stat['mtime']) {
                 return false;
             }
         }
@@ -84,7 +85,7 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
     {
         $sum = '';
         foreach ($this->getComponents() as $comp) {
-            $sum .= $comp['mtime'].':';
+            $sum .= $comp['mtime'] . ':';
         }
         $hash = md5($sum);
         return $hash;

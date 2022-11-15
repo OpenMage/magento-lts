@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -82,7 +83,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Conditions extends Mage_Adminh
             ->setNewChildUrl($this->getUrl('*/promo_catalog/newConditionHtml/form/rule_conditions_fieldset'));
 
         $fieldset = $form->addFieldset('conditions_fieldset', [
-            'legend'=>Mage::helper('catalogrule')->__('Conditions (leave blank for all products)')])->setRenderer($renderer);
+            'legend' => Mage::helper('catalogrule')->__('Conditions (leave blank for all products)')])->setRenderer($renderer);
 
         $fieldset->addField('conditions', 'text', [
             'name' => 'conditions',

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,6 @@
  */
 class Varien_Data_Tree
 {
-
     /**
      * Nodes collection
      *

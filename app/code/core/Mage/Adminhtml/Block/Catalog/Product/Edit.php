@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -54,7 +55,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Back'),
                         'onclick'   => 'setLocation(\''
-                            . $this->getUrl('*/*/', ['store'=>$this->getRequest()->getParam('store', 0)]).'\')',
+                            . $this->getUrl('*/*/', ['store' => $this->getRequest()->getParam('store', 0)]) . '\')',
                         'class' => 'back'
                     ])
             );
@@ -76,7 +77,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Reset'),
-                        'onclick'   => 'setLocation(\''.$this->getUrl('*/*/*', ['_current'=>true]).'\')'
+                        'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/*', ['_current' => true]) . '\')'
                     ])
             );
 
@@ -98,7 +99,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     $this->getLayout()->createBlock('adminhtml/widget_button')
                         ->setData([
                             'label'     => Mage::helper('catalog')->__('Save and Continue Edit'),
-                            'onclick'   => 'saveAndContinueEdit(\''.$this->getSaveAndContinueUrl().'\')',
+                            'onclick'   => 'saveAndContinueEdit(\'' . $this->getSaveAndContinueUrl() . '\')',
                             'class' => 'save'
                         ])
                 );
@@ -167,12 +168,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
 
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', ['_current'=>true]);
+        return $this->getUrl('*/*/validate', ['_current' => true]);
     }
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', ['_current'=>true, 'back'=>null]);
+        return $this->getUrl('*/*/save', ['_current' => true, 'back' => null]);
     }
 
     public function getSaveAndContinueUrl()
@@ -206,12 +207,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
 
     public function getDeleteUrl()
     {
-        return $this->getUrlSecure('*/*/delete', ['_current'=>true]);
+        return $this->getUrlSecure('*/*/delete', ['_current' => true]);
     }
 
     public function getDuplicateUrl()
     {
-        return $this->getUrl('*/*/duplicate', ['_current'=>true]);
+        return $this->getUrl('*/*/duplicate', ['_current' => true]);
     }
 
     public function getHeader()
@@ -223,7 +224,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
             $header = Mage::helper('catalog')->__('New Product');
         }
         if ($setName = $this->getAttributeSetName()) {
-            $header.= ' (' . $setName . ')';
+            $header .= ' (' . $setName . ')';
         }
         return $header;
     }

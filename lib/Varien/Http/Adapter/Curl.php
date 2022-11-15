@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -303,7 +304,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         do {
             curl_multi_exec($multihandle, $process);
             usleep(100);
-        } while ($process>0);
+        } while ($process > 0);
 
         foreach ($handles as $key => $handle) {
             $result[$key] = curl_multi_getcontent($handle);

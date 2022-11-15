@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,7 +34,7 @@ class Mage_Checkout_Block_Onepage_Link extends Mage_Core_Block_Template
      */
     public function getCheckoutUrl()
     {
-        return $this->getUrl('checkout/onepage', ['_secure'=>true]);
+        return $this->getUrl('checkout/onepage', ['_secure' => true]);
     }
 
     /**

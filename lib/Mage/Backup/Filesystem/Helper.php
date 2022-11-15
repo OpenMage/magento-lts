@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,7 +34,7 @@ class Mage_Backup_Filesystem_Helper
      *
      * @const int
      */
-    const INFO_WRITABLE = 1;
+    public const INFO_WRITABLE = 1;
 
     /**
      * Constant can be used in getInfo() function as second parameter.
@@ -41,7 +42,7 @@ class Mage_Backup_Filesystem_Helper
      *
      * @const int
      */
-    const INFO_READABLE  = 2;
+    public const INFO_READABLE  = 2;
 
     /**
      * Constant can be used in getInfo() function as second parameter.
@@ -49,7 +50,7 @@ class Mage_Backup_Filesystem_Helper
      *
      * @const int
      */
-    const INFO_SIZE      = 4;
+    public const INFO_SIZE      = 4;
 
     /**
      * Constant can be used in getInfo() function as second parameter.
@@ -57,7 +58,7 @@ class Mage_Backup_Filesystem_Helper
      *
      * @const int
      */
-    const INFO_ALL       = 7;
+    public const INFO_ALL       = 7;
 
     /**
      * Recursively delete $path

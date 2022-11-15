@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -41,7 +42,7 @@ class Simple
     public function autoload($class)
     {
         $classFile = str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $class)));
-        $classFile.= '.php';
+        $classFile .= '.php';
         @include $classFile;
     }
 }

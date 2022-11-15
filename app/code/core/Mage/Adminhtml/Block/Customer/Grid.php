@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -88,7 +89,7 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
         ]);
 
         $groups = Mage::getResourceModel('customer/group_collection')
-            ->addFieldToFilter('customer_group_id', ['gt'=> 0])
+            ->addFieldToFilter('customer_group_id', ['gt' => 0])
             ->load()
             ->toOptionHash();
 
@@ -154,7 +155,7 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'actions'   => [
                     [
                         'caption'   => Mage::helper('customer')->__('Edit'),
-                        'url'       => ['base'=> '*/*/edit'],
+                        'url'       => ['base' => '*/*/edit'],
                         'field'     => 'id'
                     ]
                 ],
@@ -198,7 +199,7 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
         $helper = $this->helper('customer');
         $groups = $helper->getGroups()->toOptionArray();
 
-        array_unshift($groups, ['label'=> '', 'value'=> '']);
+        array_unshift($groups, ['label' => '', 'value' => '']);
         $this->getMassactionBlock()->addItem('assign_group', [
              'label'        => Mage::helper('customer')->__('Assign a Customer Group'),
              'url'          => $this->getUrl('*/*/massAssignGroup'),
@@ -221,7 +222,7 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', ['_current'=> true]);
+        return $this->getUrl('*/*/grid', ['_current' => true]);
     }
 
     /**

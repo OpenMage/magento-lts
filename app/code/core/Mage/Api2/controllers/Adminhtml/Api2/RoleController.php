@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -254,7 +255,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             $session->addException($e, $this->__('An error occurred while saving role.'));
         }
 
-        $this->_redirect('*/*/edit', ['id'=>$id]);
+        $this->_redirect('*/*/edit', ['id' => $id]);
     }
 
     /**

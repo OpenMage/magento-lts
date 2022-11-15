@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -78,7 +79,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
         $category = Mage::getModel('catalog/category')
             ->setStoreId($this->_getStoreId($store));
 
-        $category->addData(['path'=>implode('/', $parent_category->getPathIds())]);
+        $category->addData(['path' => implode('/', $parent_category->getPathIds())]);
 
         $category ->setAttributeSetId($category->getDefaultAttributeSetId());
 

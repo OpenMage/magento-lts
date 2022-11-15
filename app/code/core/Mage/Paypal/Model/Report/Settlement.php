@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -46,31 +47,31 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      * Default PayPal SFTP host
      * @var string
      */
-    const REPORTS_HOSTNAME = "reports.paypal.com";
+    public const REPORTS_HOSTNAME = "reports.paypal.com";
 
     /**
      * Default PayPal SFTP host for sandbox mode
      * @var string
      */
-    const SANDBOX_REPORTS_HOSTNAME = "reports.sandbox.paypal.com";
+    public const SANDBOX_REPORTS_HOSTNAME = "reports.sandbox.paypal.com";
 
     /**
      * PayPal SFTP path
      * @var string
      */
-    const REPORTS_PATH = "/ppreports/outgoing";
+    public const REPORTS_PATH = "/ppreports/outgoing";
 
     /**
      * Original charset of old report files
      * @var string
      */
-    const FILES_IN_CHARSET = "UTF-16";
+    public const FILES_IN_CHARSET = "UTF-16";
 
     /**
      * Target charset of report files to be parsed
      * @var string
      */
-    const FILES_OUT_CHARSET = "UTF-8";
+    public const FILES_OUT_CHARSET = "UTF-8";
 
     /**
      * Reports rows storage
@@ -212,7 +213,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 $fileEncoding = mb_detect_encoding($encoded);
 
                 if (self::FILES_OUT_CHARSET != $fileEncoding) {
-                    $decoded = @iconv($fileEncoding, self::FILES_OUT_CHARSET.'//IGNORE', $encoded);
+                    $decoded = @iconv($fileEncoding, self::FILES_OUT_CHARSET . '//IGNORE', $encoded);
                     file_put_contents($localCsv, $decoded);
                     $csvFormat = 'old';
                 }
@@ -421,7 +422,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     {
         // Currently filenames look like STL-YYYYMMDD, so that is what we care about.
         $dateSnippet = substr(basename($filename), 4, 8);
-        return substr($dateSnippet, 0, 4).'-'.substr($dateSnippet, 4, 2).'-'.substr($dateSnippet, 6, 2);
+        return substr($dateSnippet, 0, 4) . '-' . substr($dateSnippet, 4, 2) . '-' . substr($dateSnippet, 6, 2);
     }
 
     /**

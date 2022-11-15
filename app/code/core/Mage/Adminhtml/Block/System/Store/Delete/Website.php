@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,7 +34,7 @@ class Mage_Adminhtml_Block_System_Store_Delete_Website extends Mage_Adminhtml_Bl
         $itemId = $this->getRequest()->getParam('website_id');
 
         $this->setTemplate('system/store/delete_website.phtml');
-        $this->setAction($this->getUrl('*/*/deleteWebsitePost', ['website_id'=>$itemId]));
+        $this->setAction($this->getUrl('*/*/deleteWebsitePost', ['website_id' => $itemId]));
         $this->setChild(
             'confirm_deletion_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
@@ -43,7 +44,7 @@ class Mage_Adminhtml_Block_System_Store_Delete_Website extends Mage_Adminhtml_Bl
                     'class'     => 'cancel'
                 ])
         );
-        $onClick = "setLocation('".$this->getUrl('*/*/editWebsite', ['website_id'=>$itemId])."')";
+        $onClick = "setLocation('" . $this->getUrl('*/*/editWebsite', ['website_id' => $itemId]) . "')";
         $this->setChild(
             'cancel_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')

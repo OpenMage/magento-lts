@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -207,7 +208,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
     public function display()
     {
-        header("Content-type: ".$this->getMimeTypeWithOutFileType());
+        header("Content-type: " . $this->getMimeTypeWithOutFileType());
         call_user_func($this->_getCallback('output'), $this->_imageHandler);
     }
 
@@ -259,7 +260,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     return $transparentAlphaColor;
                 } elseif (false !== $transparentIndex) { // fill image with indexed non-alpha transparency
                     $transparentColor = false;
-                    if ($transparentIndex >=0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
+                    if ($transparentIndex >= 0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
                         list($r, $g, $b)  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
                         $transparentColor = imagecolorallocate($imageResourceTo, $r, $g, $b);
                     }
@@ -490,8 +491,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             );
             $watermark = $newWatermark;
         } elseif ($this->getWatermarkPosition() == self::POSITION_CENTER) {
-            $positionX = ($this->_imageSrcWidth/2 - imagesx($watermark)/2);
-            $positionY = ($this->_imageSrcHeight/2 - imagesy($watermark)/2);
+            $positionX = ($this->_imageSrcWidth / 2 - imagesx($watermark) / 2);
+            $positionY = ($this->_imageSrcHeight / 2 - imagesy($watermark) / 2);
             imagecopymerge(
                 $this->_imageHandler,
                 $watermark,
@@ -572,8 +573,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         } else {
             $offsetX = $positionX;
             $offsetY = $positionY;
-            while ($offsetY <= ($this->_imageSrcHeight+imagesy($watermark))) {
-                while ($offsetX <= ($this->_imageSrcWidth+imagesx($watermark))) {
+            while ($offsetY <= ($this->_imageSrcHeight + imagesy($watermark))) {
+                while ($offsetX <= ($this->_imageSrcWidth + imagesx($watermark))) {
                     imagecopymerge(
                         $this->_imageHandler,
                         $watermark,

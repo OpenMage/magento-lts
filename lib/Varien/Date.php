@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,11 +34,11 @@ class Varien_Date
      * Date format, used as default. Compatible with Zend_Date
      *
      */
-    const DATETIME_INTERNAL_FORMAT = 'yyyy-MM-dd HH:mm:ss';
-    const DATE_INTERNAL_FORMAT = 'yyyy-MM-dd';
+    public const DATETIME_INTERNAL_FORMAT = 'yyyy-MM-dd HH:mm:ss';
+    public const DATE_INTERNAL_FORMAT = 'yyyy-MM-dd';
 
-    const DATETIME_PHP_FORMAT       = 'Y-m-d H:i:s';
-    const DATE_PHP_FORMAT           = 'Y-m-d';
+    public const DATETIME_PHP_FORMAT       = 'Y-m-d H:i:s';
+    public const DATE_PHP_FORMAT           = 'Y-m-d';
 
     /**
      * Zend Date To local date according Map array

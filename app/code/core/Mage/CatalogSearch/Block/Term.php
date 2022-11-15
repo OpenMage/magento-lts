@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -63,7 +64,7 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
                 if (!$term->getPopularity()) {
                     continue;
                 }
-                $term->setRatio(($term->getPopularity()-$this->_minPopularity)/$range);
+                $term->setRatio(($term->getPopularity() - $this->_minPopularity) / $range);
                 $temp[$term->getName()] = $term;
                 $termKeys[] = $term->getName();
             }

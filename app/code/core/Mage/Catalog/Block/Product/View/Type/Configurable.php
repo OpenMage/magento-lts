@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -227,7 +228,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
              */
             foreach ($optionPrices as $optionPrice) {
                 foreach ($optionPrices as $additional) {
-                    $this->_preparePrice(abs($additional-$optionPrice));
+                    $this->_preparePrice(abs($additional - $optionPrice));
                 }
             }
             if ($this->_validateAttributeInfo($info)) {

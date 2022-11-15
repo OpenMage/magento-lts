@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -86,11 +87,11 @@ class Mage_Backup_Model_Db
 
         $tables = $this->getTables();
         foreach ($tables as $tableName) {
-            $sql.= $this->getTableCreateScript($tableName, true);
-            $sql.= $this->getTableDataDump($tableName);
+            $sql .= $this->getTableCreateScript($tableName, true);
+            $sql .= $this->getTableDataDump($tableName);
         }
 
-        $sql.= $this->getFooter();
+        $sql .= $this->getFooter();
         return $sql;
     }
 

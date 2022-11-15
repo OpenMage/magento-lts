@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -229,8 +230,8 @@ class Mage_CatalogInventory_Model_Observer
             $item->setData('use_config_notify_stock_qty', false);
         }
         $originalQty = $product->getData('stock_data/original_inventory_qty');
-        if (strlen($originalQty)>0) {
-            $item->setQtyCorrection($item->getQty()-$originalQty);
+        if (strlen($originalQty) > 0) {
+            $item->setQtyCorrection($item->getQty() - $originalQty);
         }
         if (!is_null($product->getData('stock_data/enable_qty_increments'))
             && is_null($product->getData('stock_data/use_config_enable_qty_inc'))) {

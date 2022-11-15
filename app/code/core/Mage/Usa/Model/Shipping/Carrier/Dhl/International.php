@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -447,7 +448,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 'INCH'      => Zend_Measure_Length::INCH,
                 'C'         => Zend_Measure_Length::CENTIMETER,
                 'CM'        => Zend_Measure_Length::CENTIMETER,
-                'CENTIMETER'=> Zend_Measure_Length::CENTIMETER,
+                'CENTIMETER' => Zend_Measure_Length::CENTIMETER,
 
             ]
         ];
@@ -1029,7 +1030,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 } else {
                     $rates = $currency->getCurrencyRates($baseCurrencyCode, [$currencyCode]);
                     if (!empty($rates) && isset($rates[$currencyCode])) {
-                        $totalEstimate = $totalEstimate/$rates[$currencyCode];
+                        $totalEstimate = $totalEstimate / $rates[$currencyCode];
                     }
                     if (!isset($rates[$currencyCode]) || !$totalEstimate) {
                         $totalEstimate = false;
@@ -1313,7 +1314,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
 
         $nodeConsignee->addChild('CompanyName', substr($companyName, 0, 35));
 
-        $address = $rawRequest->getRecipientAddressStreet1(). ' ' . $rawRequest->getRecipientAddressStreet2();
+        $address = $rawRequest->getRecipientAddressStreet1() . ' ' . $rawRequest->getRecipientAddressStreet2();
         $address = Mage::helper('core/string')->str_split($address, 35, false, true);
         if (is_array($address)) {
             foreach ($address as $addressLine) {
@@ -1375,7 +1376,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         $nodeShipper->addChild('CompanyName', $rawRequest->getShipperContactCompanyName());
         $nodeShipper->addChild('RegisteredAccount', (string)$this->getConfigData('account'));
 
-        $address = $rawRequest->getShipperAddressStreet1(). ' ' . $rawRequest->getShipperAddressStreet2();
+        $address = $rawRequest->getShipperAddressStreet1() . ' ' . $rawRequest->getShipperAddressStreet2();
         $address = Mage::helper('core/string')->str_split($address, 35, false, true);
         if (is_array($address)) {
             foreach ($address as $addressLine) {

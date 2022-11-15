@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -48,7 +49,7 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
     public function getElementHtml()
     {
         $this->addClass('select');
-        $html = '<select id="'.$this->getHtmlId().'" name="'.$this->getName().'" '.$this->serialize($this->getHtmlAttributes()).'>'."\n";
+        $html = '<select id="' . $this->getHtmlId() . '" name="' . $this->getName() . '" ' . $this->serialize($this->getHtmlAttributes()) . '>' . "\n";
 
         $value = $this->getValue();
         if (!is_array($value)) {
@@ -58,26 +59,26 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
         if ($values = $this->getValues()) {
             foreach ($values as $key => $option) {
                 if (!is_array($option)) {
-                    $html.= $this->_optionToHtml(
+                    $html .= $this->_optionToHtml(
                         [
                         'value' => $key,
                         'label' => $option],
                         $value
                     );
                 } elseif (is_array($option['value'])) {
-                    $html.='<optgroup label="'.$option['label'].'">'."\n";
+                    $html .= '<optgroup label="' . $option['label'] . '">' . "\n";
                     foreach ($option['value'] as $groupItem) {
-                        $html.= $this->_optionToHtml($groupItem, $value);
+                        $html .= $this->_optionToHtml($groupItem, $value);
                     }
-                    $html.='</optgroup>'."\n";
+                    $html .= '</optgroup>' . "\n";
                 } else {
-                    $html.= $this->_optionToHtml($option, $value);
+                    $html .= $this->_optionToHtml($option, $value);
                 }
             }
         }
 
-        $html.= '</select>'."\n";
-        $html.= $this->getAfterElementHtml();
+        $html .= '</select>' . "\n";
+        $html .= $this->getAfterElementHtml();
         return $html;
     }
 
@@ -89,19 +90,19 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
     protected function _optionToHtml($option, $selected)
     {
         if (is_array($option['value'])) {
-            $html ='<optgroup label="'.$option['label'].'">'."\n";
+            $html = '<optgroup label="' . $option['label'] . '">' . "\n";
             foreach ($option['value'] as $groupItem) {
                 $html .= $this->_optionToHtml($groupItem, $selected);
             }
-            $html .='</optgroup>'."\n";
+            $html .= '</optgroup>' . "\n";
         } else {
-            $html = '<option value="'.$this->_escape($option['value']).'"';
-            $html.= isset($option['title']) ? 'title="'.$this->_escape($option['title']).'"' : '';
-            $html.= isset($option['style']) ? 'style="'.$option['style'].'"' : '';
+            $html = '<option value="' . $this->_escape($option['value']) . '"';
+            $html .= isset($option['title']) ? 'title="' . $this->_escape($option['title']) . '"' : '';
+            $html .= isset($option['style']) ? 'style="' . $option['style'] . '"' : '';
             if (in_array($option['value'], $selected)) {
-                $html.= ' selected="selected"';
+                $html .= ' selected="selected"';
             }
-            $html.= '>'.$this->_escape($option['label']). '</option>'."\n";
+            $html .= '>' . $this->_escape($option['label']) . '</option>' . "\n";
         }
         return $html;
     }

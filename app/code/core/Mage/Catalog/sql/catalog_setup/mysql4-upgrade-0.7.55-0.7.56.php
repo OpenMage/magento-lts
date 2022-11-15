@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -40,7 +41,7 @@ $installer->getConnection()->addColumn(
 /**
  * Clear relation with root category
  */
-$installer->getConnection()->delete($categoryIndexTable, 'category_id='.Mage_Catalog_Model_Category::TREE_ROOT_ID);
+$installer->getConnection()->delete($categoryIndexTable, 'category_id=' . Mage_Catalog_Model_Category::TREE_ROOT_ID);
 $installer->getConnection()->addKey(
     $categoryIndexTable,
     'FK_CATALOG_CATEGORY_PRODUCT_INDEX_CATEGORY_ENTITY',

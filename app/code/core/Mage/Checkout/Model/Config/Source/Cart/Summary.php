@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,8 +33,8 @@ class Mage_Checkout_Model_Config_Source_Cart_Summary
     public function toOptionArray()
     {
         return [
-            ['value'=>0, 'label'=>Mage::helper('checkout')->__('Display number of items in cart')],
-            ['value'=>1, 'label'=>Mage::helper('checkout')->__('Display item quantities')],
+            ['value' => 0, 'label' => Mage::helper('checkout')->__('Display number of items in cart')],
+            ['value' => 1, 'label' => Mage::helper('checkout')->__('Display item quantities')],
         ];
     }
 }

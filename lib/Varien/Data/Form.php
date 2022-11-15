@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -165,7 +166,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     public function checkElementId($elementId)
     {
         if ($this->_elementIdExists($elementId)) {
-            throw new Exception('Element with id "'.$elementId.'" already exists');
+            throw new Exception('Element with id "' . $elementId . '" already exists');
         }
         return true;
     }
@@ -253,9 +254,9 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         $vars = explode('[', $name);
         $newName = $suffix;
         foreach ($vars as $index => $value) {
-            $newName.= '['.$value;
-            if ($index==0) {
-                $newName.= ']';
+            $newName .= '[' . $value;
+            if ($index == 0) {
+                $newName .= ']';
             }
         }
         return $newName;
@@ -299,20 +300,20 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         Varien_Profiler::start('form/toHtml');
         $html = '';
         if ($useContainer = $this->getUseContainer()) {
-            $html .= '<form '.$this->serialize($this->getHtmlAttributes()).'>';
+            $html .= '<form ' . $this->serialize($this->getHtmlAttributes()) . '>';
             $html .= '<div>';
             if (strtolower($this->getData('method')) == 'post') {
-                $html .= '<input name="form_key" type="hidden" value="'.Mage::getSingleton('core/session')->getFormKey().'" />';
+                $html .= '<input name="form_key" type="hidden" value="' . Mage::getSingleton('core/session')->getFormKey() . '" />';
             }
             $html .= '</div>';
         }
 
         foreach ($this->getElements() as $element) {
-            $html.= $element->toHtml();
+            $html .= $element->toHtml();
         }
 
         if ($useContainer) {
-            $html.= '</form>';
+            $html .= '</form>';
         }
         Varien_Profiler::stop('form/toHtml');
         return $html;

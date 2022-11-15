@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,7 +34,7 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
         /*
         * setting cache to save the rss for 10 minutes
         */
-        $this->setCacheKey('rss_catalog_salesrule_'.$this->getStoreId().'_'.$this->_getCustomerGroupId());
+        $this->setCacheKey('rss_catalog_salesrule_' . $this->getStoreId() . '_' . $this->_getCustomerGroupId());
         $this->setCacheLifetime(600);
     }
 
@@ -73,12 +74,12 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
         $collection->load();
 
         foreach ($collection as $sr) {
-            $description = '<table><tr>'.
-            '<td style="text-decoration:none;">'.$sr->getDescription().
-            '<br/>Discount Start Date: '.$this->formatDate($sr->getFromDate(), 'medium').
-            ($sr->getToDate() ? ('<br/>Discount End Date: '.$this->formatDate($sr->getToDate(), 'medium')) : '').
-            ($sr->getCouponCode() ? '<br/> Coupon Code: '. $this->escapeHtml($sr->getCouponCode()).'' : '').
-            '</td>'.
+            $description = '<table><tr>' .
+            '<td style="text-decoration:none;">' . $sr->getDescription() .
+            '<br/>Discount Start Date: ' . $this->formatDate($sr->getFromDate(), 'medium') .
+            ($sr->getToDate() ? ('<br/>Discount End Date: ' . $this->formatDate($sr->getToDate(), 'medium')) : '') .
+            ($sr->getCouponCode() ? '<br/> Coupon Code: ' . $this->escapeHtml($sr->getCouponCode()) . '' : '') .
+            '</td>' .
             '</tr></table>';
             $data = [
                  'title'       => $sr->getName(),

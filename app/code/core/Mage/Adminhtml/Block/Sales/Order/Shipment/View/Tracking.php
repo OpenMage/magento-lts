@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -35,7 +36,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
      */
     protected function _prepareLayout()
     {
-        $onclick = "submitAndReloadArea($('shipment_tracking_info').parentNode, '".$this->getSubmitUrl()."')";
+        $onclick = "submitAndReloadArea($('shipment_tracking_info').parentNode, '" . $this->getSubmitUrl() . "')";
         $this->setChild(
             'save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
@@ -65,7 +66,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
      */
     public function getSubmitUrl()
     {
-        return $this->getUrl('*/*/addTrack/', ['shipment_id'=>$this->getShipment()->getId()]);
+        return $this->getUrl('*/*/addTrack/', ['shipment_id' => $this->getShipment()->getId()]);
     }
 
     /**

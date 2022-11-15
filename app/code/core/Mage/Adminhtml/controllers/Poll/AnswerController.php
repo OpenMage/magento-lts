@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Poll_AnswerController extends Mage_Adminhtml_Controller_Act
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'cms/poll';
+    public const ADMIN_RESOURCE = 'cms/poll';
 
     public function editAction()
     {

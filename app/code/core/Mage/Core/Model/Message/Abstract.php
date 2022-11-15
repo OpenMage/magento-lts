@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -95,7 +96,7 @@ abstract class Mage_Core_Model_Message_Abstract
      */
     public function toString()
     {
-        return $this->getType().': '.$this->getText();
+        return $this->getType() . ': ' . $this->getText();
     }
 
     /**

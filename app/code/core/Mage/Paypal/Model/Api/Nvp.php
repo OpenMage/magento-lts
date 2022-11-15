@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,21 +34,21 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Paypal methods definition
      */
-    const DO_DIRECT_PAYMENT = 'DoDirectPayment';
-    const DO_CAPTURE = 'DoCapture';
-    const DO_AUTHORIZATION = 'DoAuthorization';
-    const DO_VOID = 'DoVoid';
-    const REFUND_TRANSACTION = 'RefundTransaction';
-    const SET_EXPRESS_CHECKOUT = 'SetExpressCheckout';
-    const GET_EXPRESS_CHECKOUT_DETAILS = 'GetExpressCheckoutDetails';
-    const DO_EXPRESS_CHECKOUT_PAYMENT = 'DoExpressCheckoutPayment';
-    const CALLBACK_RESPONSE = 'CallbackResponse';
+    public const DO_DIRECT_PAYMENT = 'DoDirectPayment';
+    public const DO_CAPTURE = 'DoCapture';
+    public const DO_AUTHORIZATION = 'DoAuthorization';
+    public const DO_VOID = 'DoVoid';
+    public const REFUND_TRANSACTION = 'RefundTransaction';
+    public const SET_EXPRESS_CHECKOUT = 'SetExpressCheckout';
+    public const GET_EXPRESS_CHECKOUT_DETAILS = 'GetExpressCheckoutDetails';
+    public const DO_EXPRESS_CHECKOUT_PAYMENT = 'DoExpressCheckoutPayment';
+    public const CALLBACK_RESPONSE = 'CallbackResponse';
 
     /**
      * Paypal ManagePendingTransactionStatus actions
      */
-    const PENDING_TRANSACTION_ACCEPT = 'Accept';
-    const PENDING_TRANSACTION_DENY = 'Deny';
+    public const PENDING_TRANSACTION_ACCEPT = 'Accept';
+    public const PENDING_TRANSACTION_DENY = 'Deny';
 
     /**
      * Capture types (make authorization close or remain open)
@@ -148,7 +149,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
         // recurring payment profiles
 //'TOKEN' => 'token',
-        'SUBSCRIBERNAME'    =>'subscriber_name',
+        'SUBSCRIBERNAME'    => 'subscriber_name',
         'PROFILESTARTDATE'  => 'start_datetime',
         'PROFILEREFERENCE'  => 'internal_reference_id',
         'DESC'              => 'schedule_description',
@@ -948,7 +949,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             ];
 
             if ($this->getUseProxy()) {
-                $config['proxy'] = $this->getProxyHost(). ':' . $this->getProxyPort();
+                $config['proxy'] = $this->getProxyHost() . ':' . $this->getProxyPort();
             }
             if ($this->getUseCertAuthentication()) {
                 $config['ssl_cert'] = $this->getApiCertificate();
@@ -1179,23 +1180,23 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected function _deformatNVP($nvpstr)
     {
-        $intial=0;
+        $intial = 0;
         $nvpArray = [];
 
-        $nvpstr = strpos($nvpstr, "\r\n\r\n")!==false ? substr($nvpstr, strpos($nvpstr, "\r\n\r\n")+4) : $nvpstr;
+        $nvpstr = strpos($nvpstr, "\r\n\r\n") !== false ? substr($nvpstr, strpos($nvpstr, "\r\n\r\n") + 4) : $nvpstr;
 
         while (strlen($nvpstr)) {
             //postion of Key
-            $keypos= strpos($nvpstr, '=');
+            $keypos = strpos($nvpstr, '=');
             //position of value
-            $valuepos = strpos($nvpstr, '&') ? strpos($nvpstr, '&'): strlen($nvpstr);
+            $valuepos = strpos($nvpstr, '&') ? strpos($nvpstr, '&') : strlen($nvpstr);
 
             /*getting the Key and Value values and storing in a Associative Array*/
-            $keyval=substr($nvpstr, $intial, $keypos);
-            $valval=substr($nvpstr, $keypos+1, $valuepos-$keypos-1);
+            $keyval = substr($nvpstr, $intial, $keypos);
+            $valval = substr($nvpstr, $keypos + 1, $valuepos - $keypos - 1);
             //decoding the respose
-            $nvpArray[urldecode($keyval)] =urldecode($valval);
-            $nvpstr=substr($nvpstr, $valuepos+1, strlen($nvpstr));
+            $nvpArray[urldecode($keyval)] = urldecode($valval);
+            $nvpstr = substr($nvpstr, $valuepos + 1, strlen($nvpstr));
         }
         return $nvpArray;
     }

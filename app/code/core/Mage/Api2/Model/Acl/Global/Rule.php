@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -47,7 +48,7 @@ class Mage_Api2_Model_Acl_Global_Rule extends Mage_Core_Model_Abstract
     /**
      * Root resource ID "all"
      */
-    const RESOURCE_ALL = 'all';
+    public const RESOURCE_ALL = 'all';
 
     protected function _construct()
     {

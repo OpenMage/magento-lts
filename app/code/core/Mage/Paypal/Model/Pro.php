@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -34,8 +35,8 @@ class Mage_Paypal_Model_Pro
      *
      * @var string
      */
-    const PAYMENT_REVIEW_ACCEPT = 'accept';
-    const PAYMENT_REVIEW_DENY = 'deny';
+    public const PAYMENT_REVIEW_ACCEPT = 'accept';
+    public const PAYMENT_REVIEW_DENY = 'deny';
 
     /**
      * Config instance

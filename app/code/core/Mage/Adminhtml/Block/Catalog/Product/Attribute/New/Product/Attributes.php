@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -55,7 +56,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
             }
         }
 
-        Mage::dispatchEvent('adminhtml_catalog_product_edit_prepare_form', ['form'=>$form]);
+        Mage::dispatchEvent('adminhtml_catalog_product_edit_prepare_form', ['form' => $form]);
         $form->addValues($values);
         $form->setFieldNameSuffix('product');
         $this->setForm($form);
@@ -72,7 +73,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
 
         $response = new Varien_Object();
         $response->setTypes([]);
-        Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', ['response'=>$response]);
+        Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', ['response' => $response]);
 
         foreach ($response->getTypes() as $typeName => $typeClass) {
             $result[$typeName] = $typeClass;

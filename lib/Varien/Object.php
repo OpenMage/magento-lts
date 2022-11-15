@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -327,7 +328,7 @@ class Varien_Object implements ArrayAccess
      */
     public function getData($key = '', $index = null)
     {
-        if (''===$key) {
+        if ('' === $key) {
             return $this->_data;
         }
 
@@ -338,7 +339,7 @@ class Varien_Object implements ArrayAccess
             $keyArr = explode('/', $key);
             $data = $this->_data;
             foreach ($keyArr as $i => $k) {
-                if ($k==='') {
+                if ($k === '') {
                     return $default;
                 }
                 if (is_array($data)) {
@@ -403,7 +404,7 @@ class Varien_Object implements ArrayAccess
      */
     public function setDataUsingMethod($key, $args = [])
     {
-        $method = 'set'.$this->_camelize($key);
+        $method = 'set' . $this->_camelize($key);
         $this->$method($args);
         return $this;
     }
@@ -417,7 +418,7 @@ class Varien_Object implements ArrayAccess
      */
     public function getDataUsingMethod($key, $args = null)
     {
-        $method = 'get'.$this->_camelize($key);
+        $method = 'get' . $this->_camelize($key);
         return $this->$method($args);
     }
 
@@ -515,10 +516,10 @@ class Varien_Object implements ArrayAccess
     {
         $xml = '';
         if ($addOpenTag) {
-            $xml.= '<?xml version="1.0" encoding="UTF-8"?>'."\n";
+            $xml .= '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
         }
         if (!empty($rootName)) {
-            $xml.= '<'.$rootName.'>'."\n";
+            $xml .= '<' . $rootName . '>' . "\n";
         }
         $xmlModel = new Varien_Simplexml_Element('<node></node>');
         $arrData = $this->toArray($arrAttributes);
@@ -528,10 +529,10 @@ class Varien_Object implements ArrayAccess
             } else {
                 $fieldValue = $xmlModel->xmlentities($fieldValue);
             }
-            $xml.= "<$fieldName>$fieldValue</$fieldName>"."\n";
+            $xml .= "<$fieldName>$fieldValue</$fieldName>" . "\n";
         }
         if (!empty($rootName)) {
-            $xml.= '</'.$rootName.'>'."\n";
+            $xml .= '</' . $rootName . '>' . "\n";
         }
         return $xml;
     }
@@ -602,7 +603,7 @@ class Varien_Object implements ArrayAccess
         } else {
             preg_match_all('/\{\{([a-z0-9_]+)\}\}/is', $format, $matches);
             foreach ($matches[1] as $var) {
-                $format = str_replace('{{'.$var.'}}', $this->getData($var), $format);
+                $format = str_replace('{{' . $var . '}}', $this->getData($var), $format);
             }
             $str = $format;
         }
@@ -646,7 +647,7 @@ class Varien_Object implements ArrayAccess
                 //Varien_Profiler::stop('HAS: '.get_class($this).'::'.$method);
                 return isset($this->_data[$key]);
         }
-        throw new Varien_Exception("Invalid method ".get_class($this)."::".$method."(".print_r($args, 1).")");
+        throw new Varien_Exception("Invalid method " . get_class($this) . "::" . $method . "(" . print_r($args, 1) . ")");
     }
 
     /**
@@ -783,7 +784,7 @@ class Varien_Object implements ArrayAccess
     {
         $newData = $this->getData($field);
         $origData = $this->getOrigData($field);
-        return $newData!=$origData;
+        return $newData != $origData;
     }
 
     /**
@@ -822,7 +823,7 @@ class Varien_Object implements ArrayAccess
             } elseif (is_array($value)) {
                 $debug[$key] = $this->debug($value, $objects);
             } elseif ($value instanceof Varien_Object) {
-                $debug[$key.' ('.get_class($value).')'] = $value->debug(null, $objects);
+                $debug[$key . ' (' . get_class($value) . ')'] = $value->debug(null, $objects);
             }
         }
         return $debug;

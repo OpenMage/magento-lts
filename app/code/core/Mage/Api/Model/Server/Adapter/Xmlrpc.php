@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -102,7 +103,7 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
             ->setClass($this->getHandler());
         $this->getController()->getResponse()
             ->clearHeaders()
-            ->setHeader('Content-Type', 'text/xml; charset='.$apiConfigCharset)
+            ->setHeader('Content-Type', 'text/xml; charset=' . $apiConfigCharset)
             ->setBody($this->_xmlRpc->handle());
         return $this;
     }

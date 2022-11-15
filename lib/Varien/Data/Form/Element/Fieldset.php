@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -59,13 +60,13 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      */
     public function getElementHtml()
     {
-        $html = '<fieldset id="'.$this->getHtmlId().'"'.$this->serialize(['class']).'>'."\n";
+        $html = '<fieldset id="' . $this->getHtmlId() . '"' . $this->serialize(['class']) . '>' . "\n";
         if ($this->getLegend()) {
-            $html.= '<legend>'.$this->getLegend().'</legend>'."\n";
+            $html .= '<legend>' . $this->getLegend() . '</legend>' . "\n";
         }
-        $html.= $this->getChildrenHtml();
-        $html.= '</fieldset></div>'."\n";
-        $html.= $this->getAfterElementHtml();
+        $html .= $this->getChildrenHtml();
+        $html .= '</fieldset></div>' . "\n";
+        $html .= $this->getAfterElementHtml();
         return $html;
     }
 
@@ -77,7 +78,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
         $html = '';
         foreach ($this->getSortedElements() as $element) {
             if ($element->getType() != 'fieldset') {
-                $html.= $element->toHtml();
+                $html .= $element->toHtml();
             }
         }
         return $html;
@@ -91,7 +92,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
         $html = '';
         foreach ($this->getSortedElements() as $element) {
             if ($element->getType() == 'fieldset') {
-                $html.= $element->toHtml();
+                $html .= $element->toHtml();
             }
         }
         return $html;
@@ -102,8 +103,8 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      */
     public function getDefaultHtml()
     {
-        $html = '<div><h4 class="icon-head head-edit-form fieldset-legend">'.$this->getLegend().'</h4>'."\n";
-        $html.= $this->getElementHtml();
+        $html = '<div><h4 class="icon-head head-edit-form fieldset-legend">' . $this->getLegend() . '</h4>' . "\n";
+        $html .= $this->getElementHtml();
         return $html;
     }
 

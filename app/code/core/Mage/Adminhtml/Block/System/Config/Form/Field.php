@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -45,10 +46,10 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
     {
         $id = $element->getHtmlId();
 
-        $html = '<td class="label"><label for="'.$id.'">'.$element->getLabel().'</label></td>';
+        $html = '<td class="label"><label for="' . $id . '">' . $element->getLabel() . '</label></td>';
 
         //$isDefault = !$this->getRequest()->getParam('website') && !$this->getRequest()->getParam('store');
-        $isMultiple = $element->getExtType()==='multiple';
+        $isMultiple = $element->getExtType() === 'multiple';
 
         // replace [value] with [inherit]
         $namePrefix = preg_replace('#\[value\](\[\])?$#', '', $element->getName());
@@ -65,7 +66,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
         }
 
         if ($addInheritCheckbox) {
-            $inherit = $element->getInherit()==1 ? 'checked="checked"' : '';
+            $inherit = $element->getInherit() == 1 ? 'checked="checked"' : '';
             if ($inherit) {
                 $element->setDisabled(true);
             }
@@ -80,9 +81,9 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
             $html .= $this->_getElementHtml($element);
         }
         if ($element->getComment()) {
-            $html.= '<p class="note"><span>'.$element->getComment().'</span></p>';
+            $html .= '<p class="note"><span>' . $element->getComment() . '</span></p>';
         }
-        $html.= '</td>';
+        $html .= '</td>';
 
         if ($addInheritCheckbox) {
             $defText = $element->getDefaultValue();
@@ -109,28 +110,28 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
             }
 
             // default value
-            $html.= '<td class="use-default">';
-            $html.= '<input id="' . $id . '_inherit" name="'
+            $html .= '<td class="use-default">';
+            $html .= '<input id="' . $id . '_inherit" name="'
                 . $namePrefix . '[inherit]" type="checkbox" value="1" class="checkbox config-inherit" '
                 . $inherit . ' onclick="toggleValueElements(this, Element.previous(this.parentNode))" /> ';
-            $html.= '<label for="' . $id . '_inherit" class="inherit" title="'
+            $html .= '<label for="' . $id . '_inherit" class="inherit" title="'
                 . htmlspecialchars($defText) . '">' . $checkboxLabel . '</label>';
-            $html.= '</td>';
+            $html .= '</td>';
         }
 
-        $html.= '<td class="scope-label">';
+        $html .= '<td class="scope-label">';
         if ($element->getScope()) {
             $html .= $element->getScopeLabel();
         }
-        $html.= '</td>';
+        $html .= '</td>';
 
-        $html.= '<td class="">';
+        $html .= '<td class="">';
         if ($element->getHint()) {
-            $html.= '<div class="hint" >';
-            $html.= '<div style="display: none;">' . $element->getHint() . '</div>';
-            $html.= '</div>';
+            $html .= '<div class="hint" >';
+            $html .= '<div style="display: none;">' . $element->getHint() . '</div>';
+            $html .= '</div>';
         }
-        $html.= '</td>';
+        $html .= '</td>';
 
         return $this->_decorateRowHtml($element, $html);
     }

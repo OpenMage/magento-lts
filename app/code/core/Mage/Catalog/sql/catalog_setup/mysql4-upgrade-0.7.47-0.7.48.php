@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -29,7 +30,7 @@ $installer->run("
 
 $installer->addAttribute('catalog_product', 'has_options', [
     'type' => 'static',
-    'visible'=>false,
+    'visible' => false,
     'default' => false
 ]);
 $installer->run("

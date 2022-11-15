@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -584,7 +585,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         $defaultStoreId  = Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
 
         $memoryLimit = trim(ini_get('memory_limit'));
-        $lastMemoryLimitLetter = strtolower($memoryLimit[strlen($memoryLimit)-1]);
+        $lastMemoryLimitLetter = strtolower($memoryLimit[strlen($memoryLimit) - 1]);
         $memoryLimit = (int) filter_var($memoryLimit, FILTER_SANITIZE_NUMBER_INT);
         switch ($lastMemoryLimitLetter) {
             case 'g':

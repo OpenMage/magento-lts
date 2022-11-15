@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -58,7 +59,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      *
      * @const
      */
-    const XML_PATH_ALLOW_SID_FOR_ADMIN_AREA = 'web/session/use_admin_sid';
+    public const XML_PATH_ALLOW_SID_FOR_ADMIN_AREA = 'web/session/use_admin_sid';
 
     /**
      * Whether it is the first page after successfull login

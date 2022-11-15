@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -53,7 +54,7 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
         $options = [];
         $options['default'] = [
             'label'    => Mage::helper('adminhtml')->__('Default Config'),
-            'url'      => $url->getUrl('*/*/*', ['section'=>$section]),
+            'url'      => $url->getUrl('*/*/*', ['section' => $section]),
             'selected' => !$curWebsite && !$curStore,
             'style'    => 'background:#ccc; font-weight:bold;',
         ];
@@ -73,7 +74,7 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
                         $websiteShow = true;
                         $options['website_' . $website->getCode()] = [
                             'label'    => $website->getName(),
-                            'url'      => $url->getUrl('*/*/*', ['section'=>$section, 'website'=>$website->getCode()]),
+                            'url'      => $url->getUrl('*/*/*', ['section' => $section, 'website' => $website->getCode()]),
                             'selected' => !$curStore && $curWebsite == $website->getCode(),
                             'style'    => 'padding-left:16px; background:#DDD; font-weight:bold;',
                         ];
@@ -90,7 +91,7 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
                     $storeCode = $store->getCode();
                     $options['store_' . $storeCode] = [
                         'label'    => $store->getName(),
-                        'url'      => $url->getUrl('*/*/*', ['section'=>$section, 'website'=>$website->getCode(), 'store'=>$storeCode]),
+                        'url'      => $url->getUrl('*/*/*', ['section' => $section, 'website' => $website->getCode(), 'store' => $storeCode]),
                         'selected' => $curStore == $storeCode,
                         'style'    => '',
                     ];

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,7 @@
  */
 class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstract implements Mage_Catalog_Helper_Product_Configuration_Interface
 {
-    const XML_PATH_CONFIGURABLE_ALLOWED_TYPES = 'global/catalog/product/type/configurable/allow_product_types';
+    public const XML_PATH_CONFIGURABLE_ALLOWED_TYPES = 'global/catalog/product/type/configurable/allow_product_types';
 
     protected $_moduleName = 'Mage_Catalog';
 

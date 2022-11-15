@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -271,7 +272,7 @@ class Mage_Backup_Filesystem extends Mage_Backup_Abstract
      */
     protected function _getTarTmpPath()
     {
-        $tmpName = '~tmp-'. microtime(true) . '.tar';
+        $tmpName = '~tmp-' . microtime(true) . '.tar';
         return $this->getBackupsDir() . DS . $tmpName;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -42,9 +43,9 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
         }
 
         $options = $this->_options;
-        array_unshift($options, ['value'=>'0', 'label'=>Mage::helper('tax')->__('None')]);
+        array_unshift($options, ['value' => '0', 'label' => Mage::helper('tax')->__('None')]);
         if ($withEmpty) {
-            array_unshift($options, ['value'=>'', 'label'=>Mage::helper('tax')->__('-- Please Select --')]);
+            array_unshift($options, ['value' => '', 'label' => Mage::helper('tax')->__('-- Please Select --')]);
         }
         return $options;
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -84,7 +85,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'store_switcher',
             $this->getLayout()->createBlock('adminhtml/store_switcher')
                 ->setUseConfirm(false)
-                ->setSwitchUrl($this->getUrl('*/*/*', ['store'=>null]))
+                ->setSwitchUrl($this->getUrl('*/*/*', ['store' => null]))
                 ->setTemplate('report/store/switcher.phtml')
         );
 
@@ -336,7 +337,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
             return $this->_filters[$name];
         } else {
             return ($this->getRequest()->getParam($name))
-                    ?htmlspecialchars($this->getRequest()->getParam($name)):'';
+                    ? htmlspecialchars($this->getRequest()->getParam($name)) : '';
         }
     }
 
@@ -377,7 +378,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 'url'   => $this->getUrl(
                     $url,
                     [
-                        '_current'=>true,
+                        '_current' => true,
                         'filter' => $this->getParam($this->getVarNameFilter(), null)
                     ]
                 ),
@@ -407,7 +408,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         foreach ($totalData as $key => $value) {
             $_column = $this->getColumn($key);
             if ($_column->getTotal() != '') {
-                $this->getGrandTotals()->setData($key, $this->getGrandTotals()->getData($key)+$value);
+                $this->getGrandTotals()->setData($key, $this->getGrandTotals()->getData($key) + $value);
             }
         }
         /*
@@ -419,7 +420,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 if ($this->getGrandTotals()->getData($t2) != 0) {
                     $this->getGrandTotals()->setData(
                         $key,
-                        (float)$this->getGrandTotals()->getData($t1)/$this->getGrandTotals()->getData($t2)
+                        (float)$this->getGrandTotals()->getData($t1) / $this->getGrandTotals()->getData($t2)
                     );
                 }
             }
@@ -449,18 +450,18 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $csv = '';
         $this->_prepareGrid();
 
-        $data = ['"'.$this->__('Period').'"'];
+        $data = ['"' . $this->__('Period') . '"'];
         foreach ($this->_columns as $column) {
             if (!$column->getIsSystem()) {
-                $data[] = '"'.$column->getHeader().'"';
+                $data[] = '"' . $column->getHeader() . '"';
             }
         }
-        $csv.= implode(',', $data)."\n";
+        $csv .= implode(',', $data) . "\n";
 
         foreach ($this->getCollection()->getIntervals() as $_index => $_item) {
             $report = $this->getReport($_item['start'], $_item['end']);
             foreach ($report as $_subIndex => $_subItem) {
-                $data = ['"'.$_index.'"'];
+                $data = ['"' . $_index . '"'];
                 foreach ($this->_columns as $column) {
                     if (!$column->getIsSystem()) {
                         $data[] = '"' . str_replace(
@@ -470,31 +471,31 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                         ) . '"';
                     }
                 }
-                $csv.= implode(',', $data)."\n";
+                $csv .= implode(',', $data) . "\n";
             }
             if ($this->getCountTotals() && $this->getSubtotalVisibility()) {
-                $data = ['"'.$_index.'"'];
+                $data = ['"' . $_index . '"'];
                 $j = 0;
                 foreach ($this->_columns as $column) {
                     $j++;
                     if (!$column->getIsSystem()) {
                         $data[] = ($j == 1) ?
                                 '"' . $this->__('Subtotal') . '"' :
-                                '"'.str_replace('"', '""', $column->getRowField($this->getTotals())).'"';
+                                '"' . str_replace('"', '""', $column->getRowField($this->getTotals())) . '"';
                     }
                 }
-                $csv.= implode(',', $data)."\n";
+                $csv .= implode(',', $data) . "\n";
             }
         }
 
         if ($this->getCountTotals()) {
-            $data = ['"'.$this->__('Total').'"'];
+            $data = ['"' . $this->__('Total') . '"'];
             foreach ($this->_columns as $column) {
                 if (!$column->getIsSystem()) {
-                    $data[] = '"'.str_replace('"', '""', $column->getRowField($this->getGrandTotals())).'"';
+                    $data[] = '"' . str_replace('"', '""', $column->getRowField($this->getGrandTotals())) . '"';
                 }
             }
-            $csv.= implode(',', $data)."\n";
+            $csv .= implode(',', $data) . "\n";
         }
 
         return $csv;
@@ -535,7 +536,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 foreach ($this->_columns as $column) {
                     $j++;
                     if (!$column->getIsSystem()) {
-                        $row[] = ($j == 1)?$this->__('Subtotal'):$column->getRowField($this->getTotals());
+                        $row[] = ($j == 1) ? $this->__('Subtotal') : $column->getRowField($this->getTotals());
                     }
                 }
                 $data[] = $row;

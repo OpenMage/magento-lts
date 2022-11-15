@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -26,16 +27,16 @@ class Magento_Profiler
     /**
      * Separator literal to assemble timer identifier from timer names
      */
-    const NESTING_SEPARATOR = '->';
+    public const NESTING_SEPARATOR = '->';
 
     /**
      * FETCH_* constants represent keys to retrieve profiling results
      */
-    const FETCH_TIME    = 'sum';
-    const FETCH_COUNT   = 'count';
-    const FETCH_AVG     = 'avg';
-    const FETCH_REALMEM = 'realmem';
-    const FETCH_EMALLOC = 'emalloc';
+    public const FETCH_TIME    = 'sum';
+    public const FETCH_COUNT   = 'count';
+    public const FETCH_AVG     = 'avg';
+    public const FETCH_REALMEM = 'realmem';
+    public const FETCH_EMALLOC = 'emalloc';
 
     /**
      * Storage for timers statistics

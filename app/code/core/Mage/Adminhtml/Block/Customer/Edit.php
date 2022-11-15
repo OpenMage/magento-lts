@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -90,7 +91,7 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
 
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', ['_current'=>true]);
+        return $this->getUrl('*/*/validate', ['_current' => true]);
     }
 
     protected function _prepareLayout()
@@ -98,7 +99,7 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         if (!Mage::registry('current_customer')->isReadonly()) {
             $this->_addButton('save_and_continue', [
                 'label'     => Mage::helper('customer')->__('Save and Continue Edit'),
-                'onclick'   => 'saveAndContinueEdit(\''.$this->_getSaveAndContinueUrl().'\')',
+                'onclick'   => 'saveAndContinueEdit(\'' . $this->_getSaveAndContinueUrl() . '\')',
                 'class'     => 'save'
             ], 10);
         }

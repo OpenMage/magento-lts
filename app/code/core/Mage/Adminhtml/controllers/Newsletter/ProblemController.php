@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Control
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'newsletter/problem';
+    public const ADMIN_RESOURCE = 'newsletter/problem';
 
     public function indexAction()
     {
@@ -63,13 +64,13 @@ class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Control
     {
         if ($this->getRequest()->getParam('_unsubscribe')) {
             $problems = (array) $this->getRequest()->getParam('problem', []);
-            if (count($problems)>0) {
+            if (count($problems) > 0) {
                 $collection = Mage::getResourceModel('newsletter/problem_collection');
                 $collection
                     ->addSubscriberInfo()
                     ->addFieldToFilter(
                         $collection->getResource()->getIdFieldName(),
-                        ['in'=>$problems]
+                        ['in' => $problems]
                     )
                     ->load();
 
@@ -82,12 +83,12 @@ class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Control
 
         if ($this->getRequest()->getParam('_delete')) {
             $problems = (array) $this->getRequest()->getParam('problem', []);
-            if (count($problems)>0) {
+            if (count($problems) > 0) {
                 $collection = Mage::getResourceModel('newsletter/problem_collection');
                 $collection
                     ->addFieldToFilter(
                         $collection->getResource()->getIdFieldName(),
-                        ['in'=>$problems]
+                        ['in' => $problems]
                     )
                     ->load();
                 $collection->walk('delete');

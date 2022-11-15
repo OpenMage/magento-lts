@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
     /**
      * Location of the "Enable Chart" config param
      */
-    const XML_PATH_ENABLE_CHARTS = 'admin/dashboard/enable_charts';
+    public const XML_PATH_ENABLE_CHARTS = 'admin/dashboard/enable_charts';
 
     public function __construct()
     {
@@ -71,7 +72,7 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
         } else {
             $block = $this->getLayout()->createBlock('adminhtml/template')
                 ->setTemplate('dashboard/graph/disabled.phtml')
-                ->setConfigUrl($this->getUrl('adminhtml/system_config/edit', ['section'=>'admin']));
+                ->setConfigUrl($this->getUrl('adminhtml/system_config/edit', ['section' => 'admin']));
         }
         $this->setChild('diagrams', $block);
 
@@ -88,6 +89,6 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
         if ($url = $this->getData('switch_url')) {
             return $url;
         }
-        return $this->getUrl('*/*/*', ['_current'=>true, 'period'=>null]);
+        return $this->getUrl('*/*/*', ['_current' => true, 'period' => null]);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -169,18 +170,18 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         if ($storeCode) {
             if (isset($node->show_in_store)) {
                 if ((int)$node->show_in_store) {
-                    $showTab=true;
+                    $showTab = true;
                 }
             }
         } elseif ($websiteCode) {
             if (isset($node->show_in_website)) {
                 if ((int)$node->show_in_website) {
-                    $showTab=true;
+                    $showTab = true;
                 }
             }
         } elseif (isset($node->show_in_default)) {
             if ((int)$node->show_in_default) {
-                $showTab=true;
+                $showTab = true;
             }
         }
         if ($showTab) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -929,7 +930,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         $categories = $adapter->fetchAll($select);
 
         foreach ($categories as $category) {
-            $level = count(explode('/', $category['path']))-1;
+            $level = count(explode('/', $category['path'])) - 1;
             $adapter->update(
                 $this->getTable('catalog/category'),
                 ['level' => $level],

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -38,10 +39,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Action ext
                     '*/newsletter_template/preview',
                     [
                         'id'        => $row->getTemplateId(),
-                        'subscriber'=> Mage::registry('subscriber')->getId()
+                        'subscriber' => Mage::registry('subscriber')->getId()
                     ]
                 ),
-                'target'=>  '_blank'
+                'target' =>  '_blank'
             ],
             '#' => Mage::helper('customer')->__('View')
         ];

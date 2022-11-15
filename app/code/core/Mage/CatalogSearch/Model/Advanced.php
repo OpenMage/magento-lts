@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -176,7 +177,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                         $attribute,
                         $value,
                         $rate
-                    )
+                        )
                     ) {
                         $hasConditions = true;
                         $this->_addSearchCriteria($attribute, $value);
@@ -188,7 +189,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                         $this->getProductCollection(),
                         $attribute,
                         $value
-                    )) {
+                        )) {
                         $hasConditions = true;
                         $this->_addSearchCriteria($attribute, $value);
                     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -57,15 +58,15 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
-            'header'    =>Mage::helper('reports')->__('Tag Name'),
-            'index'     =>'name'
+            'header'    => Mage::helper('reports')->__('Tag Name'),
+            'index'     => 'name'
         ]);
 
         $this->addColumn('taged', [
-            'header'    =>Mage::helper('reports')->__('Popularity'),
-            'width'     =>'50px',
-            'align'     =>'right',
-            'index'     =>'popularity'
+            'header'    => Mage::helper('reports')->__('Popularity'),
+            'width'     => '50px',
+            'align'     => 'right',
+            'index'     => 'popularity'
         ]);
 
         $this->addColumn(
@@ -79,7 +80,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
                     [
                         'caption' => Mage::helper('catalog')->__('Show Details'),
                         'url'     => [
-                            'base'=>'*/*/tagDetail'
+                            'base' => '*/*/tagDetail'
                         ],
                         'field'   => 'id'
                     ]
@@ -100,6 +101,6 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/tagDetail', ['id'=>$row->getTagId()]);
+        return $this->getUrl('*/*/tagDetail', ['id' => $row->getTagId()]);
     }
 }

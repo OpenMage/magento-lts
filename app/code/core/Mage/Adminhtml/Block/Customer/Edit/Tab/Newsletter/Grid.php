@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -42,7 +43,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid extends Mage_Adminh
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/newsletter', ['_current'=>true]);
+        return $this->getUrl('*/*/newsletter', ['_current' => true]);
     }
 
     protected function _prepareCollection()

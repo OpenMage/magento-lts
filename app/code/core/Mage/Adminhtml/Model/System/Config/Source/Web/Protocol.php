@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -29,9 +30,9 @@ class Mage_Adminhtml_Model_System_Config_Source_Web_Protocol
     public function toOptionArray()
     {
         return [
-            ['value'=>'', 'label'=>''],
-            ['value'=>'http', 'label'=>Mage::helper('adminhtml')->__('HTTP (unsecure)')],
-            ['value'=>'https', 'label'=>Mage::helper('adminhtml')->__('HTTPS (SSL)')],
+            ['value' => '', 'label' => ''],
+            ['value' => 'http', 'label' => Mage::helper('adminhtml')->__('HTTP (unsecure)')],
+            ['value' => 'https', 'label' => Mage::helper('adminhtml')->__('HTTPS (SSL)')],
         ];
     }
 }

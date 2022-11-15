@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -57,7 +58,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Newpass extends Mage_Adminhtml
         $html .= '<label for="account-send-pass">'
             . Mage::helper('customer')->__('Send Auto-Generated Password')
             . '</label></td>';
-        $html .= '</tr>'."\n";
+        $html .= '</tr>' . "\n";
 
         return $html;
     }

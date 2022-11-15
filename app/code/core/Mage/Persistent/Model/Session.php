@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -37,8 +38,8 @@
  */
 class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
 {
-    const KEY_LENGTH = 50;
-    const COOKIE_NAME = 'persistent_shopping_cart';
+    public const KEY_LENGTH = 50;
+    public const COOKIE_NAME = 'persistent_shopping_cart';
 
     /**
      * Fields which model does not save into `info` db field

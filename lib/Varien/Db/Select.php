@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -47,11 +48,11 @@
  */
 class Varien_Db_Select extends Zend_Db_Select
 {
-    const TYPE_CONDITION    = 'TYPE_CONDITION';
+    public const TYPE_CONDITION    = 'TYPE_CONDITION';
 
-    const STRAIGHT_JOIN     = 'straightjoin';
+    public const STRAIGHT_JOIN     = 'straightjoin';
 
-    const SQL_STRAIGHT_JOIN = 'STRAIGHT_JOIN';
+    public const SQL_STRAIGHT_JOIN = 'STRAIGHT_JOIN';
 
     /**
      * Class constructor
@@ -158,7 +159,7 @@ class Varien_Db_Select extends Zend_Db_Select
                     }
                     if (!empty($table['joinCondition'])) {
                         if ($this->_findTableInCond($tableId, $table['joinCondition'])
-                        || $this->_findTableInCond($tableProp['tableName'], $table['joinCondition'])) {
+                            || $this->_findTableInCond($tableProp['tableName'], $table['joinCondition'])) {
                             $useJoin = true;
                             $joinInTables[] = $tableCorrelationName;
                         }

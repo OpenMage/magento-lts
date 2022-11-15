@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -35,7 +36,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Back'),
-                    'onclick'   => 'setLocation(\''.$this->getUrl('*/catalog_product/', ['store'=>$this->getRequest()->getParam('store', 0)]).'\')',
+                    'onclick'   => 'setLocation(\'' . $this->getUrl('*/catalog_product/', ['store' => $this->getRequest()->getParam('store', 0)]) . '\')',
                     'class' => 'back'
                 ])
         );
@@ -45,7 +46,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Reset'),
-                    'onclick'   => 'setLocation(\''.$this->getUrl('*/*/*', ['_current'=>true]).'\')'
+                    'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/*', ['_current' => true]) . '\')'
                 ])
         );
 
@@ -118,7 +119,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', ['store'=>Mage::helper('adminhtml/catalog_product_edit_action_attribute')->getSelectedStoreId()]);
+        return $this->getUrl('*/*/save', ['store' => Mage::helper('adminhtml/catalog_product_edit_action_attribute')->getSelectedStoreId()]);
     }
 
     /**
@@ -128,6 +129,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
      */
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', ['_current'=>true]);
+        return $this->getUrl('*/*/validate', ['_current' => true]);
     }
 }

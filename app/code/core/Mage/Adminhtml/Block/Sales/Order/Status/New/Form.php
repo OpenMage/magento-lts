@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -101,7 +102,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_New_Form extends Mage_Adminhtml_Bl
                 ]);
                 foreach ($stores as $store) {
                     $fieldset->addField("store_label_{$store->getId()}", 'text', [
-                        'name'      => 'store_labels['.$store->getId().']',
+                        'name'      => 'store_labels[' . $store->getId() . ']',
                         'required'  => false,
                         'label'     => $store->getName(),
                         'value'     => $labels[$store->getId()] ?? '',

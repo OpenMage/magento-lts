@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,9 +29,9 @@
  */
 class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 {
-    const DIRECTORY_NAME_REGEXP = '/^[a-z0-9\-\_]+$/si';
-    const THUMBS_DIRECTORY_NAME = '.thumbs';
-    const THUMB_PLACEHOLDER_PATH_SUFFIX = 'images/placeholder/thumbnail.jpg';
+    public const DIRECTORY_NAME_REGEXP = '/^[a-z0-9\-\_]+$/si';
+    public const THUMBS_DIRECTORY_NAME = '.thumbs';
+    public const THUMB_PLACEHOLDER_PATH_SUFFIX = 'images/placeholder/thumbnail.jpg';
 
     /**
      * Config object
@@ -119,7 +120,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 
         // Add files extension filter
         if ($allowed = $this->getAllowedExtensions($type)) {
-            $collection->setFilesFilter('/\.(' . implode('|', $allowed). ')$/i');
+            $collection->setFilesFilter('/\.(' . implode('|', $allowed) . ')$/i');
         }
 
         $helper = $this->getHelper();

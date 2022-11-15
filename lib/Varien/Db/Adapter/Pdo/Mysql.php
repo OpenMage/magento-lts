@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -24,37 +25,37 @@
  */
 class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements Varien_Db_Adapter_Interface
 {
-    const DEBUG_CONNECT         = 0;
-    const DEBUG_TRANSACTION     = 1;
-    const DEBUG_QUERY           = 2;
+    public const DEBUG_CONNECT         = 0;
+    public const DEBUG_TRANSACTION     = 1;
+    public const DEBUG_QUERY           = 2;
 
-    const TIMESTAMP_FORMAT      = 'Y-m-d H:i:s';
-    const DATETIME_FORMAT       = 'Y-m-d H:i:s';
-    const DATE_FORMAT           = 'Y-m-d';
+    public const TIMESTAMP_FORMAT      = 'Y-m-d H:i:s';
+    public const DATETIME_FORMAT       = 'Y-m-d H:i:s';
+    public const DATE_FORMAT           = 'Y-m-d';
 
-    const DDL_DESCRIBE          = 1;
-    const DDL_CREATE            = 2;
-    const DDL_INDEX             = 3;
-    const DDL_FOREIGN_KEY       = 4;
-    const DDL_CACHE_PREFIX      = 'DB_PDO_MYSQL_DDL';
-    const DDL_CACHE_TAG         = 'DB_PDO_MYSQL_DDL';
+    public const DDL_DESCRIBE          = 1;
+    public const DDL_CREATE            = 2;
+    public const DDL_INDEX             = 3;
+    public const DDL_FOREIGN_KEY       = 4;
+    public const DDL_CACHE_PREFIX      = 'DB_PDO_MYSQL_DDL';
+    public const DDL_CACHE_TAG         = 'DB_PDO_MYSQL_DDL';
 
-    const LENGTH_TABLE_NAME     = 64;
-    const LENGTH_INDEX_NAME     = 64;
-    const LENGTH_FOREIGN_NAME   = 64;
+    public const LENGTH_TABLE_NAME     = 64;
+    public const LENGTH_INDEX_NAME     = 64;
+    public const LENGTH_FOREIGN_NAME   = 64;
 
     /**
      * Those constants are defining the possible address types
      */
-    const ADDRESS_TYPE_HOSTNAME     = 'hostname';
-    const ADDRESS_TYPE_UNIX_SOCKET  = 'unix_socket';
-    const ADDRESS_TYPE_IPV4_ADDRESS = 'ipv4';
-    const ADDRESS_TYPE_IPV6_ADDRESS = 'ipv6';
+    public const ADDRESS_TYPE_HOSTNAME     = 'hostname';
+    public const ADDRESS_TYPE_UNIX_SOCKET  = 'unix_socket';
+    public const ADDRESS_TYPE_IPV4_ADDRESS = 'ipv4';
+    public const ADDRESS_TYPE_IPV6_ADDRESS = 'ipv6';
 
     /**
      * MEMORY engine type for MySQL tables
      */
-    const ENGINE_MEMORY = 'MEMORY';
+    public const ENGINE_MEMORY = 'MEMORY';
 
     /**
      * Default class name for a DB statement.
@@ -509,7 +510,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 && in_array($e->getPrevious()->errorInfo[1], [1205, 1213])
             ) {
                 if ($this->_debug) {
-                    $this->_debugWriteToFile('IMPLICIT ROLLBACK AFTER SQLSTATE: '.$e->getPrevious()->errorInfo[1]);
+                    $this->_debugWriteToFile('IMPLICIT ROLLBACK AFTER SQLSTATE: ' . $e->getPrevious()->errorInfo[1]);
                 }
                 $this->_transactionLevel = 1; // Deadlock rolls back entire transaction
                 $this->rollBack();
@@ -738,7 +739,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         foreach ($parts as $i => $part) {
             // strings
-            if (($part === "'" || $part === '"') && ($i === 0 || $parts[$i-1] !== '\\')) {
+            if (($part === "'" || $part === '"') && ($i === 0 || $parts[$i - 1] !== '\\')) {
                 if ($q === false) {
                     $q = $part;
                 } elseif ($q === $part) {
@@ -747,7 +748,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             }
 
             // single line comments
-            if (($part === '//' || $part === '--') && ($i === 0 || $parts[$i-1] === "\n")) {
+            if (($part === '//' || $part === '--') && ($i === 0 || $parts[$i - 1] === "\n")) {
                 $c = $part;
             } elseif ($part === "\n" && ($c === '//' || $c === '--')) {
                 $c = false;
@@ -762,7 +763,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
             // statements
             if ($part === ';' && $q === false && $c === false) {
-                if (trim($s)!=='') {
+                if (trim($s) !== '') {
                     $stmts[] = trim($s);
                     $s = '';
                 }
@@ -2193,14 +2194,14 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 } else {
                     if ($this->supportsParameters('named')) {
                         unset($bind[$col]);
-                        $bind[':col'.$i] = $val;
-                        $vals[] = ':col'.$i;
+                        $bind[':col' . $i] = $val;
+                        $vals[] = ':col' . $i;
                         $i++;
                     } else {
                         /** @see Zend_Db_Adapter_Exception */
                         #require_once 'Zend/Db/Adapter/Exception.php';
                         throw new Zend_Db_Adapter_Exception(
-                            get_class($this) ." doesn't support positional or named binding"
+                            get_class($this) . " doesn't support positional or named binding"
                         );
                     }
                 }
@@ -3465,7 +3466,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $shortName = Varien_Db_Helper::shortName($tableName);
             if (strlen($shortName) > self::LENGTH_TABLE_NAME) {
                 $hash = md5($tableName);
-                if (strlen($prefix.$hash) > self::LENGTH_TABLE_NAME) {
+                if (strlen($prefix . $hash) > self::LENGTH_TABLE_NAME) {
                     $tableName = $this->_minusSuperfluous($hash, $prefix, self::LENGTH_TABLE_NAME);
                 } else {
                     $tableName = $prefix . $hash;
@@ -3541,11 +3542,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $prefix = 'fk_';
         $hash = sprintf('%s_%s_%s_%s', $priTableName, $priColumnName, $refTableName, $refColumnName);
-        if (strlen($prefix.$hash) > self::LENGTH_FOREIGN_NAME) {
-            $short = Varien_Db_Helper::shortName($prefix.$hash);
+        if (strlen($prefix . $hash) > self::LENGTH_FOREIGN_NAME) {
+            $short = Varien_Db_Helper::shortName($prefix . $hash);
             if (strlen($short) > self::LENGTH_FOREIGN_NAME) {
                 $hash = md5($hash);
-                if (strlen($prefix.$hash) > self::LENGTH_FOREIGN_NAME) {
+                if (strlen($prefix . $hash) > self::LENGTH_FOREIGN_NAME) {
                     $hash = $this->_minusSuperfluous($hash, $prefix, self::LENGTH_FOREIGN_NAME);
                 } else {
                     $hash = $prefix . $hash;
@@ -3703,7 +3704,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             ->where(
                 $this->quoteIdentifier($correlationName) . '.'
                     . $this->quoteIdentifier($rangeField) . ' < ?',
-                $min+$stepCount
+                $min + $stepCount
             );
             $queries[] = $partialSelect;
             $min += $stepCount;

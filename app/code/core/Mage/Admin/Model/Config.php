@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -48,7 +49,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
         if ($adminhtmlConfig) {
             $this->_adminhtmlConfig = new Varien_Simplexml_Config($adminhtmlConfig);
         } else {
-            $adminhtmlConfig = new Varien_Simplexml_Config;
+            $adminhtmlConfig = new Varien_Simplexml_Config();
             $adminhtmlConfig->loadString('<?xml version="1.0"?><config></config>');
             Mage::getConfig()->loadModulesConfiguration('adminhtml.xml', $adminhtmlConfig);
             $this->_adminhtmlConfig = $adminhtmlConfig;

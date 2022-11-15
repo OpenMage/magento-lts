@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -25,7 +26,7 @@ class Varien_Filter_Array extends Zend_Filter
 
     public function addFilter(Zend_Filter_Interface $filter, $column = '')
     {
-        if (''===$column) {
+        if ('' === $column) {
             parent::addFilter($filter);
         } else {
             if (!isset($this->_columnFilters[$column])) {

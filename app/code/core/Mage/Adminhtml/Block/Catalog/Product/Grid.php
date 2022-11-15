@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -150,7 +151,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn(
             'entity_id',
             [
-                'header'=> Mage::helper('catalog')->__('ID'),
+                'header' => Mage::helper('catalog')->__('ID'),
                 'width' => '50px',
                 'type'  => 'number',
                 'index' => 'entity_id',
@@ -159,7 +160,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn(
             'name',
             [
-                'header'=> Mage::helper('catalog')->__('Name'),
+                'header' => Mage::helper('catalog')->__('Name'),
                 'width' => '300px',
                 'index' => 'name',
             ]
@@ -170,7 +171,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
             $this->addColumn(
                 'custom_name',
                 [
-                    'header'=> Mage::helper('catalog')->__('Name in %s', $this->escapeHtml($store->getName())),
+                    'header' => Mage::helper('catalog')->__('Name in %s', $this->escapeHtml($store->getName())),
                     'index' => 'custom_name',
                 ]
             );
@@ -179,7 +180,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn(
             'type',
             [
-                'header'=> Mage::helper('catalog')->__('Type'),
+                'header' => Mage::helper('catalog')->__('Type'),
                 'width' => '150px',
                 'index' => 'type_id',
                 'type'  => 'options',
@@ -196,7 +197,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn(
             'set_name',
             [
-                'header'=> Mage::helper('catalog')->__('Attrib. Set Name'),
+                'header' => Mage::helper('catalog')->__('Attrib. Set Name'),
                 'width' => '150px',
                 'index' => 'attribute_set_id',
                 'type'  => 'options',
@@ -207,7 +208,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn(
             'sku',
             [
-                'header'=> Mage::helper('catalog')->__('SKU'),
+                'header' => Mage::helper('catalog')->__('SKU'),
                 'width' => '150px',
                 'index' => 'sku',
             ]
@@ -217,7 +218,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn(
             'price',
             [
-                'header'=> Mage::helper('catalog')->__('Price'),
+                'header' => Mage::helper('catalog')->__('Price'),
                 'type'  => 'price',
                 'currency_code' => $store->getBaseCurrency()->getCode(),
                 'index' => 'price',
@@ -228,7 +229,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
             $this->addColumn(
                 'qty',
                 [
-                    'header'=> Mage::helper('catalog')->__('Qty'),
+                    'header' => Mage::helper('catalog')->__('Qty'),
                     'width' => '100px',
                     'type'  => 'number',
                     'index' => 'qty',
@@ -239,7 +240,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn(
             'visibility',
             [
-                'header'=> Mage::helper('catalog')->__('Visibility'),
+                'header' => Mage::helper('catalog')->__('Visibility'),
                 'width' => '150px',
                 'index' => 'visibility',
                 'type'  => 'options',
@@ -250,7 +251,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn(
             'status',
             [
-                'header'=> Mage::helper('catalog')->__('Status'),
+                'header' => Mage::helper('catalog')->__('Status'),
                 'width' => '70px',
                 'index' => 'status',
                 'type'  => 'options',
@@ -262,7 +263,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
             $this->addColumn(
                 'websites',
                 [
-                    'header'=> Mage::helper('catalog')->__('Websites'),
+                    'header' => Mage::helper('catalog')->__('Websites'),
                     'width' => '100px',
                     'sortable'  => false,
                     'index'     => 'websites',
@@ -283,8 +284,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
                     [
                         'caption' => Mage::helper('catalog')->__('Edit'),
                         'url'     => [
-                            'base'=>'*/*/edit',
-                            'params'=> ['store'=>$this->getRequest()->getParam('store')]
+                            'base' => '*/*/edit',
+                            'params' => ['store' => $this->getRequest()->getParam('store')]
                         ],
                         'field'   => 'id'
                     ]
@@ -311,17 +312,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->getMassactionBlock()->setFormFieldName('product');
 
         $this->getMassactionBlock()->addItem('delete', [
-             'label'=> Mage::helper('catalog')->__('Delete'),
+             'label' => Mage::helper('catalog')->__('Delete'),
              'url'  => $this->getUrl('*/*/massDelete'),
              'confirm' => Mage::helper('catalog')->__('Are you sure?')
         ]);
 
         $statuses = Mage::getSingleton('catalog/product_status')->getOptionArray();
 
-        array_unshift($statuses, ['label'=>'', 'value'=>'']);
+        array_unshift($statuses, ['label' => '', 'value' => '']);
         $this->getMassactionBlock()->addItem('status', [
-             'label'=> Mage::helper('catalog')->__('Change status'),
-             'url'  => $this->getUrl('*/*/massStatus', ['_current'=>true]),
+             'label' => Mage::helper('catalog')->__('Change status'),
+             'url'  => $this->getUrl('*/*/massStatus', ['_current' => true]),
              'additional' => [
                     'visibility' => [
                          'name' => 'status',
@@ -336,7 +337,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         if (Mage::getSingleton('admin/session')->isAllowed('catalog/update_attributes')) {
             $this->getMassactionBlock()->addItem('attributes', [
                 'label' => Mage::helper('catalog')->__('Update Attributes'),
-                'url'   => $this->getUrl('*/catalog_product_action_attribute/edit', ['_current'=>true])
+                'url'   => $this->getUrl('*/catalog_product_action_attribute/edit', ['_current' => true])
             ]);
         }
 
@@ -349,7 +350,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', ['_current'=>true]);
+        return $this->getUrl('*/*/grid', ['_current' => true]);
     }
 
     /**

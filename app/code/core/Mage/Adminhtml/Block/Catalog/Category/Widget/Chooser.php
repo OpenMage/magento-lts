@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -144,9 +145,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
             $chooserJsObject = $this->getId();
             $js = '
                 function (node, e) {
-                    '.$chooserJsObject.'.setElementValue("category/" + node.attributes.id);
-                    '.$chooserJsObject.'.setElementLabel(node.text);
-                    '.$chooserJsObject.'.close();
+                    ' . $chooserJsObject . '.setElementValue("category/" + node.attributes.id);
+                    ' . $chooserJsObject . '.setElementLabel(node.text);
+                    ' . $chooserJsObject . '.close();
                 }
             ';
         }
@@ -189,7 +190,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     public function getLoadTreeUrl($expanded = null)
     {
         return $this->getUrl('*/catalog_category_widget/categoriesJson', [
-            '_current'=>true,
+            '_current' => true,
             'uniq_id' => $this->getId(),
             'use_massaction' => $this->getUseMassaction(),
         ]);

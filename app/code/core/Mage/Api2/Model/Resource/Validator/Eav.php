@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
     /**
      * Config node key of current validator
      */
-    const CONFIG_NODE_KEY = 'eav';
+    public const CONFIG_NODE_KEY = 'eav';
 
     /**
      * Form path
@@ -146,7 +147,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
                         }
                     }
                     if (!$isValid) {
-                        $errors[] = 'Invalid value "' . $value . '" for '. $attribute->getAttributeCode();
+                        $errors[] = 'Invalid value "' . $value . '" for ' . $attribute->getAttributeCode();
                     }
                 } else {
                     $errors[] = 'Invalid value type for ' . $attribute->getAttributeCode();

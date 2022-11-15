@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -62,7 +63,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     public function getStateKey()
     {
         if ($this->_stateKey === null) {
-            $this->_stateKey = 'STORE_'.Mage::app()->getStore()->getId()
+            $this->_stateKey = 'STORE_' . Mage::app()->getStore()->getId()
                 . '_CAT_' . $this->getCurrentCategory()->getId()
                 . '_CUSTGROUP_' . Mage::getSingleton('customer/session')->getCustomerGroupId();
         }
@@ -79,7 +80,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     public function getStateTags(array $additionalTags = [])
     {
         $additionalTags = array_merge($additionalTags, [
-            Mage_Catalog_Model_Category::CACHE_TAG.$this->getCurrentCategory()->getId()
+            Mage_Catalog_Model_Category::CACHE_TAG . $this->getCurrentCategory()->getId()
         ]);
 
         return $additionalTags;
@@ -137,7 +138,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
                 . '_' . $filterItem->getValueString();
         }
         if (!empty($stateSuffix)) {
-            $this->_stateKey = $this->getStateKey().$stateSuffix;
+            $this->_stateKey = $this->getStateKey() . $stateSuffix;
         }
 
         return $this;
@@ -272,7 +273,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      */
     protected function _getSetIds()
     {
-        $key = $this->getStateKey().'_SET_IDS';
+        $key = $this->getStateKey() . '_SET_IDS';
         $setIds = $this->getAggregator()->getCacheData($key);
 
         if ($setIds === null) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -42,10 +43,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes 
         $this->setFormExcludedFieldList([
             'tier_price','gallery', 'media_gallery', 'recurring_profile', 'group_price'
         ]);
-        Mage::dispatchEvent('adminhtml_catalog_product_form_prepare_excluded_field_list', ['object'=>$this]);
+        Mage::dispatchEvent('adminhtml_catalog_product_form_prepare_excluded_field_list', ['object' => $this]);
 
         $form = new Varien_Data_Form();
-        $fieldset = $form->addFieldset('fields', ['legend'=>Mage::helper('catalog')->__('Attributes')]);
+        $fieldset = $form->addFieldset('fields', ['legend' => Mage::helper('catalog')->__('Attributes')]);
         $attributes = $this->getAttributes();
         /**
          * Initialize product object as form property
@@ -100,7 +101,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes 
              . '-checkbox" ' . $nameAttributeHtml . ' onclick="toogleFieldEditMode(this, \'' . $element->getId()
              . '\')" /><label for="' . $element->getId() . '-checkbox">' . Mage::helper('catalog')->__('Change')
              . '</label></span>
-                <script type="text/javascript">initDisableFields(\''.$element->getId().'\')</script>';
+                <script type="text/javascript">initDisableFields(\'' . $element->getId() . '\')</script>';
     }
 
     /**

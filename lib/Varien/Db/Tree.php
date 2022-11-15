@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -219,7 +220,7 @@ class Varien_Db_Tree
     public function clear($data = [])
     {
         // clearing table
-        $this->_db->query('TRUNCATE '. $this->_table);
+        $this->_db->query('TRUNCATE ' . $this->_table);
         //$this->_db->delete($this->_table,'');
 
         // prepare data for root element
@@ -239,7 +240,7 @@ class Varien_Db_Tree
     public function getNodeInfo($ID)
     {
         if (empty($this->_nodesInfo[$ID])) {
-            $sql = 'SELECT * FROM '.$this->_table.' WHERE '.$this->_id.'=:id';
+            $sql = 'SELECT * FROM ' . $this->_table . ' WHERE ' . $this->_id . '=:id';
             $res = $this->_db->query($sql, ['id' => $ID]);
             $data = $res->fetch();
             $this->_nodesInfo[$ID] = $data;
@@ -264,12 +265,12 @@ class Varien_Db_Tree
         if ($ID) {
             $this->_db->beginTransaction();
             try {
-                $sql = 'UPDATE '.$this->_table.' SET'
-                    . ' `'.$this->_left.'` = IF( `'.$this->_left.'` > :left, `'.$this->_left.'`+2, `'.$this->_left.'`),'
-                    . ' `'.$this->_right.'` = IF( `'.$this->_right.'`>= :right, `'.$this->_right.'`+2, `'.$this->_right.'`)'
-                    . ' WHERE `'.$this->_right.'` >= :right';
+                $sql = 'UPDATE ' . $this->_table . ' SET'
+                    . ' `' . $this->_left . '` = IF( `' . $this->_left . '` > :left, `' . $this->_left . '`+2, `' . $this->_left . '`),'
+                    . ' `' . $this->_right . '` = IF( `' . $this->_right . '`>= :right, `' . $this->_right . '`+2, `' . $this->_right . '`)'
+                    . ' WHERE `' . $this->_right . '` >= :right';
 
-                $this->_db->query($sql, ['left'=>$info[$this->_left], 'right'=>$info[$this->_right]]);
+                $this->_db->query($sql, ['left' => $info[$this->_left], 'right' => $info[$this->_right]]);
 
                 $this->_db->insert($this->_table, $data);
                 $this->_db->commit();
@@ -297,15 +298,15 @@ class Varien_Db_Tree
     {
         $sql = $this->_db->select();
 
-        $sql->from(['t1'=>$this->_table], ['t1.'.$this->_id, new Zend_Db_Expr('COUNT(t1.'.$this->_id.') AS rep')])
-        ->from(['t2'=>$this->_table])
-        ->from(['t3'=>$this->_table], new Zend_Db_Expr('MAX(t3.'.$this->_right.') AS max_right'));
+        $sql->from(['t1' => $this->_table], ['t1.' . $this->_id, new Zend_Db_Expr('COUNT(t1.' . $this->_id . ') AS rep')])
+        ->from(['t2' => $this->_table])
+        ->from(['t3' => $this->_table], new Zend_Db_Expr('MAX(t3.' . $this->_right . ') AS max_right'));
 
-        $sql->where('t1.'.$this->_left.' <> t2.'.$this->_left)
-        ->where('t1.'.$this->_left.' <> t2.'.$this->_right)
-        ->where('t1.'.$this->_right.' <> t2.'.$this->_right);
+        $sql->where('t1.' . $this->_left . ' <> t2.' . $this->_left)
+        ->where('t1.' . $this->_left . ' <> t2.' . $this->_right)
+        ->where('t1.' . $this->_right . ' <> t2.' . $this->_right);
 
-        $sql->group('t1.'.$this->_id);
+        $sql->group('t1.' . $this->_id);
         $sql->having('max_right <> SQRT(4 * rep + 1) + 1');
 
         return $this->_db->fetchAll($sql);
@@ -325,15 +326,15 @@ class Varien_Db_Tree
             $this->_db->beginTransaction();
             try {
                 // DELETE FROM my_tree WHERE left_key >= $left_key AND right_key <= $right_key
-                $this->_db->delete($this->_table, $this->_left.' >= '.$info[$this->_left].' AND '.$this->_right.' <= '.$info[$this->_right]);
+                $this->_db->delete($this->_table, $this->_left . ' >= ' . $info[$this->_left] . ' AND ' . $this->_right . ' <= ' . $info[$this->_right]);
 
                 // UPDATE my_tree SET left_key = IF(left_key > $left_key, left_key – ($right_key - $left_key + 1), left_key), right_key = right_key – ($right_key - $left_key + 1) WHERE right_key > $right_key
-                $sql = 'UPDATE '.$this->_table.'
+                $sql = 'UPDATE ' . $this->_table . '
                     SET
-                        '.$this->_left.' = IF('.$this->_left.' > '.$info[$this->_left].', '.$this->_left.' - '.($info[$this->_right] - $info[$this->_left] + 1).', '.$this->_left.'),
-                        '.$this->_right.' = '.$this->_right.' - '.($info[$this->_right] - $info[$this->_left] + 1).'
+                        ' . $this->_left . ' = IF(' . $this->_left . ' > ' . $info[$this->_left] . ', ' . $this->_left . ' - ' . ($info[$this->_right] - $info[$this->_left] + 1) . ', ' . $this->_left . '),
+                        ' . $this->_right . ' = ' . $this->_right . ' - ' . ($info[$this->_right] - $info[$this->_left] + 1) . '
                     WHERE
-                        '.$this->_right.' > '.$info[$this->_right];
+                        ' . $this->_right . ' > ' . $info[$this->_right];
                 $this->_db->query($sql);
                 $this->_db->commit();
                 return new Varien_Db_Tree_Node($info, $this->getKeys());
@@ -357,35 +358,35 @@ class Varien_Db_Tree
         $rightIdP = $pInfo[$this->_right];
         $levelP = $pInfo[$this->_level];
 
-        if ($eId == $pId || $leftId == $leftIdP || ($leftIdP >= $leftId && $leftIdP <= $rightId) || ($level == $levelP+1 && $leftId > $leftIdP && $rightId < $rightIdP)) {
+        if ($eId == $pId || $leftId == $leftIdP || ($leftIdP >= $leftId && $leftIdP <= $rightId) || ($level == $levelP + 1 && $leftId > $leftIdP && $rightId < $rightIdP)) {
             echo "alert('cant_move_tree');";
             return false;
         }
 
         if ($leftIdP < $leftId && $rightIdP > $rightId && $levelP < $level - 1) {
-            $sql = 'UPDATE '.$this->_table.' SET '
-            . $this->_level . ' = CASE WHEN ' . $this->_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_level.sprintf('%+d', -($level-1)+$levelP) . ' ELSE ' . $this->_level . ' END, '
-            . $this->_right . ' = CASE WHEN ' . $this->_right . ' BETWEEN ' . ($rightId+1) . ' AND ' . ($rightIdP-1) . ' THEN ' . $this->_right . '-' . ($rightId-$leftId+1) . ' '
-            . 'WHEN ' . $this->_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_right . '+' . ((($rightIdP-$rightId-$level+$levelP)/2)*2+$level-$levelP-1) . ' ELSE ' . $this->_right . ' END, '
-            . $this->_left . ' = CASE WHEN ' . $this->_left . ' BETWEEN ' . ($rightId+1) . ' AND ' . ($rightIdP-1) . ' THEN ' . $this->_left . '-' . ($rightId-$leftId+1) . ' '
-            . 'WHEN ' . $this->_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_left . '+' . ((($rightIdP-$rightId-$level+$levelP)/2)*2+$level-$levelP-1) . ' ELSE ' . $this->_left . ' END '
-            . 'WHERE ' . $this->_left . ' BETWEEN ' . ($leftIdP+1) . ' AND ' . ($rightIdP-1);
+            $sql = 'UPDATE ' . $this->_table . ' SET '
+            . $this->_level . ' = CASE WHEN ' . $this->_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_level . sprintf('%+d', -($level - 1) + $levelP) . ' ELSE ' . $this->_level . ' END, '
+            . $this->_right . ' = CASE WHEN ' . $this->_right . ' BETWEEN ' . ($rightId + 1) . ' AND ' . ($rightIdP - 1) . ' THEN ' . $this->_right . '-' . ($rightId - $leftId + 1) . ' '
+            . 'WHEN ' . $this->_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_right . '+' . ((($rightIdP - $rightId - $level + $levelP) / 2) * 2 + $level - $levelP - 1) . ' ELSE ' . $this->_right . ' END, '
+            . $this->_left . ' = CASE WHEN ' . $this->_left . ' BETWEEN ' . ($rightId + 1) . ' AND ' . ($rightIdP - 1) . ' THEN ' . $this->_left . '-' . ($rightId - $leftId + 1) . ' '
+            . 'WHEN ' . $this->_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_left . '+' . ((($rightIdP - $rightId - $level + $levelP) / 2) * 2 + $level - $levelP - 1) . ' ELSE ' . $this->_left . ' END '
+            . 'WHERE ' . $this->_left . ' BETWEEN ' . ($leftIdP + 1) . ' AND ' . ($rightIdP - 1);
         } elseif ($leftIdP < $leftId) {
             $sql = 'UPDATE ' . $this->_table . ' SET '
-            . $this->_level . ' = CASE WHEN ' . $this->_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_level.sprintf('%+d', -($level-1)+$levelP) . ' ELSE ' . $this->_level . ' END, '
-            . $this->_left . ' = CASE WHEN ' . $this->_left . ' BETWEEN ' . $rightIdP . ' AND ' . ($leftId-1) . ' THEN ' . $this->_left . '+' . ($rightId-$leftId+1) . ' '
-            . 'WHEN ' . $this->_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_left . '-' . ($leftId-$rightIdP) . ' ELSE ' . $this->_left . ' END, '
-            . $this->_right . ' = CASE WHEN ' . $this->_right . ' BETWEEN ' . $rightIdP . ' AND ' . $leftId . ' THEN ' . $this->_right . '+' . ($rightId-$leftId+1) . ' '
-            . 'WHEN ' . $this->_right . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_right . '-' . ($leftId-$rightIdP) . ' ELSE ' . $this->_right . ' END '
-            . 'WHERE (' . $this->_left . ' BETWEEN ' . $leftIdP . ' AND ' . $rightId. ' '
+            . $this->_level . ' = CASE WHEN ' . $this->_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_level . sprintf('%+d', -($level - 1) + $levelP) . ' ELSE ' . $this->_level . ' END, '
+            . $this->_left . ' = CASE WHEN ' . $this->_left . ' BETWEEN ' . $rightIdP . ' AND ' . ($leftId - 1) . ' THEN ' . $this->_left . '+' . ($rightId - $leftId + 1) . ' '
+            . 'WHEN ' . $this->_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_left . '-' . ($leftId - $rightIdP) . ' ELSE ' . $this->_left . ' END, '
+            . $this->_right . ' = CASE WHEN ' . $this->_right . ' BETWEEN ' . $rightIdP . ' AND ' . $leftId . ' THEN ' . $this->_right . '+' . ($rightId - $leftId + 1) . ' '
+            . 'WHEN ' . $this->_right . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_right . '-' . ($leftId - $rightIdP) . ' ELSE ' . $this->_right . ' END '
+            . 'WHERE (' . $this->_left . ' BETWEEN ' . $leftIdP . ' AND ' . $rightId . ' '
             . 'OR ' . $this->_right . ' BETWEEN ' . $leftIdP . ' AND ' . $rightId . ')';
         } else {
             $sql = 'UPDATE ' . $this->_table . ' SET '
-            . $this->_level . ' = CASE WHEN ' . $this->_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_level.sprintf('%+d', -($level-1)+$levelP) . ' ELSE ' . $this->_level . ' END, '
-            . $this->_left . ' = CASE WHEN ' . $this->_left . ' BETWEEN ' . $rightId . ' AND ' . $rightIdP . ' THEN ' . $this->_left . '-' . ($rightId-$leftId+1) . ' '
-            . 'WHEN ' . $this->_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_left . '+' . ($rightIdP-1-$rightId) . ' ELSE ' . $this->_left . ' END, '
-            . $this->_right . ' = CASE WHEN ' . $this->_right . ' BETWEEN ' . ($rightId+1) . ' AND ' . ($rightIdP-1) . ' THEN ' . $this->_right . '-' . ($rightId-$leftId+1) . ' '
-            . 'WHEN ' . $this->_right . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_right . '+' . ($rightIdP-1-$rightId) . ' ELSE ' . $this->_right . ' END '
+            . $this->_level . ' = CASE WHEN ' . $this->_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_level . sprintf('%+d', -($level - 1) + $levelP) . ' ELSE ' . $this->_level . ' END, '
+            . $this->_left . ' = CASE WHEN ' . $this->_left . ' BETWEEN ' . $rightId . ' AND ' . $rightIdP . ' THEN ' . $this->_left . '-' . ($rightId - $leftId + 1) . ' '
+            . 'WHEN ' . $this->_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_left . '+' . ($rightIdP - 1 - $rightId) . ' ELSE ' . $this->_left . ' END, '
+            . $this->_right . ' = CASE WHEN ' . $this->_right . ' BETWEEN ' . ($rightId + 1) . ' AND ' . ($rightIdP - 1) . ' THEN ' . $this->_right . '-' . ($rightId - $leftId + 1) . ' '
+            . 'WHEN ' . $this->_right . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_right . '+' . ($rightIdP - 1 - $rightId) . ' ELSE ' . $this->_right . ' END '
             . 'WHERE (' . $this->_left . ' BETWEEN ' . $leftId . ' AND ' . $rightIdP . ' '
             . 'OR ' . $this->_right . ' BETWEEN ' . $leftId . ' AND ' . $rightIdP . ')';
         }
@@ -430,7 +431,7 @@ class Varien_Db_Tree
         $left_key_near = 0;
 
         if ($pId == 0) { //move to root
-            $right_key_near = $this->_db->fetchOne('SELECT MAX('.$this->_right.') FROM '.$this->_table);
+            $right_key_near = $this->_db->fetchOne('SELECT MAX(' . $this->_right . ') FROM ' . $this->_table);
         } elseif ($aId != 0 && $pID == $eInfo[$this->_pid]) { // if we have after ID
             $right_key_near = $aInfo[$this->_right];
             $left_key_near = $aInfo[$this->_left];
@@ -443,27 +444,27 @@ class Varien_Db_Tree
         $skew_level = $pInfo[$this->_level] - $eInfo[$this->_level] + 1;
         $skew_tree = $eInfo[$this->_right] - $eInfo[$this->_left] + 1;
 
-        echo "alert('".$right_key_near."');";
+        echo "alert('" . $right_key_near . "');";
 
         if ($right_key_near > $right_key) { // up
             echo "alert('move up');";
             $skew_edit = $right_key_near - $left_key + 1;
-            $sql = 'UPDATE '.$this->_table.'
+            $sql = 'UPDATE ' . $this->_table . '
                 SET
-                '.$this->_right.' = IF('.$this->_left.' >= '.$eInfo[$this->_left].', '.$this->_right.' + '.$skew_edit.', IF('.$this->_right.' < '.$eInfo[$this->_left].', '.$this->_right.' + '.$skew_tree.', '.$this->_right.')),
-                '.$this->_level.' = IF('.$this->_left.' >= '.$eInfo[$this->_left].', '.$this->_level.' + '.$skew_level.', '.$this->_level.'),
-                '.$this->_left.' = IF('.$this->_left.' >= '.$eInfo[$this->_left].', '.$this->_left.' + '.$skew_edit.', IF('.$this->_left.' > '.$right_key_near.', '.$this->_left.' + '.$skew_tree.', '.$this->_left.'))
-                WHERE '.$this->_right.' > '.$right_key_near.' AND '.$this->_left.' < '.$eInfo[$this->_right];
+                ' . $this->_right . ' = IF(' . $this->_left . ' >= ' . $eInfo[$this->_left] . ', ' . $this->_right . ' + ' . $skew_edit . ', IF(' . $this->_right . ' < ' . $eInfo[$this->_left] . ', ' . $this->_right . ' + ' . $skew_tree . ', ' . $this->_right . ')),
+                ' . $this->_level . ' = IF(' . $this->_left . ' >= ' . $eInfo[$this->_left] . ', ' . $this->_level . ' + ' . $skew_level . ', ' . $this->_level . '),
+                ' . $this->_left . ' = IF(' . $this->_left . ' >= ' . $eInfo[$this->_left] . ', ' . $this->_left . ' + ' . $skew_edit . ', IF(' . $this->_left . ' > ' . $right_key_near . ', ' . $this->_left . ' + ' . $skew_tree . ', ' . $this->_left . '))
+                WHERE ' . $this->_right . ' > ' . $right_key_near . ' AND ' . $this->_left . ' < ' . $eInfo[$this->_right];
         } elseif ($right_key_near < $right_key) { // down
             echo "alert('move down');";
             $skew_edit = $right_key_near - $left_key + 1 - $skew_tree;
-            $sql = 'UPDATE '.$this->_table.'
+            $sql = 'UPDATE ' . $this->_table . '
                 SET
-                    '.$this->_left.' = IF('.$this->_right.' <= '.$right_key.', '.$this->_left.' + '.$skew_edit.', IF('.$this->_left.' > '.$right_key.', '.$this->_left.' - '.$skew_tree.', '.$this->_left.')),
-                    '.$this->_level.' = IF('.$this->_right.' <= '.$right_key.', '.$this->_level.' + '.$skew_level.', '.$this->_level.'),
-                    '.$this->_right.' = IF('.$this->_right.' <= '.$right_key.', '.$this->_right.' + '.$skew_edit.', IF('.$this->_right.' <= '.$right_key_near.', '.$this->_right.' - '.$skew_tree.', '.$this->_right.'))
+                    ' . $this->_left . ' = IF(' . $this->_right . ' <= ' . $right_key . ', ' . $this->_left . ' + ' . $skew_edit . ', IF(' . $this->_left . ' > ' . $right_key . ', ' . $this->_left . ' - ' . $skew_tree . ', ' . $this->_left . ')),
+                    ' . $this->_level . ' = IF(' . $this->_right . ' <= ' . $right_key . ', ' . $this->_level . ' + ' . $skew_level . ', ' . $this->_level . '),
+                    ' . $this->_right . ' = IF(' . $this->_right . ' <= ' . $right_key . ', ' . $this->_right . ' + ' . $skew_edit . ', IF(' . $this->_right . ' <= ' . $right_key_near . ', ' . $this->_right . ' - ' . $skew_tree . ', ' . $this->_right . '))
                 WHERE
-                    '.$this->_right.' > '.$left_key.' AND '.$this->_left.' <= '.$right_key_near;
+                    ' . $this->_right . ' > ' . $left_key . ' AND ' . $this->_left . ' <= ' . $right_key_near;
         }
 
         $this->_db->beginTransaction();
@@ -537,7 +538,7 @@ class Varien_Db_Tree
     {
         $dbSelect = new Zend_Db_Select($this->_db);
         $dbSelect->from($this->_table)
-            ->where($this->_table.'.'.$this->_id  . ' >= :id');
+            ->where($this->_table . '.' . $this->_id  . ' >= :id');
 
         $this->_addExtTablesToSelect($dbSelect);
 

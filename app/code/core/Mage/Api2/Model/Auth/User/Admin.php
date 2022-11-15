@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
     /**
      * User type
      */
-    const USER_TYPE = 'admin';
+    public const USER_TYPE = 'admin';
 
     /**
      * Retrieve user human-readable label

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'cms/block';
+    public const ADMIN_RESOURCE = 'cms/block';
 
     /**
      * Controller pre-dispatch method

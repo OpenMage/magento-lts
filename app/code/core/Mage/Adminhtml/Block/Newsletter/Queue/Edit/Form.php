@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -107,7 +108,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
         }
 
         $fieldset->addField('subject', 'text', [
-            'name'      =>'subject',
+            'name'      => 'subject',
             'label'     => Mage::helper('newsletter')->__('Subject'),
             'required'  => true,
             'value'     => (
@@ -116,7 +117,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
         ]);
 
         $fieldset->addField('sender_name', 'text', [
-            'name'      =>'sender_name',
+            'name'      => 'sender_name',
             'label'     => Mage::helper('newsletter')->__('Sender Name'),
             'title'     => Mage::helper('newsletter')->__('Sender Name'),
             'required'  => true,
@@ -126,7 +127,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
         ]);
 
         $fieldset->addField('sender_email', 'text', [
-            'name'      =>'sender_email',
+            'name'      => 'sender_email',
             'label'     => Mage::helper('newsletter')->__('Sender Email'),
             'title'     => Mage::helper('newsletter')->__('Sender Email'),
             'class'     => 'validate-email',
@@ -152,7 +153,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
             ]);
 
             $fieldset->addField('styles', 'textarea', [
-                'name'          =>'styles',
+                'name'          => 'styles',
                 'label'         => Mage::helper('newsletter')->__('Newsletter Styles'),
                 'container_id'  => 'field_newsletter_styles',
                 'value'         => $queue->getTemplate()->getTemplateStyles()
@@ -165,7 +166,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
             ]);
 
             $fieldset->addField('styles', 'textarea', [
-                'name'          =>'styles',
+                'name'          => 'styles',
                 'label'         => Mage::helper('newsletter')->__('Newsletter Styles'),
                 'value'         => $queue->getNewsletterStyles()
             ]);
@@ -188,7 +189,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
             ]);
 
             $fieldset->addField('styles', 'textarea', [
-                'name'          =>'styles',
+                'name'          => 'styles',
                 'label'         => Mage::helper('newsletter')->__('Newsletter Styles'),
                 'value'         => $queue->getNewsletterStyles(),
                 'style'         => 'height: 300px;',

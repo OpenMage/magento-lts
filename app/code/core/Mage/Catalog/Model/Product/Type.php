@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,15 +32,15 @@ class Mage_Catalog_Model_Product_Type
     /**
      * Available product types
      */
-    const TYPE_SIMPLE       = 'simple';
-    const TYPE_BUNDLE       = 'bundle';
-    const TYPE_CONFIGURABLE = 'configurable';
-    const TYPE_GROUPED      = 'grouped';
-    const TYPE_VIRTUAL      = 'virtual';
+    public const TYPE_SIMPLE       = 'simple';
+    public const TYPE_BUNDLE       = 'bundle';
+    public const TYPE_CONFIGURABLE = 'configurable';
+    public const TYPE_GROUPED      = 'grouped';
+    public const TYPE_VIRTUAL      = 'virtual';
 
-    const DEFAULT_TYPE      = 'simple';
-    const DEFAULT_TYPE_MODEL    = 'catalog/product_type_simple';
-    const DEFAULT_PRICE_MODEL   = 'catalog/product_type_price';
+    public const DEFAULT_TYPE      = 'simple';
+    public const DEFAULT_TYPE_MODEL    = 'catalog/product_type_simple';
+    public const DEFAULT_PRICE_MODEL   = 'catalog/product_type_price';
 
     protected static $_types;
     protected static $_compositeTypes;
@@ -128,7 +129,7 @@ class Mage_Catalog_Model_Product_Type
     public static function getAllOption()
     {
         $options = self::getOptionArray();
-        array_unshift($options, ['value'=>'', 'label'=>'']);
+        array_unshift($options, ['value' => '', 'label' => '']);
         return $options;
     }
 
@@ -138,7 +139,7 @@ class Mage_Catalog_Model_Product_Type
     public static function getAllOptions()
     {
         $res = [];
-        $res[] = ['value'=>'', 'label'=>''];
+        $res[] = ['value' => '', 'label' => ''];
         foreach (self::getOptionArray() as $index => $value) {
             $res[] = [
                'value' => $index,

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -49,7 +50,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
      *
      * @var string
      */
-    const TRANSPORT_PAYFLOW_TXN_ID = 'payflow_trxid';
+    public const TRANSPORT_PAYFLOW_TXN_ID = 'payflow_trxid';
 
     /**
      * Refund a capture transaction

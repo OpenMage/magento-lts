@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -172,7 +173,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     #[\ReturnTypeWillChange]
     public function getChildren($source = null)
     {
-        Mage::log('Use of deprecated method: '.__METHOD__);
+        Mage::log('Use of deprecated method: ' . __METHOD__);
         return self::_getChildren($source);
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -41,7 +42,7 @@ File to upload: <input type="file" name="io_file"/> <input type="submit" value="
         if (!empty($_FILES['io_file']['tmp_name'])) {
             $uploader = new Mage_Core_Model_File_Uploader('io_file');
             $uploader->setAllowedExtensions(['csv','xml']);
-            $path = Mage::app()->getConfig()->getTempVarDir().'/import/';
+            $path = Mage::app()->getConfig()->getTempVarDir() . '/import/';
             $uploader->save($path);
             if ($uploadFile = $uploader->getUploadedFileName()) {
                 $fp = fopen($uploadFile, 'rb');

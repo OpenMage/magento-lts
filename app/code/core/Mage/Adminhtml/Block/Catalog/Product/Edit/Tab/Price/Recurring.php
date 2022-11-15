@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -35,7 +36,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Recurring extends Mage
      */
     public function getElementHtml()
     {
-        $result = new stdClass;
+        $result = new stdClass();
         $result->output = '';
         Mage::dispatchEvent('catalog_product_edit_form_render_recurring', [
             'result' => $result,

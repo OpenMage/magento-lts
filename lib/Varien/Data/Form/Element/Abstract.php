@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -183,7 +184,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     public function addClass($class)
     {
         $oldClass = $this->getClass();
-        $this->setClass($oldClass.' '.$class);
+        $this->setClass($oldClass . ' ' . $class);
         return $this;
     }
 
@@ -249,9 +250,9 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      */
     public function getElementHtml()
     {
-        $html = '<input id="'.$this->getHtmlId().'" name="'.$this->getName()
-             .'" value="'.$this->getEscapedValue().'" '.$this->serialize($this->getHtmlAttributes()).'/>'."\n";
-        $html.= $this->getAfterElementHtml();
+        $html = '<input id="' . $this->getHtmlId() . '" name="' . $this->getName()
+             . '" value="' . $this->getEscapedValue() . '" ' . $this->serialize($this->getHtmlAttributes()) . '/>' . "\n";
+        $html .= $this->getAfterElementHtml();
         return $html;
     }
 
@@ -272,7 +273,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     public function getLabelHtml($idSuffix = '')
     {
         if (!is_null($this->getLabel())) {
-            $html = '<label for="'.$this->getHtmlId() . $idSuffix . '">' . $this->_escape($this->getLabel())
+            $html = '<label for="' . $this->getHtmlId() . $idSuffix . '">' . $this->_escape($this->getLabel())
                   . ($this->getRequired() ? ' <span class="required">*</span>' : '') . '</label>' . "\n";
         } else {
             $html = '';
@@ -287,10 +288,10 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     {
         $html = $this->getData('default_html');
         if (is_null($html)) {
-            $html = ($this->getNoSpan() === true) ? '' : '<span class="field-row">'."\n";
-            $html.= $this->getLabelHtml();
-            $html.= $this->getElementHtml();
-            $html.= ($this->getNoSpan() === true) ? '' : '</span>'."\n";
+            $html = ($this->getNoSpan() === true) ? '' : '<span class="field-row">' . "\n";
+            $html .= $this->getLabelHtml();
+            $html .= $this->getElementHtml();
+            $html .= ($this->getNoSpan() === true) ? '' : '</span>' . "\n";
         }
         return $html;
     }

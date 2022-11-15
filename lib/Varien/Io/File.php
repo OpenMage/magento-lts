@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -47,14 +48,14 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @const
      */
-    const GREP_FILES = 'files_only';
+    public const GREP_FILES = 'files_only';
 
     /**
      * Used to grep ls() output
      *
      * @const
      */
-    const GREP_DIRS = 'dirs_only';
+    public const GREP_DIRS = 'dirs_only';
 
     /**
      * If this variable is set to TRUE, our library will be able to automaticaly create
@@ -809,21 +810,21 @@ class Varien_Io_File extends Varien_Io_Abstract
     protected function _parsePermissions($mode)
     {
         if ($mode & 0x1000) {
-            $type='p';
+            $type = 'p';
         } elseif ($mode & 0x2000) { /* FIFO pipe */
-            $type='c';
+            $type = 'c';
         } elseif ($mode & 0x4000) { /* Character special */
-            $type='d';
+            $type = 'd';
         } elseif ($mode & 0x6000) { /* Directory */
-            $type='b';
+            $type = 'b';
         } elseif ($mode & 0x8000) { /* Block special */
-            $type='-';
+            $type = '-';
         } elseif ($mode & 0xA000) { /* Regular */
-            $type='l';
+            $type = 'l';
         } elseif ($mode & 0xC000) { /* Symbolic Link */
-            $type='s';
+            $type = 's';
         } else { /* Socket */
-            $type='u';
+            $type = 'u';
         } /* UNKNOWN */
 
         /* Determine permissions */
@@ -839,19 +840,19 @@ class Varien_Io_File extends Varien_Io_Abstract
 
         /* Adjust for SUID, SGID and sticky bit */
         if ($mode & 0x800) {
-            $owner["execute"] = ($owner['execute']=='x') ? 's' : 'S';
+            $owner["execute"] = ($owner['execute'] == 'x') ? 's' : 'S';
         }
         if ($mode & 0x400) {
-            $group["execute"] = ($group['execute']=='x') ? 's' : 'S';
+            $group["execute"] = ($group['execute'] == 'x') ? 's' : 'S';
         }
         if ($mode & 0x200) {
-            $world["execute"] = ($world['execute']=='x') ? 't' : 'T';
+            $world["execute"] = ($world['execute'] == 'x') ? 't' : 'T';
         }
 
-        $s=sprintf('%1s', $type);
-        $s.=sprintf('%1s%1s%1s', $owner['read'], $owner['write'], $owner['execute']);
-        $s.=sprintf('%1s%1s%1s', $group['read'], $group['write'], $group['execute']);
-        $s.=sprintf('%1s%1s%1s', $world['read'], $world['write'], $world['execute']);
+        $s = sprintf('%1s', $type);
+        $s .= sprintf('%1s%1s%1s', $owner['read'], $owner['write'], $owner['execute']);
+        $s .= sprintf('%1s%1s%1s', $group['read'], $group['write'], $group['execute']);
+        $s .= sprintf('%1s%1s%1s', $world['read'], $world['write'], $world['execute']);
         return trim($s);
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -153,7 +154,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->addColumn('name', [
             'header'    => Mage::helper('review')->__('Product Name'),
-            'align'     =>'left',
+            'align'     => 'left',
             'type'      => 'text',
             'index'     => 'name',
             'escape'    => true
@@ -179,8 +180,8 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
                     [
                         'caption' => Mage::helper('adminhtml')->__('Edit'),
                         'url'     => [
-                            'base'=>'*/catalog_product_review/edit',
-                            'params'=> [
+                            'base' => '*/catalog_product_review/edit',
+                            'params' => [
                                 'productId' => $this->getProductId(),
                                 'customerId' => $this->getCustomerId(),
                                 'ret'       => (Mage::registry('usePendingFilter')) ? 'pending' : null
@@ -211,7 +212,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->getMassactionBlock()->setUseSelectAll(false);
 
         $this->getMassactionBlock()->addItem('delete', [
-            'label'=> Mage::helper('review')->__('Delete'),
+            'label' => Mage::helper('review')->__('Delete'),
             'url'  => $this->getUrl(
                 '*/*/massDelete',
                 ['ret' => Mage::registry('usePendingFilter') ? 'pending' : 'index']
@@ -220,7 +221,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
         ]);
 
         $statuses = Mage::helper('review')->getReviewStatusesOptionArray();
-        array_unshift($statuses, ['label'=>'', 'value'=>'']);
+        array_unshift($statuses, ['label' => '', 'value' => '']);
         $this->getMassactionBlock()->addItem('update_status', [
             'label'         => Mage::helper('review')->__('Update Status'),
             'url'           => $this->getUrl(

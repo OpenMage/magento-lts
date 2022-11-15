@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -48,7 +49,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      */
     protected $_eventPrefix                         = 'eav_entity_attribute';
 
-    const ATTRIBUTE_CODE_MAX_LENGTH                 = 30;
+    public const ATTRIBUTE_CODE_MAX_LENGTH                 = 30;
 
     /**
      * Parameter name in event
@@ -59,7 +60,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      */
     protected $_eventObject = 'attribute';
 
-    const CACHE_TAG         = 'EAV_ATTRIBUTE';
+    public const CACHE_TAG         = 'EAV_ATTRIBUTE';
     protected $_cacheTag    = 'EAV_ATTRIBUTE';
 
     /**

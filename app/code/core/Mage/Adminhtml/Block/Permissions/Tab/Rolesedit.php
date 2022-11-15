@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -158,7 +159,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
      */
     protected function _sortTree($a, $b)
     {
-        return $a['sort_order']<$b['sort_order'] ? -1 : ($a['sort_order']>$b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
     }
 
     /**
@@ -200,9 +201,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
                         continue;
                     }
                     if ($level != 0) {
-                        $item['children'][] = $this->_getNodeJson($child, $level+1);
+                        $item['children'][] = $this->_getNodeJson($child, $level + 1);
                     } else {
-                        $item = $this->_getNodeJson($child, $level+1);
+                        $item = $this->_getNodeJson($child, $level + 1);
                     }
                 }
             }

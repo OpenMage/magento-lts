@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -29,10 +30,10 @@ class Mage_Adminhtml_Model_System_Config_Source_Email_Smtpauth
     public function toOptionArray()
     {
         return [
-            ['value'=>'NONE', 'label'=>'NONE'],
-            ['value'=>'PLAIN', 'label'=>'PLAIN'],
-            ['value'=>'LOGIN', 'label'=>'LOGIN'],
-            ['value'=>'CRAM-MD5', 'label'=>'CRAM-MD5'],
+            ['value' => 'NONE', 'label' => 'NONE'],
+            ['value' => 'PLAIN', 'label' => 'PLAIN'],
+            ['value' => 'LOGIN', 'label' => 'LOGIN'],
+            ['value' => 'CRAM-MD5', 'label' => 'CRAM-MD5'],
         ];
     }
 }

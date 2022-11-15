@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -70,7 +71,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
         if (!Mage::app()->isSingleStoreMode() && $this->getVariable()->getId()) {
             $storeSwitcher = $this->getLayout()
                 ->createBlock('adminhtml/store_switcher')->toHtml();
-            $formHtml = $storeSwitcher.$formHtml;
+            $formHtml = $storeSwitcher . $formHtml;
         }
         return $formHtml;
     }
@@ -96,7 +97,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
      */
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', ['_current'=>true]);
+        return $this->getUrl('*/*/validate', ['_current' => true]);
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -55,7 +56,7 @@
  */
 class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
 {
-    const ENTITY = 'core_config_data';
+    public const ENTITY = 'core_config_data';
     /**
      * Prefix of model events names
      *

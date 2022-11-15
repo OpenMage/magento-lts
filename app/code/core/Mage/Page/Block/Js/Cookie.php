@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -44,7 +45,7 @@ class Mage_Page_Block_Js_Cookie extends Mage_Core_Block_Template
     {
         $domain = $this->getCookie()->getDomain();
         if (!empty($domain[0]) && ($domain[0] !== '.')) {
-            $domain = '.'.$domain;
+            $domain = '.' . $domain;
         }
         return $domain;
     }

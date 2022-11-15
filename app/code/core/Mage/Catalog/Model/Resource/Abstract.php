@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -495,7 +496,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                 }
             }
             if (!empty($globalAttributeIds)) {
-                $where .= ' or '.$this->_getReadAdapter()->quoteInto('attribute_id in (?)', $globalAttributeIds);
+                $where .= ' or ' . $this->_getReadAdapter()->quoteInto('attribute_id in (?)', $globalAttributeIds);
             }
             $select->where($where);
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -47,7 +48,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
             return $this;
         }
 
-        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('customer')->__('Newsletter Information')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('customer')->__('Newsletter Information')]);
 
         $fieldset->addField(
             'subscription',

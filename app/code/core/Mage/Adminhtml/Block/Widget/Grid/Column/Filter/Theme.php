@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -83,12 +84,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
                 continue;
             }
             if (is_array($option['value'])) {
-                $html .= '<optgroup label="'.$option['label'].'">'
+                $html .= '<optgroup label="' . $option['label'] . '">'
                     . $this->_drawOptions($option['value'])
                     . '</optgroup>';
             } else {
                 $selected = (($option['value'] == $value && (!is_null($value))) ? ' selected="selected"' : '');
-                $html .= '<option value="'.$option['value'].'"'.$selected.'>'.$option['label'].'</option>';
+                $html .= '<option value="' . $option['value'] . '"' . $selected . '>' . $option['label'] . '</option>';
             }
         }
 

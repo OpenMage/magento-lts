@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,13 +33,13 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Cunstruction regular expression
      */
-    const CONSTRUCTION_PATTERN = '/{{([a-z]{0,10})(.*?)}}/si';
+    public const CONSTRUCTION_PATTERN = '/{{([a-z]{0,10})(.*?)}}/si';
 
     /**
      * Cunstruction logic regular expression
      */
-    const CONSTRUCTION_DEPEND_PATTERN = '/{{depend\s*(.*?)}}(.*?){{\\/depend\s*}}/si';
-    const CONSTRUCTION_IF_PATTERN = '/{{if\s*(.*?)}}(.*?)({{else}}(.*?))?{{\\/if\s*}}/si';
+    public const CONSTRUCTION_DEPEND_PATTERN = '/{{depend\s*(.*?)}}(.*?){{\\/depend\s*}}/si';
+    public const CONSTRUCTION_IF_PATTERN = '/{{if\s*(.*?)}}(.*?)({{else}}(.*?))?{{\\/if\s*}}/si';
 
     /**
      * Assigned template variables
@@ -150,7 +151,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         if (preg_match_all(self::CONSTRUCTION_PATTERN, $value, $constructions, PREG_SET_ORDER)) {
             foreach ($constructions as $index => $construction) {
                 $replacedValue = '';
-                $callback = [$this, $construction[1].'Directive'];
+                $callback = [$this, $construction[1] . 'Directive'];
                 if (!is_callable($callback)) {
                     continue;
                 }
@@ -167,7 +168,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
     public function varDirective($construction)
     {
-        if (count($this->_templateVars)==0) {
+        if (count($this->_templateVars) == 0) {
             // If template preprocessing
             return $construction[0];
         }
@@ -221,12 +222,12 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
     public function dependDirective($construction)
     {
-        if (count($this->_templateVars)==0) {
+        if (count($this->_templateVars) == 0) {
             // If template preprocessing
             return $construction[0];
         }
 
-        if ($this->_getVariable($construction[1], '')=='') {
+        if ($this->_getVariable($construction[1], '') == '') {
             return '';
         } else {
             return $construction[2];
@@ -285,20 +286,20 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         $last = 0;
         /** @var $emailPathValidator Mage_Adminhtml_Model_Email_PathValidator */
         $emailPathValidator = $this->getEmailPathValidator();
-        for ($i = 0; $i < count($stackVars); $i ++) {
+        for ($i = 0; $i < count($stackVars); $i++) {
             if ($i == 0 && isset($this->_templateVars[$stackVars[$i]['name']])) {
                 // Getting of template value
                 $stackVars[$i]['variable'] =& $this->_templateVars[$stackVars[$i]['name']];
-            } elseif (isset($stackVars[$i-1]['variable']) && $stackVars[$i-1]['variable'] instanceof Varien_Object) {
+            } elseif (isset($stackVars[$i - 1]['variable']) && $stackVars[$i - 1]['variable'] instanceof Varien_Object) {
                 // If object calling methods or getting properties
                 if ($stackVars[$i]['type'] == 'property') {
                     $caller = 'get' . uc_words($stackVars[$i]['name'], '');
-                    $stackVars[$i]['variable'] = method_exists($stackVars[$i-1]['variable'], $caller)
-                        ? $stackVars[$i-1]['variable']->$caller()
-                        : $stackVars[$i-1]['variable']->getData($stackVars[$i]['name']);
+                    $stackVars[$i]['variable'] = method_exists($stackVars[$i - 1]['variable'], $caller)
+                        ? $stackVars[$i - 1]['variable']->$caller()
+                        : $stackVars[$i - 1]['variable']->getData($stackVars[$i]['name']);
                 } elseif ($stackVars[$i]['type'] == 'method') {
                     // Calling of object method
-                    if (method_exists($stackVars[$i-1]['variable'], $stackVars[$i]['name'])
+                    if (method_exists($stackVars[$i - 1]['variable'], $stackVars[$i]['name'])
                         || substr($stackVars[$i]['name'], 0, 3) == 'get'
                     ) {
                         $isEncrypted = false;
@@ -306,7 +307,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                             $isEncrypted = $emailPathValidator->isValid($stackVars[$i]['args']);
                         }
                         $stackVars[$i]['variable'] = call_user_func_array(
-                            [$stackVars[$i-1]['variable'], $stackVars[$i]['name']],
+                            [$stackVars[$i - 1]['variable'], $stackVars[$i]['name']],
                             !$isEncrypted ? $stackVars[$i]['args'] : [null]
                         );
                     }

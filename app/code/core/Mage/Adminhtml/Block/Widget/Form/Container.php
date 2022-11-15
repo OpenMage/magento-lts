@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -62,7 +63,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
                     . Mage::helper('core')->jsQuoteEscape(
                         Mage::helper('adminhtml')->__('Are you sure you want to do this?')
                     )
-                    .'\', \''
+                    . '\', \''
                     . $this->getDeleteUrl()
                     . '\')',
             ]);

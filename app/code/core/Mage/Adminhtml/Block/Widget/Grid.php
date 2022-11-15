@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -249,7 +250,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Export'),
-                    'onclick'   => $this->getJsObjectName().'.doExport()',
+                    'onclick'   => $this->getJsObjectName() . '.doExport()',
                     'class'   => 'task'
                 ])
         );
@@ -258,7 +259,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Reset Filter'),
-                    'onclick'   => $this->getJsObjectName().'.resetFilter()',
+                    'onclick'   => $this->getJsObjectName() . '.resetFilter()',
                 ])
         );
         $this->setChild(
@@ -266,7 +267,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Search'),
-                    'onclick'   => $this->getJsObjectName().'.doFilter()',
+                    'onclick'   => $this->getJsObjectName() . '.doFilter()',
                     'class'   => 'task'
                 ])
         );
@@ -304,8 +305,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $html = '';
         if ($this->getFilterVisibility()) {
-            $html.= $this->getResetFilterButtonHtml();
-            $html.= $this->getSearchButtonHtml();
+            $html .= $this->getResetFilterButtonHtml();
+            $html .= $this->getSearchButtonHtml();
         }
         return $html;
     }
@@ -977,7 +978,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $this->_exportTypes[] = new Varien_Object(
             [
-                'url'   => $this->getUrl($url, ['_current'=>true]),
+                'url'   => $this->getUrl($url, ['_current' => true]),
                 'label' => $label
             ]
         );
@@ -1115,7 +1116,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             if ($lPage == $page) {
                 $break = true;
             }
-            $page ++;
+            $page++;
 
             foreach ($collection as $item) {
                 call_user_func_array([$this, $callback], array_merge([$item], $args));
@@ -1208,10 +1209,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $data = [];
         foreach ($this->_columns as $column) {
             if (!$column->getIsSystem()) {
-                $data[] = '"'.$column->getExportHeader().'"';
+                $data[] = '"' . $column->getExportHeader() . '"';
             }
         }
-        $csv.= implode(',', $data)."\n";
+        $csv .= implode(',', $data) . "\n";
 
         foreach ($this->getCollection() as $item) {
             $data = [];
@@ -1224,7 +1225,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                     ) . '"';
                 }
             }
-            $csv.= implode(',', $data)."\n";
+            $csv .= implode(',', $data) . "\n";
         }
 
         if ($this->getCountTotals()) {
@@ -1238,7 +1239,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                     ) . '"';
                 }
             }
-            $csv.= implode(',', $data)."\n";
+            $csv .= implode(',', $data) . "\n";
         }
 
         return $csv;
@@ -1264,14 +1265,14 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             }
         }
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
-        $xml.= '<items>';
+        $xml .= '<items>';
         foreach ($this->getCollection() as $item) {
-            $xml.= $item->toXml($indexes);
+            $xml .= $item->toXml($indexes);
         }
         if ($this->getCountTotals()) {
-            $xml.= $this->getTotals()->toXml($indexes);
+            $xml .= $this->getTotals()->toXml($indexes);
         }
-        $xml.= '</items>';
+        $xml .= '</items>';
         return $xml;
     }
 
@@ -1442,7 +1443,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function getParam($paramName, $default = null)
     {
         $session = Mage::getSingleton('adminhtml/session');
-        $sessionParamName = $this->getId().$paramName;
+        $sessionParamName = $this->getId() . $paramName;
         if ($this->getRequest()->has($paramName)) {
             $param = $this->getRequest()->getParam($paramName);
             if ($this->_saveParametersInSession) {
@@ -1481,7 +1482,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         ];
 
         foreach ($params as $param) {
-            $session->unsetData($this->getId().$param);
+            $session->unsetData($this->getId() . $param);
         }
     }
 
@@ -1490,7 +1491,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getJsObjectName()
     {
-        return $this->getId().'JsObject';
+        return $this->getId() . 'JsObject';
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -275,9 +276,9 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     public function getTabId($tab, $withPrefix = true)
     {
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
-            return ($withPrefix ? $this->getId().'_' : '').$tab->getTabId();
+            return ($withPrefix ? $this->getId() . '_' : '') . $tab->getTabId();
         }
-        return ($withPrefix ? $this->getId().'_' : '').$tab->getId();
+        return ($withPrefix ? $this->getId() . '_' : '') . $tab->getId();
     }
 
     public function canShowTab($tab)

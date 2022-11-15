@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -193,7 +194,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
             $session->addException($e, Mage::helper('catalog')->__('An error occurred while deleting this review.'));
         }
 
-        $this->_redirect('*/*/edit/', ['id'=>$reviewId]);
+        $this->_redirect('*/*/edit/', ['id' => $reviewId]);
     }
 
     public function massDeleteAction()

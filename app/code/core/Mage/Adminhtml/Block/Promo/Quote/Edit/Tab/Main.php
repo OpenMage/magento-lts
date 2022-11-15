@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -146,7 +147,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main extends Mage_Adminhtml_Bloc
         $found = false;
 
         foreach ($customerGroups as $group) {
-            if ($group['value']==0) {
+            if ($group['value'] == 0) {
                 $found = true;
             }
         }

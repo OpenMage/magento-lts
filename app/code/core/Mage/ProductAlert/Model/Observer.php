@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,29 +32,29 @@ class Mage_ProductAlert_Model_Observer
     /**
      * Error email template configuration
      */
-    const XML_PATH_ERROR_TEMPLATE   = 'catalog/productalert_cron/error_email_template';
+    public const XML_PATH_ERROR_TEMPLATE   = 'catalog/productalert_cron/error_email_template';
 
     /**
      * Error email identity configuration
      */
-    const XML_PATH_ERROR_IDENTITY   = 'catalog/productalert_cron/error_email_identity';
+    public const XML_PATH_ERROR_IDENTITY   = 'catalog/productalert_cron/error_email_identity';
 
     /**
      * 'Send error emails to' configuration
      */
-    const XML_PATH_ERROR_RECIPIENT  = 'catalog/productalert_cron/error_email';
+    public const XML_PATH_ERROR_RECIPIENT  = 'catalog/productalert_cron/error_email';
 
     /**
      * Allow price alert
      *
      */
-    const XML_PATH_PRICE_ALLOW      = 'catalog/productalert/allow_price';
+    public const XML_PATH_PRICE_ALLOW      = 'catalog/productalert/allow_price';
 
     /**
      * Allow stock alert
      *
      */
-    const XML_PATH_STOCK_ALLOW      = 'catalog/productalert/allow_stock';
+    public const XML_PATH_STOCK_ALLOW      = 'catalog/productalert/allow_stock';
 
     /**
      * Website collection array
@@ -105,7 +106,7 @@ class Mage_ProductAlert_Model_Observer
             if (!Mage::getStoreConfig(
                 self::XML_PATH_PRICE_ALLOW,
                 $website->getDefaultGroup()->getDefaultStore()->getId()
-            )) {
+                )) {
                 continue;
             }
             try {
@@ -194,7 +195,7 @@ class Mage_ProductAlert_Model_Observer
             if (!Mage::getStoreConfig(
                 self::XML_PATH_STOCK_ALLOW,
                 $website->getDefaultGroup()->getDefaultStore()->getId()
-            )) {
+                )) {
                 continue;
             }
             try {

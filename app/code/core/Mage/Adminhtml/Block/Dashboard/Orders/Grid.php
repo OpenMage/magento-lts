@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -117,6 +118,6 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/sales_order/view', ['order_id'=>$row->getId()]);
+        return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
     }
 }

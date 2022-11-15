@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -49,7 +50,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
 
         $form->setHtmlIdPrefix('page_');
 
-        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('cms')->__('Page Information')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('cms')->__('Page Information')]);
 
         if ($model->getPageId()) {
             $fieldset->addField('page_id', 'hidden', [

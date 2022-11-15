@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -21,10 +22,10 @@
 
 class Varien_Image_Adapter
 {
-    const ADAPTER_GD    = 'GD';
-    const ADAPTER_GD2   = 'GD2';
-    const ADAPTER_IM    = 'IMAGEMAGIC';
-    const ADAPTER_IME   = 'IMAGEMAGIC_EXTERNAL';
+    public const ADAPTER_GD    = 'GD';
+    public const ADAPTER_GD2   = 'GD2';
+    public const ADAPTER_IM    = 'IMAGEMAGIC';
+    public const ADAPTER_IME   = 'IMAGEMAGIC_EXTERNAL';
 
     public static function factory($adapter)
     {

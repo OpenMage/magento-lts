@@ -9,6 +9,12 @@
         <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
         <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
     </rule>
+    <rule ref="PSR12">
+        <exclude name="PSR2.Methods.FunctionCallSignature.Indent"/>
+        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.CloseParenthesisLine"/>
+        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.FirstExpressionLine"/>
+        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.LineIndent"/>
+    </rule>
     <!--
     <rule ref="Ecg">
         <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed"/>

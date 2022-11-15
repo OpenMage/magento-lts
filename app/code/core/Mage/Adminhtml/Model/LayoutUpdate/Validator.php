@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -30,10 +31,10 @@
  */
 class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
 {
-    const XML_INVALID                             = 'invalidXml';
-    const INVALID_TEMPLATE_PATH                   = 'invalidTemplatePath';
-    const INVALID_BLOCK_NAME                      = 'invalidBlockName';
-    const PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR = 'protectedAttrHelperInActionVar';
+    public const XML_INVALID                             = 'invalidXml';
+    public const INVALID_TEMPLATE_PATH                   = 'invalidTemplatePath';
+    public const INVALID_BLOCK_NAME                      = 'invalidBlockName';
+    public const PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR = 'protectedAttrHelperInActionVar';
 
     /**
      * The Varien SimpleXml object

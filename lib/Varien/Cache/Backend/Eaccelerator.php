@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -23,8 +24,8 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
     /**
      * Log message
      */
-    const TAGS_UNSUPPORTED_BY_CLEAN_OF_EACCELERATOR_BACKEND = 'Varien_Cache_Backend_Eaccelerator::clean() : tags are unsupported by the Eaccelerator backend';
-    const TAGS_UNSUPPORTED_BY_SAVE_OF_EACCELERATOR_BACKEND =  'Varien_Cache_Backend_Eaccelerator::save() : tags are unsupported by the Eaccelerator backend';
+    public const TAGS_UNSUPPORTED_BY_CLEAN_OF_EACCELERATOR_BACKEND = 'Varien_Cache_Backend_Eaccelerator::clean() : tags are unsupported by the Eaccelerator backend';
+    public const TAGS_UNSUPPORTED_BY_SAVE_OF_EACCELERATOR_BACKEND =  'Varien_Cache_Backend_Eaccelerator::save() : tags are unsupported by the Eaccelerator backend';
 
     /**
      * Constructor
@@ -165,7 +166,7 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
     {
         $mem = eaccelerator_info();
         $memSize    = $mem['memorySize'];
-        $memAvailable= $mem['memoryAvailable'];
+        $memAvailable = $mem['memoryAvailable'];
         $memUsed = $memSize - $memAvailable;
         if ($memSize == 0) {
             Zend_Cache::throwException('can\'t get eaccelerator memory size');
@@ -296,7 +297,7 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
             }
             $lifetime = $tmp[2];
             $newLifetime = $lifetime - (time() - $mtime) + $extraLifetime;
-            if ($newLifetime <=0) {
+            if ($newLifetime <= 0) {
                 return false;
             }
             eaccelerator_put($id, [$data, time(), $newLifetime], $newLifetime);

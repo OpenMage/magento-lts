@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -83,9 +84,9 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Configuration path for default email templates
      */
-    const XML_PATH_TEMPLATE_EMAIL               = 'global/template/email';
-    const XML_PATH_SENDING_SET_RETURN_PATH      = 'system/smtp/set_return_path';
-    const XML_PATH_SENDING_RETURN_PATH_EMAIL    = 'system/smtp/return_path_email';
+    public const XML_PATH_TEMPLATE_EMAIL               = 'global/template/email';
+    public const XML_PATH_SENDING_SET_RETURN_PATH      = 'system/smtp/set_return_path';
+    public const XML_PATH_SENDING_RETURN_PATH_EMAIL    = 'system/smtp/return_path_email';
 
     protected $_templateFilter;
     protected $_preprocessFlag = false;
@@ -170,7 +171,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         }
 
         $data = &$defaultTemplates[$templateId];
-        $this->setTemplateType($data['type']=='html' ? self::TYPE_HTML : self::TYPE_TEXT);
+        $this->setTemplateType($data['type'] == 'html' ? self::TYPE_HTML : self::TYPE_TEXT);
 
         $templateText = Mage::app()->getTranslator()->getTemplateFile(
             $data['file'],
@@ -226,7 +227,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     public static function getDefaultTemplatesAsOptionsArray()
     {
         $options = [
-            ['value'=>'', 'label'=> '']
+            ['value' => '', 'label' => '']
         ];
 
         $idLabel = [];
@@ -441,7 +442,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $mail = $this->getMail();
 
         if ($returnPathEmail !== null) {
-            $mailTransport = new Zend_Mail_Transport_Sendmail("-f".$returnPathEmail);
+            $mailTransport = new Zend_Mail_Transport_Sendmail("-f" . $returnPathEmail);
             Zend_Mail::setDefaultTransport($mailTransport);
         }
 

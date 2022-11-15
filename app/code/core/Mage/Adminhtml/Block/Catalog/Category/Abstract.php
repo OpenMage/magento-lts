@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -167,14 +168,14 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
 
     public function getSaveUrl(array $args = [])
     {
-        $params = ['_current'=>true];
+        $params = ['_current' => true];
         $params = array_merge($params, $args);
         return $this->getUrl('*/*/save', $params);
     }
 
     public function getEditUrl()
     {
-        return $this->getUrl("*/catalog_category/edit", ['_current'=>true, 'store'=>null, '_query'=>false, 'id'=>null, 'parent'=>null]);
+        return $this->getUrl("*/catalog_category/edit", ['_current' => true, 'store' => null, '_query' => false, 'id' => null, 'parent' => null]);
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -126,9 +127,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                     if (grid.categoryName) {
                         optionLabel = grid.categoryName + " / " + optionLabel;
                     }
-                    '.$chooserJsObject.'.setElementValue(optionValue);
-                    '.$chooserJsObject.'.setElementLabel(optionLabel);
-                    '.$chooserJsObject.'.close();
+                    ' . $chooserJsObject . '.setElementValue(optionValue);
+                    ' . $chooserJsObject . '.setElementLabel(optionLabel);
+                    ' . $chooserJsObject . '.close();
                 }
             ';
         }

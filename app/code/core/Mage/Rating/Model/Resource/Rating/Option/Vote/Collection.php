@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -75,7 +76,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
     {
         $this->getSelect()
             ->join(
-                ['rstore'=>$this->getTable('review/review_store')],
+                ['rstore' => $this->getTable('review/review_store')],
                 $this->getConnection()->quoteInto(
                     'main_table.review_id=rstore.review_id AND rstore.store_id=?',
                     (int)$storeId
@@ -93,7 +94,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
      */
     public function addRatingInfo($storeId = null)
     {
-        $adapter=$this->getConnection();
+        $adapter = $this->getConnection();
         $ratingCodeCond = $adapter->getIfNullSql('title.value', 'rating.rating_code');
         $this->getSelect()
             ->join(

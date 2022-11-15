@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -26,8 +27,8 @@ $priceTypeAttribute = $installer->getAttribute('catalog_product', 'price_type');
 $taxClassAttribute  = $installer->getAttribute('catalog_product', 'tax_class_id');
 
 $productTable   = $installer->getTable('catalog/product');
-$priceTypeTable = $productTable ."_". $priceTypeAttribute['backend_type'];
-$taxClassTable  = $productTable ."_". $taxClassAttribute['backend_type'];
+$priceTypeTable = $productTable . "_" . $priceTypeAttribute['backend_type'];
+$taxClassTable  = $productTable . "_" . $taxClassAttribute['backend_type'];
 
 $db = $installer->getConnection();
 $db->beginTransaction();

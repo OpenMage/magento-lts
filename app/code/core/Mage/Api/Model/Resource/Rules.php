@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -52,7 +53,7 @@ class Mage_Api_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
             if ($postedResources = $rule->getResources()) {
                 foreach ($masterResources as $index => $resName) {
                     if (!$masterAdmin) {
-                        $permission = (in_array($resName, $postedResources))? 'allow' : 'deny';
+                        $permission = (in_array($resName, $postedResources)) ? 'allow' : 'deny';
                         $adapter->insert($this->getMainTable(), [
                             'role_type'     => 'G',
                             'resource_id'   => trim($resName, '/'),

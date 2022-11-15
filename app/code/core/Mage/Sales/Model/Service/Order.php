@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -445,7 +446,7 @@ class Mage_Sales_Model_Service_Order
                 }
             }
         } else {
-            return $item->getQtyToShip()>0;
+            return $item->getQtyToShip() > 0;
         }
         return false;
     }

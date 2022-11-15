@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -128,7 +129,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                             $storeCurrency = Mage::app()->getStore($storeId)->getBaseCurrencyCode();
                             $rate = Mage::getModel('directory/currency')->load($baseCurrency)->getRate($storeCurrency);
                             if (!$rate) {
-                                $rate=1;
+                                $rate = 1;
                             }
                             $newPrice = (float) $object->getPrice() * $rate;
                         } else {

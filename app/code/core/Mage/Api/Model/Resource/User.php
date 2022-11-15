@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -62,7 +63,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     public function recordLogin(Mage_Api_Model_User $user)
     {
         $data = [
-            'lognum'  => $user->getLognum()+1,
+            'lognum'  => $user->getLognum() + 1,
         ];
         $condition = $this->_getReadAdapter()->quoteInto('user_id = ?', $user->getUserId());
         $this->_getWriteAdapter()->update($this->getTable('api/user'), $data, $condition);
@@ -123,7 +124,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         );
         $writeAdapter->delete(
             $this->getTable('api/session'),
-            ['user_id = ?' => $user->getId(), $readAdapter->quote(Varien_Date::now()) . ' > '.$timeSubtract]
+            ['user_id = ?' => $user->getId(), $readAdapter->quote(Varien_Date::now()) . ' > ' . $timeSubtract]
         );
         return $this;
     }
@@ -139,7 +140,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()->from($this->getTable('api/user'))
             ->where('username=:username');
-        return $adapter->fetchRow($select, ['username'=>$username]);
+        return $adapter->fetchRow($select, ['username' => $username]);
     }
 
     /**
@@ -382,8 +383,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         $table     = $this->getTable('api/role');
 
         $condition = [
-            $table.'.user_id = ?'   => (int) $user->getUserId(),
-            $table.'.parent_id = ?' => (int) $user->getRoleId()
+            $table . '.user_id = ?'   => (int) $user->getUserId(),
+            $table . '.parent_id = ?' => (int) $user->getRoleId()
         ];
 
         $adapter->delete($table, $condition);
@@ -426,7 +427,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         $select = $adapter->select()
             ->from($usersTable)
             ->where(implode(' OR ', $condition))
-            ->where($usersTable.'.user_id != ?', (int) $user->getId());
+            ->where($usersTable . '.user_id != ?', (int) $user->getId());
         return $adapter->fetchRow($select);
     }
 }

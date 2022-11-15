@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -82,7 +83,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
 
     public function getViewUrl($orderId)
     {
-        return $this->getUrl('*/sales_order/view', ['order_id'=>$orderId]);
+        return $this->getUrl('*/sales_order/view', ['order_id' => $orderId]);
     }
 
     /**
@@ -153,8 +154,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
         if (empty($label)) {
             $label = $this->__('Edit');
         }
-        $url = $this->getUrl('*/sales_order/address', ['address_id'=>$address->getId()]);
-        return '<a href="'.$url.'">' . $label . '</a>';
+        $url = $this->getUrl('*/sales_order/address', ['address_id' => $address->getId()]);
+        return '<a href="' . $url . '">' . $label . '</a>';
     }
 
     /**

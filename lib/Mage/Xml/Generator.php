@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -26,7 +27,7 @@ class Mage_Xml_Generator
     public function __construct()
     {
         $this->_dom = new DOMDocument('1.0');
-        $this->_dom->formatOutput=true;
+        $this->_dom->formatOutput = true;
         $this->_currentDom = $this->_dom;
         return $this;
     }

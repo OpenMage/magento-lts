@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/config';
+    public const ADMIN_RESOURCE = 'system/config';
 
     /**
      * Whether current section is allowed
@@ -89,7 +90,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $section      = $sections->$current;
         $hasChildren  = $configFields->hasChildren($section, $website, $store);
         if (!$hasChildren && $current) {
-            $this->_redirect('*/*/', ['website'=>$website, 'store'=>$store]);
+            $this->_redirect('*/*/', ['website' => $website, 'store' => $store]);
         }
 
         $this->loadLayout();

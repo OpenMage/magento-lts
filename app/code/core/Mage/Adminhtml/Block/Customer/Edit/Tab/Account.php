@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -214,7 +215,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
         } else {
             $newFieldset = $form->addFieldset(
                 'password_fieldset',
-                ['legend'=>Mage::helper('customer')->__('Password Management')]
+                ['legend' => Mage::helper('customer')->__('Password Management')]
             );
             $field = $newFieldset->addField(
                 'password',
@@ -261,9 +262,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 '<script type="text/javascript">'
                 . "
                 $('{$prefix}website_id').disableSendemail = function() {
-                    $('{$prefix}sendemail').disabled = ('' == this.value || '0' == this.value);".
+                    $('{$prefix}sendemail').disabled = ('' == this.value || '0' == this.value);" .
                     $_disableStoreField
-                ."}.bind($('{$prefix}website_id'));
+                . "}.bind($('{$prefix}website_id'));
                 Event.observe('{$prefix}website_id', 'change', $('{$prefix}website_id').disableSendemail);
                 $('{$prefix}website_id').disableSendemail();
                 "

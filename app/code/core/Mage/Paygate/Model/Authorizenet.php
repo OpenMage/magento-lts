@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -425,7 +426,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         if ($this->_formatAmount(
             $cardsStorage->getCapturedAmount() - $cardsStorage->getRefundedAmount()
-        ) < $requestedAmount
+            ) < $requestedAmount
         ) {
             Mage::throwException(Mage::helper('paygate')->__('Invalid amount for refund.'));
         }
@@ -512,7 +513,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     {
         $payment->setAnetTransType($requestType);
         $payment->setAmount($amount);
-        $request= $this->_buildRequest($payment);
+        $request = $this->_buildRequest($payment);
         $result = $this->_postRequest($request);
 
         switch ($requestType) {
@@ -616,7 +617,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
          */
         if ($this->getConfigData('partial_authorization_checksum_checking')) {
             $payment->setAmount($amount);
-            $firstPlacingRequest= $this->_buildRequest($payment);
+            $firstPlacingRequest = $this->_buildRequest($payment);
             $newChecksum = $this->_generateChecksum($firstPlacingRequest, $this->_partialAuthorizationChecksumDataKeys);
             $previosChecksum = $this->_getSession()->getData($this->_partialAuthorizationChecksumSessionKey);
             if ($newChecksum != $previosChecksum) {
@@ -708,7 +709,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         if ($this->_formatAmount(
             $cardsStorage->getProcessedAmount() - $cardsStorage->getCapturedAmount()
-        ) < $requestedAmount
+            ) < $requestedAmount
         ) {
             Mage::throwException(Mage::helper('paygate')->__('Invalid amount for capture.'));
         }
@@ -770,7 +771,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         $payment->setXTransId($realAuthTransactionId);
         $payment->setAmount($amount);
 
-        $request= $this->_buildRequest($payment);
+        $request = $this->_buildRequest($payment);
         $result = $this->_postRequest($request);
 
         switch ($result->getResponseCode()) {
@@ -835,7 +836,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         $payment->setAnetTransType(self::REQUEST_TYPE_VOID);
         $payment->setXTransId($realAuthTransactionId);
 
-        $request= $this->_buildRequest($payment);
+        $request = $this->_buildRequest($payment);
         $result = $this->_postRequest($request);
 
         switch ($result->getResponseCode()) {
@@ -866,7 +867,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             case self::RESPONSE_CODE_DECLINED:
             case self::RESPONSE_CODE_ERROR:
                 if ($result->getResponseReasonCode() == self::RESPONSE_REASON_CODE_NOT_FOUND
-                && $this->_isTransactionExpired($realAuthTransactionId)
+                    && $this->_isTransactionExpired($realAuthTransactionId)
                 ) {
                     $voidTransactionId = $realAuthTransactionId . '-void';
                     return $this->_addTransaction(

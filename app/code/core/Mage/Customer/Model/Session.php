@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -99,7 +100,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         }
 
         $this->init($namespace);
-        Mage::dispatchEvent('customer_session_init', ['customer_session'=>$this]);
+        Mage::dispatchEvent('customer_session_init', ['customer_session' => $this]);
     }
 
     /**
@@ -254,7 +255,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         $this->setCustomer($customer);
         $this->renewSession();
         Mage::getSingleton('core/session')->renewFormKey();
-        Mage::dispatchEvent('customer_login', ['customer'=>$customer]);
+        Mage::dispatchEvent('customer_login', ['customer' => $customer]);
         return $this;
     }
 

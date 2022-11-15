@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -140,7 +141,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             if (!$doNotTestCacheValidity) {
                 $select->where('expire_time=0 OR expire_time>?', time());
             }
-            return $this->_getAdapter()->fetchOne($select, ['cache_id'=>$id]);
+            return $this->_getAdapter()->fetchOne($select, ['cache_id' => $id]);
         } else {
             return false;
         }
@@ -159,7 +160,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 ->from($this->_getDataTable(), 'update_time')
                 ->where('id=:cache_id')
                 ->where('expire_time=0 OR expire_time>?', time());
-            return $this->_getAdapter()->fetchOne($select, ['cache_id'=>$id]);
+            return $this->_getAdapter()->fetchOne($select, ['cache_id' => $id]);
         } else {
             return false;
         }
@@ -187,7 +188,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
 
             $lifetime = $this->getLifetime($specificLifetime);
             $time     = time();
-            $expire   = ($lifetime === 0 || $lifetime === null) ? 0 : $time+$lifetime;
+            $expire   = ($lifetime === 0 || $lifetime === null) ? 0 : $time + $lifetime;
 
             $dataCol    = $adapter->quoteIdentifier('data');
             $expireCol  = $adapter->quoteIdentifier('expire_time');
@@ -381,7 +382,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             ->distinct(true)
             ->where('tag IN(?)', $tags)
             ->group('cache_id')
-            ->having('COUNT(cache_id)='.count($tags));
+            ->having('COUNT(cache_id)=' . count($tags));
         return $this->_getAdapter()->fetchCol($select);
     }
 
@@ -450,7 +451,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
         $res = false;
         if ($data) {
             $res = [
-                'expire'=> $data['expire_time'],
+                'expire' => $data['expire_time'],
                 'mtime' => $data['update_time'],
                 'tags'  => $tags
             ];
@@ -470,7 +471,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
         if ($this->_options['store_data']) {
             return $this->_getAdapter()->update(
                 $this->_getDataTable(),
-                ['expire_time'=>new Zend_Db_Expr('expire_time+'.$extraLifetime)],
+                ['expire_time' => new Zend_Db_Expr('expire_time+' . $extraLifetime)],
                 ['id=?' => $id, 'expire_time = 0 OR expire_time>?' => time()]
             );
         } else {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,6 @@
  */
 class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggregate, Countable
 {
-
     /**
      * Elements storage
      *

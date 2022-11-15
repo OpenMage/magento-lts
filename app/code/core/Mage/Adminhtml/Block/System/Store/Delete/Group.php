@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,7 +34,7 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
         $itemId = $this->getRequest()->getParam('group_id');
 
         $this->setTemplate('system/store/delete_group.phtml');
-        $this->setAction($this->getUrl('*/*/deleteGroupPost', ['group_id'=>$itemId]));
+        $this->setAction($this->getUrl('*/*/deleteGroupPost', ['group_id' => $itemId]));
         $this->setChild(
             'confirm_deletion_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
@@ -43,7 +44,7 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
                     'class'     => 'cancel'
                 ])
         );
-        $onClick = "setLocation('".$this->getUrl('*/*/editGroup', ['group_id'=>$itemId])."')";
+        $onClick = "setLocation('" . $this->getUrl('*/*/editGroup', ['group_id' => $itemId]) . "')";
         $this->setChild(
             'cancel_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')

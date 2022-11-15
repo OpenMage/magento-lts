@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -55,7 +56,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
 
         $this->_addButton('add', [
             'label'     => $this->getAddButtonLabel(),
-            'onclick'   => 'setLocation(\'' . $this->getCreateUrl() .'\')',
+            'onclick'   => 'setLocation(\'' . $this->getCreateUrl() . '\')',
             'class'     => 'add',
         ]);
     }
@@ -68,7 +69,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
         $this->setChild(
             'grid',
             $this->getLayout()->createBlock(
-                $this->_blockGroup.'/' . $this->_controller . '_grid',
+                $this->_blockGroup . '/' . $this->_controller . '_grid',
                 $this->_controller . '.grid'
             )->setSaveParametersInSession(true)
         );
@@ -111,7 +112,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
     {
         $this->_addButton('back', [
             'label'     => $this->getBackButtonLabel(),
-            'onclick'   => 'setLocation(\'' . $this->getBackUrl() .'\')',
+            'onclick'   => 'setLocation(\'' . $this->getBackUrl() . '\')',
             'class'     => 'back',
         ]);
     }

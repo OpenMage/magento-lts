@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -22,6 +23,6 @@
 /** @var Mage_Sales_Model_Resource_Setup $installer */
 $installer = $this;
 
-$installer->addAttribute('invoice', 'store_id', ['type'=>'static']);
-$installer->addAttribute('creditmemo', 'store_id', ['type'=>'static']);
-$installer->addAttribute('shipment', 'store_id', ['type'=>'static']);
+$installer->addAttribute('invoice', 'store_id', ['type' => 'static']);
+$installer->addAttribute('creditmemo', 'store_id', ['type' => 'static']);
+$installer->addAttribute('shipment', 'store_id', ['type' => 'static']);

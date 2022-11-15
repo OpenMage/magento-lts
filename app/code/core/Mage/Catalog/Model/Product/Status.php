@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -37,8 +38,8 @@
  */
 class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
 {
-    const STATUS_ENABLED    = 1;
-    const STATUS_DISABLED   = 2;
+    public const STATUS_ENABLED    = 1;
+    public const STATUS_DISABLED   = 2;
 
     /**
      * Reference to the attribute instance
@@ -139,7 +140,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     public static function getAllOption()
     {
         $options = self::getOptionArray();
-        array_unshift($options, ['value'=>'', 'label'=>'']);
+        array_unshift($options, ['value' => '', 'label' => '']);
         return $options;
     }
 

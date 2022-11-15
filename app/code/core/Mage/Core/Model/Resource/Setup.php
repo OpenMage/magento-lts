@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,17 +29,17 @@
  */
 class Mage_Core_Model_Resource_Setup
 {
-    const DEFAULT_SETUP_CONNECTION  = 'core_setup';
-    const VERSION_COMPARE_EQUAL     = 0;
-    const VERSION_COMPARE_LOWER     = -1;
-    const VERSION_COMPARE_GREATER   = 1;
+    public const DEFAULT_SETUP_CONNECTION  = 'core_setup';
+    public const VERSION_COMPARE_EQUAL     = 0;
+    public const VERSION_COMPARE_LOWER     = -1;
+    public const VERSION_COMPARE_GREATER   = 1;
 
-    const TYPE_DB_INSTALL           = 'install';
-    const TYPE_DB_UPGRADE           = 'upgrade';
-    const TYPE_DB_ROLLBACK          = 'rollback';
-    const TYPE_DB_UNINSTALL         = 'uninstall';
-    const TYPE_DATA_INSTALL         = 'data-install';
-    const TYPE_DATA_UPGRADE         = 'data-upgrade';
+    public const TYPE_DB_INSTALL           = 'install';
+    public const TYPE_DB_UPGRADE           = 'upgrade';
+    public const TYPE_DB_ROLLBACK          = 'rollback';
+    public const TYPE_DB_UNINSTALL         = 'uninstall';
+    public const TYPE_DATA_INSTALL         = 'data-install';
+    public const TYPE_DATA_UPGRADE         = 'data-upgrade';
 
     /**
      * Setup resource name
@@ -273,7 +274,7 @@ class Mage_Core_Model_Resource_Setup
      */
     public function applyDataUpdates()
     {
-        $dataVer= $this->_getResource()->getDataVersion($this->_resourceName);
+        $dataVer = $this->_getResource()->getDataVersion($this->_resourceName);
         $configVer = (string)$this->_moduleConfig->version;
         if ($dataVer !== false) {
             $status = version_compare($configVer, $dataVer);
@@ -675,7 +676,7 @@ class Mage_Core_Model_Resource_Setup
                     $versionInfo = explode('-', $version);
 
                     // In array must be 2 elements: 0 => version from, 1 => version to
-                    if (count($versionInfo)!=2) {
+                    if (count($versionInfo) != 2) {
                         continue;
                     }
                     $infoFrom = $versionInfo[0];

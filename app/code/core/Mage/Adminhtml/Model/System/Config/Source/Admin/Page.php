@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -107,7 +108,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
             $menuArr['path'] = $path . $childName;
 
             if ($child->children) {
-                $menuArr['children'] = $this->_buildMenuArray($child->children, $path.$childName.'/', $level+1);
+                $menuArr['children'] = $this->_buildMenuArray($child->children, $path . $childName . '/', $level + 1);
             }
             $parentArr[$childName] = $menuArr;
 
@@ -128,7 +129,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
 
     protected function _sortMenu($a, $b)
     {
-        return $a['sort_order']<$b['sort_order'] ? -1 : ($a['sort_order']>$b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
     }
 
     protected function _checkDepends(Varien_Simplexml_Element $depends)

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -44,7 +45,7 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
 
     public function __construct()
     {
-        Mage::dispatchEvent('catalog_helper_output_construct', ['helper'=>$this]);
+        Mage::dispatchEvent('catalog_helper_output_construct', ['helper' => $this]);
     }
 
     /**

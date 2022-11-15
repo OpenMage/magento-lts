@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -42,7 +43,7 @@ class Mage_Core_Helper_UnserializeArray
             }
             return $result;
         } catch (Error $e) {
-            throw new Exception('Error unserializing data: '.$e->getMessage(), 0, $e);
+            throw new Exception('Error unserializing data: ' . $e->getMessage(), 0, $e);
         }
     }
 }

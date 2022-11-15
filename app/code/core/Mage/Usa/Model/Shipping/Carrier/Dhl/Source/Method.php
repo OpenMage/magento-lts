@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Source_Method
         $dhl = Mage::getSingleton('usa/shipping_carrier_dhl');
         $arr = [];
         foreach ($dhl->getCode('service') as $k => $v) {
-            $arr[] = ['value'=>$k, 'label'=>$v];
+            $arr[] = ['value' => $k, 'label' => $v];
         }
         return $arr;
     }

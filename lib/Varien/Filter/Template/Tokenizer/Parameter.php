@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -29,7 +30,6 @@
 
 class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_Tokenizer_Abstract
 {
-
     /**
      * Tokenize string and return getted parameters
      *
@@ -42,7 +42,7 @@ class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_
         while ($this->next()) {
             if ($this->isWhiteSpace()) {
                 continue;
-            } elseif ($this->char()!='=') {
+            } elseif ($this->char() != '=') {
                 $parameterName .= $this->char();
             } else {
                 $parameters[$parameterName] = $this->getValue();

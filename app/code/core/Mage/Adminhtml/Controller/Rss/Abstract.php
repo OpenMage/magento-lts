@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -37,7 +38,7 @@ class Mage_Adminhtml_Controller_Rss_Abstract extends Mage_Adminhtml_Controller_A
     protected function isFeedEnable($code)
     {
         return Mage::helper('rss')->isRssEnabled()
-            && Mage::getStoreConfig('rss/'. $code);
+            && Mage::getStoreConfig('rss/' . $code);
     }
 
     /**

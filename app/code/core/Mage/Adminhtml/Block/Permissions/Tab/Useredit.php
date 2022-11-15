@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
 
         $user = Mage::registry('user_data');
 
-        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('adminhtml')->__('Account Information')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('adminhtml')->__('Account Information')]);
 
         $fieldset->addField(
             'username',

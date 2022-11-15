@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -37,7 +38,7 @@ class Mage_Adminhtml_Block_System_Account_Edit_Form extends Mage_Adminhtml_Block
 
         $form = new Varien_Data_Form();
 
-        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('adminhtml')->__('Account Information')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('adminhtml')->__('Account Information')]);
 
         $fieldset->addField('username', 'text', [
                 'name'  => 'username',

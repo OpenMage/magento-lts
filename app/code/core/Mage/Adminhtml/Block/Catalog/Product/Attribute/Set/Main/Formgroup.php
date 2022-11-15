@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -30,7 +31,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formgroup extends 
     {
         $form = new Varien_Data_Form();
 
-        $fieldset = $form->addFieldset('set_fieldset', ['legend'=>Mage::helper('catalog')->__('Add New Group')]);
+        $fieldset = $form->addFieldset('set_fieldset', ['legend' => Mage::helper('catalog')->__('Add New Group')]);
 
         $fieldset->addField(
             'attribute_group_name',

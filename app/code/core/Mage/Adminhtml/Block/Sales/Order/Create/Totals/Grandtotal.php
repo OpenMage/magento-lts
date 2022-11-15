@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -36,7 +37,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Grandtotal extends Mage_Adm
 
     public function getTotalExclTax()
     {
-        $excl = $this->getTotal()->getAddress()->getGrandTotal()-$this->getTotal()->getAddress()->getTaxAmount();
+        $excl = $this->getTotal()->getAddress()->getGrandTotal() - $this->getTotal()->getAddress()->getTaxAmount();
         $excl = max($excl, 0);
         return $excl;
     }

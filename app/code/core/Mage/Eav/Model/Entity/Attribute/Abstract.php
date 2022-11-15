@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -61,7 +62,7 @@
  */
 abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_Abstract implements Mage_Eav_Model_Entity_Attribute_Interface
 {
-    const TYPE_STATIC = 'static';
+    public const TYPE_STATIC = 'static';
 
     /**
      * Attribute name
@@ -679,7 +680,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 $columns[$this->getAttributeCode()] = [
                     'type'      => $helper->getDdlTypeByColumnType($type),
                     'length'    => $size,
-                    'unsigned'  => $prop['UNSIGNED'] ? true: false,
+                    'unsigned'  => $prop['UNSIGNED'] ? true : false,
                     'nullable'   => $prop['NULLABLE'],
                     'default'   => $prop['DEFAULT'],
                     'extra'     => null
@@ -762,7 +763,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 }
                 $columns[$this->getAttributeCode()] = [
                     'type'      => $type,
-                    'unsigned'  => $prop['UNSIGNED'] ? true: false,
+                    'unsigned'  => $prop['UNSIGNED'] ? true : false,
                     'is_null'   => $prop['NULLABLE'],
                     'default'   => $prop['DEFAULT'],
                     'extra'     => null

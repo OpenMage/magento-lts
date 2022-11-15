@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Form extends Mage_Adminhtml_Block_Widge
     {
         $form = new Varien_Data_Form();
 
-        $fieldset = $form->addFieldset('poll_form', ['legend'=>Mage::helper('poll')->__('Poll information')]);
+        $fieldset = $form->addFieldset('poll_form', ['legend' => Mage::helper('poll')->__('Poll information')]);
         $fieldset->addField('poll_title', 'text', [
             'label'     => Mage::helper('poll')->__('Poll Question'),
             'class'     => 'required-entry',

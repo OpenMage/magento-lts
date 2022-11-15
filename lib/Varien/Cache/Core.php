@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -30,7 +31,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
     /**
      * Used to tell chunked data from ordinary
      */
-    const CODE_WORD = '{splitted}';
+    public const CODE_WORD = '{splitted}';
 
     /**
      * Constructor

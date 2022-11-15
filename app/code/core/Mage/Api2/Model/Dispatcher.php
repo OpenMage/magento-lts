@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Api2_Model_Dispatcher
     /**
      * Template for retrieve resource class name
      */
-    const RESOURCE_CLASS_TEMPLATE = ':resource_:api_:user_v:version';
+    public const RESOURCE_CLASS_TEMPLATE = ':resource_:api_:user_v:version';
 
     /**
      * API User object

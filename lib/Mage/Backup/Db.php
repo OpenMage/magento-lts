@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -66,7 +67,7 @@ class Mage_Backup_Db extends Mage_Backup_Abstract
 
         $returnResult = false;
         if ($lineLength > 0) {
-            $lastSymbolIndex = $lineLength-1;
+            $lastSymbolIndex = $lineLength - 1;
             if ($cleanLine[$lastSymbolIndex] == ';') {
                 $returnResult = true;
             }

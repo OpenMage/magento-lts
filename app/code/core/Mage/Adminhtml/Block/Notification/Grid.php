@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -97,7 +98,7 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
 
         $this->getMassactionBlock()->addItem('mark_as_read', [
              'label'    => Mage::helper('adminnotification')->__('Mark as Read'),
-             'url'      => $this->getUrl('*/*/massMarkAsRead', ['_current'=>true]),
+             'url'      => $this->getUrl('*/*/massMarkAsRead', ['_current' => true]),
         ]);
 
         $this->getMassactionBlock()->addItem('remove', [

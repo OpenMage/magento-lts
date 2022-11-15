@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -161,7 +162,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
          * Clear old values for invoice qty's
          */
         $this->_getSession()->getInvoiceItemQtys(true);
-        $this->_redirect('*/*/new', ['order_id'=>$this->getRequest()->getParam('order_id')]);
+        $this->_redirect('*/*/new', ['order_id' => $this->getRequest()->getParam('order_id')]);
     }
 
     /**
@@ -181,7 +182,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 ->_setActiveMenu('sales/order')
                 ->renderLayout();
         } else {
-            $this->_redirect('*/sales_order/view', ['order_id'=>$this->getRequest()->getParam('order_id')]);
+            $this->_redirect('*/sales_order/view', ['order_id' => $this->getRequest()->getParam('order_id')]);
         }
     }
 
@@ -322,7 +323,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             } catch (Exception $e) {
                 $this->_getSession()->addError($this->__('Invoice capturing error.'));
             }
-            $this->_redirect('*/*/view', ['invoice_id'=>$invoice->getId()]);
+            $this->_redirect('*/*/view', ['invoice_id' => $invoice->getId()]);
         } else {
             $this->_forward('noRoute');
         }
@@ -343,7 +344,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             } catch (Exception $e) {
                 $this->_getSession()->addError($this->__('Invoice canceling error.'));
             }
-            $this->_redirect('*/*/view', ['invoice_id'=>$invoice->getId()]);
+            $this->_redirect('*/*/view', ['invoice_id' => $invoice->getId()]);
         } else {
             $this->_forward('noRoute');
         }
@@ -364,7 +365,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             } catch (Exception $e) {
                 $this->_getSession()->addError($this->__('Invoice voiding error.'));
             }
-            $this->_redirect('*/*/view', ['invoice_id'=>$invoice->getId()]);
+            $this->_redirect('*/*/view', ['invoice_id' => $invoice->getId()]);
         } else {
             $this->_forward('noRoute');
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -83,7 +84,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
             'type'      => 'currency',
             'currency_code'  => $baseCurrencyCode,
             'index'     => 'orders_avg_amount',
-            'renderer'  =>'adminhtml/report_grid_column_renderer_currency'
+            'renderer'  => 'adminhtml/report_grid_column_renderer_currency'
         ]);
 
         $this->addColumn('orders_sum_amount', [
@@ -93,7 +94,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
             'type'      => 'currency',
             'currency_code'  => $baseCurrencyCode,
             'index'     => 'orders_sum_amount',
-            'renderer'  =>'adminhtml/report_grid_column_renderer_currency'
+            'renderer'  => 'adminhtml/report_grid_column_renderer_currency'
         ]);
 
         $this->setFilterVisibility(false);
@@ -104,6 +105,6 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/customer/edit', ['id'=>$row->getId()]);
+        return $this->getUrl('*/customer/edit', ['id' => $row->getId()]);
     }
 }

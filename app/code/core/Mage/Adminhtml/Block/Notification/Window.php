@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -29,7 +30,7 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
     /**
      * XML path of Severity icons url
      */
-    const XML_SEVERITY_ICONS_URL_PATH  = 'system/adminnotification/severity_icons_url';
+    public const XML_SEVERITY_ICONS_URL_PATH  = 'system/adminnotification/severity_icons_url';
 
     /**
      * Severity icons url

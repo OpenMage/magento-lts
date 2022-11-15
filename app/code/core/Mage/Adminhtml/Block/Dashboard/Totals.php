@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -69,7 +70,7 @@ class Mage_Adminhtml_Block_Dashboard_Totals extends Mage_Adminhtml_Block_Dashboa
         $this->addTotal($this->__('Revenue'), $totals->getRevenue());
         $this->addTotal($this->__('Tax'), $totals->getTax());
         $this->addTotal($this->__('Shipping'), $totals->getShipping());
-        $this->addTotal($this->__('Quantity'), $totals->getQuantity()*1, true);
+        $this->addTotal($this->__('Quantity'), $totals->getQuantity() * 1, true);
         return $this;
     }
 }

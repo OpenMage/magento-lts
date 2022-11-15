@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -68,14 +69,14 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
     {
         $this->addColumn('rule_id', [
             'header'    => Mage::helper('catalogrule')->__('ID'),
-            'align'     =>'right',
+            'align'     => 'right',
             'width'     => '50px',
             'index'     => 'rule_id',
         ]);
 
         $this->addColumn('name', [
             'header'    => Mage::helper('catalogrule')->__('Rule Name'),
-            'align'     =>'left',
+            'align'     => 'left',
             'index'     => 'name',
         ]);
 
@@ -109,7 +110,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('rule_website', [
                 'header'    => Mage::helper('catalogrule')->__('Website'),
-                'align'     =>'left',
+                'align'     => 'left',
                 'index'     => 'website_ids',
                 'type'      => 'options',
                 'sortable'  => false,

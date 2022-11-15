@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -44,7 +45,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
         /*
         * setting cache to save the rss for 10 minutes
         */
-        $this->setCacheKey('rss_catalog_special_'.$this->_getStoreId().'_'.$this->_getCustomerGroupId());
+        $this->setCacheKey('rss_catalog_special_' . $this->_getStoreId() . '_' . $this->_getCustomerGroupId());
         $this->setCacheLifetime(600);
     }
 
@@ -103,7 +104,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
         Mage::getSingleton('core/resource_iterator')->walk(
             $specials->getSelect(),
             [[$this, 'addSpecialXmlCallback']],
-            ['rssObj'=> $rssObj, 'results'=> &$results]
+            ['rssObj' => $rssObj, 'results' => &$results]
         );
 
         if (count($results)) {
@@ -204,6 +205,6 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
      */
     public function sortByStartDate($a, $b)
     {
-        return $a['start_date']>$b['start_date'] ? -1 : ($a['start_date']<$b['start_date'] ? 1 : 0);
+        return $a['start_date'] > $b['start_date'] ? -1 : ($a['start_date'] < $b['start_date'] ? 1 : 0);
     }
 }

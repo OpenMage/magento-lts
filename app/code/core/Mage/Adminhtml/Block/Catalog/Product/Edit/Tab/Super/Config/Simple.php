@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -142,8 +143,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
             'label' => Mage::helper('catalog')->__('Stock Availability'),
             'name'  => 'stock_data[is_in_stock]',
             'values' => [
-                ['value'=>1, 'label'=> Mage::helper('catalog')->__('In Stock')],
-                ['value'=>0, 'label'=> Mage::helper('catalog')->__('Out of Stock')]
+                ['value' => 1, 'label' => Mage::helper('catalog')->__('In Stock')],
+                ['value' => 0, 'label' => Mage::helper('catalog')->__('Out of Stock')]
             ],
             'value' => 1
         ]);
@@ -159,7 +160,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
 
         foreach ($stockHiddenFields as $fieldName => $fieldValue) {
             $fieldset->addField('simple_product_inventory_' . $fieldName, 'hidden', [
-                'name'  => 'stock_data[' . $fieldName .']',
+                'name'  => 'stock_data[' . $fieldName . ']',
                 'value' => $fieldValue
             ]);
         }

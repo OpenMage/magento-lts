@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -70,7 +71,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
 
     protected function _sortTree($a, $b)
     {
-        return $a['sort_order']<$b['sort_order'] ? -1 : ($a['sort_order']>$b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
     }
 
     protected function _getNodeJson($node, $level = 0)
@@ -79,8 +80,8 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
         $selres = $this->getSelectedResources();
 
         if ($level != 0) {
-            $item['text']= (string)$node->title;
-            $item['sort_order']= isset($node->sort_order) ? (string)$node->sort_order : 0;
+            $item['text'] = (string)$node->title;
+            $item['sort_order'] = isset($node->sort_order) ? (string)$node->sort_order : 0;
             $item['id']  = (string)$node->attributes()->aclpath;
 
             if (in_array($item['id'], $selres)) {
@@ -100,11 +101,11 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
             $item['children'] = [];
             //$item['cls'] = 'fiche-node';
             foreach ($children as $child) {
-                if ($child->getName()!='title' && $child->getName()!='sort_order' && $child->attributes()->module) {
+                if ($child->getName() != 'title' && $child->getName() != 'sort_order' && $child->attributes()->module) {
                     if ($level != 0) {
-                        $item['children'][] = $this->_getNodeJson($child, $level+1);
+                        $item['children'][] = $this->_getNodeJson($child, $level + 1);
                     } else {
-                        $item = $this->_getNodeJson($child, $level+1);
+                        $item = $this->_getNodeJson($child, $level + 1);
                     }
                 }
             }

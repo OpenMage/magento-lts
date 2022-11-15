@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -160,7 +161,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
                 $increment_id = $shipment->getIncrementId();
                 $tracks = $shipment->getTracksCollection();
 
-                $trackingInfos= [];
+                $trackingInfos = [];
                 foreach ($tracks as $track) {
                     $trackingInfos[] = $track->getNumberDetail();
                 }
@@ -183,7 +184,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
             $increment_id = $shipment->getIncrementId();
             $tracks = $shipment->getTracksCollection();
 
-            $trackingInfos= [];
+            $trackingInfos = [];
             foreach ($tracks as $track) {
                 $trackingInfos[] = $track->getNumberDetail();
             }

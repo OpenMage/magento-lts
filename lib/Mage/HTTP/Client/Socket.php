@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -176,7 +177,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      */
     public function setCredentials($login, $pass)
     {
-        $val= base64_encode("$login:$pass");
+        $val = base64_encode("$login:$pass");
         $this->addHeader("Authorization", "Basic $val");
     }
 
@@ -258,7 +259,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             throw new InvalidArgumentException("Uri doesn't contain path part");
         }
         if (!empty($parts['query'])) {
-            $requestUri .= "?".$parts['query'];
+            $requestUri .= "?" . $parts['query'];
         }
         return $requestUri;
     }
@@ -338,13 +339,13 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             if (is_null($val)) {
                 continue;
             }
-            $out[trim($key)] = ['value'=>trim($val)];
+            $out[trim($key)] = ['value' => trim($val)];
             array_shift($values);
             $c--;
             if (!$c) {
                 continue;
             }
-            for ($i = 0; $i<$c; $i++) {
+            for ($i = 0; $i < $c; $i++) {
                 list($subkey, $val) = explode("=", $values[$i]);
                 $out[trim($key)][trim($subkey)] = trim($val);
             }
@@ -405,7 +406,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
         $line = explode(" ", $responseLine, 3);
         if (count($line) != 3) {
-            return $this->doError("Invalid response line returned from server: ".$responseLine);
+            return $this->doError("Invalid response line returned from server: " . $responseLine);
         }
         $this->_responseStatus = intval($line[1]);
         $this->processResponseHeaders();
@@ -462,7 +463,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         $out .= $this->headersToString($appendHeaders);
         $out .= $crlf;
         if ($paramsStr) {
-            $out .= $paramsStr.$crlf;
+            $out .= $paramsStr . $crlf;
         }
 
         fwrite($this->_sock, $out);
@@ -493,7 +494,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         $headers = array_merge($headers, $this->_headers, $append);
         $str = [];
         foreach ($headers as $k => $v) {
-            $str []= "$k: $v\r\n";
+            $str [] = "$k: $v\r\n";
         }
         return implode($str);
     }

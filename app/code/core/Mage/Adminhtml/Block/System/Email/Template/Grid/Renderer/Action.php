@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,7 +34,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Action extends Ma
         $actions = [];
 
         $actions[] = [
-            'url'       =>  $this->getUrl('*/*/preview', ['id'=>$row->getId()]),
+            'url'       =>  $this->getUrl('*/*/preview', ['id' => $row->getId()]),
             'popup'     =>  true,
             'caption'   =>  $this->__('Preview')
         ];

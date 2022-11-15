@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -162,7 +163,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
 
         $html = sprintf(
             '<input name="%s" id="%s" value="%s" %s style="width:110px !important;" />'
-            .' <img src="%s" alt="" class="v-middle" id="%s_trig" title="%s" style="%s" />',
+            . ' <img src="%s" alt="" class="v-middle" id="%s_trig" title="%s" style="%s" />',
             $this->getName(),
             $this->getHtmlId(),
             $this->_escape($this->getValue()),

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -53,7 +54,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     protected function _getStatus($status)
     {
-        return $this->getNode('statuses/'.$status);
+        return $this->getNode('statuses/' . $status);
     }
 
     /**
@@ -62,7 +63,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     protected function _getState($state)
     {
-        return $this->getNode('states/'.$state);
+        return $this->getNode('states/' . $state);
     }
 
     /**

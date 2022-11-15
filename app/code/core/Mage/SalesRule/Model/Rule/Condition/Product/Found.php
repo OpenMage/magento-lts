@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -57,7 +58,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_M
     {
         $html = $this->getTypeElement()->getHtml() . Mage::helper('salesrule')->__("If an item is %s in the cart with %s of these conditions true:", $this->getValueElement()->getHtml(), $this->getAggregatorElement()->getHtml());
         if ($this->getId() != '1') {
-            $html.= $this->getRemoveLinkHtml();
+            $html .= $this->getRemoveLinkHtml();
         }
         return $html;
     }
@@ -70,7 +71,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_M
      */
     public function validate(Varien_Object $object)
     {
-        $all = $this->getAggregator()==='all';
+        $all = $this->getAggregator() === 'all';
         $true = (bool)$this->getValue();
         $found = false;
         foreach ($object->getAllItems() as $item) {

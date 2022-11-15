@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,7 @@
  */
 class Mage_Contacts_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_ENABLED   = 'contacts/contacts/enabled';
+    public const XML_PATH_ENABLED   = 'contacts/contacts/enabled';
 
     protected $_moduleName = 'Mage_Contacts';
 

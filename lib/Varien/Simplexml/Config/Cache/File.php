@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,6 @@
  */
 class Varien_Simplexml_Config_Cache_File extends Varien_Simplexml_Config_Cache_Abstract
 {
-
     /**
      * Initialize variables that depend on the cache key
      *
@@ -39,9 +39,9 @@ class Varien_Simplexml_Config_Cache_File extends Varien_Simplexml_Config_Cache_A
     {
         $this->setData('key', $key);
 
-        $file = $this->getDir().DS.$this->getKey();
-        $this->setFileName($file.'.xml');
-        $this->setStatFileName($file.'.stat');
+        $file = $this->getDir() . DS . $this->getKey();
+        $this->setFileName($file . '.xml');
+        $this->setStatFileName($file . '.stat');
 
         return $this;
     }

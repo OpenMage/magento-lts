@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,7 @@
  */
 class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
 {
-    const ICONV_CHARSET = 'UTF-8';
+    public const ICONV_CHARSET = 'UTF-8';
 
     protected $_moduleName = 'Mage_Core';
 
@@ -142,7 +143,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (!$strlen) {
             return $result;
         }
-        for ($i = $strlen-1; $i >= 0; $i--) {
+        for ($i = $strlen - 1; $i >= 0; $i--) {
             $result .= $this->substr($str, $i, 1);
         }
         return $result;

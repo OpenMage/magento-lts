@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -234,7 +235,7 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
                     $values = [];
                     foreach ($allgroups as $group) {
                         if ($group->getWebsiteId() == $website->getId()) {
-                            $values[] = ['label'=>$group->getName(),'value'=>$group->getId()];
+                            $values[] = ['label' => $group->getName(),'value' => $group->getId()];
                         }
                     }
                     $groups[] = ['label' => $this->escapeHtml($website->getName()), 'value' => $values];

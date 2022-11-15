@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -241,7 +242,7 @@ class Mage_Core_Model_Translate_Inline
      */
     protected function _insertInlineScriptsHtml()
     {
-        if ($this->_isScriptInserted || stripos($this->_content, '</body>')===false) {
+        if ($this->_isScriptInserted || stripos($this->_content, '</body>') === false) {
             return;
         }
 
@@ -249,7 +250,7 @@ class Mage_Core_Model_Translate_Inline
         $url_prefix = Mage::app()->getStore()->isAdmin() ? 'adminhtml' : 'core';
         $ajaxUrl = Mage::getUrl(
             $url_prefix . '/ajax/translate',
-            ['_secure'=>Mage::app()->getStore()->isCurrentlySecure()]
+            ['_secure' => Mage::app()->getStore()->isCurrentlySecure()]
         );
         $trigImg = Mage::getDesign()->getSkinUrl('images/fam_book_open.png');
 
@@ -371,7 +372,7 @@ class Mage_Core_Model_Translate_Inline
             $attrRegExp = '#' . $this->_tokenRegex . '#S';
             $trArr = $this->_getTranslateData($attrRegExp, $tagHtml, [$this, '_getAttributeLocation']);
             if ($trArr) {
-                $transRegExp = '# data-translate=' . $quoteHtml . '\[([^'.preg_quote($quoteHtml, '#').']*)]' . $quoteHtml . '#i';
+                $transRegExp = '# data-translate=' . $quoteHtml . '\[([^' . preg_quote($quoteHtml, '#') . ']*)]' . $quoteHtml . '#i';
                 if (preg_match($transRegExp, $tagHtml, $m)) {
                     $tagHtml = str_replace($m[0], '', $tagHtml); //remove tra
                     $trAttr = ' data-translate=' . $quoteHtml
@@ -380,7 +381,7 @@ class Mage_Core_Model_Translate_Inline
                     $trAttr = ' data-translate=' . $quoteHtml
                         . htmlspecialchars('[' . implode(',', $trArr) . ']') . $quoteHtml;
                 }
-                $tagHtml = substr_replace($tagHtml, $trAttr, strlen($tagMatch[1][0])+1, 1);
+                $tagHtml = substr_replace($tagHtml, $trAttr, strlen($tagMatch[1][0]) + 1, 1);
                 $content = substr_replace($content, $tagHtml, $tagMatch[0][1], strlen($tagMatch[0][0]));
             }
             $nextTag = $tagMatch[0][1] + strlen($tagHtml);
@@ -523,7 +524,7 @@ class Mage_Core_Model_Translate_Inline
             }
             $length = $end - $from  + $tagLength + 3;
         }
-        if (preg_match('#<\\\\?\/' . $tagName .'\s*?>#i', $body, $tagMatch, null, $end)) {
+        if (preg_match('#<\\\\?\/' . $tagName . '\s*?>#i', $body, $tagMatch, null, $end)) {
             return $end + strlen($tagMatch[0]);
         } else {
             return false;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -52,15 +53,15 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
     public function getImportedFiles()
     {
         $files = [];
-        $path = Mage::app()->getConfig()->getTempVarDir().'/import';
+        $path = Mage::app()->getConfig()->getTempVarDir() . '/import';
         if (!is_readable($path)) {
             return $files;
         }
         $dir = dir($path);
         while (($entry = $dir->read()) !== false) {
             if ($entry != '.'
-               && $entry != '..'
-               && strtolower(substr($entry, strrpos($entry, '.') + 1)) == $this->getParseType()) {
+                && $entry != '..'
+                && strtolower(substr($entry, strrpos($entry, '.') + 1)) == $this->getParseType()) {
                 $files[] = $entry;
             }
         }
@@ -73,7 +74,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
     {
         $data = Mage::registry('current_convert_profile')->getGuiData();
         if ($data) {
-            return ($data['parse']['type'] == 'excel_xml') ? 'xml': $data['parse']['type'];
+            return ($data['parse']['type'] == 'excel_xml') ? 'xml' : $data['parse']['type'];
         }
     }
 }

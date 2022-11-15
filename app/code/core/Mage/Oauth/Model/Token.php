@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -59,23 +60,23 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     /**#@+
      * Token types
      */
-    const TYPE_REQUEST = 'request';
-    const TYPE_ACCESS  = 'access';
+    public const TYPE_REQUEST = 'request';
+    public const TYPE_ACCESS  = 'access';
     /**#@- */
 
     /**#@+
      * Lengths of token fields
      */
-    const LENGTH_TOKEN    = 32;
-    const LENGTH_SECRET   = 32;
-    const LENGTH_VERIFIER = 32;
+    public const LENGTH_TOKEN    = 32;
+    public const LENGTH_SECRET   = 32;
+    public const LENGTH_VERIFIER = 32;
     /**#@- */
 
     /**#@+
      * Customer types
      */
-    const USER_TYPE_ADMIN    = 'admin';
-    const USER_TYPE_CUSTOMER = 'customer';
+    public const USER_TYPE_ADMIN    = 'admin';
+    public const USER_TYPE_CUSTOMER = 'customer';
     /**#@- */
 
     /**

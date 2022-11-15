@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -27,23 +28,22 @@
  */
 class Mage_Archive
 {
-
     /**
     * Archiver is used for compress.
     */
-    const DEFAULT_ARCHIVER   = 'gz';
+    public const DEFAULT_ARCHIVER   = 'gz';
 
     /**
     * Default packer for directory.
     */
-    const TAPE_ARCHIVER      = 'tar';
+    public const TAPE_ARCHIVER      = 'tar';
 
     /**
     * Current archiver is used for compress.
     *
     * @var Mage_Archiver_Tar|Mage_Archiver_Gz|Mage_Archiver_Bz
     */
-    protected $_archiver=null;
+    protected $_archiver = null;
 
     /**
     * Accessible formats for compress.
@@ -78,7 +78,7 @@ class Mage_Archive
         } else {
             $format = self::DEFAULT_ARCHIVER;
         }
-        $class = 'Mage_Archive_'.ucfirst($format);
+        $class = 'Mage_Archive_' . ucfirst($format);
         $this->_archiver = new $class();
         return $this->_archiver;
     }
@@ -115,11 +115,11 @@ class Mage_Archive
     {
         $archivers = $this->_getArchivers($destination);
         $interimSource = '';
-        for ($i=0; $i<count($archivers); $i++) {
+        for ($i = 0; $i < count($archivers); $i++) {
             if ($i == (count($archivers) - 1)) {
                 $packed = $destination;
             } else {
-                $packed = dirname($destination) . DS . '~tmp-'. microtime(true) . $archivers[$i] . '.' . $archivers[$i];
+                $packed = dirname($destination) . DS . '~tmp-' . microtime(true) . $archivers[$i] . '.' . $archivers[$i];
             }
             $source = $this->_getArchiver($archivers[$i])->pack($source, $packed, $skipRoot);
             if ($interimSource && $i < count($archivers)) {
@@ -145,14 +145,14 @@ class Mage_Archive
     {
         $archivers = $this->_getArchivers($source);
         $interimSource = '';
-        for ($i=count($archivers)-1; $i>=0; $i--) {
+        for ($i = count($archivers) - 1; $i >= 0; $i--) {
             if ($tillTar && $archivers[$i] == self::TAPE_ARCHIVER) {
                 break;
             }
             if ($i == 0) {
                 $packed = rtrim($destination, DS) . DS;
             } else {
-                $packed = rtrim($destination, DS) . DS . '~tmp-'. microtime(true) . $archivers[$i-1] . '.' . $archivers[$i-1];
+                $packed = rtrim($destination, DS) . DS . '~tmp-' . microtime(true) . $archivers[$i - 1] . '.' . $archivers[$i - 1];
             }
             $source = $this->_getArchiver($archivers[$i])->unpack($source, $packed);
 
@@ -206,7 +206,7 @@ class Mage_Archive
     public function isTar($file)
     {
         $archivers = $this->_getArchivers($file);
-        if (count($archivers)==1 && $archivers[0] == self::TAPE_ARCHIVER) {
+        if (count($archivers) == 1 && $archivers[0] == self::TAPE_ARCHIVER) {
             return true;
         }
         return false;

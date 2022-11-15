@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -30,7 +31,7 @@
  */
 class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_Filter_Abstract
 {
-    const MIN_RANGE_POWER = 10;
+    public const MIN_RANGE_POWER = 10;
 
     /**
      * Resource instance

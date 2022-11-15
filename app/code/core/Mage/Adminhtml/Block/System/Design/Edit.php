@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -40,7 +41,7 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Back'),
-                    'onclick'   => 'setLocation(\''.$this->getUrl('*/*/').'\')',
+                    'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/') . '\')',
                     'class' => 'back'
                 ])
         );
@@ -86,12 +87,12 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', ['_current'=>true]);
+        return $this->getUrl('*/*/save', ['_current' => true]);
     }
 
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', ['_current'=>true]);
+        return $this->getUrl('*/*/validate', ['_current' => true]);
     }
 
     public function getHeader()

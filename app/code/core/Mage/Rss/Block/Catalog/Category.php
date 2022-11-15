@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -98,7 +99,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                     ->setPageSize(50)
                 ;
 
-                if ($_productCollection->getSize()>0) {
+                if ($_productCollection->getSize() > 0) {
                     $args = ['rssObj' => $rssObj];
                     foreach ($_productCollection as $_product) {
                         $args['product'] = $_product;
@@ -131,13 +132,13 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
         $helper = $this->helper('catalog/image');
 
         $description = '<table><tr>'
-                     . '<td><a href="'.$product->getProductUrl().'"><img src="'
+                     . '<td><a href="' . $product->getProductUrl() . '"><img src="'
                      . $helper->init($product, 'thumbnail')->resize(75, 75)
                      . '" border="0" align="left" height="75" width="75"></a></td>'
                      . '<td  style="text-decoration:none;">' . $product->getDescription();
 
         if ($product->getAllowedPriceInRss()) {
-            $description.= $this->getPriceHtml($product, true);
+            $description .= $this->getPriceHtml($product, true);
         }
 
         $description .= '</td></tr></table>';

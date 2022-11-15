@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,12 +33,12 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'catalog/products';
+    public const ADMIN_RESOURCE = 'catalog/products';
 
     /**
      * The greatest value which could be stored in CatalogInventory Qty field
      */
-    const MAX_QTY_VALUE = 99999999.9999;
+    public const MAX_QTY_VALUE = 99999999.9999;
 
     /**
      * Array of actions which can be processed without secret key validation
@@ -135,7 +136,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
                 /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
                 if (!$attribute->getIsUnique()
-                    && $attribute->getFrontend()->getInputType()!='gallery'
+                    && $attribute->getFrontend()->getInputType() != 'gallery'
                     && $attribute->getAttributeCode() != 'required_options'
                     && $attribute->getAttributeCode() != 'has_options'
                     && $attribute->getAttributeCode() != $configProduct->getIdFieldName()) {
@@ -220,7 +221,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $this->loadLayout([
                 'default',
                 strtolower($this->getFullActionName()),
-                'adminhtml_catalog_product_'.$product->getTypeId() . $_additionalLayoutPart
+                'adminhtml_catalog_product_' . $product->getTypeId() . $_additionalLayoutPart
             ]);
             $this->_setActiveMenu('catalog/products');
         }
@@ -265,7 +266,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->loadLayout([
             'default',
             strtolower($this->getFullActionName()),
-            'adminhtml_catalog_product_'.$product->getTypeId() . $_additionalLayoutPart
+            'adminhtml_catalog_product_' . $product->getTypeId() . $_additionalLayoutPart
         ]);
 
         $this->_setActiveMenu('catalog/products');
@@ -274,7 +275,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $switchBlock->setDefaultStoreName($this->__('Default Values'))
                 ->setWebsiteIds($product->getWebsiteIds())
                 ->setSwitchUrl(
-                    $this->getUrl('*/*/*', ['_current'=>true, 'active_tab'=>null, 'tab' => null, 'store'=>null])
+                    $this->getUrl('*/*/*', ['_current' => true, 'active_tab' => null, 'tab' => null, 'store' => null])
                 );
         }
 
@@ -775,7 +776,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         if ($redirectBack) {
             $this->_redirect('*/*/edit', [
                 'id'    => $productId,
-                '_current'=>true
+                '_current' => true
             ]);
         } elseif ($this->getRequest()->getParam('popup')) {
             $this->_redirect('*/*/created', [
@@ -784,7 +785,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 'edit'       => $isEdit
             ]);
         } else {
-            $this->_redirect('*/*/', ['store'=>$storeId]);
+            $this->_redirect('*/*/', ['store' => $storeId]);
         }
     }
 
@@ -821,11 +822,11 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         try {
             $newProduct = $product->duplicate();
             $this->_getSession()->addSuccess($this->__('The product has been duplicated.'));
-            $this->_redirect('*/*/edit', ['_current'=>true, 'id'=>$newProduct->getId()]);
+            $this->_redirect('*/*/edit', ['_current' => true, 'id' => $newProduct->getId()]);
         } catch (Exception $e) {
             Mage::logException($e);
             $this->_getSession()->addError($e->getMessage());
-            $this->_redirect('*/*/edit', ['_current'=>true]);
+            $this->_redirect('*/*/edit', ['_current' => true]);
         }
     }
 
@@ -857,7 +858,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             }
         }
         $this->getResponse()
-            ->setRedirect($this->getUrl('*/*/', ['store'=>$this->getRequest()->getParam('store')]));
+            ->setRedirect($this->getUrl('*/*/', ['store' => $this->getRequest()->getParam('store')]));
     }
 
     /**
@@ -973,7 +974,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 ->addException($e, $this->__('An error occurred while updating the product(s) status.'));
         }
 
-        $this->_redirect('*/*/', ['store'=> $storeId]);
+        $this->_redirect('*/*/', ['store' => $storeId]);
     }
 
     /**
@@ -1087,7 +1088,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 }
 
                 if (!empty($pricing['is_percent'])) {
-                    $pricing['value'] = ($pricing['value']/100)*$product->getPrice();
+                    $pricing['value'] = ($pricing['value'] / 100) * $product->getPrice();
                 }
 
                 $additionalPrice += $pricing['value'];

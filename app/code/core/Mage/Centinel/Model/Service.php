@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,11 +32,11 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Cmpi public keys
      */
-    const CMPI_PARES    = 'centinel_authstatus';
-    const CMPI_ENROLLED = 'centinel_mpivendor';
-    const CMPI_CAVV     = 'centinel_cavv';
-    const CMPI_ECI      = 'centinel_eci';
-    const CMPI_XID      = 'centinel_xid';
+    public const CMPI_PARES    = 'centinel_authstatus';
+    public const CMPI_ENROLLED = 'centinel_mpivendor';
+    public const CMPI_CAVV     = 'centinel_cavv';
+    public const CMPI_ECI      = 'centinel_eci';
+    public const CMPI_XID      = 'centinel_xid';
 
     /**
      * State cmpi results to public map

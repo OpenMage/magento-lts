@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -30,7 +31,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'promo/quote';
+    public const ADMIN_RESOURCE = 'promo/quote';
 
     /**
     * Controller pre-dispatch method
@@ -159,12 +160,12 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                         $session->addError($errorMessage);
                     }
                     $session->setPageData($data);
-                    $this->_redirect('*/*/edit', ['id'=>$model->getId()]);
+                    $this->_redirect('*/*/edit', ['id' => $model->getId()]);
                     return;
                 }
 
                 if (isset($data['simple_action']) && $data['simple_action'] == 'by_percent'
-                && isset($data['discount_amount'])) {
+                    && isset($data['discount_amount'])) {
                     $data['discount_amount'] = min(100, $data['discount_amount']);
                 }
                 if (isset($data['rule']['conditions'])) {

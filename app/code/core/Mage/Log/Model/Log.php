@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -41,7 +42,7 @@
  */
 class Mage_Log_Model_Log extends Mage_Core_Model_Abstract
 {
-    const XML_LOG_CLEAN_DAYS    = 'system/log/clean_after_day';
+    public const XML_LOG_CLEAN_DAYS    = 'system/log/clean_after_day';
 
     /**
      * Init Resource Model

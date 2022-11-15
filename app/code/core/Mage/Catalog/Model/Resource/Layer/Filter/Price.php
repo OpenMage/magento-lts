@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
     /**
      * Minimal possible price
      */
-    const MIN_POSSIBLE_PRICE = .01;
+    public const MIN_POSSIBLE_PRICE = .01;
 
     protected function _construct()
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -75,7 +76,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
 
             foreach ($this->getShipment()->getAllItems() as $item) {
                 $orderItemId = $item->getOrderItemId();
-                $itemsQty[$orderItemId]          = $item->getQty()*1;
+                $itemsQty[$orderItemId]          = $item->getQty() * 1;
                 $itemsPrice[$orderItemId]        = $item->getPrice();
                 $itemsName[$orderItemId]         = $item->getName();
                 $itemsWeight[$orderItemId]       = $item->getWeight();
@@ -357,7 +358,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     public function getQtyOrderedItem($itemId)
     {
         if ($itemId) {
-            return $this->getShipment()->getOrder()->getItemById($itemId)->getQtyOrdered()*1;
+            return $this->getShipment()->getOrder()->getItemById($itemId)->getQtyOrdered() * 1;
         } else {
             return;
         }

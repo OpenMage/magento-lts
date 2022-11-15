@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -108,7 +109,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function addRequestParam($url, $param)
     {
-        $startDelimiter = (strpos($url, '?') === false)? '?' : '&';
+        $startDelimiter = (strpos($url, '?') === false) ? '?' : '&';
 
         $arrQueryParams = [];
         foreach ($param as $key => $value) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
     /**
      * Data key for matching result to be saved in
      */
-    const EVENT_MATCH_RESULT_KEY = 'catalog_category_flat_match_result';
+    public const EVENT_MATCH_RESULT_KEY = 'catalog_category_flat_match_result';
 
     /**
      * Matched entity events
@@ -125,7 +126,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
                     $store->isObjectNew()
                     || $store->dataHasChangedFor('group_id')
                     || $store->dataHasChangedFor('root_category_id')
-                )) {
+                    )) {
                     $result = true;
                 } else {
                     $result = false;

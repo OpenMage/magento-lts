@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -89,6 +90,6 @@ class Mage_Core_Model_Translate_Expr
      */
     public function getCode($separator = '::')
     {
-        return $this->getModule().$separator.$this->getText();
+        return $this->getModule() . $separator . $this->getText();
     }
 }

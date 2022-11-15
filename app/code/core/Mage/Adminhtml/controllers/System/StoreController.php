@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/store';
+    public const ADMIN_RESOURCE = 'system/store';
 
     /**
      * Controller pre-dispatch method
@@ -231,7 +232,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
 
                         Mage::app()->reinitStores();
 
-                        Mage::dispatchEvent($eventName, ['store'=>$storeModel]);
+                        Mage::dispatchEvent($eventName, ['store' => $storeModel]);
 
                         $session->addSuccess(Mage::helper('core')->__('The store view has been saved'));
                         break;

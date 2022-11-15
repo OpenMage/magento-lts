@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -42,10 +43,10 @@ class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget
         ]);
 
         $fieldset->addField('all_cache', 'select', [
-            'name'=>'all_cache',
-            'label'=>'<strong>'.Mage::helper('adminhtml')->__('All Cache').'</strong>',
-            'value'=>1,
-            'options'=> [
+            'name' => 'all_cache',
+            'label' => '<strong>' . Mage::helper('adminhtml')->__('All Cache') . '</strong>',
+            'value' => 1,
+            'options' => [
                 '' => Mage::helper('adminhtml')->__('No change'),
                 'refresh' => Mage::helper('adminhtml')->__('Refresh'),
                 'disable' => Mage::helper('adminhtml')->__('Disable'),
@@ -54,11 +55,11 @@ class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget
         ]);
 
         foreach (Mage::helper('core')->getCacheTypes() as $type => $label) {
-            $fieldset->addField('enable_'.$type, 'checkbox', [
-                'name'=>'enable['.$type.']',
-                'label'=>Mage::helper('adminhtml')->__($label),
-                'value'=>1,
-                'checked'=>(int)Mage::app()->useCache($type),
+            $fieldset->addField('enable_' . $type, 'checkbox', [
+                'name' => 'enable[' . $type . ']',
+                'label' => Mage::helper('adminhtml')->__($label),
+                'value' => 1,
+                'checked' => (int)Mage::app()->useCache($type),
                 //'options'=>$options,
             ]);
         }
@@ -68,11 +69,11 @@ class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget
         ]);
 
         foreach (Mage::helper('core')->getCacheBetaTypes() as $type => $label) {
-            $fieldset->addField('beta_enable_'.$type, 'checkbox', [
-                'name'=>'beta['.$type.']',
-                'label'=>Mage::helper('adminhtml')->__($label),
-                'value'=>1,
-                'checked'=>(int)Mage::app()->useCache($type),
+            $fieldset->addField('beta_enable_' . $type, 'checkbox', [
+                'name' => 'beta[' . $type . ']',
+                'label' => Mage::helper('adminhtml')->__($label),
+                'value' => 1,
+                'checked' => (int)Mage::app()->useCache($type),
             ]);
         }
 

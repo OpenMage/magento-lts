@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -198,7 +199,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validatePrice(&$var)
     {
-        $var = is_numeric($var)? floatval($var) : floatval(0);
+        $var = is_numeric($var) ? floatval($var) : floatval(0);
     }
 
     /**
@@ -208,7 +209,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateNumOfDownloads(&$var)
     {
-        $var = is_numeric($var)? intval($var) : 0;
+        $var = is_numeric($var) ? intval($var) : 0;
     }
 
     /**
@@ -218,7 +219,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateUnlimited(&$var)
     {
-        $var = ((is_numeric($var) && $var >= 0 && $var <= 1) || (is_bool($var)))? intval($var) : 0;
+        $var = ((is_numeric($var) && $var >= 0 && $var <= 1) || (is_bool($var))) ? intval($var) : 0;
     }
 
     /**
@@ -228,7 +229,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateShareable(&$var)
     {
-        $var = (is_numeric($var) && $var >= 0 && $var <= 2)? intval($var) : 2;
+        $var = (is_numeric($var) && $var >= 0 && $var <= 2) ? intval($var) : 2;
     }
 
     /**
@@ -238,7 +239,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateFile(&$var)
     {
-        $var = is_array($var)? $var : null;
+        $var = is_array($var) ? $var : null;
     }
 
     /**
@@ -265,7 +266,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateOrder(&$var)
     {
-        $var = is_numeric($var)? intval($var) : 0;
+        $var = is_numeric($var) ? intval($var) : 0;
     }
 
     /**
@@ -275,6 +276,6 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateUploadType(&$var)
     {
-        $var = in_array($var, $this->_uploadTypes)? $var : 'file';
+        $var = in_array($var, $this->_uploadTypes) ? $var : 'file';
     }
 }

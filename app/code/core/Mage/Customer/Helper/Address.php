@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -217,7 +218,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     {
         $lines = [];
         if (!empty($origStreets) && $toCount > 0) {
-            $countArgs = (int)floor(count($origStreets)/$toCount);
+            $countArgs = (int)floor(count($origStreets) / $toCount);
             $modulo = count($origStreets) % $toCount;
             $offset = 0;
             $neededLinesCount = 0;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -81,7 +82,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
 
         $fieldset = $form->addFieldset(
             'base_fieldset',
-            ['legend '=> Mage::helper('catalogrule')->__('General Information')]
+            ['legend ' => Mage::helper('catalogrule')->__('General Information')]
         );
 
         $fieldset->addField('auto_apply', 'hidden', [

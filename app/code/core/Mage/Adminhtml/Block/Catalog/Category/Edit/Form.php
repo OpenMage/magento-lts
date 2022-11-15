@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -85,7 +86,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Reset'),
-                        'onclick'   => "categoryReset('".$this->getUrl($resetPath, ['_current'=>true])."',true)"
+                        'onclick'   => "categoryReset('" . $this->getUrl($resetPath, ['_current' => true]) . "',true)"
                     ])
             );
         }
@@ -201,7 +202,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
 
     public function getDeleteUrl(array $args = [])
     {
-        $params = ['_current'=>true];
+        $params = ['_current' => true];
         $params = array_merge($params, $args);
         return $this->getUrl('*/*/delete', $params);
     }
@@ -214,7 +215,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
      */
     public function getRefreshPathUrl(array $args = [])
     {
-        $params = ['_current'=>true];
+        $params = ['_current' => true];
         $params = array_merge($params, $args);
         return $this->getUrl('*/*/refreshPath', $params);
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,7 @@
  */
 class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
 {
-    const XML_NODE_REMOTE_ADDR_HEADERS  = 'global/remote_addr_headers';
+    public const XML_NODE_REMOTE_ADDR_HEADERS  = 'global/remote_addr_headers';
 
     protected $_moduleName = 'Mage_Core';
 
@@ -55,7 +56,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
         // moshe's fix for CGI
         if (empty($_SERVER['HTTP_AUTHORIZATION'])) {
             foreach ($_SERVER as $k => $v) {
-                if (substr($k, -18)==='HTTP_AUTHORIZATION' && !empty($v)) {
+                if (substr($k, -18) === 'HTTP_AUTHORIZATION' && !empty($v)) {
                     $_SERVER['HTTP_AUTHORIZATION'] = $v;
                     break;
                 }

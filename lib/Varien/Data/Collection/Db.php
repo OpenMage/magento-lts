@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -343,7 +344,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         foreach ($this->_filters as $filter) {
             switch ($filter['type']) {
                 case 'or':
-                    $condition = $this->_conn->quoteInto($filter['field'].'=?', $filter['value']);
+                    $condition = $this->_conn->quoteInto($filter['field'] . '=?', $filter['value']);
                     $this->_select->orWhere($condition);
                     break;
                 case 'string':
@@ -359,7 +360,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                     );
                     break;
                 default:
-                    $condition = $this->_conn->quoteInto($filter['field'].'=?', $filter['value']);
+                    $condition = $this->_conn->quoteInto($filter['field'] . '=?', $filter['value']);
                     $this->_select->where($condition);
             }
         }
@@ -809,7 +810,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         $id = md5((string)$select);
         if (isset($this->_cacheConf['prefix'])) {
-            $id = $this->_cacheConf['prefix'].'_'.$id;
+            $id = $this->_cacheConf['prefix'] . '_' . $id;
         }
         return $id;
     }

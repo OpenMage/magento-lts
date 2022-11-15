@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -50,14 +51,14 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Grid extends Mage_Adminhtml_Blo
     {
         $this->addColumn('answer_id', [
             'header'    => Mage::helper('poll')->__('ID'),
-            'align'     =>'right',
+            'align'     => 'right',
             'width'     => '50px',
             'index'     => 'answer_id',
         ]);
 
         $this->addColumn('answer_title', [
             'header'    => Mage::helper('poll')->__('Answer Title'),
-            'align'     =>'left',
+            'align'     => 'left',
             'index'     => 'answer_title',
         ]);
 

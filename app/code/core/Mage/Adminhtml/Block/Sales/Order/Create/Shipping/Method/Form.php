@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -79,7 +80,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form extends Mage_
      */
     public function getCarrierName($carrierCode)
     {
-        if ($name = Mage::getStoreConfig('carriers/'.$carrierCode.'/title', $this->getStore()->getId())) {
+        if ($name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title', $this->getStore()->getId())) {
             return $name;
         }
         return $carrierCode;
@@ -103,7 +104,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form extends Mage_
      */
     public function isMethodActive($code)
     {
-        return $code===$this->getShippingMethod();
+        return $code === $this->getShippingMethod();
     }
 
     /**

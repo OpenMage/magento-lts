@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -48,7 +49,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                         '*/catalog_product/edit',
                         ['id' => $this->getRequest()->getParam('productId', false)]
                     )
-                    .'\')'
+                    . '\')'
             );
         }
 
@@ -61,12 +62,12 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                         '*/customer/edit',
                         ['id' => $this->getRequest()->getParam('customerId', false)]
                     )
-                    .'\')'
+                    . '\')'
             );
         }
 
         if ($this->getRequest()->getParam('ret', false) == 'pending') {
-            $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getUrl('*/*/pending') .'\')');
+            $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getUrl('*/*/pending') . '\')');
             $this->_updateButton(
                 'delete',
                 'onclick',
@@ -104,7 +105,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                         $(\'save_button\').disabled = true;
                         new Ajax.Updater(
                             "rating_detail",
-                            "' . $this->getUrl('*/*/ratingItems', ['_current'=>true]).'",
+                            "' . $this->getUrl('*/*/ratingItems', ['_current' => true]) . '",
                             {
                                 parameters:Form.serializeElements(elements),
                                 evalScripts:true,

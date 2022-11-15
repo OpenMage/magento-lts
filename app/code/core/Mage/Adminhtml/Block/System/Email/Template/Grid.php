@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -50,44 +51,44 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid extends Mage_Adminhtml_Blo
         $this->addColumn(
             'template_id',
             [
-                  'header'=>Mage::helper('adminhtml')->__('ID'),
-                  'index'=>'template_id'
+                  'header' => Mage::helper('adminhtml')->__('ID'),
+                  'index' => 'template_id'
             ]
         );
 
         $this->addColumn(
             'code',
             [
-                'header'=>Mage::helper('adminhtml')->__('Template Name'),
-                'index'=>'template_code'
+                'header' => Mage::helper('adminhtml')->__('Template Name'),
+                'index' => 'template_code'
             ]
         );
 
         $this->addColumn(
             'added_at',
             [
-                'header'=>Mage::helper('adminhtml')->__('Date Added'),
-                'index'=>'added_at',
+                'header' => Mage::helper('adminhtml')->__('Date Added'),
+                'index' => 'added_at',
                 'gmtoffset' => true,
-                'type'=>'datetime'
+                'type' => 'datetime'
             ]
         );
 
         $this->addColumn(
             'modified_at',
             [
-                'header'=>Mage::helper('adminhtml')->__('Date Updated'),
-                'index'=>'modified_at',
+                'header' => Mage::helper('adminhtml')->__('Date Updated'),
+                'index' => 'modified_at',
                 'gmtoffset' => true,
-                'type'=>'datetime'
+                'type' => 'datetime'
             ]
         );
 
         $this->addColumn(
             'subject',
             [
-                'header'=>Mage::helper('adminhtml')->__('Subject'),
-                'index'=>'template_subject'
+                'header' => Mage::helper('adminhtml')->__('Subject'),
+                'index' => 'template_subject'
             ]
         );
         /*
@@ -101,8 +102,8 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid extends Mage_Adminhtml_Blo
         $this->addColumn(
             'type',
             [
-                'header'=>Mage::helper('adminhtml')->__('Template Type'),
-                'index'=>'template_type',
+                'header' => Mage::helper('adminhtml')->__('Template Type'),
+                'index' => 'template_type',
                 'filter' => 'adminhtml/system_email_template_grid_filter_type',
                 'renderer' => 'adminhtml/system_email_template_grid_renderer_type'
             ]
@@ -124,6 +125,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid extends Mage_Adminhtml_Blo
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', ['id'=>$row->getId()]);
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
 }

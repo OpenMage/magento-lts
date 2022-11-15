@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'report/statistics';
+    public const ADMIN_RESOURCE = 'report/statistics';
 
     /**
      * Admin session model

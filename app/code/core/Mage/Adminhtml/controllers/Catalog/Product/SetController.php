@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'catalog/attributes/sets';
+    public const ADMIN_RESOURCE = 'catalog/attributes/sets';
 
     public function indexAction()
     {

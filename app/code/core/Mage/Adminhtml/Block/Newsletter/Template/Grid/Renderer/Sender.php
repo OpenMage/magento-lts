@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -35,7 +36,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Sender extends Mage
             $str .= $this->escapeHtml($row->getTemplateSenderName()) . ' ';
         }
         if ($row->getTemplateSenderEmail()) {
-            $str .= '[' .$this->escapeHtml($row->getTemplateSenderEmail()) . ']';
+            $str .= '[' . $this->escapeHtml($row->getTemplateSenderEmail()) . ']';
         }
         if ($str == '') {
             $str .= '---';

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -40,7 +41,7 @@ class Mage_Adminhtml_Block_Report_Sales_Grid_Column_Renderer_Date extends Mage_A
             if (is_null(self::$_format)) {
                 try {
                     $localeCode = Mage::app()->getLocale()->getLocaleCode();
-                    $localeData = new Zend_Locale_Data;
+                    $localeData = new Zend_Locale_Data();
                     switch ($this->getColumn()->getPeriodType()) {
                         case 'month':
                             self::$_format = $localeData::getContent($localeCode, 'dateitem', 'yM');

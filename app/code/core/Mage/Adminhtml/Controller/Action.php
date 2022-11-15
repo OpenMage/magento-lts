@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,18 +32,18 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Name of "is URLs checked" flag
      */
-    const FLAG_IS_URLS_CHECKED = 'check_url_settings';
+    public const FLAG_IS_URLS_CHECKED = 'check_url_settings';
 
     /**
      * Session namespace to refer in other places
      */
-    const SESSION_NAMESPACE = 'adminhtml';
+    public const SESSION_NAMESPACE = 'adminhtml';
 
     /**
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'admin';
+    public const ADMIN_RESOURCE = 'admin';
 
     /**
      * Array of actions which can be processed without secret key validation
@@ -253,7 +254,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         if ($defaultSecure == '{{base_url}}' || $defaultUnsecure == '{{base_url}}') {
             $this->_getSession()->addNotice(
-                $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', ['section'=>'web']))
+                $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', ['section' => 'web']))
             );
             return $this;
         }
@@ -265,11 +266,11 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         foreach ($dataCollection as $data) {
             if ($data->getScope() == 'stores') {
                 $code = Mage::app()->getStore($data->getScopeId())->getCode();
-                $url = $this->getUrl('adminhtml/system_config/edit', ['section'=>'web', 'store'=>$code]);
+                $url = $this->getUrl('adminhtml/system_config/edit', ['section' => 'web', 'store' => $code]);
             }
             if ($data->getScope() == 'websites') {
                 $code = Mage::app()->getWebsite($data->getScopeId())->getCode();
-                $url = $this->getUrl('adminhtml/system_config/edit', ['section'=>'web', 'website'=>$code]);
+                $url = $this->getUrl('adminhtml/system_config/edit', ['section' => 'web', 'website' => $code]);
             }
 
             if ($url) {
@@ -442,7 +443,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     protected function _setForcedFormKeyActions($actionNames)
     {
         if (!Mage::helper('adminhtml')->isEnabledSecurityKeyUrl()) {
-            $actionNames = (is_array($actionNames)) ? $actionNames: (array)$actionNames;
+            $actionNames = (is_array($actionNames)) ? $actionNames : (array)$actionNames;
             $actionNames = array_merge($this->_forcedFormKeyActions, $actionNames);
             $actionNames = array_unique($actionNames);
             $this->_forcedFormKeyActions = $actionNames;

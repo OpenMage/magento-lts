@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -388,7 +389,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             $this->_getSession()->addException($e, $e->getMessage());
         }
 
-        $asJson= $request->getParam('json');
+        $asJson = $request->getParam('json');
         $block = $request->getParam('block');
 
         $update = $this->getLayout()->getUpdate();
@@ -463,7 +464,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         if ($orderId = $this->_getSession()->getReordered()) {
             $this->_getSession()->clear();
             $this->_redirect('*/sales_order/view', [
-                'order_id'=>$orderId
+                'order_id' => $orderId
             ]);
         } else {
             $this->_getSession()->clear();

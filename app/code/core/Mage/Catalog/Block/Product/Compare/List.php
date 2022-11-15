@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -168,7 +169,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
      */
     public function getPrintUrl()
     {
-        return $this->getUrl('*/*/*', ['_current'=>true, 'print'=>1]);
+        return $this->getUrl('*/*/*', ['_current' => true, 'print' => 1]);
     }
 
     /**

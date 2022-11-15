@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'dashboard';
+    public const ADMIN_RESOURCE = 'dashboard';
 
     public function indexAction()
     {

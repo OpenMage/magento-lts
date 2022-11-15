@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -71,7 +72,7 @@ $paymentsCount = $connection->fetchOne("
 $connection->beginTransaction();
 try {
     /* process payment attributes*/
-    for ($i=0; $i<=$paymentsCount; $i+=$processingItemsCountForOneIteration) {
+    for ($i = 0; $i <= $paymentsCount; $i += $processingItemsCountForOneIteration) {
         /* get payment ids for current iteration*/
         $currentPaymentIds = $installer->getConnection()->fetchCol("
             SELECT entity_id

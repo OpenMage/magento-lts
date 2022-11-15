@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'catalog/urlrewrite';
+    public const ADMIN_RESOURCE = 'catalog/urlrewrite';
 
     /**
      * Instantiate urlrewrite, product and category
@@ -217,7 +218,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')
                     ->addException($e, Mage::helper('adminhtml')->__('An error occurred while deleting URL Rewrite.'));
-                $this->_redirect('*/*/edit/', ['id'=>Mage::registry('current_urlrewrite')->getId()]);
+                $this->_redirect('*/*/edit/', ['id' => Mage::registry('current_urlrewrite')->getId()]);
                 return;
             }
         }

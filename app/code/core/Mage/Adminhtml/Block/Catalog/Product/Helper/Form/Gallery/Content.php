@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -117,7 +118,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     {
         if (is_array($this->getElement()->getValue())) {
             $value = $this->getElement()->getValue();
-            if (count($value['images'])>0) {
+            if (count($value['images']) > 0) {
                 foreach ($value['images'] as &$image) {
                     $image['url'] = Mage::getSingleton('catalog/product_media_config')
                                         ->getMediaUrl($image['file']);

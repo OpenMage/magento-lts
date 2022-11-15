@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Customer_ConfigController extends Mage_Adminhtml_Controller
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'customer/config';
+    public const ADMIN_RESOURCE = 'customer/config';
 
     public function indexAction()
     {

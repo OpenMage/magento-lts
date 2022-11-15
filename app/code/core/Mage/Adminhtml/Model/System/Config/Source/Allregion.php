@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -50,14 +51,14 @@ class Mage_Adminhtml_Model_System_Config_Source_Allregion
             foreach ($countryRegions as $countryId => $regions) {
                 $regionOptions = [];
                 foreach ($regions as $regionId => $regionName) {
-                    $regionOptions[] = ['label'=>$regionName, 'value'=>$regionId];
+                    $regionOptions[] = ['label' => $regionName, 'value' => $regionId];
                 }
-                $this->_options[] = ['label'=>$this->_countries[$countryId], 'value'=>$regionOptions];
+                $this->_options[] = ['label' => $this->_countries[$countryId], 'value' => $regionOptions];
             }
         }
         $options = $this->_options;
         if (!$isMultiselect) {
-            array_unshift($options, ['value'=>'', 'label'=>'']);
+            array_unshift($options, ['value' => '', 'label' => '']);
         }
 
         return $options;

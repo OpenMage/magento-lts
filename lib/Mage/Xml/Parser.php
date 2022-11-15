@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -25,7 +26,7 @@ class Mage_Xml_Parser
 
     public function __construct()
     {
-        $this->_dom = new DOMDocument;
+        $this->_dom = new DOMDocument();
         $this->_currentDom = $this->_dom;
         return $this;
     }
@@ -68,9 +69,9 @@ class Mage_Xml_Parser
                     $attributes = [];
                     if ($node->hasAttributes()) {
                         foreach ($node->attributes as $attribute) {
-                            $attributes += [$attribute->name=>$attribute->value];
+                            $attributes += [$attribute->name => $attribute->value];
                         }
-                        $value = ['_value'=>$value, '_attribute'=>$attributes];
+                        $value = ['_value' => $value, '_attribute' => $attributes];
                     }
                     if (isset($content[$node->nodeName])) {
                         if (!isset($content[$node->nodeName][0]) || !is_array($content[$node->nodeName][0])) {

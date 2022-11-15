@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -35,7 +36,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Locale_Currency_All
         }
         $options = $this->_options;
         if (!$isMultiselect) {
-            array_unshift($options, ['value'=>'', 'label'=>'']);
+            array_unshift($options, ['value' => '', 'label' => '']);
         }
 
         return $options;

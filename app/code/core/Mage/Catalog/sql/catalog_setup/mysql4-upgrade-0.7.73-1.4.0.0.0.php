@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -76,7 +77,7 @@ foreach ($describe as $columnData) {
     $installer->getConnection()->dropColumn($installer->getTable('eav/attribute'), $columnData['COLUMN_NAME']);
 }
 
-$prefix = Mage_Catalog_Model_Entity_Attribute::MODULE_NAME.Mage_Core_Model_Translate::SCOPE_SEPARATOR;
+$prefix = Mage_Catalog_Model_Entity_Attribute::MODULE_NAME . Mage_Core_Model_Translate::SCOPE_SEPARATOR;
 $sql = "
     INSERT
         INTO `{$installer->getTable('eav/attribute_label')}` (`attribute_id`, `store_id`, `value`)

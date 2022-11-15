@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -278,7 +279,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     {
         if ($code == 'tax_amount' && $this->getOrder()->getRowTaxDisplayPrecision()) {
             return $this->displayRoundedPrices(
-                $this->getPriceDataObject()->getData('base_'.$code),
+                $this->getPriceDataObject()->getData('base_' . $code),
                 $this->getPriceDataObject()->getData($code),
                 $this->getOrder()->getRowTaxDisplayPrecision(),
                 $strong,
@@ -286,7 +287,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
             );
         } else {
             return $this->displayPrices(
-                $this->getPriceDataObject()->getData('base_'.$code),
+                $this->getPriceDataObject()->getData('base_' . $code),
                 $this->getPriceDataObject()->getData($code),
                 $strong,
                 $separator
@@ -322,13 +323,13 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     {
         if ($this->getOrder()->isCurrencyDifferent()) {
             $res = '';
-            $res.= $this->getOrder()->formatBasePricePrecision($basePrice, $precision);
-            $res.= $separator;
-            $res.= $this->getOrder()->formatPricePrecision($price, $precision, true);
+            $res .= $this->getOrder()->formatBasePricePrecision($basePrice, $precision);
+            $res .= $separator;
+            $res .= $this->getOrder()->formatPricePrecision($price, $precision, true);
         } else {
             $res = $this->getOrder()->formatPricePrecision($price, $precision);
             if ($strong) {
-                $res = '<strong>'.$res.'</strong>';
+                $res = '<strong>' . $res . '</strong>';
             }
         }
         return $res;
@@ -350,8 +351,8 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         $priceTax = 0;
 
         if (floatval($qty)) {
-            $basePriceTax = $item->getBasePrice()+$baseTax/$qty;
-            $priceTax = $item->getPrice()+$tax/$qty;
+            $basePriceTax = $item->getBasePrice() + $baseTax / $qty;
+            $priceTax = $item->getPrice() + $tax / $qty;
         }
 
         return $this->displayPrices(
@@ -372,8 +373,8 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         $tax = ($item->getBaseTaxBeforeDiscount() ? $item->getBaseTaxBeforeDiscount() : ($item->getBaseTaxAmount() ? $item->getBaseTaxAmount() : 0));
 
         return $this->displayPrices(
-            $item->getBaseRowTotal()+$baseTax,
-            $item->getRowTotal()+$tax
+            $item->getBaseRowTotal() + $baseTax,
+            $item->getRowTotal() + $tax
         );
     }
 

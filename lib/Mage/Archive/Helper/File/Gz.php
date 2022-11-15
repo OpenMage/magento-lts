@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -27,7 +28,6 @@
 */
 class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
 {
-
     /**
      * Overwritten Mage_Archive_Helper_File constructor with zlib extension check
      * @param string $filePath

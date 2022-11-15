@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -30,7 +31,7 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/design';
+    public const ADMIN_RESOURCE = 'system/design';
 
     /**
      * Controller pre-dispatch method
@@ -114,7 +115,7 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
                 Mage::getSingleton('adminhtml/session')
                     ->addError($e->getMessage())
                     ->setDesignData($data);
-                $this->_redirect('*/*/edit', ['id'=>$design->getId()]);
+                $this->_redirect('*/*/edit', ['id' => $design->getId()]);
                 return;
             }
         }

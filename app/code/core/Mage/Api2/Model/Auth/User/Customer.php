@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Api2_Model_Auth_User_Customer extends Mage_Api2_Model_Auth_User_Abstr
     /**
      * User type
      */
-    const USER_TYPE = 'customer';
+    public const USER_TYPE = 'customer';
 
     /**
      * Retrieve user human-readable label

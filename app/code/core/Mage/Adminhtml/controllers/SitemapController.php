@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,12 +33,12 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'catalog/sitemap';
+    public const ADMIN_RESOURCE = 'catalog/sitemap';
 
     /**
      * Maximum sitemap name length
      */
-    const MAXIMUM_SITEMAP_NAME_LENGTH = 32;
+    public const MAXIMUM_SITEMAP_NAME_LENGTH = 32;
 
     /**
      * Controller pre-dispatch method

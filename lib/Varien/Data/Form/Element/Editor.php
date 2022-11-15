@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -118,11 +119,11 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                         Translator.add(' . Zend_Json::encode($translatedString) . ');
                     }'
                     . $jsSetupObject . ' = new tinyMceWysiwygSetup("' . $this->getHtmlId() . '", '
-                    . Zend_Json::encode($this->getConfig()).');'
-                    . $forceLoad.'
+                    . Zend_Json::encode($this->getConfig()) . ');'
+                    . $forceLoad . '
                     editorFormValidationHandler = ' . $jsSetupObject . '.onFormValidation.bind(' . $jsSetupObject . ');
                     Event.observe("toggle' . $this->getHtmlId() . '", "click", '
-                        . $jsSetupObject . '.toggle.bind('.$jsSetupObject.'));
+                        . $jsSetupObject . '.toggle.bind(' . $jsSetupObject . '));
                     varienGlobalEvents.attachEventHandler("formSubmit", editorFormValidationHandler);
                     varienGlobalEvents.attachEventHandler("tinymceBeforeSetContent", '
                         . $jsSetupObject . '.beforeSetContent.bind(' . $jsSetupObject . '));
@@ -167,7 +168,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      */
     protected function _getButtonsHtml()
     {
-        $buttonsHtml = '<div id="buttons'.$this->getHtmlId().'" class="buttons-set">';
+        $buttonsHtml = '<div id="buttons' . $this->getHtmlId() . '" class="buttons-set">';
         if ($this->isEnabled()) {
             $buttonsHtml .= $this->_getToggleButtonHtml() . $this->_getPluginButtonsHtml($this->isHidden());
         } else {
@@ -190,7 +191,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             'title'     => $this->translate('Show / Hide Editor'),
             'class'     => 'show-hide',
             'style'     => $visible ? '' : 'display:none',
-            'id'        => 'toggle'.$this->getHtmlId(),
+            'id'        => 'toggle' . $this->getHtmlId(),
         ]);
         return $html;
     }
@@ -294,7 +295,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             if (is_array($value) && isset($value['search']) && isset($value['subject'])) {
                 $subject = $value['subject'];
                 foreach ($value['search'] as $part) {
-                    $subject = str_replace('{{'.$part.'}}', $this->getDataUsingMethod($part), $subject);
+                    $subject = str_replace('{{' . $part . '}}', $this->getDataUsingMethod($part), $subject);
                 }
                 $preparedOptions[$name] = $subject;
             } else {
@@ -313,13 +314,13 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     protected function _getButtonHtml($data)
     {
         $html = '<button type="button"';
-        $html.= ' class="scalable '.(isset($data['class']) ? $data['class'] : '').'"';
-        $html.= isset($data['onclick']) ? ' onclick="'.$data['onclick'].'"' : '';
-        $html.= isset($data['style']) ? ' style="'.$data['style'].'"' : '';
-        $html.= isset($data['id']) ? ' id="'.$data['id'].'"' : '';
-        $html.= '>';
-        $html.= isset($data['title']) ? '<span><span><span>'.$data['title'].'</span></span></span>' : '';
-        $html.= '</button>';
+        $html .= ' class="scalable ' . (isset($data['class']) ? $data['class'] : '') . '"';
+        $html .= isset($data['onclick']) ? ' onclick="' . $data['onclick'] . '"' : '';
+        $html .= isset($data['style']) ? ' style="' . $data['style'] . '"' : '';
+        $html .= isset($data['id']) ? ' id="' . $data['id'] . '"' : '';
+        $html .= '>';
+        $html .= isset($data['title']) ? '<span><span><span>' . $data['title'] . '</span></span></span>' : '';
+        $html .= '</button>';
 
         return $html;
     }
@@ -337,7 +338,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             return $html;
         }
 
-        $html = '<div id="editor'.$this->getHtmlId().'"'
+        $html = '<div id="editor' . $this->getHtmlId() . '"'
               . ($this->getConfig('no_display') ? ' style="display:none;"' : '')
               . ($this->getConfig('container_class') ? ' class="' . $this->getConfig('container_class') . '"' : '')
               . '>'

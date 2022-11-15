@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -125,7 +126,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
         if (!$this->_xml) {
             return $this;
         }
-        $nodes = $this->_xml->xpath("//profile[@name='".$name."']");
+        $nodes = $this->_xml->xpath("//profile[@name='" . $name . "']");
         if (!$nodes) {
             return $this;
         }

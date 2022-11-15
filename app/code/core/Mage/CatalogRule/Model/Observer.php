@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -175,7 +176,7 @@ class Mage_CatalogRule_Model_Observer
                 ->getRulePrice($date, $wId, $gId, $pId);
             $this->_rulePrices[$key] = $rulePrice;
         }
-        if ($this->_rulePrices[$key]!==false) {
+        if ($this->_rulePrices[$key] !== false) {
             $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
             $product->setFinalPrice($finalPrice);
         }
@@ -216,7 +217,7 @@ class Mage_CatalogRule_Model_Observer
                     ->getRulePrice($date, $wId, $gId, $pId);
                 $this->_rulePrices[$key] = $rulePrice;
             }
-            if ($this->_rulePrices[$key]!==false) {
+            if ($this->_rulePrices[$key] !== false) {
                 $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
                 $product->setFinalPrice($finalPrice);
             }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,8 +32,8 @@ require_once('phpseclib/Net/SFTP.php');
  */
 class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 {
-    const REMOTE_TIMEOUT = 10;
-    const SSH2_PORT = 22;
+    public const REMOTE_TIMEOUT = 10;
+    public const SSH2_PORT = 22;
 
     /**
      * @var phpseclib\Net\SFTP $_connection

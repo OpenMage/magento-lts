@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@
  */
 class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 {
-    const CACHE_TAGS = 'BACKEND_MAINMENU';
+    public const CACHE_TAGS = 'BACKEND_MAINMENU';
 
     /**
      * Adminhtml URL instance
@@ -152,8 +153,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
                 $menuArr['click'] = 'return false';
             }
 
-            $menuArr['active'] = ($this->getActive()==$path.$childName)
-                || (strpos($this->getActive(), $path.$childName.'/')===0);
+            $menuArr['active'] = ($this->getActive() == $path . $childName)
+                || (strpos($this->getActive(), $path . $childName . '/') === 0);
 
             $menuArr['level'] = $level;
 
@@ -162,7 +163,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             }
 
             if ($child->children) {
-                $menuArr['children'] = $this->_buildMenuArray($child->children, $path.$childName.'/', $level+1);
+                $menuArr['children'] = $this->_buildMenuArray($child->children, $path . $childName . '/', $level + 1);
             }
             $parentArr[$childName] = $menuArr;
 
@@ -190,7 +191,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     protected function _sortMenu($a, $b)
     {
-        return $a['sort_order']<$b['sort_order'] ? -1 : ($a['sort_order']>$b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
     }
 
     /**
@@ -245,7 +246,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     protected function _afterToHtml($html)
     {
-        $html = preg_replace_callback('#'.Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME.'/\$([^\/].*)/([^\$].*)\$#', [$this, '_callbackSecretKey'], $html);
+        $html = preg_replace_callback('#' . Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME . '/\$([^\/].*)/([^\$].*)\$#', [$this, '_callbackSecretKey'], $html);
 
         return $html;
     }

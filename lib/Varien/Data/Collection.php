@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,8 +29,8 @@
  */
 class Varien_Data_Collection implements IteratorAggregate, Countable
 {
-    const SORT_ORDER_ASC    = 'ASC';
-    const SORT_ORDER_DESC   = 'DESC';
+    public const SORT_ORDER_ASC    = 'ASC';
+    public const SORT_ORDER_DESC   = 'DESC';
 
     /**
      * Collection items
@@ -220,7 +221,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         if (0 === $collectionSize) {
             return 1;
         } elseif ($this->_pageSize) {
-            return ceil($collectionSize/$this->_pageSize);
+            return ceil($collectionSize / $this->_pageSize);
         } else {
             return 1;
         }
@@ -324,7 +325,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
 
         $res = [];
         foreach ($this as $item) {
-            if ($item->getData($column)==$value) {
+            if ($item->getData($column) == $value) {
                 $res[] = $item;
             }
         }
@@ -343,7 +344,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         $this->load();
 
         foreach ($this as $item) {
-            if ($item->getData($column)==$value) {
+            if ($item->getData($column) == $value) {
                 return $item;
             }
         }
@@ -362,7 +363,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
 
         if (!is_null($itemId)) {
             if (isset($this->_items[$itemId])) {
-                throw new Exception('Item ('.get_class($item).') with the same id "'.$item->getId().'" already exist');
+                throw new Exception('Item (' . get_class($item) . ') with the same id "' . $item->getId() . '" already exist');
             }
             $this->_items[$itemId] = $item;
         } else {
@@ -447,7 +448,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     public function walk($callback, array $args = [])
     {
         $results = [];
-        $useItemCallback = is_string($callback) && strpos($callback, '::')===false;
+        $useItemCallback = is_string($callback) && strpos($callback, '::') === false;
         foreach ($this->getItems() as $id => $item) {
             if ($useItemCallback) {
                 $cb = [$item, $callback];
@@ -632,13 +633,13 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
         <collection>
-           <totalRecords>'.$this->_totalRecords.'</totalRecords>
+           <totalRecords>' . $this->_totalRecords . '</totalRecords>
            <items>';
 
         foreach ($this as $item) {
-            $xml.=$item->toXml();
+            $xml .= $item->toXml();
         }
-        $xml.= '</items>
+        $xml .= '</items>
         </collection>';
         return $xml;
     }

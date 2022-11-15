@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -47,7 +48,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
             $this->_addButton('cancel', [
                 'label'     => Mage::helper('sales')->__('Cancel'),
                 'class'     => 'delete',
-                'onclick'   => 'setLocation(\''.$this->getCancelUrl().'\')'
+                'onclick'   => 'setLocation(\'' . $this->getCancelUrl() . '\')'
                 ]);
         }
 
@@ -65,7 +66,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
             $this->_addButton('refund', [
                 'label'     => Mage::helper('sales')->__('Refund'),
                 'class'     => 'save',
-                'onclick'   => 'setLocation(\''.$this->getRefundUrl().'\')'
+                'onclick'   => 'setLocation(\'' . $this->getRefundUrl() . '\')'
                 ]);
         }
 
@@ -73,7 +74,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
             $this->_addButton('void', [
                 'label'     => Mage::helper('sales')->__('Void'),
                 'class'     => 'save',
-                'onclick'   => 'setLocation(\''.$this->getVoidUrl().'\')'
+                'onclick'   => 'setLocation(\'' . $this->getVoidUrl() . '\')'
                 ]);
         }
 
@@ -81,7 +82,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
             $this->_addButton('print', [
                 'label'     => Mage::helper('sales')->__('Print'),
                 'class'     => 'save',
-                'onclick'   => 'setLocation(\''.$this->getPrintUrl().'\')'
+                'onclick'   => 'setLocation(\'' . $this->getPrintUrl() . '\')'
                 ]);
         }
     }
@@ -122,7 +123,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
             '*/sales_order/view',
             [
                 'order_id'  => $this->getCreditmemo()->getOrderId(),
-                'active_tab'=> 'order_creditmemos'
+                'active_tab' => 'order_creditmemos'
             ]
         );
     }
@@ -134,7 +135,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
      */
     public function getCaptureUrl()
     {
-        return $this->getUrl('*/*/capture', ['creditmemo_id'=>$this->getCreditmemo()->getId()]);
+        return $this->getUrl('*/*/capture', ['creditmemo_id' => $this->getCreditmemo()->getId()]);
     }
 
     /**
@@ -144,7 +145,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
      */
     public function getVoidUrl()
     {
-        return $this->getUrl('*/*/void', ['creditmemo_id'=>$this->getCreditmemo()->getId()]);
+        return $this->getUrl('*/*/void', ['creditmemo_id' => $this->getCreditmemo()->getId()]);
     }
 
     /**
@@ -154,7 +155,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
      */
     public function getCancelUrl()
     {
-        return $this->getUrl('*/*/cancel', ['creditmemo_id'=>$this->getCreditmemo()->getId()]);
+        return $this->getUrl('*/*/cancel', ['creditmemo_id' => $this->getCreditmemo()->getId()]);
     }
 
     /**

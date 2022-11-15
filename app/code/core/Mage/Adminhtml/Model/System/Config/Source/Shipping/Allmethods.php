@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -35,7 +36,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Shipping_Allmethods
      */
     public function toOptionArray($isActiveOnlyFlag = false)
     {
-        $methods = [['value'=>'', 'label'=>'']];
+        $methods = [['value' => '', 'label' => '']];
         $carriers = Mage::getSingleton('shipping/config')->getAllCarriers();
         foreach ($carriers as $carrierCode => $carrierModel) {
             if (!$carrierModel->isActive() && (bool)$isActiveOnlyFlag === true) {
@@ -45,15 +46,15 @@ class Mage_Adminhtml_Model_System_Config_Source_Shipping_Allmethods
             if (!$carrierMethods) {
                 continue;
             }
-            $carrierTitle = Mage::getStoreConfig('carriers/'.$carrierCode.'/title');
+            $carrierTitle = Mage::getStoreConfig('carriers/' . $carrierCode . '/title');
             $methods[$carrierCode] = [
                 'label'   => $carrierTitle,
                 'value' => [],
             ];
             foreach ($carrierMethods as $methodCode => $methodTitle) {
                 $methods[$carrierCode]['value'][] = [
-                    'value' => $carrierCode.'_'.$methodCode,
-                    'label' => '['.$carrierCode.'] '.$methodTitle,
+                    'value' => $carrierCode . '_' . $methodCode,
+                    'label' => '[' . $carrierCode . '] ' . $methodTitle,
                 ];
             }
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,36 +32,36 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Transaction action codes
      */
-    const TRXTYPE_AUTH_ONLY         = 'A';
-    const TRXTYPE_SALE              = 'S';
-    const TRXTYPE_CREDIT            = 'C';
-    const TRXTYPE_DELAYED_CAPTURE   = 'D';
-    const TRXTYPE_DELAYED_VOID      = 'V';
-    const TRXTYPE_DELAYED_VOICE     = 'F';
-    const TRXTYPE_DELAYED_INQUIRY   = 'I';
+    public const TRXTYPE_AUTH_ONLY         = 'A';
+    public const TRXTYPE_SALE              = 'S';
+    public const TRXTYPE_CREDIT            = 'C';
+    public const TRXTYPE_DELAYED_CAPTURE   = 'D';
+    public const TRXTYPE_DELAYED_VOID      = 'V';
+    public const TRXTYPE_DELAYED_VOICE     = 'F';
+    public const TRXTYPE_DELAYED_INQUIRY   = 'I';
 
     /**
      * Tender type codes
      */
-    const TENDER_CC = 'C';
+    public const TENDER_CC = 'C';
 
     /**
      * Gateway request URLs
      */
-    const TRANSACTION_URL           = 'https://payflowpro.paypal.com/transaction';
-    const TRANSACTION_URL_TEST_MODE = 'https://pilot-payflowpro.paypal.com/transaction';
+    public const TRANSACTION_URL           = 'https://payflowpro.paypal.com/transaction';
+    public const TRANSACTION_URL_TEST_MODE = 'https://pilot-payflowpro.paypal.com/transaction';
 
     /**
      * Response codes
      */
-    const RESPONSE_CODE_APPROVED                = 0;
-    const RESPONSE_CODE_INVALID_AMOUNT          = 4;
-    const RESPONSE_CODE_FRAUDSERVICE_FILTER     = 126;
-    const RESPONSE_CODE_DECLINED                = 12;
-    const RESPONSE_CODE_DECLINED_BY_FILTER      = 125;
-    const RESPONSE_CODE_DECLINED_BY_MERCHANT    = 128;
-    const RESPONSE_CODE_CAPTURE_ERROR           = 111;
-    const RESPONSE_CODE_VOID_ERROR              = 108;
+    public const RESPONSE_CODE_APPROVED                = 0;
+    public const RESPONSE_CODE_INVALID_AMOUNT          = 4;
+    public const RESPONSE_CODE_FRAUDSERVICE_FILTER     = 126;
+    public const RESPONSE_CODE_DECLINED                = 12;
+    public const RESPONSE_CODE_DECLINED_BY_FILTER      = 125;
+    public const RESPONSE_CODE_DECLINED_BY_MERCHANT    = 128;
+    public const RESPONSE_CODE_CAPTURE_ERROR           = 111;
+    public const RESPONSE_CODE_VOID_ERROR              = 108;
 
     /**
      * Payment method code

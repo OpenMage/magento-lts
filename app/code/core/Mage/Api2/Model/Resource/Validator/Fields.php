@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
     /**
      * Config node key of current validator
      */
-    const CONFIG_NODE_KEY = 'fields';
+    public const CONFIG_NODE_KEY = 'fields';
 
     /**
      * Resource

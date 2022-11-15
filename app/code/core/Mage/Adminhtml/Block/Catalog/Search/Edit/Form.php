@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -55,7 +56,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
             'method' => 'post'
         ]);
 
-        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('catalog')->__('General Information')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('catalog')->__('General Information')]);
 
         $yesno = [
             [

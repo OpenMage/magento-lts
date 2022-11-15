@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -53,7 +54,7 @@
  */
 class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
 {
-    const XML_PATH_POLL_CHECK_BY_IP = 'web/polls/poll_check_by_ip';
+    public const XML_PATH_POLL_CHECK_BY_IP = 'web/polls/poll_check_by_ip';
 
     protected $_pollCookieDefaultName = 'poll';
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -30,7 +31,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'catalog/search';
+    public const ADMIN_RESOURCE = 'catalog/search';
 
     protected function _initAction()
     {

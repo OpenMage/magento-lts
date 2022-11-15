@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,23 +29,23 @@
  */
 class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const PRICE_SCOPE_GLOBAL               = 0;
-    const PRICE_SCOPE_WEBSITE              = 1;
-    const XML_PATH_PRICE_SCOPE             = 'catalog/price/scope';
-    const XML_PATH_SEO_SAVE_HISTORY        = 'catalog/seo/save_rewrites_history';
-    const CONFIG_USE_STATIC_URLS           = 'cms/wysiwyg/use_static_urls_in_catalog';
-    const CONFIG_PARSE_URL_DIRECTIVES      = 'catalog/frontend/parse_url_directives';
-    const XML_PATH_CONTENT_TEMPLATE_FILTER = 'global/catalog/content/tempate_filter';
-    const XML_PATH_DISPLAY_PRODUCT_COUNT   = 'catalog/layered_navigation/display_product_count';
+    public const PRICE_SCOPE_GLOBAL               = 0;
+    public const PRICE_SCOPE_WEBSITE              = 1;
+    public const XML_PATH_PRICE_SCOPE             = 'catalog/price/scope';
+    public const XML_PATH_SEO_SAVE_HISTORY        = 'catalog/seo/save_rewrites_history';
+    public const CONFIG_USE_STATIC_URLS           = 'cms/wysiwyg/use_static_urls_in_catalog';
+    public const CONFIG_PARSE_URL_DIRECTIVES      = 'catalog/frontend/parse_url_directives';
+    public const XML_PATH_CONTENT_TEMPLATE_FILTER = 'global/catalog/content/tempate_filter';
+    public const XML_PATH_DISPLAY_PRODUCT_COUNT   = 'catalog/layered_navigation/display_product_count';
 
     /**
      * Minimum advertise price constants
      */
-    const XML_PATH_MSRP_ENABLED = 'sales/msrp/enabled';
-    const XML_PATH_MSRP_DISPLAY_ACTUAL_PRICE_TYPE = 'sales/msrp/display_price_type';
-    const XML_PATH_MSRP_APPLY_TO_ALL = 'sales/msrp/apply_for_all';
-    const XML_PATH_MSRP_EXPLANATION_MESSAGE = 'sales/msrp/explanation_message';
-    const XML_PATH_MSRP_EXPLANATION_MESSAGE_WHATS_THIS = 'sales/msrp/explanation_message_whats_this';
+    public const XML_PATH_MSRP_ENABLED = 'sales/msrp/enabled';
+    public const XML_PATH_MSRP_DISPLAY_ACTUAL_PRICE_TYPE = 'sales/msrp/display_price_type';
+    public const XML_PATH_MSRP_APPLY_TO_ALL = 'sales/msrp/apply_for_all';
+    public const XML_PATH_MSRP_EXPLANATION_MESSAGE = 'sales/msrp/explanation_message';
+    public const XML_PATH_MSRP_EXPLANATION_MESSAGE_WHATS_THIS = 'sales/msrp/explanation_message_whats_this';
 
     protected $_moduleName = 'Mage_Catalog';
 
@@ -100,7 +101,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
                 // add category path breadcrumb
                 foreach ($pathIds as $categoryId) {
                     if (isset($categories[$categoryId]) && $categories[$categoryId]->getName()) {
-                        $path['category'.$categoryId] = [
+                        $path['category' . $categoryId] = [
                             'label' => $categories[$categoryId]->getName(),
                             'link' => $this->_isCategoryLink($categoryId) ? $categories[$categoryId]->getUrl() : ''
                         ];
@@ -109,7 +110,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             if ($this->getProduct()) {
-                $path['product'] = ['label'=>$this->getProduct()->getName()];
+                $path['product'] = ['label' => $this->getProduct()->getName()];
             }
 
             $this->_categoryPath = $path;

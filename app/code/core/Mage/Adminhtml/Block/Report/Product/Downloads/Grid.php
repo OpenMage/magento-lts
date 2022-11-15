@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -76,8 +77,8 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Grid extends Mage_Adminhtml_
         ]);
 
         $this->addColumn('sku', [
-            'header'    =>Mage::helper('reports')->__('Product SKU'),
-            'index'     =>'sku'
+            'header'    => Mage::helper('reports')->__('Product SKU'),
+            'index'     => 'sku'
         ]);
 
         $this->addColumn('purchases', [

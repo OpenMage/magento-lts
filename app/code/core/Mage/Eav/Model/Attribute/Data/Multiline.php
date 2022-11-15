@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -68,7 +69,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         if (!is_array($value)) {
             $value = [$value];
         }
-        for ($i = 0; $i < $attribute->getMultilineCount(); $i ++) {
+        for ($i = 0; $i < $attribute->getMultilineCount(); $i++) {
             if (!isset($value[$i])) {
                 $value[$i] = null;
             }

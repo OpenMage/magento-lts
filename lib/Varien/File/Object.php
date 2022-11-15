@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -34,7 +35,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     protected $_filename;
     protected $_path;
     protected $_filter;
-    protected $_isCorrect=true; # - pass or not filter checking
+    protected $_isCorrect = true; # - pass or not filter checking
     protected $filtered;
 
     /**
@@ -46,8 +47,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     public function __construct($path)
     {
         parent::__construct($path);
-        $this->_path=$path;
-        $this->_filename=basename($path);
+        $this->_path = $path;
+        $this->_filename = basename($path);
     }
     /**
      * add file name to array
@@ -68,7 +69,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     public function getFileName(&$files = null)
     {
         if ($this->_isCorrect) {
-            if ($files===null) {
+            if ($files === null) {
                 return $this->_filename;
             }
             $files[] = $this->_filename;
@@ -95,7 +96,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     public function getFilePath(&$path = null)
     {
         if ($this->_isCorrect) {
-            if ($path===null) {
+            if ($path === null) {
                 return $this->_path;
             }
             $paths[] = $this->_path;
@@ -199,7 +200,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
      */
     public function getName()
     {
-        return basename($this->_filename, '.'.$this->getExtension());
+        return basename($this->_filename, '.' . $this->getExtension());
     }
     /**
      * render filters
@@ -209,17 +210,17 @@ class Varien_File_Object extends SplFileObject implements IFactory
     public function renderFilter()
     {
         #print_r($this->_filter);
-        if (isset($this->_filter) && count($this->_filter)>0 && $this->filtered==false) {
+        if (isset($this->_filter) && count($this->_filter) > 0 && $this->filtered == false) {
             $this->filtered = true;
             if (isset($this->_filter['extension'])) {
                 $filter = $this->_filter['extension'];
-                if ($filter!=null) {
+                if ($filter != null) {
                     if (is_array($filter)) {
                         if (!in_array($this->getExtension(), $filter)) {
                             $this->_isCorrect = false;
                         }
                     } else {
-                        if ($this->getExtension()!=$filter) {
+                        if ($this->getExtension() != $filter) {
                             $this->_isCorrect = false;
                         }
                     }
@@ -227,13 +228,13 @@ class Varien_File_Object extends SplFileObject implements IFactory
             }
             if (isset($this->_filter['name'])) {
                 $filter = $this->_filter['name'];
-                if ($filter!=null) {
+                if ($filter != null) {
                     if (is_array($filter)) {
                         if (!in_array($this->getName(), $filter)) {
                             $this->_isCorrect = false;
                         }
                     } else {
-                        if ($this->getName()!=$filter) {
+                        if ($this->getName() != $filter) {
                             $this->_isCorrect = false;
                         }
                     }
@@ -243,7 +244,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
             if (isset($this->_filter['regName'])) {
                 $filter = $this->_filter['regName'];
 
-                if ($filter!=null) {
+                if ($filter != null) {
                     foreach ($filter as $value) {
                         if (!preg_match($value, $this->getName())) {
                             $this->_isCorrect = false;
@@ -277,7 +278,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     public function toXml(&$xml, $recursionLevel = 0, $addOpenTag = true, $rootName = 'Struct')
     {
         if ($this->_isCorrect) {
-            $xml .=str_repeat("\t", $recursionLevel+2).'<fileName>'.$this->_filename.'</fileName>'."\n";
+            $xml .= str_repeat("\t", $recursionLevel + 2) . '<fileName>' . $this->_filename . '</fileName>' . "\n";
         }
     }
 }

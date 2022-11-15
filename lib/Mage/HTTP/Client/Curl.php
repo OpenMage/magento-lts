@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -172,7 +173,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      */
     public function setCredentials($login, $pass)
     {
-        $val= base64_encode("$login:$pass");
+        $val = base64_encode("$login:$pass");
         $this->addHeader("Authorization", "Basic $val");
     }
 
@@ -301,13 +302,13 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             if (is_null($val)) {
                 continue;
             }
-            $out[trim($key)] = ['value'=>trim($val)];
+            $out[trim($key)] = ['value' => trim($val)];
             array_shift($values);
             $c--;
             if (!$c) {
                 continue;
             }
-            for ($i = 0; $i<$c; $i++) {
+            for ($i = 0; $i < $c; $i++) {
                 list($subkey, $val) = explode("=", $values[$i]);
                 $out[trim($key)][trim($subkey)] = trim($val);
             }
@@ -347,7 +348,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         if (count($this->_headers)) {
             $heads = [];
             foreach ($this->_headers as $k => $v) {
-                $heads[] = $k.': '.$v;
+                $heads[] = $k . ': ' . $v;
             }
             $this->curlOption(CURLOPT_HTTPHEADER, $heads);
         }

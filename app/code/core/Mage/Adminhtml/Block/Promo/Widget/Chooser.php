@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -84,9 +85,9 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
                 var trElement = Event.findElement(event, "tr");
                 var ruleName = trElement.down("td").next().innerHTML;
                 var ruleId = trElement.down("td").innerHTML.replace(/^\s+|\s+$/g,"");
-                '.$chooserJsObject.'.setElementValue(ruleId);
-                '.$chooserJsObject.'.setElementLabel(ruleName);
-                '.$chooserJsObject.'.close();
+                ' . $chooserJsObject . '.setElementValue(ruleId);
+                ' . $chooserJsObject . '.setElementLabel(ruleName);
+                ' . $chooserJsObject . '.close();
             }
         ';
     }

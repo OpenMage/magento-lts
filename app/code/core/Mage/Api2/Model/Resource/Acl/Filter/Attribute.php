@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Api2_Model_Resource_Acl_Filter_Attribute extends Mage_Core_Model_Reso
     /**
      * Attribute Filter resource ID "all"
      */
-    const FILTER_RESOURCE_ALL = 'all';
+    public const FILTER_RESOURCE_ALL = 'all';
 
     protected function _construct()
     {

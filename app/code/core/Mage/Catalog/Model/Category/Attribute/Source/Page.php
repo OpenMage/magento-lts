@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -38,7 +39,7 @@ class Mage_Catalog_Model_Category_Attribute_Source_Page extends Mage_Eav_Model_E
                 ->setOrder('title', 'ASC')
                 ->load()
                 ->toOptionArray();
-            array_unshift($this->_options, ['value'=>'', 'label'=>Mage::helper('catalog')->__('Please select a static block ...')]);
+            array_unshift($this->_options, ['value' => '', 'label' => Mage::helper('catalog')->__('Please select a static block ...')]);
         }
         return $this->_options;
     }

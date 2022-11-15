@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -72,7 +73,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
 
         $response = new Varien_Object();
         $response->setTypes([]);
-        Mage::dispatchEvent('adminhtml_product_attribute_types', ['response'=>$response]);
+        Mage::dispatchEvent('adminhtml_product_attribute_types', ['response' => $response]);
         $_disabledTypes = [];
         $_hiddenFields = [];
         foreach ($response->getTypes() as $type) {
@@ -93,9 +94,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
         $yesnoSource = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
 
         $scopes = [
-            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE =>Mage::helper('catalog')->__('Store View'),
-            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE =>Mage::helper('catalog')->__('Website'),
-            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL =>Mage::helper('catalog')->__('Global'),
+            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE => Mage::helper('catalog')->__('Store View'),
+            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE => Mage::helper('catalog')->__('Website'),
+            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL => Mage::helper('catalog')->__('Global'),
         ];
 
         if ($attributeObject->getAttributeCode() === 'status'
@@ -109,7 +110,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             'label' => Mage::helper('catalog')->__('Scope'),
             'title' => Mage::helper('catalog')->__('Scope'),
             'note'  => Mage::helper('catalog')->__('Declare attribute value saving scope'),
-            'values'=> $scopes
+            'values' => $scopes
         ], 'attribute_code');
 
         $fieldset->addField('apply_to', 'apply', [
@@ -130,7 +131,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
         ], 'apply_to');
 
         // frontend properties fieldset
-        $fieldset = $form->addFieldset('front_fieldset', ['legend'=>Mage::helper('catalog')->__('Frontend Properties')]);
+        $fieldset = $form->addFieldset('front_fieldset', ['legend' => Mage::helper('catalog')->__('Frontend Properties')]);
 
         $fieldset->addField('is_searchable', 'select', [
             'name'     => 'is_searchable',

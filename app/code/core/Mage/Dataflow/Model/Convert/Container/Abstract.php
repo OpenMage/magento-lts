@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -173,7 +174,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
             $data = $this->getData();
         }
         if (!is_array($data) || !is_array(current($data))) {
-            if (count($data)==0) {
+            if (count($data) == 0) {
                 return true;
             }
             $this->addException(

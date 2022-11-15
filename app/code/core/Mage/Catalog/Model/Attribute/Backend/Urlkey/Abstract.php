@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -42,7 +43,7 @@ abstract class Mage_Catalog_Model_Attribute_Backend_Urlkey_Abstract extends Mage
         if ($urlKey === false) {
             return $this;
         }
-        if ($urlKey=='') {
+        if ($urlKey == '') {
             $urlKey = $object->getName();
         }
 

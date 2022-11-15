@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -478,7 +479,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             }
             if ($flag) {
                 return $this->_prepareDownloadResponse(
-                    'invoice'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf',
+                    'invoice' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s') . '.pdf',
                     $pdf->render(),
                     'application/pdf'
                 );
@@ -514,7 +515,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             }
             if ($flag) {
                 return $this->_prepareDownloadResponse(
-                    'packingslip'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf',
+                    'packingslip' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s') . '.pdf',
                     $pdf->render(),
                     'application/pdf'
                 );
@@ -550,7 +551,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             }
             if ($flag) {
                 return $this->_prepareDownloadResponse(
-                    'creditmemo'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf',
+                    'creditmemo' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s') . '.pdf',
                     $pdf->render(),
                     'application/pdf'
                 );
@@ -612,7 +613,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             }
             if ($flag) {
                 return $this->_prepareDownloadResponse(
-                    'docs'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf',
+                    'docs' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s') . '.pdf',
                     $pdf->render(),
                     'application/pdf'
                 );
@@ -755,7 +756,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 $address->implodeStreetAddress()
                     ->save();
                 $this->_getSession()->addSuccess(Mage::helper('sales')->__('The order address has been updated.'));
-                $this->_redirect('*/*/view', ['order_id'=>$address->getParentId()]);
+                $this->_redirect('*/*/view', ['order_id' => $address->getParentId()]);
                 return;
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
@@ -765,7 +766,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     Mage::helper('sales')->__('An error occurred while updating the order address. The address has not been changed.')
                 );
             }
-            $this->_redirect('*/*/address', ['address_id'=>$address->getId()]);
+            $this->_redirect('*/*/address', ['address_id' => $address->getId()]);
         } else {
             $this->_redirect('*/*/');
         }

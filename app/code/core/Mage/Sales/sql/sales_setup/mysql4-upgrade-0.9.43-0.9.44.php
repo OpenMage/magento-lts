@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -24,6 +25,6 @@ $installer = $this;
 
 $installer->getConnection()->addColumn($installer->getTable('sales_order'), 'protect_code', 'VARCHAR( 6 ) NULL DEFAULT NULL');
 
-$installer->addAttribute('order', 'protect_code', ['type'=>'static']);
+$installer->addAttribute('order', 'protect_code', ['type' => 'static']);
 
 $installer->run("UPDATE `{$installer->getTable('sales_order')}` SET protect_code = SUBSTRING(MD5(CONCAT(RAND(), DATE_FORMAT(NOW(), '%H %k %I %r %T %S'), RAND())), 5, 6) WHERE protect_code IS NULL");

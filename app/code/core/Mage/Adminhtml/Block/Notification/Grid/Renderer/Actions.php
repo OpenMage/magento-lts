@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -37,13 +38,13 @@ class Mage_Adminhtml_Block_Notification_Grid_Renderer_Actions extends Mage_Admin
     public function render(Varien_Object $row)
     {
         $readDetailsHtml = ($row->getUrl())
-            ? '<a target="_blank" href="'. $row->getUrl() .'">' .
-                Mage::helper('adminnotification')->__('Read Details') .'</a> | '
+            ? '<a target="_blank" href="' . $row->getUrl() . '">' .
+                Mage::helper('adminnotification')->__('Read Details') . '</a> | '
             : '';
 
         $markAsReadHtml = (!$row->getIsRead())
-            ? '<a href="'. $this->getUrl('*/*/markAsRead/', ['_current' => true, 'id' => $row->getId()]) .'">' .
-                Mage::helper('adminnotification')->__('Mark as Read') .'</a> | '
+            ? '<a href="' . $this->getUrl('*/*/markAsRead/', ['_current' => true, 'id' => $row->getId()]) . '">' .
+                Mage::helper('adminnotification')->__('Mark as Read') . '</a> | '
             : '';
 
         /** @var Mage_Core_Helper_Url $helper */
@@ -53,7 +54,7 @@ class Mage_Adminhtml_Block_Notification_Grid_Renderer_Actions extends Mage_Admin
             $readDetailsHtml,
             $markAsReadHtml,
             $this->getUrl('*/*/remove/', [
-                '_current'=>true,
+                '_current' => true,
                 'id' => $row->getId(),
                 Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $helper->getEncodedUrl()]),
             Mage::helper('adminnotification')->__('Are you sure?'),

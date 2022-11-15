@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -39,7 +40,7 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Back'),
-                    'onclick'   => 'window.location.href=\''.$this->getUrl('*/*/').'\'',
+                    'onclick'   => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
                     'class' => 'back'
                 ])
         );

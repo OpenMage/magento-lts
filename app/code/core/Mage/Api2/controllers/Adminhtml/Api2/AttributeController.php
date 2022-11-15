@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/api';
+    public const ADMIN_RESOURCE = 'system/api';
 
     /**
      * Controller pre-dispatch method

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -53,7 +54,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Bloc
 
     protected function _getTotalRenderer($code)
     {
-        $blockName = $code.'_total_renderer';
+        $blockName = $code . '_total_renderer';
         $block = $this->getLayout()->getBlock($blockName);
         if (!$block) {
             $block = $this->_defaultRenderer;

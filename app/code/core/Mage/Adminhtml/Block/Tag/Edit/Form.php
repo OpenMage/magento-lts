@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -50,7 +51,7 @@ class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_For
 
         $fieldset = $form->addFieldset(
             'base_fieldset',
-            ['legend'=>Mage::helper('tag')->__('General Information')]
+            ['legend' => Mage::helper('tag')->__('General Information')]
         );
 
         if ($model->getTagId()) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -50,7 +51,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Filter_Status exten
     {
         $result = [];
         foreach (self::$_statuses as $code => $label) {
-            $result[] = ['value'=>$code, 'label'=>Mage::helper('customer')->__($label)];
+            $result[] = ['value' => $code, 'label' => Mage::helper('customer')->__($label)];
         }
 
         return $result;
@@ -65,6 +66,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Filter_Status exten
             return null;
         }
 
-        return ['eq'=>$this->getValue()];
+        return ['eq' => $this->getValue()];
     }
 }

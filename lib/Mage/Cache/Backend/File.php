@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -722,16 +723,16 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                     }
                     fseek($fd, 0);
                     ftruncate($fd, 0);
-                    $result = fwrite($fd, implode("\n", array_unique($_ids))."\n") && $result;
+                    $result = fwrite($fd, implode("\n", array_unique($_ids)) . "\n") && $result;
                     if ($this->_options['file_locking']) {
                         flock($fd, LOCK_UN);
                     }
                     fclose($fd);
                 } else {
-                    $result = file_put_contents($file, implode("\n", $ids)."\n", FILE_APPEND | ($this->_options['file_locking'] ? LOCK_EX : 0)) && $result;
+                    $result = file_put_contents($file, implode("\n", $ids) . "\n", FILE_APPEND | ($this->_options['file_locking'] ? LOCK_EX : 0)) && $result;
                 }
             } elseif ($mode == 'merge') {
-                $result = $this->_filePutContents($file, implode("\n", $ids)."\n") && $result;
+                $result = $this->_filePutContents($file, implode("\n", $ids) . "\n") && $result;
             }
         }
         return $result;
@@ -763,7 +764,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      */
     protected function _recursiveMkdirAndChmod($id)
     {
-        if ($this->_options['hashed_directory_level'] <=0) {
+        if ($this->_options['hashed_directory_level'] <= 0) {
             return true;
         }
         $partsArray = $this->_path($id, true);

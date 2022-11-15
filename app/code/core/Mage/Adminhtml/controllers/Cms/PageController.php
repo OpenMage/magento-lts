@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -153,7 +154,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->setFormData(false);
                 // check if 'Save and Continue'
                 if ($this->getRequest()->getParam('back')) {
-                    $this->_redirect('*/*/edit', ['page_id' => $model->getId(), '_current'=>true]);
+                    $this->_redirect('*/*/edit', ['page_id' => $model->getId(), '_current' => true]);
                     return;
                 }
                 // go to grid
@@ -268,7 +269,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 $errorNo = false;
             }
             if (!empty($data['custom_layout_update_xml'])
-            && !$validatorCustomLayout->isValid($data['custom_layout_update_xml'])) {
+                && !$validatorCustomLayout->isValid($data['custom_layout_update_xml'])) {
                 $errorNo = false;
             }
             foreach ($validatorCustomLayout->getMessages() as $message) {

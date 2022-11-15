@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -25,7 +26,7 @@
  */
 class Varien_File_Csv
 {
-    protected $_lineLength= 0;
+    protected $_lineLength = 0;
     protected $_delimiter = ',';
     protected $_enclosure = '"';
 
@@ -79,7 +80,7 @@ class Varien_File_Csv
     {
         $data = [];
         if (!file_exists($file)) {
-            throw new Exception('File "'.$file.'" do not exists');
+            throw new Exception('File "' . $file . '" do not exists');
         }
 
         $fh = fopen($file, 'r');
@@ -141,7 +142,7 @@ class Varien_File_Csv
                 $str2 = $enclosure;
                 $escaped = 0;
                 $len = strlen($value);
-                for ($i=0; $i<$len; $i++) {
+                for ($i = 0; $i < $len; $i++) {
                     if ($value[$i] == $escape_char) {
                         $escaped = 1;
                     } elseif (!$escaped && $value[$i] == $enclosure) {
@@ -152,9 +153,9 @@ class Varien_File_Csv
                     $str2 .= $value[$i];
                 }
                 $str2 .= $enclosure;
-                $str .= $str2.$delimiter;
+                $str .= $str2 . $delimiter;
             } else {
-                $str .= $enclosure.$value.$enclosure.$delimiter;
+                $str .= $enclosure . $value . $enclosure . $delimiter;
             }
         }
         $str = substr($str, 0, -1);

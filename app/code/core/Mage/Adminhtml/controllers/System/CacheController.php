@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/cache';
+    public const ADMIN_RESOURCE = 'system/cache';
 
     /**
      * Retrieve session model
@@ -75,7 +76,7 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
          * Process cache settings
          */
         $allCache = $this->getRequest()->getPost('all_cache');
-        if ($allCache=='disable' || $allCache=='refresh') {
+        if ($allCache == 'disable' || $allCache == 'refresh') {
             Mage::app()->cleanCache();
         }
 
@@ -84,9 +85,9 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
         $clean  = [];
         $cacheTypes = array_keys(Mage::helper('core')->getCacheTypes());
         foreach ($cacheTypes as $type) {
-            $flag = $allCache!='disable' && (!empty($e[$type]) || $allCache=='enable');
+            $flag = $allCache != 'disable' && (!empty($e[$type]) || $allCache == 'enable');
             $enable[$type] = $flag ? 1 : 0;
-            if ($allCache=='' && !$flag) {
+            if ($allCache == '' && !$flag) {
                 $clean[] = $type;
             }
         }

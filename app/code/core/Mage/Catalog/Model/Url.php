@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,7 +34,7 @@ class Mage_Catalog_Model_Url
      *
      * @var int
      */
-    const MAX_REQUEST_PATH_LENGTH = 240;
+    public const MAX_REQUEST_PATH_LENGTH = 240;
 
     /**
      * Number of characters allowed to be in URL path
@@ -41,7 +42,7 @@ class Mage_Catalog_Model_Url
      *
      * @var int
      */
-    const ALLOWED_REQUEST_PATH_OVERFLOW = 10;
+    public const ALLOWED_REQUEST_PATH_OVERFLOW = 10;
 
     /**
      * Resource model
@@ -824,7 +825,7 @@ class Mage_Catalog_Model_Url
                 }
             }
 
-            $fullPath = $requestPath.$suffix;
+            $fullPath = $requestPath . $suffix;
             if ($this->_deleteOldTargetPath($fullPath, $idPath, $storeId)) {
                 return $fullPath;
             }
@@ -833,7 +834,7 @@ class Mage_Catalog_Model_Url
          * Check 2 variants: $requestPath and $requestPath . '-' . $productId
          */
         $validatedPath = $this->getResource()->checkRequestPaths(
-            [$requestPath.$suffix, $requestPath.'-'.$product->getId().$suffix],
+            [$requestPath . $suffix, $requestPath . '-' . $product->getId() . $suffix],
             $storeId
         );
 

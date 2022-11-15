@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -167,7 +168,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
 
         $orderStatuses = $filterData->getData('order_statuses');
         if (is_array($orderStatuses)) {
-            if (count($orderStatuses) == 1 && strpos($orderStatuses[0], ',')!== false) {
+            if (count($orderStatuses) == 1 && strpos($orderStatuses[0], ',') !== false) {
                 $filterData->setData('order_statuses', explode(',', $orderStatuses[0]));
             }
         }

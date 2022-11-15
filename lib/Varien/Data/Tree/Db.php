@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,10 +32,10 @@
  */
 class Varien_Data_Tree_Db extends Varien_Data_Tree
 {
-    const ID_FIELD      = 'id';
-    const PARENT_FIELD  = 'parent';
-    const LEVEL_FIELD   = 'level';
-    const ORDER_FIELD   = 'order';
+    public const ID_FIELD      = 'id';
+    public const PARENT_FIELD  = 'parent';
+    public const LEVEL_FIELD   = 'level';
+    public const ORDER_FIELD   = 'order';
 
     /**
      * DB connection
@@ -146,7 +147,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         }
 
         $select = clone $this->_select;
-        $select->order($this->_table.'.'.$this->_orderField . ' ASC');
+        $select->order($this->_table . '.' . $this->_orderField . ' ASC');
         $condition = $this->_conn->quoteInto("$this->_table.$this->_parentField=?", $parentId);
         $select->where($condition);
         $arrNodes = $this->_conn->fetchAll($select);
@@ -155,7 +156,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             $this->addNode($node, $parentNode);
 
             if ($recursionLevel) {
-                $node->loadChildren($recursionLevel-1);
+                $node->loadChildren($recursionLevel - 1);
             }
         }
         return $this;
@@ -210,28 +211,28 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
     {
         $data = [];
         $data[$this->_parentField]  = $parentNode->getId();
-        $data[$this->_levelField]   = $parentNode->getData($this->_levelField)+1;
+        $data[$this->_levelField]   = $parentNode->getData($this->_levelField) + 1;
         // New node order
         if (is_null($prevNode) || is_null($prevNode->getData($this->_orderField))) {
             $data[$this->_orderField] = 1;
         } else {
-            $data[$this->_orderField] = $prevNode->getData($this->_orderField)+1;
+            $data[$this->_orderField] = $prevNode->getData($this->_orderField) + 1;
         }
         $condition = $this->_conn->quoteInto("$this->_idField=?", $node->getId());
 
         // For reorder new node branch
         $dataReorderNew = [
-            $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField).'+1')
+            $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField) . '+1')
         ];
-        $conditionReorderNew = $this->_conn->quoteIdentifier($this->_parentField).'='.$parentNode->getId().
-                            ' AND '.$this->_conn->quoteIdentifier($this->_orderField).'>='. $data[$this->_orderField];
+        $conditionReorderNew = $this->_conn->quoteIdentifier($this->_parentField) . '=' . $parentNode->getId() .
+                            ' AND ' . $this->_conn->quoteIdentifier($this->_orderField) . '>=' . $data[$this->_orderField];
 
         // For reorder old node branch
         $dataReorderOld = [
-            $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField).'-1')
+            $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField) . '-1')
         ];
-        $conditionReorderOld = $this->_conn->quoteIdentifier($this->_parentField).'='.$node->getData($this->_parentField).
-                            ' AND '.$this->_conn->quoteIdentifier($this->_orderField).'>'.$node->getData($this->_orderField);
+        $conditionReorderOld = $this->_conn->quoteIdentifier($this->_parentField) . '=' . $node->getData($this->_parentField) .
+                            ' AND ' . $this->_conn->quoteIdentifier($this->_orderField) . '>' . $node->getData($this->_orderField);
 
         $this->_conn->beginTransaction();
         try {
@@ -259,17 +260,17 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
     {
         $select = $this->_conn->select()
             ->from($this->_table, $this->_idField)
-            ->where($this->_parentField.'=?', $parentId);
+            ->where($this->_parentField . '=?', $parentId);
         $ids = $this->_conn->fetchCol($select);
 
         if (!empty($ids)) {
             $this->_conn->update(
                 $this->_table,
-                [$this->_levelField=>$parentLevel+1],
-                $this->_conn->quoteInto($this->_idField.' IN (?)', $ids)
+                [$this->_levelField => $parentLevel + 1],
+                $this->_conn->quoteInto($this->_idField . ' IN (?)', $ids)
             );
             foreach ($ids as $id) {
-                $this->_updateChildLevels($id, $parentLevel+1);
+                $this->_updateChildLevels($id, $parentLevel + 1);
             }
         }
         return $this;
@@ -282,7 +283,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
     {
         $select = clone $this->_select;
         $select->order($this->_table . '.' . $this->_levelField)
-            ->order($this->_table.'.'.$this->_orderField);
+            ->order($this->_table . '.' . $this->_orderField);
 
         $arrNodes = $this->_conn->fetchAll($select);
 
@@ -304,10 +305,10 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
     {
         // For reorder old node branch
         $dataReorderOld = [
-            $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField).'-1')
+            $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField) . '-1')
         ];
-        $conditionReorderOld = $this->_conn->quoteIdentifier($this->_parentField).'='.$node->getData($this->_parentField).
-                            ' AND '.$this->_conn->quoteIdentifier($this->_orderField).'>'.$node->getData($this->_orderField);
+        $conditionReorderOld = $this->_conn->quoteIdentifier($this->_parentField) . '=' . $node->getData($this->_parentField) .
+                            ' AND ' . $this->_conn->quoteIdentifier($this->_orderField) . '>' . $node->getData($this->_orderField);
 
         $this->_conn->beginTransaction();
         try {

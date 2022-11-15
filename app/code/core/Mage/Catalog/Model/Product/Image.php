@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -766,7 +767,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
     public function clearCache()
     {
-        $directory = Mage::getBaseDir('media') . DS.'catalog'.DS.'product'.DS.'cache'.DS;
+        $directory = Mage::getBaseDir('media') . DS . 'catalog' . DS . 'product' . DS . 'cache' . DS;
         $io = new Varien_Io_File();
         $io->rmdir($directory, true);
 

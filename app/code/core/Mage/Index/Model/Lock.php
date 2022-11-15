@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Index_Model_Lock
     /**
      * Lock storage config path
      */
-    const STORAGE_CONFIG_PATH = 'global/index/lock/storage';
+    public const STORAGE_CONFIG_PATH = 'global/index/lock/storage';
 
     /**
      * Storage instance

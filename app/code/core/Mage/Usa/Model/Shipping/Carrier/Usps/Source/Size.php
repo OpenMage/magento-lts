@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Size
         $usps = Mage::getSingleton('usa/shipping_carrier_usps');
         $arr = [];
         foreach ($usps->getCode('size') as $k => $v) {
-            $arr[] = ['value'=>$k, 'label'=>$v];
+            $arr[] = ['value' => $k, 'label' => $v];
         }
         return $arr;
     }

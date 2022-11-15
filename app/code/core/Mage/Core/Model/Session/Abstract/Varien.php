@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -29,16 +30,16 @@
  */
 class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 {
-    const VALIDATOR_KEY                         = '_session_validator_data';
-    const VALIDATOR_HTTP_USER_AGENT_KEY         = 'http_user_agent';
-    const VALIDATOR_HTTP_X_FORVARDED_FOR_KEY    = 'http_x_forwarded_for';
-    const VALIDATOR_HTTP_VIA_KEY                = 'http_via';
-    const VALIDATOR_REMOTE_ADDR_KEY             = 'remote_addr';
-    const VALIDATOR_SESSION_EXPIRE_TIMESTAMP    = 'session_expire_timestamp';
-    const VALIDATOR_SESSION_RENEW_TIMESTAMP     = 'session_renew_timestamp';
-    const VALIDATOR_SESSION_LIFETIME            = 'session_lifetime';
-    const VALIDATOR_PASSWORD_CREATE_TIMESTAMP   = 'password_create_timestamp';
-    const SECURE_COOKIE_CHECK_KEY               = '_secure_cookie_check';
+    public const VALIDATOR_KEY                         = '_session_validator_data';
+    public const VALIDATOR_HTTP_USER_AGENT_KEY         = 'http_user_agent';
+    public const VALIDATOR_HTTP_X_FORVARDED_FOR_KEY    = 'http_x_forwarded_for';
+    public const VALIDATOR_HTTP_VIA_KEY                = 'http_via';
+    public const VALIDATOR_REMOTE_ADDR_KEY             = 'remote_addr';
+    public const VALIDATOR_SESSION_EXPIRE_TIMESTAMP    = 'session_expire_timestamp';
+    public const VALIDATOR_SESSION_RENEW_TIMESTAMP     = 'session_renew_timestamp';
+    public const VALIDATOR_SESSION_LIFETIME            = 'session_lifetime';
+    public const VALIDATOR_PASSWORD_CREATE_TIMESTAMP   = 'password_create_timestamp';
+    public const SECURE_COOKIE_CHECK_KEY               = '_secure_cookie_check';
 
     /** @var bool Flag true if session validator data has already been evaluated */
     protected static $isValidated = false;
@@ -143,7 +144,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         // potential custom logic for session id (ex. switching between hosts)
         $this->setSessionId();
 
-        Varien_Profiler::start(__METHOD__.'/start');
+        Varien_Profiler::start(__METHOD__ . '/start');
         $sessionCacheLimiter = Mage::getConfig()->getNode('global/session_cache_limiter');
         if ($sessionCacheLimiter) {
             session_cache_limiter((string)$sessionCacheLimiter);
@@ -198,7 +199,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if ($cookie->get(session_name()) == $this->getSessionId()) {
             $cookie->renew(session_name());
         }
-        Varien_Profiler::stop(__METHOD__.'/start');
+        Varien_Profiler::stop(__METHOD__ . '/start');
 
         return $this;
     }

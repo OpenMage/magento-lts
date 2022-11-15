@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -134,9 +135,9 @@ class Varien_File_Uploader
      */
     protected $_validateCallbacks = [];
 
-    const SINGLE_STYLE = 0;
-    const MULTIPLE_STYLE = 1;
-    const TMP_NAME_EMPTY = 666;
+    public const SINGLE_STYLE = 0;
+    public const MULTIPLE_STYLE = 1;
+    public const TMP_NAME_EMPTY = 666;
 
     /**
      * Resulting of uploaded file
@@ -198,7 +199,7 @@ class Varien_File_Uploader
             $fileName = $this->correctFileNameCase($fileName);
             $this->setAllowCreateFolders(true);
             $this->_dispretionPath = self::getDispretionPath($fileName);
-            $destinationFile.= $this->_dispretionPath;
+            $destinationFile .= $this->_dispretionPath;
             $this->_createDestinationFolder($destinationFile);
         }
 
@@ -351,7 +352,7 @@ class Varien_File_Uploader
     protected static function _addDirSeparator($dir)
     {
         if (substr($dir, -1) != DIRECTORY_SEPARATOR) {
-            $dir.= DIRECTORY_SEPARATOR;
+            $dir .= DIRECTORY_SEPARATOR;
         }
         return $dir;
     }
@@ -549,8 +550,8 @@ class Varien_File_Uploader
             $index = 1;
             $baseName = $fileInfo['filename'] . '.' . $fileInfo['extension'];
             while (file_exists($fileInfo['dirname'] . DIRECTORY_SEPARATOR . $baseName)) {
-                $baseName = $fileInfo['filename']. '_' . $index . '.' . $fileInfo['extension'];
-                $index ++;
+                $baseName = $fileInfo['filename'] . '_' . $index . '.' . $fileInfo['extension'];
+                $index++;
             }
             $destFileName = $baseName;
         } else {
@@ -572,7 +573,7 @@ class Varien_File_Uploader
                 $dispretionPath = self::_addDirSeparator($dispretionPath)
                       . ('.' == $fileName[$char] ? '_' : $fileName[$char]);
             }
-            $char ++;
+            $char++;
         }
         return $dispretionPath;
     }

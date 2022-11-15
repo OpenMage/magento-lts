@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -74,14 +75,14 @@ class Mage_Core_Block_Text_Tag extends Mage_Core_Block_Text
      */
     protected function _toHtml()
     {
-        $this->setText('<'.$this->getTagName().' ');
+        $this->setText('<' . $this->getTagName() . ' ');
         if ($this->getTagParams()) {
             foreach ($this->getTagParams() as $k => $v) {
-                $this->addText($k.'="'.$v.'" ');
+                $this->addText($k . '="' . $v . '" ');
             }
         }
 
-        $this->addText('>'.$this->getTagContents().'</'.$this->getTagName().'>'."\r\n");
+        $this->addText('>' . $this->getTagContents() . '</' . $this->getTagName() . '>' . "\r\n");
         return parent::_toHtml();
     }
 }

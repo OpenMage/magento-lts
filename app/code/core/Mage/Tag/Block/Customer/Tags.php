@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -59,7 +60,7 @@ class Mage_Tag_Block_Customer_Tags extends Mage_Customer_Block_Account_Dashboard
 
         /** @var Mage_Tag_Model_Tag $tag */
         foreach ($tags as $tag) {
-            $tag->setRatio(($tag->getPopularity()-$this->_minPopularity)/$range);
+            $tag->setRatio(($tag->getPopularity() - $this->_minPopularity) / $range);
             $this->_tags[$tag->getName()] = $tag;
         }
         ksort($this->_tags);

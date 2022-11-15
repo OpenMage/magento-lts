@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'customer/group';
+    public const ADMIN_RESOURCE = 'customer/group';
 
     /**
      * Controller pre-dispatch method

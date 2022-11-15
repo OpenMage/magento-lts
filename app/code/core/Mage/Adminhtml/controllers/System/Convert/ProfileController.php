@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'admin/system/convert/profiles';
+    public const ADMIN_RESOURCE = 'admin/system/convert/profiles';
 
     protected function _initProfile($idFieldName = 'id')
     {
@@ -260,7 +261,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                     $errors[] = $e->getMessage();
                     continue;
                 }
-                $saved ++;
+                $saved++;
             }
 
             if (method_exists($adapter, 'getEventPrefix')) {

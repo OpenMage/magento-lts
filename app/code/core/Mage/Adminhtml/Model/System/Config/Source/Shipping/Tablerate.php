@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Shipping_Tablerate
         $tableRate = Mage::getSingleton('shipping/carrier_tablerate');
         $arr = [];
         foreach ($tableRate->getCode('condition_name') as $k => $v) {
-            $arr[] = ['value'=>$k, 'label'=>$v];
+            $arr[] = ['value' => $k, 'label' => $v];
         }
         return $arr;
     }

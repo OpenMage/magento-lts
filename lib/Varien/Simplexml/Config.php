@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,6 @@
  */
 class Varien_Simplexml_Config
 {
-
     /**
      * Configuration xml
      *
@@ -99,7 +99,7 @@ class Varien_Simplexml_Config
         if ($sourceData instanceof Varien_Simplexml_Element) {
             $this->setXml($sourceData);
         } elseif (is_string($sourceData) && !empty($sourceData)) {
-            if (strlen($sourceData)<1000 && is_readable($sourceData)) {
+            if (strlen($sourceData) < 1000 && is_readable($sourceData)) {
                 $this->loadFile($sourceData);
             } else {
                 $this->loadString($sourceData);
@@ -256,7 +256,7 @@ class Varien_Simplexml_Config
     {
         if (is_null($data)) {
             $this->_cacheChecksum = null;
-        } elseif (false===$data || 0===$data) {
+        } elseif (false === $data || 0 === $data) {
             $this->_cacheChecksum = false;
         } else {
             $this->_cacheChecksum = md5($data);
@@ -270,13 +270,13 @@ class Varien_Simplexml_Config
      */
     public function updateCacheChecksum($data)
     {
-        if (false===$this->getCacheChecksum()) {
+        if (false === $this->getCacheChecksum()) {
             return $this;
         }
-        if (false===$data || 0===$data) {
+        if (false === $data || 0 === $data) {
             $this->_cacheChecksum = false;
         } else {
-            $this->setCacheChecksum($this->getCacheChecksum().':'.$data);
+            $this->setCacheChecksum($this->getCacheChecksum() . ':' . $data);
         }
         return $this;
     }
@@ -294,7 +294,7 @@ class Varien_Simplexml_Config
      */
     public function getCacheChecksumId()
     {
-        return $this->getCacheId().'__CHECKSUM';
+        return $this->getCacheId() . '__CHECKSUM';
     }
 
     /**
@@ -311,14 +311,14 @@ class Varien_Simplexml_Config
     public function validateCacheChecksum()
     {
         $newChecksum = $this->getCacheChecksum();
-        if (false===$newChecksum) {
+        if (false === $newChecksum) {
             return false;
         }
         if (is_null($newChecksum)) {
             return true;
         }
         $cachedChecksum = $this->getCache()->load($this->getCacheChecksumId());
-        return $newChecksum===false && $cachedChecksum===false || $newChecksum===$cachedChecksum;
+        return $newChecksum === false && $cachedChecksum === false || $newChecksum === $cachedChecksum;
     }
 
     /**
@@ -350,7 +350,7 @@ class Varien_Simplexml_Config
         if ($this->getCacheSaved()) {
             return $this;
         }
-        if (false===$this->getCacheChecksum()) {
+        if (false === $this->getCacheChecksum()) {
             return $this;
         }
 

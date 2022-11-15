@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -70,25 +71,25 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
-            'header'    =>Mage::helper('reports')->__('Product Name'),
-            'sortable'  =>false,
-            'index'     =>'name'
+            'header'    => Mage::helper('reports')->__('Product Name'),
+            'sortable'  => false,
+            'index'     => 'name'
         ]);
 
         $this->addColumn('sku', [
-            'header'    =>Mage::helper('reports')->__('Product SKU'),
-            'sortable'  =>false,
-            'index'     =>'sku'
+            'header'    => Mage::helper('reports')->__('Product SKU'),
+            'sortable'  => false,
+            'index'     => 'sku'
         ]);
 
         $this->addColumn('qty', [
-            'header'    =>Mage::helper('reports')->__('Stock Qty'),
-            'width'     =>'215px',
-            'align'     =>'right',
-            'sortable'  =>false,
-            'filter'    =>'adminhtml/widget_grid_column_filter_range',
-            'index'     =>'qty',
-            'type'      =>'number'
+            'header'    => Mage::helper('reports')->__('Stock Qty'),
+            'width'     => '215px',
+            'align'     => 'right',
+            'sortable'  => false,
+            'filter'    => 'adminhtml/widget_grid_column_filter_range',
+            'index'     => 'qty',
+            'type'      => 'number'
         ]);
 
         $this->addExportType('*/*/exportLowstockCsv', Mage::helper('reports')->__('CSV'));

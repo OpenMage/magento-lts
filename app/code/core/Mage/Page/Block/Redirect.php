@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -99,7 +100,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
             $form->addField($field, 'hidden', ['name' => $field, 'value' => $value]);
         }
         $html = $form->toHtml();
-        $html.= '<script type="text/javascript">document.getElementById("' . $this->getFormId() . '").submit();</script>';
+        $html .= '<script type="text/javascript">document.getElementById("' . $this->getFormId() . '").submit();</script>';
         return $html;
     }
 

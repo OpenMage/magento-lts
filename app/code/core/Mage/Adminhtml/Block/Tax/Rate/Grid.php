@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -49,7 +50,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         $this->addColumn('code', [
             'header'        => Mage::helper('tax')->__('Tax Identifier'),
             'header_export' => Mage::helper('tax')->__('Code'),
-            'align'         =>'left',
+            'align'         => 'left',
             'index'         => 'code',
             'filter_index'  => 'main_table.code',
         ]);
@@ -67,7 +68,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         $this->addColumn('region_name', [
             'header'        => Mage::helper('tax')->__('State/Region'),
             'header_export' => Mage::helper('tax')->__('State'),
-            'align'         =>'left',
+            'align'         => 'left',
             'index'         => 'region_name',
             'filter_index'  => 'region_table.code',
             'default'       => '*',
@@ -75,14 +76,14 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
 
         $this->addColumn('tax_postcode', [
             'header'        => Mage::helper('tax')->__('Zip/Post Code'),
-            'align'         =>'left',
+            'align'         => 'left',
             'index'         => 'tax_postcode',
             'default'       => '*',
         ]);
 
         $this->addColumn('rate', [
             'header'        => Mage::helper('tax')->__('Rate'),
-            'align'         =>'right',
+            'align'         => 'right',
             'index'         => 'rate',
             'type'          => 'number',
             'default'       => '0.00',

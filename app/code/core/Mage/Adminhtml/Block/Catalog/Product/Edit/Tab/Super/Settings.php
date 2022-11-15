@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,7 +34,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
      */
     protected function _prepareLayout()
     {
-        $onclick = "setSuperSettings('".$this->getContinueUrl()."','attribute-checkbox', 'attributes')";
+        $onclick = "setSuperSettings('" . $this->getContinueUrl() . "','attribute-checkbox', 'attributes')";
         $this->setChild(
             'continue_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
@@ -47,7 +48,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
         $backButton = $this->getLayout()->createBlock('adminhtml/widget_button')
             ->setData([
                 'label'     => Mage::helper('catalog')->__('Back'),
-                'onclick'   => "setLocation('".$this->getBackUrl()."')",
+                'onclick'   => "setLocation('" . $this->getBackUrl() . "')",
                 'class'     => 'back'
             ]);
 
@@ -74,7 +75,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
     {
         $form = new Varien_Data_Form();
         $fieldset = $form->addFieldset('settings', [
-            'legend'=>Mage::helper('catalog')->__('Select Configurable Attributes ')
+            'legend' => Mage::helper('catalog')->__('Select Configurable Attributes ')
         ]);
 
         $product    = $this->_getProduct();
@@ -95,7 +96,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
         foreach ($attributes as $attribute) {
             if ($productType->canUseAttribute($attribute, $product)) {
                 $hasAttributes = true;
-                $fieldset->addField('attribute_'.$attribute->getAttributeId(), 'checkbox', [
+                $fieldset->addField('attribute_' . $attribute->getAttributeId(), 'checkbox', [
                     'label' => $attribute->getFrontend()->getLabel(),
                     'title' => $attribute->getFrontend()->getLabel(),
                     'name'  => 'attribute',
@@ -149,6 +150,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
      */
     public function getBackUrl()
     {
-        return $this->getUrl('*/*/new', ['set'=>null, 'type'=>null]);
+        return $this->getUrl('*/*/new', ['set' => null, 'type' => null]);
     }
 }

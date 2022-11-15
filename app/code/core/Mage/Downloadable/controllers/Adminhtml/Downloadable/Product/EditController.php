@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -77,7 +78,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
 
         if ($contentDisposition = $helper->getContentDisposition()) {
             $this->getResponse()
-                ->setHeader('Content-Disposition', $contentDisposition . '; filename='.$fileName);
+                ->setHeader('Content-Disposition', $contentDisposition . '; filename=' . $fileName);
         }
 
         $this->getResponse()

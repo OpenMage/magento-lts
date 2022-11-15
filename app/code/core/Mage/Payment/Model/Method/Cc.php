@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -225,7 +226,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      */
     public function otherCcType($type)
     {
-        return $type=='OT';
+        return $type == 'OT';
     }
 
     /**
@@ -239,7 +240,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         $cardNumber = strrev($ccNumber);
         $numSum = 0;
 
-        for ($i=0; $i<strlen($cardNumber); $i++) {
+        for ($i = 0; $i < strlen($cardNumber); $i++) {
             $currentNum = substr($cardNumber, $i, 1);
 
             /**

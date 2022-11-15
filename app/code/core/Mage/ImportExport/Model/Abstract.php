@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -84,7 +85,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
         }
 
         if (!$this->_logInstance) {
-            $dirName  = date('Y' . DS .'m' . DS .'d' . DS);
+            $dirName  = date('Y' . DS . 'm' . DS . 'd' . DS);
             $fileName = implode('_', [
                 str_replace(':', '-', $this->getRunAt()),
                 $this->getScheduledOperationId(),

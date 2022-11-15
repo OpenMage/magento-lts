@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -244,8 +245,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         $weight = $this->getTotalNumOfBoxes($request->getPackageWeight());
         $r->setWeightPounds(floor($weight));
-        $r->setWeightOunces(round(($weight-floor($weight)) * self::OUNCES_POUND, 1));
-        if ($request->getFreeMethodWeight()!=$request->getPackageWeight()) {
+        $r->setWeightOunces(round(($weight - floor($weight)) * self::OUNCES_POUND, 1));
+        if ($request->getFreeMethodWeight() != $request->getPackageWeight()) {
             $r->setFreeMethodWeight($request->getFreeMethodWeight());
         }
 
@@ -696,13 +697,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                'First-Class Package Service - Retail' => '0_FCP',
             ],
 
-            'first_class_mail_type'=> [
+            'first_class_mail_type' => [
                'LETTER'      => Mage::helper('usa')->__('Letter'),
                'FLAT'        => Mage::helper('usa')->__('Flat'),
                'PARCEL'      => Mage::helper('usa')->__('Parcel'),
             ],
 
-            'container'=> [
+            'container' => [
                'VARIABLE'           => Mage::helper('usa')->__('Variable'),
                'FLAT RATE ENVELOPE' => Mage::helper('usa')->__('Flat-Rate Envelope'),
                'FLAT RATE BOX'      => Mage::helper('usa')->__('Flat-Rate Box'),
@@ -865,12 +866,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                    ]
                ],
             ],
-            'size'=> [
+            'size' => [
                'REGULAR'     => Mage::helper('usa')->__('Regular'),
                'LARGE'       => Mage::helper('usa')->__('Large'),
             ],
 
-            'machinable'=> [
+            'machinable' => [
                'true'        => Mage::helper('usa')->__('Yes'),
                'false'       => Mage::helper('usa')->__('No'),
             ],
@@ -950,7 +951,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 }
                 $client = new Zend_Http_Client();
                 $client->setUri($url);
-                $client->setConfig(['maxredirects'=>0, 'timeout'=>30]);
+                $client->setConfig(['maxredirects' => 0, 'timeout' => 30]);
                 $client->setParameterGet('API', $api);
                 $client->setParameterGet('XML', $request);
                 $response = $client->request();
@@ -975,17 +976,17 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     protected function _parseXmlTrackingResponse($trackingValue, $response)
     {
         $errorTitle = Mage::helper('usa')->__('Unable to retrieve tracking');
-        $resultArr= [];
+        $resultArr = [];
         if (strlen(trim($response)) > 0) {
-            if (strpos(trim($response), '<?xml')===0) {
+            if (strpos(trim($response), '<?xml') === 0) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
-                    if (isset($xml->Number) && isset($xml->Description) && (string)$xml->Description!='') {
+                    if (isset($xml->Number) && isset($xml->Description) && (string)$xml->Description != '') {
                         $errorTitle = (string)$xml->Description;
                     } elseif (isset($xml->TrackInfo)
                           && isset($xml->TrackInfo->Error)
                           && isset($xml->TrackInfo->Error->Description)
-                          && (string)$xml->TrackInfo->Error->Description!=''
+                          && (string)$xml->TrackInfo->Error->Description != ''
                     ) {
                         $errorTitle = (string)$xml->TrackInfo->Error->Description;
                     } else {
@@ -1642,7 +1643,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $item = new Varien_Object();
             $item->setData($itemShipment);
 
-            $productIds[]= $item->getProductId();
+            $productIds[] = $item->getProductId();
         }
         $productCollection = Mage::getResourceModel('catalog/product_collection')
             ->addStoreFilter($request->getStoreId())
@@ -1773,7 +1774,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         }
         $client = new Zend_Http_Client();
         $client->setUri($url);
-        $client->setConfig(['maxredirects'=>0, 'timeout'=>30]);
+        $client->setConfig(['maxredirects' => 0, 'timeout' => 30]);
         $client->setParameterGet('API', $api);
         $client->setParameterGet('XML', $requestXml);
         $response = $client->request()->getBody();

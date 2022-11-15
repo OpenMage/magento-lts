@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -29,9 +30,9 @@ class Mage_Adminhtml_Model_System_Config_Source_Tax_Basedon
     public function toOptionArray()
     {
         return [
-            ['value'=>'shipping', 'label'=>Mage::helper('adminhtml')->__('Shipping Address')],
-            ['value'=>'billing', 'label'=>Mage::helper('adminhtml')->__('Billing Address')],
-            ['value'=>'origin', 'label'=>Mage::helper('adminhtml')->__("Shipping Origin")],
+            ['value' => 'shipping', 'label' => Mage::helper('adminhtml')->__('Shipping Address')],
+            ['value' => 'billing', 'label' => Mage::helper('adminhtml')->__('Billing Address')],
+            ['value' => 'origin', 'label' => Mage::helper('adminhtml')->__("Shipping Origin")],
         ];
     }
 }

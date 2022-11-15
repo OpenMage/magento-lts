@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -60,18 +61,18 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
     protected function _prepareColumns()
     {
         $this->addColumn('firstname', [
-            'header'    =>Mage::helper('reports')->__('First Name'),
-            'index'     =>'firstname'
+            'header'    => Mage::helper('reports')->__('First Name'),
+            'index'     => 'firstname'
         ]);
 
         $this->addColumn('lastname', [
-            'header'    =>Mage::helper('reports')->__('Last Name'),
-            'index'     =>'lastname'
+            'header'    => Mage::helper('reports')->__('Last Name'),
+            'index'     => 'lastname'
         ]);
 
         $this->addColumn('product', [
-            'header'    =>Mage::helper('reports')->__('Product Name'),
-            'index'     =>'product_name'
+            'header'    => Mage::helper('reports')->__('Product Name'),
+            'index'     => 'product_name'
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -79,7 +80,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
                 'header'    => Mage::helper('reports')->__('Submitted In'),
                 'index'     => 'added_in',
                 'type'      => 'store',
-                'store_view'=> true
+                'store_view' => true
             ]);
         }
 

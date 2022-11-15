@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -48,7 +49,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
         $this->addColumn(
             'entity_id',
             [
-                'header'=> Mage::helper('adminhtml')->__('ID'),
+                'header' => Mage::helper('adminhtml')->__('ID'),
                 'width' => 50,
                 'index' => 'entity_id',
             ]
@@ -57,7 +58,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
         $this->addColumn(
             'name',
             [
-                'header'=> Mage::helper('adminhtml')->__('Name'),
+                'header' => Mage::helper('adminhtml')->__('Name'),
                 'index' => 'name',
             ]
         );
@@ -65,7 +66,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
         $this->addColumn(
             'sku',
             [
-                'header'=> Mage::helper('adminhtml')->__('SKU'),
+                'header' => Mage::helper('adminhtml')->__('SKU'),
                 'width' => 80,
                 'index' => 'sku',
             ]
@@ -73,7 +74,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
         $this->addColumn(
             'status',
             [
-                'header'=> Mage::helper('adminhtml')->__('Status'),
+                'header' => Mage::helper('adminhtml')->__('Status'),
                 'width' => 50,
                 'index' => 'status',
                 'type'  => 'options',

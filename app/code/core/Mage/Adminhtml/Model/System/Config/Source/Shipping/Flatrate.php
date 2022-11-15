@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -29,9 +30,9 @@ class Mage_Adminhtml_Model_System_Config_Source_Shipping_Flatrate
     public function toOptionArray()
     {
         return [
-            ['value'=>'', 'label'=> Mage::helper('adminhtml')->__('None')],
-            ['value'=>'O', 'label'=>Mage::helper('adminhtml')->__('Per Order')],
-            ['value'=>'I', 'label'=>Mage::helper('adminhtml')->__('Per Item')],
+            ['value' => '', 'label' => Mage::helper('adminhtml')->__('None')],
+            ['value' => 'O', 'label' => Mage::helper('adminhtml')->__('Per Order')],
+            ['value' => 'I', 'label' => Mage::helper('adminhtml')->__('Per Item')],
         ];
     }
 }

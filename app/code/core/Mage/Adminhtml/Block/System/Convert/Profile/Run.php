@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -185,7 +186,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
             }
             $exceptions[] = [
                     "style"     => $liStyle,
-                    "src"       => Mage::getDesign()->getSkinUrl('images/'.$img),
+                    "src"       => Mage::getDesign()->getSkinUrl('images/' . $img),
                     "message"   => $e->getMessage(),
                     "position" => $e->getPosition()
                 ];

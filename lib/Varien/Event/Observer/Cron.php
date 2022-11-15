@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -75,12 +76,12 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
     public function matchCronExpression($expr, $num)
     {
         // handle ALL match
-        if ($expr==='*') {
+        if ($expr === '*') {
             return true;
         }
 
         // handle multiple options
-        if (strpos($expr, ',')!==false) {
+        if (strpos($expr, ',') !== false) {
             foreach (explode(',', $expr) as $e) {
                 if ($this->matchCronExpression($e, $num)) {
                     return true;
@@ -90,7 +91,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         // handle modulus
-        if (strpos($expr, '/')!==false) {
+        if (strpos($expr, '/') !== false) {
             $e = explode('/', $expr);
             if (count($e) !== 2) {
                 return false;
@@ -105,7 +106,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         // handle range
-        if (strpos($expr, '-')!==false) {
+        if (strpos($expr, '-') !== false) {
             $e = explode('-', $expr);
             if (count($e) !== 2) {
                 return false;
@@ -114,13 +115,13 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
             $from = $this->getNumeric($e[0]);
             $to = $this->getNumeric($e[1]);
 
-            return ($from!==false) && ($to!==false)
-                && ($num>=$from) && ($num<=$to) && ($num%$mod===0);
+            return ($from !== false) && ($to !== false)
+                && ($num >= $from) && ($num <= $to) && ($num % $mod === 0);
         }
 
         // handle regular token
         $value = $this->getNumeric($expr);
-        return ($value!==false) && ($num==$value) && ($num%$mod===0);
+        return ($value !== false) && ($num == $value) && ($num % $mod === 0);
     }
 
     /**
@@ -130,26 +131,26 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
     public function getNumeric($value)
     {
         static $data = [
-            'jan'=>1,
-            'feb'=>2,
-            'mar'=>3,
-            'apr'=>4,
-            'may'=>5,
-            'jun'=>6,
-            'jul'=>7,
-            'aug'=>8,
-            'sep'=>9,
-            'oct'=>10,
-            'nov'=>11,
-            'dec'=>12,
+            'jan' => 1,
+            'feb' => 2,
+            'mar' => 3,
+            'apr' => 4,
+            'may' => 5,
+            'jun' => 6,
+            'jul' => 7,
+            'aug' => 8,
+            'sep' => 9,
+            'oct' => 10,
+            'nov' => 11,
+            'dec' => 12,
 
-            'sun'=>0,
-            'mon'=>1,
-            'tue'=>2,
-            'wed'=>3,
-            'thu'=>4,
-            'fri'=>5,
-            'sat'=>6,
+            'sun' => 0,
+            'mon' => 1,
+            'tue' => 2,
+            'wed' => 3,
+            'thu' => 4,
+            'fri' => 5,
+            'sat' => 6,
         ];
 
         if (is_numeric($value)) {

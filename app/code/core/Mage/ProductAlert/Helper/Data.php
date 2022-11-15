@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -106,7 +107,7 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
                 }
             }
             $fileName = mageFindClassFile($block);
-            if ($fileName!==false) {
+            if ($fileName !== false) {
                 include_once($fileName);
                 $block = new $block([]);
             }

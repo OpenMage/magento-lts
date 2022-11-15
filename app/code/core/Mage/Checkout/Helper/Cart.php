@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,12 +32,12 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     /**
      * XML path for redirect to cart value
      */
-    const XML_PATH_REDIRECT_TO_CART = 'checkout/cart/redirect_to_cart';
+    public const XML_PATH_REDIRECT_TO_CART = 'checkout/cart/redirect_to_cart';
 
     /**
      * Maximal coupon code length according to database table definitions (longer codes are truncated)
      */
-    const COUPON_CODE_MAX_LENGTH = 255;
+    public const COUPON_CODE_MAX_LENGTH = 255;
 
     protected $_moduleName = 'Mage_Checkout';
 

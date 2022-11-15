@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -157,11 +158,11 @@ class Varien_Object_Cache
         }
 
         if (is_null($idx)) {
-            $idx = '#'.(++$this->_idx);
+            $idx = '#' . (++$this->_idx);
         }
 
         if (isset($this->_objects[$idx])) {
-            throw new Varien_Exception('Object already exists in registry ('.$idx.'). Old object class: '.get_class($this->_objects[$idx]).', new object class: '.get_class($object));
+            throw new Varien_Exception('Object already exists in registry (' . $idx . '). Old object class: ' . get_class($this->_objects[$idx]) . ', new object class: ' . get_class($object));
         }
 
         $this->_objects[$idx] = $object;
@@ -200,7 +201,7 @@ class Varien_Object_Cache
         }
 
         if (isset($this->_references[$refName])) {
-            throw new Varien_Exception('The reference already exists: '.$refName.'. New index: '.$idx.', old index: '.$this->_references[$refName]);
+            throw new Varien_Exception('The reference already exists: ' . $refName . '. New index: ' . $idx . ', old index: ' . $this->_references[$refName]);
         }
         $this->_references[$refName] = $idx;
         $this->_objectReferences[$idx][$refName] = true;
@@ -219,7 +220,7 @@ class Varien_Object_Cache
         //Varien_Profiler::start("OBJECT_DELETE");
         if (is_object($idx)) {
             $idx = $this->find($idx);
-            if (false===$idx) {
+            if (false === $idx) {
                 //Varien_Profiler::stop("OBJECT_DELETE");
                 return false;
             }
@@ -305,7 +306,7 @@ class Varien_Object_Cache
     public function find($object)
     {
         foreach ($this->_objects as $idx => $obj) {
-            if ($object===$obj) {
+            if ($object === $obj) {
                 return $idx;
             }
         }

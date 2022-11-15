@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -66,7 +67,7 @@ class Mage_Core_Block_Template_Zend extends Mage_Core_Block_Template
      */
     public function setScriptPath($dir)
     {
-        $this->_view->setScriptPath($dir.DS);
+        $this->_view->setScriptPath($dir . DS);
     }
 
     /**

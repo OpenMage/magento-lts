@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,13 +34,13 @@ abstract class Varien_Image_Adapter_Abstract
      */
     public $imageBackgroundColor = 0;
 
-    const POSITION_TOP_LEFT = 'top-left';
-    const POSITION_TOP_RIGHT = 'top-right';
-    const POSITION_BOTTOM_LEFT = 'bottom-left';
-    const POSITION_BOTTOM_RIGHT = 'bottom-right';
-    const POSITION_STRETCH = 'stretch';
-    const POSITION_TILE = 'tile';
-    const POSITION_CENTER = 'center';
+    public const POSITION_TOP_LEFT = 'top-left';
+    public const POSITION_TOP_RIGHT = 'top-right';
+    public const POSITION_BOTTOM_LEFT = 'bottom-left';
+    public const POSITION_BOTTOM_RIGHT = 'bottom-right';
+    public const POSITION_STRETCH = 'stretch';
+    public const POSITION_TILE = 'tile';
+    public const POSITION_CENTER = 'center';
 
     /**
      * Image file type of the image $this->_fileName

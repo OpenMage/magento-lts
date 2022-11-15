@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -116,7 +117,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
         return $this->getUrl(
             '*/sales_order_invoice/view',
             [
-                'invoice_id'=> $row->getId(),
+                'invoice_id' => $row->getId(),
                 'order_id'  => $row->getOrderId()
             ]
         );

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -21,7 +22,6 @@
 
 class Varien_Profiler
 {
-
     /**
      * Timers for code profiling
      *
@@ -45,11 +45,11 @@ class Varien_Profiler
     public static function reset($timerName)
     {
         self::$_timers[$timerName] = [
-            'start'=>false,
-            'count'=>0,
-            'sum'=>0,
-            'realmem'=>0,
-            'emalloc'=>0,
+            'start' => false,
+            'count' => 0,
+            'sum' => 0,
+            'realmem' => 0,
+            'emalloc' => 0,
         ];
     }
 
@@ -86,12 +86,12 @@ class Varien_Profiler
         if (empty(self::$_timers[$timerName])) {
             self::reset($timerName);
         }
-        if (false!==self::$_timers[$timerName]['start']) {
-            self::$_timers[$timerName]['sum'] += $time-self::$_timers[$timerName]['start'];
+        if (false !== self::$_timers[$timerName]['start']) {
+            self::$_timers[$timerName]['sum'] += $time - self::$_timers[$timerName]['start'];
             self::$_timers[$timerName]['start'] = false;
             if (self::$_memory_get_usage) {
-                self::$_timers[$timerName]['realmem'] += memory_get_usage(true)-self::$_timers[$timerName]['realmem_start'];
-                self::$_timers[$timerName]['emalloc'] += memory_get_usage()-self::$_timers[$timerName]['emalloc_start'];
+                self::$_timers[$timerName]['realmem'] += memory_get_usage(true) - self::$_timers[$timerName]['realmem_start'];
+                self::$_timers[$timerName]['emalloc'] += memory_get_usage() - self::$_timers[$timerName]['emalloc_start'];
             }
         }
     }
@@ -111,8 +111,8 @@ class Varien_Profiler
         switch ($key) {
             case 'sum':
                 $sum = self::$_timers[$timerName]['sum'];
-                if (self::$_timers[$timerName]['start']!==false) {
-                    $sum += microtime(true)-self::$_timers[$timerName]['start'];
+                if (self::$_timers[$timerName]['start'] !== false) {
+                    $sum += microtime(true) - self::$_timers[$timerName]['start'];
                 }
                 return $sum;
 

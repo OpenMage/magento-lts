@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -45,10 +46,10 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
                 $userRoles = 0;
             }
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('role_id', ['in'=>$userRoles]);
+                $this->getCollection()->addFieldToFilter('role_id', ['in' => $userRoles]);
             } else {
                 if ($userRoles) {
-                    $this->getCollection()->addFieldToFilter('role_id', ['nin'=>$userRoles]);
+                    $this->getCollection()->addFieldToFilter('role_id', ['nin' => $userRoles]);
                 }
             }
         } else {
@@ -85,8 +86,8 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
         ));*/
 
         $this->addColumn('role_name', [
-            'header'    =>Mage::helper('adminhtml')->__('Role Name'),
-            'index'     =>'role_name'
+            'header'    => Mage::helper('adminhtml')->__('Role Name'),
+            'index'     => 'role_name'
         ]);
 
         return parent::_prepareColumns();

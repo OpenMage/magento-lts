@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -76,7 +77,7 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
             $html .= '<div class="multi-input"><input id="' . $this->getHtmlId() . $i . '" name="' . $this->getName()
                 . '[' . $i . ']' . '" value="' . $this->getEscapedValue($i) . '" '
                 . $this->serialize($this->getHtmlAttributes()) . ' />' . "\n";
-            if ($i==0) {
+            if ($i == 0) {
                 $html .= $this->getAfterElementHtml();
             }
             $html .= '</div>';
@@ -92,24 +93,24 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
         $html = '';
         $lineCount = $this->getLineCount();
 
-        for ($i=0; $i<$lineCount; $i++) {
-            $html.= ($this->getNoSpan() === true) ? '' : '<span class="field-row">'."\n";
-            if ($i==0) {
-                $html.= '<label for="'.$this->getHtmlId().$i.'">'.$this->getLabel()
-                    .($this->getRequired() ? ' <span class="required">*</span>' : '').'</label>'."\n";
+        for ($i = 0; $i < $lineCount; $i++) {
+            $html .= ($this->getNoSpan() === true) ? '' : '<span class="field-row">' . "\n";
+            if ($i == 0) {
+                $html .= '<label for="' . $this->getHtmlId() . $i . '">' . $this->getLabel()
+                    . ($this->getRequired() ? ' <span class="required">*</span>' : '') . '</label>' . "\n";
                 if ($this->getRequired()) {
                     $this->setClass('input-text required-entry');
                 }
             } else {
                 $this->setClass('input-text');
-                $html.= '<label>&nbsp;</label>'."\n";
+                $html .= '<label>&nbsp;</label>' . "\n";
             }
-            $html.= '<input id="'.$this->getHtmlId().$i.'" name="'.$this->getName().'['.$i.']'
-                .'" value="'.$this->getEscapedValue($i).'"'.$this->serialize($this->getHtmlAttributes()).' />'."\n";
-            if ($i==0) {
-                $html.= $this->getAfterElementHtml();
+            $html .= '<input id="' . $this->getHtmlId() . $i . '" name="' . $this->getName() . '[' . $i . ']'
+                . '" value="' . $this->getEscapedValue($i) . '"' . $this->serialize($this->getHtmlAttributes()) . ' />' . "\n";
+            if ($i == 0) {
+                $html .= $this->getAfterElementHtml();
             }
-            $html.= ($this->getNoSpan() === true) ? '' : '</span>'."\n";
+            $html .= ($this->getNoSpan() === true) ? '' : '</span>' . "\n";
         }
         return $html;
     }

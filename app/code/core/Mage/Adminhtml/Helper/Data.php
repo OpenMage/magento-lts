@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,11 +29,11 @@
  */
 class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
 {
-    const XML_PATH_ADMINHTML_ROUTER_FRONTNAME   = 'admin/routers/adminhtml/args/frontName';
-    const XML_PATH_USE_CUSTOM_ADMIN_URL         = 'default/admin/url/use_custom';
-    const XML_PATH_USE_CUSTOM_ADMIN_PATH        = 'default/admin/url/use_custom_path';
-    const XML_PATH_CUSTOM_ADMIN_PATH            = 'default/admin/url/custom_path';
-    const XML_PATH_ADMINHTML_SECURITY_USE_FORM_KEY = 'admin/security/use_form_key';
+    public const XML_PATH_ADMINHTML_ROUTER_FRONTNAME   = 'admin/routers/adminhtml/args/frontName';
+    public const XML_PATH_USE_CUSTOM_ADMIN_URL         = 'default/admin/url/use_custom';
+    public const XML_PATH_USE_CUSTOM_ADMIN_PATH        = 'default/admin/url/use_custom_path';
+    public const XML_PATH_CUSTOM_ADMIN_PATH            = 'default/admin/url/custom_path';
+    public const XML_PATH_ADMINHTML_SECURITY_USE_FORM_KEY = 'admin/security/use_form_key';
 
     protected $_moduleName = 'Mage_Adminhtml';
 

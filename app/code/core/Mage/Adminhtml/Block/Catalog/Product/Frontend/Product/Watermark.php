@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
-    const XML_PATH_IMAGE_TYPES = 'global/catalog/product/media/image_types';
+    public const XML_PATH_IMAGE_TYPES = 'global/catalog/product/media/image_types';
 
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
@@ -46,7 +47,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
                 ->setForm($this->getForm())
                 ->setLabel(Mage::helper('adminhtml')->__('Size for %s', $attribute['title']))
                 ->setRenderer($renderer);
-            $html.= $field->toHtml();
+            $html .= $field->toHtml();
 
             /**
              * Watermark upload field
@@ -56,7 +57,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
                 ->setForm($this->getForm())
                 ->setLabel(Mage::helper('adminhtml')->__('Watermark File for %s', $attribute['title']))
                 ->setRenderer($renderer);
-            $html.= $field->toHtml();
+            $html .= $field->toHtml();
 
             /**
              * Watermark position field
@@ -67,7 +68,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
                 ->setLabel(Mage::helper('adminhtml')->__('Position of Watermark for %s', $attribute['title']))
                 ->setRenderer($renderer)
                 ->setValues(Mage::getSingleton('adminhtml/system_config_source_watermark_position')->toOptionArray());
-            $html.= $field->toHtml();
+            $html .= $field->toHtml();
         }
 
         $html .= $this->_getFooterHtml($element);
@@ -80,16 +81,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
         $id = $element->getHtmlId();
         $default = !$this->getRequest()->getParam('website') && !$this->getRequest()->getParam('store');
 
-        $html = '<h4 class="icon-head head-edit-form">'.$element->getLegend().'</h4>';
-        $html.= '<fieldset class="config" id="'.$element->getHtmlId().'">';
-        $html.= '<legend>'.$element->getLegend().'</legend>';
+        $html = '<h4 class="icon-head head-edit-form">' . $element->getLegend() . '</h4>';
+        $html .= '<fieldset class="config" id="' . $element->getHtmlId() . '">';
+        $html .= '<legend>' . $element->getLegend() . '</legend>';
 
         // field label column
-        $html.= '<table cellspacing="0"><colgroup class="label" /><colgroup class="value" />';
+        $html .= '<table cellspacing="0"><colgroup class="label" /><colgroup class="value" />';
         if (!$default) {
-            $html.= '<colgroup class="use-default" />';
+            $html .= '<colgroup class="use-default" />';
         }
-        $html.= '<tbody>';
+        $html .= '<tbody>';
 
         return $html;
     }

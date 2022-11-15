@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -59,7 +60,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Roleinfo extends Mage_Adminhtml_Block
 
         $form = new Varien_Data_Form();
 
-        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('adminhtml')->__('Role Information')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('adminhtml')->__('Role Information')]);
 
         $fieldset->addField(
             'role_name',

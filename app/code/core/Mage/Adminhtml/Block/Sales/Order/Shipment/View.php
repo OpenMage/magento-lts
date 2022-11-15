@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -57,7 +58,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
             $this->_addButton('print', [
                 'label'     => Mage::helper('sales')->__('Print'),
                 'class'     => 'save',
-                'onclick'   => 'setLocation(\''.$this->getPrintUrl().'\')'
+                'onclick'   => 'setLocation(\'' . $this->getPrintUrl() . '\')'
                 ]);
         }
     }
@@ -94,7 +95,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
             '*/sales_order/view',
             [
                 'order_id'  => $this->getShipment()->getOrderId(),
-                'active_tab'=> 'order_shipments'
+                'active_tab' => 'order_shipments'
             ]
         );
     }

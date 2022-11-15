@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -44,7 +45,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
         $this->setDefaultDir('DESC');
         $this->setUseAjax(true);
         if ($this->_getTagId()) {
-            $this->setDefaultFilter(['in_products'=>1]);
+            $this->setDefaultFilter(['in_products' => 1]);
         }
     }
 
@@ -153,7 +154,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
         $this->addColumn(
             'entity_id',
             [
-                'header'=> Mage::helper('catalog')->__('ID'),
+                'header' => Mage::helper('catalog')->__('ID'),
                 'width' => 50,
                 'sortable'  => true,
                 'type'  => 'number',
@@ -163,7 +164,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
         $this->addColumn(
             'name',
             [
-                'header'=> Mage::helper('catalog')->__('Name'),
+                'header' => Mage::helper('catalog')->__('Name'),
                 'index' => 'name',
             ]
         );
@@ -173,7 +174,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
             $this->addColumn(
                 'custom_name',
                 [
-                    'header'=> Mage::helper('catalog')->__('Name in %s', $this->escapeHtml($store->getName())),
+                    'header' => Mage::helper('catalog')->__('Name in %s', $this->escapeHtml($store->getName())),
                     'index' => 'custom_name',
                 ]
             );
@@ -209,7 +210,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
         $this->addColumn(
             'sku',
             [
-                'header'=> Mage::helper('catalog')->__('SKU'),
+                'header' => Mage::helper('catalog')->__('SKU'),
                 'width' => 80,
                 'index' => 'sku',
             ]

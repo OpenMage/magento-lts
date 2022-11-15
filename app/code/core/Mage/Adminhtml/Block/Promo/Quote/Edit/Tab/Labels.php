@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -109,7 +110,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels extends Mage_Adminhtml_Bl
                 ]);
                 foreach ($stores as $store) {
                     $fieldset->addField("s_{$store->getId()}", 'text', [
-                        'name'      => 'store_labels['.$store->getId().']',
+                        'name'      => 'store_labels[' . $store->getId() . ']',
                         'required'  => false,
                         'label'     => $store->getName(),
                         'value'     => $labels[$store->getId()] ?? '',

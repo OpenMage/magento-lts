@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -94,7 +95,7 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
             $this->addColumn(
                 'websites',
                 [
-                    'header'=> Mage::helper('review')->__('Websites'),
+                    'header' => Mage::helper('review')->__('Websites'),
                     'width' => '100px',
                     'sortable'  => false,
                     'index'     => 'websites',
@@ -110,7 +111,7 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/productGrid', ['_current'=>true]);
+        return $this->getUrl('*/*/productGrid', ['_current' => true]);
     }
 
     /**

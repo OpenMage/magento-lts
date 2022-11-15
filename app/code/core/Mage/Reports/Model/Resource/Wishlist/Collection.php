@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -86,7 +87,7 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
             ->union([$customersSelect, $count], Zend_Db_Select::SQL_UNION_ALL);
         list($customers, $count) = $this->getConnection()->fetchCol($resultSelect);
 
-        return [($count*100)/$customers, $count];
+        return [($count * 100) / $customers, $count];
     }
 
     /**

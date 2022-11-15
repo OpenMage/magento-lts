@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -244,7 +245,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
                         $row['store_id'],
                         $valueId
                     ];
-                    $i ++;
+                    $i++;
                     if ($i % 10000 == 0) {
                         $this->_saveIndexData($data);
                         $data = [];

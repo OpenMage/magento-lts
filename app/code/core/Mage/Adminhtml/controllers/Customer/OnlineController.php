@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -30,7 +31,7 @@ class Mage_Adminhtml_Customer_OnlineController extends Mage_Adminhtml_Controller
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'customer/online';
+    public const ADMIN_RESOURCE = 'customer/online';
 
     public function indexAction()
     {

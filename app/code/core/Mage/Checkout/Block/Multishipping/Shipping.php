@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -114,7 +115,7 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
      */
     public function getCarrierName($carrierCode)
     {
-        if ($name = Mage::getStoreConfig('carriers/'.$carrierCode.'/title')) {
+        if ($name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title')) {
             return $name;
         }
         return $carrierCode;
@@ -126,7 +127,7 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
      */
     public function getAddressEditUrl($address)
     {
-        return $this->getUrl('*/multishipping_address/editShipping', ['id'=>$address->getCustomerAddressId()]);
+        return $this->getUrl('*/multishipping_address/editShipping', ['id' => $address->getCustomerAddressId()]);
     }
 
     /**

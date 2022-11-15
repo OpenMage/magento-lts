@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -253,7 +254,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
 
         $weight = $this->getTotalNumOfBoxes($request->getPackageWeight());
         $r->setWeight($weight);
-        if ($request->getFreeMethodWeight()!= $request->getPackageWeight()) {
+        if ($request->getFreeMethodWeight() != $request->getPackageWeight()) {
             $r->setFreeMethodWeight($request->getFreeMethodWeight());
         }
 
@@ -683,7 +684,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $costArr = [];
         $priceArr = [];
 
-        if (strlen(trim($response))>0) {
+        if (strlen(trim($response)) > 0) {
             if ($xml = $this->_parseXml($response)) {
                 if (is_object($xml->Error) && is_object($xml->Error->Message)) {
                     $errorTitle = (string)$xml->Error->Message;
@@ -908,7 +909,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 'INDIRECT'              => Mage::helper('usa')->__('Indirect'),
             ],
 
-            'unit_of_measure'=> [
+            'unit_of_measure' => [
                 'LB'   =>  Mage::helper('usa')->__('Pounds'),
                 'KG'   =>  Mage::helper('usa')->__('Kilograms'),
             ],
@@ -962,7 +963,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $this->setTrackingReqeust();
 
         if (!is_array($trackings)) {
-            $trackings= [$trackings];
+            $trackings = [$trackings];
         }
 
         foreach ($trackings as $tracking) {
@@ -1154,8 +1155,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      */
     protected function _parseXmlTrackingResponse($trackingvalue, $response)
     {
-        $resultArr= [];
-        if (strlen(trim($response))>0) {
+        $resultArr = [];
+        if (strlen(trim($response)) > 0) {
             if ($xml = $this->_parseXml($response)) {
                 if (is_object($xml->Error) && is_object($xml->Error->Message)) {
                     $errorTitle = (string)$xml->Error->Message;
@@ -1178,11 +1179,11 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                     $packageProgress = [];
                     if (isset($xml->Package->Event)) {
                         foreach ($xml->Package->Event as $event) {
-                            $tempArr= [];
+                            $tempArr = [];
                             $tempArr['activity'] = (string)$event->Description;
                             $tempArr['deliverydate'] = (string)$event->Date;//YYYY-MM-DD
                               $tempArr['deliverytime'] = (string)$event->Time;//HH:MM:ss
-                              $addArr= [];
+                              $addArr = [];
                             if (isset($event->Address->City)) {
                                 $addArr[] = (string)$event->Address->City;
                             }
@@ -1193,7 +1194,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                                 $addArr[] = (string)$event->Address->CountryCode;
                             }
                             if ($addArr) {
-                                $tempArr['deliverylocation']=implode(', ', $addArr);
+                                $tempArr['deliverylocation'] = implode(', ', $addArr);
                             }
                             $packageProgress[] = $tempArr;
                         }

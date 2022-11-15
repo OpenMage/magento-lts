@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -146,8 +147,8 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
             $arr = is_array($street) ? $street : explode("\n", $street);
             if ($line === 0 || $line === null) {
                 return $arr;
-            } elseif (isset($arr[$line-1])) {
-                return $arr[$line-1];
+            } elseif (isset($arr[$line - 1])) {
+                return $arr[$line - 1];
             } else {
                 return '';
             }
@@ -228,7 +229,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     {
         $streetLines = $this->getStreet();
         foreach ($streetLines as $i => $line) {
-            $this->setData('street'.($i+1), $line);
+            $this->setData('street' . ($i + 1), $line);
         }
         return $this;
     }

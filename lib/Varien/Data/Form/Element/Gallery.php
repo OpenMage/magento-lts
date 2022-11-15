@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -59,7 +60,7 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
 
         $html .= '<tfoot class="gallery">';
         $html .= '<tr class="gallery">';
-        $html .= '<td class="gallery" valign="middle" align="left" colspan="5">'.$buttonHtml.'</td>';
+        $html .= '<td class="gallery" valign="middle" align="left" colspan="5">' . $buttonHtml . '</td>';
         $html .= '</tr>';
         $html .= '</tfoot>';
 
@@ -73,16 +74,16 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
                 foreach ($this->getValue()->getAttributeBackend()->getImageTypes() as $type) {
                     $url = $image->setType($type)->getSourceUrl();
                     $html .= '<td class="gallery" align="center" style="vertical-align:bottom;">';
-                    $html .= '<a href="'.$url.'" target="_blank" onclick="imagePreview(\''.$this->getHtmlId().'_image_'.$type.'_'.$image->getValueId().'\');return false;">
-                    <img id="'.$this->getHtmlId().'_image_'.$type.'_'.$image->getValueId().'" src="'.$url.'" alt="'.$image->getValue().'" height="25" align="absmiddle" class="small-image-preview"></a><br/>';
-                    $html .= '<input type="file" name="'.$this->getName().'_'.$type.'['.$image->getValueId().']" size="1"></td>';
+                    $html .= '<a href="' . $url . '" target="_blank" onclick="imagePreview(\'' . $this->getHtmlId() . '_image_' . $type . '_' . $image->getValueId() . '\');return false;">
+                    <img id="' . $this->getHtmlId() . '_image_' . $type . '_' . $image->getValueId() . '" src="' . $url . '" alt="' . $image->getValue() . '" height="25" align="absmiddle" class="small-image-preview"></a><br/>';
+                    $html .= '<input type="file" name="' . $this->getName() . '_' . $type . '[' . $image->getValueId() . ']" size="1"></td>';
                 }
-                $html .= '<td class="gallery" align="center" style="vertical-align:bottom;"><input type="input" name="'.parent::getName().'[position]['.$image->getValueId().']" value="'.$image->getPosition().'" id="'.$this->getHtmlId().'_position_'.$image->getValueId().'" size="3"/></td>';
-                $html .= '<td class="gallery" align="center" style="vertical-align:bottom;"><input type="checkbox" name="'.parent::getName().'[delete]['.$image->getValueId().']" value="'.$image->getValueId().'" id="'.$this->getHtmlId().'_delete_'.$image->getValueId().'"/></td>';
+                $html .= '<td class="gallery" align="center" style="vertical-align:bottom;"><input type="input" name="' . parent::getName() . '[position][' . $image->getValueId() . ']" value="' . $image->getPosition() . '" id="' . $this->getHtmlId() . '_position_' . $image->getValueId() . '" size="3"/></td>';
+                $html .= '<td class="gallery" align="center" style="vertical-align:bottom;"><input type="checkbox" name="' . parent::getName() . '[delete][' . $image->getValueId() . ']" value="' . $image->getValueId() . '" id="' . $this->getHtmlId() . '_delete_' . $image->getValueId() . '"/></td>';
                 $html .= '</tr>';
             }
         }
-        if ($i==0) {
+        if ($i == 0) {
             $html .= '<script type="text/javascript">document.getElementById("gallery_thead").style.visibility="hidden";</script>';
         }
 
@@ -173,7 +174,7 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
         </script>
 
 EndSCRIPT;
-        $html.= $this->getAfterElementHtml();
+        $html .= $this->getAfterElementHtml();
         return $html;
     }
 

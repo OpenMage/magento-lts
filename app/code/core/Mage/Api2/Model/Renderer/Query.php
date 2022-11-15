@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Api2_Model_Renderer_Query implements Mage_Api2_Model_Renderer_Interfa
     /**
      * Adapter mime type
      */
-    const MIME_TYPE = 'text/plain';
+    public const MIME_TYPE = 'text/plain';
 
     /**
      * Convert Array to URL-encoded query string

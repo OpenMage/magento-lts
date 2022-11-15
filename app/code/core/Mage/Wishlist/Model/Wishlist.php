@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -421,7 +422,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         $data = [];
         $data[$this->_getResource()->getCustomerIdFieldName()] = $this->getCustomerId();
         $data['shared']      = (int) $this->getShared();
-        $data['sharing_code']= $this->getSharingCode();
+        $data['sharing_code'] = $this->getSharingCode();
         return $data;
     }
 

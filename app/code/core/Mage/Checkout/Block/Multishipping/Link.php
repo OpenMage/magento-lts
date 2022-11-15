@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,7 +34,7 @@ class Mage_Checkout_Block_Multishipping_Link extends Mage_Core_Block_Template
      */
     public function getCheckoutUrl()
     {
-        return $this->getUrl('checkout/multishipping', ['_secure'=>true]);
+        return $this->getUrl('checkout/multishipping', ['_secure' => true]);
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -53,7 +54,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Form extends Mage_Adminh
             $gridBlockJsObject = $gridBlock->getJsObjectName();
         }
 
-        $fieldset = $form->addFieldset('information_fieldset', ['legend'=>Mage::helper('salesrule')->__('Coupons Information')]);
+        $fieldset = $form->addFieldset('information_fieldset', ['legend' => Mage::helper('salesrule')->__('Coupons Information')]);
         $fieldset->addClass('ignore-validate');
 
         $fieldset->addField('rule_id', 'hidden', [

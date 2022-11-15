@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'promo/catalog';
+    public const ADMIN_RESOURCE = 'promo/catalog';
 
     /**
      * Dirty rules notice message
@@ -150,7 +151,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                         $this->_getSession()->addError($errorMessage);
                     }
                     $this->_getSession()->setPageData($data);
-                    $this->_redirect('*/*/edit', ['id'=>$model->getId()]);
+                    $this->_redirect('*/*/edit', ['id' => $model->getId()]);
                     return;
                 }
 

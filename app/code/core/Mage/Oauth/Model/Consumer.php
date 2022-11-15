@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -50,12 +51,12 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
     /**
      * Key hash length
      */
-    const KEY_LENGTH = 32;
+    public const KEY_LENGTH = 32;
 
     /**
      * Secret hash length
      */
-    const SECRET_LENGTH = 32;
+    public const SECRET_LENGTH = 32;
 
     protected function _construct()
     {

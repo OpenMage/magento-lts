@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -619,7 +620,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     {
         $statusInfo = new Varien_Object(['display_status' => true]);
         Mage::dispatchEvent('catalog_block_product_status_display', ['status' => $statusInfo]);
-        return (boolean)$statusInfo->getDisplayStatus();
+        return (bool)$statusInfo->getDisplayStatus();
     }
 
     /**

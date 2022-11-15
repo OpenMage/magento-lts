@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     /**
      * Api URL
      */
-    const API_URL = 'https://image-charts.com/chart';
+    public const API_URL = 'https://image-charts.com/chart';
 
     /**
      * All series
@@ -245,7 +246,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         /**
          * skipping some x labels for good reading
          */
-        $i=0;
+        $i = 0;
         foreach ($dates as $k => $d) {
             if ($i == $c) {
                 $dates[$k] = $d;
@@ -295,10 +296,10 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
             $miny = 0;
             if ($maxvalue > 10) {
                 $p = 10 ** $this->_getPow($maxvalue);
-                $maxy = (ceil($maxvalue/$p))*$p;
+                $maxy = (ceil($maxvalue / $p)) * $p;
                 $yLabels = range($miny, $maxy, $p);
             } else {
-                $maxy = ceil($maxvalue+1);
+                $maxy = ceil($maxvalue + 1);
                 $yLabels = range($miny, $maxy, 1);
             }
             $yrange = $maxy;
@@ -393,7 +394,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         }
 
         // chart size
-        $params['chs'] = $this->getWidth().'x'.$this->getHeight();
+        $params['chs'] = $this->getWidth() . 'x' . $this->getHeight();
 
         if (isset($deltaX, $deltaY)) {
             $params['chg'] = $deltaX . ',' . $deltaY . ',1,0';
@@ -403,7 +404,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         if ($directUrl) {
             $p = [];
             foreach ($params as $name => $value) {
-                $p[] = $name . '=' .urlencode($value);
+                $p[] = $name . '=' . urlencode($value);
             }
             return self::API_URL . '?' . implode('&', $p);
         }

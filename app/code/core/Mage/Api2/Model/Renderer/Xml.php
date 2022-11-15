@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,12 +32,12 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
     /**
      * Adapter mime type
      */
-    const MIME_TYPE = 'application/xml';
+    public const MIME_TYPE = 'application/xml';
 
     /**
      * Default name for item of non-associative array
      */
-    const ARRAY_NON_ASSOC_ITEM_NAME = 'data_item';
+    public const ARRAY_NON_ASSOC_ITEM_NAME = 'data_item';
 
     /**
      * Chars for replacement in the tag name

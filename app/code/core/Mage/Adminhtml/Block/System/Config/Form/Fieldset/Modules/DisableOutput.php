@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -46,10 +47,10 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
         sort($modules);
 
         foreach ($modules as $moduleName) {
-            if ($moduleName==='Mage_Adminhtml') {
+            if ($moduleName === 'Mage_Adminhtml') {
                 continue;
             }
-            $html.= $this->_getFieldHtml($element, $moduleName);
+            $html .= $this->_getFieldHtml($element, $moduleName);
         }
         $html .= $this->_getFooterHtml($element);
 
@@ -59,7 +60,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
     protected function _getDummyElement()
     {
         if (empty($this->_dummyElement)) {
-            $this->_dummyElement = new Varien_Object(['show_in_default'=>1, 'show_in_website'=>1]);
+            $this->_dummyElement = new Varien_Object(['show_in_default' => 1, 'show_in_website' => 1]);
         }
         return $this->_dummyElement;
     }
@@ -76,8 +77,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
     {
         if (empty($this->_values)) {
             $this->_values = [
-                ['label'=>Mage::helper('adminhtml')->__('Enable'), 'value'=>0],
-                ['label'=>Mage::helper('adminhtml')->__('Disable'), 'value'=>1],
+                ['label' => Mage::helper('adminhtml')->__('Enable'), 'value' => 0],
+                ['label' => Mage::helper('adminhtml')->__('Disable'), 'value' => 1],
             ];
         }
         return $this->_values;
@@ -86,7 +87,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
     protected function _getFieldHtml($fieldset, $moduleName)
     {
         $configData = $this->getConfigData();
-        $path = 'advanced/modules_disable_output/'.$moduleName; //TODO: move as property of form
+        $path = 'advanced/modules_disable_output/' . $moduleName; //TODO: move as property of form
         if (isset($configData[$path])) {
             $data = $configData[$path];
             $inherit = false;
@@ -101,7 +102,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
             $moduleName,
             'select',
             [
-                'name'          => 'groups[modules_disable_output][fields]['.$moduleName.'][value]',
+                'name'          => 'groups[modules_disable_output][fields][' . $moduleName . '][value]',
                 'label'         => $moduleName,
                 'value'         => $data,
                 'values'        => $this->_getValues(),

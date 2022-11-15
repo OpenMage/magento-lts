@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Block_Report_Grid_Column_Renderer_Blanknumber extends Mage_
         $data = parent::_getValue($row);
         if (!is_null($data)) {
             $value = $data * 1;
-            return $value ? $value: ''; // fixed for showing blank cell in grid
+            return $value ? $value : ''; // fixed for showing blank cell in grid
             /**
              * @todo may be bug in i.e. needs to be fixed
              */

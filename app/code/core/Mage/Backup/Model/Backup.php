@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -143,7 +144,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
 
         $ioProxy = new Varien_Io_File();
         $ioProxy->setAllowCreateFolders(true);
-        $ioProxy->open(['path'=>$this->getPath()]);
+        $ioProxy->open(['path' => $this->getPath()]);
 
         $compress = 0;
         if (extension_loaded("zlib")) {
@@ -217,7 +218,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
         }
 
         $ioProxy = new Varien_Io_File();
-        $ioProxy->open(['path'=>$this->getPath()]);
+        $ioProxy->open(['path' => $this->getPath()]);
         $ioProxy->rm($this->getFileName());
         return $this;
     }

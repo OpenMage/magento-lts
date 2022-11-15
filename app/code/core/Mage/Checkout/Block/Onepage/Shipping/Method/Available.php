@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -75,7 +76,7 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
      */
     public function getCarrierName($carrierCode)
     {
-        if ($name = Mage::getStoreConfig('carriers/'.$carrierCode.'/title')) {
+        if ($name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title')) {
             return $name;
         }
         return $carrierCode;

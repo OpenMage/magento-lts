@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,6 +29,6 @@ $conn = $installer->getConnection();
 
 $conn->addColumn($table, 'locale', "varchar(20) not null default 'en_US'");
 $conn->dropKey($table, 'IDX_CODE');
-$conn->raw_query('alter table `'.$table.'` add unique key `IDX_CODE` (`store_id`, `locale`, `string`)');
+$conn->raw_query('alter table `' . $table . '` add unique key `IDX_CODE` (`store_id`, `locale`, `string`)');
 
 $installer->endSetup();

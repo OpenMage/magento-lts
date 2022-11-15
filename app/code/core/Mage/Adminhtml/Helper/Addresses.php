@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -27,7 +28,7 @@
  */
 class Mage_Adminhtml_Helper_Addresses extends Mage_Core_Helper_Abstract
 {
-    const DEFAULT_STREET_LINES_COUNT = 2;
+    public const DEFAULT_STREET_LINES_COUNT = 2;
 
     protected $_moduleName = 'Mage_Adminhtml';
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -90,7 +91,7 @@ class Mage_System_Dirs
     {
         $exists = file_exists($source);
         if (!$exists) {
-            throw new Exception('No file exists: '.$exists);
+            throw new Exception('No file exists: ' . $exists);
         }
     }
 }

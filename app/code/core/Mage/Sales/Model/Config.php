@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -26,7 +27,7 @@
  */
 class Mage_Sales_Model_Config
 {
-    const XML_PATH_ORDER_STATES = 'global/sales/order/states';
+    public const XML_PATH_ORDER_STATES = 'global/sales/order/states';
 
     /**
      * @param string $type

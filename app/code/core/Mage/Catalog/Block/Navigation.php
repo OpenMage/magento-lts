@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -276,7 +277,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         $linkClass = '';
         if ($isOutermost && $outermostItemClass) {
             $classes[] = $outermostItemClass;
-            $linkClass = ' class="'.$outermostItemClass.'"';
+            $linkClass = ' class="' . $outermostItemClass . '"';
         }
         if ($isFirst) {
             $classes[] = 'first';
@@ -306,7 +307,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         $htmlLi .= '>';
         $html[] = $htmlLi;
 
-        $html[] = '<a href="'.$this->getCategoryUrl($category).'"'.$linkClass.'>';
+        $html[] = '<a href="' . $this->getCategoryUrl($category) . '"' . $linkClass . '>';
         $html[] = '<span>' . $this->escapeHtml($category->getName()) . '</span>';
         $html[] = '</a>';
 
@@ -398,7 +399,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         }
 
         $html .= '>' . "\n";
-        $html .= '<a href="'.$this->getCategoryUrl($category).'">'
+        $html .= '<a href="' . $this->getCategoryUrl($category) . '">'
             . '<span>' . $this->escapeHtml($category->getName()) . '</span></a>' . "\n";
 
         if (in_array($category->getId(), $this->getCurrentCategoryPath())) {
@@ -416,7 +417,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
                 }
             }
         }
-        $html .= '</li>'."\n";
+        $html .= '</li>' . "\n";
 
         return $html;
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -206,17 +207,17 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * Accept action
      */
-    const REVIEW_ACTION_ACCEPT = 'accept';
+    public const REVIEW_ACTION_ACCEPT = 'accept';
 
     /**
      * Deny action
      */
-    const REVIEW_ACTION_DENY   = 'deny';
+    public const REVIEW_ACTION_DENY   = 'deny';
 
     /**
      * Update action
      */
-    const REVIEW_ACTION_UPDATE = 'update';
+    public const REVIEW_ACTION_UPDATE = 'update';
 
     /**
      * Order model object

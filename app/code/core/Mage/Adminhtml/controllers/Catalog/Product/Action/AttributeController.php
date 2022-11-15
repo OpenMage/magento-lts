@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'catalog/update_attributes';
+    public const ADMIN_RESOURCE = 'catalog/update_attributes';
 
     protected function _construct()
     {
@@ -191,7 +192,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
             $this->_getSession()->addError($this->__('An error occurred while updating the product(s) attributes.'));
         }
 
-        $this->_redirect('*/catalog_product/', ['store'=>$this->_getHelper()->getSelectedStoreId()]);
+        $this->_redirect('*/catalog_product/', ['store' => $this->_getHelper()->getSelectedStoreId()]);
     }
 
     /**
@@ -211,7 +212,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
 
         if ($error) {
             $this->_getSession()->addError($error);
-            $this->_redirect('*/catalog_product/', ['_current'=>true]);
+            $this->_redirect('*/catalog_product/', ['_current' => true]);
         }
 
         return !$error;

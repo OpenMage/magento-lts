@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -133,7 +134,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     public function canUseCheckout()
     {
         if (Mage::getStoreConfigFlag('payment/hosted_pro/active')
-           && !Mage::getStoreConfigFlag('payment/hosted_pro/display_ec')
+            && !Mage::getStoreConfigFlag('payment/hosted_pro/display_ec')
         ) {
             return false;
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -35,7 +36,7 @@ class Mage_Adminhtml_Block_System_Design extends Mage_Adminhtml_Block_Template
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Add Design Change'),
-                    'onclick'   => "setLocation('".$this->getUrl('*/*/new')."')",
+                    'onclick'   => "setLocation('" . $this->getUrl('*/*/new') . "')",
                     'class'   => 'add'
                 ])
         );

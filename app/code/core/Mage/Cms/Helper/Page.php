@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,9 +29,9 @@
  */
 class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_NO_ROUTE_PAGE        = 'web/default/cms_no_route';
-    const XML_PATH_NO_COOKIES_PAGE      = 'web/default/cms_no_cookies';
-    const XML_PATH_HOME_PAGE            = 'web/default/cms_home_page';
+    public const XML_PATH_NO_ROUTE_PAGE        = 'web/default/cms_no_route';
+    public const XML_PATH_NO_COOKIES_PAGE      = 'web/default/cms_no_cookies';
+    public const XML_PATH_HOME_PAGE            = 'web/default/cms_home_page';
 
     protected $_moduleName = 'Mage_Cms';
 
@@ -59,7 +60,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     protected function _renderPage(Mage_Core_Controller_Varien_Action  $action, $pageId = null, $renderLayout = true)
     {
         $page = Mage::getSingleton('cms/page');
-        if (!is_null($pageId) && $pageId!==$page->getId()) {
+        if (!is_null($pageId) && $pageId !== $page->getId()) {
             $delimeterPosition = strrpos($pageId, '|');
             if ($delimeterPosition) {
                 $pageId = substr($pageId, 0, $delimeterPosition);

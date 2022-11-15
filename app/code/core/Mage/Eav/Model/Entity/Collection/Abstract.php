@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -310,7 +311,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             foreach ($attribute as $condition) {
                 $sqlArr[] = $this->_getAttributeConditionSql($condition['attribute'], $condition, $joinType);
             }
-            $conditionSql = '('.implode(') OR (', $sqlArr).')';
+            $conditionSql = '(' . implode(') OR (', $sqlArr) . ')';
         } elseif (is_string($attribute)) {
             if ($condition === null) {
                 $condition = '';
@@ -321,7 +322,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         if (!empty($conditionSql)) {
             $this->getSelect()->where($conditionSql, null, Varien_Db_Select::TYPE_CONDITION);
         } else {
-            Mage::throwException('Invalid attribute identifier for filter ('.get_class($attribute).')');
+            Mage::throwException('Invalid attribute identifier for filter (' . get_class($attribute) . ')');
         }
 
         return $this;
@@ -347,7 +348,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     public function addAttributeToSort($attribute, $dir = self::SORT_ORDER_ASC)
     {
         if (isset($this->_joinFields[$attribute])) {
-            $this->getSelect()->order($this->_getAttributeFieldName($attribute).' '.$dir);
+            $this->getSelect()->order($this->_getAttributeFieldName($attribute) . ' ' . $dir);
             return $this;
         }
         if (isset($this->_staticFields[$attribute])) {
@@ -367,10 +368,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
                 $orderExpr = $entityField;
             } else {
                 $this->_addAttributeJoin($attribute, 'left');
-                if (isset($this->_joinAttributes[$attribute])||isset($this->_joinFields[$attribute])) {
+                if (isset($this->_joinAttributes[$attribute]) || isset($this->_joinFields[$attribute])) {
                     $orderExpr = $attribute;
                 } else {
-                    $orderExpr = $this->_getAttributeTableAlias($attribute).'.value';
+                    $orderExpr = $this->_getAttributeTableAlias($attribute) . '.value';
                 }
             }
 
@@ -569,7 +570,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
                 $this->getSelect()->group($entityField);
             } else {
                 $this->_addAttributeJoin($attribute);
-                $this->getSelect()->group($this->_getAttributeTableAlias($attribute).'.value');
+                $this->getSelect()->group($this->_getAttributeTableAlias($attribute) . '.value');
             }
         }
 
@@ -696,7 +697,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // validate table
-        if (strpos($table, '/')!==false) {
+        if (strpos($table, '/') !== false) {
             $table = Mage::getSingleton('core/resource')->getTableName($table);
         }
         $tableAlias = $this->_getAttributeTableAlias($alias);
@@ -721,7 +722,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         if ($cond !== null) {
             if (is_array($cond)) {
                 foreach ($cond as $k => $v) {
-                    $condArr[] = $this->_getConditionSql($tableAlias.'.'.$k, $v);
+                    $condArr[] = $this->_getConditionSql($tableAlias . '.' . $k, $v);
                 }
             } else {
                 $condArr[] = str_replace('{{table}}', $tableAlias, $cond);
@@ -731,7 +732,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
 
         // join table
         $this->getSelect()
-            ->$joinMethod([$tableAlias => $table], $cond, ($field ? [$alias=>$field] : []));
+            ->$joinMethod([$tableAlias => $table], $cond, ($field ? [$alias => $field] : []));
 
         // save joined attribute
         $this->_joinFields[$alias] = [
@@ -806,13 +807,13 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         if ($cond !== null) {
             if (is_array($cond)) {
                 foreach ($cond as $k => $v) {
-                    $condArr[] = $this->_getConditionSql($tableAlias.'.'.$k, $v);
+                    $condArr[] = $this->_getConditionSql($tableAlias . '.' . $k, $v);
                 }
             } else {
                 $condArr[] = str_replace('{{table}}', $tableAlias, $cond);
             }
         }
-        $cond = '('.implode(') AND (', $condArr).')';
+        $cond = '(' . implode(') AND (', $condArr) . ')';
 
         // join table
         $this->getSelect()->$joinMethod([$tableAlias => $tableName], $cond, $fields);
@@ -939,7 +940,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $idsSelect->reset(Zend_Db_Select::COLUMNS);
         $idsSelect->reset(Zend_Db_Select::GROUP);
-        $idsSelect->columns('e.'.$this->getEntity()->getIdFieldName());
+        $idsSelect->columns('e.' . $this->getEntity()->getIdFieldName());
 
         return $idsSelect;
     }
@@ -1178,7 +1179,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
         $helper = Mage::getResourceHelper('eav');
         $select->columns([
-            'value' => $helper->prepareEavAttributeValue($table. '.value', $type),
+            'value' => $helper->prepareEavAttributeValue($table . '.value', $type),
         ]);
 
         return $select;
@@ -1369,7 +1370,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     {
         $this->getSelect()->$method(
             [$tableAlias => $attribute->getBackend()->getTable()],
-            '('.implode(') AND (', $condition).')',
+            '(' . implode(') AND (', $condition) . ')',
             [$fieldCode => $fieldAlias]
         );
         return $this;

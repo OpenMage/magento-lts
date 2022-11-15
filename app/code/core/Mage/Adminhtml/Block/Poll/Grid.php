@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -65,14 +66,14 @@ class Mage_Adminhtml_Block_Poll_Grid extends Mage_Adminhtml_Block_Widget_Grid
     {
         $this->addColumn('poll_id', [
             'header'    => Mage::helper('poll')->__('ID'),
-            'align'     =>'right',
+            'align'     => 'right',
             'width'     => '50px',
             'index'     => 'poll_id',
         ]);
 
         $this->addColumn('poll_title', [
             'header'    => Mage::helper('poll')->__('Poll Question'),
-            'align'     =>'left',
+            'align'     => 'left',
             'index'     => 'poll_title',
         ]);
 

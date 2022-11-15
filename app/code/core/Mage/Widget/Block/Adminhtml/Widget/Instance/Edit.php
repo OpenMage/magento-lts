@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -91,7 +92,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      */
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', ['_current'=>true]);
+        return $this->getUrl('*/*/validate', ['_current' => true]);
     }
 
     /**
@@ -101,6 +102,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', ['_current'=>true, 'back'=>null]);
+        return $this->getUrl('*/*/save', ['_current' => true, 'back' => null]);
     }
 }

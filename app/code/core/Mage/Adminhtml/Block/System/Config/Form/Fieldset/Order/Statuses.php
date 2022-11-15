@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -37,7 +38,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses extends Ma
         $statuses = Mage::getResourceModel('sales/order_status_collection')->load()->toOptionHash();
 
         foreach ($statuses as $id => $status) {
-            $html.= $this->_getFieldHtml($element, $id, $status);
+            $html .= $this->_getFieldHtml($element, $id, $status);
         }
         #$html .= $this->_getFooterHtml($element);
 
@@ -47,7 +48,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses extends Ma
     protected function _getDummyElement()
     {
         if (empty($this->_dummyElement)) {
-            $this->_dummyElement = new Varien_Object(['show_in_default'=>1, 'show_in_website'=>1]);
+            $this->_dummyElement = new Varien_Object(['show_in_default' => 1, 'show_in_website' => 1]);
         }
         return $this->_dummyElement;
     }
@@ -63,7 +64,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses extends Ma
     protected function _getFieldHtml($fieldset, $id, $status)
     {
         $configData = $this->getConfigData();
-        $path = 'sales/order_statuses/status_'.$id; //TODO: move as property of form
+        $path = 'sales/order_statuses/status_' . $id; //TODO: move as property of form
         $data = $configData[$path] ?? [];
 
         $e = $this->_getDummyElement();
@@ -72,7 +73,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses extends Ma
             $id,
             'text',
             [
-                'name'          => 'groups[order_statuses][fields][status_'.$id.'][value]',
+                'name'          => 'groups[order_statuses][fields][status_' . $id . '][value]',
                 'label'         => $status,
                 'value'         => $data['value'] ?? $status,
                 'default_value' => $data['default_value'] ?? '',

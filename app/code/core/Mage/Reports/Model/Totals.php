@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -66,7 +67,7 @@ class Mage_Reports_Model_Totals
             if ($a['total'] == 'avg') {
                 if ($field !== '') {
                     if ($count != 0) {
-                        $data[$field] = $a['value']/$count;
+                        $data[$field] = $a['value'] / $count;
                     } else {
                         $data[$field] = 0;
                     }

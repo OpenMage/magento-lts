@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -59,7 +60,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Related cache types config path
      */
-    const XML_NODE_RELATED_CACHE = 'global/catalogrule/related_cache_types';
+    public const XML_NODE_RELATED_CACHE = 'global/catalogrule/related_cache_types';
 
     /**
      * Prefix of model events names

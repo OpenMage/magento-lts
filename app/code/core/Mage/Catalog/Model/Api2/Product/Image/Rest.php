@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
     /**
      * Attribute code for media gallery
      */
-    const GALLERY_ATTRIBUTE_CODE = 'media_gallery';
+    public const GALLERY_ATTRIBUTE_CODE = 'media_gallery';
 
     /**
      * Allowed MIME types for image

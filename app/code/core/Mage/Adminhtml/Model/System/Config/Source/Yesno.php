@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -34,8 +35,8 @@ class Mage_Adminhtml_Model_System_Config_Source_Yesno
     public function toOptionArray()
     {
         return [
-            ['value' => 1, 'label'=>Mage::helper('adminhtml')->__('Yes')],
-            ['value' => 0, 'label'=>Mage::helper('adminhtml')->__('No')],
+            ['value' => 1, 'label' => Mage::helper('adminhtml')->__('Yes')],
+            ['value' => 0, 'label' => Mage::helper('adminhtml')->__('No')],
         ];
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,6 @@
  */
 class Varien_Simplexml_Element extends SimpleXMLElement
 {
-
     /**
      * Would keep reference to parent node
      *
@@ -161,7 +161,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         }
         $desc = $this;
         foreach ($pathArr as $nodeName) {
-            if (strpos($nodeName, '@')!==false) {
+            if (strpos($nodeName, '@') !== false) {
                 $a = explode('@', $nodeName);
                 $b = explode('=', $a[1]);
                 $nodeName = $a[0];
@@ -173,7 +173,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
                 $attributeValue = trim($attributeValue, '"');
                 $found = false;
                 foreach ($desc->$nodeName as $subdesc) {
-                    if ((string)$subdesc[$attributeName]===$attributeValue) {
+                    if ((string)$subdesc[$attributeName] === $attributeValue) {
                         $found = true;
                         $desc = $subdesc;
                         break;
@@ -255,37 +255,37 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     public function asNiceXml($filename = '', $level = 0)
     {
         if (is_numeric($level)) {
-            $pad = str_pad('', $level*3, ' ', STR_PAD_LEFT);
+            $pad = str_pad('', $level * 3, ' ', STR_PAD_LEFT);
             $nl = "\n";
         } else {
             $pad = '';
             $nl = '';
         }
 
-        $out = $pad.'<'.$this->getName();
+        $out = $pad . '<' . $this->getName();
 
         if ($attributes = $this->attributes()) {
             foreach ($attributes as $key => $value) {
-                $out .= ' '.$key.'="'.str_replace('"', '\"', (string)$value).'"';
+                $out .= ' ' . $key . '="' . str_replace('"', '\"', (string)$value) . '"';
             }
         }
 
         if ($this->hasChildren()) {
-            $out .= '>'.$nl;
+            $out .= '>' . $nl;
             foreach ($this->children() as $child) {
-                $out .= $child->asNiceXml('', is_numeric($level) ? $level+1 : true);
+                $out .= $child->asNiceXml('', is_numeric($level) ? $level + 1 : true);
             }
-            $out .= $pad.'</'.$this->getName().'>'.$nl;
+            $out .= $pad . '</' . $this->getName() . '>' . $nl;
         } else {
             $value = (string)$this;
             if (strlen($value)) {
-                $out .= '>'.$this->xmlentities($value).'</'.$this->getName().'>'.$nl;
+                $out .= '>' . $this->xmlentities($value) . '</' . $this->getName() . '>' . $nl;
             } else {
-                $out .= '/>'.$nl;
+                $out .= '/>' . $nl;
             }
         }
 
-        if ((0===$level || false===$level) && !empty($filename)) {
+        if ((0 === $level || false === $level) && !empty($filename)) {
             file_put_contents($filename, $out);
         }
 
@@ -449,7 +449,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         $last = count($arr) - 1;
         $node = $this;
         foreach ($arr as $i => $nodeName) {
-            if ($last===$i) {
+            if ($last === $i) {
                 /*
                 if (isset($xml->$nodeName)) {
                     if ($overwrite) {

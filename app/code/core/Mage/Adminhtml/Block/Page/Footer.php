@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,9 +29,9 @@
  */
 class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
 {
-    const LOCALE_CACHE_LIFETIME = 7200;
-    const LOCALE_CACHE_KEY      = 'footer_locale';
-    const LOCALE_CACHE_TAG      = 'adminhtml';
+    public const LOCALE_CACHE_LIFETIME = 7200;
+    public const LOCALE_CACHE_KEY      = 'footer_locale';
+    public const LOCALE_CACHE_TAG      = 'adminhtml';
 
     protected function _construct()
     {
@@ -51,7 +52,7 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
      */
     public function getUrlForReferer()
     {
-        return $this->getUrlEncoded('*/*/*', ['_current'=>true]);
+        return $this->getUrlEncoded('*/*/*', ['_current' => true]);
     }
 
     /**

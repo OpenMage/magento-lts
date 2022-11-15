@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -38,7 +39,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Source_Unitofmeasure
         $measureUnits = Mage::getSingleton('usa/shipping_carrier_fedex')->getCode('unit_of_measure');
         $result = [];
         foreach ($measureUnits as $key => $val) {
-            $result[] = ['value'=>$key,'label'=>$val];
+            $result[] = ['value' => $key,'label' => $val];
         }
         return $result;
     }

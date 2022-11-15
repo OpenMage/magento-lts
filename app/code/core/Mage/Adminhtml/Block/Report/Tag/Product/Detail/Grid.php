@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -53,13 +54,13 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Detail_Grid extends Mage_Adminhtml
     protected function _prepareColumns()
     {
         $this->addColumn('tag_name', [
-            'header'    =>Mage::helper('reports')->__('Tag Name'),
-            'index'     =>'tag_name'
+            'header'    => Mage::helper('reports')->__('Tag Name'),
+            'index'     => 'tag_name'
         ]);
 
         $this->addColumn('taged', [
-            'header'    =>Mage::helper('reports')->__('Tag Use'),
-            'index'     =>'taged',
+            'header'    => Mage::helper('reports')->__('Tag Use'),
+            'index'     => 'taged',
             'align'     => 'right'
         ]);
 
@@ -69,7 +70,7 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Detail_Grid extends Mage_Adminhtml
                 'sortable'  => false,
                 'index'     => 'stores',
                 'type'      => 'store',
-                'store_view'=> true
+                'store_view' => true
             ]);
         }
 

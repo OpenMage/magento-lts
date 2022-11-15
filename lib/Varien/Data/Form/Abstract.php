@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -38,7 +39,6 @@
  */
 class Varien_Data_Form_Abstract extends Varien_Object
 {
-
     /**
      * Form level elements collection
      *
@@ -138,7 +138,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
         if (isset($this->_types[$type])) {
             $className = $this->_types[$type];
         } else {
-            $className = 'Varien_Data_Form_Element_'.ucfirst(strtolower($type));
+            $className = 'Varien_Data_Form_Element_' . ucfirst(strtolower($type));
         }
         $element = new $className($config);
         $element->setId($elementId);
@@ -193,7 +193,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
     {
         $res = [];
         $res['config']  = $this->getData();
-        $res['formElements']= [];
+        $res['formElements'] = [];
         foreach ($this->getElements() as $element) {
             $res['formElements'][] = $element->toArray();
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -213,7 +214,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      */
     public function getName($separator = ' ')
     {
-        return $this->getFirstname().$separator.$this->getLastname();
+        return $this->getFirstname() . $separator . $this->getLastname();
     }
 
     /**
@@ -233,7 +234,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      */
     public function getAclRole()
     {
-        return 'U'.$this->getUserId();
+        return 'U' . $this->getUserId();
     }
 
     /**

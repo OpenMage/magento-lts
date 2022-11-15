@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -53,7 +54,7 @@ class Mage_Adminhtml_Block_Rating_Grid extends Mage_Adminhtml_Block_Widget_Grid
     {
         $this->addColumn('rating_id', [
             'header'    => Mage::helper('rating')->__('ID'),
-            'align'     =>'right',
+            'align'     => 'right',
             'width'     => '50px',
             'index'     => 'rating_id',
         ]);

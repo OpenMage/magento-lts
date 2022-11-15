@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -34,12 +35,12 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'catalog/attributes/attributes';
+    public const ADMIN_RESOURCE = 'catalog/attributes/attributes';
 
     /**
          * List of tags from setting
          */
-    const XML_PATH_ALLOWED_TAGS = 'system/catalog/frontend/allowed_html_tags_list';
+    public const XML_PATH_ALLOWED_TAGS = 'system/catalog/frontend/allowed_html_tags_list';
 
     /**
      * Get list of allowed text formatted as array
@@ -325,11 +326,11 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 if ($this->getRequest()->getParam('popup')) {
                     $this->_redirect('adminhtml/catalog_product/addAttribute', [
                         'id'       => $this->getRequest()->getParam('product'),
-                        'attribute'=> $model->getId(),
+                        'attribute' => $model->getId(),
                         '_current' => true
                     ]);
                 } elseif ($redirectBack) {
-                    $this->_redirect('*/*/edit', ['attribute_id' => $model->getId(),'_current'=>true]);
+                    $this->_redirect('*/*/edit', ['attribute_id' => $model->getId(),'_current' => true]);
                 } else {
                     $this->_redirect('*/*/', []);
                 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -93,7 +94,7 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         Mage::getSingleton('core/resource_iterator')->walk(
             $collection->getSelect(),
             [[$this, 'addNotifyItemXmlCallback']],
-            ['rssObj'=> $rssObj, 'product'=>$product, 'globalQty' => $globalNotifyStockQty]
+            ['rssObj' => $rssObj, 'product' => $product, 'globalQty' => $globalNotifyStockQty]
         );
 
         return $rssObj->createRssXml();

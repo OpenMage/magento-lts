@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -94,7 +95,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             $payment->setAnetTransType(self::REQUEST_TYPE_AUTH_CAPTURE);
         }
 
-        $request= $this->_buildRequest($payment);
+        $request = $this->_buildRequest($payment);
         $result = $this->_postRequest($request);
 
         switch ($result->getResponseCode()) {
@@ -300,7 +301,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             $storeId = $this->getStore();
         }
         return Mage::app()->getStore($storeId)
-            ->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK).
+            ->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) .
             'authorizenet/directpost_payment/response';
     }
 

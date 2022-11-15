@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -160,7 +161,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
                 $refundToStoreCreditAmount = $creditmemo->getStore()->roundPrice($refundToStoreCreditAmount);
                 $creditmemo->setBaseCustomerBalanceTotalRefunded($refundToStoreCreditAmount);
                 $refundToStoreCreditAmount = $creditmemo->getStore()->roundPrice(
-                    $refundToStoreCreditAmount*$order->getStoreToOrderRate()
+                    $refundToStoreCreditAmount * $order->getStoreToOrderRate()
                 );
                 // this field can be used by customer balance observer
                 $creditmemo->setBsCustomerBalTotalRefunded($refundToStoreCreditAmount);

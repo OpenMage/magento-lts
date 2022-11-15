@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -30,7 +31,7 @@ class Mage_Adminhtml_Promo_WidgetController extends Mage_Adminhtml_Controller_Ac
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'promo/catalog';
+    public const ADMIN_RESOURCE = 'promo/catalog';
 
     /**
      * Prepare block for chooser
@@ -121,7 +122,7 @@ class Mage_Adminhtml_Promo_WidgetController extends Mage_Adminhtml_Controller_Ac
             if ($storeId) {
                 $rootId = Mage::app()->getStore($storeId)->getRootCategoryId();
                 if (!in_array($rootId, $category->getPathIds())) {
-                    $this->_redirect('*/*/', ['_current'=>true, 'id'=>null]);
+                    $this->_redirect('*/*/', ['_current' => true, 'id' => null]);
                     return false;
                 }
             }

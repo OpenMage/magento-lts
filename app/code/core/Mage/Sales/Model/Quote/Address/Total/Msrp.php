@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -52,7 +53,7 @@ class Mage_Sales_Model_Quote_Address_Total_Msrp extends Mage_Sales_Model_Quote_A
                 $item->getProductId(),
                 Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM,
                 true
-            )) {
+                )) {
                 $canApplyMsrp = true;
                 break;
             }

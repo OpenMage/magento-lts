@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -36,7 +37,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Country
 
         $options = $this->_options;
         if (!$isMultiselect) {
-            array_unshift($options, ['value'=>'', 'label'=> Mage::helper('adminhtml')->__('--Please Select--')]);
+            array_unshift($options, ['value' => '', 'label' => Mage::helper('adminhtml')->__('--Please Select--')]);
         }
 
         return $options;

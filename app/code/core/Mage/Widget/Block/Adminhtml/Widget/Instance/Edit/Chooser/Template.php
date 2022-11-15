@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -53,6 +54,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Template extends 
                 ->setOptions($this->getWidgetTemplates())
                 ->setValue($this->getSelected())->toHtml();
         }
-        return parent::_toHtml().$html;
+        return parent::_toHtml() . $html;
     }
 }

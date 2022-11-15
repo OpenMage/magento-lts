@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -135,7 +136,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     public function _prepareForm()
     {
         $form = new Varien_Data_Form();
-        $fieldset = $form->addFieldset('main', ['no_container'=>true]);
+        $fieldset = $form->addFieldset('main', ['no_container' => true]);
 
         $fieldset->addField(
             'type',
@@ -318,7 +319,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     protected function _applyPostData()
     {
         if (is_array($giftmessages = $this->getRequest()->getParam('giftmessage'))
-           && isset($giftmessages[$this->getEntity()->getId()])) {
+            && isset($giftmessages[$this->getEntity()->getId()])) {
             $this->getMessage()->addData($giftmessages[$this->getEntity()->getId()]);
         }
 

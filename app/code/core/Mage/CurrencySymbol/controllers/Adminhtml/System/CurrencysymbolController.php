@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/currency/symbols';
+    public const ADMIN_RESOURCE = 'system/currency/symbols';
 
     /**
      * Show Currency Symbols Management dialog

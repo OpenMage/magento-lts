@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,19 +33,19 @@ class Mage_DB_Mysqli
      * Default port
      * @var int
      */
-    const DEFAULT_PORT = 3306;
+    public const DEFAULT_PORT = 3306;
 
     /**
      * Table name escaper
      * @var string
      */
-    const TABLE_ESCAPER = '`';
+    public const TABLE_ESCAPER = '`';
 
     /**
      * Value escaper
      * @var unknown_type
      */
-    const VALUE_ESCAPER = '"';
+    public const VALUE_ESCAPER = '"';
 
     /**
      * Connection
@@ -112,7 +113,7 @@ class Mage_DB_Mysqli
      */
     public function escapeTableName($table)
     {
-        return self::TABLE_ESCAPER.$this->escapeString($table).self::TABLE_ESCAPER;
+        return self::TABLE_ESCAPER . $this->escapeString($table) . self::TABLE_ESCAPER;
     }
 
     /**
@@ -122,7 +123,7 @@ class Mage_DB_Mysqli
      */
     public function escapeFieldName($fld)
     {
-        return self::TABLE_ESCAPER.$this->escapeString($fld).self::TABLE_ESCAPER;
+        return self::TABLE_ESCAPER . $this->escapeString($fld) . self::TABLE_ESCAPER;
     }
 
     /**
@@ -132,7 +133,7 @@ class Mage_DB_Mysqli
      */
     public function escapeFieldValue($data)
     {
-        return self::VALUE_ESCAPER.$this->escapeString($data).self::VALUE_ESCAPER;
+        return self::VALUE_ESCAPER . $this->escapeString($data) . self::VALUE_ESCAPER;
     }
 
     /**
@@ -276,7 +277,7 @@ class Mage_DB_Mysqli
     public function escapeFieldNames(array $arrNames)
     {
         $out = [];
-        for ($i=0, $c = count($arrNames); $i<$c; $i++) {
+        for ($i = 0, $c = count($arrNames); $i < $c; $i++) {
             $out[] = $this->escapeFieldName($arrNames[$i]);
         }
         return $out;
@@ -290,7 +291,7 @@ class Mage_DB_Mysqli
     public function escapeFieldValues(array $arrNames)
     {
         $out = [];
-        for ($i=0, $c = count($arrNames); $i<$c; $i++) {
+        for ($i = 0, $c = count($arrNames); $i < $c; $i++) {
             if ($arrNames[$i] !== 'LAST_INSERT_ID()') {
                 $out[] = $this->escapeFieldValue($arrNames[$i]);
             } else {
@@ -377,28 +378,28 @@ class Mage_DB_Mysqli
 
         $keys = $this->escapeFieldNames($keys);
         $sql .= " ( ";
-        for ($i = 0, $c = count($keys); $i<$c; $i++) {
+        for ($i = 0, $c = count($keys); $i < $c; $i++) {
             $sql .= $keys[$i];
-            if ($i!=$c-1) {
+            if ($i != $c - 1) {
                 $sql .= ",";
             }
         }
         $sql .= " ) VALUES ";
-        for ($i = 0, $c = count($data); $i<$c; $i++) {
+        for ($i = 0, $c = count($data); $i < $c; $i++) {
             $row = $data[$i];
-            for ($j = 0, $jc = count($excluded); $j<$jc; $j++) {
+            for ($j = 0, $jc = count($excluded); $j < $jc; $j++) {
                 unset($data[$excluded[$j]]);
             }
             $values = $this->escapeFieldValues(array_values($row));
             $sql .= "( ";
             for ($j = 0, $jc = count($values); $j < $jc; $j++) {
                 $sql .= $values[$j];
-                if ($j != $jc-1) {
+                if ($j != $jc - 1) {
                     $sql .= ",";
                 }
             }
             $sql .= " )";
-            if ($i!=$c-1) {
+            if ($i != $c - 1) {
                 $sql .= ",";
             }
         }

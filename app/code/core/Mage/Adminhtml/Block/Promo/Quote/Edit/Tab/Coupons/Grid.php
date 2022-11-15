@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -115,7 +116,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
         $this->getMassactionBlock()->setHideFormElement(true);
 
         $this->getMassactionBlock()->addItem('delete', [
-             'label'=> Mage::helper('adminhtml')->__('Delete'),
+             'label' => Mage::helper('adminhtml')->__('Delete'),
              'url'  => $this->getUrl('*/*/couponsMassDelete', ['_current' => true]),
              'confirm' => Mage::helper('salesrule')->__('Are you sure you want to delete the selected coupon(s)?'),
              'complete' => 'refreshCouponCodesGrid'
@@ -131,6 +132,6 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/couponsGrid', ['_current'=> true]);
+        return $this->getUrl('*/*/couponsGrid', ['_current' => true]);
     }
 }

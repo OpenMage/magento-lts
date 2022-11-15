@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,22 +29,22 @@
  */
 class Magento_Db_Sql_Trigger
 {
-    const NAME      = 'name';
-    const TARGET    = 'target';
-    const TIME      = 'time';
-    const EVENT     = 'event';
-    const SCOPE     = 'scope';
-    const BODY      = 'body';
+    public const NAME      = 'name';
+    public const TARGET    = 'target';
+    public const TIME      = 'time';
+    public const EVENT     = 'event';
+    public const SCOPE     = 'scope';
+    public const BODY      = 'body';
 
     /**
      * SQL constants
      */
-    const SQL_TIME_BEFORE   = 'BEFORE';
-    const SQL_TIME_AFTER    = 'AFTER';
-    const SQL_EVENT_INSERT  = 'INSERT';
-    const SQL_EVENT_UPDATE  = 'UPDATE';
-    const SQL_EVENT_DELETE  = 'DELETE';
-    const SQL_FOR_EACH_ROW  = 'FOR EACH ROW';
+    public const SQL_TIME_BEFORE   = 'BEFORE';
+    public const SQL_TIME_AFTER    = 'AFTER';
+    public const SQL_EVENT_INSERT  = 'INSERT';
+    public const SQL_EVENT_UPDATE  = 'UPDATE';
+    public const SQL_EVENT_DELETE  = 'DELETE';
+    public const SQL_FOR_EACH_ROW  = 'FOR EACH ROW';
 
     /**
      * Trigger parts

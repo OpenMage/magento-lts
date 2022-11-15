@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -77,7 +78,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 $subSelect = $this->_getTableDateRangeRelatedSelect(
                     $sourceTable,
                     $orderTable,
-                    ['order_id'=>'entity_id'],
+                    ['order_id' => 'entity_id'],
                     'created_at',
                     'updated_at',
                     $from,

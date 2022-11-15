@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -48,8 +49,8 @@
  */
 class Mage_Cms_Model_Block extends Mage_Core_Model_Abstract
 {
-    const CACHE_TAG     = 'cms_block';
-    protected $_cacheTag= 'cms_block';
+    public const CACHE_TAG     = 'cms_block';
+    protected $_cacheTag = 'cms_block';
 
     protected function _construct()
     {

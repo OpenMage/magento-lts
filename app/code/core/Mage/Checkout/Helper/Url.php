@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -69,7 +70,7 @@ class Mage_Checkout_Helper_Url extends Mage_Core_Helper_Url
      */
     public function getMSLoginUrl()
     {
-        return $this->_getUrl('checkout/multishipping/login', ['_secure'=>true, '_current'=>true]);
+        return $this->_getUrl('checkout/multishipping/login', ['_secure' => true, '_current' => true]);
     }
 
     /**

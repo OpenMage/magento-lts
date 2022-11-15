@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -150,7 +151,7 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
             $block = $this->getLayout()->createBlock($blockType);
         } else {
             $className = Mage::getConfig()->getBlockClassName($blockType);
-            $block = new $className;
+            $block = new $className();
         }
         $block->setMethod($method);
         return $block;

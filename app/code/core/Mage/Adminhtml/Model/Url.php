@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
     /**
      * Secret key query param name
      */
-    const SECRET_KEY_PARAM_NAME = 'key';
+    public const SECRET_KEY_PARAM_NAME = 'key';
 
     /**
      * Retrieve is secure mode for ULR logic

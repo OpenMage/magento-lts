@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -46,7 +47,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget
                                         'method' => 'post'
         ]);
 
-        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('tag')->__('General Information')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('tag')->__('General Information')]);
 
         if ($model->getTagId()) {
             $fieldset->addField('tag_id', 'hidden', [

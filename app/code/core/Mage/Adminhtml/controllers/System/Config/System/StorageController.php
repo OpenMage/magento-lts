@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/config';
+    public const ADMIN_RESOURCE = 'system/config';
 
     /**
      * Return file storage singleton

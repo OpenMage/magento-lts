@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -34,10 +35,10 @@ class Mage_Paypal_Model_Cart
      *
      * @var string
      */
-    const TOTAL_SUBTOTAL = 'subtotal';
-    const TOTAL_DISCOUNT = 'discount';
-    const TOTAL_TAX      = 'tax';
-    const TOTAL_SHIPPING = 'shipping';
+    public const TOTAL_SUBTOTAL = 'subtotal';
+    public const TOTAL_DISCOUNT = 'discount';
+    public const TOTAL_TAX      = 'tax';
+    public const TOTAL_SHIPPING = 'shipping';
 
     /**
      * Order or quote instance
