@@ -28,8 +28,7 @@
 
 class Varien_File_Uploader_Image extends Varien_File_Uploader
 {
-
-    function __construct($file=null)
+    public function __construct($file=null)
     {
         register_shutdown_function(array($this, 'destruct'));
         $this->newUploader($file);
@@ -51,8 +50,8 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
     {
         $this->uploader->image_resize = true;
 
-        $this->uploader->image_ratio_x = ( $width == null ) ? true : false;
-        $this->uploader->image_ratio_y = ( $height == null ) ? true : false;
+        $this->uploader->image_ratio_x = ($width == null) ? true : false;
+        $this->uploader->image_ratio_y = ($height == null) ? true : false;
 
         $this->uploader->image_x = $width;
         $this->uploader->image_y = $height;
@@ -156,7 +155,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      */
     public function addWatermark($fileName=null, $position="BL", $absoluteX=null, $absoluteY=null)
     {
-        if( !isset($fileName) ) {
+        if (!isset($fileName)) {
             return;
         }
 
@@ -187,7 +186,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      */
     public function addReflection($height="10%", $space=0, $color="#FFFFFF", $opacity=60)
     {
-        if( intval($height) == 0 ) {
+        if (intval($height) == 0) {
             return;
         }
 
@@ -204,7 +203,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      */
     public function addText($string="")
     {
-        if( trim($string) == "" ) {
+        if (trim($string) == "") {
             return;
         }
 
@@ -361,4 +360,3 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
 // ft:php
 // fileformat:unix
 // tabstop:4
-?>

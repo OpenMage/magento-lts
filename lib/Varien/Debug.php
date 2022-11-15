@@ -108,13 +108,14 @@ class Varien_Debug
                     $className .= sprintf('#%s#', spl_object_hash($data['object']));
                 }
 
-                $methodName = sprintf('%s%s%s(%s)',
+                $methodName = sprintf(
+                    '%s%s%s(%s)',
                     $className,
                     isset($data['type']) ? $data['type'] : '->',
                     $data['function'],
                     implode(', ', $args)
                 );
-            } else if (isset($data['function'])) {
+            } elseif (isset($data['function'])) {
                 $methodName = sprintf('%s(%s)', $data['function'], implode(', ', $args));
             }
 
@@ -159,10 +160,9 @@ class Varien_Debug
         $out = '';
         if (is_object($arg)) {
             $out .= sprintf("&%s#%s#", get_class($arg), spl_object_hash($arg));
-
-        } else if (is_resource($arg)) {
+        } elseif (is_resource($arg)) {
             $out .= '#[' . get_resource_type($arg) . ']';
-        } else if (is_array($arg)) {
+        } elseif (is_array($arg)) {
             $isAssociative = false;
             $args = array();
             foreach ($arg as $k => $v) {
@@ -180,17 +180,17 @@ class Varien_Debug
             } else {
                 $out .= 'array(' . implode(', ', $args) . ')';
             }
-        } else if (is_null($arg)) {
+        } elseif (is_null($arg)) {
             $out .= 'NULL';
-        } else if (is_numeric($arg) || is_float($arg)) {
+        } elseif (is_numeric($arg) || is_float($arg)) {
             $out .= $arg;
-        } else if (is_string($arg)) {
+        } elseif (is_string($arg)) {
             if (strlen($arg) > self::$argLength) {
                 $arg = substr($arg, 0, self::$argLength) . "...";
             }
             $arg = strtr($arg, array("\t" => '\t', "\r" => '\r', "\n" => '\n', "'" => '\\\''));
             $out .= "'" . $arg . "'";
-        } else if (is_bool($arg)) {
+        } elseif (is_bool($arg)) {
             $out .= $arg === true ? 'true' : 'false';
         }
 

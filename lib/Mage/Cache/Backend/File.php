@@ -623,7 +623,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                 break;
             case Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG:
                 foreach ($tags as $tag) {
-                    $ids = array_merge($ids,$this->_getTagIds($tag));
+                    $ids = array_merge($ids, $this->_getTagIds($tag));
                 }
                 $ids = array_unique($ids);
                 break;
@@ -676,12 +676,12 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     {
         if (is_resource($tag)) {
             $ids = stream_get_contents($tag);
-        } elseif(file_exists($this->_tagFile($tag))) {
+        } elseif (file_exists($this->_tagFile($tag))) {
             $ids = @file_get_contents($this->_tagFile($tag));
         } else {
             $ids = false;
         }
-        if( ! $ids) {
+        if (! $ids) {
             return array();
         }
         $ids = trim(substr($ids, 0, strrpos($ids, "\n")));
@@ -703,16 +703,18 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         if (empty($ids)) {
             return $result;
         }
-        foreach($tags as $tag) {
+        foreach ($tags as $tag) {
             $file = $this->_tagFile($tag);
             if (file_exists($file)) {
-                if ($mode == 'diff' || (rand(1,100) == 1 && filesize($file) > 4096)) {
+                if ($mode == 'diff' || (rand(1, 100) == 1 && filesize($file) > 4096)) {
                     $file = $this->_tagFile($tag);
-                    if ( ! ($fd = fopen($file, 'rb+'))) {
+                    if (! ($fd = fopen($file, 'rb+'))) {
                         $result = false;
                         continue;
                     }
-                    if ($this->_options['file_locking']) flock($fd, LOCK_EX);
+                    if ($this->_options['file_locking']) {
+                        flock($fd, LOCK_EX);
+                    }
                     if ($mode == 'diff') {
                         $_ids = array_diff($this->_getTagIds($fd), $ids);
                     } else {
@@ -721,13 +723,14 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                     fseek($fd, 0);
                     ftruncate($fd, 0);
                     $result = fwrite($fd, implode("\n", array_unique($_ids))."\n") && $result;
-                    if ($this->_options['file_locking']) flock($fd, LOCK_UN);
+                    if ($this->_options['file_locking']) {
+                        flock($fd, LOCK_UN);
+                    }
                     fclose($fd);
-                }
-                else {
+                } else {
                     $result = file_put_contents($file, implode("\n", $ids)."\n", FILE_APPEND | ($this->_options['file_locking'] ? LOCK_EX : 0)) && $result;
                 }
-            } else if ($mode == 'merge') {
+            } elseif ($mode == 'merge') {
                 $result = $this->_filePutContents($file, implode("\n", $ids)."\n") && $result;
             }
         }

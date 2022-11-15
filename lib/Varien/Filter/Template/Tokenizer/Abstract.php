@@ -49,7 +49,7 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
      */
     public function next()
     {
-        if($this->_currentIndex + 1 >= strlen($this->_string)) {
+        if ($this->_currentIndex + 1 >= strlen($this->_string)) {
             return false;
         }
 
@@ -66,7 +66,7 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
      */
     public function prev()
     {
-        if($this->_currentIndex - 1 < 0) {
+        if ($this->_currentIndex - 1 < 0) {
             return false;
         }
 
@@ -106,10 +106,10 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
      *
      * @return boolean
      */
-    public function isWhiteSpace() {
+    public function isWhiteSpace()
+    {
         return trim($this->char()) != $this->char();
     }
 
     abstract public function tokenize();
-
 }

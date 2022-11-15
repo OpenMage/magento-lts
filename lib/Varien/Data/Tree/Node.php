@@ -194,7 +194,6 @@ class Varien_Data_Tree_Node extends Varien_Object
      */
     public function isChildOf($node)
     {
-
     }
 
     /**
@@ -322,5 +321,4 @@ class Varien_Data_Tree_Node extends Varien_Object
     {
         return $this->_getData('name');
     }
-
 }

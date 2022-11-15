@@ -70,7 +70,8 @@ class Mage_Backup_Filesystem_Helper
     public function rm($path, $skipPaths = array(), $removeRoot = false)
     {
         $filesystemIterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::CHILD_FIRST
+            new RecursiveDirectoryIterator($path),
+            RecursiveIteratorIterator::CHILD_FIRST
         );
 
         $iterator = new Mage_Backup_Filesystem_Iterator_Filter($filesystemIterator, $skipPaths);
@@ -107,7 +108,8 @@ class Mage_Backup_Filesystem_Helper
         }
 
         $filesystemIterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::CHILD_FIRST
+            new RecursiveDirectoryIterator($path),
+            RecursiveIteratorIterator::CHILD_FIRST
         );
 
         $iterator = new Mage_Backup_Filesystem_Iterator_Filter($filesystemIterator, $skipFiles);

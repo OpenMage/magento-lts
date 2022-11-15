@@ -346,7 +346,7 @@ class Varien_Db_Ddl_Table
                         $precision  = $size[0];
                         $scale      = $size[1];
                     }
-                } else if (preg_match('#^(\d+),(\d+)$#', $size, $match)) {
+                } elseif (preg_match('#^(\d+),(\d+)$#', $size, $match)) {
                     $precision  = $match[1];
                     $scale      = $match[2];
                 }
@@ -499,7 +499,7 @@ class Varien_Db_Ddl_Table
             $columnPos  = $position;
             if (is_string($columnData)) {
                 $columnName = $columnData;
-            } else if (is_array($columnData)) {
+            } elseif (is_array($columnData)) {
                 if (!isset($columnData['name'])) {
                     throw new Zend_Db_Exception('Invalid index column data');
                 }

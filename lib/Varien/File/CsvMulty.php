@@ -26,7 +26,8 @@
 
 require_once 'Varien/File/Csv.php';
 
-class Varien_File_Csv_Multy extends Varien_File_Csv {
+class Varien_File_Csv_Multy extends Varien_File_Csv
+{
     /**
      * Retrieve CSV file data as pairs with duplicates
      *
@@ -43,8 +44,8 @@ class Varien_File_Csv_Multy extends Varien_File_Csv {
         foreach ($csvData as $rowData) {
             $line_number++;
             if (isset($rowData[$keyIndex])) {
-                if(isset($data[$rowData[$keyIndex]])){
-                    if(isset($data[$rowData[$keyIndex]]['duplicate'])){
+                if (isset($data[$rowData[$keyIndex]])) {
+                    if (isset($data[$rowData[$keyIndex]]['duplicate'])) {
                         #array_push($data[$rowData[$keyIndex]]['duplicate'],array('line' => $line_number,'value' => isset($rowData[$valueIndex]) ? $rowData[$valueIndex] : null));
                         $data[$rowData[$keyIndex]]['duplicate']['line'] .=', '.$line_number;
                     } else {
@@ -64,6 +65,4 @@ class Varien_File_Csv_Multy extends Varien_File_Csv {
         }
         return $data;
     }
-
 }
-?>

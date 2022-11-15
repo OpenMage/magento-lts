@@ -44,5 +44,4 @@ class Simple
         $classFile.= '.php';
         @include $classFile;
     }
-
 }

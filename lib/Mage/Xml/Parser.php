@@ -68,7 +68,7 @@ class Mage_Xml_Parser
                     }
                     $attributes = array();
                     if ($node->hasAttributes()) {
-                        foreach($node->attributes as $attribute) {
+                        foreach ($node->attributes as $attribute) {
                             $attributes += array($attribute->name=>$attribute->value);
                         }
                         $value = array('_value'=>$value, '_attribute'=>$attributes);
@@ -105,5 +105,4 @@ class Mage_Xml_Parser
         $this->getDom()->loadXML($string);
         return $this;
     }
-
 }

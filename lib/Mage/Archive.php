@@ -73,7 +73,7 @@ class Mage_Archive
     */
     protected function _getArchiver($extension)
     {
-        if(array_key_exists(strtolower($extension), $this->_formats)) {
+        if (array_key_exists(strtolower($extension), $this->_formats)) {
             $format = $this->_formats[$extension];
         } else {
             $format = self::DEFAULT_ARCHIVER;
@@ -92,7 +92,7 @@ class Mage_Archive
     protected function _getArchivers($source)
     {
         $ext = pathinfo($source, PATHINFO_EXTENSION);
-        if(!isset($this->_formats[$ext])) {
+        if (!isset($this->_formats[$ext])) {
             return array();
         }
         $format = $this->_formats[$ext];
@@ -115,7 +115,7 @@ class Mage_Archive
     {
         $archivers = $this->_getArchivers($destination);
         $interimSource = '';
-        for ($i=0; $i<count($archivers); $i++ ) {
+        for ($i=0; $i<count($archivers); $i++) {
             if ($i == (count($archivers) - 1)) {
                 $packed = $destination;
             } else {
@@ -212,4 +212,3 @@ class Mage_Archive
         return false;
     }
 }
-

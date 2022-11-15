@@ -79,5 +79,4 @@ class Mage_Archive_Bz extends Mage_Archive_Abstract implements Mage_Archive_Inte
 
         return $destination;
     }
-
 }

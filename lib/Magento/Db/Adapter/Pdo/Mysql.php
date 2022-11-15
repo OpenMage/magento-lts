@@ -48,8 +48,12 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
      * @param int $step
      * @return int
      */
-    public function insertBatchFromSelect(Varien_Db_Select $select, $table, array $fields = array(),
-                                          $mode = false, $step = 10000
+    public function insertBatchFromSelect(
+        Varien_Db_Select $select,
+        $table,
+        array $fields = array(),
+        $mode = false,
+        $step = 10000
     ) {
         $limitOffset = 0;
         $totalAffectedRows = 0;
@@ -130,9 +134,9 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
         if ($type !== null &&
             array_key_exists($type = strtoupper($type), $this->_numericDataTypes) &&
             $this->_numericDataTypes[$type] == Zend_Db::FLOAT_TYPE) {
-                $value = $this->_convertFloat($value);
-                $quoteValue = sprintf('%F', $value);
-                return $quoteValue;
+            $value = $this->_convertFloat($value);
+            $quoteValue = sprintf('%F', $value);
+            return $quoteValue;
         } elseif (is_float($value)) {
             return $this->_quote($value);
         }

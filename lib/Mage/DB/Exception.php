@@ -25,6 +25,6 @@
  * @package     Mage_Db
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_DB_Exception extends Exception {
-
+class Mage_DB_Exception extends Exception
+{
 }

@@ -34,9 +34,9 @@ class Varien_Crypt
      * @param string $method
      * @return Varien_Crypt_Abstract
      */
-    static public function factory($method='mcrypt')
+    public static function factory($method='mcrypt')
     {
-        $uc = str_replace(' ','_',ucwords(str_replace('_',' ',$method)));
+        $uc = str_replace(' ', '_', ucwords(str_replace('_', ' ', $method)));
         $className = 'Varien_Crypt_'.$uc;
         return new $className;
     }

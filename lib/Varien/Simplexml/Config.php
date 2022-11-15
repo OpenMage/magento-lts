@@ -91,12 +91,13 @@ class Varien_Simplexml_Config
      * @param string|Varien_Simplexml_Element $sourceData
      * @param string $sourceType
      */
-    public function __construct($sourceData=null) {
+    public function __construct($sourceData=null)
+    {
         if (is_null($sourceData)) {
             return;
         }
         if ($sourceData instanceof Varien_Simplexml_Element) {
-           $this->setXml($sourceData);
+            $this->setXml($sourceData);
         } elseif (is_string($sourceData) && !empty($sourceData)) {
             if (strlen($sourceData)<1000 && is_readable($sourceData)) {
                 $this->loadFile($sourceData);
@@ -538,5 +539,4 @@ class Varien_Simplexml_Config
         $this->getNode()->extend($config->getNode(), $overwrite);
         return $this;
     }
-
 }

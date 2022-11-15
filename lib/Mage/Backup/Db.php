@@ -65,9 +65,9 @@ class Mage_Backup_Db extends Mage_Backup_Abstract
         $lineLength = strlen($cleanLine);
 
         $returnResult = false;
-        if ($lineLength > 0){
+        if ($lineLength > 0) {
             $lastSymbolIndex = $lineLength-1;
-            if ($cleanLine[$lastSymbolIndex] == ';'){
+            if ($cleanLine[$lastSymbolIndex] == ';') {
                 $returnResult = true;
             }
         }

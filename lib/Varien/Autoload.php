@@ -27,14 +27,14 @@ class Varien_Autoload
     /**
      * @var Varien_Autoload
      */
-    static protected $_instance;
+    protected static $_instance;
 
     /**
      * Singleton pattern implementation
      *
      * @return Varien_Autoload
      */
-    static public function instance()
+    public static function instance()
     {
         if (!self::$_instance) {
             self::$_instance = new Varien_Autoload();
@@ -45,7 +45,7 @@ class Varien_Autoload
     /**
      * Register SPL autoload function
      */
-    static public function register()
+    public static function register()
     {
         spl_autoload_register(array(self::instance(), 'autoload'));
     }

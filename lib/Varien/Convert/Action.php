@@ -28,5 +28,4 @@
  */
 class Varien_Convert_Action extends Varien_Convert_Action_Abstract
 {
-
 }

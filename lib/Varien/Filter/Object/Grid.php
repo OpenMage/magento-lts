@@ -21,7 +21,7 @@
 
 class Varien_Filter_Object_Grid extends Varien_Filter_Object
 {
-    function filter($grid)
+    public function filter($grid)
     {
         $out = array();
         if (is_array($grid)) {

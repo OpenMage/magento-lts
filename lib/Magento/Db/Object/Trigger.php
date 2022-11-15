@@ -100,4 +100,3 @@ class Magento_Db_Object_Trigger extends Magento_Db_Object implements Magento_Db_
         return $data;
     }
 }
-

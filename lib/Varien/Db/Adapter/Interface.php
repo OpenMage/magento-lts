@@ -248,8 +248,14 @@ interface Varien_Db_Adapter_Interface
      * @param string $schemaName
      * @return Varien_Db_Adapter_Interface
      */
-    public function changeColumn($tableName, $oldColumnName, $newColumnName, $definition, $flushData = false,
-        $schemaName = null);
+    public function changeColumn(
+        $tableName,
+        $oldColumnName,
+        $newColumnName,
+        $definition,
+        $flushData = false,
+        $schemaName = null
+    );
 
     /**
      * Modify the column definition
@@ -345,9 +351,18 @@ interface Varien_Db_Adapter_Interface
      * @param string $refSchemaName
      * @return Varien_Db_Adapter_Interface
      */
-    public function addForeignKey($fkName, $tableName, $columnName, $refTableName, $refColumnName,
-        $onDelete = self::FK_ACTION_CASCADE, $onUpdate = self::FK_ACTION_CASCADE,
-        $purge = false, $schemaName = null, $refSchemaName = null);
+    public function addForeignKey(
+        $fkName,
+        $tableName,
+        $columnName,
+        $refTableName,
+        $refColumnName,
+        $onDelete = self::FK_ACTION_CASCADE,
+        $onUpdate = self::FK_ACTION_CASCADE,
+        $purge = false,
+        $schemaName = null,
+        $refSchemaName = null
+    );
 
     /**
      * Drop the Foreign Key from table

@@ -188,8 +188,7 @@ class Mage_Backup_Filesystem extends Mage_Backup_Abstract
             if (!in_array($paths, $this->_ignorePaths)) {
                 $this->_ignorePaths[] = $paths;
             }
-        }
-        else if (is_array($paths)) {
+        } elseif (is_array($paths)) {
             foreach ($paths as $path) {
                 $this->addIgnorePaths($path);
             }

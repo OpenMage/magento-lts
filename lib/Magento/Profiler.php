@@ -42,35 +42,35 @@ class Magento_Profiler
      *
      * @var array
      */
-    static private $_timers = array();
+    private static $_timers = array();
 
     /**
      * Whether profiling is active or not
      *
      * @var bool
      */
-    static private $_enabled = false;
+    private static $_enabled = false;
 
     /**
      * Nesting path that represents namespace to resolve timer names
      *
      * @var array
      */
-    static private $_currentPath = array();
+    private static $_currentPath = array();
 
     /**
      * Collection of profiler outputs
      *
      * @var array
      */
-    static private $_outputs = array();
+    private static $_outputs = array();
 
     /**
      * Whether an initialization is done or not
      *
      * @var bool
      */
-    static private $_isInitialized = false;
+    private static $_isInitialized = false;
 
     /**
      * Supported timer statistics keys

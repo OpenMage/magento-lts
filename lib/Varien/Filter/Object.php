@@ -23,7 +23,7 @@ class Varien_Filter_Object extends Zend_Filter
 {
     protected $_columnFilters = array();
 
-    function addFilter(Zend_Filter_Interface $filter, $column='')
+    public function addFilter(Zend_Filter_Interface $filter, $column='')
     {
         if (''===$column) {
             parent::addFilter($filter);
@@ -35,7 +35,7 @@ class Varien_Filter_Object extends Zend_Filter
         }
     }
 
-    function filter($object)
+    public function filter($object)
     {
         if (!$object instanceof Varien_Object) {
             throw new Exception('Expecting an instance of Varien_Object');

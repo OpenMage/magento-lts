@@ -64,7 +64,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
         if (!$this->_connection->login($args['username'], $args['password'])) {
             throw new Exception(sprintf(__("Unable to open SFTP connection as %s@%s", $args['username'], $args['host'])));
         }
-
     }
 
     /**
@@ -112,7 +111,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
         if ($recursive) {
             $no_errors = true;
             $cwd = $this->_connection->pwd();
-            if(!$this->_connection->chdir($dir)) {
+            if (!$this->_connection->chdir($dir)) {
                 throw new Exception("chdir(): $dir: Not a directory");
             }
             $list = $this->_connection->nlist();
@@ -122,7 +121,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
                 return $this->rmdir($dir, false);
             } else {
                 foreach ($list as $filename) {
-                    if($this->_connection->chdir($filename)) { // This is a directory
+                    if ($this->_connection->chdir($filename)) { // This is a directory
                         $this->_connection->chdir('..');
                         $no_errors = $no_errors && $this->rmdir($filename, $recursive);
                     } else {
@@ -212,7 +211,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
         $list = $this->_connection->nlist();
         $pwd = $this->pwd();
         $result = array();
-        foreach($list as $name) {
+        foreach ($list as $name) {
             $result[] = array(
                 'text' => $name,
                 'id' => "{$pwd}{$name}",
@@ -237,5 +236,4 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     {
         return $this->_connection->put($filename, $src, phpseclib\Net\SFTP::SOURCE_LOCAL_FILE);
     }
-
 }

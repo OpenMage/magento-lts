@@ -162,11 +162,10 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         while ($this->getConnection()->next_result()) {
             if ($result = $this->getConnection()->store_result()) {
                 $result->free_result();
-            } elseif($this->getConnection()->error) {
+            } elseif ($this->getConnection()->error) {
                 throw new Zend_Db_Adapter_Mysqli_Exception('clear_result: '.$this->getConnection()->error);
             }
         }
-
     }
 
     public function dropForeignKey($table, $fk)
@@ -199,8 +198,15 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      * @param string $onUpdate
      * @param string $onDelete
      */
-    public function addConstraint($fkName, $tableName, $keyName, $refTableName,
-        $refKeyName, $onDelete = 'cascade', $onUpdate = 'cascade')
+    public function addConstraint(
+        $fkName,
+        $tableName,
+        $keyName,
+        $refTableName,
+        $refKeyName,
+        $onDelete = 'cascade',
+        $onUpdate = 'cascade'
+    )
     {
         if (substr($fkName, 0, 3) != 'FK_') {
             $fkName = 'FK_' . $fkName;

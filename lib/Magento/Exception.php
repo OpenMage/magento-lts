@@ -20,5 +20,4 @@
 
 class Magento_Exception extends Exception
 {
-
 }

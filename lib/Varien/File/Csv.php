@@ -31,7 +31,6 @@ class Varien_File_Csv
 
     public function __construct()
     {
-
     }
 
     /**
@@ -128,7 +127,8 @@ class Varien_File_Csv
         return $this;
     }
 
-    public function fputcsv(&$handle, $fields = array(), $delimiter = ',', $enclosure = '"') {
+    public function fputcsv(&$handle, $fields = array(), $delimiter = ',', $enclosure = '"')
+    {
         $str = '';
         $escape_char = '\\';
         foreach ($fields as $value) {
@@ -144,12 +144,12 @@ class Varien_File_Csv
                 for ($i=0;$i<$len;$i++) {
                     if ($value[$i] == $escape_char) {
                         $escaped = 1;
-                    } else if (!$escaped && $value[$i] == $enclosure) {
+                    } elseif (!$escaped && $value[$i] == $enclosure) {
                         $str2 .= $enclosure;
                     } else {
                         $escaped = 0;
                     }
-                        $str2 .= $value[$i];
+                    $str2 .= $value[$i];
                 }
                 $str2 .= $enclosure;
                 $str .= $str2.$delimiter;
@@ -157,9 +157,8 @@ class Varien_File_Csv
                 $str .= $enclosure.$value.$enclosure.$delimiter;
             }
         }
-        $str = substr($str,0,-1);
+        $str = substr($str, 0, -1);
         $str .= "\n";
         return fwrite($handle, $str);
     }
-
 }

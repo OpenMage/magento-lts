@@ -240,7 +240,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $countSelect->reset(Zend_Db_Select::GROUP);
             $countSelect->distinct(true);
             $group = $this->getSelect()->getPart(Zend_Db_Select::GROUP);
-            $group = array_map(function($token) {
+            $group = array_map(function ($token) {
                 return $this->getSelect()->getAdapter()->quoteIdentifier($token, true);
             }, $group);
             $countSelect->columns("COUNT(DISTINCT " . implode(", ", $group) . ")");
@@ -256,7 +256,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @param   bool $stringMode
      * @return  string|Zend_Db_Select
      */
-    function getSelectSql($stringMode = false)
+    public function getSelectSql($stringMode = false)
     {
         if ($stringMode) {
             return $this->_select->__toString();
@@ -353,7 +353,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                     $field = $this->_getMappedField($filter['field']);
                     $condition = $filter['value'];
                     $this->_select->where(
-                        $this->_getConditionSql($field, $condition), null, Varien_Db_Select::TYPE_CONDITION
+                        $this->_getConditionSql($field, $condition),
+                        null,
+                        Varien_Db_Select::TYPE_CONDITION
                     );
                     break;
                 default:
@@ -510,7 +512,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if (!$this->_isOrdersRendered) {
             foreach ($this->_orders as $field => $direction) {
                 $this->_select->order(new Zend_Db_Expr($field . ' ' . $direction));
-             }
+            }
             $this->_isOrdersRendered = true;
         }
 
@@ -524,7 +526,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _renderLimit()
     {
-        if($this->_pageSize){
+        if ($this->_pageSize) {
             $this->_select->limitPage($this->getCurPage(), $this->_pageSize);
         }
 
@@ -708,12 +710,13 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @return  $this
      */
-    public function printLogQuery($printQuery = false, $logQuery = false, $sql = null) {
+    public function printLogQuery($printQuery = false, $logQuery = false, $sql = null)
+    {
         if ($printQuery) {
             echo is_null($sql) ? $this->getSelect()->__toString() : $sql;
         }
 
-        if ($logQuery){
+        if ($logQuery) {
             Mage::log(is_null($sql) ? $this->getSelect()->__toString() : $sql);
         }
         return $this;
@@ -850,7 +853,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         if (is_null($this->_map)) {
             $this->_map = array($group => array());
-        } else if(is_null($this->_map[$group])) {
+        } elseif (is_null($this->_map[$group])) {
             $this->_map[$group] = array();
         }
         $this->_map[$group][$filter] = $alias;

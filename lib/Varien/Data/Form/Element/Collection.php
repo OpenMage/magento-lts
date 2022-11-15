@@ -126,11 +126,9 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
 
         if ($after === false) {
             $this->_elements[] = $element;
-        }
-        elseif ($after === '^') {
+        } elseif ($after === '^') {
             array_unshift($this->_elements, $element);
-        }
-        elseif (is_string($after)) {
+        } elseif (is_string($after)) {
             $newOrderElements = array();
             foreach ($this->_elements as $index => $currElement) {
                 if ($currElement->getId() == $after) {
@@ -202,5 +200,4 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
         }
         return null;
     }
-
 }

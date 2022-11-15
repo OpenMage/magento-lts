@@ -23,7 +23,7 @@ class Varien_Filter_Array extends Zend_Filter
 {
     protected $_columnFilters = array();
 
-    function addFilter(Zend_Filter_Interface $filter, $column='')
+    public function addFilter(Zend_Filter_Interface $filter, $column='')
     {
         if (''===$column) {
             parent::addFilter($filter);
@@ -35,7 +35,7 @@ class Varien_Filter_Array extends Zend_Filter
         }
     }
 
-    function filter($array)
+    public function filter($array)
     {
         $out = array();
         foreach ($array as $column=>$value) {

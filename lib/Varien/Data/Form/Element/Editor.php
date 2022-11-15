@@ -41,7 +41,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     {
         parent::__construct($attributes);
 
-        if($this->isEnabled()) {
+        if ($this->isEnabled()) {
             $this->setType('wysiwyg');
             $this->setExtType('wysiwyg');
         } else {
@@ -79,8 +79,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             //]]>
             </script>';
 
-        if($this->isEnabled())
-        {
+        if ($this->isEnabled()) {
             // add Firebug notice translations
             $warn = 'Firebug is known to make the WYSIWYG editor slow unless it is turned off or configured properly.';
             $this->getConfig()->addData(array(
@@ -154,7 +153,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      */
     public function getTheme()
     {
-        if(!$this->hasData('theme')) {
+        if (!$this->hasData('theme')) {
             return 'simple';
         }
 
@@ -356,7 +355,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      */
     public function getConfig($key = null)
     {
-        if ( !($this->_getData('config') instanceof Varien_Object) ) {
+        if (!($this->_getData('config') instanceof Varien_Object)) {
             $config = new Varien_Object();
             $this->setConfig($config);
         }

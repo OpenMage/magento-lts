@@ -38,7 +38,7 @@ class Mage_Archive_Abstract
     protected function _writeFile($destination, $data)
     {
         $destination = trim($destination);
-        if(false === file_put_contents($destination, $data)) {
+        if (false === file_put_contents($destination, $data)) {
             throw new Mage_Exception("Can't write to file: " . $destination);
         }
         return true;

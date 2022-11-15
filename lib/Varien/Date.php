@@ -174,4 +174,3 @@ class Varien_Date
         return date($format, $date);
     }
 }
-

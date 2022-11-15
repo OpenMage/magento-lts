@@ -41,12 +41,12 @@ interface Mage_Backup_Interface
      */
     public function rollback();
 
-     /**
-     * Set Backup Extension
-     *
-     * @param string $backupExtension
-     * @return Mage_Backup_Interface
-     */
+    /**
+    * Set Backup Extension
+    *
+    * @param string $backupExtension
+    * @return Mage_Backup_Interface
+    */
     public function setBackupExtension($backupExtension);
 
     /**

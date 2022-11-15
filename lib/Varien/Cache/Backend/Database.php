@@ -44,8 +44,7 @@ CREATE TABLE IF NOT EXISTS `core_cache_tag` (
 /**
  * Database cache backend
  */
-class Varien_Cache_Backend_Database
-    extends Zend_Cache_Backend implements Zend_Cache_Backend_ExtendedInterface
+class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_Cache_Backend_ExtendedInterface
 {
     /**
      * Available options
@@ -75,7 +74,7 @@ class Varien_Cache_Backend_Database
                 Zend_Cache::throwException('Option "adapter" should be declared and extend Zend_Db_Adapter_Abstract!');
             }
         }
-        if (empty($this->_options['data_table']) || empty ($this->_options['tags_table'])) {
+        if (empty($this->_options['data_table']) || empty($this->_options['tags_table'])) {
             Zend_Cache::throwException('Options "data_table" and "tags_table" should be declared!');
         }
     }
@@ -272,7 +271,7 @@ class Varien_Cache_Backend_Database
         $adapter = $this->_getAdapter();
         $result = true;
 
-        switch($mode) {
+        switch ($mode) {
             case Zend_Cache::CLEANING_MODE_ALL:
                 if ($this->_options['store_data']) {
                     $result = $adapter->query('TRUNCATE TABLE ' . $this->_getDataTable());
@@ -450,7 +449,7 @@ class Varien_Cache_Backend_Database
         $data = $this->_getAdapter()->fetchRow($select);
         $res = false;
         if ($data) {
-            $res = array (
+            $res = array(
                 'expire'=> $data['expire_time'],
                 'mtime' => $data['update_time'],
                 'tags'  => $tags

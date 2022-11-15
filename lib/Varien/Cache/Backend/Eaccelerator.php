@@ -330,5 +330,4 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
             'get_list' => true
         );
     }
-
 }

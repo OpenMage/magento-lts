@@ -31,14 +31,14 @@
      public function getResource()
      {
          if (!$this->_resource) {
-            $type = $this->getVar('type', 'file');
-            $className = 'Varien_Io_'.ucwords($type);
-            $this->_resource = new $className();
-            try {
-                $this->_resource->open($this->getVars());
-            } catch (Exception $e) {
-                $this->addException('Error occured during file opening: '.$e->getMessage(), Varien_Convert_Exception::FATAL);
-            }
+             $type = $this->getVar('type', 'file');
+             $className = 'Varien_Io_'.ucwords($type);
+             $this->_resource = new $className();
+             try {
+                 $this->_resource->open($this->getVars());
+             } catch (Exception $e) {
+                 $this->addException('Error occured during file opening: '.$e->getMessage(), Varien_Convert_Exception::FATAL);
+             }
          }
          return $this->_resource;
      }

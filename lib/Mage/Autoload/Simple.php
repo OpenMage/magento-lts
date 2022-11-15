@@ -42,5 +42,4 @@ class Mage_Autoload_Simple
         $classFile.= '.php';
         @include $classFile;
     }
-
 }

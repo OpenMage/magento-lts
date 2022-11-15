@@ -42,7 +42,7 @@ class Varien_Convert_Mapper_Column extends Varien_Convert_Mapper_Abstract
         foreach ($data as $i=>$row) {
             $newRow = array();
             foreach ($row as $field=>$value) {
-                if(!$onlySpecified || $onlySpecified && isset($attributesToSelect[$field])) {
+                if (!$onlySpecified || $onlySpecified && isset($attributesToSelect[$field])) {
                     $newRow[$this->getVar($field, $field)] = $value;
                 }
             }

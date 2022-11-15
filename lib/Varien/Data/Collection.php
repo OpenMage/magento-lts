@@ -111,7 +111,6 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
 
     public function __construct()
     {
-
     }
 
     /**
@@ -203,8 +202,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     {
         if ($this->_curPage + $displacement <= 1) {
             return 1;
-        }
-        elseif ($this->_curPage + $displacement > $this->getLastPageNumber()) {
+        } elseif ($this->_curPage + $displacement > $this->getLastPageNumber()) {
             return $this->getLastPageNumber();
         } else {
             return $this->_curPage + $displacement;
@@ -221,11 +219,9 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         $collectionSize = (int) $this->getSize();
         if (0 === $collectionSize) {
             return 1;
-        }
-        elseif($this->_pageSize) {
+        } elseif ($this->_pageSize) {
             return ceil($collectionSize/$this->_pageSize);
-        }
-        else{
+        } else {
             return 1;
         }
     }
@@ -539,7 +535,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * @param   string $className
      * @return  $this
      */
-    function setItemObjectClass($className)
+    public function setItemObjectClass($className)
     {
         $className = Mage::getConfig()->getModelClassName($className);
         /**

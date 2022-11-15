@@ -26,8 +26,7 @@
  * @package     Mage_HTTP
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_HTTP_Client_Socket
-    implements Mage_HTTP_IClient
+class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 {
     /**
      * Hostname
@@ -112,7 +111,7 @@ class Mage_HTTP_Client_Socket
      */
     public function __construct($host = null, $port = 80)
     {
-        if($host) {
+        if ($host) {
             $this->connect($host, (int) $port);
         }
     }
@@ -127,7 +126,6 @@ class Mage_HTTP_Client_Socket
     {
         $this->_host = $host;
         $this->_port = (int) $port;
-
     }
 
     /**
@@ -146,7 +144,6 @@ class Mage_HTTP_Client_Socket
     public function setHeaders($headers)
     {
         $this->_headers = $headers;
-
     }
 
     /**
@@ -158,7 +155,6 @@ class Mage_HTTP_Client_Socket
     public function addHeader($name, $value)
     {
         $this->_headers[$name] = $value;
-
     }
 
     /**
@@ -169,7 +165,6 @@ class Mage_HTTP_Client_Socket
     public function removeHeader($name)
     {
         unset($this->_headers[$name]);
-
     }
 
     /**
@@ -181,8 +176,8 @@ class Mage_HTTP_Client_Socket
      */
     public function setCredentials($login, $pass)
     {
-        $val= base64_encode( "$login:$pass" );
-        $this->addHeader( "Authorization", "Basic $val" );
+        $val= base64_encode("$login:$pass");
+        $this->addHeader("Authorization", "Basic $val");
     }
 
     /**
@@ -231,7 +226,7 @@ class Mage_HTTP_Client_Socket
      */
     public function get($uri)
     {
-        $this->makeRequest("GET",$this->parseUrl($uri));
+        $this->makeRequest("GET", $this->parseUrl($uri));
     }
 
     /**
@@ -244,25 +239,25 @@ class Mage_HTTP_Client_Socket
     protected function parseUrl($uri)
     {
         $parts = parse_url($uri);
-        if(!empty($parts['user']) && !empty($parts['pass'])) {
+        if (!empty($parts['user']) && !empty($parts['pass'])) {
             $this->setCredentials($parts['user'], $parts['pass']);
         }
-        if(!empty($parts['port'])) {
+        if (!empty($parts['port'])) {
             $this->_port = (int) $parts['port'];
         }
 
-        if(!empty($parts['host'])) {
+        if (!empty($parts['host'])) {
             $this->_host = $parts['host'];
         } else {
             throw new InvalidArgumentException("Uri doesn't contain host part");
         }
 
-        if(!empty($parts['path'])) {
+        if (!empty($parts['path'])) {
             $requestUri = $parts['path'];
         } else {
             throw new InvalidArgumentException("Uri doesn't contain path part");
         }
-        if(!empty($parts['query'])) {
+        if (!empty($parts['query'])) {
             $requestUri .= "?".$parts['query'];
         }
         return $requestUri;
@@ -303,18 +298,18 @@ class Mage_HTTP_Client_Socket
      */
     public function getCookies()
     {
-        if(empty($this->_responseHeaders['Set-Cookie'])) {
+        if (empty($this->_responseHeaders['Set-Cookie'])) {
             return array();
         }
         $out = array();
-        foreach( $this->_responseHeaders['Set-Cookie'] as $row) {
+        foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode("; ", $row);
             $c = count($values);
-            if(!$c) {
+            if (!$c) {
                 continue;
             }
             list($key, $val) = explode("=", $values[0]);
-            if(is_null($val)) {
+            if (is_null($val)) {
                 continue;
             }
             $out[trim($key)] = trim($val);
@@ -329,27 +324,27 @@ class Mage_HTTP_Client_Socket
      */
     public function getCookiesFull()
     {
-        if(empty($this->_responseHeaders['Set-Cookie'])) {
+        if (empty($this->_responseHeaders['Set-Cookie'])) {
             return array();
         }
         $out = array();
-        foreach( $this->_responseHeaders['Set-Cookie'] as $row) {
+        foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode("; ", $row);
             $c = count($values);
-            if(!$c) {
+            if (!$c) {
                 continue;
             }
             list($key, $val) = explode("=", $values[0]);
-            if(is_null($val)) {
+            if (is_null($val)) {
                 continue;
             }
             $out[trim($key)] = array('value'=>trim($val));
             array_shift($values);
             $c--;
-            if(!$c) {
+            if (!$c) {
                 continue;
             }
-            for($i = 0; $i<$c; $i++) {
+            for ($i = 0; $i<$c; $i++) {
                 list($subkey, $val) = explode("=", $values[$i]);
                 $out[trim($key)][trim($subkey)] = trim($val);
             }
@@ -366,18 +361,18 @@ class Mage_HTTP_Client_Socket
         $this->_responseHeaders = array();
         while (!feof($this->_sock)) {
             $line = fgets($this->_sock, 1024);
-            if($line === $crlf) {
+            if ($line === $crlf) {
                 return;
             }
             $name = $value = '';
             $out = explode(": ", trim($line), 2);
-            if(count($out) == 2) {
+            if (count($out) == 2) {
                 $name = $out[0];
                 $value = $out[1];
             }
-            if(!empty($value)) {
-                if($name == "Set-Cookie") {
-                    if(!isset($this->_responseHeaders[$name])) {
+            if (!empty($value)) {
+                if ($name == "Set-Cookie") {
+                    if (!isset($this->_responseHeaders[$name])) {
                         $this->_responseHeaders[$name] = array();
                     }
                     $this->_responseHeaders[$name][] = $value;
@@ -409,7 +404,7 @@ class Mage_HTTP_Client_Socket
         $responseLine = trim(fgets($this->_sock, 1024));
 
         $line = explode(" ", $responseLine, 3);
-        if(count($line) != 3) {
+        if (count($line) != 3) {
             return $this->doError("Invalid response line returned from server: ".$responseLine);
         }
         $this->_responseStatus = intval($line[1]);
@@ -448,7 +443,7 @@ class Mage_HTTP_Client_Socket
     {
         $errno = $errstr = '';
         $this->_sock = @fsockopen($this->_host, $this->_port, $errno, $errstr, $this->_timeout);
-        if(!$this->_sock) {
+        if (!$this->_sock) {
             return $this->doError(sprintf("[errno: %d] %s", $errno, $errstr));
         }
 
@@ -457,7 +452,7 @@ class Mage_HTTP_Client_Socket
 
         $appendHeaders = array();
         $paramsStr = false;
-        if($isPost && count($params)) {
+        if ($isPost && count($params)) {
             $paramsStr = http_build_query($params);
             $appendHeaders['Content-type'] = 'application/x-www-form-urlencoded';
             $appendHeaders['Content-length'] = strlen($paramsStr);
@@ -466,7 +461,7 @@ class Mage_HTTP_Client_Socket
         $out = "{$method} {$uri} HTTP/1.1{$crlf}";
         $out .= $this->headersToString($appendHeaders);
         $out .= $crlf;
-        if($paramsStr) {
+        if ($paramsStr) {
             $out .= $paramsStr.$crlf;
         }
 
@@ -518,5 +513,4 @@ class Mage_HTTP_Client_Socket
     {
         // Stub
     }
-
 }

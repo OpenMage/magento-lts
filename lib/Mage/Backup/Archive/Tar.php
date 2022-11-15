@@ -47,7 +47,8 @@ class Mage_Backup_Archive_Tar extends Mage_Archive_Tar
         $path = $this->_getCurrentFile();
 
         $filesystemIterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST
+            new RecursiveDirectoryIterator($path),
+            RecursiveIteratorIterator::SELF_FIRST
         );
 
         $iterator = new Mage_Backup_Filesystem_Iterator_Filter($filesystemIterator, $this->_skipFiles);

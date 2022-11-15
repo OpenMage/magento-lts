@@ -96,7 +96,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      *
      * @return string
      */
-    protected static final function _getFormatParseHeader()
+    final protected static function _getFormatParseHeader()
     {
         return 'Z100name/Z8mode/Z8uid/Z8gid/Z12size/Z12mtime/Z8checksum/Z1type/Z100symlink/Z6magic/Z2version/'
         . 'Z32uname/Z32gname/Z8devmajor/Z8devminor/Z155prefix/Z12closer';
@@ -369,7 +369,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         $header = array();
         $header['100-name']       = $long?'././@LongLink':substr($nameFile, 0, 100);
         $header['8-mode']         = $long ? '       '
-            : str_pad(substr(sprintf("%07o", $infoFile['mode']),-4), 6, '0', STR_PAD_LEFT);
+            : str_pad(substr(sprintf("%07o", $infoFile['mode']), -4), 6, '0', STR_PAD_LEFT);
         $header['8-uid']          = $long || $infoFile['uid']==0?"\0\0\0\0\0\0\0":sprintf("%07o", $infoFile['uid']);
         $header['8-gid']          = $long || $infoFile['gid']==0?"\0\0\0\0\0\0\0":sprintf("%07o", $infoFile['gid']);
         $header['12-size']        = $long ? sprintf("%011o", strlen($nameFile)) : sprintf("%011o", is_dir($file)
@@ -380,9 +380,9 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         $header['100-symlink']    = is_link($file) ? readlink($file) : '';
         $header['6-magic']        = 'ustar ';
         $header['2-version']      = ' ';
-        $a=function_exists('posix_getpwuid')?posix_getpwuid (fileowner($file)):array('name'=>'');
+        $a=function_exists('posix_getpwuid')?posix_getpwuid(fileowner($file)):array('name'=>'');
         $header['32-uname']       = $a['name'];
-        $a=function_exists('posix_getgrgid')?posix_getgrgid (filegroup($file)):array('name'=>'');
+        $a=function_exists('posix_getgrgid')?posix_getgrgid(filegroup($file)):array('name'=>'');
         $header['32-gname']       = $a['name'];
         $header['8-devmajor']     = '';
         $header['8-devminor']     = '';
@@ -429,8 +429,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             $dirname = dirname($currentFile);
 
             if (in_array($header['type'], array("0",chr(0), ''))) {
-
-                if(!file_exists($dirname)) {
+                if (!file_exists($dirname)) {
                     $mkdirResult = @mkdir($dirname, 0777, true);
 
                     if (false === $mkdirResult) {
@@ -440,10 +439,8 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
 
                 $this->_extractAndWriteFile($header, $currentFile);
                 $list[] = $currentFile;
-
             } elseif ($header['type'] == '5') {
-
-                if(!file_exists($dirname)) {
+                if (!file_exists($dirname)) {
                     $mkdirResult = @mkdir($currentFile, $header['mode'], true);
 
                     if (false === $mkdirResult) {
@@ -472,12 +469,12 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     {
         $firstLine = fread($pointer, 512);
 
-        if (strlen($firstLine)<512){
+        if (strlen($firstLine)<512) {
             return false;
         }
 
         $fmt = self::_getFormatParseHeader();
-        $header = unpack ($fmt, $firstLine);
+        $header = unpack($fmt, $firstLine);
 
         $header['mode']=$header['mode']+0;
         $header['uid']=octdec($header['uid']);
@@ -554,7 +551,6 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
 
         $checksumOk = $header['checksum'] == $checksum;
         if (isset($header['name']) && $checksumOk) {
-
             if (!($header['name'] == '././@LongLink' && $header['type'] == 'L')) {
                 $header['name'] = trim($header['name']);
                 return $header;
@@ -666,7 +662,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
                 break;
             }
 
-            if ($header['type'] != 5){
+            if ($header['type'] != 5) {
                 $skipBytes = floor(($header['size'] + self::TAR_BLOCK_SIZE - 1) / self::TAR_BLOCK_SIZE)
                     * self::TAR_BLOCK_SIZE;
                 $archiveReader->read($skipBytes);

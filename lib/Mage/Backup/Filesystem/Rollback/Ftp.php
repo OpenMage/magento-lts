@@ -143,7 +143,8 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
         $rootDir = $this->_snapshot->getRootDir();
 
         $filesystemIterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($rootDir), RecursiveIteratorIterator::CHILD_FIRST
+            new RecursiveDirectoryIterator($rootDir),
+            RecursiveIteratorIterator::CHILD_FIRST
         );
 
         $iterator = new Mage_Backup_Filesystem_Iterator_Filter($filesystemIterator, $this->_snapshot->getIgnorePaths());
@@ -165,7 +166,8 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
     protected function _uploadBackupToFtp($tmpDir)
     {
         $filesystemIterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($tmpDir), RecursiveIteratorIterator::SELF_FIRST
+            new RecursiveDirectoryIterator($tmpDir),
+            RecursiveIteratorIterator::SELF_FIRST
         );
 
         $iterator = new Mage_Backup_Filesystem_Iterator_Filter($filesystemIterator, $this->_snapshot->getIgnorePaths());

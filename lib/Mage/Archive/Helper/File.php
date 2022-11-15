@@ -250,7 +250,8 @@ class Mage_Archive_Helper_File
     *
     * @param string $mode
     */
-    protected function _isReadableMode($mode) {
+    protected function _isReadableMode($mode)
+    {
         return !$this->_isWritableMode($mode);
     }
 

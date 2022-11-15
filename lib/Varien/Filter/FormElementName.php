@@ -35,7 +35,7 @@ class Varien_Filter_FormElementName extends Zend_Filter_Alnum
         if (!self::$_unicodeEnabled) {
             // POSIX named classes are not supported, use alternative a-zA-Z0-9 match
             $pattern = '/[^a-zA-Z0-9\[\];_\-' . $whiteSpace . ']/';
-        } else if (self::$_meansEnglishAlphabet) {
+        } elseif (self::$_meansEnglishAlphabet) {
             //The Alphabet means english alphabet.
             $pattern = '/[^a-zA-Z0-9\[\];_\-'  . $whiteSpace . ']/u';
         } else {

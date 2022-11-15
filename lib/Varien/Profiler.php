@@ -27,9 +27,9 @@ class Varien_Profiler
      *
      * @var array
      */
-    static private $_timers = array();
-    static private $_enabled = false;
-    static private $_memory_get_usage = false;
+    private static $_timers = array();
+    private static $_enabled = false;
+    private static $_memory_get_usage = false;
 
     public static function enable()
     {
@@ -149,13 +149,14 @@ class Varien_Profiler
      * Output SQl Zend_Db_Profiler
      *
      */
-    public static function getSqlProfiler($res) {
-        if(!$res){
+    public static function getSqlProfiler($res)
+    {
+        if (!$res) {
             return '';
         }
         $out = '';
         $profiler = $res->getProfiler();
-        if($profiler->getEnabled()) {
+        if ($profiler->getEnabled()) {
             $totalTime    = $profiler->getTotalElapsedSecs();
             $queryCount   = $profiler->getTotalNumQueries();
             $longestTime  = 0;

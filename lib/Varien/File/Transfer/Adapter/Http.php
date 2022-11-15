@@ -81,7 +81,7 @@ class Varien_File_Transfer_Adapter_Http
     {
         if (is_string($options)) {
             $filepath = $options;
-        } else if (is_array($options)) {
+        } elseif (is_array($options)) {
             $filepath = $options['filepath'];
         } else {
             throw new Exception("Filename is not set.");
@@ -113,7 +113,7 @@ class Varien_File_Transfer_Adapter_Http
     {
         if (file_exists($value['name'])) {
             $file = $value['name'];
-        } else if (file_exists($value['tmp_name'])) {
+        } elseif (file_exists($value['tmp_name'])) {
             $file = $value['tmp_name'];
         } else {
             return null;
@@ -135,5 +135,4 @@ class Varien_File_Transfer_Adapter_Http
 
         return $result;
     }
-
 }

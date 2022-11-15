@@ -127,7 +127,8 @@ class Mage_Backup_Snapshot extends Mage_Backup_Filesystem
      *
      * @return Mage_Backup_Snapshot
      */
-    protected function _removeDbBackup(){
+    protected function _removeDbBackup()
+    {
         @unlink($this->_getDbBackupManager()->getBackupPath());
         return $this;
     }

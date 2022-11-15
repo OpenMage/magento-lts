@@ -137,8 +137,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
     {
         if (isset($this->_types[$type])) {
             $className = $this->_types[$type];
-        }
-        else {
+        } else {
             $className = 'Varien_Data_Form_Element_'.ucfirst(strtolower($type));
         }
         $element = new $className($config);
@@ -200,5 +199,4 @@ class Varien_Data_Form_Abstract extends Varien_Object
         }
         return $res;
     }
-
 }

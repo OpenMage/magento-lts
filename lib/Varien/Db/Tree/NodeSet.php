@@ -29,28 +29,33 @@ class Varien_Db_Tree_NodeSet implements Iterator
     private $_currentNode = 0;
     private $_current = 0;
 
-    function __construct() {
+    public function __construct()
+    {
         $this->_nodes = array();
         $this->_current = 0;
         $this->_currentNode = 0;
         $this->count = 0;
     }
 
-    function addNode(Varien_Db_Tree_Node $node) {
+    public function addNode(Varien_Db_Tree_Node $node)
+    {
         $this->_nodes[$this->_currentNode] = $node;
         $this->count++;
         return ++$this->_currentNode;
     }
 
-    function count() {
+    public function count()
+    {
         return $this->count;
     }
 
-    function valid() {
+    public function valid()
+    {
         return  isset($this->_nodes[$this->_current]);
     }
 
-    function next() {
+    public function next()
+    {
         if ($this->_current > $this->_currentNode) {
             return false;
         } else {
@@ -58,15 +63,18 @@ class Varien_Db_Tree_NodeSet implements Iterator
         }
     }
 
-    function key() {
+    public function key()
+    {
         return $this->_current;
     }
 
-    function current() {
+    public function current()
+    {
         return $this->_nodes[$this->_current];
     }
 
-    function rewind() {
+    public function rewind()
+    {
         $this->_current = 0;
     }
 }

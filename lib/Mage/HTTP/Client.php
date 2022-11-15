@@ -35,7 +35,6 @@ class Mage_HTTP_Client
      */
     private function __construct()
     {
-
     }
 
     /**
@@ -45,12 +44,10 @@ class Mage_HTTP_Client
      */
     public static function getInstance($frontend = false)
     {
-        if(false === $frontend)
-        {
+        if (false === $frontend) {
             $frontend = self::detectFrontend();
         }
-        if(false === $frontend)
-        {
+        if (false === $frontend) {
             throw new Exception("Cannot find frontend automatically, set it manually");
         }
 
@@ -67,12 +64,12 @@ class Mage_HTTP_Client
      */
     protected static function detectFrontend()
     {
-       if(function_exists("curl_init")) {
-              return "curl";
-       }
-       if(function_exists("fsockopen")) {
-              return "socket";
-       }
-       return false;
+        if (function_exists("curl_init")) {
+            return "curl";
+        }
+        if (function_exists("fsockopen")) {
+            return "socket";
+        }
+        return false;
     }
 }

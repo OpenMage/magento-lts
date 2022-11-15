@@ -84,4 +84,3 @@ class Mage_Archive_Helper_File_Bz extends Mage_Archive_Helper_File
         bzclose($this->_fileHandler);
     }
 }
-

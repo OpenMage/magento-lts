@@ -96,7 +96,6 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             !isset($fields[self::PARENT_FIELD]) ||
             !isset($fields[self::LEVEL_FIELD]) ||
             !isset($fields[self::ORDER_FIELD])) {
-
             throw new Exception('"$fields" tree configuratin array');
         }
 
@@ -137,15 +136,12 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         if (is_null($parentNode)) {
             $this->_loadFullTree();
             return $this;
-        }
-        elseif ($parentNode instanceof Varien_Data_Tree_Node) {
+        } elseif ($parentNode instanceof Varien_Data_Tree_Node) {
             $parentId = $parentNode->getId();
-        }
-        elseif (is_numeric($parentNode)) {
+        } elseif (is_numeric($parentNode)) {
             $parentId = $parentNode;
             $parentNode = null;
-        }
-        else {
+        } else {
             throw new Exception('root node id is not defined');
         }
 
@@ -218,8 +214,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         // New node order
         if (is_null($prevNode) || is_null($prevNode->getData($this->_orderField))) {
             $data[$this->_orderField] = 1;
-        }
-        else {
+        } else {
             $data[$this->_orderField] = $prevNode->getData($this->_orderField)+1;
         }
         $condition = $this->_conn->quoteInto("$this->_idField=?", $node->getId());
@@ -248,8 +243,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             $this->_conn->update($this->_table, $dataReorderOld, $conditionReorderOld);
             $this->_updateChildLevels($node->getId(), $data[$this->_levelField]);
             $this->_conn->commit();
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             $this->_conn->rollBack();
             throw new Exception('Can\'t move tree node');
         }
@@ -269,9 +263,11 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         $ids = $this->_conn->fetchCol($select);
 
         if (!empty($ids)) {
-            $this->_conn->update($this->_table,
+            $this->_conn->update(
+                $this->_table,
                 array($this->_levelField=>$parentLevel+1),
-                $this->_conn->quoteInto($this->_idField.' IN (?)', $ids));
+                $this->_conn->quoteInto($this->_idField.' IN (?)', $ids)
+            );
             foreach ($ids as $id) {
                 $this->_updateChildLevels($id, $parentLevel+1);
             }
@@ -320,8 +316,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             // Update old node branch
             $this->_conn->update($this->_table, $dataReorderOld, $conditionReorderOld);
             $this->_conn->commit();
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             $this->_conn->rollBack();
             throw new Exception('Can\'t remove tree node');
         }

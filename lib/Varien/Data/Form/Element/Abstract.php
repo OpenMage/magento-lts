@@ -273,7 +273,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     {
         if (!is_null($this->getLabel())) {
             $html = '<label for="'.$this->getHtmlId() . $idSuffix . '">' . $this->_escape($this->getLabel())
-                  . ( $this->getRequired() ? ' <span class="required">*</span>' : '' ) . '</label>' . "\n";
+                  . ($this->getRequired() ? ' <span class="required">*</span>' : '') . '</label>' . "\n";
         } else {
             $html = '';
         }
@@ -287,10 +287,10 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     {
         $html = $this->getData('default_html');
         if (is_null($html)) {
-            $html = ( $this->getNoSpan() === true ) ? '' : '<span class="field-row">'."\n";
+            $html = ($this->getNoSpan() === true) ? '' : '<span class="field-row">'."\n";
             $html.= $this->getLabelHtml();
             $html.= $this->getElementHtml();
-            $html.= ( $this->getNoSpan() === true ) ? '' : '</span>'."\n";
+            $html.= ($this->getNoSpan() === true) ? '' : '</span>'."\n";
         }
         return $html;
     }
@@ -305,8 +305,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         }
         if ($this->_renderer) {
             $html = $this->_renderer->render($this);
-        }
-        else {
+        } else {
             $html = $this->getDefaultHtml();
         }
         return $html;
@@ -327,14 +326,12 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     {
         if (in_array('disabled', $attributes) && !empty($this->_data['disabled'])) {
             $this->_data['disabled'] = 'disabled';
-        }
-        else {
+        } else {
             unset($this->_data['disabled']);
         }
         if (in_array('checked', $attributes) && !empty($this->_data['checked'])) {
             $this->_data['checked'] = 'checked';
-        }
-        else {
+        } else {
             unset($this->_data['checked']);
         }
         return parent::serialize($attributes, $valueSeparator, $fieldSeparator, $quote);

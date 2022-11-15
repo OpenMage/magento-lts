@@ -189,5 +189,4 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
         }
         return $this;
     }
-
 }

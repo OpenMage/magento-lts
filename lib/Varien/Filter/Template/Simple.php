@@ -77,4 +77,3 @@ class Varien_Filter_Template_Simple extends Varien_Object implements Zend_Filter
         );
     }
 }
-

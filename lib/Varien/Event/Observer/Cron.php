@@ -80,8 +80,8 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         // handle multiple options
-        if (strpos($expr,',')!==false) {
-            foreach (explode(',',$expr) as $e) {
+        if (strpos($expr, ',')!==false) {
+            foreach (explode(',', $expr) as $e) {
                 if ($this->matchCronExpression($e, $num)) {
                     return true;
                 }
@@ -90,7 +90,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         // handle modulus
-        if (strpos($expr,'/')!==false) {
+        if (strpos($expr, '/')!==false) {
             $e = explode('/', $expr);
             if (count($e) !== 2) {
                 return false;
@@ -105,7 +105,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         // handle range
-        if (strpos($expr,'-')!==false) {
+        if (strpos($expr, '-')!==false) {
             $e = explode('-', $expr);
             if (count($e) !== 2) {
                 return false;
@@ -157,7 +157,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         if (is_string($value)) {
-            $value = strtolower(substr($value,0,3));
+            $value = strtolower(substr($value, 0, 3));
             if (isset($data[$value])) {
                 return $data[$value];
             }

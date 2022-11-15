@@ -49,9 +49,9 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
      */
     protected $_elementsIndex;
 
-    static protected $_defaultElementRenderer;
-    static protected $_defaultFieldsetRenderer;
-    static protected $_defaultFieldsetElementRenderer;
+    protected static $_defaultElementRenderer;
+    protected static $_defaultFieldsetRenderer;
+    protected static $_defaultFieldsetElementRenderer;
 
     /**
      * @inheritDoc
@@ -199,8 +199,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         foreach ($this->_allElements as $element) {
             if (isset($values[$element->getId()])) {
                 $element->setValue($values[$element->getId()]);
-            }
-            else {
+            } else {
                 $element->setValue(null);
             }
         }

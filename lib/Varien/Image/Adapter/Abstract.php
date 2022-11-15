@@ -149,11 +149,11 @@ abstract class Varien_Image_Adapter_Abstract
 
     public function getMimeType()
     {
-        if($this->_fileMimeType){
+        if ($this->_fileMimeType) {
             return $this->_fileMimeType;
         }
         $imageInfo = @getimagesize($this->_fileName);
-        if($imageInfo === false){
+        if ($imageInfo === false) {
             throw new RuntimeException('Failed to read image at ' . $this->_fileName);
         }
         $this->_imageSrcWidth = $imageInfo[0];

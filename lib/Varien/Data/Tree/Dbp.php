@@ -31,7 +31,6 @@
  */
 class Varien_Data_Tree_Dbp extends Varien_Data_Tree
 {
-
     const ID_FIELD      = 'id';
     const PATH_FIELD    = 'path';
     const ORDER_FIELD   = 'order';
@@ -99,7 +98,6 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             !isset($fields[self::PATH_FIELD]) ||
             !isset($fields[self::LEVEL_FIELD]) ||
             !isset($fields[self::ORDER_FIELD])) {
-
             throw new Exception('"$fields" tree configuratin array');
         }
 
@@ -148,7 +146,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             if ($parentNode instanceof Varien_Data_Tree_Node) {
                 $parentPath = $parentNode->getData($this->_pathField);
                 $startLevel = $parentNode->getData($this->_levelField);
-            } else if (is_numeric($parentNode)) {
+            } elseif (is_numeric($parentNode)) {
                 $select = $this->_conn->select()
                     ->from($this->_table, array($this->_pathField, $this->_levelField))
                     ->where("{$this->_idField} = ?", $parentNode);
@@ -157,7 +155,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                 $startLevel = $parent[$this->_levelField];
                 $parentPath = $parent[$this->_pathField];
                 $parentNode = null;
-            } else if (is_string($parentNode)) {
+            } elseif (is_string($parentNode)) {
                 $parentPath = $parentNode;
                 $startLevel = count(explode($parentPath))-1;
                 $parentNode = null;
@@ -255,7 +253,8 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
      * @param array $result
      * @return array
      */
-    public function getChildren($node, $recursive = true, $result = array()) {
+    public function getChildren($node, $recursive = true, $result = array())
+    {
         if (is_numeric($node)) {
             $node = $this->getNodeById($node);
         }
@@ -318,12 +317,14 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             }
             $this->_conn->update($this->_table, $reorderData, $reorderCondition);
             $this->_conn->update($this->_table, $data, $condition);
-            $this->_conn->update($this->_table, array($this->_orderField => $position, $this->_levelField=>$newLevel),
+            $this->_conn->update(
+                $this->_table,
+                array($this->_orderField => $position, $this->_levelField=>$newLevel),
                 $this->_conn->quoteInto("{$this->_idField} = ?", $node->getId())
             );
 
             $this->_conn->commit();
-        } catch (Exception $e){
+        } catch (Exception $e) {
             $this->_conn->rollBack();
             throw new Exception("Can't move tree node due to error: " . $e->getMessage());
         }
