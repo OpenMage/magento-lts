@@ -5,9 +5,8 @@
   - .travis.yml
 
 'phpstan':
-  - .github/phpstan.neon
-  - .github/phpstan-baseline.neon
-  - .github/phpstan_experimental_level.neon
+  - .github/phpstan*
+  - .github/workflows/phpstan*
 
 'htaccess':
   - .htaccess
