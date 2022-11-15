@@ -133,7 +133,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
      * @param   mixed  $after
      * @return Varien_Data_Form_Element_Abstract
      */
-    public function addField($elementId, $type, $config, $after=false)
+    public function addField($elementId, $type, $config, $after = false)
     {
         if (isset($this->_types[$type])) {
             $className = $this->_types[$type];

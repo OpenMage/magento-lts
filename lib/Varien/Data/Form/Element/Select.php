@@ -34,7 +34,7 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
      * Varien_Data_Form_Element_Select constructor.
      * @param array $attributes
      */
-    public function __construct($attributes= [])
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->setType('select');
@@ -113,7 +113,7 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
             $options = $this->getOptions();
             if (is_array($options)) {
                 $values = [];
-                foreach ($options as  $value => $label) {
+                foreach ($options as $value => $label) {
                     $values[] = ['value' => $value, 'label' => $label];
                 }
             } elseif (is_string($options)) {

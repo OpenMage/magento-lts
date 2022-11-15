@@ -26,15 +26,15 @@
  * @package    Varien_Convert
  * @author      Magento Core Team <core@magentocommerce.com>
  */
- class Varien_Convert_Adapter_Soap extends Varien_Convert_Adapter_Abstract
- {
-     public function load()
-     {
-         return $this;
-     }
+class Varien_Convert_Adapter_Soap extends Varien_Convert_Adapter_Abstract
+{
+    public function load()
+    {
+        return $this;
+    }
 
-     public function save()
-     {
-         return $this;
-     }
- }
+    public function save()
+    {
+        return $this;
+    }
+}

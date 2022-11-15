@@ -47,7 +47,7 @@ class Varien_Image
      * @param string $fileName
      * @return void
      */
-    public function __construct($fileName=null, $adapter=Varien_Image_Adapter::ADAPTER_GD2)
+    public function __construct($fileName = null, $adapter = Varien_Image_Adapter::ADAPTER_GD2)
     {
         $this->_getAdapter($adapter);
         $this->_fileName = $fileName;
@@ -61,8 +61,7 @@ class Varien_Image
      */
     public function __destruct()
     {
-        if (
-            $this->_adapter instanceof Varien_Image_Adapter_Abstract
+        if ($this->_adapter instanceof Varien_Image_Adapter_Abstract
             && method_exists($this->_adapter, 'destruct')
         ) {
             $this->_adapter->destruct();
@@ -105,7 +104,7 @@ class Varien_Image
      * @access public
      * @return void
      */
-    public function save($destination=null, $newFileName=null)
+    public function save($destination = null, $newFileName = null)
     {
         $this->_getAdapter()->save($destination, $newFileName);
     }
@@ -132,7 +131,7 @@ class Varien_Image
      * @access public
      * @return void
      */
-    public function crop($top=0, $left=0, $right=0, $bottom=0)
+    public function crop($top = 0, $left = 0, $right = 0, $bottom = 0)
     {
         $this->_getAdapter()->crop($top, $left, $right, $bottom);
     }
@@ -197,7 +196,7 @@ class Varien_Image
      * @access public
      * @return void
      */
-    public function watermark($watermarkImage, $positionX=0, $positionY=0, $watermarkImageOpacity=30, $repeat=false)
+    public function watermark($watermarkImage, $positionX = 0, $positionY = 0, $watermarkImageOpacity = 30, $repeat = false)
     {
         if (!file_exists($watermarkImage)) {
             throw new Exception("Required file '{$watermarkImage}' does not exists.");
@@ -302,7 +301,7 @@ class Varien_Image
      * @param string $adapter
      * @return Varien_Image_Adapter_Abstract
      */
-    protected function _getAdapter($adapter=null)
+    protected function _getAdapter($adapter = null)
     {
         if (!isset($this->_adapter)) {
             $this->_adapter = Varien_Image_Adapter::factory($adapter);

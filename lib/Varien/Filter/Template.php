@@ -68,7 +68,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      */
     public function setVariables(array $variables)
     {
-        foreach ($variables as $name=>$value) {
+        foreach ($variables as $name => $value) {
             $this->_templateVars[$name] = $value;
         }
         return $this;
@@ -148,7 +148,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         }
 
         if (preg_match_all(self::CONSTRUCTION_PATTERN, $value, $constructions, PREG_SET_ORDER)) {
-            foreach ($constructions as $index=>$construction) {
+            foreach ($constructions as $index => $construction) {
                 $replacedValue = '';
                 $callback = [$this, $construction[1].'Directive'];
                 if (!is_callable($callback)) {
@@ -275,7 +275,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     * @param string $default default value
     * @return string
     */
-    protected function _getVariable($value, $default='{no_value_defined}')
+    protected function _getVariable($value, $default = '{no_value_defined}')
     {
         Varien_Profiler::start("email_template_proccessing_variables");
         $tokenizer = new Varien_Filter_Template_Tokenizer_Variable();

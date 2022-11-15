@@ -65,7 +65,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
      * @param   array &$files - array of files
      * @return  none
      */
-    public function getFileName(&$files=null)
+    public function getFileName(&$files = null)
     {
         if ($this->_isCorrect) {
             if ($files===null) {
@@ -92,7 +92,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
      * @param   array &$paths - array of paths
      * @return  none
      */
-    public function getFilePath(&$path=null)
+    public function getFilePath(&$path = null)
     {
         if ($this->_isCorrect) {
             if ($path===null) {
@@ -274,7 +274,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
      * @param   string $rootName - nothing
      * @return  none
      */
-    public function toXml(&$xml, $recursionLevel=0, $addOpenTag=true, $rootName='Struct')
+    public function toXml(&$xml, $recursionLevel = 0, $addOpenTag = true, $rootName = 'Struct')
     {
         if ($this->_isCorrect) {
             $xml .=str_repeat("\t", $recursionLevel+2).'<fileName>'.$this->_filename.'</fileName>'."\n";

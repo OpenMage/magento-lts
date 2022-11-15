@@ -71,7 +71,7 @@ class Varien_Convert_Profile_Collection
         return $this->_profiles[$name];
     }
 
-    public function addProfile($name, Varien_Convert_Profile_Abstract $profile=null)
+    public function addProfile($name, Varien_Convert_Profile_Abstract $profile = null)
     {
         if (is_null($profile)) {
             $profile = new $this->_profileDefaultClass();
@@ -129,7 +129,7 @@ class Varien_Convert_Profile_Collection
         $profile->setContainers($this->getContainers());
         foreach ($profileNode->action as $actionNode) {
             $action = $profile->addAction();
-            foreach ($actionNode->attributes() as $key=>$value) {
+            foreach ($actionNode->attributes() as $key => $value) {
                 $action->setParam($key, (string)$value);
             }
 

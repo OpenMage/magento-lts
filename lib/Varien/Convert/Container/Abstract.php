@@ -33,7 +33,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
     protected $_data;
     protected $_position;
 
-    public function getVar($key, $default=null)
+    public function getVar($key, $default = null)
     {
         if (!isset($this->_vars[$key])) {
             return $default;
@@ -46,7 +46,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         return $this->_vars;
     }
 
-    public function setVar($key, $value=null)
+    public function setVar($key, $value = null)
     {
         if (is_array($key) && is_null($value)) {
             $this->_vars = $key;
@@ -84,7 +84,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         return $this;
     }
 
-    public function validateDataString($data=null)
+    public function validateDataString($data = null)
     {
         if (is_null($data)) {
             $data = $this->getData();
@@ -95,7 +95,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         return true;
     }
 
-    public function validateDataArray($data=null)
+    public function validateDataArray($data = null)
     {
         if (is_null($data)) {
             $data = $this->getData();
@@ -106,7 +106,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         return true;
     }
 
-    public function validateDataGrid($data=null)
+    public function validateDataGrid($data = null)
     {
         if (is_null($data)) {
             $data = $this->getData();
@@ -123,8 +123,8 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
     public function getGridFields($grid)
     {
         $fields = [];
-        foreach ($grid as $i=>$row) {
-            foreach ($row as $fieldName=>$data) {
+        foreach ($grid as $i => $row) {
+            foreach ($row as $fieldName => $data) {
                 if (!in_array($fieldName, $fields)) {
                     $fields[] = $fieldName;
                 }
@@ -133,7 +133,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         return $fields;
     }
 
-    public function addException($error, $level=null)
+    public function addException($error, $level = null)
     {
         $e = new Varien_Convert_Exception($error);
         $e->setLevel(!is_null($level) ? $level : Varien_Convert_Exception::NOTICE);

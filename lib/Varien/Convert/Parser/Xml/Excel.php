@@ -106,7 +106,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
   xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">';
 
         if (is_array($data)) {
-            foreach ($data as $wsName=>$wsData) {
+            foreach ($data as $wsName => $wsData) {
                 if (!is_array($wsData)) {
                     continue;
                 }
@@ -120,7 +120,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
                     }
                     $xml .= '</ss:Row>';
                 }
-                foreach ($wsData as $i=>$row) {
+                foreach ($wsData as $i => $row) {
                     if (!is_array($row)) {
                         continue;
                     }

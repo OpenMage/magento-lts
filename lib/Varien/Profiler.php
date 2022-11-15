@@ -101,7 +101,7 @@ class Varien_Profiler
         self::pause($timerName);
     }
 
-    public static function fetch($timerName, $key='sum')
+    public static function fetch($timerName, $key = 'sum')
     {
         if (empty(self::$_timers[$timerName])) {
             return false;

@@ -33,7 +33,7 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
      *
      * @param array $data
      */
-    public function __construct(array $data= [])
+    public function __construct(array $data = [])
     {
         register_shutdown_function([$this, 'destruct']);
         parent::__construct($data);

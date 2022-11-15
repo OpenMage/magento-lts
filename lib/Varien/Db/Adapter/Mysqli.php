@@ -84,6 +84,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      * @param string $sql
      * @return Zend_Db_Statement_Interface
      */
+    // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function raw_query($sql)
     {
         $timeoutMessage = 'SQLSTATE[HY000]: General error: 1205 Lock wait timeout exceeded; try restarting transaction';
@@ -123,7 +124,8 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         return strftime('%Y-%m-%d %H:%M:%S', strtotime($datetime));
     }
 
-    public function raw_fetchRow($sql, $field=null)
+    // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    public function raw_fetchRow($sql, $field = null)
     {
         if (!$result = $this->raw_query($sql)) {
             return false;
@@ -138,6 +140,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         }
     }
 
+    // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function multi_query($sql)
     {
         $this->beginTransaction();
@@ -157,6 +160,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         return true;
     }
 
+    // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function clear_result()
     {
         while ($this->getConnection()->next_result()) {
@@ -206,8 +210,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         $refKeyName,
         $onDelete = 'cascade',
         $onUpdate = 'cascade'
-    )
-    {
+    ) {
         if (substr($fkName, 0, 3) != 'FK_') {
             $fkName = 'FK_' . $fkName;
         }

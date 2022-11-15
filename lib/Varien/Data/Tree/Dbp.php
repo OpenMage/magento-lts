@@ -137,7 +137,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
      * @param int $recursionLevel
      * @return Varien_Data_Tree_Dbp
      */
-    public function load($parentNode=null, $recursionLevel = 0)
+    public function load($parentNode = null, $recursionLevel = 0)
     {
         if (!$this->_loaded) {
             $startLevel = 1;
@@ -375,7 +375,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
      * @param bool $withChildren
      * @param int $level
      */
-    protected function _addChildNodes($children, $path, $parentNode, $withChildren=false, $level = 0)
+    protected function _addChildNodes($children, $path, $parentNode, $withChildren = false, $level = 0)
     {
         if (isset($children[$path])) {
             foreach ($children[$path] as $child) {

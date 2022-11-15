@@ -111,7 +111,7 @@ class Mage_Archive
     * @param boolean $skipRoot skip first level parent
     * @return string Path to file
     */
-    public function pack($source, $destination='packed.tgz', $skipRoot=false)
+    public function pack($source, $destination = 'packed.tgz', $skipRoot = false)
     {
         $archivers = $this->_getArchivers($destination);
         $interimSource = '';
@@ -141,7 +141,7 @@ class Mage_Archive
     * @param bool $clearInterm
     * @return string Path to file
     */
-    public function unpack($source, $destination='.', $tillTar=false, $clearInterm = true)
+    public function unpack($source, $destination = '.', $tillTar = false, $clearInterm = true)
     {
         $archivers = $this->_getArchivers($source);
         $interimSource = '';
@@ -172,7 +172,7 @@ class Mage_Archive
     * @param string $destination
     * @return string Path to file
     */
-    public function extract($file, $source, $destination='.')
+    public function extract($file, $source, $destination = '.')
     {
         $tarFile = $this->unpack($source, $destination, true);
         $resFile = $this->_getArchiver(self::TAPE_ARCHIVER)->extract($file, $tarFile, $destination);

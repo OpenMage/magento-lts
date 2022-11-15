@@ -76,7 +76,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param array $args
      * @return boolean
      */
-    public function open(array $args= [])
+    public function open(array $args = [])
     {
         if (empty($args['host'])) {
             $this->_error = self::ERROR_EMPTY_HOST;
@@ -160,7 +160,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param boolean $recursive
      * @return boolean
      */
-    public function mkdir($dir, $mode=0777, $recursive=true)
+    public function mkdir($dir, $mode = 0777, $recursive = true)
     {
         return @ftp_mkdir($this->_conn, $dir);
     }
@@ -171,7 +171,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param string $dir
      * @return boolean
      */
-    public function rmdir($dir, $recursive=false)
+    public function rmdir($dir, $recursive = false)
     {
         return @ftp_rmdir($this->_conn, $dir);
     }
@@ -204,7 +204,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param string|resource|null $dest destination file name, stream, or if null will return file contents
      * @return string
      */
-    public function read($filename, $dest=null)
+    public function read($filename, $dest = null)
     {
         if (is_string($dest)) {
             $result = ftp_get($this->_conn, $dest, $filename, $this->_config['file_mode']);
@@ -237,7 +237,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param string|resource $src filename, string data or source stream
      * @return int|boolean
      */
-    public function write($filename, $src, $mode=null)
+    public function write($filename, $src, $mode = null)
     {
         if (is_string($src) && is_readable($src)) {
             return @ftp_put($this->_conn, $filename, $src, $this->_config['file_mode']);
@@ -296,7 +296,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         return @ftp_chmod($this->_conn, $mode, $filename);
     }
 
-    public function ls($grep=null)
+    public function ls($grep = null)
     {
         $ls = @ftp_nlist($this->_conn, '.');
 
@@ -311,7 +311,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         return $list;
     }
 
-    protected function _tmpFilename($new=false)
+    protected function _tmpFilename($new = false)
     {
         if ($new || !$this->_tmpFilename) {
             $this->_tmpFilename = tempnam(md5(uniqid(rand(), true)), '');

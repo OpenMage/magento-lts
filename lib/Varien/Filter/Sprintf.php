@@ -26,7 +26,7 @@ class Varien_Filter_Sprintf implements Zend_Filter_Interface
     protected $_decPoint = null;
     protected $_thousandsSep = null;
 
-    public function __construct($format, $decimals=null, $decPoint='.', $thousandsSep=',')
+    public function __construct($format, $decimals = null, $decPoint = '.', $thousandsSep = ',')
     {
         $this->_format = $format;
         $this->_decimals = $decimals;

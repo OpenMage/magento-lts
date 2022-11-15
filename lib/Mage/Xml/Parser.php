@@ -52,7 +52,7 @@ class Mage_Xml_Parser
         return $this->_content;
     }
 
-    protected function _xmlToArray($currentNode=false)
+    protected function _xmlToArray($currentNode = false)
     {
         if (!$currentNode) {
             $currentNode = $this->getDom();
@@ -61,7 +61,6 @@ class Mage_Xml_Parser
         foreach ($currentNode->childNodes as $node) {
             switch ($node->nodeType) {
                 case XML_ELEMENT_NODE:
-
                     $value = null;
                     if ($node->hasChildNodes()) {
                         $value = $this->_xmlToArray($node);

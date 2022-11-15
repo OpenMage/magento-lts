@@ -202,7 +202,7 @@ class Varien_Data_Tree_Node extends Varien_Object
      * @param   int  $recursionLevel
      * @return  Varien_Data_Tree_Node
      */
-    public function loadChildren($recursionLevel=0)
+    public function loadChildren($recursionLevel = 0)
     {
         $this->_tree->load($this, $recursionLevel);
         return $this;

@@ -94,7 +94,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected $_isOrdersRendered = false;
 
-    public function __construct($conn=null)
+    public function __construct($conn = null)
     {
         parent::__construct();
         if (!is_null($conn)) {
@@ -342,11 +342,11 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
 
         foreach ($this->_filters as $filter) {
             switch ($filter['type']) {
-                case 'or' :
+                case 'or':
                     $condition = $this->_conn->quoteInto($filter['field'].'=?', $filter['value']);
                     $this->_select->orWhere($condition);
                     break;
-                case 'string' :
+                case 'string':
                     $this->_select->where($filter['value']);
                     break;
                 case 'public':
@@ -636,7 +636,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @param   string $labelField
      * @return  array
      */
-    protected function _toOptionHashOptimized($valueField='id', $labelField='name')
+    protected function _toOptionHashOptimized($valueField = 'id', $labelField = 'name')
     {
         $result = [];
         while ($item = $this->fetchItem()) {

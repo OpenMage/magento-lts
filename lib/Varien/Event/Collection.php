@@ -136,7 +136,7 @@ class Varien_Event_Collection
      * @param array $data
      * @return Varien_Event_Collection
      */
-    public function dispatch($eventName, array $data= [])
+    public function dispatch($eventName, array $data = [])
     {
         $event = $this->getEventByName($eventName);
         $event->addData($data)->dispatch();

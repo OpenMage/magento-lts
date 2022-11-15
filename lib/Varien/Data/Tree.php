@@ -52,7 +52,7 @@ class Varien_Data_Tree
     /**
      * @param Varien_Data_Tree_Node $parentNode
      */
-    public function load($parentNode=null)
+    public function load($parentNode = null)
     {
     }
 
@@ -87,7 +87,7 @@ class Varien_Data_Tree
      * @param Varien_Data_Tree_Node $parent
      * @return Varien_Data_Tree_Node
      */
-    public function addNode($node, $parent=null)
+    public function addNode($node, $parent = null)
     {
         $this->_nodes->add($node);
         $node->setParent($parent);
@@ -102,7 +102,7 @@ class Varien_Data_Tree
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
      */
-    public function moveNodeTo($node, $parentNode, $prevNode=null)
+    public function moveNodeTo($node, $parentNode, $prevNode = null)
     {
     }
 
@@ -111,7 +111,7 @@ class Varien_Data_Tree
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
      */
-    public function copyNodeTo($node, $parentNode, $prevNode=null)
+    public function copyNodeTo($node, $parentNode, $prevNode = null)
     {
     }
 
@@ -133,7 +133,7 @@ class Varien_Data_Tree
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
      */
-    public function createNode($parentNode, $prevNode=null)
+    public function createNode($parentNode, $prevNode = null)
     {
     }
 

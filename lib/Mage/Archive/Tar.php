@@ -253,7 +253,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * @param boolean $skipRoot
      * @return string
      */
-    protected function _packToTar($skipRoot=false)
+    protected function _packToTar($skipRoot = false)
     {
         $file = $this->_getCurrentFile();
         $header = '';
@@ -390,7 +390,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         $header['12-closer']      = '';
 
         $packedHeader = '';
-        foreach ($header as $key=>$element) {
+        foreach ($header as $key => $element) {
             $length = explode('-', $key);
             $packedHeader .= pack('a' . $length[0], $element);
         }
@@ -449,7 +449,6 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
                 }
                 $list[] = $currentFile . DS;
             } elseif ($header['type'] == '2') {
-
                 //we do not interrupt unpack process if symlink creation failed as symlinks are not so important
                 @symlink($header['symlink'], $currentFile);
             }

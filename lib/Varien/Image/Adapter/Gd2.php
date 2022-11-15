@@ -127,7 +127,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         return $memoryValue > 0 ? $memoryValue : 0;
     }
 
-    public function save($destination=null, $newName=null)
+    public function save($destination = null, $newName = null)
     {
         $fileName = (!isset($destination)) ? $this->_fileName : $destination;
 
@@ -257,9 +257,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     }
 
                     return $transparentAlphaColor;
-                }
-                // fill image with indexed non-alpha transparency
-                elseif (false !== $transparentIndex) {
+                } elseif (false !== $transparentIndex) { // fill image with indexed non-alpha transparency
                     $transparentColor = false;
                     if ($transparentIndex >=0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
                         list($r, $g, $b)  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
@@ -293,7 +291,6 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      * @param string $fileName
      * @return boolean
      */
-
     public function checkAlpha($fileName)
     {
         return ((ord(file_get_contents($fileName, false, null, 25, 1)) & 6) & 4) == 4;
@@ -309,9 +306,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             $transparentIndex = imagecolortransparent($imageResource);
             if ($transparentIndex >= 0) {
                 return $transparentIndex;
-            }
-            // assume that truecolor PNG has transparency
-            elseif (IMAGETYPE_PNG === $fileType) {
+            } elseif (IMAGETYPE_PNG === $fileType) { // assume that truecolor PNG has transparency
                 $isAlpha     = $this->checkAlpha($this->_fileName);
                 $isTrueColor = true;
                 return $transparentIndex; // -1
@@ -433,7 +428,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $this->refreshImageDimensions();
     }
 
-    public function watermark($watermarkImage, $positionX=0, $positionY=0, $watermarkImageOpacity=30, $repeat=false)
+    public function watermark($watermarkImage, $positionX = 0, $positionY = 0, $watermarkImageOpacity = 30, $repeat = false)
     {
         list($watermarkSrcWidth, $watermarkSrcHeight, $watermarkFileType, ) = getimagesize($watermarkImage);
         $this->_getFileAttributes();
@@ -601,7 +596,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $this->refreshImageDimensions();
     }
 
-    public function crop($top=0, $left=0, $right=0, $bottom=0)
+    public function crop($top = 0, $left = 0, $right = 0, $bottom = 0)
     {
         if ($left == 0 && $top == 0 && $right == 0 && $bottom == 0) {
             return;

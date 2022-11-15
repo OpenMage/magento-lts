@@ -34,5 +34,5 @@ interface IFactory
     public function useFilter($useFilter);
     public function getDirsName(&$dirs);
     public function toArray(&$arr);
-    public function toXml(&$xml, $recursionLevel=0, $addOpenTag=true, $rootName='Struct');
+    public function toXml(&$xml, $recursionLevel = 0, $addOpenTag = true, $rootName = 'Struct');
 }

@@ -32,7 +32,7 @@ class Varien_Data_Form_Element_Hidden extends Varien_Data_Form_Element_Abstract
      * Varien_Data_Form_Element_Hidden constructor.
      * @param array $attributes
      */
-    public function __construct($attributes= [])
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->setType('hidden');

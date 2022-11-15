@@ -118,7 +118,7 @@ class Varien_Object_Cache
      * @param object $default
      * @return object
      */
-    public function load($idx, $default=null)
+    public function load($idx, $default = null)
     {
         if (isset($this->_references[$idx])) {
             $idx = $this->_references[$idx];
@@ -137,7 +137,7 @@ class Varien_Object_Cache
      * @param array|string $tags
      * @return string
      */
-    public function save($object, $idx=null, $tags=null)
+    public function save($object, $idx = null, $tags = null)
     {
         //Varien_Profiler::start('OBJECT_SAVE');
         if (!is_object($object)) {
@@ -236,14 +236,14 @@ class Varien_Object_Cache
         unset($this->_hashes[$this->_objectHashes[$idx]], $this->_objectHashes[$idx]);
 
         if (isset($this->_objectTags[$idx])) {
-            foreach ($this->_objectTags[$idx] as $t=>$dummy) {
+            foreach ($this->_objectTags[$idx] as $t => $dummy) {
                 unset($this->_tags[$t][$idx]);
             }
             unset($this->_objectTags[$idx]);
         }
 
         if (isset($this->_objectReferences[$idx])) {
-            foreach ($references as $r=>$dummy) {
+            foreach ($references as $r => $dummy) {
                 unset($this->_references[$r]);
             }
             unset($this->_objectReferences[$idx]);
@@ -260,7 +260,7 @@ class Varien_Object_Cache
      */
     public function deleteByClass($class)
     {
-        foreach ($this->_objects as $idx=>$object) {
+        foreach ($this->_objects as $idx => $object) {
             if ($object instanceof $class) {
                 $this->delete($idx);
             }
@@ -278,7 +278,7 @@ class Varien_Object_Cache
             $tags = [$tags];
         }
         foreach ($tags as $t) {
-            foreach ($this->_tags[$t] as $idx=>$dummy) {
+            foreach ($this->_tags[$t] as $idx => $dummy) {
                 $this->delete($idx);
             }
         }
@@ -304,7 +304,7 @@ class Varien_Object_Cache
      */
     public function find($object)
     {
-        foreach ($this->_objects as $idx=>$obj) {
+        foreach ($this->_objects as $idx => $obj) {
             if ($object===$obj) {
                 return $idx;
             }
@@ -315,7 +315,7 @@ class Varien_Object_Cache
     public function findByIds($ids)
     {
         $objects = [];
-        foreach ($this->_objects as $idx=>$obj) {
+        foreach ($this->_objects as $idx => $obj) {
             if (in_array($idx, $ids)) {
                 $objects[$idx] = $obj;
             }
@@ -341,7 +341,7 @@ class Varien_Object_Cache
         }
         $objects = [];
         foreach ($tags as $t) {
-            foreach ($this->_tags[$t] as $idx=>$dummy) {
+            foreach ($this->_tags[$t] as $idx => $dummy) {
                 if (isset($objects[$idx])) {
                     continue;
                 }
@@ -359,7 +359,7 @@ class Varien_Object_Cache
     public function findByClass($class)
     {
         $objects = [];
-        foreach ($this->_objects as $idx=>$object) {
+        foreach ($this->_objects as $idx => $object) {
             if ($object instanceof $class) {
                 $objects[$idx] = $object;
             }
@@ -367,11 +367,11 @@ class Varien_Object_Cache
         return $objects;
     }
 
-    public function debug($idx, $object=null)
+    public function debug($idx, $object = null)
     {
         $bt = debug_backtrace();
         $debug = [];
-        foreach ($bt as $i=>$step) {
+        foreach ($bt as $i => $step) {
             $debug[$i] = [
                 'file'     => isset($step['file']) ? $step['file'] : null,
                 'line'     => isset($step['line']) ? $step['line'] : null,

@@ -346,7 +346,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
         if (count($this->_headers)) {
             $heads = [];
-            foreach ($this->_headers as $k=>$v) {
+            foreach ($this->_headers as $k => $v) {
                 $heads[] = $k.': '.$v;
             }
             $this->curlOption(CURLOPT_HTTPHEADER, $heads);
@@ -354,7 +354,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
         if (count($this->_cookies)) {
             $cookies = [];
-            foreach ($this->_cookies as $k=>$v) {
+            foreach ($this->_cookies as $k => $v) {
                 $cookies[] = "$k=$v";
             }
             $this->curlOption(CURLOPT_COOKIE, implode(";", $cookies));
@@ -373,7 +373,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         $this->curlOption(CURLOPT_HEADERFUNCTION, [$this,'parseHeaders']);
 
         if (count($this->_curlUserOptions)) {
-            foreach ($this->_curlUserOptions as $k=>$v) {
+            foreach ($this->_curlUserOptions as $k => $v) {
                 $this->curlOption($k, $v);
             }
         }
@@ -483,7 +483,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     }
 
     /**
-     * Set CURL options ovverides array	 *
+     * Set CURL options ovverides array  *
      */
     public function setOptions($arr)
     {

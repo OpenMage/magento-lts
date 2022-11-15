@@ -79,7 +79,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         }
 
         // simplexml bug: @attributes is in children() but invisible in foreach
-        foreach ($this->children() as $k=>$child) {
+        foreach ($this->children() as $k => $child) {
             return true;
         }
         return false;
@@ -252,7 +252,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * @param int|boolean $level if false
      * @return string
      */
-    public function asNiceXml($filename='', $level=0)
+    public function asNiceXml($filename = '', $level = 0)
     {
         if (is_numeric($level)) {
             $pad = str_pad('', $level*3, ' ', STR_PAD_LEFT);
@@ -265,7 +265,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         $out = $pad.'<'.$this->getName();
 
         if ($attributes = $this->attributes()) {
-            foreach ($attributes as $key=>$value) {
+            foreach ($attributes as $key => $value) {
                 $out .= ' '.$key.'="'.str_replace('"', '\"', (string)$value).'"';
             }
         }
@@ -296,7 +296,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * @param int $level
      * @return string
      */
-    public function innerXml($level=0)
+    public function innerXml($level = 0)
     {
         $out = '';
         foreach ($this->children() as $child) {
@@ -343,7 +343,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         $child->setParent($this);
 
         $attributes = $source->attributes();
-        foreach ($attributes as $key=>$value) {
+        foreach ($attributes as $key => $value) {
             $child->addAttribute($key, $this->xmlentities($value));
         }
 
@@ -363,7 +363,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * @param boolean $overwrite
      * @return Varien_Simplexml_Element
      */
-    public function extend($source, $overwrite=false)
+    public function extend($source, $overwrite = false)
     {
         if (!$source instanceof Varien_Simplexml_Element) {
             return $this;
@@ -383,7 +383,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * @param boolean $overwrite
      * @return Varien_Simplexml_Element
      */
-    public function extendChild($source, $overwrite=false)
+    public function extendChild($source, $overwrite = false)
     {
         // this will be our new target node
         $targetChild = null;
@@ -410,7 +410,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
 
             $targetChild = $this->addChild($sourceName, $source->xmlentities());
             $targetChild->setParent($this);
-            foreach ($source->attributes() as $key=>$value) {
+            foreach ($source->attributes() as $key => $value) {
                 $targetChild->addAttribute($key, $this->xmlentities($value));
             }
             return $this;
@@ -424,20 +424,20 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             // if child target is not found create new and descend
             $targetChild = $this->addChild($sourceName);
             $targetChild->setParent($this);
-            foreach ($source->attributes() as $key=>$value) {
+            foreach ($source->attributes() as $key => $value) {
                 $targetChild->addAttribute($key, $this->xmlentities($value));
             }
         }
 
         // finally add our source node children to resulting new target node
-        foreach ($sourceChildren as $childKey=>$childNode) {
+        foreach ($sourceChildren as $childKey => $childNode) {
             $targetChild->extendChild($childNode, $overwrite);
         }
 
         return $this;
     }
 
-    public function setNode($path, $value, $overwrite=true)
+    public function setNode($path, $value, $overwrite = true)
     {
         $arr1 = explode('/', $path);
         $arr = [];
@@ -448,7 +448,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         }
         $last = count($arr) - 1;
         $node = $this;
-        foreach ($arr as $i=>$nodeName) {
+        foreach ($arr as $i => $nodeName) {
             if ($last===$i) {
                 /*
                 if (isset($xml->$nodeName)) {

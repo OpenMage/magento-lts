@@ -35,7 +35,7 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
      *
      * @param array $data
      */
-    public function __construct($data= [])
+    public function __construct($data = [])
     {
         parent::__construct($data);
 
@@ -72,7 +72,7 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
             return false;
         }
         // check that no source files were changed or check file exsists
-        foreach ($data as $sourceFile=>$stat) {
+        foreach ($data as $sourceFile => $stat) {
             if (empty($stat['mtime']) || !is_file($sourceFile) || filemtime($sourceFile)!==$stat['mtime']) {
                 return false;
             }

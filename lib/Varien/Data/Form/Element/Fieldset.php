@@ -47,7 +47,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
     /**
      * @param array $attributes
      */
-    public function __construct($attributes= [])
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->_renderer = Varien_Data_Form::getFieldsetRenderer();
@@ -114,7 +114,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      * @param boolean $after
      * @return Varien_Data_Form_Element_Abstract
      */
-    public function addField($elementId, $type, $config, $after=false)
+    public function addField($elementId, $type, $config, $after = false)
     {
         $element = parent::addField($elementId, $type, $config, $after);
         if ($renderer = Varien_Data_Form::getFieldsetElementRenderer()) {

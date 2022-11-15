@@ -293,7 +293,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param array $args
      * @return boolean
      */
-    public function open(array $args= [])
+    public function open(array $args = [])
     {
         if (!empty($args['path']) && $this->_allowCreateFolders) {
             $this->checkAndCreateFolder($args['path']);
@@ -335,7 +335,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param boolean $recursive
      * @return boolean
      */
-    public function mkdir($dir, $mode=0777, $recursive=true)
+    public function mkdir($dir, $mode = 0777, $recursive = true)
     {
         if ($this->_cwd) {
             chdir($this->_cwd);
@@ -433,7 +433,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param string|resource $dest
      * @return boolean|string
      */
-    public function read($filename, $dest=null)
+    public function read($filename, $dest = null)
     {
         if (!is_null($dest)) {
             chdir($this->_cwd);
@@ -458,7 +458,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @return int|boolean
      */
-    public function write($filename, $src, $mode=null)
+    public function write($filename, $src, $mode = null)
     {
         if (!$this->_isValidSource($src) || !$this->_isFilenameWriteable($filename)) {
             return false;
@@ -731,7 +731,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @access public
      * @return array
      */
-    public function ls($grep=null)
+    public function ls($grep = null)
     {
         $ignoredDirectories = ['.', '..'];
 
@@ -810,26 +810,19 @@ class Varien_Io_File extends Varien_Io_Abstract
     {
         if ($mode & 0x1000) {
             $type='p';
-        } /* FIFO pipe */
-        elseif ($mode & 0x2000) {
+        } elseif ($mode & 0x2000) { /* FIFO pipe */
             $type='c';
-        } /* Character special */
-        elseif ($mode & 0x4000) {
+        } elseif ($mode & 0x4000) { /* Character special */
             $type='d';
-        } /* Directory */
-        elseif ($mode & 0x6000) {
+        } elseif ($mode & 0x6000) { /* Directory */
             $type='b';
-        } /* Block special */
-        elseif ($mode & 0x8000) {
+        } elseif ($mode & 0x8000) { /* Block special */
             $type='-';
-        } /* Regular */
-        elseif ($mode & 0xA000) {
+        } elseif ($mode & 0xA000) { /* Regular */
             $type='l';
-        } /* Symbolic Link */
-        elseif ($mode & 0xC000) {
+        } elseif ($mode & 0xC000) { /* Symbolic Link */
             $type='s';
-        } /* Socket */
-        else {
+        } else { /* Socket */
             $type='u';
         } /* UNKNOWN */
 

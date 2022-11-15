@@ -101,7 +101,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      */
     protected function _tags($tags)
     {
-        foreach ($tags as $key=>$tag) {
+        foreach ($tags as $key => $tag) {
             $tags[$key] = $this->_id($tag);
         }
         return $tags;

@@ -72,7 +72,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      * @param string|false $after
      * @return  $this
      */
-    public function addElement(Varien_Data_Form_Element_Abstract $element, $after=false)
+    public function addElement(Varien_Data_Form_Element_Abstract $element, $after = false)
     {
         if ($this->getForm()) {
             $this->getForm()->checkElementId($element->getId());
@@ -216,7 +216,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      * @param string|null $index
      * @return string
      */
-    public function getEscapedValue($index=null)
+    public function getEscapedValue($index = null)
     {
         $value = $this->getValue($index);
 
@@ -322,7 +322,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * @inheritDoc
      */
-    public function serialize($attributes = [], $valueSeparator='=', $fieldSeparator=' ', $quote='"')
+    public function serialize($attributes = [], $valueSeparator = '=', $fieldSeparator = ' ', $quote = '"')
     {
         if (in_array('disabled', $attributes) && !empty($this->_data['disabled'])) {
             $this->_data['disabled'] = 'disabled';

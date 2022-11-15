@@ -34,7 +34,7 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
      * Varien_Data_Form_Element_Checkbox constructor.
      * @param array $attributes
      */
-    public function __construct($attributes= [])
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->setType('checkbox');
@@ -68,7 +68,7 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
      * @param boolean $value
      * @return Varien_Data_Form_Element_Checkbox
      */
-    public function setIsChecked($value=false)
+    public function setIsChecked($value = false)
     {
         $this->setData('checked', $value);
         return $this;

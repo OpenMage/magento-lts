@@ -70,7 +70,7 @@ class Mage_Archive_Abstract
      * @param bool $withExtension
      * @return mixed|string
      */
-    public function getFilename($source, $withExtension=false)
+    public function getFilename($source, $withExtension = false)
     {
         $file = str_replace(dirname($source) . DS, '', $source);
         if (!$withExtension) {

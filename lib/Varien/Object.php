@@ -155,7 +155,7 @@ class Varien_Object implements ArrayAccess
      * @param boolean $isDeleted
      * @return boolean
      */
-    public function isDeleted($isDeleted=null)
+    public function isDeleted($isDeleted = null)
     {
         $result = $this->_isDeleted;
         if (!is_null($isDeleted)) {
@@ -235,7 +235,7 @@ class Varien_Object implements ArrayAccess
      */
     public function addData(array $arr)
     {
-        foreach ($arr as $index=>$value) {
+        foreach ($arr as $index => $value) {
             $this->setData($index, $value);
         }
         return $this;
@@ -253,7 +253,7 @@ class Varien_Object implements ArrayAccess
      * @param mixed $value
      * @return $this
      */
-    public function setData($key, $value=null)
+    public function setData($key, $value = null)
     {
         $this->_hasDataChanges = true;
         if (is_array($key)) {
@@ -277,7 +277,7 @@ class Varien_Object implements ArrayAccess
      * @param string $key
      * @return $this
      */
-    public function unsetData($key=null)
+    public function unsetData($key = null)
     {
         $this->_hasDataChanges = true;
         if (is_null($key)) {
@@ -300,7 +300,7 @@ class Varien_Object implements ArrayAccess
      * @param string $key
      * @return $this
      */
-    public function unsetOldData($key=null)
+    public function unsetOldData($key = null)
     {
         if (is_null($key)) {
             foreach ($this->_oldFieldsMap as $key => $newFieldName) {
@@ -325,7 +325,7 @@ class Varien_Object implements ArrayAccess
      * @param string|int $index
      * @return mixed
      */
-    public function getData($key='', $index=null)
+    public function getData($key = '', $index = null)
     {
         if (''===$key) {
             return $this->_data;
@@ -337,7 +337,7 @@ class Varien_Object implements ArrayAccess
         if (strpos($key, '/')) {
             $keyArr = explode('/', $key);
             $data = $this->_data;
-            foreach ($keyArr as $i=>$k) {
+            foreach ($keyArr as $i => $k) {
                 if ($k==='') {
                     return $default;
                 }
@@ -401,7 +401,7 @@ class Varien_Object implements ArrayAccess
      * @param mixed $args
      * @return $this
      */
-    public function setDataUsingMethod($key, $args= [])
+    public function setDataUsingMethod($key, $args = [])
     {
         $method = 'set'.$this->_camelize($key);
         $this->$method($args);
@@ -415,7 +415,7 @@ class Varien_Object implements ArrayAccess
      * @param mixed $args
      * @return mixed
      */
-    public function getDataUsingMethod($key, $args=null)
+    public function getDataUsingMethod($key, $args = null)
     {
         $method = 'get'.$this->_camelize($key);
         return $this->$method($args);
@@ -443,7 +443,7 @@ class Varien_Object implements ArrayAccess
      * @param string $key
      * @return boolean
      */
-    public function hasData($key='')
+    public function hasData($key = '')
     {
         if (empty($key) || !is_string($key)) {
             return !empty($this->_data);
@@ -492,7 +492,7 @@ class Varien_Object implements ArrayAccess
      * @param   array $elements
      * @return  array
      */
-    protected function _prepareArray(&$arr, array $elements= [])
+    protected function _prepareArray(&$arr, array $elements = [])
     {
         foreach ($elements as $element) {
             if (!isset($arr[$element])) {
@@ -595,7 +595,7 @@ class Varien_Object implements ArrayAccess
      * @param string $format
      * @return string
      */
-    public function toString($format='')
+    public function toString($format = '')
     {
         if (empty($format)) {
             $str = implode(', ', $this->getData());
@@ -725,7 +725,7 @@ class Varien_Object implements ArrayAccess
      * @param   string $quote
      * @return  string
      */
-    public function serialize($attributes = [], $valueSeparator='=', $fieldSeparator=' ', $quote='"')
+    public function serialize($attributes = [], $valueSeparator = '=', $fieldSeparator = ' ', $quote = '"')
     {
         $res  = '';
         $data = [];
@@ -748,7 +748,7 @@ class Varien_Object implements ArrayAccess
      * @param string $key
      * @return mixed
      */
-    public function getOrigData($key=null)
+    public function getOrigData($key = null)
     {
         if (is_null($key)) {
             return $this->_origData;
@@ -763,7 +763,7 @@ class Varien_Object implements ArrayAccess
      * @param mixed $data
      * @return $this
      */
-    public function setOrigData($key=null, $data=null)
+    public function setOrigData($key = null, $data = null)
     {
         if (is_null($key)) {
             $this->_origData = $this->_data;
@@ -805,7 +805,7 @@ class Varien_Object implements ArrayAccess
      * @param array $objects
      * @return string|array
      */
-    public function debug($data=null, &$objects= [])
+    public function debug($data = null, &$objects = [])
     {
         if (is_null($data)) {
             $hash = spl_object_hash($this);
@@ -816,7 +816,7 @@ class Varien_Object implements ArrayAccess
             $data = $this->getData();
         }
         $debug = [];
-        foreach ($data as $key=>$value) {
+        foreach ($data as $key => $value) {
             if (is_scalar($value)) {
                 $debug[$key] = $value;
             } elseif (is_array($value)) {
@@ -883,7 +883,7 @@ class Varien_Object implements ArrayAccess
      * @param string $field
      * @return boolean
      */
-    public function isDirty($field=null)
+    public function isDirty($field = null)
     {
         if (empty($this->_dirty)) {
             return false;
@@ -899,10 +899,10 @@ class Varien_Object implements ArrayAccess
      * @param boolean $flag
      * @return $this
      */
-    public function flagDirty($field, $flag=true)
+    public function flagDirty($field, $flag = true)
     {
         if (is_null($field)) {
-            foreach ($this->getData() as $field=>$value) {
+            foreach ($this->getData() as $field => $value) {
                 $this->flagDirty($field, $flag);
             }
         } else {

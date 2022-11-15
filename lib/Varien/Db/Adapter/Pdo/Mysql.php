@@ -314,24 +314,22 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         if (strpos($hostName, '/') !== false) {
             $hostInfo->setAddressType(self::ADDRESS_TYPE_UNIX_SOCKET)
                 ->setUnixSocket($hostName);
-        } elseif (
-            preg_match(
-                '/^\[(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?\](:([0-9]+))?$/i',
-                $hostName,
-                $matches
-            )
+        } elseif (preg_match(
+            '/^\[(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?\](:([0-9]+))?$/i',
+            $hostName,
+            $matches
+        )
         ) {
             $hostName = isset($matches[1]) ? $matches[1] : null;
             !is_null($hostName) && isset($matches[6]) && ($hostName .= $matches[6]);
             $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
                 ->setHostName($hostName)
                 ->setPort(isset($matches[8]) ? $matches[8] : null);
-        } elseif (
-            preg_match(
-                '/^(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?$/i',
-                $hostName,
-                $matches
-            )
+        } elseif (preg_match(
+            '/^(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?$/i',
+            $hostName,
+            $matches
+        )
         ) {
             $hostName = isset($matches[1]) ? $matches[1] : null;
             !is_null($hostName) && isset($matches[6]) && ($hostName .= $matches[6]);
@@ -411,6 +409,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @return Zend_Db_Statement_Interface
      * @throws PDOException
      */
+    // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function raw_query($sql)
     {
         $lostConnectionMessage = 'SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query';
@@ -447,6 +446,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string|int $field
      * @return boolean
      */
+    // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function raw_fetchRow($sql, $field = null)
     {
         $result = $this->raw_query($sql);
@@ -693,6 +693,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string $sql
      * @return array
      */
+    // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function multi_query($sql)
     {
         ##$result = $this->raw_query($sql);
@@ -835,8 +836,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $refTableName,
         $refColumnName,
         $onDelete = Varien_Db_Adapter_Interface::FK_ACTION_CASCADE
-    )
-    {
+    ) {
         $onDelete = strtoupper($onDelete);
         if ($onDelete == Varien_Db_Adapter_Interface::FK_ACTION_CASCADE
             || $onDelete == Varien_Db_Adapter_Interface::FK_ACTION_RESTRICT
@@ -889,8 +889,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $onDelete = Varien_Db_Adapter_Interface::FK_ACTION_CASCADE,
         $onUpdate = Varien_Db_Adapter_Interface::FK_ACTION_CASCADE,
         $purge = false
-    )
-    {
+    ) {
         return $this->addForeignKey(
             $fkName,
             $tableName,
@@ -1026,8 +1025,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $definition,
         $flushData = false,
         $schemaName = null
-    )
-    {
+    ) {
         if (!$this->tableColumnExists($tableName, $oldColumnName, $schemaName)) {
             throw new Zend_Db_Exception(sprintf(
                 'Column "%s" does not exist in table "%s".',
@@ -1247,7 +1245,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             if (!$this->isTableExists($table)) {
                 continue;
             }
-            foreach ($tableData['columns'] as $column =>$columnDefinition) {
+            foreach ($tableData['columns'] as $column => $columnDefinition) {
                 if (!$this->tableColumnExists($table, $column)) {
                     continue;
                 }
@@ -2783,8 +2781,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $fields,
         $indexType = Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
         $schemaName = null
-    )
-    {
+    ) {
         $columns = $this->describeTable($tableName, $schemaName);
         $keyList = $this->getIndexList($tableName, $schemaName);
 
@@ -2914,8 +2911,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $purge = false,
         $schemaName = null,
         $refSchemaName = null
-    )
-    {
+    ) {
         $this->dropForeignKey($tableName, $fkName, $schemaName);
 
         if ($purge) {

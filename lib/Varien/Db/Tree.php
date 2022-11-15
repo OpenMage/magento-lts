@@ -69,7 +69,6 @@ class Varien_Db_Tree
     {
         // set a Zend_Db_Adapter connection
         if (! empty($config['db'])) {
-
             // convenience variable
             $db = $config['db'];
 
@@ -483,7 +482,7 @@ class Varien_Db_Tree
         echo "alert('node added')";
     }
 
-    public function addTable($tableName, $joinCondition, $fields='*')
+    public function addTable($tableName, $joinCondition, $fields = '*')
     {
         $this->_extTables[$tableName] = [
            'joinCondition' => $joinCondition,
@@ -493,7 +492,7 @@ class Varien_Db_Tree
 
     protected function _addExtTablesToSelect(Zend_Db_Select &$select)
     {
-        foreach ($this->_extTables as $tableName=>$info) {
+        foreach ($this->_extTables as $tableName => $info) {
             $select->joinInner($tableName, $info['joinCondition'], $info['fields']);
         }
     }

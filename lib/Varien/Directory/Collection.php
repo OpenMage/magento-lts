@@ -45,7 +45,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * @param   bool $is_recursion - use or not recursion
      * @return  none
      */
-    public function __construct($path, $isRecursion=true, $recursionLevel = 0)
+    public function __construct($path, $isRecursion = true, $recursionLevel = 0)
     {
         parent::__construct();
         $this->setPath($path);
@@ -98,7 +98,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * @param   bool $isRecursion - use or not recursion
      * @return  none
      */
-    public function setPath($path, $isRecursion='')
+    public function setPath($path, $isRecursion = '')
     {
         if (is_dir($path)) {
             if (isset($this->_path) && $this->_path!=$path && $this->_path!='') {
@@ -324,7 +324,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * @param   string $rootName - root element name
      * @return  none
      */
-    public function __toXml($addOpenTag=true, $rootName='Struct')
+    public function __toXml($addOpenTag = true, $rootName = 'Struct')
     {
         $xml='';
         $this->toXml($xml, $addOpenTag, $rootName);
@@ -337,7 +337,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * @param   string $rootName - root element name
      * @return  none
      */
-    public function toXml(&$xml, $recursionLevel=0, $addOpenTag=true, $rootName='Struct')
+    public function toXml(&$xml, $recursionLevel = 0, $addOpenTag = true, $rootName = 'Struct')
     {
         if ($recursionLevel==0) {
             $xml = '';

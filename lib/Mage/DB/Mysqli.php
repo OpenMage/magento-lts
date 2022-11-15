@@ -276,7 +276,7 @@ class Mage_DB_Mysqli
     public function escapeFieldNames(array $arrNames)
     {
         $out = [];
-        for ($i=0, $c = count($arrNames) ; $i<$c; $i++) {
+        for ($i=0, $c = count($arrNames); $i<$c; $i++) {
             $out[] = $this->escapeFieldName($arrNames[$i]);
         }
         return $out;
@@ -290,7 +290,7 @@ class Mage_DB_Mysqli
     public function escapeFieldValues(array $arrNames)
     {
         $out = [];
-        for ($i=0, $c = count($arrNames) ; $i<$c; $i++) {
+        for ($i=0, $c = count($arrNames); $i<$c; $i++) {
             if ($arrNames[$i] !== 'LAST_INSERT_ID()') {
                 $out[] = $this->escapeFieldValue($arrNames[$i]);
             } else {
@@ -416,7 +416,7 @@ class Mage_DB_Mysqli
     {
         $table = $this->escapeTableName($table);
         $set = [];
-        foreach ($data as $k=>$v) {
+        foreach ($data as $k => $v) {
             $k = $this->escapeFieldName($k);
             $v = $this->escapeFieldValue($v);
             $set[] = $k . " = " . $v;
@@ -440,7 +440,7 @@ class Mage_DB_Mysqli
         $key = $this->escapeFieldName($key);
         $value = $this->escapeFieldValue($value);
         $set = [];
-        foreach ($data as $k=>$v) {
+        foreach ($data as $k => $v) {
             $k = $this->escapeFieldName($k);
             $v = $this->escapeFieldValue($v);
             $set[] = $k . " = " . $v;

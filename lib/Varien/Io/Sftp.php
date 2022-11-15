@@ -85,7 +85,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * false is returned and some part of the hierarchy might be created.
      * No rollback is performed.
      */
-    public function mkdir($dir, $mode=0777, $recursive=true)
+    public function mkdir($dir, $mode = 0777, $recursive = true)
     {
         if ($recursive) {
             $no_errors = true;
@@ -106,7 +106,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * Delete a directory
      *
      */
-    public function rmdir($dir, $recursive=false)
+    public function rmdir($dir, $recursive = false)
     {
         if ($recursive) {
             $no_errors = true;
@@ -158,7 +158,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * Read a file
      *
      */
-    public function read($filename, $dest=null)
+    public function read($filename, $dest = null)
     {
         if (is_null($dest)) {
             $dest = false;
@@ -170,7 +170,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * Write a file
      * @param $src Must be a local file name
      */
-    public function write($filename, $src, $mode=null)
+    public function write($filename, $src, $mode = null)
     {
         return $this->_connection->put($filename, $src);
     }
@@ -206,7 +206,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * Get list of cwd subdirectories and files
      *
      */
-    public function ls($grep=null)
+    public function ls($grep = null)
     {
         $list = $this->_connection->nlist();
         $pwd = $this->pwd();

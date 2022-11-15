@@ -60,7 +60,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
      * @param mixed $default
      * @return mixed
      */
-    public function getParam($key, $default=null)
+    public function getParam($key, $default = null)
     {
         if (!isset($this->_params[$key])) {
             return $default;
@@ -75,7 +75,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
      * @param mixed $value
      * @return Varien_Convert_Action_Abstract
      */
-    public function setParam($key, $value=null)
+    public function setParam($key, $value = null)
     {
         if (is_array($key) && is_null($value)) {
             $this->_params = $key;
@@ -148,7 +148,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
      * @param string $name
      * @return Varien_Convert_Container_Abstract
      */
-    public function getContainer($name=null)
+    public function getContainer($name = null)
     {
         if (!is_null($name)) {
             return $this->getProfile()->getContainer($name);

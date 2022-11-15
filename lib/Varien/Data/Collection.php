@@ -448,7 +448,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     {
         $results = [];
         $useItemCallback = is_string($callback) && strpos($callback, '::')===false;
-        foreach ($this->getItems() as $id=>$item) {
+        foreach ($this->getItems() as $id => $item) {
             if ($useItemCallback) {
                 $cb = [$item, $callback];
             } else {
@@ -478,10 +478,10 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * @param   mixed $value
      * @return  $this
      */
-    public function setDataToAll($key, $value=null)
+    public function setDataToAll($key, $value = null)
     {
         if (is_array($key)) {
-            foreach ($key as $k=>$v) {
+            foreach ($key as $k => $v) {
                 $this->setDataToAll($k, $v);
             }
             return $this;
@@ -677,7 +677,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * @param array $additional
      * @return array
      */
-    protected function _toOptionArray($valueField='id', $labelField='name', $additional = [])
+    protected function _toOptionArray($valueField = 'id', $labelField = 'name', $additional = [])
     {
         $data = [];
         $res = [];
@@ -719,7 +719,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * @param   string $labelField
      * @return  array
      */
-    protected function _toOptionHash($valueField='id', $labelField='name')
+    protected function _toOptionHash($valueField = 'id', $labelField = 'name')
     {
         $res = [];
         foreach ($this as $item) {

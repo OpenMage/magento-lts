@@ -51,13 +51,13 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
                     $fields = $line;
                     continue;
                 } else {
-                    foreach ($line as $j=>$f) {
+                    foreach ($line as $j => $f) {
                         $fields[$j] = 'column'.($j+1);
                     }
                 }
             }
             $row = [];
-            foreach ($fields as $j=>$f) {
+            foreach ($fields as $j => $f) {
                 $row[$f] = $line[$j];
             }
             $data[] = $row;
@@ -94,13 +94,13 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
                     $fields = $line;
                     continue;
                 } else {
-                    foreach ($line as $j=>$f) {
+                    foreach ($line as $j => $f) {
                         $fields[$j] = 'column'.($j+1);
                     }
                 }
             }
             $row = [];
-            foreach ($fields as $j=>$f) {
+            foreach ($fields as $j => $f) {
                 $row[$f] = $line[$j];
             }
             $map->setData([$row]);
@@ -141,7 +141,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
             }
             $lines[] = implode($fDel, $line);
         }
-        foreach ($data as $i=>$row) {
+        foreach ($data as $i => $row) {
             $line = [];
             foreach ($fields as $f) {
                 /*

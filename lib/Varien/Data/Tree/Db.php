@@ -131,7 +131,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
      * @param   int $recursionLevel recursion level
      * @return  $this
      */
-    public function load($parentNode=null, $recursionLevel=100)
+    public function load($parentNode = null, $recursionLevel = 100)
     {
         if (is_null($parentNode)) {
             $this->_loadFullTree();
@@ -206,7 +206,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
      */
-    public function moveNodeTo($node, $parentNode, $prevNode=null)
+    public function moveNodeTo($node, $parentNode, $prevNode = null)
     {
         $data = [];
         $data[$this->_parentField]  = $parentNode->getId();

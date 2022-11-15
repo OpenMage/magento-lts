@@ -127,7 +127,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
      * @return Varien_Data_Form
      * @throws Exception
      */
-    public function addElement(Varien_Data_Form_Element_Abstract $element, $after=false)
+    public function addElement(Varien_Data_Form_Element_Abstract $element, $after = false)
     {
         $this->checkElementId($element->getId());
         parent::addElement($element, $after);
@@ -215,7 +215,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         if (!is_array($values)) {
             return $this;
         }
-        foreach ($values as $elementId=>$value) {
+        foreach ($values as $elementId => $value) {
             if ($element = $this->getElement($elementId)) {
                 $element->setValue($value);
             }
@@ -252,7 +252,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         }
         $vars = explode('[', $name);
         $newName = $suffix;
-        foreach ($vars as $index=>$value) {
+        foreach ($vars as $index => $value) {
             $newName.= '['.$value;
             if ($index==0) {
                 $newName.= ']';

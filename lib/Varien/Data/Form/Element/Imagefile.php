@@ -34,7 +34,7 @@ class Varien_Data_Form_Element_Imagefile extends Varien_Data_Form_Element_Abstra
      * Varien_Data_Form_Element_Imagefile constructor.
      * @param array $attributes
      */
-    public function __construct($attributes= [])
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->setType('file');
