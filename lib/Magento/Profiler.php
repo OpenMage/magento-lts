@@ -42,7 +42,7 @@ class Magento_Profiler
      *
      * @var array
      */
-    private static $_timers = array();
+    private static $_timers = [];
 
     /**
      * Whether profiling is active or not
@@ -56,14 +56,14 @@ class Magento_Profiler
      *
      * @var array
      */
-    private static $_currentPath = array();
+    private static $_currentPath = [];
 
     /**
      * Collection of profiler outputs
      *
      * @var array
      */
-    private static $_outputs = array();
+    private static $_outputs = [];
 
     /**
      * Whether an initialization is done or not
@@ -77,13 +77,13 @@ class Magento_Profiler
      *
      * @var array
      */
-    private static $_supportedFetchKeys = array(
+    private static $_supportedFetchKeys = [
         self::FETCH_TIME,
         self::FETCH_AVG,
         self::FETCH_COUNT,
         self::FETCH_EMALLOC,
         self::FETCH_REALMEM,
-    );
+    ];
 
     /**
      * Retrieve unique identifier among all timers
@@ -107,7 +107,7 @@ class Magento_Profiler
     public static function enable()
     {
         if (!self::$_isInitialized) {
-            register_shutdown_function(array(__CLASS__, 'display'));
+            register_shutdown_function([__CLASS__, 'display']);
             self::$_isInitialized = true;
         }
         self::$_enabled = true;
@@ -130,18 +130,18 @@ class Magento_Profiler
     public static function reset($timerName = null)
     {
         if ($timerName === null) {
-            self::$_timers = array();
-            self::$_currentPath = array();
+            self::$_timers = [];
+            self::$_currentPath = [];
             return;
         }
         $timerId = self::_getTimerId($timerName);
-        self::$_timers[$timerId] = array(
+        self::$_timers[$timerId] = [
             'start'             => false,
             self::FETCH_TIME    => 0,
             self::FETCH_COUNT   => 0,
             self::FETCH_REALMEM => 0,
             self::FETCH_EMALLOC => 0,
-        );
+        ];
     }
 
     /**

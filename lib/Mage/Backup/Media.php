@@ -73,7 +73,7 @@ class Mage_Backup_Media extends Mage_Backup_Snapshot
 
         foreach ($iterator as $item) {
             $filename = $item->getFilename();
-            if (!in_array($filename, array('media', 'var'))) {
+            if (!in_array($filename, ['media', 'var'])) {
                 $this->addIgnorePaths($item->getPathname());
             }
         }

@@ -32,7 +32,7 @@ class Mage_Backup_Filesystem extends Mage_Backup_Abstract
      *
      * @var array
      */
-    protected $_ignorePaths = array();
+    protected $_ignorePaths = [];
 
     /**
      * Whether use ftp account for rollback procedure

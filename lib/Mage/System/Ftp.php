@@ -391,7 +391,7 @@ class Mage_System_Ftp
      */
     public static function byteconvert($bytes)
     {
-        $symbol = array('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+        $symbol = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         $exp = floor(log($bytes) / log(1024));
         return sprintf('%.2f ' . $symbol[ $exp ], ($bytes / pow(1024, floor($exp))));
     }
@@ -404,7 +404,7 @@ class Mage_System_Ftp
      */
     public static function chmodnum($chmod)
     {
-        $trans = array('-' => '0', 'r' => '4', 'w' => '2', 'x' => '1');
+        $trans = ['-' => '0', 'r' => '4', 'w' => '2', 'x' => '1'];
         $chmod = substr(strtr($chmod, $trans), 1);
         $array = str_split($chmod, 3);
         return array_sum(str_split($array[0])) . array_sum(str_split($array[1])) . array_sum(str_split($array[2]));
@@ -447,7 +447,7 @@ class Mage_System_Ftp
     {
         $dir= $this->correctFilePath($dir);
         $rawfiles = (array) $this->rawlist($dir, $recursive);
-        $structure = array();
+        $structure = [];
         $arraypointer = &$structure;
         foreach ($rawfiles as $rawfile) {
             if ($rawfile[0] == '/') {
@@ -463,14 +463,14 @@ class Mage_System_Ftp
                 }
             } elseif (!empty($rawfile)) {
                 $info = preg_split("/[\s]+/", $rawfile, 9);
-                $arraypointer[] = array(
+                $arraypointer[] = [
                     'name'   => $info[8],
                     'dir'  => $info[0][0] == 'd',
                     'size'   => (int) $info[4],
                     'chmod'  => self::chmodnum($info[0]),
                     'rawdata' => $info,
                     'raw'     => $rawfile
-                );
+                ];
             }
         }
         return $structure;

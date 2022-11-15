@@ -59,7 +59,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      * Varien_Data_Form_Element_Abstract constructor.
      * @param array $attributes
      */
-    public function __construct($attributes = array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->_renderer = Varien_Data_Form::getElementRenderer();
@@ -173,7 +173,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      */
     public function getHtmlAttributes()
     {
-        return array('type', 'title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly', 'tabindex');
+        return ['type', 'title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly', 'tabindex'];
     }
 
     /**
@@ -322,7 +322,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * @inheritDoc
      */
-    public function serialize($attributes = array(), $valueSeparator='=', $fieldSeparator=' ', $quote='"')
+    public function serialize($attributes = [], $valueSeparator='=', $fieldSeparator=' ', $quote='"')
     {
         if (in_array('disabled', $attributes) && !empty($this->_data['disabled'])) {
             $this->_data['disabled'] = 'disabled';
@@ -376,7 +376,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         }
         if (!is_array($values)) {
             $values = Mage::helper('core')->escapeHtml(trim($values));
-            $values = array($values => $values);
+            $values = [$values => $values];
         }
         $elementValues = $this->getValues();
         if (!empty($elementValues)) {

@@ -61,11 +61,11 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('query_id', array(
+        $this->addColumn('query_id', [
             'header'    => Mage::helper('catalog')->__('ID'),
             'width'     => '50px',
             'index'     => 'query_id',
-        ));
+        ]);
 
         $this->addColumn('search_query', [
             'header'    => Mage::helper('catalog')->__('Search Query'),

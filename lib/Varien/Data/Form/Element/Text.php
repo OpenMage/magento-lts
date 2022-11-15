@@ -32,7 +32,7 @@ class Varien_Data_Form_Element_Text extends Varien_Data_Form_Element_Abstract
      * Varien_Data_Form_Element_Text constructor.
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
         $this->setType('text');
@@ -53,6 +53,6 @@ class Varien_Data_Form_Element_Text extends Varien_Data_Form_Element_Abstract
      */
     public function getHtmlAttributes()
     {
-        return array('type', 'title', 'class', 'style', 'onclick', 'onchange', 'onkeyup', 'disabled', 'readonly', 'maxlength', 'tabindex');
+        return ['type', 'title', 'class', 'style', 'onclick', 'onchange', 'onkeyup', 'disabled', 'readonly', 'maxlength', 'tabindex'];
     }
 }

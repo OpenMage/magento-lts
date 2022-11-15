@@ -59,7 +59,7 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
         $this->_cleanupFtp();
         $this->_uploadBackupToFtp($tmpDir);
 
-        $fsHelper->rm($tmpDir, array(), true);
+        $fsHelper->rm($tmpDir, [], true);
     }
 
     /**

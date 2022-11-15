@@ -36,7 +36,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
      */
     public function tokenize()
     {
-        $actions = array();
+        $actions = [];
         $parameterName = '';
         $variableSet = false;
         do {
@@ -49,19 +49,19 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
             } elseif ($this->char()=='(') {
                 // Method declaration
                 $methodArgs = $this->getMethodArgs();
-                $actions[] = array('type'=>'method',
+                $actions[] = ['type'=>'method',
                                    'name'=>$parameterName,
-                                   'args'=>$methodArgs);
+                                   'args'=>$methodArgs];
                 $parameterName = '';
             } elseif ($parameterName!='') {
                 // Property or variable declaration
                 if ($variableSet) {
-                    $actions[] = array('type'=>'property',
-                                       'name'=>$parameterName);
+                    $actions[] = ['type'=>'property',
+                                       'name'=>$parameterName];
                 } else {
                     $variableSet = true;
-                    $actions[] = array('type'=>'variable',
-                                       'name'=>$parameterName);
+                    $actions[] = ['type'=>'variable',
+                                       'name'=>$parameterName];
                 }
                 $parameterName = '';
             }
@@ -69,11 +69,11 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
 
         if ($parameterName != '') {
             if ($variableSet) {
-                $actions[] = array('type'=>'property',
-                                       'name'=>$parameterName);
+                $actions[] = ['type'=>'property',
+                                       'name'=>$parameterName];
             } else {
-                $actions[] = array('type'=>'variable',
-                                   'name'=>$parameterName);
+                $actions[] = ['type'=>'variable',
+                                   'name'=>$parameterName];
             }
         }
 
@@ -144,7 +144,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
      */
     public function getMethodArgs()
     {
-        $value = array();
+        $value = [];
         $numberStr = '';
 
         while ($this->next() && $this->char() != ')') {

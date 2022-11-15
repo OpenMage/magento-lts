@@ -51,8 +51,8 @@ class Mage_System_Args
      */
     public function __construct($source = false)
     {
-        $this->flags = array();
-        $this->filtered = array();
+        $this->flags = [];
+        $this->filtered = [];
 
         if (false === $source) {
             $argv = $GLOBALS['argv'];

@@ -35,7 +35,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
      *
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
         $this->setType('checkbox');
@@ -49,7 +49,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
      */
     public function getHtmlAttributes()
     {
-        return array('type', 'name', 'class', 'style', 'checked', 'onclick', 'onchange', 'disabled');
+        return ['type', 'name', 'class', 'style', 'checked', 'onclick', 'onchange', 'disabled'];
     }
 
     /**
@@ -59,12 +59,12 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
      */
     protected function _prepareValues()
     {
-        $options = array();
-        $values  = array();
+        $options = [];
+        $values  = [];
 
         if ($this->getValues()) {
             if (!is_array($this->getValues())) {
-                $options = array($this->getValues());
+                $options = [$this->getValues()];
             } else {
                 $options = $this->getValues();
             }
@@ -73,18 +73,18 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
         }
         foreach ($options as $k => $v) {
             if (is_string($v)) {
-                $values[] = array(
+                $values[] = [
                     'label' => $v,
                     'value' => $k
-                );
+                ];
             } elseif (isset($v['value'])) {
                 if (!isset($v['label'])) {
                     $v['label'] = $v['value'];
                 }
-                $values[] = array(
+                $values[] = [
                     'label' => $v['label'],
                     'value' => $v['value']
-                );
+                ];
             }
         }
 
@@ -126,7 +126,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
             return;
         }
         if (!is_array($checked)) {
-            $checked = array(strval($checked));
+            $checked = [strval($checked)];
         } else {
             foreach ($checked as $k => $v) {
                 $checked[$k] = strval($v);
@@ -146,7 +146,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
     {
         if ($disabled = $this->getData('disabled')) {
             if (!is_array($disabled)) {
-                $disabled = array(strval($disabled));
+                $disabled = [strval($disabled)];
             } else {
                 foreach ($disabled as $k => $v) {
                     $disabled[$k] = strval($v);

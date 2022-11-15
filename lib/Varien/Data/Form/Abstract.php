@@ -51,12 +51,12 @@ class Varien_Data_Form_Abstract extends Varien_Object
      *
      * @var array
      */
-    protected $_types = array();
+    protected $_types = [];
 
     /**
      * @param array $attributes
      */
-    public function __construct($attributes = array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
     }
@@ -189,11 +189,11 @@ class Varien_Data_Form_Abstract extends Varien_Object
      * @param array $arrAttributes
      * @return array
      */
-    public function __toArray(array $arrAttributes = array())
+    public function __toArray(array $arrAttributes = [])
     {
-        $res = array();
+        $res = [];
         $res['config']  = $this->getData();
-        $res['formElements']= array();
+        $res['formElements']= [];
         foreach ($this->getElements() as $element) {
             $res['formElements'][] = $element->toArray();
         }

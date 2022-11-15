@@ -36,7 +36,7 @@ class Mage_System_Dirs
         }
 
         // Create and iterate stack
-        $stack = array($dirname);
+        $stack = [$dirname];
         while ($entry = array_pop($stack)) {
             // Watch for symlinks
             if (@is_link($entry)) {

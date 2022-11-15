@@ -33,7 +33,7 @@ class Varien_Db_Helper
      *
      * @var array
      */
-    protected static $_translateMap = array(
+    protected static $_translateMap = [
         'address'       => 'addr',
         'admin'         => 'adm',
         'attribute'     => 'attr',
@@ -78,7 +78,7 @@ class Varien_Db_Helper
         'calculation'   => 'calc',
         'search'        => 'srch',
         'query'         => 'qr'
-    );
+    ];
 
     /**
      * Convert name using dictionary

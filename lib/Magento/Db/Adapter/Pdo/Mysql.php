@@ -51,7 +51,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     public function insertBatchFromSelect(
         Varien_Db_Select $select,
         $table,
-        array $fields = array(),
+        array $fields = [],
         $mode = false,
         $step = 10000
     ) {
@@ -92,7 +92,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
         $row = $this->fetchRow($countSelect);
         $totalRows = array_shift($row);
 
-        $bunches = array();
+        $bunches = [];
         for ($i = 0; $i <= $totalRows; $i += $step) {
             $bunchSelect = clone $select;
             $bunches[] = $bunchSelect->limit($step, $i);

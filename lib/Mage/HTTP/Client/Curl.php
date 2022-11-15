@@ -50,25 +50,25 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      * Request headers
      * @var array
      */
-    protected $_headers = array();
+    protected $_headers = [];
 
     /**
      * Fields for POST method - hash
      * @var array
      */
-    protected $_postFields = array();
+    protected $_postFields = [];
 
     /**
      * Request cookies
      * @var array
      */
-    protected $_cookies = array();
+    protected $_cookies = [];
 
     /**
      * Response headers
      * @var array
      */
-    protected $_responseHeaders = array();
+    protected $_responseHeaders = [];
 
     /**
      * Response body
@@ -106,7 +106,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      *
      * @var array();
      */
-    protected $_curlUserOptions = array();
+    protected $_curlUserOptions = [];
 
     /**
      * Header count, used while parsing headers
@@ -212,7 +212,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      */
     public function removeCookies()
     {
-        $this->setCookies(array());
+        $this->setCookies([]);
     }
 
     /**
@@ -262,9 +262,9 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     public function getCookies()
     {
         if (empty($this->_responseHeaders['Set-Cookie'])) {
-            return array();
+            return [];
         }
-        $out = array();
+        $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode("; ", $row);
             $c = count($values);
@@ -288,9 +288,9 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     public function getCookiesFull()
     {
         if (empty($this->_responseHeaders['Set-Cookie'])) {
-            return array();
+            return [];
         }
-        $out = array();
+        $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode("; ", $row);
             $c = count($values);
@@ -301,7 +301,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             if (is_null($val)) {
                 continue;
             }
-            $out[trim($key)] = array('value'=>trim($val));
+            $out[trim($key)] = ['value'=>trim($val)];
             array_shift($values);
             $c--;
             if (!$c) {
@@ -331,7 +331,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      * @param array|string $params pass an array to form post, pass a json encoded string to directly post json
      * @return null
      */
-    protected function makeRequest($method, $uri, $params = array())
+    protected function makeRequest($method, $uri, $params = [])
     {
         $this->_ch = curl_init();
         $this->curlOption(CURLOPT_URL, $uri);
@@ -345,7 +345,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         }
 
         if (count($this->_headers)) {
-            $heads = array();
+            $heads = [];
             foreach ($this->_headers as $k=>$v) {
                 $heads[] = $k.': '.$v;
             }
@@ -353,7 +353,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         }
 
         if (count($this->_cookies)) {
-            $cookies = array();
+            $cookies = [];
             foreach ($this->_cookies as $k=>$v) {
                 $cookies[] = "$k=$v";
             }
@@ -370,7 +370,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
         //$this->curlOption(CURLOPT_HEADER, 1);
         $this->curlOption(CURLOPT_RETURNTRANSFER, 1);
-        $this->curlOption(CURLOPT_HEADERFUNCTION, array($this,'parseHeaders'));
+        $this->curlOption(CURLOPT_HEADERFUNCTION, [$this,'parseHeaders']);
 
         if (count($this->_curlUserOptions)) {
             foreach ($this->_curlUserOptions as $k=>$v) {
@@ -379,7 +379,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         }
 
         $this->_headerCount = 0;
-        $this->_responseHeaders = array();
+        $this->_responseHeaders = [];
         $this->_responseBody = curl_exec($this->_ch);
         $err = curl_errno($this->_ch);
         if ($err) {

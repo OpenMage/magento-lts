@@ -44,7 +44,7 @@ class Varien_Date
      *
      * @var array
      */
-    private static $_convertZendToStrftimeDate = array(
+    private static $_convertZendToStrftimeDate = [
         'yyyy-MM-ddTHH:mm:ssZZZZ' => '%c',
         'EEEE' => '%A',
         'EEE'  => '%a',
@@ -58,13 +58,13 @@ class Varien_Date
         'yyyy' => '%Y',
         'yy'   => '%Y',
         'y'    => '%Y'
-    );
+    ];
     /**
      * Zend Date To local time according Map array
      *
      * @var array
      */
-    private static $_convertZendToStrftimeTime = array(
+    private static $_convertZendToStrftimeTime = [
         'a'  => '%p',
         'hh' => '%I',
         'h'  => '%I',
@@ -74,7 +74,7 @@ class Varien_Date
         'ss' => '%S',
         'z'  => '%Z',
         'v'  => '%Z'
-    );
+    ];
 
     /**
      * Convert Zend Date format to local time/date according format

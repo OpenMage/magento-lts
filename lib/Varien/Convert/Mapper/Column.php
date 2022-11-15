@@ -35,12 +35,12 @@ class Varien_Convert_Mapper_Column extends Varien_Convert_Mapper_Abstract
         if ($this->getVars() && is_array($this->getVars())) {
             $attributesToSelect = $this->getVars();
         } else {
-            $attributesToSelect = array();
+            $attributesToSelect = [];
         }
         $onlySpecified = (bool)$this->getVar('_only_specified')===true;
-        $mappedData = array();
+        $mappedData = [];
         foreach ($data as $i=>$row) {
-            $newRow = array();
+            $newRow = [];
             foreach ($row as $field=>$value) {
                 if (!$onlySpecified || $onlySpecified && isset($attributesToSelect[$field])) {
                     $newRow[$this->getVar($field, $field)] = $value;

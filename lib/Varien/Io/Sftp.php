@@ -49,7 +49,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * @param int $args[timeout] Connection timeout [=10]
      *
      */
-    public function open(array $args = array())
+    public function open(array $args = [])
     {
         if (!isset($args['timeout'])) {
             $args['timeout'] = self::REMOTE_TIMEOUT;
@@ -210,12 +210,12 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     {
         $list = $this->_connection->nlist();
         $pwd = $this->pwd();
-        $result = array();
+        $result = [];
         foreach ($list as $name) {
-            $result[] = array(
+            $result[] = [
                 'text' => $name,
                 'id' => "{$pwd}{$name}",
-            );
+            ];
         }
         return $result;
     }

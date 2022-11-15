@@ -251,13 +251,13 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
 
         $create = $this->raw_fetchRow('SHOW CREATE TABLE `'.$tableName.'`', 'Create Table');
 
-        $alterDrop = array();
+        $alterDrop = [];
         $alterDrop[] = 'DROP COLUMN `'.$columnName.'`';
 
         /**
          * find foreign keys for column
          */
-        $matches = array();
+        $matches = [];
         preg_match_all('/CONSTRAINT `([^`]*)` FOREIGN KEY \(`([^`]*)`\)/', $create, $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
             if ($match[2] == $columnName) {

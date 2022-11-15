@@ -44,7 +44,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         fputs($fp, $this->getData());
         fseek($fp, 0);
 
-        $data = array();
+        $data = [];
         for ($i=0; $line = fgetcsv($fp, 4096, $fDel, $fEnc); $i++) {
             if (0==$i) {
                 if ($this->getVar('fieldnames')) {
@@ -56,7 +56,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
                     }
                 }
             }
-            $row = array();
+            $row = [];
             foreach ($fields as $j=>$f) {
                 $row[$f] = $line[$j];
             }
@@ -84,7 +84,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         fputs($fp, $this->getData());
         fseek($fp, 0);
 
-        $data = array();
+        $data = [];
         $sessionId = Mage::registry('current_dataflow_session_id');
         $import = Mage::getModel('dataflow/import');
         $map = new Varien_Convert_Mapper_Column();
@@ -99,11 +99,11 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
                     }
                 }
             }
-            $row = array();
+            $row = [];
             foreach ($fields as $j=>$f) {
                 $row[$f] = $line[$j];
             }
-            $map->setData(array($row));
+            $map->setData([$row]);
             $map->map();
             $row = $map->getData();
             $import->setImportId(0);
@@ -132,17 +132,17 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
 
         $data = $this->getData();
         $fields = $this->getGridFields($data);
-        $lines = array();
+        $lines = [];
 
         if ($this->getVar('fieldnames')) {
-            $line = array();
+            $line = [];
             foreach ($fields as $f) {
-                $line[] = $fEnc.str_replace(array('"', '\\'), array($fEsc.'"', $fEsc.'\\'), $f).$fEnc;
+                $line[] = $fEnc.str_replace(['"', '\\'], [$fEsc.'"', $fEsc.'\\'], $f).$fEnc;
             }
             $lines[] = implode($fDel, $line);
         }
         foreach ($data as $i=>$row) {
-            $line = array();
+            $line = [];
             foreach ($fields as $f) {
                 /*
                 if (isset($row[$f]) && (preg_match('\"', $row[$f]) || preg_match('\\', $row[$f]))) {
@@ -150,7 +150,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
                     echo str_replace('"', '\"',$tmp).'<br>';
                 }
                 */
-                $v = isset($row[$f]) ? str_replace(array('"', '\\'), array($fEnc.'"', $fEsc.'\\'), $row[$f]) : '';
+                $v = isset($row[$f]) ? str_replace(['"', '\\'], [$fEnc.'"', $fEsc.'\\'], $row[$f]) : '';
 
                 $line[] = $fEnc.$v.$fEnc;
             }

@@ -87,7 +87,7 @@ class Magento_Profiler_Output_Csvfile extends Magento_Profiler_OutputAbstract
     protected function _writeFileContent($fileHandle)
     {
         foreach ($this->_getTimers() as $timerId) {
-            $row = array();
+            $row = [];
             foreach ($this->_getColumns() as $columnId) {
                 $row[] = $this->_renderColumnValue($timerId, $columnId);
             }

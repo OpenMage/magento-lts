@@ -32,7 +32,7 @@ class Varien_Data_Form_Element_Password extends Varien_Data_Form_Element_Abstrac
      * Varien_Data_Form_Element_Password constructor.
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
         $this->setType('password');

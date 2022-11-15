@@ -51,7 +51,7 @@ class Varien_Object_Mapper
      * @param array $defaults
      * @return array|Varien_Object
      */
-    public static function &accumulateByMap($from, $to, array $map, array $defaults = array())
+    public static function &accumulateByMap($from, $to, array $map, array $defaults = [])
     {
         $get = 'getData';
         if (is_array($from) && isset($from[0]) && is_object($from[0]) && isset($from[1]) && is_string($from[1]) && is_callable($from)) {

@@ -35,7 +35,7 @@ class Magento_Db_Object_Trigger extends Magento_Db_Object implements Magento_Db_
     /**
      * @var array
      */
-    protected $_data = array();
+    protected $_data = [];
 
     /**
      * @return bool
@@ -55,7 +55,7 @@ class Magento_Db_Object_Trigger extends Magento_Db_Object implements Magento_Db_
 
     public function describe()
     {
-        $columns = array(
+        $columns = [
             'TRIGGER_NAME',
             'EVENT_MANIPULATION',
             'EVENT_OBJECT_CATALOG',
@@ -71,9 +71,9 @@ class Magento_Db_Object_Trigger extends Magento_Db_Object implements Magento_Db_
             'ACTION_REFERENCE_OLD_ROW',
             'ACTION_REFERENCE_NEW_ROW',
             'CREATED',
-        );
+        ];
         $sql = 'SELECT ' . implode(', ', $columns)
-            . ' FROM ' . $this->_adapter->quoteIdentifier(array('INFORMATION_SCHEMA','TRIGGERS'))
+            . ' FROM ' . $this->_adapter->quoteIdentifier(['INFORMATION_SCHEMA','TRIGGERS'])
             . ' WHERE ';
 
         $schema = $this->getSchemaName();
@@ -87,7 +87,7 @@ class Magento_Db_Object_Trigger extends Magento_Db_Object implements Magento_Db_
 
         $results = $this->_adapter->query($sql);
 
-        $data = array();
+        $data = [];
         foreach ($results as $row) {
             $row = array_change_key_case($row, CASE_LOWER);
             if (null !== $row['created']) {

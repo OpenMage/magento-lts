@@ -63,7 +63,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @var array
      */
-    protected $_bindParams = array();
+    protected $_bindParams = [];
 
     /**
      * All collection data array
@@ -125,11 +125,11 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     public function initCache($object, $idPrefix, $tags)
     {
-        $this->_cacheConf = array(
+        $this->_cacheConf = [
             'object'    => $object,
             'prefix'    => $idPrefix,
             'tags'      => $tags
-        );
+        ];
         return $this;
     }
 
@@ -316,7 +316,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
 
         unset($this->_orders[$field]); // avoid ordering by the same field twice
         if ($unshift) {
-            $orders = array($field => $direction);
+            $orders = [$field => $direction];
             foreach ($this->_orders as $key => $dir) {
                 $orders[$key] = $dir;
             }
@@ -388,7 +388,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if (!is_array($field)) {
             $resultCondition = $this->_translateCondition($field, $condition);
         } else {
-            $conditions = array();
+            $conditions = [];
             foreach ($field as $key => $currField) {
                 $conditions[] = $this->_translateCondition(
                     $currField,
@@ -638,7 +638,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _toOptionHashOptimized($valueField='id', $labelField='name')
     {
-        $result = array();
+        $result = [];
         while ($item = $this->fetchItem()) {
             $result[$item->getData($valueField)] = $item->getData($labelField);
         }
@@ -732,7 +732,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $this->getSelect()->reset();
         $this->_initSelect();
         $this->_setIsLoaded(false);
-        $this->_items = array();
+        $this->_items = [];
         $this->_data = null;
         return $this;
     }
@@ -837,7 +837,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if (isset($this->_cacheConf['tags'])) {
             return $this->_cacheConf['tags'];
         }
-        return array();
+        return [];
     }
 
     /**
@@ -852,9 +852,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     public function addFilterToMap($filter, $alias, $group = 'fields')
     {
         if (is_null($this->_map)) {
-            $this->_map = array($group => array());
+            $this->_map = [$group => []];
         } elseif (is_null($this->_map[$group])) {
-            $this->_map[$group] = array();
+            $this->_map[$group] = [];
         }
         $this->_map[$group][$filter] = $alias;
 

@@ -50,7 +50,7 @@ class Mage_Archive
     *
     * @var array
     */
-    protected $_formats = array(
+    protected $_formats = [
         'tar'        => 'tar',
         'gz'         => 'gz',
         'gzip'       => 'gz',
@@ -63,7 +63,7 @@ class Mage_Archive
         'tbz'        => 'tar.bz',
         'tbzip'      => 'tar.bz',
         'tbz2'       => 'tar.bz',
-        'tbzip2'     => 'tar.bz');
+        'tbzip2'     => 'tar.bz'];
 
     /**
     * Create object of current archiver by $extension.
@@ -93,14 +93,14 @@ class Mage_Archive
     {
         $ext = pathinfo($source, PATHINFO_EXTENSION);
         if (!isset($this->_formats[$ext])) {
-            return array();
+            return [];
         }
         $format = $this->_formats[$ext];
         if ($format) {
             $archivers = explode('.', $format);
             return $archivers;
         }
-        return array();
+        return [];
     }
 
     /**

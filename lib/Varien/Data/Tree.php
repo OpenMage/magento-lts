@@ -180,6 +180,6 @@ class Varien_Data_Tree
                 return $_node->getPath();
             }
         }
-        return array();
+        return [];
     }
 }

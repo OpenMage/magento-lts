@@ -37,7 +37,7 @@ class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_
      */
     public function tokenize()
     {
-        $parameters = array();
+        $parameters = [];
         $parameterName = '';
         while ($this->next()) {
             if ($this->isWhiteSpace()) {

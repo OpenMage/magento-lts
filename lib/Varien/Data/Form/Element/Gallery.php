@@ -50,10 +50,10 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
         $widgetButton = $this->getForm()->getParent()->getLayout();
         $buttonHtml = $widgetButton->createBlock('adminhtml/widget_button')
                 ->setData(
-                    array(
+                    [
                         'label'     => 'Add New Image',
                         'onclick'   => 'addNewImg()',
-                        'class'     => 'add')
+                        'class'     => 'add']
                 )
                 ->toHtml();
 

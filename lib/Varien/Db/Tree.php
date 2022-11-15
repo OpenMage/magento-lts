@@ -40,7 +40,7 @@ class Varien_Db_Tree
     private $_right;
     private $_level;
     private $_pid;
-    private $_nodesInfo = array();
+    private $_nodesInfo = [];
 
     /**
      * Array of additional tables
@@ -54,7 +54,7 @@ class Varien_Db_Tree
      *
      * @var array
      */
-    private $_extTables = array();
+    private $_extTables = [];
 
     /**
      * Zend_Db_Adapter
@@ -65,7 +65,7 @@ class Varien_Db_Tree
 
     private $_table;
 
-    public function __construct($config = array())
+    public function __construct($config = [])
     {
         // set a Zend_Db_Adapter connection
         if (! empty($config['db'])) {
@@ -204,7 +204,7 @@ class Varien_Db_Tree
 
     public function getKeys()
     {
-        $keys = array();
+        $keys = [];
         $keys['id'] = $this->_id;
         $keys['left'] = $this->_left;
         $keys['right'] = $this->_right;
@@ -217,7 +217,7 @@ class Varien_Db_Tree
      * Cleare table and add root element
      *
      */
-    public function clear($data = array())
+    public function clear($data = [])
     {
         // clearing table
         $this->_db->query('TRUNCATE '. $this->_table);
@@ -241,7 +241,7 @@ class Varien_Db_Tree
     {
         if (empty($this->_nodesInfo[$ID])) {
             $sql = 'SELECT * FROM '.$this->_table.' WHERE '.$this->_id.'=:id';
-            $res = $this->_db->query($sql, array('id' => $ID));
+            $res = $this->_db->query($sql, ['id' => $ID]);
             $data = $res->fetch();
             $this->_nodesInfo[$ID] = $data;
         } else {
@@ -270,7 +270,7 @@ class Varien_Db_Tree
                     . ' `'.$this->_right.'` = IF( `'.$this->_right.'`>= :right, `'.$this->_right.'`+2, `'.$this->_right.'`)'
                     . ' WHERE `'.$this->_right.'` >= :right';
 
-                $this->_db->query($sql, array('left'=>$info[$this->_left], 'right'=>$info[$this->_right]));
+                $this->_db->query($sql, ['left'=>$info[$this->_left], 'right'=>$info[$this->_right]]);
 
                 $this->_db->insert($this->_table, $data);
                 $this->_db->commit();
@@ -298,9 +298,9 @@ class Varien_Db_Tree
     {
         $sql = $this->_db->select();
 
-        $sql->from(array('t1'=>$this->_table), array('t1.'.$this->_id, new Zend_Db_Expr('COUNT(t1.'.$this->_id.') AS rep')))
-        ->from(array('t2'=>$this->_table))
-        ->from(array('t3'=>$this->_table), new Zend_Db_Expr('MAX(t3.'.$this->_right.') AS max_right'));
+        $sql->from(['t1'=>$this->_table], ['t1.'.$this->_id, new Zend_Db_Expr('COUNT(t1.'.$this->_id.') AS rep')])
+        ->from(['t2'=>$this->_table])
+        ->from(['t3'=>$this->_table], new Zend_Db_Expr('MAX(t3.'.$this->_right.') AS max_right'));
 
         $sql->where('t1.'.$this->_left.' <> t2.'.$this->_left)
         ->where('t1.'.$this->_left.' <> t2.'.$this->_right)
@@ -485,10 +485,10 @@ class Varien_Db_Tree
 
     public function addTable($tableName, $joinCondition, $fields='*')
     {
-        $this->_extTables[$tableName] = array(
+        $this->_extTables[$tableName] = [
            'joinCondition' => $joinCondition,
            'fields'        => $fields
-        );
+        ];
     }
 
     protected function _addExtTablesToSelect(Zend_Db_Select &$select)
@@ -515,7 +515,7 @@ class Varien_Db_Tree
 
         $this->_addExtTablesToSelect($dbSelect);
 
-        $data = array();
+        $data = [];
         $data['left'] = $info[$this->_left];
         $data['right'] = $info[$this->_right];
 
@@ -542,7 +542,7 @@ class Varien_Db_Tree
 
         $this->_addExtTablesToSelect($dbSelect);
 
-        $data = array();
+        $data = [];
         $data['id'] = $nodeId;
 
         $data = $this->_db->fetchRow($dbSelect, $data);

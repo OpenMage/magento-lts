@@ -222,7 +222,7 @@ class Varien_Data_Tree_Node extends Varien_Object
      * @param array $nodes
      * @return Varien_Data_Tree_Node[]
      */
-    public function getAllChildNodes(&$nodes = array())
+    public function getAllChildNodes(&$nodes = [])
     {
         foreach ($this->_childNodes as $node) {
             $nodes[$node->getId()] = $node;
@@ -297,7 +297,7 @@ class Varien_Data_Tree_Node extends Varien_Object
      * @param array $prevNodes
      * @return array
      */
-    public function getPath(&$prevNodes = array())
+    public function getPath(&$prevNodes = [])
     {
         if ($this->_parent) {
             array_push($prevNodes, $this);

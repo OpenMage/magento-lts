@@ -21,14 +21,14 @@
 
 class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 {
-    protected $_requiredExtensions = array("gd");
-    private static $_callbacks = array(
-        IMAGETYPE_GIF  => array('output' => 'imagegif',  'create' => 'imagecreatefromgif'),
-        IMAGETYPE_JPEG => array('output' => 'imagejpeg', 'create' => 'imagecreatefromjpeg'),
-        IMAGETYPE_PNG  => array('output' => 'imagepng',  'create' => 'imagecreatefrompng'),
-        IMAGETYPE_XBM  => array('output' => 'imagexbm',  'create' => 'imagecreatefromxbm'),
-        IMAGETYPE_WBMP => array('output' => 'imagewbmp', 'create' => 'imagecreatefromwbmp'),
-    );
+    protected $_requiredExtensions = ["gd"];
+    private static $_callbacks = [
+        IMAGETYPE_GIF  => ['output' => 'imagegif',  'create' => 'imagecreatefromgif'],
+        IMAGETYPE_JPEG => ['output' => 'imagejpeg', 'create' => 'imagecreatefromjpeg'],
+        IMAGETYPE_PNG  => ['output' => 'imagepng',  'create' => 'imagecreatefrompng'],
+        IMAGETYPE_XBM  => ['output' => 'imagexbm',  'create' => 'imagecreatefromxbm'],
+        IMAGETYPE_WBMP => ['output' => 'imagewbmp', 'create' => 'imagecreatefromwbmp'],
+    ];
 
     /**
      * Whether image was resized or not
@@ -40,7 +40,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     public function __construct()
     {
         // Initialize shutdown function
-        register_shutdown_function(array($this, 'destruct'));
+        register_shutdown_function([$this, 'destruct']);
     }
 
     /**
@@ -180,7 +180,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             }
         }
 
-        $functionParameters = array();
+        $functionParameters = [];
         $functionParameters[] = $this->_imageHandler;
         $functionParameters[] = $fileName;
 

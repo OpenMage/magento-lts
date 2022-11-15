@@ -50,7 +50,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      */
     public function __construct($container)
     {
-        $this->_elements = array();
+        $this->_elements = [];
         $this->_container = $container;
     }
 
@@ -129,7 +129,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
         } elseif ($after === '^') {
             array_unshift($this->_elements, $element);
         } elseif (is_string($after)) {
-            $newOrderElements = array();
+            $newOrderElements = [];
             foreach ($this->_elements as $index => $currElement) {
                 if ($currElement->getId() == $after) {
                     $newOrderElements[] = $currElement;
@@ -171,7 +171,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
             }
         }
         // Renumber elements for further correct adding and removing other elements
-        $this->_elements = array_merge($this->_elements, array());
+        $this->_elements = array_merge($this->_elements, []);
         return $this;
     }
 

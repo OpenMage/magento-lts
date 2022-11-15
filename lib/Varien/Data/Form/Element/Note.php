@@ -34,7 +34,7 @@ class Varien_Data_Form_Element_Note extends Varien_Data_Form_Element_Abstract
      * Varien_Data_Form_Element_Note constructor.
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
         $this->setType('note');

@@ -47,7 +47,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
     /**
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
         $this->_renderer = Varien_Data_Form::getFieldsetRenderer();
@@ -59,7 +59,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      */
     public function getElementHtml()
     {
-        $html = '<fieldset id="'.$this->getHtmlId().'"'.$this->serialize(array('class')).'>'."\n";
+        $html = '<fieldset id="'.$this->getHtmlId().'"'.$this->serialize(['class']).'>'."\n";
         if ($this->getLegend()) {
             $html.= '<legend>'.$this->getLegend().'</legend>'."\n";
         }
@@ -144,7 +144,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      */
     public function getSortedElements()
     {
-        $elements = array();
+        $elements = [];
         // sort children by value by specified key
         if ($this->_sortChildrenByKey) {
             $sortKey = $this->_sortChildrenByKey;

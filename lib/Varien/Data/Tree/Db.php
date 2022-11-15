@@ -208,7 +208,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
      */
     public function moveNodeTo($node, $parentNode, $prevNode=null)
     {
-        $data = array();
+        $data = [];
         $data[$this->_parentField]  = $parentNode->getId();
         $data[$this->_levelField]   = $parentNode->getData($this->_levelField)+1;
         // New node order
@@ -220,16 +220,16 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         $condition = $this->_conn->quoteInto("$this->_idField=?", $node->getId());
 
         // For reorder new node branch
-        $dataReorderNew = array(
+        $dataReorderNew = [
             $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField).'+1')
-        );
+        ];
         $conditionReorderNew = $this->_conn->quoteIdentifier($this->_parentField).'='.$parentNode->getId().
                             ' AND '.$this->_conn->quoteIdentifier($this->_orderField).'>='. $data[$this->_orderField];
 
         // For reorder old node branch
-        $dataReorderOld = array(
+        $dataReorderOld = [
             $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField).'-1')
-        );
+        ];
         $conditionReorderOld = $this->_conn->quoteIdentifier($this->_parentField).'='.$node->getData($this->_parentField).
                             ' AND '.$this->_conn->quoteIdentifier($this->_orderField).'>'.$node->getData($this->_orderField);
 
@@ -265,7 +265,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         if (!empty($ids)) {
             $this->_conn->update(
                 $this->_table,
-                array($this->_levelField=>$parentLevel+1),
+                [$this->_levelField=>$parentLevel+1],
                 $this->_conn->quoteInto($this->_idField.' IN (?)', $ids)
             );
             foreach ($ids as $id) {
@@ -303,9 +303,9 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
     public function removeNode($node)
     {
         // For reorder old node branch
-        $dataReorderOld = array(
+        $dataReorderOld = [
             $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField).'-1')
-        );
+        ];
         $conditionReorderOld = $this->_conn->quoteIdentifier($this->_parentField).'='.$node->getData($this->_parentField).
                             ' AND '.$this->_conn->quoteIdentifier($this->_orderField).'>'.$node->getData($this->_orderField);
 

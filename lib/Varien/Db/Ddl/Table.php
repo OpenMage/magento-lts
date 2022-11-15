@@ -124,7 +124,7 @@ class Varien_Db_Ddl_Table
      *
      * @var array
      */
-    protected $_columns         = array();
+    protected $_columns         = [];
 
     /**
      * Index descriptions for a table
@@ -147,7 +147,7 @@ class Varien_Db_Ddl_Table
      *
      * @var array
      */
-    protected $_indexes         = array();
+    protected $_indexes         = [];
 
     /**
      * Foreign key descriptions for a table
@@ -168,19 +168,19 @@ class Varien_Db_Ddl_Table
      *
      * @var array
      */
-    protected $_foreignKeys     = array();
+    protected $_foreignKeys     = [];
 
     /**
      * Additional table options
      *
      * @var array
      */
-    protected $_options         = array(
+    protected $_options         = [
         'type'          => 'INNODB',
         'charset'       => 'utf8',
         'collate'       => 'utf8_general_ci',
 
-    );
+    ];
 
     /**
      * Set table name
@@ -276,7 +276,7 @@ class Varien_Db_Ddl_Table
      * @throws Zend_Db_Exception
      * @return Varien_Db_Ddl_Table
      */
-    public function addColumn($name, $type, $size = null, $options = array(), $comment = null)
+    public function addColumn($name, $type, $size = null, $options = [], $comment = null)
     {
         $position           = count($this->_columns);
         $default            = false;
@@ -335,7 +335,7 @@ class Varien_Db_Ddl_Table
 
             case self::TYPE_DECIMAL:
             case self::TYPE_NUMERIC:
-                $match      = array();
+                $match      = [];
                 //For decimal(M,D), M must be >= D
                 $precision  = 10;
                 $scale      = 0;
@@ -404,7 +404,7 @@ class Varien_Db_Ddl_Table
         }
 
         $upperName = strtoupper($name);
-        $this->_columns[$upperName] = array(
+        $this->_columns[$upperName] = [
             'COLUMN_NAME'       => $name,
             'COLUMN_TYPE'       => $type,
             'COLUMN_POSITION'   => $position,
@@ -419,7 +419,7 @@ class Varien_Db_Ddl_Table
             'PRIMARY_POSITION'  => $primaryPosition,
             'IDENTITY'          => $identity,
             'COMMENT'           => $comment
-        );
+        ];
 
         return $this;
     }
@@ -465,14 +465,14 @@ class Varien_Db_Ddl_Table
                 $onUpdate = self::ACTION_NO_ACTION;
         }
 
-        $this->_foreignKeys[$upperName] = array(
+        $this->_foreignKeys[$upperName] = [
             'FK_NAME'           => $fkName,
             'COLUMN_NAME'       => $column,
             'REF_TABLE_NAME'    => $refTable,
             'REF_COLUMN_NAME'   => $refColumn,
             'ON_DELETE'         => $onDelete,
             'ON_UPDATE'         => $onUpdate
-        );
+        ];
 
         return $this;
     }
@@ -485,13 +485,13 @@ class Varien_Db_Ddl_Table
      * @param array $options        array of additional options
      * @return Varien_Db_Ddl_Table
      */
-    public function addIndex($indexName, $fields, $options = array())
+    public function addIndex($indexName, $fields, $options = [])
     {
         $idxType    = Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX;
         $position   = 0;
-        $columns    = array();
+        $columns    = [];
         if (!is_array($fields)) {
-            $fields = array($fields);
+            $fields = [$fields];
         }
 
         foreach ($fields as $columnData) {
@@ -515,11 +515,11 @@ class Varien_Db_Ddl_Table
                 continue;
             }
 
-            $columns[strtoupper($columnName)] = array(
+            $columns[strtoupper($columnName)] = [
                 'NAME'      => $columnName,
                 'SIZE'      => $columnSize,
                 'POSITION'  => $columnPos
-            );
+            ];
 
             $position ++;
         }
@@ -532,11 +532,11 @@ class Varien_Db_Ddl_Table
             $idxType = $options['type'];
         }
 
-        $this->_indexes[strtoupper($indexName)] = array(
+        $this->_indexes[strtoupper($indexName)] = [
             'INDEX_NAME'    => $indexName,
             'COLUMNS'       => $this->_normalizeIndexColumnPosition($columns),
             'TYPE'          => $idxType
-        );
+        ];
 
         return $this;
     }
@@ -662,7 +662,7 @@ class Varien_Db_Ddl_Table
      */
     protected function _normalizeIndexColumnPosition($columns)
     {
-        uasort($columns, array($this, '_sortIndexColumnPosition'));
+        uasort($columns, [$this, '_sortIndexColumnPosition']);
         $position = 0;
         foreach (array_keys($columns) as $columnId) {
             $columns[$columnId]['POSITION'] = $position;
@@ -679,7 +679,7 @@ class Varien_Db_Ddl_Table
      */
     protected function _normalizeColumnPosition($columns)
     {
-        uasort($columns, array($this, '_sortColumnPosition'));
+        uasort($columns, [$this, '_sortColumnPosition']);
         $position = 0;
         foreach (array_keys($columns) as $columnId) {
             $columns[$columnId]['COLUMN_POSITION'] = $position;

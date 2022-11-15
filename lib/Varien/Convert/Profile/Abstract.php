@@ -30,7 +30,7 @@ abstract class Varien_Convert_Profile_Abstract
 {
     protected $_actions;
     protected $_containers;
-    protected $_exceptions = array();
+    protected $_exceptions = [];
     protected $_dryRun;
 
     protected $_actionDefaultClass = 'Varien_Convert_Action';

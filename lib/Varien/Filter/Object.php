@@ -21,7 +21,7 @@
 
 class Varien_Filter_Object extends Zend_Filter
 {
-    protected $_columnFilters = array();
+    protected $_columnFilters = [];
 
     public function addFilter(Zend_Filter_Interface $filter, $column='')
     {

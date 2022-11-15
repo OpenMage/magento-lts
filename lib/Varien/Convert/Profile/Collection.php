@@ -30,7 +30,7 @@ class Varien_Convert_Profile_Collection
 {
     protected $_xml;
     protected $_containers;
-    protected $_profiles = array();
+    protected $_profiles = [];
 
     protected $_simplexmlDefaultClass = 'Varien_Simplexml_Element';
     protected $_profileDefaultClass = 'Varien_Convert_Profile';

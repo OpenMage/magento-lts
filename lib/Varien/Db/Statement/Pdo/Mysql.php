@@ -49,7 +49,7 @@ class Varien_Db_Statement_Pdo_Mysql extends Zend_Db_Statement_Pdo
 
         /* @var PDOStatement $statement */
         $statement = $this->_stmt;
-        $bindValues = array(); // Separate array with values, as they are bound by reference
+        $bindValues = []; // Separate array with values, as they are bound by reference
         foreach ($params as $name => $param) {
             $dataType = PDO::PARAM_STR;
             $length = null;

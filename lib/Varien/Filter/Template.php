@@ -45,7 +45,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      *
      * @var array
      */
-    protected $_templateVars = array();
+    protected $_templateVars = [];
 
     /**
      * Template processor
@@ -126,14 +126,14 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     public function filter($value)
     {
         // "depend" and "if" operands should be first
-        foreach (array(
+        foreach ([
             self::CONSTRUCTION_DEPEND_PATTERN => 'dependDirective',
             self::CONSTRUCTION_IF_PATTERN     => 'ifDirective',
-            ) as $pattern => $directive) {
+                 ] as $pattern => $directive) {
             if (preg_match_all($pattern, $value, $constructions, PREG_SET_ORDER)) {
                 foreach ($constructions as $index => $construction) {
                     $replacedValue = '';
-                    $callback = array($this, $directive);
+                    $callback = [$this, $directive];
                     if (!is_callable($callback)) {
                         continue;
                     }
@@ -150,7 +150,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         if (preg_match_all(self::CONSTRUCTION_PATTERN, $value, $constructions, PREG_SET_ORDER)) {
             foreach ($constructions as $index=>$construction) {
                 $replacedValue = '';
-                $callback = array($this, $construction[1].'Directive');
+                $callback = [$this, $construction[1].'Directive'];
                 if (!is_callable($callback)) {
                     continue;
                 }
@@ -306,8 +306,8 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                             $isEncrypted = $emailPathValidator->isValid($stackVars[$i]['args']);
                         }
                         $stackVars[$i]['variable'] = call_user_func_array(
-                            array($stackVars[$i-1]['variable'], $stackVars[$i]['name']),
-                            !$isEncrypted ? $stackVars[$i]['args'] : array(null)
+                            [$stackVars[$i-1]['variable'], $stackVars[$i]['name']],
+                            !$isEncrypted ? $stackVars[$i]['args'] : [null]
                         );
                     }
                 }

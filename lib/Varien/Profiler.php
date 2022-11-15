@@ -27,7 +27,7 @@ class Varien_Profiler
      *
      * @var array
      */
-    private static $_timers = array();
+    private static $_timers = [];
     private static $_enabled = false;
     private static $_memory_get_usage = false;
 
@@ -44,13 +44,13 @@ class Varien_Profiler
 
     public static function reset($timerName)
     {
-        self::$_timers[$timerName] = array(
+        self::$_timers[$timerName] = [
             'start'=>false,
             'count'=>0,
             'sum'=>0,
             'realmem'=>0,
             'emalloc'=>0,
-        );
+        ];
     }
 
     public static function resume($timerName)

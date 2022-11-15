@@ -41,7 +41,7 @@ class Varien_Event_Observer_Collection
      */
     public function __construct()
     {
-        $this->_observers = array();
+        $this->_observers = [];
     }
 
     /**

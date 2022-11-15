@@ -56,7 +56,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     /**
      * @inheritDoc
      */
-    public function __construct($attributes = array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->_allElements = new Varien_Data_Form_Element_Collection($this);
@@ -116,7 +116,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
      */
     public function getHtmlAttributes()
     {
-        return array('id', 'name', 'method', 'action', 'enctype', 'class', 'onsubmit');
+        return ['id', 'name', 'method', 'action', 'enctype', 'class', 'onsubmit'];
     }
 
     /**

@@ -33,7 +33,7 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
      * @throws Zend_Cache_Exception
      * @return void
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         if (!extension_loaded('eaccelerator')) {
             Zend_Cache::throwException('The eaccelerator extension must be loaded for using this backend !');
@@ -86,10 +86,10 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
      * @param int $specificLifetime if != false, set a specific lifetime for this cache record (null => infinite lifetime)
      * @return boolean true if no problem
      */
-    public function save($data, $id, $tags = array(), $specificLifetime = false)
+    public function save($data, $id, $tags = [], $specificLifetime = false)
     {
         $lifetime = $this->getLifetime($specificLifetime);
-        $result = eaccelerator_put($id, array($data, time(), $lifetime), $lifetime);
+        $result = eaccelerator_put($id, [$data, time(), $lifetime], $lifetime);
         if (count($tags) > 0) {
             $this->_log(self::TAGS_UNSUPPORTED_BY_SAVE_OF_EACCELERATOR_BACKEND);
         }
@@ -122,7 +122,7 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
      * @throws Zend_Cache_Exception
      * @return boolean true if no problem
      */
-    public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
+    public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
         switch ($mode) {
             case Zend_Cache::CLEANING_MODE_ALL:
@@ -184,7 +184,7 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
     public function getTags()
     {
         $this->_log(self::TAGS_UNSUPPORTED_BY_SAVE_OF_EACCELERATOR_BACKEND);
-        return array();
+        return [];
     }
 
     /**
@@ -195,10 +195,10 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
      * @param array $tags array of tags
      * @return array array of matching cache ids (string)
      */
-    public function getIdsMatchingTags($tags = array())
+    public function getIdsMatchingTags($tags = [])
     {
         $this->_log(self::TAGS_UNSUPPORTED_BY_SAVE_OF_EACCELERATOR_BACKEND);
-        return array();
+        return [];
     }
 
     /**
@@ -209,10 +209,10 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
      * @param array $tags array of tags
      * @return array array of not matching cache ids (string)
      */
-    public function getIdsNotMatchingTags($tags = array())
+    public function getIdsNotMatchingTags($tags = [])
     {
         $this->_log(self::TAGS_UNSUPPORTED_BY_SAVE_OF_EACCELERATOR_BACKEND);
-        return array();
+        return [];
     }
 
     /**
@@ -223,10 +223,10 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
      * @param array $tags array of tags
      * @return array array of any matching cache ids (string)
      */
-    public function getIdsMatchingAnyTags($tags = array())
+    public function getIdsMatchingAnyTags($tags = [])
     {
         $this->_log(self::TAGS_UNSUPPORTED_BY_SAVE_OF_EACCELERATOR_BACKEND);
-        return array();
+        return [];
     }
 
     /**
@@ -236,7 +236,7 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
      */
     public function getIds()
     {
-        $res = array();
+        $res = [];
         $array = eaccelerator_list_keys();
         foreach ($array as $key => $info) {
             $res[] = $key;
@@ -267,11 +267,11 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
                 return false;
             }
             $lifetime = $tmp[2];
-            return array(
+            return [
                 'expire' => $mtime + $lifetime,
-                'tags' => array(),
+                'tags' => [],
                 'mtime' => $mtime
-            );
+            ];
         }
         return false;
     }
@@ -299,7 +299,7 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
             if ($newLifetime <=0) {
                 return false;
             }
-            eaccelerator_put($id, array($data, time(), $newLifetime), $newLifetime);
+            eaccelerator_put($id, [$data, time(), $newLifetime], $newLifetime);
             return true;
         }
         return false;
@@ -321,13 +321,13 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
      */
     public function getCapabilities()
     {
-        return array(
+        return [
             'automatic_cleaning' => false,
             'tags' => false,
             'expired_read' => false,
             'priority' => false,
             'infinite_lifetime' => false,
             'get_list' => true
-        );
+        ];
     }
 }

@@ -67,7 +67,7 @@ class Mage_Backup_Filesystem_Helper
      * @param bool $removeRoot
      * @throws Mage_Exception
      */
-    public function rm($path, $skipPaths = array(), $removeRoot = false)
+    public function rm($path, $skipPaths = [], $removeRoot = false)
     {
         $filesystemIterator = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator($path),
@@ -92,9 +92,9 @@ class Mage_Backup_Filesystem_Helper
      * @param int $infoOptions
      * @param array $skipFiles
      */
-    public function getInfo($path, $infoOptions = self::INFO_ALL, $skipFiles = array())
+    public function getInfo($path, $infoOptions = self::INFO_ALL, $skipFiles = [])
     {
-        $info = array();
+        $info = [];
         if ($infoOptions & self::INFO_READABLE) {
             $info['readable'] = true;
         }

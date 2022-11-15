@@ -90,7 +90,7 @@ class Varien_Debug
             }
 
             // prepare method argments
-            $args = array();
+            $args = [];
             if (isset($data['args']) && $withArgs) {
                 foreach ($data['args'] as $arg) {
                     $args[] = self::_formatCalledArgument($arg);
@@ -164,7 +164,7 @@ class Varien_Debug
             $out .= '#[' . get_resource_type($arg) . ']';
         } elseif (is_array($arg)) {
             $isAssociative = false;
-            $args = array();
+            $args = [];
             foreach ($arg as $k => $v) {
                 if (!is_numeric($k)) {
                     $isAssociative = true;
@@ -172,7 +172,7 @@ class Varien_Debug
                 $args[$k] = self::_formatCalledArgument($v);
             }
             if ($isAssociative) {
-                $arr = array();
+                $arr = [];
                 foreach ($args as $k => $v) {
                     $arr[] = self::_formatCalledArgument($k) . ' => ' . $v;
                 }
@@ -188,7 +188,7 @@ class Varien_Debug
             if (strlen($arg) > self::$argLength) {
                 $arg = substr($arg, 0, self::$argLength) . "...";
             }
-            $arg = strtr($arg, array("\t" => '\t', "\r" => '\r', "\n" => '\n', "'" => '\\\''));
+            $arg = strtr($arg, ["\t" => '\t', "\r" => '\r', "\n" => '\n', "'" => '\\\'']);
             $out .= "'" . $arg . "'";
         } elseif (is_bool($arg)) {
             $out .= $arg === true ? 'true' : 'false';

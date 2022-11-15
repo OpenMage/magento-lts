@@ -28,7 +28,7 @@
  */
 class Varien_Convert
 {
-    public static function convert($class, $method, $data, array $vars=array())
+    public static function convert($class, $method, $data, array $vars= [])
     {
         if (is_string($class)) {
             $class = new $class();

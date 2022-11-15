@@ -37,7 +37,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
      * Varien_Data_Form_Element_Multiselect constructor.
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
         $this->setType('select');
@@ -100,7 +100,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
      */
     public function getHtmlAttributes()
     {
-        return array('title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'size', 'tabindex');
+        return ['title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'size', 'tabindex'];
     }
 
     /**

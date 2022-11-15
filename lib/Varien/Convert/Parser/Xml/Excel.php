@@ -48,12 +48,12 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
             $wsName = $worksheet->getAttribute('ss:Name');
             $rows = $worksheet->getElementsByTagName('Row');
             $firstRow = true;
-            $fieldNames = array();
-            $wsData = array();
+            $fieldNames = [];
+            $wsData = [];
             foreach ($rows as $row) {
                 $index = 1;
                 $cells = $row->getElementsByTagName('Cell');
-                $rowData = array();
+                $rowData = [];
                 foreach ($cells as $cell) {
                     $value = $cell->getElementsByTagName('Data')->item(0)->nodeValue;
                     $ind = $cell->getAttribute('ss:Index');
@@ -93,7 +93,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
     public function unparse()
     {
         if ($wsName = $this->getVar('single_sheet')) {
-            $data = array($wsName => $this->getData());
+            $data = [$wsName => $this->getData()];
         } else {
             $data = $this->getData();
         }
@@ -200,7 +200,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
             $this->_xmlElement = new SimpleXMLElement($xmlString, LIBXML_NOBLANKS);
         }
 
-        $xmlData = array();
+        $xmlData = [];
         $xmlData[] = '<Row>';
         foreach ($row as $value) {
             $this->_xmlElement->row = htmlspecialchars($value);

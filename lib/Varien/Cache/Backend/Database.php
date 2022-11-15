@@ -51,13 +51,13 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * @var array available options
      */
-    protected $_options = array(
+    protected $_options = [
         'adapter'           => '',
         'adapter_callback'  => '',
         'data_table'        => '',
         'tags_table'        => '',
         'store_data'        => true,
-    );
+    ];
 
     protected $_adapter = null;
 
@@ -66,7 +66,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * @param array $options associative array of options
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         parent::__construct($options);
         if (empty($this->_options['adapter_callback'])) {
@@ -140,7 +140,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             if (!$doNotTestCacheValidity) {
                 $select->where('expire_time=0 OR expire_time>?', time());
             }
-            return $this->_getAdapter()->fetchOne($select, array('cache_id'=>$id));
+            return $this->_getAdapter()->fetchOne($select, ['cache_id'=>$id]);
         } else {
             return false;
         }
@@ -159,7 +159,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 ->from($this->_getDataTable(), 'update_time')
                 ->where('id=:cache_id')
                 ->where('expire_time=0 OR expire_time>?', time());
-            return $this->_getAdapter()->fetchOne($select, array('cache_id'=>$id));
+            return $this->_getAdapter()->fetchOne($select, ['cache_id'=>$id]);
         } else {
             return false;
         }
@@ -179,7 +179,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * @return bool true if no problem
      */
-    public function save($data, $id, $tags = array(), $specificLifetime = false)
+    public function save($data, $id, $tags = [], $specificLifetime = false)
     {
         if ($this->_options['store_data']) {
             $adapter    = $this->_getAdapter();
@@ -201,7 +201,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                     {$dataCol}=VALUES({$dataCol}),
                     {$expireCol}=VALUES({$expireCol})";
 
-            $result = $adapter->query($query, array($id, $data, $time, $time, $expire))->rowCount();
+            $result = $adapter->query($query, [$id, $data, $time, $time, $expire])->rowCount();
             if (!$result) {
                 return false;
             }
@@ -221,10 +221,10 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
         $adapter = $this->_getAdapter();
         $result = true;
         if ($this->_options['store_data']) {
-            $result = $adapter->delete($this->_getDataTable(), array('id = ?' => $id));
+            $result = $adapter->delete($this->_getDataTable(), ['id = ?' => $id]);
         }
 
-        return $result && $adapter->delete($this->_getTagsTable(), array('cache_id = ?' => $id));
+        return $result && $adapter->delete($this->_getTagsTable(), ['cache_id = ?' => $id]);
     }
 
     /**
@@ -235,7 +235,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      */
     protected function _deleteCachesFromDataTable($cacheIdsToRemove)
     {
-        return $this->_getAdapter()->delete($this->_getDataTable(), array('id IN (?)' => $cacheIdsToRemove));
+        return $this->_getAdapter()->delete($this->_getDataTable(), ['id IN (?)' => $cacheIdsToRemove]);
     }
 
     /**
@@ -246,7 +246,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      */
     protected function _deleteCachesFromTagsTable($cacheIdsToRemove)
     {
-        return $this->_getAdapter()->delete($this->_getTagsTable(), array('cache_id IN (?)' => $cacheIdsToRemove));
+        return $this->_getAdapter()->delete($this->_getTagsTable(), ['cache_id IN (?)' => $cacheIdsToRemove]);
     }
 
     /**
@@ -266,7 +266,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * @param  array  $tags Array of tags
      * @return boolean true if no problem
      */
-    public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
+    public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
         $adapter = $this->_getAdapter();
         $result = true;
@@ -307,7 +307,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
         $counter = 0;
         $result  = true;
         $adapter = $this->_getAdapter();
-        $cacheIdsToRemove = array();
+        $cacheIdsToRemove = [];
 
         $select = $adapter->select()
             ->from($this->_getDataTable(), 'id')
@@ -325,7 +325,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             if ($counter > 100) {
                 $result = $result && $this->_deleteCachesFromDataTable($cacheIdsToRemove);
                 $result = $result && $this->_deleteCachesFromTagsTable($cacheIdsToRemove);
-                $cacheIdsToRemove = array();
+                $cacheIdsToRemove = [];
                 $counter = 0;
             }
         }
@@ -349,7 +349,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 ->from($this->_getDataTable(), 'id');
             return $this->_getAdapter()->fetchCol($select);
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -374,7 +374,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * @param array $tags array of tags
      * @return array array of matching cache ids (string)
      */
-    public function getIdsMatchingTags($tags = array())
+    public function getIdsMatchingTags($tags = [])
     {
         $select = $this->_getAdapter()->select()
             ->from($this->_getTagsTable(), 'cache_id')
@@ -393,7 +393,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * @param array $tags array of tags
      * @return array array of not matching cache ids (string)
      */
-    public function getIdsNotMatchingTags($tags = array())
+    public function getIdsNotMatchingTags($tags = [])
     {
         return array_diff($this->getIds(), $this->getIdsMatchingAnyTags($tags));
     }
@@ -406,7 +406,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * @param array $tags array of tags
      * @return array array of any matching cache ids (string)
      */
-    public function getIdsMatchingAnyTags($tags = array())
+    public function getIdsMatchingAnyTags($tags = [])
     {
         $select = $this->_getAdapter()->select()
             ->from($this->_getTagsTable(), 'cache_id')
@@ -449,11 +449,11 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
         $data = $this->_getAdapter()->fetchRow($select);
         $res = false;
         if ($data) {
-            $res = array(
+            $res = [
                 'expire'=> $data['expire_time'],
                 'mtime' => $data['update_time'],
                 'tags'  => $tags
-            );
+            ];
         }
         return $res;
     }
@@ -470,8 +470,8 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
         if ($this->_options['store_data']) {
             return $this->_getAdapter()->update(
                 $this->_getDataTable(),
-                array('expire_time'=>new Zend_Db_Expr('expire_time+'.$extraLifetime)),
-                array('id=?' => $id, 'expire_time = 0 OR expire_time>?' => time())
+                ['expire_time'=>new Zend_Db_Expr('expire_time+'.$extraLifetime)],
+                ['id=?' => $id, 'expire_time = 0 OR expire_time>?' => time()]
             );
         } else {
             return true;
@@ -494,14 +494,14 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      */
     public function getCapabilities()
     {
-        return array(
+        return [
             'automatic_cleaning' => true,
             'tags' => true,
             'expired_read' => true,
             'priority' => false,
             'infinite_lifetime' => true,
             'get_list' => true
-        );
+        ];
     }
 
     /**
@@ -514,7 +514,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
     protected function _saveTags($id, $tags)
     {
         if (!is_array($tags)) {
-            $tags = array($tags);
+            $tags = [$tags];
         }
         if (empty($tags)) {
             return true;
@@ -532,8 +532,8 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
         $insertTags = array_diff($tags, $existingTags);
         if (!empty($insertTags)) {
             $query = 'INSERT IGNORE INTO ' . $tagsTable . ' (tag, cache_id) VALUES ';
-            $bind = array();
-            $lines = array();
+            $bind = [];
+            $lines = [];
             foreach ($insertTags as $tag) {
                 $lines[] = '(?, ?)';
                 $bind[] = $tag;
@@ -576,7 +576,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 break;
         }
 
-        $cacheIdsToRemove = array();
+        $cacheIdsToRemove = [];
         $counter = 0;
         $statement = $adapter->query($select);
         while ($row = $statement->fetch()) {
@@ -590,7 +590,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                     $result = $result && $this->_deleteCachesFromDataTable($cacheIdsToRemove);
                 }
                 $result = $result && $this->_deleteCachesFromTagsTable($cacheIdsToRemove);
-                $cacheIdsToRemove = array();
+                $cacheIdsToRemove = [];
                 $counter = 0;
             }
         }

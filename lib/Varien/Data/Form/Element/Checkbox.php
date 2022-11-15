@@ -34,7 +34,7 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
      * Varien_Data_Form_Element_Checkbox constructor.
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
         $this->setType('checkbox');
@@ -46,7 +46,7 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
      */
     public function getHtmlAttributes()
     {
-        return array('type', 'title', 'class', 'style', 'checked', 'onclick', 'onchange', 'disabled', 'tabindex');
+        return ['type', 'title', 'class', 'style', 'checked', 'onclick', 'onchange', 'disabled', 'tabindex'];
     }
 
     /**

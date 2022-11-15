@@ -34,7 +34,7 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
      * Varien_Data_Form_Element_Select constructor.
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
         $this->setType('select');
@@ -52,16 +52,16 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
 
         $value = $this->getValue();
         if (!is_array($value)) {
-            $value = array($value);
+            $value = [$value];
         }
 
         if ($values = $this->getValues()) {
             foreach ($values as $key => $option) {
                 if (!is_array($option)) {
                     $html.= $this->_optionToHtml(
-                        array(
+                        [
                         'value' => $key,
-                        'label' => $option),
+                        'label' => $option],
                         $value
                     );
                 } elseif (is_array($option['value'])) {
@@ -112,12 +112,12 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
         if (empty($values)) {
             $options = $this->getOptions();
             if (is_array($options)) {
-                $values = array();
+                $values = [];
                 foreach ($options as  $value => $label) {
-                    $values[] = array('value' => $value, 'label' => $label);
+                    $values[] = ['value' => $value, 'label' => $label];
                 }
             } elseif (is_string($options)) {
-                $values = array( array('value' => $options, 'label' => $options) );
+                $values = [['value' => $options, 'label' => $options]];
             }
             $this->setValues($values);
         }
@@ -128,6 +128,6 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
      */
     public function getHtmlAttributes()
     {
-        return array('title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly', 'tabindex');
+        return ['title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly', 'tabindex'];
     }
 }

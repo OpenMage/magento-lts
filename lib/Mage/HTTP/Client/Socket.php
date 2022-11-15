@@ -50,25 +50,25 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      * Request headers
      * @var array
      */
-    private $_headers = array();
+    private $_headers = [];
 
     /**
      * Fields for POST method - hash
      * @var array
      */
-    private $_postFields = array();
+    private $_postFields = [];
 
     /**
      * Request cookies
      * @var array
      */
-    private $_cookies = array();
+    private $_cookies = [];
 
     /**
      * Response headers
      * @var array
      */
-    private $_responseHeaders = array();
+    private $_responseHeaders = [];
 
     /**
      * Response body
@@ -216,7 +216,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      */
     public function removeCookies()
     {
-        $this->setCookies(array());
+        $this->setCookies([]);
     }
 
     /**
@@ -299,9 +299,9 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     public function getCookies()
     {
         if (empty($this->_responseHeaders['Set-Cookie'])) {
-            return array();
+            return [];
         }
-        $out = array();
+        $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode("; ", $row);
             $c = count($values);
@@ -325,9 +325,9 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     public function getCookiesFull()
     {
         if (empty($this->_responseHeaders['Set-Cookie'])) {
-            return array();
+            return [];
         }
-        $out = array();
+        $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode("; ", $row);
             $c = count($values);
@@ -338,7 +338,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             if (is_null($val)) {
                 continue;
             }
-            $out[trim($key)] = array('value'=>trim($val));
+            $out[trim($key)] = ['value'=>trim($val)];
             array_shift($values);
             $c--;
             if (!$c) {
@@ -358,7 +358,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     protected function processResponseHeaders()
     {
         $crlf = "\r\n";
-        $this->_responseHeaders = array();
+        $this->_responseHeaders = [];
         while (!feof($this->_sock)) {
             $line = fgets($this->_sock, 1024);
             if ($line === $crlf) {
@@ -373,7 +373,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             if (!empty($value)) {
                 if ($name == "Set-Cookie") {
                     if (!isset($this->_responseHeaders[$name])) {
-                        $this->_responseHeaders[$name] = array();
+                        $this->_responseHeaders[$name] = [];
                     }
                     $this->_responseHeaders[$name][] = $value;
                 } else {
@@ -439,7 +439,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      * @param array $params
      * @return null
      */
-    protected function makeRequest($method, $uri, $params = array())
+    protected function makeRequest($method, $uri, $params = [])
     {
         $errno = $errstr = '';
         $this->_sock = @fsockopen($this->_host, $this->_port, $errno, $errstr, $this->_timeout);
@@ -450,7 +450,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         $crlf = "\r\n";
         $isPost = $method == "POST";
 
-        $appendHeaders = array();
+        $appendHeaders = [];
         $paramsStr = false;
         if ($isPost && count($params)) {
             $paramsStr = http_build_query($params);
@@ -485,13 +485,13 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      * @param $append
      * @return string
      */
-    protected function headersToString($append = array())
+    protected function headersToString($append = [])
     {
-        $headers = array();
+        $headers = [];
         $headers["Host"] = $this->_host;
         $headers['Connection'] = "close";
         $headers = array_merge($headers, $this->_headers, $append);
-        $str = array();
+        $str = [];
         foreach ($headers as $k=>$v) {
             $str []= "$k: $v\r\n";
         }

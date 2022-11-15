@@ -76,7 +76,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param array $args
      * @return boolean
      */
-    public function open(array $args=array())
+    public function open(array $args= [])
     {
         if (empty($args['host'])) {
             $this->_error = self::ERROR_EMPTY_HOST;
@@ -300,12 +300,12 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     {
         $ls = @ftp_nlist($this->_conn, '.');
 
-        $list = array();
+        $list = [];
         foreach ($ls as $file) {
-            $list[] = array(
+            $list[] = [
                 'text'=>$file,
                 'id'=>$this->pwd().'/'.$file,
-            );
+            ];
         }
 
         return $list;

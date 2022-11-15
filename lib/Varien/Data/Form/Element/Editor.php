@@ -37,7 +37,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      * Varien_Data_Form_Element_Editor constructor.
      * @param array $attributes
      */
-    public function __construct($attributes = array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
 
@@ -82,17 +82,17 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         if ($this->isEnabled()) {
             // add Firebug notice translations
             $warn = 'Firebug is known to make the WYSIWYG editor slow unless it is turned off or configured properly.';
-            $this->getConfig()->addData(array(
+            $this->getConfig()->addData([
                 'firebug_warning_title'  => $this->translate('Warning'),
                 'firebug_warning_text'   => $this->translate($warn),
                 'firebug_warning_anchor' => $this->translate('Hide'),
-            ));
+            ]);
 
-            $translatedString = array(
+            $translatedString = [
                 'Insert Image...' => $this->translate('Insert Image...'),
                 'Insert Media...' => $this->translate('Insert Media...'),
                 'Insert File...'  => $this->translate('Insert File...')
-            );
+            ];
 
             $jsSetupObject = 'wysiwyg' . $this->getHtmlId();
 
@@ -186,12 +186,12 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      */
     protected function _getToggleButtonHtml($visible = true)
     {
-        $html = $this->_getButtonHtml(array(
+        $html = $this->_getButtonHtml([
             'title'     => $this->translate('Show / Hide Editor'),
             'class'     => 'show-hide',
             'style'     => $visible ? '' : 'display:none',
             'id'        => 'toggle'.$this->getHtmlId(),
-        ));
+        ]);
         return $html;
     }
 
@@ -207,18 +207,18 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
 
         // Button to widget insertion window
         if ($this->getConfig('add_widgets')) {
-            $buttonsHtml .= $this->_getButtonHtml(array(
+            $buttonsHtml .= $this->_getButtonHtml([
                 'title'     => $this->translate('Insert Widget...'),
                 'onclick'   => "widgetTools.openDialog('" . $this->getConfig('widget_window_url') . "widget_target_id/"
                                . $this->getHtmlId() . "')",
                 'class'     => 'add-widget plugin',
                 'style'     => $visible ? '' : 'display:none',
-            ));
+            ]);
         }
 
         // Button to media images insertion window
         if ($this->getConfig('add_images')) {
-            $buttonsHtml .= $this->_getButtonHtml(array(
+            $buttonsHtml .= $this->_getButtonHtml([
                 'title'     => $this->translate('Insert Image...'),
                 'onclick'   => "MediabrowserUtility.openDialog('" .
                                    $this->getConfig('files_browser_window_url') .
@@ -229,7 +229,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                                "')",
                 'class'     => 'add-image plugin',
                 'style'     => $visible ? '' : 'display:none',
-            ));
+            ]);
         }
 
         foreach ($this->getConfig('plugins') as $plugin) {
@@ -240,7 +240,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                     if (isset($buttonOptions['style'])) {
                         $configStyle = $buttonOptions['style'];
                     }
-                    $buttonOptions = array_merge($buttonOptions, array('style' => 'display:none;' . $configStyle));
+                    $buttonOptions = array_merge($buttonOptions, ['style' => 'display:none;' . $configStyle]);
                 }
                 $buttonsHtml .= $this->_getButtonHtml($buttonOptions);
             }
@@ -257,7 +257,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      */
     protected function _prepareButtonOptions($options)
     {
-        $buttonOptions = array();
+        $buttonOptions = [];
         $buttonOptions['class'] = 'plugin';
         foreach ($options as $name => $value) {
             $buttonOptions[$name] = $value;
@@ -289,7 +289,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      */
     protected function _prepareOptions($options)
     {
-        $preparedOptions = array();
+        $preparedOptions = [];
         foreach ($options as $name => $value) {
             if (is_array($value) && isset($value['search']) && isset($value['subject'])) {
                 $subject = $value['subject'];

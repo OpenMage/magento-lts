@@ -32,7 +32,7 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
      * Varien_Data_Form_Element_Radios constructor.
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
         $this->setType('radios');
@@ -73,7 +73,7 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
      */
     protected function _optionToHtml($option, $selected)
     {
-        $html = '<input type="radio"'.$this->serialize(array('name', 'class', 'style'));
+        $html = '<input type="radio"'.$this->serialize(['name', 'class', 'style']);
         if (is_array($option)) {
             $html.= 'value="'.$this->_escape($option['value']).'"  id="'.$this->getHtmlId().$option['value'].'"';
             if ($option['value'] == $selected) {
@@ -82,7 +82,7 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
             $html.= ' />';
             $html.= '<label class="inline" for="'.$this->getHtmlId().$option['value'].'">'.$option['label'].'</label>';
         } elseif ($option instanceof Varien_Object) {
-            $html.= 'id="'.$this->getHtmlId().$option->getValue().'"'.$option->serialize(array('label', 'title', 'value', 'class', 'style'));
+            $html.= 'id="'.$this->getHtmlId().$option->getValue().'"'.$option->serialize(['label', 'title', 'value', 'class', 'style']);
             if (in_array($option->getValue(), $selected)) {
                 $html.= ' checked="checked"';
             }

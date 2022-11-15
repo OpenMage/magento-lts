@@ -28,7 +28,7 @@
  */
 class Varien_Convert_Container_Collection
 {
-    protected $_items = array();
+    protected $_items = [];
     protected $_defaultClass = 'Varien_Convert_Container_Generic';
 
     public function setDefaultClass($className)

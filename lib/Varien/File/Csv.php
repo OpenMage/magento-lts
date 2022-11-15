@@ -77,7 +77,7 @@ class Varien_File_Csv
      */
     public function getData($file)
     {
-        $data = array();
+        $data = [];
         if (!file_exists($file)) {
             throw new Exception('File "'.$file.'" do not exists');
         }
@@ -100,7 +100,7 @@ class Varien_File_Csv
      */
     public function getDataPairs($file, $keyIndex=0, $valueIndex=1)
     {
-        $data = array();
+        $data = [];
         $csvData = $this->getData($file);
         foreach ($csvData as $rowData) {
             if (isset($rowData[$keyIndex])) {
@@ -127,7 +127,7 @@ class Varien_File_Csv
         return $this;
     }
 
-    public function fputcsv(&$handle, $fields = array(), $delimiter = ',', $enclosure = '"')
+    public function fputcsv(&$handle, $fields = [], $delimiter = ',', $enclosure = '"')
     {
         $str = '';
         $escape_char = '\\';

@@ -54,7 +54,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
      * @param array $config
      * @return bool
      */
-    public function open(array $args = array())
+    public function open(array $args = [])
     {
         return false;
     }
@@ -76,19 +76,19 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
             $path .= '/';
         }
 
-        $matches = array();
+        $matches = [];
         $pattern = "/^(\\/|\w:\\/|https?:\\/\\/[^\\/]+\\/)?(.*)$/i";
         preg_match_all($pattern, $path, $matches, PREG_SET_ORDER);
 
         $pathTokR = $matches[0][1];
         $pathTokP = $matches[0][2];
 
-        $pathTokP = preg_replace(array("/^\\/+/", "/\\/+/"), array("", "/"), $pathTokP);
+        $pathTokP = preg_replace(["/^\\/+/", "/\\/+/"], ["", "/"], $pathTokP);
 
         $pathParts = explode("/", $pathTokP);
-        $realPathParts = array();
+        $realPathParts = [];
 
-        for ($i = 0, $realPathParts = array(); $i < count($pathParts); $i++) {
+        for ($i = 0, $realPathParts = []; $i < count($pathParts); $i++) {
             if ($pathParts[$i] == '.') {
                 continue;
             } elseif ($pathParts[$i] == '..') {

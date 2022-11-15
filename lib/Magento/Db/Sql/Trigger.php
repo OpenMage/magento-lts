@@ -50,28 +50,28 @@ class Magento_Db_Sql_Trigger
      *
      * @var array
      */
-    protected $_parts = array();
+    protected $_parts = [];
 
     /**
      * Allowed time types
      *
      * @var array
      */
-    protected $_timeTypes = array(
+    protected $_timeTypes = [
         self::SQL_TIME_AFTER,
         self::SQL_TIME_BEFORE
-    );
+    ];
 
     /**
      * Allowed event types
      *
      * @var array
      */
-    protected $_eventTypes = array(
+    protected $_eventTypes = [
         self::SQL_EVENT_INSERT,
         self::SQL_EVENT_UPDATE,
         self::SQL_EVENT_DELETE
-    );
+    ];
 
     /**
      * Initial trigger structure, for MySQL scope is always "FOR EACH ROW".
@@ -79,13 +79,13 @@ class Magento_Db_Sql_Trigger
      *
      * @var array
      */
-    protected static $_partsInit = array(
+    protected static $_partsInit = [
         self::TARGET    => null,
         self::TIME      => self::SQL_TIME_AFTER,
         self::EVENT     => null,
         self::SCOPE     => self::SQL_FOR_EACH_ROW,
-        self::BODY      => array()
-    );
+        self::BODY      => []
+    ];
 
     /**
      * Constructor
@@ -271,7 +271,7 @@ class Magento_Db_Sql_Trigger
     public function setBody($body)
     {
         if (!is_array($body)) {
-            $body = array($body);
+            $body = [$body];
         }
         $this->_setPart(self::BODY, $body);
         return $this;

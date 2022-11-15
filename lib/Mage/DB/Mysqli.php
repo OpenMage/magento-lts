@@ -143,7 +143,7 @@ class Mage_DB_Mysqli
     public function fetchAll($sql)
     {
         $res = $this->query($sql);
-        for ($out = array(); $row = $res->fetch_array($this->fetch_mode); $out[] = $row);
+        for ($out = []; $row = $res->fetch_array($this->fetch_mode); $out[] = $row);
         return $out;
     }
 
@@ -168,11 +168,11 @@ class Mage_DB_Mysqli
     public function fetchGroupedArrayByKey($sql, $key, $arrayMode = true)
     {
         $res = $this->query($sql);
-        $out = array();
+        $out = [];
         while ($row = $res->fetch_array(MYSQLI_ASSOC)) {
             if ($arrayMode) {
                 if (!isset($out[$row[$key]])) {
-                    $out[$row[$key]] = array();
+                    $out[$row[$key]] = [];
                 }
                 $out[$row[$key]][] = $row;
             } else {
@@ -191,7 +191,7 @@ class Mage_DB_Mysqli
     public function fetchOneFieldAll($sql, $fld)
     {
         $res = $this->query($sql);
-        for ($out = array(); $row = $res->fetch_array($this->fetch_mode); $out[] = $row[$fld]);
+        for ($out = []; $row = $res->fetch_array($this->fetch_mode); $out[] = $row[$fld]);
         return $out;
     }
 
@@ -275,7 +275,7 @@ class Mage_DB_Mysqli
      */
     public function escapeFieldNames(array $arrNames)
     {
-        $out = array();
+        $out = [];
         for ($i=0, $c = count($arrNames) ; $i<$c; $i++) {
             $out[] = $this->escapeFieldName($arrNames[$i]);
         }
@@ -289,7 +289,7 @@ class Mage_DB_Mysqli
      */
     public function escapeFieldValues(array $arrNames)
     {
-        $out = array();
+        $out = [];
         for ($i=0, $c = count($arrNames) ; $i<$c; $i++) {
             if ($arrNames[$i] !== 'LAST_INSERT_ID()') {
                 $out[] = $this->escapeFieldValue($arrNames[$i]);
@@ -361,12 +361,12 @@ class Mage_DB_Mysqli
      * @param bool $replace   use REPLACE INTO instead of INSERT INTO
      * @return array
      */
-    public function insertAssocMultiple($table, array $data, $replace = false, $excludeFields = array())
+    public function insertAssocMultiple($table, array $data, $replace = false, $excludeFields = [])
     {
         $table = $this->escapeTableName($table);
         $sql = $replace ? "REPLACE INTO {$table} " : "INSERT INTO {$table} ";
         $keys = array_keys($data[0]);
-        $excluded = array();
+        $excluded = [];
         for ($i = 0, $c = count($excludeFields); $i < $c; $i++) {
             $k = $excludeFields[$i];
             if (isset($keys[$k])) {
@@ -415,7 +415,7 @@ class Mage_DB_Mysqli
     public function updateAssoc($table, array $data, $condition = '1=1')
     {
         $table = $this->escapeTableName($table);
-        $set = array();
+        $set = [];
         foreach ($data as $k=>$v) {
             $k = $this->escapeFieldName($k);
             $v = $this->escapeFieldValue($v);
@@ -439,7 +439,7 @@ class Mage_DB_Mysqli
         $table = $this->escapeTableName($table);
         $key = $this->escapeFieldName($key);
         $value = $this->escapeFieldValue($value);
-        $set = array();
+        $set = [];
         foreach ($data as $k=>$v) {
             $k = $this->escapeFieldName($k);
             $v = $this->escapeFieldValue($v);
@@ -460,7 +460,7 @@ class Mage_DB_Mysqli
         if (is_scalar($ids)) {
             return $this->escapeFieldValue(strval($ids));
         }
-        $out = array();
+        $out = [];
         foreach ($ids as $id) {
             $out .= $this->escapeFieldValue($id);
         }

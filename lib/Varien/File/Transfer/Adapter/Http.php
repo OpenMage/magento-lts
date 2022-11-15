@@ -26,7 +26,7 @@
  */
 class Varien_File_Transfer_Adapter_Http
 {
-    protected $_mimeTypes = array(
+    protected $_mimeTypes = [
         'txt' => 'text/plain',
         'htm' => 'text/html',
         'html' => 'text/html',
@@ -69,7 +69,7 @@ class Varien_File_Transfer_Adapter_Http
         'ai' => 'application/postscript',
         'eps' => 'application/postscript',
         'ps' => 'application/postscript'
-    );
+    ];
 
     /**
      * Send the file to the client (Download)
@@ -91,7 +91,7 @@ class Varien_File_Transfer_Adapter_Http
             throw new Exception("File '{$filepath}' does not exists.");
         }
 
-        $mimeType = $this->_detectMimeType(array('name' => $filepath));
+        $mimeType = $this->_detectMimeType(['name' => $filepath]);
 
         $response = new Zend_Controller_Response_Http();
 

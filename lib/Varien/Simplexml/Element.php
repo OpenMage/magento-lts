@@ -153,7 +153,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
                 $pathArr = explode('/', $path);
             } else {
                 $regex = "#([^@/\\\"]+(?:@[^=/]+=(?:\\\"[^\\\"]*\\\"|[^/]*))?)/?#";
-                $pathArr = $pathMatches = array();
+                $pathArr = $pathMatches = [];
                 if (preg_match_all($regex, $path, $pathMatches)) {
                     $pathArr = $pathMatches[1];
                 }
@@ -219,7 +219,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      */
     protected function _asArray($isCanonical = false)
     {
-        $result = array();
+        $result = [];
         if (!$isCanonical) {
             // add attributes
             foreach ($this->attributes() as $attributeName => $attribute) {
@@ -319,8 +319,8 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         $value = (string)$value;
 
         $value = str_replace(
-            array('&', '"', "'", '<', '>'),
-            array('&amp;', '&quot;', '&apos;', '&lt;', '&gt;'),
+            ['&', '"', "'", '<', '>'],
+            ['&amp;', '&quot;', '&apos;', '&lt;', '&gt;'],
             $value
         );
 
@@ -440,7 +440,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     public function setNode($path, $value, $overwrite=true)
     {
         $arr1 = explode('/', $path);
-        $arr = array();
+        $arr = [];
         foreach ($arr1 as $v) {
             if (!empty($v)) {
                 $arr[] = $v;

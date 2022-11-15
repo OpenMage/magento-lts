@@ -30,7 +30,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
 {
     public function __construct($file=null)
     {
-        register_shutdown_function(array($this, 'destruct'));
+        register_shutdown_function([$this, 'destruct']);
         $this->newUploader($file);
     }
 

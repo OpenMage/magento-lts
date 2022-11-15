@@ -73,7 +73,7 @@ class Magento_Profiler_Output_Firebug extends Magento_Profiler_OutputAbstract
         $firebugMessage->setHeader(array_keys($this->_getColumns()));
 
         foreach ($this->_getTimers() as $timerId) {
-            $row = array();
+            $row = [];
             foreach ($this->_getColumns() as $columnId) {
                 $row[] = $this->_renderColumnValue($timerId, $columnId);
             }

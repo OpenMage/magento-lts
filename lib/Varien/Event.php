@@ -42,7 +42,7 @@ class Varien_Event extends Varien_Object
      *
      * @param array $data
      */
-    public function __construct(array $data=array())
+    public function __construct(array $data= [])
     {
         $this->_observers = new Varien_Event_Observer_Collection();
         parent::__construct($data);

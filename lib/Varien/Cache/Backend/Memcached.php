@@ -41,7 +41,7 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
      * @throws Varien_Exception
      * @param array $options @see Zend_Cache_Backend_Memcached::__construct()
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         parent::__construct($options);
 
@@ -93,7 +93,7 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
      * @param bool   $specificLifetime @see Zend_Cache_Backend_Memcached::save()
      * @return bool
      */
-    public function save($data, $id, $tags = array(), $specificLifetime = false)
+    public function save($data, $id, $tags = [], $specificLifetime = false)
     {
         if (is_string($data) && (strlen($data) > $this->_options['slab_size'])) {
             $dataChunks = str_split($data, $this->_options['slab_size']);
@@ -129,7 +129,7 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
 
             $arr = explode('|', $data);
             $chunks = isset($arr[1]) ? $arr[1] : false;
-            $chunkData = array();
+            $chunkData = [];
 
             if ($chunks && is_numeric($chunks)) {
                 for ($i = 0; $i < $chunks; $i++) {

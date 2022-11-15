@@ -21,7 +21,7 @@ class Mage_Xml_Parser
 {
     protected $_dom = null;
     protected $_currentDom;
-    protected $_content = array();
+    protected $_content = [];
 
     public function __construct()
     {
@@ -57,7 +57,7 @@ class Mage_Xml_Parser
         if (!$currentNode) {
             $currentNode = $this->getDom();
         }
-        $content = array();
+        $content = [];
         foreach ($currentNode->childNodes as $node) {
             switch ($node->nodeType) {
                 case XML_ELEMENT_NODE:
@@ -66,17 +66,17 @@ class Mage_Xml_Parser
                     if ($node->hasChildNodes()) {
                         $value = $this->_xmlToArray($node);
                     }
-                    $attributes = array();
+                    $attributes = [];
                     if ($node->hasAttributes()) {
                         foreach ($node->attributes as $attribute) {
-                            $attributes += array($attribute->name=>$attribute->value);
+                            $attributes += [$attribute->name=>$attribute->value];
                         }
-                        $value = array('_value'=>$value, '_attribute'=>$attributes);
+                        $value = ['_value'=>$value, '_attribute'=>$attributes];
                     }
                     if (isset($content[$node->nodeName])) {
                         if (!isset($content[$node->nodeName][0]) || !is_array($content[$node->nodeName][0])) {
                             $oldValue = $content[$node->nodeName];
-                            $content[$node->nodeName] = array();
+                            $content[$node->nodeName] = [];
                             $content[$node->nodeName][] = $oldValue;
                         }
                         $content[$node->nodeName][] = $value;

@@ -129,7 +129,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
      */
     public function getNumeric($value)
     {
-        static $data = array(
+        static $data = [
             'jan'=>1,
             'feb'=>2,
             'mar'=>3,
@@ -150,7 +150,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
             'thu'=>4,
             'fri'=>5,
             'sat'=>6,
-        );
+        ];
 
         if (is_numeric($value)) {
             return $value;

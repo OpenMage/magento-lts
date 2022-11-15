@@ -62,7 +62,7 @@ class Varien_Db_Select extends Zend_Db_Select
     public function __construct(Zend_Db_Adapter_Abstract $adapter)
     {
         if (!isset(self::$_partsInit[self::STRAIGHT_JOIN])) {
-            self::$_partsInit = array(self::STRAIGHT_JOIN => false) + self::$_partsInit;
+            self::$_partsInit = [self::STRAIGHT_JOIN => false] + self::$_partsInit;
         }
 
         parent::__construct($adapter);
@@ -150,7 +150,7 @@ class Varien_Db_Select extends Zend_Db_Select
                 }
 
                 $joinUseInCond  = $useJoin;
-                $joinInTables   = array();
+                $joinInTables   = [];
 
                 foreach ($this->_parts[self::FROM] as $tableCorrelationName => $table) {
                     if ($tableCorrelationName == $tableId) {
@@ -227,7 +227,7 @@ class Varien_Db_Select extends Zend_Db_Select
 
         $position = 0;
         $result   = 0;
-        $needle   = array();
+        $needle   = [];
         while (is_integer($result)) {
             $result = strpos($cond, $table . '.', $position);
 
@@ -318,7 +318,7 @@ class Varien_Db_Select extends Zend_Db_Select
      * @param bool $onDuplicate
      * @return string
      */
-    public function insertFromSelect($tableName, $fields = array(), $onDuplicate = true)
+    public function insertFromSelect($tableName, $fields = [], $onDuplicate = true)
     {
         $mode = $onDuplicate ? Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE : false;
         return $this->getAdapter()->insertFromSelect($this, $tableName, $fields, $mode);
@@ -331,7 +331,7 @@ class Varien_Db_Select extends Zend_Db_Select
      * @param array $fields
      * @return string
      */
-    public function insertIgnoreFromSelect($tableName, $fields = array())
+    public function insertIgnoreFromSelect($tableName, $fields = [])
     {
         return $this->getAdapter()
             ->insertFromSelect($this, $tableName, $fields, Varien_Db_Adapter_Interface::INSERT_IGNORE);
@@ -405,7 +405,7 @@ class Varien_Db_Select extends Zend_Db_Select
     protected function _tableCols($correlationName, $cols, $afterCorrelationName = null)
     {
         if (!is_array($cols)) {
-            $cols = array($cols);
+            $cols = [$cols];
         }
 
         foreach ($cols as $k => $v) {
@@ -459,7 +459,7 @@ class Varien_Db_Select extends Zend_Db_Select
             $exists = 'NOT EXISTS (%s)';
         }
         $select->reset(self::COLUMNS)
-            ->columns(array(new Zend_Db_Expr('1')))
+            ->columns([new Zend_Db_Expr('1')])
             ->where($joinCondition);
 
         $exists = sprintf($exists, $select->assemble());

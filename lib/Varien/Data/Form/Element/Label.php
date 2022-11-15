@@ -35,7 +35,7 @@ class Varien_Data_Form_Element_Label extends Varien_Data_Form_Element_Abstract
      *
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
         $this->setType('label');

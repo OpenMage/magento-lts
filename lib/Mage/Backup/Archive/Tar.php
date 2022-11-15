@@ -32,7 +32,7 @@ class Mage_Backup_Archive_Tar extends Mage_Archive_Tar
      *
      * @var array()
      */
-    protected $_skipFiles = array();
+    protected $_skipFiles = [];
 
     /**
      * Overridden Mage_Archive_Tar::_createTar method that does the same actions as it's parent but filters

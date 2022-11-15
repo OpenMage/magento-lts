@@ -33,7 +33,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      *
      * @var array
      */
-    protected $_config = array();
+    protected $_config = [];
 
     /**
      * Curl handle
@@ -47,21 +47,21 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      *
      * @var array
      */
-    protected $_allowedParams = array(
+    protected $_allowedParams = [
         'timeout'       => CURLOPT_TIMEOUT,
         'maxredirects'  => CURLOPT_MAXREDIRS,
         'proxy'         => CURLOPT_PROXY,
         'ssl_cert'      => CURLOPT_SSLCERT,
         'userpwd'       => CURLOPT_USERPWD,
         'ssl_version'   => CURLOPT_SSLVERSION,
-    );
+    ];
 
     /**
      * Array of CURL options
      *
      * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * Apply current configuration array to transport resource
@@ -96,7 +96,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      * @param array $options
      * @return Varien_Http_Adapter_Curl
      */
-    public function setOptions(array $options = array())
+    public function setOptions(array $options = [])
     {
         $this->_options = $options;
         return $this;
@@ -134,7 +134,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      * @param array $config
      * @return Varien_Http_Adapter_Curl
      */
-    public function setConfig($config = array())
+    public function setConfig($config = [])
     {
         $this->_config = $config;
         return $this;
@@ -164,7 +164,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      * @param string        $body
      * @return string Request as text
      */
-    public function write($method, $url, $http_ver = '1.1', $headers = array(), $body = '')
+    public function write($method, $url, $http_ver = '1.1', $headers = [], $body = '')
     {
         if ($url instanceof Zend_Uri_Http) {
             $url = $url->getUri();
@@ -172,12 +172,12 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         $this->_applyConfig();
 
         $header = isset($this->_config['header']) ? $this->_config['header'] : true;
-        $options = array(
+        $options = [
             CURLOPT_URL                     => $url,
             CURLOPT_RETURNTRANSFER          => true,
             CURLOPT_HEADER                  => $header,
             CURLOPT_HTTP_VERSION            => CURL_HTTP_VERSION_1_1
-        );
+        ];
         if ($method == Zend_Http_Client::POST) {
             $options[CURLOPT_POST]          = true;
             $options[CURLOPT_POSTFIELDS]    = $body;
@@ -282,10 +282,10 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      * @param array $options
      * @return array
      */
-    public function multiRequest($urls, $options = array())
+    public function multiRequest($urls, $options = [])
     {
-        $handles = array();
-        $result  = array();
+        $handles = [];
+        $result  = [];
 
         $multihandle = curl_multi_init();
 

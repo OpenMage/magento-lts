@@ -33,7 +33,7 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
      * Varien_Data_Form_Element_Multiline constructor.
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
         $this->setType('text');
@@ -45,7 +45,7 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
      */
     public function getHtmlAttributes()
     {
-        return array('type', 'title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'maxlength');
+        return ['type', 'title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'maxlength'];
     }
 
     /**

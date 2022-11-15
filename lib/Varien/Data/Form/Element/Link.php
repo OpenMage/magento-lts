@@ -34,7 +34,7 @@ class Varien_Data_Form_Element_Link extends Varien_Data_Form_Element_Abstract
      * Varien_Data_Form_Element_Link constructor.
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
         $this->setType('link');
@@ -60,10 +60,10 @@ class Varien_Data_Form_Element_Link extends Varien_Data_Form_Element_Abstract
      */
     public function getHtmlAttributes()
     {
-        return array('charset', 'coords', 'href', 'hreflang', 'rel', 'rev', 'name',
+        return ['charset', 'coords', 'href', 'hreflang', 'rel', 'rev', 'name',
             'shape', 'target', 'accesskey', 'class', 'dir', 'lang', 'style',
             'tabindex', 'title', 'xml:lang', 'onblur', 'onclick', 'ondblclick',
             'onfocus', 'onmousedown', 'onmousemove', 'onmouseout', 'onmouseover',
-            'onmouseup', 'onkeydown', 'onkeypress', 'onkeyup');
+            'onmouseup', 'onkeydown', 'onkeypress', 'onkeyup'];
     }
 }

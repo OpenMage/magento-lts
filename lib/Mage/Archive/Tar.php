@@ -366,7 +366,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             $longHeader = $this->_composeHeader(true);
             $longHeader .= str_pad($nameFile, floor((strlen($nameFile) + 512 - 1) / 512) * 512, "\0");
         }
-        $header = array();
+        $header = [];
         $header['100-name']       = $long?'././@LongLink':substr($nameFile, 0, 100);
         $header['8-mode']         = $long ? '       '
             : str_pad(substr(sprintf("%07o", $infoFile['mode']), -4), 6, '0', STR_PAD_LEFT);
@@ -380,9 +380,9 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         $header['100-symlink']    = is_link($file) ? readlink($file) : '';
         $header['6-magic']        = 'ustar ';
         $header['2-version']      = ' ';
-        $a=function_exists('posix_getpwuid')?posix_getpwuid(fileowner($file)):array('name'=>'');
+        $a=function_exists('posix_getpwuid')?posix_getpwuid(fileowner($file)): ['name'=>''];
         $header['32-uname']       = $a['name'];
-        $a=function_exists('posix_getgrgid')?posix_getgrgid(filegroup($file)):array('name'=>'');
+        $a=function_exists('posix_getgrgid')?posix_getgrgid(filegroup($file)): ['name'=>''];
         $header['32-gname']       = $a['name'];
         $header['8-devmajor']     = '';
         $header['8-devminor']     = '';
@@ -416,7 +416,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     protected function _unpackCurrentTar($destination)
     {
         $archiveReader = $this->_getReader();
-        $list = array();
+        $list = [];
 
         while (!$archiveReader->eof()) {
             $header = $this->_extractFileHeader();
@@ -428,7 +428,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             $currentFile = $destination . $header['name'];
             $dirname = dirname($currentFile);
 
-            if (in_array($header['type'], array("0",chr(0), ''))) {
+            if (in_array($header['type'], ["0",chr(0), ''])) {
                 if (!file_exists($dirname)) {
                     $mkdirResult = @mkdir($dirname, 0777, true);
 

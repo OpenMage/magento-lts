@@ -124,7 +124,7 @@ class Varien_File_Uploader
      *
      * @var array
      */
-    protected $_validMimeTypes = array();
+    protected $_validMimeTypes = [];
 
     /**
      * Validate callbacks storage
@@ -132,7 +132,7 @@ class Varien_File_Uploader
      * @var array
      * @access protected
      */
-    protected $_validateCallbacks = array();
+    protected $_validateCallbacks = [];
 
     const SINGLE_STYLE = 0;
     const MULTIPLE_STYLE = 1;
@@ -295,10 +295,10 @@ class Varien_File_Uploader
      */
     public function addValidateCallback($callbackName, $callbackObject, $callbackMethod)
     {
-        $this->_validateCallbacks[$callbackName] = array(
+        $this->_validateCallbacks[$callbackName] = [
            'object' => $callbackObject,
            'method' => $callbackMethod
-        );
+        ];
         return $this;
     }
 
@@ -363,7 +363,7 @@ class Varien_File_Uploader
      * @access public
      * @return bool
      */
-    public function checkMimeType($validTypes = array())
+    public function checkMimeType($validTypes = [])
     {
         try {
             if (count($validTypes) > 0) {
@@ -438,7 +438,7 @@ class Varien_File_Uploader
         return $this;
     }
 
-    public function setAllowedExtensions($extensions = array())
+    public function setAllowedExtensions($extensions = [])
     {
         foreach ((array)$extensions as $extension) {
             $this->_allowedExtensions[] = strtolower($extension);
@@ -452,9 +452,9 @@ class Varien_File_Uploader
      * @param array $mimeTypes
      * @return Varien_File_Uploader
      */
-    public function setValidMimeTypes($mimeTypes = array())
+    public function setValidMimeTypes($mimeTypes = [])
     {
-        $this->_validMimeTypes = array();
+        $this->_validMimeTypes = [];
         foreach ((array) $mimeTypes as $mimeType) {
             $this->_validMimeTypes[] = $mimeType;
         }
@@ -509,7 +509,7 @@ class Varien_File_Uploader
                 $this->_uploadType = self::MULTIPLE_STYLE;
 
                 $fileAttributes = $_FILES[$file[0]];
-                $tmp_var = array();
+                $tmp_var = [];
 
                 foreach ($fileAttributes as $attributeName => $attributeValue) {
                     $tmp_var[$attributeName] = $attributeValue[$file[1]];

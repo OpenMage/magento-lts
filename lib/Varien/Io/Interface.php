@@ -32,7 +32,7 @@ interface Varien_Io_Interface
      * Open a connection
      *
      */
-    public function open(array $args=array());
+    public function open(array $args= []);
 
     /**
      * Close a connection

@@ -33,7 +33,7 @@ class Mage_Autoload_Simple
 
     public static function register()
     {
-        spl_autoload_register(array(self::instance(), 'autoload'));
+        spl_autoload_register([self::instance(), 'autoload']);
     }
 
     public function autoload($class)

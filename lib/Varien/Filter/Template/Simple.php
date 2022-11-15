@@ -72,7 +72,7 @@ class Varien_Filter_Template_Simple extends Varien_Object implements Zend_Filter
     {
         return preg_replace_callback(
             '#' . $this->_startTag . '(.*?)' . $this->_endTag . '#',
-            array($this, '_filterDataItem'),
+            [$this, '_filterDataItem'],
             $value
         );
     }
