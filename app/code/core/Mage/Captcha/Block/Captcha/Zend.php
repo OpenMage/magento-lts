@@ -68,7 +68,7 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
-        if (Mage::helper('captcha')->isEnabled() && $this->getCaptchaModel()->isRequired()) {
+        if ($this->getCaptchaModel()->isRequired()) {
             $this->getCaptchaModel()->generate();
             return parent::_toHtml();
         }
