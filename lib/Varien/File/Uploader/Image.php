@@ -13,8 +13,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_File
+ * @category   Varien
+ * @package    Varien_File
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -23,8 +23,8 @@
  * This class is invalid. Avoid using it
  *
  * @deprecated after 1.4.0.0-rc1
- * @file        Image.php
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @file       Image.php
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Varien_File_Uploader_Image extends Varien_File_Uploader
