@@ -59,7 +59,7 @@ class Mage_Core_Model_Cache
      */
     protected $_shmBackends = [
         'apc', 'memcached', 'xcache',
-        'zendserver_shmem', 'zendserver_disk', 'varien_eaccelerator',
+        'zendserver_shmem', 'zendserver_disk',
     ];
 
     /**
@@ -197,13 +197,6 @@ class Mage_Core_Model_Cache
                 if (extension_loaded('xcache')) {
                     $enable2levels = true;
                     $backendType = 'Xcache';
-                }
-                break;
-            case 'eaccelerator':
-            case 'varien_cache_backend_eaccelerator':
-                if (extension_loaded('eaccelerator') && ini_get('eaccelerator.enable')) {
-                    $enable2levels = true;
-                    $backendType = 'Varien_Cache_Backend_Eaccelerator';
                 }
                 break;
             case 'varien_cache_backend_database':
