@@ -26,6 +26,7 @@
  * @package    Mage_Directory
  * @author     Magento Core Team <core@magentocommerce.com>
  *
+ * @property string $_url
  * @property array $_messages
  */
 abstract class Mage_Directory_Model_Currency_Import_Abstract
