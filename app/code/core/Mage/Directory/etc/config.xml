@@ -35,7 +35,7 @@
                         <model>directory/currency_import_currencyconverterapi</model>
                     </currencyconverterapi>
                     <fixerio>
-                        <name>Fixer.IO</name>
+                        <name>Fixer API / Apilayer.com</name>
                         <model>directory/currency_import_fixerio</model>
                     </fixerio>
                     <webservicex>
