@@ -43,7 +43,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
      *
      * @var string
      */
-    protected $_url = '';
+    protected $_url = 'https://free.currconv.com/api/v7/convert?apiKey={{API_KEY}}&q={{CURRENCY_FROM}}_{{CURRENCY_TO}}&compact=ultra';
 
     /**
      * Information messages stack
@@ -52,7 +52,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
      */
     protected $_messages = [];
 
-     /**
+    /**
      * HTTP client
      *
      * @var Varien_Http_Client
@@ -65,10 +65,6 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
     public function __construct()
     {
         $this->_httpClient = new Varien_Http_Client();
-        if (empty($this->_url)) {
-            $this->_url = 'https://free.currconv.com/api/v7/convert'
-                . '?apiKey={{API_KEY}}&q={{CURRENCY_FROM}}_{{CURRENCY_TO}}&compact=ultra';
-        }
     }
 
     /**
