@@ -54,5 +54,5 @@ jobs:
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
       - name: PHPCodeSniffer
-        run: php vendor/bin/phpcs -s -p --report=full,source,summary --standard=.github/phpcs-ruleset.xml ${{ matrix.paths }}
+        run: php vendor/bin/phpcs -s --report=full --standard=.github/phpcs-ruleset.xml ${{ matrix.paths }}
         continue-on-error: ${{ matrix.paths == 'app/code/community/' }}

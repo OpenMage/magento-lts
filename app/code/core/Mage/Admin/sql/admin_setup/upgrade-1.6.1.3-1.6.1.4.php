@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -39,7 +40,6 @@ $obsoleteAcl = [
     'admin/xmlconnect/history',
     'admin/xmlconnect/templates'
 ];
-
 
 $installer->getConnection()->delete(
     $installer->getTable('admin/rule'),
