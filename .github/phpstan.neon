@@ -63,9 +63,6 @@ parameters:
         - */lib/Magento/Crypt.php
         - */lib/Varien/Crypt/Mcrypt.php
 
-        # requires Eaccelerator
-        - */lib/Varien/Cache/Backend/Eaccelerator.php
-
         # Instantiated class not found
         - */lib/Varien/Image/Adapter.php
 
