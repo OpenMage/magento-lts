@@ -2129,6 +2129,16 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $this->_invoices;
     }
 
+    /**
+     * Retrieve order invoices collection
+     *
+     * @return Mage_Sales_Model_Resource_Order_Invoice_Collection
+     */
+    public function getInvoicesCollection()
+    {
+        return $this->getInvoiceCollection();
+    }
+
      /**
      * Retrieve order shipments collection
      *
