@@ -52,6 +52,12 @@ Mage::app()->loadAreaPart(Mage_Core_Model_App_Area::AREA_ADMINHTML, Mage_Core_Mo
 // query parameter "type" is set by .htaccess rewrite rule
 $apiAlias = Mage::app()->getRequest()->getParam('type');
 
+// allow soap v2 without rewrites
+if (empty($apiAlias) && (stripos(getenv('REQUEST_URI'), '/v2_soap/') !== false)) {
+    $apiAlias = 'v2_soap';
+    $_GET['type'] = $apiAlias;
+}
+
 // check request could be processed by API2
 if (in_array($apiAlias, Mage_Api2_Model_Server::getApiTypes())) {
     // emulate index.php entry point for correct URLs generation in API
