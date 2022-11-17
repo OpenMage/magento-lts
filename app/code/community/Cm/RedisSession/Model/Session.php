@@ -88,6 +88,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
     protected $_logLevel;
     protected $_maxConcurrency;
     protected $_breakAfter;
+    protected $_failAfter;
     protected $_useLocking;
     protected $_hasLock;
     protected $_sessionWritten; // avoid infinite loops
