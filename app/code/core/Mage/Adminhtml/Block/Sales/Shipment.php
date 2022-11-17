@@ -34,4 +34,13 @@ class Mage_Adminhtml_Block_Sales_Shipment extends Mage_Adminhtml_Block_Widget_Gr
         parent::__construct();
         $this->_removeButton('add');
     }
+
+    public function getButtonsHtml($area = null)
+    {
+        return '<form action="'.$this->getUrl('*/*/view').'" method="get" class="tinysearch">' .
+            ' <input type="text" name="shipment_id" class="input-text" required="required" placeholder="shipment_id / increment_id" />' .
+            ' <button type="submit" class="scalable go"><span><span>'.$this->__('View').'</span></span></button>' .
+            '</form> ' .
+            parent::getButtonsHtml($area);
+    }
 }

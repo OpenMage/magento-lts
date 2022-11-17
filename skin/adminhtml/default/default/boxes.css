@@ -180,6 +180,9 @@ table.actions td                { vertical-align:top; }
 .grid tr.headings th a.sort-arrow-desc span.sort-title { background-image:url(images/grid_sort_desc.gif); }
 .grid tr.headings th a.sort-arrow-asc span.sort-title { background-image:url(images/grid_sort_asc.gif); }
 
+/* Grid - Tiny search bar */
+.content-header .tinysearch input { margin-bottom: -1px; padding: 3px 2px 2px; }
+.content-header .tinysearch button { margin-left: -4px; }
 
 /* Grid - Mass Action */
 .massaction { width:100%; height:26px; border:1px solid #d1cfcf; border-bottom:none; background:url(images/massaction_bg.gif) repeat-x 0 100% #ebebeb; font-size:.9em; }
