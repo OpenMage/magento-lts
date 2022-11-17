@@ -55,8 +55,11 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
         if ($invoiceId) {
             $invoice = Mage::getModel('sales/order_invoice')->load($invoiceId);
             if (!$invoice->getId()) {
-                $this->_getSession()->addError($this->__('The invoice no longer exists.'));
-                return false;
+                $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceId);
+                if (!$invoice->getId()) {
+                    $this->_getSession()->addError($this->__('The invoice no longer exists.'));
+                    return false;
+                }
             }
         } elseif ($orderId) {
             $order = Mage::getModel('sales/order')->load($orderId);

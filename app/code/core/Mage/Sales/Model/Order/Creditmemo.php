@@ -225,6 +225,25 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
+     * Load creditmemo by increment id
+     *
+     * @param string $incrementId
+     * @return $this
+     */
+    public function loadByIncrementId($incrementId)
+    {
+        $ids = $this->getCollection()
+            ->addAttributeToFilter('increment_id', $incrementId)
+            ->getAllIds();
+
+        if (!empty($ids)) {
+            reset($ids);
+            $this->load(current($ids));
+        }
+        return $this;
+    }
+
+    /**
      * Retrieve Creditmemo configuration model
      *
      * @return Mage_Sales_Model_Order_Creditmemo_Config

@@ -54,8 +54,11 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         if ($shipmentId) {
             $shipment = Mage::getModel('sales/order_shipment')->load($shipmentId);
             if (!$shipment->getId()) {
-                $this->_getSession()->addError($this->__('The shipment no longer exists.'));
-                return false;
+                $shipment = Mage::getModel('sales/order_shipment')->loadByIncrementId($shipmentId);
+                if (!$shipment->getId()) {
+                    $this->_getSession()->addError($this->__('The shipment no longer exists.'));
+                    return false;
+                }
             }
         } elseif ($orderId) {
             $order      = Mage::getModel('sales/order')->load($orderId);
