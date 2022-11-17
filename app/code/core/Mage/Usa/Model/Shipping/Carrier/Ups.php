@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Usa
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -299,7 +300,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
     /**
      * Get result of request
      *
-     * @return mixed
+     * @return Mage_Shipping_Model_Rate_Result|null
      */
     public function getResult()
     {
@@ -1056,7 +1057,7 @@ XMLRequest;
      * Get tracking
      *
      * @param mixed $trackings
-     * @return mixed
+     * @return Mage_Shipping_Model_Rate_Result|null
      */
     public function getTracking($trackings)
     {
@@ -1101,7 +1102,7 @@ XMLAuth;
      * Get cgi tracking
      *
      * @param mixed $trackings
-     * @return mixed
+     * @return false|Mage_Core_Model_Abstract|Mage_Shipping_Model_Tracking_Result
      */
     protected function _getCgiTracking($trackings)
     {
@@ -1130,7 +1131,7 @@ XMLAuth;
      * Get xml tracking
      *
      * @param mixed $trackings
-     * @return mixed
+     * @return Mage_Shipping_Model_Rate_Result|null
      */
     protected function _getXmlTracking($trackings)
     {
@@ -1717,7 +1718,7 @@ XMLAuth;
     /**
      * Return all container types of carrier
      *
-     * @return array|bool
+     * @return array
      */
     public function getContainerTypesAll()
     {
@@ -1745,7 +1746,7 @@ XMLAuth;
      * Return delivery confirmation types of carrier
      *
      * @param Varien_Object|null $params
-     * @return array|bool
+     * @return array
      */
     public function getDeliveryConfirmationTypes(Varien_Object $params = null)
     {

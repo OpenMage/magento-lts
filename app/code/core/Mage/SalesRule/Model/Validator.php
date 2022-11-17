@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -544,7 +545,9 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         /**
          *   for calculating weee tax discount
          */
+        /** @var Mage_Tax_Model_Config $config */
         $config = $this->_getSingleton('tax/config');
+        /** @var Mage_Tax_Model_Calculation $calculator */
         $calculator = $this->_getSingleton('tax/calculation');
         $request = $calculator->getRateRequest(
             $address,
@@ -1059,7 +1062,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * wrap Mage::getSingleton
      *
      * @param string $name
-     * @return mixed
+     * @return Mage_Core_Model_Abstract
      */
     protected function _getSingleton($name)
     {

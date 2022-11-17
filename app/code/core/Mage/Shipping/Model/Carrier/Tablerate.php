@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Shipping
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,7 +66,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
      * Collect and get rates
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return bool|Mage_Core_Model_Abstract
+     * @return false|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -197,7 +198,6 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
      * Get Model
      *
      * @param string $modelName
-     *
      * @return Mage_Core_Model_Abstract
      */
     protected function _getModel($modelName)
@@ -209,7 +209,6 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
      * Get Rate
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     *
      * @return Mage_Core_Model_Abstract
      */
     public function getRate(Mage_Shipping_Model_Rate_Request $request)
@@ -222,8 +221,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
      *
      * @param string $type
      * @param string $code
-     *
-     * @return array
+     * @return array|string
      */
     public function getCode($type, $code = '')
     {

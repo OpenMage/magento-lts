@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Payment
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,6 +30,8 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
 {
     const XML_PATH_PAYMENT_METHODS = 'payment';
     const XML_PATH_PAYMENT_GROUPS = 'global/payment/groups';
+
+    protected $_moduleName = 'Mage_Payment';
 
     /**
      * Retrieve method model object
@@ -234,9 +237,9 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
                     $labelValues[$code]['label'] = $title;
                 } elseif (isset($groupRelations[$code])) {
                     unset($labelValues[$code]);
-                    $labelValues[$groupRelations[$code]]['value'][$code] = ['value' => $code, 'label' => $title];
+                    $labelValues[$groupRelations[$code]]['value'][$code] = ['value' => $code, 'label' => $title.' ('.$code.')'];
                 } else {
-                    $labelValues[$code] = ['value' => $code, 'label' => $title];
+                    $labelValues[$code] = ['value' => $code, 'label' => $title.' ('.$code.')'];
                 }
             }
             return $labelValues;
