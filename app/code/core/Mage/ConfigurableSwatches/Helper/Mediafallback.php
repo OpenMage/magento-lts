@@ -374,7 +374,12 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
         }
 
         foreach ($images as $image) {
+
             $realProductId = $relationship[$image['product_id']];
+            if (!array_key_exists($realProductId, $products)) {
+                continue;
+            }
+
             $product = $products[$realProductId];
 
             if (is_null($image['label'])) {
