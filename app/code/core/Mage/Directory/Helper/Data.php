@@ -297,7 +297,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getShowNonRequiredState()
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_DISPLAY_ALL_STATES);
+        return Mage::getStoreConfigFlag(self::XML_PATH_DISPLAY_ALL_STATES);
     }
 
     /**

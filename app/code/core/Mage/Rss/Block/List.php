@@ -142,7 +142,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     public function NewProductRssFeed()
     {
         $path = self::XML_PATH_RSS_METHODS.'/catalog/new';
-        if((bool)Mage::getStoreConfig($path)){
+        if (Mage::getStoreConfigFlag($path)) {
             $this->addRssFeed($path, $this->__('New Products'));
         }
     }
@@ -153,8 +153,8 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     public function SpecialProductRssFeed()
     {
         $path = self::XML_PATH_RSS_METHODS.'/catalog/special';
-        if((bool)Mage::getStoreConfig($path)){
-            $this->addRssFeed($path, $this->__('Special Products'), [],true);
+        if (Mage::getStoreConfigFlag($path)) {
+            $this->addRssFeed($path, $this->__('Special Products'), [], true);
         }
     }
 
@@ -164,8 +164,8 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     public function SalesRuleProductRssFeed()
     {
         $path = self::XML_PATH_RSS_METHODS.'/catalog/salesrule';
-        if((bool)Mage::getStoreConfig($path)){
-            $this->addRssFeed($path, $this->__('Coupons/Discounts'), [],true);
+        if (Mage::getStoreConfigFlag($path)) {
+            $this->addRssFeed($path, $this->__('Coupons/Discounts'), [], true);
         }
     }
 
@@ -176,7 +176,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     public function CategoriesRssFeed()
     {
         $path = self::XML_PATH_RSS_METHODS.'/catalog/category';
-        if((bool)Mage::getStoreConfig($path)){
+        if (Mage::getStoreConfigFlag($path)) {
             $category = Mage::getModel('catalog/category');
 
             /** @var Varien_Data_Tree_Node $treeModel */
@@ -192,7 +192,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
                 ->addAttributeToSelect('url_key')
                 ->addAttributeToSelect('name')
                 ->addAttributeToSelect('is_anchor')
-                ->addAttributeToFilter('is_active',1)
+                ->addAttributeToFilter('is_active', 1)
                 ->addIdFilter($nodeIds)
                 ->addAttributeToSort('name')
                 ->load();

@@ -254,7 +254,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     protected function _instantiateServer()
     {
         $apiConfigCharset = Mage::getStoreConfig('api/config/charset');
-        $wsdlCacheEnabled = (bool) Mage::getStoreConfig('api/config/wsdl_cache_enabled');
+        $wsdlCacheEnabled = Mage::getStoreConfigFlag('api/config/wsdl_cache_enabled');
 
         if ($wsdlCacheEnabled) {
             ini_set('soap.wsdl_cache_enabled', '1');

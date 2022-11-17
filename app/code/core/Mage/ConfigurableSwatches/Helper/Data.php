@@ -45,7 +45,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (is_null($this->_enabled)) {
             $this->_enabled = (
-                (bool) Mage::getStoreConfig(self::CONFIG_PATH_ENABLED)
+                Mage::getStoreConfigFlag(self::CONFIG_PATH_ENABLED)
                 && Mage::helper('configurableswatches/productlist')->getSwatchAttribute()
             );
         }
