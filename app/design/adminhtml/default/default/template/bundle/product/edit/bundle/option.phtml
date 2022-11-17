@@ -91,10 +91,10 @@ Bundle.Option.prototype = {
     },
 
     add : function(data) {
-        if(!data){
+        if (!data) {
             data = {};
             this.top = $('product_bundle_container_top');
-        } else {
+        } else if (data.title) {
             data.title = data.title.replace('"', "&quot;");
         }
 
