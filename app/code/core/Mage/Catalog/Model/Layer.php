@@ -156,7 +156,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
             if ($category = Mage::registry('current_category')) {
                 $this->setData('current_category', $category);
             } else {
-                $category = Mage::getModel('catalog/category')->load($this->getCurrentStore()->getRootCategoryId());
+                $category = Mage::getModel('catalog/category')->setId($this->getCurrentStore()->getRootCategoryId());
                 $this->setData('current_category', $category);
             }
         }
