@@ -47,7 +47,6 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Authenticate customer on frontend
-     *
      */
     public function authFrontend()
     {
@@ -105,7 +104,6 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Send authenticate failed headers
-     *
      */
     public function authFailed()
     {
@@ -132,10 +130,17 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if module was activated in system configurations
      *
+     * @param mixed $store
+     * @param string $config
      * @return bool
      */
-    public function isRssEnabled()
+    public function isRssEnabled($store = null, $config = null)
     {
-        return Mage::getStoreConfigFlag(self::XML_PATH_RSS_ACTIVE);
+        $result = Mage::getStoreConfigFlag(self::XML_PATH_RSS_ACTIVE, $store);
+
+        if (!empty($config))
+            $result = $result && Mage::getStoreConfigFlag($config, $store);
+
+        return $result;
     }
 }

@@ -270,7 +270,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
             ]);
 
         if (Mage::helper('catalog')->isModuleEnabled('Mage_Rss')) {
-            $this->addRssList('rss/catalog/notifystock', Mage::helper('catalog')->__('Notify Low Stock RSS'));
+            $storeId = (int) $this->getRequest()->getParam('store', Mage::app()->getDefaultStoreView()->getId());
+            if (Mage::helper('rss')->isRssEnabled($storeId, 'rss/catalog/notifystock'))
+                $this->addRssList('rss/catalog/notifystock', Mage::helper('catalog')->__('Notify Low Stock RSS'), $storeId);
         }
 
         return parent::_prepareColumns();

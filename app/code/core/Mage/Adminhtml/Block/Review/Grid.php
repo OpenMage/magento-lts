@@ -192,7 +192,20 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 'sortable'  => false
             ]);
 
-        $this->addRssList('rss/catalog/review', Mage::helper('catalog')->__('Pending Reviews RSS'));
+        if (Mage::helper('catalog')->isModuleEnabled('Mage_Rss')) {
+            if ($this->getColumn('visible_in')) {
+                $filter = $this->getParam($this->getVarNameFilter());
+                if (!empty($filter)) {
+                    $filter = Mage::helper('adminhtml')->prepareFilterString($filter);
+                    if (!empty($filter['visible_in']))
+                        $storeId = $filter['visible_in'];
+                }
+            }
+            if (empty($storeId))
+                $storeId = Mage::app()->getDefaultStoreView()->getId();
+            if (Mage::helper('rss')->isRssEnabled($storeId, 'rss/catalog/review'))
+                $this->addRssList('rss/catalog/review', Mage::helper('catalog')->__('Pending Reviews RSS'), $storeId);
+        }
 
         return parent::_prepareColumns();
     }

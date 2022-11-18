@@ -1000,15 +1000,19 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Can be overloaded in descendant classes to perform custom changes to url passed to addRssList()
      *
      * @param string $url
+     * @param mixed $store
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
-    protected function _getRssUrl($url)
+    protected function _getRssUrl($url, $store = null)
     {
         $urlModel = Mage::getModel('core/url');
         if (Mage::app()->getStore()->getStoreInUrl()) {
             // Url in 'admin' store view won't be accessible, so form it in default store view frontend
-            $urlModel->setStore(Mage::app()->getDefaultStoreView());
+            if (empty($store))
+                $urlModel->setStore(Mage::app()->getDefaultStoreView());
+            else
+                $urlModel->setStore(is_object($store) ? $store : Mage::app()->getStore($store));
         }
         return $urlModel->getUrl($url);
     }
@@ -1018,14 +1022,15 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param string $url
      * @param string $label
+     * @param mixed $store
      * @return  Mage_Adminhtml_Block_Widget_Grid
      * @throws Mage_Core_Model_Store_Exception
      */
-    public function addRssList($url, $label)
+    public function addRssList($url, $label, $store = null)
     {
         $this->_rssLists[] = new Varien_Object(
             [
-                'url'   => $this->_getRssUrl($url),
+                'url'   => $this->_getRssUrl($url, $store),
                 'label' => $label
             ]
         );
