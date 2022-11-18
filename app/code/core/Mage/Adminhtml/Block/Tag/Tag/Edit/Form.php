@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget
                                         'method' => 'post'
         ]);
 
-        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('tag')->__('General Information')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('tag')->__('General Information')]);
 
         if ($model->getTagId()) {
             $fieldset->addField('tag_id', 'hidden', [
@@ -75,7 +75,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget
 
         $form->setValues($model->getData());
         $form->setUseContainer(true);
-        $form->setAction( $this->getUrl($form->getAction(), [
+        $form->setAction($this->getUrl($form->getAction(), [
             'ret' => $this->getRequest()->getParam('ret'),
             'customer_id' => $this->getRequest()->getParam('customer_id'),
             'product_id' => $this->getRequest()->getParam('product_id'),

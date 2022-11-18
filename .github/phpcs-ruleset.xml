@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ruleset name="OpenMage Standard" namespace="OpenMage\CS\Standard">
+    <rule ref="PSR2">
+        <exclude name="Generic.Files.LineLength.TooLong"/>
+        <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+        <exclude name="PSR1.Files.SideEffects.FoundWithSymbols"/>
+        <exclude name="PSR2.Classes.ClassDeclaration.ExtendsLine"/>
+        <exclude name="PSR2.Classes.PropertyDeclaration.Underscore"/>
+        <exclude name="PSR2.Methods.FunctionCallSignature.Indent"/>
+        <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
+        <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
+    </rule>
+    <rule ref="PSR12">
+        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.CloseParenthesisLine"/>
+        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.FirstExpressionLine"/>
+        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.LineIndent"/>
+        <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
+    </rule>
+    <!--
+    <rule ref="Ecg">
+        <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed"/>
+        <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.FoundInImplementedInterfaceAfterLastUsed"/>
+        <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.Found"/>
+        <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass"/>
+        <exclude name="Generic.Commenting.Todo.TaskFound"/>
+        <exclude name="Generic.Metrics.CyclomaticComplexity.TooHigh"/>
+        <exclude name="Ecg.Classes.Mysql4.Found"/>
+        <exclude name="Ecg.PHP.PrivateClassMember.PrivateClassMemberError"/>
+    </rule>
+    -->
+</ruleset>

@@ -53,7 +53,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
     {
         $total = new Varien_Object([
             'code'      => $this->getNameInLayout(),
-            'block_name'=> $this->getNameInLayout(),
+            'block_name' => $this->getNameInLayout(),
             'area'      => $this->getDisplayArea(),
             'strong'    => $this->getStrong()
         ]);

@@ -31,7 +31,7 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Cache id
      */
-    const CACHE_ID = 'permission_block';
+    public const CACHE_ID = 'permission_block';
 
     /**
      * Disallowed names for block

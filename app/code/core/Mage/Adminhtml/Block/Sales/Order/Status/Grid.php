@@ -72,7 +72,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
         ]);
 
         $this->addColumn('state', [
-            'header'=> Mage::helper('sales')->__('State Code [State Title]'),
+            'header' => Mage::helper('sales')->__('State Code [State Title]'),
             'type'  => 'text',
             'index' => 'state',
             'width'     => '250px',

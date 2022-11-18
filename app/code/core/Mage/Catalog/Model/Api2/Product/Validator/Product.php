@@ -31,7 +31,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * The greatest decimal value which could be stored. Corresponds to DECIMAL (12,4) SQL type
      */
-    const MAX_DECIMAL_VALUE = 99999999.9999;
+    public const MAX_DECIMAL_VALUE = 99999999.9999;
 
     /**
      * Validator product

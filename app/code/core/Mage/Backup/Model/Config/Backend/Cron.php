@@ -28,12 +28,12 @@
  */
 class Mage_Backup_Model_Config_Backend_Cron extends Mage_Core_Model_Config_Data
 {
-    const CRON_STRING_PATH  = 'crontab/jobs/system_backup/schedule/cron_expr';
-    const CRON_MODEL_PATH   = 'crontab/jobs/system_backup/run/model';
+    public const CRON_STRING_PATH  = 'crontab/jobs/system_backup/schedule/cron_expr';
+    public const CRON_MODEL_PATH   = 'crontab/jobs/system_backup/run/model';
 
-    const XML_PATH_BACKUP_ENABLED       = 'groups/backup/fields/enabled/value';
-    const XML_PATH_BACKUP_TIME          = 'groups/backup/fields/time/value';
-    const XML_PATH_BACKUP_FREQUENCY     = 'groups/backup/fields/frequency/value';
+    public const XML_PATH_BACKUP_ENABLED       = 'groups/backup/fields/enabled/value';
+    public const XML_PATH_BACKUP_TIME          = 'groups/backup/fields/time/value';
+    public const XML_PATH_BACKUP_FREQUENCY     = 'groups/backup/fields/frequency/value';
 
     /**
      * Cron settings after save
@@ -58,8 +58,7 @@ class Mage_Backup_Model_Config_Backend_Cron extends Mage_Core_Model_Config_Data
                 ($frequency == $frequencyWeekly) ? '1' : '*',           # Day of the Week
             ];
             $cronExprString = implode(' ', $cronExprArray);
-        }
-        else {
+        } else {
             $cronExprString = '';
         }
 
@@ -75,8 +74,7 @@ class Mage_Backup_Model_Config_Backend_Cron extends Mage_Core_Model_Config_Data
                 ->setValue((string) Mage::getConfig()->getNode(self::CRON_MODEL_PATH))
                 ->setPath(self::CRON_MODEL_PATH)
                 ->save();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::throwException(Mage::helper('backup')->__('Unable to save the cron expression.'));
         }
         return $this;

@@ -28,9 +28,9 @@
  */
 class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widget_Form
 {
-    const SCOPE_DEFAULT = 'default';
-    const SCOPE_WEBSITES = 'websites';
-    const SCOPE_STORES   = 'stores';
+    public const SCOPE_DEFAULT = 'default';
+    public const SCOPE_WEBSITES = 'websites';
+    public const SCOPE_STORES   = 'stores';
 
     /**
      * Config data array
@@ -126,11 +126,11 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             if (!$this->_canShowField($section)) {
                 continue;
             }
-            foreach ($section->groups as $groups){
+            foreach ($section->groups as $groups) {
                 $groups = (array)$groups;
                 usort($groups, [$this, '_sortForm']);
 
-                foreach ($groups as $group){
+                foreach ($groups as $group) {
                     /** @var Varien_Simplexml_Element $group */
                     if (!$this->_canShowField($group)) {
                         continue;
@@ -212,9 +212,11 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     protected function _getDependence()
     {
-        if (!$this->getChild('element_dependense')){
-            $this->setChild('element_dependense',
-                $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence'));
+        if (!$this->getChild('element_dependense')) {
+            $this->setChild(
+                'element_dependense',
+                $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
+            );
         }
         return $this->getChild('element_dependense');
     }
@@ -229,7 +231,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * @param string $labelPrefix
      * @return $this
      */
-    public function initFields($fieldset, $group, $section, $fieldPrefix='', $labelPrefix='')
+    public function initFields($fieldset, $group, $section, $fieldPrefix = '', $labelPrefix = '')
     {
         if (!$this->_configDataObject) {
             $this->_initObjects();
@@ -291,7 +293,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
                 $helperName = $this->_configFields->getAttributeModule($section, $group, $element);
                 $fieldType  = (string)$element->frontend_type ? (string)$element->frontend_type : 'text';
-                $name  = 'groups[' . $group->getName() . '][fields][' . $fieldPrefix.$element->getName() . '][value]';
+                $name  = 'groups[' . $group->getName() . '][fields][' . $fieldPrefix . $element->getName() . '][value]';
                 $label =  Mage::helper($helperName)->__($labelPrefix) . ' '
                     . Mage::helper($helperName)->__((string)$element->label);
                 $hint  = (string)$element->hint ? Mage::helper($helperName)->__((string)$element->hint) : '';
@@ -299,7 +301,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 if ($element->backend_model) {
                     $model = Mage::getModel((string)$element->backend_model);
                     if (!$model instanceof Mage_Core_Model_Config_Data) {
-                        Mage::throwException('Invalid config field backend model: '.(string)$element->backend_model);
+                        Mage::throwException('Invalid config field backend model: ' . (string)$element->backend_model);
                     }
                     $model->setPath($path)
                         ->setValue($data)
@@ -550,7 +552,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     protected function _sortForm($a, $b)
     {
         return (int)$a->sort_order < (int)$b->sort_order ? -1 : ((int)$a->sort_order > (int)$b->sort_order ? 1 : 0);
-
     }
 
     /**

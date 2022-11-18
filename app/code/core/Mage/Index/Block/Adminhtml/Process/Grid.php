@@ -160,7 +160,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                 'actions'   => [
                     [
                         'caption'   => Mage::helper('index')->__('Reindex Data'),
-                        'url'       => ['base'=> '*/*/reindexProcess'],
+                        'url'       => ['base' => '*/*/reindexProcess'],
                         'field'     => 'process'
                     ],
                 ],
@@ -199,7 +199,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                 $class = 'grid-severity-critical';
                 break;
         }
-        return '<span class="'.$class.'"><span>'.$value.'</span></span>';
+        return '<span class="' . $class . '"><span>' . $value . '</span></span>';
     }
 
     /**
@@ -223,7 +223,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                 $class = 'grid-severity-critical';
                 break;
         }
-        return '<span class="'.$class.'"><span>'.$value.'</span></span>';
+        return '<span class="' . $class . '"><span>' . $value . '</span></span>';
     }
 
     /**

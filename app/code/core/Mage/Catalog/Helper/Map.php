@@ -28,7 +28,7 @@
  */
 class Mage_Catalog_Helper_Map extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_USE_TREE_MODE = 'catalog/sitemap/tree_mode';
+    public const XML_PATH_USE_TREE_MODE = 'catalog/sitemap/tree_mode';
 
     protected $_moduleName = 'Mage_Catalog';
 

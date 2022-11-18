@@ -52,29 +52,28 @@ class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Bloc
      */
     protected function _prepareColumns()
     {
-
         $this->addColumn('nickname', [
-            'header'    =>Mage::helper('reports')->__('Customer'),
-            'width'     =>'100px',
-            'index'     =>'nickname'
+            'header'    => Mage::helper('reports')->__('Customer'),
+            'width'     => '100px',
+            'index'     => 'nickname'
         ]);
 
         $this->addColumn('title', [
-            'header'    =>Mage::helper('reports')->__('Title'),
-            'width'     =>'150px',
-            'index'     =>'title'
+            'header'    => Mage::helper('reports')->__('Title'),
+            'width'     => '150px',
+            'index'     => 'title'
         ]);
 
         $this->addColumn('detail', [
-            'header'    =>Mage::helper('reports')->__('Detail'),
-            'index'     =>'detail'
+            'header'    => Mage::helper('reports')->__('Detail'),
+            'index'     => 'detail'
         ]);
 
         $this->addColumn('created_at', [
-            'header'    =>Mage::helper('reports')->__('Created At'),
-            'index'     =>'created_at',
-            'width'     =>'200px',
-            'type'      =>'datetime'
+            'header'    => Mage::helper('reports')->__('Created At'),
+            'index'     => 'created_at',
+            'width'     => '200px',
+            'type'      => 'datetime'
         ]);
 
         $this->setFilterVisibility(false);
@@ -85,4 +84,3 @@ class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Bloc
         return parent::_prepareColumns();
     }
 }
-

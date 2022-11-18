@@ -106,7 +106,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
             $connection = $this->getConnection();
             if (count($items)) {
                 $select = $connection->select()
-                        ->from(['cps'=>$this->getTable('cms/page_store')])
+                        ->from(['cps' => $this->getTable('cms/page_store')])
                         ->where('cps.page_id IN (?)', $items);
 
                 if ($result = $connection->fetchPairs($select)) {

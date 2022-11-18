@@ -31,27 +31,27 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     /**
      * Key in config with entities.
      */
-    const CONFIG_KEY_ENTITIES  = 'global/importexport/import_entities';
+    public const CONFIG_KEY_ENTITIES  = 'global/importexport/import_entities';
 
     /**
      * Import behavior.
      */
-    const BEHAVIOR_APPEND  = 'append';
-    const BEHAVIOR_REPLACE = 'replace';
-    const BEHAVIOR_DELETE  = 'delete';
+    public const BEHAVIOR_APPEND  = 'append';
+    public const BEHAVIOR_REPLACE = 'replace';
+    public const BEHAVIOR_DELETE  = 'delete';
 
     /**
      * Form field names (and IDs)
      */
-    const FIELD_NAME_SOURCE_FILE = 'import_file';
-    const FIELD_NAME_IMG_ARCHIVE_FILE = 'import_image_archive';
+    public const FIELD_NAME_SOURCE_FILE = 'import_file';
+    public const FIELD_NAME_IMG_ARCHIVE_FILE = 'import_image_archive';
 
     /**
      * Import constants
      *
      */
-    const DEFAULT_SIZE      = 50;
-    const MAX_IMPORT_CHUNKS = 4;
+    public const DEFAULT_SIZE      = 50;
+    public const MAX_IMPORT_CHUNKS = 4;
 
     /**
      * Entity adapter.

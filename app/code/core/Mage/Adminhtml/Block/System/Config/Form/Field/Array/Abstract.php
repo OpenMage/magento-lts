@@ -26,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
-    extends Mage_Adminhtml_Block_System_Config_Form_Field
+abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
      * Grid columns
@@ -173,8 +172,8 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
 
         return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" ' .
             ($column['size'] ? 'size="' . $column['size'] . '"' : '') . ' class="' .
-            ($column['class'] ?? 'input-text') . '"'.
-            (isset($column['style']) ? ' style="'.$column['style'] . '"' : '') . '/>';
+            ($column['class'] ?? 'input-text') . '"' .
+            (isset($column['style']) ? ' style="' . $column['style'] . '"' : '') . '/>';
     }
 
     /**

@@ -31,17 +31,17 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Key in session for captcha code
      */
-    const SESSION_WORD = 'word';
+    public const SESSION_WORD = 'word';
 
     /**
      * Min captcha lengths default value
      */
-    const DEFAULT_WORD_LENGTH_FROM = 3;
+    public const DEFAULT_WORD_LENGTH_FROM = 3;
 
     /**
      * Max captcha lengths default value
      */
-    const DEFAULT_WORD_LENGTH_TO   = 5;
+    public const DEFAULT_WORD_LENGTH_TO   = 5;
 
     /**
      * Helper Instance
@@ -282,11 +282,11 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
         return Mage::getSingleton('customer/session');
     }
 
-     /**
-     * Return full URL to captcha image
-     *
-     * @return string
-     */
+    /**
+    * Return full URL to captcha image
+    *
+    * @return string
+    */
     public function getImgSrc()
     {
         return $this->getImgUrl() . $this->getId() . $this->getSuffix();

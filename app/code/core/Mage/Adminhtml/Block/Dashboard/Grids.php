@@ -62,19 +62,19 @@ class Mage_Adminhtml_Block_Dashboard_Grids extends Mage_Adminhtml_Block_Widget_T
         // load other tabs with ajax
         $this->addTab('reviewed_products', [
             'label'     => $this->__('Most Viewed Products'),
-            'url'       => $this->getUrl('*/*/productsViewed', ['_current'=>true]),
+            'url'       => $this->getUrl('*/*/productsViewed', ['_current' => true]),
             'class'     => 'ajax'
         ]);
 
         $this->addTab('new_customers', [
             'label'     => $this->__('New Customers'),
-            'url'       => $this->getUrl('*/*/customersNewest', ['_current'=>true]),
+            'url'       => $this->getUrl('*/*/customersNewest', ['_current' => true]),
             'class'     => 'ajax'
         ]);
 
         $this->addTab('customers', [
             'label'     => $this->__('Customers'),
-            'url'       => $this->getUrl('*/*/customersMost', ['_current'=>true]),
+            'url'       => $this->getUrl('*/*/customersMost', ['_current' => true]),
             'class'     => 'ajax'
         ]);
 

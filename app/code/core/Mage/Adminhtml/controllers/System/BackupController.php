@@ -46,7 +46,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
     {
         $this->_title($this->__('System'))->_title($this->__('Tools'))->_title($this->__('Backups'));
 
-        if($this->getRequest()->getParam('ajax')) {
+        if ($this->getRequest()->getParam('ajax')) {
             $this->_forward('grid');
             return;
         }
@@ -187,7 +187,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
      */
     public function rollbackAction()
     {
-        if (!Mage::helper('backup')->isRollbackAllowed()){
+        if (!Mage::helper('backup')->isRollbackAllowed()) {
             return $this->_forward('denied');
         }
 
@@ -248,7 +248,6 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
             }
 
             if ($type != Mage_Backup_Helper_Data::TYPE_DB) {
-
                 $backupManager->setRootDir(Mage::getBaseDir())
                     ->addIgnorePaths($helper->getRollbackIgnorePaths());
 
@@ -345,8 +344,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
                 $this->_getSession()->addSuccess(
                     Mage::helper('backup')->__('The selected backup(s) has been deleted.')
                 );
-            }
-            else {
+            } else {
                 throw new Exception($deleteFailMessage);
             }
         } catch (Exception $e) {

@@ -28,7 +28,7 @@
  */
 class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_TEMPLATE_FILTER = 'global/newsletter/tempate_filter';
+    public const XML_PATH_TEMPLATE_FILTER = 'global/newsletter/tempate_filter';
 
     protected $_moduleName = 'Mage_Newsletter';
 

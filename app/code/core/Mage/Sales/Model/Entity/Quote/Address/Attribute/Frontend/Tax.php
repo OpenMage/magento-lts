@@ -33,11 +33,11 @@ class Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Tax extends Mage_
     public function fetchTotals(Mage_Sales_Model_Quote_Address $address)
     {
         $amount = $address->getTaxAmount();
-        if ($amount!=0) {
+        if ($amount != 0) {
             $address->addTotal([
-                'code'=>'tax',
-                'title'=>Mage::helper('sales')->__('Tax'),
-                'value'=>$amount
+                'code' => 'tax',
+                'title' => Mage::helper('sales')->__('Tax'),
+                'value' => $amount
             ]);
         }
         return $this;

@@ -31,7 +31,7 @@ class Mage_Api2_Model_Renderer_Xml_Writer extends Zend_Config_Writer_Xml
     /**
      * Root node in XML output
      */
-    const XML_ROOT_NODE = 'magento_api';
+    public const XML_ROOT_NODE = 'magento_api';
 
     /**
      * Render a Zend_Config into a XML config string.

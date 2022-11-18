@@ -229,8 +229,8 @@ class Mage_CatalogInventory_Model_Observer
             $item->setData('use_config_notify_stock_qty', false);
         }
         $originalQty = $product->getData('stock_data/original_inventory_qty');
-        if (strlen($originalQty)>0) {
-            $item->setQtyCorrection($item->getQty()-$originalQty);
+        if (strlen($originalQty) > 0) {
+            $item->setQtyCorrection($item->getQty() - $originalQty);
         }
         if (!is_null($product->getData('stock_data/enable_qty_increments'))
             && is_null($product->getData('stock_data/use_config_enable_qty_inc'))) {
@@ -513,7 +513,8 @@ class Mage_CatalogInventory_Model_Observer
              * exception for updating also managed by product type
              */
             if ($result->getHasQtyOptionUpdate()
-                && (!$quoteItem->getParentItem()
+                && (
+                    !$quoteItem->getParentItem()
                     || $quoteItem->getParentItem()->getProduct()->getTypeInstance(true)
                         ->getForceChildItemQtyChanges($quoteItem->getParentItem()->getProduct())
                 )
@@ -587,7 +588,7 @@ class Mage_CatalogInventory_Model_Observer
         $qty = $itemQty;
         if (isset($this->_checkedQuoteItems[$productId]['qty']) &&
             !in_array($quoteItemId, $this->_checkedQuoteItems[$productId]['items'])) {
-                $qty += $this->_checkedQuoteItems[$productId]['qty'];
+            $qty += $this->_checkedQuoteItems[$productId]['qty'];
         }
 
         $this->_checkedQuoteItems[$productId]['qty'] = $qty;

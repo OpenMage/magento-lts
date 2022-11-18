@@ -47,9 +47,9 @@
  */
 class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
 {
-    const CHILDREN_FOR_TIERS = 1;
-    const CHILDREN_FOR_PRICES = 2;
-    const CHILDREN_FOR_ATTRIBUTES = 3;
+    public const CHILDREN_FOR_TIERS = 1;
+    public const CHILDREN_FOR_PRICES = 2;
+    public const CHILDREN_FOR_ATTRIBUTES = 3;
 
     protected $_attributeIdCache = [];
 

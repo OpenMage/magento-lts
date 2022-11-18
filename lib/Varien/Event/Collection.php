@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Event
+ * @category   Varien
+ * @package    Varien_Event
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Event
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Event_Collection
 {
@@ -55,7 +55,7 @@ class Varien_Event_Collection
      */
     public function __construct()
     {
-        $this->_events = array();
+        $this->_events = [];
         $this->_globalObservers = new Varien_Event_Observer_Collection();
     }
 
@@ -90,7 +90,7 @@ class Varien_Event_Collection
     public function getEventByName($eventName)
     {
         if (!isset($this->_events[$eventName])) {
-            $this->addEvent(new Varien_Event(array('name'=>$eventName)));
+            $this->addEvent(new Varien_Event(['name' => $eventName]));
         }
         return $this->_events[$eventName];
     }
@@ -136,7 +136,7 @@ class Varien_Event_Collection
      * @param array $data
      * @return Varien_Event_Collection
      */
-    public function dispatch($eventName, array $data=array())
+    public function dispatch($eventName, array $data = [])
     {
         $event = $this->getEventByName($eventName);
         $event->addData($data)->dispatch();

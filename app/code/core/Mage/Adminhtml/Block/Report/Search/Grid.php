@@ -61,16 +61,16 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
     protected function _prepareColumns()
     {
         $this->addColumn('query_id', [
-            'header'    =>Mage::helper('reports')->__('ID'),
-            'width'     =>'50px',
-            'filter'    =>false,
-            'index'     =>'query_id',
-            'type'      =>'number'
+            'header'    => Mage::helper('reports')->__('ID'),
+            'width'     => '50px',
+            'filter'    => false,
+            'index'     => 'query_id',
+            'type'      => 'number'
         ]);
 
         $this->addColumn('query_text', [
-            'header'    =>Mage::helper('reports')->__('Search Query'),
-            'index'     =>'query_text'
+            'header'    => Mage::helper('reports')->__('Search Query'),
+            'index'     => 'query_text'
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -84,19 +84,19 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
         }
 
         $this->addColumn('num_results', [
-            'header'    =>Mage::helper('reports')->__('Results'),
-            'width'     =>'50px',
-            'align'     =>'right',
-            'type'      =>'number',
-            'index'     =>'num_results'
+            'header'    => Mage::helper('reports')->__('Results'),
+            'width'     => '50px',
+            'align'     => 'right',
+            'type'      => 'number',
+            'index'     => 'num_results'
         ]);
 
         $this->addColumn('popularity', [
-            'header'    =>Mage::helper('reports')->__('Hits'),
-            'width'     =>'50px',
-            'align'     =>'right',
-            'type'      =>'number',
-            'index'     =>'popularity'
+            'header'    => Mage::helper('reports')->__('Hits'),
+            'width'     => '50px',
+            'align'     => 'right',
+            'type'      => 'number',
+            'index'     => 'popularity'
         ]);
 
         $this->addExportType('*/*/exportSearchCsv', Mage::helper('reports')->__('CSV'));
@@ -115,4 +115,3 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
         return $this->getUrl('*/catalog_search/edit', ['id' => $row->getId()]);
     }
 }
-

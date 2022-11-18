@@ -28,9 +28,9 @@
  */
 class Mage_Install_Model_Config extends Varien_Simplexml_Config
 {
-    const XML_PATH_WIZARD_STEPS     = 'wizard/steps';
-    const XML_PATH_CHECK_WRITEABLE  = 'check/filesystem/writeable';
-    const XML_PATH_CHECK_EXTENSIONS = 'check/php/extensions';
+    public const XML_PATH_WIZARD_STEPS     = 'wizard/steps';
+    public const XML_PATH_CHECK_WRITEABLE  = 'check/filesystem/writeable';
+    public const XML_PATH_CHECK_EXTENSIONS = 'check/php/extensions';
 
     protected $_optionsMapping = [self::XML_PATH_CHECK_WRITEABLE => [
         'app_etc' => 'etc_dir',
@@ -131,8 +131,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
                 foreach ($value as $subname => $subvalue) {
                     $res[$name][] = $subname;
                 }
-            }
-            else {
+            } else {
                 $res[$name] = (array) $value;
             }
         }

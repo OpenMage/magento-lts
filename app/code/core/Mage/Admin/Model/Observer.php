@@ -28,7 +28,7 @@
  */
 class Mage_Admin_Model_Observer
 {
-    const FLAG_NO_LOGIN = 'no-login';
+    public const FLAG_NO_LOGIN = 'no-login';
 
     /**
      * Handler for controller_action_predispatch event
@@ -132,8 +132,7 @@ class Mage_Admin_Model_Observer
             return;
         }
 
-        if (
-            !(bool) $user->getPasswordUpgraded()
+        if (!(bool) $user->getPasswordUpgraded()
             && !Mage::helper('core')->getEncryptor()->validateHashByVersion(
                 $password,
                 $user->getPassword(),

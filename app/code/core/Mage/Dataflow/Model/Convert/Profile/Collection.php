@@ -77,7 +77,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
         return $this->_profiles[$name];
     }
 
-    public function addProfile($name, Mage_Dataflow_Model_Convert_Profile_Interface $profile=null)
+    public function addProfile($name, Mage_Dataflow_Model_Convert_Profile_Interface $profile = null)
     {
         if (is_null($profile)) {
             $profile = new $this->_profileDefaultClass();
@@ -125,7 +125,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
         if (!$this->_xml) {
             return $this;
         }
-        $nodes = $this->_xml->xpath("//profile[@name='".$name."']");
+        $nodes = $this->_xml->xpath("//profile[@name='" . $name . "']");
         if (!$nodes) {
             return $this;
         }
@@ -135,7 +135,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
         $profile->setContainers($this->getContainers());
         foreach ($profileNode->action as $actionNode) {
             $action = $profile->addAction();
-            foreach ($actionNode->attributes() as $key=>$value) {
+            foreach ($actionNode->attributes() as $key => $value) {
                 $action->setParam($key, (string)$value);
             }
 
@@ -160,7 +160,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
                         $mapData[(string)$mapNode['name']] = (string)$mapNode;
                     }
                     $container->setVar((string)$varNode['name'], $mapData);
-                }  else {
+                } else {
                     $value = (string)$varNode;
 
                     /**

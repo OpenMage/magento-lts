@@ -28,8 +28,8 @@
  */
 class Mage_Dataflow_Model_Batch_Io
 {
-    const TMP_DIR = '/var/tmp/';
-    const TMP_NAME = 'batch_%d.tmp';
+    public const TMP_DIR = '/var/tmp/';
+    public const TMP_NAME = 'batch_%d.tmp';
 
     /**
      * Dataflow Batch model
@@ -165,8 +165,7 @@ class Mage_Dataflow_Model_Batch_Io
     {
         if ($csv) {
             $content = $this->getIoAdapter()->streamReadCsv($delimiter, $enclosure);
-        }
-        else {
+        } else {
             $content = $this->getIoAdapter()->streamRead(1024);
             $this->_fileSize += strlen($content);
         }

@@ -28,15 +28,15 @@
  */
 class Mage_Core_Model_App_Area
 {
-    const AREA_GLOBAL   = 'global';
-    const AREA_FRONTEND = 'frontend';
-    const AREA_ADMIN    = 'admin';
-    const AREA_ADMINHTML = 'adminhtml';
+    public const AREA_GLOBAL   = 'global';
+    public const AREA_FRONTEND = 'frontend';
+    public const AREA_ADMIN    = 'admin';
+    public const AREA_ADMINHTML = 'adminhtml';
 
-    const PART_CONFIG   = 'config';
-    const PART_EVENTS   = 'events';
-    const PART_TRANSLATE = 'translate';
-    const PART_DESIGN   = 'design';
+    public const PART_CONFIG   = 'config';
+    public const PART_EVENTS   = 'events';
+    public const PART_TRANSLATE = 'translate';
+    public const PART_DESIGN   = 'design';
 
     /**
      * Array of area loaded parts
@@ -110,7 +110,7 @@ class Mage_Core_Model_App_Area
         if (isset($this->_loadedParts[$part])) {
             return $this;
         }
-        Varien_Profiler::start('mage::dispatch::controller::action::predispatch::load_area::'.$this->_code.'::'.$part);
+        Varien_Profiler::start('mage::dispatch::controller::action::predispatch::load_area::' . $this->_code . '::' . $part);
         switch ($part) {
             case self::PART_CONFIG:
                 $this->_initConfig();
@@ -126,7 +126,7 @@ class Mage_Core_Model_App_Area
                 break;
         }
         $this->_loadedParts[$part] = true;
-        Varien_Profiler::stop('mage::dispatch::controller::action::predispatch::load_area::'.$this->_code.'::'.$part);
+        Varien_Profiler::stop('mage::dispatch::controller::action::predispatch::load_area::' . $this->_code . '::' . $part);
         return $this;
     }
 

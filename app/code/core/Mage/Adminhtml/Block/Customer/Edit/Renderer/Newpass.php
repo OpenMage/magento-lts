@@ -25,9 +25,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Customer_Edit_Renderer_Newpass
-    extends Mage_Adminhtml_Block_Abstract
-    implements Varien_Data_Form_Element_Renderer_Interface
+class Mage_Adminhtml_Block_Customer_Edit_Renderer_Newpass extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
     /**
      * Render block
@@ -59,7 +57,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Newpass
         $html .= '<label for="account-send-pass">'
             . Mage::helper('customer')->__('Send Auto-Generated Password')
             . '</label></td>';
-        $html .= '</tr>'."\n";
+        $html .= '</tr>' . "\n";
 
         return $html;
     }

@@ -31,7 +31,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     /**
      * Session maximum cookie lifetime
      */
-    const SEESION_MAX_COOKIE_LIFETIME = 3155692600;
+    public const SEESION_MAX_COOKIE_LIFETIME = 3155692600;
 
     /**
      * Session lifetime
@@ -158,7 +158,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      */
     public static function setStaticSaveHandler()
     {
-        $handler = new self;
+        $handler = new self();
         $handler->setSaveHandler();
     }
 

@@ -26,7 +26,7 @@
  */
 class Mage_Uploader_Block_Multiple extends Mage_Uploader_Block_Abstract
 {
-    const DEFAULT_UPLOAD_BUTTON_ID_SUFFIX = 'upload';
+    public const DEFAULT_UPLOAD_BUTTON_ID_SUFFIX = 'upload';
 
     /**
      * @return $this

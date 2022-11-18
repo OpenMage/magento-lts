@@ -33,7 +33,7 @@ class Mage_Catalog_Model_Url
      *
      * @var int
      */
-    const MAX_REQUEST_PATH_LENGTH = 240;
+    public const MAX_REQUEST_PATH_LENGTH = 240;
 
     /**
      * Number of characters allowed to be in URL path
@@ -41,7 +41,7 @@ class Mage_Catalog_Model_Url
      *
      * @var int
      */
-    const ALLOWED_REQUEST_PATH_OVERFLOW = 10;
+    public const ALLOWED_REQUEST_PATH_OVERFLOW = 10;
 
     /**
      * Resource model
@@ -99,12 +99,12 @@ class Mage_Catalog_Model_Url
      */
     protected $_saveRewritesHistory = null;
 
-     /**
-     * Singleton of category model for building URL path
-     *
-     * @var Mage_Catalog_Model_Category
-     */
-    static protected $_categoryForUrlPath;
+    /**
+    * Singleton of category model for building URL path
+    *
+    * @var Mage_Catalog_Model_Category
+    */
+    protected static $_categoryForUrlPath;
 
     /**
      * Adds url_path property for non-root category - to ensure that url path is not empty.
@@ -824,7 +824,7 @@ class Mage_Catalog_Model_Url
                 }
             }
 
-            $fullPath = $requestPath.$suffix;
+            $fullPath = $requestPath . $suffix;
             if ($this->_deleteOldTargetPath($fullPath, $idPath, $storeId)) {
                 return $fullPath;
             }
@@ -833,7 +833,7 @@ class Mage_Catalog_Model_Url
          * Check 2 variants: $requestPath and $requestPath . '-' . $productId
          */
         $validatedPath = $this->getResource()->checkRequestPaths(
-            [$requestPath.$suffix, $requestPath.'-'.$product->getId().$suffix],
+            [$requestPath . $suffix, $requestPath . '-' . $product->getId() . $suffix],
             $storeId
         );
 

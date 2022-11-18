@@ -28,8 +28,8 @@
  */
 class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
 {
-    const XML_PATH_CHECKOUT_SIDEBAR_COUNT                  = 'checkout/sidebar/count';
-    const XML_PATH_CHECKOUT_MINICART_VISIBLE_ITEMS_COUNT   = 'checkout/cart/minicart_visible_items';
+    public const XML_PATH_CHECKOUT_SIDEBAR_COUNT                  = 'checkout/sidebar/count';
+    public const XML_PATH_CHECKOUT_MINICART_VISIBLE_ITEMS_COUNT   = 'checkout/cart/minicart_visible_items';
 
     /**
      * Class constructor
@@ -97,7 +97,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
             } else {
                 $subtotal = $totals['subtotal']->getValue();
                 if (!$skipTax && isset($totals['tax'])) {
-                    $subtotal+= $totals['tax']->getValue();
+                    $subtotal += $totals['tax']->getValue();
                 }
             }
         }
@@ -130,7 +130,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         $totals = $this->getTotals();
         if (isset($totals['tax'])) {
             if ($exclShippingTax) {
-                $price += $totals['tax']->getValue()-$this->_getShippingTaxAmount();
+                $price += $totals['tax']->getValue() - $this->_getShippingTaxAmount();
             } else {
                 $price += $totals['tax']->getValue();
             }
@@ -158,7 +158,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     public function getIncExcTax($flag)
     {
         $text = Mage::helper('tax')->getIncExcText($flag);
-        return $text ? ' ('.$text.')' : '';
+        return $text ? ' (' . $text . ')' : '';
     }
 
     /**
@@ -293,7 +293,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
 
         return array_merge(
             parent::getCacheTags(),
-            (!$quoteTags)? [] : $quoteTags,
+            (!$quoteTags) ? [] : $quoteTags,
             $this->getItemsTags($items)
         );
     }

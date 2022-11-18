@@ -32,7 +32,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'newsletter/subscriber';
+    public const ADMIN_RESOURCE = 'newsletter/subscriber';
 
     public function indexAction()
     {
@@ -51,7 +51,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
         $this->_addBreadcrumb(Mage::helper('newsletter')->__('Subscribers'), Mage::helper('newsletter')->__('Subscribers'));
 
         $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/newsletter_subscriber','subscriber')
+            $this->getLayout()->createBlock('adminhtml/newsletter_subscriber', 'subscriber')
         );
 
         $this->renderLayout();
@@ -99,7 +99,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
      * @param string $content
      * @param string $contentType
      */
-    protected function _sendUploadResponse($fileName, $content, $contentType='application/octet-stream')
+    protected function _sendUploadResponse($fileName, $content, $contentType = 'application/octet-stream')
     {
         $this->_prepareDownloadResponse($fileName, $content, $contentType);
     }
@@ -108,9 +108,8 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
     {
         $subscribersIds = $this->getRequest()->getParam('subscriber');
         if (!is_array($subscribersIds)) {
-             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('newsletter')->__('Please select subscriber(s)'));
-        }
-        else {
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('newsletter')->__('Please select subscriber(s)'));
+        } else {
             try {
                 foreach ($subscribersIds as $subscriberId) {
                     $subscriber = Mage::getModel('newsletter/subscriber')->load($subscriberId);
@@ -131,9 +130,8 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
     {
         $subscribersIds = $this->getRequest()->getParam('subscriber');
         if (!is_array($subscribersIds)) {
-             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('newsletter')->__('Please select subscriber(s)'));
-        }
-        else {
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('newsletter')->__('Please select subscriber(s)'));
+        } else {
             try {
                 foreach ($subscribersIds as $subscriberId) {
                     $subscriber = Mage::getModel('newsletter/subscriber')->load($subscriberId);

@@ -46,7 +46,7 @@ class Mage_Sales_Model_Order_Pdf_Items_Shipment_Default extends Mage_Sales_Model
 
         // draw QTY
         $lines[0][] = [
-            'text'  => $item->getQty()*1,
+            'text'  => $item->getQty() * 1,
             'feed'  => 35
         ];
 

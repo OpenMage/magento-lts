@@ -28,10 +28,10 @@
  */
 class Mage_Catalog_Model_Product_Visibility extends Varien_Object
 {
-    const VISIBILITY_NOT_VISIBLE    = 1;
-    const VISIBILITY_IN_CATALOG     = 2;
-    const VISIBILITY_IN_SEARCH      = 3;
-    const VISIBILITY_BOTH           = 4;
+    public const VISIBILITY_NOT_VISIBLE    = 1;
+    public const VISIBILITY_IN_CATALOG     = 2;
+    public const VISIBILITY_IN_SEARCH      = 3;
+    public const VISIBILITY_BOTH           = 4;
 
     /**
      * Reference to the attribute instance
@@ -125,7 +125,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     public static function getOptionArray()
     {
         return [
-            self::VISIBILITY_NOT_VISIBLE=> Mage::helper('catalog')->__('Not Visible Individually'),
+            self::VISIBILITY_NOT_VISIBLE => Mage::helper('catalog')->__('Not Visible Individually'),
             self::VISIBILITY_IN_CATALOG => Mage::helper('catalog')->__('Catalog'),
             self::VISIBILITY_IN_SEARCH  => Mage::helper('catalog')->__('Search'),
             self::VISIBILITY_BOTH       => Mage::helper('catalog')->__('Catalog, Search')
@@ -142,15 +142,15 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
         return self::getOptionArray();
     }
 
-     /**
-     * Retrieve all options
-     *
-     * @return array
-     */
+    /**
+    * Retrieve all options
+    *
+    * @return array
+    */
     public static function getAllOption()
     {
         $options = self::getOptionArray();
-        array_unshift($options, ['value'=>'', 'label'=>'']);
+        array_unshift($options, ['value' => '', 'label' => '']);
         return $options;
     }
 
@@ -162,7 +162,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     public static function getAllOptions()
     {
         $res = [];
-        $res[] = ['value'=>'', 'label'=> Mage::helper('catalog')->__('-- Please Select --')];
+        $res[] = ['value' => '', 'label' => Mage::helper('catalog')->__('-- Please Select --')];
         foreach (self::getOptionArray() as $index => $value) {
             $res[] = [
                'value' => $index,
@@ -297,11 +297,11 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
                         . " AND {$valueTable2}.store_id='{$collection->getStoreId()}'",
                     []
                 );
-                $valueExpr = $collection->getConnection()->getCheckSql(
-                    $valueTable2 . '.value_id > 0',
-                    $valueTable2 . '.value',
-                    $valueTable1 . '.value'
-                );
+            $valueExpr = $collection->getConnection()->getCheckSql(
+                $valueTable2 . '.value_id > 0',
+                $valueTable2 . '.value',
+                $valueTable1 . '.value'
+            );
         }
 
         $collection->getSelect()->order($valueExpr . ' ' . $dir);

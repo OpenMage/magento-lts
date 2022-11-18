@@ -39,11 +39,11 @@
  */
 class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
 {
-    const SEARCH_TYPE_LIKE              = 1;
-    const SEARCH_TYPE_FULLTEXT          = 2;
-    const SEARCH_TYPE_COMBINE           = 3;
-    const XML_PATH_CATALOG_SEARCH_TYPE  = 'catalog/search/search_type';
-    const XML_PATH_CATALOG_SEARCH_SEPARATOR  = 'catalog/search/search_separator';
+    public const SEARCH_TYPE_LIKE              = 1;
+    public const SEARCH_TYPE_FULLTEXT          = 2;
+    public const SEARCH_TYPE_COMBINE           = 3;
+    public const XML_PATH_CATALOG_SEARCH_TYPE  = 'catalog/search/search_type';
+    public const XML_PATH_CATALOG_SEARCH_SEPARATOR  = 'catalog/search/search_separator';
 
     /**
      * Whether table changes are allowed

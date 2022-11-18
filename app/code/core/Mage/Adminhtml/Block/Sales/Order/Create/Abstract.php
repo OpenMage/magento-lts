@@ -109,7 +109,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Abstract extends Mage_Adm
         return $this->getStore()->formatPrice($value);
     }
 
-    public function convertPrice($value, $format=true)
+    public function convertPrice($value, $format = true)
     {
         return $this->getStore()->convertPrice($value, $format);
     }

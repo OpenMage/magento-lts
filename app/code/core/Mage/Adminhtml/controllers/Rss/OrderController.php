@@ -32,7 +32,7 @@ class Mage_Adminhtml_Rss_OrderController extends Mage_Adminhtml_Controller_Rss_A
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'sales/order/actions/view';
+    public const ADMIN_RESOURCE = 'sales/order/actions/view';
 
     public function newAction()
     {

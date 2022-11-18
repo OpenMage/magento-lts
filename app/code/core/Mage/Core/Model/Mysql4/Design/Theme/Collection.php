@@ -51,9 +51,9 @@ class Mage_Core_Model_Mysql4_Design_Theme_Collection extends Varien_Directory_Co
         $options = [];
         $packages = $this->getData('themes');
         foreach ($packages as $package) {
-            $options[] = ['value'=>$package, 'label'=>$package];
+            $options[] = ['value' => $package, 'label' => $package];
         }
-        array_unshift($options, ['value'=>'', 'label'=>'']);
+        array_unshift($options, ['value' => '', 'label' => '']);
 
         return $options;
     }

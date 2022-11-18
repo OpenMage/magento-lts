@@ -32,7 +32,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'sales/tax/classes_product';
+    public const ADMIN_RESOURCE = 'sales/tax/classes_product';
 
     /**
      * view grid

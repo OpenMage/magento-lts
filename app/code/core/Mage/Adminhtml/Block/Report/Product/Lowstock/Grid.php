@@ -40,10 +40,10 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
         if ($this->getRequest()->getParam('website')) {
             $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
             $storeId = array_pop($storeIds);
-        } else if ($this->getRequest()->getParam('group')) {
+        } elseif ($this->getRequest()->getParam('group')) {
             $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
             $storeId = array_pop($storeIds);
-        } else if ($this->getRequest()->getParam('store')) {
+        } elseif ($this->getRequest()->getParam('store')) {
             $storeId = (int)$this->getRequest()->getParam('store');
         } else {
             $storeId = '';
@@ -59,7 +59,7 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
             ->useNotifyStockQtyFilter($storeId)
             ->setOrder('qty', Varien_Data_Collection::SORT_ORDER_ASC);
 
-        if( $storeId ) {
+        if ($storeId) {
             $collection->addStoreFilter($storeId);
         }
 
@@ -70,25 +70,25 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
-            'header'    =>Mage::helper('reports')->__('Product Name'),
-            'sortable'  =>false,
-            'index'     =>'name'
+            'header'    => Mage::helper('reports')->__('Product Name'),
+            'sortable'  => false,
+            'index'     => 'name'
         ]);
 
         $this->addColumn('sku', [
-            'header'    =>Mage::helper('reports')->__('Product SKU'),
-            'sortable'  =>false,
-            'index'     =>'sku'
+            'header'    => Mage::helper('reports')->__('Product SKU'),
+            'sortable'  => false,
+            'index'     => 'sku'
         ]);
 
         $this->addColumn('qty', [
-            'header'    =>Mage::helper('reports')->__('Stock Qty'),
-            'width'     =>'215px',
-            'align'     =>'right',
-            'sortable'  =>false,
-            'filter'    =>'adminhtml/widget_grid_column_filter_range',
-            'index'     =>'qty',
-            'type'      =>'number'
+            'header'    => Mage::helper('reports')->__('Stock Qty'),
+            'width'     => '215px',
+            'align'     => 'right',
+            'sortable'  => false,
+            'filter'    => 'adminhtml/widget_grid_column_filter_range',
+            'index'     => 'qty',
+            'type'      => 'number'
         ]);
 
         $this->addExportType('*/*/exportLowstockCsv', Mage::helper('reports')->__('CSV'));

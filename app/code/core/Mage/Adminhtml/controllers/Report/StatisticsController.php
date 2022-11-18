@@ -32,7 +32,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'report/statistics';
+    public const ADMIN_RESOURCE = 'report/statistics';
 
     /**
      * Admin session model
@@ -44,7 +44,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     public function _initAction()
     {
         $act = $this->getRequest()->getActionName();
-        if(!$act) {
+        if (!$act) {
             $act = 'default';
         }
 
@@ -94,7 +94,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             throw new Exception(Mage::helper('adminhtml')->__('No report code specified.'));
         }
 
-        if(!is_array($codes) && strpos($codes, ',') === false) {
+        if (!is_array($codes) && strpos($codes, ',') === false) {
             $codes = [$codes];
         } elseif (!is_array($codes)) {
             $codes = explode(',', $codes);
@@ -139,7 +139,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             Mage::logException($e);
         }
 
-        if($this->_getSession()->isFirstPageAfterLogin()) {
+        if ($this->_getSession()->isFirstPageAfterLogin()) {
             $this->_redirect('*/*');
         } else {
             $this->_redirectReferer('*/*');
@@ -167,7 +167,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             Mage::logException($e);
         }
 
-        if($this->_getSession()->isFirstPageAfterLogin()) {
+        if ($this->_getSession()->isFirstPageAfterLogin()) {
             $this->_redirect('*/*');
         } else {
             $this->_redirectReferer('*/*');

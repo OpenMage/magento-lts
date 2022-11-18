@@ -52,21 +52,21 @@
  */
 class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
 {
-    const STATUS_DISABLED = -1;
-    const STATUS_PENDING = 0;
-    const STATUS_APPROVED = 1;
+    public const STATUS_DISABLED = -1;
+    public const STATUS_PENDING = 0;
+    public const STATUS_APPROVED = 1;
 
     // statuses for tag relation add
-    const ADD_STATUS_SUCCESS = 'success';
-    const ADD_STATUS_NEW = 'new';
-    const ADD_STATUS_EXIST = 'exist';
-    const ADD_STATUS_REJECTED = 'rejected';
+    public const ADD_STATUS_SUCCESS = 'success';
+    public const ADD_STATUS_NEW = 'new';
+    public const ADD_STATUS_EXIST = 'exist';
+    public const ADD_STATUS_REJECTED = 'rejected';
 
     /**
      * Entity code.
      * Can be used as part of method name for entity processing
      */
-    const ENTITY = 'tag';
+    public const ENTITY = 'tag';
 
     /**
      * Event prefix for observer

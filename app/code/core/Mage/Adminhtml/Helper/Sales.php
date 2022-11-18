@@ -41,7 +41,7 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     {
         return $this->displayPrices(
             $dataObject,
-            $dataObject->getData('base_'.$code),
+            $dataObject->getData('base_' . $code),
             $dataObject->getData($code),
             $strong,
             $separator
@@ -69,18 +69,18 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
 
         if ($order && $order->isCurrencyDifferent()) {
             $res = '<strong>';
-            $res.= $order->formatBasePrice($basePrice);
-            $res.= '</strong>'.$separator;
-            $res.= '['.$order->formatPrice($price).']';
+            $res .= $order->formatBasePrice($basePrice);
+            $res .= '</strong>' . $separator;
+            $res .= '[' . $order->formatPrice($price) . ']';
         } elseif ($order) {
             $res = $order->formatPrice($price);
             if ($strong) {
-                $res = '<strong>'.$res.'</strong>';
+                $res = '<strong>' . $res . '</strong>';
             }
         } else {
             $res = Mage::app()->getStore()->formatPrice($price);
             if ($strong) {
-                $res = '<strong>'.$res.'</strong>';
+                $res = '<strong>' . $res . '</strong>';
             }
         }
         return $res;

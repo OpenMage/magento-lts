@@ -158,7 +158,7 @@ class Mage_Adminhtml_Block_Media_Editor extends Mage_Adminhtml_Block_Widget
      */
     public function getConfig()
     {
-        if(is_null($this->_config)) {
+        if (is_null($this->_config)) {
             $this->_config = new Varien_Object();
         }
 

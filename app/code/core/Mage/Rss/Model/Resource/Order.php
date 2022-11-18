@@ -81,7 +81,7 @@ class Mage_Rss_Model_Resource_Order
 
         $select = $read->select()
             ->from(['orders' => $res->getTableName('sales/order')], ['increment_id'])
-            ->join(['t' => $commentSelect],'t.entity_id = orders.entity_id')
+            ->join(['t' => $commentSelect], 't.entity_id = orders.entity_id')
             ->order('orders.created_at desc');
 
         return $read->fetchAll($select);

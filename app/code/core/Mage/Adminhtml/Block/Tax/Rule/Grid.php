@@ -80,7 +80,6 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 case 'product_tax_classes':
                     $this->getCollection()->joinCalculationData('ptc');
                     break;
-
             }
         }
         return parent::_addColumnFilterToCollection($column);
@@ -91,20 +90,22 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('code',
+        $this->addColumn(
+            'code',
             [
                 'header' => Mage::helper('tax')->__('Name'),
-                'align' =>'left',
+                'align' => 'left',
                 'index' => 'code',
                 'filter_index' => 'code',
             ]
         );
 
-        $this->addColumn('customer_tax_classes',
+        $this->addColumn(
+            'customer_tax_classes',
             [
                 'header' => Mage::helper('tax')->__('Customer Tax Class'),
                 'sortable'  => false,
-                'align' =>'left',
+                'align' => 'left',
                 'index' => 'customer_tax_classes',
                 'filter_index' => 'ctc.customer_tax_class_id',
                 'type'    => 'options',
@@ -114,11 +115,12 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             ]
         );
 
-        $this->addColumn('product_tax_classes',
+        $this->addColumn(
+            'product_tax_classes',
             [
                 'header' => Mage::helper('tax')->__('Product Tax Class'),
                 'sortable'  => false,
-                'align' =>'left',
+                'align' => 'left',
                 'index' => 'product_tax_classes',
                 'filter_index' => 'ptc.product_tax_class_id',
                 'type'    => 'options',
@@ -128,7 +130,8 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             ]
         );
 
-        $this->addColumn('tax_rates',
+        $this->addColumn(
+            'tax_rates',
             [
                 'sortable'  => false,
                 'header'  => Mage::helper('tax')->__('Tax Rate'),
@@ -141,7 +144,8 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             ]
         );
 
-        $this->addColumn('priority',
+        $this->addColumn(
+            'priority',
             [
                 'header' => Mage::helper('tax')->__('Priority'),
                 'width' => '50px',
@@ -149,7 +153,8 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             ]
         );
 
-        $this->addColumn('calculate_subtotal',
+        $this->addColumn(
+            'calculate_subtotal',
             [
                 'header' => Mage::helper('tax')->__('Subtotal only'),
                 'width' => '50px',
@@ -157,7 +162,8 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             ]
         );
 
-        $this->addColumn('position',
+        $this->addColumn(
+            'position',
             [
                 'header' => Mage::helper('tax')->__('Sort Order'),
                 'width' => '50px',

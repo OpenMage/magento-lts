@@ -185,8 +185,8 @@ class Mage_Sales_Model_Service_Quote
         /**
          * We can use configuration data for declare new order status
          */
-        Mage::dispatchEvent('checkout_type_onepage_save_order', ['order'=>$order, 'quote'=>$quote]);
-        Mage::dispatchEvent('sales_model_service_quote_submit_before', ['order'=>$order, 'quote'=>$quote]);
+        Mage::dispatchEvent('checkout_type_onepage_save_order', ['order' => $order, 'quote' => $quote]);
+        Mage::dispatchEvent('sales_model_service_quote_submit_before', ['order' => $order, 'quote' => $quote]);
         try {
             $transaction->save();
         } catch (Exception $e) {
@@ -203,12 +203,12 @@ class Mage_Sales_Model_Service_Quote
                 $item->setItemId(null);
             }
 
-            Mage::dispatchEvent('sales_model_service_quote_submit_failure', ['order'=>$order, 'quote'=>$quote]);
+            Mage::dispatchEvent('sales_model_service_quote_submit_failure', ['order' => $order, 'quote' => $quote]);
             throw $e;
         }
         $this->_inactivateQuote();
-        Mage::dispatchEvent('sales_model_service_quote_submit_success', ['order'=>$order, 'quote'=>$quote]);
-        Mage::dispatchEvent('sales_model_service_quote_submit_after', ['order'=>$order, 'quote'=>$quote]);
+        Mage::dispatchEvent('sales_model_service_quote_submit_success', ['order' => $order, 'quote' => $quote]);
+        Mage::dispatchEvent('sales_model_service_quote_submit_after', ['order' => $order, 'quote' => $quote]);
         $this->_order = $order;
         return $order;
     }
@@ -297,7 +297,7 @@ class Mage_Sales_Model_Service_Quote
                     Mage::helper('sales')->__('Please check shipping address information. %s', implode(' ', $addressValidation))
                 );
             }
-            $method= $address->getShippingMethod();
+            $method = $address->getShippingMethod();
             $rate  = $address->getShippingRateByCode($method);
             if (!$this->getQuote()->isVirtual() && (!$method || !$rate)) {
                 Mage::throwException(Mage::helper('sales')->__('Please specify a shipping method.'));

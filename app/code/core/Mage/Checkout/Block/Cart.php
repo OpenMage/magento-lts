@@ -119,7 +119,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      */
     public function getCheckoutUrl()
     {
-        return $this->getUrl('checkout/onepage', ['_secure'=>true]);
+        return $this->getUrl('checkout/onepage', ['_secure' => true]);
     }
 
     /**

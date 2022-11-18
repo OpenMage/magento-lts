@@ -53,11 +53,11 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         return $this->getConfig()->isCurrencyCodeSupported($currencyCode);
     }
 
-     /**
-     * Get paypal session namespace
-     *
-     * @return Mage_Paypal_Model_Session
-     */
+    /**
+    * Get paypal session namespace
+    *
+    * @return Mage_Paypal_Model_Session
+    */
     public function getSession()
     {
         return Mage::getSingleton('paypal/session');
@@ -102,7 +102,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
      */
     public function getOrderPlaceRedirectUrl()
     {
-          return Mage::getUrl('paypal/standard/redirect', ['_secure' => true]);
+        return Mage::getUrl('paypal/standard/redirect', ['_secure' => true]);
     }
 
     /**

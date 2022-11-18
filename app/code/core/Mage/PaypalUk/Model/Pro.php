@@ -49,7 +49,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
      *
      * @var string
      */
-    const TRANSPORT_PAYFLOW_TXN_ID = 'payflow_trxid';
+    public const TRANSPORT_PAYFLOW_TXN_ID = 'payflow_trxid';
 
     /**
      * Refund a capture transaction
@@ -104,7 +104,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
             ->setTransactionAdditionalInfo(
                 Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID,
                 $api->getTransactionId()
-        );
+            );
         $payment->setPreparedMessage(
             Mage::helper('paypaluk')->__('Payflow PNREF: #%s.', $api->getTransactionId())
         );
@@ -141,7 +141,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
             ->setTransactionAdditionalInfo(
                 Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID,
                 $api->getTransactionId()
-        );
+            );
         $payment->setPreparedMessage(
             Mage::helper('paypaluk')->__('Payflow PNREF: #%s.', $api->getTransactionId())
         );

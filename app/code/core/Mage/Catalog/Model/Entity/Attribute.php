@@ -68,7 +68,7 @@ class Mage_Catalog_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribut
 {
     protected $_eventPrefix = 'catalog_entity_attribute';
     protected $_eventObject = 'attribute';
-    const MODULE_NAME = 'Mage_Catalog';
+    public const MODULE_NAME = 'Mage_Catalog';
 
     /**
      * Processing object before save data

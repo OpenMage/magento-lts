@@ -177,7 +177,7 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
 
         $select = $readAdapter->select()
             ->from(
-                ['vote'=>$this->_ratingVoteTable],
+                ['vote' => $this->_ratingVoteTable],
                 [
                     'vote_count'         => new Zend_Db_Expr('COUNT(vote.vote_id)'),
                     'vote_value_sum'     => new Zend_Db_Expr('SUM(vote.value)'),
@@ -185,17 +185,17 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
                 'app_vote_value_sum' => new Zend_Db_Expr("SUM({$appVoteValueSumCond})")]
             )
             ->join(
-                ['review'   =>$this->_reviewTable],
+                ['review'   => $this->_reviewTable],
                 'vote.review_id=review.review_id',
                 []
             )
             ->joinLeft(
-                ['store'=>$this->_reviewStoreTable],
+                ['store' => $this->_reviewStoreTable],
                 'vote.review_id=store.review_id',
                 'store_id'
             )
             ->join(
-                ['rstore'   =>$this->_ratingStoreTable],
+                ['rstore'   => $this->_ratingStoreTable],
                 'vote.rating_id=rstore.rating_id AND rstore.store_id=store.store_id',
                 []
             )
@@ -216,8 +216,8 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
                 'entity_pk_value'  => $entityPkValue,
                 'vote_count'       => $row['vote_count'],
                 'vote_value_sum'   => $row['vote_value_sum'],
-                'percent'          => (($row['vote_value_sum']/$row['vote_count'])/5) * 100,
-                'percent_approved' => ($row['app_vote_count'] ? ((($row['app_vote_value_sum']/$row['app_vote_count'])/5) * 100) : 0),
+                'percent'          => (($row['vote_value_sum'] / $row['vote_count']) / 5) * 100,
+                'percent_approved' => ($row['app_vote_count'] ? ((($row['app_vote_value_sum'] / $row['app_vote_count']) / 5) * 100) : 0),
                 'store_id'         => $row['store_id'],
             ];
 

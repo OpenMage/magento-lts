@@ -174,8 +174,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
             ->addFieldMap('zip_to', 'zip_to')
             ->addFieldDependence('zip_from', 'zip_is_range', '1')
             ->addFieldDependence('zip_to', 'zip_is_range', '1')
-            ->addFieldDependence('tax_postcode', 'zip_is_range', '0')
-        );
+            ->addFieldDependence('tax_postcode', 'zip_is_range', '0'));
 
         return parent::_prepareForm();
     }
