@@ -37,10 +37,10 @@
  */
 class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
 {
-    const LINK_TYPE_RELATED     = 1;
-    const LINK_TYPE_GROUPED     = 3;
-    const LINK_TYPE_UPSELL      = 4;
-    const LINK_TYPE_CROSSSELL   = 5;
+    public const LINK_TYPE_RELATED     = 1;
+    public const LINK_TYPE_GROUPED     = 3;
+    public const LINK_TYPE_UPSELL      = 4;
+    public const LINK_TYPE_CROSSSELL   = 5;
 
     protected $_attributeCollection = null;
 

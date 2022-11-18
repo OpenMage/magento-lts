@@ -31,7 +31,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
     /**
      * Config node key of current validator
      */
-    const CONFIG_NODE_KEY = 'eav';
+    public const CONFIG_NODE_KEY = 'eav';
 
     /**
      * Form path
@@ -146,7 +146,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
                         }
                     }
                     if (!$isValid) {
-                        $errors[] = 'Invalid value "' . $value . '" for '. $attribute->getAttributeCode();
+                        $errors[] = 'Invalid value "' . $value . '" for ' . $attribute->getAttributeCode();
                     }
                 } else {
                     $errors[] = 'Invalid value type for ' . $attribute->getAttributeCode();
@@ -220,7 +220,11 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         // business asked to avoid additional validation message, so we filter it here
         $errors        = [];
         $requiredAttrs = [];
-        $isRequiredRE  = '/^' . str_replace('%s', '(.+)', preg_quote(Mage::helper('eav')->__('"%s" is a required value.'), '/') ) . '$/';
+        $isRequiredRE  = '/^' . str_replace(
+            '%s',
+            '(.+)',
+            preg_quote(Mage::helper('eav')->__('"%s" is a required value.'), '/')
+        ) . '$/';
         $greaterThanRE = '/^' . str_replace(
             '%s',
             '(.+)',

@@ -40,7 +40,7 @@ class Mage_Paypal_Block_Bml_Form extends Mage_Paypal_Block_Express_Form
     {
         $this->_config = Mage::getModel('paypal/config')->setMethod($this->getMethodCode());
         $mark = Mage::getConfig()->getBlockClassName('core/template');
-        $mark = new $mark;
+        $mark = new $mark();
         $mark->setTemplate('paypal/payment/mark.phtml')
             ->setPaymentAcceptanceMarkHref('https://www.securecheckout.billmelater.com/paycapture-content/'
                 . 'fetch?hash=AU826TU8&content=/bmlweb/ppwpsiw.html')

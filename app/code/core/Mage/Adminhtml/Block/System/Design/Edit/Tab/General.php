@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_System_Design_Edit_Tab_General extends Mage_Adminhtml
     {
         $form = new Varien_Data_Form();
 
-        $fieldset = $form->addFieldset('general', ['legend'=>Mage::helper('core')->__('General Settings')]);
+        $fieldset = $form->addFieldset('general', ['legend' => Mage::helper('core')->__('General Settings')]);
 
         if (!Mage::app()->isSingleStoreMode()) {
             $field = $fieldset->addField('store_id', 'select', [
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_System_Design_Edit_Tab_General extends Mage_Adminhtml
         ]);
 
         $formData = Mage::getSingleton('adminhtml/session')->getDesignData(true);
-        if (!$formData){
+        if (!$formData) {
             $formData = Mage::registry('design')->getData();
         } else {
             $formData = $formData['design'];

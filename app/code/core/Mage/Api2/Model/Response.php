@@ -31,14 +31,14 @@ class Mage_Api2_Model_Response extends Zend_Controller_Response_Http
     /**
      * Character set which must be used in response
      */
-    const RESPONSE_CHARSET = 'utf-8';
+    public const RESPONSE_CHARSET = 'utf-8';
 
     /**#@+
      * Default message types
      */
-    const MESSAGE_TYPE_SUCCESS = 'success';
-    const MESSAGE_TYPE_ERROR   = 'error';
-    const MESSAGE_TYPE_WARNING = 'warning';
+    public const MESSAGE_TYPE_SUCCESS = 'success';
+    public const MESSAGE_TYPE_ERROR   = 'error';
+    public const MESSAGE_TYPE_WARNING = 'warning';
     /**#@- */
 
     /**

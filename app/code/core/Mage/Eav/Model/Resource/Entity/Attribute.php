@@ -420,9 +420,9 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     {
         $adapter = $this->_getReadAdapter();
         $joinConditionTemplate = "%s.entity_id = %s.entity_id"
-            ." AND %s.entity_type_id = ".$attribute->getEntityTypeId()
-            ." AND %s.attribute_id = ".$attribute->getId()
-            ." AND %s.store_id = %d";
+            . " AND %s.entity_type_id = " . $attribute->getEntityTypeId()
+            . " AND %s.attribute_id = " . $attribute->getId()
+            . " AND %s.store_id = %d";
         $joinCondition = sprintf(
             $joinConditionTemplate,
             'e',

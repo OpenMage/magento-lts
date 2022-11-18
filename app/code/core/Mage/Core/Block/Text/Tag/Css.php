@@ -35,7 +35,7 @@ class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
     {
         parent::_construct();
         $this->setTagName('link');
-        $this->setTagParams(['rel'=>'stylesheet', 'type'=>'text/css', 'media'=>'all']);
+        $this->setTagParams(['rel' => 'stylesheet', 'type' => 'text/css', 'media' => 'all']);
     }
 
     /**
@@ -49,7 +49,7 @@ class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
         if (empty($type)) {
             $type = 'skin';
         }
-        $url = Mage::getBaseUrl($type).$href;
+        $url = Mage::getBaseUrl($type) . $href;
 
         return $this->setTagParam('href', $url);
     }

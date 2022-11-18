@@ -70,7 +70,7 @@ class Mage_CatalogIndex_Model_Resource_Setup extends Mage_Core_Model_Resource_Se
     {
         $this->getConnection()->update(
             $table,
-            ['website_id'=>$websiteId],
+            ['website_id' => $websiteId],
             $this->getConnection()->quoteInto('store_id IN (?)', $storeIds)
         );
 

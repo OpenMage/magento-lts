@@ -28,10 +28,10 @@
  */
 class Mage_Core_Model_Message
 {
-    const ERROR     = 'error';
-    const WARNING   = 'warning';
-    const NOTICE    = 'notice';
-    const SUCCESS   = 'success';
+    public const ERROR     = 'error';
+    public const WARNING   = 'warning';
+    public const NOTICE    = 'notice';
+    public const SUCCESS   = 'success';
 
     /**
      * @param string $code

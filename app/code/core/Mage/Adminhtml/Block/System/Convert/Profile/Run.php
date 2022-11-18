@@ -159,32 +159,33 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
      */
     public function getExceptions()
     {
-        if (!is_null(parent::getExceptions()))
+        if (!is_null(parent::getExceptions())) {
             return parent::getExceptions();
+        }
         $exceptions = [];
         $this->getProfile()->run();
         foreach ($this->getProfile()->getExceptions() as $e) {
-                switch ($e->getLevel()) {
-                    case Varien_Convert_Exception::FATAL:
-                        $img = 'error_msg_icon.gif';
-                        $liStyle = 'background-color:#FBB; ';
-                        break;
-                    case Varien_Convert_Exception::ERROR:
-                        $img = 'error_msg_icon.gif';
-                        $liStyle = 'background-color:#FDD; ';
-                        break;
-                    case Varien_Convert_Exception::WARNING:
-                        $img = 'fam_bullet_error.gif';
-                        $liStyle = 'background-color:#FFD; ';
-                        break;
-                    case Varien_Convert_Exception::NOTICE:
-                        $img = 'fam_bullet_success.gif';
-                        $liStyle = 'background-color:#DDF; ';
-                        break;
-                }
-                $exceptions[] = [
+            switch ($e->getLevel()) {
+                case Varien_Convert_Exception::FATAL:
+                    $img = 'error_msg_icon.gif';
+                    $liStyle = 'background-color:#FBB; ';
+                    break;
+                case Varien_Convert_Exception::ERROR:
+                    $img = 'error_msg_icon.gif';
+                    $liStyle = 'background-color:#FDD; ';
+                    break;
+                case Varien_Convert_Exception::WARNING:
+                    $img = 'fam_bullet_error.gif';
+                    $liStyle = 'background-color:#FFD; ';
+                    break;
+                case Varien_Convert_Exception::NOTICE:
+                    $img = 'fam_bullet_success.gif';
+                    $liStyle = 'background-color:#DDF; ';
+                    break;
+            }
+            $exceptions[] = [
                     "style"     => $liStyle,
-                    "src"       => Mage::getDesign()->getSkinUrl('images/'.$img),
+                    "src"       => Mage::getDesign()->getSkinUrl('images/' . $img),
                     "message"   => $e->getMessage(),
                     "position" => $e->getPosition()
                 ];

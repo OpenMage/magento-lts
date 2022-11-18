@@ -32,7 +32,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_FileController extends Mage_Admin
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'catalog/products';
+    public const ADMIN_RESOURCE = 'catalog/products';
 
     /**
      * Upload file controller action
@@ -74,7 +74,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_FileController extends Mage_Admin
                 'domain'   => $this->_getSession()->getCookieDomain()
             ];
         } catch (Exception $e) {
-            $result = ['error'=>$e->getMessage(), 'errorcode'=>$e->getCode()];
+            $result = ['error' => $e->getMessage(), 'errorcode' => $e->getCode()];
         }
 
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));

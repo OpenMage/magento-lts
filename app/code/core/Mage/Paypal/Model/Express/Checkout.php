@@ -33,26 +33,26 @@ class Mage_Paypal_Model_Express_Checkout
      * Cache ID prefix for "pal" lookup
      * @var string
      */
-    const PAL_CACHE_ID = 'paypal_express_checkout_pal';
+    public const PAL_CACHE_ID = 'paypal_express_checkout_pal';
 
     /**
      * Keys for passthrough variables in sales/quote_payment and sales/order_payment
      * Uses additional_information as storage
      * @var string
      */
-    const PAYMENT_INFO_TRANSPORT_TOKEN    = 'paypal_express_checkout_token';
-    const PAYMENT_INFO_TRANSPORT_SHIPPING_OVERRIDEN = 'paypal_express_checkout_shipping_overriden';
-    const PAYMENT_INFO_TRANSPORT_SHIPPING_METHOD = 'paypal_express_checkout_shipping_method';
-    const PAYMENT_INFO_TRANSPORT_PAYER_ID = 'paypal_express_checkout_payer_id';
-    const PAYMENT_INFO_TRANSPORT_REDIRECT = 'paypal_express_checkout_redirect_required';
-    const PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT = 'paypal_ec_create_ba';
+    public const PAYMENT_INFO_TRANSPORT_TOKEN    = 'paypal_express_checkout_token';
+    public const PAYMENT_INFO_TRANSPORT_SHIPPING_OVERRIDEN = 'paypal_express_checkout_shipping_overriden';
+    public const PAYMENT_INFO_TRANSPORT_SHIPPING_METHOD = 'paypal_express_checkout_shipping_method';
+    public const PAYMENT_INFO_TRANSPORT_PAYER_ID = 'paypal_express_checkout_payer_id';
+    public const PAYMENT_INFO_TRANSPORT_REDIRECT = 'paypal_express_checkout_redirect_required';
+    public const PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT = 'paypal_ec_create_ba';
 
     /**
      * Flag which says that was used PayPal Express Checkout button for checkout
      * Uses additional_information as storage
      * @var string
      */
-    const PAYMENT_INFO_BUTTON = 'button';
+    public const PAYMENT_INFO_BUTTON = 'button';
 
     /**
      * @var Mage_Sales_Model_Quote
@@ -341,7 +341,8 @@ class Mage_Paypal_Model_Express_Checkout
                 $this->_api->setAddress($address);
             }
             $this->_quote->getPayment()->setAdditionalInformation(
-                self::PAYMENT_INFO_TRANSPORT_SHIPPING_OVERRIDEN, $isOverriden
+                self::PAYMENT_INFO_TRANSPORT_SHIPPING_OVERRIDEN,
+                $isOverriden
             );
             $this->_quote->getPayment()->save();
         }
@@ -448,7 +449,7 @@ class Mage_Paypal_Model_Express_Checkout
                 $code = '';
                 if ($this->_api->getShippingRateCode()) {
                     if ($code = $this->_matchShippingMethodCode($shippingAddress, $this->_api->getShippingRateCode())) {
-                         // possible bug of double collecting rates :-/
+                        // possible bug of double collecting rates :-/
                         $shippingAddress->setShippingMethod($code)->setCollectShippingRates(true);
                     }
                 }
@@ -618,8 +619,8 @@ class Mage_Paypal_Model_Express_Checkout
 
         // commence redirecting to finish payment, if paypal requires it
         if ($order->getPayment()->getAdditionalInformation(
-                Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT
-        )) {
+            Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT
+            )) {
             $this->_redirectUrl = $this->_config->getExpressCheckoutCompleteUrl($token);
         }
 
@@ -727,8 +728,8 @@ class Mage_Paypal_Model_Express_Checkout
                 $oldData = $address->getDataUsingMethod($key);
                 $isEmpty = null;
                 if (is_array($oldData)) {
-                    foreach($oldData as $val) {
-                        if(!empty($val)) {
+                    foreach ($oldData as $val) {
+                        if (!empty($val)) {
                             $isEmpty = false;
                             break;
                         }
@@ -797,9 +798,13 @@ class Mage_Paypal_Model_Express_Checkout
      */
     protected function _prepareShippingOptions(
         Mage_Sales_Model_Quote_Address $address,
-        $mayReturnEmpty = false, $calculateTax = false
+        $mayReturnEmpty = false,
+        $calculateTax = false
     ) {
-        $options = []; $i = 0; $iMin = false; $min = false;
+        $options = [];
+        $i = 0;
+        $iMin = false;
+        $min = false;
         $userSelectedOption = null;
 
         foreach ($address->getGroupedAllShippingRates() as $group) {

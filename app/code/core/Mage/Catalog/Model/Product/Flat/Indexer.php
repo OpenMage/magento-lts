@@ -50,12 +50,12 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
     /**
      * Catalog product flat entity for indexers
      */
-    const ENTITY = 'catalog_product_flat';
+    public const ENTITY = 'catalog_product_flat';
 
     /**
      * Indexers rebuild event type
      */
-    const EVENT_TYPE_REBUILD = 'catalog_product_flat_rebuild';
+    public const EVENT_TYPE_REBUILD = 'catalog_product_flat_rebuild';
 
     /**
      * Standart model resource initialization

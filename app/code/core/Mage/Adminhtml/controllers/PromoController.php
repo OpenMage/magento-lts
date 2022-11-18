@@ -32,7 +32,7 @@ class Mage_Adminhtml_PromoController extends Mage_Adminhtml_Controller_Action
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'promo';
+    public const ADMIN_RESOURCE = 'promo';
 
     public function indexAction()
     {

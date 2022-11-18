@@ -44,7 +44,7 @@
  */
 class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 {
-    const CUSTOMER_NOTIFICATION_NOT_APPLICABLE = 2;
+    public const CUSTOMER_NOTIFICATION_NOT_APPLICABLE = 2;
 
     /**
      * Order instance

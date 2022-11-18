@@ -89,25 +89,25 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
         );
     }
 
-     /**
-     * Get create script for table
-     *
-     * @param string $tableName
-     * @param bool $addDropIfExists
-     * @return string
-     */
+    /**
+    * Get create script for table
+    *
+    * @param string $tableName
+    * @param bool $addDropIfExists
+    * @return string
+    */
     public function getTableCreateScript($tableName, $addDropIfExists = false)
     {
         $script = '';
         $quotedTableName = $this->_getReadAdapter()->quoteIdentifier($tableName);
 
         if ($addDropIfExists) {
-            $script .= 'DROP TABLE IF EXISTS ' . $quotedTableName .";\n";
+            $script .= 'DROP TABLE IF EXISTS ' . $quotedTableName . ";\n";
         }
         //TODO fix me
         $sql     = 'SHOW CREATE TABLE ' . $quotedTableName;
         $data    = $this->_getReadAdapter()->fetchRow($sql);
-        $script .= isset($data['Create Table']) ? $data['Create Table'].";\n" : '';
+        $script .= isset($data['Create Table']) ? $data['Create Table'] . ";\n" : '';
 
         return $script;
     }

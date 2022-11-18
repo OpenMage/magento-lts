@@ -32,7 +32,7 @@ class Mage_PageCache_Adminhtml_PageCacheController extends Mage_Adminhtml_Contro
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'page_cache';
+    public const ADMIN_RESOURCE = 'page_cache';
 
     /**
      * Retrieve session model

@@ -32,7 +32,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/acl/variables';
+    public const ADMIN_RESOURCE = 'system/acl/variables';
 
     /**
      * @return $this
@@ -153,7 +153,6 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
 
                 $this->_redirect('*/*/');
                 return;
-
             } catch (Exception $e) {
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());

@@ -49,7 +49,7 @@ class Mage_Tax_Block_Checkout_Grandtotal extends Mage_Checkout_Block_Total_Defau
      */
     public function getTotalExclTax()
     {
-        $excl = $this->getTotal()->getAddress()->getGrandTotal()-$this->getTotal()->getAddress()->getTaxAmount();
+        $excl = $this->getTotal()->getAddress()->getGrandTotal() - $this->getTotal()->getAddress()->getTaxAmount();
         $excl = max($excl, 0);
         return $excl;
     }

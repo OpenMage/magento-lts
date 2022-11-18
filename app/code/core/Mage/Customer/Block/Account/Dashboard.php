@@ -46,7 +46,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
      */
     public function getAccountUrl()
     {
-        return Mage::getUrl('customer/account/edit', ['_secure'=>true]);
+        return Mage::getUrl('customer/account/edit', ['_secure' => true]);
     }
 
     /**
@@ -54,7 +54,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
      */
     public function getAddressesUrl()
     {
-        return Mage::getUrl('customer/address/index', ['_secure'=>true]);
+        return Mage::getUrl('customer/address/index', ['_secure' => true]);
     }
 
     /**
@@ -63,7 +63,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
      */
     public function getAddressEditUrl($address)
     {
-        return Mage::getUrl('customer/address/edit', ['_secure'=>true, 'id'=>$address->getId()]);
+        return Mage::getUrl('customer/address/edit', ['_secure' => true, 'id' => $address->getId()]);
     }
 
     /**
@@ -71,7 +71,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
      */
     public function getOrdersUrl()
     {
-        return Mage::getUrl('customer/order/index', ['_secure'=>true]);
+        return Mage::getUrl('customer/order/index', ['_secure' => true]);
     }
 
     /**
@@ -79,7 +79,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
      */
     public function getReviewsUrl()
     {
-        return Mage::getUrl('review/customer/index', ['_secure'=>true]);
+        return Mage::getUrl('review/customer/index', ['_secure' => true]);
     }
 
     /**
@@ -87,7 +87,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
      */
     public function getWishlistUrl()
     {
-        return Mage::getUrl('customer/wishlist/index', ['_secure'=>true]);
+        return Mage::getUrl('customer/wishlist/index', ['_secure' => true]);
     }
 
     /**

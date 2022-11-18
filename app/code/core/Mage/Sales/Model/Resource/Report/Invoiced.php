@@ -77,7 +77,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 $subSelect = $this->_getTableDateRangeRelatedSelect(
                     $sourceTable,
                     $orderTable,
-                    ['order_id'=>'entity_id'],
+                    ['order_id' => 'entity_id'],
                     'created_at',
                     'updated_at',
                     $from,
@@ -201,18 +201,18 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
             $subSelect = null;
         }
 
-            $this->_clearTableByDateRange($table, $from, $to, $subSelect);
-            // convert dates from UTC to current admin timezone
-            $periodExpr = $adapter->getDatePartSql(
-                $this->getStoreTZOffsetQuery(
-                    $sourceTable,
-                    'created_at',
-                    $from,
-                    $to
-                )
-            );
+        $this->_clearTableByDateRange($table, $from, $to, $subSelect);
+        // convert dates from UTC to current admin timezone
+        $periodExpr = $adapter->getDatePartSql(
+            $this->getStoreTZOffsetQuery(
+                $sourceTable,
+                'created_at',
+                $from,
+                $to
+            )
+        );
 
-            $columns = [
+        $columns = [
                 'period'                => $periodExpr,
                 'store_id'              => 'store_id',
                 'order_status'          => 'status',
@@ -245,58 +245,57 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                         $adapter->getIfNullSql('base_to_global_rate', 0)
                     )
                 )
-
             ];
 
-            $select = $adapter->select();
-            $select->from($sourceTable, $columns)
+        $select = $adapter->select();
+        $select->from($sourceTable, $columns)
                 ->where('state <> ?', Mage_Sales_Model_Order::STATE_CANCELED);
 
         if ($subSelect !== null) {
             $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
         }
 
-            $select->group([
-                $periodExpr,
-                'store_id',
-                'status'
-            ]);
+        $select->group([
+            $periodExpr,
+            'store_id',
+            'status'
+        ]);
 
-            $select->having('orders_count > 0');
+        $select->having('orders_count > 0');
 
-            /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
-            $helper      = Mage::getResourceHelper('core');
-            $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $table, array_keys($columns));
-            $adapter->query($insertQuery);
-            $select->reset();
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+        $helper      = Mage::getResourceHelper('core');
+        $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $table, array_keys($columns));
+        $adapter->query($insertQuery);
+        $select->reset();
 
-            $columns = [
-                'period'                => 'period',
-                'store_id'              => new Zend_Db_Expr(Mage_Core_Model_App::ADMIN_STORE_ID),
-                'order_status'          => 'order_status',
-                'orders_count'          => new Zend_Db_Expr('SUM(orders_count)'),
-                'orders_invoiced'       => new Zend_Db_Expr('SUM(orders_invoiced)'),
-                'invoiced'              => new Zend_Db_Expr('SUM(invoiced)'),
-                'invoiced_captured'     => new Zend_Db_Expr('SUM(invoiced_captured)'),
-                'invoiced_not_captured' => new Zend_Db_Expr('SUM(invoiced_not_captured)')
-            ];
+        $columns = [
+            'period'                => 'period',
+            'store_id'              => new Zend_Db_Expr(Mage_Core_Model_App::ADMIN_STORE_ID),
+            'order_status'          => 'order_status',
+            'orders_count'          => new Zend_Db_Expr('SUM(orders_count)'),
+            'orders_invoiced'       => new Zend_Db_Expr('SUM(orders_invoiced)'),
+            'invoiced'              => new Zend_Db_Expr('SUM(invoiced)'),
+            'invoiced_captured'     => new Zend_Db_Expr('SUM(invoiced_captured)'),
+            'invoiced_not_captured' => new Zend_Db_Expr('SUM(invoiced_not_captured)')
+        ];
 
-            $select->from($table, $columns)
-                ->where('store_id <> ?', 0);
+        $select->from($table, $columns)
+            ->where('store_id <> ?', 0);
 
         if ($subSelect !== null) {
             $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
         }
 
-            $select->group([
-                'period',
-                'order_status'
-            ]);
+        $select->group([
+            'period',
+            'order_status'
+        ]);
 
-            /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
-            $helper      = Mage::getResourceHelper('core');
-            $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $table, array_keys($columns));
-            $adapter->query($insertQuery);
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+        $helper      = Mage::getResourceHelper('core');
+        $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $table, array_keys($columns));
+        $adapter->query($insertQuery);
 
         return $this;
     }

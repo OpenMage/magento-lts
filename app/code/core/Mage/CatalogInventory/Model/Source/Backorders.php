@@ -32,9 +32,9 @@ class Mage_CatalogInventory_Model_Source_Backorders
     public function toOptionArray()
     {
         return [
-            ['value' => Mage_CatalogInventory_Model_Stock::BACKORDERS_NO, 'label'=>Mage::helper('cataloginventory')->__('No Backorders')],
-            ['value' => Mage_CatalogInventory_Model_Stock::BACKORDERS_YES_NONOTIFY, 'label'=>Mage::helper('cataloginventory')->__('Allow Qty Below 0')],
-            ['value' => Mage_CatalogInventory_Model_Stock::BACKORDERS_YES_NOTIFY , 'label'=>Mage::helper('cataloginventory')->__('Allow Qty Below 0 and Notify Customer')],
+            ['value' => Mage_CatalogInventory_Model_Stock::BACKORDERS_NO, 'label' => Mage::helper('cataloginventory')->__('No Backorders')],
+            ['value' => Mage_CatalogInventory_Model_Stock::BACKORDERS_YES_NONOTIFY, 'label' => Mage::helper('cataloginventory')->__('Allow Qty Below 0')],
+            ['value' => Mage_CatalogInventory_Model_Stock::BACKORDERS_YES_NOTIFY , 'label' => Mage::helper('cataloginventory')->__('Allow Qty Below 0 and Notify Customer')],
         ];
     }
 }

@@ -54,13 +54,13 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail_Grid extends Mage_Adminhtm
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
-            'header'    =>Mage::helper('reports')->__('Product Name'),
-            'index'     =>'original_name'
+            'header'    => Mage::helper('reports')->__('Product Name'),
+            'index'     => 'original_name'
         ]);
 
         $this->addColumn('tag_name', [
-            'header'    =>Mage::helper('reports')->__('Tag Name'),
-            'index'     =>'tag_name'
+            'header'    => Mage::helper('reports')->__('Tag Name'),
+            'index'     => 'tag_name'
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -69,19 +69,19 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail_Grid extends Mage_Adminhtm
                 'index'     => 'stores',
                 'type'      => 'store',
                 'sortable'  => false,
-                'store_view'=> true
+                'store_view' => true
             ]);
 
             $this->addColumn('added_in', [
-                'header'    =>Mage::helper('reports')->__('Submitted In'),
-                'index'     =>'store_id',
-                'type'      =>'store',
-                'store_view'=>true
+                'header'    => Mage::helper('reports')->__('Submitted In'),
+                'index'     => 'store_id',
+                'type'      => 'store',
+                'store_view' => true
             ]);
         }
 
         $this->addColumn('created_at', [
-            'header'    =>Mage::helper('reports')->__('Submitted On'),
+            'header'    => Mage::helper('reports')->__('Submitted On'),
             'type'      => 'datetime',
             'index'     => 'created_at'
         ]);

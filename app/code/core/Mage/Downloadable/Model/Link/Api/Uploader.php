@@ -38,7 +38,7 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     /**
      * Default file type
      */
-    const DEFAULT_FILE_TYPE = 'application/octet-stream';
+    public const DEFAULT_FILE_TYPE = 'application/octet-stream';
 
     /**
      * Check if the uploaded file exists

@@ -130,13 +130,13 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
             }
             if ($row['action_operator'] == 'by_percent') {
                 if (isset($productData[$key])) {
-                    $productData[$key]['value'] -= $productData[$key]['value']/100*$row['action_amount'];
+                    $productData[$key]['value'] -= $productData[$key]['value'] / 100 * $row['action_amount'];
                 } else {
                     $productData[$key] = [
                         'entity_id'         => $row['product_id'],
                         'customer_group_id' => $row['customer_group_id'],
                         'website_id'        => $row['website_id'],
-                        'value'             => 100-max(0, min(100, $row['action_amount'])),
+                        'value'             => 100 - max(0, min(100, $row['action_amount'])),
                     ];
                 }
             }

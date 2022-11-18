@@ -31,33 +31,33 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     /**
      * Default layout template
      */
-    const LAYOUT_TEMPLATE = 'templateD';
+    public const LAYOUT_TEMPLATE = 'templateD';
 
     /**
      * Mobile layout template
      */
-    const MOBILE_LAYOUT_TEMPLATE = 'mobile-iframe';
+    public const MOBILE_LAYOUT_TEMPLATE = 'mobile-iframe';
 
     /**
      * Button code
      *
      * @var string
      */
-    const BM_BUTTON_CODE    = 'TOKEN';
+    public const BM_BUTTON_CODE    = 'TOKEN';
 
     /**
      * Button type
      *
      * @var string
      */
-    const BM_BUTTON_TYPE    = 'PAYMENT';
+    public const BM_BUTTON_TYPE    = 'PAYMENT';
 
     /**
      * Paypal API method name for button creation
      *
      * @var string
      */
-    const BM_BUTTON_METHOD  = 'BMCreateButton';
+    public const BM_BUTTON_METHOD  = 'BMCreateButton';
 
     /**
      * Payment method code

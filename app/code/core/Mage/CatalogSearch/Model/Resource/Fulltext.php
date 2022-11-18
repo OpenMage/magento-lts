@@ -672,8 +672,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                             $index[$attributeCode] = [$index[$attributeCode]];
                         }
                         $index[$attributeCode][] = $value;
-                    } //For other types of products
-                    else {
+                    } else { //For other types of products
                         $index[$attributeCode] = $value;
                     }
                 }

@@ -47,7 +47,7 @@ class Mage_Api_Model_Server_V2_Handler extends Mage_Api_Model_Server_Handler_Abs
             $prefix = $prefix->asArray();
             if (strpos($function, $prefix) !== false) {
                 $method = substr($function, strlen($prefix));
-                $apiKey = $resource . '.' . strtolower($method[0]).substr($method, 1);
+                $apiKey = $resource . '.' . strtolower($method[0]) . substr($method, 1);
             }
         }
         return $this->call($sessionId, $apiKey, $args);

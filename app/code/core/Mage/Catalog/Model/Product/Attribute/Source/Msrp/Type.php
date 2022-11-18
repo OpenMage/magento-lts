@@ -31,17 +31,17 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type extends Mage_Eav_Mod
     /**
      * Display Product Price on gesture
      */
-    const TYPE_ON_GESTURE = '1';
+    public const TYPE_ON_GESTURE = '1';
 
     /**
      * Display Product Price in cart
      */
-    const TYPE_IN_CART    = '2';
+    public const TYPE_IN_CART    = '2';
 
     /**
      * Display Product Price before order confirmation
      */
-    const TYPE_BEFORE_ORDER_CONFIRM = '3';
+    public const TYPE_BEFORE_ORDER_CONFIRM = '3';
 
     /**
      * Get all options

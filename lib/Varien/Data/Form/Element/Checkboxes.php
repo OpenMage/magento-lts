@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Data
+ * @category   Varien
+ * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method array getOptions()
  */
@@ -35,7 +35,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
      *
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->setType('checkbox');
@@ -49,7 +49,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
      */
     public function getHtmlAttributes()
     {
-        return array('type', 'name', 'class', 'style', 'checked', 'onclick', 'onchange', 'disabled');
+        return ['type', 'name', 'class', 'style', 'checked', 'onclick', 'onchange', 'disabled'];
     }
 
     /**
@@ -57,36 +57,34 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
      *
      * @return array
      */
-    protected function _prepareValues() {
-        $options = array();
-        $values  = array();
+    protected function _prepareValues()
+    {
+        $options = [];
+        $values  = [];
 
         if ($this->getValues()) {
             if (!is_array($this->getValues())) {
-                $options = array($this->getValues());
-            }
-            else {
+                $options = [$this->getValues()];
+            } else {
                 $options = $this->getValues();
             }
-        }
-        elseif ($this->getOptions() && is_array($this->getOptions())) {
+        } elseif ($this->getOptions() && is_array($this->getOptions())) {
             $options = $this->getOptions();
         }
         foreach ($options as $k => $v) {
             if (is_string($v)) {
-                $values[] = array(
+                $values[] = [
                     'label' => $v,
                     'value' => $k
-                );
-            }
-            elseif (isset($v['value'])) {
+                ];
+            } elseif (isset($v['value'])) {
                 if (!isset($v['label'])) {
                     $v['label'] = $v['value'];
                 }
-                $values[] = array(
+                $values[] = [
                     'label' => $v['label'],
                     'value' => $v['value']
-                );
+                ];
             }
         }
 
@@ -108,7 +106,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
 
         $html  = '<ul class="checkboxes">';
         foreach ($values as $value) {
-            $html.= $this->_optionToHtml($value);
+            $html .= $this->_optionToHtml($value);
         }
         $html .= '</ul>'
             . $this->getAfterElementHtml();
@@ -123,16 +121,13 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
     public function getChecked($value)
     {
         if ($checked = $this->getValue()) {
-        }
-        elseif ($checked = $this->getData('checked')) {
-        }
-        else {
+        } elseif ($checked = $this->getData('checked')) {
+        } else {
             return;
         }
         if (!is_array($checked)) {
-            $checked = array(strval($checked));
-        }
-        else {
+            $checked = [strval($checked)];
+        } else {
             foreach ($checked as $k => $v) {
                 $checked[$k] = strval($v);
             }
@@ -151,9 +146,8 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
     {
         if ($disabled = $this->getData('disabled')) {
             if (!is_array($disabled)) {
-                $disabled = array(strval($disabled));
-            }
-            else {
+                $disabled = [strval($disabled)];
+            } else {
                 foreach ($disabled as $k => $v) {
                     $disabled[$k] = strval($v);
                 }
@@ -203,16 +197,16 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
      */
     protected function _optionToHtml($option)
     {
-        $id = $this->getHtmlId().'_'.$this->_escape($option['value']);
+        $id = $this->getHtmlId() . '_' . $this->_escape($option['value']);
 
-        $html = '<li><input id="'.$id.'"';
+        $html = '<li><input id="' . $id . '"';
         foreach ($this->getHtmlAttributes() as $attribute) {
             if ($value = $this->getDataUsingMethod($attribute, $option['value'])) {
-                $html .= ' '.$attribute.'="'.$value.'"';
+                $html .= ' ' . $attribute . '="' . $value . '"';
             }
         }
-        $html .= ' value="'.$option['value'].'" />'
-            . ' <label for="'.$id.'">' . $option['label'] . '</label></li>'
+        $html .= ' value="' . $option['value'] . '" />'
+            . ' <label for="' . $id . '">' . $option['label'] . '</label></li>'
             . "\n";
         return $html;
     }

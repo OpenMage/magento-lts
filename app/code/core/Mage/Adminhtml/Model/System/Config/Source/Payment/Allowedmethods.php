@@ -24,8 +24,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Model_System_Config_Source_Payment_Allowedmethods
-    extends Mage_Adminhtml_Model_System_Config_Source_Payment_Allmethods
+class Mage_Adminhtml_Model_System_Config_Source_Payment_Allowedmethods extends Mage_Adminhtml_Model_System_Config_Source_Payment_Allmethods
 {
     protected function _getPaymentMethods()
     {

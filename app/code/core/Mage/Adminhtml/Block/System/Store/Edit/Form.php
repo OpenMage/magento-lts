@@ -125,8 +125,7 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
                     'value'     => 1,
                     'disabled'  => $websiteModel->isReadOnly(),
                 ]);
-            }
-            else {
+            } else {
                 $fieldset->addField('is_default', 'hidden', [
                     'name'      => 'website[is_default]',
                     'value'     => $websiteModel->getIsDefault()
@@ -168,8 +167,7 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
                             'no_span'   => true,
                             'value'     => $groupModel->getWebsiteId()
                         ]);
-                    }
-                    else {
+                    } else {
                         $fieldset->addField('group_original_website_id', 'hidden', [
                             'name'      => 'group[original_website_id]',
                             'no_span'   => true,
@@ -236,7 +234,7 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
                     $values = [];
                     foreach ($allgroups as $group) {
                         if ($group->getWebsiteId() == $website->getId()) {
-                            $values[] = ['label'=>$group->getName(),'value'=>$group->getId()];
+                            $values[] = ['label' => $group->getName(),'value' => $group->getId()];
                         }
                     }
                     $groups[] = ['label' => $this->escapeHtml($website->getName()), 'value' => $values];
@@ -258,8 +256,7 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
                             'no_span'   => true,
                             'value'     => $storeModel->getGroupId()
                         ]);
-                    }
-                    else {
+                    } else {
                         $fieldset->addField('store_original_group_id', 'hidden', [
                             'name'      => 'store[original_group_id]',
                             'no_span'   => true,

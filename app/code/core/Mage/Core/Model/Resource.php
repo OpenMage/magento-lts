@@ -28,14 +28,14 @@
  */
 class Mage_Core_Model_Resource
 {
-    const AUTO_UPDATE_CACHE_KEY  = 'DB_AUTOUPDATE';
-    const AUTO_UPDATE_ONCE       = 0;
-    const AUTO_UPDATE_NEVER      = -1;
-    const AUTO_UPDATE_ALWAYS     = 1;
+    public const AUTO_UPDATE_CACHE_KEY  = 'DB_AUTOUPDATE';
+    public const AUTO_UPDATE_ONCE       = 0;
+    public const AUTO_UPDATE_NEVER      = -1;
+    public const AUTO_UPDATE_ALWAYS     = 1;
 
-    const DEFAULT_READ_RESOURCE  = 'core_read';
-    const DEFAULT_WRITE_RESOURCE = 'core_write';
-    const DEFAULT_SETUP_RESOURCE = 'core_setup';
+    public const DEFAULT_READ_RESOURCE  = 'core_read';
+    public const DEFAULT_WRITE_RESOURCE = 'core_write';
+    public const DEFAULT_SETUP_RESOURCE = 'core_setup';
 
     /**
      * Instances of classes for connection types

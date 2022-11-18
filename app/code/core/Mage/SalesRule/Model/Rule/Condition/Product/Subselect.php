@@ -58,8 +58,8 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
      */
     public function asXml($containerKey = 'conditions', $itemKey = 'condition')
     {
-        return '<attribute>'.$this->getAttribute().'</attribute>'
-            . '<operator>'.$this->getOperator().'</operator>'
+        return '<attribute>' . $this->getAttribute() . '</attribute>'
+            . '<operator>' . $this->getOperator() . '</operator>'
             . parent::asXml($containerKey, $itemKey);
     }
 
@@ -114,7 +114,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
      */
     public function asHtml()
     {
-        $html = $this->getTypeElement()->getHtml().
+        $html = $this->getTypeElement()->getHtml() .
         Mage::helper('salesrule')->__("If %s %s %s for a subselection of items in cart matching %s of these conditions:", $this->getAttributeElement()->getHtml(), $this->getOperatorElement()->getHtml(), $this->getValueElement()->getHtml(), $this->getAggregatorElement()->getHtml());
         if ($this->getId() != '1') {
             $html .= $this->getRemoveLinkHtml();

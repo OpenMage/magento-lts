@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Data
+ * @category   Varien
+ * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getFormat()
  * @method string getInputFormat()
@@ -44,7 +44,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
      * Varien_Data_Form_Element_Date constructor.
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->setType('text');
@@ -63,7 +63,6 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
      */
     protected function _toTimestamp($value)
     {
-
         $value = (int)$value;
         if ($value > 3155760000) {
             $value = 0;
@@ -112,8 +111,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
         }
         try {
             $this->_value = new Zend_Date($value, $format, $locale);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_value = '';
         }
         return $this;
@@ -164,9 +162,15 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
 
         $html = sprintf(
             '<input name="%s" id="%s" value="%s" %s style="width:110px !important;" />'
-            .' <img src="%s" alt="" class="v-middle" id="%s_trig" title="%s" style="%s" />',
-            $this->getName(), $this->getHtmlId(), $this->_escape($this->getValue()), $this->serialize($this->getHtmlAttributes()),
-            $this->getImage(), $this->getHtmlId(), 'Select Date', ($this->getDisabled() ? 'display:none;' : '')
+            . ' <img src="%s" alt="" class="v-middle" id="%s_trig" title="%s" style="%s" />',
+            $this->getName(),
+            $this->getHtmlId(),
+            $this->_escape($this->getValue()),
+            $this->serialize($this->getHtmlAttributes()),
+            $this->getImage(),
+            $this->getHtmlId(),
+            'Select Date',
+            ($this->getDisabled() ? 'display:none;' : '')
         );
         $outputFormat = $this->getFormat();
         if (empty($outputFormat)) {
@@ -174,7 +178,8 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
         }
         $displayFormat = Varien_Date::convertZendToStrftime($outputFormat, true, (bool)$this->getTime());
 
-        $html .= sprintf('
+        $html .= sprintf(
+            '
             <script type="text/javascript">
             //<![CDATA[
                 Calendar.setup({
@@ -187,8 +192,10 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
                 });
             //]]>
             </script>',
-            $this->getHtmlId(), $displayFormat,
-            $this->getTime() ? 'true' : 'false', $this->getHtmlId()
+            $this->getHtmlId(),
+            $displayFormat,
+            $this->getTime() ? 'true' : 'false',
+            $this->getHtmlId()
         );
 
         $html .= $this->getAfterElementHtml();

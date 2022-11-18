@@ -119,7 +119,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
      */
     public function getRowCount()
     {
-        return ceil(count($this->getItemCollection()->getItems())/$this->getColumnCount());
+        return ceil(count($this->getItemCollection()->getItems()) / $this->getColumnCount());
     }
 
     /**

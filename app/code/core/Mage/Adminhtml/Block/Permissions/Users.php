@@ -43,4 +43,3 @@ class Mage_Adminhtml_Block_Permissions_Users extends Mage_Adminhtml_Block_Templa
         return $this->getLayout()->createBlock('adminhtml/permissions_grid_user')->toHtml();
     }
 }
-

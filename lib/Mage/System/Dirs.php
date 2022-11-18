@@ -12,18 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_System
+ * @category   Mage
+ * @package    Mage_System
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_System_Dirs
 {
-
     public static function rm($dirname)
     {
-        if(is_array($dirname)) {
+        if (is_array($dirname)) {
             $dirname = $dirname[1];
         }
         // Sanity check
@@ -37,7 +36,7 @@ class Mage_System_Dirs
         }
 
         // Create and iterate stack
-        $stack = array($dirname);
+        $stack = [$dirname];
         while ($entry = array_pop($stack)) {
             // Watch for symlinks
             if (@is_link($entry)) {
@@ -74,14 +73,14 @@ class Mage_System_Dirs
     public static function mkdirStrict($path, $recursive = true, $mode = 0777)
     {
         $exists = file_exists($path);
-        if($exists && is_dir($path)) {
+        if ($exists && is_dir($path)) {
             return true;
         }
-        if($exists && !is_dir($path)) {
+        if ($exists && !is_dir($path)) {
             throw new Exception("'{$path}' already exists, should be a dir, not a file!");
         }
         $out = @mkdir($path, $mode, $recursive);
-        if(false === $out) {
+        if (false === $out) {
             throw new Exception("Can't create dir: '{$path}'");
         }
         return true;
@@ -90,9 +89,8 @@ class Mage_System_Dirs
     public static function copyFileStrict($source, $dest)
     {
         $exists = file_exists($source);
-        if(!$exists) {
-            throw new Exception('No file exists: '.$exists);
+        if (!$exists) {
+            throw new Exception('No file exists: ' . $exists);
         }
-
     }
 }

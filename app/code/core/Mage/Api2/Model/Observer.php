@@ -87,8 +87,7 @@ class Mage_Api2_Model_Observer
     {
         $apiKey = $observer->getEvent()->getApiKey();
         $model = $observer->getEvent()->getModel();
-        if (
-            !(bool) $model->getApiPasswordUpgraded()
+        if (!(bool) $model->getApiPasswordUpgraded()
             && !Mage::helper('core')->getEncryptor()->validateHashByVersion(
                 $apiKey,
                 $model->getApiKey(),

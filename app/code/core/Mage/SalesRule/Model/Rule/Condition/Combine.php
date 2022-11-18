@@ -41,15 +41,15 @@ class Mage_SalesRule_Model_Rule_Condition_Combine extends Mage_Rule_Model_Condit
         $addressAttributes = $addressCondition->loadAttributeOptions()->getAttributeOption();
         $attributes = [];
         foreach ($addressAttributes as $code => $label) {
-            $attributes[] = ['value'=>'salesrule/rule_condition_address|'.$code, 'label'=>$label];
+            $attributes[] = ['value' => 'salesrule/rule_condition_address|' . $code, 'label' => $label];
         }
 
         $conditions = parent::getNewChildSelectOptions();
         $conditions = array_merge_recursive($conditions, [
-            ['value'=>'salesrule/rule_condition_product_found', 'label'=>Mage::helper('salesrule')->__('Product attribute combination')],
-            ['value'=>'salesrule/rule_condition_product_subselect', 'label'=>Mage::helper('salesrule')->__('Products subselection')],
-            ['value'=>'salesrule/rule_condition_combine', 'label'=>Mage::helper('salesrule')->__('Conditions combination')],
-            ['label'=>Mage::helper('salesrule')->__('Cart Attribute'), 'value'=>$attributes],
+            ['value' => 'salesrule/rule_condition_product_found', 'label' => Mage::helper('salesrule')->__('Product attribute combination')],
+            ['value' => 'salesrule/rule_condition_product_subselect', 'label' => Mage::helper('salesrule')->__('Products subselection')],
+            ['value' => 'salesrule/rule_condition_combine', 'label' => Mage::helper('salesrule')->__('Conditions combination')],
+            ['label' => Mage::helper('salesrule')->__('Cart Attribute'), 'value' => $attributes],
         ]);
 
         $additional = new Varien_Object();

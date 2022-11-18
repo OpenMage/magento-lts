@@ -90,7 +90,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
             ->from($this->getMainTable())
             ->where('subscriber_email=:subscriber_email');
 
-        $result = $this->_read->fetchRow($select, ['subscriber_email'=>$subscriberEmail]);
+        $result = $this->_read->fetchRow($select, ['subscriber_email' => $subscriberEmail]);
 
         if (!$result) {
             return [];
@@ -111,7 +111,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
             ->from($this->getMainTable())
             ->where('customer_id=:customer_id');
 
-        $result = $this->_read->fetchRow($select, ['customer_id'=>$customer->getId()]);
+        $result = $this->_read->fetchRow($select, ['customer_id' => $customer->getId()]);
 
         if ($result) {
             return $result;
@@ -124,7 +124,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
 
         $result = $this->_read->fetchRow(
             $select,
-            ['subscriber_email'=>$customer->getEmail(), 'store_id' => $customer->getStoreId()]
+            ['subscriber_email' => $customer->getEmail(), 'store_id' => $customer->getStoreId()]
         );
 
         if ($result) {

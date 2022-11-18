@@ -28,10 +28,10 @@
  */
 class Mage_Dataflow_Model_Convert_Exception extends Varien_Exception
 {
-    const NOTICE = 'NOTICE';
-    const WARNING = 'WARNING';
-    const ERROR = 'ERROR';
-    const FATAL = 'FATAL';
+    public const NOTICE = 'NOTICE';
+    public const WARNING = 'WARNING';
+    public const ERROR = 'ERROR';
+    public const FATAL = 'FATAL';
 
     protected $_container;
 

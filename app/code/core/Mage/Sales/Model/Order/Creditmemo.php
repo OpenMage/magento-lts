@@ -152,31 +152,31 @@
  */
 class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
 {
-    const STATE_OPEN        = 1;
-    const STATE_REFUNDED    = 2;
-    const STATE_CANCELED    = 3;
+    public const STATE_OPEN        = 1;
+    public const STATE_REFUNDED    = 2;
+    public const STATE_CANCELED    = 3;
 
-    const XML_PATH_EMAIL_TEMPLATE               = 'sales_email/creditmemo/template';
-    const XML_PATH_EMAIL_GUEST_TEMPLATE         = 'sales_email/creditmemo/guest_template';
-    const XML_PATH_EMAIL_IDENTITY               = 'sales_email/creditmemo/identity';
-    const XML_PATH_EMAIL_COPY_TO                = 'sales_email/creditmemo/copy_to';
-    const XML_PATH_EMAIL_COPY_METHOD            = 'sales_email/creditmemo/copy_method';
-    const XML_PATH_EMAIL_ENABLED                = 'sales_email/creditmemo/enabled';
+    public const XML_PATH_EMAIL_TEMPLATE               = 'sales_email/creditmemo/template';
+    public const XML_PATH_EMAIL_GUEST_TEMPLATE         = 'sales_email/creditmemo/guest_template';
+    public const XML_PATH_EMAIL_IDENTITY               = 'sales_email/creditmemo/identity';
+    public const XML_PATH_EMAIL_COPY_TO                = 'sales_email/creditmemo/copy_to';
+    public const XML_PATH_EMAIL_COPY_METHOD            = 'sales_email/creditmemo/copy_method';
+    public const XML_PATH_EMAIL_ENABLED                = 'sales_email/creditmemo/enabled';
 
-    const XML_PATH_UPDATE_EMAIL_TEMPLATE        = 'sales_email/creditmemo_comment/template';
-    const XML_PATH_UPDATE_EMAIL_GUEST_TEMPLATE  = 'sales_email/creditmemo_comment/guest_template';
-    const XML_PATH_UPDATE_EMAIL_IDENTITY        = 'sales_email/creditmemo_comment/identity';
-    const XML_PATH_UPDATE_EMAIL_COPY_TO         = 'sales_email/creditmemo_comment/copy_to';
-    const XML_PATH_UPDATE_EMAIL_COPY_METHOD     = 'sales_email/creditmemo_comment/copy_method';
-    const XML_PATH_UPDATE_EMAIL_ENABLED         = 'sales_email/creditmemo_comment/enabled';
+    public const XML_PATH_UPDATE_EMAIL_TEMPLATE        = 'sales_email/creditmemo_comment/template';
+    public const XML_PATH_UPDATE_EMAIL_GUEST_TEMPLATE  = 'sales_email/creditmemo_comment/guest_template';
+    public const XML_PATH_UPDATE_EMAIL_IDENTITY        = 'sales_email/creditmemo_comment/identity';
+    public const XML_PATH_UPDATE_EMAIL_COPY_TO         = 'sales_email/creditmemo_comment/copy_to';
+    public const XML_PATH_UPDATE_EMAIL_COPY_METHOD     = 'sales_email/creditmemo_comment/copy_method';
+    public const XML_PATH_UPDATE_EMAIL_ENABLED         = 'sales_email/creditmemo_comment/enabled';
 
-    const REPORT_DATE_TYPE_ORDER_CREATED        = 'order_created';
-    const REPORT_DATE_TYPE_REFUND_CREATED       = 'refund_created';
+    public const REPORT_DATE_TYPE_ORDER_CREATED        = 'order_created';
+    public const REPORT_DATE_TYPE_REFUND_CREATED       = 'refund_created';
 
     /**
      * Identifier for order history item
      */
-    const HISTORY_ENTITY_NAME = 'creditmemo';
+    public const HISTORY_ENTITY_NAME = 'creditmemo';
 
     protected static $_states;
 
@@ -330,7 +330,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     public function getItemById($itemId)
     {
         foreach ($this->getItemsCollection() as $item) {
-            if ($item->getId()==$itemId) {
+            if ($item->getId() == $itemId) {
                 return $item;
             }
         }
@@ -409,7 +409,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         if ($this->getState() != self::STATE_CANCELED
             && $this->getState() != self::STATE_REFUNDED
             && $this->getOrder()->getPayment()->canRefund()
-            ) {
+        ) {
             return true;
         }
         return false;
@@ -442,18 +442,18 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      */
     public function refund()
     {
-        Mage::dispatchEvent('sales_order_creditmemo_refund_before', [$this->_eventObject=>$this]);
+        Mage::dispatchEvent('sales_order_creditmemo_refund_before', [$this->_eventObject => $this]);
 
         $this->setState(self::STATE_REFUNDED);
         $orderRefund = Mage::app()->getStore()->roundPrice(
-            $this->getOrder()->getTotalRefunded()+$this->getGrandTotal()
+            $this->getOrder()->getTotalRefunded() + $this->getGrandTotal()
         );
         $baseOrderRefund = Mage::app()->getStore()->roundPrice(
-            $this->getOrder()->getBaseTotalRefunded()+$this->getBaseGrandTotal()
+            $this->getOrder()->getBaseTotalRefunded() + $this->getBaseGrandTotal()
         );
 
         if ($baseOrderRefund > Mage::app()->getStore()->roundPrice($this->getOrder()->getBaseTotalPaid())) {
-            $baseAvailableRefund = $this->getOrder()->getBaseTotalPaid()- $this->getOrder()->getBaseTotalRefunded();
+            $baseAvailableRefund = $this->getOrder()->getBaseTotalPaid() - $this->getOrder()->getBaseTotalRefunded();
 
             Mage::throwException(
                 Mage::helper('sales')->__('Maximum amount available to refund is %s', $this->getOrder()->formatBasePrice($baseAvailableRefund))
@@ -463,28 +463,28 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         $order->setBaseTotalRefunded($baseOrderRefund);
         $order->setTotalRefunded($orderRefund);
 
-        $order->setBaseSubtotalRefunded($order->getBaseSubtotalRefunded()+$this->getBaseSubtotal());
-        $order->setSubtotalRefunded($order->getSubtotalRefunded()+$this->getSubtotal());
+        $order->setBaseSubtotalRefunded($order->getBaseSubtotalRefunded() + $this->getBaseSubtotal());
+        $order->setSubtotalRefunded($order->getSubtotalRefunded() + $this->getSubtotal());
 
-        $order->setBaseTaxRefunded($order->getBaseTaxRefunded()+$this->getBaseTaxAmount());
-        $order->setTaxRefunded($order->getTaxRefunded()+$this->getTaxAmount());
-        $order->setBaseHiddenTaxRefunded($order->getBaseHiddenTaxRefunded()+$this->getBaseHiddenTaxAmount());
-        $order->setHiddenTaxRefunded($order->getHiddenTaxRefunded()+$this->getHiddenTaxAmount());
+        $order->setBaseTaxRefunded($order->getBaseTaxRefunded() + $this->getBaseTaxAmount());
+        $order->setTaxRefunded($order->getTaxRefunded() + $this->getTaxAmount());
+        $order->setBaseHiddenTaxRefunded($order->getBaseHiddenTaxRefunded() + $this->getBaseHiddenTaxAmount());
+        $order->setHiddenTaxRefunded($order->getHiddenTaxRefunded() + $this->getHiddenTaxAmount());
 
-        $order->setBaseShippingRefunded($order->getBaseShippingRefunded()+$this->getBaseShippingAmount());
-        $order->setShippingRefunded($order->getShippingRefunded()+$this->getShippingAmount());
+        $order->setBaseShippingRefunded($order->getBaseShippingRefunded() + $this->getBaseShippingAmount());
+        $order->setShippingRefunded($order->getShippingRefunded() + $this->getShippingAmount());
 
-        $order->setBaseShippingTaxRefunded($order->getBaseShippingTaxRefunded()+$this->getBaseShippingTaxAmount());
-        $order->setShippingTaxRefunded($order->getShippingTaxRefunded()+$this->getShippingTaxAmount());
+        $order->setBaseShippingTaxRefunded($order->getBaseShippingTaxRefunded() + $this->getBaseShippingTaxAmount());
+        $order->setShippingTaxRefunded($order->getShippingTaxRefunded() + $this->getShippingTaxAmount());
 
-        $order->setAdjustmentPositive($order->getAdjustmentPositive()+$this->getAdjustmentPositive());
-        $order->setBaseAdjustmentPositive($order->getBaseAdjustmentPositive()+$this->getBaseAdjustmentPositive());
+        $order->setAdjustmentPositive($order->getAdjustmentPositive() + $this->getAdjustmentPositive());
+        $order->setBaseAdjustmentPositive($order->getBaseAdjustmentPositive() + $this->getBaseAdjustmentPositive());
 
-        $order->setAdjustmentNegative($order->getAdjustmentNegative()+$this->getAdjustmentNegative());
-        $order->setBaseAdjustmentNegative($order->getBaseAdjustmentNegative()+$this->getBaseAdjustmentNegative());
+        $order->setAdjustmentNegative($order->getAdjustmentNegative() + $this->getAdjustmentNegative());
+        $order->setBaseAdjustmentNegative($order->getBaseAdjustmentNegative() + $this->getBaseAdjustmentNegative());
 
-        $order->setDiscountRefunded($order->getDiscountRefunded()+$this->getDiscountAmount());
-        $order->setBaseDiscountRefunded($order->getBaseDiscountRefunded()+$this->getBaseDiscountAmount());
+        $order->setDiscountRefunded($order->getDiscountRefunded() + $this->getDiscountAmount());
+        $order->setBaseDiscountRefunded($order->getBaseDiscountRefunded() + $this->getBaseDiscountAmount());
 
         if ($this->getInvoice()) {
             $this->getInvoice()->setIsUsedForRefund(true);
@@ -498,7 +498,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
             $order->getPayment()->refund($this);
         }
 
-        Mage::dispatchEvent('sales_order_creditmemo_refund', [$this->_eventObject=>$this]);
+        Mage::dispatchEvent('sales_order_creditmemo_refund', [$this->_eventObject => $this]);
         return $this;
     }
 
@@ -517,34 +517,34 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
 
         if ($this->getTransactionId()) {
             $this->getOrder()->setTotalOnlineRefunded(
-                $this->getOrder()->getTotalOnlineRefunded()-$this->getGrandTotal()
+                $this->getOrder()->getTotalOnlineRefunded() - $this->getGrandTotal()
             );
             $this->getOrder()->setBaseTotalOnlineRefunded(
-                $this->getOrder()->getBaseTotalOnlineRefunded()-$this->getBaseGrandTotal()
+                $this->getOrder()->getBaseTotalOnlineRefunded() - $this->getBaseGrandTotal()
             );
         } else {
             $this->getOrder()->setTotalOfflineRefunded(
-                $this->getOrder()->getTotalOfflineRefunded()-$this->getGrandTotal()
+                $this->getOrder()->getTotalOfflineRefunded() - $this->getGrandTotal()
             );
             $this->getOrder()->setBaseTotalOfflineRefunded(
-                $this->getOrder()->getBaseTotalOfflineRefunded()-$this->getBaseGrandTotal()
+                $this->getOrder()->getBaseTotalOfflineRefunded() - $this->getBaseGrandTotal()
             );
         }
 
         $this->getOrder()->setBaseSubtotalRefunded(
-            $this->getOrder()->getBaseSubtotalRefunded()-$this->getBaseSubtotal()
+            $this->getOrder()->getBaseSubtotalRefunded() - $this->getBaseSubtotal()
         );
-        $this->getOrder()->setSubtotalRefunded($this->getOrder()->getSubtotalRefunded()-$this->getSubtotal());
+        $this->getOrder()->setSubtotalRefunded($this->getOrder()->getSubtotalRefunded() - $this->getSubtotal());
 
-        $this->getOrder()->setBaseTaxRefunded($this->getOrder()->getBaseTaxRefunded()-$this->getBaseTaxAmount());
-        $this->getOrder()->setTaxRefunded($this->getOrder()->getTaxRefunded()-$this->getTaxAmount());
+        $this->getOrder()->setBaseTaxRefunded($this->getOrder()->getBaseTaxRefunded() - $this->getBaseTaxAmount());
+        $this->getOrder()->setTaxRefunded($this->getOrder()->getTaxRefunded() - $this->getTaxAmount());
 
         $this->getOrder()->setBaseShippingRefunded(
-            $this->getOrder()->getBaseShippingRefunded()-$this->getBaseShippingAmount()
+            $this->getOrder()->getBaseShippingRefunded() - $this->getBaseShippingAmount()
         );
-        $this->getOrder()->setShippingRefunded($this->getOrder()->getShippingRefunded()-$this->getShippingAmount());
+        $this->getOrder()->setShippingRefunded($this->getOrder()->getShippingRefunded() - $this->getShippingAmount());
 
-        Mage::dispatchEvent('sales_order_creditmemo_cancel', [$this->_eventObject=>$this]);
+        Mage::dispatchEvent('sales_order_creditmemo_cancel', [$this->_eventObject => $this]);
         return $this;
     }
 
@@ -564,7 +564,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         }
 
         foreach ($this->getAllItems() as $item) {
-            if ($item->getQty()>0) {
+            if ($item->getQty() > 0) {
                 $item->register();
             } else {
                 $item->isDeleted(true);
@@ -579,22 +579,22 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
 
         if ($this->getDoTransaction()) {
             $this->getOrder()->setTotalOnlineRefunded(
-                $this->getOrder()->getTotalOnlineRefunded()+$this->getGrandTotal()
+                $this->getOrder()->getTotalOnlineRefunded() + $this->getGrandTotal()
             );
             $this->getOrder()->setBaseTotalOnlineRefunded(
-                $this->getOrder()->getBaseTotalOnlineRefunded()+$this->getBaseGrandTotal()
+                $this->getOrder()->getBaseTotalOnlineRefunded() + $this->getBaseGrandTotal()
             );
         } else {
             $this->getOrder()->setTotalOfflineRefunded(
-                $this->getOrder()->getTotalOfflineRefunded()+$this->getGrandTotal()
+                $this->getOrder()->getTotalOfflineRefunded() + $this->getGrandTotal()
             );
             $this->getOrder()->setBaseTotalOfflineRefunded(
-                $this->getOrder()->getBaseTotalOfflineRefunded()+$this->getBaseGrandTotal()
+                $this->getOrder()->getBaseTotalOfflineRefunded() + $this->getBaseGrandTotal()
             );
         }
 
         $this->getOrder()->setBaseTotalInvoicedCost(
-            $this->getOrder()->getBaseTotalInvoicedCost()-$this->getBaseCost()
+            $this->getOrder()->getBaseTotalInvoicedCost() - $this->getBaseCost()
         );
 
         $state = $this->getState();
@@ -665,7 +665,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         $this->setData('base_adjustment_positive', $amount);
 
         $amount = $this->getStore()->roundPrice(
-            $amount*$this->getOrder()->getStoreToOrderRate()
+            $amount * $this->getOrder()->getStoreToOrderRate()
         );
         $this->setData('adjustment_positive', $amount);
         return $this;
@@ -687,7 +687,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         $this->setData('base_adjustment_negative', $amount);
 
         $amount = $this->getStore()->roundPrice(
-            $amount*$this->getOrder()->getStoreToOrderRate()
+            $amount * $this->getOrder()->getStoreToOrderRate()
         );
         $this->setData('adjustment_negative', $amount);
         return $this;

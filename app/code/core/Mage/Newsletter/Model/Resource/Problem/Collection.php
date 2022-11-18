@@ -64,7 +64,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
     public function addSubscriberInfo()
     {
         $this->getSelect()->joinLeft(
-            ['subscriber'=>$this->getTable('newsletter/subscriber')],
+            ['subscriber' => $this->getTable('newsletter/subscriber')],
             'main_table.subscriber_id = subscriber.subscriber_id',
             ['subscriber_email','customer_id','subscriber_status']
         );
@@ -82,12 +82,12 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
     public function addQueueInfo()
     {
         $this->getSelect()->joinLeft(
-            ['queue'=>$this->getTable('newsletter/queue')],
+            ['queue' => $this->getTable('newsletter/queue')],
             'main_table.queue_id = queue.queue_id',
             ['queue_start_at', 'queue_finish_at']
         )
         ->joinLeft(
-            ['template'=>$this->getTable('newsletter/template')],
+            ['template' => $this->getTable('newsletter/template')],
             'queue.template_id = template.template_id',
             ['template_subject','template_code','template_sender_name','template_sender_email']
         );
@@ -114,7 +114,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
 
         $customers = Mage::getResourceModel('customer/customer_collection')
             ->addNameToSelect()
-            ->addAttributeToFilter('entity_id', ["in"=>$customersIds]);
+            ->addAttributeToFilter('entity_id', ["in" => $customersIds]);
 
         $customers->load();
 

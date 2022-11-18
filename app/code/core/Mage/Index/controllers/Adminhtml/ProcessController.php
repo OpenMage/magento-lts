@@ -30,7 +30,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/index';
+    public const ADMIN_RESOURCE = 'system/index';
 
     /**
      * Initialize process object by request

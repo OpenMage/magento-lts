@@ -56,7 +56,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param string $storeCode
      * @return Varien_Simplexml_Element
      */
-    public function getSections($sectionCode=null, $websiteCode=null, $storeCode=null)
+    public function getSections($sectionCode = null, $websiteCode = null, $storeCode = null)
     {
         if (empty($this->_sections)) {
             $this->_initSectionsAndTabs();
@@ -98,7 +98,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param array|null $tags
      * @return $this|Mage_Adminhtml_Model_Config
      */
-    public function saveCache($tags=null)
+    public function saveCache($tags = null)
     {
         if ($this->getCacheSaved()) {
             return $this;
@@ -145,7 +145,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param string $storeCode
      * @return Varien_Simplexml_Element
      */
-    public function getSection($sectionCode=null, $websiteCode=null, $storeCode=null)
+    public function getSection($sectionCode = null, $websiteCode = null, $storeCode = null)
     {
         if ($sectionCode) {
             return  $this->getSections()->$sectionCode;
@@ -163,24 +163,24 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param bool $isField
      * @return bool
      */
-    public function hasChildren($node, $websiteCode=null, $storeCode=null, $isField=false)
+    public function hasChildren($node, $websiteCode = null, $storeCode = null, $isField = false)
     {
         $showTab = false;
         if ($storeCode) {
             if (isset($node->show_in_store)) {
                 if ((int)$node->show_in_store) {
-                    $showTab=true;
+                    $showTab = true;
                 }
             }
         } elseif ($websiteCode) {
             if (isset($node->show_in_website)) {
                 if ((int)$node->show_in_website) {
-                    $showTab=true;
+                    $showTab = true;
                 }
             }
         } elseif (isset($node->show_in_default)) {
             if ((int)$node->show_in_default) {
-                $showTab=true;
+                $showTab = true;
             }
         }
         if ($showTab) {

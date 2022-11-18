@@ -52,7 +52,7 @@ class Mage_Eav_Model_Entity_Increment_Alphanum extends Mage_Eav_Model_Entity_Inc
         $bumpNextChar = true;
         $chars = $this->getAllowedChars();
         $lchars = strlen($chars);
-        $lid = strlen($lastId)-1;
+        $lid = strlen($lastId) - 1;
 
         for ($i = $lid; $i >= 0; $i--) {
             $p = strpos($chars, $lastId[$i]);
@@ -63,7 +63,7 @@ class Mage_Eav_Model_Entity_Increment_Alphanum extends Mage_Eav_Model_Entity_Inc
                 $p++;
                 $bumpNextChar = false;
             }
-            if ($p===$lchars) {
+            if ($p === $lchars) {
                 $p = 0;
                 $bumpNextChar = true;
             }

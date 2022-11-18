@@ -89,16 +89,16 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Entity code.
      * Can be used as part of method name for entity processing
      */
-    const ENTITY                = 'catalog_category';
+    public const ENTITY                = 'catalog_category';
     /**
      * Category display modes
      */
-    const DM_PRODUCT            = 'PRODUCTS';
-    const DM_PAGE               = 'PAGE';
-    const DM_MIXED              = 'PRODUCTS_AND_PAGE';
-    const TREE_ROOT_ID          = 1;
+    public const DM_PRODUCT            = 'PRODUCTS';
+    public const DM_PAGE               = 'PAGE';
+    public const DM_MIXED              = 'PRODUCTS_AND_PAGE';
+    public const TREE_ROOT_ID          = 1;
 
-    const CACHE_TAG             = 'catalog_category';
+    public const CACHE_TAG             = 'catalog_category';
 
     /**
      * Prefix of model events names
@@ -275,7 +275,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             $this->_eventObject => $this,
             'parent'        => $parent,
             'category_id'   => $this->getId(),
-            'prev_parent_id'=> $this->getParentId(),
+            'prev_parent_id' => $this->getParentId(),
             'parent_id'     => $parentId
         ];
         $moveComplete = false;
@@ -287,11 +287,11 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
              * events declared for backward compatibility
              */
             Mage::dispatchEvent('catalog_category_tree_move_before', $eventParams);
-            Mage::dispatchEvent($this->_eventPrefix.'_move_before', $eventParams);
+            Mage::dispatchEvent($this->_eventPrefix . '_move_before', $eventParams);
 
             $this->getResource()->changeParent($this, $parent, $afterCategoryId);
 
-            Mage::dispatchEvent($this->_eventPrefix.'_move_after', $eventParams);
+            Mage::dispatchEvent($this->_eventPrefix . '_move_after', $eventParams);
             Mage::dispatchEvent('catalog_category_tree_move_after', $eventParams);
 
             // Set data for indexer
@@ -505,13 +505,13 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function getCategoryIdUrl()
     {
-        Varien_Profiler::start('REGULAR: '.__METHOD__);
+        Varien_Profiler::start('REGULAR: ' . __METHOD__);
         $urlKey = $this->getUrlKey() ? $this->getUrlKey() : $this->formatUrlKey($this->getName());
         $url = $this->getUrlInstance()->getUrl('catalog/category/view', [
-            's'=>$urlKey,
-            'id'=>$this->getId(),
+            's' => $urlKey,
+            'id' => $this->getId(),
         ]);
-        Varien_Profiler::stop('REGULAR: '.__METHOD__);
+        Varien_Profiler::stop('REGULAR: ' . __METHOD__);
         return $url;
     }
 
@@ -539,7 +539,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     {
         $url = false;
         if ($image = $this->getImage()) {
-            $url = Mage::getBaseUrl('media').'catalog/category/'.$image;
+            $url = Mage::getBaseUrl('media') . 'catalog/category/' . $image;
         }
         return $url;
     }
@@ -560,7 +560,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
 
         if ($this->getParentId()) {
             $parentPath = Mage::getModel('catalog/category')->load($this->getParentId())->getCategoryPath();
-            $path = $parentPath.'/'.$path;
+            $path = $parentPath . '/' . $path;
         }
 
         $this->setUrlPath($path);

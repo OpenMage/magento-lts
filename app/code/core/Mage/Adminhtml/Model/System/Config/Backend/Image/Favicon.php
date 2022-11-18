@@ -32,13 +32,13 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Favicon extends Mage_Admi
      * The tail part of directory path for uploading
      *
      */
-    const UPLOAD_DIR = 'favicon';
+    public const UPLOAD_DIR = 'favicon';
 
     /**
      * Token for the root part of directory path for uploading
      *
      */
-    const UPLOAD_ROOT = 'media';
+    public const UPLOAD_ROOT = 'media';
 
     /**
      * Return path to directory for upload file

@@ -33,7 +33,7 @@ class Mage_Backup_Model_Db
      * default 100 Kb
      *
      */
-    const BUFFER_LENGTH = 102400;
+    public const BUFFER_LENGTH = 102400;
 
     /**
      * List of tables which data should not be backed up
@@ -59,7 +59,7 @@ class Mage_Backup_Model_Db
         return $this->getResource()->getTables();
     }
 
-    public function getTableCreateScript($tableName, $addDropIfExists=false)
+    public function getTableCreateScript($tableName, $addDropIfExists = false)
     {
         return $this->getResource()->getTableCreateScript($tableName, $addDropIfExists);
     }
@@ -86,11 +86,11 @@ class Mage_Backup_Model_Db
 
         $tables = $this->getTables();
         foreach ($tables as $tableName) {
-            $sql.= $this->getTableCreateScript($tableName, true);
-            $sql.= $this->getTableDataDump($tableName);
+            $sql .= $this->getTableCreateScript($tableName, true);
+            $sql .= $this->getTableDataDump($tableName);
         }
 
-        $sql.= $this->getFooter();
+        $sql .= $this->getFooter();
         return $sql;
     }
 

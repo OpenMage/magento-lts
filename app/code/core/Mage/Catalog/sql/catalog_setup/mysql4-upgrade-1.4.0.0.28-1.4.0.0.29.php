@@ -53,12 +53,12 @@ $useParentSettingsAttributeId = $installer->getAttributeId($entityTypeId, 'custo
 $applyToProductsAttributeId = $installer->getAttributeId($entityTypeId, 'custom_apply_to_products');
 
 $attributeIdExpr = new Zend_Db_Expr(
-    'IF (e_a.attribute_id = e.attribute_id,'.
-    $useParentSettingsAttributeId.', '.
-    $applyToProductsAttributeId .')'
+    'IF (e_a.attribute_id = e.attribute_id,' .
+    $useParentSettingsAttributeId . ', ' .
+    $applyToProductsAttributeId . ')'
 );
 $productValueExpr = new Zend_Db_Expr('IF (e.value IN (1,3), 1, 0)');
-$valueExpr = new Zend_Db_Expr('IF (e_a.attribute_id = e.attribute_id, 1, '. $productValueExpr .')');
+$valueExpr = new Zend_Db_Expr('IF (e_a.attribute_id = e.attribute_id, 1, ' . $productValueExpr . ')');
 $select = $installer->getConnection()->select()
     ->from(
         ['e' => $catalogCategoryEntityIntTable],

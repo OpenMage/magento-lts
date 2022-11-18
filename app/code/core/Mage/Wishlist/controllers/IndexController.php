@@ -499,7 +499,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $qty = $qty[$itemId] ?? 1;
         }
         $qty = (float)$qty;
-        if ($qty && $qty>0) {
+        if ($qty && $qty > 0) {
             $item->setQty($qty);
         }
 
