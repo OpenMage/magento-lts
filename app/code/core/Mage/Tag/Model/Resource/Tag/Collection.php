@@ -268,7 +268,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         } elseif ($this->getFlag('summary') && in_array(
             $field,
             ['customers', 'products', 'uses', 'historical_uses', 'popularity']
-            )) {
+        )) {
             $this->getSelect()->where($this->_getConditionSql('summary.' . $field, $condition));
         } else {
             parent::addFieldToFilter($field, $condition);

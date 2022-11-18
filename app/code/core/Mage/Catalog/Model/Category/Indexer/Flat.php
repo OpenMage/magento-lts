@@ -125,7 +125,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
                     $store->isObjectNew()
                     || $store->dataHasChangedFor('group_id')
                     || $store->dataHasChangedFor('root_category_id')
-                    )) {
+                )) {
                     $result = true;
                 } else {
                     $result = false;

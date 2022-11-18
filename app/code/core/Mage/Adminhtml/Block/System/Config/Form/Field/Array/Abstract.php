@@ -88,9 +88,9 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
     {
         $this->_columns[$name] = [
             'label'     => empty($params['label']) ? 'Column' : $params['label'],
-            'size'      => empty($params['size'])  ? false    : $params['size'],
-            'style'     => empty($params['style'])  ? null    : $params['style'],
-            'class'     => empty($params['class'])  ? null    : $params['class'],
+            'size'      => empty($params['size']) ? false : $params['size'],
+            'style'     => empty($params['style']) ? null : $params['style'],
+            'class'     => empty($params['class']) ? null : $params['class'],
             'renderer'  => false,
         ];
         if ((!empty($params['renderer'])) && ($params['renderer'] instanceof Mage_Core_Block_Abstract)) {

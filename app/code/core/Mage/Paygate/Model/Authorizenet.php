@@ -425,7 +425,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         if ($this->_formatAmount(
             $cardsStorage->getCapturedAmount() - $cardsStorage->getRefundedAmount()
-            ) < $requestedAmount
+        ) < $requestedAmount
         ) {
             Mage::throwException(Mage::helper('paygate')->__('Invalid amount for refund.'));
         }
@@ -708,7 +708,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         if ($this->_formatAmount(
             $cardsStorage->getProcessedAmount() - $cardsStorage->getCapturedAmount()
-            ) < $requestedAmount
+        ) < $requestedAmount
         ) {
             Mage::throwException(Mage::helper('paygate')->__('Invalid amount for capture.'));
         }

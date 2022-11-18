@@ -1054,7 +1054,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
 
         $description = $descriptionArray && is_array($descriptionArray)
             ? implode($separator, array_unique($descriptionArray))
-            :  '';
+            : '';
 
         $address->setDiscountDescription($description);
         return $this;

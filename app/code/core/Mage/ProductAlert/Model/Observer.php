@@ -105,7 +105,7 @@ class Mage_ProductAlert_Model_Observer
             if (!Mage::getStoreConfig(
                 self::XML_PATH_PRICE_ALLOW,
                 $website->getDefaultGroup()->getDefaultStore()->getId()
-                )) {
+            )) {
                 continue;
             }
             try {
@@ -194,7 +194,7 @@ class Mage_ProductAlert_Model_Observer
             if (!Mage::getStoreConfig(
                 self::XML_PATH_STOCK_ALLOW,
                 $website->getDefaultGroup()->getDefaultStore()->getId()
-                )) {
+            )) {
                 continue;
             }
             try {
