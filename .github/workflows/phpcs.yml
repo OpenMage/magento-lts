@@ -22,15 +22,12 @@ jobs:
 
     strategy:
       matrix:
-        paths: [
-          'app/code/core/Mage/',
-          'lib/Mage/',
-          'lib/Magento/',
-          'lib/Varien/',
-          'app/code/community/'
+        rules: [
+          '.github/phpcs-ruleset.xml',
+          '.github/phpcs-ruleset-external.xml'
         ]
 
-    name: PHPCodeSniffer ${{ matrix.paths }}
+    name: PHPCodeSniffer ${{ matrix.rules }}
 
     steps:
       - name: Checkout code
@@ -53,6 +50,9 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
+      - name: Ensure existence of ./app/code/local
+        run: mkdir -p app/code/local
+
       - name: PHPCodeSniffer
-        run: php vendor/bin/phpcs -s --report=full --standard=.github/phpcs-ruleset.xml ${{ matrix.paths }}
-        continue-on-error: ${{ matrix.paths == 'app/code/community/' }}
+        run: php vendor/bin/phpcs -s --report=full --standard=${{ matrix.rules }}
+        continue-on-error: ${{ matrix.rules != '.github/phpcs-ruleset.xml' }}

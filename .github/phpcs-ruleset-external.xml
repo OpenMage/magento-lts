@@ -1,9 +1,7 @@
 <?xml version="1.0"?>
-<ruleset name="OpenMage" namespace="OpenMage\CS\Standard">
-    <file>./../app/code/core/Mage/</file>
-    <file>./../lib/Mage/</file>
-    <file>./../lib/Magento/</file>
-    <file>./../lib/Varien/</file>
+<ruleset name="OpenMageExternal" namespace="OpenMage\CS\Standard">
+    <file>./../app/code/community/</file>
+    <file>./../app/code/local/</file>
     <rule ref="PSR2">
         <exclude name="Generic.Files.LineLength.TooLong"/>
         <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
@@ -20,4 +18,6 @@
         <exclude name="PSR12.ControlStructures.ControlStructureSpacing.LineIndent"/>
         <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
     </rule>
+    <rule ref="Ecg" />
+    <rule ref="PHPCompatibility" />
 </ruleset>
