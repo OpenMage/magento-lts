@@ -5051,6 +5051,16 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Block/Recurring/Profiles.php
 
 		-
+			message: "#^Variable \\$oldArea might not be defined\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Sales/Model/Api2/Order/Comment/Rest/Admin/V1.php
+
+		-
+			message: "#^Variable \\$oldStore might not be defined\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Sales/Model/Api2/Order/Comment/Rest/Admin/V1.php
+
+		-
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Config/Ordered.php
