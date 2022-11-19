@@ -62,7 +62,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     public function addTemplateInfo()
     {
         $this->getSelect()->joinLeft(
-            ['template'=>$this->getTable('template')],
+            ['template' => $this->getTable('template')],
             'template.template_id=main_table.template_id',
             ['template_subject','template_sender_name','template_sender_email']
         );
@@ -128,7 +128,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     public function addFieldToFilter($field, $condition = null)
     {
         if (in_array($field, ['subscribers_total', 'subscribers_sent'])) {
-            $this->addFieldToFilter('main_table.queue_id', ['in'=>$this->_getIdsFromLink($field, $condition)]);
+            $this->addFieldToFilter('main_table.queue_id', ['in' => $this->_getIdsFromLink($field, $condition)]);
             return $this;
         } else {
             return parent::addFieldToFilter($field, $condition);
@@ -174,7 +174,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     public function addSubscriberFilter($subscriberId)
     {
         $this->getSelect()->join(
-            ['link'=>$this->getTable('newsletter/queue_link')],
+            ['link' => $this->getTable('newsletter/queue_link')],
             'main_table.queue_id=link.queue_id',
             ['letter_sent_at']
         )
@@ -208,7 +208,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     {
         $this->addFieldToFilter('main_table.queue_status', Mage_Newsletter_Model_Queue::STATUS_NEVER);
 
-           return $this;
+        return $this;
     }
 
     /**

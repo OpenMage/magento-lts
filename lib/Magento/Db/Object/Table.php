@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Magento
- * @package     Magento_Db
+ * @category   Magento
+ * @package    Magento_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -21,9 +21,9 @@
 /**
  * Magento_Db_Object_Table
  *
- * @category    Magento
- * @package     Magento_Db
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Magento
+ * @package    Magento_Db
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Magento_Db_Object_Table extends Magento_Db_Object implements Magento_Db_Object_Interface
 {

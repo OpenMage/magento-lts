@@ -90,7 +90,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
         $years = $this->getData('cc_years');
         if (is_null($years)) {
             $years = $this->_getConfig()->getYears();
-            $years = [0=>$this->__('Year')] +$years;
+            $years = [0 => $this->__('Year')] + $years;
             $this->setData('cc_years', $years);
         }
         return $years;
@@ -141,11 +141,11 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
         $years = [];
         $first = date("Y");
 
-        for ($index=5; $index>=0; $index--) {
+        for ($index = 5; $index >= 0; $index--) {
             $year = $first - $index;
             $years[$year] = $year;
         }
-        $years = [0=>$this->__('Year')] +$years;
+        $years = [0 => $this->__('Year')] + $years;
         return $years;
     }
 

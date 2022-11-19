@@ -55,11 +55,11 @@ class Mage_Tag_Block_Customer_Tags extends Mage_Customer_Block_Account_Dashboard
         $this->_maxPopularity = reset($tags)->getPopularity();
         $this->_minPopularity = end($tags)->getPopularity();
         $range = $this->_maxPopularity - $this->_minPopularity;
-        $range = ( $range == 0 ) ? 1 : $range;
+        $range = ($range == 0) ? 1 : $range;
 
         /** @var Mage_Tag_Model_Tag $tag */
         foreach ($tags as $tag) {
-            $tag->setRatio(($tag->getPopularity()-$this->_minPopularity)/$range);
+            $tag->setRatio(($tag->getPopularity() - $this->_minPopularity) / $range);
             $this->_tags[$tag->getName()] = $tag;
         }
         ksort($this->_tags);

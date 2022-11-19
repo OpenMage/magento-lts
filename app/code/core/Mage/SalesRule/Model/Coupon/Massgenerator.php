@@ -47,8 +47,8 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
     /**
      * Maximum probability of guessing the coupon on the first attempt
      */
-    const MAX_PROBABILITY_OF_GUESSING = 0.25;
-    const MAX_GENERATE_ATTEMPTS = 10;
+    public const MAX_PROBABILITY_OF_GUESSING = 0.25;
+    public const MAX_GENERATE_ATTEMPTS = 10;
 
     /**
      * Count of generated Coupons
@@ -85,7 +85,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
 
         $code = '';
         $charsetSize = count($charset);
-        for ($i=0; $i<$length; $i++) {
+        for ($i = 0; $i < $length; $i++) {
             $char = $charset[random_int(0, $charsetSize - 1)];
             if ($split > 0 && ($i % $split) == 0 && $i != 0) {
                 $char = $splitChar . $char;

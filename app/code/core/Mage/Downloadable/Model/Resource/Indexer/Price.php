@@ -137,8 +137,8 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
             ->where('dl.value = ?', 1)
             ->group(['i.entity_id', 'i.customer_group_id', 'i.website_id'])
             ->columns([
-                'min_price' => new Zend_Db_Expr('MIN('.$ifPrice.')'),
-                'max_price' => new Zend_Db_Expr('SUM('.$ifPrice.')')
+                'min_price' => new Zend_Db_Expr('MIN(' . $ifPrice . ')'),
+                'max_price' => new Zend_Db_Expr('SUM(' . $ifPrice . ')')
             ]);
 
         $query = $select->insertFromSelect($table);
@@ -151,7 +151,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
             ->join(
                 ['id' => $table],
                 'i.entity_id = id.entity_id AND i.customer_group_id = id.customer_group_id'
-                    .' AND i.website_id = id.website_id',
+                    . ' AND i.website_id = id.website_id',
                 []
             )
             ->columns([

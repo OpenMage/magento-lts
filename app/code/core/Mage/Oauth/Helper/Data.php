@@ -31,35 +31,35 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     /**#@+
      * Endpoint types with appropriate routes
      */
-    const ENDPOINT_AUTHORIZE_CUSTOMER        = 'oauth/authorize';
-    const ENDPOINT_AUTHORIZE_ADMIN           = 'adminhtml/oauth_authorize';
-    const ENDPOINT_AUTHORIZE_CUSTOMER_SIMPLE = 'oauth/authorize/simple';
-    const ENDPOINT_AUTHORIZE_ADMIN_SIMPLE    = 'adminhtml/oauth_authorize/simple';
-    const ENDPOINT_INITIATE                  = 'oauth/initiate';
-    const ENDPOINT_TOKEN                     = 'oauth/token';
+    public const ENDPOINT_AUTHORIZE_CUSTOMER        = 'oauth/authorize';
+    public const ENDPOINT_AUTHORIZE_ADMIN           = 'adminhtml/oauth_authorize';
+    public const ENDPOINT_AUTHORIZE_CUSTOMER_SIMPLE = 'oauth/authorize/simple';
+    public const ENDPOINT_AUTHORIZE_ADMIN_SIMPLE    = 'adminhtml/oauth_authorize/simple';
+    public const ENDPOINT_INITIATE                  = 'oauth/initiate';
+    public const ENDPOINT_TOKEN                     = 'oauth/token';
     /**#@-*/
 
     /**#@+
      * Cleanup xpath config settings
      */
-    const XML_PATH_CLEANUP_PROBABILITY       = 'oauth/cleanup/cleanup_probability';
-    const XML_PATH_CLEANUP_EXPIRATION_PERIOD = 'oauth/cleanup/expiration_period';
+    public const XML_PATH_CLEANUP_PROBABILITY       = 'oauth/cleanup/cleanup_probability';
+    public const XML_PATH_CLEANUP_EXPIRATION_PERIOD = 'oauth/cleanup/expiration_period';
     /**#@-*/
 
     /**#@+ Email template */
-    const XML_PATH_EMAIL_TEMPLATE = 'oauth/email/template';
-    const XML_PATH_EMAIL_IDENTITY = 'oauth/email/identity';
+    public const XML_PATH_EMAIL_TEMPLATE = 'oauth/email/template';
+    public const XML_PATH_EMAIL_IDENTITY = 'oauth/email/identity';
     /**#@-*/
 
     /**
      * Cleanup expiration period in minutes
      */
-    const CLEANUP_EXPIRATION_PERIOD_DEFAULT = 120;
+    public const CLEANUP_EXPIRATION_PERIOD_DEFAULT = 120;
 
     /**
      * Query parameter as a sign that user rejects
      */
-    const QUERY_PARAM_REJECTED = 'rejected';
+    public const QUERY_PARAM_REJECTED = 'rejected';
 
     protected $_moduleName = 'Mage_Oauth';
 
@@ -87,7 +87,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (function_exists('openssl_random_pseudo_bytes')) {
             // use openssl lib if it is install. It provides a better randomness
-            $bytes = openssl_random_pseudo_bytes(ceil($length/2), $strong);
+            $bytes = openssl_random_pseudo_bytes(ceil($length / 2), $strong);
             $hex = bin2hex($bytes); // hex() doubles the length of the string
             $randomString = substr($hex, 0, $length); // we truncate at most 1 char if length parameter is an odd number
         } else {

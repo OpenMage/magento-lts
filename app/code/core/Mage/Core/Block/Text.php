@@ -62,9 +62,9 @@ class Mage_Core_Block_Text extends Mage_Core_Block_Abstract
     public function addText($text, $before = false)
     {
         if ($before) {
-            $this->setText($text.$this->getText());
+            $this->setText($text . $this->getText());
         } else {
-            $this->setText($this->getText().$text);
+            $this->setText($this->getText() . $text);
         }
     }
 

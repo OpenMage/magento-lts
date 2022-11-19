@@ -26,7 +26,7 @@
  */
 class Mage_Sales_Model_Quote_Config
 {
-    const XML_PATH_QUOTE_PRODUCT_ATTRIBUTES = 'global/sales/quote/item/product_attributes';
+    public const XML_PATH_QUOTE_PRODUCT_ATTRIBUTES = 'global/sales/quote/item/product_attributes';
 
     /**
      * @return array

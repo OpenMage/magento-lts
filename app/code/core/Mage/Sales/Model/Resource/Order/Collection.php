@@ -56,7 +56,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
     {
         if (is_null($this->_fieldsToSelect)) {
             // If we select all fields from table, we need to add column alias
-            $this->getSelect()->columns(['items_count'=>'total_item_count']);
+            $this->getSelect()->columns(['items_count' => 'total_item_count']);
         } else {
             $this->addFieldToSelect('total_item_count', 'items_count');
         }

@@ -102,7 +102,7 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
      * @param string $idSuffix Suffix for HTML containers
      * @return string
      */
-    public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix='')
+    public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix = '')
     {
         $type_id = $product->getTypeId();
         if (Mage::helper('catalog')->canApplyMsrp($product)) {

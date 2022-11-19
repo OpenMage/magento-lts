@@ -312,7 +312,7 @@ $table = $installer->getConnection()
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
         ['link_id', 'store_id'],
-        ['type'=>Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->addIndex($installer->getIdxName('downloadable/link_title', 'link_id'), 'link_id')
     ->addForeignKey(
@@ -404,7 +404,7 @@ $table = $installer->getConnection()
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
         ['sample_id', 'store_id'],
-        ['type'=>Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->addIndex($installer->getIdxName('downloadable/sample_title', 'sample_id'), 'sample_id')
     ->addForeignKey(

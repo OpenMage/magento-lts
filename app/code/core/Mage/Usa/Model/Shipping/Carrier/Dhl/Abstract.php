@@ -30,17 +30,17 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract extends Mage_Usa_Mod
     /**
      * Response condition code for service is unavailable at the requested date
      */
-    const CONDITION_CODE_SERVICE_DATE_UNAVAILABLE = 1003;
+    public const CONDITION_CODE_SERVICE_DATE_UNAVAILABLE = 1003;
 
     /**
      * Count of days to look forward if day is not unavailable
      */
-    const UNAVAILABLE_DATE_LOOK_FORWARD = 5;
+    public const UNAVAILABLE_DATE_LOOK_FORWARD = 5;
 
     /**
      * Date format for request
      */
-    const REQUEST_DATE_FORMAT = 'Y-m-d';
+    public const REQUEST_DATE_FORMAT = 'Y-m-d';
 
     /**
      * Get shipping date

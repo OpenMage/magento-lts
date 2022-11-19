@@ -26,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Retrieve an instance of the fallback helper
@@ -110,9 +109,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
 
         foreach ($undefinedResources as $undefinedResourceId) {
             if ($this->_getFallbackHelper()->fallbackResourcePermissions(
-                    $resourcesPermissionsMap,
-                    $undefinedResourceId
-                ) == Mage_Admin_Model_Rules::RULE_PERMISSION_ALLOWED
+                $resourcesPermissionsMap,
+                $undefinedResourceId
+            ) == Mage_Admin_Model_Rules::RULE_PERMISSION_ALLOWED
             ) {
                 $selrids[] = $undefinedResourceId;
             }
@@ -159,7 +158,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
      */
     protected function _sortTree($a, $b)
     {
-        return $a['sort_order']<$b['sort_order'] ? -1 : ($a['sort_order']>$b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
     }
 
     /**
@@ -179,8 +178,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
             $item['sort_order'] = isset($node->sort_order) ? (string)$node->sort_order : 0;
             $item['id'] = (string)$node->attributes()->aclpath;
 
-            if (in_array($item['id'], $selres))
+            if (in_array($item['id'], $selres)) {
                 $item['checked'] = true;
+            }
         }
         if (isset($node->children)) {
             $children = $node->children->children();
@@ -200,9 +200,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
                         continue;
                     }
                     if ($level != 0) {
-                        $item['children'][] = $this->_getNodeJson($child, $level+1);
+                        $item['children'][] = $this->_getNodeJson($child, $level + 1);
                     } else {
-                        $item = $this->_getNodeJson($child, $level+1);
+                        $item = $this->_getNodeJson($child, $level + 1);
                     }
                 }
             }

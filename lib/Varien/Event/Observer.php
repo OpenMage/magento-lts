@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Event
+ * @category   Varien
+ * @package    Varien_Event
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Event
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Event_Observer extends Varien_Object
 {
@@ -36,7 +36,7 @@ class Varien_Event_Observer extends Varien_Object
      */
     public function isValidFor(Varien_Event $event)
     {
-        return $this->getEventName()===$event->getName();
+        return $this->getEventName() === $event->getName();
     }
 
     /**
@@ -54,7 +54,7 @@ class Varien_Event_Observer extends Varien_Object
         $callback = $this->getCallback();
         $this->setEvent($event);
 
-        $_profilerKey = 'OBSERVER: '.(is_object($callback[0]) ? get_class($callback[0]) : (string)$callback[0]).' -> '.$callback[1];
+        $_profilerKey = 'OBSERVER: ' . (is_object($callback[0]) ? get_class($callback[0]) : (string)$callback[0]) . ' -> ' . $callback[1];
         Varien_Profiler::start($_profilerKey);
         call_user_func($callback, $this);
         Varien_Profiler::stop($_profilerKey);

@@ -256,7 +256,7 @@ CREATE TABLE `{$installer->getTable('sales_flat_quote_shipping_rate')}` (
 DELETE FROM `{$installer->getTable('log_quote')}`;
 ");
 
-$installer->addAttribute('order_item', 'is_virtual', ['type'=>'int']);
+$installer->addAttribute('order_item', 'is_virtual', ['type' => 'int']);
 $installer->endSetup();
 
 /**

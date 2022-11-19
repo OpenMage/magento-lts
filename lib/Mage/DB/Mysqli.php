@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_DB
+ * @category   Mage
+ * @package    Mage_DB
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -22,9 +22,9 @@
 /**
  * Mysqli database connector
  *
- * @category    Mage
- * @package     Mage_Db
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Db
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_DB_Mysqli
 {
@@ -32,19 +32,19 @@ class Mage_DB_Mysqli
      * Default port
      * @var int
      */
-    const DEFAULT_PORT = 3306;
+    public const DEFAULT_PORT = 3306;
 
     /**
      * Table name escaper
      * @var string
      */
-    const TABLE_ESCAPER = '`';
+    public const TABLE_ESCAPER = '`';
 
     /**
      * Value escaper
      * @var unknown_type
      */
-    const VALUE_ESCAPER = '"';
+    public const VALUE_ESCAPER = '"';
 
     /**
      * Connection
@@ -78,7 +78,7 @@ class Mage_DB_Mysqli
     {
         $port = (int) $port;
         $res = @$this->conn->connect($host, $user, $paswd, $db, $port);
-        if(0 !== mysqli_connect_errno($this->conn)) {
+        if (0 !== mysqli_connect_errno($this->conn)) {
             throw new Mage_DB_Exception(mysqli_connect_error($this->conn));
         }
         return $res;
@@ -112,7 +112,7 @@ class Mage_DB_Mysqli
      */
     public function escapeTableName($table)
     {
-        return self::TABLE_ESCAPER.$this->escapeString($table).self::TABLE_ESCAPER;
+        return self::TABLE_ESCAPER . $this->escapeString($table) . self::TABLE_ESCAPER;
     }
 
     /**
@@ -122,7 +122,7 @@ class Mage_DB_Mysqli
      */
     public function escapeFieldName($fld)
     {
-        return self::TABLE_ESCAPER.$this->escapeString($fld).self::TABLE_ESCAPER;
+        return self::TABLE_ESCAPER . $this->escapeString($fld) . self::TABLE_ESCAPER;
     }
 
     /**
@@ -132,7 +132,7 @@ class Mage_DB_Mysqli
      */
     public function escapeFieldValue($data)
     {
-        return self::VALUE_ESCAPER.$this->escapeString($data).self::VALUE_ESCAPER;
+        return self::VALUE_ESCAPER . $this->escapeString($data) . self::VALUE_ESCAPER;
     }
 
     /**
@@ -143,7 +143,7 @@ class Mage_DB_Mysqli
     public function fetchAll($sql)
     {
         $res = $this->query($sql);
-        for($out = array(); $row = $res->fetch_array($this->fetch_mode); $out[] = $row);
+        for ($out = []; $row = $res->fetch_array($this->fetch_mode); $out[] = $row);
         return $out;
     }
 
@@ -168,11 +168,11 @@ class Mage_DB_Mysqli
     public function fetchGroupedArrayByKey($sql, $key, $arrayMode = true)
     {
         $res = $this->query($sql);
-        $out = array();
-        while($row = $res->fetch_array(MYSQLI_ASSOC)) {
-            if($arrayMode) {
-                if(!isset($out[$row[$key]])) {
-                    $out[$row[$key]] = array();
+        $out = [];
+        while ($row = $res->fetch_array(MYSQLI_ASSOC)) {
+            if ($arrayMode) {
+                if (!isset($out[$row[$key]])) {
+                    $out[$row[$key]] = [];
                 }
                 $out[$row[$key]][] = $row;
             } else {
@@ -191,7 +191,7 @@ class Mage_DB_Mysqli
     public function fetchOneFieldAll($sql, $fld)
     {
         $res = $this->query($sql);
-        for($out = array(); $row = $res->fetch_array($this->fetch_mode); $out[] = $row[$fld]);
+        for ($out = []; $row = $res->fetch_array($this->fetch_mode); $out[] = $row[$fld]);
         return $out;
     }
 
@@ -261,7 +261,7 @@ class Mage_DB_Mysqli
      * @param bool $forcedArrayMode
      * @return array
      */
-    public function listByKeyGrouped($table,  $key = 'id', $forcedArrayMode = false)
+    public function listByKeyGrouped($table, $key = 'id', $forcedArrayMode = false)
     {
         $table = $this->escapeTableName($table);
         $sql = "SELECT * FROM {$table}";
@@ -275,8 +275,8 @@ class Mage_DB_Mysqli
      */
     public function escapeFieldNames(array $arrNames)
     {
-        $out = array();
-        for ($i=0, $c = count($arrNames) ; $i<$c; $i++) {
+        $out = [];
+        for ($i = 0, $c = count($arrNames); $i < $c; $i++) {
             $out[] = $this->escapeFieldName($arrNames[$i]);
         }
         return $out;
@@ -289,9 +289,9 @@ class Mage_DB_Mysqli
      */
     public function escapeFieldValues(array $arrNames)
     {
-        $out = array();
-        for ($i=0, $c = count($arrNames) ; $i<$c; $i++) {
-            if($arrNames[$i] !== 'LAST_INSERT_ID()') {
+        $out = [];
+        for ($i = 0, $c = count($arrNames); $i < $c; $i++) {
+            if ($arrNames[$i] !== 'LAST_INSERT_ID()') {
                 $out[] = $this->escapeFieldValue($arrNames[$i]);
             } else {
                 $out[] = $arrNames[$i];
@@ -319,7 +319,7 @@ class Mage_DB_Mysqli
     public function query($sql)
     {
         $res = $this->unsafeQuery($sql);
-        if(!$res) {
+        if (!$res) {
             throw new Mage_DB_Exception($this->conn->error);
         }
         return $res;
@@ -342,13 +342,14 @@ class Mage_DB_Mysqli
      * @param bool $replace
      * @return mixed
      */
-    public function insertAssocOne($table, array $data, $replace = false) {
+    public function insertAssocOne($table, array $data, $replace = false)
+    {
         $keys = $this->escapeFieldNames(array_keys($data));
-        $keys = "(" . implode (",", $keys) . ")";
+        $keys = "(" . implode(",", $keys) . ")";
         $table = $this->escapeTableName($table);
         $sql = $replace ? "REPLACE INTO {$table} " : "INSERT INTO {$table} ";
         $values = $this->escapeFieldValues(array_values($data));
-        $values = " VALUES (" . implode (",", $values) . ")";
+        $values = " VALUES (" . implode(",", $values) . ")";
         $sql .= $keys . $values;
         return $this->query($sql);
     }
@@ -360,15 +361,15 @@ class Mage_DB_Mysqli
      * @param bool $replace   use REPLACE INTO instead of INSERT INTO
      * @return array
      */
-    public function insertAssocMultiple($table, array $data, $replace = false, $excludeFields = array())
+    public function insertAssocMultiple($table, array $data, $replace = false, $excludeFields = [])
     {
         $table = $this->escapeTableName($table);
         $sql = $replace ? "REPLACE INTO {$table} " : "INSERT INTO {$table} ";
         $keys = array_keys($data[0]);
-        $excluded = array();
-        for($i = 0, $c = count($excludeFields); $i < $c; $i++) {
+        $excluded = [];
+        for ($i = 0, $c = count($excludeFields); $i < $c; $i++) {
             $k = $excludeFields[$i];
-            if(isset($keys[$k])) {
+            if (isset($keys[$k])) {
                 $excluded [] = $k;
                 unset($keys[$k]);
             }
@@ -376,28 +377,28 @@ class Mage_DB_Mysqli
 
         $keys = $this->escapeFieldNames($keys);
         $sql .= " ( ";
-        for($i = 0, $c = count($keys); $i<$c; $i++) {
+        for ($i = 0, $c = count($keys); $i < $c; $i++) {
             $sql .= $keys[$i];
-            if($i!=$c-1) {
+            if ($i != $c - 1) {
                 $sql .= ",";
             }
         }
         $sql .= " ) VALUES ";
-        for($i = 0, $c = count($data); $i<$c; $i++) {
+        for ($i = 0, $c = count($data); $i < $c; $i++) {
             $row = $data[$i];
-            for ($j = 0, $jc = count($excluded); $j<$jc; $j++) {
+            for ($j = 0, $jc = count($excluded); $j < $jc; $j++) {
                 unset($data[$excluded[$j]]);
             }
             $values = $this->escapeFieldValues(array_values($row));
             $sql .= "( ";
             for ($j = 0, $jc = count($values); $j < $jc; $j++) {
                 $sql .= $values[$j];
-                if($j != $jc-1) {
+                if ($j != $jc - 1) {
                     $sql .= ",";
                 }
             }
             $sql .= " )";
-            if($i!=$c-1) {
+            if ($i != $c - 1) {
                 $sql .= ",";
             }
         }
@@ -414,8 +415,8 @@ class Mage_DB_Mysqli
     public function updateAssoc($table, array $data, $condition = '1=1')
     {
         $table = $this->escapeTableName($table);
-        $set = array();
-        foreach($data as $k=>$v) {
+        $set = [];
+        foreach ($data as $k => $v) {
             $k = $this->escapeFieldName($k);
             $v = $this->escapeFieldValue($v);
             $set[] = $k . " = " . $v;
@@ -438,8 +439,8 @@ class Mage_DB_Mysqli
         $table = $this->escapeTableName($table);
         $key = $this->escapeFieldName($key);
         $value = $this->escapeFieldValue($value);
-        $set = array();
-        foreach($data as $k=>$v) {
+        $set = [];
+        foreach ($data as $k => $v) {
             $k = $this->escapeFieldName($k);
             $v = $this->escapeFieldValue($v);
             $set[] = $k . " = " . $v;
@@ -456,10 +457,10 @@ class Mage_DB_Mysqli
      */
     public function idsToString($ids)
     {
-        if(is_scalar($ids)) {
+        if (is_scalar($ids)) {
             return $this->escapeFieldValue(strval($ids));
         }
-        $out = array();
+        $out = [];
         foreach ($ids as $id) {
             $out .= $this->escapeFieldValue($id);
         }
@@ -500,14 +501,14 @@ class Mage_DB_Mysqli
      * @param string $condition ex: "a>0"
      * @return int
      */
-    public function simpleCount($table, $condition) {
+    public function simpleCount($table, $condition)
+    {
         $sql = "SELECT count(*) AS `cnt` WHERE {$condition}";
         $data = $this->fetchOne($sql);
-        if(empty($data['cnt'])) {
+        if (empty($data['cnt'])) {
             return 0;
         }
         return intval($data['cnt']);
-
     }
 
     public function lastInsertId()
@@ -516,5 +517,4 @@ class Mage_DB_Mysqli
         $data = $this->fetchOne($sql);
         return $data['id'];
     }
-
 }

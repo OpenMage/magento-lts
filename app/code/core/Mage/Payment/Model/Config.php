@@ -43,7 +43,7 @@ class Mage_Payment_Model_Config
         $methods = [];
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
-            if (Mage::getStoreConfigFlag('payment/'.$code.'/active', $store)) {
+            if (Mage::getStoreConfigFlag('payment/' . $code . '/active', $store)) {
                 if (array_key_exists('model', $methodConfig)) {
                     $methodModel = Mage::getModel($methodConfig['model']);
                     if ($methodModel && $methodModel->getConfigData('active', $store)) {
@@ -127,7 +127,7 @@ class Mage_Payment_Model_Config
     {
         $data = Mage::app()->getLocale()->getTranslationList('month');
         foreach ($data as $key => $value) {
-            $monthNum = ($key < 10) ? '0'.$key : $key;
+            $monthNum = ($key < 10) ? '0' . $key : $key;
             $data[$key] = $monthNum . ' - ' . $value;
         }
         return $data;
@@ -143,7 +143,7 @@ class Mage_Payment_Model_Config
         $years = [];
         $first = date("Y");
 
-        for ($index=0; $index <= 10; $index++) {
+        for ($index = 0; $index <= 10; $index++) {
             $year = $first + $index;
             $years[$year] = $year;
         }

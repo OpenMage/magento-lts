@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Grid extends Mage_Adminhtml_Bl
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('dataflow/profile_collection')
-            ->addFieldToFilter('entity_type', ['null'=>'']);
+            ->addFieldToFilter('entity_type', ['null' => '']);
 
         $this->setCollection($collection);
 
@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Grid extends Mage_Adminhtml_Bl
             'width'     => '50px',
             'index'     => 'profile_id',
         ]);
-        $this->addColumn( 'name', [
+        $this->addColumn('name', [
             'header'    => Mage::helper('adminhtml')->__('Profile Name'),
             'index'     => 'name',
         ]);
@@ -89,7 +89,6 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Grid extends Mage_Adminhtml_Bl
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', ['id'=>$row->getId()]);
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
 }
-

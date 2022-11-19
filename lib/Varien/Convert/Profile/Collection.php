@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Convert
+ * @category   Varien
+ * @package    Varien_Convert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,13 +24,13 @@
  *
  * @category   Varien
  * @package    Varien_Convert
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Convert_Profile_Collection
 {
     protected $_xml;
     protected $_containers;
-    protected $_profiles = array();
+    protected $_profiles = [];
 
     protected $_simplexmlDefaultClass = 'Varien_Simplexml_Element';
     protected $_profileDefaultClass = 'Varien_Convert_Profile';
@@ -71,7 +71,7 @@ class Varien_Convert_Profile_Collection
         return $this->_profiles[$name];
     }
 
-    public function addProfile($name, Varien_Convert_Profile_Abstract $profile=null)
+    public function addProfile($name, Varien_Convert_Profile_Abstract $profile = null)
     {
         if (is_null($profile)) {
             $profile = new $this->_profileDefaultClass();
@@ -119,7 +119,7 @@ class Varien_Convert_Profile_Collection
         if (!$this->_xml) {
             return $this;
         }
-        $nodes = $this->_xml->xpath("//profile[@name='".$name."']");
+        $nodes = $this->_xml->xpath("//profile[@name='" . $name . "']");
         if (!$nodes) {
             return $this;
         }
@@ -129,7 +129,7 @@ class Varien_Convert_Profile_Collection
         $profile->setContainers($this->getContainers());
         foreach ($profileNode->action as $actionNode) {
             $action = $profile->addAction();
-            foreach ($actionNode->attributes() as $key=>$value) {
+            foreach ($actionNode->attributes() as $key => $value) {
                 $action->setParam($key, (string)$value);
             }
 

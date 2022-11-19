@@ -159,11 +159,11 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 $attributes = $infoNode->attributes();
                 $blockName = (string)$attributes->name;
                 if ($blockName) {
-                    $ignoreNodes = $xml->xpath("//block[@name='".$blockName."']");
+                    $ignoreNodes = $xml->xpath("//block[@name='" . $blockName . "']");
                     if (!is_array($ignoreNodes)) {
                         continue;
                     }
-                    $ignoreReferences = $xml->xpath("//reference[@name='".$blockName."']");
+                    $ignoreReferences = $xml->xpath("//reference[@name='" . $blockName . "']");
                     if (is_array($ignoreReferences)) {
                         $ignoreNodes = array_merge($ignoreNodes, $ignoreReferences);
                     }
@@ -235,7 +235,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         }
 
         $blockName = (string)$node['name'];
-        $_profilerKey = 'BLOCK: '.$blockName;
+        $_profilerKey = 'BLOCK: ' . $blockName;
         Varien_Profiler::start($_profilerKey);
 
         $block = $this->addBlock($className, $blockName);
@@ -302,7 +302,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             $parentName = $parent->getBlockName();
         }
 
-        $_profilerKey = 'BLOCK ACTION: '.$parentName.' -> '.$method;
+        $_profilerKey = 'BLOCK ACTION: ' . $parentName . ' -> ' . $method;
         Varien_Profiler::start($_profilerKey);
 
         if (!empty($parentName)) {
@@ -470,7 +470,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             if (!empty($name)) {
                 $block->setAnonSuffix(substr($name, 1));
             }
-            $name = 'ANONYMOUS_'.count($this->_blocks);
+            $name = 'ANONYMOUS_' . count($this->_blocks);
         } elseif (isset($this->_blocks[$name]) && Mage::getIsDeveloperMode()) {
             //Mage::throwException(Mage::helper('core')->__('Block with name "%s" already exists', $name));
         }
@@ -481,7 +481,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         $block->setLayout($this);
 
         $this->_blocks[$name] = $block;
-        Mage::dispatchEvent('core_layout_block_create_after', ['block'=>$block]);
+        Mage::dispatchEvent('core_layout_block_create_after', ['block' => $block]);
         return $this->_blocks[$name];
     }
 
@@ -507,7 +507,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     protected function _getBlockInstance($block, array $attributes = [])
     {
         if (is_string($block)) {
-            if (strpos($block, '/')!==false) {
+            if (strpos($block, '/') !== false) {
                 if (!$block = Mage::getConfig()->getBlockClassName($block)) {
                     Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $block));
                 }

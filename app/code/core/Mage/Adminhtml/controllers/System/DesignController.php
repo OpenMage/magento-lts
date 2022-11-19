@@ -30,7 +30,7 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/design';
+    public const ADMIN_RESOURCE = 'system/design';
 
     /**
      * Controller pre-dispatch method
@@ -110,11 +110,11 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
                 $design->save();
 
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The design change has been saved.'));
-            } catch (Exception $e){
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')
                     ->addError($e->getMessage())
                     ->setDesignData($data);
-                $this->_redirect('*/*/edit', ['id'=>$design->getId()]);
+                $this->_redirect('*/*/edit', ['id' => $design->getId()]);
                 return;
             }
         }

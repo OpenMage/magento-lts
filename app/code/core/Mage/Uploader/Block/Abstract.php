@@ -63,7 +63,7 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
     /**
      * Default browse button ID suffix
      */
-    const DEFAULT_BROWSE_BUTTON_ID_SUFFIX = 'browse';
+    public const DEFAULT_BROWSE_BUTTON_ID_SUFFIX = 'browse';
 
     /**
      * Constructor for uploader block

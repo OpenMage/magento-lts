@@ -30,15 +30,15 @@
  */
 class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 {
-    const XML_NODE_DIRECT_FRONT_NAMES = 'global/request/direct_front_name';
-    const DEFAULT_HTTP_PORT = 80;
-    const DEFAULT_HTTPS_PORT = 443;
+    public const XML_NODE_DIRECT_FRONT_NAMES = 'global/request/direct_front_name';
+    public const DEFAULT_HTTP_PORT = 80;
+    public const DEFAULT_HTTPS_PORT = 443;
 
     /**
      * ORIGINAL_PATH_INFO
      * @var string
      */
-    protected $_originalPathInfo= '';
+    protected $_originalPathInfo = '';
     protected $_storeCode       = null;
     protected $_requestString   = '';
 
@@ -47,7 +47,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      *
      * @var null|array
      */
-    protected $_rewritedPathInfo= null;
+    protected $_rewritedPathInfo = null;
     protected $_requestedRouteName = null;
     protected $_routingInfo = [];
 
@@ -161,9 +161,9 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 
                 if (!$this->isDirectAccessFrontendName($storeCode)) {
                     $stores = Mage::app()->getStores(true, true);
-                    if ($storeCode!=='' && isset($stores[$storeCode])) {
+                    if ($storeCode !== '' && isset($stores[$storeCode])) {
                         Mage::app()->setCurrentStore($storeCode);
-                        $pathInfo = '/'.($pathParts[1] ?? '');
+                        $pathInfo = '/' . ($pathParts[1] ?? '');
                     } elseif ($storeCode !== '') {
                         $this->setActionName('noRoute');
                     }
@@ -172,7 +172,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 
             $this->_originalPathInfo = (string) $pathInfo;
 
-            $this->_requestString = $pathInfo . ($pos!==false ? substr($requestUri, $pos) : '');
+            $this->_requestString = $pathInfo . ($pos !== false ? substr($requestUri, $pos) : '');
         }
 
         $this->_pathInfo = (string) $pathInfo;

@@ -22,4 +22,4 @@
 /** @var Mage_Sales_Model_Resource_Setup $installer */
 $installer = $this;
 
-$installer->addAttribute('quote_item', 'original_custom_price', ['type'=>'decimal']);
+$installer->addAttribute('quote_item', 'original_custom_price', ['type' => 'decimal']);

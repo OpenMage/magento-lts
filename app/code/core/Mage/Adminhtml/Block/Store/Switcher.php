@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     /**
      * Key in config for store switcher hint
      */
-    const XPATH_HINT_KEY = 'store_switcher';
+    public const XPATH_HINT_KEY = 'store_switcher';
 
     /**
      * @var array
@@ -243,7 +243,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
         $url = $this->getHintUrl();
         if ($url) {
             $html = '<a'
-                . ' href="'. $this->escapeUrl($url) . '"'
+                . ' href="' . $this->escapeUrl($url) . '"'
                 . ' onclick="this.target=\'_blank\'"'
                 . ' title="' . Mage::helper('core')->quoteEscape($this->__('What is this?')) . '"'
                 . ' class="link-store-scope">'

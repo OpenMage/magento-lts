@@ -30,8 +30,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Source_Shipmenttype
     {
         $fedex = Mage::getSingleton('usa/shipping_carrier_dhl');
         $arr = [];
-        foreach ($fedex->getCode('shipment_type') as $k=>$v) {
-            $arr[] = ['value'=>$k, 'label'=>$v];
+        foreach ($fedex->getCode('shipment_type') as $k => $v) {
+            $arr[] = ['value' => $k, 'label' => $v];
         }
         return $arr;
     }

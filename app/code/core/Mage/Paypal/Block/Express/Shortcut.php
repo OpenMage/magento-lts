@@ -42,8 +42,8 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
     /**
      * Position of "OR" label against shortcut
      */
-    const POSITION_BEFORE = 'before';
-    const POSITION_AFTER = 'after';
+    public const POSITION_BEFORE = 'before';
+    public const POSITION_AFTER = 'after';
 
     /**
      * Whether the block should be eventually rendered

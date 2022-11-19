@@ -28,22 +28,22 @@
  */
 class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
 {
-    const FILTER_ELEMENT_GROUP = 'export_filter';
-    const FILTER_ELEMENT_SKIP  = 'skip_attr';
+    public const FILTER_ELEMENT_GROUP = 'export_filter';
+    public const FILTER_ELEMENT_SKIP  = 'skip_attr';
 
     /**
      * Filter fields types.
      */
-    const FILTER_TYPE_SELECT = 'select';
-    const FILTER_TYPE_INPUT  = 'input';
-    const FILTER_TYPE_DATE   = 'date';
-    const FILTER_TYPE_NUMBER = 'number';
+    public const FILTER_TYPE_SELECT = 'select';
+    public const FILTER_TYPE_INPUT  = 'input';
+    public const FILTER_TYPE_DATE   = 'date';
+    public const FILTER_TYPE_NUMBER = 'number';
 
     /**
      * Config keys.
      */
-    const CONFIG_KEY_ENTITIES = 'global/importexport/export_entities';
-    const CONFIG_KEY_FORMATS  = 'global/importexport/export_file_formats';
+    public const CONFIG_KEY_ENTITIES = 'global/importexport/export_entities';
+    public const CONFIG_KEY_FORMATS  = 'global/importexport/export_file_formats';
 
     /**
      * Entity adapter.

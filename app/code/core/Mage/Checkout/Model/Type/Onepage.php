@@ -31,9 +31,9 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Checkout types: Checkout as Guest, Register, Logged In Customer
      */
-    const METHOD_GUEST    = 'guest';
-    const METHOD_REGISTER = 'register';
-    const METHOD_CUSTOMER = 'customer';
+    public const METHOD_GUEST    = 'guest';
+    public const METHOD_REGISTER = 'register';
+    public const METHOD_CUSTOMER = 'customer';
 
     /**
      * Error message of "customer already exists"
@@ -127,7 +127,7 @@ class Mage_Checkout_Model_Type_Onepage
         $customerSession = $this->getCustomerSession();
         if (is_array($checkout->getStepData())) {
             foreach ($checkout->getStepData() as $step => $data) {
-                if (!($step==='login' || $customerSession->isLoggedIn() && $step==='billing')) {
+                if (!($step === 'login' || $customerSession->isLoggedIn() && $step === 'billing')) {
                     $checkout->setStepData($step, 'allow', false);
                 }
             }
@@ -586,7 +586,7 @@ class Mage_Checkout_Model_Type_Onepage
         $address->implodeStreetAddress();
         $address->setCollectShippingRates(true);
 
-        if (($validateRes = $address->validate())!==true) {
+        if (($validateRes = $address->validate()) !== true) {
             return ['error' => 1, 'message' => $validateRes];
         }
 
@@ -827,7 +827,7 @@ class Mage_Checkout_Model_Type_Onepage
         if ($order) {
             Mage::dispatchEvent(
                 'checkout_type_onepage_save_order_after',
-                ['order'=>$order, 'quote'=>$this->getQuote()]
+                ['order' => $order, 'quote' => $this->getQuote()]
             );
 
             /**
@@ -896,7 +896,7 @@ class Mage_Checkout_Model_Type_Onepage
             if ($addressValidation !== true) {
                 Mage::throwException(Mage::helper('checkout')->__('Please check shipping address information.'));
             }
-            $method= $address->getShippingMethod();
+            $method = $address->getShippingMethod();
             $rate  = $address->getShippingRateByCode($method);
             if (!$this->getQuote()->isVirtual() && (!$method || !$rate)) {
                 Mage::throwException(Mage::helper('checkout')->__('Please specify shipping method.'));

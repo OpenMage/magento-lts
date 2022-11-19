@@ -39,7 +39,7 @@
  */
 class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
 {
-    static public $_format = [];
+    public static $_format = [];
 
     protected function _construct()
     {
@@ -96,7 +96,7 @@ class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
         $address->getRegion();
         $address->getCountry();
 
-        $template = $this->getData('address_template_'.($html ? 'html' : 'plain'));
+        $template = $this->getData('address_template_' . ($html ? 'html' : 'plain'));
         if (empty($template)) {
             if (!$this->getId()) {
                 $template = '{{firstname}} {{lastname}}';

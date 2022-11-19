@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_List extends Mage_Adminhtml_Blo
 
     protected function _toHtml()
     {
-        if( !Mage::registry('poll_data') ) {
+        if (!Mage::registry('poll_data')) {
             $this->assign('answers', false);
             return parent::_toHtml();
         }
@@ -49,7 +49,8 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_List extends Mage_Adminhtml_Blo
 
     protected function _prepareLayout()
     {
-        $this->setChild('deleteButton',
+        $this->setChild(
+            'deleteButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('poll')->__('Delete'),
@@ -58,7 +59,8 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_List extends Mage_Adminhtml_Blo
                 ])
         );
 
-        $this->setChild('addButton',
+        $this->setChild(
+            'addButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('poll')->__('Add New Answer'),

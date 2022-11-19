@@ -49,11 +49,11 @@
  */
 class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 {
-    const STATUS_PENDING = 'pending';
-    const STATUS_RUNNING = 'running';
-    const STATUS_SUCCESS = 'success';
-    const STATUS_MISSED = 'missed';
-    const STATUS_ERROR = 'error';
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_RUNNING = 'running';
+    public const STATUS_SUCCESS = 'success';
+    public const STATUS_MISSED = 'missed';
+    public const STATUS_ERROR = 'error';
 
     public function _construct()
     {
@@ -69,7 +69,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
     {
         $e = preg_split('#\s+#', $expr, -1, PREG_SPLIT_NO_EMPTY);
         if (count($e) < 5 || count($e) > 6) {
-            throw Mage::exception('Mage_Cron', 'Invalid cron expression: '.$expr);
+            throw Mage::exception('Mage_Cron', 'Invalid cron expression: ' . $expr);
         }
 
         $this->setCronExprArr($e);
@@ -122,12 +122,12 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
     public function matchCronExpression($expr, $num)
     {
         // handle ALL match
-        if ($expr==='*') {
+        if ($expr === '*') {
             return true;
         }
 
         // handle multiple options
-        if (strpos($expr, ',')!==false) {
+        if (strpos($expr, ',') !== false) {
             foreach (explode(',', $expr) as $e) {
                 if ($this->matchCronExpression($e, $num)) {
                     return true;
@@ -137,13 +137,13 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         // handle modulus
-        if (strpos($expr, '/')!==false) {
+        if (strpos($expr, '/') !== false) {
             $e = explode('/', $expr);
-            if (count($e)!==2) {
-                throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'match/modulus': ".$expr);
+            if (count($e) !== 2) {
+                throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'match/modulus': " . $expr);
             }
             if (!is_numeric($e[1])) {
-                throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting numeric modulus: ".$expr);
+                throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting numeric modulus: " . $expr);
             }
             $expr = $e[0];
             $mod = $e[1];
@@ -152,29 +152,27 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         // handle all match by modulus
-        if ($expr==='*') {
+        if ($expr === '*') {
             $from = 0;
             $to = 60;
-        } // handle range
-        elseif (strpos($expr, '-')!==false) {
+        } elseif (strpos($expr, '-') !== false) { // handle range
             $e = explode('-', $expr);
-            if (count($e)!==2) {
-                throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'from-to' structure: ".$expr);
+            if (count($e) !== 2) {
+                throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'from-to' structure: " . $expr);
             }
 
             $from = $this->getNumeric($e[0]);
             $to = $this->getNumeric($e[1]);
-        } // handle regular token
-        else {
+        } else { // handle regular token
             $from = $this->getNumeric($expr);
             $to = $from;
         }
 
-        if ($from===false || $to===false) {
-            throw Mage::exception('Mage_Cron', "Invalid cron expression: ".$expr);
+        if ($from === false || $to === false) {
+            throw Mage::exception('Mage_Cron', "Invalid cron expression: " . $expr);
         }
 
-        return ($num>=$from) && ($num<=$to) && ($num%$mod===0);
+        return ($num >= $from) && ($num <= $to) && ($num % $mod === 0);
     }
 
     /**
@@ -184,26 +182,26 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
     public function getNumeric($value)
     {
         static $data = [
-            'jan'=>1,
-            'feb'=>2,
-            'mar'=>3,
-            'apr'=>4,
-            'may'=>5,
-            'jun'=>6,
-            'jul'=>7,
-            'aug'=>8,
-            'sep'=>9,
-            'oct'=>10,
-            'nov'=>11,
-            'dec'=>12,
+            'jan' => 1,
+            'feb' => 2,
+            'mar' => 3,
+            'apr' => 4,
+            'may' => 5,
+            'jun' => 6,
+            'jul' => 7,
+            'aug' => 8,
+            'sep' => 9,
+            'oct' => 10,
+            'nov' => 11,
+            'dec' => 12,
 
-            'sun'=>0,
-            'mon'=>1,
-            'tue'=>2,
-            'wed'=>3,
-            'thu'=>4,
-            'fri'=>5,
-            'sat'=>6,
+            'sun' => 0,
+            'mon' => 1,
+            'tue' => 2,
+            'wed' => 3,
+            'thu' => 4,
+            'fri' => 5,
+            'sat' => 6,
         ];
 
         if (is_numeric($value)) {

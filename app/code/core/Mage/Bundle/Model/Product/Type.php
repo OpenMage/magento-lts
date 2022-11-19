@@ -443,7 +443,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         foreach ($selections as $selection) {
             if ($selection->getProductId() == $optionProduct->getId()) {
                 foreach ($options as &$option) {
-                    if ($option->getCode() == 'selection_qty_'.$selection->getSelectionId()) {
+                    if ($option->getCode() == 'selection_qty_' . $selection->getSelectionId()) {
                         if ($optionUpdateFlag) {
                             $option->setValue(intval($option->getValue()));
                         } else {

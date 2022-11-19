@@ -172,7 +172,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
             ->setId($chooserId . 'control')
             ->setClass('btn-chooser')
             ->setLabel($buttons['open'])
-            ->setOnclick($chooserId.'.choose()')
+            ->setOnclick($chooserId . '.choose()')
             ->setDisabled($element->getReadonly());
         $chooser->setData('after_element_html', $hiddenHtml . $chooseButton->toHtml());
 

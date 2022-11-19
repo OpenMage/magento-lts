@@ -140,7 +140,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
         $this->_totals['grand_total'] = new Varien_Object([
             'code'  => 'grand_total',
             'field'  => 'grand_total',
-            'strong'=> true,
+            'strong' => true,
             'value' => $source->getGrandTotal(),
             'label' => $this->__('Grand Total')
         ]);
@@ -184,10 +184,10 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
                 $totals[$last->getCode()] = $last;
             }
             $this->_totals = $totals;
-        } elseif ($after=='last') {
+        } elseif ($after == 'last') {
             $this->_totals[$total->getCode()] = $total;
-        } elseif ($after=='first') {
-            $totals = [$total->getCode()=>$total];
+        } elseif ($after == 'first') {
+            $totals = [$total->getCode() => $total];
             $this->_totals = array_merge($totals, $this->_totals);
         } else {
             $last = array_pop($this->_totals);

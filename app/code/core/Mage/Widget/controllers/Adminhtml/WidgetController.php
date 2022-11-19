@@ -32,7 +32,7 @@ class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_A
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'cms/widget_instance';
+    public const ADMIN_RESOURCE = 'cms/widget_instance';
 
     /**
      * Wysiwyg widget plugin main page

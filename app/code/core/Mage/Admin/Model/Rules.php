@@ -50,12 +50,12 @@ class Mage_Admin_Model_Rules extends Mage_Core_Model_Abstract
     /**
      * Allowed permission code
      */
-    const RULE_PERMISSION_ALLOWED = 'allow';
+    public const RULE_PERMISSION_ALLOWED = 'allow';
 
     /**
      * Denied permission code
      */
-    const RULE_PERMISSION_DENIED = 'deny';
+    public const RULE_PERMISSION_DENIED = 'deny';
 
     protected function _construct()
     {

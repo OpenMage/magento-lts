@@ -144,7 +144,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     public function getCustomerUses($rule, $customerId)
     {
         $read = $this->_getReadAdapter();
-        $select = $read->select()->from($this->getTable('rule_customer'), ['cnt'=>'count(*)'])
+        $select = $read->select()->from($this->getTable('rule_customer'), ['cnt' => 'count(*)'])
             ->where('rule_id = :rule_id')
             ->where('customer_id = :customer_id');
         return $read->fetchOne($select, [':rule_id' => $rule->getRuleId(), ':customer_id' => $customerId]);

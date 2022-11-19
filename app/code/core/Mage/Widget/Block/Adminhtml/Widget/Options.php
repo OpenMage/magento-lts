@@ -165,8 +165,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
                     'value' => $option['value']
                 ];
             }
-        } // otherwise, a source model is specified
-        elseif ($sourceModel = $parameter->getSourceModel()) {
+        } elseif ($sourceModel = $parameter->getSourceModel()) { // otherwise, a source model is specified
             $data['values'] = Mage::getModel($sourceModel)->toOptionArray();
         }
 
@@ -176,8 +175,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         // hidden element
         if (!$parameter->getVisible()) {
             $fieldType = 'hidden';
-        } // just an element renderer
-        elseif (strpos($fieldType, '/') !== false) {
+        } elseif (strpos($fieldType, '/') !== false) { // just an element renderer
             $fieldRenderer = $this->getLayout()->createBlock($fieldType);
             $fieldType = $this->_defaultElementType;
         }

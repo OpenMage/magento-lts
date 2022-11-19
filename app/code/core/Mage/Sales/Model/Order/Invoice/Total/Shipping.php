@@ -54,8 +54,8 @@ class Mage_Sales_Model_Order_Invoice_Total_Shipping extends Mage_Sales_Model_Ord
             $invoice->setShippingInclTax($shippingInclTax);
             $invoice->setBaseShippingInclTax($baseShippingInclTax);
 
-            $invoice->setGrandTotal($invoice->getGrandTotal()+$orderShippingAmount);
-            $invoice->setBaseGrandTotal($invoice->getBaseGrandTotal()+$baseOrderShippingAmount);
+            $invoice->setGrandTotal($invoice->getGrandTotal() + $orderShippingAmount);
+            $invoice->setBaseGrandTotal($invoice->getBaseGrandTotal() + $baseOrderShippingAmount);
         }
         return $this;
     }

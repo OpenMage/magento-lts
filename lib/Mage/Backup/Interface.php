@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Backup
+ * @category   Mage
+ * @package    Mage_Backup
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -21,9 +21,9 @@
 /**
  * Interface for work with archives
  *
- * @category    Mage
- * @package     Mage_Backup
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Backup
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_Backup_Interface
 {
@@ -41,12 +41,12 @@ interface Mage_Backup_Interface
      */
     public function rollback();
 
-     /**
-     * Set Backup Extension
-     *
-     * @param string $backupExtension
-     * @return Mage_Backup_Interface
-     */
+    /**
+    * Set Backup Extension
+    *
+    * @param string $backupExtension
+    * @return Mage_Backup_Interface
+    */
     public function setBackupExtension($backupExtension);
 
     /**

@@ -48,9 +48,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Predefined constants
      */
-    const XML_PATH_SALES_PDF_INVOICE_PUT_ORDER_ID       = 'sales_pdf/invoice/put_order_id';
-    const XML_PATH_SALES_PDF_SHIPMENT_PUT_ORDER_ID      = 'sales_pdf/shipment/put_order_id';
-    const XML_PATH_SALES_PDF_CREDITMEMO_PUT_ORDER_ID    = 'sales_pdf/creditmemo/put_order_id';
+    public const XML_PATH_SALES_PDF_INVOICE_PUT_ORDER_ID       = 'sales_pdf/invoice/put_order_id';
+    public const XML_PATH_SALES_PDF_SHIPMENT_PUT_ORDER_ID      = 'sales_pdf/shipment/put_order_id';
+    public const XML_PATH_SALES_PDF_CREDITMEMO_PUT_ORDER_ID    = 'sales_pdf/creditmemo/put_order_id';
 
     /**
      * Zend PDF object
@@ -372,7 +372,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         if (!$order->getIsVirtual()) {
             $this->y = $addressesStartY;
             foreach ($shippingAddress as $value) {
-                if ($value!=='') {
+                if ($value !== '') {
                     $text = [];
                     foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $_value) {
                         $text[] = $_value;
@@ -389,8 +389,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
             $page->setFillColor(new Zend_Pdf_Color_Rgb(0.93, 0.92, 0.92));
             $page->setLineWidth(0.5);
-            $page->drawRectangle(25, $this->y, 275, $this->y-25);
-            $page->drawRectangle(275, $this->y, 570, $this->y-25);
+            $page->drawRectangle(25, $this->y, 275, $this->y - 25);
+            $page->drawRectangle(275, $this->y, 570, $this->y - 25);
 
             $this->y -= 15;
             $this->_setFontBold($page, 12);
@@ -398,7 +398,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             $page->drawText(Mage::helper('sales')->__('Payment Method'), 35, $this->y, 'UTF-8');
             $page->drawText(Mage::helper('sales')->__('Shipping Method:'), 285, $this->y, 'UTF-8');
 
-            $this->y -=10;
+            $this->y -= 10;
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(1));
 
             $this->_setFontRegular($page, 10);
@@ -974,7 +974,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                                 }
                                 break;
                         }
-                        $page->drawText($part, $feed, $this->y-$top, 'UTF-8');
+                        $page->drawText($part, $feed, $this->y - $top, 'UTF-8');
                         $top += $lineSpacing;
                     }
 

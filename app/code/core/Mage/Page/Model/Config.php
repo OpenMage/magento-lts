@@ -28,8 +28,8 @@
  */
 class Mage_Page_Model_Config
 {
-    const XML_PATH_PAGE_LAYOUTS = 'global/page/layouts';
-    const XML_PATH_CMS_LAYOUTS = 'global/cms/layouts';
+    public const XML_PATH_PAGE_LAYOUTS = 'global/page/layouts';
+    public const XML_PATH_CMS_LAYOUTS = 'global/cms/layouts';
 
     /**
      * Available page layouts

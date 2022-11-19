@@ -33,7 +33,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Email_Template extends Varien_Ob
     /**
      * Config xpath to email template node
      */
-    const XML_PATH_TEMPLATE_EMAIL = 'global/template/email/';
+    public const XML_PATH_TEMPLATE_EMAIL = 'global/template/email/';
 
     /**
      * Generate list of email templates
@@ -59,7 +59,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Email_Template extends Varien_Ob
         array_unshift(
             $options,
             [
-                'value'=> $nodeName,
+                'value' => $nodeName,
                 'label' => $templateName
             ]
         );

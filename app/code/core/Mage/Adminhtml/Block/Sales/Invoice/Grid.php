@@ -120,7 +120,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
                 'actions'   => [
                     [
                         'caption' => Mage::helper('sales')->__('View'),
-                        'url'     => ['base'=>'*/sales_invoice/view'],
+                        'url'     => ['base' => '*/sales_invoice/view'],
                         'field'   => 'invoice_id'
                     ]
                 ],
@@ -146,7 +146,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
         $this->getMassactionBlock()->setUseSelectAll(false);
 
         $this->getMassactionBlock()->addItem('pdfinvoices_order', [
-             'label'=> Mage::helper('sales')->__('PDF Invoices'),
+             'label' => Mage::helper('sales')->__('PDF Invoices'),
              'url'  => $this->getUrl('*/sales_invoice/pdfinvoices'),
         ]);
 
@@ -166,7 +166,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
         return $this->getUrl(
             '*/sales_invoice/view',
             [
-                'invoice_id'=> $row->getId(),
+                'invoice_id' => $row->getId(),
             ]
         );
     }

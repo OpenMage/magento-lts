@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Db
+ * @category   Varien
+ * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2019-2020 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -41,17 +41,17 @@
  * @method $this reset($part = null)
  * @method $this columns($cols = '*', $correlationName = null)
  *
- * @category    Varien
- * @package     Varien_Db
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Varien
+ * @package    Varien_Db
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Db_Select extends Zend_Db_Select
 {
-    const TYPE_CONDITION    = 'TYPE_CONDITION';
+    public const TYPE_CONDITION    = 'TYPE_CONDITION';
 
-    const STRAIGHT_JOIN     = 'straightjoin';
+    public const STRAIGHT_JOIN     = 'straightjoin';
 
-    const SQL_STRAIGHT_JOIN = 'STRAIGHT_JOIN';
+    public const SQL_STRAIGHT_JOIN = 'STRAIGHT_JOIN';
 
     /**
      * Class constructor
@@ -62,7 +62,7 @@ class Varien_Db_Select extends Zend_Db_Select
     public function __construct(Zend_Db_Adapter_Abstract $adapter)
     {
         if (!isset(self::$_partsInit[self::STRAIGHT_JOIN])) {
-            self::$_partsInit = array(self::STRAIGHT_JOIN => false) + self::$_partsInit;
+            self::$_partsInit = [self::STRAIGHT_JOIN => false] + self::$_partsInit;
         }
 
         parent::__construct($adapter);
@@ -150,7 +150,7 @@ class Varien_Db_Select extends Zend_Db_Select
                 }
 
                 $joinUseInCond  = $useJoin;
-                $joinInTables   = array();
+                $joinInTables   = [];
 
                 foreach ($this->_parts[self::FROM] as $tableCorrelationName => $table) {
                     if ($tableCorrelationName == $tableId) {
@@ -158,7 +158,7 @@ class Varien_Db_Select extends Zend_Db_Select
                     }
                     if (!empty($table['joinCondition'])) {
                         if ($this->_findTableInCond($tableId, $table['joinCondition'])
-                        || $this->_findTableInCond($tableProp['tableName'], $table['joinCondition'])) {
+                            || $this->_findTableInCond($tableProp['tableName'], $table['joinCondition'])) {
                             $useJoin = true;
                             $joinInTables[] = $tableCorrelationName;
                         }
@@ -227,7 +227,7 @@ class Varien_Db_Select extends Zend_Db_Select
 
         $position = 0;
         $result   = 0;
-        $needle   = array();
+        $needle   = [];
         while (is_integer($result)) {
             $result = strpos($cond, $table . '.', $position);
 
@@ -318,7 +318,7 @@ class Varien_Db_Select extends Zend_Db_Select
      * @param bool $onDuplicate
      * @return string
      */
-    public function insertFromSelect($tableName, $fields = array(), $onDuplicate = true)
+    public function insertFromSelect($tableName, $fields = [], $onDuplicate = true)
     {
         $mode = $onDuplicate ? Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE : false;
         return $this->getAdapter()->insertFromSelect($this, $tableName, $fields, $mode);
@@ -331,7 +331,7 @@ class Varien_Db_Select extends Zend_Db_Select
      * @param array $fields
      * @return string
      */
-    public function insertIgnoreFromSelect($tableName, $fields = array())
+    public function insertIgnoreFromSelect($tableName, $fields = [])
     {
         return $this->getAdapter()
             ->insertFromSelect($this, $tableName, $fields, Varien_Db_Adapter_Interface::INSERT_IGNORE);
@@ -405,7 +405,7 @@ class Varien_Db_Select extends Zend_Db_Select
     protected function _tableCols($correlationName, $cols, $afterCorrelationName = null)
     {
         if (!is_array($cols)) {
-            $cols = array($cols);
+            $cols = [$cols];
         }
 
         foreach ($cols as $k => $v) {
@@ -459,7 +459,7 @@ class Varien_Db_Select extends Zend_Db_Select
             $exists = 'NOT EXISTS (%s)';
         }
         $select->reset(self::COLUMNS)
-            ->columns(array(new Zend_Db_Expr('1')))
+            ->columns([new Zend_Db_Expr('1')])
             ->where($joinCondition);
 
         $exists = sprintf($exists, $select->assemble());

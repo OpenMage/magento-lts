@@ -96,7 +96,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
     public function addAttributeToSort($attribute, $dir = self::SORT_ORDER_ASC)
     {
         if (in_array($attribute, ['review_cnt', 'last_created', 'avg_rating', 'avg_rating_approved'])) {
-            $this->getSelect()->order($attribute.' '.$dir);
+            $this->getSelect()->order($attribute . ' ' . $dir);
             return $this;
         }
 

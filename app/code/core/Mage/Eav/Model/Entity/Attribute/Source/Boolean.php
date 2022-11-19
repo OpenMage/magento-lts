@@ -29,8 +29,8 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
     /**
      * Option values
      */
-    const VALUE_YES = 1;
-    const VALUE_NO = 0;
+    public const VALUE_YES = 1;
+    public const VALUE_NO = 0;
 
     /**
      * Retrieve all options array

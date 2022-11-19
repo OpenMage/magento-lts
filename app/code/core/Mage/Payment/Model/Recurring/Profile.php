@@ -54,19 +54,19 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      *
      * @var string
      */
-    const BUY_REQUEST_START_DATETIME = 'recurring_profile_start_datetime';
-    const PRODUCT_OPTIONS_KEY = 'recurring_profile_options';
+    public const BUY_REQUEST_START_DATETIME = 'recurring_profile_start_datetime';
+    public const PRODUCT_OPTIONS_KEY = 'recurring_profile_options';
 
     /**
      * Period units
      *
      * @var string
      */
-    const PERIOD_UNIT_DAY = 'day';
-    const PERIOD_UNIT_WEEK = 'week';
-    const PERIOD_UNIT_SEMI_MONTH = 'semi_month';
-    const PERIOD_UNIT_MONTH = 'month';
-    const PERIOD_UNIT_YEAR = 'year';
+    public const PERIOD_UNIT_DAY = 'day';
+    public const PERIOD_UNIT_WEEK = 'week';
+    public const PERIOD_UNIT_SEMI_MONTH = 'semi_month';
+    public const PERIOD_UNIT_MONTH = 'month';
+    public const PERIOD_UNIT_YEAR = 'year';
 
     /**
      * Errors collected during validation

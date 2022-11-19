@@ -41,11 +41,11 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
      */
     public function addSubscribersToQueue(Mage_Newsletter_Model_Queue $queue, array $subscriberIds)
     {
-        if (count($subscriberIds)==0) {
+        if (count($subscriberIds) == 0) {
             Mage::throwException(Mage::helper('newsletter')->__('No subscribers selected.'));
         }
 
-        if (!$queue->getId() && $queue->getQueueStatus()!=Mage_Newsletter_Model_Queue::STATUS_NEVER) {
+        if (!$queue->getId() && $queue->getQueueStatus() != Mage_Newsletter_Model_Queue::STATUS_NEVER) {
             Mage::throwException(Mage::helper('newsletter')->__('Invalid queue selected.'));
         }
 
@@ -129,7 +129,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
         }
 
         $subscribers = Mage::getResourceSingleton('newsletter/subscriber_collection')
-            ->addFieldToFilter('store_id', ['in'=>$stores])
+            ->addFieldToFilter('store_id', ['in' => $stores])
             ->useOnlySubscribed()
             ->load();
 
@@ -159,7 +159,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
         $select = $adapter->select()->from($this->getTable('newsletter/queue_store_link'), 'store_id')
             ->where('queue_id = :queue_id');
 
-        if (!($result = $adapter->fetchCol($select, ['queue_id'=>$queue->getId()]))) {
+        if (!($result = $adapter->fetchCol($select, ['queue_id' => $queue->getId()]))) {
             $result = [];
         }
 

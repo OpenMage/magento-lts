@@ -28,13 +28,13 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_Model_Config_Data
 {
-    const CONFIG_SCOPE                      = 'stores';
-    const CONFIG_SCOPE_ID                   = 0;
+    public const CONFIG_SCOPE                      = 'stores';
+    public const CONFIG_SCOPE_ID                   = 0;
 
-    const XML_PATH_UNSECURE_BASE_URL        = 'web/unsecure/base_url';
-    const XML_PATH_SECURE_BASE_URL          = 'web/secure/base_url';
-    const XML_PATH_UNSECURE_BASE_LINK_URL   = 'web/unsecure/base_link_url';
-    const XML_PATH_SECURE_BASE_LINK_URL     = 'web/secure/base_link_url';
+    public const XML_PATH_UNSECURE_BASE_URL        = 'web/unsecure/base_url';
+    public const XML_PATH_SECURE_BASE_URL          = 'web/secure/base_url';
+    public const XML_PATH_UNSECURE_BASE_LINK_URL   = 'web/unsecure/base_link_url';
+    public const XML_PATH_SECURE_BASE_LINK_URL     = 'web/secure/base_link_url';
 
     /**
      * Validate value before save
@@ -46,7 +46,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
         $value = $this->getValue();
 
         if (!empty($value) && substr($value, -2) !== '}}') {
-            $value = rtrim($value, '/').'/';
+            $value = rtrim($value, '/') . '/';
         }
 
         $this->setValue($value);
