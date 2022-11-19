@@ -24,6 +24,7 @@ jobs:
       matrix:
         rules: [
           '.github/phpcs-ruleset.xml',
+          '.github/phpcs-ruleset-php.xml',
           '.github/phpcs-ruleset-external.xml'
         ]
 
