@@ -332,6 +332,6 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     protected function allowAdminSid()
     {
-        return (bool) Mage::getStoreConfig(self::XML_PATH_ALLOW_SID_FOR_ADMIN_AREA);
+        return Mage::getStoreConfigFlag(self::XML_PATH_ALLOW_SID_FOR_ADMIN_AREA);
     }
 }

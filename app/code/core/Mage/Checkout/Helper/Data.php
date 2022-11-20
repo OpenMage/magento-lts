@@ -100,7 +100,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function canOnepageCheckout()
     {
-        return (bool)Mage::getStoreConfig('checkout/options/onepage_checkout_enabled');
+        return Mage::getStoreConfigFlag('checkout/options/onepage_checkout_enabled');
     }
 
     /**

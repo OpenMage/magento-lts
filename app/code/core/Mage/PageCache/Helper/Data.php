@@ -56,7 +56,7 @@ class Mage_PageCache_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isEnabled()
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_EXTERNAL_CACHE_ENABLED);
+        return Mage::getStoreConfigFlag(self::XML_PATH_EXTERNAL_CACHE_ENABLED);
     }
 
     /**
