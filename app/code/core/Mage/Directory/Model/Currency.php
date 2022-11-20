@@ -131,7 +131,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     {
         if (is_string($toCurrency)) {
             $code = $toCurrency;
-        } elseif ($toCurrency instanceof Mage_Directory_Model_Currency) {
+        } elseif ($toCurrency instanceof self) {
             $code = $toCurrency->getCurrencyCode();
         } else {
             throw Mage::exception('Mage_Directory', Mage::helper('directory')->__('Invalid target currency.'));
