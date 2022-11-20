@@ -111,10 +111,9 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
             $store = $quote ? $quote->getStoreId() : null;
             $methods = [];
             foreach ($helper->getStoreMethods($store, $quote) as $method) {
-                if ($this->_canUseMethod($method) && $method->isApplicableToQuote(
-                    $quote,
-                    Mage_Payment_Model_Method_Abstract::CHECK_ZERO_TOTAL
-                )) {
+                if ($this->_canUseMethod($method)
+                    && $method->isApplicableToQuote($quote, Mage_Payment_Model_Method_Abstract::CHECK_ZERO_TOTAL)
+                ) {
                     $this->_assignMethod($method);
                     $methods[] = $method;
                 }

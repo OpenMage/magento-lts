@@ -108,11 +108,12 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         $undefinedResources = array_diff(array_keys($resources), array_keys($resourcesPermissionsMap));
 
         foreach ($undefinedResources as $undefinedResourceId) {
-            if ($this->_getFallbackHelper()->fallbackResourcePermissions(
+            # Fallback resource permissions
+            $permissions = $this->_getFallbackHelper()->fallbackResourcePermissions(
                 $resourcesPermissionsMap,
                 $undefinedResourceId
-            ) == Mage_Admin_Model_Rules::RULE_PERMISSION_ALLOWED
-            ) {
+            );
+            if ($permissions == Mage_Admin_Model_Rules::RULE_PERMISSION_ALLOWED) {
                 $selrids[] = $undefinedResourceId;
             }
         }
@@ -120,8 +121,6 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         $this->setSelectedResources($selrids);
 
         $this->setTemplate('permissions/rolesedit.phtml');
-        //->assign('resources', $resources);
-        //->assign('checkedResources', join(',', $selrids));
     }
 
     /**

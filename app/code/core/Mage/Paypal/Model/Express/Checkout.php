@@ -618,9 +618,7 @@ class Mage_Paypal_Model_Express_Checkout
         $this->_billingAgreement = $order->getPayment()->getBillingAgreement();
 
         // commence redirecting to finish payment, if paypal requires it
-        if ($order->getPayment()->getAdditionalInformation(
-            Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT
-        )) {
+        if ($order->getPayment()->getAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT)) {
             $this->_redirectUrl = $this->_config->getExpressCheckoutCompleteUrl($token);
         }
 
