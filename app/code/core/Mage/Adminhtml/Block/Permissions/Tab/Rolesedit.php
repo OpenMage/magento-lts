@@ -108,7 +108,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         $undefinedResources = array_diff(array_keys($resources), array_keys($resourcesPermissionsMap));
 
         foreach ($undefinedResources as $undefinedResourceId) {
-            # Fallback resource permissions
+            // Fallback resource permissions
             $permissions = $this->_getFallbackHelper()->fallbackResourcePermissions(
                 $resourcesPermissionsMap,
                 $undefinedResourceId

@@ -106,13 +106,13 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
         $queue = Mage::getModel('newsletter/queue')
             ->load($this->getRequest()->getParam('id'));
         if ($queue->getId()) {
-            if (!in_array($queue->getQueueStatus(), [Mage_Newsletter_Model_Queue::STATUS_NEVER, Mage_Newsletter_Model_Queue::STATUS_PAUSE])) {
+            if (!in_array($queue->getQueueStatus(), [Queue::STATUS_NEVER, Queue::STATUS_PAUSE])) {
                 $this->_redirect('*/*');
                 return;
             }
 
             $queue->setQueueStartAt(Mage::getSingleton('core/date')->gmtDate())
-                ->setQueueStatus(Mage_Newsletter_Model_Queue::STATUS_SENDING)
+                ->setQueueStatus(Queue::STATUS_SENDING)
                 ->save();
         }
 
@@ -124,12 +124,12 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
         $queue = Mage::getSingleton('newsletter/queue')
             ->load($this->getRequest()->getParam('id'));
 
-        if ($queue->getQueueStatus() != Mage_Newsletter_Model_Queue::STATUS_SENDING) {
+        if ($queue->getQueueStatus() != Queue::STATUS_SENDING) {
             $this->_redirect('*/*');
             return;
         }
 
-        $queue->setQueueStatus(Mage_Newsletter_Model_Queue::STATUS_PAUSE);
+        $queue->setQueueStatus(Queue::STATUS_PAUSE);
         $queue->save();
 
         $this->_redirect('*/*');
