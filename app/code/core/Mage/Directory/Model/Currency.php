@@ -155,7 +155,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     {
         if (is_string($toCurrency)) {
             $code = $toCurrency;
-        } elseif ($toCurrency instanceof self) {
+        } elseif ($toCurrency instanceof Mage_Directory_Model_Currency) {
             $code = $toCurrency->getCurrencyCode();
         } else {
             throw Mage::exception('Mage_Directory', Mage::helper('directory')->__('Invalid target currency.'));
@@ -190,7 +190,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         throw new Exception(Mage::helper('directory')->__(
             'Undefined rate from "%s-%s".',
             $this->getCode(),
-            $toCurrency instanceof self ? $toCurrency->getCode() : $toCurrency
+            $toCurrency instanceof Mage_Directory_Model_Currency ? $toCurrency->getCode() : $toCurrency
         ));
     }
 
@@ -337,7 +337,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      */
     public function getCurrencyRates($currency, $toCurrencies = null)
     {
-        if ($currency instanceof self) {
+        if ($currency instanceof Mage_Directory_Model_Currency) {
             $currency = $currency->getCode();
         }
         return $this->_getResource()->getCurrencyRates($currency, $toCurrencies);

@@ -103,7 +103,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
     protected function _beforeDelete()
     {
         if (self::isSystemRole($this)) {
-            /** @var $helper Mage_Core_Helper_Data */
+            /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');
 
             Mage::throwException(
