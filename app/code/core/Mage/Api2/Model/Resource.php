@@ -736,7 +736,7 @@ abstract class Mage_Api2_Model_Resource
         $orderField = $this->getRequest()->getOrderField();
 
         if ($orderField !== null) {
-            $operation = Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ;
+            $operation = self::OPERATION_ATTRIBUTE_READ;
             if (!is_string($orderField)
                 || !array_key_exists($orderField, $this->getAvailableAttributes($this->getUserType(), $operation))
             ) {

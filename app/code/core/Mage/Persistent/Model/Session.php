@@ -154,7 +154,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     public function loadByCookieKey($key = null)
     {
         if (is_null($key)) {
-            $key = Mage::getSingleton('core/cookie')->get(Mage_Persistent_Model_Session::COOKIE_NAME);
+            $key = Mage::getSingleton('core/cookie')->get(self::COOKIE_NAME);
         }
         if ($key) {
             $this->load($key, 'key');
@@ -197,7 +197,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      */
     public function removePersistentCookie()
     {
-        Mage::getSingleton('core/cookie')->delete(Mage_Persistent_Model_Session::COOKIE_NAME);
+        Mage::getSingleton('core/cookie')->delete(self::COOKIE_NAME);
         return $this;
     }
 

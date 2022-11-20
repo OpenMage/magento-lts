@@ -576,7 +576,7 @@ class Mage_Core_Model_Locale
     {
         $dateObj = $this->storeDate($store, $date, $includeTime);
         $dateObj->set($date, $format);
-        $dateObj->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
+        $dateObj->setTimezone(self::DEFAULT_TIMEZONE);
         return $dateObj;
     }
 
