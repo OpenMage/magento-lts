@@ -377,8 +377,8 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     {
         if ($this->_couponTypes === null) {
             $this->_couponTypes = [
-                Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON => Mage::helper('salesrule')->__('No Coupon'),
-                Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC  => Mage::helper('salesrule')->__('Specific Coupon'),
+                self::COUPON_TYPE_NO_COUPON => Mage::helper('salesrule')->__('No Coupon'),
+                self::COUPON_TYPE_SPECIFIC  => Mage::helper('salesrule')->__('Specific Coupon'),
             ];
             $transport = new Varien_Object([
                 'coupon_types'                => $this->_couponTypes,
@@ -387,7 +387,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
             Mage::dispatchEvent('salesrule_rule_get_coupon_types', ['transport' => $transport]);
             $this->_couponTypes = $transport->getCouponTypes();
             if ($transport->getIsCouponTypeAutoVisible()) {
-                $this->_couponTypes[Mage_SalesRule_Model_Rule::COUPON_TYPE_AUTO] = Mage::helper('salesrule')->__('Auto');
+                $this->_couponTypes[self::COUPON_TYPE_AUTO] = Mage::helper('salesrule')->__('Auto');
             }
         }
         return $this->_couponTypes;

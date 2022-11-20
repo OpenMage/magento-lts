@@ -86,7 +86,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
     {
         if ($payment->getParentTransactionId()) {
             return $payment->getTransaction($payment->getParentTransactionId())
-                ->getAdditionalInformation(Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID);
+                ->getAdditionalInformation(self::TRANSPORT_PAYFLOW_TXN_ID);
         }
         return $payment->getParentTransactionId();
     }
@@ -102,7 +102,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
         $payment->setTransactionId($api->getPaypalTransactionId())
             ->setIsTransactionClosed(false)
             ->setTransactionAdditionalInfo(
-                Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID,
+                self::TRANSPORT_PAYFLOW_TXN_ID,
                 $api->getTransactionId()
             );
         $payment->setPreparedMessage(
@@ -139,7 +139,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
             ->setIsTransactionClosed(1) // refund initiated by merchant
             ->setShouldCloseParentTransaction(!$canRefundMore)
             ->setTransactionAdditionalInfo(
-                Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID,
+                self::TRANSPORT_PAYFLOW_TXN_ID,
                 $api->getTransactionId()
             );
         $payment->setPreparedMessage(
