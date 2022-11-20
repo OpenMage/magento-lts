@@ -754,7 +754,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         }
         if (self::$_isConfirmationRequired === null) {
             $storeId = $this->getStoreId() ?: null;
-            self::$_isConfirmationRequired = (bool)Mage::getStoreConfig(self::XML_PATH_IS_CONFIRM, $storeId);
+            self::$_isConfirmationRequired = Mage::getStoreConfigFlag(self::XML_PATH_IS_CONFIRM, $storeId);
         }
 
         return self::$_isConfirmationRequired;
