@@ -26,8 +26,8 @@
  * @method string getClass()
  * @method string getPositionClass()
  * @method string getOutermostClass()
- * @method Varien_Data_Tree_Node setOutermostClass(string $class)
- * @method Varien_Data_Tree_Node setChildrenWrapClass(string $class)
+ * @method $this setOutermostClass(string $class)
+ * @method $this setChildrenWrapClass(string $class)
  * @method bool getIsFirst()
  * @method bool getIsLast()
  *

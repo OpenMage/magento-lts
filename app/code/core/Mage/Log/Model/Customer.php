@@ -29,15 +29,15 @@
  * @method Mage_Log_Model_Resource_Customer _getResource()
  * @method Mage_Log_Model_Resource_Customer getResource()
  * @method int getVisitorId()
- * @method Mage_Log_Model_Customer setVisitorId(int $value)
+ * @method $this setVisitorId(int $value)
  * @method int getCustomerId()
- * @method Mage_Log_Model_Customer setCustomerId(int $value)
+ * @method $this setCustomerId(int $value)
  * @method string getLoginAt()
- * @method Mage_Log_Model_Customer setLoginAt(string $value)
+ * @method $this setLoginAt(string $value)
  * @method string getLogoutAt()
- * @method Mage_Log_Model_Customer setLogoutAt(string $value)
+ * @method $this setLogoutAt(string $value)
  * @method int getStoreId()
- * @method Mage_Log_Model_Customer setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  */
 class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
 {

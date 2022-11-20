@@ -29,9 +29,9 @@
  * @method Mage_Dataflow_Model_Resource_Batch_Import _getResource()
  * @method Mage_Dataflow_Model_Resource_Batch_Import getResource()
  * @method int getBatchId()
- * @method Mage_Dataflow_Model_Batch_Import setBatchId(int $value)
+ * @method $this setBatchId(int $value)
  * @method int getStatus()
- * @method Mage_Dataflow_Model_Batch_Import setStatus(int $value)
+ * @method $this setStatus(int $value)
  */
 class Mage_Dataflow_Model_Batch_Import extends Mage_Dataflow_Model_Batch_Abstract
 {

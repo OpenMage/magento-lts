@@ -27,15 +27,15 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getToken()
- * @method Mage_Oauth_Block_AuthorizeBaseAbstract setToken() setToken(string $token)
+ * @method Mage_Oauth_Block_AuthorizeBaseAbstract setToken(string $token)
  * @method bool getIsSimple()
- * @method Mage_Oauth_Block_Authorize_Button setIsSimple() setIsSimple(bool $flag)
+ * @method Mage_Oauth_Block_Authorize_Button setIsSimple(bool $flag)
  * @method bool getHasException()
- * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsException() setHasException(bool $flag)
+ * @method Mage_Oauth_Block_AuthorizeBaseAbstract setHasException(bool $flag)
  * @method bool getVerifier()
- * @method Mage_Oauth_Block_AuthorizeBaseAbstract setVerifier() setVerifier(string $verifier)
+ * @method Mage_Oauth_Block_AuthorizeBaseAbstract setVerifier(string $verifier)
  * @method bool getIsLogged()
- * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsLogged() setIsLogged(bool $flag)
+ * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsLogged(bool $flag)
  */
 abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Template
 {

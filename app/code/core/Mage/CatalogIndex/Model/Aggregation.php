@@ -31,11 +31,11 @@
  * @method Mage_CatalogIndex_Model_Resource_Aggregation _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Aggregation getResource()
  * @method int getStoreId()
- * @method Mage_CatalogIndex_Model_Aggregation setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method string getCreatedAt()
- * @method Mage_CatalogIndex_Model_Aggregation setCreatedAt(string $value)
+ * @method $this setCreatedAt(string $value)
  * @method string getKey()
- * @method Mage_CatalogIndex_Model_Aggregation setKey(string $value)
+ * @method $this setKey(string $value)
  */
 class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
 {
