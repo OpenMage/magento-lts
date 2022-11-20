@@ -58,3 +58,6 @@
 
 # .phar (n98-magerun, ...)
 *.phar
+
+# PHP-CS-Fixer cache
+.php-cs-fixer.cache
