@@ -90,8 +90,8 @@ class Zend_Service_Rackspace_Servers_SharedIpGroupList implements Countable, Ite
     }
     /**
      * To Array
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function toArray()
     {

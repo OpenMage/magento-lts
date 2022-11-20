@@ -1,35 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Cms
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Cms
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Cms page mysql resource
  *
- * @category    Mage
- * @package     Mage_Cms
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Cms
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -40,10 +35,6 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected $_store  = null;
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('cms/page', 'page_id');
@@ -54,9 +45,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
-        $condition = array(
+        $condition = [
             'page_id = ?'     => (int) $object->getId(),
-        );
+        ];
 
         $this->_getWriteAdapter()->delete($this->getTable('cms/page_store'), $condition);
 
@@ -75,7 +66,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
          * If they are empty we need to convert them into DB
          * type NULL so in DB they will be empty and not some default value
          */
-        foreach (array('custom_theme_from', 'custom_theme_to') as $field) {
+        foreach (['custom_theme_from', 'custom_theme_to'] as $field) {
             $value = !$object->getData($field) ? null : $object->getData($field);
             $object->setData($field, $this->formatDate($value));
         }
@@ -118,22 +109,22 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         $delete = array_diff($oldStores, $newStores);
 
         if ($delete) {
-            $where = array(
+            $where = [
                 'page_id = ?'     => (int) $object->getId(),
                 'store_id IN (?)' => $delete
-            );
+            ];
 
             $this->_getWriteAdapter()->delete($table, $where);
         }
 
         if ($insert) {
-            $data = array();
+            $data = [];
 
             foreach ($insert as $storeId) {
-                $data[] = array(
+                $data[] = [
                     'page_id'  => (int) $object->getId(),
                     'store_id' => (int) $storeId
-                );
+                ];
             }
 
             $this->_getWriteAdapter()->insertMultiple($table, $data);
@@ -184,11 +175,11 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         $select = parent::_getLoadSelect($field, $value, $object);
 
         if ($object->getStoreId()) {
-            $storeIds = array(Mage_Core_Model_App::ADMIN_STORE_ID, (int)$object->getStoreId());
+            $storeIds = [Mage_Core_Model_App::ADMIN_STORE_ID, (int)$object->getStoreId()];
             $select->join(
-                array('cms_page_store' => $this->getTable('cms/page_store')),
+                ['cms_page_store' => $this->getTable('cms/page_store')],
                 $this->getMainTable() . '.page_id = cms_page_store.page_id',
-                array()
+                []
             )
                 ->where('is_active = ?', 1)
                 ->where('cms_page_store.store_id IN (?)', $storeIds)
@@ -210,11 +201,11 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     protected function _getLoadByIdentifierSelect($identifier, $store, $isActive = null)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from(array('cp' => $this->getMainTable()))
+            ->from(['cp' => $this->getMainTable()])
             ->join(
-                array('cps' => $this->getTable('cms/page_store')),
+                ['cps' => $this->getTable('cms/page_store')],
                 'cp.page_id = cps.page_id',
-                array()
+                []
             )
             ->where('cp.identifier = ?', $identifier)
             ->where('cps.store_id IN (?)', $store);
@@ -235,7 +226,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     public function getIsUniquePageToStores(Mage_Core_Model_Abstract $object)
     {
         if (!$object->hasStores()) {
-            $stores = array(Mage_Core_Model_App::ADMIN_STORE_ID);
+            $stores = [Mage_Core_Model_App::ADMIN_STORE_ID];
         } else {
             $stores = (array)$object->getData('stores');
         }
@@ -277,8 +268,6 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', $object->getData('identifier'));
     }
 
-
-
     /**
      * Check if page identifier exist for specific store
      * return page id if page exists
@@ -289,7 +278,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     public function checkIdentifier($identifier, $storeId)
     {
-        $stores = array(Mage_Core_Model_App::ADMIN_STORE_ID, $storeId);
+        $stores = [Mage_Core_Model_App::ADMIN_STORE_ID, $storeId];
         $select = $this->_getLoadByIdentifierSelect($identifier, $stores, 1);
         $select->reset(Zend_Db_Select::COLUMNS)
             ->columns('cp.page_id')
@@ -307,7 +296,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     public function getCmsPageTitleByIdentifier($identifier)
     {
-        $stores = array(Mage_Core_Model_App::ADMIN_STORE_ID);
+        $stores = [Mage_Core_Model_App::ADMIN_STORE_ID];
         if ($this->_store) {
             $stores[] = (int)$this->getStore()->getId();
         }
@@ -335,9 +324,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
             ->from($this->getMainTable(), 'title')
             ->where('page_id = :page_id');
 
-        $binds = array(
+        $binds = [
             'page_id' => (int) $id
-        );
+        ];
 
         return $adapter->fetchOne($select, $binds);
     }
@@ -356,9 +345,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
             ->from($this->getMainTable(), 'identifier')
             ->where('page_id = :page_id');
 
-        $binds = array(
+        $binds = [
             'page_id' => (int) $id
-        );
+        ];
 
         return $adapter->fetchOne($select, $binds);
     }

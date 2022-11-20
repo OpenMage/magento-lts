@@ -165,7 +165,7 @@
     border-right: 1px solid #d7d7d7;
     border-bottom: 1px solid #d7d7d7;
 }
-.x-grid-hd-row td, .x-grid-row td { outline:none; ./* font:11px verdana, helvetica, sans-serif; */ }
+.x-grid-hd-row td, .x-grid-row td { outline:none; /* font:11px verdana, helvetica, sans-serif; */ }
 .x-grid-hd-row td { font-weight:bold; }
 .x-grid-row { background:#f4f1e7; }
 .x-grid-row-alt { background:#fbfaf7; }

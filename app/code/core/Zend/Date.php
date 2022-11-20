@@ -544,12 +544,12 @@ class Zend_Date extends Zend_Date_DateObject
         }
 
         if (($part !== null) && !defined($part)
-            && ($part != 'ee') && ($part != 'ss') && ($part != 'GG') && ($part != 'MM') && ($part != 'EE') && ($part != 'TT')
+            && ($part !== 'ee') && ($part !== 'ss') && ($part !== 'GG') && ($part !== 'MM') && ($part !== 'EE') && ($part !== 'TT')
+            && ($part !== 'U') && ($part !== 'X') && ($part !== 'c')
             && Zend_Locale::isLocale($part, null, false)) {
             $locale = $part;
             $part = null;
         }
-
         if ($part === null) {
             $part = self::TIMESTAMP;
         } else if (self::$_options['format_type'] == 'php') {
@@ -1286,7 +1286,6 @@ class Zend_Date extends Zend_Date_DateObject
         }
         return $this->getUnixTimestamp();
     }
-
 
     /**
      * Calculates the date or object
@@ -2843,7 +2842,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $return;
     }
 
-
     /**
      * Sets a new time for the date object. Format defines how to parse the time string.
      * Also a complete date can be given, but only the time is used for setting.
@@ -2860,7 +2858,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_time('set', $time, $format, $locale);
     }
-
 
     /**
      * Adds a time to the existing date. Format defines how to parse the time string.
@@ -2879,7 +2876,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_time('add', $time, $format, $locale);
     }
 
-
     /**
      * Subtracts a time from the existing date. Format defines how to parse the time string.
      * If only parts are given the other parts are set to 0.
@@ -2896,7 +2892,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_time('sub', $time, $format, $locale);
     }
-
 
     /**
      * Compares the time from the existing date. Format defines how to parse the time string.
@@ -3005,7 +3000,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $return;
     }
 
-
     /**
      * Sets a new date for the date object. Format defines how to parse the date string.
      * Also a complete date with time can be given, but only the date is used for setting.
@@ -3023,7 +3017,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_date('set', $date, $format, $locale);
     }
 
-
     /**
      * Adds a date to the existing date object. Format defines how to parse the date string.
      * If only parts are given the other parts are set to 0.
@@ -3040,7 +3033,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_date('add', $date, $format, $locale);
     }
-
 
     /**
      * Subtracts a date from the existing date object. Format defines how to parse the date string.
@@ -3060,7 +3052,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_date('sub', $date, $format, $locale);
     }
 
-
     /**
      * Compares the date from the existing date object, ignoring the time.
      * Format defines how to parse the date string.
@@ -3079,7 +3070,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_date('cmp', $date, $format, $locale);
     }
 
-
     /**
      * Returns the full ISO 8601 date from the date object.
      * Always the complete ISO 8601 specifiction is used. If an other ISO date is needed
@@ -3093,7 +3083,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->toString(self::ISO_8601, 'iso', $locale);
     }
-
 
     /**
      * Sets a new date for the date object. Not given parts are set to default.
@@ -3111,7 +3100,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_calcvalue('set', $date, 'iso', self::ISO_8601, $locale);
     }
 
-
     /**
      * Adds a ISO date to the date object. Not given parts are set to default.
      * Only supported ISO 8601 formats are accepted.
@@ -3127,7 +3115,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_calcvalue('add', $date, 'iso', self::ISO_8601, $locale);
     }
-
 
     /**
      * Subtracts a ISO date from the date object. Not given parts are set to default.
@@ -3145,7 +3132,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_calcvalue('sub', $date, 'iso', self::ISO_8601, $locale);
     }
 
-
     /**
      * Compares a ISO date with the date object. Not given parts are set to default.
      * Only supported ISO 8601 formats are accepted.
@@ -3161,7 +3147,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_calcvalue('cmp', $date, 'iso', self::ISO_8601, $locale);
     }
-
 
     /**
      * Returns a RFC 822 compilant datestring from the date object.
@@ -3181,7 +3166,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->toString($format, 'iso', $locale);
     }
 
-
     /**
      * Sets a RFC 822 date as new date for the date object.
      * Only RFC 822 compilant date strings are accepted.
@@ -3197,7 +3181,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_calcvalue('set', $date, 'arpa', self::RFC_822, $locale);
     }
-
 
     /**
      * Adds a RFC 822 date to the date object.
@@ -3216,7 +3199,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_calcvalue('add', $date, 'arpa', self::RFC_822, $locale);
     }
 
-
     /**
      * Subtracts a RFC 822 date from the date object.
      * ARPA messages are used in emails or HTTP Headers.
@@ -3233,7 +3215,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_calcvalue('sub', $date, 'arpa', self::RFC_822, $locale);
     }
-
 
     /**
      * Compares a RFC 822 compilant date with the date object.
@@ -3294,7 +3275,6 @@ class Zend_Date extends Zend_Date_DateObject
         }
     }
 
-
     /**
      * Returns the time of sunrise for this date and a given location as new date object
      * For a list of cities and correct locations use the class Zend_Date_Cities
@@ -3314,7 +3294,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $result;
     }
 
-
     /**
      * Returns the time of sunset for this date and a given location as new date object
      * For a list of cities and correct locations use the class Zend_Date_Cities
@@ -3333,7 +3312,6 @@ class Zend_Date extends Zend_Date_DateObject
         $result->set($this->calcSun($location, $horizon, false), self::TIMESTAMP);
         return $result;
     }
-
 
     /**
      * Returns an array with the sunset and sunrise dates for all horizon types
@@ -3405,7 +3383,6 @@ class Zend_Date extends Zend_Date_DateObject
         return (bool) parent::isYearLeapYear($year);
     }
 
-
     /**
      * Returns true, if the year is a leap year.
      *
@@ -3415,7 +3392,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return self::checkLeapYear($this);
     }
-
 
     /**
      * Returns if the set date is todays date
@@ -3428,7 +3404,6 @@ class Zend_Date extends Zend_Date_DateObject
         $day   = $this->date('Ymd', $this->getUnixTimestamp());
         return ($today == $day);
     }
-
 
     /**
      * Returns if the set date is yesterdays date
@@ -3443,7 +3418,6 @@ class Zend_Date extends Zend_Date_DateObject
         $day   = $this->date('Ymd', $this->getUnixTimestamp());
         return $day == $yesterday;
     }
-
 
     /**
      * Returns if the set date is tomorrows date
@@ -3547,7 +3521,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $return;
     }
 
-
     /**
      * Returns only the year from the date object as new object.
      * For example: 10.May.2000 10:30:00 -> 01.Jan.2000 00:00:00
@@ -3565,7 +3538,6 @@ class Zend_Date extends Zend_Date_DateObject
 
         return $this->copyPart($format, $locale);
     }
-
 
     /**
      * Sets a new year
@@ -3585,7 +3557,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_calcvalue('set', $year, 'year', self::YEAR, $locale);
     }
 
-
     /**
      * Adds the year to the existing date object
      * If the year is between 0 and 69, 2000 will be added (2000-2069)
@@ -3603,7 +3574,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_calcvalue('add', $year, 'year', self::YEAR, $locale);
     }
-
 
     /**
      * Subs the year from the existing date object
@@ -3623,7 +3593,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_calcvalue('sub', $year, 'year', self::YEAR, $locale);
     }
 
-
     /**
      * Compares the year with the existing date object, ignoring other date parts.
      * For example: 10.03.2000 -> 15.02.2000 -> true
@@ -3638,7 +3607,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_calcvalue('cmp', $year, 'year', self::YEAR, $locale);
     }
-
 
     /**
      * Returns only the month from the date object as new object.
@@ -3657,7 +3625,6 @@ class Zend_Date extends Zend_Date_DateObject
 
         return $this->copyPart($format, $locale);
     }
-
 
     /**
      * Returns the calculated month
@@ -3728,7 +3695,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $return;
     }
 
-
     /**
      * Sets a new month
      * The month can be a number or a string. Setting months lower then 0 and greater then 12
@@ -3746,7 +3712,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_month('set', $month, $locale);
     }
-
 
     /**
      * Adds months to the existing date object.
@@ -3766,7 +3731,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_month('add', $month, $locale);
     }
 
-
     /**
      * Subtracts months from the existing date object.
      * The month can be a number or a string. Subtracting months lower then 0 and greater then 12
@@ -3785,7 +3749,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_month('sub', $month, $locale);
     }
 
-
     /**
      * Compares the month with the existing date object, ignoring other date parts.
      * For example: 10.03.2000 -> 15.03.1950 -> true
@@ -3800,7 +3763,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_month('cmp', $month, $locale);
     }
-
 
     /**
      * Returns the day as new date object
@@ -3871,7 +3833,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $return;
     }
 
-
     /**
      * Sets a new day
      * The day can be a number or a string. Setting days lower then 0 or greater than the number of this months days
@@ -3891,7 +3852,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_day('set', $day, $locale);
     }
 
-
     /**
      * Adds days to the existing date object.
      * The day can be a number or a string. Adding days lower then 0 or greater than the number of this months days
@@ -3908,7 +3868,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_day('add', $day, $locale);
     }
-
 
     /**
      * Subtracts days from the existing date object.
@@ -3927,7 +3886,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_day('sub', $day, $locale);
     }
 
-
     /**
      * Compares the day with the existing date object, ignoring other date parts.
      * For example: 'Monday', 'en' -> 08.Jan.2007 -> 0
@@ -3942,7 +3900,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_day('cmp', $day, $locale);
     }
-
 
     /**
      * Returns the weekday as new date object
@@ -3962,7 +3919,6 @@ class Zend_Date extends Zend_Date_DateObject
 
         return $this->copyPart($format, $locale);
     }
-
 
     /**
      * Returns the calculated weekday
@@ -4021,7 +3977,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $return;
     }
 
-
     /**
      * Sets a new weekday
      * The weekday can be a number or a string. If a localized weekday name is given,
@@ -4039,14 +3994,13 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_weekday('set', $weekday, $locale);
     }
 
-
     /**
      * Adds weekdays to the existing date object.
      * The weekday can be a number or a string.
      * If a localized dayname is given it will be parsed with the default locale or the optional
      * set locale.
      * Returned is the new date object
-     * Example: addWeekday(3); will add the difference of days from the begining of the month until
+     * Example: addWeekday(3); will add the difference of days from the beginning of the month until
      * wednesday.
      *
      * @param  string|integer|array|Zend_Date  $weekday Weekday to add
@@ -4059,14 +4013,13 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_weekday('add', $weekday, $locale);
     }
 
-
     /**
      * Subtracts weekdays from the existing date object.
      * The weekday can be a number or a string.
      * If a localized dayname is given it will be parsed with the default locale or the optional
      * set locale.
      * Returned is the new date object
-     * Example: subWeekday(3); will subtract the difference of days from the begining of the month until
+     * Example: subWeekday(3); will subtract the difference of days from the beginning of the month until
      * wednesday.
      *
      * @param  string|integer|array|Zend_Date  $weekday Weekday to sub
@@ -4078,7 +4031,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_weekday('sub', $weekday, $locale);
     }
-
 
     /**
      * Compares the weekday with the existing date object, ignoring other date parts.
@@ -4094,7 +4046,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_weekday('cmp', $weekday, $locale);
     }
-
 
     /**
      * Returns the day of year as new date object
@@ -4114,7 +4065,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->copyPart($format, $locale);
     }
 
-
     /**
      * Sets a new day of year
      * The day of year is always a number.
@@ -4130,7 +4080,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_calcvalue('set', $day, 'day of year', self::DAY_OF_YEAR, $locale);
     }
-
 
     /**
      * Adds a day of year to the existing date object.
@@ -4148,7 +4097,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_calcvalue('add', $day, 'day of year', self::DAY_OF_YEAR, $locale);
     }
 
-
     /**
      * Subtracts a day of year from the existing date object.
      * The day of year is always a number.
@@ -4165,7 +4113,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_calcvalue('sub', $day, 'day of year', self::DAY_OF_YEAR, $locale);
     }
 
-
     /**
      * Compares the day of year with the existing date object.
      * For example: compareDayOfYear(33) -> 02.Feb.2007 -> 0
@@ -4181,7 +4128,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_calcvalue('cmp', $day, 'day of year', self::DAY_OF_YEAR, $locale);
     }
 
-
     /**
      * Returns the hour as new date object
      * Example: 02.Feb.1986 10:30:25 -> 01.Jan.1970 10:00:00
@@ -4193,7 +4139,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->copyPart(self::HOUR, $locale);
     }
-
 
     /**
      * Sets a new hour
@@ -4211,7 +4156,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_calcvalue('set', $hour, 'hour', self::HOUR_SHORT, $locale);
     }
 
-
     /**
      * Adds hours to the existing date object.
      * The hour is always a number.
@@ -4227,7 +4171,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_calcvalue('add', $hour, 'hour', self::HOUR_SHORT, $locale);
     }
-
 
     /**
      * Subtracts hours from the existing date object.
@@ -4245,7 +4188,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_calcvalue('sub', $hour, 'hour', self::HOUR_SHORT, $locale);
     }
 
-
     /**
      * Compares the hour with the existing date object.
      * For example: 10:30:25 -> compareHour(10) -> 0
@@ -4260,7 +4202,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_calcvalue('cmp', $hour, 'hour', self::HOUR_SHORT, $locale);
     }
-
 
     /**
      * Returns the minute as new date object
@@ -4280,7 +4221,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->copyPart($format, $locale);
     }
 
-
     /**
      * Sets a new minute
      * The minute is always a number.
@@ -4296,7 +4236,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_calcvalue('set', $minute, 'minute', self::MINUTE_SHORT, $locale);
     }
-
 
     /**
      * Adds minutes to the existing date object.
@@ -4314,7 +4253,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_calcvalue('add', $minute, 'minute', self::MINUTE_SHORT, $locale);
     }
 
-
     /**
      * Subtracts minutes from the existing date object.
      * The minute is always a number.
@@ -4331,7 +4269,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_calcvalue('sub', $minute, 'minute', self::MINUTE_SHORT, $locale);
     }
 
-
     /**
      * Compares the minute with the existing date object.
      * For example: 10:30:25 -> compareMinute(30) -> 0
@@ -4346,7 +4283,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_calcvalue('cmp', $minute, 'minute', self::MINUTE_SHORT, $locale);
     }
-
 
     /**
      * Returns the second as new date object
@@ -4366,7 +4302,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->copyPart($format, $locale);
     }
 
-
     /**
      * Sets new seconds to the existing date object.
      * The second is always a number.
@@ -4382,7 +4317,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_calcvalue('set', $second, 'second', self::SECOND_SHORT, $locale);
     }
-
 
     /**
      * Adds seconds to the existing date object.
@@ -4400,7 +4334,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_calcvalue('add', $second, 'second', self::SECOND_SHORT, $locale);
     }
 
-
     /**
      * Subtracts seconds from the existing date object.
      * The second is always a number.
@@ -4417,7 +4350,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_calcvalue('sub', $second, 'second', self::SECOND_SHORT, $locale);
     }
 
-
     /**
      * Compares the second with the existing date object.
      * For example: 10:30:25 -> compareSecond(25) -> 0
@@ -4433,7 +4365,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this->_calcvalue('cmp', $second, 'second', self::SECOND_SHORT, $locale);
     }
 
-
     /**
      * Returns the precision for fractional seconds
      *
@@ -4443,7 +4374,6 @@ class Zend_Date extends Zend_Date_DateObject
     {
         return $this->_precision;
     }
-
 
     /**
      * Sets a new precision for fractional seconds
@@ -4468,7 +4398,6 @@ class Zend_Date extends Zend_Date_DateObject
 
         return $this;
     }
-
 
     /**
      * Returns the milliseconds of the date object
@@ -4579,7 +4508,6 @@ class Zend_Date extends Zend_Date_DateObject
         return $this;
     }
 
-
     /**
      * Subtracts a millisecond
      *
@@ -4643,7 +4571,7 @@ class Zend_Date extends Zend_Date_DateObject
     }
 
     /**
-     * Returns the week as new date object using monday as begining of the week
+     * Returns the week as new date object using monday as beginning of the week
      * Example: 12.Jan.2007 -> 08.Jan.1970 00:00:00
      *
      * @param Zend_Locale $locale OPTIONAL Locale for parsing input

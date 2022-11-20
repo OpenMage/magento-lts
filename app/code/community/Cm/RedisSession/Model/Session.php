@@ -339,7 +339,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
         if ($this->_logLevel >= Zend_Log::DEBUG) {
             $timeStart = microtime(true);
         }
-        list($sessionData, $sessionWrites) = $this->_redis->hMGet($sessionId, array('data','writes'));
+        list($sessionData, $sessionWrites) = array_values($this->_redis->hMGet($sessionId, array('data','writes')));
         Varien_Profiler::stop(__METHOD__);
         if ($this->_logLevel >= Zend_Log::DEBUG) {
             $this->_log(sprintf("Data read for ID %s in %.5f seconds", $sessionId, (microtime(true) - $timeStart)));

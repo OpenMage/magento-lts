@@ -1,29 +1,29 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Backup
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Backup
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Backup
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Mysql4
 {
     /**
@@ -32,7 +32,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
      *
      * @var array
      */
-    protected $_foreignKeys    = array();
+    protected $_foreignKeys    = [];
 
     /**
      * Retrieve SQL fragment for drop table
@@ -61,7 +61,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
             foreach ($this->_foreignKeys as $table => $foreignKeys) {
                 $sql .= $this->_buildForeignKeysAlterTableSql($table, $foreignKeys);
             }
-        } else if (isset($this->_foreignKeys[$tableName])) {
+        } elseif (isset($this->_foreignKeys[$tableName])) {
             $foreignKeys = $this->_foreignKeys[$tableName];
             $sql = $this->_buildForeignKeysAlterTableSql($tableName, $foreignKeys);
         }
@@ -82,31 +82,32 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
             return '';
         }
 
-        return sprintf("ALTER TABLE %s\n  %s;\n",
+        return sprintf(
+            "ALTER TABLE %s\n  %s;\n",
             $this->_getReadAdapter()->quoteIdentifier($tableName),
-            join(",\n  ", $foreignKeys)
+            implode(",\n  ", $foreignKeys)
         );
     }
 
-     /**
-     * Get create script for table
-     *
-     * @param string $tableName
-     * @param boolean $addDropIfExists
-     * @return string
-     */
+    /**
+    * Get create script for table
+    *
+    * @param string $tableName
+    * @param bool $addDropIfExists
+    * @return string
+    */
     public function getTableCreateScript($tableName, $addDropIfExists = false)
     {
         $script = '';
         $quotedTableName = $this->_getReadAdapter()->quoteIdentifier($tableName);
 
         if ($addDropIfExists) {
-            $script .= 'DROP TABLE IF EXISTS ' . $quotedTableName .";\n";
+            $script .= 'DROP TABLE IF EXISTS ' . $quotedTableName . ";\n";
         }
         //TODO fix me
         $sql     = 'SHOW CREATE TABLE ' . $quotedTableName;
         $data    = $this->_getReadAdapter()->fetchRow($sql);
-        $script .= isset($data['Create Table']) ? $data['Create Table'].";\n" : '';
+        $script .= isset($data['Create Table']) ? $data['Create Table'] . ";\n" : '';
 
         return $script;
     }
@@ -115,7 +116,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
      *
      * @param string $tableName
      * @param bool $withForeignKeys
-     * @return string
+     * @return false|string
      */
     public function getTableCreateSql($tableName, $withForeignKeys = false)
     {
@@ -132,18 +133,19 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
             . 'REFERENCES `([^`]*)` \(`([^`]*)`\)'
             . '( ON DELETE (RESTRICT|CASCADE|SET NULL|NO ACTION))?'
             . '( ON UPDATE (RESTRICT|CASCADE|SET NULL|NO ACTION))?/';
-        $matches = array();
+        $matches = [];
         preg_match_all($regExp, $row['Create Table'], $matches, PREG_SET_ORDER);
 
         if (is_array($matches)) {
             foreach ($matches as $match) {
-                $this->_foreignKeys[$tableName][] = sprintf('ADD CONSTRAINT %s FOREIGN KEY (%s) REFERENCES %s (%s)%s%s',
+                $this->_foreignKeys[$tableName][] = sprintf(
+                    'ADD CONSTRAINT %s FOREIGN KEY (%s) REFERENCES %s (%s)%s%s',
                     $adapter->quoteIdentifier($match[1]),
                     $adapter->quoteIdentifier($match[2]),
                     $adapter->quoteIdentifier($match[3]),
                     $adapter->quoteIdentifier($match[4]),
-                    isset($match[5]) ? $match[5] : '',
-                    isset($match[7]) ? $match[7] : ''
+                    $match[5] ?? '',
+                    $match[7] ?? ''
                 );
             }
         }
@@ -169,7 +171,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
         $hostName   = !empty($dbConfig['unix_socket']) ? $dbConfig['unix_socket']
             : (!empty($dbConfig['host']) ? $dbConfig['host'] : 'localhost');
 
-        $header = "-- Magento DB backup\n"
+        return "-- Magento DB backup\n"
             . "--\n"
             . "-- Host: {$hostName}    Database: {$dbConfig['dbname']}\n"
             . "-- ------------------------------------------------------\n"
@@ -182,8 +184,6 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
             . "/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;\n"
             . "/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;\n"
             . "/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;\n";
-
-        return $header;
     }
 
     /**
@@ -193,7 +193,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
      */
     public function getFooter()
     {
-        $footer = "\n/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;\n"
+        return "\n/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;\n"
             . "/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */; \n"
             . "/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;\n"
             . "/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;\n"
@@ -201,8 +201,6 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
             . "/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;\n"
             . "/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;\n"
             . "\n-- Dump completed on " . Mage::getSingleton('core/date')->gmtDate() . " GMT";
-
-        return $footer;
     }
 
     /**
@@ -288,8 +286,8 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
     {
         $adapter   = $this->_getReadAdapter();
         $describe  = $adapter->describeTable($tableName);
-        $dataTypes = array('bigint', 'mediumint', 'smallint', 'tinyint');
-        $rowData   = array();
+        $dataTypes = ['bigint', 'mediumint', 'smallint', 'tinyint'];
+        $rowData   = [];
         foreach ($row as $k => $v) {
             if ($v === null) {
                 $value = 'NULL';

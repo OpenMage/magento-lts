@@ -19,7 +19,6 @@
  * @version    $Id: Mime.php 16541 2009-07-07 06:59:03Z bkarwin $
  */
 
-
 /**
  * Support class for MultiPart Mime Messages
  *
@@ -288,8 +287,6 @@ class Zend_Mime
     }
 
     /**
-     * Constructor
-     *
      * @param null|string $boundary
      * @access public
      * @return void

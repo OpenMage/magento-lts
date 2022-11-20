@@ -32,7 +32,7 @@ class Zend_Application_Resource_UserAgent extends Zend_Application_Resource_Reso
      * @var Zend_Http_UserAgent
      */
     protected $_userAgent;
-    
+
     /**
      * Intialize resource
      *
@@ -54,7 +54,7 @@ class Zend_Application_Resource_UserAgent extends Zend_Application_Resource_Reso
 
         return $userAgent;
     }
-    
+
     /**
      * Get UserAgent instance
      *
@@ -66,7 +66,7 @@ class Zend_Application_Resource_UserAgent extends Zend_Application_Resource_Reso
             $options = $this->getOptions();
             $this->_userAgent = new Zend_Http_UserAgent($options);
         }
-        
+
         return $this->_userAgent;
     }
 }

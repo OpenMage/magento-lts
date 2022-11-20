@@ -30,20 +30,20 @@ class Zend_Service_Rackspace_Servers_SharedIpGroup
     const ERROR_PARAM_NO_SERVERS = 'The servers parameter must be an array of Ids';
     /**
      * Name of the shared IP group
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $name;
     /**
      * Id of the shared IP group
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $id;
     /**
      * Array of servers of the shared IP group
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $serversId = array();
     /**
@@ -54,7 +54,7 @@ class Zend_Service_Rackspace_Servers_SharedIpGroup
     protected $service;
     /**
      * Construct
-     * 
+     *
      * @param  Zend_Service_Rackspace_Servers $service
      * @param  array $data
      * @return void
@@ -76,13 +76,13 @@ class Zend_Service_Rackspace_Servers_SharedIpGroup
         if (isset($data['servers']) && !is_array($data['servers'])) {
             #require_once 'Zend/Service/Rackspace/Servers/Exception.php';
             throw new Zend_Service_Rackspace_Servers_Exception(self::ERROR_PARAM_NO_SERVERS);
-        } 
+        }
         $this->service= $service;
         $this->name = $data['name'];
         $this->id = $data['id'];
         if (isset($data['servers'])) {
             $this->serversId= $data['servers'];
-        }    
+        }
     }
     /**
      * Get the name of the shared IP group
@@ -95,8 +95,8 @@ class Zend_Service_Rackspace_Servers_SharedIpGroup
     }
     /**
      * Get the id of the shared IP group
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getId()
     {
@@ -104,8 +104,8 @@ class Zend_Service_Rackspace_Servers_SharedIpGroup
     }
     /**
      * Get the server's array of the shared IP group
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getServersId()
     {
@@ -116,13 +116,13 @@ class Zend_Service_Rackspace_Servers_SharedIpGroup
                 if (isset($info['servers'])) {
                     $this->serversId= $info['servers'];
                 }
-            }    
+            }
         }
         return $this->serversId;
     }
     /**
-     * Get the server 
-     * 
+     * Get the server
+     *
      * @param integer $id
      * @return Zend_Service_Rackspace_Servers_Server|boolean
      */
@@ -138,21 +138,21 @@ class Zend_Service_Rackspace_Servers_SharedIpGroup
     }
     /**
      * Create a server in the shared Ip Group
-     * 
+     *
      * @param  array $data
      * @param  array $metadata
-     * @param  array $files 
+     * @param  array $files
      * @return Zend_Service_Rackspace_Servers_Server|boolean
      */
-    public function createServer(array $data, $metadata=array(),$files=array()) 
+    public function createServer(array $data, $metadata=array(),$files=array())
     {
         $data['sharedIpGroupId']= (integer) $this->id;
         return $this->service->createServer($data,$metadata,$files);
     }
     /**
      * To Array
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function toArray()
     {

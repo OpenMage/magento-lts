@@ -31,7 +31,7 @@
  * @subpackage Storage
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * 
+ *
  * @property string  $Container       The name of the blob container in which the blob is stored.
  * @property string  $Name            The name of the blob.
  * @property string  $SnapshotId      The blob snapshot ID if it is a snapshot blob (= a backup copy of a blob).
@@ -53,7 +53,7 @@ class Zend_Service_WindowsAzure_Storage_BlobInstance
 {
     /**
      * Constructor
-     * 
+     *
      * @param string  $containerName   Container name
      * @param string  $name            Name
      * @param string  $snapshotId      Snapshot id
@@ -70,8 +70,8 @@ class Zend_Service_WindowsAzure_Storage_BlobInstance
      * @param boolean $isPrefix        Is Prefix?
      * @param array   $metadata        Key/value pairs of meta data
      */
-    public function __construct($containerName, $name, $snapshotId, $etag, $lastModified, $url = '', $size = 0, $contentType = '', $contentEncoding = '', $contentLanguage = '', $cacheControl = '', $blobType = '', $leaseStatus = '', $isPrefix = false, $metadata = array()) 
-    {	        
+    public function __construct($containerName, $name, $snapshotId, $etag, $lastModified, $url = '', $size = 0, $contentType = '', $contentEncoding = '', $contentLanguage = '', $cacheControl = '', $blobType = '', $leaseStatus = '', $isPrefix = false, $metadata = array())
+    {
         $this->_data = array(
             'container'        => $containerName,
             'name'             => $name,

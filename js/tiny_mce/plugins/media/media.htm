@@ -153,6 +153,18 @@
 						</tr>
 
 						<tr>
+							<td><label for="video_track1">{#media_dlg.track1}</label></td>
+							<td>
+								<table role="presentation" border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td><input type="text" id="video_track1" name="video_track1" onchange="Media.formToData();" style="width: 240px" /></td>
+										<td id="video_track1_filebrowser">&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+
+						<tr>
 							<td><label for="video_preload">{#media_dlg.preload}</label></td>
 							<td>
 								<select id="video_preload" name="video_preload" onchange="Media.formToData();">

@@ -682,6 +682,7 @@ Validation.addAllThese([
         // Passed on non-related validators conditions (to not change order of validation)
         if(
             !priceInput
+            || !$F(priceInput)
             || Validation.get('IsEmpty').test(v)
             || !Validation.get('validate-number').test(v)
         ) {

@@ -27,7 +27,7 @@
  * @subpackage Storage
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * 
+ *
  * @property string $Name          Name of the container
  * @property string $Etag          Etag of the container
  * @property string $LastModified  Last modified date of the container
@@ -37,20 +37,20 @@ class Zend_Service_WindowsAzure_Storage_BlobContainer
 {
     /**
      * Data
-     * 
+     *
      * @var array
      */
     protected $_data = null;
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param string $name          Name
      * @param string $etag          Etag
      * @param string $lastModified  Last modified date
      * @param array  $metadata      Key/value pairs of meta data
      */
-    public function __construct($name, $etag, $lastModified, $metadata = array()) 
+    public function __construct($name, $etag, $lastModified, $metadata = array())
     {
         $this->_data = array(
             'name'         => $name,
@@ -59,10 +59,10 @@ class Zend_Service_WindowsAzure_Storage_BlobContainer
             'metadata'     => $metadata
         );
     }
-    
+
     /**
      * Magic overload for setting properties
-     * 
+     *
      * @param string $name     Name of the property
      * @param string $value    Value to set
      */
@@ -77,7 +77,7 @@ class Zend_Service_WindowsAzure_Storage_BlobContainer
 
     /**
      * Magic overload for getting properties
-     * 
+     *
      * @param string $name     Name of the property
      */
     public function __get($name) {

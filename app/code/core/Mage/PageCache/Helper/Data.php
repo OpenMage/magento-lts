@@ -1,56 +1,53 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_PageCache
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_PageCache
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Page cache data helper
  *
- * @category    Mage
- * @package     Mage_PageCache
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_PageCache
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_PageCache_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
      * Pathes to external cache config options
      */
-    const XML_PATH_EXTERNAL_CACHE_ENABLED  = 'system/external_page_cache/enabled';
-    const XML_PATH_EXTERNAL_CACHE_LIFETIME = 'system/external_page_cache/cookie_lifetime';
-    const XML_PATH_EXTERNAL_CACHE_CONTROL  = 'system/external_page_cache/control';
+    public const XML_PATH_EXTERNAL_CACHE_ENABLED  = 'system/external_page_cache/enabled';
+    public const XML_PATH_EXTERNAL_CACHE_LIFETIME = 'system/external_page_cache/cookie_lifetime';
+    public const XML_PATH_EXTERNAL_CACHE_CONTROL  = 'system/external_page_cache/control';
 
     /**
      * Path to external cache controls
      */
-    const XML_PATH_EXTERNAL_CACHE_CONTROLS = 'global/external_cache/controls';
+    public const XML_PATH_EXTERNAL_CACHE_CONTROLS = 'global/external_cache/controls';
 
     /**
      * Cookie name for disabling external caching
      *
      * @var string
      */
-    const NO_CACHE_COOKIE = 'external_no_cache';
+    public const NO_CACHE_COOKIE = 'external_no_cache';
+
+    protected $_moduleName = 'Mage_PageCache';
 
     /**
      * Check whether external cache is enabled
@@ -94,8 +91,6 @@ class Mage_PageCache_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Disable caching on external storage side by setting special cookie
-     *
-     * @return void
      */
     public function setNoCacheCookie()
     {

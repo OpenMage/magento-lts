@@ -133,7 +133,7 @@ class Zend_Db_Profiler_Firebug extends Zend_Db_Profiler
 
         $this->_totalElapsedTime += $profile->getElapsedSecs();
 
-        $this->_message->addRow(array((string)round($profile->getElapsedSecs(),5),
+        $this->_message->addRow(array((string)round((float) $profile->getElapsedSecs(),5),
                                       $profile->getQuery(),
                                       ($params=$profile->getQueryParams())?$params:null));
 

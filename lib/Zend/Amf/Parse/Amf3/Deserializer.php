@@ -420,6 +420,6 @@ class Zend_Amf_Parse_Amf3_Deserializer extends Zend_Amf_Parse_Deserializer
         $xmlReference = $this->readInteger();
         $length = $xmlReference >> 1;
         $string = $this->_stream->readBytes($length);
-        return Zend_Xml_Security::scan($string); 
+        return Zend_Xml_Security::scan($string);
     }
 }

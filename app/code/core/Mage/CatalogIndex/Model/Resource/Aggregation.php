@@ -1,36 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Resource Model CatalogIndex Aggregation
  *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -69,14 +63,14 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     public function getCacheData($key, $storeId)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from(array('a'=>$this->getMainTable()), 'data')
+            ->from(['a' => $this->getMainTable()], 'data')
             ->where('a.store_id=?', $storeId)
             ->where('a.key=?', $key);
         $data = $this->_getReadAdapter()->fetchOne($select);
         if ($data) {
-            $data = unserialize($data);
+            $data = unserialize($data, ['allowed_classes' => false]);
         } else {
-            $data = array();
+            $data = [];
         }
         return $data;
     }
@@ -119,12 +113,12 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
         }
         */
 
-        $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), array(
+        $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), [
             'store_id'  => $storeId,
-            'created_at'=> $this->formatDate(time()),
+            'created_at' => $this->formatDate(time()),
             'key'       => $key,
             'data'      => $data
-        ), array('created_at', 'data'));
+        ], ['created_at', 'data']);
 
         $id = $this->_getWriteAdapter()->lastInsertId($this->getMainTable());
 
@@ -141,7 +135,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
      */
     public function clearCacheData($tags, $storeId)
     {
-        $conditions = array();
+        $conditions = [];
         if (!$write = $this->_getWriteAdapter()) {
             return $this;
         }
@@ -171,11 +165,11 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     protected function _saveTagRelations($aggregationId, $tags)
     {
         $query = "REPLACE INTO `{$this->_toTagTable}` (aggregation_id, tag_id) VALUES ";
-        $data = array();
+        $data = [];
         foreach ($tags as $tagId) {
-            $data[] = $aggregationId.','.$tagId;
+            $data[] = $aggregationId . ',' . $tagId;
         }
-        $query.= '(' . implode('),(', $data) . ')';
+        $query .= '(' . implode('),(', $data) . ')';
         $this->_getWriteAdapter()->query($query);
         return $this;
     }
@@ -190,11 +184,11 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     protected function _getTagIds($tags)
     {
         if (!is_array($tags)) {
-            $tags = array($tags);
+            $tags = [$tags];
         }
 
         $select = $this->_getReadAdapter()->select()
-            ->from(array('tags'=>$this->_tagTable), array('tag_code', 'tag_id'))
+            ->from(['tags' => $this->_tagTable], ['tag_code', 'tag_id'])
             ->where('tags.tag_code IN (?)', $tags);
 
         $tagIds = $this->_getReadAdapter()->fetchPairs($select);
@@ -226,12 +220,12 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             foreach ($tags as $index => $tag) {
                 $tags[$index] = $this->_getWriteAdapter()->quote($tag);
             }
-            $query = "INSERT INTO `{$this->_tagTable}` (tag_code) VALUES (".implode('),(', $tags).")";
+            $query = "INSERT INTO `{$this->_tagTable}` (tag_code) VALUES (" . implode('),(', $tags) . ")";
             $this->_getWriteAdapter()->query($query);
         } else {
-            $this->_getWriteAdapter()->insert($this->_tagTable, array(
+            $this->_getWriteAdapter()->insert($this->_tagTable, [
                 'tag_code' => $tags
-            ));
+            ]);
         }
         return $this;
     }
@@ -245,14 +239,14 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     public function getProductCategoryPaths($productIds)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from(array('cat'=>$this->getTable('catalog/category')), 'path')
+            ->from(['cat' => $this->getTable('catalog/category')], 'path')
             ->joinInner(
-                array('cat_prod'=>$this->getTable('catalog/category_product')),
+                ['cat_prod' => $this->getTable('catalog/category_product')],
                 $this->_getReadAdapter()->quoteInto(
                     'cat.entity_id=cat_prod.category_id AND cat_prod.product_id IN (?)',
                     $productIds
                 ),
-                array()
+                []
             );
         return $this->_getReadAdapter()->fetchCol($select);
     }

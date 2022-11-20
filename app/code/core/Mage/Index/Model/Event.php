@@ -1,31 +1,28 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Index
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Enter description here ...
+ * @category   Mage
+ * @package    Mage_Index
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Index_Model_Resource_Event _getResource()
  * @method Mage_Index_Model_Resource_Event getResource()
@@ -41,20 +38,16 @@
  * @method Varien_Object getDataObject()
  * @method $this setDataObject(Varien_Object $value)
  * @method bool hasCreatedAt()
- *
- * @category    Mage
- * @package     Mage_Index
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
 {
     /**
      * Predefined event types
      */
-    const TYPE_SAVE        = 'save';
-    const TYPE_DELETE      = 'delete';
-    const TYPE_MASS_ACTION = 'mass_action';
-    const TYPE_REINDEX     = 'reindex';
+    public const TYPE_SAVE        = 'save';
+    public const TYPE_DELETE      = 'delete';
+    public const TYPE_MASS_ACTION = 'mass_action';
+    public const TYPE_REINDEX     = 'reindex';
 
     /**
      * Array of related processes ids
@@ -127,7 +120,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
             $data[$this->_dataNamespace] = null;
             $this->setNewData($data);
         } else {
-            $this->setNewData(array());
+            $this->setNewData([]);
         }
         return $this;
     }
@@ -201,7 +194,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
         }
 
         if (!empty($data['new_data'])) {
-            $previousNewData = unserialize($data['new_data']);
+            $previousNewData = unserialize($data['new_data'], ['allowed_classes' => false]);
             $currentNewData  = $this->getNewData(false);
             $currentNewData = $this->_mergeNewDataRecursive($previousNewData, $currentNewData);
             $this->setNewData(serialize($currentNewData));
@@ -247,7 +240,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      */
     public function getOldData($useNamespace = true)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -260,12 +253,12 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     {
         $data = $this->_getData('new_data');
         if (is_string($data)) {
-            $data = unserialize($data);
+            $data = unserialize($data, ['allowed_classes' => false]);
         } elseif (empty($data) || !is_array($data)) {
-            $data = array();
+            $data = [];
         }
         if ($useNamespace && $this->_dataNamespace) {
-            return isset($data[$this->_dataNamespace]) ? $data[$this->_dataNamespace] : array();
+            return $data[$this->_dataNamespace] ?? [];
         }
         return $data;
     }
@@ -294,11 +287,11 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     {
         $newData = $this->getNewData(false);
         if (!is_array($key)) {
-            $key = array($key => $value);
+            $key = [$key => $value];
         }
         if ($this->_dataNamespace) {
             if (!isset($newData[$this->_dataNamespace])) {
-                $newData[$this->_dataNamespace] = array();
+                $newData[$this->_dataNamespace] = [];
             }
             $newData[$this->_dataNamespace] = array_merge($newData[$this->_dataNamespace], $key);
         } else {

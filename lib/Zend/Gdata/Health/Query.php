@@ -60,7 +60,7 @@ class Zend_Gdata_Health_Query extends Zend_Gdata_Query
      * Namespace for an item category
      */
     const ITEM_CATEGORY_NS = 'http://schemas.google.com/health/item';
-    
+
     /**
      * Create Gdata_Query object
      */

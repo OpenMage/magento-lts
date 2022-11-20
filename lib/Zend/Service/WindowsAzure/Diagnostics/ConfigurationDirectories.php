@@ -46,22 +46,22 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationDirectories
 {
     /**
      * Constructor
-     * 
+     *
 	 * @param	int		$bufferQuotaInMB					Buffer quota in MB
 	 * @param	int		$scheduledTransferPeriodInMinutes	Scheduled transfer period in minutes
 	 */
-    public function __construct($bufferQuotaInMB = 0, $scheduledTransferPeriodInMinutes = 0) 
-    {	        
+    public function __construct($bufferQuotaInMB = 0, $scheduledTransferPeriodInMinutes = 0)
+    {
         $this->_data = array(
             'bufferquotainmb'        			=> $bufferQuotaInMB,
             'scheduledtransferperiodinminutes' 	=> $scheduledTransferPeriodInMinutes,
         	'subscriptions'						=> array()
         );
     }
-    
+
 	/**
 	 * Add subscription
-	 * 
+	 *
 	 * @param	string	$path					Path
 	 * @param	string	$container				Container
 	 * @param	int		$directoryQuotaInMB		Directory quota in MB
@@ -70,10 +70,10 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationDirectories
     {
     	$this->_data['subscriptions'][$path] = new Zend_Service_WindowsAzure_Diagnostics_DirectoryConfigurationSubscription($path, $container, $directoryQuotaInMB);
     }
-    
+
 	/**
 	 * Remove subscription
-	 * 
+	 *
 	 * @param	string	$path					Path
 	 */
     public function removeSubscription($path)
