@@ -387,7 +387,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
         if (!isset($this->_parameters['behavior'])
             || ($this->_parameters['behavior'] != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND
             && $this->_parameters['behavior'] != Mage_ImportExport_Model_Import::BEHAVIOR_REPLACE
-            && $this->_parameters['behavior'] != Mage_ImportExport_Model_Import::BEHAVIOR_DELETE)) {
+            && $this->_parameters['behavior'] != Mage_ImportExport_Model_Import::BEHAVIOR_DELETE)
+        ) {
             return Mage_ImportExport_Model_Import::getDefaultBehavior();
         }
         return $this->_parameters['behavior'];

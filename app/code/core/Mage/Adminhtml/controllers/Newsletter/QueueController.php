@@ -252,7 +252,8 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
                 ->setNewsletterStyles($this->getRequest()->getParam('styles'));
 
             if ($queue->getQueueStatus() == Queue::STATUS_PAUSE
-                && $this->getRequest()->getParam('_resume', false)) {
+                && $this->getRequest()->getParam('_resume', false)
+            ) {
                 $queue->setQueueStatus(Queue::STATUS_SENDING);
             }
 

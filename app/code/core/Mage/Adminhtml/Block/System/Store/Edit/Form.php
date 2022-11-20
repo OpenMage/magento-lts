@@ -147,7 +147,8 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
             ]);
 
             if (Mage::registry('store_action') == 'edit'
-                || (Mage::registry('store_action') == 'add' && Mage::registry('store_type') == 'group')) {
+                || (Mage::registry('store_action') == 'add' && Mage::registry('store_type') == 'group')
+            ) {
                 $websites = Mage::getModel('core/website')->getCollection()->toOptionArray();
                 $fieldset->addField('group_website_id', 'select', [
                     'name'      => 'group[website_id]',
@@ -226,7 +227,8 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
             ]);
 
             if (Mage::registry('store_action') == 'edit'
-                || Mage::registry('store_action') == 'add' && Mage::registry('store_type') == 'store') {
+                || Mage::registry('store_action') == 'add' && Mage::registry('store_type') == 'store'
+            ) {
                 $websites = Mage::getModel('core/website')->getCollection();
                 $allgroups = Mage::getModel('core/store_group')->getCollection();
                 $groups = [];

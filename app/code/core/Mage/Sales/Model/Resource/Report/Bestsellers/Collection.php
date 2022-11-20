@@ -190,7 +190,8 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
         }
         $currentStoreIds = $this->_storesIds;
         if (isset($currentStoreIds) && $currentStoreIds != Mage_Core_Model_App::ADMIN_STORE_ID
-            && $currentStoreIds != [Mage_Core_Model_App::ADMIN_STORE_ID]) {
+            && $currentStoreIds != [Mage_Core_Model_App::ADMIN_STORE_ID]
+        ) {
             if (!is_array($currentStoreIds)) {
                 $currentStoreIds = [$currentStoreIds];
             }

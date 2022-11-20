@@ -763,7 +763,8 @@ class Mage_Paypal_Model_Express_Checkout
             ->getAdditionalInformation(self::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT);
 
         if (!($this->_config->allow_ba_signup == Mage_Paypal_Model_Config::EC_BA_SIGNUP_AUTO
-            || $isRequested && $this->_config->shouldAskToCreateBillingAgreement())) {
+            || $isRequested && $this->_config->shouldAskToCreateBillingAgreement())
+        ) {
             return $this;
         }
 
@@ -1017,7 +1018,8 @@ class Mage_Paypal_Model_Express_Checkout
             $billing->setCustomerAddress($customerBilling);
         }
         if ($shipping && ((!$shipping->getCustomerId() && !$shipping->getSameAsBilling())
-            || (!$shipping->getSameAsBilling() && $shipping->getSaveInAddressBook()))) {
+            || (!$shipping->getSameAsBilling() && $shipping->getSaveInAddressBook()))
+        ) {
             $customerShipping = $shipping->exportCustomerAddress();
             $customer->addAddress($customerShipping);
             $shipping->setCustomerAddress($customerShipping);

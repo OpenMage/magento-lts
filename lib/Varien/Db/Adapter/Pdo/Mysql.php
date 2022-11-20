@@ -1259,7 +1259,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                     $onUpdate = $options['ON_UPDATE'];
 
                     if ($onDelete == Varien_Db_Adapter_Interface::FK_ACTION_SET_NULL
-                        || $onUpdate == Varien_Db_Adapter_Interface::FK_ACTION_SET_NULL) {
+                        || $onUpdate == Varien_Db_Adapter_Interface::FK_ACTION_SET_NULL
+                    ) {
                         $columnDefinition['nullable'] = true;
                     }
                     $this->modifyColumn($options['TABLE_NAME'], $options['COLUMN_NAME'], $columnDefinition);

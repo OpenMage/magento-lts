@@ -37,8 +37,9 @@
         <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
     </rule>
     <rule ref="PSR12">
-        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.CloseParenthesisLine"/>
+        <!-- conflicts with PSR2.ControlStructures.ControlStructureSpacing.SpacingAfterOpenBrace -->
         <exclude name="PSR12.ControlStructures.ControlStructureSpacing.FirstExpressionLine"/>
+        <!-- requires emtpy line between php opening tag and first comment block -->
         <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
     </rule>
 </ruleset>

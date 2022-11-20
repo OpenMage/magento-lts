@@ -85,7 +85,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             $rootChildParts = explode(DIRECTORY_SEPARATOR, substr($value->getFilename(), $storageRootLength));
 
             if (array_key_exists(end($rootChildParts), $conditions['plain'])
-                || ($regExp && preg_match($regExp, $value->getFilename()))) {
+                || ($regExp && preg_match($regExp, $value->getFilename()))
+            ) {
                 $collection->removeItemByKey($key);
             }
         }

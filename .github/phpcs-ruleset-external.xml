@@ -2,22 +2,7 @@
 <ruleset name="OpenMageExternal" namespace="OpenMage\CS\Standard">
     <file>./../app/code/community/</file>
     <file>./../app/code/local/</file>
-    <rule ref="PSR2">
-        <exclude name="Generic.Files.LineLength.TooLong"/>
-        <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
-        <exclude name="PSR1.Files.SideEffects.FoundWithSymbols"/>
-        <exclude name="PSR2.Classes.ClassDeclaration.ExtendsLine"/>
-        <exclude name="PSR2.Classes.PropertyDeclaration.Underscore"/>
-        <exclude name="PSR2.Methods.FunctionCallSignature.Indent"/>
-        <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
-        <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
-    </rule>
-    <rule ref="PSR12">
-        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.CloseParenthesisLine"/>
-        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.FirstExpressionLine"/>
-        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.LineIndent"/>
-        <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
-    </rule>
+    <rule ref="./.github/phpcs-ruleset.xml" />
     <rule ref="Ecg" />
     <rule ref="PHPCompatibility" />
 </ruleset>

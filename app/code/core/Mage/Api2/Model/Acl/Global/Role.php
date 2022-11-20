@@ -81,7 +81,8 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
 
         //check and protect guest role
         if (Mage_Api2_Model_Acl_Global_Role::isSystemRole($this)
-            && $this->getRoleName() != $this->getOrigData('role_name')) {
+            && $this->getRoleName() != $this->getOrigData('role_name')
+        ) {
 
             /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');

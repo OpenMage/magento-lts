@@ -473,7 +473,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                     continue;
                 }
                 if ((isset($qtys[$child->getId()]) && $qtys[$child->getId()] > 0)
-                        || (!isset($qtys[$child->getId()]) && $child->getQtyToShip())) {
+                        || (!isset($qtys[$child->getId()]) && $child->getQtyToShip())
+                ) {
                     return true;
                 }
             }
@@ -485,7 +486,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 return false;
             }
             if ((isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0)
-                || (!isset($qtys[$item->getParentItem()->getId()]) && $item->getParentItem()->getQtyToShip())) {
+                || (!isset($qtys[$item->getParentItem()->getId()]) && $item->getParentItem()->getQtyToShip())
+            ) {
                 return true;
             }
             return false;

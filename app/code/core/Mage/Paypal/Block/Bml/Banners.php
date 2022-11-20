@@ -71,7 +71,8 @@ class Mage_Paypal_Block_Bml_Banners extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         if (!$this->_getConfig()->isMethodAvailable(Mage_Paypal_Model_Config::METHOD_BML)
-            && !$this->_getConfig()->isMethodAvailable(Mage_Paypal_Model_Config::METHOD_WPP_PE_BML)) {
+            && !$this->_getConfig()->isMethodAvailable(Mage_Paypal_Model_Config::METHOD_WPP_PE_BML)
+        ) {
             return '';
         }
         $publisherId = $this->_getConfig()->getBmlPublisherId();

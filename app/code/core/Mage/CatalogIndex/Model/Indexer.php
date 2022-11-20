@@ -604,7 +604,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                     if ($indexer->isAttributeIndexable($attribute)) {
                         if ($values[$code]) {
                             if (isset($values[$code]['from']) && isset($values[$code]['to'])
-                                && (strlen($values[$code]['from']) == 0 && strlen($values[$code]['to']) == 0)) {
+                                && (strlen($values[$code]['from']) == 0 && strlen($values[$code]['to']) == 0)
+                            ) {
                                 continue;
                             }
                             $table = $indexer->getResource()->getMainTable();
@@ -699,7 +700,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                     if ($indexer->isAttributeIndexable($attribute)) {
                         if ($values[$code]) {
                             if (isset($values[$code]['from']) && isset($values[$code]['to'])
-                                && (!$values[$code]['from'] && !$values[$code]['to'])) {
+                                && (!$values[$code]['from'] && !$values[$code]['to'])
+                            ) {
                                 continue;
                             }
 

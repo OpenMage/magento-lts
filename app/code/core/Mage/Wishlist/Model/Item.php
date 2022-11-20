@@ -552,7 +552,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
             }
             if (!isset($options2[$code])
                 || ($options2[$code]->getValue() === null)
-                || $options2[$code]->getValue() != $option->getValue()) {
+                || $options2[$code]->getValue() != $option->getValue()
+            ) {
                 return false;
             }
         }

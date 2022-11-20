@@ -102,7 +102,8 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         if (in_array($info->getCcType(), $availableTypes)) {
             if ($this->validateCcNum($ccNumber)
                 // Other credit card type number validation
-                || ($this->otherCcType($info->getCcType()) && $this->validateCcNumOther($ccNumber))) {
+                || ($this->otherCcType($info->getCcType()) && $this->validateCcNumOther($ccNumber))
+            ) {
                 $ccType = 'OT';
                 $discoverNetworkRegexp = '/^(30[0-5]\d{13}|3095\d{12}|35(2[8-9]\d{12}|[3-8]\d{13})|36\d{12}'
                     . '|3[8-9]\d{14}|6011(0\d{11}|[2-4]\d{11}|74\d{10}|7[7-9]\d{10}|8[6-9]\d{10}|9\d{11})'

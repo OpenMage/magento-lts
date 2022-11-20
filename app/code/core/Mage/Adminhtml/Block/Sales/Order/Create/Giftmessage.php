@@ -59,7 +59,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
 
         foreach ($allItems as $item) {
             if ($this->_getGiftmessageSaveModel()->getIsAllowedQuoteItem($item)
-                && $helper->getIsMessagesAvailable('item', $item, $this->getStore())) {
+                && $helper->getIsMessagesAvailable('item', $item, $this->getStore())
+            ) {
                 // if item allowed
                 $items[] = $item;
             }

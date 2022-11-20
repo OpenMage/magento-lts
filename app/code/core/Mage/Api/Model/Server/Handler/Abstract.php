@@ -251,19 +251,22 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         }
 
         if (!isset($resources->$resourceName)
-            || !isset($resources->$resourceName->methods->$methodName)) {
+            || !isset($resources->$resourceName->methods->$methodName)
+        ) {
             return $this->_fault('resource_path_invalid');
         }
 
         if (!isset($resources->$resourceName->public)
             && isset($resources->$resourceName->acl)
-            && !$this->_isAllowed((string)$resources->$resourceName->acl)) {
+            && !$this->_isAllowed((string)$resources->$resourceName->acl)
+        ) {
             return $this->_fault('access_denied');
         }
 
         if (!isset($resources->$resourceName->methods->$methodName->public)
             && isset($resources->$resourceName->methods->$methodName->acl)
-            && !$this->_isAllowed((string)$resources->$resourceName->methods->$methodName->acl)) {
+            && !$this->_isAllowed((string)$resources->$resourceName->methods->$methodName->acl)
+        ) {
             return $this->_fault('access_denied');
         }
 
@@ -353,7 +356,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             }
 
             if (!isset($resources->$resourceName)
-                || !isset($resources->$resourceName->methods->$methodName)) {
+                || !isset($resources->$resourceName->methods->$methodName)
+            ) {
                 $result[] = $this->_faultAsArray('resource_path_invalid');
                 if (isset($options['break']) && $options['break'] == 1) {
                     break;
@@ -364,7 +368,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
             if (!isset($resources->$resourceName->public)
                 && isset($resources->$resourceName->acl)
-                && !$this->_isAllowed((string)$resources->$resourceName->acl)) {
+                && !$this->_isAllowed((string)$resources->$resourceName->acl)
+            ) {
                 $result[] = $this->_faultAsArray('access_denied');
                 if (isset($options['break']) && $options['break'] == 1) {
                     break;
@@ -375,7 +380,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
             if (!isset($resources->$resourceName->methods->$methodName->public)
                 && isset($resources->$resourceName->methods->$methodName->acl)
-                && !$this->_isAllowed((string)$resources->$resourceName->methods->$methodName->acl)) {
+                && !$this->_isAllowed((string)$resources->$resourceName->methods->$methodName->acl)
+            ) {
                 $result[] = $this->_faultAsArray('access_denied');
                 if (isset($options['break']) && $options['break'] == 1) {
                     break;
@@ -516,12 +522,14 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         }
 
         if (empty($resourceName)
-            || !isset($resources->$resourceName)) {
+            || !isset($resources->$resourceName)
+        ) {
             return $this->_fault('resource_path_invalid');
         }
 
         if (isset($resources->$resourceName->acl)
-            && !$this->_isAllowed((string)$resources->$resourceName->acl)) {
+            && !$this->_isAllowed((string)$resources->$resourceName->acl)
+        ) {
             return $this->_fault('access_denied');
         }
 

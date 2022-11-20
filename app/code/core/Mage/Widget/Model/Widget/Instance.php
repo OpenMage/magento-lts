@@ -502,7 +502,8 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             '_theme'   => $this->getTheme()
         ]);
         if (!$this->getId() && !$this->isCompleteToCreate()
-            || ($templatePath && !is_readable($templateFilename))) {
+            || ($templatePath && !is_readable($templateFilename))
+        ) {
             return '';
         }
         $parameters = $this->getWidgetParameters();

@@ -126,7 +126,8 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
              'usps_INT_16', // Priority Mail International Small Flat Rate Box
              'usps_INT_20', // Priority Mail International Small Flat Rate Envelope
              'usps_INT_26', // Priority Mail Express International Flat Rate Boxes
-            ])) {
+            ])
+        ) {
             return true;
         } else {
             return false;

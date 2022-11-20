@@ -133,7 +133,8 @@ class Varien_Db_Select extends Zend_Db_Select
                     list($correlationName, $column) = $columnEntry;
                     if ($column instanceof Zend_Db_Expr) {
                         if ($this->_findTableInCond($tableId, $column)
-                            || $this->_findTableInCond($tableProp['tableName'], $column)) {
+                            || $this->_findTableInCond($tableProp['tableName'], $column)
+                        ) {
                             $useJoin = true;
                         }
                     } else {
@@ -144,7 +145,8 @@ class Varien_Db_Select extends Zend_Db_Select
                 }
                 foreach ($this->_parts[self::WHERE] as $where) {
                     if ($this->_findTableInCond($tableId, $where)
-                        || $this->_findTableInCond($tableProp['tableName'], $where)) {
+                        || $this->_findTableInCond($tableProp['tableName'], $where)
+                    ) {
                         $useJoin = true;
                     }
                 }
@@ -158,7 +160,8 @@ class Varien_Db_Select extends Zend_Db_Select
                     }
                     if (!empty($table['joinCondition'])) {
                         if ($this->_findTableInCond($tableId, $table['joinCondition'])
-                            || $this->_findTableInCond($tableProp['tableName'], $table['joinCondition'])) {
+                            || $this->_findTableInCond($tableProp['tableName'], $table['joinCondition'])
+                        ) {
                             $useJoin = true;
                             $joinInTables[] = $tableCorrelationName;
                         }

@@ -725,7 +725,8 @@ class Mage_Paypal_Model_Config
                 }
                 // check for direct payments dependence
                 if ($this->isMethodActive(self::METHOD_WPP_DIRECT)
-                    || $this->isMethodActive(self::METHOD_WPP_PE_DIRECT)) {
+                    || $this->isMethodActive(self::METHOD_WPP_PE_DIRECT)
+                ) {
                     $result = false;
                 }
                 break;
@@ -748,7 +749,8 @@ class Mage_Paypal_Model_Config
                 if ($this->isMethodActive(self::METHOD_WPP_PE_DIRECT)) {
                     $result = true;
                 } elseif (!$this->isMethodActive(self::METHOD_WPP_PE_DIRECT)
-                          && !$this->isMethodActive(self::METHOD_PAYFLOWPRO)) {
+                          && !$this->isMethodActive(self::METHOD_PAYFLOWPRO)
+                ) {
                     $result = false;
                 }
                 break;
@@ -800,7 +802,8 @@ class Mage_Paypal_Model_Config
         if ($key == 'payment_action'
             && $value != self::PAYMENT_ACTION_SALE
             && $this->_methodCode == self::METHOD_WPP_EXPRESS
-            && $this->shouldUseUnilateralPayments()) {
+            && $this->shouldUseUnilateralPayments()
+        ) {
             return self::PAYMENT_ACTION_SALE;
         }
         return $value;
@@ -1813,7 +1816,8 @@ class Mage_Paypal_Model_Config
         $pathPrefix = 'paypal/wpuk';
         // Use PUMP credentials from Verisign for EC when Direct Payments are unavailable
         if ($this->_methodCode == self::METHOD_WPP_PE_EXPRESS
-            && !$this->isMethodAvailable(self::METHOD_WPP_PE_DIRECT)) {
+            && !$this->isMethodAvailable(self::METHOD_WPP_PE_DIRECT)
+        ) {
             $pathPrefix = 'payment/verisign';
         } elseif ($this->_methodCode == self::METHOD_PAYFLOWADVANCED
             || $this->_methodCode == self::METHOD_PAYFLOWLINK

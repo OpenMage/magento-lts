@@ -242,7 +242,8 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
                 strpos($value, "\n") !== false ||
                 strpos($value, "\r") !== false ||
                 strpos($value, "\t") !== false ||
-                strpos($value, ' ') !== false) {
+                strpos($value, ' ') !== false
+            ) {
                 $str2 = $enclosure;
                 $escaped = 0;
                 $len = strlen($value);
