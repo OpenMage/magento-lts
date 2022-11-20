@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<ruleset name="OpenMageExternal" namespace="OpenMage\CS\Standard">
-    <file>./../app/code/community/</file>
-    <file>./../app/code/local/</file>
-    <rule ref="./.github/phpcs-ruleset.xml" />
-    <rule ref="Ecg" />
-    <rule ref="PHPCompatibility" />
-</ruleset>

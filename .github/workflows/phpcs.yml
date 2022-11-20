@@ -24,8 +24,7 @@ jobs:
       matrix:
         rules: [
           '.github/phpcs-ruleset.xml',
-          '.github/phpcs-ruleset-php.xml',
-          '.github/phpcs-ruleset-external.xml'
+          '.github/phpcs-ruleset-php.xml'
         ]
 
     name: PHPCodeSniffer ${{ matrix.rules }}
@@ -50,9 +49,6 @@ jobs:
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
-
-      - name: Ensure existence of ./app/code/local
-        run: mkdir -p app/code/local
 
       - name: PHPCodeSniffer
         run: php vendor/bin/phpcs -s --report=full --standard=${{ matrix.rules }}
