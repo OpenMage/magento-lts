@@ -19,7 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/*
+/**
  * Paypal Settlement Report model
  *
  * Perform fetching reports from remote servers with following saving them to database
@@ -32,13 +32,13 @@
  * @method Mage_Paypal_Model_Resource_Report_Settlement _getResource()
  * @method Mage_Paypal_Model_Resource_Report_Settlement getResource()
  * @method string getReportDate()
- * @method Mage_Paypal_Model_Report_Settlement setReportDate(string $value)
+ * @method $this setReportDate(string $value)
  * @method string getAccountId()
- * @method Mage_Paypal_Model_Report_Settlement setAccountId(string $value)
+ * @method $this setAccountId(string $value)
  * @method string getFilename()
- * @method Mage_Paypal_Model_Report_Settlement setFilename(string $value)
+ * @method $this setFilename(string $value)
  * @method string getLastModified()
- * @method Mage_Paypal_Model_Report_Settlement setLastModified(string $value)
+ * @method $this setLastModified(string $value)
  */
 class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
 {

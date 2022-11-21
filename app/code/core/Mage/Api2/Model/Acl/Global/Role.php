@@ -31,11 +31,11 @@
  * @method Mage_Api2_Model_Resource_Acl_Global_Role getResource()
  * @method Mage_Api2_Model_Resource_Acl_Global_Role _getResource()
  * @method string getCreatedAt()
- * @method Mage_Api2_Model_Acl_Global_Role setCreatedAt() setCreatedAt(string $createdAt)
+ * @method $this setCreatedAt() setCreatedAt(string $createdAt)
  * @method string getUpdatedAt()
- * @method Mage_Api2_Model_Acl_Global_Role setUpdatedAt() setUpdatedAt(string $updatedAt)
+ * @method $this setUpdatedAt() setUpdatedAt(string $updatedAt)
  * @method string getRoleName()
- * @method Mage_Api2_Model_Acl_Global_Role setRoleName() setRoleName(string $roleName)
+ * @method $this setRoleName() setRoleName(string $roleName)
  */
 class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
 {

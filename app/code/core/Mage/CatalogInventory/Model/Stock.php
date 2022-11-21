@@ -29,7 +29,7 @@
  * @method Mage_CatalogInventory_Model_Resource_Stock _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock getResource()
  * @method string getStockName()
- * @method Mage_CatalogInventory_Model_Stock setStockName(string $value)
+ * @method $this setStockName(string $value)
  */
 class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
 {
