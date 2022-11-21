@@ -39,7 +39,7 @@
  * @method string getRoleName()
  * @method $this setRoleName(string $value)
  * @method string getName()
- * @method Mage_Api_Model_Role setName() setName(string $name)
+ * @method $this setName(string $name)
  * @method int getPid()
  */
 class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract

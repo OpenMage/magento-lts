@@ -26,12 +26,12 @@
  * @package    Mage_Oauth
  * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @method string getNonce()
- * @method Mage_Oauth_Model_Nonce setNonce() setNonce(string $nonce)
- * @method string getTimestamp()
- * @method Mage_Oauth_Model_Nonce setTimestamp() setTimestamp(string $timestamp)
  * @method Mage_Oauth_Model_Resource_Nonce getResource()
  * @method Mage_Oauth_Model_Resource_Nonce _getResource()
+ * @method string getNonce()
+ * @method $this setNonce(string $nonce)
+ * @method string getTimestamp()
+ * @method $this setTimestamp(string $timestamp)
  */
 class Mage_Oauth_Model_Nonce extends Mage_Core_Model_Abstract
 {

@@ -28,13 +28,13 @@
  *
  * @method Mage_CatalogIndex_Model_Resource_Attribute _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Attribute getResource()
- * @method Mage_CatalogIndex_Model_Attribute setEntityId(int $value)
+ * @method $this setEntityId(int $value)
  * @method int getAttributeId()
- * @method Mage_CatalogIndex_Model_Attribute setAttributeId(int $value)
+ * @method $this setAttributeId(int $value)
  * @method int getStoreId()
- * @method Mage_CatalogIndex_Model_Attribute setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method int getValue()
- * @method Mage_CatalogIndex_Model_Attribute setValue(int $value)
+ * @method $this setValue(int $value)
  */
 class Mage_CatalogIndex_Model_Attribute extends Mage_Core_Model_Abstract
 {

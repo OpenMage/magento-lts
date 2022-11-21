@@ -29,11 +29,11 @@
  * @method Mage_Catalog_Model_Resource_Product_Status _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Status getResource()
  * @method int getProductId()
- * @method Mage_Catalog_Model_Product_Status setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method int getStoreId()
- * @method Mage_Catalog_Model_Product_Status setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method int getVisibility()
- * @method Mage_Catalog_Model_Product_Status setVisibility(int $value)
+ * @method $this setVisibility(int $value)
  */
 class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
 {

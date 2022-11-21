@@ -26,8 +26,8 @@
  * @package    Mage_Core
  * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @method Mage_Core_Block_Text_Tag_Css setTagName(string $value)
- * @method Mage_Core_Block_Text_Tag_Css setTagParams(array $value)
+ * @method $this setTagName(string $value)
+ * @method $this setTagParams(array $value)
  */
 class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
 {

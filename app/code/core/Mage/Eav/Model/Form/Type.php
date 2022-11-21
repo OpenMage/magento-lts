@@ -30,15 +30,15 @@
  * @method Mage_Eav_Model_Resource_Form_Type getResource()
  * @method Mage_Eav_Model_Resource_Form_Type_Collection getCollection()
  * @method string getCode()
- * @method Mage_Eav_Model_Form_Type setCode(string $value)
+ * @method $this setCode(string $value)
  * @method string getLabel()
- * @method Mage_Eav_Model_Form_Type setLabel(string $value)
+ * @method $this setLabel(string $value)
  * @method int getIsSystem()
- * @method Mage_Eav_Model_Form_Type setIsSystem(int $value)
+ * @method $this setIsSystem(int $value)
  * @method string getTheme()
- * @method Mage_Eav_Model_Form_Type setTheme(string $value)
+ * @method $this setTheme(string $value)
  * @method int getStoreId()
- * @method Mage_Eav_Model_Form_Type setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  */
 class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
 {

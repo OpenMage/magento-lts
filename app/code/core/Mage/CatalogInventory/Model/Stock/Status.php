@@ -29,15 +29,15 @@
  * @method Mage_CatalogInventory_Model_Resource_Stock_Status _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock_Status getResource()
  * @method int getProductId()
- * @method Mage_CatalogInventory_Model_Stock_Status setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method int getWebsiteId()
- * @method Mage_CatalogInventory_Model_Stock_Status setWebsiteId(int $value)
+ * @method $this setWebsiteId(int $value)
  * @method int getStockId()
- * @method Mage_CatalogInventory_Model_Stock_Status setStockId(int $value)
+ * @method $this setStockId(int $value)
  * @method float getQty()
- * @method Mage_CatalogInventory_Model_Stock_Status setQty(float $value)
+ * @method $this setQty(float $value)
  * @method int getStockStatus()
- * @method Mage_CatalogInventory_Model_Stock_Status setStockStatus(int $value)
+ * @method $this setStockStatus(int $value)
  */
 class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
 {

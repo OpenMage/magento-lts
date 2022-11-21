@@ -26,10 +26,10 @@
  * @package    Mage_Api2
  * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @method Mage_Api2_Model_Acl_Global_Role getRole()
- * @method Mage_Api2_Block_Adminhtml_Roles_Tab_Users setRole(Mage_Api2_Model_Acl_Global_Role $role)
- * @method Mage_Api2_Block_Adminhtml_Roles_Tab_Users setUsers(array $users)
  * @method Mage_Admin_Model_Resource_User_Collection getCollection()
+ * @method Mage_Api2_Model_Acl_Global_Role getRole()
+ * @method $this setRole(Mage_Api2_Model_Acl_Global_Role $role)
+ * @method $this setUsers(array $users)
  */
 class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
