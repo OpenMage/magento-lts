@@ -29,7 +29,7 @@ class Mage_Sales_Model_Api2_Order_Comment_Rest_Admin_V1 extends Mage_Sales_Model
 {
     /**
      * Add comment to order
-     * 
+     *
      * @param array $data
      * @return string
      */
@@ -76,7 +76,7 @@ class Mage_Sales_Model_Api2_Order_Comment_Rest_Admin_V1 extends Mage_Sales_Model
 
     /**
      * Retrieve order comment by id
-     * 
+     *
      * @return array
      */
     protected function _retrieve()
