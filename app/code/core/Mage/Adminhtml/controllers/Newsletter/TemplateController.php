@@ -176,10 +176,10 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
                 ->setModifiedAt(Mage::getSingleton('core/date')->gmtDate());
 
             if (!$template->getId()) {
-                $template->setTemplateType(Mage_Newsletter_Model_Template::TYPE_HTML);
+                $template->setTemplateType(Mage_Core_Model_Template::TYPE_HTML);
             }
             if ($this->getRequest()->getParam('_change_type_flag')) {
-                $template->setTemplateType(Mage_Newsletter_Model_Template::TYPE_TEXT);
+                $template->setTemplateType(Mage_Core_Model_Template::TYPE_TEXT);
                 $template->setTemplateStyles('');
             }
             if ($this->getRequest()->getParam('_save_as_flag')) {
