@@ -26,7 +26,7 @@
  * @package    Mage_Core
  * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @method Mage_Core_Model_Email_Template_Mailer setQueue(Mage_Core_Model_Abstract $value)
+ * @method $this setQueue(Mage_Core_Model_Abstract $value)
  * @method Mage_Core_Model_Email_Queue getQueue()
  */
 class Mage_Core_Model_Email_Template_Mailer extends Varien_Object

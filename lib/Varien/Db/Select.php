@@ -22,8 +22,8 @@
 /**
  * Class for SQL SELECT generation and results.
  *
- * @method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract getAdapter()
  * @property Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract $_adapter
+ * @method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract getAdapter()
  * @method $this from($name, $cols = '*', $schema = null)
  * @method $this join($name, $cond, $cols = '*', $schema = null)
  * @method $this joinInner($name, $cond, $cols = '*', $schema = null)
