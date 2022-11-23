@@ -1,33 +1,18 @@
-name: "PHP-CS-Fixer Code Style Analyses"
+name: PHP-CS-Fixer
 
 on:
-  # Run on all pushes and on all pull requests.
-  # Prevent the build from running when there are only irrelevant changes.
-  push:
-    paths:
-      - '**.php'
-      - '.github/php-cs-fixer*'
-      - '.github/workflows/php-cs-fixer*'
-  pull_request:
-    paths:
-      - '**.php'
-      - '.github/php-cs-fixer*'
-      - '.github/workflows/php-cs-fixer*'
+  workflow_call:
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
 jobs:
-  phpcs:
+  php-cs-fixer:
+    name: Validation
     runs-on: [ubuntu-latest]
-
-    name: PHP-CS-Fixer
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Validate composer
-        run: composer validate --strict
 
       - name: Get composer cache directory
         id: composer-cache

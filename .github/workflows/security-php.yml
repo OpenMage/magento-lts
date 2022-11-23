@@ -1,4 +1,4 @@
-name: "PHP Security Check"
+name: PHP Security Check
 
 on:
   # Run automatically every Monday on midnight.
