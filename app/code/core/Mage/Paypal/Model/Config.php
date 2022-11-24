@@ -26,6 +26,33 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @property mixed $allow_ba_signup;
+ * @property mixed $api_cert;
+ * @property mixed $api_password;
+ * @property mixed $api_signature;
+ * @property mixed $api_username;
+ * @property mixed $apiAuthentication;
+ * @property mixed $apiPassword;
+ * @property mixed $apiSignature;
+ * @property mixed $apiUsername;
+ * @property mixed $business_account;
+ * @property mixed $businessAccount;
+ * @property mixed $buttonFlavor;
+ * @property mixed $buttonType;
+ * @property mixed $cctypes;
+ * @property mixed $debug;
+ * @property mixed $lineItemsEnabled;
+ * @property mixed $lineItemsSummary;
+ * @property mixed $paymentAction;
+ * @property mixed $paymentMarkSize;
+ * @property mixed $requireBillingAddress;
+ * @property mixed $sandboxFlag;
+ * @property mixed $solutionType;
+ * @property mixed $transferShippingOptions;
+ * @property mixed $verifyPeer;
+ * @property mixed $visible_on_cart;
+ * @property mixed $visible_on_product;
  */
 class Mage_Paypal_Model_Config
 {
