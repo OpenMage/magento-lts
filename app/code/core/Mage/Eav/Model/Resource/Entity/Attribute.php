@@ -165,7 +165,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
         if ($object->usesSource() && !$object->getData('source_model')) {
             $object->setSourceModel($object->_getDefaultSourceModel());
         }
-        }
 
         return parent::_beforeSave($object);
     }
