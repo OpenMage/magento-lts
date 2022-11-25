@@ -12416,6 +12416,21 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Api2/Order.php
 
 		-
+			message: "#^Parameter \\#2 \\$code of method Mage_Api2_Model_Resource\\:\\:_critical\\(\\) expects int\\|null, string given\\.$#"
+			count: 2
+			path: ../app/code/core/Mage/Sales/Model/Api2/Order/Comment/Rest/Admin/V1.php
+
+		-
+			message: "#^Variable \\$oldArea might not be defined\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Sales/Model/Api2/Order/Comment/Rest/Admin/V1.php
+
+		-
+			message: "#^Variable \\$oldStore might not be defined\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Sales/Model/Api2/Order/Comment/Rest/Admin/V1.php
+
+		-
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Config/Ordered.php
