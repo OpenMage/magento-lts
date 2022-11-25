@@ -325,7 +325,7 @@
                 </force_attributes>
                 <routes>
                     <route_entity>
-                        <route>/orders/comments/:comment_id</route>
+                        <route>/orders/comments/:id</route>
                         <action_type>entity</action_type>
                     </route_entity>
                     <route_collection>
