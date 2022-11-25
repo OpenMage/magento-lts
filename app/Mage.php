@@ -68,49 +68,49 @@ final class Mage
      *
      * @var array
      */
-    static private $_registry                   = [];
+    private static $_registry                   = [];
 
     /**
      * Application root absolute path
      *
      * @var string
      */
-    static private $_appRoot;
+    private static $_appRoot;
 
     /**
      * Application model
      *
      * @var Mage_Core_Model_App
      */
-    static private $_app;
+    private static $_app;
 
     /**
      * Config Model
      *
      * @var Mage_Core_Model_Config
      */
-    static private $_config;
+    private static $_config;
 
     /**
      * Event Collection Object
      *
      * @var Varien_Event_Collection
      */
-    static private $_events;
+    private static $_events;
 
     /**
      * Object cache instance
      *
      * @var Varien_Object_Cache
      */
-    static private $_objects;
+    private static $_objects;
 
     /**
      * Is developer mode flag
      *
      * @var bool
      */
-    static private $_isDeveloperMode            = false;
+    private static $_isDeveloperMode            = false;
 
     /**
      * Is allow throw Exception about headers already sent
@@ -124,7 +124,7 @@ final class Mage
      *
      * @var bool
      */
-    static private $_isInstalled;
+    private static $_isInstalled;
 
     /**
      * Magento edition constants
@@ -140,7 +140,7 @@ final class Mage
      * @var string
      * @static
      */
-    static private $_currentEdition = self::EDITION_COMMUNITY;
+    private static $_currentEdition = self::EDITION_COMMUNITY;
 
     /**
      * Gets the current Magento version string
@@ -182,9 +182,9 @@ final class Mage
     {
         $i = self::getOpenMageVersionInfo();
         $versionString = "{$i['major']}.{$i['minor']}.{$i['patch']}";
-        if ( $i['stability'] || $i['number'] ) {
+        if ($i['stability'] || $i['number']) {
             $versionString .= "-";
-            if ( $i['stability'] && $i['number'] ) {
+            if ($i['stability'] && $i['number']) {
                 $versionString .= implode('.', [$i['stability'], $i['number']]);
             } else {
                 $versionString .= implode('', [$i['stability'], $i['number']]);
@@ -240,7 +240,7 @@ final class Mage
      */
     public static function getEdition()
     {
-       return self::$_currentEdition;
+        return self::$_currentEdition;
     }
 
     /**
@@ -508,7 +508,7 @@ final class Mage
      *
      * @link    Mage_Core_Model_Config::getModelInstance
      * @param   string $modelClass
-     * @param   array|object $arguments
+     * @param   array|string|object $arguments
      * @return  Mage_Core_Model_Abstract|false
      */
     public static function getModel($modelClass = '', $arguments = [])
@@ -845,8 +845,7 @@ final class Mage
             if (empty($file)) {
                 $file = self::getStoreConfig('dev/log/file');
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $logActive = true;
         }
 
@@ -878,7 +877,7 @@ final class Mage
                     ',',
                     (string) self::getConfig()->getNode('dev/log/allowedFileExtensions', Mage_Core_Model_Store::DEFAULT_CODE)
                 );
-                if ( ! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
+                if (! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
                     return;
                 }
 
@@ -900,8 +899,7 @@ final class Mage
                 $writerModel = (string)self::getConfig()->getNode('global/log/core/writer_model');
                 if (!self::$_app || !$writerModel) {
                     $writer = new Zend_Log_Writer_Stream($logFile);
-                }
-                else {
+                } else {
                     $writer = new $writerModel($logFile);
                 }
                 $writer->setFormatter($formatter);
@@ -914,8 +912,7 @@ final class Mage
 
             $message = addcslashes($message, '<?');
             $loggers[$file]->log($message, $level);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
         }
     }
 
@@ -973,7 +970,6 @@ final class Mage
             print $e->getTraceAsString();
             print '</pre>';
         } else {
-
             $reportData = [
                 (!empty($extra) ? $extra . "\n\n" : '') . $e->getMessage(),
                 $e->getTraceAsString()
@@ -993,8 +989,8 @@ final class Mage
             try {
                 $storeCode = self::app()->getStore()->getCode();
                 $reportData['skin'] = $storeCode;
+            } catch (Exception $e) {
             }
-            catch (Exception $e) {}
 
             require_once(self::getBaseDir() . DS . 'errors' . DS . 'report.php');
         }
@@ -1059,6 +1055,5 @@ final class Mage
      */
     public static function setIsDownloader()
     {
-
     }
 }
