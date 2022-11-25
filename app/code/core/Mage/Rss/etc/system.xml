@@ -219,6 +219,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </new>
+                        <new_period translate="label">
+                            <label>New Order Period (days)</label>
+                            <validate>validate-digits</validate>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><new>1</new></depends>
+                        </new_period>
                     </fields>
                 </admin_order>
             </groups>

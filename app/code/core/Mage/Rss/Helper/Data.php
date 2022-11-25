@@ -31,10 +31,11 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Config path to RSS field
      */
-    public const XML_PATH_RSS_ACTIVE                = 'rss/config/active';
-    public const XML_PATH_RSS_CATALOG_NOTIFYSTOCK   = 'rss/catalog/notifystock';
-    public const XML_PATH_RSS_CATALOG_REVIEW        = 'rss/catalog/review';
-    public const XML_PATH_RSS_ADMIN_ORDER_NEW       = 'rss/admin_order/new';
+    public const XML_PATH_RSS_ACTIVE                    = 'rss/config/active';
+    public const XML_PATH_RSS_CATALOG_NOTIFYSTOCK       = 'rss/catalog/notifystock';
+    public const XML_PATH_RSS_CATALOG_REVIEW            = 'rss/catalog/review';
+    public const XML_PATH_RSS_ADMIN_ORDER_NEW           = 'rss/admin_order/new';
+    public const XML_PATH_RSS_ADMIN_ORDER_NEW_PERIOD    = 'rss/admin_order/new_period';
 
     protected $_moduleName = 'Mage_Rss';
 
@@ -165,5 +166,14 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     public function isRssAdminOrderNewEnabled($store = null): bool
     {
         return $this->isRssEnabled() && Mage::getStoreConfigFlag(self::XML_PATH_RSS_ADMIN_ORDER_NEW, $store);
+    }
+
+    /**
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return int
+     */
+    public function getRssAdminOrderNewPeriod($store = null): int
+    {
+        return (int)Mage::getStoreConfig(self::XML_PATH_RSS_ADMIN_ORDER_NEW_PERIOD, $store);
     }
 }
