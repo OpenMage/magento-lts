@@ -186,7 +186,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
                                 'ret'       => (Mage::registry('usePendingFilter')) ? 'pending' : null
                             ]
                         ],
-                         'field'   => 'id'
+                        'field'   => 'id'
                     ]
                 ],
                 'filter'    => false,
@@ -194,7 +194,11 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             ]
         );
 
-        $this->addRssList('rss/catalog/review', Mage::helper('catalog')->__('Pending Reviews RSS'));
+        if (Mage::helper('review')->isModuleOutputEnabled('Mage_Rss')) {
+            if (Mage::helper('rss')->isRssAdminCatalogReviewEnabled()) {
+                $this->addRssList('rss/catalog/review', Mage::helper('catalog')->__('Pending Reviews RSS'));
+            }
+        }
 
         return parent::_prepareColumns();
     }
