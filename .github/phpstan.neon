@@ -75,9 +75,10 @@ parameters:
         # todo check
         - */app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
         - */app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
-    level: 3
+    level: 5
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
+    treatPhpDocTypesAsCertain: false
 
 #    universalObjectCratesClasses:
 #        - Varien_Object
