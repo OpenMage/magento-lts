@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <ruleset name="OpenMage" namespace="OpenMage\CS\Standard">
+    <file>./../api.php</file>
+    <file>./../cron.php</file>
+    <file>./../get.php</file>
+    <file>./../index.php</file>
+    <file>./../install.php</file>
+    <file>./../app/Mage.php</file>
     <file>./../app/code/core/Mage/</file>
     <file>./../lib/Mage/</file>
     <file>./../lib/Magento/</file>
@@ -7,6 +13,9 @@
     <!-- file contains include/include_once/... -->
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
         <!-- controllers -->
+        <exclude-pattern>*/get.php*</exclude-pattern>
+        <exclude-pattern>*/index.php*</exclude-pattern>
+        <exclude-pattern>*/app/Mage.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Adminhtml/controllers/Sales/Order/EditController.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Adminhtml/controllers/System/Convert/GuiController.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Authorizenet/controllers/Adminhtml/Authorizenet/Directpost/PaymentController.php*</exclude-pattern>

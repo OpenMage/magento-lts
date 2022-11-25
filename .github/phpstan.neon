@@ -5,6 +5,12 @@ parameters:
     phpVersion: 80000 # PHP 8.0
     magentoRootPath: %currentWorkingDirectory%
     paths:
+         - %currentWorkingDirectory%/api.php
+         - %currentWorkingDirectory%/cron.php
+         - %currentWorkingDirectory%/get.php
+         - %currentWorkingDirectory%/index.php
+         - %currentWorkingDirectory%/install.php
+         - %currentWorkingDirectory%/app/Mage.php
          - %currentWorkingDirectory%/app/code/core/Mage
     excludePaths:
         #todo DOCblocks

@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:addError\\(\\)\\.$#"
+			count: 1
+			path: ../app/Mage.php
+
+		-
 			message: "#^Comparison operation \"\\=\\=\" between \\(Varien_Simplexml_Element\\|null\\) and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Admin/Model/Config.php
@@ -5859,3 +5864,13 @@ parameters:
 			message: "#^Return type \\(void\\) of method Mage_Wishlist_IndexController\\:\\:preDispatch\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Controller_Front_Action\\)\\) of method Mage_Core_Controller_Front_Action\\:\\:preDispatch\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Wishlist/controllers/IndexController.php
+
+		-
+			message: "#^Variable \\$cronMode might not be defined\\.$#"
+			count: 1
+			path: ../cron.php
+
+		-
+			message: "#^Variable \\$relativeFilename might not be defined\\.$#"
+			count: 4
+			path: ../get.php
