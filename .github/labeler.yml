@@ -598,9 +598,6 @@
 'Documentation':
   - '*.md'
 
-'CI':
-  - .travis.yml
-
 'PHPStorm':
   - .phpstorm.meta.php/*
 
@@ -615,4 +612,3 @@
 'phpstan':
   - .github/phpstan*.neon
   - .github/workflows/phpstan.yml
-
