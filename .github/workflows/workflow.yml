@@ -2,8 +2,20 @@ name: CI
 
 on:
   push:
-  pull_request:
+    paths:
+      - '.github/**'
+      - 'composer.json'
+      - 'composer.lock'
+      - '**.php'
+      - '**.xml'
+
   pull_request_target:
+    paths:
+      - '.github/**'
+      - 'composer.json'
+      - 'composer.lock'
+      - '**.php'
+      - '**.xml'
 
 jobs:
   composer:
