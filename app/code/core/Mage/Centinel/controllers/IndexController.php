@@ -75,7 +75,7 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Return Centinel validation model
      *
-     * @return Mage_Centinel_Model_Service
+     * @return Mage_Centinel_Model_Service|false
      */
     private function _getValidator()
     {
