@@ -11436,6 +11436,11 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/controllers/PayflowadvancedController.php
 
 		-
+			message: "#^Return type \\(void\\) of method Mage_PaypalUk_Model_Pro\\:\\:fetchTransactionInfo\\(\\) should be compatible with return type \\(array\\) of method Mage_Paypal_Model_Pro\\:\\:fetchTransactionInfo\\(\\)$#"
+			count: 1
+			path: ../app/code/core/Mage/PaypalUk/Model/Pro.php
+
+		-
 			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'delete' given\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Persistent/Model/Observer.php

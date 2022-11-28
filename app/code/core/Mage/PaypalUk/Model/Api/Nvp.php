@@ -451,8 +451,8 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Map paypal method names
      *
-     * @param string| $methodName
-     * @return string
+     * @param string $methodName
+     * @return string|void
      */
     protected function _mapPaypalMethodName($methodName)
     {

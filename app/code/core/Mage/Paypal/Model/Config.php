@@ -44,6 +44,7 @@
  * @property mixed $debug;
  * @property mixed $lineItemsEnabled;
  * @property mixed $lineItemsSummary;
+ * @property mixed $payment_action;
  * @property mixed $paymentAction;
  * @property mixed $paymentMarkSize;
  * @property mixed $requireBillingAddress;
