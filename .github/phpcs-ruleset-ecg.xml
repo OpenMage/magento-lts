@@ -77,6 +77,7 @@
         <exclude-pattern>*/core/Mage/Core/Model/Email/Queue.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Core/Model/File/Storage.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Core/Model/File/Storage/Directory/Database.php*</exclude-pattern>
+        <exclude-pattern>*/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Core/Model/Resource/Transaction.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Core/Model/Resource/Translate/String.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Core/Model/Session/Abstract.php*</exclude-pattern>
@@ -91,6 +92,7 @@
         <exclude-pattern>*/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Dataflow/Model/Session/Parser/Csv.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Directory/Model/Currency/Import/Abstract.php*</exclude-pattern>
+        <exclude-pattern>*/core/Mage/Downloadable/Model/Resource/Link.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Eav/Model/Convert/Adapter/Entity.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Eav/Model/Convert/Adapter/Grid.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Eav/Model/Entity/Abstract.php*</exclude-pattern>
@@ -136,6 +138,8 @@
         <exclude-pattern>*/core/Mage/Sales/Model/Order/Payment.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Sales/Model/Quote/Item.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Sales/Model/Resource/Order/Attribute/Backend/Parent.php*</exclude-pattern>
+        <exclude-pattern>*/core/Mage/Sales/Model/Resource/Order/Creditmemo/Attribute/Backend/Parent.php</exclude-pattern>
+        <exclude-pattern>*/core/Mage/Sales/Model/Resource/Order/Invoice/Attribute/Backend/Parent.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Sales/Model/Resource/Order/Shipment/Attribute/Backend/Parent.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Sales/Model/Observer.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Sales/Model/Order.php*</exclude-pattern>
