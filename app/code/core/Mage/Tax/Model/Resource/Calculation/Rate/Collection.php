@@ -171,7 +171,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
         $size = self::TAX_RULES_CHUNK_SIZE;
         $page = 1;
         $rates = [];
-        while ($this->getSize() > $offset) {
+        while (!isset($offset) || $this->getSize() > $offset) {
             $offset = $size * ($page - 1);
             $this->getSelect()->reset();
             $this->getSelect()

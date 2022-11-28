@@ -47,6 +47,8 @@
  * @method string getDisplayMode()
  * @method $this setDisplayMode(string $value)
  *
+ * @method float getFilterPriceRange()
+ *
  * @method string getImage()
  * @method $this setIncludeInMenu(int $value)
  * @method bool getInitialSetupFlag()

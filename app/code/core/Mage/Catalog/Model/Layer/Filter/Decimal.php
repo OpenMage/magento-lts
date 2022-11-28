@@ -165,11 +165,11 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
      */
     public function getRange()
     {
-        $range = $this->getData('range');
+        $range = (float)$this->getData('range');
         if (!$range) {
             $maxValue = $this->getMaxValue();
             $index = 1;
-            while ($range > self::MIN_RANGE_POWER && count($items) < 2) {
+            while (!isset($items) || $range > self::MIN_RANGE_POWER && count($items) < 2) {
                 $range = pow(10, (strlen(floor($maxValue)) - $index));
                 $items = $this->getRangeItemCounts($range);
                 $index++;
@@ -184,7 +184,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
      * Retrieve information about products count in range
      *
      * @param int $range
-     * @return int
+     * @return array
      */
     public function getRangeItemCounts($range)
     {

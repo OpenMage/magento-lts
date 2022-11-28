@@ -91,13 +91,14 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      */
     public function getPriceRange()
     {
-        $range = $this->getData('price_range');
+        $range = (float)$this->getData('price_range');
         if (!$range) {
+            /** @var Mage_Catalog_Model_Category $currentCategory */
             $currentCategory = Mage::registry('current_category_filter');
             if ($currentCategory) {
-                $range = $currentCategory->getFilterPriceRange();
+                $range = (float)$currentCategory->getFilterPriceRange();
             } else {
-                $range = $this->getLayer()->getCurrentCategory()->getFilterPriceRange();
+                $range = (float)$this->getLayer()->getCurrentCategory()->getFilterPriceRange();
             }
 
             $maxPrice = $this->getMaxPriceInt();
@@ -105,7 +106,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
                 $calculation = Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_CALCULATION);
                 if ($calculation == self::RANGE_CALCULATION_AUTO) {
                     $index = 1;
-                    while ($range > self::MIN_RANGE_POWER && count($items) < 2) {
+                    while (!isset($items) || $range > self::MIN_RANGE_POWER && count($items) < 2) {
                         $range = pow(10, (strlen(floor($maxPrice)) - $index));
                         $items = $this->getRangeItemCounts($range);
                         $index++;

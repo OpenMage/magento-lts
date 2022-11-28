@@ -147,7 +147,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
 
         for ($i = 0; $i < $size; $i++) {
             $attempt = 0;
-            while ($this->getResource()->exists($code)) {
+            while (!isset($code) || $this->getResource()->exists($code)) {
                 if ($attempt >= $maxAttempts) {
                     Mage::throwException(Mage::helper('salesrule')->__('Unable to create requested Coupon Qty. Please check settings and try again.'));
                 }

@@ -263,6 +263,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
         }
 
         $tries = 0;
+        $retry = true;
         while ($retry && $tries < 5) {
             $retry = false;
             try {
