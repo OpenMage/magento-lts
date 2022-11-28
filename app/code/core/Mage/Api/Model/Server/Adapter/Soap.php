@@ -263,7 +263,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
         }
 
         $tries = 0;
-        do {
+        while ($retry && $tries < 5) {
             $retry = false;
             try {
                 $this->_soap = new Zend_Soap_Server(
@@ -283,7 +283,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                 }
                 $tries++;
             }
-        } while ($retry && $tries < 5);
+        };
         use_soap_error_handler(false);
         $this->_soap
             ->setReturnResponse(true)

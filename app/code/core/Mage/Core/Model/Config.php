@@ -483,7 +483,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     {
         if (Mage::app()->useCache('config') && $this->_allowCacheForInit) {
             $retries = 10;
-            do {
+            while ($retries--) {
                 if ($this->_loadCache($this->_getCacheLockId())) {
                     if ($retries) {
                         usleep(500000); // 0.5 seconds
@@ -491,7 +491,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 } else {
                     return true;
                 }
-            } while ($retries--);
+            };
         }
 
         return false;

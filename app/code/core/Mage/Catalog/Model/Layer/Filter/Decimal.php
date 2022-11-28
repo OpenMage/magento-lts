@@ -169,11 +169,11 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
         if (!$range) {
             $maxValue = $this->getMaxValue();
             $index = 1;
-            do {
+            while ($range > self::MIN_RANGE_POWER && count($items) < 2) {
                 $range = pow(10, (strlen(floor($maxValue)) - $index));
                 $items = $this->getRangeItemCounts($range);
                 $index++;
-            } while ($range > self::MIN_RANGE_POWER && count($items) < 2);
+            };
             $this->setData('range', $range);
         }
 

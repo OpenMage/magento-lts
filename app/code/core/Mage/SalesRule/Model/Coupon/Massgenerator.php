@@ -133,11 +133,11 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
         $probability = $size / $maxCodes;
         //increase the length of Code if probability is low
         if ($probability > $maxProbability) {
-            do {
+            while ($probability > $maxProbability) {
                 $length++;
                 $maxCodes = pow($chars, $length);
                 $probability = $size / $maxCodes;
-            } while ($probability > $maxProbability);
+            };
             $this->setLength($length);
         }
 
@@ -147,13 +147,13 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
 
         for ($i = 0; $i < $size; $i++) {
             $attempt = 0;
-            do {
+            while ($this->getResource()->exists($code)) {
                 if ($attempt >= $maxAttempts) {
                     Mage::throwException(Mage::helper('salesrule')->__('Unable to create requested Coupon Qty. Please check settings and try again.'));
                 }
                 $code = $this->generateCode();
                 $attempt++;
-            } while ($this->getResource()->exists($code));
+            };
 
             $expirationDate = $this->getToDate();
             if ($expirationDate instanceof Zend_Date) {

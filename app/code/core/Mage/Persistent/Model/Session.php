@@ -120,9 +120,9 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         if ($this->isObjectNew()) {
             $this->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
             // Setting cookie key
-            do {
+            while (!$this->getResource()->isKeyAllowed($this->getKey())) {
                 $this->setKey(Mage::helper('core')->getRandomString(self::KEY_LENGTH));
-            } while (!$this->getResource()->isKeyAllowed($this->getKey()));
+            };
         }
 
         return $this;

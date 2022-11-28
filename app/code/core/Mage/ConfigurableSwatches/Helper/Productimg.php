@@ -255,7 +255,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
             }
         }
 
-        do {
+        while (true) {
             $filename = Mage::helper('configurableswatches')->getHyphenatedString($value) . $fileExt;
             $swatchImage = $this->_resizeSwatchImage($filename, 'media', $width, $height);
             if (!$swatchImage && $defaultValue == $value) {
@@ -265,7 +265,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
             } else {
                 break;  // we found an image
             }
-        } while (true);
+        };
 
         return Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $swatchImage;
     }
