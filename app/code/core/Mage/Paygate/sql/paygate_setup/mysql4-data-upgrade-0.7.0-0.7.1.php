@@ -96,7 +96,8 @@ try {
          */
         $paymentsIds[] = $paymentId;
         if (($payment['last_transaction_type'] == 'authorization' || $payment['last_transaction_type'] == 'capture')
-            && $payment['last_transaction_is_closed'] == '1') {
+            && $payment['last_transaction_is_closed'] == '1'
+        ) {
             $transactionsShouldBeOpened[] = $payment['last_transaction_id'];
         }
     }

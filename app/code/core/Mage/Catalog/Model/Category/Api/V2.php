@@ -85,7 +85,8 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
         foreach ($category->getAttributes() as $attribute) {
             $_attrCode = $attribute->getAttributeCode();
             if ($this->_isAllowedAttribute($attribute)
-                && isset($categoryData->$_attrCode)) {
+                && isset($categoryData->$_attrCode)
+            ) {
                 $category->setData(
                     $attribute->getAttributeCode(),
                     $categoryData->$_attrCode
@@ -128,7 +129,8 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
         foreach ($category->getAttributes() as $attribute) {
             $_attrCode = $attribute->getAttributeCode();
             if ($this->_isAllowedAttribute($attribute)
-                && isset($categoryData->$_attrCode)) {
+                && isset($categoryData->$_attrCode)
+            ) {
                 $category->setData(
                     $attribute->getAttributeCode(),
                     $categoryData->$_attrCode

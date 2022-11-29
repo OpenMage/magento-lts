@@ -574,7 +574,8 @@ abstract class Mage_Core_Controller_Varien_Action
         Mage::dispatchEvent('controller_action_noroute', ['action' => $this, 'status' => $status]);
         if ($status->getLoaded() !== true
             || $status->getForwarded() === true
-            || !is_null($coreRoute)) {
+            || !is_null($coreRoute)
+        ) {
             $this->loadLayout(['default', 'noRoute']);
             $this->renderLayout();
         } else {
@@ -909,7 +910,8 @@ abstract class Mage_Core_Controller_Varien_Action
     protected function _validateFormKey()
     {
         if (!($formKey = $this->getRequest()->getParam('form_key', null))
-            || $formKey != Mage::getSingleton('core/session')->getFormKey()) {
+            || $formKey != Mage::getSingleton('core/session')->getFormKey()
+        ) {
             return false;
         }
         return true;

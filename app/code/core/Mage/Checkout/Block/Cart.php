@@ -51,7 +51,8 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 
             if ($item->getStoreId() != Mage::app()->getStore()->getId()
                 && !$item->getRedirectUrl()
-                && !$product->isVisibleInSiteVisibility()) {
+                && !$product->isVisibleInSiteVisibility()
+            ) {
                 $products[$product->getId()] = $item->getStoreId();
             }
         }

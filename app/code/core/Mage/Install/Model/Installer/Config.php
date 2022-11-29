@@ -83,7 +83,8 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
             }
 
             if (!empty($data['use_secure'])
-                && !$this->_getInstaller()->getDataModel()->getSkipUrlValidation()) {
+                && !$this->_getInstaller()->getDataModel()->getSkipUrlValidation()
+            ) {
                 $this->_checkUrl($data['secure_base_url']);
             }
         }

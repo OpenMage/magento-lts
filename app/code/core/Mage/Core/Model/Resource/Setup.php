@@ -681,7 +681,8 @@ class Mage_Core_Model_Resource_Setup
                     $infoFrom = $versionInfo[0];
                     $infoTo   = $versionInfo[1];
                     if (version_compare($infoFrom, $fromVersion) !== self::VERSION_COMPARE_LOWER
-                        && version_compare($infoTo, $toVersion) !== self::VERSION_COMPARE_GREATER) {
+                        && version_compare($infoTo, $toVersion) !== self::VERSION_COMPARE_GREATER
+                    ) {
                         $arrRes[] = [
                             'toVersion' => $infoTo,
                             'fileName'  => $file

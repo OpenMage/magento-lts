@@ -59,7 +59,8 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                     }
 
                     if (preg_match('#^' . preg_quote(DS, '#') . '#', $this->getVar('path')) ||
-                        preg_match('#^[a-z]:' . preg_quote(DS, '#') . '#i', $this->getVar('path'))) {
+                        preg_match('#^[a-z]:' . preg_quote(DS, '#') . '#i', $this->getVar('path'))
+                    ) {
                         $path = $this->_resource->getCleanPath($this->getVar('path'));
                     } else {
                         $baseDir = Mage::getBaseDir();

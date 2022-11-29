@@ -321,7 +321,7 @@ class Mage_Core_Model_Locale
     {
         $options = [];
         $days = $this->getTranslationList('days');
-        $days = $preserveCodes ? $days['format']['wide']  : array_values($days['format']['wide']);
+        $days = $preserveCodes ? $days['format']['wide'] : array_values($days['format']['wide']);
         foreach ($days as $code => $name) {
             $options[] = [
                'label' => $name,

@@ -896,7 +896,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
 
         foreach ($this->_getRules() as $rule) {
             if (Mage_SalesRule_Model_Rule::CART_FIXED_ACTION === $rule->getSimpleAction()
-                && $this->_canProcessRule($rule, $address)) {
+                && $this->_canProcessRule($rule, $address)
+            ) {
                 $ruleTotalItemsPrice = 0;
                 $ruleTotalBaseItemsPrice = 0;
                 $validItemsCount = 0;
@@ -1054,7 +1055,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
 
         $description = $descriptionArray && is_array($descriptionArray)
             ? implode($separator, array_unique($descriptionArray))
-            :  '';
+            : '';
 
         $address->setDiscountDescription($description);
         return $this;

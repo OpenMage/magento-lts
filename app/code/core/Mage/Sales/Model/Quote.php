@@ -625,7 +625,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $addresses = [];
         foreach ($this->getAddressesCollection() as $address) {
             if ($address->getAddressType() == Mage_Sales_Model_Quote_Address::TYPE_SHIPPING
-                && !$address->isDeleted()) {
+                && !$address->isDeleted()
+            ) {
                 $addresses[] = $address;
             }
         }
@@ -683,7 +684,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         foreach ($this->getAddressesCollection() as $address) {
             if (!$address->isDeleted() && $address->getAddressType() == Mage_Sales_Model_Quote_Address::TYPE_SHIPPING
-                && $address->getCustomerAddressId() == $addressId) {
+                && $address->getCustomerAddressId() == $addressId
+            ) {
                 return $address;
             }
         }
@@ -871,7 +873,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         foreach ($this->getAllItems() as $item) {
             if ($item->getProduct()->getStockItem()
-                && $item->getProduct()->getStockItem()->getIsQtyDecimal()) {
+                && $item->getProduct()->getStockItem()->getIsQtyDecimal()
+            ) {
                 return true;
             }
         }

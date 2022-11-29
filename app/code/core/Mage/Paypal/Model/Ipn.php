@@ -737,7 +737,8 @@ class Mage_Paypal_Model_Ipn
             Mage_Paypal_Model_Info::PROTECTION_EL,
             Mage_Paypal_Model_Info::PAYMENT_STATUS,
             Mage_Paypal_Model_Info::PENDING_REASON,
-                 ] as $privateKey => $publicKey) {
+                 ] as $privateKey => $publicKey
+        ) {
             if (is_int($privateKey)) {
                 $privateKey = $publicKey;
             }

@@ -499,7 +499,8 @@ class Mage_Checkout_Model_Type_Onepage
                 'confirmation' => 'confirm_password',
                 'taxvat'       => 'taxvat',
                 'gender'       => 'gender',
-                     ] as $key => $dataKey) {
+                     ] as $key => $dataKey
+            ) {
                 $customer->setData($key, $address->getData($dataKey));
             }
             if ($dob) {
@@ -748,7 +749,8 @@ class Mage_Checkout_Model_Type_Onepage
             $billing->setCustomerAddress($customerBilling);
         }
         if ($shipping && !$shipping->getSameAsBilling() &&
-            (!$shipping->getCustomerId() || $shipping->getSaveInAddressBook())) {
+            (!$shipping->getCustomerId() || $shipping->getSaveInAddressBook())
+        ) {
             $customerShipping = $shipping->exportCustomerAddress();
             $customer->addAddress($customerShipping);
             $shipping->setCustomerAddress($customerShipping);

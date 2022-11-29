@@ -169,7 +169,8 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
         if (isset($data['status'])) {
             // validate tag status
             if (!in_array($data['status'], [
-                $tag->getApprovedStatus(), $tag->getPendingStatus(), $tag->getDisabledStatus()])) {
+                $tag->getApprovedStatus(), $tag->getPendingStatus(), $tag->getDisabledStatus()])
+            ) {
                 $this->_fault('invalid_data');
             }
             $tag->setStatus($data['status']);
@@ -215,7 +216,8 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
     protected function _prepareDataForAdd($data)
     {
         if (!isset($data['product_id']) || !isset($data['tag'])
-            || !isset($data['customer_id']) || !isset($data['store'])) {
+            || !isset($data['customer_id']) || !isset($data['store'])
+        ) {
             $this->_fault('invalid_data');
         }
 
