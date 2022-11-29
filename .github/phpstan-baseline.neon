@@ -5041,11 +5041,6 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Block/Recurring/Profiles.php
 
 		-
-			message: "#^Access to undefined constant Mage_Sales_Model_Api2_Order_Comment_Rest_Admin_V1\\:\\:PARAM_COMMENT_ID\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Api2/Order/Comment/Rest/Admin/V1.php
-
-		-
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Config/Ordered.php
