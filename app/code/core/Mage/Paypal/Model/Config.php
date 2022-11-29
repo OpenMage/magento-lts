@@ -750,7 +750,7 @@ class Mage_Paypal_Model_Config
                 if ($this->isMethodActive(self::METHOD_WPP_PE_DIRECT)) {
                     $result = true;
                 } elseif (!$this->isMethodActive(self::METHOD_WPP_PE_DIRECT)
-                          && !$this->isMethodActive(self::METHOD_PAYFLOWPRO)
+                    && !$this->isMethodActive(self::METHOD_PAYFLOWPRO)
                 ) {
                     $result = false;
                 }
