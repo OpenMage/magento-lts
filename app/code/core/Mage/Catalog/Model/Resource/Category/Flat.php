@@ -583,7 +583,8 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             foreach ($this->_columns as $fieldName => $fieldProp) {
                 $default = $fieldProp['default'];
                 if ($fieldProp['type'][0] == Varien_Db_Ddl_Table::TYPE_TIMESTAMP
-                    && $default === 'CURRENT_TIMESTAMP') {
+                    && $default === 'CURRENT_TIMESTAMP'
+                ) {
                     $default = Varien_Db_Ddl_Table::TIMESTAMP_INIT;
                 }
                 $table->addColumn($fieldName, $fieldProp['type'][0], $fieldProp['type'][1], [

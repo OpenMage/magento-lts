@@ -126,10 +126,11 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     public function filter($value)
     {
         // "depend" and "if" operands should be first
-        foreach ([
+        $directives = [
             self::CONSTRUCTION_DEPEND_PATTERN => 'dependDirective',
             self::CONSTRUCTION_IF_PATTERN     => 'ifDirective',
-                 ] as $pattern => $directive) {
+        ];
+        foreach ($directives as $pattern => $directive) {
             if (preg_match_all($pattern, $value, $constructions, PREG_SET_ORDER)) {
                 foreach ($constructions as $index => $construction) {
                     $replacedValue = '';

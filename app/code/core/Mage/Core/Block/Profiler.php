@@ -33,7 +33,8 @@ class Mage_Core_Block_Profiler extends Mage_Core_Block_Abstract
     {
         if (!$this->_beforeToHtml()
             || !Mage::getStoreConfig('dev/debug/profiler')
-            || !Mage::helper('core')->isDevAllowed()) {
+            || !Mage::helper('core')->isDevAllowed()
+        ) {
             return '';
         }
 

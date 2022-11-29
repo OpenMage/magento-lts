@@ -52,7 +52,8 @@ class Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config extends Mag
     public function beforeSave($object)
     {
         if ($object->hasData($this->getAttribute()->getAttributeCode())
-            && $object->getData($this->getAttribute()->getAttributeCode()) == $this->getDefaultValue()) {
+            && $object->getData($this->getAttribute()->getAttributeCode()) == $this->getDefaultValue()
+        ) {
             $object->unsData($this->getAttribute()->getAttributeCode());
         }
         return $this;

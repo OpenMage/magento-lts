@@ -1521,7 +1521,8 @@ XMLAuth;
             && (
                 $request->getRecipientAddressCountryCode() == 'CA' //Canada
                 || $request->getRecipientAddressCountryCode() == 'PR' //Puerto Rico
-            )) {
+            )
+        ) {
             $invoiceLineTotalPart = $shipmentPart->addChild('InvoiceLineTotal');
             $invoiceLineTotalPart->addChild('CurrencyCode', $request->getBaseCurrencyCode());
             $invoiceLineTotalPart->addChild('MonetaryValue', ceil($packageParams->getCustomsValue()));
@@ -1681,7 +1682,6 @@ XMLAuth;
             if ($method == '07' // Worldwide Express
                 || $method == '08' // Worldwide Expedited
                 || $method == '65' // Worldwide Saver
-
             ) {
                 // Worldwide Expedited
                 if ($method != '08') {
@@ -1705,7 +1705,8 @@ XMLAuth;
                 $method == '03' // UPS Ground
             || $method == '02' // UPS Second Day Air
             || $method == '01' // UPS Next Day Air
-            )) {
+            )
+        ) {
             // Container types should be the same as for domestic
             $params->setCountryRecipient(self::USA_COUNTRY_ID);
             $containerTypes = $this->_getAllowedContainers($params);

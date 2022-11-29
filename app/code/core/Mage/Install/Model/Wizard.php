@@ -73,7 +73,8 @@ class Mage_Install_Model_Wizard
     {
         foreach ($this->_steps as $step) {
             if ($step->getController() == $request->getControllerName()
-                    && $step->getAction() == $request->getActionName()) {
+                    && $step->getAction() == $request->getActionName()
+            ) {
                 return $step;
             }
         }

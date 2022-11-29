@@ -101,7 +101,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             case self::RESPONSE_CODE_APPROVED:
                 if ($result->getResponseReasonCode() == self::RESPONSE_REASON_CODE_APPROVED) {
                     if (!$payment->getParentTransactionId() ||
-                        $result->getTransactionId() != $payment->getParentTransactionId()) {
+                        $result->getTransactionId() != $payment->getParentTransactionId()
+                    ) {
                         $payment->setTransactionId($result->getTransactionId());
                     }
                     $payment

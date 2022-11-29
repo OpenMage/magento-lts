@@ -430,7 +430,8 @@ class Mage_Index_Model_Indexer
                 is_null($event)
                 || ($event instanceof Mage_Index_Model_Event && $process->matchEvent($event))
                 || (is_array($event) && $process->matchEntityAndType($event[0], $event[1]))
-            )) {
+            )
+        ) {
             if ($enable) {
                 $process->enableIndexerKeys();
             } else {

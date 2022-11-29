@@ -832,7 +832,8 @@ foreach ($entityToFlat as $entityCode => $flags) {
         if (!isset($flatFields[$code]) &&
             !in_array($code, $excludeAttributes['all']) &&
             (!isset($excludeAttributes[$entityCode]) ||
-                !in_array($code, $excludeAttributes[$entityCode]))) {
+                !in_array($code, $excludeAttributes[$entityCode]))
+        ) {
             $installer->getConnection()->addColumn(
                 $installer->getTable($flatTablePrefix),
                 $code,
@@ -870,7 +871,8 @@ foreach ($entityToFlat as $entityCode => $flags) {
                 isset($definitions[$attribute['type']]) &&
                 !in_array($attributeCode, $excludeAttributes['all']) &&
                 (!isset($excludeAttributes[$entityCode]) ||
-                !in_array($attributeCode, $excludeAttributes[$entityCode]))) {
+                !in_array($attributeCode, $excludeAttributes[$entityCode]))
+            ) {
                 $installer->getConnection()->addColumn(
                     $installer->getTable($flatTablePrefix),
                     $attributeCode,

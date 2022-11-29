@@ -42,7 +42,8 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
         $store = $this->getProduct()->getStore();
 
         if ($_option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN
-            || $_option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
+            || $_option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE
+        ) {
             $require = ($_option->getIsRequire()) ? ' required-entry' : '';
             $extraParams = '';
             /** @var Mage_Core_Block_Html_Select $block */

@@ -149,7 +149,8 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
             $this->_editableAttributes = parent::getEditableAttributes($product);
             foreach ($this->_editableAttributes as $index => $attribute) {
                 if ($this->getUsedProductAttributeIds($product)
-                    && in_array($attribute->getAttributeId(), $this->getUsedProductAttributeIds($product))) {
+                    && in_array($attribute->getAttributeId(), $this->getUsedProductAttributeIds($product))
+                ) {
                     unset($this->_editableAttributes[$index]);
                 }
             }
@@ -324,7 +325,8 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         Varien_Profiler::start('CONFIGURABLE:' . __METHOD__);
         if (!$this->getProduct($product)->hasData($this->_usedProducts)) {
             if (is_null($requiredAttributeIds)
-                and is_null($this->getProduct($product)->getData($this->_configurableAttributes))) {
+                && is_null($this->getProduct($product)->getData($this->_configurableAttributes))
+            ) {
                 // If used products load before attributes, we will load attributes.
                 $this->getConfigurableAttributes($product);
                 // After attributes loading products loaded too.

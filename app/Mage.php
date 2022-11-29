@@ -68,40 +68,40 @@ final class Mage
      *
      * @var array
      */
-    private static $_registry                   = [];
+    private static $_registry = [];
 
     /**
      * Application root absolute path
      *
-     * @var string
+     * @var string|null
      */
     private static $_appRoot;
 
     /**
      * Application model
      *
-     * @var Mage_Core_Model_App
+     * @var Mage_Core_Model_App|null
      */
     private static $_app;
 
     /**
      * Config Model
      *
-     * @var Mage_Core_Model_Config
+     * @var Mage_Core_Model_Config|null
      */
     private static $_config;
 
     /**
      * Event Collection Object
      *
-     * @var Varien_Event_Collection
+     * @var Varien_Event_Collection|null
      */
     private static $_events;
 
     /**
      * Object cache instance
      *
-     * @var Varien_Object_Cache
+     * @var Varien_Object_Cache|null
      */
     private static $_objects;
 
@@ -110,29 +110,29 @@ final class Mage
      *
      * @var bool
      */
-    private static $_isDeveloperMode            = false;
+    private static $_isDeveloperMode = false;
 
     /**
      * Is allow throw Exception about headers already sent
      *
      * @var bool
      */
-    public static $headersSentThrowsException   = true;
+    public static $headersSentThrowsException = true;
 
     /**
      * Is installed flag
      *
-     * @var bool
+     * @var bool|null
      */
     private static $_isInstalled;
 
     /**
      * Magento edition constants
      */
-    const EDITION_COMMUNITY    = 'Community';
-    const EDITION_ENTERPRISE   = 'Enterprise';
-    const EDITION_PROFESSIONAL = 'Professional';
-    const EDITION_GO           = 'Go';
+    public const EDITION_COMMUNITY    = 'Community';
+    public const EDITION_ENTERPRISE   = 'Enterprise';
+    public const EDITION_PROFESSIONAL = 'Professional';
+    public const EDITION_GO           = 'Go';
 
     /**
      * Current Magento edition.
@@ -274,7 +274,7 @@ final class Mage
             if ($graceful) {
                 return;
             }
-            self::throwException('Mage registry key "'.$key.'" already exists');
+            self::throwException('Mage registry key "' . $key . '" already exists');
         }
         self::$_registry[$key] = $value;
     }
@@ -360,7 +360,7 @@ final class Mage
     public static function objects($key = null)
     {
         if (!self::$_objects) {
-            self::$_objects = new Varien_Object_Cache;
+            self::$_objects = new Varien_Object_Cache();
         }
         if (is_null($key)) {
             return self::$_objects;
@@ -497,9 +497,9 @@ final class Mage
      */
     public static function dispatchEvent($name, array $data = [])
     {
-        Varien_Profiler::start('DISPATCH EVENT:'.$name);
+        Varien_Profiler::start('DISPATCH EVENT:' . $name);
         $result = self::app()->dispatchEvent($name, $data);
-        Varien_Profiler::stop('DISPATCH EVENT:'.$name);
+        Varien_Profiler::stop('DISPATCH EVENT:' . $name);
         return $result;
     }
 
@@ -523,7 +523,7 @@ final class Mage
      * @param   array $arguments
      * @return  Mage_Core_Model_Abstract
      */
-    public static function getSingleton($modelClass = '', array $arguments= [])
+    public static function getSingleton($modelClass = '', array $arguments = [])
     {
         $registryKey = '_singleton/' . $modelClass;
         if (!isset(self::$_registry[$registryKey])) {
@@ -597,7 +597,7 @@ final class Mage
         $registryKey = '_helper/' . $name;
         if (!isset(self::$_registry[$registryKey])) {
             $helperClass = self::getConfig()->getHelperClassName($name);
-            self::register($registryKey, new $helperClass);
+            self::register($registryKey, new $helperClass());
         }
         return self::$_registry[$registryKey];
     }
@@ -976,13 +976,11 @@ final class Mage
             ];
 
             // retrieve server data
-            if (isset($_SERVER)) {
-                if (isset($_SERVER['REQUEST_URI'])) {
-                    $reportData['url'] = $_SERVER['REQUEST_URI'];
-                }
-                if (isset($_SERVER['SCRIPT_NAME'])) {
-                    $reportData['script_name'] = $_SERVER['SCRIPT_NAME'];
-                }
+            if (isset($_SERVER['REQUEST_URI'])) {
+                $reportData['url'] = $_SERVER['REQUEST_URI'];
+            }
+            if (isset($_SERVER['SCRIPT_NAME'])) {
+                $reportData['script_name'] = $_SERVER['SCRIPT_NAME'];
             }
 
             // attempt to specify store as a skin
@@ -1012,14 +1010,14 @@ final class Mage
         $runDir     = rtrim(dirname($_SERVER['SCRIPT_FILENAME']), DS);
 
         $baseUrl    = null;
-        if (is_dir($runDir.'/'.$folder)) {
+        if (is_dir($runDir . '/' . $folder)) {
             $baseUrl = str_replace(DS, '/', $runDirUrl);
         } else {
             $runDirUrlArray = explode('/', $runDirUrl);
             $runDirArray    = explode('/', $runDir);
             $count          = count($runDirArray);
 
-            for ($i=0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; $i++) {
                 array_pop($runDirUrlArray);
                 array_pop($runDirArray);
                 $_runDir = implode('/', $runDirArray);
@@ -1027,7 +1025,7 @@ final class Mage
                     $_runDir .= '/';
                 }
 
-                if (is_dir($_runDir.$folder)) {
+                if (is_dir($_runDir . $folder)) {
                     $_runDirUrl = implode('/', $runDirUrlArray);
                     $baseUrl    = str_replace(DS, '/', $_runDirUrl);
                     break;

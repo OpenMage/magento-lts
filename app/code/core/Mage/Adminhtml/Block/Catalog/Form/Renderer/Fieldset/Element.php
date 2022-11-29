@@ -77,7 +77,8 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
             if (!$attribute->isScopeGlobal()
                 && $this->getDataObject()
                 && $this->getDataObject()->getId()
-                && $this->getDataObject()->getStoreId()) {
+                && $this->getDataObject()->getStoreId()
+            ) {
                 return true;
             }
         }

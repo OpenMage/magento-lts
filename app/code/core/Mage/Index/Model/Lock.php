@@ -249,7 +249,7 @@ class Mage_Index_Model_Lock
             Mage::logException($e);
             throw $e;
         }
-        
+
         return $result;
     }
 

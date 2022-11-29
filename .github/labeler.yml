@@ -1,19 +1,13 @@
 'Environment':
   - .github/*
   - .github/**/*
-  - .phpstorm.meta.php/*
-  - .travis.yml
-
-'phpstan':
-  - .github/phpstan.neon
-  - .github/phpstan-baseline.neon
-  - .github/phpstan_experimental_level.neon
 
 'htaccess':
   - .htaccess
 
 'composer':
   - composer.json
+  - composer.lock
 
 'downloader':
   - downloader/*
@@ -603,3 +597,18 @@
 # Add Documentation Label
 'Documentation':
   - '*.md'
+
+'PHPStorm':
+  - .phpstorm.meta.php/*
+
+'phpcs':
+  - .github/phpcs*.xml
+  - .github/workflows/phpcs.yml
+
+'php-cs-fixer':
+  - .github/php-cs-fixer*.php
+  - .github/workflows/php-cs-fixer.yml
+
+'phpstan':
+  - .github/phpstan*.neon
+  - .github/workflows/phpstan.yml

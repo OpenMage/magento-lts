@@ -398,7 +398,8 @@ class Mage_Core_Model_Url extends Varien_Object
          * Add availability support urls without store code
          */
         if ($this->getType() == Mage_Core_Model_Store::URL_TYPE_LINK
-            && Mage::app()->getRequest()->isDirectAccessFrontendName($this->getRouteFrontName())) {
+            && Mage::app()->getRequest()->isDirectAccessFrontendName($this->getRouteFrontName())
+        ) {
             $this->setType(Mage_Core_Model_Store::URL_TYPE_DIRECT_LINK);
         }
 

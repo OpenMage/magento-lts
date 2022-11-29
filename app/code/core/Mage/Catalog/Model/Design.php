@@ -214,7 +214,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                 if ($category &&
                     $category->getId() &&
                     $category->getLevel() > 1 &&
-                    $category->getId() != Mage_Catalog_Model_Category::TREE_ROOT_ID) {
+                    $category->getId() != Mage_Catalog_Model_Category::TREE_ROOT_ID
+                ) {
                     return $this->_inheritDesign($category, $calledFrom);
                 }
             }
@@ -373,7 +374,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         }
         $date = $object->getCustomDesignDate();
         if (array_key_exists('from', $date) && array_key_exists('to', $date)
-            && Mage::app()->getLocale()->isStoreDateInInterval(null, $date['from'], $date['to'])) {
+            && Mage::app()->getLocale()->isStoreDateInInterval(null, $date['from'], $date['to'])
+        ) {
             $customLayout = $object->getCustomLayoutUpdate();
             if ($customLayout) {
                 try {

@@ -40,7 +40,8 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
 
         foreach ($rules_set->getItems() as $item) {
             if (array_key_exists(strtolower($item->getResource_id()), $resources)
-                && $item->getApiPermission() == 'allow') {
+                && $item->getApiPermission() == 'allow'
+            ) {
                 $resources[$item->getResource_id()]['checked'] = true;
                 $selrids[] = $item->getResource_id();
             }

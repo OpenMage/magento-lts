@@ -67,13 +67,15 @@ class Mage_Centinel_Model_State_Visa extends Mage_Centinel_Model_StateAbstract
 
             //Test case 3
             if ($paResStatus == 'N' && $signatureVerification == 'Y' && $eciFlag == '07' &&
-                $xid != '' && $cavv == '' && $errorNo == '0') {
+                $xid != '' && $cavv == '' && $errorNo == '0'
+            ) {
                 return false;
             }
 
             //Test case 4
             if ($paResStatus == 'A' && $signatureVerification == 'Y' && $eciFlag == '06' &&
-                $xid != '' && $cavv != '' && $errorNo == '0') {
+                $xid != '' && $cavv != '' && $errorNo == '0'
+            ) {
                 if ($this->getIsModeStrict()) {
                     return false;
                 } else {
@@ -83,7 +85,8 @@ class Mage_Centinel_Model_State_Visa extends Mage_Centinel_Model_StateAbstract
 
             //Test case 5
             if ($paResStatus == 'U' && $signatureVerification == 'Y' && $eciFlag == '07' &&
-                $xid != '' && $cavv == '' && $errorNo == '0') {
+                $xid != '' && $cavv == '' && $errorNo == '0'
+            ) {
                 if ($this->getIsModeStrict()) {
                     return false;
                 } else {
@@ -93,7 +96,8 @@ class Mage_Centinel_Model_State_Visa extends Mage_Centinel_Model_StateAbstract
 
             //Test case 11
             if ($paResStatus == 'U' && $signatureVerification == '' && $eciFlag == '07' &&
-                $xid == '' && $cavv == '' && $errorNo == '1050') {
+                $xid == '' && $cavv == '' && $errorNo == '1050'
+            ) {
                 if ($this->getIsModeStrict()) {
                     return false;
                 } else {
@@ -105,10 +109,12 @@ class Mage_Centinel_Model_State_Visa extends Mage_Centinel_Model_StateAbstract
         //Test cases 6-10
         if (!$this->getIsModeStrict() && $this->_isLookupSoftSuccessful()) {
             if ($paResStatus == '' && $signatureVerification == '' && $eciFlag == '' &&
-                $xid == '' && $cavv == '' && $errorNo == '0') {
+                $xid == '' && $cavv == '' && $errorNo == '0'
+            ) {
                 return true;
             } elseif ($paResStatus == false && $signatureVerification == false && $eciFlag == false &&
-                $xid == false && $cavv == false && $errorNo == false) {
+                $xid == false && $cavv == false && $errorNo == false
+            ) {
                 return true;
             }
         }
@@ -127,7 +133,8 @@ class Mage_Centinel_Model_State_Visa extends Mage_Centinel_Model_StateAbstract
         if ($this->getLookupEnrolled() == 'Y' &&
             $this->getLookupAcsUrl() != '' &&
             $this->getLookupPayload() != '' &&
-            $this->getLookupErrorNo() == '0') {
+            $this->getLookupErrorNo() == '0'
+        ) {
             return true;
         }
         return false;

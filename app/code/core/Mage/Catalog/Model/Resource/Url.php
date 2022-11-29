@@ -750,7 +750,8 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                 }
                 // Second - check non-root category - that it's really a descendant, not a simple string match
                 if ((strlen($row['path']) > $rootCategoryPathLength)
-                    && ($row['path'][$rootCategoryPathLength] !== '/')) {
+                    && ($row['path'][$rootCategoryPathLength] !== '/')
+                ) {
                     continue;
                 }
             }

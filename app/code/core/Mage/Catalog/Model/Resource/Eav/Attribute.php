@@ -113,7 +113,8 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
                 $this->_data['is_global'] = self::SCOPE_GLOBAL;
             }
             if (($this->_data['is_global'] != $this->_origData['is_global'])
-                && $this->_getResource()->isUsedBySuperProducts($this)) {
+                && $this->_getResource()->isUsedBySuperProducts($this)
+            ) {
                 Mage::throwException(Mage::helper('catalog')->__('Scope must not be changed, because the attribute is used in configurable products.'));
             }
         }
