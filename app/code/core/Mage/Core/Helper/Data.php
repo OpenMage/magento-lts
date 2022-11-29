@@ -403,7 +403,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if (!empty($allowedIps) && !empty($remoteAddr)) {
             $allowedIps = preg_split('#\s*,\s*#', $allowedIps, -1, PREG_SPLIT_NO_EMPTY);
             if (array_search($remoteAddr, $allowedIps) === false
-                && array_search(Mage::helper('core/http')->getHttpHost(), $allowedIps) === false) {
+                && array_search(Mage::helper('core/http')->getHttpHost(), $allowedIps) === false
+            ) {
                 $allow = false;
             }
         }
@@ -460,7 +461,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public function copyFieldset($fieldset, $aspect, $source, $target, $root = 'global')
     {
         if (!(is_array($source) || $source instanceof Varien_Object)
-            || !(is_array($target) || $target instanceof Varien_Object)) {
+            || !(is_array($target) || $target instanceof Varien_Object)
+        ) {
             return false;
         }
         $fields = Mage::getConfig()->getFieldset($fieldset, $root);

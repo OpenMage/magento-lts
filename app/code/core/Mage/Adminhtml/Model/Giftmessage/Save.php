@@ -271,10 +271,12 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
             }
 
             if (in_array($item->getId(), $allowedItems)
-                && !isset($data['giftmessage'])) {
+                && !isset($data['giftmessage'])
+            ) {
                 $deleteAllowedItems[] = $item->getId();
             } elseif (!in_array($item->getId(), $allowedItems)
-                      && isset($data['giftmessage'])) {
+                      && isset($data['giftmessage'])
+            ) {
                 $allowedItems[] = $item->getId();
             }
         }
@@ -299,10 +301,12 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
             }
 
             if (in_array($item->getId(), $allowedItems)
-                && !isset($data['giftmessage'])) {
+                && !isset($data['giftmessage'])
+            ) {
                 $deleteAllowedItems[] = $item->getId();
             } elseif (!in_array($item->getId(), $allowedItems)
-                      && isset($data['giftmessage'])) {
+                      && isset($data['giftmessage'])
+            ) {
                 $allowedItems[] = $item->getId();
             }
         }

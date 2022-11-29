@@ -91,8 +91,8 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
 
         $this->_initAction()
             ->_addBreadcrumb(
-                $classId ? Mage::helper('tax')->__('Edit Class') :  Mage::helper('tax')->__('New Class'),
-                $classId ?  Mage::helper('tax')->__('Edit Class') :  Mage::helper('tax')->__('New Class')
+                $classId ? Mage::helper('tax')->__('Edit Class') : Mage::helper('tax')->__('New Class'),
+                $classId ? Mage::helper('tax')->__('Edit Class') : Mage::helper('tax')->__('New Class')
             )
             ->_addContent(
                 $this->getLayout()

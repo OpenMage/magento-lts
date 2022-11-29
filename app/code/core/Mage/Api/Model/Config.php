@@ -230,7 +230,8 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     {
         if (is_null($resourceName)
             || !isset($this->getResources()->$resourceName)
-            || !isset($this->getResources()->$resourceName->faults)) {
+            || !isset($this->getResources()->$resourceName->faults)
+        ) {
             $faultsNode = $this->getNode('faults');
         } else {
             $faultsNode = $this->getResources()->$resourceName->faults;

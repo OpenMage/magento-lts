@@ -29,7 +29,7 @@ class Mage_Centinel_Model_Config
     /**
      * Store id or store model
      *
-     * @var int|Mage_Core_Model_Store
+     * @var int|Mage_Core_Model_Store|false
      */
     protected $_store = false;
 
@@ -73,7 +73,7 @@ class Mage_Centinel_Model_Config
      * Return validation state class for card with type $cardType
      *
      * @param string $cardType
-     * @return string
+     * @return string|array|false
      */
     public function getStateModelClass($cardType)
     {
@@ -138,7 +138,7 @@ class Mage_Centinel_Model_Config
     /**
      * Define if debugging is enabled
      *
-     * @return bool
+     * @return string
      */
     public function getDebugFlag()
     {

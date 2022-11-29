@@ -131,7 +131,8 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
         foreach ($tierPrices as $tierPrice) {
             if (!is_array($tierPrice)
                 || !isset($tierPrice['qty'])
-                || !isset($tierPrice['price'])) {
+                || !isset($tierPrice['price'])
+            ) {
                 $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid Tier Prices'));
             }
 

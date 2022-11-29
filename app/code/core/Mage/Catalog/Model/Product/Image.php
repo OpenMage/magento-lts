@@ -403,8 +403,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
         // add misc params as a hash
         $miscParams = [
-                ($this->_keepAspectRatio  ? '' : 'non') . 'proportional',
-                ($this->_keepFrame        ? '' : 'no')  . 'frame',
+                ($this->_keepAspectRatio ? '' : 'non') . 'proportional',
+                ($this->_keepFrame ? '' : 'no')  . 'frame',
                 ($this->_keepTransparency ? '' : 'no')  . 'transparency',
                 ($this->_constrainOnly ? 'do' : 'not')  . 'constrainonly',
                 $this->_backgroundColorStr,

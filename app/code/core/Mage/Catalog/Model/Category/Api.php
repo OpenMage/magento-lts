@@ -311,7 +311,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         foreach ($category->getAttributes() as $attribute) {
             if ($this->_isAllowedAttribute($attribute)
-                && isset($categoryData[$attribute->getAttributeCode()])) {
+                && isset($categoryData[$attribute->getAttributeCode()])
+            ) {
                 $category->setData(
                     $attribute->getAttributeCode(),
                     $categoryData[$attribute->getAttributeCode()]

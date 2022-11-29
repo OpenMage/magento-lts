@@ -268,7 +268,8 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 $errorNo = false;
             }
             if (!empty($data['custom_layout_update_xml'])
-                && !$validatorCustomLayout->isValid($data['custom_layout_update_xml'])) {
+                && !$validatorCustomLayout->isValid($data['custom_layout_update_xml'])
+            ) {
                 $errorNo = false;
             }
             foreach ($validatorCustomLayout->getMessages() as $message) {

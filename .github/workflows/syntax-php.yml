@@ -1,21 +1,12 @@
-name: "PHP Syntax Check"
+name: PHP Validatation
 
 on:
-  # Run on all pushes and on all pull requests.
-  # Prevent the build from running when there are only irrelevant changes.
-  push:
-    paths:
-      - '**.php'
-      - '**.phtml'
-  pull_request:
-    paths:
-      - '**.php'
-      - '**.phtml'
+  workflow_call:
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
 jobs:
-  php_syntax:
+  syntax_php:
     runs-on: [ubuntu-latest]
 
     strategy:

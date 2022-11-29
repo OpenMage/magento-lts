@@ -764,7 +764,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     {
         $state = $this->getState();
         if ($this->isCanceled() || $this->isPaymentReview()
-            || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED || $state === self::STATE_HOLDED) {
+            || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED || $state === self::STATE_HOLDED
+        ) {
             return false;
         }
 
@@ -821,7 +822,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
         foreach ($this->getAllItems() as $item) {
             if ($item->getQtyToShip() > 0 && !$item->getIsVirtual()
-                && !$item->getLockedDoShip()) {
+                && !$item->getLockedDoShip()
+            ) {
                 return true;
             }
         }
@@ -841,7 +843,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
         $state = $this->getState();
         if ($this->isCanceled() || $this->isPaymentReview()
-            || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED) {
+            || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED
+        ) {
             return false;
         }
 
@@ -2361,7 +2364,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!$this->isCanceled()
             && !$this->canUnhold()
             && !$this->canInvoice()
-            && !$this->canShip()) {
+            && !$this->canShip()
+        ) {
             if ($this->getBaseGrandTotal() == 0 || $this->canCreditmemo()) {
                 if ($this->getState() !== self::STATE_COMPLETE) {
                     $this->_setState(self::STATE_COMPLETE, true, '', $userNotification);

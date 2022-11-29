@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "932d727fb422621b11ccae92764ca2ae",
+    "content-hash": "eadec3d254ea631fecce240761e65937",
     "packages": [
         {
             "name": "eloquent/enumeration",
@@ -2320,16 +2320,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.8.10",
+            "version": "1.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "0c4459dc42c568b818b3f25186589f3acddc1823"
+                "reference": "d6fdf01c53978b6429f1393ba4afeca39cc68afa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/0c4459dc42c568b818b3f25186589f3acddc1823",
-                "reference": "0c4459dc42c568b818b3f25186589f3acddc1823",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d6fdf01c53978b6429f1393ba4afeca39cc68afa",
+                "reference": "d6fdf01c53978b6429f1393ba4afeca39cc68afa",
                 "shasum": ""
             },
             "require": {
@@ -2359,7 +2359,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.8.10"
+                "source": "https://github.com/phpstan/phpstan/tree/1.9.2"
             },
             "funding": [
                 {
@@ -2375,7 +2375,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-10-17T14:23:35+00:00"
+            "time": "2022-11-10T09:56:11+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

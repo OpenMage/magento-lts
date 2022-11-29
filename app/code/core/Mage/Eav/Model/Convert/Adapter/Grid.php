@@ -44,7 +44,8 @@ class Mage_Eav_Model_Convert_Adapter_Grid extends Mage_Dataflow_Model_Convert_Ad
     {
         if (!$this->_entityType) {
             if (!($entityType = $this->getVar('entity_type'))
-                || !(($entity = Mage::getResourceSingleton($entityType)) instanceof Mage_Eav_Model_Entity_Interface)) {
+                || !(($entity = Mage::getResourceSingleton($entityType)) instanceof Mage_Eav_Model_Entity_Interface)
+            ) {
                 $this->addException(Mage::helper('eav')->__('Invalid entity specified'), Varien_Convert_Exception::FATAL);
             }
             $this->_entity = $entity;

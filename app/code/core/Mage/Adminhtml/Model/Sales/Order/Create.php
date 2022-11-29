@@ -292,10 +292,13 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
          * Initialize catalog rule data with new session values
          */
         $this->initRuleData();
-        foreach ($order->getItemsCollection(
+
+        $itemsCollection = $order->getItemsCollection(
             array_keys(Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()),
             true
-        ) as $orderItem) {
+        );
+
+        foreach ($itemsCollection as $orderItem) {
             /** @var Mage_Sales_Model_Order_Item $orderItem */
             if (!$orderItem->getParentItem()) {
                 if ($order->getReordered()) {

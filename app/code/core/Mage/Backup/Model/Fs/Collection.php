@@ -77,7 +77,8 @@ class Mage_Backup_Model_Fs_Collection extends Varien_Data_Collection_Filesystem
     {
         $row = parent::_generateRow($filename);
         foreach (Mage::getSingleton('backup/backup')->load($row['basename'], $this->_baseDir)
-            ->getData() as $key => $value) {
+            ->getData() as $key => $value
+        ) {
             $row[$key] = $value;
         }
         $row['size'] = filesize($filename);

@@ -43,7 +43,8 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
                 if (is_array($value)) {
                     foreach ($value as $v) {
                         if (is_object($v) && count(get_object_vars($v)) == 2
-                            && isset($v->key) && isset($v->value)) {
+                            && isset($v->key) && isset($v->value)
+                        ) {
                             $assocArr[$v->key] = $v->value;
                         }
                     }

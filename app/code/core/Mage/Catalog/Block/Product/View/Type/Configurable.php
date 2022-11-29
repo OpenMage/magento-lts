@@ -102,7 +102,8 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                 if ($product->isSaleable()
                     || $skipSaleableCheck
                     || (!$product->getStockItem()->getIsInStock()
-                        && Mage::helper('cataloginventory')->isShowOutOfStock())) {
+                        && Mage::helper('cataloginventory')->isShowOutOfStock())
+                ) {
                     $products[] = $product;
                 }
             }

@@ -492,16 +492,19 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         self::$isValidated = true; // Only validate once since the validator data is the same for every namespace
 
         if ($this->useValidateRemoteAddr()
-                && $sessionData[self::VALIDATOR_REMOTE_ADDR_KEY] != $validatorData[self::VALIDATOR_REMOTE_ADDR_KEY]) {
+                && $sessionData[self::VALIDATOR_REMOTE_ADDR_KEY] != $validatorData[self::VALIDATOR_REMOTE_ADDR_KEY]
+        ) {
             return false;
         }
         if ($this->useValidateHttpVia()
-                && $sessionData[self::VALIDATOR_HTTP_VIA_KEY] != $validatorData[self::VALIDATOR_HTTP_VIA_KEY]) {
+                && $sessionData[self::VALIDATOR_HTTP_VIA_KEY] != $validatorData[self::VALIDATOR_HTTP_VIA_KEY]
+        ) {
             return false;
         }
 
         if ($this->useValidateHttpXForwardedFor()
-                && $sessionData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY] != $validatorData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY]) {
+                && $sessionData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY] != $validatorData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY]
+        ) {
             return false;
         }
         if ($this->useValidateHttpUserAgent()

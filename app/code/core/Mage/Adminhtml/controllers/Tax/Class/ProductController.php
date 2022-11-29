@@ -92,8 +92,8 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
         $this->_initAction()
             ->_addBreadcrumb(
-                $classId ? Mage::helper('tax')->__('Edit Class') :  Mage::helper('tax')->__('New Class'),
-                $classId ?  Mage::helper('tax')->__('Edit Class') :  Mage::helper('tax')->__('New Class')
+                $classId ? Mage::helper('tax')->__('Edit Class') : Mage::helper('tax')->__('New Class'),
+                $classId ? Mage::helper('tax')->__('Edit Class') : Mage::helper('tax')->__('New Class')
             )
             ->_addContent(
                 $this->getLayout()->createBlock('adminhtml/tax_class_edit')

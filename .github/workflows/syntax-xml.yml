@@ -1,21 +1,15 @@
 name: XML Validation
 
 on:
-  # Run on all pushes and on all pull requests.
-  # Prevent the build from running when there are only irrelevant changes.
-  push:
-    paths:
-      - '**.xml'
-  pull_request:
-    paths:
-      - '**.xml'
+  workflow_call:
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
 jobs:
-  validate:
+  syntax_xml:
+    name: XML Validation
     runs-on: [ubuntu-latest]
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
