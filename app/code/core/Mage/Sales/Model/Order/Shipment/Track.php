@@ -53,7 +53,7 @@
  */
 class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
 {
-    const CUSTOM_CARRIER_CODE   = 'custom';
+    public const CUSTOM_CARRIER_CODE   = 'custom';
     protected $_shipment = null;
 
     protected $_eventPrefix = 'sales_order_shipment_track';

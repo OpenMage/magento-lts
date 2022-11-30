@@ -726,18 +726,18 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
         $iniSize = $this->getDataMaxSize();
         $size = substr($iniSize, 0, -1);
         $parsedSize = 0;
-        switch (strtolower(substr($iniSize, strlen($iniSize)-1))) {
+        switch (strtolower(substr($iniSize, strlen($iniSize) - 1))) {
             case 't':
-                $parsedSize = $size*(1024*1024*1024*1024);
+                $parsedSize = $size * (1024 * 1024 * 1024 * 1024);
                 break;
             case 'g':
-                $parsedSize = $size*(1024*1024*1024);
+                $parsedSize = $size * (1024 * 1024 * 1024);
                 break;
             case 'm':
-                $parsedSize = $size*(1024*1024);
+                $parsedSize = $size * (1024 * 1024);
                 break;
             case 'k':
-                $parsedSize = $size*1024;
+                $parsedSize = $size * 1024;
                 break;
             case 'b':
             default:

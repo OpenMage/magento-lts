@@ -31,12 +31,12 @@ class Mage_Adminhtml_Model_System_Config_Backend_Email_Logo extends Mage_Adminht
     /**
      * The tail part of directory path for uploading
      */
-    const UPLOAD_DIR                = 'email/logo';
+    public const UPLOAD_DIR                = 'email/logo';
 
     /**
      * Token for the root part of directory path for uploading
      */
-    const UPLOAD_ROOT_TOKEN         = 'system/filesystem/media';
+    public const UPLOAD_ROOT_TOKEN         = 'system/filesystem/media';
 
     /**
      * Upload max file size in kilobytes

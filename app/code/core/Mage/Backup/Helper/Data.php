@@ -29,27 +29,27 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Backup type constant for database backup
      */
-    const TYPE_DB = 'db';
+    public const TYPE_DB = 'db';
 
     /**
      * Backup type constant for filesystem backup
      */
-    const TYPE_FILESYSTEM = 'filesystem';
+    public const TYPE_FILESYSTEM = 'filesystem';
 
     /**
      * Backup type constant for full system backup(database + filesystem)
      */
-    const TYPE_SYSTEM_SNAPSHOT = 'snapshot';
+    public const TYPE_SYSTEM_SNAPSHOT = 'snapshot';
 
     /**
      * Backup type constant for media and database backup
      */
-    const TYPE_MEDIA = 'media';
+    public const TYPE_MEDIA = 'media';
 
     /**
      * Backup type constant for full system backup excluding media folder
      */
-    const TYPE_SNAPSHOT_WITHOUT_MEDIA = 'nomedia';
+    public const TYPE_SNAPSHOT_WITHOUT_MEDIA = 'nomedia';
 
     protected $_moduleName = 'Mage_Backup';
 
@@ -148,8 +148,9 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return bool
      */
-    public function isRollbackAllowed(){
-        return Mage::getSingleton('admin/session')->isAllowed('system/tools/backup/rollback' );
+    public function isRollbackAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('system/tools/backup/rollback');
     }
 
     /**
@@ -265,7 +266,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function invalidateIndexer()
     {
-        foreach (Mage::getResourceModel('index/process_collection') as $process){
+        foreach (Mage::getResourceModel('index/process_collection') as $process) {
             $process->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
         }
         return $this;
@@ -295,7 +296,9 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
         $filenameWithoutExtension = $filename;
 
         foreach ($extensions as $extension) {
-            $filenameWithoutExtension = preg_replace('/' . preg_quote($extension, '/') . '$/', '',
+            $filenameWithoutExtension = preg_replace(
+                '/' . preg_quote($extension, '/') . '$/',
+                '',
                 $filenameWithoutExtension
             );
         }

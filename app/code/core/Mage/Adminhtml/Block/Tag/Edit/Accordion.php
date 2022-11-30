@@ -45,13 +45,13 @@ class Mage_Adminhtml_Block_Tag_Edit_Accordion extends Mage_Adminhtml_Block_Widge
         $this->addItem('tag_customer', [
             'title'         => Mage::helper('tag')->__('Customers Submitted this Tag'),
             'ajax'          => true,
-            'content_url'   => $this->getUrl('*/*/customer', ['ret' => 'all', 'tag_id'=>$tagModel->getId(), 'store'=>$tagModel->getStoreId()]),
+            'content_url'   => $this->getUrl('*/*/customer', ['ret' => 'all', 'tag_id' => $tagModel->getId(), 'store' => $tagModel->getStoreId()]),
         ]);
 
         $this->addItem('tag_product', [
             'title'         => Mage::helper('tag')->__('Products Tagged by Customers'),
             'ajax'          => true,
-            'content_url'   => $this->getUrl('*/*/product', ['ret' => 'all', 'tag_id'=>$tagModel->getId(), 'store'=>$tagModel->getStoreId()]),
+            'content_url'   => $this->getUrl('*/*/product', ['ret' => 'all', 'tag_id' => $tagModel->getId(), 'store' => $tagModel->getStoreId()]),
         ]);
         return parent::_prepareLayout();
     }

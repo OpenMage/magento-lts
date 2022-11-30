@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Filter
+ * @category   Varien
+ * @package    Varien_Filter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -35,7 +35,7 @@ class Varien_Filter_FormElementName extends Zend_Filter_Alnum
         if (!self::$_unicodeEnabled) {
             // POSIX named classes are not supported, use alternative a-zA-Z0-9 match
             $pattern = '/[^a-zA-Z0-9\[\];_\-' . $whiteSpace . ']/';
-        } else if (self::$_meansEnglishAlphabet) {
+        } elseif (self::$_meansEnglishAlphabet) {
             //The Alphabet means english alphabet.
             $pattern = '/[^a-zA-Z0-9\[\];_\-'  . $whiteSpace . ']/u';
         } else {

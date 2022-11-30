@@ -136,11 +136,11 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $helper = $this->helper('tag/data');
         $statuses = $helper->getStatusesOptionsArray();
 
-        array_unshift($statuses, ['label'=>'', 'value'=>'']);
+        array_unshift($statuses, ['label' => '', 'value' => '']);
 
         $this->getMassactionBlock()->addItem('status', [
-            'label'=> Mage::helper('tag')->__('Change status'),
-            'url'  => $this->getUrl('*/*/massStatus', ['_current'=>true]),
+            'label' => Mage::helper('tag')->__('Change status'),
+            'url'  => $this->getUrl('*/*/massStatus', ['_current' => true]),
             'additional' => [
                 'visibility' => [
                     'name'     => 'status',

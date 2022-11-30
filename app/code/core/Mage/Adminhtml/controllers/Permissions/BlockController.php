@@ -32,7 +32,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/acl/blocks';
+    public const ADMIN_RESOURCE = 'system/acl/blocks';
 
     /**
      * @return $this
@@ -154,7 +154,6 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
 
                 $this->_redirect('*/*/');
                 return;
-
             } catch (Exception $e) {
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -182,8 +181,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Block has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', ['block_id' => $id]);
                 return;
@@ -201,8 +199,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
         $this->getResponse()
             ->setBody($this->getLayout()
                 ->createBlock('adminhtml/permissions_block_grid')
-                ->toHtml()
-            );
+                ->toHtml());
     }
 
     /**

@@ -26,9 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_System_Config_Form_Fieldset
-    extends Mage_Adminhtml_Block_Abstract
-    implements Varien_Data_Form_Element_Renderer_Interface
+class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
     /**
      * Render fieldset html
@@ -42,7 +40,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset
         $html = $this->_getHeaderHtml($element);
 
         foreach ($element->getSortedElements() as $field) {
-            $html.= $field->toHtml();
+            $html .= $field->toHtml();
         }
 
         $html .= $this->_getFooterHtml($element);
@@ -66,7 +64,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset
 
         $html .= $this->_getHeaderTitleHtml($element);
 
-        $html .= '<input id="'.$element->getHtmlId() . '-state" name="config_state[' . $element->getId()
+        $html .= '<input id="' . $element->getHtmlId() . '-state" name="config_state[' . $element->getId()
             . ']" type="hidden" value="' . (int)$this->_getCollapseState($element) . '" />';
         $html .= '<fieldset class="' . $this->_getFieldsetCss($element) . '" id="' . $element->getHtmlId() . '">';
         $html .= '<legend>' . $element->getLegend() . '</legend>';

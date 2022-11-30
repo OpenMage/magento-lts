@@ -65,14 +65,14 @@ class Mage_Adminhtml_Block_Poll_Grid extends Mage_Adminhtml_Block_Widget_Grid
     {
         $this->addColumn('poll_id', [
             'header'    => Mage::helper('poll')->__('ID'),
-            'align'     =>'right',
+            'align'     => 'right',
             'width'     => '50px',
             'index'     => 'poll_id',
         ]);
 
         $this->addColumn('poll_title', [
             'header'    => Mage::helper('poll')->__('Poll Question'),
-            'align'     =>'left',
+            'align'     => 'left',
             'index'     => 'poll_title',
         ]);
 
@@ -88,7 +88,7 @@ class Mage_Adminhtml_Block_Poll_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'align'     => 'left',
             'type'      => 'datetime',
             'index'     => 'date_posted',
-            'format'	=> Mage::app()->getLocale()->getDateFormat()
+            'format'    => Mage::app()->getLocale()->getDateFormat()
         ]);
 
         $this->addColumn('date_closed', [
@@ -97,7 +97,7 @@ class Mage_Adminhtml_Block_Poll_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'type'      => 'datetime',
             'default'   => '--',
             'index'     => 'date_closed',
-            'format'	=> Mage::app()->getLocale()->getDateFormat()
+            'format'    => Mage::app()->getLocale()->getDateFormat()
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {

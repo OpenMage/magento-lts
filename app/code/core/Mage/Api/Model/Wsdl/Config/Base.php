@@ -93,7 +93,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
 
         $this->_wsdlVariables->setHandler($this->getHandler());
 
-        $template->setVariables(['wsdl'=>$this->_wsdlVariables]);
+        $template->setVariables(['wsdl' => $this->_wsdlVariables]);
 
         return $template->filter($text);
     }

@@ -341,7 +341,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         if (!empty($update)) {
             foreach ($update as $productId => $position) {
                 $where = [
-                    'category_id = ?'=> (int)$id,
+                    'category_id = ?' => (int)$id,
                     'product_id = ?' => (int)$productId
                 ];
                 $bind  = ['position' => (int)$position];
@@ -488,8 +488,8 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
                 'is_active'        => 'is_active',
             ];
             $select = $this->_getReadAdapter()->select()
-                ->from(['a'=>$this->getTable('eav/attribute')], ['attribute_id'])
-                ->join(['t'=>$this->getTable('eav/entity_type')], 'a.entity_type_id = t.entity_type_id')
+                ->from(['a' => $this->getTable('eav/attribute')], ['attribute_id'])
+                ->join(['t' => $this->getTable('eav/entity_type')], 'a.entity_type_id = t.entity_type_id')
                 ->where('entity_type_code = :catalog_category')
                 ->where('attribute_code = :is_active');
 
@@ -846,8 +846,8 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         $adapter->update(
             $table,
             [
-                'path' => new Zend_Db_Expr('REPLACE(' . $pathField . ','.
-                    $adapter->quote($category->getPath() . '/'). ', '.$adapter->quote($newPath . '/').')'),
+                'path' => new Zend_Db_Expr('REPLACE(' . $pathField . ',' .
+                    $adapter->quote($category->getPath() . '/') . ', ' . $adapter->quote($newPath . '/') . ')'),
                 'level' => new Zend_Db_Expr($levelFiled . ' + ' . $levelDisposition)
             ],
             [$pathField . ' LIKE ?' => $category->getPath() . '/%']
@@ -858,8 +858,8 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         $data = [
             'path'      => $newPath,
             'level'     => $newLevel,
-            'position'  =>$position,
-            'parent_id' =>$newParent->getId()
+            'position'  => $position,
+            'parent_id' => $newParent->getId()
         ];
         $adapter->update($table, $data, ['entity_id = ?' => $category->getId()]);
 
@@ -922,7 +922,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             $adapter->update($table, $bind, $where);
         } else {
             $select = $adapter->select()
-                ->from($table, ['position' => new Zend_Db_Expr('MIN(' . $positionField. ')')])
+                ->from($table, ['position' => new Zend_Db_Expr('MIN(' . $positionField . ')')])
                 ->where('parent_id = :parent_id');
             $position = $adapter->fetchOne($select, ['parent_id' => $newParent->getId()]);
         }

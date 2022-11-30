@@ -31,12 +31,12 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
     /**
      * Fixed price type
      */
-    const PRICE_TYPE_FIXED = 1;
+    public const PRICE_TYPE_FIXED = 1;
 
     /**
      * Dynamic price type
      */
-    const PRICE_TYPE_DYNAMIC = 0;
+    public const PRICE_TYPE_DYNAMIC = 0;
 
     /**
      * Flag which indicates - is min/max prices have been calculated by index
@@ -338,7 +338,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             && ($minimalPriceWithTax > $minimalPrice)
         ) {
             //We convert the value to string to maintain the precision
-            $tax = (String)($minimalPriceWithTax - $minimalPrice);
+            $tax = (string)($minimalPriceWithTax - $minimalPrice);
             $roundedTax = $this->_getApp()->getStore()->roundPrice($tax);
             $minimalPrice = $minimalPriceWithTax - $roundedTax;
         }

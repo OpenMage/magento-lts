@@ -35,11 +35,11 @@
  */
 class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 {
-    const XML_PATH_DEBUG_TEMPLATE_HINTS_ADMIN        = 'dev/debug/template_hints_admin';
-    const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS_ADMIN = 'dev/debug/template_hints_blocks_admin';
-    const XML_PATH_DEBUG_TEMPLATE_HINTS              = 'dev/debug/template_hints';
-    const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS       = 'dev/debug/template_hints_blocks';
-    const XML_PATH_TEMPLATE_ALLOW_SYMLINK            = 'dev/template/allow_symlink';
+    public const XML_PATH_DEBUG_TEMPLATE_HINTS_ADMIN        = 'dev/debug/template_hints_admin';
+    public const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS_ADMIN = 'dev/debug/template_hints_blocks_admin';
+    public const XML_PATH_DEBUG_TEMPLATE_HINTS              = 'dev/debug/template_hints';
+    public const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS       = 'dev/debug/template_hints_blocks';
+    public const XML_PATH_TEMPLATE_ALLOW_SYMLINK            = 'dev/template/allow_symlink';
 
     /**
      * View scripts directory
@@ -119,7 +119,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      */
     public function getTemplateFile()
     {
-        $params = ['_relative'=>true];
+        $params = ['_relative' => true];
         $area = $this->getArea();
         if ($area) {
             $params['_area'] = $area;
@@ -250,8 +250,7 @@ HTML;
         }
 
         try {
-            if (
-                strpos($this->_viewDir . DS . $fileName, '..') === false
+            if (strpos($this->_viewDir . DS . $fileName, '..') === false
                 &&
                 ($this->_viewDir == Mage::getBaseDir('design') || strpos(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))) === 0)
             ) {
@@ -331,7 +330,7 @@ HTML;
         if (!$this->_jsUrl) {
             $this->_jsUrl = Mage::getBaseUrl('js');
         }
-        return $this->_jsUrl.$fileName;
+        return $this->_jsUrl . $fileName;
     }
 
     /**

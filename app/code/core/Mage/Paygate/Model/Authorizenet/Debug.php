@@ -27,17 +27,17 @@
  * @method Mage_Paygate_Model_Resource_Authorizenet_Debug _getResource()
  * @method Mage_Paygate_Model_Resource_Authorizenet_Debug getResource()
  * @method string getRequestBody()
- * @method Mage_Paygate_Model_Authorizenet_Debug setRequestBody(string $value)
+ * @method $this setRequestBody(string $value)
  * @method string getResponseBody()
- * @method Mage_Paygate_Model_Authorizenet_Debug setResponseBody(string $value)
+ * @method $this setResponseBody(string $value)
  * @method string getRequestSerialized()
- * @method Mage_Paygate_Model_Authorizenet_Debug setRequestSerialized(string $value)
+ * @method $this setRequestSerialized(string $value)
  * @method string getResultSerialized()
- * @method Mage_Paygate_Model_Authorizenet_Debug setResultSerialized(string $value)
+ * @method $this setResultSerialized(string $value)
  * @method string getRequestDump()
- * @method Mage_Paygate_Model_Authorizenet_Debug setRequestDump(string $value)
+ * @method $this setRequestDump(string $value)
  * @method string getResultDump()
- * @method Mage_Paygate_Model_Authorizenet_Debug setResultDump(string $value)
+ * @method $this setResultDump(string $value)
  */
 class Mage_Paygate_Model_Authorizenet_Debug extends Mage_Core_Model_Abstract
 {

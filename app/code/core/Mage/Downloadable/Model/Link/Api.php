@@ -77,7 +77,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
         }
 
         $result['status'] = 'new';
-        $result['name'] = substr($result['file'], strrpos($result['file'], '/')+1);
+        $result['name'] = substr($result['file'], strrpos($result['file'], '/') + 1);
         return Mage::helper('core')->jsonEncode([$result]);
     }
 
@@ -111,7 +111,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
             if (isset($resource['file'])) {
                 $resource['file'] = $this->_uploadFile($resource['file'], $resourceType);
             }
-            unset($resource[$resourceType.'_url']);
+            unset($resource[$resourceType . '_url']);
         } elseif ($resource['type'] == 'url') {
             unset($resource['file']);
         }

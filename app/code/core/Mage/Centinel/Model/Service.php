@@ -31,11 +31,11 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Cmpi public keys
      */
-    const CMPI_PARES    = 'centinel_authstatus';
-    const CMPI_ENROLLED = 'centinel_mpivendor';
-    const CMPI_CAVV     = 'centinel_cavv';
-    const CMPI_ECI      = 'centinel_eci';
-    const CMPI_XID      = 'centinel_xid';
+    public const CMPI_PARES    = 'centinel_authstatus';
+    public const CMPI_ENROLLED = 'centinel_mpivendor';
+    public const CMPI_CAVV     = 'centinel_cavv';
+    public const CMPI_ECI      = 'centinel_eci';
+    public const CMPI_XID      = 'centinel_xid';
 
     /**
      * State cmpi results to public map
@@ -374,13 +374,13 @@ class Mage_Centinel_Model_Service extends Varien_Object
         return $validationState && $validationState->isAuthenticateSuccessful();
     }
 
-     /**
-     * Export cmpi lookups and authentication information stored in session into array
-     *
-     * @param mixed $to
-     * @param array $map
-     * @return mixed $to
-     */
+    /**
+    * Export cmpi lookups and authentication information stored in session into array
+    *
+    * @param mixed $to
+    * @param array $map
+    * @return mixed $to
+    */
     public function exportCmpiData($to, $map = false)
     {
         if (!$map) {
@@ -392,4 +392,3 @@ class Mage_Centinel_Model_Service extends Varien_Object
         return $to;
     }
 }
-

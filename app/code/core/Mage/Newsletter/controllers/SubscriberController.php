@@ -31,7 +31,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
     /**
      * Use CSRF validation flag from newsletter config
      */
-    const XML_CSRF_USE_FLAG_CONFIG_PATH = 'newsletter/security/enable_form_key';
+    public const XML_CSRF_USE_FLAG_CONFIG_PATH = 'newsletter/security/enable_form_key';
 
     /**
       * New subscription action

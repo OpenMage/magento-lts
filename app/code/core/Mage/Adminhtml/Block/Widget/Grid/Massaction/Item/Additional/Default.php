@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item_Additional_Default extend
     {
         $form = new Varien_Data_Form();
 
-        foreach ($configuration as $itemId=>$item) {
+        foreach ($configuration as $itemId => $item) {
             $item['class'] = isset($item['class']) ? $item['class'] . ' absolute-advice' : 'absolute-advice';
             $form->addField($itemId, $item['type'], $item);
         }

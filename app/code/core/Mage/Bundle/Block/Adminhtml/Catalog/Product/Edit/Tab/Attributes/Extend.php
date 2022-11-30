@@ -36,8 +36,8 @@
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend extends Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
 {
-    const DYNAMIC = 0;
-    const FIXED = 1;
+    public const DYNAMIC = 0;
+    public const FIXED = 1;
 
     /**
      * Class constructor
@@ -58,7 +58,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
     {
         $elementHtml = parent::getElementHtml();
 
-        $switchAttributeCode = $this->getAttribute()->getAttributeCode().'_type';
+        $switchAttributeCode = $this->getAttribute()->getAttributeCode() . '_type';
         $switchAttributeValue = $this->getProduct()->getData($switchAttributeCode);
 
         $html = '<select name="product[' . $switchAttributeCode . ']" id="' . $switchAttributeCode

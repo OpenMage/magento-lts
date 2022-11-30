@@ -136,7 +136,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
      */
     public function getExtension()
     {
-        return substr($this->getFileName(), strrpos($this->getFileName(), '.')+1);
+        return substr($this->getFileName(), strrpos($this->getFileName(), '.') + 1);
     }
 
     /**
@@ -152,7 +152,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
         }
 
         return $this->getConfig()->getBaseMediaPath() . DS . $this->getName() . $changes . '.'
-             . ( ( $useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension() );
+             . (($useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension());
     }
 
     /**
@@ -168,7 +168,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
         }
 
         return $this->getConfig()->getBaseMediaUrl() . '/' . $this->getName() . $changes . '.'
-             . ( ( $useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension() );
+             . (($useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension());
     }
 
     /**
@@ -257,7 +257,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
         $this->addParam('extension', $extension);
 
         if (!$this->hasSpecialImage()) {
-            if (strpos($size, 'x')!==false) {
+            if (strpos($size, 'x') !== false) {
                 list($width, $height) = explode('x', $size);
             } else {
                 $width = $size;
@@ -274,8 +274,8 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
             }
 
             $this->getDestanationDimensions()
-                ->setWidth($rate*$this->getDimensions()->getWidth())
-                ->setHeight($rate*$this->getDimensions()->getHeight());
+                ->setWidth($rate * $this->getDimensions()->getWidth())
+                ->setHeight($rate * $this->getDimensions()->getHeight());
 
             $this->_getResource()->resize($this);
             $this->_getResource()->watermark($this);

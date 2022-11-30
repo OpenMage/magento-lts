@@ -187,7 +187,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
          */
         $attribute = $observer->getEvent()->getAttribute();
         $tags = [
-            Mage_Eav_Model_Entity_Attribute::CACHE_TAG.':'.$attribute->getId()
+            Mage_Eav_Model_Entity_Attribute::CACHE_TAG . ':' . $attribute->getId()
         ];
 
         if ($attribute->getOrigData('is_filterable') != $attribute->getIsFilterable()) {
@@ -275,7 +275,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
             return $this;
         }
         $tags = [
-            Mage_Catalog_Model_Category::CACHE_TAG.':'.$category->getPath()
+            Mage_Catalog_Model_Category::CACHE_TAG . ':' . $category->getPath()
         ];
         $this->_getAggregator()->clearCacheData($tags);
         return $this;

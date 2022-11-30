@@ -109,14 +109,14 @@ foreach ($websiteRows as $websiteRow) {
     $installer->getConnection()
         ->update(
             $this->getTable('core_store'),
-            ['group_id'=>$groupId],
+            ['group_id' => $groupId],
             $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id'])
         );
     // set created group as default for website
     $installer->getConnection()
         ->update(
             $this->getTable('core_website'),
-            ['default_group_id'=>$groupId],
+            ['default_group_id' => $groupId],
             $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id'])
         );
 }

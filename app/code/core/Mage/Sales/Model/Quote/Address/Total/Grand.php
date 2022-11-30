@@ -45,8 +45,8 @@ class Mage_Sales_Model_Quote_Address_Total_Grand extends Mage_Sales_Model_Quote_
         $baseTotals = array_sum($address->getAllBaseTotalAmounts());
         $baseTotals = $store->roundPrice($baseTotals);
 
-        $address->setGrandTotal($grandTotal+$totals);
-        $address->setBaseGrandTotal($baseGrandTotal+$baseTotals);
+        $address->setGrandTotal($grandTotal + $totals);
+        $address->setBaseGrandTotal($baseGrandTotal + $baseTotals);
         return $this;
     }
 

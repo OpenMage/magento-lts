@@ -134,7 +134,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_defaultAvailableLimit  = [10=>10,20=>20,50=>50];
+    protected $_defaultAvailableLimit  = [10 => 10,20 => 20,50 => 50];
 
     /**
      * @var bool $_paramsMemorizeAllowed
@@ -475,8 +475,8 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
             $order = $this->getCurrentOrder() ? $this->getCurrentOrder() : $this->_availableOrder[0];
         }
         return $this->getPagerUrl([
-            $this->getOrderVarName()=>$order,
-            $this->getDirectionVarName()=>$direction,
+            $this->getOrderVarName() => $order,
+            $this->getDirectionVarName() => $direction,
             $this->getPageVarName() => null
         ]);
     }
@@ -571,7 +571,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      */
     public function getModeUrl($mode)
     {
-        return $this->getPagerUrl([$this->getModeVarName()=>$mode, $this->getPageVarName() => null]);
+        return $this->getPagerUrl([$this->getModeVarName() => $mode, $this->getPageVarName() => null]);
     }
 
     /**
@@ -707,7 +707,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         $perPageValues = explode(',', $perPageValues);
         $perPageValues = array_combine($perPageValues, $perPageValues);
         if (Mage::getStoreConfigFlag('catalog/frontend/list_allow_all')) {
-            return ($perPageValues + ['all'=>$this->__('All')]);
+            return ($perPageValues + ['all' => $this->__('All')]);
         } else {
             return $perPageValues;
         }
@@ -779,7 +779,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     public function getFirstNum()
     {
         $collection = $this->getCollection();
-        return $collection->getPageSize()*($collection->getCurPage()-1)+1;
+        return $collection->getPageSize() * ($collection->getCurPage() - 1) + 1;
     }
 
     /**
@@ -788,7 +788,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     public function getLastNum()
     {
         $collection = $this->getCollection();
-        return $collection->getPageSize()*($collection->getCurPage()-1)+$collection->count();
+        return $collection->getPageSize() * ($collection->getCurPage() - 1) + $collection->count();
     }
 
     /**

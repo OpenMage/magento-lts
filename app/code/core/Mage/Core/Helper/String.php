@@ -28,7 +28,7 @@
  */
 class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
 {
-    const ICONV_CHARSET = 'UTF-8';
+    public const ICONV_CHARSET = 'UTF-8';
 
     protected $_moduleName = 'Mage_Core';
 
@@ -142,7 +142,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (!$strlen) {
             return $result;
         }
-        for ($i = $strlen-1; $i >= 0; $i--) {
+        for ($i = $strlen - 1; $i >= 0; $i--) {
             $result .= $this->substr($str, $i, 1);
         }
         return $result;
@@ -161,6 +161,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * @param string $wordSeparatorRegex
      * @return array
      */
+    // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function str_split($str, $length = 1, $keepWords = false, $trim = false, $wordSeparatorRegex = '\s')
     {
         $result = [];
@@ -184,8 +185,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
             for ($offset = 0; $offset < $strlen; $offset += $length) {
                 $result[] = $this->substr($str, $offset, $length);
             }
-        } // split smartly, keeping words
-        else {
+        } else { // split smartly, keeping words
             $split = preg_split('/(' . $wordSeparatorRegex . '+)/siu', $str, -1, PREG_SPLIT_DELIM_CAPTURE);
             $i        = 0;
             $space    = '';
@@ -218,12 +218,10 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                 // add part to current last element
                 if (($currentLength + $spaceLen + $partLength) <= $length) {
                     $result[$i] .= $space . $part;
-                } // add part to new element
-                elseif ($partLength <= $length) {
+                } elseif ($partLength <= $length) { // add part to new element
                     $i++;
                     $result[$i] = $part;
-                } // break too long part recursively
-                else {
+                } else { // break too long part recursively
                     foreach ($this->str_split($part, $length, false, $trim, $wordSeparatorRegex) as $subpart) {
                         $i++;
                         $result[$i] = $subpart;

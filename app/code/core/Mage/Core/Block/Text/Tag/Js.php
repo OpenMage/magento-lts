@@ -35,7 +35,7 @@ class Mage_Core_Block_Text_Tag_Js extends Mage_Core_Block_Text_Tag
     {
         parent::_construct();
         $this->setTagName('script');
-        $this->setTagParams(['language'=>'javascript', 'type'=>'text/javascript']);
+        $this->setTagParams(['language' => 'javascript', 'type' => 'text/javascript']);
     }
 
     /**
@@ -49,7 +49,7 @@ class Mage_Core_Block_Text_Tag_Js extends Mage_Core_Block_Text_Tag
         if (empty($type)) {
             $type = 'js';
         }
-        $url = Mage::getBaseUrl($type).$src;
+        $url = Mage::getBaseUrl($type) . $src;
 
         return $this->setTagParam('src', $url);
     }

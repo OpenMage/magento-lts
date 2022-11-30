@@ -166,7 +166,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
             'header'    => Mage::helper('sales')->__('Qty To Add'),
             'renderer'  => 'adminhtml/sales_order_create_search_grid_renderer_qty',
             'name'      => 'qty',
-            'inline_css'=> 'qty',
+            'inline_css' => 'qty',
             'align'     => 'center',
             'type'      => 'input',
             'validate_class' => 'validate-number',
@@ -182,7 +182,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/loadBlock', ['block'=>'search_grid', '_current' => true, 'collapse' => null]);
+        return $this->getUrl('*/*/loadBlock', ['block' => 'search_grid', '_current' => true, 'collapse' => null]);
     }
 
     /**

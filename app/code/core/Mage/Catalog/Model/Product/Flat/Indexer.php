@@ -29,33 +29,33 @@
  * @method Mage_Catalog_Model_Resource_Product_Flat_Indexer _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Flat_Indexer getResource()
  * @method int getEntityTypeId()
- * @method Mage_Catalog_Model_Product_Flat_Indexer setEntityTypeId(int $value)
+ * @method $this setEntityTypeId(int $value)
  * @method int getAttributeSetId()
- * @method Mage_Catalog_Model_Product_Flat_Indexer setAttributeSetId(int $value)
+ * @method $this setAttributeSetId(int $value)
  * @method string getTypeId()
- * @method Mage_Catalog_Model_Product_Flat_Indexer setTypeId(string $value)
+ * @method $this setTypeId(string $value)
  * @method string getSku()
- * @method Mage_Catalog_Model_Product_Flat_Indexer setSku(string $value)
+ * @method $this setSku(string $value)
  * @method int getHasOptions()
- * @method Mage_Catalog_Model_Product_Flat_Indexer setHasOptions(int $value)
+ * @method $this setHasOptions(int $value)
  * @method int getRequiredOptions()
- * @method Mage_Catalog_Model_Product_Flat_Indexer setRequiredOptions(int $value)
+ * @method $this setRequiredOptions(int $value)
  * @method string getCreatedAt()
- * @method Mage_Catalog_Model_Product_Flat_Indexer setCreatedAt(string $value)
+ * @method $this setCreatedAt(string $value)
  * @method string getUpdatedAt()
- * @method Mage_Catalog_Model_Product_Flat_Indexer setUpdatedAt(string $value)
+ * @method $this setUpdatedAt(string $value)
  */
 class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
 {
     /**
      * Catalog product flat entity for indexers
      */
-    const ENTITY = 'catalog_product_flat';
+    public const ENTITY = 'catalog_product_flat';
 
     /**
      * Indexers rebuild event type
      */
-    const EVENT_TYPE_REBUILD = 'catalog_product_flat_rebuild';
+    public const EVENT_TYPE_REBUILD = 'catalog_product_flat_rebuild';
 
     /**
      * Standart model resource initialization

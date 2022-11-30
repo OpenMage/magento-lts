@@ -155,7 +155,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     public function callEventHandler(Mage_Index_Model_Event $event)
     {
         if ($event->getEntity()) {
-            $method = $this->_camelize($event->getEntity().'_'.$event->getType());
+            $method = $this->_camelize($event->getEntity() . '_' . $event->getType());
         } else {
             $method = $this->_camelize($event->getType());
         }

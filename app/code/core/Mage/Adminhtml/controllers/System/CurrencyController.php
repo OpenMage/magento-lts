@@ -32,7 +32,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/currency/rates';
+    public const ADMIN_RESOURCE = 'system/currency/rates';
 
     /**
      * Init currency by currency code from request
@@ -67,7 +67,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
         try {
             $service = $this->getRequest()->getParam('rate_services');
             $this->_getSession()->setCurrencyRateService($service);
-            if( !$service ) {
+            if (!$service) {
                 throw new Exception(Mage::helper('adminhtml')->__('Invalid Import Service Specified'));
             }
             try {
@@ -79,7 +79,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
             }
             $rates = $importModel->fetchRates();
             $errors = $importModel->getMessages();
-            if(count($errors)) {
+            if (count($errors)) {
                 foreach ($errors as $error) {
                     Mage::getSingleton('adminhtml/session')->addWarning($error);
                 }
@@ -89,8 +89,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
             }
 
             Mage::getSingleton('adminhtml/session')->setRates($rates);
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         }
         $this->_redirect('*/*/');
@@ -99,13 +98,13 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
     public function saveRatesAction()
     {
         $data = $this->getRequest()->getParam('rate');
-        if( is_array($data) ) {
+        if (is_array($data)) {
             try {
                 foreach ($data as $currencyCode => $rate) {
-                    foreach( $rate as $currencyTo => $value ) {
+                    foreach ($rate as $currencyTo => $value) {
                         $value = abs(Mage::getSingleton('core/locale')->getNumber($value));
                         $data[$currencyCode][$currencyTo] = $value;
-                        if( $value == 0 ) {
+                        if ($value == 0) {
                             Mage::getSingleton('adminhtml/session')->addWarning(Mage::helper('adminhtml')->__('Invalid input data for %s => %s rate', $currencyCode, $currencyTo));
                         }
                     }

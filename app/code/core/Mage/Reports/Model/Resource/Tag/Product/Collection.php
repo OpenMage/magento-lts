@@ -88,7 +88,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     {
         $this->getSelect()
             ->group('relation.product_id');
-            $this->setJoinFlag('distinct');
+        $this->setJoinFlag('distinct');
         return $this;
     }
 
@@ -101,7 +101,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     {
         $this->getSelect()
             ->group('relation.tag_id');
-            $this->setJoinFlag('distinct');
+        $this->setJoinFlag('distinct');
         $this->setJoinFlag('group_tag');
         return $this;
     }

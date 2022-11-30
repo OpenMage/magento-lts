@@ -29,19 +29,19 @@
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price _getResource()
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price getResource()
  * @method string getRuleDate()
- * @method Mage_CatalogRule_Model_Rule_Product_Price setRuleDate(string $value)
+ * @method $this setRuleDate(string $value)
  * @method int getCustomerGroupId()
- * @method Mage_CatalogRule_Model_Rule_Product_Price setCustomerGroupId(int $value)
+ * @method $this setCustomerGroupId(int $value)
  * @method int getProductId()
- * @method Mage_CatalogRule_Model_Rule_Product_Price setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method float getRulePrice()
- * @method Mage_CatalogRule_Model_Rule_Product_Price setRulePrice(float $value)
+ * @method $this setRulePrice(float $value)
  * @method int getWebsiteId()
- * @method Mage_CatalogRule_Model_Rule_Product_Price setWebsiteId(int $value)
+ * @method $this setWebsiteId(int $value)
  * @method string getLatestStartDate()
- * @method Mage_CatalogRule_Model_Rule_Product_Price setLatestStartDate(string $value)
+ * @method $this setLatestStartDate(string $value)
  * @method string getEarliestEndDate()
- * @method Mage_CatalogRule_Model_Rule_Product_Price setEarliestEndDate(string $value)
+ * @method $this setEarliestEndDate(string $value)
  */
 class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
 {
@@ -71,7 +71,6 @@ class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
         $updateFields,
         $websiteDate
     ) {
-
         $this->_getResource()->applyPriceRuleToIndexTable(
             $select,
             $indexTable,

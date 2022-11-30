@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
         $this->setDefaultSort('entity_id');
         $this->setUseAjax(true);
         if ($this->_getProduct()->getId()) {
-            $this->setDefaultFilter(['in_products'=>1]);
+            $this->setDefaultFilter(['in_products' => 1]);
         }
         if ($this->isReadonly()) {
             $this->setFilterVisibility(false);

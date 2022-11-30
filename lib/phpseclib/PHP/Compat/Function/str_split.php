@@ -26,7 +26,7 @@ function php_compat_str_split($string, $split_length = 1)
         user_error('str_split() The length of each segment must be greater than zero', E_USER_WARNING);
         return false;
     }
-    
+
     // Select split method
     if ($split_length < 65536) {
         // Faster, but only works for less than 2^16

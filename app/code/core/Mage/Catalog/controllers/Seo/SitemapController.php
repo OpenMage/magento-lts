@@ -37,8 +37,8 @@ class Mage_Catalog_Seo_SitemapController extends Mage_Core_Controller_Front_Acti
     {
         parent::preDispatch();
         if (!Mage::getStoreConfig('catalog/seo/site_map')) {
-              $this->_redirect('noroute');
-              $this->setFlag('', self::FLAG_NO_DISPATCH, true);
+            $this->_redirect('noroute');
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
         return $this;
     }
@@ -53,7 +53,7 @@ class Mage_Catalog_Seo_SitemapController extends Mage_Core_Controller_Front_Acti
         $update->addHandle('default');
         $this->addActionLayoutHandles();
         if (Mage::helper('catalog/map')->getIsUseCategoryTreeMode()) {
-            $update->addHandle(strtolower($this->getFullActionName()).'_tree');
+            $update->addHandle(strtolower($this->getFullActionName()) . '_tree');
         }
         $this->loadLayoutUpdates();
         $this->generateLayoutXml()->generateLayoutBlocks();

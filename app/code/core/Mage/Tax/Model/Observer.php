@@ -168,7 +168,7 @@ class Mage_Tax_Model_Observer
         $additionalCalculations = $response->getAdditionalCalculations();
         $calculation = Mage::helper('tax')->getPriceTaxSql(
             $table . '.min_price',
-            $table.'.tax_class_id'
+            $table . '.tax_class_id'
         );
 
         if (!empty($calculation)) {

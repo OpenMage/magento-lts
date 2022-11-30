@@ -34,6 +34,7 @@ class Mage_GoogleAnalytics_Model_Observer
      * @deprecated after 1.3.2.3 Use setGoogleAnalyticsOnOrderSuccessPageView() method instead
      * @param Varien_Event_Observer $observer
      */
+    // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function order_success_page_view($observer)
     {
         $this->setGoogleAnalyticsOnOrderSuccessPageView($observer);

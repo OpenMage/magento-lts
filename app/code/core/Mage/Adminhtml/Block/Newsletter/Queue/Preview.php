@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Preview extends Mage_Adminhtml_Block
         /** @var Mage_Newsletter_Model_Template $template */
         $template = Mage::getModel('newsletter/template');
 
-        if($id = (int)$this->getRequest()->getParam('id')) {
+        if ($id = (int)$this->getRequest()->getParam('id')) {
             $queue = Mage::getModel('newsletter/queue');
             $queue->load($id);
             $template->setTemplateType($queue->getNewsletterType());
@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Preview extends Mage_Adminhtml_Block
         );
 
         $storeId = (int)$this->getRequest()->getParam('store_id');
-        if(!$storeId) {
+        if (!$storeId) {
             $storeId = Mage::app()->getAnyStoreView()->getId();
         }
 
@@ -65,7 +65,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Preview extends Mage_Adminhtml_Block
         $templateProcessed = $template->getProcessedTemplate($vars, true);
         $template->revertDesign();
 
-        if($template->isPlain()) {
+        if ($template->isPlain()) {
             $templateProcessed = "<pre>" . htmlspecialchars($templateProcessed) . "</pre>";
         }
 

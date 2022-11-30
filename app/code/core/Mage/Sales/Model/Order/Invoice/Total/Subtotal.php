@@ -36,7 +36,7 @@ class Mage_Sales_Model_Order_Invoice_Total_Subtotal extends Mage_Sales_Model_Ord
     {
         $subtotal       = 0;
         $baseSubtotal   = 0;
-        $subtotalInclTax= 0;
+        $subtotalInclTax = 0;
         $baseSubtotalInclTax = 0;
 
         $order = $invoice->getOrder();

@@ -84,7 +84,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
 
         if (!$this->getDataObject()->getExistsStoreValueFlag($attributeCode)) {
             return true;
-        } else if ($this->getValue() == $defaultValue &&
+        } elseif ($this->getValue() == $defaultValue &&
                    $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()) {
             return false;
         }

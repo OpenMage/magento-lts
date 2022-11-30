@@ -2,6 +2,7 @@ includes:
     - ../vendor/macopedia/phpstan-magento1/extension.neon
     - phpstan-baseline.neon
 parameters:
+    phpVersion: 80000 # PHP 8.0
     magentoRootPath: %currentWorkingDirectory%
     paths:
          - %currentWorkingDirectory%/app/code/core/Mage

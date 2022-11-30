@@ -25,8 +25,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Select
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Select extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
      * Renders grid column
@@ -39,12 +38,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Select
         $name = $this->getColumn()->getName() ? $this->getColumn()->getName() : $this->getColumn()->getId();
         $html = '<select name="' . $this->escapeHtml($name) . '" ' . $this->getColumn()->getValidateClass() . '>';
         $value = $row->getData($this->getColumn()->getIndex());
-        foreach ($this->getColumn()->getOptions() as $val => $label){
-            $selected = ( ($val == $value && (!is_null($value))) ? ' selected="selected"' : '' );
+        foreach ($this->getColumn()->getOptions() as $val => $label) {
+            $selected = (($val == $value && (!is_null($value))) ? ' selected="selected"' : '');
             $html .= '<option value="' . $this->escapeHtml($val) . '"' . $selected . '>';
             $html .= $this->escapeHtml($label) . '</option>';
         }
-        $html.='</select>';
+        $html .= '</select>';
         return $html;
     }
 }

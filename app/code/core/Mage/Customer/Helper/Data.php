@@ -31,68 +31,68 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Query param name for last url visited
      */
-    const REFERER_QUERY_PARAM_NAME = 'referer';
+    public const REFERER_QUERY_PARAM_NAME = 'referer';
 
     /**
      * Route for customer account login page
      */
-    const ROUTE_ACCOUNT_LOGIN = 'customer/account/login';
+    public const ROUTE_ACCOUNT_LOGIN = 'customer/account/login';
 
     /**
      * Config name for Redirect Customer to Account Dashboard after Logging in setting
      */
-    const XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD = 'customer/startup/redirect_dashboard';
+    public const XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD = 'customer/startup/redirect_dashboard';
 
     /**
      * Config paths to VAT related customer groups
      */
-    const XML_PATH_CUSTOMER_VIV_INTRA_UNION_GROUP = 'customer/create_account/viv_intra_union_group';
-    const XML_PATH_CUSTOMER_VIV_DOMESTIC_GROUP = 'customer/create_account/viv_domestic_group';
-    const XML_PATH_CUSTOMER_VIV_INVALID_GROUP = 'customer/create_account/viv_invalid_group';
-    const XML_PATH_CUSTOMER_VIV_ERROR_GROUP = 'customer/create_account/viv_error_group';
+    public const XML_PATH_CUSTOMER_VIV_INTRA_UNION_GROUP = 'customer/create_account/viv_intra_union_group';
+    public const XML_PATH_CUSTOMER_VIV_DOMESTIC_GROUP = 'customer/create_account/viv_domestic_group';
+    public const XML_PATH_CUSTOMER_VIV_INVALID_GROUP = 'customer/create_account/viv_invalid_group';
+    public const XML_PATH_CUSTOMER_VIV_ERROR_GROUP = 'customer/create_account/viv_error_group';
 
     /**
      * Config path to option that enables/disables automatic group assignment based on VAT
      */
-    const XML_PATH_CUSTOMER_VIV_GROUP_AUTO_ASSIGN = 'customer/create_account/viv_disable_auto_group_assign_default';
+    public const XML_PATH_CUSTOMER_VIV_GROUP_AUTO_ASSIGN = 'customer/create_account/viv_disable_auto_group_assign_default';
 
     /**
      * Config path to support email
      */
-    const XML_PATH_SUPPORT_EMAIL = 'trans_email/ident_support/email';
+    public const XML_PATH_SUPPORT_EMAIL = 'trans_email/ident_support/email';
 
     /**
      * WSDL of VAT validation service
      *
      */
-    const VAT_VALIDATION_WSDL_URL = 'https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl';
+    public const VAT_VALIDATION_WSDL_URL = 'https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl';
 
     /**
      * Configuration path to expiration period of reset password link
      */
-    const XML_PATH_CUSTOMER_RESET_PASSWORD_LINK_EXPIRATION_PERIOD
+    public const XML_PATH_CUSTOMER_RESET_PASSWORD_LINK_EXPIRATION_PERIOD
         = 'default/customer/password/reset_link_expiration_period';
 
     /**
      * Configuration path to require admin password on customer password change
      */
-    const XML_PATH_CUSTOMER_REQUIRE_ADMIN_USER_TO_CHANGE_USER_PASSWORD
+    public const XML_PATH_CUSTOMER_REQUIRE_ADMIN_USER_TO_CHANGE_USER_PASSWORD
         = 'customer/password/require_admin_user_to_change_user_password';
 
     /**
      * Configuration path to password forgotten flow change
      */
-    const XML_PATH_CUSTOMER_FORGOT_PASSWORD_FLOW_SECURE = 'admin/security/forgot_password_flow_secure';
-    const XML_PATH_CUSTOMER_FORGOT_PASSWORD_EMAIL_TIMES = 'admin/security/forgot_password_email_times';
-    const XML_PATH_CUSTOMER_FORGOT_PASSWORD_IP_TIMES    = 'admin/security/forgot_password_ip_times';
+    public const XML_PATH_CUSTOMER_FORGOT_PASSWORD_FLOW_SECURE = 'admin/security/forgot_password_flow_secure';
+    public const XML_PATH_CUSTOMER_FORGOT_PASSWORD_EMAIL_TIMES = 'admin/security/forgot_password_email_times';
+    public const XML_PATH_CUSTOMER_FORGOT_PASSWORD_IP_TIMES    = 'admin/security/forgot_password_ip_times';
 
     /**
      * VAT class constants
      */
-    const VAT_CLASS_DOMESTIC    = 'domestic';
-    const VAT_CLASS_INTRA_UNION = 'intra_union';
-    const VAT_CLASS_INVALID     = 'invalid';
-    const VAT_CLASS_ERROR       = 'error';
+    public const VAT_CLASS_DOMESTIC    = 'domestic';
+    public const VAT_CLASS_INTRA_UNION = 'intra_union';
+    public const VAT_CLASS_INVALID     = 'invalid';
+    public const VAT_CLASS_ERROR       = 'error';
 
     protected $_moduleName = 'Mage_Customer';
 

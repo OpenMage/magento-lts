@@ -163,5 +163,4 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
         }
         return $cell->toHtml();
     }
-
 }

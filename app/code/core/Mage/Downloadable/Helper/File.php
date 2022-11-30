@@ -102,13 +102,13 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
         $ioObject = new Varien_Io_File();
         $destDirectory = dirname($this->getFilePath($basePath, $file));
         try {
-            $ioObject->open(['path'=>$destDirectory]);
+            $ioObject->open(['path' => $destDirectory]);
         } catch (Exception $e) {
             $ioObject->mkdir($destDirectory, 0777, true);
-            $ioObject->open(['path'=>$destDirectory]);
+            $ioObject->open(['path' => $destDirectory]);
         }
 
-        if (strrpos($file, '.tmp') == strlen($file)-4) {
+        if (strrpos($file, '.tmp') == strlen($file) - 4) {
             $file = substr($file, 0, -4);
         }
 
@@ -166,7 +166,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     {
         $file = '';
 
-        $file = substr($pathFile, strrpos($this->_prepareFileForPath($pathFile), DS)+1);
+        $file = substr($pathFile, strrpos($this->_prepareFileForPath($pathFile), DS) + 1);
 
         return $file;
     }
@@ -179,7 +179,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
      */
     public function getFileType($filePath)
     {
-        $ext = substr($filePath, strrpos($filePath, '.')+1);
+        $ext = substr($filePath, strrpos($filePath, '.') + 1);
         return $this->_getFileTypeByExt($ext);
     }
 

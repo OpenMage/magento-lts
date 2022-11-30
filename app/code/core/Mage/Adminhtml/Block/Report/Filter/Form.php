@@ -117,7 +117,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
         );
         $htmlIdPrefix = 'sales_report_';
         $form->setHtmlIdPrefix($htmlIdPrefix);
-        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('reports')->__('Filter')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('reports')->__('Filter')]);
 
         $dateFormatIso = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
 

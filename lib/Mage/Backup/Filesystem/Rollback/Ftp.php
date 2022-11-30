@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Backup
+ * @category   Mage
+ * @package    Mage_Backup
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -21,9 +21,9 @@
 /**
  * Rollback worker for rolling back via ftp
  *
- * @category    Mage
- * @package     Mage_Backup
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Backup
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollback_Abstract
 {
@@ -59,7 +59,7 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
         $this->_cleanupFtp();
         $this->_uploadBackupToFtp($tmpDir);
 
-        $fsHelper->rm($tmpDir, array(), true);
+        $fsHelper->rm($tmpDir, [], true);
     }
 
     /**
@@ -143,7 +143,8 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
         $rootDir = $this->_snapshot->getRootDir();
 
         $filesystemIterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($rootDir), RecursiveIteratorIterator::CHILD_FIRST
+            new RecursiveDirectoryIterator($rootDir),
+            RecursiveIteratorIterator::CHILD_FIRST
         );
 
         $iterator = new Mage_Backup_Filesystem_Iterator_Filter($filesystemIterator, $this->_snapshot->getIgnorePaths());
@@ -165,7 +166,8 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
     protected function _uploadBackupToFtp($tmpDir)
     {
         $filesystemIterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($tmpDir), RecursiveIteratorIterator::SELF_FIRST
+            new RecursiveDirectoryIterator($tmpDir),
+            RecursiveIteratorIterator::SELF_FIRST
         );
 
         $iterator = new Mage_Backup_Filesystem_Iterator_Filter($filesystemIterator, $this->_snapshot->getIgnorePaths());

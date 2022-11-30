@@ -54,8 +54,7 @@ class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbst
 
         //Test cases 1-4, 10
         if ($this->_isLookupStrictSuccessful()) {
-
-           if ($paResStatus == 'Y' && $eciFlag == '02' && $xid != '' && $cavv != '' && $errorNo == '0') {
+            if ($paResStatus == 'Y' && $eciFlag == '02' && $xid != '' && $cavv != '' && $errorNo == '0') {
                 //Test case 1
                 if ($signatureVerification == 'Y') {
                     return true;
@@ -88,7 +87,6 @@ class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbst
             ) {
                 return false;
             }
-
         }
 
         //Test cases 5-9

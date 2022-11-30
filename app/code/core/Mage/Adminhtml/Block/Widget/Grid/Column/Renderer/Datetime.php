@@ -26,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
      * Date format string
@@ -48,8 +47,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime
                     self::$_format = Mage::app()->getLocale()->getDateTimeFormat(
                         Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM
                     );
-                }
-                catch (Exception $e) {
+                } catch (Exception $e) {
                     Mage::logException($e);
                 }
             }
@@ -74,9 +72,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime
                 $data = Mage::app()->getLocale()
                     ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT, $locale, $useTimezone)
                     ->toString($format);
-            }
-            catch (Exception $e)
-            {
+            } catch (Exception $e) {
                 $data = Mage::app()->getLocale()
                     ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
             }

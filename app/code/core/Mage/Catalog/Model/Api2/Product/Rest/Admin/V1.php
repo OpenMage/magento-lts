@@ -31,7 +31,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
     /**
      * The greatest decimal value which could be stored. Corresponds to DECIMAL (12,4) SQL type
      */
-    const MAX_DECIMAL_VALUE = 99999999.9999;
+    public const MAX_DECIMAL_VALUE = 99999999.9999;
 
     /**
      * Add special fields to product get response
