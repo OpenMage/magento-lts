@@ -31,7 +31,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * The greatest decimal value which could be stored. Corresponds to DECIMAL (12,4) SQL type
      */
-    const MAX_DECIMAL_VALUE = 99999999.9999;
+    public const MAX_DECIMAL_VALUE = 99999999.9999;
 
     /**
      * Validator product
@@ -140,7 +140,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         }
         // Validate weight
         if (isset($data['weight']) && !empty($data['weight']) && $data['weight'] > 0
-            && !Zend_Validate::is($data['weight'], 'Between', [0, self::MAX_DECIMAL_VALUE])) {
+            && !Zend_Validate::is($data['weight'], 'Between', [0, self::MAX_DECIMAL_VALUE])
+        ) {
             $this->_addError('The "weight" value is not within the specified range.');
         }
         // msrp_display_actual_price_type attribute values needs to be a string to pass validation
@@ -177,7 +178,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                 // Validate dropdown attributes
                 if ($attribute->usesSource()
                     // skip check when field will be validated later as a required one
-                    && !(empty($value) && $attribute->getIsRequired())) {
+                    && !(empty($value) && $attribute->getIsRequired())
+                ) {
                     $allowedValues = $this->_getAttributeAllowedValues($attribute->getSource()->getAllOptions());
                     if (!is_array($value)) {
                         // make validation of select and multiselect identical
@@ -186,7 +188,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                     foreach ($value as $selectValue) {
                         $useStrictMode = !is_numeric($selectValue);
                         if (!in_array($selectValue, $allowedValues, $useStrictMode)
-                            && !$this->_isConfigValueUsed($data, $attributeCode)) {
+                            && !$this->_isConfigValueUsed($data, $attributeCode)
+                        ) {
                             $this->_addError(sprintf(
                                 'Invalid value "%s" for attribute "%s".',
                                 $selectValue,

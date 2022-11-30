@@ -271,9 +271,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Entity code.
      * Can be used as part of method name for entity processing
      */
-    const ENTITY                 = 'catalog_product';
+    public const ENTITY                 = 'catalog_product';
 
-    const CACHE_TAG              = 'catalog_product';
+    public const CACHE_TAG              = 'catalog_product';
     protected $_cacheTag         = 'catalog_product';
     protected $_eventPrefix      = 'catalog_product';
     protected $_eventObject      = 'product';
@@ -411,9 +411,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function validate()
     {
-        Mage::dispatchEvent($this->_eventPrefix.'_validate_before', [$this->_eventObject=>$this]);
+        Mage::dispatchEvent($this->_eventPrefix . '_validate_before', [$this->_eventObject => $this]);
         $this->_getResource()->validate($this);
-        Mage::dispatchEvent($this->_eventPrefix.'_validate_after', [$this->_eventObject=>$this]);
+        Mage::dispatchEvent($this->_eventPrefix . '_validate_after', [$this->_eventObject => $this]);
         return $this;
     }
 
@@ -836,7 +836,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function cleanCache()
     {
         if ($this->getId()) {
-            Mage::app()->cleanCache('catalog_product_'.$this->getId());
+            Mage::app()->cleanCache('catalog_product_' . $this->getId());
         }
         return $this;
     }
@@ -981,9 +981,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         return $this->_getData('special_to_date');
     }
 
-/*******************************************************************************
- ** Linked products API
- */
+    /*******************************************************************************
+     ** Linked products API
+     */
     /**
      * Retrieve array of related roducts
      *
@@ -1193,9 +1193,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         return $collection;
     }
 
-/*******************************************************************************
- ** Media API
- */
+    /*******************************************************************************
+     ** Media API
+     */
     /**
      * Retrieve attributes for media gallery
      *
@@ -1735,7 +1735,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function delete()
     {
         parent::delete();
-        Mage::dispatchEvent($this->_eventPrefix.'_delete_after_done', [$this->_eventObject=>$this]);
+        Mage::dispatchEvent($this->_eventPrefix . '_delete_after_done', [$this->_eventObject => $this]);
         return $this;
     }
 
@@ -1893,7 +1893,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $product = $product ? $product : $this;
         $option = Mage::getModel('catalog/product_configuration_item_option')
             ->addData([
-                'product_id'=> $product->getId(),
+                'product_id' => $product->getId(),
                 'product'   => $product,
                 'code'      => $code,
                 'value'     => $value,
@@ -2100,7 +2100,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $tags = $this->getCacheTags();
         $affectedCategoryIds = $this->_getResource()->getCategoryIdsWithAnchors($this);
         foreach ($affectedCategoryIds as $categoryId) {
-            $tags[] = Mage_Catalog_Model_Category::CACHE_TAG.'_'.$categoryId;
+            $tags[] = Mage_Catalog_Model_Category::CACHE_TAG . '_' . $categoryId;
         }
         return $tags;
     }

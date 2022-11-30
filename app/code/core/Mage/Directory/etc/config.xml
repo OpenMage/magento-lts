@@ -17,7 +17,7 @@
  * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php s+Academic Free License (AFL 3.0)
+ * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -35,7 +35,7 @@
                         <model>directory/currency_import_currencyconverterapi</model>
                     </currencyconverterapi>
                     <fixerio>
-                        <name>Fixer.IO</name>
+                        <name>Fixer API / Apilayer.com</name>
                         <model>directory/currency_import_fixerio</model>
                     </fixerio>
                     <webservicex>

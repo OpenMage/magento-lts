@@ -51,14 +51,14 @@ class Mage_Api_Model_Server_V2_Adapter_Soap extends Mage_Api_Model_Server_Adapte
         if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
             $this->wsdlConfig->setHandler($this->getHandler())
                 ->init();
-            
+
             $this->getController()->getResponse()
                 ->clearHeaders()
-                ->setHeader('Content-Type', 'text/xml; charset='.$apiConfigCharset)
+                ->setHeader('Content-Type', 'text/xml; charset=' . $apiConfigCharset)
                 ->setBody(
                     preg_replace(
                         '/<\?xml version="([^\"]+)"([^\>]+)>/i',
-                        '<?xml version="$1" encoding="'.$apiConfigCharset.'"?>',
+                        '<?xml version="$1" encoding="' . $apiConfigCharset . '"?>',
                         $this->wsdlConfig->getWsdlContent()
                     )
                 );

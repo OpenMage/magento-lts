@@ -62,7 +62,7 @@ foreach ($states as $code => $info) {
             $data[] = [
                 'status'    => $status,
                 'state'     => $code,
-                'is_default'=> is_array($statusInfo) && isset($statusInfo['@']['default']) ? 1 : 0
+                'is_default' => is_array($statusInfo) && isset($statusInfo['@']['default']) ? 1 : 0
             ];
         }
     }

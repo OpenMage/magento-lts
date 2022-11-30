@@ -126,7 +126,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
                 $increment_id = $shipment->getIncrementId();
                 $tracks = $shipment->getTracksCollection();
 
-                $trackingInfos= [];
+                $trackingInfos = [];
                 foreach ($tracks as $track) {
                     $trackingInfos[] = $track->getNumberDetail();
                 }
@@ -150,7 +150,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
             $increment_id = $shipment->getIncrementId();
             $tracks = $shipment->getTracksCollection();
 
-            $trackingInfos= [];
+            $trackingInfos = [];
             foreach ($tracks as $track) {
                 $trackingInfos[] = $track->getNumberDetail();
             }

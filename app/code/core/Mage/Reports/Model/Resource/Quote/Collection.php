@@ -28,7 +28,7 @@
  */
 class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Resource_Quote_Collection
 {
-    const SELECT_COUNT_SQL_TYPE_CART = 1;
+    public const SELECT_COUNT_SQL_TYPE_CART = 1;
 
     protected $_selectCountSqlType = 0;
 
@@ -129,7 +129,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
             ->joinInner(
                 ['product_name' => $productAttrNameTable],
                 "product_name.entity_id = e.entity_id AND product_name.attribute_id = {$productAttrNameId}",
-                ['name'=>'product_name.value']
+                ['name' => 'product_name.value']
             )
             ->joinInner(
                 ['product_price' => $productAttrPriceTable],

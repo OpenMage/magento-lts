@@ -29,12 +29,12 @@ class Mage_Shipping_Model_Shipping
     /**
      * Store address
      */
-    const XML_PATH_STORE_ADDRESS1     = 'shipping/origin/street_line1';
-    const XML_PATH_STORE_ADDRESS2     = 'shipping/origin/street_line2';
-    const XML_PATH_STORE_CITY         = 'shipping/origin/city';
-    const XML_PATH_STORE_REGION_ID    = 'shipping/origin/region_id';
-    const XML_PATH_STORE_ZIP          = 'shipping/origin/postcode';
-    const XML_PATH_STORE_COUNTRY_ID   = 'shipping/origin/country_id';
+    public const XML_PATH_STORE_ADDRESS1     = 'shipping/origin/street_line1';
+    public const XML_PATH_STORE_ADDRESS2     = 'shipping/origin/street_line2';
+    public const XML_PATH_STORE_CITY         = 'shipping/origin/city';
+    public const XML_PATH_STORE_REGION_ID    = 'shipping/origin/region_id';
+    public const XML_PATH_STORE_ZIP          = 'shipping/origin/postcode';
+    public const XML_PATH_STORE_COUNTRY_ID   = 'shipping/origin/country_id';
 
     /**
      * Default shipping orig for requests
@@ -411,10 +411,10 @@ class Mage_Shipping_Model_Shipping
      */
     public function getCarrierByCode($carrierCode, $storeId = null)
     {
-        if (!Mage::getStoreConfigFlag('carriers/'.$carrierCode.'/'.$this->_availabilityConfigField, $storeId)) {
+        if (!Mage::getStoreConfigFlag('carriers/' . $carrierCode . '/' . $this->_availabilityConfigField, $storeId)) {
             return false;
         }
-        $className = Mage::getStoreConfig('carriers/'.$carrierCode.'/model', $storeId);
+        $className = Mage::getStoreConfig('carriers/' . $carrierCode . '/model', $storeId);
         if (!$className) {
             return false;
         }

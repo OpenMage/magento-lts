@@ -28,7 +28,6 @@
  */
 class Mage_Catalog_Model_Product_Option_Api_V2 extends Mage_Catalog_Model_Product_Option_Api
 {
-
     /**
      * Add custom option to product
      *

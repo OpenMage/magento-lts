@@ -12,11 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Magento
- * @package     Magento_Autoload
+ * @category   Magento
+ * @package    Magento_Autoload
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 namespace Magento\Autoload;
 
 class IncludePath
@@ -24,7 +25,7 @@ class IncludePath
     /**
      * Namespaces separator
      */
-    const NS_SEPARATOR = '\\';
+    public const NS_SEPARATOR = '\\';
 
     /**
      * Find a file in include path

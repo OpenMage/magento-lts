@@ -26,20 +26,19 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
-    extends Mage_Adminhtml_Controller_Action
+class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController extends Mage_Adminhtml_Controller_Action
 {
     /**
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'customer/manage';
+    public const ADMIN_RESOURCE = 'customer/manage';
 
-     /**
-     * Wishlist we're working with
-     *
-     * @var Mage_Wishlist_Model_Wishlist
-     */
+    /**
+    * Wishlist we're working with
+    *
+    * @var Mage_Wishlist_Model_Wishlist
+    */
     protected $_wishlist = null;
 
     /**

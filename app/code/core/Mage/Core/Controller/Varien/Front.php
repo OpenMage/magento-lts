@@ -41,7 +41,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
     protected $_urlCache = [];
 
-    const XML_STORE_ROUTERS_PATH = 'web/routers';
+    public const XML_STORE_ROUTERS_PATH = 'web/routers';
 
     /**
      * @param array|string $key
@@ -134,7 +134,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      */
     public function init()
     {
-        Mage::dispatchEvent('controller_front_init_before', ['front'=>$this]);
+        Mage::dispatchEvent('controller_front_init_before', ['front' => $this]);
 
         $routersInfo = Mage::app()->getStore()->getConfig(self::XML_STORE_ROUTERS_PATH);
 
@@ -145,7 +145,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             }
             if (isset($routerInfo['class'])) {
                 /** @var Mage_Core_Controller_Varien_Router_Standard $router */
-                $router = new $routerInfo['class'];
+                $router = new $routerInfo['class']();
                 if (isset($routerInfo['area'])) {
                     $router->collectRoutes($routerInfo['area'], $routerCode);
                 }
@@ -154,7 +154,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         }
         Varien_Profiler::stop('mage::app::init_front_controller::collect_routers');
 
-        Mage::dispatchEvent('controller_front_init_routers', ['front'=>$this]);
+        Mage::dispatchEvent('controller_front_init_routers', ['front' => $this]);
 
         // Add default router at the last
         $default = new Mage_Core_Controller_Varien_Router_Default();
@@ -191,15 +191,15 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             }
         }
         Varien_Profiler::stop('mage::dispatch::routers_match');
-        if ($i>100) {
+        if ($i > 100) {
             Mage::throwException('Front controller reached 100 router match iterations');
         }
         // This event gives possibility to launch something before sending output (allow cookie setting)
-        Mage::dispatchEvent('controller_front_send_response_before', ['front'=>$this]);
+        Mage::dispatchEvent('controller_front_send_response_before', ['front' => $this]);
         Varien_Profiler::start('mage::app::dispatch::send_response');
         $this->getResponse()->sendResponse();
         Varien_Profiler::stop('mage::app::dispatch::send_response');
-        Mage::dispatchEvent('controller_front_send_response_after', ['front'=>$this]);
+        Mage::dispatchEvent('controller_front_send_response_after', ['front' => $this]);
         return $this;
     }
 
@@ -310,13 +310,13 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     protected function _processRewriteUrl($url)
     {
         $startPos = strpos($url, '{');
-        if ($startPos!==false) {
+        if ($startPos !== false) {
             $endPos = strpos($url, '}');
-            $routeName = substr($url, $startPos+1, $endPos-$startPos-1);
+            $routeName = substr($url, $startPos + 1, $endPos - $startPos - 1);
             $router = $this->getRouterByRoute($routeName);
             if ($router) {
                 $fronName = $router->getFrontNameByRoute($routeName);
-                $url = str_replace('{'.$routeName.'}', $fronName, $url);
+                $url = str_replace('{' . $routeName . '}', $fronName, $url);
             }
         }
         return $url;

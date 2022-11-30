@@ -34,10 +34,10 @@ class Mage_Paypal_Model_Cart
      *
      * @var string
      */
-    const TOTAL_SUBTOTAL = 'subtotal';
-    const TOTAL_DISCOUNT = 'discount';
-    const TOTAL_TAX      = 'tax';
-    const TOTAL_SHIPPING = 'shipping';
+    public const TOTAL_SUBTOTAL = 'subtotal';
+    public const TOTAL_DISCOUNT = 'discount';
+    public const TOTAL_TAX      = 'tax';
+    public const TOTAL_SHIPPING = 'shipping';
 
     /**
      * Order or quote instance
@@ -116,7 +116,8 @@ class Mage_Paypal_Model_Cart
     {
         $salesEntity = array_shift($params);
         if (is_object($salesEntity)
-            && (($salesEntity instanceof Mage_Sales_Model_Order) || ($salesEntity instanceof Mage_Sales_Model_Quote))) {
+            && (($salesEntity instanceof Mage_Sales_Model_Order) || ($salesEntity instanceof Mage_Sales_Model_Quote))
+        ) {
             $this->_salesEntity = $salesEntity;
         } else {
             throw new Exception('Invalid sales entity provided.');
@@ -322,13 +323,19 @@ class Mage_Paypal_Model_Cart
 
         // discount, shipping as items
         if ($this->_isDiscountAsItem && $this->_totals[self::TOTAL_DISCOUNT]) {
-            $this->addItem(Mage::helper('paypal')->__('Discount'), 1, -1.00 * $this->_totals[self::TOTAL_DISCOUNT],
+            $this->addItem(
+                Mage::helper('paypal')->__('Discount'),
+                1,
+                -1.00 * $this->_totals[self::TOTAL_DISCOUNT],
                 $this->_renderTotalLineItemDescriptions(self::TOTAL_DISCOUNT)
             );
         }
         $shippingItemId = $this->_renderTotalLineItemDescriptions(self::TOTAL_SHIPPING, $shippingDescription);
         if ($this->_isShippingAsItem && (float)$this->_totals[self::TOTAL_SHIPPING]) {
-            $this->addItem(Mage::helper('paypal')->__('Shipping'), 1, (float)$this->_totals[self::TOTAL_SHIPPING],
+            $this->addItem(
+                Mage::helper('paypal')->__('Shipping'),
+                1,
+                (float)$this->_totals[self::TOTAL_SHIPPING],
                 $shippingItemId
             );
         }
@@ -435,7 +442,7 @@ class Mage_Paypal_Model_Cart
         if ($this->_salesEntity instanceof Mage_Sales_Model_Order) {
             $qty = (int) $salesItem->getQtyOrdered();
             $amount = (float) $salesItem->getBasePrice();
-            // TODO: nominal item for order
+        // TODO: nominal item for order
         } else {
             $qty = (int) $salesItem->getTotalQty();
             $amount = $salesItem->isNominal() ? 0 : (float) $salesItem->getBaseCalculationPrice();

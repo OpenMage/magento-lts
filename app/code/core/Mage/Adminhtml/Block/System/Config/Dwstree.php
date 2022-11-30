@@ -48,41 +48,41 @@ class Mage_Adminhtml_Block_System_Config_Dwstree extends Mage_Adminhtml_Block_Wi
 
         $this->addTab('default', [
             'label'  => Mage::helper('adminhtml')->__('Default Config'),
-            'url'    => $this->getUrl('*/*/*', ['section'=>$section]),
+            'url'    => $this->getUrl('*/*/*', ['section' => $section]),
             'class' => 'default',
         ]);
 
-        foreach ($websitesConfig->children() as $wCode=>$wConfig) {
+        foreach ($websitesConfig->children() as $wCode => $wConfig) {
             $wName = (string)$wConfig->descend('system/website/name');
-            $wUrl = $this->getUrl('*/*/*', ['section'=>$section, 'website'=>$wCode]);
-            $this->addTab('website_'.$wCode, [
+            $wUrl = $this->getUrl('*/*/*', ['section' => $section, 'website' => $wCode]);
+            $this->addTab('website_' . $wCode, [
                 'label' => $wName,
                 'url'   => $wUrl,
                 'class' => 'website',
             ]);
-            if ($curWebsite===$wCode) {
+            if ($curWebsite === $wCode) {
                 if ($curStore) {
                     $this->_addBreadcrumb($wName, '', $wUrl);
                 } else {
                     $this->_addBreadcrumb($wName);
                 }
             }
-            foreach ($wConfig->descend('system/stores')->children() as $sCode=>$sId) {
-                $sName = (string)$storesConfig->descend($sCode.'/system/store/name');
-                $this->addTab('store_'.$sCode, [
+            foreach ($wConfig->descend('system/stores')->children() as $sCode => $sId) {
+                $sName = (string)$storesConfig->descend($sCode . '/system/store/name');
+                $this->addTab('store_' . $sCode, [
                     'label' => $sName,
-                    'url'   => $this->getUrl('*/*/*', ['section'=>$section, 'website'=>$wCode, 'store'=>$sCode]),
+                    'url'   => $this->getUrl('*/*/*', ['section' => $section, 'website' => $wCode, 'store' => $sCode]),
                     'class' => 'store',
                 ]);
-                if ($curStore===$sCode) {
+                if ($curStore === $sCode) {
                     $this->_addBreadcrumb($sName);
                 }
             }
         }
         if ($curStore) {
-            $this->setActiveTab('store_'.$curStore);
+            $this->setActiveTab('store_' . $curStore);
         } elseif ($curWebsite) {
-            $this->setActiveTab('website_'.$curWebsite);
+            $this->setActiveTab('website_' . $curWebsite);
         } else {
             $this->setActiveTab('default');
         }

@@ -17,13 +17,13 @@
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2018 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php s+Academic Free License (AFL 3.0)
+ * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Admin>
-            <version>1.6.1.3</version>
+            <version>1.6.1.4</version>
         </Mage_Admin>
     </modules>
     <global>

@@ -30,12 +30,12 @@
  */
 class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
 {
-    const XML_PATH_LAYOUT_DISALLOWED_BLOCKS       = 'validators/custom_layout/disallowed_block';
-    const XML_INVALID                             = 'invalidXml';
-    const INVALID_TEMPLATE_PATH                   = 'invalidTemplatePath';
-    const INVALID_BLOCK_NAME                      = 'invalidBlockName';
-    const PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR = 'protectedAttrHelperInActionVar';
-    const INVALID_XML_OBJECT_EXCEPTION            = 'invalidXmlObject';
+    public const XML_PATH_LAYOUT_DISALLOWED_BLOCKS       = 'validators/custom_layout/disallowed_block';
+    public const XML_INVALID                             = 'invalidXml';
+    public const INVALID_TEMPLATE_PATH                   = 'invalidTemplatePath';
+    public const INVALID_BLOCK_NAME                      = 'invalidBlockName';
+    public const PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR = 'protectedAttrHelperInActionVar';
+    public const INVALID_XML_OBJECT_EXCEPTION            = 'invalidXmlObject';
 
     /**
      * The Varien SimpleXml object

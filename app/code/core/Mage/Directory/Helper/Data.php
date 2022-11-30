@@ -31,17 +31,17 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Config value that lists ISO2 country codes which have optional Zip/Postal pre-configured
      */
-    const OPTIONAL_ZIP_COUNTRIES_CONFIG_PATH = 'general/country/optional_zip_countries';
+    public const OPTIONAL_ZIP_COUNTRIES_CONFIG_PATH = 'general/country/optional_zip_countries';
 
     /**
      * Path to config value, which lists countries, for which state is required.
      */
-    const XML_PATH_STATES_REQUIRED = 'general/region/state_required';
+    public const XML_PATH_STATES_REQUIRED = 'general/region/state_required';
 
     /**
      * Path to config value, which detects whether or not display the state for the country, if it is not required
      */
-    const XML_PATH_DISPLAY_ALL_STATES = 'general/region/display_all';
+    public const XML_PATH_DISPLAY_ALL_STATES = 'general/region/display_all';
 
     protected $_moduleName = 'Mage_Directory';
 
@@ -157,7 +157,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getRegionJsonByStore($storeId = null)
     {
-        Varien_Profiler::start('TEST: '.__METHOD__);
+        Varien_Profiler::start('TEST: ' . __METHOD__);
         if (!$this->_regionJson) {
             $store = $this->_app->getStore($storeId);
             $cacheKey = 'DIRECTORY_REGIONS_JSON_STORE' . (string)$store->getId();
@@ -297,7 +297,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getShowNonRequiredState()
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_DISPLAY_ALL_STATES);
+        return Mage::getStoreConfigFlag(self::XML_PATH_DISPLAY_ALL_STATES);
     }
 
     /**

@@ -43,7 +43,7 @@ class Mage_SalesRule_Model_Rule_Action_Collection extends Mage_Rule_Model_Action
     {
         $actions = parent::getNewChildSelectOptions();
         $actions = array_merge_recursive($actions, [
-            ['value'=>'salesrule/rule_action_product', 'label'=>Mage::helper('salesrule')->__('Update the Product')],
+            ['value' => 'salesrule/rule_action_product', 'label' => Mage::helper('salesrule')->__('Update the Product')],
         ]);
         return $actions;
     }

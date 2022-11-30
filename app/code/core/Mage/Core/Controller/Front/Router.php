@@ -51,9 +51,9 @@ class Mage_Core_Controller_Front_Router
     public function addRoutes(Zend_Controller_Router_Interface $router)
     {
         $frontName = $this->_config->getName();
-        $routeMatch = $frontName.'/:controller/:action/*';
+        $routeMatch = $frontName . '/:controller/:action/*';
         $moduleName = (string)$this->_config->module;
-        $routeParams = ['module'=>$moduleName, 'controller'=>'index', 'action'=>'index', '_frontName'=>$frontName];
+        $routeParams = ['module' => $moduleName, 'controller' => 'index', 'action' => 'index', '_frontName' => $frontName];
         $route = new Zend_Controller_Router_Route($routeMatch, $routeParams);
         $router->addRoute($moduleName, $route);
 
@@ -66,38 +66,38 @@ class Mage_Core_Controller_Front_Router
      */
     public function getUrl($params = [])
     {
-        static $reservedKeys = ['module'=>1, 'controller'=>1, 'action'=>1, 'array'=>1];
+        static $reservedKeys = ['module' => 1, 'controller' => 1, 'action' => 1, 'array' => 1];
 
         if (is_string($params)) {
             $paramsArr = explode('/', $params);
-            $params = ['controller'=>$paramsArr[0], 'action'=>$paramsArr[1]];
+            $params = ['controller' => $paramsArr[0], 'action' => $paramsArr[1]];
         }
 
         $url = Mage::getBaseUrl($params);
 
         if (!empty($params['frontName'])) {
-            $url .= $params['frontName'].'/';
+            $url .= $params['frontName'] . '/';
         } else {
-            $url .= $this->_config->getName().'/';
+            $url .= $this->_config->getName() . '/';
         }
 
         if (!empty($params)) {
             $paramsStr = '';
             foreach ($params as $key => $value) {
                 if (!isset($reservedKeys[$key]) && $key[0] !== '_' && !empty($value)) {
-                    $paramsStr .= $key.'/'.$value.'/';
+                    $paramsStr .= $key . '/' . $value . '/';
                 }
             }
 
             if (empty($params['controller']) && !empty($paramsStr)) {
                 $params['controller'] = 'index';
             }
-            $url .= empty($params['controller']) ? '' : $params['controller'].'/';
+            $url .= empty($params['controller']) ? '' : $params['controller'] . '/';
 
             if (empty($params['action']) && !empty($paramsStr)) {
                 $params['action'] = 'index';
             }
-            $url .= empty($params['action']) ? '' : $params['action'].'/';
+            $url .= empty($params['action']) ? '' : $params['action'] . '/';
 
             $url .= $paramsStr;
 

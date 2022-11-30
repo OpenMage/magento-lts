@@ -31,7 +31,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Amount of categories to be processed in batch
      */
-    const CATEGORY_BATCH = 500;
+    public const CATEGORY_BATCH = 500;
 
     /**
      * Store id
@@ -331,12 +331,12 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             foreach ($children[$path] as $child) {
                 $childrenNodes = $parent->getChildrenNodes();
                 if ($childrenNodes && isset($childrenNodes[$child->getId()])) {
-                    $childrenNodes[$child['entity_id']]->setChildrenNodes([$child->getId()=>$child]);
+                    $childrenNodes[$child['entity_id']]->setChildrenNodes([$child->getId() => $child]);
                 } else {
                     if ($childrenNodes) {
                         $childrenNodes[$child->getId()] = $child;
                     } else {
-                        $childrenNodes = [$child->getId()=>$child];
+                        $childrenNodes = [$child->getId() => $child];
                     }
                     $parent->setChildrenNodes($childrenNodes);
                 }
@@ -583,7 +583,8 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             foreach ($this->_columns as $fieldName => $fieldProp) {
                 $default = $fieldProp['default'];
                 if ($fieldProp['type'][0] == Varien_Db_Ddl_Table::TYPE_TIMESTAMP
-                    && $default === 'CURRENT_TIMESTAMP') {
+                    && $default === 'CURRENT_TIMESTAMP'
+                ) {
                     $default = Varien_Db_Ddl_Table::TIMESTAMP_INIT;
                 }
                 $table->addColumn($fieldName, $fieldProp['type'][0], $fieldProp['type'][1], [
@@ -680,6 +681,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     } else {
                         break;
                     }
+                    // no break
                 case Varien_Db_Ddl_Table::TYPE_DECIMAL:
                     $options = $column['PRECISION'] . ',' . $column['SCALE'];
                     $_is_unsigned = null;
@@ -796,7 +798,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     $this->getTable('eav/attribute'),
                     $this->getTable('eav/attribute')
                         . '.entity_type_id = ' . $this->getTable('eav/entity_type') . '.entity_type_id',
-                    $this->getTable('eav/attribute').'.*'
+                    $this->getTable('eav/attribute') . '.*'
                 )
                 ->where(
                     $this->getTable('eav/entity_type') . '.entity_type_code = ?',
@@ -1123,7 +1125,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
                 $update = "UPDATE {$mainStoreTable}, {$catalogCategoryTable} SET";
                 foreach ($_staticFields as $field) {
-                    $update .= " {$mainStoreTable}.".$field."={$catalogCategoryTable}.".$field.",";
+                    $update .= " {$mainStoreTable}." . $field . "={$catalogCategoryTable}." . $field . ",";
                 }
                 $update = substr($update, 0, -1);
                 $update .= " WHERE {$mainStoreTable}.entity_id = {$catalogCategoryTable}.entity_id AND " .
@@ -1230,7 +1232,8 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $select = $this->_getReadAdapter()->select()
             ->from(
                 $this->getTable('catalog/category_product'),
-                ['product_id', 'position'])
+                ['product_id', 'position']
+            )
             ->where('category_id = :category_id');
         $bind = ['category_id' => (int)$category->getId()];
         return $this->_getReadAdapter()->fetchPairs($select, $bind);
@@ -1337,7 +1340,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $select = $this->_getReadAdapter()->select()
             ->from($maintable, 'entity_id')
             ->where('path LIKE ?', "{$category->getPath()}/%")
-            ->order($maintable.".position ASC");
+            ->order($maintable . ".position ASC");
         if (!$recursive) {
             $select->where('level <= ?', $category->getLevel() + 1);
         }

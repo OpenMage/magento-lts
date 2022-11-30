@@ -54,19 +54,19 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      *
      * @var string
      */
-    const BUY_REQUEST_START_DATETIME = 'recurring_profile_start_datetime';
-    const PRODUCT_OPTIONS_KEY = 'recurring_profile_options';
+    public const BUY_REQUEST_START_DATETIME = 'recurring_profile_start_datetime';
+    public const PRODUCT_OPTIONS_KEY = 'recurring_profile_options';
 
     /**
      * Period units
      *
      * @var string
      */
-    const PERIOD_UNIT_DAY = 'day';
-    const PERIOD_UNIT_WEEK = 'week';
-    const PERIOD_UNIT_SEMI_MONTH = 'semi_month';
-    const PERIOD_UNIT_MONTH = 'month';
-    const PERIOD_UNIT_YEAR = 'year';
+    public const PERIOD_UNIT_DAY = 'day';
+    public const PERIOD_UNIT_WEEK = 'week';
+    public const PERIOD_UNIT_SEMI_MONTH = 'semi_month';
+    public const PERIOD_UNIT_MONTH = 'month';
+    public const PERIOD_UNIT_YEAR = 'year';
 
     /**
      * Errors collected during validation
@@ -543,7 +543,8 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         // unset redundant values, if empty
         foreach (['schedule_description',
             'suspension_threshold', 'bill_failed_later', 'period_frequency', 'period_max_cycles', 'reference_id',
-            'trial_period_unit', 'trial_period_frequency', 'trial_period_max_cycles', 'init_may_fail'] as $key) {
+            'trial_period_unit', 'trial_period_frequency', 'trial_period_max_cycles', 'init_may_fail'] as $key
+        ) {
             if ($this->hasData($key) && (!$this->getData($key) || $this->getData($key) == '0')) {
                 $this->unsetData($key);
             }
@@ -551,7 +552,8 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
 
         // cast amounts
         foreach ([
-            'billing_amount', 'trial_billing_amount', 'shipping_amount', 'tax_amount', 'init_amount'] as $key) {
+            'billing_amount', 'trial_billing_amount', 'shipping_amount', 'tax_amount', 'init_amount'] as $key
+        ) {
             if ($this->hasData($key)) {
                 if (!$this->getData($key) || $this->getData($key) == 0) {
                     $this->unsetData($key);

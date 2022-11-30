@@ -30,41 +30,41 @@
  */
 class Mage_Core_Model_App
 {
-    const XML_PATH_INSTALL_DATE = 'global/install/date';
+    public const XML_PATH_INSTALL_DATE = 'global/install/date';
 
-    const XML_PATH_SKIP_PROCESS_MODULES_UPDATES = 'global/skip_process_modules_updates';
+    public const XML_PATH_SKIP_PROCESS_MODULES_UPDATES = 'global/skip_process_modules_updates';
 
     /**
      * if this node set to true, we will ignore Developer Mode for applying updates
      */
-    const XML_PATH_IGNORE_DEV_MODE = 'global/skip_process_modules_updates_ignore_dev_mode';
+    public const XML_PATH_IGNORE_DEV_MODE = 'global/skip_process_modules_updates_ignore_dev_mode';
 
-    const DEFAULT_ERROR_HANDLER = 'mageCoreErrorHandler';
+    public const DEFAULT_ERROR_HANDLER = 'mageCoreErrorHandler';
 
-    const DISTRO_LOCALE_CODE = 'en_US';
+    public const DISTRO_LOCALE_CODE = 'en_US';
 
     /**
      * Cache tag for all cache data exclude config cache
      *
      */
-    const CACHE_TAG = 'MAGE';
+    public const CACHE_TAG = 'MAGE';
 
     /**
      * Default store Id (for install)
      */
-    const DISTRO_STORE_ID       = 1;
+    public const DISTRO_STORE_ID       = 1;
 
     /**
      * Default store code (for install)
      *
      */
-    const DISTRO_STORE_CODE     = 'default';
+    public const DISTRO_STORE_CODE     = 'default';
 
     /**
      * Admin store Id
      *
      */
-    const ADMIN_STORE_ID = 0;
+    public const ADMIN_STORE_ID = 0;
 
     /**
      * The absolute minimum of password length for all types of passwords
@@ -80,7 +80,7 @@ class Mage_Core_Model_App
      * 4. maybe, the value of deprecated `const MIN_PASSWORD_LENGTH` in `app/code/core/Mage/Admin/Model/User.php`,
      *    (if the absolute minimum of password length is higher then this value).
      */
-    const ABSOLUTE_MIN_PASSWORD_LENGTH = 7;
+    public const ABSOLUTE_MIN_PASSWORD_LENGTH = 7;
 
     /**
      * Application loaded areas array
@@ -272,7 +272,7 @@ class Mage_Core_Model_App
     {
         $this->_initEnvironment();
         if (is_string($options)) {
-            $options = ['etc_dir'=>$options];
+            $options = ['etc_dir' => $options];
         }
 
         Varien_Profiler::start('mage::app::init::config');
@@ -589,13 +589,16 @@ class Mage_Core_Model_App
         $store = $this->getCookie()->get(Mage_Core_Model_Store::COOKIE_NAME);
         if ($store && isset($this->_stores[$store])
             && $this->_stores[$store]->getId()
-            && $this->_stores[$store]->getIsActive()) {
+            && $this->_stores[$store]->getIsActive()
+        ) {
             if ($type == 'website'
-                && $this->_stores[$store]->getWebsiteId() == $this->_stores[$this->_currentStore]->getWebsiteId()) {
+                && $this->_stores[$store]->getWebsiteId() == $this->_stores[$this->_currentStore]->getWebsiteId()
+            ) {
                 $this->_currentStore = $store;
             }
             if ($type == 'group'
-                && $this->_stores[$store]->getGroupId() == $this->_stores[$this->_currentStore]->getGroupId()) {
+                && $this->_stores[$store]->getGroupId() == $this->_stores[$this->_currentStore]->getGroupId()
+            ) {
                 $this->_currentStore = $store;
             }
             if ($type == 'store') {
@@ -980,9 +983,9 @@ class Mage_Core_Model_App
                     throw Mage::exception('Mage_Core', 'Invalid website id requested.');
                 }
             } elseif (is_string($id)) {
-                $websiteConfig = $this->_config->getNode('websites/'.$id);
+                $websiteConfig = $this->_config->getNode('websites/' . $id);
                 if (!$websiteConfig) {
-                    throw Mage::exception('Mage_Core', 'Invalid website code requested: '.$id);
+                    throw Mage::exception('Mage_Core', 'Invalid website code requested: ' . $id);
                 }
                 $website->loadConfig($id);
             }
@@ -1162,7 +1165,7 @@ class Mage_Core_Model_App
      * Loading cache data
      *
      * @param   string $id
-     * @return  mixed
+     * @return  string|false
      */
     public function loadCache($id)
     {
@@ -1249,7 +1252,7 @@ class Mage_Core_Model_App
      */
     public function cleanAllSessions()
     {
-        if (session_module_name()=='files') {
+        if (session_module_name() == 'files') {
             $dir = session_save_path();
             mageDelTree($dir);
         }
@@ -1345,7 +1348,7 @@ class Mage_Core_Model_App
                     $observers[$obsName] = [
                         'type'  => (string)$obsConfig->type,
                         'model' => $obsConfig->class ? (string)$obsConfig->class : $obsConfig->getClassName(),
-                        'method'=> (string)$obsConfig->method,
+                        'method' => (string)$obsConfig->method,
                         'args'  => (array)$obsConfig->args,
                     ];
                 }
@@ -1361,8 +1364,8 @@ class Mage_Core_Model_App
             }
 
             foreach ($events[$eventName]['observers'] as $obsName => $obs) {
-                $observer->setData(['event'=>$event]);
-                Varien_Profiler::start('OBSERVER: '.$obsName);
+                $observer->setData(['event' => $event]);
+                Varien_Profiler::start('OBSERVER: ' . $obsName);
                 switch ($obs['type']) {
                     case 'disabled':
                         break;
@@ -1380,7 +1383,7 @@ class Mage_Core_Model_App
                         $this->_callObserverMethod($object, $method, $observer, $obsName);
                         break;
                 }
-                Varien_Profiler::stop('OBSERVER: '.$obsName);
+                Varien_Profiler::stop('OBSERVER: ' . $obsName);
             }
         }
         return $this;
@@ -1567,7 +1570,7 @@ class Mage_Core_Model_App
      */
     public function getUseCacheFilename()
     {
-        return $this->_config->getOptions()->getEtcDir().DS.'use_cache.ser';
+        return $this->_config->getOptions()->getEtcDir() . DS . 'use_cache.ser';
     }
 
     /**

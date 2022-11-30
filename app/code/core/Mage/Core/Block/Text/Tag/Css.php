@@ -26,8 +26,8 @@
  * @package    Mage_Core
  * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @method Mage_Core_Block_Text_Tag_Css setTagName(string $value)
- * @method Mage_Core_Block_Text_Tag_Css setTagParams(array $value)
+ * @method $this setTagName(string $value)
+ * @method $this setTagParams(array $value)
  */
 class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
 {
@@ -35,7 +35,7 @@ class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
     {
         parent::_construct();
         $this->setTagName('link');
-        $this->setTagParams(['rel'=>'stylesheet', 'type'=>'text/css', 'media'=>'all']);
+        $this->setTagParams(['rel' => 'stylesheet', 'type' => 'text/css', 'media' => 'all']);
     }
 
     /**
@@ -49,7 +49,7 @@ class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
         if (empty($type)) {
             $type = 'skin';
         }
-        $url = Mage::getBaseUrl($type).$href;
+        $url = Mage::getBaseUrl($type) . $href;
 
         return $this->setTagParam('href', $url);
     }

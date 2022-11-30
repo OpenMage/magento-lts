@@ -92,7 +92,6 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
      */
     public function getEscapedValue($index = null)
     {
-
         if ($this->getFormat() && $this->getValue()) {
             return strftime($this->getFormat(), strtotime($this->getValue()));
         }

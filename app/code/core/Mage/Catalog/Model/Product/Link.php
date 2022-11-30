@@ -29,18 +29,18 @@
  * @method Mage_Catalog_Model_Resource_Product_Link _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Link getResource()
  * @method int getProductId()
- * @method Mage_Catalog_Model_Product_Link setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method int getLinkedProductId()
- * @method Mage_Catalog_Model_Product_Link setLinkedProductId(int $value)
+ * @method $this setLinkedProductId(int $value)
  * @method int getLinkTypeId()
- * @method Mage_Catalog_Model_Product_Link setLinkTypeId(int $value)
+ * @method $this setLinkTypeId(int $value)
  */
 class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
 {
-    const LINK_TYPE_RELATED     = 1;
-    const LINK_TYPE_GROUPED     = 3;
-    const LINK_TYPE_UPSELL      = 4;
-    const LINK_TYPE_CROSSSELL   = 5;
+    public const LINK_TYPE_RELATED     = 1;
+    public const LINK_TYPE_GROUPED     = 3;
+    public const LINK_TYPE_UPSELL      = 4;
+    public const LINK_TYPE_CROSSSELL   = 5;
 
     protected $_attributeCollection = null;
 

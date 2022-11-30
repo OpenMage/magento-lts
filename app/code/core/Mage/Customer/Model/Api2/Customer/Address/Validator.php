@@ -31,7 +31,7 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
     /**
      * Separator for multistreet
      */
-    const STREET_SEPARATOR = '; ';
+    public const STREET_SEPARATOR = '; ';
 
     /**
      * Filter request data.

@@ -26,9 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Prepare content for tab
@@ -81,7 +79,8 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main
         $form = new Varien_Data_Form();
         $form->setHtmlIdPrefix('rule_');
 
-        $fieldset = $form->addFieldset('base_fieldset',
+        $fieldset = $form->addFieldset(
+            'base_fieldset',
             ['legend' => Mage::helper('salesrule')->__('General Information')]
         );
 
@@ -147,15 +146,14 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main
         $found = false;
 
         foreach ($customerGroups as $group) {
-            if ($group['value']==0) {
+            if ($group['value'] == 0) {
                 $found = true;
             }
         }
         if (!$found) {
             array_unshift($customerGroups, [
                 'value' => 0,
-                'label' => Mage::helper('salesrule')->__('NOT LOGGED IN')]
-            );
+                'label' => Mage::helper('salesrule')->__('NOT LOGGED IN')]);
         }
 
         $fieldset->addField('customer_group_ids', 'multiselect', [
@@ -235,7 +233,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main
             ],
         ]);
 
-        if(!$model->getId()){
+        if (!$model->getId()) {
             //set the default value for is_rss feed to yes for new promotion
             $model->setIsRss(1);
         }
@@ -263,16 +261,18 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main
             ->addFieldDependence(
                 $couponCodeFiled->getName(),
                 $couponTypeFiled->getName(),
-                Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC)
+                Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC
+            )
             ->addFieldDependence(
                 $autoGenerationCheckbox->getName(),
                 $couponTypeFiled->getName(),
-                Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC)
+                Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC
+            )
             ->addFieldDependence(
                 $usesPerCouponFiled->getName(),
                 $couponTypeFiled->getName(),
-                Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC)
-        );
+                Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC
+            ));
 
         Mage::dispatchEvent('adminhtml_promo_quote_edit_tab_main_prepare_form', ['form' => $form]);
 

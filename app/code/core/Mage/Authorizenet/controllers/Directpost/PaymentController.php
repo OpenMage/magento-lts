@@ -79,13 +79,11 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
             }
             $paymentMethod->process($data);
             $result['success'] = 1;
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             Mage::logException($e);
             $result['success'] = 0;
             $result['error_msg'] = $e->getMessage();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::logException($e);
             $result['success'] = 0;
             $result['error_msg'] = $this->__('There was an error processing your order. Please contact us or try again later.');

@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Widget_Accordion_Item extends Mage_Adminhtml_Block_Wi
     {
         $title  = $this->getData('title');
         $url    = $this->getContentUrl() ? $this->getContentUrl() : '#';
-        $title  = '<a href="'.$url.'" class="'.$this->getTarget().'">'.$title.'</a>';
+        $title  = '<a href="' . $url . '" class="' . $this->getTarget() . '">' . $title . '</a>';
 
         return $title;
     }
@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_Widget_Accordion_Item extends Mage_Adminhtml_Block_Wi
     {
         $class = $this->getData('class');
         if ($this->getOpen()) {
-            $class.= ' open';
+            $class .= ' open';
         }
         return $class;
     }
@@ -74,12 +74,12 @@ class Mage_Adminhtml_Block_Widget_Accordion_Item extends Mage_Adminhtml_Block_Wi
     protected function _toHtml()
     {
         $content = $this->getContent();
-        $html = '<dt id="dt-'.$this->getHtmlId().'" class="'.$this->getClass().'">';
-        $html.= $this->getTitle();
-        $html.= '</dt>';
-        $html.= '<dd id="dd-'.$this->getHtmlId().'" class="'.$this->getClass().'">';
-        $html.= $content;
-        $html.= '</dd>';
+        $html = '<dt id="dt-' . $this->getHtmlId() . '" class="' . $this->getClass() . '">';
+        $html .= $this->getTitle();
+        $html .= '</dt>';
+        $html .= '<dd id="dd-' . $this->getHtmlId() . '" class="' . $this->getClass() . '">';
+        $html .= $content;
+        $html .= '</dd>';
         return $html;
     }
 }

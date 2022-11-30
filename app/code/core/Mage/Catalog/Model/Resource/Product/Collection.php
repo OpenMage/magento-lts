@@ -34,12 +34,12 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Alias for index table
      */
-    const INDEX_TABLE_ALIAS = 'price_index';
+    public const INDEX_TABLE_ALIAS = 'price_index';
 
     /**
      * Alias for main table
      */
-    const MAIN_TABLE_ALIAS = 'e';
+    public const MAIN_TABLE_ALIAS = 'e';
 
     /**
      * Catalog Product Flat is enabled cache per store
@@ -357,7 +357,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     protected function _initTables()
     {
         $this->_productWebsiteTable = $this->getResource()->getTable('catalog/product_website');
-        $this->_productCategoryTable= $this->getResource()->getTable('catalog/category_product');
+        $this->_productCategoryTable = $this->getResource()->getTable('catalog/category_product');
     }
 
     /**
@@ -743,12 +743,12 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $tableAlias    = $attributeCode . '_max_value';
         $fieldAlias    = 'max_' . $attributeCode;
         $condition  = 'e.entity_id = ' . $tableAlias . '.entity_id
-            AND '.$this->_getConditionSql($tableAlias . '.attribute_id', $attribute->getId());
+            AND ' . $this->_getConditionSql($tableAlias . '.attribute_id', $attribute->getId());
 
         $select->join(
             [$tableAlias => $attribute->getBackend()->getTable()],
             $condition,
-            [$fieldAlias => new Zend_Db_Expr('MAX('.$tableAlias.'.value)')]
+            [$fieldAlias => new Zend_Db_Expr('MAX(' . $tableAlias . '.value)')]
         )
             ->group('e.entity_type_id');
 
@@ -810,7 +810,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         $select->reset(Zend_Db_Select::GROUP);
         $condition  = 'e.entity_id=' . $tableAlias . '.entity_id
-            AND '.$this->_getConditionSql($tableAlias . '.attribute_id', $attribute->getId());
+            AND ' . $this->_getConditionSql($tableAlias . '.attribute_id', $attribute->getId());
 
         $select->join(
             [$tableAlias => $attribute->getBackend()->getTable()],
@@ -1246,7 +1246,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         $storeDate = Mage::app()->getLocale()->storeTimeStamp($this->getStoreId());
         $conditions  = 'price_rule.product_id = e.entity_id AND ';
-        $conditions .= "price_rule.rule_date = '".$this->getResource()->formatDate($storeDate, false)."' AND ";
+        $conditions .= "price_rule.rule_date = '" . $this->getResource()->formatDate($storeDate, false) . "' AND ";
         $conditions .= $this->getConnection()->quoteInto('price_rule.website_id = ? AND', $wId);
         $conditions .= $this->getConnection()->quoteInto('price_rule.customer_group_id = ?', $gId);
 
@@ -1662,7 +1662,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         $hasColumn = false;
         foreach ($this->getSelect()->getPart(Zend_Db_Select::COLUMNS) as $columnEntry) {
-            list(,,$alias) = $columnEntry;
+            list(, , $alias) = $columnEntry;
             if ($alias == 'visibility') {
                 $hasColumn = true;
             }

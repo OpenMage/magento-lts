@@ -17,7 +17,7 @@
  * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php s+Academic Free License (AFL 3.0)
+ * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -106,6 +106,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <comment><![CDATA[<a href='https://www.currencyconverterapi.com'>https://www.currencyconverterapi.com</a>]]></comment>
+                            <validate>required-entry</validate>
                             <depends>
                                 <active>1</active>
                             </depends>
@@ -113,7 +115,7 @@
                     </fields>
                 </currencyconverterapi>
                 <fixerio translate="label">
-                    <label>Fixer.IO</label>
+                    <label>Fixer API / Apilayer.com</label>
                     <sort_order>45</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -146,6 +148,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <comment><![CDATA[<a href='https://apilayer.com/marketplace/currency_data-api'>https://apilayer.com/marketplace/currency_data-api</a>]]></comment>
+                            <validate>required-entry</validate>
                             <depends>
                                 <active>1</active>
                             </depends>

@@ -28,8 +28,8 @@
  */
 class Mage_Core_Controller_Varien_Exception extends Exception
 {
-    const RESULT_FORWARD  = '_forward';
-    const RESULT_REDIRECT = '_redirect';
+    public const RESULT_FORWARD  = '_forward';
+    public const RESULT_REDIRECT = '_redirect';
 
     protected $_resultCallback       = null;
     protected $_resultCallbackParams = [];

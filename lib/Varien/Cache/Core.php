@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Cache
+ * @category   Varien
+ * @package    Varien_Cache
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -25,12 +25,12 @@ class Varien_Cache_Core extends Zend_Cache_Core
      *
      * @var array $_specificOptions
      */
-    protected $_specificOptions = array('slab_size' => 0);
+    protected $_specificOptions = ['slab_size' => 0];
 
     /**
      * Used to tell chunked data from ordinary
      */
-    const CODE_WORD = '{splitted}';
+    public const CODE_WORD = '{splitted}';
 
     /**
      * Constructor
@@ -38,7 +38,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @throws Varien_Exception
      * @param array|Zend_Config $options Associative array of options or Zend_Config instance
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         parent::__construct($options);
         if (!is_numeric($this->getOption('slab_size'))) {
@@ -101,7 +101,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      */
     protected function _tags($tags)
     {
-        foreach ($tags as $key=>$tag) {
+        foreach ($tags as $key => $tag) {
             $tags[$key] = $this->_id($tag);
         }
         return $tags;
@@ -117,7 +117,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param  int $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends
      * @return boolean True if no problem
      */
-    public function save($data, $id = null, $tags = array(), $specificLifetime = false, $priority = 8)
+    public function save($data, $id = null, $tags = [], $specificLifetime = false, $priority = 8)
     {
         $tags = $this->_tags($tags);
 
@@ -155,8 +155,8 @@ class Varien_Cache_Core extends Zend_Cache_Core
             // Seems we've got chunked data
 
             $arr = explode('|', $data);
-            $chunks = isset($arr[1]) ? $arr[1] : false;
-            $chunkData = array();
+            $chunks = $arr[1] ?? false;
+            $chunkData = [];
 
             if ($chunks && is_numeric($chunks)) {
                 for ($i = 0; $i < $chunks; $i++) {
@@ -199,7 +199,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @throws Zend_Cache_Exception
      * @return boolean True if ok
      */
-    public function clean($mode = 'all', $tags = array())
+    public function clean($mode = 'all', $tags = [])
     {
         $tags = $this->_tags($tags);
         return parent::clean($mode, $tags);
@@ -213,7 +213,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param array $tags array of tags
      * @return array array of matching cache ids (string)
      */
-    public function getIdsMatchingTags($tags = array())
+    public function getIdsMatchingTags($tags = [])
     {
         $tags = $this->_tags($tags);
         return parent::getIdsMatchingTags($tags);
@@ -227,7 +227,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param array $tags array of tags
      * @return array array of not matching cache ids (string)
      */
-    public function getIdsNotMatchingTags($tags = array())
+    public function getIdsNotMatchingTags($tags = [])
     {
         $tags = $this->_tags($tags);
         return parent::getIdsNotMatchingTags($tags);

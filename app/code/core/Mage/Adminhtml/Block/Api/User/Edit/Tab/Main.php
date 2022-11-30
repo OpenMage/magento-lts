@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_W
 
         $form->setHtmlIdPrefix('user_');
 
-        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('adminhtml')->__('Account Information')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('adminhtml')->__('Account Information')]);
 
         if ($model->getUserId()) {
             $fieldset->addField('user_id', 'hidden', [
@@ -86,8 +86,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_W
                 'label' => Mage::helper('adminhtml')->__('Current Admin Password'),
                 'title' => Mage::helper('adminhtml')->__('Current Admin Password'),
                 'required' => true,
-            ]
-        );
+            ]);
 
         $minPasswordLength = Mage::getModel('customer/customer')->getMinPasswordLength();
         if ($model->getUserId()) {
@@ -107,8 +106,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_W
                 'id'    => 'confirmation',
                 'class' => 'input-text validate-cpassword',
             ]);
-        }
-        else {
+        } else {
             $fieldset->addField('password', 'password', [
                 'name'  => 'api_key',
                 'label' => Mage::helper('adminhtml')->__('API Key'),

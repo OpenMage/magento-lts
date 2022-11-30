@@ -52,7 +52,7 @@ class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
     protected function _getInfoBlockName()
     {
         if ($info = $this->getPaymentInfo()) {
-            return 'payment.info.'.$info->getMethodInstance()->getCode();
+            return 'payment.info.' . $info->getMethodInstance()->getCode();
         }
         return false;
     }

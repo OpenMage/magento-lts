@@ -28,10 +28,10 @@
  */
 class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
 {
-    const LINK_TYPE_URL         = 'url';
-    const LINK_TYPE_FILE        = 'file';
+    public const LINK_TYPE_URL         = 'url';
+    public const LINK_TYPE_FILE        = 'file';
 
-    const XML_PATH_CONTENT_DISPOSITION  = 'catalog/downloadable/content_disposition';
+    public const XML_PATH_CONTENT_DISPOSITION  = 'catalog/downloadable/content_disposition';
 
     protected $_moduleName = 'Mage_Downloadable';
 
@@ -96,7 +96,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                  */
                 $urlProp = parse_url($this->_resourceFile);
                 if (!isset($urlProp['scheme'])
-                    || strtolower($urlProp['scheme'] != 'http') && strtolower($urlProp['scheme'] != 'https')) {
+                    || strtolower($urlProp['scheme'] != 'http') && strtolower($urlProp['scheme'] != 'https')
+                ) {
                     Mage::throwException(Mage::helper('downloadable')->__('Invalid download URL scheme.'));
                 }
                 if (!isset($urlProp['host'])) {
@@ -168,7 +169,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                 if (!is_file($this->_resourceFile)) {
                     Mage::helper('core/file_storage_database')->saveFileToFilesystem($this->_resourceFile);
                 }
-                $this->_handle->open(['path'=>Mage::getBaseDir('var')]);
+                $this->_handle->open(['path' => Mage::getBaseDir('var')]);
                 if (!$this->_handle->fileExists($this->_resourceFile, true)) {
                     Mage::throwException(Mage::helper('downloadable')->__('The file does not exist.'));
                 }

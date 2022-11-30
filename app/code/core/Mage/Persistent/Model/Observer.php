@@ -44,7 +44,8 @@ class Mage_Persistent_Model_Observer
     public function applyPersistentData($observer)
     {
         if (!Mage::helper('persistent')->canProcess($observer)
-            || !$this->_getPersistentHelper()->isPersistent() || Mage::getSingleton('customer/session')->isLoggedIn()) {
+            || !$this->_getPersistentHelper()->isPersistent() || Mage::getSingleton('customer/session')->isLoggedIn()
+        ) {
             return $this;
         }
         Mage::getModel('persistent/persistent_config')
@@ -169,7 +170,8 @@ class Mage_Persistent_Model_Observer
         ];
 
         if (!Mage::helper('persistent')->canProcess($observer)
-            || !$this->_getPersistentHelper()->isPersistent() || Mage::getSingleton('customer/session')->isLoggedIn()) {
+            || !$this->_getPersistentHelper()->isPersistent() || Mage::getSingleton('customer/session')->isLoggedIn()
+        ) {
             return;
         }
 

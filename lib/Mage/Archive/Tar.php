@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Archive
+ * @category   Mage
+ * @package    Mage_Archive
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -22,9 +22,9 @@
 /**
  * Class to work with tar archives
  *
- * @category    Mage
- * @package     Mage_Archive
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Archive
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Interface
 {
@@ -33,7 +33,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      *
      * @const int
      */
-    const TAR_BLOCK_SIZE = 512;
+    public const TAR_BLOCK_SIZE = 512;
 
     /**
      * Keep file or directory for packing.
@@ -96,7 +96,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      *
      * @return string
      */
-    protected static final function _getFormatParseHeader()
+    final protected static function _getFormatParseHeader()
     {
         return 'Z100name/Z8mode/Z8uid/Z8gid/Z12size/Z12mtime/Z8checksum/Z1type/Z100symlink/Z6magic/Z2version/'
         . 'Z32uname/Z32gname/Z8devmajor/Z8devminor/Z155prefix/Z12closer';
@@ -193,7 +193,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      */
     protected function _setCurrentFile($file)
     {
-        $this->_currentFile = $file .((!is_link($file) && is_dir($file) && substr($file, -1) != DS) ? DS : '');
+        $this->_currentFile = $file . ((!is_link($file) && is_dir($file) && substr($file, -1) != DS) ? DS : '');
         return $this;
     }
 
@@ -228,7 +228,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     protected function _setCurrentPath($path)
     {
         if ($this->_skipRoot && is_dir($path)) {
-            $this->_currentPath = $path.(substr($path, -1)!=DS?DS:'');
+            $this->_currentPath = $path . (substr($path, -1) != DS ? DS : '');
         } else {
             $this->_currentPath = dirname($path) . DS;
         }
@@ -253,7 +253,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * @param boolean $skipRoot
      * @return string
      */
-    protected function _packToTar($skipRoot=false)
+    protected function _packToTar($skipRoot = false)
     {
         $file = $this->_getCurrentFile();
         $header = '';
@@ -272,7 +272,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             array_shift($treeDir); /* remove  './'*/
             array_shift($treeDir); /* remove  '../'*/
             foreach ($treeDir as $item) {
-                $sub .= $this->_setCurrentFile($file.$item)->_packToTar(false);
+                $sub .= $this->_setCurrentFile($file . $item)->_packToTar(false);
             }
         }
         $tarData = $header . $data . $sub;
@@ -362,27 +362,27 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         $nameFile = str_replace('\\', '/', $nameFile);
         $packedHeader = '';
         $longHeader = '';
-        if (!$long && strlen($nameFile)>100) {
+        if (!$long && strlen($nameFile) > 100) {
             $longHeader = $this->_composeHeader(true);
             $longHeader .= str_pad($nameFile, floor((strlen($nameFile) + 512 - 1) / 512) * 512, "\0");
         }
-        $header = array();
-        $header['100-name']       = $long?'././@LongLink':substr($nameFile, 0, 100);
+        $header = [];
+        $header['100-name']       = $long ? '././@LongLink' : substr($nameFile, 0, 100);
         $header['8-mode']         = $long ? '       '
-            : str_pad(substr(sprintf("%07o", $infoFile['mode']),-4), 6, '0', STR_PAD_LEFT);
-        $header['8-uid']          = $long || $infoFile['uid']==0?"\0\0\0\0\0\0\0":sprintf("%07o", $infoFile['uid']);
-        $header['8-gid']          = $long || $infoFile['gid']==0?"\0\0\0\0\0\0\0":sprintf("%07o", $infoFile['gid']);
+            : str_pad(substr(sprintf("%07o", $infoFile['mode']), -4), 6, '0', STR_PAD_LEFT);
+        $header['8-uid']          = $long || $infoFile['uid'] == 0 ? "\0\0\0\0\0\0\0" : sprintf("%07o", $infoFile['uid']);
+        $header['8-gid']          = $long || $infoFile['gid'] == 0 ? "\0\0\0\0\0\0\0" : sprintf("%07o", $infoFile['gid']);
         $header['12-size']        = $long ? sprintf("%011o", strlen($nameFile)) : sprintf("%011o", is_dir($file)
             ? 0 : filesize($file));
-        $header['12-mtime']       = $long?'00000000000':sprintf("%011o", $infoFile['mtime']);
+        $header['12-mtime']       = $long ? '00000000000' : sprintf("%011o", $infoFile['mtime']);
         $header['8-check']        = sprintf('% 8s', '');
         $header['1-type']         = $long ? 'L' : (is_link($file) ? 2 : (is_dir($file) ? 5 : 0));
         $header['100-symlink']    = is_link($file) ? readlink($file) : '';
         $header['6-magic']        = 'ustar ';
         $header['2-version']      = ' ';
-        $a=function_exists('posix_getpwuid')?posix_getpwuid (fileowner($file)):array('name'=>'');
+        $a = function_exists('posix_getpwuid') ? posix_getpwuid(fileowner($file)) : ['name' => ''];
         $header['32-uname']       = $a['name'];
-        $a=function_exists('posix_getgrgid')?posix_getgrgid (filegroup($file)):array('name'=>'');
+        $a = function_exists('posix_getgrgid') ? posix_getgrgid(filegroup($file)) : ['name' => ''];
         $header['32-gname']       = $a['name'];
         $header['8-devmajor']     = '';
         $header['8-devminor']     = '';
@@ -390,7 +390,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         $header['12-closer']      = '';
 
         $packedHeader = '';
-        foreach ($header as $key=>$element) {
+        foreach ($header as $key => $element) {
             $length = explode('-', $key);
             $packedHeader .= pack('a' . $length[0], $element);
         }
@@ -399,7 +399,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         for ($i = 0; $i < 512; $i++) {
             $checksum += ord(substr($packedHeader, $i, 1));
         }
-        $packedHeader = substr_replace($packedHeader, sprintf("%07o", $checksum)."\0", 148, 8);
+        $packedHeader = substr_replace($packedHeader, sprintf("%07o", $checksum) . "\0", 148, 8);
 
         return $longHeader . $packedHeader;
     }
@@ -416,7 +416,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     protected function _unpackCurrentTar($destination)
     {
         $archiveReader = $this->_getReader();
-        $list = array();
+        $list = [];
 
         while (!$archiveReader->eof()) {
             $header = $this->_extractFileHeader();
@@ -428,9 +428,8 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             $currentFile = $destination . $header['name'];
             $dirname = dirname($currentFile);
 
-            if (in_array($header['type'], array("0",chr(0), ''))) {
-
-                if(!file_exists($dirname)) {
+            if (in_array($header['type'], ["0",chr(0), ''])) {
+                if (!file_exists($dirname)) {
                     $mkdirResult = @mkdir($dirname, 0777, true);
 
                     if (false === $mkdirResult) {
@@ -440,10 +439,8 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
 
                 $this->_extractAndWriteFile($header, $currentFile);
                 $list[] = $currentFile;
-
             } elseif ($header['type'] == '5') {
-
-                if(!file_exists($dirname)) {
+                if (!file_exists($dirname)) {
                     $mkdirResult = @mkdir($currentFile, $header['mode'], true);
 
                     if (false === $mkdirResult) {
@@ -452,7 +449,6 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
                 }
                 $list[] = $currentFile . DS;
             } elseif ($header['type'] == '2') {
-
                 //we do not interrupt unpack process if symlink creation failed as symlinks are not so important
                 @symlink($header['symlink'], $currentFile);
             }
@@ -472,19 +468,19 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     {
         $firstLine = fread($pointer, 512);
 
-        if (strlen($firstLine)<512){
+        if (strlen($firstLine) < 512) {
             return false;
         }
 
         $fmt = self::_getFormatParseHeader();
-        $header = unpack ($fmt, $firstLine);
+        $header = unpack($fmt, $firstLine);
 
-        $header['mode']=$header['mode']+0;
-        $header['uid']=octdec($header['uid']);
-        $header['gid']=octdec($header['gid']);
-        $header['size']=octdec($header['size']);
-        $header['mtime']=octdec($header['mtime']);
-        $header['checksum']=octdec($header['checksum']);
+        $header['mode'] = $header['mode'] + 0;
+        $header['uid'] = octdec($header['uid']);
+        $header['gid'] = octdec($header['gid']);
+        $header['size'] = octdec($header['size']);
+        $header['mtime'] = octdec($header['mtime']);
+        $header['checksum'] = octdec($header['checksum']);
 
         if ($header['type'] == "5") {
             $header['size'] = 0;
@@ -506,7 +502,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
                 $headerMain['name'] = $realName;
                 return $headerMain;
             } else {
-                if ($header['size']>0) {
+                if ($header['size'] > 0) {
                     $header['data'] = substr(fread($pointer, floor(($header['size'] + 512 - 1) / 512) * 512), 0, $header['size']);
                 } else {
                     $header['data'] = '';
@@ -554,7 +550,6 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
 
         $checksumOk = $header['checksum'] == $checksum;
         if (isset($header['name']) && $checksumOk) {
-
             if (!($header['name'] == '././@LongLink' && $header['type'] == 'L')) {
                 $header['name'] = trim($header['name']);
                 return $header;
@@ -666,7 +661,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
                 break;
             }
 
-            if ($header['type'] != 5){
+            if ($header['type'] != 5) {
                 $skipBytes = floor(($header['size'] + self::TAR_BLOCK_SIZE - 1) / self::TAR_BLOCK_SIZE)
                     * self::TAR_BLOCK_SIZE;
                 $archiveReader->read($skipBytes);

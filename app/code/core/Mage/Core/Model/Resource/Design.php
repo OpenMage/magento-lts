@@ -80,7 +80,7 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from(['main_table'=>$this->getTable('design_change')])
+            ->from(['main_table' => $this->getTable('design_change')])
             ->where('main_table.store_id = :store_id')
             ->where('main_table.design_change_id <> :current_id');
 

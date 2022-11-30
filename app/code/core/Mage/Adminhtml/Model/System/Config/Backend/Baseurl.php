@@ -45,7 +45,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
          * If value is special ({{}}) we don't need add slash
          */
         if (!preg_match('#}}$#', $value)) {
-            $value.= '/';
+            $value .= '/';
         }
 
         $this->setValue($value);

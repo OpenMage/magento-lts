@@ -31,8 +31,8 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
     /**#@+
      * @deprecated since 1.7.1.0
      */
-    const MODE_WRITE = 'write';
-    const MODE_READ  = 'read';
+    public const MODE_WRITE = 'write';
+    public const MODE_READ  = 'read';
     /**#@- */
 
     public function __construct()

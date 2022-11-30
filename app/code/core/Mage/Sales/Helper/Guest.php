@@ -68,7 +68,8 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             $zip            = $post['oar_zip'];
 
             if (empty($incrementId) || empty($lastName) || empty($type) || (!in_array($type, ['email', 'zip']))
-                || ($type == 'email' && empty($email)) || ($type == 'zip' && empty($zip))) {
+                || ($type == 'email' && empty($email)) || ($type == 'zip' && empty($zip))
+            ) {
                 $errors = true;
             }
 

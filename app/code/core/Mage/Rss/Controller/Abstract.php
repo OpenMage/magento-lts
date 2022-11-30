@@ -38,7 +38,7 @@ class Mage_Rss_Controller_Abstract extends Mage_Core_Controller_Front_Action
     {
         /** @var Mage_Rss_Helper_Data $helper */
         $helper = $this->_getHelper('rss');
-        return $helper->isRssEnabled() && Mage::getStoreConfig('rss/'. $code);
+        return $helper->isRssEnabled() && Mage::getStoreConfig('rss/' . $code);
     }
 
     /**

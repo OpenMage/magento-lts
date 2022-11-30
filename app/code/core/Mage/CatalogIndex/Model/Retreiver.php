@@ -29,27 +29,27 @@
  * @method Mage_CatalogIndex_Model_Resource_Retreiver _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Retreiver getResource()
  * @method int getEntityTypeId()
- * @method Mage_CatalogIndex_Model_Retreiver setEntityTypeId(int $value)
+ * @method $this setEntityTypeId(int $value)
  * @method int getAttributeSetId()
- * @method Mage_CatalogIndex_Model_Retreiver setAttributeSetId(int $value)
+ * @method $this setAttributeSetId(int $value)
  * @method string getTypeId()
- * @method Mage_CatalogIndex_Model_Retreiver setTypeId(string $value)
+ * @method $this setTypeId(string $value)
  * @method string getSku()
- * @method Mage_CatalogIndex_Model_Retreiver setSku(string $value)
+ * @method $this setSku(string $value)
  * @method int getHasOptions()
- * @method Mage_CatalogIndex_Model_Retreiver setHasOptions(int $value)
+ * @method $this setHasOptions(int $value)
  * @method int getRequiredOptions()
- * @method Mage_CatalogIndex_Model_Retreiver setRequiredOptions(int $value)
+ * @method $this setRequiredOptions(int $value)
  * @method string getCreatedAt()
- * @method Mage_CatalogIndex_Model_Retreiver setCreatedAt(string $value)
+ * @method $this setCreatedAt(string $value)
  * @method string getUpdatedAt()
- * @method Mage_CatalogIndex_Model_Retreiver setUpdatedAt(string $value)
+ * @method $this setUpdatedAt(string $value)
  */
 class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
 {
-    const CHILDREN_FOR_TIERS = 1;
-    const CHILDREN_FOR_PRICES = 2;
-    const CHILDREN_FOR_ATTRIBUTES = 3;
+    public const CHILDREN_FOR_TIERS = 1;
+    public const CHILDREN_FOR_PRICES = 2;
+    public const CHILDREN_FOR_ATTRIBUTES = 3;
 
     protected $_attributeIdCache = [];
 

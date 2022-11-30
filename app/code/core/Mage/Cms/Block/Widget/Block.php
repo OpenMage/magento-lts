@@ -49,7 +49,7 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
      *
      * @var array
      */
-    static protected $_widgetUsageMap = [];
+    protected static $_widgetUsageMap = [];
 
     /**
      * Prepare block text and determine whether block output enabled or not

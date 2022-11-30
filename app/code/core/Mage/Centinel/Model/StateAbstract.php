@@ -30,7 +30,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
     /**
      * Storage data model
      *
-     * @var Varien_Object
+     * @var Varien_Object|false
      */
     private $_dataStorage = false;
 
@@ -69,7 +69,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      * @param string|int $index
      * @return mixed
      */
-    public function getData($key='', $index=null)
+    public function getData($key = '', $index = null)
     {
         return $this->getDataStorage()->getData($key);
     }
@@ -86,7 +86,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      * @param mixed $value
      * @return Mage_Centinel_Model_StateAbstract
      */
-    public function setData($key, $value=null)
+    public function setData($key, $value = null)
     {
         $this->getDataStorage()->setData($key, $value);
         return $this;

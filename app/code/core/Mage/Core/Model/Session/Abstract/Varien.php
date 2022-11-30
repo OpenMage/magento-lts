@@ -29,16 +29,16 @@
  */
 class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 {
-    const VALIDATOR_KEY                         = '_session_validator_data';
-    const VALIDATOR_HTTP_USER_AGENT_KEY         = 'http_user_agent';
-    const VALIDATOR_HTTP_X_FORVARDED_FOR_KEY    = 'http_x_forwarded_for';
-    const VALIDATOR_HTTP_VIA_KEY                = 'http_via';
-    const VALIDATOR_REMOTE_ADDR_KEY             = 'remote_addr';
-    const VALIDATOR_SESSION_EXPIRE_TIMESTAMP    = 'session_expire_timestamp';
-    const VALIDATOR_SESSION_RENEW_TIMESTAMP     = 'session_renew_timestamp';
-    const VALIDATOR_SESSION_LIFETIME            = 'session_lifetime';
-    const VALIDATOR_PASSWORD_CREATE_TIMESTAMP   = 'password_create_timestamp';
-    const SECURE_COOKIE_CHECK_KEY               = '_secure_cookie_check';
+    public const VALIDATOR_KEY                         = '_session_validator_data';
+    public const VALIDATOR_HTTP_USER_AGENT_KEY         = 'http_user_agent';
+    public const VALIDATOR_HTTP_X_FORVARDED_FOR_KEY    = 'http_x_forwarded_for';
+    public const VALIDATOR_HTTP_VIA_KEY                = 'http_via';
+    public const VALIDATOR_REMOTE_ADDR_KEY             = 'remote_addr';
+    public const VALIDATOR_SESSION_EXPIRE_TIMESTAMP    = 'session_expire_timestamp';
+    public const VALIDATOR_SESSION_RENEW_TIMESTAMP     = 'session_renew_timestamp';
+    public const VALIDATOR_SESSION_LIFETIME            = 'session_lifetime';
+    public const VALIDATOR_PASSWORD_CREATE_TIMESTAMP   = 'password_create_timestamp';
+    public const SECURE_COOKIE_CHECK_KEY               = '_secure_cookie_check';
 
     /** @var bool Flag true if session validator data has already been evaluated */
     protected static $isValidated = false;
@@ -82,6 +82,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 if (!is_writable($this->getSessionSavePath())) {
                     break;
                 }
+                // no break
             default:
                 session_save_path($this->getSessionSavePath());
                 session_module_name($moduleName);
@@ -142,7 +143,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         // potential custom logic for session id (ex. switching between hosts)
         $this->setSessionId();
 
-        Varien_Profiler::start(__METHOD__.'/start');
+        Varien_Profiler::start(__METHOD__ . '/start');
         $sessionCacheLimiter = Mage::getConfig()->getNode('global/session_cache_limiter');
         if ($sessionCacheLimiter) {
             session_cache_limiter((string)$sessionCacheLimiter);
@@ -156,9 +157,9 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if (Mage::app()->getFrontController()->getRequest()->isSecure() && empty($cookieParams['secure'])) {
             $secureCookieName = $this->getSessionName() . '_cid';
             $cookieValue = $cookie->get($secureCookieName);
-          
+
             // Migrate old cookie from 'frontend'
-            if ( ! $cookieValue
+            if (!$cookieValue
                 && $sessionName === \Mage_Core_Controller_Front_Action::SESSION_NAMESPACE
                 && $cookie->get('frontend_cid')
             ) {
@@ -167,19 +168,17 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 $cookie->set($secureCookieName, $cookieValue);
                 $cookie->delete('frontend_cid');
             }
-          
+
             // Set secure cookie check value in session if not yet set
             if (!isset($_SESSION[self::SECURE_COOKIE_CHECK_KEY])) {
                 $cookieValue = Mage::helper('core')->getRandomString(16);
                 $cookie->set($secureCookieName, $cookieValue, null, null, null, true, true);
                 $_SESSION[self::SECURE_COOKIE_CHECK_KEY] = md5($cookieValue);
-            }
-            // Renew secret check value cookie if it is valid
-            else if (is_string($cookieValue) && $_SESSION[self::SECURE_COOKIE_CHECK_KEY] === md5($cookieValue)) {
+            } elseif (is_string($cookieValue) && $_SESSION[self::SECURE_COOKIE_CHECK_KEY] === md5($cookieValue)) {
+                // Renew secret check value cookie if it is valid
                 $cookie->renew($secureCookieName, null, null, null, true, true);
-            }
-            // Secure cookie check value is invalid, regenerate session
-            else {
+            } else {
+                // Secure cookie check value is invalid, regenerate session
                 session_regenerate_id(false);
                 $sessionHosts = $this->getSessionHosts();
                 $currentCookieDomain = $cookie->getDomain();
@@ -199,7 +198,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if ($cookie->get(session_name()) == $this->getSessionId()) {
             $cookie->renew(session_name());
         }
-        Varien_Profiler::stop(__METHOD__.'/start');
+        Varien_Profiler::stop(__METHOD__ . '/start');
 
         return $this;
     }
@@ -488,16 +487,19 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         self::$isValidated = true; // Only validate once since the validator data is the same for every namespace
 
         if ($this->useValidateRemoteAddr()
-                && $sessionData[self::VALIDATOR_REMOTE_ADDR_KEY] != $validatorData[self::VALIDATOR_REMOTE_ADDR_KEY]) {
+                && $sessionData[self::VALIDATOR_REMOTE_ADDR_KEY] != $validatorData[self::VALIDATOR_REMOTE_ADDR_KEY]
+        ) {
             return false;
         }
         if ($this->useValidateHttpVia()
-                && $sessionData[self::VALIDATOR_HTTP_VIA_KEY] != $validatorData[self::VALIDATOR_HTTP_VIA_KEY]) {
+                && $sessionData[self::VALIDATOR_HTTP_VIA_KEY] != $validatorData[self::VALIDATOR_HTTP_VIA_KEY]
+        ) {
             return false;
         }
 
         if ($this->useValidateHttpXForwardedFor()
-                && $sessionData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY] != $validatorData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY]) {
+                && $sessionData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY] != $validatorData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY]
+        ) {
             return false;
         }
         if ($this->useValidateHttpUserAgent()
@@ -569,7 +571,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
         return $parts;
     }
-    
+
     /**
      * @return array
      */

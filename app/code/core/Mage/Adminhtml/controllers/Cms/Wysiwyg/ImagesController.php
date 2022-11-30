@@ -32,7 +32,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'cms/media_gallery';
+    public const ADMIN_RESOURCE = 'cms/media_gallery';
 
     /**
      * Init storage
@@ -118,7 +118,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
     {
         try {
             if (!$this->getRequest()->isPost()) {
-                throw new Exception ('Wrong request.');
+                throw new Exception('Wrong request.');
             }
             $files = Mage::helper('core')->jsonDecode($this->getRequest()->getParam('files'));
 

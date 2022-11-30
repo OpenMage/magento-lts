@@ -123,7 +123,7 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
      */
     public function getCompareJsObjectName()
     {
-         return "dashboardSidebarCompareJsObject";
+        return "dashboardSidebarCompareJsObject";
     }
 
     /**
@@ -131,7 +131,7 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
      */
     public function getCompareRemoveUrlTemplate()
     {
-         return $this->getUrl('catalog/product_compare/remove', ['product'=>'#{id}']);
+        return $this->getUrl('catalog/product_compare/remove', ['product' => '#{id}']);
     }
 
     /**
@@ -139,7 +139,7 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
      */
     public function getCompareAddUrlTemplate()
     {
-         return $this->getUrl('catalog/product_compare/add', ['product'=>'#{id}']);
+        return $this->getUrl('catalog/product_compare/add', ['product' => '#{id}']);
     }
 
     /**
@@ -147,6 +147,6 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
      */
     public function getCompareUrl()
     {
-         return $this->getUrl('catalog/product_compare');
+        return $this->getUrl('catalog/product_compare');
     }
 }

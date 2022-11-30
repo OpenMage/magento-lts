@@ -191,7 +191,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
      */
     public function getStoreOptionValues($storeId)
     {
-        $values = $this->getData('store_option_values_'.$storeId);
+        $values = $this->getData('store_option_values_' . $storeId);
         if (is_null($values)) {
             $values = [];
             $valuesCollection = Mage::getResourceModel('eav/entity_attribute_option_collection')
@@ -202,7 +202,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             foreach ($valuesCollection as $item) {
                 $values[$item->getId()] = $item->getValue();
             }
-            $this->setData('store_option_values_'.$storeId, $values);
+            $this->setData('store_option_values_' . $storeId, $values);
         }
         return $values;
     }

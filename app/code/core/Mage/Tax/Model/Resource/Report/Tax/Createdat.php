@@ -93,7 +93,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
                 'store_id'              => 'e.store_id',
                 'code'                  => 'tax.code',
                 'order_status'          => 'e.status',
-                'percent'               => 'MAX(tax.' . $writeAdapter->quoteIdentifier('percent') .')',
+                'percent'               => 'MAX(tax.' . $writeAdapter->quoteIdentifier('percent') . ')',
                 'orders_count'          => 'COUNT(DISTINCT e.entity_id)',
                 'tax_base_amount_sum'   => 'SUM(tax.base_amount * e.base_to_global_rate)'
             ];

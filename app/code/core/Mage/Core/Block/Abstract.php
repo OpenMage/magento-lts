@@ -48,16 +48,16 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Prefix for cache key
      */
-    const CACHE_KEY_PREFIX = 'BLOCK_';
+    public const CACHE_KEY_PREFIX = 'BLOCK_';
     /**
      * Cache group Tag
      */
-    const CACHE_GROUP = 'block_html';
+    public const CACHE_GROUP = 'block_html';
 
     /**
      * Cache tags data key
      */
-    const CACHE_TAGS_DATA_KEY = 'cache_tags';
+    public const CACHE_TAGS_DATA_KEY = 'cache_tags';
 
     /**
      * Block name in layout
@@ -949,7 +949,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
          * Use single transport object instance for all blocks
          */
         if (self::$_transportObject === null) {
-            self::$_transportObject = new Varien_Object;
+            self::$_transportObject = new Varien_Object();
         }
         self::$_transportObject->setHtml($html);
         Mage::dispatchEvent(

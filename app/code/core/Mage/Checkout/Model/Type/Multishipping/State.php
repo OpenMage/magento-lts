@@ -28,11 +28,11 @@
  */
 class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
 {
-    const STEP_SELECT_ADDRESSES = 'multishipping_addresses';
-    const STEP_SHIPPING         = 'multishipping_shipping';
-    const STEP_BILLING          = 'multishipping_billing';
-    const STEP_OVERVIEW         = 'multishipping_overview';
-    const STEP_SUCCESS          = 'multishipping_success';
+    public const STEP_SELECT_ADDRESSES = 'multishipping_addresses';
+    public const STEP_SHIPPING         = 'multishipping_shipping';
+    public const STEP_BILLING          = 'multishipping_billing';
+    public const STEP_OVERVIEW         = 'multishipping_overview';
+    public const STEP_SUCCESS          = 'multishipping_success';
 
     /**
      * Allow steps array

@@ -28,9 +28,9 @@
  */
 class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
 {
-    const XML_PATH_EMAIL_PRICE_TEMPLATE = 'catalog/productalert/email_price_template';
-    const XML_PATH_EMAIL_STOCK_TEMPLATE = 'catalog/productalert/email_stock_template';
-    const XML_PATH_EMAIL_IDENTITY       = 'catalog/productalert/email_identity';
+    public const XML_PATH_EMAIL_PRICE_TEMPLATE = 'catalog/productalert/email_price_template';
+    public const XML_PATH_EMAIL_STOCK_TEMPLATE = 'catalog/productalert/email_stock_template';
+    public const XML_PATH_EMAIL_IDENTITY       = 'catalog/productalert/email_identity';
 
     /**
      * Type

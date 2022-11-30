@@ -36,7 +36,6 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
 
     protected function _prepareCollection()
     {
-
         $collection = Mage::getResourceModel('reports/tag_customer_collection');
 
         $collection->addStatusFilter(Mage_Tag_Model_Tag::STATUS_APPROVED)
@@ -49,32 +48,32 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
 
     protected function _prepareColumns()
     {
-
         $this->addColumn('entity_id', [
-            'header'    =>Mage::helper('reports')->__('ID'),
+            'header'    => Mage::helper('reports')->__('ID'),
             'width'     => '50px',
-            'align'     =>'right',
-            'index'     =>'entity_id'
+            'align'     => 'right',
+            'index'     => 'entity_id'
         ]);
 
         $this->addColumn('firstname', [
-            'header'    =>Mage::helper('reports')->__('First Name'),
-            'index'     =>'firstname'
+            'header'    => Mage::helper('reports')->__('First Name'),
+            'index'     => 'firstname'
         ]);
 
         $this->addColumn('lastname', [
-            'header'    =>Mage::helper('reports')->__('Last Name'),
-            'index'     =>'lastname'
+            'header'    => Mage::helper('reports')->__('Last Name'),
+            'index'     => 'lastname'
         ]);
 
         $this->addColumn('taged', [
-            'header'    =>Mage::helper('reports')->__('Total Tags'),
-            'width'     =>'50px',
-            'align'     =>'right',
-            'index'     =>'taged'
+            'header'    => Mage::helper('reports')->__('Total Tags'),
+            'width'     => '50px',
+            'align'     => 'right',
+            'index'     => 'taged'
         ]);
 
-        $this->addColumn('action',
+        $this->addColumn(
+            'action',
             [
                 'header'    => Mage::helper('catalog')->__('Action'),
                 'width'     => '100%',
@@ -84,7 +83,7 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
                     [
                         'caption' => Mage::helper('catalog')->__('Show Tags'),
                         'url'     => [
-                            'base'=>'*/*/customerDetail'
+                            'base' => '*/*/customerDetail'
                         ],
                         'field'   => 'id'
                     ]
@@ -93,7 +92,8 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
                 'filter'    => false,
                 'sortable'  => false,
                 'index'     => 'stores',
-            ]);
+            ]
+        );
 
         $this->setFilterVisibility(false);
 
@@ -105,7 +105,6 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/customerDetail', ['id'=>$row->getId()]);
+        return $this->getUrl('*/*/customerDetail', ['id' => $row->getId()]);
     }
 }
-

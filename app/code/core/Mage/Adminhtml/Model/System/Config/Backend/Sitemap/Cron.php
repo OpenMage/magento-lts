@@ -28,8 +28,8 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Sitemap_Cron extends Mage_Core_Model_Config_Data
 {
-    const CRON_STRING_PATH = 'crontab/jobs/sitemap_generate/schedule/cron_expr';
-    const CRON_MODEL_PATH = 'crontab/jobs/sitemap_generate/run/model';
+    public const CRON_STRING_PATH = 'crontab/jobs/sitemap_generate/schedule/cron_expr';
+    public const CRON_MODEL_PATH = 'crontab/jobs/sitemap_generate/run/model';
 
     protected function _afterSave()
     {

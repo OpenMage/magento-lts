@@ -113,28 +113,27 @@
  *
  */
 
-if (version_compare(phpversion(), '7.3.0', '<')===true) {
+if (version_compare(phpversion(), '7.3.0', '<') === true) {
     die('ERROR: Whoops, it looks like you have an invalid PHP version. OpenMage supports PHP 7.3.0 or newer.');
 }
 set_include_path(__DIR__ . PATH_SEPARATOR . get_include_path());
 require 'app/bootstrap.php';
 require 'app/Mage.php';
 
+$app = Mage::app('default');
+
+/** @var Mage_Install_Model_Installer_Console $installer */
+$installer = Mage::getSingleton('install/installer_console');
+
 try {
-    $app = Mage::app('default');
-
-    $installer = Mage::getSingleton('install/installer_console');
-    /* @var $installer Mage_Install_Model_Installer_Console */
-
     if ($installer->init($app)          // initialize installer
         && $installer->checkConsole()   // check if the script is run in shell, otherwise redirect to web-installer
         && $installer->setArgs()        // set and validate script arguments
-        && $installer->install())       // do install
-    {
+        && $installer->install()        // do install
+    ) {
         echo 'SUCCESS: ' . $installer->getEncryptionKey() . "\n";
         exit;
     }
-
 } catch (Exception $e) {
     Mage::printException($e);
 }

@@ -32,7 +32,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'cms/widget_instance';
+    public const ADMIN_RESOURCE = 'cms/widget_instance';
 
     /**
      * Session getter
@@ -253,7 +253,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         /** @var Mage_Adminhtml_Block_Widget_Grid_Serializer $serializer */
         $serializer = $this->getLayout()->createBlock('adminhtml/widget_grid_serializer');
         $serializer->initSerializerBlock($chooser, 'getSelectedProducts', 'selected_products', 'selected_products');
-        $this->setBody($chooser->toHtml().$serializer->toHtml());
+        $this->setBody($chooser->toHtml() . $serializer->toHtml());
     }
 
     /**

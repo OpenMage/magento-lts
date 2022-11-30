@@ -28,10 +28,10 @@
  */
 class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 {
-    const ID_FIELD    = 'id';
-    const PATH_FIELD  = 'path';
-    const ORDER_FIELD = 'order';
-    const LEVEL_FIELD = 'level';
+    public const ID_FIELD    = 'id';
+    public const PATH_FIELD  = 'path';
+    public const ORDER_FIELD = 'order';
+    public const LEVEL_FIELD = 'level';
 
     /**
      * Categories resource collection
@@ -143,8 +143,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         }
 
         $nodeIds = [];
-        foreach ($this->getNodes() as $node) {
-            $id = $node->getId();
+        foreach ($this->getNodes() as $id => $node) {
             if (!in_array($id, $exclude)) {
                 $nodeIds[] = $id;
             }
@@ -174,8 +173,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
                 }
             }
 
-            foreach ($this->getNodes() as $node) {
-                if (!$collection->getItemById($node->getId()) && $node->getParent()) {
+            foreach ($this->getNodes() as $id => $node) {
+                if (!$collection->getItemById($id) && $node->getParent()) {
                     $this->removeNode($node);
                 }
             }
@@ -271,8 +270,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
                 'attribute_code'   => 'is_active'
             ];
             $select = $this->_conn->select()
-                ->from(['a'=>$resource->getTableName('eav/attribute')], ['attribute_id'])
-                ->join(['t'=>$resource->getTableName('eav/entity_type')], 'a.entity_type_id = t.entity_type_id')
+                ->from(['a' => $resource->getTableName('eav/attribute')], ['attribute_id'])
+                ->join(['t' => $resource->getTableName('eav/entity_type')], 'a.entity_type_id = t.entity_type_id')
                 ->where('entity_type_code = :entity_type_code')
                 ->where('attribute_code = :attribute_code');
 
@@ -298,17 +297,17 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         $bind = [
             'attribute_id' => $attributeId,
             'store_id'     => $storeId,
-            'zero_store_id'=> 0,
+            'zero_store_id' => 0,
             'cond'         => 0,
 
         ];
         $select = $this->_conn->select()
-            ->from(['d'=>$table], ['d.entity_id'])
+            ->from(['d' => $table], ['d.entity_id'])
             ->where('d.attribute_id = :attribute_id')
             ->where('d.store_id = :zero_store_id')
             ->where('d.entity_id IN (?)', $filter)
             ->joinLeft(
-                ['c'=>$table],
+                ['c' => $table],
                 'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = d.entity_id',
                 []
             )

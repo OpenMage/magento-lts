@@ -93,7 +93,7 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
                 $this->_prepareArray($crumbInfo, ['label', 'title', 'link', 'first', 'last', 'readonly']);
                 $this->_crumbs = [$crumbName => $crumbInfo] + $this->_crumbs;
             } else {
-                $this->addCrumb($crumbName, $crumbInfo, $keys[$offset-1]);
+                $this->addCrumb($crumbName, $crumbInfo, $keys[$offset - 1]);
             }
         } else {
             $this->addCrumb($crumbName, $crumbInfo);

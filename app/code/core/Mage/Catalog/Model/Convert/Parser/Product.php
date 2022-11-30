@@ -28,7 +28,7 @@
  */
 class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_Parser_Abstract
 {
-    const MULTI_DELIMITER = ' , ';
+    public const MULTI_DELIMITER = ' , ';
 
     protected $_resource;
 
@@ -77,7 +77,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             if ($node->is('inventory')) {
                 $this->_inventoryFields[] = $code;
                 if ($node->is('use_config')) {
-                    $this->_inventoryFields[] = 'use_config_'.$code;
+                    $this->_inventoryFields[] = 'use_config_' . $code;
                 }
             }
             if ($node->is('internal')) {
@@ -102,7 +102,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     {
         if (!$this->_resource) {
             $this->_resource = Mage::getResourceSingleton('catalog_entity/convert');
-                #->loadStores()
+            #->loadStores()
                 #->loadProducts()
                 #->loadAttributeSets()
                 #->loadAttributeOptions();
@@ -270,7 +270,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         $inventoryFields = [];
 
         foreach ($data as $i => $row) {
-            $this->setPosition('Line: '.($i+1));
+            $this->setPosition('Line: ' . ($i + 1));
             try {
                 // validate SKU
                 if (empty($row['sku'])) {
@@ -280,7 +280,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                     );
                     continue;
                 }
-                $this->setPosition('Line: '.($i+1).', SKU: '.$row['sku']);
+                $this->setPosition('Line: ' . ($i + 1) . ', SKU: ' . $row['sku']);
 
                 // try to get entity_id by sku if not set
                 if (empty($row['entity_id'])) {
@@ -421,7 +421,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             $this->setProductTypeInstance($product);
             /** @var Mage_Catalog_Model_Product $product */
 
-            $position = Mage::helper('catalog')->__('Line %d, SKU: %s', ($i+1), $product->getSku());
+            $position = Mage::helper('catalog')->__('Line %d, SKU: %s', ($i + 1), $product->getSku());
             $this->setPosition($position);
 
             $row = [

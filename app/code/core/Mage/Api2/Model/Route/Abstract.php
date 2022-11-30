@@ -31,11 +31,11 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
     /**#@+
      * Names for Zend_Controller_Router_Route::__construct params
      */
-    const PARAM_ROUTE      = 'route';
-    const PARAM_DEFAULTS   = 'defaults';
-    const PARAM_REQS       = 'reqs';
-    const PARAM_TRANSLATOR = 'translator';
-    const PARAM_LOCALE     = 'locale';
+    public const PARAM_ROUTE      = 'route';
+    public const PARAM_DEFAULTS   = 'defaults';
+    public const PARAM_REQS       = 'reqs';
+    public const PARAM_TRANSLATOR = 'translator';
+    public const PARAM_LOCALE     = 'locale';
     /**#@- */
 
     /**

@@ -39,15 +39,15 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
     {
         switch ($fieldName) {
             case Mage_Centinel_Model_Service::CMPI_PARES:
-               return $this->__('3D Secure Verification Result');
+                return $this->__('3D Secure Verification Result');
             case Mage_Centinel_Model_Service::CMPI_ENROLLED:
-               return $this->__('3D Secure Cardholder Validation');
+                return $this->__('3D Secure Cardholder Validation');
             case Mage_Centinel_Model_Service::CMPI_ECI:
-               return $this->__('3D Secure Electronic Commerce Indicator');
+                return $this->__('3D Secure Electronic Commerce Indicator');
             case Mage_Centinel_Model_Service::CMPI_CAVV:
-               return $this->__('3D Secure CAVV');
+                return $this->__('3D Secure CAVV');
             case Mage_Centinel_Model_Service::CMPI_XID:
-               return $this->__('3D Secure XID');
+                return $this->__('3D Secure XID');
         }
         return '';
     }
@@ -63,14 +63,14 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
     {
         switch ($fieldName) {
             case Mage_Centinel_Model_Service::CMPI_PARES:
-               return $this->_getCmpiParesValue($value);
+                return $this->_getCmpiParesValue($value);
             case Mage_Centinel_Model_Service::CMPI_ENROLLED:
-               return $this->_getCmpiEnrolledValue($value);
+                return $this->_getCmpiEnrolledValue($value);
             case Mage_Centinel_Model_Service::CMPI_ECI:
-               return $this->_getCmpiEciValue($value);
+                return $this->_getCmpiEciValue($value);
             case Mage_Centinel_Model_Service::CMPI_CAVV: // break intentionally omitted
             case Mage_Centinel_Model_Service::CMPI_XID:
-               return $value;
+                return $value;
         }
         return '';
     }
@@ -141,17 +141,16 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
      * Return centinel block for payment form with logos
      *
      * @param Mage_Payment_Model_Method_Abstract $method
-     * @return Mage_Centinel_Block_Logo
+     * @return Mage_Centinel_Block_Logo|Mage_Core_Block_Abstract|false
      */
     public function getMethodFormBlock($method)
     {
         $blockType = 'centinel/logo';
         if ($this->getLayout()) {
             $block = $this->getLayout()->createBlock($blockType);
-        }
-        else {
+        } else {
             $className = Mage::getConfig()->getBlockClassName($blockType);
-            $block = new $className;
+            $block = new $className();
         }
         $block->setMethod($method);
         return $block;

@@ -29,9 +29,9 @@ class Mage_Core_Model_Factory
     /**
      * Xml path to url rewrite model class alias
      */
-    const XML_PATH_URL_REWRITE_MODEL = 'global/url_rewrite/model';
+    public const XML_PATH_URL_REWRITE_MODEL = 'global/url_rewrite/model';
 
-    const XML_PATH_INDEX_INDEX_MODEL = 'global/index/index_model';
+    public const XML_PATH_INDEX_INDEX_MODEL = 'global/index/index_model';
 
     /**
      * Config instance

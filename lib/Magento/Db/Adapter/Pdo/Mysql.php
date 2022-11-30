@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Magento
- * @package     Magento_Db
+ * @category   Magento
+ * @package    Magento_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -22,9 +22,9 @@
 /**
  * Magento PDO MySQL DB adapter
  *
- * @category    Magento
- * @package     Magento_Db
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Magento
+ * @package    Magento_Db
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
 {
@@ -48,8 +48,12 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
      * @param int $step
      * @return int
      */
-    public function insertBatchFromSelect(Varien_Db_Select $select, $table, array $fields = array(),
-                                          $mode = false, $step = 10000
+    public function insertBatchFromSelect(
+        Varien_Db_Select $select,
+        $table,
+        array $fields = [],
+        $mode = false,
+        $step = 10000
     ) {
         $limitOffset = 0;
         $totalAffectedRows = 0;
@@ -88,7 +92,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
         $row = $this->fetchRow($countSelect);
         $totalRows = array_shift($row);
 
-        $bunches = array();
+        $bunches = [];
         for ($i = 0; $i <= $totalRows; $i += $step) {
             $bunchSelect = clone $select;
             $bunches[] = $bunchSelect->limit($step, $i);
@@ -127,12 +131,13 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     {
         $this->_connect();
 
-        if ($type !== null &&
-            array_key_exists($type = strtoupper($type), $this->_numericDataTypes) &&
-            $this->_numericDataTypes[$type] == Zend_Db::FLOAT_TYPE) {
-                $value = $this->_convertFloat($value);
-                $quoteValue = sprintf('%F', $value);
-                return $quoteValue;
+        if ($type !== null
+            && rray_key_exists($type = strtoupper($type), $this->_numericDataTypes)
+            && $this->_numericDataTypes[$type] == Zend_Db::FLOAT_TYPE
+        ) {
+            $value = $this->_convertFloat($value);
+            $quoteValue = sprintf('%F', $value);
+            return $quoteValue;
         } elseif (is_float($value)) {
             return $this->_quote($value);
         }

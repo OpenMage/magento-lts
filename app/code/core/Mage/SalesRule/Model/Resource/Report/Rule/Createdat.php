@@ -94,22 +94,22 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
 
                 'subtotal_amount'         =>
                     $adapter->getIfNullSql('SUM((base_subtotal - ' .
-                        $adapter->getIfNullSql('base_subtotal_canceled', 0).') * base_to_global_rate)', 0),
+                        $adapter->getIfNullSql('base_subtotal_canceled', 0) . ') * base_to_global_rate)', 0),
 
                 'discount_amount'         =>
                     $adapter->getIfNullSql('SUM((ABS(base_discount_amount) - ' .
-                        $adapter->getIfNullSql('base_discount_canceled', 0).') * base_to_global_rate)', 0),
+                        $adapter->getIfNullSql('base_discount_canceled', 0) . ') * base_to_global_rate)', 0),
 
                 'total_amount'            =>
                     $adapter->getIfNullSql('SUM((base_subtotal - ' .
-                        $adapter->getIfNullSql('base_subtotal_canceled', 0) . ' - '.
+                        $adapter->getIfNullSql('base_subtotal_canceled', 0) . ' - ' .
                         $adapter->getIfNullSql('ABS(base_discount_amount) - ' .
-                        $adapter->getIfNullSql('base_discount_canceled', 0), 0). ')
+                        $adapter->getIfNullSql('base_discount_canceled', 0), 0) . ')
                         * base_to_global_rate)', 0),
 
                 'subtotal_amount_actual'  =>
                     $adapter->getIfNullSql('SUM((base_subtotal_invoiced - ' .
-                        $adapter->getIfNullSql('base_subtotal_refunded', 0). ') * base_to_global_rate)', 0),
+                        $adapter->getIfNullSql('base_subtotal_refunded', 0) . ') * base_to_global_rate)', 0),
 
                 'discount_amount_actual'  =>
                     $adapter->getIfNullSql('SUM((ABS(base_discount_invoiced) - ' .

@@ -30,10 +30,10 @@ class Mage_Adminhtml_Model_System_Config_Source_Catalog_ListMode
     {
         return [
             //array('value'=>'', 'label'=>''),
-            ['value'=>'grid', 'label'=>Mage::helper('adminhtml')->__('Grid Only')],
-            ['value'=>'list', 'label'=>Mage::helper('adminhtml')->__('List Only')],
-            ['value'=>'grid-list', 'label'=>Mage::helper('adminhtml')->__('Grid (default) / List')],
-            ['value'=>'list-grid', 'label'=>Mage::helper('adminhtml')->__('List (default) / Grid')],
+            ['value' => 'grid', 'label' => Mage::helper('adminhtml')->__('Grid Only')],
+            ['value' => 'list', 'label' => Mage::helper('adminhtml')->__('List Only')],
+            ['value' => 'grid-list', 'label' => Mage::helper('adminhtml')->__('Grid (default) / List')],
+            ['value' => 'list-grid', 'label' => Mage::helper('adminhtml')->__('List (default) / Grid')],
         ];
     }
 }

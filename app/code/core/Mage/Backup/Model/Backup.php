@@ -29,7 +29,7 @@
 class Mage_Backup_Model_Backup extends Varien_Object
 {
     /* internal constants */
-    const COMPRESS_RATE     = 9;
+    public const COMPRESS_RATE     = 9;
 
     /**
      * Type of backup file
@@ -105,10 +105,10 @@ class Mage_Backup_Model_Backup extends Varien_Object
      * @param string $value
      * @return $this
      */
-    public function setType($value='db')
+    public function setType($value = 'db')
     {
         $possibleTypes = Mage::helper('backup')->getBackupTypesList();
-        if(!in_array($value, $possibleTypes)) {
+        if (!in_array($value, $possibleTypes)) {
             $value = Mage::helper('backup')->getDefaultBackupType();
         }
 
@@ -143,7 +143,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
 
         $ioProxy = new Varien_Io_File();
         $ioProxy->setAllowCreateFolders(true);
-        $ioProxy->open(['path'=>$this->getPath()]);
+        $ioProxy->open(['path' => $this->getPath()]);
 
         $compress = 0;
         if (extension_loaded("zlib")) {
@@ -151,8 +151,8 @@ class Mage_Backup_Model_Backup extends Varien_Object
         }
 
         $rawContent = '';
-        if ( $compress ) {
-            $rawContent = gzcompress( $content, self::COMPRESS_RATE );
+        if ($compress) {
+            $rawContent = gzcompress($content, self::COMPRESS_RATE);
         } else {
             $rawContent = $content;
         }
@@ -171,7 +171,6 @@ class Mage_Backup_Model_Backup extends Varien_Object
      */
     public function &getFile()
     {
-
         if (!$this->exists()) {
             Mage::throwException(Mage::helper('backup')->__("Backup file does not exist."));
         }
@@ -218,7 +217,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
         }
 
         $ioProxy = new Varien_Io_File();
-        $ioProxy->open(['path'=>$this->getPath()]);
+        $ioProxy->open(['path' => $this->getPath()]);
         $ioProxy->rm($this->getFileName());
         return $this;
     }
@@ -240,8 +239,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
             $path = $ioAdapter->getCleanPath($this->getPath());
             $ioAdapter->checkAndCreateFolder($path);
             $filePath = $path . DS . $this->getFileName();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::exception('Mage_Backup', $e->getMessage());
         }
 
@@ -303,8 +301,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
 
         try {
             gzwrite($this->_handler, $string);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::exception('Mage_Backup', Mage::helper('backup')->__('An error occurred while writing to the backup file "%s".', $this->getFileName()));
         }
 

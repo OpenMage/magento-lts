@@ -30,12 +30,12 @@ class Mage_Catalog_Helper_Category_Flat extends Mage_Catalog_Helper_Flat_Abstrac
     /**
      * Catalog Category Flat Is Enabled Config
      */
-    const XML_PATH_IS_ENABLED_FLAT_CATALOG_CATEGORY = 'catalog/frontend/flat_catalog_category';
+    public const XML_PATH_IS_ENABLED_FLAT_CATALOG_CATEGORY = 'catalog/frontend/flat_catalog_category';
 
     /**
      * Catalog Flat Category index process code
      */
-    const CATALOG_CATEGORY_FLAT_PROCESS_CODE = 'catalog_category_flat';
+    public const CATALOG_CATEGORY_FLAT_PROCESS_CODE = 'catalog_category_flat';
 
     /**
      * Catalog Category Flat index process code

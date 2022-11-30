@@ -32,7 +32,7 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'sales/tax/classes_customer';
+    public const ADMIN_RESOURCE = 'sales/tax/classes_customer';
 
     /**
      * grid view
@@ -91,8 +91,8 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
 
         $this->_initAction()
             ->_addBreadcrumb(
-                $classId ? Mage::helper('tax')->__('Edit Class') :  Mage::helper('tax')->__('New Class'),
-                $classId ?  Mage::helper('tax')->__('Edit Class') :  Mage::helper('tax')->__('New Class')
+                $classId ? Mage::helper('tax')->__('Edit Class') : Mage::helper('tax')->__('New Class'),
+                $classId ? Mage::helper('tax')->__('Edit Class') : Mage::helper('tax')->__('New Class')
             )
             ->_addContent(
                 $this->getLayout()
@@ -126,7 +126,7 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
 
         if ($ruleCollection->getSize() > 0) {
             $session->addError(Mage::helper('tax')->__('You cannot delete this tax class as it is used in Tax Rules. You have to delete the rules it is used in first.'));
-            $this->_redirect('*/*/edit/', ['id'=>$classId]);
+            $this->_redirect('*/*/edit/', ['id' => $classId]);
             return;
         }
 
@@ -137,7 +137,7 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
 
         if ($groupCount > 0) {
             $session->addError(Mage::helper('tax')->__('You cannot delete this tax class as it is used for %d customer groups.', $groupCount));
-            $this->_redirect('*/*/edit/', ['id'=>$classId]);
+            $this->_redirect('*/*/edit/', ['id' => $classId]);
             return;
         }
 
@@ -153,7 +153,7 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
             $session->addException($e, Mage::helper('tax')->__('An error occurred while deleting this tax class.'));
         }
 
-        $this->_redirect('*/*/edit/', ['id'=>$classId]);
+        $this->_redirect('*/*/edit/', ['id' => $classId]);
     }
 
     /**

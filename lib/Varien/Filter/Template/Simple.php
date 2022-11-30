@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Filter
+ * @category   Varien
+ * @package    Varien_Filter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -72,9 +72,8 @@ class Varien_Filter_Template_Simple extends Varien_Object implements Zend_Filter
     {
         return preg_replace_callback(
             '#' . $this->_startTag . '(.*?)' . $this->_endTag . '#',
-            array($this, '_filterDataItem'),
+            [$this, '_filterDataItem'],
             $value
         );
     }
 }
-

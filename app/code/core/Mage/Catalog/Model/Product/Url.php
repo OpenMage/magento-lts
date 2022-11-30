@@ -28,7 +28,7 @@
  */
 class Mage_Catalog_Model_Product_Url extends Varien_Object
 {
-    const CACHE_TAG = 'url_rewrite';
+    public const CACHE_TAG = 'url_rewrite';
 
     /**
      * URL instance
