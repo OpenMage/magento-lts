@@ -1,4 +1,4 @@
-name: PHPStan Static Code Analyses
+name: PHPStan
 
 on:
   workflow_call:

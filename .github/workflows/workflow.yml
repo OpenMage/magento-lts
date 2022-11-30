@@ -86,7 +86,7 @@ jobs:
   sonar:
     name: Sonar Unit Tests
     needs: [check, phpcs, php-cs-fixer]
-    if: needs.check.outputs.phpunit-test > 0 || nneeds.check.outputs.phpunit > 0 || needs.check.outputs.sonar > 0 || needs.check.outputs.workflow > 0
+    if: needs.check.outputs.phpunit-test > 0 || needs.check.outputs.phpunit > 0 || needs.check.outputs.sonar > 0 || needs.check.outputs.workflow > 0
     uses: ./.github/workflows/sonar.yml
 
   # DOES NOT run by default
@@ -94,5 +94,5 @@ jobs:
   unit_tests:
     name: OpenMage LTS - Unit Tests
     needs: [check, sonar]
-    if: needs.check.outputs.phpunit-test > 0 || nneeds.check.outputs.phpunit > 0 || needs.check.outputs.workflow > 0
+    if: needs.check.outputs.phpunit-test > 0 || needs.check.outputs.phpunit > 0 || needs.check.outputs.workflow > 0
     uses: ./.github/workflows/phpunit.yml

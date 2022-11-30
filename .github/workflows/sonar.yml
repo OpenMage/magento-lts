@@ -1,4 +1,4 @@
-name: OpenMage LTS - Sonar - Full Analyses
+name: Sonar
 
 on:
   # Run automatically every Monday on midnight.

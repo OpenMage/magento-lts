@@ -1,4 +1,4 @@
-name: OpenMage LTS - Unit Tests
+name: PHPUnit
 
 on:
   # Run automatically every Monday on midnight.

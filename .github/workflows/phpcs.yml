@@ -1,4 +1,4 @@
-name: PHPCodeSniffer Code Style Analyses
+name: PHPCS
 
 on:
   workflow_call:
