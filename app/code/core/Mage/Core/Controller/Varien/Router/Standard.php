@@ -389,7 +389,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     {
         foreach ($modules as $module) {
             if ($moduleName === $module || (is_array($module)
-                    && $this->getModuleByName($moduleName, $module))) {
+                    && $this->getModuleByName($moduleName, $module))
+            ) {
                 return true;
             }
         }

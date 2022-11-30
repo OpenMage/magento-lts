@@ -250,7 +250,8 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
                 }
             } elseif ($this->_collectFiles && is_file($item)
                 && (!$this->_allowedFilesMask || preg_match($this->_allowedFilesMask, basename($item)))
-                && (!$this->_disallowedFilesMask || !preg_match($this->_disallowedFilesMask, basename($item)))) {
+                && (!$this->_disallowedFilesMask || !preg_match($this->_disallowedFilesMask, basename($item)))
+            ) {
                 $this->_collectedFiles[] = $item;
             }
         }

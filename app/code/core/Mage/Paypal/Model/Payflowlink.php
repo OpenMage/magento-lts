@@ -527,7 +527,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     {
         if (!$response->getSecuretoken() &&
             $response->getResult() != self::RESPONSE_CODE_APPROVED &&
-            $response->getResult() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER) {
+            $response->getResult() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER
+        ) {
             Mage::throwException($response->getRespmsg());
         } else {
             $payment->setAdditionalInformation('secure_token_id', $response->getSecuretokenid())

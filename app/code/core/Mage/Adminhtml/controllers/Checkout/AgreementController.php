@@ -88,7 +88,7 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
         Mage::register('checkout_agreement', $agreementModel);
 
         $this->_initAction()
-            ->_addBreadcrumb($id ? Mage::helper('checkout')->__('Edit Condition') :  Mage::helper('checkout')->__('New Condition'), $id ?  Mage::helper('checkout')->__('Edit Condition') :  Mage::helper('checkout')->__('New Condition'))
+            ->_addBreadcrumb($id ? Mage::helper('checkout')->__('Edit Condition') : Mage::helper('checkout')->__('New Condition'), $id ? Mage::helper('checkout')->__('Edit Condition') : Mage::helper('checkout')->__('New Condition'))
             ->_addContent($this->getLayout()->createBlock('adminhtml/checkout_agreement_edit')->setData('action', $this->getUrl('*/*/save')))
             ->renderLayout();
     }

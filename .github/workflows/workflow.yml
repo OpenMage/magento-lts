@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    paths:
+      - '.github/**'
+      - 'composer.json'
+      - 'composer.lock'
+      - '**.php'
+      - '**.xml'
+
+  pull_request:
+    paths:
+      - '.github/**'
+      - 'composer.json'
+      - 'composer.lock'
+      - '**.php'
+      - '**.xml'
+
+jobs:
+  debug:
+    name: Debug
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+  check:
+    name: Check files
+    uses: ./.github/workflows/check-files.yml
+
+  composer:
+    name: Composer
+    needs: [check]
+    if: needs.check.outputs.composer_count > 0
+    uses: ./.github/workflows/composer.yml
+
+  phpcs:
+    name: PHPCS
+    needs: [check]
+    if: needs.check.outputs.php_count > 0 || needs.check.outputs.ci_phpcs_count > 0 || needs.check.outputs.composer_count > 0 || needs.check.outputs.ci_count > 0
+    uses: ./.github/workflows/phpcs.yml
+
+  php-cs-fixer:
+    name: PHP-CS-Fixer
+    needs: [check]
+    if: needs.check.outputs.php_count > 0 || needs.check.outputs.ci_php_cs_fixer_count > 0 || needs.check.outputs.composer_count > 0 || needs.check.outputs.ci_count > 0
+    uses: ./.github/workflows/php-cs-fixer.yml
+
+  phpstan:
+    name: PHPStan
+    needs: [check]
+    if: needs.check.outputs.php_count > 0 || needs.check.outputs.ci_phpstan_count > 0 || needs.check.outputs.composer_count > 0 || needs.check.outputs.ci_count > 0
+    uses: ./.github/workflows/phpstan.yml
+
+  syntax_php:
+    name: Syntax
+    needs: [check, phpcs, php-cs-fixer]
+    if: needs.check.outputs.php_count > 0 || needs.check.outputs.composer_count > 0
+    uses: ./.github/workflows/syntax-php.yml
+
+  syntax_xml:
+    name: Syntax
+    needs: [check]
+    if: needs.check.outputs.xml_count > 0
+    uses: ./.github/workflows/syntax-xml.yml
+
+  sonar:
+    name: Sonar Unit Tests
+    needs: [check, phpcs, php-cs-fixer]
+    if: needs.check.outputs.php_count > 0 || needs.check.outputs.composer_count > 0 || needs.check.outputs.ci_count > 0
+    uses: ./.github/workflows/sonar.yml
+
+  unit_tests:
+    name: OpenMage LTS - Unit Tests
+    needs: [check, sonar]
+    if: needs.check.outputs.php_count > 0 || needs.check.outputs.composer_count > 0 || needs.check.outputs.ci_count > 0
+    uses: ./.github/workflows/phpunit.yml

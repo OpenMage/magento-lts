@@ -730,7 +730,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 if (isset($indexesNeed[$key])) {
                     $indexNeed = $indexesNeed[$key];
                     if (($indexNeed['INDEX_TYPE'] != $indexNow['INDEX_TYPE'])
-                        || ($indexNeed['COLUMNS_LIST'] != $indexNow['COLUMNS_LIST'])) {
+                        || ($indexNeed['COLUMNS_LIST'] != $indexNow['COLUMNS_LIST'])
+                    ) {
                         $dropIndexes[$key] = $indexNow;
                         $addIndexes[$key] = $indexNeed;
                     }

@@ -50,14 +50,15 @@ class Mage_PaypalUk_Block_Express_Shortcut extends Mage_Paypal_Block_Express_Sho
 
     /**
      * @param $quote
-     *
-     * @return Mage_Paypal_Block_Express_Shortcut
+     * @return $this
      */
     protected function _getBmlShortcut($quote)
     {
         $bml = Mage::helper('payment')->getMethodInstance(Mage_Paypal_Model_Config::METHOD_WPP_PE_BML);
         $isBmlEnabled = $bml && $bml->isAvailable($quote);
-        $this->setBmlShortcutHtmlId($this->helper('core')->uniqHash('ec_shortcut_bml_'))
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
+        $this->setBmlShortcutHtmlId($helper->uniqHash('ec_shortcut_bml_'))
             ->setBmlCheckoutUrl($this->getUrl('paypaluk/bml/start/button/1'))
             ->setBmlImageUrl('https://www.paypalobjects.com/webstatic/en_US/i/buttons/ppcredit-logo-medium.png')
             ->setMarketMessage('https://www.paypalobjects.com/webstatic/en_US/btn/btn_bml_text.png')

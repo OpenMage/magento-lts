@@ -1363,7 +1363,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                     return false;
                 }
                 if ($field == 'country'
-                    && in_array(strtolower($data[$prefix . $field]), ['US', 'CA'])) {
+                    && in_array(strtolower($data[$prefix . $field]), ['US', 'CA'])
+                ) {
                     if (!isset($data[$prefix . 'region'])) {
                         return false;
                     }

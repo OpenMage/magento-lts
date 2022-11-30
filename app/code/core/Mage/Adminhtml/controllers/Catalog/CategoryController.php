@@ -118,7 +118,8 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
         if ($_prevCategoryId
             && !$this->getRequest()->getQuery('isAjax')
-            && !$this->getRequest()->getParam('clear')) {
+            && !$this->getRequest()->getParam('clear')
+        ) {
             $this->getRequest()->setParam('id', $_prevCategoryId);
         }
 

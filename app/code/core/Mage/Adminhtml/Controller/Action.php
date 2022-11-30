@@ -209,7 +209,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         if ($this->getRequest()->isDispatched()
             && $this->getRequest()->getActionName() !== 'denied'
-            && !$this->_isAllowed()) {
+            && !$this->_isAllowed()
+        ) {
             $this->_forward('denied');
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return $this;
@@ -218,7 +219,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         if (!$this->getFlag('', self::FLAG_IS_URLS_CHECKED)
             && !$this->getRequest()->getParam('forwarded')
             && !$this->_getSession()->getIsUrlNotice(true)
-            && !Mage::getConfig()->getNode('global/can_use_base_url')) {
+            && !Mage::getConfig()->getNode('global/can_use_base_url')
+        ) {
             //$this->_checkUrlSettings();
             $this->setFlag('', self::FLAG_IS_URLS_CHECKED, true);
         }
@@ -402,7 +404,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         }
 
         if (!($secretKey = $this->getRequest()->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME, null))
-            || !hash_equals(Mage::getSingleton('adminhtml/url')->getSecretKey(), $secretKey)) {
+            || !hash_equals(Mage::getSingleton('adminhtml/url')->getSecretKey(), $secretKey)
+        ) {
             return false;
         }
         return true;

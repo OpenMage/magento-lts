@@ -616,7 +616,8 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         // BEHAVIOR_DELETE use specific validation logic
         if (Mage_ImportExport_Model_Import::BEHAVIOR_DELETE == $this->getBehavior()) {
             if (self::SCOPE_DEFAULT == $rowScope
-                && !isset($oldCustomersToLower[$emailToLower][$website])) {
+                && !isset($oldCustomersToLower[$emailToLower][$website])
+            ) {
                 $this->addRowError(self::ERROR_EMAIL_SITE_NOT_FOUND, $rowNum);
             }
         } elseif (self::SCOPE_DEFAULT == $rowScope) { // row is SCOPE_DEFAULT = new customer block begins

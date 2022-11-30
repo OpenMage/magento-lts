@@ -237,7 +237,8 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     {
         if ($this->getRequest()->getParam('isAjax') == 1
                     && $this->getRequest()->getParam('container') != ''
-                        && $this->getRequest()->getParam('value') != '') {
+                        && $this->getRequest()->getParam('value') != ''
+        ) {
             $configState = [
                 $this->getRequest()->getParam('container') => $this->getRequest()->getParam('value')
             ];

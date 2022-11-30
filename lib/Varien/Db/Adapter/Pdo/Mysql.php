@@ -314,24 +314,14 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         if (strpos($hostName, '/') !== false) {
             $hostInfo->setAddressType(self::ADDRESS_TYPE_UNIX_SOCKET)
                 ->setUnixSocket($hostName);
-        } elseif (preg_match(
-            '/^\[(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?\](:([0-9]+))?$/i',
-            $hostName,
-            $matches
-        )
-        ) {
-            $hostName = isset($matches[1]) ? $matches[1] : null;
+        } elseif (preg_match('/^\[(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?\](:([0-9]+))?$/i', $hostName, $matches)) {
+            $hostName = $matches[1] ?? null;
             !is_null($hostName) && isset($matches[6]) && ($hostName .= $matches[6]);
             $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
                 ->setHostName($hostName)
-                ->setPort(isset($matches[8]) ? $matches[8] : null);
-        } elseif (preg_match(
-            '/^(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?$/i',
-            $hostName,
-            $matches
-        )
-        ) {
-            $hostName = isset($matches[1]) ? $matches[1] : null;
+                ->setPort($matches[8] ?? null);
+        } elseif (preg_match('/^(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?$/i', $hostName, $matches)) {
+            $hostName = $matches[1] ?? null;
             !is_null($hostName) && isset($matches[6]) && ($hostName .= $matches[6]);
             $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
                 ->setHostName($hostName);
@@ -369,7 +359,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             throw new Zend_Db_Adapter_Exception('pdo_mysql extension is not installed');
         }
 
-        $hostInfo = $this->_getHostInfo(isset($this->_config['host']) ? $this->_config['host'] : (isset($this->_config['unix_socket']) ? $this->_config['unix_socket'] : null));
+        $hostInfo = $this->_getHostInfo($this->_config['host'] ?? $this->_config['unix_socket'] ?? null);
 
         switch ($hostInfo->getAddressType()) {
             case self::ADDRESS_TYPE_UNIX_SOCKET:
@@ -462,7 +452,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         if (empty($field)) {
             return $row;
         } else {
-            return isset($row[$field]) ? $row[$field] : false;
+            return $row[$field] ?? false;
         }
     }
 
@@ -572,11 +562,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     public function proccessBindCallback($matches)
     {
-        if (isset($matches[6]) && (
-            strpos($matches[6], "'") !== false ||
-            strpos($matches[6], ':') !== false ||
-            strpos($matches[6], '?') !== false
-        )
+        if (isset($matches[6])
+            && (
+                strpos($matches[6], "'") !== false
+                || strpos($matches[6], ':') !== false
+                || strpos($matches[6], '?') !== false
+            )
         ) {
             $bindName = ':_mage_bind_var_' . (++$this->_bindIncrement);
             $this->_bindParams[$bindName] = $this->_unQuote($matches[6]);
@@ -1194,7 +1185,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                     'SCHEMA_NAME'       => $schemaName,
                     'TABLE_NAME'        => $tableName,
                     'COLUMN_NAME'       => $match[2],
-                    'REF_SHEMA_NAME'    => isset($match[3]) ? $match[3] : $schemaName,
+                    'REF_SHEMA_NAME'    => $match[3] ?? $schemaName,
                     'REF_TABLE_NAME'    => $match[4],
                     'REF_COLUMN_NAME'   => $match[5],
                     'ON_DELETE'         => isset($match[6]) ? $match[7] : '',
@@ -1268,7 +1259,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                     $onUpdate = $options['ON_UPDATE'];
 
                     if ($onDelete == Varien_Db_Adapter_Interface::FK_ACTION_SET_NULL
-                        || $onUpdate == Varien_Db_Adapter_Interface::FK_ACTION_SET_NULL) {
+                        || $onUpdate == Varien_Db_Adapter_Interface::FK_ACTION_SET_NULL
+                    ) {
                         $columnDefinition['nullable'] = true;
                     }
                     $this->modifyColumn($options['TABLE_NAME'], $options['COLUMN_NAME'], $columnDefinition);

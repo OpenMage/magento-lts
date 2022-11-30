@@ -60,7 +60,8 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
         while (($entry = $dir->read()) !== false) {
             if ($entry != '.'
                 && $entry != '..'
-                && strtolower(substr($entry, strrpos($entry, '.') + 1)) == $this->getParseType()) {
+                && strtolower(substr($entry, strrpos($entry, '.') + 1)) == $this->getParseType()
+            ) {
                 $files[] = $entry;
             }
         }
