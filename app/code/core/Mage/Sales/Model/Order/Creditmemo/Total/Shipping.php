@@ -37,8 +37,8 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
         $order = $creditmemo->getOrder();
-        $allowedAmount          = $order->getShippingAmount()-$order->getShippingRefunded();
-        $baseAllowedAmount      = $order->getBaseShippingAmount()-$order->getBaseShippingRefunded();
+        $allowedAmount          = $order->getShippingAmount() - $order->getShippingRefunded();
+        $baseAllowedAmount      = $order->getBaseShippingAmount() - $order->getBaseShippingRefunded();
 
         $shipping               = $order->getShippingAmount();
         $baseShipping           = $order->getBaseShippingAmount();
@@ -54,10 +54,10 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
         if ($creditmemo->hasBaseShippingAmount()) {
             $baseShippingAmount = Mage::app()->getStore()->roundPrice($creditmemo->getBaseShippingAmount());
             if ($isShippingInclTax && $baseShippingInclTax != 0) {
-                $part = $baseShippingAmount/$baseShippingInclTax;
-                $shippingInclTax    = Mage::app()->getStore()->roundPrice($shippingInclTax*$part);
-                $baseShippingInclTax= $baseShippingAmount;
-                $baseShippingAmount = Mage::app()->getStore()->roundPrice($baseShipping*$part);
+                $part = $baseShippingAmount / $baseShippingInclTax;
+                $shippingInclTax    = Mage::app()->getStore()->roundPrice($shippingInclTax * $part);
+                $baseShippingInclTax = $baseShippingAmount;
+                $baseShippingAmount = Mage::app()->getStore()->roundPrice($baseShipping * $part);
             }
             /*
              * Rounded allowed shipping refund amount is the highest acceptable shipping refund amount.
@@ -103,8 +103,8 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
         $creditmemo->setShippingInclTax($shippingInclTax);
         $creditmemo->setBaseShippingInclTax($baseShippingInclTax);
 
-        $creditmemo->setGrandTotal($creditmemo->getGrandTotal()+$shipping);
-        $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal()+$baseShipping);
+        $creditmemo->setGrandTotal($creditmemo->getGrandTotal() + $shipping);
+        $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal() + $baseShipping);
         return $this;
     }
 }

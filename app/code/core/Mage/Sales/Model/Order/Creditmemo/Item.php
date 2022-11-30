@@ -243,7 +243,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
     public function cancel()
     {
         $this->getOrderItem()->setQtyRefunded(
-            $this->getOrderItem()->getQtyRefunded()-$this->getQty()
+            $this->getOrderItem()->getQtyRefunded() - $this->getQty()
         );
         $this->getOrderItem()->setTaxRefunded(
             $this->getOrderItem()->getTaxRefunded()
@@ -301,7 +301,8 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
     {
         $orderItem = $this->getOrderItem();
         if ((string)(float)$this->getQty() == (string)(float)$orderItem->getQtyToRefund()
-                && !$orderItem->getQtyToInvoice()) {
+                && !$orderItem->getQtyToInvoice()
+        ) {
             return true;
         }
         return false;

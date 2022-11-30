@@ -83,12 +83,12 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
     ) {
         $suffix = '';
         $priceSuffix = '';
-        $tables = ['eav'=>'catalogindex/eav', 'price'=>'catalogindex/price'];
+        $tables = ['eav' => 'catalogindex/eav', 'price' => 'catalogindex/price'];
         if (!is_null($products)) {
             if ($products instanceof Mage_Catalog_Model_Product) {
                 $products = $products->getId();
             } elseif ($products instanceof Mage_Catalog_Model_Product_Condition_Interface) {
-                $suffix = 'entity_id IN ('.$products->getIdsSelect($this->_getWriteAdapter())->__toString().')';
+                $suffix = 'entity_id IN (' . $products->getIdsSelect($this->_getWriteAdapter())->__toString() . ')';
             } elseif (!is_numeric($products) && !is_array($products)) {
                 Mage::throwException('Invalid products supplied for indexing');
             }
@@ -345,10 +345,10 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 if ($retreiver->areChildrenIndexable(Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES)) {
                     $children = $retreiver->getChildProductIds($store, $id);
                     if ($children) {
-                        $minimal = $this->getMinimalPrice([$type=>$children], $store);
+                        $minimal = $this->getMinimalPrice([$type => $children], $store);
                     }
                 } else {
-                    $minimal = $this->getMinimalPrice([$type=> [$id]], $store);
+                    $minimal = $this->getMinimalPrice([$type => [$id]], $store);
                 }
 
                 if (is_array($minimal)) {
@@ -656,7 +656,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
             }
 
             if ($productIds instanceof Mage_Catalog_Model_Product_Condition_Interface) {
-                $select->where('e.entity_id IN ('.$productIds->getIdsSelect($this->_getWriteAdapter())->__toString().')');
+                $select->where('e.entity_id IN (' . $productIds->getIdsSelect($this->_getWriteAdapter())->__toString() . ')');
             } elseif (!is_null($productIds)) {
                 $select->where("e.entity_id IN(?)", $productIds);
             }
@@ -680,7 +680,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                     ->where('e.is_child=?', 1);
 
                 if ($productIds instanceof Mage_Catalog_Model_Product_Condition_Interface) {
-                    $select->where('e.child_id IN ('.$productIds->getIdsSelect($this->_getWriteAdapter())->__toString().')');
+                    $select->where('e.child_id IN (' . $productIds->getIdsSelect($this->_getWriteAdapter())->__toString() . ')');
                 } elseif (!is_null($productIds)) {
                     $select->where("e.child_id IN(?)", $productIds);
                 }

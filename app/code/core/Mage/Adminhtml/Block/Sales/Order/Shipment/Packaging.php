@@ -68,14 +68,14 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
                 $itemsProductId[$itemId]     = $item->getProductId();
                 $itemsOrderItemId[$itemId]   = $item->getOrderItemId();
             }
-        } else if ($orderId) {
+        } elseif ($orderId) {
             $urlParams['order_id'] = $orderId;
             $createLabelUrl = $this->getUrl('*/sales_order_shipment/save', $urlParams);
             $itemsGridUrl = $this->getUrl('*/sales_order_shipment/getShippingItemsGrid', $urlParams);
 
             foreach ($this->getShipment()->getAllItems() as $item) {
                 $orderItemId = $item->getOrderItemId();
-                $itemsQty[$orderItemId]          = $item->getQty()*1;
+                $itemsQty[$orderItemId]          = $item->getQty() * 1;
                 $itemsPrice[$orderItemId]        = $item->getPrice();
                 $itemsName[$orderItemId]         = $item->getName();
                 $itemsWeight[$orderItemId]       = $item->getWeight();
@@ -215,7 +215,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         foreach ($items as $item) {
             if ($itemsOf == 'order' && $item->getOrderItemId() == $itemId) {
                 return $item;
-            } else if ($itemsOf == 'shipment' && $item->getId() == $itemId) {
+            } elseif ($itemsOf == 'shipment' && $item->getId() == $itemId) {
                 return $item;
             }
         }
@@ -357,7 +357,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     public function getQtyOrderedItem($itemId)
     {
         if ($itemId) {
-            return $this->getShipment()->getOrder()->getItemById($itemId)->getQtyOrdered()*1;
+            return $this->getShipment()->getOrder()->getItemById($itemId)->getQtyOrdered() * 1;
         } else {
             return;
         }

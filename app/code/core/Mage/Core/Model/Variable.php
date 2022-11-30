@@ -38,8 +38,8 @@
  */
 class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
 {
-    const TYPE_TEXT = 'text';
-    const TYPE_HTML = 'html';
+    public const TYPE_TEXT = 'text';
+    public const TYPE_HTML = 'html';
 
     protected $_storeId = 0;
 

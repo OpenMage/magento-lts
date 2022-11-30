@@ -126,7 +126,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
 
             $address->implodeStreetAddress();
 
-            if (($validateRes = $address->validate())!==true) {
+            if (($validateRes = $address->validate()) !== true) {
                 $this->_fault('customer_address_invalid', implode(PHP_EOL, $validateRes));
             }
 

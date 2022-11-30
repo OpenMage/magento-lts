@@ -87,14 +87,14 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
         }
 
         $fieldset->addField('template_code', 'text', [
-            'name'=>'template_code',
+            'name' => 'template_code',
             'label' => Mage::helper('adminhtml')->__('Template Name'),
             'required' => true
 
         ]);
 
         $fieldset->addField('template_subject', 'text', [
-            'name'=>'template_subject',
+            'name' => 'template_subject',
             'label' => Mage::helper('adminhtml')->__('Template Subject'),
             'required' => true
         ]);
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
         ]);
 
         $fieldset->addField('template_text', 'textarea', [
-            'name'=>'template_text',
+            'name' => 'template_text',
             'label' => Mage::helper('adminhtml')->__('Template Content'),
             'title' => Mage::helper('adminhtml')->__('Template Content'),
             'required' => true,
@@ -133,7 +133,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
 
         if (!$this->getEmailTemplate()->isPlain()) {
             $fieldset->addField('template_styles', 'textarea', [
-                'name'=>'template_styles',
+                'name' => 'template_styles',
                 'label' => Mage::helper('adminhtml')->__('Template Styles'),
                 'container_id' => 'field_template_styles'
             ]);

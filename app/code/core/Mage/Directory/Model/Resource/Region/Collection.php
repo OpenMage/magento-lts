@@ -174,7 +174,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
         $options = $this->_toOptionArray('region_id', 'default_name', ['title' => 'default_name']);
         if (count($options) > 0) {
             array_unshift($options, [
-                'title '=> null,
+                'title ' => null,
                 'value' => "",
                 'label' => Mage::helper('directory')->__('-- Please select --')
             ]);

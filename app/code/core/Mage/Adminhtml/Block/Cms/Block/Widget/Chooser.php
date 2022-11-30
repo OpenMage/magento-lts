@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
      *
      * @param array $arguments Object data
      */
-    public function __construct($arguments= [])
+    public function __construct($arguments = [])
     {
         parent::__construct($arguments);
         $this->setDefaultSort('block_id');
@@ -85,9 +85,9 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
                 var trElement = Event.findElement(event, "tr");
                 var blockId = trElement.down("td").innerHTML.replace(/^\s+|\s+$/g,"");
                 var blockTitle = trElement.down("td").next().innerHTML;
-                '.$chooserJsObject.'.setElementValue(blockId);
-                '.$chooserJsObject.'.setElementLabel(blockTitle);
-                '.$chooserJsObject.'.close();
+                ' . $chooserJsObject . '.setElementValue(blockId);
+                ' . $chooserJsObject . '.setElementLabel(blockTitle);
+                ' . $chooserJsObject . '.close();
             }
         ';
     }

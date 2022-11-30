@@ -74,7 +74,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
      */
     public function validate($object, $attributeSetName)
     {
-
         $adapter = $this->_getReadAdapter();
         $bind = [
             'attribute_set_name' => trim($attributeSetName),

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * OpenMage
  *
@@ -29,7 +28,7 @@
  */
 class Mage_Core_Model_File_Validator_Image
 {
-    const NAME = "isImage";
+    public const NAME = "isImage";
 
     protected $_allowedImageTypes = [
         IMAGETYPE_JPEG,

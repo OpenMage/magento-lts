@@ -29,22 +29,22 @@ class Mage_Core_Model_Domainpolicy
     /**
      * X-Frame-Options allow (header is absent)
      */
-    const FRAME_POLICY_ALLOW = 1;
+    public const FRAME_POLICY_ALLOW = 1;
 
     /**
      * X-Frame-Options SAMEORIGIN
      */
-    const FRAME_POLICY_ORIGIN = 2;
+    public const FRAME_POLICY_ORIGIN = 2;
 
     /**
      * Path to backend domain policy settings
      */
-    const XML_DOMAIN_POLICY_BACKEND = 'admin/security/domain_policy_backend';
+    public const XML_DOMAIN_POLICY_BACKEND = 'admin/security/domain_policy_backend';
 
     /**
      * Path to frontend domain policy settings
      */
-    const XML_DOMAIN_POLICY_FRONTEND = 'admin/security/domain_policy_frontend';
+    public const XML_DOMAIN_POLICY_FRONTEND = 'admin/security/domain_policy_frontend';
 
     /**
      * Current store

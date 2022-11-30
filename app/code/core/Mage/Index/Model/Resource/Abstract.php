@@ -28,8 +28,8 @@
  */
 abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
-    const IDX_SUFFIX= '_idx';
-    const TMP_SUFFIX= '_tmp';
+    public const IDX_SUFFIX = '_idx';
+    public const TMP_SUFFIX = '_tmp';
 
     /**
      * Flag that defines if need to use "_idx" index table suffix instead of "_tmp"
@@ -181,7 +181,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
             while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
                 $data[] = $row;
                 $counter++;
-                if ($counter>2000) {
+                if ($counter > 2000) {
                     $to->insertArray($destTable, $columns, $data);
                     $data = [];
                     $counter = 0;

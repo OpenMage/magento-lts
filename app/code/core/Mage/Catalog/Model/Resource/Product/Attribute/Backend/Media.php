@@ -28,8 +28,8 @@
  */
 class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_Core_Model_Resource_Db_Abstract
 {
-    const GALLERY_TABLE       = 'catalog/product_attribute_media_gallery';
-    const GALLERY_VALUE_TABLE = 'catalog/product_attribute_media_gallery_value';
+    public const GALLERY_TABLE       = 'catalog/product_attribute_media_gallery';
+    public const GALLERY_VALUE_TABLE = 'catalog/product_attribute_media_gallery_value';
 
     protected $_eventPrefix = 'catalog_product_attribute_backend_media';
 
@@ -120,7 +120,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      */
     public function deleteGallery($valueId)
     {
-        if (is_array($valueId) && count($valueId)>0) {
+        if (is_array($valueId) && count($valueId) > 0) {
             $condition = $this->_getWriteAdapter()->quoteInto('value_id IN(?) ', $valueId);
         } elseif (!is_array($valueId)) {
             $condition = $this->_getWriteAdapter()->quoteInto('value_id = ? ', $valueId);
@@ -230,7 +230,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
         // Select gallery images for product
         return $adapter->select()
             ->from(
-                ['main'=>$this->getMainTable()],
+                ['main' => $this->getMainTable()],
                 ['value_id', 'value AS file', 'product_id' => 'entity_id']
             )
             ->joinLeft(

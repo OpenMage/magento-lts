@@ -26,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Subtotal extends
-    Mage_Adminhtml_Block_Sales_Order_Create_Totals_Default
+class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Subtotal extends Mage_Adminhtml_Block_Sales_Order_Create_Totals_Default
 {
     /**
      * Template file path
@@ -50,7 +49,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Subtotal extends
         if ($displayBoth) {
             // Verify that the value for 'subtotal including tax' (or excluding tax) exists
             $value = $this->getTotal()->getValueInclTax();
-            $displayBoth = isset( $value );
+            $displayBoth = isset($value);
         }
         return $displayBoth;
     }

@@ -33,11 +33,11 @@ class Mage_Adminhtml_Model_System_Config_Source_Shipping_Allmethods
      * @param bool $isActiveOnlyFlag
      * @return array
      */
-    public function toOptionArray($isActiveOnlyFlag=false)
+    public function toOptionArray($isActiveOnlyFlag = false)
     {
-        $methods = [['value'=>'', 'label'=>'']];
+        $methods = [['value' => '', 'label' => '']];
         $carriers = Mage::getSingleton('shipping/config')->getAllCarriers();
-        foreach ($carriers as $carrierCode=>$carrierModel) {
+        foreach ($carriers as $carrierCode => $carrierModel) {
             if (!$carrierModel->isActive() && (bool)$isActiveOnlyFlag === true) {
                 continue;
             }
@@ -45,15 +45,15 @@ class Mage_Adminhtml_Model_System_Config_Source_Shipping_Allmethods
             if (!$carrierMethods) {
                 continue;
             }
-            $carrierTitle = Mage::getStoreConfig('carriers/'.$carrierCode.'/title');
+            $carrierTitle = Mage::getStoreConfig('carriers/' . $carrierCode . '/title');
             $methods[$carrierCode] = [
                 'label'   => $carrierTitle,
                 'value' => [],
             ];
-            foreach ($carrierMethods as $methodCode=>$methodTitle) {
+            foreach ($carrierMethods as $methodCode => $methodTitle) {
                 $methods[$carrierCode]['value'][] = [
-                    'value' => $carrierCode.'_'.$methodCode,
-                    'label' => '['.$carrierCode.'] '.$methodTitle,
+                    'value' => $carrierCode . '_' . $methodCode,
+                    'label' => '[' . $carrierCode . '] ' . $methodTitle,
                 ];
             }
         }

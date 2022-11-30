@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Reports Observer
  */

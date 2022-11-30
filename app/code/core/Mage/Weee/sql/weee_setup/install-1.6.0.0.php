@@ -175,46 +175,46 @@ $table = $installer->getConnection()
     ->setComment('Weee Discount');
 $installer->getConnection()->createTable($table);
 
-$installer->addAttribute('order_item', 'base_weee_tax_applied_amount', ['type'=>'decimal']);
-$installer->addAttribute('order_item', 'base_weee_tax_applied_row_amnt', ['type'=>'decimal']);
-$installer->addAttribute('order_item', 'weee_tax_applied_amount', ['type'=>'decimal']);
-$installer->addAttribute('order_item', 'weee_tax_applied_row_amount', ['type'=>'decimal']);
-$installer->addAttribute('order_item', 'weee_tax_applied', ['type'=>'text']);
+$installer->addAttribute('order_item', 'base_weee_tax_applied_amount', ['type' => 'decimal']);
+$installer->addAttribute('order_item', 'base_weee_tax_applied_row_amnt', ['type' => 'decimal']);
+$installer->addAttribute('order_item', 'weee_tax_applied_amount', ['type' => 'decimal']);
+$installer->addAttribute('order_item', 'weee_tax_applied_row_amount', ['type' => 'decimal']);
+$installer->addAttribute('order_item', 'weee_tax_applied', ['type' => 'text']);
 
-$installer->addAttribute('quote_item', 'weee_tax_disposition', ['type'=>'decimal']);
-$installer->addAttribute('quote_item', 'weee_tax_row_disposition', ['type'=>'decimal']);
-$installer->addAttribute('quote_item', 'base_weee_tax_disposition', ['type'=>'decimal']);
-$installer->addAttribute('quote_item', 'base_weee_tax_row_disposition', ['type'=>'decimal']);
+$installer->addAttribute('quote_item', 'weee_tax_disposition', ['type' => 'decimal']);
+$installer->addAttribute('quote_item', 'weee_tax_row_disposition', ['type' => 'decimal']);
+$installer->addAttribute('quote_item', 'base_weee_tax_disposition', ['type' => 'decimal']);
+$installer->addAttribute('quote_item', 'base_weee_tax_row_disposition', ['type' => 'decimal']);
 
-$installer->addAttribute('order_item', 'weee_tax_disposition', ['type'=>'decimal']);
-$installer->addAttribute('order_item', 'weee_tax_row_disposition', ['type'=>'decimal']);
-$installer->addAttribute('order_item', 'base_weee_tax_disposition', ['type'=>'decimal']);
-$installer->addAttribute('order_item', 'base_weee_tax_row_disposition', ['type'=>'decimal']);
+$installer->addAttribute('order_item', 'weee_tax_disposition', ['type' => 'decimal']);
+$installer->addAttribute('order_item', 'weee_tax_row_disposition', ['type' => 'decimal']);
+$installer->addAttribute('order_item', 'base_weee_tax_disposition', ['type' => 'decimal']);
+$installer->addAttribute('order_item', 'base_weee_tax_row_disposition', ['type' => 'decimal']);
 
-$installer->addAttribute('invoice_item', 'base_weee_tax_applied_amount', ['type'=>'decimal']);
-$installer->addAttribute('invoice_item', 'base_weee_tax_applied_row_amnt', ['type'=>'decimal']);
-$installer->addAttribute('invoice_item', 'weee_tax_applied_amount', ['type'=>'decimal']);
-$installer->addAttribute('invoice_item', 'weee_tax_applied_row_amount', ['type'=>'decimal']);
-$installer->addAttribute('invoice_item', 'weee_tax_applied', ['type'=>'text']);
-$installer->addAttribute('invoice_item', 'weee_tax_disposition', ['type'=>'decimal']);
-$installer->addAttribute('invoice_item', 'weee_tax_row_disposition', ['type'=>'decimal']);
-$installer->addAttribute('invoice_item', 'base_weee_tax_disposition', ['type'=>'decimal']);
-$installer->addAttribute('invoice_item', 'base_weee_tax_row_disposition', ['type'=>'decimal']);
+$installer->addAttribute('invoice_item', 'base_weee_tax_applied_amount', ['type' => 'decimal']);
+$installer->addAttribute('invoice_item', 'base_weee_tax_applied_row_amnt', ['type' => 'decimal']);
+$installer->addAttribute('invoice_item', 'weee_tax_applied_amount', ['type' => 'decimal']);
+$installer->addAttribute('invoice_item', 'weee_tax_applied_row_amount', ['type' => 'decimal']);
+$installer->addAttribute('invoice_item', 'weee_tax_applied', ['type' => 'text']);
+$installer->addAttribute('invoice_item', 'weee_tax_disposition', ['type' => 'decimal']);
+$installer->addAttribute('invoice_item', 'weee_tax_row_disposition', ['type' => 'decimal']);
+$installer->addAttribute('invoice_item', 'base_weee_tax_disposition', ['type' => 'decimal']);
+$installer->addAttribute('invoice_item', 'base_weee_tax_row_disposition', ['type' => 'decimal']);
 
-$installer->addAttribute('quote_item', 'weee_tax_applied', ['type'=>'text']);
-$installer->addAttribute('quote_item', 'weee_tax_applied_amount', ['type'=>'decimal']);
-$installer->addAttribute('quote_item', 'weee_tax_applied_row_amount', ['type'=>'decimal']);
-$installer->addAttribute('quote_item', 'base_weee_tax_applied_amount', ['type'=>'decimal']);
-$installer->addAttribute('quote_item', 'base_weee_tax_applied_row_amnt', ['type'=>'decimal']);
+$installer->addAttribute('quote_item', 'weee_tax_applied', ['type' => 'text']);
+$installer->addAttribute('quote_item', 'weee_tax_applied_amount', ['type' => 'decimal']);
+$installer->addAttribute('quote_item', 'weee_tax_applied_row_amount', ['type' => 'decimal']);
+$installer->addAttribute('quote_item', 'base_weee_tax_applied_amount', ['type' => 'decimal']);
+$installer->addAttribute('quote_item', 'base_weee_tax_applied_row_amnt', ['type' => 'decimal']);
 
-$installer->addAttribute('creditmemo_item', 'weee_tax_disposition', ['type'=>'decimal']);
-$installer->addAttribute('creditmemo_item', 'weee_tax_row_disposition', ['type'=>'decimal']);
-$installer->addAttribute('creditmemo_item', 'base_weee_tax_disposition', ['type'=>'decimal']);
-$installer->addAttribute('creditmemo_item', 'base_weee_tax_row_disposition', ['type'=>'decimal']);
-$installer->addAttribute('creditmemo_item', 'weee_tax_applied', ['type'=>'text']);
-$installer->addAttribute('creditmemo_item', 'base_weee_tax_applied_amount', ['type'=>'decimal']);
-$installer->addAttribute('creditmemo_item', 'base_weee_tax_applied_row_amnt', ['type'=>'decimal']);
-$installer->addAttribute('creditmemo_item', 'weee_tax_applied_amount', ['type'=>'decimal']);
-$installer->addAttribute('creditmemo_item', 'weee_tax_applied_row_amount', ['type'=>'decimal']);
+$installer->addAttribute('creditmemo_item', 'weee_tax_disposition', ['type' => 'decimal']);
+$installer->addAttribute('creditmemo_item', 'weee_tax_row_disposition', ['type' => 'decimal']);
+$installer->addAttribute('creditmemo_item', 'base_weee_tax_disposition', ['type' => 'decimal']);
+$installer->addAttribute('creditmemo_item', 'base_weee_tax_row_disposition', ['type' => 'decimal']);
+$installer->addAttribute('creditmemo_item', 'weee_tax_applied', ['type' => 'text']);
+$installer->addAttribute('creditmemo_item', 'base_weee_tax_applied_amount', ['type' => 'decimal']);
+$installer->addAttribute('creditmemo_item', 'base_weee_tax_applied_row_amnt', ['type' => 'decimal']);
+$installer->addAttribute('creditmemo_item', 'weee_tax_applied_amount', ['type' => 'decimal']);
+$installer->addAttribute('creditmemo_item', 'weee_tax_applied_row_amount', ['type' => 'decimal']);
 
 $installer->endSetup();

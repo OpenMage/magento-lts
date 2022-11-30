@@ -62,9 +62,9 @@
  */
 class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
 {
-    const DEFAULT_ONLINE_MINUTES_INTERVAL = 15;
-    const VISITOR_TYPE_CUSTOMER = 'c';
-    const VISITOR_TYPE_VISITOR  = 'v';
+    public const DEFAULT_ONLINE_MINUTES_INTERVAL = 15;
+    public const VISITOR_TYPE_CUSTOMER = 'c';
+    public const VISITOR_TYPE_VISITOR  = 'v';
 
     protected $_skipRequestLogging = false;
 
@@ -175,7 +175,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function getUrl()
     {
         $url = 'http' . ($this->getHttpSecure() ? 's' : '') . '://';
-        $url .= $this->getHttpHost().$this->getRequestUri();
+        $url .= $this->getHttpHost() . $this->getRequestUri();
         return $url;
     }
 

@@ -60,7 +60,9 @@ class Mage_Adminhtml_Block_System_Store_Edit extends Mage_Adminhtml_Block_Widget
 
         $this->_updateButton('save', 'label', $saveLabel);
         $this->_updateButton('delete', 'label', $deleteLabel);
-        $this->_updateButton('delete', 'onclick', 'setLocation(\''.$deleteUrl.'\');');
+        $this->_updateButton('delete', 'onclick', 'confirmSetLocation(\'' .
+            Mage::helper('core')->jsQuoteEscape(Mage::helper('core')->__('Are you sure?')) .
+            '\', \'' . $deleteUrl . '\');');
 
         if (!Mage::registry('store_data')->isCanDelete()) {
             $this->_removeButton('delete');

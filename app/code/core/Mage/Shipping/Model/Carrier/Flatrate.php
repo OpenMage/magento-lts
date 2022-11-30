@@ -103,6 +103,6 @@ class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_A
      */
     public function getAllowedMethods()
     {
-        return ['flatrate'=>$this->getConfigData('name')];
+        return ['flatrate' => $this->getConfigData('name')];
     }
 }

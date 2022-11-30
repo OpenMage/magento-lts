@@ -59,7 +59,7 @@ try {
             } else {
                 Mage::throwException('Unrecognized cron mode was defined');
             }
-        } else if (!$isShellDisabled) {
+        } elseif (!$isShellDisabled) {
             $fileName = escapeshellarg(basename(__FILE__));
             $cronPath = escapeshellarg(__DIR__ . '/cron.sh');
 

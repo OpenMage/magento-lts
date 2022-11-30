@@ -122,7 +122,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
         $this->getSelect()
             ->joinLeft(
                 ['orders' => $this->getTable('sales/order')],
-                "orders.customer_id = e.entity_id".$dateFilter,
+                "orders.customer_id = e.entity_id" . $dateFilter,
                 []
             );
 

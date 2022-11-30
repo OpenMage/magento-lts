@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Archive
+ * @category   Mage
+ * @package    Mage_Archive
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -72,8 +72,8 @@ class Mage_Archive_Helper_File
         $pathInfo = pathinfo($filePath);
 
         $this->_filePath = $filePath;
-        $this->_fileLocation = isset($pathInfo['dirname'])  ? $pathInfo['dirname'] : '';
-        $this->_fileName     = isset($pathInfo['basename']) ? $pathInfo['basename'] : '';
+        $this->_fileLocation = $pathInfo['dirname'] ?? '';
+        $this->_fileName     = $pathInfo['basename'] ?? '';
     }
 
     /**
@@ -250,7 +250,8 @@ class Mage_Archive_Helper_File
     *
     * @param string $mode
     */
-    protected function _isReadableMode($mode) {
+    protected function _isReadableMode($mode)
+    {
         return !$this->_isWritableMode($mode);
     }
 

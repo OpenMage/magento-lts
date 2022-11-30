@@ -26,9 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region
-    extends Mage_Adminhtml_Block_Abstract
-    implements Varien_Data_Form_Element_Renderer_Interface
+class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
     /**
      * Factory instance
@@ -75,9 +73,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region
         $html .= '</select>';
 
         $html .= '<script type="text/javascript">' . "\n";
-        $html .= '$("' . $selectId . '").setAttribute("defaultValue", "' . $regionId.'");' . "\n";
+        $html .= '$("' . $selectId . '").setAttribute("defaultValue", "' . $regionId . '");' . "\n";
         $html .= 'new regionUpdater("' . $country->getHtmlId() . '", "' . $element->getHtmlId() . '", "' .
-            $selectId . '", ' . Mage::helper('directory')->getRegionJsonByStore($quoteStoreId).');' . "\n";
+            $selectId . '", ' . Mage::helper('directory')->getRegionJsonByStore($quoteStoreId) . ');' . "\n";
         $html .= '</script>' . "\n";
 
         $html .= '</td></tr>' . "\n";

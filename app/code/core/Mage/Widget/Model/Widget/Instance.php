@@ -41,18 +41,18 @@
  */
 class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
 {
-    const SPECIFIC_ENTITIES = 'specific';
-    const ALL_ENTITIES      = 'all';
+    public const SPECIFIC_ENTITIES = 'specific';
+    public const ALL_ENTITIES      = 'all';
 
-    const DEFAULT_LAYOUT_HANDLE            = 'default';
-    const PRODUCT_LAYOUT_HANDLE            = 'catalog_product_view';
-    const SINGLE_PRODUCT_LAYOUT_HANLDE     = 'PRODUCT_{{ID}}';
-    const PRODUCT_TYPE_LAYOUT_HANDLE       = 'PRODUCT_TYPE_{{TYPE}}';
-    const ANCHOR_CATEGORY_LAYOUT_HANDLE    = 'catalog_category_layered';
-    const NOTANCHOR_CATEGORY_LAYOUT_HANDLE = 'catalog_category_default';
-    const SINGLE_CATEGORY_LAYOUT_HANDLE    = 'CATEGORY_{{ID}}';
+    public const DEFAULT_LAYOUT_HANDLE            = 'default';
+    public const PRODUCT_LAYOUT_HANDLE            = 'catalog_product_view';
+    public const SINGLE_PRODUCT_LAYOUT_HANLDE     = 'PRODUCT_{{ID}}';
+    public const PRODUCT_TYPE_LAYOUT_HANDLE       = 'PRODUCT_TYPE_{{TYPE}}';
+    public const ANCHOR_CATEGORY_LAYOUT_HANDLE    = 'catalog_category_layered';
+    public const NOTANCHOR_CATEGORY_LAYOUT_HANDLE = 'catalog_category_default';
+    public const SINGLE_CATEGORY_LAYOUT_HANDLE    = 'CATEGORY_{{ID}}';
 
-    const XML_NODE_RELATED_CACHE = 'global/widget/related_cache_types';
+    public const XML_NODE_RELATED_CACHE = 'global/widget/related_cache_types';
 
     protected $_layoutHandles = [];
 
@@ -96,7 +96,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         }
     }
 
-     /**
+    /**
      * Init mapping array of short fields to
      * its full names
      *
@@ -143,7 +143,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                         'block_reference' => $pageGroupData['block'],
                         'entities' => '',
                         'layout_handle_updates' => [$layoutHandle],
-                        'template' => $pageGroupData['template']?$pageGroupData['template']:''
+                        'template' => $pageGroupData['template'] ? $pageGroupData['template'] : ''
                     ];
                     if ($pageGroupData['for'] == self::SPECIFIC_ENTITIES) {
                         $layoutHandleUpdates = [];
@@ -490,10 +490,11 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     public function generateLayoutUpdateXml($blockReference, $templatePath = '')
     {
-      if ($templatePath !== htmlspecialchars($templatePath, ENT_QUOTES | ENT_HTML5)
-        || $blockReference !== htmlspecialchars($blockReference, ENT_QUOTES | ENT_HTML5)) {
-          Mage::throwException('Templatepath or block reference contain special characters.');
-      }
+        if ($templatePath !== htmlspecialchars($templatePath, ENT_QUOTES | ENT_HTML5)
+            || $blockReference !== htmlspecialchars($blockReference, ENT_QUOTES | ENT_HTML5)
+        ) {
+            Mage::throwException('Templatepath or block reference contain special characters.');
+        }
 
         $templateFilename = Mage::getSingleton('core/design_package')->getTemplateFilename($templatePath, [
             '_area'    => $this->getArea(),
@@ -501,7 +502,8 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             '_theme'   => $this->getTheme()
         ]);
         if (!$this->getId() && !$this->isCompleteToCreate()
-            || ($templatePath && !is_readable($templateFilename))) {
+            || ($templatePath && !is_readable($templateFilename))
+        ) {
             return '';
         }
         $parameters = $this->getWidgetParameters();

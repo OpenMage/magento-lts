@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Backup
+ * @category   Mage
+ * @package    Mage_Backup
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -21,9 +21,9 @@
 /**
  * Class to work with filesystem backups
  *
- * @category    Mage
- * @package     Mage_Backup
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Backup
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Backup_Filesystem extends Mage_Backup_Abstract
 {
@@ -32,7 +32,7 @@ class Mage_Backup_Filesystem extends Mage_Backup_Abstract
      *
      * @var array
      */
-    protected $_ignorePaths = array();
+    protected $_ignorePaths = [];
 
     /**
      * Whether use ftp account for rollback procedure
@@ -188,8 +188,7 @@ class Mage_Backup_Filesystem extends Mage_Backup_Abstract
             if (!in_array($paths, $this->_ignorePaths)) {
                 $this->_ignorePaths[] = $paths;
             }
-        }
-        else if (is_array($paths)) {
+        } elseif (is_array($paths)) {
             foreach ($paths as $path) {
                 $this->addIgnorePaths($path);
             }
@@ -272,7 +271,7 @@ class Mage_Backup_Filesystem extends Mage_Backup_Abstract
      */
     protected function _getTarTmpPath()
     {
-        $tmpName = '~tmp-'. microtime(true) . '.tar';
+        $tmpName = '~tmp-' . microtime(true) . '.tar';
         return $this->getBackupsDir() . DS . $tmpName;
     }
 }

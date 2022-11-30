@@ -28,7 +28,7 @@
  */
 class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abstract
 {
-    const RATING_STATUS_APPROVED = 'Approved';
+    public const RATING_STATUS_APPROVED = 'Approved';
 
     protected function _construct()
     {
@@ -253,7 +253,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
 
         if ($onlyForCurrentStore) {
             foreach ($data as $row) {
-                if ($row['store_id']==Mage::app()->getStore()->getId()) {
+                if ($row['store_id'] == Mage::app()->getStore()->getId()) {
                     $object->addData($row);
                 }
             }

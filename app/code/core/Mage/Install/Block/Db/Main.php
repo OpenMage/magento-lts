@@ -102,8 +102,7 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
             $data = Mage::getSingleton('install/session')->getConfigData(true);
             if (empty($data)) {
                 $data = Mage::getModel('install/installer_config')->getFormData();
-            }
-            else {
+            } else {
                 $data = new Varien_Object($data);
             }
             $this->setFormData($data);

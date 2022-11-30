@@ -28,34 +28,34 @@
  */
 class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_DEFAULT_COUNTRY              = 'general/country/default';
-    const XML_PATH_PROTECTED_FILE_EXTENSIONS    = 'general/file/protected_extensions';
-    const XML_PATH_PUBLIC_FILES_VALID_PATHS     = 'general/file/public_files_valid_paths';
-    const XML_PATH_ENCRYPTION_MODEL             = 'global/helpers/core/encryption_model';
-    const XML_PATH_DEV_ALLOW_IPS                = 'dev/restrict/allow_ips';
-    const XML_PATH_CACHE_BETA_TYPES             = 'global/cache/betatypes';
-    const XML_PATH_CONNECTION_TYPE              = 'global/resources/default_setup/connection/type';
+    public const XML_PATH_DEFAULT_COUNTRY              = 'general/country/default';
+    public const XML_PATH_PROTECTED_FILE_EXTENSIONS    = 'general/file/protected_extensions';
+    public const XML_PATH_PUBLIC_FILES_VALID_PATHS     = 'general/file/public_files_valid_paths';
+    public const XML_PATH_ENCRYPTION_MODEL             = 'global/helpers/core/encryption_model';
+    public const XML_PATH_DEV_ALLOW_IPS                = 'dev/restrict/allow_ips';
+    public const XML_PATH_CACHE_BETA_TYPES             = 'global/cache/betatypes';
+    public const XML_PATH_CONNECTION_TYPE              = 'global/resources/default_setup/connection/type';
 
-    const CHARS_LOWERS                          = 'abcdefghijklmnopqrstuvwxyz';
-    const CHARS_UPPERS                          = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const CHARS_DIGITS                          = '0123456789';
-    const CHARS_SPECIALS                        = '!$*+-.=?@^_|~';
-    const CHARS_PASSWORD_LOWERS                 = 'abcdefghjkmnpqrstuvwxyz';
-    const CHARS_PASSWORD_UPPERS                 = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
-    const CHARS_PASSWORD_DIGITS                 = '23456789';
-    const CHARS_PASSWORD_SPECIALS               = '!$*-.=?@_';
+    public const CHARS_LOWERS                          = 'abcdefghijklmnopqrstuvwxyz';
+    public const CHARS_UPPERS                          = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    public const CHARS_DIGITS                          = '0123456789';
+    public const CHARS_SPECIALS                        = '!$*+-.=?@^_|~';
+    public const CHARS_PASSWORD_LOWERS                 = 'abcdefghjkmnpqrstuvwxyz';
+    public const CHARS_PASSWORD_UPPERS                 = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+    public const CHARS_PASSWORD_DIGITS                 = '23456789';
+    public const CHARS_PASSWORD_SPECIALS               = '!$*-.=?@_';
 
     /**
      * Config pathes to merchant country code and merchant VAT number
      */
-    const XML_PATH_MERCHANT_COUNTRY_CODE = 'general/store_information/merchant_country';
-    const XML_PATH_MERCHANT_VAT_NUMBER = 'general/store_information/merchant_vat_number';
-    const XML_PATH_EU_COUNTRIES_LIST = 'general/country/eu_countries';
+    public const XML_PATH_MERCHANT_COUNTRY_CODE = 'general/store_information/merchant_country';
+    public const XML_PATH_MERCHANT_VAT_NUMBER = 'general/store_information/merchant_vat_number';
+    public const XML_PATH_EU_COUNTRIES_LIST = 'general/country/eu_countries';
 
     /**
      * Const for correct dividing decimal values
      */
-    const DIVIDE_EPSILON = 10000;
+    public const DIVIDE_EPSILON = 10000;
 
     protected $_moduleName = 'Mage_Core';
 
@@ -79,7 +79,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if ($this->_encryptor === null) {
             $encryptionModel = (string)Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
             if ($encryptionModel) {
-                $this->_encryptor = new $encryptionModel;
+                $this->_encryptor = new $encryptionModel();
             } else {
                 $this->_encryptor = Mage::getModel('core/encryption');
             }
@@ -259,7 +259,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_null($chars)) {
             $chars = self::CHARS_LOWERS . self::CHARS_UPPERS . self::CHARS_DIGITS;
         }
-        for ($i = 0, $str = '', $lc = strlen($chars)-1; $i < $len; $i++) {
+        for ($i = 0, $str = '', $lc = strlen($chars) - 1; $i < $len; $i++) {
             $str .= $chars[random_int(0, $lc)];
         }
         return $str;
@@ -341,38 +341,38 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if (empty($replacements[$german])) {
             $subst = [
                 // single ISO-8859-1 letters
-                192=>'A', 193=>'A', 194=>'A', 195=>'A', 196=>'A', 197=>'A', 199=>'C',
-                208=>'D', 200=>'E', 201=>'E', 202=>'E', 203=>'E', 204=>'I', 205=>'I',
-                206=>'I', 207=>'I', 209=>'N', 210=>'O', 211=>'O', 212=>'O', 213=>'O',
-                214=>'O', 216=>'O', 138=>'S', 217=>'U', 218=>'U', 219=>'U', 220=>'U',
-                221=>'Y', 142=>'Z', 224=>'a', 225=>'a', 226=>'a', 227=>'a', 228=>'a',
-                229=>'a', 231=>'c', 232=>'e', 233=>'e', 234=>'e', 235=>'e', 236=>'i',
-                237=>'i', 238=>'i', 239=>'i', 241=>'n', 240=>'o', 242=>'o', 243=>'o',
-                244=>'o', 245=>'o', 246=>'o', 248=>'o', 154=>'s', 249=>'u', 250=>'u',
-                251=>'u', 252=>'u', 253=>'y', 255=>'y', 158=>'z',
+                192 => 'A', 193 => 'A', 194 => 'A', 195 => 'A', 196 => 'A', 197 => 'A', 199 => 'C',
+                208 => 'D', 200 => 'E', 201 => 'E', 202 => 'E', 203 => 'E', 204 => 'I', 205 => 'I',
+                206 => 'I', 207 => 'I', 209 => 'N', 210 => 'O', 211 => 'O', 212 => 'O', 213 => 'O',
+                214 => 'O', 216 => 'O', 138 => 'S', 217 => 'U', 218 => 'U', 219 => 'U', 220 => 'U',
+                221 => 'Y', 142 => 'Z', 224 => 'a', 225 => 'a', 226 => 'a', 227 => 'a', 228 => 'a',
+                229 => 'a', 231 => 'c', 232 => 'e', 233 => 'e', 234 => 'e', 235 => 'e', 236 => 'i',
+                237 => 'i', 238 => 'i', 239 => 'i', 241 => 'n', 240 => 'o', 242 => 'o', 243 => 'o',
+                244 => 'o', 245 => 'o', 246 => 'o', 248 => 'o', 154 => 's', 249 => 'u', 250 => 'u',
+                251 => 'u', 252 => 'u', 253 => 'y', 255 => 'y', 158 => 'z',
                 // HTML entities
-                258=>'A', 260=>'A', 262=>'C', 268=>'C', 270=>'D', 272=>'D', 280=>'E',
-                282=>'E', 286=>'G', 304=>'I', 313=>'L', 317=>'L', 321=>'L', 323=>'N',
-                327=>'N', 336=>'O', 340=>'R', 344=>'R', 346=>'S', 350=>'S', 354=>'T',
-                356=>'T', 366=>'U', 368=>'U', 377=>'Z', 379=>'Z', 259=>'a', 261=>'a',
-                263=>'c', 269=>'c', 271=>'d', 273=>'d', 281=>'e', 283=>'e', 287=>'g',
-                305=>'i', 322=>'l', 314=>'l', 318=>'l', 324=>'n', 328=>'n', 337=>'o',
-                341=>'r', 345=>'r', 347=>'s', 351=>'s', 357=>'t', 355=>'t', 367=>'u',
-                369=>'u', 378=>'z', 380=>'z',
+                258 => 'A', 260 => 'A', 262 => 'C', 268 => 'C', 270 => 'D', 272 => 'D', 280 => 'E',
+                282 => 'E', 286 => 'G', 304 => 'I', 313 => 'L', 317 => 'L', 321 => 'L', 323 => 'N',
+                327 => 'N', 336 => 'O', 340 => 'R', 344 => 'R', 346 => 'S', 350 => 'S', 354 => 'T',
+                356 => 'T', 366 => 'U', 368 => 'U', 377 => 'Z', 379 => 'Z', 259 => 'a', 261 => 'a',
+                263 => 'c', 269 => 'c', 271 => 'd', 273 => 'd', 281 => 'e', 283 => 'e', 287 => 'g',
+                305 => 'i', 322 => 'l', 314 => 'l', 318 => 'l', 324 => 'n', 328 => 'n', 337 => 'o',
+                341 => 'r', 345 => 'r', 347 => 's', 351 => 's', 357 => 't', 355 => 't', 367 => 'u',
+                369 => 'u', 378 => 'z', 380 => 'z',
                 // ligatures
-                198=>'Ae', 230=>'ae', 140=>'Oe', 156=>'oe', 223=>'ss',
+                198 => 'Ae', 230 => 'ae', 140 => 'Oe', 156 => 'oe', 223 => 'ss',
             ];
 
             if ($german) {
                 // umlauts
                 $subst = [
-                    196=>'Ae', 228=>'ae', 214=>'Oe', 246=>'oe', 220=>'Ue', 252=>'ue'
+                    196 => 'Ae', 228 => 'ae', 214 => 'Oe', 246 => 'oe', 220 => 'Ue', 252 => 'ue'
                     ] + $subst;
             }
 
             $replacements[$german] = [];
             foreach ($subst as $k => $v) {
-                $replacements[$german][$k<256 ? chr($k) : '&#'.$k.';'] = $v;
+                $replacements[$german][$k < 256 ? chr($k) : '&#' . $k . ';'] = $v;
             }
         }
 
@@ -401,7 +401,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if (!empty($allowedIps) && !empty($remoteAddr)) {
             $allowedIps = preg_split('#\s*,\s*#', $allowedIps, -1, PREG_SPLIT_NO_EMPTY);
             if (array_search($remoteAddr, $allowedIps) === false
-                && array_search(Mage::helper('core/http')->getHttpHost(), $allowedIps) === false) {
+                && array_search(Mage::helper('core/http')->getHttpHost(), $allowedIps) === false
+            ) {
                 $allow = false;
             }
         }
@@ -458,7 +459,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public function copyFieldset($fieldset, $aspect, $source, $target, $root = 'global')
     {
         if (!(is_array($source) || $source instanceof Varien_Object)
-            || !(is_array($target) || $target instanceof Varien_Object)) {
+            || !(is_array($target) || $target instanceof Varien_Object)
+        ) {
             return false;
         }
         $fields = Mage::getConfig()->getFieldset($fieldset, $root);
@@ -668,8 +670,7 @@ XML;
                 $array[$key] = trim((string)$value);
                 if (empty($array[$key]) && !empty($value)) {
                     $array[$key] = self::xmlToAssoc($value);
-                } // untrim strings values
-                else {
+                } else { // untrim strings values
                     $array[$key] = (string)$value;
                 }
             }
@@ -739,7 +740,7 @@ XML;
      */
     public function uniqHash($prefix = '')
     {
-        return $prefix . md5(uniqid(microtime().mt_rand(), true));
+        return $prefix . md5(uniqid(microtime() . mt_rand(), true));
     }
 
     /**
@@ -779,7 +780,7 @@ XML;
                     foreach ($srcFiles as $file) {
                         if (!file_exists($file)) {
                             // no translation intentionally
-                            throw new Exception(sprintf('File %s not found.', $file));
+                            Mage::logException(new Exception(sprintf('File %s not found.', $file)));
                         } elseif (@filemtime($file) > $targetMtime) {
                             $shouldMerge = true;
                             break;

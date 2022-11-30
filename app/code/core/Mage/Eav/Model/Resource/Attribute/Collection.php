@@ -31,7 +31,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
     /**
      * code of password hash in customer's EAV tables
      */
-    const EAV_CODE_PASSWORD_HASH = 'password_hash';
+    public const EAV_CODE_PASSWORD_HASH = 'password_hash';
 
     /**
      * Current website scope instance

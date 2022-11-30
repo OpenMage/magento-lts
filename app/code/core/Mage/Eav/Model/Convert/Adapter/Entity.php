@@ -91,7 +91,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
             $joinType = 'LEFT';
         }
 
-        $this->_attrToDb=$attrToDb;
+        $this->_attrToDb = $attrToDb;
         $filters = $this->_parseVars();
 
         foreach ($attrFilterArray as $key => $type) {
@@ -142,13 +142,13 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                 case 'like':
                     $attr = [
                         'attribute' => $keyDB,
-                        'like'      => '%'.$val.'%'
+                        'like'      => '%' . $val . '%'
                     ];
                     break;
                 case 'startsWith':
                      $attr = [
                          'attribute' => $keyDB,
-                         'like'      => $val.'%'
+                         'like'      => $val . '%'
                      ];
                     break;
                 case 'fromTo':
@@ -222,7 +222,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
         if (is_array($joinAttr)) {
             $joinArrAttr = [];
             $joinArrAttr['attribute'] = $joinAttr['attribute'] ?? null;
-            $joinArrAttr['alias'] = isset($joinAttr['attribute']) ? str_replace('/', '_', $joinAttr['attribute']):null;
+            $joinArrAttr['alias'] = isset($joinAttr['attribute']) ? str_replace('/', '_', $joinAttr['attribute']) : null;
             $joinArrAttr['bind'] = $joinAttr['bind'] ?? null;
             $joinArrAttr['joinType'] = $joinAttr['joinType'] ?? null;
             $joinArrAttr['storeId'] = $joinAttr['storeId'] ?? $this->getStoreId();
@@ -263,7 +263,8 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     public function load()
     {
         if (!($entityType = $this->getVar('entity_type'))
-            || !(Mage::getResourceSingleton($entityType) instanceof Mage_Eav_Model_Entity_Interface)) {
+            || !(Mage::getResourceSingleton($entityType) instanceof Mage_Eav_Model_Entity_Interface)
+        ) {
             $this->addException(Mage::helper('eav')->__('Invalid entity specified'), Varien_Convert_Exception::FATAL);
         }
         try {
@@ -303,9 +304,9 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                 }
             }
 
-           /**
-            * Load collection ids
-            */
+            /**
+             * Load collection ids
+             */
             $entityIds = $collection->getAllIds();
 
             $message = Mage::helper('eav')->__("Loaded %d records", count($entityIds));
@@ -332,7 +333,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
      */
     protected function _getCollectionForLoad($entityType)
     {
-        return Mage::getResourceModel($entityType.'_collection');
+        return Mage::getResourceModel($entityType . '_collection');
     }
 
     /**
@@ -346,7 +347,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
             $this->addException(Mage::helper('eav')->__('Entity collections expected.'), Varien_Convert_Exception::FATAL);
         }
 
-        $this->addException($collection->getSize().' records found.');
+        $this->addException($collection->getSize() . ' records found.');
 
         if (!$collection instanceof Mage_Eav_Model_Entity_Collection_Abstract) {
             $this->addException(Mage::helper('eav')->__('Entity collection expected.'), Varien_Convert_Exception::FATAL);

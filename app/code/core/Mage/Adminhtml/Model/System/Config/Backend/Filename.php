@@ -29,12 +29,12 @@ class Mage_Adminhtml_Model_System_Config_Backend_Filename extends Mage_Core_Mode
     /**
      * Config path for system log file.
      */
-    const DEV_LOG_FILE_PATH = 'dev/log/file';
+    public const DEV_LOG_FILE_PATH = 'dev/log/file';
 
     /**
      * Config path for exception log file.
      */
-    const DEV_LOG_EXCEPTION_FILE_PATH = 'dev/log/exception_file';
+    public const DEV_LOG_EXCEPTION_FILE_PATH = 'dev/log/exception_file';
 
     /**
      * Processing object before save data

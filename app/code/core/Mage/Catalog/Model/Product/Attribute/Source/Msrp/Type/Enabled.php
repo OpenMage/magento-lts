@@ -31,17 +31,17 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled extends Mage
     /**
      * Enable MAP
      */
-    const MSRP_ENABLE_YES = 1;
+    public const MSRP_ENABLE_YES = 1;
 
     /**
      * Disable MAP
      */
-    const MSRP_ENABLE_NO = 0;
+    public const MSRP_ENABLE_NO = 0;
 
     /**
      * Get value from the store configuration settings
      */
-    const MSRP_ENABLE_USE_CONFIG = 2;
+    public const MSRP_ENABLE_USE_CONFIG = 2;
 
     /**
      * Retrieve all attribute options

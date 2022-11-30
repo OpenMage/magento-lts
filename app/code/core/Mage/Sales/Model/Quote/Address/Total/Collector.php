@@ -31,7 +31,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
     /**
      * Path to sort order values of checkout totals
      */
-    const XML_PATH_SALES_TOTALS_SORT = 'sales/totals_sort';
+    public const XML_PATH_SALES_TOTALS_SORT = 'sales/totals_sort';
 
     /**
      * Total models array ordered for right display sequence
@@ -117,8 +117,8 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
         }
 
         $model->setCode($totalCode);
-        $this->_modelsConfig[$totalCode]= $this->_prepareConfigArray($totalCode, $totalConfig);
-        $this->_modelsConfig[$totalCode]= $model->processConfigArray(
+        $this->_modelsConfig[$totalCode] = $this->_prepareConfigArray($totalCode, $totalConfig);
+        $this->_modelsConfig[$totalCode] = $model->processConfigArray(
             $this->_modelsConfig[$totalCode],
             $this->_store
         );

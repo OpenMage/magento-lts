@@ -45,8 +45,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
     {
         if (empty($ids)) {
             $ids = [];
-        }
-        elseif (!is_array($ids)) {
+        } elseif (!is_array($ids)) {
             $ids = [(int)$ids];
         }
         $this->_selectedIds = $ids;
@@ -56,10 +55,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
     protected function _getNodeJson($node, $level = 1)
     {
         $item = [];
-        $item['text']= $this->escapeHtml($node->getName());
+        $item['text'] = $this->escapeHtml($node->getName());
 
         if ($this->_withProductCount) {
-             $item['text'].= ' ('.$node->getProductCount().')';
+            $item['text'] .= ' (' . $node->getProductCount() . ')';
         }
         $item['id']  = $node->getId();
         $item['path'] = $node->getData('path');
@@ -89,7 +88,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
         return $item;
     }
 
-    public function getRoot($parentNodeCategory=null, $recursionLevel=3)
+    public function getRoot($parentNodeCategory = null, $recursionLevel = 3)
     {
         return $this->getRootByIds($this->getCategoryIds());
     }

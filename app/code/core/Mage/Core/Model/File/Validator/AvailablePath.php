@@ -43,9 +43,9 @@
  */
 class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstract
 {
-    const PROTECTED_PATH     = 'protectedPath';
-    const NOT_AVAILABLE_PATH = 'notAvailablePath';
-    const PROTECTED_LFI      = 'protectedLfi';
+    public const PROTECTED_PATH     = 'protectedPath';
+    public const NOT_AVAILABLE_PATH = 'notAvailablePath';
+    public const PROTECTED_LFI      = 'protectedLfi';
 
     /**
      * The path

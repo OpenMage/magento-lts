@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Db
+ * @category   Varien
+ * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -25,32 +25,37 @@
  */
 class Varien_Db_Tree_NodeSet implements Iterator
 {
-    private $_nodes = array();
+    private $_nodes = [];
     private $_currentNode = 0;
     private $_current = 0;
 
-    function __construct() {
-        $this->_nodes = array();
+    public function __construct()
+    {
+        $this->_nodes = [];
         $this->_current = 0;
         $this->_currentNode = 0;
         $this->count = 0;
     }
 
-    function addNode(Varien_Db_Tree_Node $node) {
+    public function addNode(Varien_Db_Tree_Node $node)
+    {
         $this->_nodes[$this->_currentNode] = $node;
         $this->count++;
         return ++$this->_currentNode;
     }
 
-    function count() {
+    public function count()
+    {
         return $this->count;
     }
 
-    function valid() {
+    public function valid()
+    {
         return  isset($this->_nodes[$this->_current]);
     }
 
-    function next() {
+    public function next()
+    {
         if ($this->_current > $this->_currentNode) {
             return false;
         } else {
@@ -58,15 +63,18 @@ class Varien_Db_Tree_NodeSet implements Iterator
         }
     }
 
-    function key() {
+    public function key()
+    {
         return $this->_current;
     }
 
-    function current() {
+    public function current()
+    {
         return $this->_nodes[$this->_current];
     }
 
-    function rewind() {
+    public function rewind()
+    {
         $this->_current = 0;
     }
 }

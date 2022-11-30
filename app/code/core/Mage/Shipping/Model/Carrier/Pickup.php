@@ -66,6 +66,6 @@ class Mage_Shipping_Model_Carrier_Pickup extends Mage_Shipping_Model_Carrier_Abs
      */
     public function getAllowedMethods()
     {
-        return ['pickup'=>Mage::helper('shipping')->__('Store Pickup')];
+        return ['pickup' => Mage::helper('shipping')->__('Store Pickup')];
     }
 }

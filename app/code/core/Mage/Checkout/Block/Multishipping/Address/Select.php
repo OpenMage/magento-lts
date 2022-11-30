@@ -84,7 +84,7 @@ class Mage_Checkout_Block_Multishipping_Address_Select extends Mage_Checkout_Blo
      */
     public function getEditAddressUrl($address)
     {
-        return $this->getUrl('*/*/editAddress', ['id'=>$address->getId()]);
+        return $this->getUrl('*/*/editAddress', ['id' => $address->getId()]);
     }
 
     /**
@@ -93,7 +93,7 @@ class Mage_Checkout_Block_Multishipping_Address_Select extends Mage_Checkout_Blo
      */
     public function getSetAddressUrl($address)
     {
-        return $this->getUrl('*/*/setBilling', ['id'=>$address->getId()]);
+        return $this->getUrl('*/*/setBilling', ['id' => $address->getId()]);
     }
 
     /**

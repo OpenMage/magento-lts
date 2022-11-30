@@ -51,7 +51,8 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 
             if ($item->getStoreId() != Mage::app()->getStore()->getId()
                 && !$item->getRedirectUrl()
-                && !$product->isVisibleInSiteVisibility()) {
+                && !$product->isVisibleInSiteVisibility()
+            ) {
                 $products[$product->getId()] = $item->getStoreId();
             }
         }
@@ -119,7 +120,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      */
     public function getCheckoutUrl()
     {
-        return $this->getUrl('checkout/onepage', ['_secure'=>true]);
+        return $this->getUrl('checkout/onepage', ['_secure' => true]);
     }
 
     /**

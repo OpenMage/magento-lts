@@ -17,7 +17,7 @@
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2019 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php s+Academic Free License (AFL 3.0)
+ * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -303,6 +303,7 @@
                 <title>Order Comments</title>
                 <privileges>
                     <admin>
+                        <create>1</create>
                         <retrieve>1</retrieve>
                     </admin>
                     <customer>
@@ -323,6 +324,10 @@
                     </customer>
                 </force_attributes>
                 <routes>
+                    <route_entity>
+                        <route>/orders/comments/:id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
                     <route_collection>
                         <route>/orders/:id/comments</route>
                         <action_type>collection</action_type>

@@ -180,7 +180,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     {
         if ($flag && $this->getPriceType() == 'percent') {
             $basePrice = $this->getOption()->getProduct()->getFinalPrice();
-            return $basePrice*($this->_getData('price')/100);
+            return $basePrice * ($this->_getData('price') / 100);
         }
         return $this->_getData('price');
     }

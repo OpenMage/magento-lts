@@ -40,11 +40,11 @@ class Mage_Tax_Model_Sales_Pdf_Shipping extends Mage_Sales_Model_Order_Pdf_Total
     public function getTotalsForDisplay()
     {
         $store = $this->getOrder()->getStore();
-        $config= Mage::getSingleton('tax/config');
+        $config = Mage::getSingleton('tax/config');
         $amount = $this->getOrder()->formatPriceTxt($this->getAmount());
         $amountInclTax = $this->getSource()->getShippingInclTax();
         if (!$amountInclTax) {
-            $amountInclTax = $this->getAmount()+$this->getSource()->getShippingTaxAmount();
+            $amountInclTax = $this->getAmount() + $this->getSource()->getShippingTaxAmount();
         }
         $amountInclTax = $this->getOrder()->formatPriceTxt($amountInclTax);
         $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
@@ -52,25 +52,25 @@ class Mage_Tax_Model_Sales_Pdf_Shipping extends Mage_Sales_Model_Order_Pdf_Total
         if ($config->displaySalesShippingBoth($store)) {
             $totals = [
                 [
-                    'amount'    => $this->getAmountPrefix().$amount,
+                    'amount'    => $this->getAmountPrefix() . $amount,
                     'label'     => Mage::helper('tax')->__('Shipping (Excl. Tax)') . ':',
                     'font_size' => $fontSize
                 ],
                 [
-                    'amount'    => $this->getAmountPrefix().$amountInclTax,
+                    'amount'    => $this->getAmountPrefix() . $amountInclTax,
                     'label'     => Mage::helper('tax')->__('Shipping (Incl. Tax)') . ':',
                     'font_size' => $fontSize
                 ],
             ];
         } elseif ($config->displaySalesShippingInclTax($store)) {
             $totals = [[
-                'amount'    => $this->getAmountPrefix().$amountInclTax,
+                'amount'    => $this->getAmountPrefix() . $amountInclTax,
                 'label'     => Mage::helper('sales')->__($this->getTitle()) . ':',
                 'font_size' => $fontSize
             ]];
         } else {
             $totals = [[
-                'amount'    => $this->getAmountPrefix().$amount,
+                'amount'    => $this->getAmountPrefix() . $amount,
                 'label'     => Mage::helper('sales')->__($this->getTitle()) . ':',
                 'font_size' => $fontSize
             ]];

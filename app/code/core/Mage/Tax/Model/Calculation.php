@@ -46,23 +46,23 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Identifier constant for Tax calculation before discount excluding TAX
      */
-    const CALC_TAX_BEFORE_DISCOUNT_ON_EXCL      = '0_0';
+    public const CALC_TAX_BEFORE_DISCOUNT_ON_EXCL      = '0_0';
     /***/
 
     /**
      * Identifier constant for Tax calculation before discount including TAX
      */
-    const CALC_TAX_BEFORE_DISCOUNT_ON_INCL      = '0_1';
+    public const CALC_TAX_BEFORE_DISCOUNT_ON_INCL      = '0_1';
 
     /**
      * Identifier constant for Tax calculation after discount excluding TAX
      */
-    const CALC_TAX_AFTER_DISCOUNT_ON_EXCL       = '1_0';
+    public const CALC_TAX_AFTER_DISCOUNT_ON_EXCL       = '1_0';
 
     /**
      * Identifier constant for Tax calculation after discount including TAX
      */
-    const CALC_TAX_AFTER_DISCOUNT_ON_INCL       = '1_1';
+    public const CALC_TAX_AFTER_DISCOUNT_ON_INCL       = '1_1';
 
     /**
      * Identifier constant for unit based calculation
@@ -80,17 +80,17 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * CALC_UNIT_BASE
      */
-    const CALC_UNIT_BASE = 'UNIT_BASE_CALCULATION';
+    public const CALC_UNIT_BASE = 'UNIT_BASE_CALCULATION';
 
     /**
      * CALC_ROW_BASE
      */
-    const CALC_ROW_BASE = 'ROW_BASE_CALCULATION';
+    public const CALC_ROW_BASE = 'ROW_BASE_CALCULATION';
 
     /**
      * CALC_TOTAL_BASE
      */
-    const CALC_TOTAL_BASE = 'TOTAL_BASE_CALCULATION';
+    public const CALC_TOTAL_BASE = 'TOTAL_BASE_CALCULATION';
 
     /**
      * Cache to hold the rates

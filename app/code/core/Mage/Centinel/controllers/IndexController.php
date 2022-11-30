@@ -46,7 +46,7 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
     public function authenticationCompleteAction()
     {
         try {
-           if ($validator = $this->_getValidator()) {
+            if ($validator = $this->_getValidator()) {
                 $request = $this->getRequest();
 
                 $data = new Varien_Object();
@@ -75,7 +75,7 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Return Centinel validation model
      *
-     * @return Mage_Centinel_Model_Service
+     * @return Mage_Centinel_Model_Service|false
      */
     private function _getValidator()
     {
@@ -85,4 +85,3 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
         return false;
     }
 }
-

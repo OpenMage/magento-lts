@@ -31,12 +31,12 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Default layout template
      */
-    const LAYOUT_TEMPLATE = 'minLayout';
+    public const LAYOUT_TEMPLATE = 'minLayout';
 
     /**
      * Mobile layout template
      */
-    const MOBILE_LAYOUT_TEMPLATE = 'mobile';
+    public const MOBILE_LAYOUT_TEMPLATE = 'mobile';
 
     /**
      * Controller for callback urls
@@ -99,13 +99,13 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * Gateway request URL
      * @var string
      */
-    const TRANSACTION_PAYFLOW_URL = 'https://payflowlink.paypal.com/';
+    public const TRANSACTION_PAYFLOW_URL = 'https://payflowlink.paypal.com/';
 
     /**
      * Error message
      * @var string
      */
-    const RESPONSE_ERROR_MSG = 'Payment error. %s was not found.';
+    public const RESPONSE_ERROR_MSG = 'Payment error. %s was not found.';
 
     /**
      * Key for storing secure hash in additional information of payment model
@@ -288,7 +288,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             $payment->setAdditionalInformation('paypal_cvv2_match', $response->getCvv2match());
         }
 
-        switch ($response->getType()){
+        switch ($response->getType()) {
             case self::TRXTYPE_AUTH_ONLY:
                 $payment->registerAuthorizationNotification($payment->getBaseAmountAuthorized());
                 break;
@@ -390,9 +390,9 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             ->setCustref($payment->getOrder()->getIncrementId())
             ->setPonum($payment->getOrder()->getId());
         //This is PaPal issue with taxes and shipping
-            //->setSubtotal($this->_formatStr('%.2F', $payment->getOrder()->getBaseSubtotal()))
-            //->setTaxamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseTaxAmount()))
-            //->setFreightamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseShippingAmount()));
+        //->setSubtotal($this->_formatStr('%.2F', $payment->getOrder()->getBaseSubtotal()))
+        //->setTaxamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseTaxAmount()))
+        //->setFreightamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseShippingAmount()));
 
         $order = $payment->getOrder();
         if (empty($order)) {
@@ -526,8 +526,9 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     protected function _processTokenErrors($response, $payment)
     {
         if (!$response->getSecuretoken() &&
-            $response->getResult() != self::RESPONSE_CODE_APPROVED
-            && $response->getResult() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER) {
+            $response->getResult() != self::RESPONSE_CODE_APPROVED &&
+            $response->getResult() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER
+        ) {
             Mage::throwException($response->getRespmsg());
         } else {
             $payment->setAdditionalInformation('secure_token_id', $response->getSecuretokenid())

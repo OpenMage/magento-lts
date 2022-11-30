@@ -34,7 +34,7 @@ class Mage_Reports_Model_Config extends Varien_Object
     public function getGlobalConfig()
     {
         $dom = new DOMDocument();
-        $dom -> load(Mage::getModuleDir('etc', 'Mage_Reports').DS.'flexConfig.xml');
+        $dom -> load(Mage::getModuleDir('etc', 'Mage_Reports') . DS . 'flexConfig.xml');
 
         $baseUrl = $dom -> createElement('baseUrl');
         $baseUrl -> nodeValue = Mage::getBaseUrl();
@@ -49,7 +49,7 @@ class Mage_Reports_Model_Config extends Varien_Object
       */
     public function getLanguage()
     {
-        return file_get_contents(Mage::getModuleDir('etc', 'Mage_Reports').DS.'flexLanguage.xml');
+        return file_get_contents(Mage::getModuleDir('etc', 'Mage_Reports') . DS . 'flexLanguage.xml');
     }
 
     /**
@@ -57,6 +57,6 @@ class Mage_Reports_Model_Config extends Varien_Object
       */
     public function getDashboard()
     {
-        return file_get_contents(Mage::getModuleDir('etc', 'Mage_Reports').DS.'flexDashboard.xml');
+        return file_get_contents(Mage::getModuleDir('etc', 'Mage_Reports') . DS . 'flexDashboard.xml');
     }
 }

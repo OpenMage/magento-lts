@@ -32,7 +32,7 @@ class Mage_Adminhtml_Media_UploaderController extends Mage_Adminhtml_Controller_
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'media';
+    public const ADMIN_RESOURCE = 'media';
 
     public function uploadAction()
     {

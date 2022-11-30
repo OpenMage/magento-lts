@@ -54,7 +54,7 @@ class Mage_Sales_Model_Observer
             $quotes = Mage::getModel('sales/quote')->getCollection();
 
             $quotes->addFieldToFilter('store_id', $storeId);
-            $quotes->addFieldToFilter('updated_at', ['to'=>date("Y-m-d", time()-$lifetime)]);
+            $quotes->addFieldToFilter('updated_at', ['to' => date("Y-m-d", time() - $lifetime)]);
             $quotes->addFieldToFilter('is_active', 0);
 
             foreach ($this->getExpireQuotesAdditionalFilterFields() as $field => $condition) {

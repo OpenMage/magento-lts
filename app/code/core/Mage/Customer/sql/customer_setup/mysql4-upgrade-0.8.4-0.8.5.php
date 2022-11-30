@@ -20,7 +20,7 @@
  */
 
 if ($attrId = $this->getAttribute('customer', 'birthdate', 'attribute_id')) {
-    $this->getConnection()->delete($this->getTable('eav_attribute'), 'attribute_id='.$attrId);
+    $this->getConnection()->delete($this->getTable('eav_attribute'), 'attribute_id=' . $attrId);
 }
 
 $this->installEntities();

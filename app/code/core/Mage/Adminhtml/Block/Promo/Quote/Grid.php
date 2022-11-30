@@ -69,14 +69,14 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
     {
         $this->addColumn('rule_id', [
             'header'    => Mage::helper('salesrule')->__('ID'),
-            'align'     =>'right',
+            'align'     => 'right',
             'width'     => '50px',
             'index'     => 'rule_id',
         ]);
 
         $this->addColumn('name', [
             'header'    => Mage::helper('salesrule')->__('Rule Name'),
-            'align'     =>'left',
+            'align'     => 'left',
             'index'     => 'name',
         ]);
 
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('rule_website', [
                 'header'    => Mage::helper('salesrule')->__('Website'),
-                'align'     =>'left',
+                'align'     => 'left',
                 'index'     => 'website_ids',
                 'type'      => 'options',
                 'sortable'  => false,

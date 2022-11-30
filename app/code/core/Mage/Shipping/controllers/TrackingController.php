@@ -44,7 +44,7 @@ class Mage_Shipping_TrackingController extends Mage_Core_Controller_Front_Action
             foreach ($tracks as $track) {
                 $trackingInfo = $track->getNumberDetail();
                 $block->setTrackingInfo($trackingInfo);
-                $response .= $block->toHtml()."\n<br />";
+                $response .= $block->toHtml() . "\n<br />";
             }
 
             $this->getResponse()->setBody($response);
