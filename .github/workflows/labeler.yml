@@ -16,5 +16,7 @@ jobs:
     steps:
       - uses: actions/labeler@main
         with:
+          configuration-path: .github/workflows/labeler-labels.yml
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          sync-labels: true
         continue-on-error: true

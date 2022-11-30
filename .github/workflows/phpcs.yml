@@ -14,11 +14,11 @@ jobs:
       matrix:
         rules:
           - label: Default
-            path: .github/phpcs-ruleset.xml
+            path: .phpcs.xml.dist
           - label: Ecg
-            path: .github/phpcs-ruleset-ecg.xml
+            path: .phpcs.ecg.xml.dist
           - label: PhpCompatibitliy
-            path: .github/phpcs-ruleset-php.xml
+            path: .phpcs.php.xml.dist
 
     steps:
       - name: Checkout code

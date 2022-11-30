@@ -67,9 +67,9 @@ jobs:
             **/*.php
             **/*.xml
             .github/workflows/**
-            .github/**phpcs**
-            .github/**php-cs-fixer**
-            .github/**phpstan**
+            **phpcs**
+            **php-cs-fixer**
+            **phpstan**
 
       - name: Run step if any file(s) changed
         id: all
@@ -93,14 +93,14 @@ jobs:
           echo "$count Workflow file(s) changed"
           echo "ci_count=$count" >> $GITHUB_OUTPUT
 
-          count="$(grep -oE ".github/**phpcs**" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          count="$(grep -oE "**phpcs**" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
           echo "$count PHPCS file(s) changed"
           echo "ci_phpcs_count=$count" >> $GITHUB_OUTPUT
 
-          count="$(grep -oE ".github/**php-cs-fixer**" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          count="$(grep -oE "**php-cs-fixer**" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
           echo "$count PHP-CS-Fixer file(s) changed"
           echo "ci_php_cs_fixer_count=$count" >> $GITHUB_OUTPUT
 
-          count="$(grep -oE ".github/**phpstan**" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          count="$(grep -oE "**phpstan**" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
           echo "$count PHPStan file(s) changed"
           echo "ci_phpstan_count=$count" >> $GITHUB_OUTPUT
