@@ -36,44 +36,9 @@ parameters:
 			path: app/code/core/Mage/Admin/Model/Config.php
 
 		-
-			message: "#^Parameter \\#1 \\$sourceData of class Varien_Simplexml_Config constructor expects string\\|Varien_Simplexml_Element\\|null, Varien_Simplexml_Config given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Config.php
-
-		-
-			message: "#^Parameter \\#2 \\$arguments of static method Mage\\:\\:getModel\\(\\) expects array\\|object, string given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Admin/Model/Config.php
-
-		-
-			message: "#^Parameter \\#2 \\$mergeToObject of method Mage_Core_Model_Config\\:\\:loadModulesConfiguration\\(\\) expects Mage_Core_Model_Config_Base\\|null, Varien_Simplexml_Config given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Config.php
-
-		-
-			message: "#^Parameter \\#2 \\$resource of method Mage_Admin_Model_Config\\:\\:loadAclResources\\(\\) expects Mage_Core_Model_Config_Element\\|null, Varien_Simplexml_Element given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Config.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Observer.php
-
-		-
 			message: "#^Cannot call method getClassName\\(\\) on SimpleXMLElement\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Admin/Model/Resource/Acl.php
-
-		-
-			message: "#^Parameter \\#2 \\$arguments of static method Mage\\:\\:getModel\\(\\) expects array\\|object, string given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Admin/Model/Resource/Acl.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Resource/Block.php
 
 		-
 			message: "#^Parameter \\#1 \\$role of method Mage_Admin_Model_Resource_Roles\\:\\:_updateRoleUsersAcl\\(\\) expects Mage_Admin_Model_Roles, Mage_Core_Model_Abstract given\\.$#"
@@ -84,11 +49,6 @@ parameters:
 			message: "#^Return type \\(bool\\) of method Mage_Admin_Model_Resource_User\\:\\:delete\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Model_Resource_Db_Abstract\\)\\) of method Mage_Core_Model_Resource_Db_Abstract\\:\\:delete\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Admin/Model/Resource/User.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Resource/Variable.php
 
 		-
 			message: "#^Call to an undefined method Mage_Admin_Model_Resource_Roles\\:\\:update\\(\\)\\.$#"
@@ -109,16 +69,6 @@ parameters:
 			message: "#^Call to an undefined method Zend_Controller_Response_Abstract\\:\\:sendHeadersAndExit\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Admin/Model/Session.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with bool will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Session.php
-
-		-
-			message: "#^Parameter \\#1 \\$parent of method Mage_Admin_Model_User\\:\\:findFirstAvailableMenu\\(\\) expects Mage_Core_Model_Config_Element\\|null, Varien_Simplexml_Element given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Admin/Model/User.php
 
 		-
 			message: "#^Call to function is_null\\(\\) with Mage_AdminNotification_Model_Inbox will always evaluate to false\\.$#"
@@ -2306,11 +2256,6 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Acl.php
 
 		-
-			message: "#^Parameter \\#2 \\$arguments of static method Mage\\:\\:getModel\\(\\) expects array\\|object, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api/Model/Config.php
-
-		-
 			message: "#^Parameter \\#2 \\$resource of method Mage_Api_Model_Config\\:\\:loadAclResources\\(\\) expects Mage_Core_Model_Config_Element\\|null, Varien_Simplexml_Element given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api/Model/Config.php
@@ -2328,11 +2273,6 @@ parameters:
 		-
 			message: "#^Cannot call method getClassName\\(\\) on bool\\|SimpleXMLElement\\.$#"
 			count: 1
-			path: app/code/core/Mage/Api/Model/Resource/Acl.php
-
-		-
-			message: "#^Parameter \\#2 \\$arguments of static method Mage\\:\\:getModel\\(\\) expects array\\|object, string given\\.$#"
-			count: 2
 			path: app/code/core/Mage/Api/Model/Resource/Acl.php
 
 		-
@@ -2493,11 +2433,6 @@ parameters:
 		-
 			message: "#^Invalid array key type array\\.$#"
 			count: 1
-			path: app/code/core/Mage/Api/Model/Wsdl/Config.php
-
-		-
-			message: "#^Parameter \\#2 \\$mergeToObject of method Mage_Core_Model_Config\\:\\:loadModulesConfiguration\\(\\) expects Mage_Core_Model_Config_Base\\|null, \\$this\\(Mage_Api_Model_Wsdl_Config\\) given\\.$#"
-			count: 2
 			path: app/code/core/Mage/Api/Model/Wsdl/Config.php
 
 		-
@@ -6901,11 +6836,6 @@ parameters:
 			path: app/code/core/Mage/Core/Helper/Js.php
 
 		-
-			message: "#^Parameter \\#2 \\$mergeToObject of method Mage_Core_Model_Config\\:\\:loadModulesConfiguration\\(\\) expects Mage_Core_Model_Config_Base\\|null, Varien_Simplexml_Config given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Helper/Js.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Helper/String.php
@@ -7057,11 +6987,6 @@ parameters:
 
 		-
 			message: "#^Property Mage_Core_Model_Cache\\:\\:\\$_frontend \\(Varien_Cache_Core\\) does not accept Zend_Cache_Core\\|Zend_Cache_Frontend\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Cache.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Cache.php
 
@@ -9191,11 +9116,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
 
 		-
-			message: "#^Parameter \\#2 \\$arguments of static method Mage\\:\\:getModel\\(\\) expects array\\|object, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
 			message: "#^Property Mage_Eav_Model_Entity_Abstract\\:\\:\\$_read \\(Varien_Db_Adapter_Pdo_Mysql\\) does not accept Varien_Db_Adapter_Interface\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
@@ -9726,11 +9646,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Abstract.php
 
 		-
-			message: "#^Parameter \\#2 \\$arguments of static method Mage\\:\\:getModel\\(\\) expects array\\|object, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Abstract.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Export.php
@@ -9863,11 +9778,6 @@ parameters:
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import.php
-
-		-
-			message: "#^Parameter \\#2 \\$arguments of static method Mage\\:\\:getModel\\(\\) expects array\\|object, string given\\.$#"
-			count: 3
 			path: app/code/core/Mage/ImportExport/Model/Import.php
 
 		-
@@ -10232,11 +10142,6 @@ parameters:
 
 		-
 			message: "#^Offset 'path' does not exist on array\\{\\000\\*\\000_parent\\: Varien_Simplexml_Element\\}\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/Model/Config.php
-
-		-
-			message: "#^Parameter \\#2 \\$mergeToObject of method Mage_Core_Model_Config\\:\\:loadModulesConfiguration\\(\\) expects Mage_Core_Model_Config_Base\\|null, \\$this\\(Mage_Install_Model_Config\\) given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Install/Model/Config.php
 
@@ -10851,11 +10756,6 @@ parameters:
 			path: app/code/core/Mage/Payment/Model/Method/Abstract.php
 
 		-
-			message: "#^Parameter \\#2 \\$arguments of static method Mage\\:\\:getModel\\(\\) expects array\\|object, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Payment/Model/Method/Abstract.php
-
-		-
 			message: "#^Binary operation \"\\*\\=\" between string and 2 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Payment/Model/Method/Cc.php
@@ -11041,11 +10941,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Api/Abstract.php
 
 		-
-			message: "#^Parameter \\#2 \\$arguments of static method Mage\\:\\:getModel\\(\\) expects array\\|object, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Api/Abstract.php
-
-		-
 			message: "#^Call to an undefined method Mage_Paypal_Model_Api_Nvp\\:\\:_export\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Api/Nvp.php
@@ -11191,11 +11086,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
 
 		-
-			message: "#^Parameter \\#2 \\$arguments of static method Mage\\:\\:getModel\\(\\) expects array\\|object, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
 			message: "#^Parameter \\#3 \\$storeId of method Mage_Customer_Model_Customer\\:\\:sendNewAccountEmail\\(\\) expects string, int given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
@@ -11242,11 +11132,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$amount of method Mage_Sales_Model_Order_Payment\\:\\:registerCaptureNotification\\(\\) expects float, array\\|string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Ipn.php
-
-		-
-			message: "#^Parameter \\#2 \\$arguments of static method Mage\\:\\:getModel\\(\\) expects array\\|object, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Ipn.php
 
@@ -14376,11 +14261,6 @@ parameters:
 			path: app/code/core/Mage/Shipping/Model/Carrier/Abstract.php
 
 		-
-			message: "#^Parameter \\#2 \\$arguments of static method Mage\\:\\:getModel\\(\\) expects array\\|object, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Shipping/Model/Carrier/Abstract.php
-
-		-
 			message: "#^Property Mage_Shipping_Model_Carrier_Abstract\\:\\:\\$_numBoxes \\(int\\) does not accept float\\.$#"
 			count: 1
 			path: app/code/core/Mage/Shipping/Model/Carrier/Abstract.php
@@ -15069,11 +14949,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$widgetInstance of method Mage_Widget_Model_Resource_Widget_Instance\\:\\:_saveLayoutUpdates\\(\\) expects Mage_Widget_Model_Widget_Instance, Mage_Core_Model_Abstract given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Widget/Model/Resource/Widget/Instance.php
-
-		-
-			message: "#^Parameter \\#2 \\$mergeToObject of method Mage_Core_Model_Config\\:\\:loadModulesConfiguration\\(\\) expects Mage_Core_Model_Config_Base\\|null, Varien_Simplexml_Config given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Widget/Model/Widget.php
 
 		-
 			message: "#^Comparison operation \"\\>\\=\" between int\\<0, max\\>\\|false and 0 is always true\\.$#"

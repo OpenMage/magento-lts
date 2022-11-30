@@ -155,7 +155,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
             // Seems we've got chunked data
 
             $arr = explode('|', $data);
-            $chunks = isset($arr[1]) ? $arr[1] : false;
+            $chunks = $arr[1] ?? false;
             $chunkData = [];
 
             if ($chunks && is_numeric($chunks)) {
