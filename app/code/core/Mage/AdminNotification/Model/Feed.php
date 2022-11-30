@@ -120,7 +120,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     /**
      * Retrieve Last update time
      *
-     * @return int
+     * @return string|false
      */
     public function getLastUpdate()
     {
