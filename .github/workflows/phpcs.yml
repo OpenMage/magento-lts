@@ -17,7 +17,7 @@ jobs:
             path: .phpcs.xml.dist
           - label: Ecg
             path: .phpcs.ecg.xml.dist
-          - label: PhpCompatibitliy
+          - label: PhpCompatibility
             path: .phpcs.php.xml.dist
 
     steps:
