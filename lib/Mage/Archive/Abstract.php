@@ -50,6 +50,8 @@ class Mage_Archive_Abstract
      * @param string $source
      * @return string
      * @throws Mage_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _readFile($source)
     {

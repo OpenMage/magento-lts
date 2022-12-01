@@ -659,6 +659,8 @@ class Mage_Core_Model_Design_Package
      * @param array $rules - design exception rules
      * @param string $regexpsConfigPath
      * @return bool|string
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public static function getPackageByUserAgent(array $rules, $regexpsConfigPath = 'path_mock')
     {

@@ -75,6 +75,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param array $args
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function open(array $args = [])
     {
@@ -145,6 +147,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Close a connection
      *
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function close()
     {
@@ -159,6 +163,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param int $mode
      * @param boolean $recursive
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function mkdir($dir, $mode = 0777, $recursive = true)
     {
@@ -170,6 +176,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $dir
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function rmdir($dir, $recursive = false)
     {
@@ -180,6 +188,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Get current working directory
      *
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function pwd()
     {
@@ -191,6 +201,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $dir
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function cd($dir)
     {
@@ -236,6 +248,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param string $filename
      * @param string|resource $src filename, string data or source stream
      * @return int|boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function write($filename, $src, $mode = null)
     {
@@ -266,6 +280,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $filename
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function rm($filename)
     {
@@ -278,6 +294,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param string $src
      * @param string $dest
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function mv($src, $dest)
     {
@@ -290,12 +308,17 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param string $filename
      * @param int $mode
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function chmod($filename, $mode)
     {
         return @ftp_chmod($this->_conn, $mode, $filename);
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     */
     public function ls($grep = null)
     {
         $ls = @ftp_nlist($this->_conn, '.');

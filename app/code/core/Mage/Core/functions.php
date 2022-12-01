@@ -203,6 +203,8 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
  * @param bool $html
  * @param bool $showFirst
  * @return string|void
+ *
+ * @SuppressWarnings(PHPMD.ErrorControlOperator)
  */
 function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 {
@@ -250,6 +252,8 @@ function mageSendErrorFooter()
 
 /**
  * @param string $path
+ *
+ * @SuppressWarnings(PHPMD.ErrorControlOperator)
  */
 function mageDelTree($path)
 {
@@ -306,6 +310,8 @@ function mageParseCsv($string, $delimiter = ",", $enclosure = '"', $escape = '\\
 /**
  * @param string $dir
  * @return bool
+ *
+ * @SuppressWarnings(PHPMD.ErrorControlOperator)
  */
 function is_dir_writeable($dir)
 {

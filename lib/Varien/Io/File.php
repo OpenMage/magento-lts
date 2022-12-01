@@ -116,6 +116,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param string $fileName
      * @param string $mode
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function streamOpen($fileName, $mode = 'w+', $chmod = 0666)
     {
@@ -178,6 +180,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param int $length
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function streamRead($length = 1024)
     {
@@ -194,6 +198,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Gets line from file pointer and parse for CSV fields
      *
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function streamReadCsv($delimiter = ',', $enclosure = '"')
     {
@@ -208,6 +214,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string $str
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function streamWrite($str)
     {
@@ -224,6 +232,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param string $delimiter
      * @param string $enclosure
      * @return bool|int
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function streamWriteCsv(array $row, $delimiter = ',', $enclosure = '"')
     {
@@ -239,6 +249,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Set chmod on a file
      *
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function streamClose()
     {
@@ -261,6 +273,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param string $part the part of statistic
      * @param mixed $default default value for part
      * @return array|bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function streamStat($part = null, $default = null)
     {
@@ -334,6 +348,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param int $mode
      * @param boolean $recursive
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function mkdir($dir, $mode = 0777, $recursive = true)
     {
@@ -356,6 +372,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string $dir
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function rmdir($dir, $recursive = false)
     {
@@ -374,6 +392,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param string $dir
      * @param bool $recursive
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public static function rmdirRecursive($dir, $recursive = true)
     {
@@ -411,6 +431,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param string $dir
      * @return boolean
      * @throws Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function cd($dir)
     {
@@ -432,6 +454,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param string $filename
      * @param string|resource $dest
      * @return boolean|string
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function read($filename, $dest = null)
     {
@@ -484,6 +508,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string|resource $src
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _isValidSource($src)
     {
@@ -506,6 +532,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param string $filename
      * @throws Varien_Io_Exception
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _isFilenameWriteable($filename)
     {
@@ -538,6 +566,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string $src
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _checkSrcIsFile($src)
     {
@@ -556,6 +586,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param srting|resource $src
      *
      * @return int
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function filePutContent($filename, $src)
     {
@@ -570,6 +602,9 @@ class Varien_Io_File extends Varien_Io_Abstract
         return $result;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     */
     public function fileExists($file, $onlyFile = true)
     {
         if ($this->_cwd) {
@@ -585,6 +620,9 @@ class Varien_Io_File extends Varien_Io_Abstract
         return $result;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     */
     public function isWriteable($path)
     {
         if ($this->_cwd) {
@@ -647,6 +685,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string $filename
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function rm($filename)
     {
@@ -666,6 +706,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param string $src
      * @param string $dest
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function mv($src, $dest)
     {
@@ -685,6 +727,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param string $src
      * @param string $dest
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function cp($src, $dest)
     {
@@ -704,6 +748,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param string $filename
      * @param int $mode
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function chmod($filename, $mode)
     {

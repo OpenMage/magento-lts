@@ -81,6 +81,8 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
      * Perform ftp validation. Check whether ftp account provided points to current magento installation
      *
      * @throws Mage_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _validateFtp()
     {
@@ -121,6 +123,8 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
     /**
      * @throws Mage_Exception
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _createTmpDir()
     {
