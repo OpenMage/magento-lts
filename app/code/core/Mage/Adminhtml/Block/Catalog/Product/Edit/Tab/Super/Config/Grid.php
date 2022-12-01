@@ -260,13 +260,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             [
                 'header'    => Mage::helper('catalog')->__('Action'),
                 'type'      => 'action',
-                'getter'     => 'getId',
+                'getter'    => 'getId',
                 'actions'   => [
                     [
                         'caption' => Mage::helper('catalog')->__('Edit'),
                         'url'     => $this->getEditParamsForAssociated(),
                         'field'   => 'id',
-                        'onclick'  => 'superProduct.createPopup(this.href);return false;'
+                        'onclick' => 'superProduct.createPopup(this.href);return false;'
                     ]
                 ],
                 'filter'    => false,
@@ -283,10 +283,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     public function getEditParamsForAssociated()
     {
         return [
-            'base'      =>  '*/*/edit',
-            'params'    =>  [
+            'base'      => '*/*/edit',
+            'params'    => [
                 'required' => $this->_getRequiredAttributesIds(),
+                'store'    => (int) $this->getRequest()->getParam('store', 0),
                 'popup'    => 1,
+                'popin'    => 0,
                 'product'  => $this->_getProduct()->getId()
             ]
         ];

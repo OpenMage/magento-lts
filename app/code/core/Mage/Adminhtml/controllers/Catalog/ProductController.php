@@ -281,6 +281,14 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $block->setStoreId($product->getStoreId());
         }
 
+        /** @var Mage_Adminhtml_Block_Page $root */
+        if ($this->getRequest()->getParam('popin')) {
+            $root = $this->getLayout()->getBlock('root');
+            if ($root) {
+                $root->addBodyClass('popup-nohead-nofoot');
+            }
+        }
+
         $this->renderLayout();
     }
 

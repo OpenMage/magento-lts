@@ -15,23 +15,25 @@
 ?>
 
 <div class="content-header">
-        <h3 class="icon-head head-categories"><?php echo $this->escapeHtml($this->getHeader()) . ($this->getCategoryId() ? ' (' . Mage::helper('catalog')->__('ID: %s', $this->getCategoryId()) . ')' : '') ?></h3>
-        <p class="content-buttons form-buttons">
-            <?php echo $this->getResetButtonHtml() ?>
-            <?php if($this->getCategoryId()): ?>
-                    <?php echo $this->getDeleteButtonHtml() ?>
-            <?php endif ?>
-            <?php echo $this->getAdditionalButtonsHtml(); ?>
-            <?php echo $this->getSaveButtonHtml() ?>
-        </p>
+    <h3 class="icon-head head-categories"><?php echo $this->escapeHtml($this->getHeader()) . ($this->getCategoryId() ? ' (' . Mage::helper('catalog')->__('ID: %s', $this->getCategoryId()) . ')' : '') ?></h3>
+    <p class="content-buttons form-buttons">
+        <?php echo $this->getResetButtonHtml() ?>
+        <?php if ($this->getCategoryId()): ?>
+                <?php echo $this->getDeleteButtonHtml() ?>
+        <?php endif ?>
+        <?php echo $this->getAdditionalButtonsHtml(); ?>
+        <?php echo $this->getSaveButtonHtml() ?>
+    </p>
 </div>
-<?php if($this->hasStoreRootCategory()): ?>
+
+<?php if ($this->hasStoreRootCategory()): ?>
     <?php echo $this->getTabsHtml() ?>
 <?php else: ?>
-<div class="messages warning-msg">
-    <?php echo Mage::helper('catalog')->__('Set root category for this store in the <a href="%s">configuration</a>', $this->getStoreConfigurationUrl()) ?>
-</div>
+    <div class="messages warning-msg">
+        <?php echo Mage::helper('catalog')->__('Set root category for this store in the <a href="%s">configuration</a>', $this->getStoreConfigurationUrl()) ?>
+    </div>
 <?php endif ?>
+
 <iframe name="iframeSave" style="display:none; width:100%;" src="<?php echo $this->getJsUrl() ?>blank.html"></iframe>
 <form target="iframeSave" id="category_edit_form" action="<?php echo $this->getSaveUrl() ?>" method="post" enctype="multipart/form-data">
     <div class="no-display">
@@ -42,6 +44,7 @@
     </div>
     <div id="category_tab_content"></div>
 </form>
+
 <script type="text/javascript">
 //<![CDATA[
     categoryForm = new varienForm('category_edit_form');
@@ -51,7 +54,7 @@
         this.canShowError = true;
         this.submitUrl = url;
         if (this.validator && this.validator.validate()) {
-            if(this.validationUrl){
+            if (this.validationUrl) {
                 this._validate();
             }
             else{
@@ -89,12 +92,12 @@
         };
 
         new Ajax.Request(
-                '<?php echo $this->getRefreshPathUrl() ?>',
-                {
-                    method:     'POST',
-                    evalScripts: true,
-                    onSuccess: refreshPathSuccess
-                }
+            '<?php echo $this->getRefreshPathUrl() ?>',
+            {
+                method:     'POST',
+                evalScripts: true,
+                onSuccess: refreshPathSuccess
+            }
         );
 
     };
@@ -114,9 +117,7 @@
         }
     };
 
-    /**
-    * Create/edit some category
-    */
+    // Create/edit some category
     function categorySubmit(url, useAjax) {
         var activeTab = $('active_tab_id');
         if (activeTab) {
@@ -127,7 +128,7 @@
 
         var params = {};
         var fields = $('category_edit_form').getElementsBySelector('input', 'select');
-        for(var i=0;i<fields.length;i++){
+        for(var i=0;i<fields.length;i++) {
             if (!fields[i].name) {
                 continue;
             }
@@ -145,14 +146,14 @@
 
         // Make operations with category tree
         if (isCreating) {
-            /* Some specific tasks for creating category */
+            // Some specific tasks for creating category
             if (!tree.currentNodeId) {
                 // First submit of form - select some node to be current
                 tree.currentNodeId = parentId;
             }
             tree.addNodeTo = parentId;
         } else {
-            /* Some specific tasks for editing category */
+            // Some specific tasks for editing category
             // Maybe change category enabled/disabled style
             if (tree && tree.storeId==0) {
                 var currentNode = tree.getNodeById(categoryId);
@@ -176,51 +177,56 @@
         categoryForm.submit();
     }
 
-<?php if(($block = $this->getLayout()->getBlock('category.product.grid')) && ($_gridJsObject=$block->getJsObjectName())): ?>
+<?php if (($block = $this->getLayout()->getBlock('category.product.grid')) && ($_gridJsObject=$block->getJsObjectName())): ?>
 
     var categoryProducts = $H(<?php echo $this->getProductsJson() ?>);
     $('in_category_products').value = categoryProducts.toQueryString();
 
-    function registerCategoryProduct(grid, element, checked){
-        if(checked){
-            if(element.positionElement){
-                element.positionElement.disabled = false;
-                categoryProducts.set(element.value, element.positionElement.value);
+    function registerCategoryProduct(grid, element, checked) {
+        if (element.getAttribute('type') == 'checkbox') {
+            if (checked) {
+                if (element.positionElement) {
+                    element.positionElement.disabled = false;
+                    categoryProducts.set(element.value, element.positionElement.value);
+                }
             }
-        }
-        else{
-            if(element.positionElement){
-                element.positionElement.disabled = true;
+            else {
+                if (element.positionElement) {
+                    element.positionElement.disabled = true;
+                }
+                categoryProducts.unset(element.value);
             }
-            categoryProducts.unset(element.value);
         }
         $('in_category_products').value = categoryProducts.toQueryString();
         grid.reloadParams = {'selected_products[]':categoryProducts.keys()};
     }
-    function categoryProductRowClick(grid, event){
-        var trElement = Event.findElement(event, 'tr');
-        var isInput   = Event.element(event).tagName == 'INPUT';
-        if(trElement){
-            var checkbox = Element.getElementsBySelector(trElement, 'input');
-            if(checkbox[0]){
-                var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
-                <?php echo $_gridJsObject ?>.setCheckboxChecked(checkbox[0], checked);
+    function categoryProductRowClick(grid, event) {
+        var tdElement = Event.findElement(event, 'td');
+        if (tdElement) {
+            if (tdElement.down('a')) {
+                return;
+            }
+            var checkbox = tdElement.down('input.checkbox');
+            if (checkbox && !checkbox.disabled) {
+                var isInput = Event.element(event).tagName == 'INPUT';
+                var checked = isInput ? checkbox.checked : !checkbox.checked;
+                <?php echo $_gridJsObject ?>.setCheckboxChecked(checkbox, checked);
             }
         }
     }
-    function positionChange(event){
+    function positionChange(event) {
         var element = Event.element(event);
-        if(element && element.checkboxElement && element.checkboxElement.checked){
+        if (element && element.checkboxElement && element.checkboxElement.checked) {
             categoryProducts.set(element.checkboxElement.value, element.value);
             $('in_category_products').value = categoryProducts.toQueryString();
         }
     }
 
     var tabIndex = 1000;
-    function categoryProductRowInit(grid, row){
+    function categoryProductRowInit(grid, row) {
         var checkbox = $(row).getElementsByClassName('checkbox')[0];
         var position = $(row).getElementsByClassName('input-text')[0];
-        if(checkbox && position){
+        if (checkbox && position) {
             checkbox.positionElement = position;
             position.checkboxElement = checkbox;
             position.disabled = !checkbox.checked;
@@ -229,14 +235,14 @@
         }
     }
 
-
     <?php echo $_gridJsObject ?>.rowClickCallback = categoryProductRowClick;
     <?php echo $_gridJsObject ?>.initRowCallback = categoryProductRowInit;
     <?php echo $_gridJsObject ?>.checkboxCheckCallback = registerCategoryProduct;
     <?php echo $_gridJsObject ?>.rows.each(function(row){categoryProductRowInit(<?php echo $_gridJsObject ?>, row)});
+    <?php echo $_gridJsObject ?>.reloadParams = {'selected_products[]':categoryProducts.keys()};
 
 <?php endif ?>
-<?php if($this->isAjax() && ($block = $this->getLayout()->getBlock('tabs')) && ($_tabsJsObject=$block->getJsObjectName())): ?>
+<?php if ($this->isAjax() && ($block = $this->getLayout()->getBlock('tabs')) && ($_tabsJsObject=$block->getJsObjectName())): ?>
     <?php echo $_tabsJsObject ?>.moveTabContentInDest();
     if (<?php echo $_tabsJsObject ?>.activeTab) {
         $('active_tab_id').value = <?php echo $_tabsJsObject ?>.activeTab.id;

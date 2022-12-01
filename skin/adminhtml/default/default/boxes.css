@@ -49,6 +49,37 @@
 /**************************** WIDGETS *****************************/
 /******************************************************************/
 
+.adminhtml-catalog-product-created #anchor-content {
+    height:100vh;
+    box-sizing:border-box;
+}
+
+.popup-nohead-nofoot .wrapper > .header,
+.popup-nohead-nofoot .footer {
+    display:none;
+}
+
+#edit-popin {
+    position:fixed;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    width:100% !important;
+    height:100% !important;
+    z-index:5000000;
+    background:rgba(0,0,0,0.6);
+}
+#edit-popin iframe {
+    margin:5vh 5vw 7vh;
+    width:calc(100% - 10vw);
+    height:calc(100% - 12vh);
+    background:#ccc;
+    border:0;
+}
+#edit-popin iframe.loading {
+    cursor:wait;
+}
 
 /* LOADING INDICATOR
 *******************************************************************/
@@ -65,21 +96,23 @@
     font-weight:bold;
     text-align:center;
     z-index:501;
-    }
+}
 #loading-mask {
-    background:url(images/blank.gif) repeat;
-    position:absolute;
+    position:fixed;
     top:0;
     right:0;
     bottom:0;
     left:0;
+    width:100% !important;
+    height:100% !important;
+    background:rgba(255,255,255,0.6);
     color:#d85909;
     font-size:1.1em;
     font-weight:bold;
     text-align:center;
-    opacity:0.80;
     z-index:1000;
-    }
+    cursor:wait;
+}
 #loading-mask .loader {
     position:fixed;
     top:45%;
@@ -92,10 +125,10 @@
     color:#d85909;
     font-weight:bold;
     text-align:center;
-    z-index:1000;
-    }
+    z-index:1001;
+}
 
-#message-popup-window-mask { position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; z-index:1980; background-color:#efefef; opacity:.5; }
+#message-popup-window-mask { position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; z-index:1980; background-color:rgba(255,255,255,0.6); }
 .message-popup { position:absolute; z-index:1990; width:407px; top:-9999em; left:50%; margin:0 0 0 -203px; background:#f3bf8f; padding:0 4px 4px; }
 .message-popup.show { top:280px; }
 .message-popup .message-popup-head { padding:1px 0; }

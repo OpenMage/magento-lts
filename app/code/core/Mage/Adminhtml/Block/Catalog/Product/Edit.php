@@ -50,9 +50,19 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 'back_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
-                        'label'     => Mage::helper('catalog')->__('Back'),
-                        'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/', ['store' => $this->getRequest()->getParam('store', 0)])),
-                        'class'     => 'back'
+                        'label'   => Mage::helper('catalog')->__('Back'),
+                        'onclick' => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/', ['store' => $this->getRequest()->getParam('store', 0)])),
+                        'class'   => 'back'
+                    ])
+            );
+        } else if (!$this->getRequest()->getParam('popin')) {
+            $this->setChild(
+                'back_button',
+                $this->getLayout()->createBlock('adminhtml/widget_button')
+                    ->setData([
+                        'label'   => Mage::helper('catalog')->__('Close Window'),
+                        'onclick' => 'window.close()',
+                        'class'   => 'cancel'
                     ])
             );
         } else {
@@ -60,9 +70,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 'back_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
-                        'label'     => Mage::helper('catalog')->__('Close Window'),
-                        'onclick'   => 'window.close()',
-                        'class'     => 'cancel'
+                        'label'   => Mage::helper('catalog')->__('Close Window'),
+                        'onclick' => 'window.parent.superProduct.closePopup()',
+                        'class'   => 'cancel'
                     ])
             );
         }
@@ -72,8 +82,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 'reset_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
-                        'label'     => Mage::helper('catalog')->__('Reset'),
-                        'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true]))
+                        'label'   => Mage::helper('catalog')->__('Reset'),
+                        'onclick' => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true]))
                     ])
             );
 
@@ -81,9 +91,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 'save_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
-                        'label'     => Mage::helper('catalog')->__('Save'),
-                        'onclick'   => 'productForm.submit()',
-                        'class'     => 'save'
+                        'label'   => Mage::helper('catalog')->__('Save'),
+                        'onclick' => 'productForm.submit()',
+                        'class'   => 'save'
                     ])
             );
         }
@@ -94,9 +104,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     'save_and_edit_button',
                     $this->getLayout()->createBlock('adminhtml/widget_button')
                         ->setData([
-                            'label'     => Mage::helper('catalog')->__('Save and Continue Edit'),
-                            'onclick'   => Mage::helper('core/js')->getSaveAndContinueEditJs($this->getSaveAndContinueUrl()),
-                            'class'     => 'save'
+                            'label'   => Mage::helper('catalog')->__('Save and Continue Edit'),
+                            'onclick' => Mage::helper('core/js')->getSaveAndContinueEditJs($this->getSaveAndContinueUrl()),
+                            'class'   => 'save'
                         ])
                 );
             }
@@ -105,9 +115,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     'delete_button',
                     $this->getLayout()->createBlock('adminhtml/widget_button')
                         ->setData([
-                            'label'     => Mage::helper('catalog')->__('Delete'),
-                            'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs($this->getDeleteUrl()),
-                            'class'     => 'delete'
+                            'label'   => Mage::helper('catalog')->__('Delete'),
+                            'onclick' => Mage::helper('core/js')->getConfirmSetLocationJs($this->getDeleteUrl()),
+                            'class'   => 'delete'
                         ])
                 );
             }
@@ -117,9 +127,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     'duplicate_button',
                     $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
-                        'label'     => Mage::helper('catalog')->__('Duplicate'),
-                        'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getDuplicateUrl()),
-                        'class'     => 'add'
+                        'label'   => Mage::helper('catalog')->__('Duplicate'),
+                        'onclick' => Mage::helper('core/js')->getSetLocationJs($this->getDuplicateUrl()),
+                        'class'   => 'add'
                     ])
                 );
             }

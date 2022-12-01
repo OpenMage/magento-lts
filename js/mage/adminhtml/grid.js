@@ -431,8 +431,8 @@ varienGridMassaction.prototype = {
     },
     onGridRowClick: function(grid, evt) {
 
-        var tdElement = Event.findElement(evt, 'td');
         var trElement = Event.findElement(evt, 'tr');
+        var tdElement = Event.findElement(evt, 'td');
 
         if(!$(tdElement).down('input')) {
             if($(tdElement).down('a') || $(tdElement).down('select')) {
@@ -441,17 +441,18 @@ varienGridMassaction.prototype = {
             if (trElement.title) {
                 setLocation(trElement.title);
             }
-            else{
-                var checkbox = Element.select(trElement, 'input');
-                var isInput  = Event.element(evt).tagName == 'input';
-                var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
 
-                if(checked) {
-                    this.checkedString = varienStringArray.add(checkbox[0].value, this.checkedString);
+            var checkbox = tdElement.down('input.checkbox');
+            if (checkbox && !checkbox.disabled) {
+                var isInput  = Event.element(evt).tagName == 'input';
+                var checked = isInput ? checkbox.checked : !checkbox.checked;
+
+                if (checked) {
+                    this.checkedString = varienStringArray.add(checkbox.value, this.checkedString);
                 } else {
-                    this.checkedString = varienStringArray.remove(checkbox[0].value, this.checkedString);
+                    this.checkedString = varienStringArray.remove(checkbox.value, this.checkedString);
                 }
-                this.grid.setCheckboxChecked(checkbox[0], checked);
+                this.grid.setCheckboxChecked(checkbox, checked);
                 this.updateCount();
             }
             return;
@@ -832,13 +833,13 @@ serializerController.prototype = {
         this.rowInit(this.grid, row);
     },
     rowClick : function(grid, event) {
-        var trElement = Event.findElement(event, 'tr');
-        var isInput   = Event.element(event).tagName == 'INPUT';
-        if(trElement){
-            var checkbox = Element.select(trElement, 'input');
-            if(checkbox[0] && !checkbox[0].disabled){
-                var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
-                this.grid.setCheckboxChecked(checkbox[0], checked);
+        var tdElement = Event.findElement(event, 'td');
+        if (tdElement) {
+            var checkbox = tdElement.down('input.checkbox');
+            if (checkbox && !checkbox.disabled) {
+                var isInput = Event.element(event).tagName == 'INPUT';
+                var checked = isInput ? checkbox.checked : !checkbox.checked;
+                this.grid.setCheckboxChecked(checkbox, checked);
             }
         }
         this.getOldCallback('row_click')(grid, event);

@@ -14,30 +14,32 @@
  */
 ?>
 <script type="text/javascript">
-var added = false;
+var added = false, parent = <?php echo $this->getRequest()->getParam('popin' ) ? 'self.parent' : 'window.opener' ?>;
 function addProduct(closeAfter) {
-    if(window.opener!=null && !added) {
-        <?php if($this->isEdit()): ?>
-        window.opener.superProduct.updateProduct(<?php echo $this->getProductId() ?>, <?php echo $this->getAttributesJson(); ?>);
+    if (parent!=null && !added) {
+        <?php if ($this->isEdit()): ?>
+        parent.superProduct.updateProduct(<?php echo $this->getProductId() ?>, <?php echo $this->getAttributesJson() ?>);
         <?php else: ?>
-        window.opener.superProduct.addNewProduct(<?php echo $this->getProductId() ?>, <?php echo $this->getAttributesJson(); ?>);
-        window.opener.superProduct.showNoticeMessage();
+        parent.superProduct.addNewProduct(<?php echo $this->getProductId() ?>, <?php echo $this->getAttributesJson() ?>);
+        parent.superProduct.showNoticeMessage();
         <?php endif ?>
         added = true;
     }
 
-    if(closeAfter)
-    {
+    if (closeAfter) {
         closeWindow();
     }
 }
 
-function closeWindow()
-{
-    if (window.opener) {
-        window.opener.focus();
+function closeWindow() {
+    if (parent) {
+        parent.focus();
     }
-    window.close();
+    <?php if ($this->getRequest()->getParam('popin')): ?>
+        parent.superProduct.closePopup();
+    <?php else: ?>
+        window.close();
+    <?php endif ?>
 }
 
 addProduct(false);

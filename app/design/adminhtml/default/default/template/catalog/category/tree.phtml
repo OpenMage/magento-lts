@@ -21,7 +21,7 @@
             <?php echo $this->getAddSubButtonHtml() ?>
         <?php endif ?>
     </div>
-    <?php echo $this->getStoreSwitcherHtml();?>
+    <?php echo $this->getStoreSwitcherHtml() ?>
     <div class="tree-actions">
         <?php if($this->getRoot()): ?>
             <a href="#" onclick="tree.collapseTree(); return false;"><?php echo Mage::helper('catalog')->__('Collapse All'); ?></a> <span class="separator">|</span> <a href="#" onclick="tree.expandTree(); return false;"><?php echo Mage::helper('catalog')->__('Expand All'); ?></a>
@@ -36,10 +36,9 @@
 //<![CDATA[
 var tree;
 
-/**
- * Fix ext compatibility with prototype 1.6
- */
-Ext.lib.Event.getTarget = function(e) {
+// Fix ext compatibility with prototype 1.6
+Ext.lib.Event.getTarget = function(e)
+{
     var ee = e.browserEvent || e;
     return ee.target ? Event.element(ee) : null;
 };
@@ -56,9 +55,14 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
         var parameters = config['parameters'];
         var data = config['data'];
 
-        this.storeId = parameters['store_id'];
+        if (!$('store_switcher')) {
+            this.storeId = parameters['store_id'];
+        }
+        else {
+            this.storeId = $('store_switcher').value * 1;
+        }
 
-        if ( this.storeId != 0 && $('add_root_category_button')) {
+        if (this.storeId != 0 && $('add_root_category_button')) {
             $('add_root_category_button').hide();
         }
 
@@ -159,7 +163,7 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
     categoryClick : function(node, e)
     {
         var baseUrl = '<?php echo $this->getEditUrl() ?>';
-        var urlExt = (this.storeId?'store/'+this.storeId+'/':'')+'id/'+node.id+'/';
+        var urlExt = 'store/' + this.storeId + '/id/' + node.id + '/';
         var url = parseSidUrl(baseUrl, urlExt);
 
         this.currentNodeId = node.id;
@@ -180,13 +184,13 @@ function reRenderTree(event, switcher)
     if (tree && event) {
         var obj = event.target;
         var newStoreId = obj.value * 1;
-        var storeParam = newStoreId ? 'store/'+newStoreId + '/' : '';
+        var storeParam = 'store/' + newStoreId + '/';
 
         if (obj.switchParams) {
             storeParam += obj.switchParams;
         }
         if (switcher.useConfirm) {
-            if (!confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please confirm site switching. All data that hasn\'t been saved will be lost.')) ?>')){
+            if (!confirm("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please confirm site switching. All data that hasn\'t been saved will be lost.')) ?>")) {
                 obj.value = '<?php echo (int) $this->getStoreId() ?>';
                 return false;
             }
@@ -204,11 +208,16 @@ function reRenderTree(event, switcher)
         // retain current selected category id
         storeParam = storeParam + 'id/' + tree.currentNodeId + '/';
         var url = tree.switchTreeUrl + storeParam;
+        var params = {store: newStoreId, form_key: FORM_KEY, isAjax: 1};
+
+        if (category_info_tabsJsTabs.activeTab) {
+            params.active_tab_id = category_info_tabsJsTabs.activeTab.id;
+        }
 
         // load from cache
         // load from ajax
         new Ajax.Request(url, {
-            parameters : {store: newStoreId, form_key: FORM_KEY, isAjax: 1},
+            parameters : params,
             method     : 'post',
             onComplete : function(transport) {
                 var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
@@ -250,6 +259,15 @@ function _renderNewTree(config, storeParam)
     if (storeParam) {
         url = url + storeParam;
     }
+    else if (tree.storeId && tree.currentNodeId) {
+        url = url + 'store/' + tree.storeId + '/id/' + tree.currentNodeId + '/';
+    }
+    else if (tree.currentNodeId) {
+        url = url + 'id/' + tree.currentNodeId + '/';
+    }
+    else if (tree.storeId) {
+        url = url + 'store/' + tree.storeId + '/';
+    }
     <?php if ($this->isClearEdit()):?>
     if (selectedNode) {
         url = url + 'id/' + config.parameters.category_id;
@@ -264,7 +282,8 @@ Ext.onReady(function()
        dataUrl: '<?php echo $this->getLoadTreeUrl() ?>'
     });
 
-    categoryLoader.createNode = function(config) {
+    categoryLoader.createNode = function(config)
+    {
         var node;
         var _node = Object.clone(config);
         if (config.children && !config.children.length) {
@@ -320,7 +339,8 @@ Ext.onReady(function()
         return hash;
     };
 
-    categoryLoader.toArray = function(attributes) {
+    categoryLoader.toArray = function(attributes)
+    {
         var data = {form_key: FORM_KEY};
         for (var key in attributes) {
             var value = attributes[key];
@@ -330,13 +350,15 @@ Ext.onReady(function()
         return data;
     };
 
-    categoryLoader.on("beforeload", function(treeLoader, node) {
+    categoryLoader.on("beforeload", function(treeLoader, node)
+    {
         treeLoader.baseParams.id = node.attributes.id;
         treeLoader.baseParams.store = node.attributes.store;
         treeLoader.baseParams.form_key = FORM_KEY;
     });
 
-    categoryLoader.on("load", function(treeLoader, node, config) {
+    categoryLoader.on("load", function(treeLoader, node, config)
+    {
         varienWindowOnload();
     });
 
@@ -359,7 +381,7 @@ Ext.onReady(function()
 
     defaultLoadTreeParams = {
         parameters : {
-            text        : '<?php echo Mage::helper('core')->jsQuoteEscape(htmlentities($this->getRoot()->getName())) ?>',
+            text        : "<?php echo Mage::helper('core')->jsQuoteEscape(htmlentities($this->getRoot()->getName())) ?>",
             draggable   : false,
             allowDrop   : <?php if ($this->getRoot()->getIsVisible()): ?>true<?php else: ?>false<?php endif ?>,
             id          : <?php echo (int) $this->getRoot()->getId() ?>,

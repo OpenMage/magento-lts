@@ -18,19 +18,20 @@ Product.Gallery = Class.create();
 Product.Gallery.prototype = {
     images : [],
     file2id : {
-        'no_selection' :0
+        'no_selection' : 0
     },
-    idIncrement :1,
-    containerId :'',
-    container :null,
+    idIncrement : 1,
+    containerId : '',
+    container : null,
     imageTypes : {},
     initialize : function(containerId, imageTypes) {
-        this.containerId = containerId, this.container = $(this.containerId);
+        this.containerId = containerId;
+        this.container = $(this.containerId);
         this.imageTypes = imageTypes;
 
         document.on('uploader:fileSuccess', function(event) {
             var memo = event.memo;
-            if(memo && this._checkCurrentContainer(memo.containerId)) {
+            if (memo && this._checkCurrentContainer(memo.containerId)) {
                 this.handleUploadComplete([{response: memo.response}]);
             }
         }.bind(this));
@@ -50,7 +51,7 @@ Product.Gallery.prototype = {
     },
     onImageTabMove : function(event) {
         var imagesTab = false;
-        this.container.ancestors().each( function(parentItem) {
+        this.container.ancestors().each(function(parentItem) {
             if (parentItem.tabObject) {
                 imagesTab = parentItem.tabObject;
                 throw $break;
@@ -66,7 +67,7 @@ Product.Gallery.prototype = {
 
     },
     fixParentTable : function() {
-        this.container.ancestors().each( function(parentItem) {
+        this.container.ancestors().each(function(parentItem) {
             if (parentItem.tagName.toLowerCase() == 'td') {
                 parentItem.style.width = '100%';
             }
@@ -84,7 +85,7 @@ Product.Gallery.prototype = {
         this.getElement('uploader').show();
     },
     handleUploadComplete : function(files) {
-        files.each( function(item) {
+        files.each(function(item) {
             if (!item.response.isJSON()) {
                 try {
                     console.log(item.response);
@@ -111,12 +112,10 @@ Product.Gallery.prototype = {
     },
     updateImages : function() {
         this.getElement('save').value = Object.toJSON(this.images);
-        $H(this.imageTypes).each(
-                function(pair) {
-                    this.getFileElement('no_selection',
-                            'cell-' + pair.key + ' input').checked = true;
-                }.bind(this));
-        this.images.each( function(row) {
+        $H(this.imageTypes).each(function(pair) {
+            this.getFileElement('no_selection', 'cell-' + pair.key + ' input').checked = true;
+        }.bind(this));
+        this.images.each(function(row) {
             if (!$(this.prepareId(row.file))) {
                 this.createImageRow(row);
             }
@@ -148,7 +147,7 @@ Product.Gallery.prototype = {
     },
     getNextPosition : function() {
         var maxPosition = 0;
-        this.images.each( function(item) {
+        this.images.each(function(item) {
             if (parseInt(item.position) > maxPosition) {
                 maxPosition = parseInt(item.position);
             }
@@ -194,14 +193,11 @@ Product.Gallery.prototype = {
         this.getFileElement(file, 'cell-position input').value = image.position;
         this.getFileElement(file, 'cell-remove input').checked = (image.removed == 1);
         this.getFileElement(file, 'cell-disable input').checked = (image.disabled == 1);
-        $H(this.imageTypes)
-                .each(
-                        function(pair) {
-                            if (this.imagesValues[pair.key] == file) {
-                                this.getFileElement(file,
-                                        'cell-' + pair.key + ' input').checked = true;
-                            }
-                        }.bind(this));
+        $H(this.imageTypes).each(function(pair) {
+            if (this.imagesValues[pair.key] == file) {
+                this.getFileElement(file, 'cell-' + pair.key + ' input').checked = true;
+            }
+        }.bind(this));
         this.updateState(file);
     },
     updateState : function(file) {
@@ -221,19 +217,17 @@ Product.Gallery.prototype = {
                 alert(selector);
             }
         }
-
         return $$('#' + this.prepareId(file) + ' .' + element)[0];
     },
     getImageByFile : function(file) {
         if (this.getIndexByFile(file) === null) {
             return false;
         }
-
         return this.images[this.getIndexByFile(file)];
     },
     getIndexByFile : function(file) {
         var index;
-        this.images.each( function(item, i) {
+        this.images.each(function(item, i) {
             if (item.file == file) {
                 index = i;
             }
@@ -242,16 +236,12 @@ Product.Gallery.prototype = {
     },
     updateUseDefault : function() {
         if (this.getElement('default')) {
-            this.getElement('default').select('input').each(
-                    function(input) {
-                        $(this.containerId).select(
-                                '.cell-' + input.value + ' input').each(
-                                function(radio) {
-                                    radio.disabled = input.checked;
-                                });
-                    }.bind(this));
+            this.getElement('default').select('input').each(function(input) {
+                $(this.containerId).select('.cell-' + input.value + ' input').each(function(radio) {
+                    radio.disabled = input.checked;
+                });
+            }.bind(this));
         }
-
         if (arguments.length == 0) {
             this.container.setHasChanges();
         }
@@ -265,7 +255,7 @@ Product.Gallery.prototype = {
 };
 
 Product.AttributesBridge = {
-    tabsObject :false,
+    tabsObject : false,
     bindTabs2Attributes : {},
     bind : function(tabId, attributesObject) {
         this.bindTabs2Attributes[tabId] = attributesObject;
@@ -280,7 +270,7 @@ Product.AttributesBridge = {
         return this.tabsObject;
     },
     addAttributeRow : function(data) {
-        $H(data).each( function(item) {
+        $H(data).each(function(item) {
             if (this.getTabsObject().activeTab.name != item.key) {
                 this.getTabsObject().showTabContent($(item.key));
             }
@@ -292,7 +282,7 @@ Product.AttributesBridge = {
 Product.Attributes = Class.create();
 Product.Attributes.prototype = {
     config : {},
-    containerId :null,
+    containerId : null,
     initialize : function(containerId) {
         this.containerId = containerId;
     },
@@ -354,16 +344,10 @@ Product.Configurable.prototype = {
         this.container = $(idPrefix + 'attributes');
 
         /* Listeners */
-        this.onLabelUpdate = this.updateLabel.bindAsEventListener(this); // Update
-                                                                            // attribute
-                                                                            // label
-        this.onValuePriceUpdate = this.updateValuePrice
-                .bindAsEventListener(this); // Update pricing value
-        this.onValueTypeUpdate = this.updateValueType.bindAsEventListener(this); // Update
-                                                                                    // pricing
-                                                                                    // type
-        this.onValueDefaultUpdate = this.updateValueUseDefault
-                .bindAsEventListener(this);
+        this.onLabelUpdate = this.updateLabel.bindAsEventListener(this); // Update attribute label
+        this.onValuePriceUpdate = this.updateValuePrice.bindAsEventListener(this); // Update pricing value
+        this.onValueTypeUpdate = this.updateValueType.bindAsEventListener(this);   // Update pricing type
+        this.onValueDefaultUpdate = this.updateValueUseDefault.bindAsEventListener(this);
 
         /* Grid initialization and attributes initialization */
         this.createAttributes(); // Creation of default attributes
@@ -371,57 +355,54 @@ Product.Configurable.prototype = {
         this.grid = grid;
         this.grid.rowClickCallback = this.rowClick.bind(this);
         this.grid.initRowCallback = this.rowInit.bind(this);
-        this.grid.checkboxCheckCallback = this.registerProduct.bind(this); // Associate/Unassociate
-                                                                            // simple
-                                                                            // product
+        this.grid.checkboxCheckCallback = this.registerProduct.bind(this); // Associate/Unassociate simple product
 
-        this.grid.rows.each( function(row) {
+        this.grid.rows.each(function(row) {
             this.rowInit(this.grid, row);
         }.bind(this));
     },
     createAttributes : function() {
-        this.attributes.each( function(attribute, index) {
-            // var li = Builder.node('li', {className:'attribute'});
-                var li = $(document.createElement('LI'));
-                li.className = 'attribute';
+        this.attributes.each(function(attribute, index) {
+            var li = $(document.createElement('LI'));
+            li.className = 'attribute';
 
-                li.id = this.idPrefix + '_attribute_' + index;
-                attribute.html_id = li.id;
-                if (attribute && attribute.label && attribute.label.blank()) {
-                    attribute.label = '&nbsp;';
-                }
-                var label_readonly = '';
-                var use_default_checked = '';
-                if (attribute.use_default == '1') {
-                    use_default_checked = ' checked="checked"';
-                    label_readonly = ' readonly="readonly"';
-                }
+            li.id = this.idPrefix + '_attribute_' + index;
+            attribute.html_id = li.id;
+            if (attribute && attribute.label && attribute.label.blank()) {
+                attribute.label = '&nbsp;';
+            }
+            var label_readonly = '';
+            var use_default_checked = '';
+            if (attribute.use_default == '1') {
+                use_default_checked = ' checked="checked"';
+                label_readonly = ' readonly="readonly"';
+            }
 
-                var template = this.addAttributeTemplate.evaluate(attribute);
-                template = template.replace(
-                        new RegExp(' readonly="label"', 'ig'), label_readonly);
-                template = template.replace(new RegExp(
-                        ' checked="use_default"', 'ig'), use_default_checked);
-                li.update(template);
-                li.attributeObject = attribute;
+            var template = this.addAttributeTemplate.evaluate(attribute);
+            template = template.replace(
+                    new RegExp(' readonly="label"', 'ig'), label_readonly);
+            template = template.replace(new RegExp(
+                    ' checked="use_default"', 'ig'), use_default_checked);
+            li.update(template);
+            li.attributeObject = attribute;
 
-                this.container.appendChild(li);
-                li.attributeValues = li.down('.attribute-values');
+            this.container.appendChild(li);
+            li.attributeValues = li.down('.attribute-values');
 
-                if (attribute.values) {
-                    attribute.values.each( function(value) {
-                        this.createValueRow(li, value); // Add pricing values
-                        }.bind(this));
-                }
+            if (attribute.values) {
+                attribute.values.each(function(value) {
+                    this.createValueRow(li, value); // Add pricing values
+                }.bind(this));
+            }
 
-                /* Observe label change */
-                Event.observe(li.down('.attribute-label'), 'change',
-                        this.onLabelUpdate);
-                Event.observe(li.down('.attribute-label'), 'keyup',
-                        this.onLabelUpdate);
-                Event.observe(li.down('.attribute-use-default-label'),
-                        'change', this.onLabelUpdate);
-            }.bind(this));
+            /* Observe label change */
+            Event.observe(li.down('.attribute-label'), 'change',
+                    this.onLabelUpdate);
+            Event.observe(li.down('.attribute-label'), 'keyup',
+                    this.onLabelUpdate);
+            Event.observe(li.down('.attribute-use-default-label'),
+                    'change', this.onLabelUpdate);
+        }.bind(this));
         if (!this.readonly) {
             // Creation of sortable for attributes sorting
             Sortable.create(this.container, {
@@ -431,7 +412,6 @@ Product.Configurable.prototype = {
         }
         this.updateSaveInput();
     },
-
     updateLabel : function(event) {
         var li = Event.findElement(event, 'LI');
         var labelEl = li.down('.attribute-label');
@@ -449,7 +429,7 @@ Product.Configurable.prototype = {
         this.updateSaveInput();
     },
     updatePositions : function(param) {
-        this.container.childElements().each( function(row, index) {
+        this.container.childElements().each(function(row, index) {
             row.attributeObject.position = index;
         });
         this.updateSaveInput();
@@ -472,13 +452,28 @@ Product.Configurable.prototype = {
         this.createPopup(this.createNormalUrl);
     },
     createPopup : function(url) {
-        if (this.win && !this.win.closed) {
-            this.win.close();
+        if (url.indexOf('/popin/') > 0) {
+            if (this.win && document.getElementById('edit-popin')) {
+                this.win.remove();
+            }
+            this.win = document.createElement('div');
+            this.win.setAttribute('id', 'edit-popin');
+            this.win.innerHTML = '<iframe src="' + url.replace('/popin/0/', '/popin/1/') + '" class="loading" onload="this.classList.remove(\'loading\');"></iframe>';
+            document.querySelector('body').appendChild(this.win);
+        } else {
+            if (this.win && !this.win.closed && (typeof this.win.close == 'function')) {
+                this.win.close();
+            }
+            this.win = window.open(url, '', 'width=1000,height=700,resizable=1,scrollbars=1');
+            if (this.win) {
+                this.win.focus();
+            }
         }
-
-        this.win = window.open(url, '',
-                'width=1000,height=700,resizable=1,scrollbars=1');
-        this.win.focus();
+    },
+    closePopup : function() {
+        if (this.win && document.getElementById('edit-popin')) {
+            this.win.remove();
+        }
     },
     registerProduct : function(grid, element, checked) {
         if (checked) {
@@ -489,7 +484,7 @@ Product.Configurable.prototype = {
             this.links.unset(element.value);
         }
         this.updateGrid();
-        this.grid.rows.each( function(row) {
+        this.grid.rows.each(function(row) {
             this.revalidateRow(this.grid, row);
         }.bind(this));
         this.updateValues();
@@ -514,22 +509,20 @@ Product.Configurable.prototype = {
     },
     cloneAttributes : function(attributes) {
         var newObj = [];
-        for ( var i = 0, length = attributes.length; i < length; i++) {
+        for (var i = 0, length = attributes.length; i < length; i++) {
             newObj[i] = Object.clone(attributes[i]);
         }
         return newObj;
     },
     rowClick : function(grid, event) {
-        var trElement = Event.findElement(event, 'tr');
-        var isInput = Event.element(event).tagName.toUpperCase() == 'INPUT';
-
-        if ($(Event.findElement(event, 'td')).down('a')) {
-            return;
-        }
-
-        if (trElement) {
-            var checkbox = $(trElement).down('input');
+         var tdElement = Event.findElement(event, 'td');
+         if (tdElement) {
+            if (tdElement.down('a')) {
+                return;
+            }
+            var checkbox = tdElement.down('input');
             if (checkbox && !checkbox.disabled) {
+                var isInput = Event.element(event).tagName.toUpperCase() == 'INPUT';
                 var checked = isInput ? checkbox.checked : !checkbox.checked;
                 grid.setCheckboxChecked(checkbox, checked);
             }
@@ -567,21 +560,20 @@ Product.Configurable.prototype = {
     },
     checkAttributes : function(attributes) {
         var result = true;
-        this.links
-                .each( function(pair) {
-                    var fail = false;
-                    for ( var i = 0; i < pair.value.length && !fail; i++) {
-                        for ( var j = 0; j < attributes.length && !fail; j++) {
-                            if (pair.value[i].attribute_id == attributes[j].attribute_id
-                                    && pair.value[i].value_index != attributes[j].value_index) {
-                                fail = true;
-                            }
-                        }
+        this.links.each(function(pair) {
+            var fail = false;
+            for (var i = 0; i < pair.value.length && !fail; i++) {
+                for (var j = 0; j < attributes.length && !fail; j++) {
+                    if (pair.value[i].attribute_id == attributes[j].attribute_id
+                            && pair.value[i].value_index != attributes[j].value_index) {
+                        fail = true;
                     }
-                    if (!fail) {
-                        result = false;
-                    }
-                });
+                }
+            }
+            if (!fail) {
+                result = false;
+            }
+        });
         return result;
     },
     updateGrid : function() {
@@ -593,8 +585,8 @@ Product.Configurable.prototype = {
     updateValues : function() {
         var uniqueAttributeValues = $H( {});
         /* Collect unique attributes */
-        this.links.each( function(pair) {
-            for ( var i = 0, length = pair.value.length; i < length; i++) {
+        this.links.each(function(pair) {
+            for (var i = 0, length = pair.value.length; i < length; i++) {
                 var attribute = pair.value[i];
                 if (uniqueAttributeValues.keys()
                         .indexOf(attribute.attribute_id) == -1) {
@@ -605,48 +597,45 @@ Product.Configurable.prototype = {
             }
         });
         /* Updating attributes value container */
-        this.container
-                .childElements()
-                .each(
-                        function(row) {
-                            var attribute = row.attributeObject;
-                            for ( var i = 0, length = attribute.values.length; i < length; i++) {
-                                if (uniqueAttributeValues.keys().indexOf(
-                                        attribute.attribute_id) == -1
-                                        || uniqueAttributeValues
-                                                .get(attribute.attribute_id)
-                                                .keys()
-                                                .indexOf(
-                                                        attribute.values[i].value_index) == -1) {
-                                    row.attributeValues
-                                            .childElements()
-                                            .each(
-                                                    function(elem) {
-                                                        if (elem.valueObject.value_index == attribute.values[i].value_index) {
-                                                            elem.remove();
-                                                        }
-                                                    });
-                                    attribute.values[i] = undefined;
+        this.container.childElements().each(function(row) {
+            var attribute = row.attributeObject;
+            for (var i = 0, length = attribute.values.length; i < length; i++) {
+                if (uniqueAttributeValues.keys().indexOf(
+                        attribute.attribute_id) == -1
+                        || uniqueAttributeValues
+                                .get(attribute.attribute_id)
+                                .keys()
+                                .indexOf(
+                                        attribute.values[i].value_index) == -1) {
+                    row.attributeValues
+                            .childElements()
+                            .each(
+                                    function(elem) {
+                                        if (elem.valueObject.value_index == attribute.values[i].value_index) {
+                                            elem.remove();
+                                        }
+                                    });
+                    attribute.values[i] = undefined;
 
-                                } else {
-                                    uniqueAttributeValues.get(
-                                            attribute.attribute_id).unset(
-                                            attribute.values[i].value_index);
-                                }
-                            }
-                            attribute.values = attribute.values.compact();
-                            if (uniqueAttributeValues
-                                    .get(attribute.attribute_id)) {
-                                uniqueAttributeValues.get(
-                                        attribute.attribute_id).each(
-                                        function(pair) {
-                                            attribute.values.push(pair.value);
-                                            this
-                                                    .createValueRow(row,
-                                                            pair.value);
-                                        }.bind(this));
-                            }
+                } else {
+                    uniqueAttributeValues.get(
+                            attribute.attribute_id).unset(
+                            attribute.values[i].value_index);
+                }
+            }
+            attribute.values = attribute.values.compact();
+            if (uniqueAttributeValues
+                    .get(attribute.attribute_id)) {
+                uniqueAttributeValues.get(
+                        attribute.attribute_id).each(
+                        function(pair) {
+                            attribute.values.push(pair.value);
+                            this
+                                    .createValueRow(row,
+                                            pair.value);
                         }.bind(this));
+            }
+        }.bind(this));
         this.updateSaveInput();
         this.updateSimpleForm();
     },
@@ -666,7 +655,6 @@ Product.Configurable.prototype = {
         }
         this.valueAutoIndex++;
 
-        // var li = $(Builder.node('li', {className:'attribute-value'}));
         var li = $(document.createElement('LI'));
         li.className = 'attribute-value';
         li.id = templateVariables.get('html_id');
@@ -756,10 +744,10 @@ Product.Configurable.prototype = {
             return;
         }
 
-        $(this.idPrefix + 'simple_form').select('td.value').each( function(td) {
-            var adviceContainer = $(Builder.node('div'));
+        $(this.idPrefix + 'simple_form').select('td.value').each(function(td) {
+            var adviceContainer = $(document.createElement('div'));
             td.appendChild(adviceContainer);
-            td.select('input', 'select').each( function(element) {
+            td.select('input', 'select').each(function(element) {
                 element.advaiceContainer = adviceContainer;
             });
         });
@@ -769,7 +757,7 @@ Product.Configurable.prototype = {
         this.initializeAdvicesForSimpleForm();
         $(this.idPrefix + 'simple_form').removeClassName('ignore-validate');
         var validationResult = $(this.idPrefix + 'simple_form').select('input',
-                'select', 'textarea').collect( function(elm) {
+                'select', 'textarea').collect(function(elm) {
             return Validation.validate(elm, {
                 useTitle :false,
                 onElementValidate : function() {
@@ -800,20 +788,17 @@ Product.Configurable.prototype = {
             if (result.error.fields) {
                 $(this.idPrefix + 'simple_form').removeClassName(
                         'ignore-validate');
-                $H(result.error.fields)
-                        .each(
-                                function(pair) {
-                                    $('simple_product_' + pair.key).value = pair.value;
-                                    $('simple_product_' + pair.key + '_autogenerate').checked = false;
-                                    toggleValueElements(
-                                            $('simple_product_' + pair.key + '_autogenerate'),
-                                            $('simple_product_' + pair.key + '_autogenerate').parentNode);
-                                    Validation.ajaxError(
-                                            $('simple_product_' + pair.key),
-                                            result.error.message);
-                                });
-                $(this.idPrefix + 'simple_form')
-                        .addClassName('ignore-validate');
+                $H(result.error.fields).each(function (pair) {
+                    $('simple_product_' + pair.key).value = pair.value;
+                    $('simple_product_' + pair.key + '_autogenerate').checked = false;
+                    toggleValueElements(
+                            $('simple_product_' + pair.key + '_autogenerate'),
+                            $('simple_product_' + pair.key + '_autogenerate').parentNode);
+                    Validation.ajaxError(
+                            $('simple_product_' + pair.key),
+                            result.error.message);
+                });
+                $(this.idPrefix + 'simple_form').addClassName('ignore-validate');
             } else {
                 if (result.error.message) {
                     alert(result.error.message);
@@ -827,7 +812,7 @@ Product.Configurable.prototype = {
         }
 
         result.attributes
-                .each( function(attribute) {
+                .each(function(attribute) {
                     var attr = this.getAttributeById(attribute.attribute_id);
                     if (!this.getValueByIndex(attr, attribute.value_index)
                             && result.pricing
@@ -839,7 +824,7 @@ Product.Configurable.prototype = {
                     }
                 }.bind(this));
 
-        this.attributes.each( function(attribute) {
+        this.attributes.each(function(attribute) {
             if ($('simple_product_' + attribute.attribute_code)) {
                 $('simple_product_' + attribute.attribute_code).value = '';
             }
@@ -852,20 +837,17 @@ Product.Configurable.prototype = {
     },
     checkCreationUniqueAttributes : function() {
         var attributes = [];
-        this.attributes
-                .each( function(attribute) {
-                    attributes
-                            .push( {
-                                attribute_id :attribute.attribute_id,
-                                value_index :$('simple_product_' + attribute.attribute_code).value
-                            });
-                }.bind(this));
-
+        this.attributes.each(function(attribute) {
+            attributes.push({
+                attribute_id :attribute.attribute_id,
+                value_index :$('simple_product_' + attribute.attribute_code).value
+            });
+        }.bind(this));
         return this.checkAttributes(attributes);
     },
     getAttributeByCode : function(attributeCode) {
         var attribute = null;
-        this.attributes.each( function(item) {
+        this.attributes.each(function(item) {
             if (item.attribute_code == attributeCode) {
                 attribute = item;
                 throw $break;
@@ -875,7 +857,7 @@ Product.Configurable.prototype = {
     },
     getAttributeById : function(attributeId) {
         var attribute = null;
-        this.attributes.each( function(item) {
+        this.attributes.each(function(item) {
             if (item.attribute_id == attributeId) {
                 attribute = item;
                 throw $break;
@@ -885,7 +867,7 @@ Product.Configurable.prototype = {
     },
     getValueByIndex : function(attribute, valueIndex) {
         var result = null;
-        attribute.values.each( function(value) {
+        attribute.values.each(function(value) {
             if (value.value_index == valueIndex) {
                 result = value;
                 throw $break;
@@ -977,7 +959,7 @@ Product.Configurable.prototype = {
         }
     },
     updateSimpleForm : function() {
-        this.attributes.each( function(attribute) {
+        this.attributes.each(function(attribute) {
             if ($('simple_product_' + attribute.attribute_code)) {
                 this.showPricing(
                         $('simple_product_' + attribute.attribute_code),
@@ -989,6 +971,23 @@ Product.Configurable.prototype = {
         $('assign_product_warrning').show();
     }
 };
+
+Product.EditWin = Class.create(Product.Configurable, {
+    initialize : function(grid, data) {
+        this.links = data;
+        this.grid = grid;
+    },
+    createAttributes : function() {},
+    updateSaveInput : function() {},
+    updateSimpleForm : function() {},
+    updateValues : function() {},
+    updateGrid : function() {},
+    updateProduct : function() {
+        this.updateGrid();
+        this.updateValues();
+        this.grid.reload(null);
+    }
+});
 
 var onInitDisableFieldsList = [];
 
@@ -1019,7 +1018,7 @@ function initDisableFields(fieldContainer) {
 }
 
 function onCompleteDisableInited() {
-    onInitDisableFieldsList.each( function(item) {
+    onInitDisableFieldsList.each(function(item) {
         disableFieldEditMode(item);
     });
 }
