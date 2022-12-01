@@ -28,7 +28,7 @@
  */
 class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Virtual
 {
-    const TYPE_DOWNLOADABLE = 'downloadable';
+    public const TYPE_DOWNLOADABLE = 'downloadable';
 
     /**
      * Get downloadable product links

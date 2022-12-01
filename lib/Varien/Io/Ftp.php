@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Io
+ * @category   Varien
+ * @package    Varien_Io
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,17 +24,17 @@
  *
  * @category   Varien
  * @package    Varien_Io
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Io_Ftp extends Varien_Io_Abstract
 {
-    const ERROR_EMPTY_HOST = 1;
-    const ERROR_INVALID_CONNECTION = 2;
-    const ERROR_INVALID_LOGIN = 3;
-    const ERROR_INVALID_PATH = 4;
-    const ERROR_INVALID_MODE = 5;
-    const ERROR_INVALID_DESTINATION = 6;
-    const ERROR_INVALID_SOURCE = 7;
+    public const ERROR_EMPTY_HOST = 1;
+    public const ERROR_INVALID_CONNECTION = 2;
+    public const ERROR_INVALID_LOGIN = 3;
+    public const ERROR_INVALID_PATH = 4;
+    public const ERROR_INVALID_MODE = 5;
+    public const ERROR_INVALID_DESTINATION = 6;
+    public const ERROR_INVALID_SOURCE = 7;
 
     /**
      * Connection config
@@ -76,7 +76,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param array $args
      * @return boolean
      */
-    public function open(array $args=array())
+    public function open(array $args = [])
     {
         if (empty($args['host'])) {
             $this->_error = self::ERROR_EMPTY_HOST;
@@ -160,7 +160,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param boolean $recursive
      * @return boolean
      */
-    public function mkdir($dir, $mode=0777, $recursive=true)
+    public function mkdir($dir, $mode = 0777, $recursive = true)
     {
         return @ftp_mkdir($this->_conn, $dir);
     }
@@ -171,7 +171,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param string $dir
      * @return boolean
      */
-    public function rmdir($dir, $recursive=false)
+    public function rmdir($dir, $recursive = false)
     {
         return @ftp_rmdir($this->_conn, $dir);
     }
@@ -204,7 +204,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param string|resource|null $dest destination file name, stream, or if null will return file contents
      * @return string
      */
-    public function read($filename, $dest=null)
+    public function read($filename, $dest = null)
     {
         if (is_string($dest)) {
             $result = ftp_get($this->_conn, $dest, $filename, $this->_config['file_mode']);
@@ -237,7 +237,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param string|resource $src filename, string data or source stream
      * @return int|boolean
      */
-    public function write($filename, $src, $mode=null)
+    public function write($filename, $src, $mode = null)
     {
         if (is_string($src) && is_readable($src)) {
             return @ftp_put($this->_conn, $filename, $src, $this->_config['file_mode']);
@@ -296,25 +296,25 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         return @ftp_chmod($this->_conn, $mode, $filename);
     }
 
-    public function ls($grep=null)
+    public function ls($grep = null)
     {
         $ls = @ftp_nlist($this->_conn, '.');
 
-        $list = array();
+        $list = [];
         foreach ($ls as $file) {
-            $list[] = array(
-                'text'=>$file,
-                'id'=>$this->pwd().'/'.$file,
-            );
+            $list[] = [
+                'text' => $file,
+                'id' => $this->pwd() . '/' . $file,
+            ];
         }
 
         return $list;
     }
 
-    protected function _tmpFilename($new=false)
+    protected function _tmpFilename($new = false)
     {
         if ($new || !$this->_tmpFilename) {
-            $this->_tmpFilename = tempnam( md5(uniqid(rand(), true)), '' );
+            $this->_tmpFilename = tempnam(md5(uniqid(rand(), true)), '');
         }
         return $this->_tmpFilename;
     }

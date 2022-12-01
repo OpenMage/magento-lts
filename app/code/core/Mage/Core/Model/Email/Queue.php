@@ -50,14 +50,14 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     /**
      * Email types
      */
-    const EMAIL_TYPE_TO  = 0;
-    const EMAIL_TYPE_CC  = 1;
-    const EMAIL_TYPE_BCC = 2;
+    public const EMAIL_TYPE_TO  = 0;
+    public const EMAIL_TYPE_CC  = 1;
+    public const EMAIL_TYPE_BCC = 2;
 
     /**
      * Maximum number of messages to be sent oer one cron run
      */
-    const MESSAGES_LIMIT_PER_CRON_RUN = 100;
+    public const MESSAGES_LIMIT_PER_CRON_RUN = 100;
 
     /**
      * Store message recipients list
@@ -241,7 +241,6 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                 } catch (Exception $e) {
                     Mage::logException($e);
                 }
-
             }
         }
 

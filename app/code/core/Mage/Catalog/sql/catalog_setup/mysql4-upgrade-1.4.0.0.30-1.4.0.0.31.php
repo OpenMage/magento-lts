@@ -29,5 +29,5 @@ $installer->addAttribute('catalog_category', 'filter_price_range', [
     'required'      => false,
     'global'        => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
     'visible'       => 1,
-    'input_renderer'=> 'adminhtml/catalog_category_helper_pricestep',
+    'input_renderer' => 'adminhtml/catalog_category_helper_pricestep',
 ]);

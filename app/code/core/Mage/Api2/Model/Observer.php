@@ -62,7 +62,8 @@ class Mage_Api2_Model_Observer
         /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         $attribute = $observer->getEvent()->getAttribute();
         if ($attribute->getIsUserDefined() && $attribute->dataHasChangedFor('is_visible_on_front')
-            && !$attribute->getIsVisibleOnFront()) {
+            && !$attribute->getIsVisibleOnFront()
+        ) {
             /** @var Mage_Api2_Model_Resource_Acl_Filter_Attribute_Collection $collection */
             $collection = Mage::getResourceModel('api2/acl_filter_attribute_collection');
             /** @var Mage_Api2_Model_Acl_Filter_Attribute $aclFilter */
@@ -87,8 +88,7 @@ class Mage_Api2_Model_Observer
     {
         $apiKey = $observer->getEvent()->getApiKey();
         $model = $observer->getEvent()->getModel();
-        if (
-            !(bool) $model->getApiPasswordUpgraded()
+        if (!(bool) $model->getApiPasswordUpgraded()
             && !Mage::helper('core')->getEncryptor()->validateHashByVersion(
                 $apiKey,
                 $model->getApiKey(),

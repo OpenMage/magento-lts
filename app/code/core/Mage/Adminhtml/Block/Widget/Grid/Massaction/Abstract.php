@@ -71,7 +71,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
             ->setMassaction($this)
             ->setId($itemId);
 
-        if($this->_items[$itemId]->getAdditional()) {
+        if ($this->_items[$itemId]->getAdditional()) {
             $this->_items[$itemId]->setAdditionalActionBlock($this->_items[$itemId]->getAdditional());
             $this->_items[$itemId]->unsAdditional();
         }
@@ -108,7 +108,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     public function getItemsJson()
     {
         $result = [];
-        foreach ($this->getItems() as $itemId=>$item) {
+        foreach ($this->getItems() as $itemId => $item) {
             $result[$itemId] = $item->toArray();
         }
 
@@ -182,7 +182,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getSelectedJson()
     {
-        if($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
+        if ($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
             $selected = explode(',', $this->quoteEscape($selected));
             return implode(',', $selected);
         } else {
@@ -197,7 +197,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getSelected()
     {
-        if($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
+        if ($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
             $selected = explode(',', $this->quoteEscape($selected));
             return $selected;
         } else {
@@ -235,7 +235,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
 
         $gridIds = $this->getParentBlock()->getCollection()->getAllIds();
 
-        if(!empty($gridIds)) {
+        if (!empty($gridIds)) {
             return implode(",", $gridIds);
         }
         return '';
@@ -297,8 +297,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         foreach ($this->getItems() as $item) {
             if ($item->getData('group')) {
                 $groupedItems['grouped'][$item->getData('group')][$item->getId()] = $item;
-            }
-            else {
+            } else {
                 $groupedItems['default'][$item->getId()] = $item;
             }
         }

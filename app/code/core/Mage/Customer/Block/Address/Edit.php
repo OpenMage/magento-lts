@@ -122,7 +122,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
      */
     public function getSaveUrl()
     {
-        return Mage::getUrl('customer/address/formPost', ['_secure'=>true, 'id'=>$this->getAddress()->getId()]);
+        return Mage::getUrl('customer/address/formPost', ['_secure' => true, 'id' => $this->getAddress()->getId()]);
     }
 
     /**

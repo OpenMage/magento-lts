@@ -271,7 +271,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     public function getValueOption($option = null)
     {
         $this->_prepareValueOptions();
-        return $this->getData('value_option'.(!is_null($option) ? '/'.$option : ''));
+        return $this->getData('value_option' . (!is_null($option) ? '/' . $option : ''));
     }
 
     /**
@@ -353,7 +353,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      */
     public function getInputType()
     {
-        if ($this->getAttribute()==='attribute_set_id') {
+        if ($this->getAttribute() === 'attribute_set_id') {
             return 'select';
         }
         if (!is_object($this->getAttributeObject())) {
@@ -387,7 +387,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      */
     public function getValueElementType()
     {
-        if ($this->getAttribute()==='attribute_set_id') {
+        if ($this->getAttribute() === 'attribute_set_id') {
             return 'select';
         }
         if (!is_object($this->getAttributeObject())) {
@@ -440,13 +440,13 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             case 'sku':
             case 'category_ids':
                     $url = 'adminhtml/promo_widget/chooser'
-                    .'/attribute/'.$this->getAttribute();
+                    . '/attribute/' . $this->getAttribute();
                 if ($this->getJsFormObject()) {
-                    $url .= '/form/'.$this->getJsFormObject();
+                    $url .= '/form/' . $this->getJsFormObject();
                 }
                 break;
         }
-        return $url!==false ? Mage::helper('adminhtml')->getUrl($url) : '';
+        return $url !== false ? Mage::helper('adminhtml')->getUrl($url) : '';
     }
 
     /**
@@ -485,7 +485,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             if (isset($arr['value'])) {
                 if (!empty($arr['operator'])
                     && in_array($arr['operator'], ['!()', '()'])
-                    && strpos($arr['value'], ',') !== false) {
+                    && strpos($arr['value'], ',') !== false
+                ) {
                     $tmp = [];
                     foreach (explode(',', $arr['value']) as $value) {
                         $tmp[] = Mage::app()->getLocale()->getNumber($value);

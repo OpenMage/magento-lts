@@ -28,11 +28,11 @@
  */
 class Mage_Core_Model_Cookie
 {
-    const XML_PATH_COOKIE_DOMAIN    = 'web/cookie/cookie_domain';
-    const XML_PATH_COOKIE_PATH      = 'web/cookie/cookie_path';
-    const XML_PATH_COOKIE_LIFETIME  = 'web/cookie/cookie_lifetime';
-    const XML_PATH_COOKIE_HTTPONLY  = 'web/cookie/cookie_httponly';
-    const XML_PATH_COOKIE_SAMESITE  = 'web/cookie/cookie_samesite';
+    public const XML_PATH_COOKIE_DOMAIN    = 'web/cookie/cookie_domain';
+    public const XML_PATH_COOKIE_PATH      = 'web/cookie/cookie_path';
+    public const XML_PATH_COOKIE_LIFETIME  = 'web/cookie/cookie_lifetime';
+    public const XML_PATH_COOKIE_HTTPONLY  = 'web/cookie/cookie_httponly';
+    public const XML_PATH_COOKIE_SAMESITE  = 'web/cookie/cookie_samesite';
 
     protected $_lifetime;
 
@@ -271,7 +271,7 @@ class Mage_Core_Model_Cookie
             );
         } else {
             if (!empty($sameSite)) {
-                $path.= "; samesite={$sameSite}";
+                $path .= "; samesite={$sameSite}";
             }
             setcookie($name, (string)$value, $expire, $path, $domain, $secure, $httponly);
         }

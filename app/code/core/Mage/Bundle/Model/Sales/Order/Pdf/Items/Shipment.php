@@ -86,7 +86,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                 || (!$this->isShipmentSeparately() && !$_item->getParentItem())
             ) {
                 if (isset($shipItems[$_item->getId()])) {
-                    $qty = $shipItems[$_item->getId()]->getQty()*1;
+                    $qty = $shipItems[$_item->getId()]->getQty() * 1;
                 } elseif ($_item->getIsVirtual()) {
                     $qty = Mage::helper('bundle')->__('N/A');
                 } else {

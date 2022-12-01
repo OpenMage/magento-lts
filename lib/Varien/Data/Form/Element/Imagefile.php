@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Data
+ * @category   Varien
+ * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setAutosubmit(bool $false)
  */
@@ -34,7 +34,7 @@ class Varien_Data_Form_Element_Imagefile extends Varien_Data_Form_Element_Abstra
      * Varien_Data_Form_Element_Imagefile constructor.
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->setType('file');

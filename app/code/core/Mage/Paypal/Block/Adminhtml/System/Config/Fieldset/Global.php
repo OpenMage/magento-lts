@@ -27,9 +27,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated  since 1.7.0.1
  */
-class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
-    extends Mage_Adminhtml_Block_Abstract
-    implements Varien_Data_Form_Element_Renderer_Interface
+class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
     /**
      * Associative array of PayPal product selection elements
@@ -202,7 +200,8 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
      */
     public function getInheritElementLabelHtml(Varien_Data_Form_Element_Abstract $element)
     {
-        return sprintf('<label for="%s" class="inherit" title="%s">%s</label>',
+        return sprintf(
+            '<label for="%s" class="inherit" title="%s">%s</label>',
             $element->getHtmlId() . '_inherit',
             $element->getDefaultValue(),
             Mage::helper('adminhtml')->__('Use Default')
@@ -217,7 +216,8 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
      */
     public function getElementLabelTextHtml(Varien_Data_Form_Element_Abstract $element)
     {
-        return sprintf('<span id="%s">%s</span>',
+        return sprintf(
+            '<span id="%s">%s</span>',
             $element->getHtmlId() . '_label_text',
             $this->escapeHtml($this->getElementLabel($element))
         );

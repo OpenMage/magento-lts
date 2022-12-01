@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_File
+ * @category   Varien
+ * @package    Varien_File
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2016 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -22,11 +22,11 @@
 /**
  * Csv parse
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_File_Transfer_Adapter_Http
 {
-    protected $_mimeTypes = array(
+    protected $_mimeTypes = [
         'txt' => 'text/plain',
         'htm' => 'text/html',
         'html' => 'text/html',
@@ -69,7 +69,7 @@ class Varien_File_Transfer_Adapter_Http
         'ai' => 'application/postscript',
         'eps' => 'application/postscript',
         'ps' => 'application/postscript'
-    );
+    ];
 
     /**
      * Send the file to the client (Download)
@@ -81,7 +81,7 @@ class Varien_File_Transfer_Adapter_Http
     {
         if (is_string($options)) {
             $filepath = $options;
-        } else if (is_array($options)) {
+        } elseif (is_array($options)) {
             $filepath = $options['filepath'];
         } else {
             throw new Exception("Filename is not set.");
@@ -91,7 +91,7 @@ class Varien_File_Transfer_Adapter_Http
             throw new Exception("File '{$filepath}' does not exists.");
         }
 
-        $mimeType = $this->_detectMimeType(array('name' => $filepath));
+        $mimeType = $this->_detectMimeType(['name' => $filepath]);
 
         $response = new Zend_Controller_Response_Http();
 
@@ -113,7 +113,7 @@ class Varien_File_Transfer_Adapter_Http
     {
         if (file_exists($value['name'])) {
             $file = $value['name'];
-        } else if (file_exists($value['tmp_name'])) {
+        } elseif (file_exists($value['tmp_name'])) {
             $file = $value['tmp_name'];
         } else {
             return null;
@@ -135,5 +135,4 @@ class Varien_File_Transfer_Adapter_Http
 
         return $result;
     }
-
 }

@@ -52,24 +52,24 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
     {
         $this->addColumn('queue_id', [
             'header'    =>  Mage::helper('newsletter')->__('ID'),
-            'index'     =>	'queue_id',
-            'width'		=>	10
+            'index'     =>  'queue_id',
+            'width'     =>  10
         ]);
 
         $this->addColumn('start_at', [
             'header'    =>  Mage::helper('newsletter')->__('Queue Start'),
-            'type'      =>	'datetime',
-            'index'     =>	'queue_start_at',
+            'type'      =>  'datetime',
+            'index'     =>  'queue_start_at',
             'gmtoffset' => true,
-            'default'	=> 	' ---- '
+            'default'   =>  ' ---- '
         ]);
 
         $this->addColumn('finish_at', [
             'header'    =>  Mage::helper('newsletter')->__('Queue Finish'),
-            'type'      => 	'datetime',
-            'index'     =>	'queue_finish_at',
+            'type'      =>  'datetime',
+            'index'     =>  'queue_finish_at',
             'gmtoffset' => true,
-            'default'	=> 	' ---- '
+            'default'   =>  ' ---- '
         ]);
 
         $this->addColumn('newsletter_subject', [
@@ -77,39 +77,39 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
             'index'     =>  'newsletter_subject'
         ]);
 
-         $this->addColumn('status', [
+        $this->addColumn('status', [
             'header'    => Mage::helper('newsletter')->__('Status'),
-            'index'		=> 'queue_status',
+            'index'     => 'queue_status',
             'type'      => 'options',
             'options'   => [
-                Mage_Newsletter_Model_Queue::STATUS_SENT 	=> Mage::helper('newsletter')->__('Sent'),
-                Mage_Newsletter_Model_Queue::STATUS_CANCEL	=> Mage::helper('newsletter')->__('Cancelled'),
-                Mage_Newsletter_Model_Queue::STATUS_NEVER 	=> Mage::helper('newsletter')->__('Not Sent'),
+                Mage_Newsletter_Model_Queue::STATUS_SENT    => Mage::helper('newsletter')->__('Sent'),
+                Mage_Newsletter_Model_Queue::STATUS_CANCEL  => Mage::helper('newsletter')->__('Cancelled'),
+                Mage_Newsletter_Model_Queue::STATUS_NEVER   => Mage::helper('newsletter')->__('Not Sent'),
                 Mage_Newsletter_Model_Queue::STATUS_SENDING => Mage::helper('newsletter')->__('Sending'),
-                Mage_Newsletter_Model_Queue::STATUS_PAUSE 	=> Mage::helper('newsletter')->__('Paused'),
+                Mage_Newsletter_Model_Queue::STATUS_PAUSE   => Mage::helper('newsletter')->__('Paused'),
             ],
             'width'     => '100px',
          ]);
 
         $this->addColumn('subscribers_sent', [
             'header'    =>  Mage::helper('newsletter')->__('Processed'),
-               'type'		=> 'number',
-            'index'		=> 'subscribers_sent'
+               'type'       => 'number',
+            'index'     => 'subscribers_sent'
         ]);
 
         $this->addColumn('subscribers_total', [
             'header'    =>  Mage::helper('newsletter')->__('Recipients'),
-            'type'		=> 'number',
-            'index'		=> 'subscribers_total'
+            'type'      => 'number',
+            'index'     => 'subscribers_total'
         ]);
 
         $this->addColumn('action', [
             'header'    =>  Mage::helper('newsletter')->__('Action'),
-            'filter'	=>	false,
-            'sortable'	=>	false,
+            'filter'    =>  false,
+            'sortable'  =>  false,
             'no_link'   => true,
-            'width'		=> '100px',
-            'renderer'	=>	'adminhtml/newsletter_queue_grid_renderer_action'
+            'width'     => '100px',
+            'renderer'  =>  'adminhtml/newsletter_queue_grid_renderer_action'
         ]);
 
         return parent::_prepareColumns();
@@ -117,7 +117,6 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', ['id'=>$row->getId()]);
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
 }
-

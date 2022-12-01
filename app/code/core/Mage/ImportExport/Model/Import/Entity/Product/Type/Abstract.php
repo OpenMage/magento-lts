@@ -97,7 +97,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     {
         if ($this->isSuitable()) {
             if (!isset($params[0]) || !isset($params[1])
-                || !is_object($params[0]) || !($params[0] instanceof Mage_ImportExport_Model_Import_Entity_Product)) {
+                || !is_object($params[0]) || !($params[0] instanceof Mage_ImportExport_Model_Import_Entity_Product)
+            ) {
                 Mage::throwException(Mage::helper('importexport')->__('Invalid parameters'));
             }
             $this->_entityModel = $params[0];
@@ -156,9 +157,11 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
         $attributesCache = [];
 
         foreach (Mage::getResourceModel('eav/entity_attribute_set_collection')
-                ->setEntityTypeFilter($this->_entityModel->getEntityTypeId()) as $attributeSet) {
+                ->setEntityTypeFilter($this->_entityModel->getEntityTypeId()) as $attributeSet
+        ) {
             foreach (Mage::getResourceModel('catalog/product_attribute_collection')
-                ->setAttributeSetFilter($attributeSet->getId()) as $attribute) {
+                ->setAttributeSetFilter($attributeSet->getId()) as $attribute
+            ) {
                 /** @var Mage_Eav_Model_Entity_Attribute $attribute */
                 $attributeCode = $attribute->getAttributeCode();
                 $attributeId   = $attribute->getId();
@@ -252,11 +255,13 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                 if (isset($rowData[$attrCode]) && strlen($rowData[$attrCode])) {
                     $error |= !$this->_entityModel->isAttributeValid($attrCode, $attrParams, $rowData, $rowNum);
                 } elseif ($this->_isAttributeRequiredCheckNeeded($attrCode)
-                    && $attrParams['is_required']) {
-                        // For the default scope - if this is a new product or
-                        // for an old product, if the imported doc has the column present for the attrCode
+                    && $attrParams['is_required']
+                ) {
+                    // For the default scope - if this is a new product or
+                    // for an old product, if the imported doc has the column present for the attrCode
                     if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $rowScope &&
-                            ($isNewProduct || array_key_exists($attrCode, $rowData))) {
+                            ($isNewProduct || array_key_exists($attrCode, $rowData))
+                    ) {
                         $this->_entityModel->addRowError(
                             Mage_ImportExport_Model_Import_Entity_Product::ERROR_VALUE_IS_REQUIRED,
                             $rowNum,

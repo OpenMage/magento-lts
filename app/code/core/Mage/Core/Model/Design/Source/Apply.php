@@ -41,7 +41,7 @@ class Mage_Core_Model_Design_Source_Apply extends Mage_Eav_Model_Entity_Attribut
             ];
 
             foreach ($optionArray as $k => $label) {
-                $this->_options[] = ['value'=>$k, 'label'=>$label];
+                $this->_options[] = ['value' => $k, 'label' => $label];
             }
         }
 

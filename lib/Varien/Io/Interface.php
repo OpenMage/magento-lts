@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Io
+ * @category   Varien
+ * @package    Varien_Io
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Io
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Varien_Io_Interface
 {
@@ -32,7 +32,7 @@ interface Varien_Io_Interface
      * Open a connection
      *
      */
-    public function open(array $args=array());
+    public function open(array $args = []);
 
     /**
      * Close a connection
@@ -44,13 +44,13 @@ interface Varien_Io_Interface
      * Create a directory
      *
      */
-    public function mkdir($dir, $mode=0777, $recursive=true);
+    public function mkdir($dir, $mode = 0777, $recursive = true);
 
     /**
      * Delete a directory
      *
      */
-    public function rmdir($dir, $recursive=false);
+    public function rmdir($dir, $recursive = false);
 
     /**
      * Get current working directory
@@ -68,13 +68,13 @@ interface Varien_Io_Interface
      * Read a file
      *
      */
-    public function read($filename, $dest=null);
+    public function read($filename, $dest = null);
 
     /**
      * Write a file
      *
      */
-    public function write($filename, $src, $mode=null);
+    public function write($filename, $src, $mode = null);
 
     /**
      * Delete a file
@@ -98,7 +98,7 @@ interface Varien_Io_Interface
      * Get list of cwd subdirectories and files
      *
      */
-    public function ls($grep=null);
+    public function ls($grep = null);
 
     /**
      * Retrieve directory separator in context of io resource

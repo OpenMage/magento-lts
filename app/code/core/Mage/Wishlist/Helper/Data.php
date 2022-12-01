@@ -29,12 +29,12 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Config key 'Display Wishlist Summary'
      */
-    const XML_PATH_WISHLIST_LINK_USE_QTY = 'wishlist/wishlist_link/use_qty';
+    public const XML_PATH_WISHLIST_LINK_USE_QTY = 'wishlist/wishlist_link/use_qty';
 
     /**
      * Config key 'Display Out of Stock Products'
      */
-    const XML_PATH_CATALOGINVENTORY_SHOW_OUT_OF_STOCK = 'cataloginventory/options/show_out_of_stock';
+    public const XML_PATH_CATALOGINVENTORY_SHOW_OUT_OF_STOCK = 'cataloginventory/options/show_out_of_stock';
 
     protected $_moduleName = 'Mage_Wishlist';
 
@@ -169,7 +169,8 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$this->_getCustomerSession()->hasWishlistItemCount()
                 || ($currentDisplayType != $storedDisplayType)
                 || $this->_getCustomerSession()->hasDisplayOutOfStockProducts()
-                || ($currentDisplayOutOfStockProducts != $storedDisplayOutOfStockProducts)) {
+                || ($currentDisplayOutOfStockProducts != $storedDisplayOutOfStockProducts)
+        ) {
             $this->calculate();
         }
 

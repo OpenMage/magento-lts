@@ -28,7 +28,7 @@
  */
 class Mage_Api_Model_Config extends Varien_Simplexml_Config
 {
-    const CACHE_TAG         = 'config_api';
+    public const CACHE_TAG         = 'config_api';
 
     /**
      * @inheritDoc
@@ -172,7 +172,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
         if (is_null($resource)) {
             $resource = $this->getNode('acl/resources');
         } else {
-            $resourceName = (is_null($parentName) ? '' : $parentName.'/').$resource->getName();
+            $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
             $acl->add(Mage::getModel('api/acl_resource', $resourceName), $parentName);
         }
 
@@ -230,7 +230,8 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     {
         if (is_null($resourceName)
             || !isset($this->getResources()->$resourceName)
-            || !isset($this->getResources()->$resourceName->faults)) {
+            || !isset($this->getResources()->$resourceName->faults)
+        ) {
             $faultsNode = $this->getNode('faults');
         } else {
             $faultsNode = $this->getResources()->$resourceName->faults;

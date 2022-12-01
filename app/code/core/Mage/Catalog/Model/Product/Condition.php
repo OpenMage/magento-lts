@@ -42,8 +42,8 @@ class Mage_Catalog_Model_Product_Condition extends Varien_Object implements Mage
         if ($this->getTable() && $this->getPkFieldName()) {
             $collection->joinTable(
                 $this->getTable(),
-                $this->getPkFieldName().'=entity_id',
-                ['affected_product_id'=>$this->getPkFieldName()]
+                $this->getPkFieldName() . '=entity_id',
+                ['affected_product_id' => $this->getPkFieldName()]
             );
         }
         return $this;

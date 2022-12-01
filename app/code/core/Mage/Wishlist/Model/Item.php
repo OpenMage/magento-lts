@@ -49,8 +49,8 @@
  */
 class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Interface
 {
-    const EXCEPTION_CODE_NOT_SALABLE            = 901;
-    const EXCEPTION_CODE_HAS_REQUIRED_OPTIONS   = 902;
+    public const EXCEPTION_CODE_NOT_SALABLE            = 901;
+    public const EXCEPTION_CODE_HAS_REQUIRED_OPTIONS   = 902;
 
     /**
      * We can store product store product configuration
@@ -58,8 +58,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * @deprecated after 1.4.2.0
      */
-    const EXCEPTION_CODE_IS_GROUPED_PRODUCT     = 903;
-    const EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT  = 904;
+    public const EXCEPTION_CODE_IS_GROUPED_PRODUCT     = 903;
+    public const EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT  = 904;
 
     /**
      * Custom path to download attached file
@@ -552,7 +552,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
             }
             if (!isset($options2[$code])
                 || ($options2[$code]->getValue() === null)
-                || $options2[$code]->getValue() != $option->getValue()) {
+                || $options2[$code]->getValue() != $option->getValue()
+            ) {
                 return false;
             }
         }

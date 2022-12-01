@@ -157,7 +157,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      */
     protected function _assignProducts()
     {
-        Varien_Profiler::start('WISHLIST:'.__METHOD__);
+        Varien_Profiler::start('WISHLIST:' . __METHOD__);
         $productIds = [];
 
         $isStoreAdmin = Mage::app()->getStore()->isAdmin();
@@ -219,7 +219,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
             }
         }
 
-        Varien_Profiler::stop('WISHLIST:'.__METHOD__);
+        Varien_Profiler::stop('WISHLIST:' . __METHOD__);
 
         return $this;
     }
@@ -280,8 +280,8 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     public function addStoreData()
     {
         $storeTable = Mage::getSingleton('core/resource')->getTableName('core/store');
-        $this->getSelect()->join(['store'=>$storeTable], 'main_table.store_id=store.store_id', [
-            'store_name'=>'name',
+        $this->getSelect()->join(['store' => $storeTable], 'main_table.store_id=store.store_id', [
+            'store_name' => 'name',
             'item_store_id' => 'store_id'
         ]);
         return $this;
@@ -442,7 +442,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
                     ['product_name_table' => $attribute->getBackendTable()],
                     'product_name_table.entity_id=main_table.product_id' .
                         ' AND product_name_table.store_id=' . $storeId .
-                        ' AND product_name_table.attribute_id=' . $attribute->getId().
+                        ' AND product_name_table.attribute_id=' . $attribute->getId() .
                         ' AND product_name_table.entity_type_id=' . $entityTypeId,
                     []
                 );

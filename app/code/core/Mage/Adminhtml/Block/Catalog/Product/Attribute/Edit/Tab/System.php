@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_System extends Mag
         $model = Mage::registry('entity_attribute');
 
         $form = new Varien_Data_Form();
-        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('catalog')->__('System Properties')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('catalog')->__('System Properties')]);
 
         if ($model->getAttributeId()) {
             $fieldset->addField('attribute_id', 'hidden', [
@@ -106,7 +106,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_System extends Mag
             'name'  => 'is_global',
             'label' => Mage::helper('catalog')->__('Globally Editable'),
             'title' => Mage::helper('catalog')->__('Globally Editable'),
-            'values'=> $yesno,
+            'values' => $yesno,
         ]);
 
         $form->setValues($model->getData());

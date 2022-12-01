@@ -88,11 +88,11 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     protected $_stores = [];
 
-    const STATUS_NEVER = 0;
-    const STATUS_SENDING = 1;
-    const STATUS_CANCEL = 2;
-    const STATUS_SENT = 3;
-    const STATUS_PAUSE = 4;
+    public const STATUS_NEVER = 0;
+    public const STATUS_SENDING = 1;
+    public const STATUS_CANCEL = 2;
+    public const STATUS_SENT = 3;
+    public const STATUS_PAUSE = 4;
 
     protected function _construct()
     {
@@ -169,8 +169,8 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function sendPerSubscriber($count = 20, array $additionalVariables = [])
     {
-        if ($this->getQueueStatus()!=self::STATUS_SENDING
-           && ($this->getQueueStatus()!=self::STATUS_NEVER && $this->getQueueStartAt())
+        if ($this->getQueueStatus() != self::STATUS_SENDING
+            && ($this->getQueueStatus() != self::STATUS_NEVER && $this->getQueueStartAt())
         ) {
             return $this;
         }
@@ -218,7 +218,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             }
         }
 
-        if (count($collection->getItems()) < $count-1 || count($collection->getItems()) == 0) {
+        if (count($collection->getItems()) < $count - 1 || count($collection->getItems()) == 0) {
             $this->_finishQueue();
         }
         return $this;

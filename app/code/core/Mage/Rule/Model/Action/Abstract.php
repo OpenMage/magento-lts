@@ -72,10 +72,10 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     public function asArray(array $arrAttributes = [])
     {
         return [
-            'type'=>$this->getType(),
-            'attribute'=>$this->getAttribute(),
-            'operator'=>$this->getOperator(),
-            'value'=>$this->getValue(),
+            'type' => $this->getType(),
+            'attribute' => $this->getAttribute(),
+            'operator' => $this->getOperator(),
+            'value' => $this->getValue(),
         ];
     }
 
@@ -84,10 +84,10 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function asXml()
     {
-        return "<type>".$this->getType()."</type>"
-            ."<attribute>".$this->getAttribute()."</attribute>"
-            ."<operator>".$this->getOperator()."</operator>"
-            ."<value>".$this->getValue()."</value>";
+        return "<type>" . $this->getType() . "</type>"
+            . "<attribute>" . $this->getAttribute() . "</attribute>"
+            . "<operator>" . $this->getOperator() . "</operator>"
+            . "<value>" . $this->getValue() . "</value>";
     }
 
     /**
@@ -97,10 +97,10 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     public function loadArray(array $arr)
     {
         $this->addData([
-            'type'=>$arr['type'],
-            'attribute'=>$arr['attribute'],
-            'operator'=>$arr['operator'],
-            'value'=>$arr['value'],
+            'type' => $arr['type'],
+            'attribute' => $arr['attribute'],
+            'operator' => $arr['operator'],
+            'value' => $arr['value'],
         ]);
         $this->loadAttributeOptions();
         $this->loadOperatorOptions();
@@ -124,7 +124,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     {
         $opt = [];
         foreach ($this->getAttributeOption() as $k => $v) {
-            $opt[] = ['value'=>$k, 'label'=>$v];
+            $opt[] = ['value' => $k, 'label' => $v];
         }
         return $opt;
     }
@@ -156,7 +156,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     {
         $opt = [];
         foreach ($this->getOperatorOption() as $k => $v) {
-            $opt[] = ['value'=>$k, 'label'=>$v];
+            $opt[] = ['value' => $k, 'label' => $v];
         }
         return $opt;
     }
@@ -185,7 +185,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     {
         $opt = [];
         foreach ($this->getValueOption() as $k => $v) {
-            $opt[] = ['value'=>$k, 'label'=>$v];
+            $opt[] = ['value' => $k, 'label' => $v];
         }
         return $opt;
     }
@@ -205,7 +205,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     public function getNewChildSelectOptions()
     {
         return [
-            ['value'=>'', 'label'=>Mage::helper('rule')->__('Please choose an action to add...')],
+            ['value' => '', 'label' => Mage::helper('rule')->__('Please choose an action to add...')],
         ];
     }
 
@@ -238,10 +238,10 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function getTypeElement()
     {
-        return $this->getForm()->addField('action:'.$this->getId().':type', 'hidden', [
-            'name'=>'rule[actions]['.$this->getId().'][type]',
-            'value'=>$this->getType(),
-            'no_span'=>true,
+        return $this->getForm()->addField('action:' . $this->getId() . ':type', 'hidden', [
+            'name' => 'rule[actions][' . $this->getId() . '][type]',
+            'value' => $this->getType(),
+            'no_span' => true,
         ]);
     }
 
@@ -250,11 +250,11 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function getAttributeElement()
     {
-        return $this->getForm()->addField('action:'.$this->getId().':attribute', 'select', [
-            'name'=>'rule[actions]['.$this->getId().'][attribute]',
-            'values'=>$this->getAttributeSelectOptions(),
-            'value'=>$this->getAttribute(),
-            'value_name'=>$this->getAttributeName(),
+        return $this->getForm()->addField('action:' . $this->getId() . ':attribute', 'select', [
+            'name' => 'rule[actions][' . $this->getId() . '][attribute]',
+            'values' => $this->getAttributeSelectOptions(),
+            'value' => $this->getAttribute(),
+            'value_name' => $this->getAttributeName(),
         ])->setRenderer(Mage::getBlockSingleton('rule/editable'));
     }
 
@@ -263,11 +263,11 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function getOperatorElement()
     {
-        return $this->getForm()->addField('action:'.$this->getId().':operator', 'select', [
-            'name'=>'rule[actions]['.$this->getId().'][operator]',
-            'values'=>$this->getOperatorSelectOptions(),
-            'value'=>$this->getOperator(),
-            'value_name'=>$this->getOperatorName(),
+        return $this->getForm()->addField('action:' . $this->getId() . ':operator', 'select', [
+            'name' => 'rule[actions][' . $this->getId() . '][operator]',
+            'values' => $this->getOperatorSelectOptions(),
+            'value' => $this->getOperator(),
+            'value_name' => $this->getOperatorName(),
         ])->setRenderer(Mage::getBlockSingleton('rule/editable'));
     }
 
@@ -276,10 +276,10 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function getValueElement()
     {
-        return $this->getForm()->addField('action:'.$this->getId().':value', 'text', [
-            'name'=>'rule[actions]['.$this->getId().'][value]',
-            'value'=>$this->getValue(),
-            'value_name'=>$this->getValueName(),
+        return $this->getForm()->addField('action:' . $this->getId() . ':value', 'text', [
+            'name' => 'rule[actions][' . $this->getId() . '][value]',
+            'value' => $this->getValue(),
+            'value_name' => $this->getValueName(),
         ])->setRenderer(Mage::getBlockSingleton('rule/editable'));
     }
 
@@ -289,7 +289,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     public function getAddLinkHtml()
     {
         $src = Mage::getDesign()->getSkinUrl('images/rule_component_add.gif');
-        return '<img src="'.$src.'" alt="" class="rule-param-add v-middle" />';
+        return '<img src="' . $src . '" alt="" class="rule-param-add v-middle" />';
     }
 
     /**
@@ -317,7 +317,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function asStringRecursive($level = 0)
     {
-        return str_pad('', $level*3, ' ', STR_PAD_LEFT).$this->asString();
+        return str_pad('', $level * 3, ' ', STR_PAD_LEFT) . $this->asString();
     }
 
     /**

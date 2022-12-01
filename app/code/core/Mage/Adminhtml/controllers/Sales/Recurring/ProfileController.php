@@ -34,7 +34,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'sales/recurring_profile';
+    public const ADMIN_RESOURCE = 'sales/recurring_profile';
 
     /**
      * Recurring profiles list

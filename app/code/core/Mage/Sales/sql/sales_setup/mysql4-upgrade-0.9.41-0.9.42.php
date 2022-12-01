@@ -20,5 +20,5 @@
  */
 
 $this->startSetup();
-$this->addAttribute('order', 'x_forwarded_for', ['type'=>'varchar']);
+$this->addAttribute('order', 'x_forwarded_for', ['type' => 'varchar']);
 $this->endSetup();

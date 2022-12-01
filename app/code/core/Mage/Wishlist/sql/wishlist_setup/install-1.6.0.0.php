@@ -52,7 +52,7 @@ $table = $installer->getConnection()
     ->addIndex(
         $installer->getIdxName('wishlist/wishlist', 'customer_id', Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         'customer_id',
-        ['type'=>Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->addForeignKey(
         $installer->getFkName('wishlist/wishlist', 'customer_id', 'customer/entity', 'entity_id'),

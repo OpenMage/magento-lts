@@ -339,14 +339,14 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
 
             switch ($rule->getSimpleAction()) {
                 case Mage_SalesRule_Model_Rule::TO_PERCENT_ACTION:
-                    $rulePercent = max(0, 100-$rule->getDiscountAmount());
+                    $rulePercent = max(0, 100 - $rule->getDiscountAmount());
                 //no break;
                 case Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION:
                     $step = $rule->getDiscountStep();
                     if ($step) {
-                        $qty = floor($qty/$step)*$step;
+                        $qty = floor($qty / $step) * $step;
                     }
-                    $_rulePct = $rulePercent/100;
+                    $_rulePct = $rulePercent / 100;
                     $discountAmount    = ($qty * $itemPrice - $item->getDiscountAmount()) * $_rulePct;
                     $baseDiscountAmount = ($qty * $baseItemPrice - $item->getBaseDiscountAmount()) * $_rulePct;
                     //get discount for original price
@@ -354,24 +354,24 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                     $baseOriginalDiscountAmount =
                         ($qty * $baseItemOriginalPrice - $item->getDiscountAmount()) * $_rulePct;
 
-                    if (!$rule->getDiscountQty() || $rule->getDiscountQty()>$qty) {
-                        $discountPercent = min(100, $item->getDiscountPercent()+$rulePercent);
+                    if (!$rule->getDiscountQty() || $rule->getDiscountQty() > $qty) {
+                        $discountPercent = min(100, $item->getDiscountPercent() + $rulePercent);
                         $item->setDiscountPercent($discountPercent);
                     }
                     break;
                 case Mage_SalesRule_Model_Rule::TO_FIXED_ACTION:
                     $quoteAmount = $quote->getStore()->convertPrice($rule->getDiscountAmount());
-                    $discountAmount    = $qty * ($itemPrice-$quoteAmount);
-                    $baseDiscountAmount = $qty * ($baseItemPrice-$rule->getDiscountAmount());
+                    $discountAmount    = $qty * ($itemPrice - $quoteAmount);
+                    $baseDiscountAmount = $qty * ($baseItemPrice - $rule->getDiscountAmount());
                     //get discount for original price
-                    $originalDiscountAmount    = $qty * ($itemOriginalPrice-$quoteAmount);
-                    $baseOriginalDiscountAmount = $qty * ($baseItemOriginalPrice-$rule->getDiscountAmount());
+                    $originalDiscountAmount    = $qty * ($itemOriginalPrice - $quoteAmount);
+                    $baseOriginalDiscountAmount = $qty * ($baseItemOriginalPrice - $rule->getDiscountAmount());
                     break;
 
                 case Mage_SalesRule_Model_Rule::BY_FIXED_ACTION:
                     $step = $rule->getDiscountStep();
                     if ($step) {
-                        $qty = floor($qty/$step)*$step;
+                        $qty = floor($qty / $step) * $step;
                     }
                     $quoteAmount        = $quote->getStore()->convertPrice($rule->getDiscountAmount());
                     $discountAmount     = $qty * $quoteAmount;
@@ -569,6 +569,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             switch ($rule->getSimpleAction()) {
                 case Mage_SalesRule_Model_Rule::TO_PERCENT_ACTION:
                     $rulePercent = max(0, 100 - $rule->getDiscountAmount());
+                    // no break
                 case Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION:
                     foreach ($items as $item) {
                         $weeeTaxAppliedAmounts = $helper->getApplied($item);
@@ -769,18 +770,19 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             $rulePercent = min(100, $rule->getDiscountAmount());
             switch ($rule->getSimpleAction()) {
                 case Mage_SalesRule_Model_Rule::TO_PERCENT_ACTION:
-                    $rulePercent = max(0, 100-$rule->getDiscountAmount());
+                    $rulePercent = max(0, 100 - $rule->getDiscountAmount());
+                    // no break
                 case Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION:
-                    $discountAmount    = ($shippingAmount - $address->getShippingDiscountAmount()) * $rulePercent/100;
+                    $discountAmount    = ($shippingAmount - $address->getShippingDiscountAmount()) * $rulePercent / 100;
                     $baseDiscountAmount = ($baseShippingAmount -
-                        $address->getBaseShippingDiscountAmount()) * $rulePercent/100;
-                    $discountPercent = min(100, $address->getShippingDiscountPercent()+$rulePercent);
+                        $address->getBaseShippingDiscountAmount()) * $rulePercent / 100;
+                    $discountPercent = min(100, $address->getShippingDiscountPercent() + $rulePercent);
                     $address->setShippingDiscountPercent($discountPercent);
                     break;
                 case Mage_SalesRule_Model_Rule::TO_FIXED_ACTION:
                     $quoteAmount = $quote->getStore()->convertPrice($rule->getDiscountAmount());
-                    $discountAmount    = $shippingAmount-$quoteAmount;
-                    $baseDiscountAmount = $baseShippingAmount-$rule->getDiscountAmount();
+                    $discountAmount    = $shippingAmount - $quoteAmount;
+                    $baseDiscountAmount = $baseShippingAmount - $rule->getDiscountAmount();
                     break;
                 case Mage_SalesRule_Model_Rule::BY_FIXED_ACTION:
                     $quoteAmount        = $quote->getStore()->convertPrice($rule->getDiscountAmount());
@@ -795,11 +797,11 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                     if ($cartRules[$rule->getId()] > 0) {
                         $quoteAmount        = $quote->getStore()->convertPrice($cartRules[$rule->getId()]);
                         $discountAmount     = min(
-                            $shippingAmount-$address->getShippingDiscountAmount(),
+                            $shippingAmount - $address->getShippingDiscountAmount(),
                             $quoteAmount
                         );
                         $baseDiscountAmount = min(
-                            $baseShippingAmount-$address->getBaseShippingDiscountAmount(),
+                            $baseShippingAmount - $address->getBaseShippingDiscountAmount(),
                             $cartRules[$rule->getId()]
                         );
                         $cartRules[$rule->getId()] -= $baseDiscountAmount;
@@ -809,9 +811,9 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                     break;
             }
 
-            $discountAmount     = min($address->getShippingDiscountAmount()+$discountAmount, $shippingAmount);
+            $discountAmount     = min($address->getShippingDiscountAmount() + $discountAmount, $shippingAmount);
             $baseDiscountAmount = min(
-                $address->getBaseShippingDiscountAmount()+$baseDiscountAmount,
+                $address->getBaseShippingDiscountAmount() + $baseDiscountAmount,
                 $baseShippingAmount
             );
             $address->setShippingDiscountAmount($discountAmount);
@@ -894,7 +896,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
 
         foreach ($this->_getRules() as $rule) {
             if (Mage_SalesRule_Model_Rule::CART_FIXED_ACTION === $rule->getSimpleAction()
-                && $this->_canProcessRule($rule, $address)) {
+                && $this->_canProcessRule($rule, $address)
+            ) {
                 $ruleTotalItemsPrice = 0;
                 $ruleTotalBaseItemsPrice = 0;
                 $validItemsCount = 0;
@@ -1052,7 +1055,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
 
         $description = $descriptionArray && is_array($descriptionArray)
             ? implode($separator, array_unique($descriptionArray))
-            :  '';
+            : '';
 
         $address->setDiscountDescription($description);
         return $this;

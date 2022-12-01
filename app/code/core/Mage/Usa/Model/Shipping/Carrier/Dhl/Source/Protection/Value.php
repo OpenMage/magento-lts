@@ -24,8 +24,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Source_Protection_Value
     {
         $carrier = Mage::getSingleton('usa/shipping_carrier_dhl');
         $arr = [];
-        foreach ($carrier->getAdditionalProtectionValueTypes() as $k=>$v) {
-            $arr[] = ['value'=>$k, 'label'=>$v];
+        foreach ($carrier->getAdditionalProtectionValueTypes() as $k => $v) {
+            $arr[] = ['value' => $k, 'label' => $v];
         }
         return $arr;
     }

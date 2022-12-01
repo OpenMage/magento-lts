@@ -134,7 +134,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', ['_current'=>true]);
+        return $this->getUrl('*/*/save', ['_current' => true]);
     }
 
     /**

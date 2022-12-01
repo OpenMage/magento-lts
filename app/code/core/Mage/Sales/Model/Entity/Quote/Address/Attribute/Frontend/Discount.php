@@ -33,16 +33,16 @@ class Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Discount extends 
     public function fetchTotals(Mage_Sales_Model_Quote_Address $address)
     {
         $amount = $address->getDiscountAmount();
-        if ($amount!=0) {
+        if ($amount != 0) {
             $title = Mage::helper('sales')->__('Discount');
             $couponCode = $address->getQuote()->getCouponCode();
             if (strlen($couponCode)) {
-                $title .= ' ('. $couponCode .')';
+                $title .= ' (' . $couponCode . ')';
             }
             $address->addTotal([
-                'code'=>'discount',
-                'title'=>$title,
-                'value'=>-$amount
+                'code' => 'discount',
+                'title' => $title,
+                'value' => -$amount
             ]);
         }
         return $this;

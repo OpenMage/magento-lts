@@ -75,12 +75,12 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
         // unix timestamp given - simply instantiate date object
         if (preg_match('/^[0-9]+$/', $date)) {
             $date = new Zend_Date((int)$date);
-        } // international format
-        elseif (preg_match('#^\d{4}-\d{2}-\d{2}( \d{2}:\d{2}:\d{2})?$#', $date)) {
+        } elseif (preg_match('#^\d{4}-\d{2}-\d{2}( \d{2}:\d{2}:\d{2})?$#', $date)) {
+            // international format
             $zendDate = new Zend_Date();
             $date = $zendDate->setIso($date);
-        } // parse this date in current locale, do not apply GMT offset
-        else {
+        } else {
+            // parse this date in current locale, do not apply GMT offset
             $date = Mage::app()->getLocale()->date(
                 $date,
                 Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),

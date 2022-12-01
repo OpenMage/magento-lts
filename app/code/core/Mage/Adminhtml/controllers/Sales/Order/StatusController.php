@@ -32,7 +32,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/order_statuses';
+    public const ADMIN_RESOURCE = 'system/order_statuses';
 
     /**
      * Additional initialization
@@ -110,7 +110,6 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
         $data = $this->getRequest()->getPost();
         $isNew = $this->getRequest()->getParam('is_new');
         if ($data) {
-
             $statusCode = $this->getRequest()->getParam('status');
 
             //filter tags in labels/status

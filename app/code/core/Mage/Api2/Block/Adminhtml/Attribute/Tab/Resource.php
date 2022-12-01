@@ -27,7 +27,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Api2_Model_Acl_Global_Role getRole()
- * @method Mage_Api2_Block_Adminhtml_Attribute_Tab_Resource setRole(Mage_Api2_Model_Acl_Global_Role $role)
+ * @method $this setRole(Mage_Api2_Model_Acl_Global_Role $role)
  */
 class Mage_Api2_Block_Adminhtml_Attribute_Tab_Resource extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {

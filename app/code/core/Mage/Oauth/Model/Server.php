@@ -31,61 +31,61 @@ class Mage_Oauth_Model_Server
     /**#@+
      * OAuth result statuses
      */
-    const ERR_OK                        = 0;
-    const ERR_VERSION_REJECTED          = 1;
-    const ERR_PARAMETER_ABSENT          = 2;
-    const ERR_PARAMETER_REJECTED        = 3;
-    const ERR_TIMESTAMP_REFUSED         = 4;
-    const ERR_NONCE_USED                = 5;
-    const ERR_SIGNATURE_METHOD_REJECTED = 6;
-    const ERR_SIGNATURE_INVALID         = 7;
-    const ERR_CONSUMER_KEY_REJECTED     = 8;
-    const ERR_TOKEN_USED                = 9;
-    const ERR_TOKEN_EXPIRED             = 10;
-    const ERR_TOKEN_REVOKED             = 11;
-    const ERR_TOKEN_REJECTED            = 12;
-    const ERR_VERIFIER_INVALID          = 13;
-    const ERR_PERMISSION_UNKNOWN        = 14;
-    const ERR_PERMISSION_DENIED         = 15;
+    public const ERR_OK                        = 0;
+    public const ERR_VERSION_REJECTED          = 1;
+    public const ERR_PARAMETER_ABSENT          = 2;
+    public const ERR_PARAMETER_REJECTED        = 3;
+    public const ERR_TIMESTAMP_REFUSED         = 4;
+    public const ERR_NONCE_USED                = 5;
+    public const ERR_SIGNATURE_METHOD_REJECTED = 6;
+    public const ERR_SIGNATURE_INVALID         = 7;
+    public const ERR_CONSUMER_KEY_REJECTED     = 8;
+    public const ERR_TOKEN_USED                = 9;
+    public const ERR_TOKEN_EXPIRED             = 10;
+    public const ERR_TOKEN_REVOKED             = 11;
+    public const ERR_TOKEN_REJECTED            = 12;
+    public const ERR_VERIFIER_INVALID          = 13;
+    public const ERR_PERMISSION_UNKNOWN        = 14;
+    public const ERR_PERMISSION_DENIED         = 15;
     /**#@-*/
 
     /**#@+
      * Signature Methods
      */
-    const SIGNATURE_HMAC  = 'HMAC-SHA1';
-    const SIGNATURE_RSA   = 'RSA-SHA1';
-    const SIGNATURE_PLAIN = 'PLAINTEXT';
+    public const SIGNATURE_HMAC  = 'HMAC-SHA1';
+    public const SIGNATURE_RSA   = 'RSA-SHA1';
+    public const SIGNATURE_PLAIN = 'PLAINTEXT';
     /**#@-*/
 
     /**#@+
      * Request Types
      */
-    const REQUEST_INITIATE  = 'initiate';  // ask for temporary credentials
-    const REQUEST_AUTHORIZE = 'authorize'; // display authorize form
-    const REQUEST_TOKEN     = 'token';     // ask for permanent credentials
-    const REQUEST_RESOURCE  = 'resource';  // ask for protected resource using permanent credentials
+    public const REQUEST_INITIATE  = 'initiate';  // ask for temporary credentials
+    public const REQUEST_AUTHORIZE = 'authorize'; // display authorize form
+    public const REQUEST_TOKEN     = 'token';     // ask for permanent credentials
+    public const REQUEST_RESOURCE  = 'resource';  // ask for protected resource using permanent credentials
     /**#@-*/
 
     /**#@+
      * HTTP Response Codes
      */
-    const HTTP_OK             = 200;
-    const HTTP_BAD_REQUEST    = 400;
-    const HTTP_UNAUTHORIZED   = 401;
-    const HTTP_INTERNAL_ERROR = 500;
+    public const HTTP_OK             = 200;
+    public const HTTP_BAD_REQUEST    = 400;
+    public const HTTP_UNAUTHORIZED   = 401;
+    public const HTTP_INTERNAL_ERROR = 500;
     /**#@-*/
 
     /**
      * Possible time deviation for timestamp validation in sec.
      */
-    const TIME_DEVIATION = 600;
+    public const TIME_DEVIATION = 600;
 
     /**
      * Value of callback URL when it is established or if cliaent is unable to receive callbacks
      *
      * @link http://tools.ietf.org/html/rfc5849#section-2.1     Requirement in RFC-5849
      */
-    const CALLBACK_ESTABLISHED = 'oob';
+    public const CALLBACK_ESTABLISHED = 'oob';
 
     /**
      * Consumer object
@@ -408,7 +408,8 @@ class Mage_Oauth_Model_Server
     {
         if (self::REQUEST_INITIATE == $this->_requestType) {
             if (self::CALLBACK_ESTABLISHED == $this->_protocolParams['oauth_callback']
-                && $this->_consumer->getCallBackUrl()) {
+                && $this->_consumer->getCallBackUrl()
+            ) {
                 $callbackUrl = $this->_consumer->getCallbackUrl();
             } else {
                 $callbackUrl = $this->_protocolParams['oauth_callback'];

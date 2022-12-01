@@ -753,8 +753,8 @@ $excludeAttributes = [
 ];
 
 $entityToFlat = [
-    'order'                 => ['grid'=>true],
-    'order_item'            => ['flat'=> true],
+    'order'                 => ['grid' => true],
+    'order_item'            => ['flat' => true],
     'order_address'         => [],
     'order_payment'         => [],
     'order_status_history'  => [],
@@ -832,7 +832,8 @@ foreach ($entityToFlat as $entityCode => $flags) {
         if (!isset($flatFields[$code]) &&
             !in_array($code, $excludeAttributes['all']) &&
             (!isset($excludeAttributes[$entityCode]) ||
-                !in_array($code, $excludeAttributes[$entityCode]))) {
+                !in_array($code, $excludeAttributes[$entityCode]))
+        ) {
             $installer->getConnection()->addColumn(
                 $installer->getTable($flatTablePrefix),
                 $code,
@@ -870,7 +871,8 @@ foreach ($entityToFlat as $entityCode => $flags) {
                 isset($definitions[$attribute['type']]) &&
                 !in_array($attributeCode, $excludeAttributes['all']) &&
                 (!isset($excludeAttributes[$entityCode]) ||
-                !in_array($attributeCode, $excludeAttributes[$entityCode]))) {
+                !in_array($attributeCode, $excludeAttributes[$entityCode]))
+            ) {
                 $installer->getConnection()->addColumn(
                     $installer->getTable($flatTablePrefix),
                     $attributeCode,
@@ -909,21 +911,21 @@ foreach ($entityToFlat as $entityCode => $flags) {
 
                 $alias = '_table_' . $attribute['code'];
                 $select->joinLeft(
-                    [$alias=>$table],
+                    [$alias => $table],
                     $alias . '.entity_id = e.entity_id AND ' . $alias . '.attribute_id = ' . $attribute['id'],
                     [$attribute['code'] => 'value']
                 );
-                $joinCount ++;
+                $joinCount++;
 
                 if ($joinCount > 60) { // If we have too much joins for mysql
                     $joinCount = 0;
-                    $sql .= $select->crossUpdateFromSelect(['e'=>$installer->getTable($flatTablePrefix)])  . "; \n";
+                    $sql .= $select->crossUpdateFromSelect(['e' => $installer->getTable($flatTablePrefix)])  . "; \n";
                     $select->reset();
                 }
             }
 
             if ($joinCount > 0) {
-                $sql .= $select->crossUpdateFromSelect(['e'=>$installer->getTable($flatTablePrefix)])  . "; \n";
+                $sql .= $select->crossUpdateFromSelect(['e' => $installer->getTable($flatTablePrefix)])  . "; \n";
             }
         }
     } else {
@@ -970,7 +972,7 @@ $select->joinLeft(
     ['billing_name' => 'IF(billing_address.entity_id IS NOT NULL, CONCAT(billing_address.firstname, \' \', billing_address.lastname), NULL)']
 );
 
-$installer->run($select->crossUpdateFromSelect(['e'=>$installer->getTable('sales_flat_order_grid')]));
+$installer->run($select->crossUpdateFromSelect(['e' => $installer->getTable('sales_flat_order_grid')]));
 
 // Invoice and Creditmemo grid
 $select->reset();
@@ -986,8 +988,8 @@ $select->joinLeft(
     ['billing_name' => 'IF(billing_address.entity_id IS NOT NULL, CONCAT(billing_address.firstname, \' \', billing_address.lastname), NULL)']
 );
 
-$installer->run($select->crossUpdateFromSelect(['e'=>$installer->getTable('sales_flat_creditmemo_grid')]));
-$installer->run($select->crossUpdateFromSelect(['e'=>$installer->getTable('sales_flat_invoice_grid')]));
+$installer->run($select->crossUpdateFromSelect(['e' => $installer->getTable('sales_flat_creditmemo_grid')]));
+$installer->run($select->crossUpdateFromSelect(['e' => $installer->getTable('sales_flat_invoice_grid')]));
 
 // Shipment grid
 $select->reset();
@@ -1003,7 +1005,7 @@ $select->joinLeft(
     ['shipping_name' => 'IF(shipping_address.entity_id IS NOT NULL, CONCAT(shipping_address.firstname, \' \', shipping_address.lastname), NULL)']
 );
 
-$installer->run($select->crossUpdateFromSelect(['e'=>$installer->getTable('sales_flat_shipment_grid')]));
+$installer->run($select->crossUpdateFromSelect(['e' => $installer->getTable('sales_flat_shipment_grid')]));
 
 $constraints = [
     'sales_flat_order' => [
@@ -1134,8 +1136,8 @@ $temporaryTable =  'tmp_sales_order_item_count_' . md5(uniqid('order_item_count'
 $installer->getConnection()->query('CREATE TEMPORARY TABLE ' . $installer->getConnection()->quoteIdentifier($temporaryTable) . ' ' . $select->assemble());
 
 $select->reset()
-    ->join(['items_count_table'=>$temporaryTable], 'items_count_table.entity_id = order_table.entity_id', [
-        'total_item_count'=>'total_item_count'
+    ->join(['items_count_table' => $temporaryTable], 'items_count_table.entity_id = order_table.entity_id', [
+        'total_item_count' => 'total_item_count'
     ]);
 
 $installer->getConnection()->query($select->crossUpdateFromSelect(['order_table' => $installer->getTable('sales/order')]));

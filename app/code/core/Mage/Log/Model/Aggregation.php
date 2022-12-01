@@ -85,10 +85,10 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
             $to = $date + 3600;
             $counts = $this->_getCounts($this->_date($date), $this->_date($to), $store);
             $data = [
-                'store_id'=>$store,
-                'visitor_count'=>$counts['visitors'],
-                'customer_count'=>$counts['customers'],
-                'add_date'=>$this->_date($date)
+                'store_id' => $store,
+                'visitor_count' => $counts['visitors'],
+                'customer_count' => $counts['customers'],
+                'add_date' => $this->_date($date)
             ];
 
             if ($counts['visitors'] || $counts['customers']) {

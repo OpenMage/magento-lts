@@ -228,7 +228,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
         $i      = 0;
         $data   = [];
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-            $i ++;
+            $i++;
             $data[] = [
                 'product_id'    => (int)$row['entity_id'],
                 'website_id'    => (int)$row['website_id'],

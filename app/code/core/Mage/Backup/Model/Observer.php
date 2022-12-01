@@ -28,9 +28,9 @@
  */
 class Mage_Backup_Model_Observer
 {
-    const XML_PATH_BACKUP_ENABLED          = 'system/backup/enabled';
-    const XML_PATH_BACKUP_TYPE             = 'system/backup/type';
-    const XML_PATH_BACKUP_MAINTENANCE_MODE = 'system/backup/maintenance';
+    public const XML_PATH_BACKUP_ENABLED          = 'system/backup/enabled';
+    public const XML_PATH_BACKUP_TYPE             = 'system/backup/type';
+    public const XML_PATH_BACKUP_MAINTENANCE_MODE = 'system/backup/maintenance';
 
     /**
      * Error messages
@@ -72,8 +72,7 @@ class Mage_Backup_Model_Observer
 
             $backupManager->create();
             Mage::log(Mage::helper('backup')->getCreateSuccessMessageByType($type));
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_errors[] = $e->getMessage();
             $this->_errors[] = $e->getTrace();
             Mage::log($e->getMessage(), Zend_Log::ERR);

@@ -48,9 +48,9 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
      */
     protected function _beforeToHtml()
     {
-        $this->setId($this->getId().'_'.$this->getIndex());
-        $this->getChild('reset_filter_button')->setData('onclick', $this->getJsObjectName().'.resetFilter()');
-        $this->getChild('search_button')->setData('onclick', $this->getJsObjectName().'.doFilter()');
+        $this->setId($this->getId() . '_' . $this->getIndex());
+        $this->getChild('reset_filter_button')->setData('onclick', $this->getJsObjectName() . '.resetFilter()');
+        $this->getChild('search_button')->setData('onclick', $this->getJsObjectName() . '.doFilter()');
 
         return parent::_beforeToHtml();
     }
@@ -104,7 +104,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
         $this->addColumn('name', [
             'header'    => Mage::helper('sales')->__('Product Name'),
             'index'     => 'name',
-            'column_css_class'=> 'name'
+            'column_css_class' => 'name'
         ]);
 
         $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
@@ -115,7 +115,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
         $this->addColumn(
             'set_name',
             [
-                'header'=> Mage::helper('catalog')->__('Attrib. Set Name'),
+                'header' => Mage::helper('catalog')->__('Attrib. Set Name'),
                 'width' => '100px',
                 'index' => 'attribute_set_id',
                 'type'  => 'options',
@@ -127,7 +127,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
             'header'    => Mage::helper('sales')->__('SKU'),
             'width'     => '80px',
             'index'     => 'sku',
-            'column_css_class'=> 'sku'
+            'column_css_class' => 'sku'
         ]);
         $this->addColumn('price', [
             'header'    => Mage::helper('sales')->__('Price'),
@@ -152,7 +152,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
             'sortable'  => false,
             'header'    => Mage::helper('sales')->__('Qty to Add'),
             'name'      => 'qty',
-            'inline_css'=> 'qty',
+            'inline_css' => 'qty',
             'align'     => 'right',
             'type'      => 'input',
             'validate_class' => 'validate-number',

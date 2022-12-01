@@ -53,24 +53,24 @@
  */
 class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 {
-    const STATUS_SUBSCRIBED     = 1;
-    const STATUS_NOT_ACTIVE     = 2;
-    const STATUS_UNSUBSCRIBED   = 3;
-    const STATUS_UNCONFIRMED    = 4;
+    public const STATUS_SUBSCRIBED     = 1;
+    public const STATUS_NOT_ACTIVE     = 2;
+    public const STATUS_UNSUBSCRIBED   = 3;
+    public const STATUS_UNCONFIRMED    = 4;
 
-    const XML_PATH_CONFIRM_EMAIL_TEMPLATE       = 'newsletter/subscription/confirm_email_template';
-    const XML_PATH_CONFIRM_EMAIL_IDENTITY       = 'newsletter/subscription/confirm_email_identity';
-    const XML_PATH_SUCCESS_EMAIL_TEMPLATE       = 'newsletter/subscription/success_email_template';
-    const XML_PATH_SUCCESS_EMAIL_IDENTITY       = 'newsletter/subscription/success_email_identity';
-    const XML_PATH_UNSUBSCRIBE_EMAIL_TEMPLATE   = 'newsletter/subscription/un_email_template';
-    const XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY   = 'newsletter/subscription/un_email_identity';
-    const XML_PATH_CONFIRMATION_FLAG            = 'newsletter/subscription/confirm';
-    const XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG   = 'newsletter/subscription/allow_guest_subscribe';
+    public const XML_PATH_CONFIRM_EMAIL_TEMPLATE       = 'newsletter/subscription/confirm_email_template';
+    public const XML_PATH_CONFIRM_EMAIL_IDENTITY       = 'newsletter/subscription/confirm_email_identity';
+    public const XML_PATH_SUCCESS_EMAIL_TEMPLATE       = 'newsletter/subscription/success_email_template';
+    public const XML_PATH_SUCCESS_EMAIL_IDENTITY       = 'newsletter/subscription/success_email_identity';
+    public const XML_PATH_UNSUBSCRIBE_EMAIL_TEMPLATE   = 'newsletter/subscription/un_email_template';
+    public const XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY   = 'newsletter/subscription/un_email_identity';
+    public const XML_PATH_CONFIRMATION_FLAG            = 'newsletter/subscription/confirm';
+    public const XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG   = 'newsletter/subscription/allow_guest_subscribe';
 
     /**
      * @deprecated since 1.4.0.1
      */
-    const XML_PATH_SENDING_SET_RETURN_PATH      = Mage_Core_Model_Email_Template::XML_PATH_SENDING_SET_RETURN_PATH;
+    public const XML_PATH_SENDING_SET_RETURN_PATH      = Mage_Core_Model_Email_Template::XML_PATH_SENDING_SET_RETURN_PATH;
 
     /**
      * Prefix of model events names
@@ -226,7 +226,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     public function setIsStatusChanged($value)
     {
         $this->_isStatusChanged = (bool) $value;
-           return $this;
+        return $this;
     }
 
     /**
@@ -246,7 +246,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      */
     public function isSubscribed()
     {
-        if ($this->getId() && $this->getStatus()==self::STATUS_SUBSCRIBED) {
+        if ($this->getId() && $this->getStatus() == self::STATUS_SUBSCRIBED) {
             return true;
         }
 
@@ -278,7 +278,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         if (!empty($data) && $customer->getId() && !$this->getCustomerId()) {
             $this->setCustomerId($customer->getId());
             $this->setSubscriberConfirmCode($this->randomSequence());
-            if ($this->getStatus()==self::STATUS_NOT_ACTIVE) {
+            if ($this->getStatus() == self::STATUS_NOT_ACTIVE) {
                 $this->setStatus($customer->getIsSubscribed() ? self::STATUS_SUBSCRIBED : self::STATUS_UNSUBSCRIBED);
             }
             $this->save();
@@ -297,11 +297,11 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         $id = '';
         $par = [];
         $char = array_merge(range('a', 'z'), range(0, 9));
-        $charLen = count($char)-1;
-        for ($i=0; $i<$length; $i++) {
+        $charLen = count($char) - 1;
+        for ($i = 0; $i < $length; $i++) {
             $disc = mt_rand(0, $charLen);
             $par[$i] = $char[$disc];
-            $id = $id.$char[$disc];
+            $id = $id . $char[$disc];
         }
         return $id;
     }
@@ -411,9 +411,9 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             $this->setSubscriberConfirmCode($this->randomSequence());
         }
 
-       /**
-        * Logical mismatch between customer registration confirmation code and customer password confirmation
-        */
+        /**
+         * Logical mismatch between customer registration confirmation code and customer password confirmation
+         */
         $confirmation = null;
         if ($customer->isConfirmationRequired() && ($customer->getConfirmation() != $customer->getPassword())) {
             $confirmation = $customer->getConfirmation();
@@ -476,7 +476,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      */
     public function confirm($code)
     {
-        if ($this->getCode()==$code) {
+        if ($this->getCode() == $code) {
             $this->setStatus(self::STATUS_SUBSCRIBED)
                 ->setIsStatusChanged(true)
                 ->save();
@@ -510,7 +510,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         }
 
         if (!Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_TEMPLATE)
-           || !Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_IDENTITY)
+            || !Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_IDENTITY)
         ) {
             return $this;
         }
@@ -527,7 +527,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_IDENTITY),
             $this->getEmail(),
             $this->getName(),
-            ['subscriber'=>$this]
+            ['subscriber' => $this]
         );
 
         $translate->setTranslateInline(true);
@@ -547,7 +547,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         }
 
         if (!Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_TEMPLATE)
-           || !Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_IDENTITY)
+            || !Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_IDENTITY)
         ) {
             return $this;
         }
@@ -564,7 +564,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_IDENTITY),
             $this->getEmail(),
             $this->getName(),
-            ['subscriber'=>$this]
+            ['subscriber' => $this]
         );
 
         $translate->setTranslateInline(true);
@@ -583,7 +583,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             return $this;
         }
         if (!Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_TEMPLATE)
-           || !Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY)
+            || !Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY)
         ) {
             return $this;
         }
@@ -600,7 +600,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY),
             $this->getEmail(),
             $this->getName(),
-            ['subscriber'=>$this]
+            ['subscriber' => $this]
         );
 
         $translate->setTranslateInline(true);

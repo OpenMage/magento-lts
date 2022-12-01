@@ -79,22 +79,22 @@ class Mage_Uploader_Model_Config_Uploader extends Mage_Uploader_Model_Config_Abs
     /**
      * Type of upload
      */
-    const UPLOAD_TYPE = 'multipart';
+    public const UPLOAD_TYPE = 'multipart';
 
     /**
      * Test chunks on resumable uploads
      */
-    const TEST_CHUNKS = false;
+    public const TEST_CHUNKS = false;
 
     /**
      * Used for calculating average upload speed.
      */
-    const SMOOTH_UPLOAD_FACTOR = 0.02;
+    public const SMOOTH_UPLOAD_FACTOR = 0.02;
 
     /**
      * Progress check interval
      */
-    const PROGRESS_CALLBACK_INTERVAL = 0;
+    public const PROGRESS_CALLBACK_INTERVAL = 0;
 
     /**
      * Set default values for uploader

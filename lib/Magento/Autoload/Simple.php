@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Magento
- * @package     Magento_Autoload
+ * @category   Magento
+ * @package    Magento_Autoload
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -35,14 +35,13 @@ class Simple
 
     public static function register()
     {
-        spl_autoload_register(array(self::instance(), 'autoload'));
+        spl_autoload_register([self::instance(), 'autoload']);
     }
 
     public function autoload($class)
     {
         $classFile = str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $class)));
-        $classFile.= '.php';
+        $classFile .= '.php';
         @include $classFile;
     }
-
 }

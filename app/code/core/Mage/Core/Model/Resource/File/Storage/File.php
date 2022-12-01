@@ -207,18 +207,17 @@ class Mage_Core_Model_Resource_File_Storage_File
                 if (@fwrite($fp, $content) !== false && @fflush($fp) && @flock($fp, LOCK_UN) && @fclose($fp)) {
                     return true;
                 }
-            }
-            // If overwrite is not required then return if file could not be locked (assume it is being written by another process)
-            // Exception is only thrown if file was opened but could not be written.
-            else if (!$overwrite) {
+            } elseif (!$overwrite) {
+                // If overwrite is not required then return if file could not be locked (assume it is being written by another process)
+                // Exception is only thrown if file was opened but could not be written.
                 if (!($fp = @fopen($fullPath, 'x'))) {
                     return false;
                 }
                 if (@fwrite($fp, $content) !== false && @fflush($fp) && @fclose($fp)) {
                     return true;
                 }
-            } // If overwrite is required, throw exception on failure to write file
-            elseif (@file_put_contents($fullPath, $content, LOCK_EX) !== false) {
+            } elseif (@file_put_contents($fullPath, $content, LOCK_EX) !== false) {
+                // If overwrite is required, throw exception on failure to write file
                 return true;
             }
 
@@ -237,7 +236,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     public function lockCreateFile($filePath)
     {
         $filename = basename($filePath);
-        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS , dirname($filePath));
+        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS, dirname($filePath));
 
         // Create parent directories as needed and track so they can be cleaned up after
         if (!is_dir($path)) {
@@ -280,7 +279,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     public function removeLockedFile($filePath)
     {
         $filename = basename($filePath);
-        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS , dirname($filePath));
+        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS, dirname($filePath));
         $fullPath = $path . DS . $filename;
         if ($this->filePointer) {
             $fp = $this->filePointer;

@@ -27,7 +27,7 @@
 class Mage_Adminhtml_Block_Notification_Security extends Mage_Adminhtml_Block_Template
 {
     // Cache kay for saving verification result
-    const VERIFICATION_RESULT_CACHE_KEY = 'configuration_files_access_level_verification';
+    public const VERIFICATION_RESULT_CACHE_KEY = 'configuration_files_access_level_verification';
 
     /**
      * File path for verification

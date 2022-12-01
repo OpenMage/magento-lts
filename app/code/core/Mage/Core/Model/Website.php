@@ -49,8 +49,8 @@
  */
 class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 {
-    const ENTITY    = 'core_website';
-    const CACHE_TAG = 'website';
+    public const ENTITY    = 'core_website';
+    public const CACHE_TAG = 'website';
     protected $_cacheTag = true;
 
     /**
@@ -185,7 +185,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
                 }
             }
         } else {
-            $website = Mage::getConfig()->getNode('websites/'.$code);
+            $website = Mage::getConfig()->getNode('websites/' . $code);
         }
         if (!empty($website)) {
             $this->setCode($code);
@@ -204,7 +204,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     public function getConfig($path)
     {
         if (!isset($this->_configCache[$path])) {
-            $config = Mage::getConfig()->getNode('websites/'.$this->getCode().'/'.$path);
+            $config = Mage::getConfig()->getNode('websites/' . $this->getCode() . '/' . $path);
             if (!$config) {
                 return false;
                 #throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid website\'s configuration path: %s', $path));

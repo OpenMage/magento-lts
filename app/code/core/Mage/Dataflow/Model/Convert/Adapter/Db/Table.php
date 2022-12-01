@@ -38,11 +38,9 @@ class Mage_Dataflow_Model_Convert_Adapter_Db_Table extends Mage_Dataflow_Model_C
 
     public function load()
     {
-
     }
 
     public function save()
     {
-
     }
 }

@@ -460,8 +460,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
             $baseRowTax      = array_sum($baseRowTaxes);
             $taxSubtotal     = $subtotal + $rowTax;
             $baseTaxSubtotal = $baseSubtotal + $baseRowTax;
-            $taxPrice        = $this->_calculator->round($taxSubtotal/$qty);
-            $baseTaxPrice    = $this->_calculator->round($baseTaxSubtotal/$qty);
+            $taxPrice        = $this->_calculator->round($taxSubtotal / $qty);
+            $baseTaxPrice    = $this->_calculator->round($baseTaxSubtotal / $qty);
             $isPriceInclTax  = false;
         }
 
@@ -620,8 +620,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
             $taxSubtotal     = $subtotal + array_sum($rowTaxes);
             $baseTaxSubtotal = $baseSubtotal + array_sum($baseRowTaxes);
 
-            $taxPrice        = $calc->round($taxSubtotal/$qty);
-            $baseTaxPrice    = $calc->round($baseTaxSubtotal/$qty);
+            $taxPrice        = $calc->round($taxSubtotal / $qty);
+            $baseTaxPrice    = $calc->round($baseTaxSubtotal / $qty);
 
             $isPriceInclTax = false;
         }

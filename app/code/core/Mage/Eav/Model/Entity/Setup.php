@@ -110,7 +110,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-/******************* ENTITY TYPES *****************/
+    /******************* ENTITY TYPES *****************/
 
     /**
      * Add an entity type
@@ -228,7 +228,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-/******************* ATTRIBUTE SETS *****************/
+    /******************* ATTRIBUTE SETS *****************/
 
     /**
      * Retrieve Attribute Set Sort order
@@ -414,7 +414,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this->getConnection()->fetchOne($select, $bind);
     }
 
-/******************* ATTRIBUTE GROUPS *****************/
+    /******************* ATTRIBUTE GROUPS *****************/
 
     /**
      * Retrieve Attribute Group Sort order
@@ -599,7 +599,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this->getConnection()->fetchOne($select, $bind);
     }
 
-/******************* ATTRIBUTES *****************/
+    /******************* ATTRIBUTES *****************/
 
     /**
      * Retrieve value from array by key or return default value
@@ -655,7 +655,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         $attributeCodeMaxLength = Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH;
 
         if (isset($data['attribute_code']) &&
-           !Zend_Validate::is($data['attribute_code'], 'StringLength', ['max' => $attributeCodeMaxLength])) {
+            !Zend_Validate::is($data['attribute_code'], 'StringLength', ['max' => $attributeCodeMaxLength])
+        ) {
             throw Mage::exception(
                 'Mage_Eav',
                 Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', $attributeCodeMaxLength)
@@ -1188,7 +1189,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-/******************* BULK INSTALL *****************/
+    /******************* BULK INSTALL *****************/
 
     /**
      * Install entities
@@ -1216,14 +1217,14 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     if ($attr['backend'] === '_') {
                         $attr['backend'] = $backendPrefix;
                     } elseif ($attr['backend'][0] === '_') {
-                        $attr['backend'] = $backendPrefix.$attr['backend'];
+                        $attr['backend'] = $backendPrefix . $attr['backend'];
                     }
                 }
                 if (!empty($attr['frontend'])) {
                     if ($attr['frontend'] === '_') {
                         $attr['frontend'] = $frontendPrefix;
                     } elseif ($attr['frontend'][0] === '_') {
-                        $attr['frontend'] = $frontendPrefix.$attr['frontend'];
+                        $attr['frontend'] = $frontendPrefix . $attr['frontend'];
                     }
                 }
                 if (!empty($attr['source'])) {
@@ -1242,7 +1243,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-/****************************** CREATE ENTITY TABLES ***********************************/
+    /****************************** CREATE ENTITY TABLES ***********************************/
 
     /**
      * Create entity tables

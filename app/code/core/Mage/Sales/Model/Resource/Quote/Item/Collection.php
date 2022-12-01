@@ -162,7 +162,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
      */
     protected function _assignProducts()
     {
-        Varien_Profiler::start('QUOTE:'.__METHOD__);
+        Varien_Profiler::start('QUOTE:' . __METHOD__);
         $productFlatHelper = Mage::helper('catalog/product_flat');
         $productFlatHelper->disableFlatCollection();
 
@@ -233,7 +233,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
         }
 
         $productFlatHelper->resetFlatCollection();
-        Varien_Profiler::stop('QUOTE:'.__METHOD__);
+        Varien_Profiler::stop('QUOTE:' . __METHOD__);
         return $this;
     }
 }

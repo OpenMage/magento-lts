@@ -216,7 +216,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
             ->join(
                 ['io' => $copTable],
                 'i.entity_id = io.entity_id AND i.customer_group_id = io.customer_group_id'
-                    .' AND i.website_id = io.website_id',
+                    . ' AND i.website_id = io.website_id',
                 []
             );
         $select->columns([

@@ -16,7 +16,7 @@
  * @category   Mage
  * @package    Mage_Review
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @license    https://opensource.org/licenses/afl-3.0.php s+Academic Free License (AFL 3.0)
+ * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -31,23 +31,23 @@
                             <children>
                                 <pending translate="title" module="review">
                                     <title>Pending Reviews</title>
-                                    <action>adminhtml/catalog_product_review/pending/</action>
+                                    <action>adminhtml/catalog_product_review/pending</action>
                                 </pending>
                                 <all translate="title" module="review">
                                     <title>All Reviews</title>
-                                    <action>adminhtml/catalog_product_review/</action>
+                                    <action>adminhtml/catalog_product_review/index</action>
                                 </all>
                             </children>
                         </reviews>
                         <ratings translate="title" module="review">
                             <title>Manage Ratings</title>
-                            <action>adminhtml/rating/</action>
+                            <action>adminhtml/rating/index</action>
                         </ratings>
                     </children>
                     <sort_order>50</sort_order>
                 </reviews_ratings>
             </children>
-         </catalog>
+        </catalog>
         <report>
             <children>
                 <review translate="title" module="reports">

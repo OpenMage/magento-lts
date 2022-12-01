@@ -80,35 +80,35 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**#@+
      * Configuration paths for email templates and identities
      */
-    const XML_PATH_FORGOT_EMAIL_TEMPLATE    = 'admin/emails/forgot_email_template';
-    const XML_PATH_FORGOT_EMAIL_IDENTITY    = 'admin/emails/forgot_email_identity';
-    const XML_PATH_STARTUP_PAGE             = 'admin/startup/page';
+    public const XML_PATH_FORGOT_EMAIL_TEMPLATE    = 'admin/emails/forgot_email_template';
+    public const XML_PATH_FORGOT_EMAIL_IDENTITY    = 'admin/emails/forgot_email_identity';
+    public const XML_PATH_STARTUP_PAGE             = 'admin/startup/page';
 
     /** Configuration paths for notifications */
-    const XML_PATH_ADDITIONAL_EMAILS             = 'general/additional_notification_emails/admin_user_create';
-    const XML_PATH_NOTIFICATION_EMAILS_TEMPLATE  = 'admin/emails/admin_notification_email_template';
+    public const XML_PATH_ADDITIONAL_EMAILS             = 'general/additional_notification_emails/admin_user_create';
+    public const XML_PATH_NOTIFICATION_EMAILS_TEMPLATE  = 'admin/emails/admin_notification_email_template';
     /**#@-*/
 
     /**
      * Minimum length of admin password
      * @deprecated Use getMinAdminPasswordLength() method instead
      */
-    const MIN_PASSWORD_LENGTH = 14;
+    public const MIN_PASSWORD_LENGTH = 14;
 
     /**
      * Configuration path for minimum length of admin password
      */
-    const XML_PATH_MIN_ADMIN_PASSWORD_LENGTH = 'admin/security/min_admin_password_length';
+    public const XML_PATH_MIN_ADMIN_PASSWORD_LENGTH = 'admin/security/min_admin_password_length';
 
     /**
      * Length of salt
      */
-    const HASH_SALT_LENGTH = 32;
+    public const HASH_SALT_LENGTH = 32;
 
     /**
      * Empty hash salt
      */
-    const HASH_SALT_EMPTY = null;
+    public const HASH_SALT_EMPTY = null;
 
     /**
      * Model event prefix
@@ -504,7 +504,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Find first menu item that user is able to access
      *
-     * @param Mage_Core_Model_Config_Element $parent
+     * @param Mage_Core_Model_Config_Element|Varien_Simplexml_Element $parent
      * @param string $path
      * @param int $level
      * @return string

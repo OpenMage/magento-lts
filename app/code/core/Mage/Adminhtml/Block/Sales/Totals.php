@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
         $this->_totals['subtotal'] = new Varien_Object([
             'code'      => 'subtotal',
             'value'     => $this->getSource()->getSubtotal(),
-            'base_value'=> $this->getSource()->getBaseSubtotal(),
+            'base_value' => $this->getSource()->getBaseSubtotal(),
             'label'     => $this->helper('sales')->__('Subtotal')
         ]);
 
@@ -70,7 +70,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
             $this->_totals['shipping'] = new Varien_Object([
                 'code'      => 'shipping',
                 'value'     => $this->getSource()->getShippingAmount(),
-                'base_value'=> $this->getSource()->getBaseShippingAmount(),
+                'base_value' => $this->getSource()->getBaseShippingAmount(),
                 'label' => $this->helper('sales')->__('Shipping & Handling')
             ]);
         }
@@ -90,7 +90,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
             $this->_totals['discount'] = new Varien_Object([
                 'code'      => 'discount',
                 'value'     => $this->getSource()->getDiscountAmount(),
-                'base_value'=> $this->getSource()->getBaseDiscountAmount(),
+                'base_value' => $this->getSource()->getBaseDiscountAmount(),
                 'label'     => $discountLabel
             ]);
         }
@@ -99,7 +99,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
             'code'      => 'grand_total',
             'strong'    => true,
             'value'     => $this->getSource()->getGrandTotal(),
-            'base_value'=> $this->getSource()->getBaseGrandTotal(),
+            'base_value' => $this->getSource()->getBaseGrandTotal(),
             'label'     => $this->helper('sales')->__('Grand Total'),
             'area'      => 'footer'
         ]);

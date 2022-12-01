@@ -135,7 +135,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
             'showBillingPhone'      => 'false',
             'showCustomerName'      => 'false',
             'showCardInfo'          => 'true',
-            'showHostedThankyouPage'=> 'false'
+            'showHostedThankyouPage' => 'false'
         ];
     }
 
@@ -149,7 +149,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     {
         $request = [
             'subtotal'      => $this->_formatPrice($order->getBaseSubtotal()),
-            'tax'           => $this->_formatPrice($order->getBaseTaxAmount() + $order->getHiddenTaxAmount() ),
+            'tax'           => $this->_formatPrice($order->getBaseTaxAmount() + $order->getHiddenTaxAmount()),
             'shipping'      => $this->_formatPrice($order->getBaseShippingAmount()),
             'invoice'       => $order->getIncrementId(),
             'address_override' => 'true',
@@ -184,7 +184,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     protected function _getShippingAddress(Varien_Object $address)
     {
         $request = [
-            'first_name'=> $address->getFirstname(),
+            'first_name' => $address->getFirstname(),
             'last_name' => $address->getLastname(),
             'city'      => $address->getCity(),
             'state'     => $address->getRegionCode() ? $address->getRegionCode() : $address->getCity(),
@@ -211,7 +211,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     protected function _getBillingAddress(Varien_Object $address)
     {
         $request = [
-            'billing_first_name'=> $address->getFirstname(),
+            'billing_first_name' => $address->getFirstname(),
             'billing_last_name' => $address->getLastname(),
             'billing_city'      => $address->getCity(),
             'billing_state'     => $address->getRegionCode() ? $address->getRegionCode() : $address->getCity(),

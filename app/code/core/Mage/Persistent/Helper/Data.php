@@ -28,15 +28,15 @@
  */
 class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
 {
-    const XML_PATH_ENABLED = 'persistent/options/enabled';
-    const XML_PATH_LIFE_TIME = 'persistent/options/lifetime';
-    const XML_PATH_LOGOUT_CLEAR = 'persistent/options/logout_clear';
-    const XML_PATH_REMEMBER_ME_ENABLED = 'persistent/options/remember_enabled';
-    const XML_PATH_REMEMBER_ME_DEFAULT = 'persistent/options/remember_default';
-    const XML_PATH_PERSIST_SHOPPING_CART = 'persistent/options/shopping_cart';
+    public const XML_PATH_ENABLED = 'persistent/options/enabled';
+    public const XML_PATH_LIFE_TIME = 'persistent/options/lifetime';
+    public const XML_PATH_LOGOUT_CLEAR = 'persistent/options/logout_clear';
+    public const XML_PATH_REMEMBER_ME_ENABLED = 'persistent/options/remember_enabled';
+    public const XML_PATH_REMEMBER_ME_DEFAULT = 'persistent/options/remember_default';
+    public const XML_PATH_PERSIST_SHOPPING_CART = 'persistent/options/shopping_cart';
 
-    const LOGGED_IN_LAYOUT_HANDLE = 'customer_logged_in_psc_handle';
-    const LOGGED_OUT_LAYOUT_HANDLE = 'customer_logged_out_psc_handle';
+    public const LOGGED_IN_LAYOUT_HANDLE = 'customer_logged_in_psc_handle';
+    public const LOGGED_OUT_LAYOUT_HANDLE = 'customer_logged_out_psc_handle';
 
     protected $_moduleName = 'Mage_Persistent';
 
