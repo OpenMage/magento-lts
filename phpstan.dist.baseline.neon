@@ -236,17 +236,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Composite/Fieldset/Grouped.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Created.php
-
-		-
 			message: "#^Parameter \\#1 \\$attributeId of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getAttributeById\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Created.php
-
-		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getAttributeById\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Created.php
 
@@ -2616,11 +2606,6 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Wsdl/Config.php
 
 		-
-			message: "#^Parameter \\#3 \\$mergeModel of method Mage_Core_Model_Config\\:\\:loadModulesConfiguration\\(\\) expects null, Mage_Api_Model_Wsdl_Config_Base given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Api/Model/Wsdl/Config.php
-
-		-
 			message: "#^Call to an undefined method SimpleXMLElement\\:\\:extendChild\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api/Model/Wsdl/Config/Element.php
@@ -3051,11 +3036,6 @@ parameters:
 			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Composite/Fieldset/Options/Type/Select.php
 
 		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Edit/Tab/Bundle/Option.php
-
-		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Edit/Tab/Bundle/Option/Search/Grid.php
@@ -3089,11 +3069,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getIsPricesCalculatedByIndex\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Block/Catalog/Product/Price.php
-
-		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle.php
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getSelectionPreFinalPrice\\(\\)\\.$#"
@@ -3149,11 +3124,6 @@ parameters:
 			message: "#^Property Mage_Bundle_Model_CatalogIndex_Data_Bundle\\:\\:\\$_haveChildren \\(bool\\) does not accept default value of type array\\<int, bool\\>\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/CatalogIndex/Data/Bundle.php
-
-		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Observer.php
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
@@ -3221,11 +3191,6 @@ parameters:
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
 
 		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Price.php
-
-		-
 			message: "#^Parameter \\#2 \\$qty of method Mage_Catalog_Model_Product_Type_Price\\:\\:_applyOptionsPrice\\(\\) expects int, float\\|null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
@@ -3262,26 +3227,6 @@ parameters:
 
 		-
 			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Type.php
-
-		-
-			message: "#^Parameter \\#1 \\$product \\(Mage_Catalog_Model_Product\\) of method Mage_Bundle_Model_Product_Type\\:\\:getForceChildItemQtyChanges\\(\\) should be compatible with parameter \\$product \\(null\\) of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getForceChildItemQtyChanges\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Type.php
-
-		-
-			message: "#^Parameter \\#2 \\$product \\(Mage_Catalog_Model_Product\\) of method Mage_Bundle_Model_Product_Type\\:\\:prepareQuoteItemQty\\(\\) should be compatible with parameter \\$product \\(null\\) of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:prepareQuoteItemQty\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Type.php
-
-		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 4
-			path: app/code/core/Mage/Bundle/Model/Product/Type.php
-
-		-
-			message: "#^Parameter \\#4 \\$product \\(Mage_Catalog_Model_Product\\) of method Mage_Bundle_Model_Product_Type\\:\\:updateQtyOption\\(\\) should be compatible with parameter \\$product \\(null\\) of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:updateQtyOption\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/Product/Type.php
 
@@ -3627,16 +3572,6 @@ parameters:
 
 		-
 			message: "#^Call to function is_null\\(\\) with int\\|Mage_Core_Model_Store will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/View/Abstract.php
-
-		-
-			message: "#^Parameter \\#1 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/View/Abstract.php
-
-		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/View/Abstract.php
 
@@ -4541,24 +4476,9 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Indexer/Eav.php
 
 		-
-			message: "#^Parameter \\#1 \\$type of method Mage_Catalog_Model_Product_Link\\:\\:getAttributes\\(\\) expects null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Link/Api.php
-
-		-
 			message: "#^Parameter \\#2 \\$store of method Mage_Catalog_Helper_Product\\:\\:getProduct\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Link/Api.php
-
-		-
-			message: "#^Parameter \\#5 \\$identifierType \\(null\\) of method Mage_Catalog_Model_Product_Link_Api_V2\\:\\:assign\\(\\) should be compatible with parameter \\$identifierType \\(string\\) of method Mage_Catalog_Model_Product_Link_Api\\:\\:assign\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Link/Api/V2.php
-
-		-
-			message: "#^Parameter \\#5 \\$identifierType \\(null\\) of method Mage_Catalog_Model_Product_Link_Api_V2\\:\\:update\\(\\) should be compatible with parameter \\$identifierType \\(string\\) of method Mage_Catalog_Model_Product_Link_Api\\:\\:update\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Link/Api/V2.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Product_Option\\:\\:getValuesCollection\\(\\) should return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Value_Collection but returns Mage_Catalog_Model_Resource_Product_Option_Value_Collection\\.$#"
@@ -4666,22 +4586,12 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getAttributeById\\(\\) should return Mage_Eav_Model_Entity_Attribute_Abstract but returns null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php
-
-		-
 			message: "#^Parameter \\#1 \\$optionId of method Mage_Catalog_Model_Product\\:\\:getOptionById\\(\\) expects int, string given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php
 
 		-
 			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Eav_Model_Entity_Attribute_Abstract will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
 
@@ -4706,11 +4616,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
 
 		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
-
-		-
 			message: "#^Parameter \\#3 \\$product of method Mage_Catalog_Model_Product\\:\\:addCustomOption\\(\\) expects int\\|null, Mage_Catalog_Model_Product given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
@@ -4731,11 +4636,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable/Price.php
 
 		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable/Price.php
-
-		-
 			message: "#^Parameter \\#2 \\$qty of method Mage_Catalog_Model_Product_Type_Price\\:\\:_applyOptionsPrice\\(\\) expects int, float\\|null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable/Price.php
@@ -4752,11 +4652,6 @@ parameters:
 
 		-
 			message: "#^Call to function is_null\\(\\) with float will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Grouped/Price.php
-
-		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Grouped/Price.php
 
@@ -5281,11 +5176,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$select of method Mage_Catalog_Model_Resource_Product_Collection\\:\\:_getSelectCountSql\\(\\) expects null, Varien_Db_Select given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
-
-		-
 			message: "#^Parameter \\#4 \\$cond of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:joinTable\\(\\) expects array\\|null, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
@@ -5469,11 +5359,6 @@ parameters:
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Option/Collection.php
-
-		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getAttributeById\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Type/Configurable/Attribute/Collection.php
 
 		-
 			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Resource_Product\\:\\:refreshEnabledIndex\\(\\) expects Mage_Catalog_Model_Product\\|null, array given\\.$#"
@@ -5766,17 +5651,7 @@ parameters:
 			path: app/code/core/Mage/CatalogInventory/Model/Observer.php
 
 		-
-			message: "#^Parameter \\#1 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getForceChildItemQtyChanges\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Observer.php
-
-		-
 			message: "#^Parameter \\#1 \\$type of method Mage_Sales_Model_Quote\\:\\:removeErrorInfosByParams\\(\\) expects string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Observer.php
-
-		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:prepareQuoteItemQty\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogInventory/Model/Observer.php
 
@@ -6811,16 +6686,6 @@ parameters:
 			path: app/code/core/Mage/Core/Block/Text.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method Mage_Core_Block_Text_Tag\\:\\:setTagParam\\(\\) expects null, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Text/Tag/Css.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method Mage_Core_Block_Text_Tag\\:\\:setTagParam\\(\\) expects null, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Text/Tag/Css/Admin.php
-
-		-
 			message: "#^Parameter \\#1 \\$name of method Mage_Core_Block_Abstract\\:\\:setAttribute\\(\\) expects string, array\\<string, string\\> given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Block/Text/Tag/Debug.php
@@ -6834,11 +6699,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$return of function print_r expects bool, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Block/Text/Tag/Debug.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method Mage_Core_Block_Text_Tag\\:\\:setTagParam\\(\\) expects null, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Text/Tag/Js.php
 
 		-
 			message: "#^Parameter \\#2 \\$value of method Zend_Controller_Response_Abstract\\:\\:setHeader\\(\\) expects string, int\\|false given\\.$#"
@@ -7382,16 +7242,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Core_Model_Email_Template\\:\\:getProcessedTemplate\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Email/Template.php
-
-		-
-			message: "#^Parameter \\#1 \\$html of method Mage_Core_Model_Email_Template\\:\\:getPreparedTemplateText\\(\\) expects null, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Email/Template.php
-
-		-
-			message: "#^Parameter \\#1 \\$html of method Mage_Core_Model_Email_Template_Abstract\\:\\:_applyInlineCss\\(\\) expects string, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Email/Template.php
 
@@ -10901,11 +10751,6 @@ parameters:
 			path: app/code/core/Mage/Payment/Block/Info/Banktransfer.php
 
 		-
-			message: "#^Parameter \\#1 \\$message of method Exception\\:\\:__construct\\(\\) expects string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Payment/Exception.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isAvailable\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Payment/Helper/Data.php
@@ -13176,11 +13021,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Payment.php
 
 		-
-			message: "#^Parameter \\#1 \\$setFailsafe of method Mage_Sales_Model_Order_Payment_Transaction\\:\\:isFailsafe\\(\\) expects null, bool given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Sales/Model/Order/Payment.php
-
-		-
 			message: "#^Parameter \\#1 \\$txnId of method Mage_Sales_Model_Order_Payment\\:\\:_lookupTransaction\\(\\) expects string, false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Payment.php
@@ -13321,32 +13161,12 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Creditmemo.php
 
 		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:insertAddress\\(\\) expects null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Creditmemo.php
-
-		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:insertLogo\\(\\) expects null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Creditmemo.php
-
-		-
 			message: "#^Variable \\$creditmemo might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Creditmemo.php
 
 		-
 			message: "#^Parameter \\#1 \\$object of method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:_setFontBold\\(\\) expects Zend_Pdf_Page, Zend_Pdf_Style given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Invoice.php
-
-		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:insertAddress\\(\\) expects null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Invoice.php
-
-		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:insertLogo\\(\\) expects null, Mage_Core_Model_Store given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Invoice.php
 
@@ -13402,16 +13222,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$obj of method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:insertOrder\\(\\) expects Mage_Sales_Model_Order, Mage_Sales_Model_Order_Shipment given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Shipment.php
-
-		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:insertAddress\\(\\) expects null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Shipment.php
-
-		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:insertLogo\\(\\) expects null, Mage_Core_Model_Store given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Shipment.php
 
@@ -13837,11 +13647,6 @@ parameters:
 
 		-
 			message: "#^Negated boolean expression is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item.php
-
-		-
-			message: "#^Parameter \\#4 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:updateQtyOption\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Item.php
 
@@ -14726,11 +14531,6 @@ parameters:
 			path: app/code/core/Mage/Tax/Helper/Data.php
 
 		-
-			message: "#^Elseif condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Helper/Data.php
-
-		-
 			message: "#^If condition is always false\\.$#"
 			count: 2
 			path: app/code/core/Mage/Tax/Helper/Data.php
@@ -14916,11 +14716,6 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Shipping.php
 
 		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Tax_Model_Calculation\\:\\:getStoreRate\\(\\) expects null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Shipping.php
-
-		-
 			message: "#^Parameter \\#4 \\$store of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Shipping.php
@@ -14947,11 +14742,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$rate of method Mage_Tax_Model_Sales_Total_Quote_Subtotal\\:\\:_deltaRound\\(\\) expects string, float given\\.$#"
-			count: 4
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Subtotal.php
-
-		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Tax_Model_Calculation\\:\\:getStoreRate\\(\\) expects null, Mage_Core_Model_Store given\\.$#"
 			count: 4
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Subtotal.php
 
