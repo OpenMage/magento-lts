@@ -63,7 +63,7 @@ jobs:
 
   phpstan:
     name: PHPStan
-    needs: [check]
+    needs: [check, phpcs, php-cs-fixer]
     if: needs.check.outputs.php > 0 || needs.check.outputs.phpstan > 0 || needs.check.outputs.composer > 0 || needs.check.outputs.workflow > 0
     uses: ./.github/workflows/phpstan.yml
 
