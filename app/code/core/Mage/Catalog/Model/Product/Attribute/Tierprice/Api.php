@@ -37,7 +37,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
 
     /**
      * @param int $productId
-     * @param null $identifierType
+     * @param string|null $identifierType
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -74,7 +74,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
      *
      * @param int|string $productId
      * @param array $tierPrices
-     * @param null $identifierType
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */

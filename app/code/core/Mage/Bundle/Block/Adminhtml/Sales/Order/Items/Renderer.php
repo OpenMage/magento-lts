@@ -163,7 +163,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
     }
 
     /**
-     * @param null $item
+     * @param mixed|null $item
      * @return array
      */
     public function getOrderOptions($item = null)

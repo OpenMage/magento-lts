@@ -318,8 +318,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * store price excluding tax
      *
      * @param Varien_Object $request
-     * @param null $store
-     * @return  float
+     * @param Mage_Core_Model_Store|null $store
+     * @return float
      */
     public function getStoreRate($request, $store = null)
     {
