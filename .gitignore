@@ -62,6 +62,16 @@
 # PHP-CS-Fixer cache
 .php-cs-fixer.cache
 
+# Ignore custom config files
+.php-cs-fixer*
+!.php-cs-fixer.dist.*
+
+.phpcs*.xml
+!.phpcs*.xml.dist
+
+phpstan*.neon
+!phpstan.dist.*.neon
+
 # ignore files from bc-mysql4
 app/code/community/Mage/*/Model/Mysql4
 !app/code/core/Mage/Dataflow/Model/Mysql4/Catalogold.php
