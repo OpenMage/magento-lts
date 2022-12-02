@@ -589,13 +589,16 @@ class Mage_Core_Model_App
         $store = $this->getCookie()->get(Mage_Core_Model_Store::COOKIE_NAME);
         if ($store && isset($this->_stores[$store])
             && $this->_stores[$store]->getId()
-            && $this->_stores[$store]->getIsActive()) {
+            && $this->_stores[$store]->getIsActive()
+        ) {
             if ($type == 'website'
-                && $this->_stores[$store]->getWebsiteId() == $this->_stores[$this->_currentStore]->getWebsiteId()) {
+                && $this->_stores[$store]->getWebsiteId() == $this->_stores[$this->_currentStore]->getWebsiteId()
+            ) {
                 $this->_currentStore = $store;
             }
             if ($type == 'group'
-                && $this->_stores[$store]->getGroupId() == $this->_stores[$this->_currentStore]->getGroupId()) {
+                && $this->_stores[$store]->getGroupId() == $this->_stores[$this->_currentStore]->getGroupId()
+            ) {
                 $this->_currentStore = $store;
             }
             if ($type == 'store') {
@@ -1162,7 +1165,7 @@ class Mage_Core_Model_App
      * Loading cache data
      *
      * @param   string $id
-     * @return  mixed
+     * @return  string|false
      */
     public function loadCache($id)
     {

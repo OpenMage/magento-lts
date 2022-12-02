@@ -217,7 +217,8 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
             $allowProductTypes = [];
 
             foreach (Mage::getConfig()
-                    ->getNode('global/catalog/product/type/configurable/allow_product_types')->children() as $type) {
+                    ->getNode('global/catalog/product/type/configurable/allow_product_types')->children() as $type
+            ) {
                 $allowProductTypes[] = $type->getName();
             }
             /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
@@ -455,7 +456,8 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
 
             // remove old data if needed
             if ($this->_entityModel->getBehavior() != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND
-                && $superAttributes['attributes']) {
+                && $superAttributes['attributes']
+            ) {
                 $quoted = $connection->quoteInto('IN (?)', array_keys($superAttributes['attributes']));
                 $connection->delete($mainTable, "product_id {$quoted}");
                 $connection->delete($linkTable, "parent_id {$quoted}");

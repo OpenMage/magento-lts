@@ -144,7 +144,8 @@ class Mage_Downloadable_Model_Observer
                 /** @var Mage_Sales_Model_Order_Item $item */
                 if ($item->getProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
                     || $item->getRealProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
-                    || $item->getProductOptionByCode('is_downloadable')) {
+                    || $item->getProductOptionByCode('is_downloadable')
+                ) {
                     $session->setHasDownloadableProducts(true);
                     break;
                 }
@@ -218,7 +219,8 @@ class Mage_Downloadable_Model_Observer
                 ) {
                     if ($item->getStatusId() == Mage_Sales_Model_Order_Item::STATUS_BACKORDERED &&
                         $orderItemStatusToEnable == Mage_Sales_Model_Order_Item::STATUS_PENDING &&
-                        !in_array(Mage_Sales_Model_Order_Item::STATUS_BACKORDERED, $availableStatuses, true)) {
+                        !in_array(Mage_Sales_Model_Order_Item::STATUS_BACKORDERED, $availableStatuses, true)
+                    ) {
                         $availableStatuses[] = Mage_Sales_Model_Order_Item::STATUS_BACKORDERED;
                     }
 
@@ -271,7 +273,8 @@ class Mage_Downloadable_Model_Observer
 
         foreach ($quote->getAllItems() as $item) {
             if (($product = $item->getProduct()) &&
-                $product->getTypeId() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE) {
+                $product->getTypeId() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
+            ) {
                 $isContain = true;
             }
         }

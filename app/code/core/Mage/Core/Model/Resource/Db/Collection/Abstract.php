@@ -239,7 +239,8 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
 
                 if (($alias !== null && in_array($alias, $columnsToSelect)) ||
                     // If field already joined from another table
-                    ($alias === null && isset($alias, $columnsToSelect))) {
+                    ($alias === null && isset($alias, $columnsToSelect))
+                ) {
                     continue;
                 }
 

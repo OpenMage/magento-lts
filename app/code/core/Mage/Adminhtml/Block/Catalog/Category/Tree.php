@@ -133,7 +133,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     {
         $params = ['_current' => true, 'id' => null,'store' => null];
         if ((is_null($expanded) && Mage::getSingleton('admin/session')->getIsTreeWasExpanded())
-            || $expanded == true) {
+            || $expanded == true
+        ) {
             $params['expand_all'] = true;
         }
         return $this->getUrl('*/*/categoriesJson', $params);

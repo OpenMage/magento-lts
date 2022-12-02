@@ -572,7 +572,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
                 /** @var Mage_Wishlist_Model_Item $_item */
                 if ($_item->getProductId() == $product->getId()
                     && $_item->representProduct($product)
-                    && $_item->getId() != $item->getId()) {
+                    && $_item->getId() != $item->getId()
+                ) {
                     // We do not add new wishlist item, but updating the existing one
                     $isForceSetQuantity = false;
                 }

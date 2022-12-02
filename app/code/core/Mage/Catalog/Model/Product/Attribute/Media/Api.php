@@ -312,7 +312,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
         foreach ($attributes as $attribute) {
             /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if ($attribute->isInSet($setId)
-                && $attribute->getFrontendInput() == 'media_image') {
+                && $attribute->getFrontendInput() == 'media_image'
+            ) {
                 if ($attribute->isScopeGlobal()) {
                     $scope = 'global';
                 } elseif ($attribute->isScopeWebsite()) {

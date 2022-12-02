@@ -95,7 +95,8 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
         }
 
         if (Mage::getSingleton('customer/session')->authenticate($this)
-            && $wishlist->getCustomerId() == $this->_getCustomer()->getId()) {
+            && $wishlist->getCustomerId() == $this->_getCustomer()->getId()
+        ) {
             $this->_showWishlistRss();
         } else {
             $this->_forward('nofeed', 'index', 'rss');

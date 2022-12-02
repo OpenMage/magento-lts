@@ -85,7 +85,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
             $searchTag = new Varien_Object();
             $this->loadByName($searchTag, $object->getName());
             if ($searchTag->getData($this->getIdFieldName())
-                    && $searchTag->getStatus() == $object->getPendingStatus()) {
+                && $searchTag->getStatus() == $object->getPendingStatus()
+            ) {
                 $object->setId($searchTag->getData($this->getIdFieldName()));
             }
         }

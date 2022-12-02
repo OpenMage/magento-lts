@@ -1,0 +1,106 @@
+name: File checker
+
+on:
+  workflow_call:
+    outputs:
+      composer_count:
+        description: "Count changed Composer files"
+        value: ${{ jobs.check.outputs.composer_count }}
+      php_count:
+        description: "Count changed PHP files"
+        value: ${{ jobs.check.outputs.php_count }}
+      xml_count:
+        description: "Count changed XML files"
+        value: ${{ jobs.check.outputs.xml_count }}
+      ci_count:
+        description: "Count changed Workflow files"
+        value: ${{ jobs.check.outputs.ci_count }}
+      ci_phpcs_count:
+        description: "Count changed PHPCS files"
+        value: ${{ jobs.check.outputs.ci_phpcs_count }}
+      ci_php_cs_fixer_count:
+        description: "Count changed PHP-CS-Fixer files"
+        value: ${{ jobs.check.outputs.ci_php_cs_fixer_count }}
+      ci_phpstan_count:
+        description: "Count changed PHPStan files"
+        value: ${{ jobs.check.outputs.ci_phpstan_count }}
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Changed
+    runs-on: [ubuntu-latest]
+    outputs:
+      composer_count: ${{ steps.all.outputs.composer_count }}
+      php_count: ${{ steps.all.outputs.php_count }}
+      xml_count: ${{ steps.all.outputs.xml_count }}
+      ci_count: ${{ steps.all.outputs.ci_count }}
+      ci_phpcs_count: ${{ steps.all.outputs.ci_phpcs_count }}
+      ci_php_cs_fixer_count: ${{ steps.all.outputs.ci_php_cs_fixer_count }}
+      ci_phpstan_count: ${{ steps.all.outputs.ci_phpstan_count }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Get changed files
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v34
+        with:
+          files: |
+            composer.*
+            *.php
+            **/*.php
+            **/*.xml
+            .github/workflows/**
+            .github/**phpcs**
+            .github/**php-cs-fixer**
+            .github/**phpstan**
+
+      - name: Run step if any file(s) changed
+        id: all
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          echo "One or more files have changed."
+
+          count="$(grep -oE "composer.*" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          echo "$count Composer file(s) changed"
+          echo "composer_count=$count" >> $GITHUB_OUTPUT
+
+          count="$(grep -oE "*.php" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          echo "$count PHP file(s) changed"
+          echo "php_count=$count" >> $GITHUB_OUTPUT
+
+          count="$(grep -oE "*.xml" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          echo "$count XML file(s) changed"
+          echo "xml_count=$count" >> $GITHUB_OUTPUT
+
+          count="$(grep -oE ".github/workflows/**" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          echo "$count Workflow file(s) changed"
+          echo "ci_count=$count" >> $GITHUB_OUTPUT
+
+          count="$(grep -oE ".github/**phpcs**" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          echo "$count PHPCS file(s) changed"
+          echo "ci_phpcs_count=$count" >> $GITHUB_OUTPUT
+
+          count="$(grep -oE ".github/**php-cs-fixer**" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          echo "$count PHP-CS-Fixer file(s) changed"
+          echo "ci_php_cs_fixer_count=$count" >> $GITHUB_OUTPUT
+
+          count="$(grep -oE ".github/**phpstan**" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          echo "$count PHPStan file(s) changed"
+          echo "ci_phpstan_count=$count" >> $GITHUB_OUTPUT

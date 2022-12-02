@@ -398,7 +398,8 @@ class Mage_Core_Model_Translate
         if (is_string($text) && $text == ''
             || is_null($text)
             || is_bool($text) && $text === false
-            || is_object($text) && $text->getText() == '') {
+            || is_object($text) && $text->getText() == ''
+        ) {
             return '';
         }
         if ($text instanceof Mage_Core_Model_Translate_Expr) {

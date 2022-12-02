@@ -64,7 +64,8 @@ class Mage_Centinel_Block_Adminhtml_Validation extends Mage_Adminhtml_Block_Sale
         if (!$payment->getMethod()
             || !$payment->getMethodInstance()
             || $payment->getMethodInstance()->getIsDummy()
-            || !$payment->getMethodInstance()->getIsCentinelValidationEnabled()) {
+            || !$payment->getMethodInstance()->getIsCentinelValidationEnabled()
+        ) {
             return '';
         }
         return parent::_toHtml();

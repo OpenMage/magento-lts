@@ -110,7 +110,8 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
         foreach (['name' => Mage::helper('catalog')->__('Product Name'),
             'sku'  => Mage::helper('catalog')->__('SKU'),
             'qty'  => Mage::helper('catalog')->__('Quantity'),
-                 ] as $itemKey => $label) {
+                 ] as $itemKey => $label
+        ) {
             $value = $this->_profile->getInfoValue($key, $itemKey);
             if ($value) {
                 $this->_addInfo(['label' => $label, 'value' => $value,]);
@@ -207,7 +208,8 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
                 'billing_amount',
                 'tax_amount',
                 'shipping_amount'
-                 ] as $key) {
+                 ] as $key
+        ) {
             $value = $this->_profile->getData($key);
             if ($value) {
                 $this->_addInfo([

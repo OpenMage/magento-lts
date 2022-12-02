@@ -26,6 +26,34 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @property mixed $allow_ba_signup;
+ * @property mixed $api_cert;
+ * @property mixed $api_password;
+ * @property mixed $api_signature;
+ * @property mixed $api_username;
+ * @property mixed $apiAuthentication;
+ * @property mixed $apiPassword;
+ * @property mixed $apiSignature;
+ * @property mixed $apiUsername;
+ * @property mixed $business_account;
+ * @property mixed $businessAccount;
+ * @property mixed $buttonFlavor;
+ * @property mixed $buttonType;
+ * @property mixed $cctypes;
+ * @property mixed $debug;
+ * @property mixed $lineItemsEnabled;
+ * @property mixed $lineItemsSummary;
+ * @property mixed $payment_action;
+ * @property mixed $paymentAction;
+ * @property mixed $paymentMarkSize;
+ * @property mixed $requireBillingAddress;
+ * @property mixed $sandboxFlag;
+ * @property mixed $solutionType;
+ * @property mixed $transferShippingOptions;
+ * @property mixed $verifyPeer;
+ * @property mixed $visible_on_cart;
+ * @property mixed $visible_on_product;
  */
 class Mage_Paypal_Model_Config
 {
@@ -600,33 +628,6 @@ class Mage_Paypal_Model_Config
         'zh_XC',
     ];
 
-    public $allow_ba_signup;
-    public $api_cert;
-    public $api_password;
-    public $api_signature;
-    public $api_username;
-    public $apiAuthentication;
-    public $apiPassword;
-    public $apiSignature;
-    public $apiUsername;
-    public $business_account;
-    public $businessAccount;
-    public $buttonFlavor;
-    public $buttonType;
-    public $cctypes;
-    public $debug;
-    public $lineItemsEnabled;
-    public $lineItemsSummary;
-    public $paymentAction;
-    public $paymentMarkSize;
-    public $requireBillingAddress;
-    public $sandboxFlag;
-    public $solutionType;
-    public $transferShippingOptions;
-    public $verifyPeer;
-    public $visible_on_cart;
-    public $visible_on_product;
-
     /**
      * Set method and store id, if specified
      *
@@ -725,7 +726,8 @@ class Mage_Paypal_Model_Config
                 }
                 // check for direct payments dependence
                 if ($this->isMethodActive(self::METHOD_WPP_DIRECT)
-                    || $this->isMethodActive(self::METHOD_WPP_PE_DIRECT)) {
+                    || $this->isMethodActive(self::METHOD_WPP_PE_DIRECT)
+                ) {
                     $result = false;
                 }
                 break;
@@ -748,7 +750,8 @@ class Mage_Paypal_Model_Config
                 if ($this->isMethodActive(self::METHOD_WPP_PE_DIRECT)) {
                     $result = true;
                 } elseif (!$this->isMethodActive(self::METHOD_WPP_PE_DIRECT)
-                          && !$this->isMethodActive(self::METHOD_PAYFLOWPRO)) {
+                    && !$this->isMethodActive(self::METHOD_PAYFLOWPRO)
+                ) {
                     $result = false;
                 }
                 break;
@@ -800,7 +803,8 @@ class Mage_Paypal_Model_Config
         if ($key == 'payment_action'
             && $value != self::PAYMENT_ACTION_SALE
             && $this->_methodCode == self::METHOD_WPP_EXPRESS
-            && $this->shouldUseUnilateralPayments()) {
+            && $this->shouldUseUnilateralPayments()
+        ) {
             return self::PAYMENT_ACTION_SALE;
         }
         return $value;
@@ -1813,7 +1817,8 @@ class Mage_Paypal_Model_Config
         $pathPrefix = 'paypal/wpuk';
         // Use PUMP credentials from Verisign for EC when Direct Payments are unavailable
         if ($this->_methodCode == self::METHOD_WPP_PE_EXPRESS
-            && !$this->isMethodAvailable(self::METHOD_WPP_PE_DIRECT)) {
+            && !$this->isMethodAvailable(self::METHOD_WPP_PE_DIRECT)
+        ) {
             $pathPrefix = 'payment/verisign';
         } elseif ($this->_methodCode == self::METHOD_PAYFLOWADVANCED
             || $this->_methodCode == self::METHOD_PAYFLOWLINK

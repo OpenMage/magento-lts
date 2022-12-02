@@ -134,7 +134,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     {
         if ($this->_getOrder()->getId() &&
             $this->_getOrder()->getQuoteId() == $this->_getCheckout()->getLastQuoteId() &&
-            $this->_paymentMethodCode) {
+            $this->_paymentMethodCode
+        ) {
             $this->_shouldRender = true;
         }
 
@@ -175,7 +176,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
         if ($quote->getPayment()->getMethod() == $this->_paymentMethodCode &&
             $quote->getIsActive() &&
             $this->getTemplate() &&
-            $this->getRequest()->getActionName() == 'savePayment') {
+            $this->getRequest()->getActionName() == 'savePayment'
+        ) {
             return true;
         }
 

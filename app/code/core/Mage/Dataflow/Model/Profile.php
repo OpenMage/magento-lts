@@ -94,7 +94,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         parent::_beforeSave();
         $actionsXML = $this->getData('actions_xml');
         if (strlen($actionsXML) < 0 &&
-            @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false) {
+            @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
+        ) {
             Mage::throwException(Mage::helper('dataflow')->__("Actions XML is not valid."));
         }
 
@@ -105,7 +106,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             if (isset($guiData['file']['type']) && $guiData['file']['type'] == 'file') {
                 if (empty($guiData['file']['path'])
                     || (strlen($guiData['file']['path']) == 1
-                    && in_array($guiData['file']['path'], $charSingleList))) {
+                    && in_array($guiData['file']['path'], $charSingleList))
+                ) {
                     $guiData['file']['path'] = self::DEFAULT_EXPORT_PATH;
                 }
                 if (empty($guiData['file']['filename'])) {
@@ -172,7 +174,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $newUploadedFilenames = [];
 
         if (isset($_FILES['file_1']['tmp_name']) || isset($_FILES['file_2']['tmp_name'])
-            || isset($_FILES['file_3']['tmp_name'])) {
+            || isset($_FILES['file_3']['tmp_name'])
+        ) {
             for ($index = 0; $index < 3; $index++) {
                 if ($file = $_FILES['file_' . ($index + 1)]['tmp_name']) {
                     $uploader = new Mage_Core_Model_File_Uploader('file_' . ($index + 1));

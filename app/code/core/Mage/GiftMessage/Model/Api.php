@@ -112,7 +112,8 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
 
         if (count($productsAndMessages) == 2
                 && isset($productsAndMessages['product'])
-                && isset($productsAndMessages['message'])) {
+                && isset($productsAndMessages['message'])
+        ) {
             $productsAndMessages = [$productsAndMessages];
         }
 
