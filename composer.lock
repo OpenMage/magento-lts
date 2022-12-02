@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4eb7ad4228fd7656f03d18c3227b41bf",
+    "content-hash": "109a2aa725ed970ed5a43dc04f1d4783",
     "packages": [
         {
             "name": "eloquent/enumeration",
@@ -289,14 +289,21 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sreichel/bc-mysql4-classes.git",
+                "url": "https://github.com/sreichel/openmage-bc-mysql4-classes.git",
                 "reference": "9e120f6a13cc4aa292e4e716b6b7d49f0d9ecdc2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sreichel/openmage-bc-mysql4-classes/zipball/9e120f6a13cc4aa292e4e716b6b7d49f0d9ecdc2",
+                "reference": "9e120f6a13cc4aa292e4e716b6b7d49f0d9ecdc2",
+                "shasum": ""
             },
             "require": {
                 "magento-hackathon/magento-composer-installer": "*"
             },
             "default-branch": true,
             "type": "magento-module",
+            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "Sven Reichel",
@@ -304,6 +311,10 @@
                 }
             ],
             "description": "Mysql4-classes for backward compatibility.",
+            "support": {
+                "issues": "https://github.com/sreichel/openmage-bc-mysql4-classes/issues",
+                "source": "https://github.com/sreichel/openmage-bc-mysql4-classes/tree/master"
+            },
             "time": "2022-12-02T00:42:28+00:00"
         },
         {
