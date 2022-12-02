@@ -5,11 +5,15 @@
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/license.svg" alt="License"></a>
 <br />
-<img src="https://github.com/openmage/magento-lts/actions/workflows/php.yml/badge.svg" alt="PHP workflow Badge" />
-<img src="https://github.com/openmage/magento-lts/actions/workflows/sonar.yml/badge.svg" alt="Sonar workflow badge" />
-<img src="https://github.com/openmage/magento-lts/actions/workflows/phpstan.yml/badge.svg" alt="PHPStan Static Code Analyses workflow badge" />
-<img src="https://github.com/openmage/magento-lts/actions/workflows/syntax-php.yml/badge.svg" alt="PHP Syntax Check workflow badge" />
-<img src="https://github.com/openmage/magento-lts/actions/workflows/phpunit.yml/badge.svg" alt="Unit Tests workflow badge" />
+<a href="https://github.com/openmage/magento-lts/actions/workflows/security-php.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/security-php.yml/badge.svg" alt="PHP Security workflow Badge" /></a>
+<a href="https://github.com/openmage/magento-lts/actions/workflows/composer.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/composer.yml/badge.svg" alt="Composer workflow Badge" /></a>
+<a href="https://github.com/openmage/magento-lts/actions/workflows/syntax-php.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/syntax-php.yml/badge.svg" alt="PHP Syntax Check workflow badge" /></a>
+<a href="https://github.com/openmage/magento-lts/actions/workflows/syntax-xml.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/syntax-xml.yml/badge.svg" alt="XML Syntax Check workflow badge" /></a>
+<a href="https://github.com/openmage/magento-lts/actions/workflows/phpcs.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/phpcs.yml/badge.svg" alt="PHPCS workflow badge" /></a>
+<a href="https://github.com/openmage/magento-lts/actions/workflows/php-cs-fixer.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/php-cs-fixer.yml/badge.svg" alt="PHP-CS-Fixer workflow badge" /></a>
+<a href="https://github.com/openmage/magento-lts/actions/workflows/phpstan.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/phpstan.yml/badge.svg" alt="PHPStan workflow badge" /></a>
+<a href="https://github.com/openmage/magento-lts/actions/workflows/sonar.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/sonar.yml/badge.svg" alt="Sonar workflow badge" /></a>
+<a href="https://github.com/openmage/magento-lts/actions/workflows/phpunit.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/phpunit.yml/badge.svg" alt="PHPUnit workflow badge" /></a>
 </p>
 
 # Magento - Long Term Support

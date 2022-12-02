@@ -26,6 +26,10 @@
   - lib/Mage/*
   - lib/Mage/**/*
 
+'Component: lib/Magento':
+  - lib/Magento/*
+  - lib/Magento/**/*
+
 'Component: lib/Varien':
   - lib/Varien/*
   - lib/Varien/**/*
@@ -602,13 +606,20 @@
   - .phpstorm.meta.php/*
 
 'phpcs':
-  - .github/phpcs*.xml
+  - phpcs*
   - .github/workflows/phpcs.yml
 
 'php-cs-fixer':
-  - .github/php-cs-fixer*.php
+  - .php-cs-fixer*
   - .github/workflows/php-cs-fixer.yml
 
 'phpstan':
-  - .github/phpstan*.neon
+  - phpstan*
   - .github/workflows/phpstan.yml
+
+'phpunit':
+  - dev/test/*
+  - dev/phpunit*
+  - dev/sonar*
+  - .github/workflows/phpunit.yml
+  - .github/workflows/sonar.yml
