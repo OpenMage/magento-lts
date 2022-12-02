@@ -39,7 +39,7 @@ class Mage_Payment_Model_Observer
         /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getOrder();
 
-        if ($order->getPayment()->getMethodInstance()->getCode() != 'free') {
+        if ($order->getPayment() && $order->getPayment()->getMethodInstance()->getCode() != 'free') {
             return $this;
         }
 
