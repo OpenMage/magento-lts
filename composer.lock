@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f1ec0736a2917575250cb863f36d569",
+    "content-hash": "4eb7ad4228fd7656f03d18c3227b41bf",
     "packages": [
         {
             "name": "eloquent/enumeration",
@@ -290,7 +290,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sreichel/bc-mysql4-classes.git",
-                "reference": "18fab889f245b84c9ab726156a76ed47f0727025"
+                "reference": "9e120f6a13cc4aa292e4e716b6b7d49f0d9ecdc2"
             },
             "require": {
                 "magento-hackathon/magento-composer-installer": "*"
@@ -304,7 +304,7 @@
                 }
             ],
             "description": "Mysql4-classes for backward compatibility.",
-            "time": "2022-08-31T07:45:23+00:00"
+            "time": "2022-12-02T00:42:28+00:00"
         },
         {
             "name": "psr/container",
@@ -2342,16 +2342,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.8.10",
+            "version": "1.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "0c4459dc42c568b818b3f25186589f3acddc1823"
+                "reference": "d6fdf01c53978b6429f1393ba4afeca39cc68afa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/0c4459dc42c568b818b3f25186589f3acddc1823",
-                "reference": "0c4459dc42c568b818b3f25186589f3acddc1823",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d6fdf01c53978b6429f1393ba4afeca39cc68afa",
+                "reference": "d6fdf01c53978b6429f1393ba4afeca39cc68afa",
                 "shasum": ""
             },
             "require": {
@@ -2381,7 +2381,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.8.10"
+                "source": "https://github.com/phpstan/phpstan/tree/1.9.2"
             },
             "funding": [
                 {
@@ -2397,7 +2397,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-10-17T14:23:35+00:00"
+            "time": "2022-11-10T09:56:11+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
