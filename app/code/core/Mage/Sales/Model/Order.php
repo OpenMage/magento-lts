@@ -2133,10 +2133,20 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-    * Retrieve order shipments collection
-    *
-    * @return Mage_Sales_Model_Resource_Order_Shipment_Collection|false
-    */
+     * Retrieve order invoices collection
+     *
+     * @return Mage_Sales_Model_Resource_Order_Invoice_Collection
+     */
+    public function getInvoicesCollection()
+    {
+        return $this->getInvoiceCollection();
+    }
+
+    /**
+     * Retrieve order shipments collection
+     *
+     * @return Mage_Sales_Model_Resource_Order_Shipment_Collection|false
+     */
     public function getShipmentsCollection()
     {
         if (empty($this->_shipments)) {

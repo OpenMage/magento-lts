@@ -44,6 +44,20 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         return parent::_prepareCollection();
     }
 
+    protected function _setCollectionOrder($column)
+    {
+        $collection = $this->getCollection();
+        if ($collection) {
+            $columnIndex = $column->getFilterIndex() ?: $column->getIndex();
+            $collection->setOrder($columnIndex, strtoupper($column->getDir()));
+
+            if ($columnIndex === 'region_table.code') {
+                $collection->addOrder('code', strtoupper($column->getDir()));
+            }
+        }
+        return $this;
+    }
+
     protected function _prepareColumns()
     {
         $this->addColumn('code', [
@@ -95,6 +109,10 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Mage_Tax_Model_Calculation_Rate $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['rate' => $row->getTaxCalculationRateId()]);
