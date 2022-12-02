@@ -42,7 +42,7 @@ foreach ($pathesForReplace as $from => $to) {
 $entityTypeId = $installer->getEntityTypeId('catalog_product');
 $attributeId  = $installer->getAttributeId('catalog_product', 'gift_message_available');
 
-$attributeSets = $installer->_conn->fetchAll('select * from '.$this->getTable('eav/attribute_set').' where entity_type_id=?', $entityTypeId);
+$attributeSets = $installer->_conn->fetchAll('select * from ' . $this->getTable('eav/attribute_set') . ' where entity_type_id=?', $entityTypeId);
 foreach ($attributeSets as $attributeSet) {
     $setId = $attributeSet['attribute_set_id'];
     $installer->addAttributeGroup($entityTypeId, $setId, 'Gift Options');

@@ -26,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier
-    extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstract
+class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstract
 {
     public function __construct()
     {
@@ -97,5 +96,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier
         $this->setChild('add_button', $button);
         return parent::_prepareLayout();
     }
-
 }

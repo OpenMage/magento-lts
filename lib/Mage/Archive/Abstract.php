@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Archive
+ * @category   Mage
+ * @package    Mage_Archive
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -21,9 +21,9 @@
 /**
  * Class to work with archives
  *
- * @category    Mage
- * @package     Mage_Archive
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Archive
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Archive_Abstract
 {
@@ -38,7 +38,7 @@ class Mage_Archive_Abstract
     protected function _writeFile($destination, $data)
     {
         $destination = trim($destination);
-        if(false === file_put_contents($destination, $data)) {
+        if (false === file_put_contents($destination, $data)) {
             throw new Mage_Exception("Can't write to file: " . $destination);
         }
         return true;
@@ -70,7 +70,7 @@ class Mage_Archive_Abstract
      * @param bool $withExtension
      * @return mixed|string
      */
-    public function getFilename($source, $withExtension=false)
+    public function getFilename($source, $withExtension = false)
     {
         $file = str_replace(dirname($source) . DS, '', $source);
         if (!$withExtension) {

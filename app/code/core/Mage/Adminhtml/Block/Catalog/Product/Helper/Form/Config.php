@@ -44,10 +44,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Config extends Varien_Dat
         $checked  = ($value == '') ? ' checked="checked"' : '';
         $disabled = ($this->getReadonly()) ? ' disabled="disabled"' : '';
 
-        $html .= '<input id="'.$htmlId.'" name="product['.$htmlId.']" '.$disabled.' value="1" ' . $checked;
+        $html .= '<input id="' . $htmlId . '" name="product[' . $htmlId . ']" ' . $disabled . ' value="1" ' . $checked;
         $html .= ' onclick="toggleValueElements(this, this.parentNode);" class="checkbox" type="checkbox" />';
-        $html .= ' <label for="'.$htmlId.'">' . Mage::helper('adminhtml')->__('Use Config Settings').'</label>';
-        $html .= '<script type="text/javascript">toggleValueElements($(\''.$htmlId.'\'), $(\''.$htmlId.'\').parentNode);</script>';
+        $html .= ' <label for="' . $htmlId . '">' . Mage::helper('adminhtml')->__('Use Config Settings') . '</label>';
+        $html .= '<script type="text/javascript">toggleValueElements($(\'' . $htmlId . '\'), $(\'' . $htmlId . '\').parentNode);</script>';
 
         return $html;
     }

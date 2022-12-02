@@ -73,12 +73,14 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
      */
     public function generateRequestSign($merchantApiLoginId, $merchantTransactionKey, $amount, $currencyCode, $fpSequence, $fpTimestamp)
     {
-        return hash_hmac("md5",
+        return hash_hmac(
+            "md5",
             $merchantApiLoginId . '^' .
             $fpSequence . '^' .
             $fpTimestamp . '^' .
             $amount . '^' .
-            $currencyCode, $merchantTransactionKey
+            $currencyCode,
+            $merchantTransactionKey
         );
     }
 

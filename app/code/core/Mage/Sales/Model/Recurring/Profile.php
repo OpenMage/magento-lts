@@ -103,21 +103,21 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      *
      * @var string
      */
-    const STATE_UNKNOWN   = 'unknown';
-    const STATE_PENDING   = 'pending';
-    const STATE_ACTIVE    = 'active';
-    const STATE_SUSPENDED = 'suspended';
-    const STATE_CANCELED  = 'canceled';
-    const STATE_EXPIRED   = 'expired';
+    public const STATE_UNKNOWN   = 'unknown';
+    public const STATE_PENDING   = 'pending';
+    public const STATE_ACTIVE    = 'active';
+    public const STATE_SUSPENDED = 'suspended';
+    public const STATE_CANCELED  = 'canceled';
+    public const STATE_EXPIRED   = 'expired';
 
     /**
      * Payment types
      *
      * @var string
      */
-    const PAYMENT_TYPE_REGULAR   = 'regular';
-    const PAYMENT_TYPE_TRIAL     = 'trial';
-    const PAYMENT_TYPE_INITIAL   = 'initial';
+    public const PAYMENT_TYPE_REGULAR   = 'regular';
+    public const PAYMENT_TYPE_TRIAL     = 'trial';
+    public const PAYMENT_TYPE_INITIAL   = 'initial';
 
     /**
      * Allowed actions matrix

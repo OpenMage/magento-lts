@@ -44,7 +44,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
         /*
         * setting cache to save the rss for 10 minutes
         */
-        $this->setCacheKey('rss_catalog_special_'.$this->_getStoreId().'_'.$this->_getCustomerGroupId());
+        $this->setCacheKey('rss_catalog_special_' . $this->_getStoreId() . '_' . $this->_getCustomerGroupId());
         $this->setCacheLifetime(600);
     }
 
@@ -55,7 +55,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
      */
     protected function _toHtml()
     {
-         //store id is store view id
+        //store id is store view id
         $storeId = $this->_getStoreId();
         $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
 
@@ -72,12 +72,12 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
             ->addPriceDataFieldFilter('%s < %s', $fields)
             ->addPriceData($customerGroupId, $websiteId)
             ->addAttributeToSelect(
-                    [
-                        'name', 'short_description', 'description', 'price', 'thumbnail',
-                        'special_price', 'special_to_date',
-                        'msrp_enabled', 'msrp_display_actual_price_type', 'msrp'
-                    ],
-                    'left'
+                [
+                    'name', 'short_description', 'description', 'price', 'thumbnail',
+                    'special_price', 'special_to_date',
+                    'msrp_enabled', 'msrp_display_actual_price_type', 'msrp'
+                ],
+                'left'
             )
             ->addAttributeToSort('name', 'asc')
         ;
@@ -103,7 +103,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
         Mage::getSingleton('core/resource_iterator')->walk(
             $specials->getSelect(),
             [[$this, 'addSpecialXmlCallback']],
-            ['rssObj'=> $rssObj, 'results'=> &$results]
+            ['rssObj' => $rssObj, 'results' => &$results]
         );
 
         if (count($results)) {
@@ -112,10 +112,11 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
             /** @var Mage_Catalog_Helper_Output $outputHelper */
             $outputHelper = $this->helper('catalog/output');
 
-            foreach($results as $result){
+            foreach ($results as $result) {
                 // render a row for RSS feed
                 $product->setData($result);
-                $html = sprintf('<table><tr>
+                $html = sprintf(
+                    '<table><tr>
                     <td><a href="%s"><img src="%s" alt="" border="0" align="left" height="75" width="75" /></a></td>
                     <td style="text-decoration:none;">%s',
                     $product->getProductUrl(),
@@ -137,7 +138,8 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
                         if ($result['use_special']) {
                             $special = '<br />' . Mage::helper('catalog')->__('Special Expires On: %s', $this->formatDate($result['special_to_date'], Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM));
                         }
-                        $html .= sprintf('<p>%s %s%s</p>',
+                        $html .= sprintf(
+                            '<p>%s %s%s</p>',
                             Mage::helper('catalog')->__('Price: %s', Mage::helper('core')->currency($result['price'])),
                             Mage::helper('catalog')->__('Special Price: %s', Mage::helper('core')->currency($result['final_price'])),
                             $special
@@ -190,7 +192,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
             }
         }
 
-       $args['results'][] = $row;
+        $args['results'][] = $row;
     }
 
     /**
@@ -202,6 +204,6 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
      */
     public function sortByStartDate($a, $b)
     {
-        return $a['start_date']>$b['start_date'] ? -1 : ($a['start_date']<$b['start_date'] ? 1 : 0);
+        return $a['start_date'] > $b['start_date'] ? -1 : ($a['start_date'] < $b['start_date'] ? 1 : 0);
     }
 }

@@ -164,7 +164,8 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         }
 
         if ($this->_isAllowedAction('ship') && $order->canShip()
-            && !$order->getForcedDoShipmentWithInvoice()) {
+            && !$order->getForcedDoShipmentWithInvoice()
+        ) {
             $this->_addButton('order_ship', [
                 'label'     => Mage::helper('sales')->__('Ship'),
                 'onclick'   => 'setLocation(\'' . $this->getShipUrl() . '\')',

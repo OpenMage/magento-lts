@@ -162,10 +162,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
             ->setName('block')
             ->setClass('required-entry select')
             ->setExtraParams('onchange="WidgetInstance.loadSelectBoxByType(\'block_template\','
-                .' this.up(\'div.group_container\'), this.value)"')
+                . ' this.up(\'div.group_container\'), this.value)"')
             ->setOptions($this->getBlocks())
             ->setValue($this->getSelected());
-        return parent::_toHtml().$selectBlock->toHtml();
+        return parent::_toHtml() . $selectBlock->toHtml();
     }
 
     /**
@@ -200,7 +200,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         foreach ($this->getLayoutHandle() as $handle) {
             $this->_mergeLayoutHandles($handle);
         }
-        $updatesStr = '<'.'?xml version="1.0"?'.'><layout>'.implode('', $this->_layoutHandleUpdates).'</layout>';
+        $updatesStr = '<' . '?xml version="1.0"?' . '><layout>' . implode('', $this->_layoutHandleUpdates) . '</layout>';
         $this->_layoutHandleUpdatesXml = simplexml_load_string($updatesStr, 'Varien_Simplexml_Element');
     }
 

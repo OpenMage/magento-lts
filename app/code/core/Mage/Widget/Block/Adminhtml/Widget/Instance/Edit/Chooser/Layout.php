@@ -127,7 +127,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
                 $this->getPackage(),
                 $this->getTheme()
             ));
-        return parent::_toHtml().$selectBlock->toHtml();
+        return parent::_toHtml() . $selectBlock->toHtml();
     }
 
     /**
@@ -177,7 +177,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
      */
     protected function _filterLayoutHandle($layoutHandle)
     {
-        $wildCard = '/('.implode(')|(', $this->getLayoutHandlePatterns()).')/';
+        $wildCard = '/(' . implode(')|(', $this->getLayoutHandlePatterns()) . ')/';
         if (preg_match($wildCard, $layoutHandle)) {
             return false;
         }

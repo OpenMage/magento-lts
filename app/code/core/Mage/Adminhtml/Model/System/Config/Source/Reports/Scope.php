@@ -31,9 +31,9 @@ class Mage_Adminhtml_Model_System_Config_Source_Reports_Scope
     public function toOptionArray()
     {
         return [
-            ['value'=>'website', 'label'=>Mage::helper('adminhtml')->__('Website')],
-            ['value'=>'group', 'label'=>Mage::helper('adminhtml')->__('Store')],
-            ['value'=>'store', 'label'=>Mage::helper('adminhtml')->__('Store View')],
+            ['value' => 'website', 'label' => Mage::helper('adminhtml')->__('Website')],
+            ['value' => 'group', 'label' => Mage::helper('adminhtml')->__('Store')],
+            ['value' => 'store', 'label' => Mage::helper('adminhtml')->__('Store View')],
         ];
     }
 }

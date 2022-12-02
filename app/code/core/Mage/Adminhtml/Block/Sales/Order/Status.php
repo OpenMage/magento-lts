@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status extends Mage_Adminhtml_Block_Widge
         $this->_addButtonLabel = Mage::helper('sales')->__('Create New Status');
         $this->_addButton('assign', [
             'label'     => Mage::helper('sales')->__('Assign Status to State'),
-            'onclick'   => 'setLocation(\'' . $this->getAssignUrl() .'\')',
+            'onclick'   => 'setLocation(\'' . $this->getAssignUrl() . '\')',
             'class'     => 'add',
         ]);
         parent::__construct();

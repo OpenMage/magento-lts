@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
         }
 
         $this->addColumn('is_system', [
-            'header'    =>$this->__('Type'),
+            'header'    => $this->__('Type'),
             'width'     => '50px',
             'index'     => 'is_system',
             'type'      => 'options',
@@ -111,8 +111,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', ['id'=>$row->getId()]);
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
         //return $this->getUrl('*/*/view', array('id' => $row->getId()));
     }
 }
-

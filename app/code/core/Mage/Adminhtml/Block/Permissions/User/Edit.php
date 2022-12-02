@@ -38,16 +38,15 @@ class Mage_Adminhtml_Block_Permissions_User_Edit extends Mage_Adminhtml_Block_Wi
         $this->_updateButton('save', 'label', Mage::helper('adminhtml')->__('Save User'));
         $this->_updateButton('delete', 'label', Mage::helper('adminhtml')->__('Delete User'));
         $this->_updateButton('delete', 'onclick', 'if(confirm(\'' . Mage::helper('core')->jsQuoteEscape(
-                Mage::helper('adminhtml')->__('Are you sure you want to do this?')
-            ) . '\')) editForm.submit(\'' . $this->getUrl('*/*/delete') . '\'); return false;');
+            Mage::helper('adminhtml')->__('Are you sure you want to do this?')
+        ) . '\')) editForm.submit(\'' . $this->getUrl('*/*/delete') . '\'); return false;');
     }
 
     public function getHeaderText()
     {
         if (Mage::registry('permissions_user')->getId()) {
             return Mage::helper('adminhtml')->__("Edit User '%s'", $this->escapeHtml(Mage::registry('permissions_user')->getUsername()));
-        }
-        else {
+        } else {
             return Mage::helper('adminhtml')->__('New User');
         }
     }

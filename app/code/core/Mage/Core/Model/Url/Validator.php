@@ -31,7 +31,7 @@ class Mage_Core_Model_Url_Validator extends Zend_Validate_Abstract
     /**#@+
      * Error keys
      */
-    const INVALID_URL = 'invalidUrl';
+    public const INVALID_URL = 'invalidUrl';
     /**#@-*/
 
     /**

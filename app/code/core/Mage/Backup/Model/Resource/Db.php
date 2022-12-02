@@ -120,7 +120,7 @@ class Mage_Backup_Model_Resource_Db
             $tables = $this->getTables();
             /** @var Mage_Backup_Model_Resource_Helper_Mysql4 $helper */
             $helper = Mage::getResourceHelper('backup');
-            foreach($tables as $table) {
+            foreach ($tables as $table) {
                 $tableFkScript = $helper->getTableForeignKeysSql($table);
                 if (!empty($tableFkScript)) {
                     $fkScript .= "\n" . $tableFkScript;
@@ -150,7 +150,8 @@ class Mage_Backup_Model_Resource_Db
             }
 
             $cntRow = $this->_write->fetchRow(
-                    $this->_write->select()->from($tableName, 'COUNT(1) as rows'));
+                $this->_write->select()->from($tableName, 'COUNT(1) as rows')
+            );
             $statusObject->setRows($cntRow['rows']);
 
             return $statusObject;
@@ -321,7 +322,8 @@ class Mage_Backup_Model_Resource_Db
      * @param string|Zend_Db_Select $command
      * @return $this
      */
-    public function runCommand($command){
+    public function runCommand($command)
+    {
         $this->_write->query($command);
         return $this;
     }

@@ -59,7 +59,7 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
         $this->getChild('search_result_list')
             ->setAvailableOrders([
                 'name' => Mage::helper('tag')->__('Name'),
-                'price'=>Mage::helper('tag')->__('Price')]);
+                'price' => Mage::helper('tag')->__('Price')]);
     }
 
     public function setListModes()

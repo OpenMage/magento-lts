@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Promo_Catalog extends Mage_Adminhtml_Block_Widget_Gri
     {
         $this->_addButton('apply_rules', [
             'label'     => Mage::helper('catalogrule')->__('Apply Rules'),
-            'onclick'   => "location.href='".$this->getUrl('*/*/applyRules')."'",
+            'onclick'   => "location.href='" . $this->getUrl('*/*/applyRules') . "'",
             'class'     => '',
         ]);
 
@@ -40,6 +40,5 @@ class Mage_Adminhtml_Block_Promo_Catalog extends Mage_Adminhtml_Block_Widget_Gri
         $this->_headerText = Mage::helper('catalogrule')->__('Catalog Price Rules');
         $this->_addButtonLabel = Mage::helper('catalogrule')->__('Add New Rule');
         parent::__construct();
-
     }
 }

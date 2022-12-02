@@ -44,13 +44,13 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
             ->joinCustomerName('customer')
             ->orderByCreatedAt();
 
-        if($this->getParam('store') || $this->getParam('website') || $this->getParam('group')) {
+        if ($this->getParam('store') || $this->getParam('website') || $this->getParam('group')) {
             if ($this->getParam('store')) {
                 $collection->addAttributeToFilter('store_id', $this->getParam('store'));
-            } else if ($this->getParam('website')){
+            } elseif ($this->getParam('website')) {
                 $storeIds = Mage::app()->getWebsite($this->getParam('website'))->getStoreIds();
                 $collection->addAttributeToFilter('store_id', ['in' => $storeIds]);
-            } else if ($this->getParam('group')){
+            } elseif ($this->getParam('group')) {
                 $storeIds = Mage::app()->getGroup($this->getParam('group'))->getStoreIds();
                 $collection->addAttributeToFilter('store_id', ['in' => $storeIds]);
             }
@@ -117,6 +117,6 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/sales_order/view', ['order_id'=>$row->getId()]);
+        return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
     }
 }

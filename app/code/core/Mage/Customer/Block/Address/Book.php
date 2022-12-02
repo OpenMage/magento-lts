@@ -47,7 +47,7 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
      */
     public function getAddAddressUrl()
     {
-        return $this->getUrl('customer/address/new', ['_secure'=>true]);
+        return $this->getUrl('customer/address/new', ['_secure' => true]);
     }
 
     /**
@@ -58,7 +58,7 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
         if ($this->getRefererUrl()) {
             return $this->getRefererUrl();
         }
-        return $this->getUrl('customer/account/', ['_secure'=>true]);
+        return $this->getUrl('customer/account/', ['_secure' => true]);
     }
 
     /**
@@ -78,7 +78,7 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
      */
     public function getAddressEditUrl($address)
     {
-        return $this->getUrl('customer/address/edit', ['_secure'=>true, 'id'=>$address->getId()]);
+        return $this->getUrl('customer/address/edit', ['_secure' => true, 'id' => $address->getId()]);
     }
 
     /**

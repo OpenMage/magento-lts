@@ -43,10 +43,10 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
         if ($this->getParam('store')) {
             $collection->addAttributeToFilter('store_id', $this->getParam('store'));
             $storeFilter = 1;
-        } else if ($this->getParam('website')){
+        } elseif ($this->getParam('website')) {
             $storeIds = Mage::app()->getWebsite($this->getParam('website'))->getStoreIds();
             $collection->addAttributeToFilter('store_id', ['in' => $storeIds]);
-        } else if ($this->getParam('group')){
+        } elseif ($this->getParam('group')) {
             $storeIds = Mage::app()->getGroup($this->getParam('group'))->getStoreIds();
             $collection->addAttributeToFilter('store_id', ['in' => $storeIds]);
         }
@@ -83,7 +83,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
             'type'      => 'currency',
             'currency_code'  => $baseCurrencyCode,
             'index'     => 'orders_avg_amount',
-            'renderer'  =>'adminhtml/report_grid_column_renderer_currency'
+            'renderer'  => 'adminhtml/report_grid_column_renderer_currency'
         ]);
 
         $this->addColumn('orders_sum_amount', [
@@ -93,7 +93,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
             'type'      => 'currency',
             'currency_code'  => $baseCurrencyCode,
             'index'     => 'orders_sum_amount',
-            'renderer'  =>'adminhtml/report_grid_column_renderer_currency'
+            'renderer'  => 'adminhtml/report_grid_column_renderer_currency'
         ]);
 
         $this->setFilterVisibility(false);
@@ -104,6 +104,6 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/customer/edit', ['id'=>$row->getId()]);
+        return $this->getUrl('*/customer/edit', ['id' => $row->getId()]);
     }
 }

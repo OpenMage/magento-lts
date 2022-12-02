@@ -31,37 +31,37 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Configuration key for product type
      */
-    const CONFIG_KEY_PRODUCT_TYPES = 'global/importexport/import_product_types';
+    public const CONFIG_KEY_PRODUCT_TYPES = 'global/importexport/import_product_types';
 
     /**
      * Size of bunch - part of products to save in one step.
      */
-    const BUNCH_SIZE = 20;
+    public const BUNCH_SIZE = 20;
 
     /**
      * Value that means all entities (e.g. websites, groups etc.)
      */
-    const VALUE_ALL = 'all';
+    public const VALUE_ALL = 'all';
 
     /**
      * Default Scope
      */
-    const SCOPE_DEFAULT = 1;
+    public const SCOPE_DEFAULT = 1;
 
     /**
      * Website Scope
      */
-    const SCOPE_WEBSITE = 2;
+    public const SCOPE_WEBSITE = 2;
 
     /**
      * Store Scope
      */
-    const SCOPE_STORE   = 0;
+    public const SCOPE_STORE   = 0;
 
     /**
      * Null Scope
      */
-    const SCOPE_NULL    = -1;
+    public const SCOPE_NULL    = -1;
     /**#@-*/
 
     /**#@+
@@ -70,163 +70,163 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Names that begins with underscore is not an attribute. This name convention is for
      * to avoid interference with same attribute name.
      */
-    const COL_STORE    = '_store';
+    public const COL_STORE    = '_store';
 
     /**
      * Col Attr Set
      */
-    const COL_ATTR_SET = '_attribute_set';
+    public const COL_ATTR_SET = '_attribute_set';
 
     /**
      * Col Type
      */
-    const COL_TYPE     = '_type';
+    public const COL_TYPE     = '_type';
 
     /**
      * Col Category
      */
-    const COL_CATEGORY = '_category';
+    public const COL_CATEGORY = '_category';
 
     /**
      * Col Root Category
      */
-    const COL_ROOT_CATEGORY = '_root_category';
+    public const COL_ROOT_CATEGORY = '_root_category';
 
     /**
      * Col Sku
      */
-    const COL_SKU      = 'sku';
+    public const COL_SKU      = 'sku';
     /**#@-*/
 
     /**#@+
      * Error codes.
      */
-    const ERROR_INVALID_SCOPE                = 'invalidScope';
+    public const ERROR_INVALID_SCOPE                = 'invalidScope';
 
     /**
      * Error - invalid website
      */
-    const ERROR_INVALID_WEBSITE              = 'invalidWebsite';
+    public const ERROR_INVALID_WEBSITE              = 'invalidWebsite';
 
     /**
      * Error - invalid store
      */
-    const ERROR_INVALID_STORE                = 'invalidStore';
+    public const ERROR_INVALID_STORE                = 'invalidStore';
 
     /**
      * Error - invalid attr set
      */
-    const ERROR_INVALID_ATTR_SET             = 'invalidAttrSet';
+    public const ERROR_INVALID_ATTR_SET             = 'invalidAttrSet';
 
     /**
      * Error - invalid type
      */
-    const ERROR_INVALID_TYPE                 = 'invalidType';
+    public const ERROR_INVALID_TYPE                 = 'invalidType';
 
     /**
      * Error - invalid category
      */
-    const ERROR_INVALID_CATEGORY             = 'invalidCategory';
+    public const ERROR_INVALID_CATEGORY             = 'invalidCategory';
 
     /**
      * Error - value is required
      */
-    const ERROR_VALUE_IS_REQUIRED            = 'isRequired';
+    public const ERROR_VALUE_IS_REQUIRED            = 'isRequired';
 
     /**
      * Error - type changed
      */
-    const ERROR_TYPE_CHANGED                 = 'typeChanged';
+    public const ERROR_TYPE_CHANGED                 = 'typeChanged';
 
     /**
      * Error - sku is empty
      */
-    const ERROR_SKU_IS_EMPTY                 = 'skuEmpty';
+    public const ERROR_SKU_IS_EMPTY                 = 'skuEmpty';
 
     /**
      * Error - no default row
      */
-    const ERROR_NO_DEFAULT_ROW               = 'noDefaultRow';
+    public const ERROR_NO_DEFAULT_ROW               = 'noDefaultRow';
 
     /**
      * Error - change type
      */
-    const ERROR_CHANGE_TYPE                  = 'changeProductType';
+    public const ERROR_CHANGE_TYPE                  = 'changeProductType';
 
     /**
      * Error - duplicate scope
      */
-    const ERROR_DUPLICATE_SCOPE              = 'duplicateScope';
+    public const ERROR_DUPLICATE_SCOPE              = 'duplicateScope';
 
     /**
      * Error - duplicate sku
      */
-    const ERROR_DUPLICATE_SKU                = 'duplicateSKU';
+    public const ERROR_DUPLICATE_SKU                = 'duplicateSKU';
 
     /**
      * Error - change attr set
      */
-    const ERROR_CHANGE_ATTR_SET              = 'changeAttrSet';
+    public const ERROR_CHANGE_ATTR_SET              = 'changeAttrSet';
 
     /**
      * Error - type unsupported
      */
-    const ERROR_TYPE_UNSUPPORTED             = 'productTypeUnsupported';
+    public const ERROR_TYPE_UNSUPPORTED             = 'productTypeUnsupported';
 
     /**
      * Error - row is orphan
      */
-    const ERROR_ROW_IS_ORPHAN                = 'rowIsOrphan';
+    public const ERROR_ROW_IS_ORPHAN                = 'rowIsOrphan';
 
     /**
      * Error - invalid tier price qty
      */
-    const ERROR_INVALID_TIER_PRICE_QTY       = 'invalidTierPriceOrQty';
+    public const ERROR_INVALID_TIER_PRICE_QTY       = 'invalidTierPriceOrQty';
 
     /**
      * Error - invalid tier price site
      */
-    const ERROR_INVALID_TIER_PRICE_SITE      = 'tierPriceWebsiteInvalid';
+    public const ERROR_INVALID_TIER_PRICE_SITE      = 'tierPriceWebsiteInvalid';
 
     /**
      * Error - invalid tier price group
      */
-    const ERROR_INVALID_TIER_PRICE_GROUP     = 'tierPriceGroupInvalid';
+    public const ERROR_INVALID_TIER_PRICE_GROUP     = 'tierPriceGroupInvalid';
 
     /**
      * Error - tier data incomplete
      */
-    const ERROR_TIER_DATA_INCOMPLETE         = 'tierPriceDataIsIncomplete';
+    public const ERROR_TIER_DATA_INCOMPLETE         = 'tierPriceDataIsIncomplete';
 
     /**
      * Error - invalid group price site
      */
-    const ERROR_INVALID_GROUP_PRICE_SITE     = 'groupPriceWebsiteInvalid';
+    public const ERROR_INVALID_GROUP_PRICE_SITE     = 'groupPriceWebsiteInvalid';
 
     /**
      * Error - invalid group price group
      */
-    const ERROR_INVALID_GROUP_PRICE_GROUP    = 'groupPriceGroupInvalid';
+    public const ERROR_INVALID_GROUP_PRICE_GROUP    = 'groupPriceGroupInvalid';
 
     /**
      * Error - group price data incompelte
      */
-    const ERROR_GROUP_PRICE_DATA_INCOMPLETE  = 'groupPriceDataIsIncomplete';
+    public const ERROR_GROUP_PRICE_DATA_INCOMPLETE  = 'groupPriceDataIsIncomplete';
 
     /**
      * Error - sku not found for delete
      */
-    const ERROR_SKU_NOT_FOUND_FOR_DELETE     = 'skuNotFoundToDelete';
+    public const ERROR_SKU_NOT_FOUND_FOR_DELETE     = 'skuNotFoundToDelete';
 
     /**
      * Error - super products sku not found
      */
-    const ERROR_SUPER_PRODUCTS_SKU_NOT_FOUND = 'superProductsSkuNotFound';
+    public const ERROR_SUPER_PRODUCTS_SKU_NOT_FOUND = 'superProductsSkuNotFound';
 
     /**
      * Error - invalid product sku
      */
-    const ERROR_INVALID_PRODUCT_SKU          = 'invalidSku';
+    public const ERROR_INVALID_PRODUCT_SKU          = 'invalidSku';
     /**#@-*/
 
     /**
@@ -503,7 +503,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     protected function _initAttributeSets()
     {
         foreach (Mage::getResourceModel('eav/entity_attribute_set_collection')
-                ->setEntityTypeFilter($this->_entityTypeId) as $attributeSet) {
+                ->setEntityTypeFilter($this->_entityTypeId) as $attributeSet
+        ) {
             /** @var Mage_Eav_Model_Entity_Attribute_Set $attributeSet */
             $this->_attrSetNameToId[$attributeSet->getAttributeSetName()] = $attributeSet->getId();
             $this->_attrSetIdToName[$attributeSet->getId()] = $attributeSet->getAttributeSetName();
@@ -725,11 +726,13 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 $this->addRowError(self::ERROR_TIER_DATA_INCOMPLETE, $rowNum);
                 return false;
             } elseif ($rowData['_tier_price_website'] != self::VALUE_ALL
-                    && !isset($this->_websiteCodeToId[$rowData['_tier_price_website']])) {
+                    && !isset($this->_websiteCodeToId[$rowData['_tier_price_website']])
+            ) {
                 $this->addRowError(self::ERROR_INVALID_TIER_PRICE_SITE, $rowNum);
                 return false;
             } elseif ($rowData['_tier_price_customer_group'] != self::VALUE_ALL
-                    && !isset($this->_customerGroups[$rowData['_tier_price_customer_group']])) {
+                    && !isset($this->_customerGroups[$rowData['_tier_price_customer_group']])
+            ) {
                 $this->addRowError(self::ERROR_INVALID_TIER_PRICE_GROUP, $rowNum);
                 return false;
             } elseif ($rowData['_tier_price_qty'] <= 0 || $rowData['_tier_price_price'] <= 0) {
@@ -784,7 +787,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     protected function _isSuperProductsSkuValid($rowData, $rowNum)
     {
         if (!empty($rowData['_super_products_sku'])
-            && (!isset($this->_oldSku[$rowData['_super_products_sku']])
+            && (
+                !isset($this->_oldSku[$rowData['_super_products_sku']])
                 && !isset($this->_newSku[$rowData['_super_products_sku']])
             )
         ) {
@@ -1174,7 +1178,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                         $linkedSku    = $rowData[$linkName . 'sku'];
 
                         if ((isset($this->_newSku[$linkedSku]) || isset($this->_oldSku[$linkedSku]))
-                            && $linkedSku != $sku) {
+                            && $linkedSku != $sku
+                        ) {
                             if (isset($this->_newSku[$linkedSku])) {
                                 $linkedId = $this->_newSku[$linkedSku]['entity_id'];
                             } else {
@@ -1471,12 +1476,12 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                     $previousType = $productType;
                 }
                 if (isset($rowData[self::COL_ATTR_SET]) && !is_null($rowData[self::COL_ATTR_SET])) {
-                    $previousAttributeSet = $rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_ATTR_SET];
+                    $previousAttributeSet = $rowData[self::COL_ATTR_SET];
                 }
                 if (self::SCOPE_NULL == $rowScope) {
                     // for multiselect attributes only
                     if (!is_null($previousAttributeSet)) {
-                         $rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_ATTR_SET] = $previousAttributeSet;
+                        $rowData[self::COL_ATTR_SET] = $previousAttributeSet;
                     }
                     if (is_null($productType) && !is_null($previousType)) {
                         $productType = $previousType;

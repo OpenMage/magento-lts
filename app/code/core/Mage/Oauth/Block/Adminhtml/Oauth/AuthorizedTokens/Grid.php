@@ -183,7 +183,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
     {
         $options = $column->getOptions();
 
-        $value = ($row->getCustomerId())   ?$options[1]   :$options[0];
+        $value = ($row->getCustomerId()) ? $options[1] : $options[0];
         return $value;
     }
 

@@ -31,27 +31,27 @@ class Mage_Sitemap_Model_Observer
     /**
      * Enable/disable configuration
      */
-    const XML_PATH_GENERATION_ENABLED = 'sitemap/generate/enabled';
+    public const XML_PATH_GENERATION_ENABLED = 'sitemap/generate/enabled';
 
     /**
      * Cronjob expression configuration
      */
-    const XML_PATH_CRON_EXPR = 'crontab/jobs/generate_sitemaps/schedule/cron_expr';
+    public const XML_PATH_CRON_EXPR = 'crontab/jobs/generate_sitemaps/schedule/cron_expr';
 
     /**
      * Error email template configuration
      */
-    const XML_PATH_ERROR_TEMPLATE  = 'sitemap/generate/error_email_template';
+    public const XML_PATH_ERROR_TEMPLATE  = 'sitemap/generate/error_email_template';
 
     /**
      * Error email identity configuration
      */
-    const XML_PATH_ERROR_IDENTITY  = 'sitemap/generate/error_email_identity';
+    public const XML_PATH_ERROR_IDENTITY  = 'sitemap/generate/error_email_identity';
 
     /**
      * 'Send error emails to' configuration
      */
-    const XML_PATH_ERROR_RECIPIENT = 'sitemap/generate/error_email';
+    public const XML_PATH_ERROR_RECIPIENT = 'sitemap/generate/error_email';
 
     /**
      * Generate sitemaps

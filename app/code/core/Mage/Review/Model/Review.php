@@ -62,19 +62,19 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      * @deprecated after 1.3.2.4
      *
      */
-    const ENTITY_PRODUCT = 1;
+    public const ENTITY_PRODUCT = 1;
 
     /**
      * Review entity codes
      *
      */
-    const ENTITY_PRODUCT_CODE   = 'product';
-    const ENTITY_CUSTOMER_CODE  = 'customer';
-    const ENTITY_CATEGORY_CODE  = 'category';
+    public const ENTITY_PRODUCT_CODE   = 'product';
+    public const ENTITY_CUSTOMER_CODE  = 'customer';
+    public const ENTITY_CATEGORY_CODE  = 'category';
 
-    const STATUS_APPROVED       = 1;
-    const STATUS_PENDING        = 2;
-    const STATUS_NOT_APPROVED   = 3;
+    public const STATUS_APPROVED       = 1;
+    public const STATUS_PENDING        = 2;
+    public const STATUS_NOT_APPROVED   = 3;
 
     protected function _construct()
     {

@@ -181,7 +181,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
                 $extension = strrchr($filename, '.');
                 $filenameWoExtension = substr($filename, 0, -1 * strlen($extension));
                 while ($this->fileExists($directory . $filenameWoExtension . '_' . $index . $extension)) {
-                    $index ++;
+                    $index++;
                 }
                 $filename = $filenameWoExtension . '_' . $index . $extension;
             }

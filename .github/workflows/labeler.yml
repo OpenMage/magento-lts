@@ -7,10 +7,11 @@
 
 name: Labeler
 on:
-  - pull_request_target
+  pull_request_target:
 
 jobs:
   triage:
+    name: Add labels
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/labeler@main

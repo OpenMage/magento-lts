@@ -176,7 +176,7 @@ class Mage_Core_Model_Message_Collection
         $out = '';
         $arrItems = $this->getItems();
         foreach ($arrItems as $item) {
-            $out.= $item->toString();
+            $out .= $item->toString();
         }
 
         return $out;

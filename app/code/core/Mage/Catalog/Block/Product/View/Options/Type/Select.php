@@ -42,21 +42,22 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
         $store = $this->getProduct()->getStore();
 
         if ($_option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN
-            || $_option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
+            || $_option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE
+        ) {
             $require = ($_option->getIsRequire()) ? ' required-entry' : '';
             $extraParams = '';
             /** @var Mage_Core_Block_Html_Select $block */
             $block = $this->getLayout()->createBlock('core/html_select');
             $select = $block->setData([
-                'id' => 'select_'.$_option->getId(),
-                'class' => $require.' product-custom-option'
+                'id' => 'select_' . $_option->getId(),
+                'class' => $require . ' product-custom-option'
             ]);
             if ($_option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN) {
-                $select->setName('options['.$_option->getId().']')
+                $select->setName('options[' . $_option->getId() . ']')
                     ->addOption('', $this->__('-- Please Select --'));
             } else {
-                $select->setName('options['.$_option->getId().'][]');
-                $select->setClass('multiselect'.$require.' product-custom-option');
+                $select->setName('options[' . $_option->getId() . '][]');
+                $select->setClass('multiselect' . $require . ' product-custom-option');
             }
 
             /** @var Mage_Core_Helper_Data $helper */
@@ -90,8 +91,8 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
 
         if ($_option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_RADIO
             || $_option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_CHECKBOX
-            ) {
-            $selectHtml = '<ul id="options-'.$_option->getId().'-list" class="options-list">';
+        ) {
+            $selectHtml = '<ul id="options-' . $_option->getId() . '-list" class="options-list">';
             $require = ($_option->getIsRequire()) ? ' validate-one-required-by-name' : '';
             $arraySign = '';
             switch ($_option->getType()) {

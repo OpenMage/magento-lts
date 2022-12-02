@@ -28,9 +28,9 @@
  */
 class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 {
-    const DIRECTORY_NAME_REGEXP = '/^[a-z0-9\-\_]+$/si';
-    const THUMBS_DIRECTORY_NAME = '.thumbs';
-    const THUMB_PLACEHOLDER_PATH_SUFFIX = 'images/placeholder/thumbnail.jpg';
+    public const DIRECTORY_NAME_REGEXP = '/^[a-z0-9\-\_]+$/si';
+    public const THUMBS_DIRECTORY_NAME = '.thumbs';
+    public const THUMB_PLACEHOLDER_PATH_SUFFIX = 'images/placeholder/thumbnail.jpg';
 
     /**
      * Config object
@@ -85,7 +85,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             $rootChildParts = explode(DIRECTORY_SEPARATOR, substr($value->getFilename(), $storageRootLength));
 
             if (array_key_exists(end($rootChildParts), $conditions['plain'])
-                || ($regExp && preg_match($regExp, $value->getFilename()))) {
+                || ($regExp && preg_match($regExp, $value->getFilename()))
+            ) {
                 $collection->removeItemByKey($key);
             }
         }
@@ -119,7 +120,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 
         // Add files extension filter
         if ($allowed = $this->getAllowedExtensions($type)) {
-            $collection->setFilesFilter('/\.(' . implode('|', $allowed). ')$/i');
+            $collection->setFilesFilter('/\.(' . implode('|', $allowed) . ')$/i');
         }
 
         $helper = $this->getHelper();

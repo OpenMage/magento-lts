@@ -29,8 +29,8 @@ class Mage_Adminhtml_Model_System_Config_Source_Price_Scope
     public function toOptionArray()
     {
         return [
-            ['value'=>'0', 'label'=>Mage::helper('core')->__('Global')],
-            ['value'=>'1', 'label'=>Mage::helper('core')->__('Website')],
+            ['value' => '0', 'label' => Mage::helper('core')->__('Global')],
+            ['value' => '1', 'label' => Mage::helper('core')->__('Website')],
         ];
     }
 }

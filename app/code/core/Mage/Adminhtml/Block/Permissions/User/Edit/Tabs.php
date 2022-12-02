@@ -52,5 +52,4 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tabs extends Mage_Adminhtml_Blo
         ]);
         return parent::_beforeToHtml();
     }
-
 }

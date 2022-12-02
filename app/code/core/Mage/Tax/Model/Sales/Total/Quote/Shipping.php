@@ -203,10 +203,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
         }
 
         $deltas = $this->_address->getRoundingDeltas();
-        $key = $type.$direction;
+        $key = $type . $direction;
         $rate = (string) $rate;
         $delta = $deltas[$key][$rate] ?? 0;
-        return $this->_calculator->round($price+$delta);
+        return $this->_calculator->round($price + $delta);
     }
 
     /**

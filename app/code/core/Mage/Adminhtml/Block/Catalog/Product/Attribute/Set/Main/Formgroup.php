@@ -30,18 +30,22 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formgroup extends 
     {
         $form = new Varien_Data_Form();
 
-        $fieldset = $form->addFieldset('set_fieldset', ['legend'=>Mage::helper('catalog')->__('Add New Group')]);
+        $fieldset = $form->addFieldset('set_fieldset', ['legend' => Mage::helper('catalog')->__('Add New Group')]);
 
-        $fieldset->addField('attribute_group_name', 'text',
-                            [
+        $fieldset->addField(
+            'attribute_group_name',
+            'text',
+            [
                                 'label' => Mage::helper('catalog')->__('Name'),
                                 'name' => 'attribute_group_name',
                                 'required' => true,
                             ]
         );
 
-        $fieldset->addField('submit', 'note',
-                            [
+        $fieldset->addField(
+            'submit',
+            'note',
+            [
                                 'text' => $this->getLayout()->createBlock('adminhtml/widget_button')
                                             ->setData([
                                                 'label'     => Mage::helper('catalog')->__('Add Group'),
@@ -52,12 +56,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formgroup extends 
                             ]
         );
 
-        $fieldset->addField('attribute_set_id', 'hidden',
-                            [
+        $fieldset->addField(
+            'attribute_set_id',
+            'hidden',
+            [
                                 'name' => 'attribute_set_id',
                                 'value' => $this->_getSetId(),
                             ]
-
         );
 
         $form->setUseContainer(true);
@@ -69,7 +74,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formgroup extends 
 
     protected function _getSetId()
     {
-        return ( intval($this->getRequest()->getParam('id')) > 0 )
+        return (intval($this->getRequest()->getParam('id')) > 0)
                     ? intval($this->getRequest()->getParam('id'))
                     : Mage::getModel('eav/entity_type')
                         ->load(Mage::registry('entityType'))

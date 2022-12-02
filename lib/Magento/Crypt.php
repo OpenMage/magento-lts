@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Magento
- * @package     Magento_Crypt
+ * @category   Magento
+ * @package    Magento_Crypt
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2019 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -76,10 +76,10 @@ class Magento_Crypt
                 for ($i = 0; $i < $initVectorSize; $i++) {
                     $initVector .= $abc[rand(0, strlen($abc) - 1)];
                 }
-            } else if (false === $initVector) {
+            } elseif (false === $initVector) {
                 /* Set vector to zero bytes to not use it */
                 $initVector = str_repeat("\0", $initVectorSize);
-            } else if (!is_string($initVector) || strlen($initVector) != $initVectorSize) {
+            } elseif (!is_string($initVector) || strlen($initVector) != $initVectorSize) {
                 throw new Magento_Exception('Init vector must be a string of ' . $initVectorSize . ' bytes.');
             }
             $this->_initVector = $initVector;

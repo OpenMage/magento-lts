@@ -71,12 +71,12 @@
  */
 class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_Attribute
 {
-    const SCOPE_STORE                           = 0;
-    const SCOPE_GLOBAL                          = 1;
-    const SCOPE_WEBSITE                         = 2;
+    public const SCOPE_STORE                           = 0;
+    public const SCOPE_GLOBAL                          = 1;
+    public const SCOPE_WEBSITE                         = 2;
 
-    const MODULE_NAME                           = 'Mage_Catalog';
-    const ENTITY                                = 'catalog_eav_attribute';
+    public const MODULE_NAME                           = 'Mage_Catalog';
+    public const ENTITY                                = 'catalog_eav_attribute';
 
     /**
      * @var string
@@ -92,7 +92,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
      *
      * @var array
      */
-    static protected $_labels                   = null;
+    protected static $_labels                   = null;
 
     protected function _construct()
     {
@@ -113,7 +113,8 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
                 $this->_data['is_global'] = self::SCOPE_GLOBAL;
             }
             if (($this->_data['is_global'] != $this->_origData['is_global'])
-                && $this->_getResource()->isUsedBySuperProducts($this)) {
+                && $this->_getResource()->isUsedBySuperProducts($this)
+            ) {
                 Mage::throwException(Mage::helper('catalog')->__('Scope must not be changed, because the attribute is used in configurable products.'));
             }
         }

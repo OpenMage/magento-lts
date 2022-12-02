@@ -28,10 +28,10 @@
  */
 abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Model_Carrier_Abstract
 {
-    const USA_COUNTRY_ID = 'US';
-    const PUERTORICO_COUNTRY_ID = 'PR';
-    const GUAM_COUNTRY_ID = 'GU';
-    const GUAM_REGION_CODE = 'GU';
+    public const USA_COUNTRY_ID = 'US';
+    public const PUERTORICO_COUNTRY_ID = 'PR';
+    public const GUAM_COUNTRY_ID = 'GU';
+    public const GUAM_REGION_CODE = 'GU';
 
     protected static $_quotesCache = [];
 
@@ -70,12 +70,11 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
 
         $result = $this->getTracking($tracking);
 
-        if($result instanceof Mage_Shipping_Model_Tracking_Result){
+        if ($result instanceof Mage_Shipping_Model_Tracking_Result) {
             if ($trackings = $result->getAllTrackings()) {
                 return $trackings[0];
             }
-        }
-        elseif (is_string($result) && !empty($result)) {
+        } elseif (is_string($result) && !empty($result)) {
             return $result;
         }
 
@@ -170,7 +169,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
         //Skip by item validation if there is no items in request
-        if(!count($this->getAllItems($request))) {
+        if (!count($this->getAllItems($request))) {
             return $this;
         }
 
@@ -228,10 +227,13 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     protected function _getQuotesCacheKey($requestParams)
     {
         if (is_array($requestParams)) {
-            $requestParams = implode(',', array_merge(
-                [$this->getCarrierCode()],
-                array_keys($requestParams),
-                $requestParams)
+            $requestParams = implode(
+                ',',
+                array_merge(
+                    [$this->getCarrierCode()],
+                    array_keys($requestParams),
+                    $requestParams
+                )
             );
         }
         return crc32($requestParams);
@@ -430,7 +432,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
             case 'PW': // Palau
             case 'PR': // Puerto Rico
             case 'VI': // Virgin Islands US
-            case 'US'; // United States
+            case 'US': // United States
                 return true;
         }
 
@@ -454,7 +456,8 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * @param null|string $countyDest
      * @return bool
      */
-    public function isGirthAllowed($countyDest = null) {
+    public function isGirthAllowed($countyDest = null)
+    {
         return false;
     }
 }

@@ -28,12 +28,12 @@
  */
 class Mage_ConfigurableSwatches_Helper_Swatchdimensions extends Mage_Core_Helper_Abstract
 {
-    const AREA_DETAIL = 'product_detail_dimensions';
-    const AREA_LISTING = 'product_listing_dimensions';
-    const AREA_LAYER = 'layered_nav_dimensions';
+    public const AREA_DETAIL = 'product_detail_dimensions';
+    public const AREA_LISTING = 'product_listing_dimensions';
+    public const AREA_LAYER = 'layered_nav_dimensions';
 
-    const DIM_WIDTH = 'width';
-    const DIM_HEIGHT = 'height';
+    public const DIM_WIDTH = 'width';
+    public const DIM_HEIGHT = 'height';
 
     protected $_moduleName = 'Mage_ConfigurableSwatches';
 

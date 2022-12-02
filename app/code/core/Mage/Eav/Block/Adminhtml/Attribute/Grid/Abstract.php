@@ -46,21 +46,21 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
         parent::_prepareColumns();
 
         $this->addColumn('frontend_label', [
-            'header'=>Mage::helper('eav')->__('Attribute Label'),
-            'sortable'=>true,
-            'index'=>'frontend_label'
+            'header' => Mage::helper('eav')->__('Attribute Label'),
+            'sortable' => true,
+            'index' => 'frontend_label'
         ]);
 
         $this->addColumn('attribute_code', [
-            'header'=>Mage::helper('eav')->__('Attribute Code'),
-            'sortable'=>true,
-            'index'=>'attribute_code'
+            'header' => Mage::helper('eav')->__('Attribute Code'),
+            'sortable' => true,
+            'index' => 'attribute_code'
         ]);
 
         $this->addColumn('is_required', [
-            'header'=>Mage::helper('eav')->__('Required'),
-            'sortable'=>true,
-            'index'=>'is_required',
+            'header' => Mage::helper('eav')->__('Required'),
+            'sortable' => true,
+            'index' => 'is_required',
             'type' => 'options',
             'options' => [
                 '1' => Mage::helper('eav')->__('Yes'),
@@ -70,9 +70,9 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
         ]);
 
         $this->addColumn('is_user_defined', [
-            'header'=>Mage::helper('eav')->__('System'),
-            'sortable'=>true,
-            'index'=>'is_user_defined',
+            'header' => Mage::helper('eav')->__('System'),
+            'sortable' => true,
+            'index' => 'is_user_defined',
             'type' => 'options',
             'align' => 'center',
             'options' => [

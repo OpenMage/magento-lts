@@ -70,8 +70,8 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     /**
      * Possible customer address types
      */
-    const TYPE_BILLING  = 'billing';
-    const TYPE_SHIPPING = 'shipping';
+    public const TYPE_BILLING  = 'billing';
+    public const TYPE_SHIPPING = 'shipping';
 
     /**
      * Prefix of model events
@@ -99,14 +99,14 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    static protected $_countryModels = [];
+    protected static $_countryModels = [];
 
     /**
      * Directory region models
      *
      * @var array
      */
-    static protected $_regionModels = [];
+    protected static $_regionModels = [];
 
     /**
      * Get full customer name
@@ -146,8 +146,8 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
             $arr = is_array($street) ? $street : explode("\n", $street);
             if ($line === 0 || $line === null) {
                 return $arr;
-            } elseif (isset($arr[$line-1])) {
-                return $arr[$line-1];
+            } elseif (isset($arr[$line - 1])) {
+                return $arr[$line - 1];
             } else {
                 return '';
             }
@@ -228,7 +228,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     {
         $streetLines = $this->getStreet();
         foreach ($streetLines as $i => $line) {
-            $this->setData('street'.($i+1), $line);
+            $this->setData('street' . ($i + 1), $line);
         }
         return $this;
     }
@@ -392,7 +392,8 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     public function format($type)
     {
         if (!($formatType = $this->getConfig()->getFormatByCode($type))
-            || !$formatType->getRenderer()) {
+            || !$formatType->getRenderer()
+        ) {
             return null;
         }
         Mage::dispatchEvent('customer_address_format', ['type' => $formatType, 'address' => $this]);

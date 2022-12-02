@@ -62,7 +62,7 @@ class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstra
             $select = $readAdapter->select()
                 ->from(['layout_update' => $this->getMainTable()], ['xml'])
                 ->join(
-                    ['link'=>$this->getTable('core/layout_link')],
+                    ['link' => $this->getTable('core/layout_link')],
                     'link.layout_update_id=layout_update.layout_update_id',
                     ''
                 )

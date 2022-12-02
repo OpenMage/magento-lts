@@ -19,7 +19,7 @@
  */
 
 $currentVersion = Mage::getVersion();
-if (version_compare($currentVersion, '1.3.9')<0) {
+if (version_compare($currentVersion, '1.3.9') < 0) {
     echo 'Exiting ...';
     exit();
 }

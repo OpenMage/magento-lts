@@ -135,9 +135,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     public function _prepareForm()
     {
         $form = new Varien_Data_Form();
-        $fieldset = $form->addFieldset('main', ['no_container'=>true]);
+        $fieldset = $form->addFieldset('main', ['no_container' => true]);
 
-        $fieldset->addField('type','hidden',
+        $fieldset->addField(
+            'type',
+            'hidden',
             [
                 'name' =>  $this->_getFieldName('type'),
             ]
@@ -181,18 +183,24 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      */
     protected function _prepareHiddenFields(Varien_Data_Form_Element_Fieldset $fieldset)
     {
-        $fieldset->addField('sender', 'hidden',
+        $fieldset->addField(
+            'sender',
+            'hidden',
             [
                 'name' => $this->_getFieldName('sender')
             ]
         );
-        $fieldset->addField('recipient', 'hidden',
+        $fieldset->addField(
+            'recipient',
+            'hidden',
             [
                 'name' => $this->_getFieldName('recipient')
             ]
         );
 
-        $fieldset->addField('message', 'hidden',
+        $fieldset->addField(
+            'message',
+            'hidden',
             [
                 'name' => $this->_getFieldName('message')
             ]
@@ -210,14 +218,18 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      */
     protected function _prepareVisibleFields(Varien_Data_Form_Element_Fieldset $fieldset)
     {
-        $fieldset->addField('sender', 'text',
+        $fieldset->addField(
+            'sender',
+            'text',
             [
                 'name'     => $this->_getFieldName('sender'),
                 'label'    => Mage::helper('sales')->__('From'),
                 'required' => $this->getMessage()->getMessage() ? true : false
             ]
         );
-        $fieldset->addField('recipient', 'text',
+        $fieldset->addField(
+            'recipient',
+            'text',
             [
                 'name'     => $this->_getFieldName('recipient'),
                 'label'    => Mage::helper('sales')->__('To'),
@@ -225,7 +237,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
             ]
         );
 
-        $fieldset->addField('message', 'textarea',
+        $fieldset->addField(
+            'message',
+            'textarea',
             [
                 'name'      => $this->_getFieldName('message'),
                 'label'     => Mage::helper('sales')->__('Message'),
@@ -269,7 +283,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      * @param string $name
      * @return string
      */
-    protected  function _getFieldName($name)
+    protected function _getFieldName($name)
     {
         return 'giftmessage[' . $this->getEntity()->getId() . '][' . $name . ']';
     }
@@ -280,7 +294,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      * @param string $id
      * @return string
      */
-    protected  function _getFieldId($id)
+    protected function _getFieldId($id)
     {
         return $this->_getFieldIdPrefix() . $id;
     }
@@ -290,7 +304,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      *
      * @return string
      */
-    protected  function _getFieldIdPrefix()
+    protected function _getFieldIdPrefix()
     {
         return 'giftmessage_' . $this->getEntity()->getId() . '_';
     }
@@ -304,7 +318,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     protected function _applyPostData()
     {
         if (is_array($giftmessages = $this->getRequest()->getParam('giftmessage'))
-           && isset($giftmessages[$this->getEntity()->getId()])) {
+            && isset($giftmessages[$this->getEntity()->getId()])
+        ) {
             $this->getMessage()->addData($giftmessages[$this->getEntity()->getId()]);
         }
 

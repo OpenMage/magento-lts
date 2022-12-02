@@ -274,7 +274,8 @@ class Mage_Catalog_Model_Product_Flat_Observer
         $customerGroup = $observer->getEvent()->getObject();
         /** @var Mage_Customer_Model_Group $customerGroup */
         if ($customerGroup->dataHasChangedFor($customerGroup->getIdFieldName())
-            || $customerGroup->dataHasChangedFor('tax_class_id')) {
+            || $customerGroup->dataHasChangedFor('tax_class_id')
+        ) {
             $this->_getIndexer()->updateEventAttributes();
         }
         return $this;

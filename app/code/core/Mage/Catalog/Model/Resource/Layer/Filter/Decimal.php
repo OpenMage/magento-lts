@@ -111,7 +111,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Decimal extends Mage_Core_Model_R
 
         $select->join(
             ['decimal_index' => $this->getMainTable()],
-            'e.entity_id = decimal_index.entity_id'.
+            'e.entity_id = decimal_index.entity_id' .
             ' AND ' . $this->_getReadAdapter()->quoteInto('decimal_index.attribute_id = ?', $attributeId) .
             ' AND ' . $this->_getReadAdapter()->quoteInto('decimal_index.store_id = ?', $storeId),
             []

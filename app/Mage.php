@@ -68,49 +68,49 @@ final class Mage
      *
      * @var array
      */
-    static private $_registry = [];
+    private static $_registry = [];
 
     /**
      * Application root absolute path
      *
-     * @var string
+     * @var string|null
      */
-    static private $_appRoot;
+    private static $_appRoot;
 
     /**
      * Application model
      *
-     * @var Mage_Core_Model_App
+     * @var Mage_Core_Model_App|null
      */
-    static private $_app;
+    private static $_app;
 
     /**
      * Config Model
      *
-     * @var Mage_Core_Model_Config
+     * @var Mage_Core_Model_Config|null
      */
-    static private $_config;
+    private static $_config;
 
     /**
      * Event Collection Object
      *
-     * @var Varien_Event_Collection
+     * @var Varien_Event_Collection|null
      */
-    static private $_events;
+    private static $_events;
 
     /**
      * Object cache instance
      *
-     * @var Varien_Object_Cache
+     * @var Varien_Object_Cache|null
      */
-    static private $_objects;
+    private static $_objects;
 
     /**
      * Is developer mode flag
      *
      * @var bool
      */
-    static private $_isDeveloperMode = false;
+    private static $_isDeveloperMode = false;
 
     /**
      * Is allow throw Exception about headers already sent
@@ -122,17 +122,17 @@ final class Mage
     /**
      * Is installed flag
      *
-     * @var bool
+     * @var bool|null
      */
-    static private $_isInstalled;
+    private static $_isInstalled;
 
     /**
      * Magento edition constants
      */
-    const EDITION_COMMUNITY    = 'Community';
-    const EDITION_ENTERPRISE   = 'Enterprise';
-    const EDITION_PROFESSIONAL = 'Professional';
-    const EDITION_GO           = 'Go';
+    public const EDITION_COMMUNITY    = 'Community';
+    public const EDITION_ENTERPRISE   = 'Enterprise';
+    public const EDITION_PROFESSIONAL = 'Professional';
+    public const EDITION_GO           = 'Go';
 
     /**
      * Current Magento edition.
@@ -140,7 +140,7 @@ final class Mage
      * @var string
      * @static
      */
-    static private $_currentEdition = self::EDITION_COMMUNITY;
+    private static $_currentEdition = self::EDITION_COMMUNITY;
 
     /**
      * Gets the current Magento version string
@@ -217,7 +217,7 @@ final class Mage
             return [
                 'major'     => '20',
                 'minor'     => '0',
-                'patch'     => '18',
+                'patch'     => '19',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             ];
@@ -226,7 +226,7 @@ final class Mage
         return [
             'major'     => '19',
             'minor'     => '4',
-            'patch'     => '20',
+            'patch'     => '21',
             'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
@@ -240,7 +240,7 @@ final class Mage
      */
     public static function getEdition()
     {
-       return self::$_currentEdition;
+        return self::$_currentEdition;
     }
 
     /**
@@ -274,7 +274,7 @@ final class Mage
             if ($graceful) {
                 return;
             }
-            self::throwException('Mage registry key "'. $key. '" already exists');
+            self::throwException('Mage registry key "' . $key . '" already exists');
         }
         self::$_registry[$key] = $value;
     }
@@ -360,7 +360,7 @@ final class Mage
     public static function objects($key = null)
     {
         if (!self::$_objects) {
-            self::$_objects = new Varien_Object_Cache;
+            self::$_objects = new Varien_Object_Cache();
         }
         if (is_null($key)) {
             return self::$_objects;
@@ -497,9 +497,9 @@ final class Mage
      */
     public static function dispatchEvent($name, array $data = [])
     {
-        Varien_Profiler::start('DISPATCH EVENT:'. $name);
+        Varien_Profiler::start('DISPATCH EVENT:' . $name);
         $result = self::app()->dispatchEvent($name, $data);
-        Varien_Profiler::stop('DISPATCH EVENT:'. $name);
+        Varien_Profiler::stop('DISPATCH EVENT:' . $name);
         return $result;
     }
 
@@ -508,7 +508,7 @@ final class Mage
      *
      * @link    Mage_Core_Model_Config::getModelInstance
      * @param   string $modelClass
-     * @param   array|object $arguments
+     * @param   array|string|object $arguments
      * @return  Mage_Core_Model_Abstract|false
      */
     public static function getModel($modelClass = '', $arguments = [])
@@ -523,7 +523,7 @@ final class Mage
      * @param   array $arguments
      * @return  Mage_Core_Model_Abstract
      */
-    public static function getSingleton($modelClass = '', array $arguments= [])
+    public static function getSingleton($modelClass = '', array $arguments = [])
     {
         $registryKey = '_singleton/' . $modelClass;
         if (!isset(self::$_registry[$registryKey])) {
@@ -597,7 +597,7 @@ final class Mage
         $registryKey = '_helper/' . $name;
         if (!isset(self::$_registry[$registryKey])) {
             $helperClass = self::getConfig()->getHelperClassName($name);
-            self::register($registryKey, new $helperClass);
+            self::register($registryKey, new $helperClass());
         }
         return self::$_registry[$registryKey];
     }
@@ -867,7 +867,8 @@ final class Mage
             return;
         }
 
-        $file = empty($file) ? (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
+        $file = empty($file) ?
+            (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
 
         try {
             if (!isset($loggers[$file])) {
@@ -876,7 +877,7 @@ final class Mage
                     ',',
                     (string) self::getConfig()->getNode('dev/log/allowedFileExtensions', Mage_Core_Model_Store::DEFAULT_CODE)
                 );
-                if (! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
+                if ( ! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
                     return;
                 }
 
@@ -975,20 +976,19 @@ final class Mage
             ];
 
             // retrieve server data
-            if (isset($_SERVER)) {
-                if (isset($_SERVER['REQUEST_URI'])) {
-                    $reportData['url'] = $_SERVER['REQUEST_URI'];
-                }
-                if (isset($_SERVER['SCRIPT_NAME'])) {
-                    $reportData['script_name'] = $_SERVER['SCRIPT_NAME'];
-                }
+            if (isset($_SERVER['REQUEST_URI'])) {
+                $reportData['url'] = $_SERVER['REQUEST_URI'];
+            }
+            if (isset($_SERVER['SCRIPT_NAME'])) {
+                $reportData['script_name'] = $_SERVER['SCRIPT_NAME'];
             }
 
             // attempt to specify store as a skin
             try {
                 $storeCode = self::app()->getStore()->getCode();
                 $reportData['skin'] = $storeCode;
-            } catch (Exception $e) {}
+            } catch (Exception $e) {
+            }
 
             require_once(self::getBaseDir() . DS . 'errors' . DS . 'report.php');
         }
@@ -1009,8 +1009,8 @@ final class Mage
         $runDirUrl  = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
         $runDir     = rtrim(dirname($_SERVER['SCRIPT_FILENAME']), DS);
 
-        $baseUrl = null;
-        if (is_dir($runDir. '/'. $folder)) {
+        $baseUrl    = null;
+        if (is_dir($runDir . '/' . $folder)) {
             $baseUrl = str_replace(DS, '/', $runDirUrl);
         } else {
             $runDirUrlArray = explode('/', $runDirUrl);
@@ -1025,7 +1025,7 @@ final class Mage
                     $_runDir .= '/';
                 }
 
-                if (is_dir($_runDir. $folder)) {
+                if (is_dir($_runDir . $folder)) {
                     $_runDirUrl = implode('/', $runDirUrlArray);
                     $baseUrl    = str_replace(DS, '/', $_runDirUrl);
                     break;
@@ -1054,6 +1054,4 @@ final class Mage
     public static function setIsDownloader()
     {
     }
-
-
 }

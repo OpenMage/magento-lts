@@ -29,16 +29,16 @@
  * @method Mage_Catalog_Model_Resource_Product_Status _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Status getResource()
  * @method int getProductId()
- * @method Mage_Catalog_Model_Product_Status setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method int getStoreId()
- * @method Mage_Catalog_Model_Product_Status setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method int getVisibility()
- * @method Mage_Catalog_Model_Product_Status setVisibility(int $value)
+ * @method $this setVisibility(int $value)
  */
 class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
 {
-    const STATUS_ENABLED    = 1;
-    const STATUS_DISABLED   = 2;
+    public const STATUS_ENABLED    = 1;
+    public const STATUS_DISABLED   = 2;
 
     /**
      * Reference to the attribute instance
@@ -139,7 +139,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     public static function getAllOption()
     {
         $options = self::getOptionArray();
-        array_unshift($options, ['value'=>'', 'label'=>'']);
+        array_unshift($options, ['value' => '', 'label' => '']);
         return $options;
     }
 
@@ -352,11 +352,11 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
                     []
                 );
 
-                $valueExpr = $collection->getConnection()->getCheckSql(
-                    $valueTable2 . '.value_id > 0',
-                    $valueTable2 . '.value',
-                    $valueTable1 . '.value'
-                );
+            $valueExpr = $collection->getConnection()->getCheckSql(
+                $valueTable2 . '.value_id > 0',
+                $valueTable2 . '.value',
+                $valueTable1 . '.value'
+            );
         }
 
         $collection->getSelect()->order($valueExpr . ' ' . $dir);

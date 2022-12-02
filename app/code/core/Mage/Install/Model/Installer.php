@@ -32,7 +32,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Installer host response used to check urls
      *
      */
-    const INSTALLER_HOST_RESPONSE   = 'MAGENTO';
+    public const INSTALLER_HOST_RESPONSE   = 'MAGENTO';
 
     /**
      * Installer data model used to store data between installation steps
@@ -164,8 +164,7 @@ class Mage_Install_Model_Installer extends Varien_Object
             if (!empty($data['use_secure_admin'])) {
                 $setupModel->setConfigData(Mage_Core_Model_Store::XML_PATH_SECURE_IN_ADMINHTML, 1);
             }
-        }
-        elseif (!empty($data['unsecure_base_url'])) {
+        } elseif (!empty($data['unsecure_base_url'])) {
             $setupModel->setConfigData(Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL, $unsecureBaseUrl);
         }
 

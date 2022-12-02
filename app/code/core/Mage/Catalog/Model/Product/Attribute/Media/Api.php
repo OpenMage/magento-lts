@@ -32,7 +32,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * Attribute code for media gallery
      *
      */
-    const ATTRIBUTE_CODE = 'media_gallery';
+    public const ATTRIBUTE_CODE = 'media_gallery';
 
     /**
      * Allowed mime types for image
@@ -148,7 +148,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
         try {
             // Create temporary directory for api
             $ioAdapter->checkAndCreateFolder($tmpDirectory);
-            $ioAdapter->open(['path'=>$tmpDirectory]);
+            $ioAdapter->open(['path' => $tmpDirectory]);
             // Write image file
             $ioAdapter->write($fileName, $fileContent, 0666);
             unset($fileContent);
@@ -229,8 +229,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 
             $ioAdapter = new Varien_Io_File();
             try {
-                $fileName = Mage::getBaseDir('media'). DS . 'catalog' . DS . 'product' . $file;
-                $ioAdapter->open(['path'=>dirname($fileName)]);
+                $fileName = Mage::getBaseDir('media') . DS . 'catalog' . DS . 'product' . $file;
+                $ioAdapter->open(['path' => dirname($fileName)]);
                 $ioAdapter->write(basename($fileName), $fileContent, 0666);
             } catch (Exception $e) {
                 $this->_fault('not_created', Mage::helper('catalog')->__('Can\'t create image.'));
@@ -243,7 +243,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             $oldTypes = [];
             foreach ($product->getMediaAttributes() as $attribute) {
                 if ($product->getData($attribute->getAttributeCode()) == $file) {
-                     $oldTypes[] = $attribute->getAttributeCode();
+                    $oldTypes[] = $attribute->getAttributeCode();
                 }
             }
 
@@ -312,7 +312,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
         foreach ($attributes as $attribute) {
             /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if ($attribute->isInSet($setId)
-                && $attribute->getFrontendInput() == 'media_image') {
+                && $attribute->getFrontendInput() == 'media_image'
+            ) {
                 if ($attribute->isScopeGlobal()) {
                     $scope = 'global';
                 } elseif ($attribute->isScopeWebsite()) {

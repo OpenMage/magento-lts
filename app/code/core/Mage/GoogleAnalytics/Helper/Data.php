@@ -31,20 +31,20 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Config paths for using throughout the code
      */
-    const XML_PATH_ACTIVE        = 'google/analytics/active';
-    const XML_PATH_TYPE          = 'google/analytics/type';
-    const XML_PATH_ACCOUNT       = 'google/analytics/account';
-    const XML_PATH_ANONYMIZATION = 'google/analytics/anonymization';
+    public const XML_PATH_ACTIVE        = 'google/analytics/active';
+    public const XML_PATH_TYPE          = 'google/analytics/type';
+    public const XML_PATH_ACCOUNT       = 'google/analytics/account';
+    public const XML_PATH_ANONYMIZATION = 'google/analytics/anonymization';
 
     /**
      * @var string classic google analytics tracking code
      */
-    const TYPE_ANALYTICS = 'analytics';
+    public const TYPE_ANALYTICS = 'analytics';
 
     /**
      * @var string google analytics universal tracking code
      */
-    const TYPE_UNIVERSAL = 'universal';
+    public const TYPE_UNIVERSAL = 'universal';
 
     protected $_moduleName = 'Mage_GoogleAnalytics';
 

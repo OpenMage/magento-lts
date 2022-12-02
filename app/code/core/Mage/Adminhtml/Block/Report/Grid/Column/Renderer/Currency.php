@@ -25,8 +25,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Report_Grid_Column_Renderer_Currency
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency
+class Mage_Adminhtml_Block_Report_Grid_Column_Renderer_Currency extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency
 {
     /**
      * Renders grid column

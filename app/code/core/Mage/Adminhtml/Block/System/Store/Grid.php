@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_System_Store_Grid extends Mage_Adminhtml_Block_Widget
     {
         $this->addColumn('website_title', [
             'header'        => Mage::helper('core')->__('Website Name'),
-            'align'         =>'left',
+            'align'         => 'left',
             'index'         => 'name',
             'filter_index'  => 'main_table.name',
             'renderer'      => 'adminhtml/system_store_grid_render_website'
@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_System_Store_Grid extends Mage_Adminhtml_Block_Widget
 
         $this->addColumn('group_title', [
             'header'        => Mage::helper('core')->__('Store Name'),
-            'align'         =>'left',
+            'align'         => 'left',
             'index'         => 'group_title',
             'filter_index'  => 'group_table.name',
             'renderer'      => 'adminhtml/system_store_grid_render_group'
@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_System_Store_Grid extends Mage_Adminhtml_Block_Widget
 
         $this->addColumn('store_title', [
             'header'        => Mage::helper('core')->__('Store View Name'),
-            'align'         =>'left',
+            'align'         => 'left',
             'index'         => 'store_title',
             'filter_index'  => 'store_table.name',
             'renderer'      => 'adminhtml/system_store_grid_render_store'

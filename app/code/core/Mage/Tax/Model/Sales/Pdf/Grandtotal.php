@@ -40,7 +40,7 @@ class Mage_Tax_Model_Sales_Pdf_Grandtotal extends Mage_Sales_Model_Order_Pdf_Tot
     public function getTotalsForDisplay()
     {
         $store = $this->getOrder()->getStore();
-        $config= Mage::getSingleton('tax/config');
+        $config = Mage::getSingleton('tax/config');
         if (!$config->displaySalesTaxWithGrandTotal($store)) {
             return parent::getTotalsForDisplay();
         }
@@ -52,7 +52,7 @@ class Mage_Tax_Model_Sales_Pdf_Grandtotal extends Mage_Sales_Model_Order_Pdf_Tot
         $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
 
         $totals = [[
-            'amount'    => $this->getAmountPrefix().$amountExclTax,
+            'amount'    => $this->getAmountPrefix() . $amountExclTax,
             'label'     => Mage::helper('tax')->__('Grand Total (Excl. Tax)') . ':',
             'font_size' => $fontSize
         ]];
@@ -62,12 +62,12 @@ class Mage_Tax_Model_Sales_Pdf_Grandtotal extends Mage_Sales_Model_Order_Pdf_Tot
         }
 
         $totals[] = [
-            'amount'    => $this->getAmountPrefix().$tax,
+            'amount'    => $this->getAmountPrefix() . $tax,
             'label'     => Mage::helper('tax')->__('Tax') . ':',
             'font_size' => $fontSize
         ];
         $totals[] = [
-            'amount'    => $this->getAmountPrefix().$amount,
+            'amount'    => $this->getAmountPrefix() . $amount,
             'label'     => Mage::helper('tax')->__('Grand Total (Incl. Tax)') . ':',
             'font_size' => $fontSize
         ];

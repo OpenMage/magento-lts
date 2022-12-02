@@ -12,16 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Image
+ * @category   Varien
+ * @package    Varien_Image
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @file        Abstract.php
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @file       Abstract.php
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 abstract class Varien_Image_Adapter_Abstract
@@ -33,13 +33,13 @@ abstract class Varien_Image_Adapter_Abstract
      */
     public $imageBackgroundColor = 0;
 
-    const POSITION_TOP_LEFT = 'top-left';
-    const POSITION_TOP_RIGHT = 'top-right';
-    const POSITION_BOTTOM_LEFT = 'bottom-left';
-    const POSITION_BOTTOM_RIGHT = 'bottom-right';
-    const POSITION_STRETCH = 'stretch';
-    const POSITION_TILE = 'tile';
-    const POSITION_CENTER = 'center';
+    public const POSITION_TOP_LEFT = 'top-left';
+    public const POSITION_TOP_RIGHT = 'top-right';
+    public const POSITION_BOTTOM_LEFT = 'bottom-left';
+    public const POSITION_BOTTOM_RIGHT = 'bottom-right';
+    public const POSITION_STRETCH = 'stretch';
+    public const POSITION_TILE = 'tile';
+    public const POSITION_CENTER = 'center';
 
     /**
      * Image file type of the image $this->_fileName
@@ -133,27 +133,27 @@ abstract class Varien_Image_Adapter_Abstract
 
     abstract public function open($fileName);
 
-    abstract public function save($destination=null, $newName=null);
+    abstract public function save($destination = null, $newName = null);
 
     abstract public function display();
 
-    abstract public function resize($width=null, $height=null);
+    abstract public function resize($width = null, $height = null);
 
     abstract public function rotate($angle);
 
-    abstract public function crop($top=0, $left=0, $right=0, $bottom=0);
+    abstract public function crop($top = 0, $left = 0, $right = 0, $bottom = 0);
 
-    abstract public function watermark($watermarkImage, $positionX=0, $positionY=0, $watermarkImageOpacity=30, $repeat=false);
+    abstract public function watermark($watermarkImage, $positionX = 0, $positionY = 0, $watermarkImageOpacity = 30, $repeat = false);
 
     abstract public function checkDependencies();
 
     public function getMimeType()
     {
-        if($this->_fileMimeType){
+        if ($this->_fileMimeType) {
             return $this->_fileMimeType;
         }
         $imageInfo = @getimagesize($this->_fileName);
-        if($imageInfo === false){
+        if ($imageInfo === false) {
             throw new RuntimeException('Failed to read image at ' . $this->_fileName);
         }
         $this->_imageSrcWidth = $imageInfo[0];

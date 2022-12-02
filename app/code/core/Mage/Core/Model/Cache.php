@@ -32,10 +32,10 @@ class Mage_Core_Model_Cache
     /**
      * Cache settings
      */
-    const DEFAULT_LIFETIME  = 7200;
-    const OPTIONS_CACHE_ID  = 'core_cache_options';
-    const INVALIDATED_TYPES = 'core_cache_invalidate';
-    const XML_PATH_TYPES    = 'global/cache/types';
+    public const DEFAULT_LIFETIME  = 7200;
+    public const OPTIONS_CACHE_ID  = 'core_cache_options';
+    public const INVALIDATED_TYPES = 'core_cache_invalidate';
+    public const XML_PATH_TYPES    = 'global/cache/types';
 
     /**
      * Id prefix
@@ -123,7 +123,7 @@ class Mage_Core_Model_Cache
             $this->_idPrefix = $options['prefix'];
         }
         if (empty($this->_idPrefix)) {
-            $this->_idPrefix = substr(md5(Mage::getConfig()->getOptions()->getEtcDir()), 0, 3).'_';
+            $this->_idPrefix = substr(md5(Mage::getConfig()->getOptions()->getEtcDir()), 0, 3) . '_';
         }
 
         $backend    = $this->_getBackendOptions($options);
@@ -366,7 +366,7 @@ class Mage_Core_Model_Cache
      * Load data from cache by id
      *
      * @param   string $id
-     * @return  string
+     * @return  string|false
      */
     public function load($id)
     {
@@ -706,6 +706,6 @@ class Mage_Core_Model_Cache
      */
     protected function _getProcessor($processor)
     {
-        return new $processor;
+        return new $processor();
     }
 }

@@ -161,12 +161,10 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
         }
 
         /**
-         * @todo need use default source model of entity type !!!
+         * Set default source model.
          */
-        if (!$object->getId()) {
-            if ($object->getFrontendInput() == 'select') {
-                $object->setSourceModel('eav/entity_attribute_source_table');
-            }
+        if ($object->usesSource() && !$object->getData('source_model')) {
+            $object->setSourceModel($object->_getDefaultSourceModel());
         }
 
         return parent::_beforeSave($object);
@@ -420,9 +418,9 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     {
         $adapter = $this->_getReadAdapter();
         $joinConditionTemplate = "%s.entity_id = %s.entity_id"
-            ." AND %s.entity_type_id = ".$attribute->getEntityTypeId()
-            ." AND %s.attribute_id = ".$attribute->getId()
-            ." AND %s.store_id = %d";
+            . " AND %s.entity_type_id = " . $attribute->getEntityTypeId()
+            . " AND %s.attribute_id = " . $attribute->getId()
+            . " AND %s.store_id = %d";
         $joinCondition = sprintf(
             $joinConditionTemplate,
             'e',

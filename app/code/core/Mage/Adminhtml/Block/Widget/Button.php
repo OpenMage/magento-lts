@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_Widget_Button extends Mage_Adminhtml_Block_Widget
 {
     public function getType()
     {
-        return ($type=$this->getData('type')) ? $type : 'button';
+        return ($type = $this->getData('type')) ? $type : 'button';
     }
 
     public function getOnClick()
@@ -43,18 +43,18 @@ class Mage_Adminhtml_Block_Widget_Button extends Mage_Adminhtml_Block_Widget
 
     protected function _toHtml()
     {
-        return $this->getBeforeHtml().'<button '
-            . ($this->getId()?' id="'.$this->getId() . '"':'')
-            . ($this->getElementName()?' name="'.$this->getElementName() . '"':'')
+        return $this->getBeforeHtml() . '<button '
+            . ($this->getId() ? ' id="' . $this->getId() . '"' : '')
+            . ($this->getElementName() ? ' name="' . $this->getElementName() . '"' : '')
             . ' title="'
             . Mage::helper('core')->quoteEscape($this->getTitle() ? $this->getTitle() : $this->getLabel())
             . '"'
-            . ' type="'.$this->getType() . '"'
+            . ' type="' . $this->getType() . '"'
             . ' class="scalable ' . $this->getClass() . ($this->getDisabled() ? ' disabled' : '') . '"'
-            . ' onclick="'.$this->getOnClick().'"'
-            . ' style="'.$this->getStyle() .'"'
-            . ($this->getValue()?' value="'.$this->getValue() . '"':'')
+            . ' onclick="' . $this->getOnClick() . '"'
+            . ' style="' . $this->getStyle() . '"'
+            . ($this->getValue() ? ' value="' . $this->getValue() . '"' : '')
             . ($this->getDisabled() ? ' disabled="disabled"' : '')
-            . '><span><span><span>' .$this->getLabel().'</span></span></span></button>'.$this->getAfterHtml();
+            . '><span><span><span>' . $this->getLabel() . '</span></span></span></button>' . $this->getAfterHtml();
     }
 }

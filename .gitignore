@@ -59,6 +59,9 @@
 # .phar (n98-magerun, ...)
 *.phar
 
+# PHP-CS-Fixer cache
+.php-cs-fixer.cache
+
 # ignore files from bc-mysql4
 app/code/core/Mage/*/Model/Mysql4
 !app/code/core/Mage/Dataflow/Model/Mysql4/Catalogold.php

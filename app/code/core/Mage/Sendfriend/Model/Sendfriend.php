@@ -292,7 +292,8 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         // validate array
         if (!is_array($recipients) || !isset($recipients['email'])
             || !isset($recipients['name']) || !is_array($recipients['email'])
-            || !is_array($recipients['name'])) {
+            || !is_array($recipients['name'])
+        ) {
             return $this;
         }
 

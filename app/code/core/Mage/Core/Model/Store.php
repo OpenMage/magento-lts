@@ -54,123 +54,123 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Entity name
      */
-    const ENTITY = 'core_store';
+    public const ENTITY = 'core_store';
 
     /**
      * Configuration pathes
      */
-    const XML_PATH_STORE_STORE_NAME       = 'general/store_information/name';
+    public const XML_PATH_STORE_STORE_NAME       = 'general/store_information/name';
     /**
      *
      */
-    const XML_PATH_STORE_STORE_PHONE      = 'general/store_information/phone';
+    public const XML_PATH_STORE_STORE_PHONE      = 'general/store_information/phone';
     /**
      *
      */
-    const XML_PATH_STORE_STORE_HOURS      = 'general/store_information/hours';
+    public const XML_PATH_STORE_STORE_HOURS      = 'general/store_information/hours';
     /**
      *
      */
-    const XML_PATH_STORE_IN_URL           = 'web/url/use_store';
+    public const XML_PATH_STORE_IN_URL           = 'web/url/use_store';
     /**
      *
      */
-    const XML_PATH_USE_REWRITES           = 'web/seo/use_rewrites';
+    public const XML_PATH_USE_REWRITES           = 'web/seo/use_rewrites';
     /**
      *
      */
-    const XML_PATH_UNSECURE_BASE_URL      = 'web/unsecure/base_url';
+    public const XML_PATH_UNSECURE_BASE_URL      = 'web/unsecure/base_url';
     /**
      *
      */
-    const XML_PATH_SECURE_BASE_URL        = 'web/secure/base_url';
+    public const XML_PATH_SECURE_BASE_URL        = 'web/secure/base_url';
     /**
      *
      */
-    const XML_PATH_SECURE_IN_FRONTEND     = 'web/secure/use_in_frontend';
+    public const XML_PATH_SECURE_IN_FRONTEND     = 'web/secure/use_in_frontend';
     /**
      *
      */
-    const XML_PATH_SECURE_IN_ADMINHTML    = 'web/secure/use_in_adminhtml';
+    public const XML_PATH_SECURE_IN_ADMINHTML    = 'web/secure/use_in_adminhtml';
     /**
      *
      */
-    const XML_PATH_SECURE_BASE_LINK_URL   = 'web/secure/base_link_url';
+    public const XML_PATH_SECURE_BASE_LINK_URL   = 'web/secure/base_link_url';
     /**
      *
      */
-    const XML_PATH_UNSECURE_BASE_LINK_URL = 'web/unsecure/base_link_url';
+    public const XML_PATH_UNSECURE_BASE_LINK_URL = 'web/unsecure/base_link_url';
     /**
      *
      */
-    const XML_PATH_OFFLOADER_HEADER       = 'web/secure/offloader_header';
+    public const XML_PATH_OFFLOADER_HEADER       = 'web/secure/offloader_header';
     /**
      *
      */
-    const XML_PATH_PRICE_SCOPE            = 'catalog/price/scope';
+    public const XML_PATH_PRICE_SCOPE            = 'catalog/price/scope';
 
     /**
      * Price scope constants
      */
-    const PRICE_SCOPE_GLOBAL              = 0;
+    public const PRICE_SCOPE_GLOBAL              = 0;
     /**
      *
      */
-    const PRICE_SCOPE_WEBSITE             = 1;
+    public const PRICE_SCOPE_WEBSITE             = 1;
 
     /**
      * Possible URL types
      */
-    const URL_TYPE_LINK                   = 'link';
+    public const URL_TYPE_LINK                   = 'link';
     /**
      *
      */
-    const URL_TYPE_DIRECT_LINK            = 'direct_link';
+    public const URL_TYPE_DIRECT_LINK            = 'direct_link';
     /**
      *
      */
-    const URL_TYPE_WEB                    = 'web';
+    public const URL_TYPE_WEB                    = 'web';
     /**
      *
      */
-    const URL_TYPE_SKIN                   = 'skin';
+    public const URL_TYPE_SKIN                   = 'skin';
     /**
      *
      */
-    const URL_TYPE_JS                     = 'js';
+    public const URL_TYPE_JS                     = 'js';
     /**
      *
      */
-    const URL_TYPE_MEDIA                  = 'media';
+    public const URL_TYPE_MEDIA                  = 'media';
 
     /**
      * Code constants
      */
-    const DEFAULT_CODE                    = 'default';
+    public const DEFAULT_CODE                    = 'default';
     /**
      *
      */
-    const ADMIN_CODE                      = 'admin';
+    public const ADMIN_CODE                      = 'admin';
 
     /**
      * Cache tag
      */
-    const CACHE_TAG                       = 'store';
+    public const CACHE_TAG                       = 'store';
 
     /**
      * Cookie name
      */
-    const COOKIE_NAME                     = 'store';
+    public const COOKIE_NAME                     = 'store';
 
     /**
      * Cookie currency key
      */
-    const COOKIE_CURRENCY                 = 'currency';
+    public const COOKIE_CURRENCY                 = 'currency';
 
     /**
      * Script name, which returns all the images
      */
-    const MEDIA_REWRITE_SCRIPT            = 'get.php/';
+    public const MEDIA_REWRITE_SCRIPT            = 'get.php/';
 
     /**
      * Cache flag
@@ -311,7 +311,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     {
         if (!$this->_session) {
             $this->_session = Mage::getModel('core/session')
-                ->init('store_'.$this->getCode());
+                ->init('store_' . $this->getCode());
         }
         return $this->_session;
     }
@@ -804,7 +804,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $offloaderHeader = strtoupper(trim((string) Mage::getStoreConfig(self::XML_PATH_OFFLOADER_HEADER)));
             if ($offloaderHeader) {
                 $offloaderHeader = preg_replace('/[^A-Z]+/', '_', $offloaderHeader);
-                $offloaderHeader = strpos($offloaderHeader, 'HTTP_') === 0 ? $offloaderHeader : 'HTTP_'.$offloaderHeader;
+                $offloaderHeader = strpos($offloaderHeader, 'HTTP_') === 0 ? $offloaderHeader : 'HTTP_' . $offloaderHeader;
                 if (!empty($_SERVER[$offloaderHeader]) && $_SERVER[$offloaderHeader] !== 'http') {
                     return true;
                 }
@@ -825,8 +825,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getBaseCurrencyCode()
     {
-        $configValue = $this->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE);
-        if ($configValue == Mage_Core_Model_Store::PRICE_SCOPE_GLOBAL) {
+        $configValue = $this->getConfig(self::XML_PATH_PRICE_SCOPE);
+        if ($configValue == self::PRICE_SCOPE_GLOBAL) {
             return Mage::app()->getBaseCurrencyCode();
         } else {
             return $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
@@ -1174,7 +1174,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $storeParsedQuery[$k] = $v;
         }
 
-        if (!Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL, $this->getCode())) {
+        if (!Mage::getStoreConfigFlag(self::XML_PATH_STORE_IN_URL, $this->getCode())) {
             $storeParsedQuery['___store'] = $this->getCode();
         }
         if ($fromStore !== false) {
@@ -1184,7 +1184,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         return $storeParsedUrl['scheme'] . '://' . $storeParsedUrl['host']
             . (isset($storeParsedUrl['port']) ? ':' . $storeParsedUrl['port'] : '')
             . $storeParsedUrl['path'] . $requestString
-            . ($storeParsedQuery ? '?'.http_build_query($storeParsedQuery, '', '&amp;') : '');
+            . ($storeParsedQuery ? '?' . http_build_query($storeParsedQuery, '', '&amp;') : '');
     }
 
     /**
