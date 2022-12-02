@@ -101,6 +101,16 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Api/Tab/Userroles.php
 
 		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Backup_Model_Fs_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Backup/Grid.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Varien_Data_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Cache/Grid.php
+
+		-
 			message: "#^Return type \\(false\\) of method Mage_Adminhtml_Block_Cache_Grid\\:\\:getRowUrl\\(\\) should be compatible with return type \\(string\\) of method Mage_Adminhtml_Block_Widget_Grid\\:\\:getRowUrl\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Cache/Grid.php
@@ -139,6 +149,11 @@ parameters:
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Design.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Product.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Catalog_Category_Tree\\:\\:_getNodeJson\\(\\) should return string but returns array\\<string, mixed\\>\\.$#"
@@ -256,6 +271,16 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Js.php
 
 		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_ProductAlert_Model_Resource_Price_Customer_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Alerts/Price.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_ProductAlert_Model_Resource_Stock_Customer_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Alerts/Stock.php
+
+		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 4
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Attributes.php
@@ -296,6 +321,11 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Categories.php
 
 		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Link_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Crosssell.php
+
+		-
 			message: "#^If condition is always true\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Inventory.php
@@ -321,6 +351,16 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Price/Group/Abstract.php
 
 		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Link_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Related.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Config/Grid.php
+
+		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 2 parameters, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Config/Simple.php
@@ -331,9 +371,24 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Config/Simple.php
 
 		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Link_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Group.php
+
+		-
 			message: "#^Method Mage_Catalog_Model_Product_Type_Configurable\\:\\:canUseAttribute\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Settings.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Tag_Model_Resource_Customer_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Tag/Customer.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Link_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Upsell.php
 
 		-
 			message: "#^Parameter \\#2 \\$replace of function str_replace expects array\\|string, int given\\.$#"
@@ -351,6 +406,11 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Grid.php
 
 		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Grid.php
+
+		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute\\:\\:isScopeGlobal\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Helper/Form/Gallery.php
@@ -364,6 +424,11 @@ parameters:
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute\\:\\:isScopeWebsite\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Helper/Form/Gallery.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Widget/Chooser.php
 
 		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
@@ -436,6 +501,16 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Addresses.php
 
 		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Tag_Model_Resource_Customer_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Tag.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Customer_Model_Resource_Customer_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Tags.php
+
+		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View.php
@@ -486,6 +561,11 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Form/Element/File.php
 
 		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Customer_Model_Resource_Customer_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Grid.php
+
+		-
 			message: "#^Method Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat\\:\\:getValidateButton\\(\\) should return Mage_Adminhtml_Block_Widget_Button but returns Mage_Core_Block_Abstract\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Sales/Order/Address/Form/Renderer/Vat.php
@@ -519,6 +599,16 @@ parameters:
 			message: "#^Variable \\$localminvalue might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Customer_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Dashboard/Tab/Customers/Newest.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Dashboard/Tab/Products/Viewed.php
 
 		-
 			message: "#^Call to function is_null\\(\\) with Varien_Object will always evaluate to false\\.$#"
@@ -586,11 +676,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Permissions/Grid/User.php
 
 		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Permissions/Role/Grid/User.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Permissions/Tab/Rolesedit.php
@@ -599,11 +684,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Admin_Model_Resource_Roles_User_Collection\\:\\:setUserFilter\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Permissions/Tab/Userroles.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Permissions/User/Edit/Tab/Roles.php
 
 		-
 			message: "#^Call to method getCollection\\(\\) on an unknown class Mage_Permissions_Model_Roles\\.$#"
@@ -646,6 +726,11 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Promo/Widget/Chooser/Daterange.php
 
 		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Promo/Widget/Chooser/Sku.php
+
+		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Rating/Edit/Tab/Form.php
@@ -661,7 +746,7 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Varien_Data_Collection, Mage_Reports_Model_Resource_Report_Collection given\\.$#"
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Report_Collection given\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid.php
 
@@ -686,11 +771,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Varien_Data_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
-
-		-
 			message: "#^Cannot call method setPeriod\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 4
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
@@ -701,12 +781,12 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Report_Grid_Abstract\\:\\:getCollection\\(\\) should return Mage_Reports_Model_Grouped_Collection but returns Varien_Data_Collection\\.$#"
+			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Grouped_Collection given\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
 
@@ -726,12 +806,22 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid/Column/Renderer/Currency.php
 
 		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Product_Downloads_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Report/Product/Downloads/Grid.php
+
+		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:setStore\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php
 
 		-
 			message: "#^Method Mage_Reports_Model_Totals\\:\\:countTotals\\(\\) invoked with 1 parameter, 3 required\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Product_Collection given\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php
 
@@ -746,9 +836,24 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php
 
 		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Product_Lowstock_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Report/Product/Lowstock/Grid.php
+
+		-
 			message: "#^Parameter \\#1 \\$fields of method Mage_Reports_Model_Resource_Product_Lowstock_Collection\\:\\:joinInventoryItem\\(\\) expects array, string given\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Product/Lowstock/Grid.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Varien_Data_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Report/Refresh/Statistics/Grid.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Review_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Report/Review/Product/Grid.php
 
 		-
 			message: "#^Call to an undefined method Mage_Reports_Model_Resource_Report_Collection_Abstract\\:\\:addRuleFilter\\(\\)\\.$#"
@@ -771,14 +876,49 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Abandoned/Grid.php
 
 		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Customer_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Customer/Grid.php
+
+		-
 			message: "#^Return type \\(void\\) of method Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid\\:\\:_afterLoadCollection\\(\\) should be compatible with return type \\(\\$this\\(Mage_Adminhtml_Block_Widget_Grid\\)\\) of method Mage_Adminhtml_Block_Widget_Grid\\:\\:_afterLoadCollection\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Customer/Grid.php
 
 		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Tag_Model_Resource_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Report/Tag/Customer/Detail/Grid.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Tag_Customer_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Report/Tag/Customer/Grid.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Tag_Customer_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Report/Tag/Popular/Detail/Grid.php
+
+		-
 			message: "#^Parameter \\#1 \\$statusCode of method Mage_Tag_Model_Resource_Popular_Collection\\:\\:addStatusFilter\\(\\) expects string, int given\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Tag/Popular/Grid.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Tag_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Report/Tag/Product/Detail/Grid.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Tag_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Report/Tag/Product/Grid.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Wishlist_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Report/Wishlist/Grid.php
 
 		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
@@ -789,6 +929,11 @@ parameters:
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Review/Edit/Form.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Review_Model_Resource_Review_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Review/Grid.php
 
 		-
 			message: "#^Return type \\(void\\) of method Mage_Adminhtml_Block_Review_Grid\\:\\:_prepareMassaction\\(\\) should be compatible with return type \\(\\$this\\(Mage_Adminhtml_Block_Widget_Grid\\)\\) of method Mage_Adminhtml_Block_Widget_Grid\\:\\:_prepareMassaction\\(\\)$#"
@@ -834,6 +979,11 @@ parameters:
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Billing/Method/Form.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Customer_Model_Resource_Customer_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Customer/Grid.php
 
 		-
 			message: "#^Parameter \\#1 \\$currency of method Mage_Directory_Model_Currency\\:\\:getCurrencyRates\\(\\) expects string, Mage_Directory_Model_Currency given\\.$#"
@@ -944,6 +1094,11 @@ parameters:
 			message: "#^Call to method getIsOldCustomer\\(\\) on an unknown class Mage_Adminhtml_Model_Quote\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Newsletter.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Search/Grid.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address\\:\\:getAddress\\(\\) should return Mage_Customer_Model_Address but returns Mage_Sales_Model_Quote_Address\\.$#"
@@ -1181,6 +1336,11 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Reorder/Renderer/Action.php
 
 		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Varien_Data_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Transactions/Detail/Grid.php
+
+		-
 			message: "#^Ternary operator condition is always true\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Transactions/Grid.php
@@ -1391,6 +1551,16 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
 
 		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Assigned/Grid.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Tag_Model_Resource_Customer_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Customer/Grid.php
+
+		-
 			message: "#^Call to an undefined method Mage_Tag_Model_Resource_Tag_Collection\\:\\:addAttributeToFilter\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Grid/All.php
@@ -1404,6 +1574,26 @@ parameters:
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Grid/Customers.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Tag_Model_Resource_Customer_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Grid/Customers.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Tag_Model_Resource_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Grid/Products.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Tag_Model_Resource_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Product/Grid.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Grid.php
 
 		-
 			message: "#^Binary operation \"\\*\" between string and 1 results in an error\\.$#"
@@ -1469,16 +1659,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Form.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:getSelect\\(\\)\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
@@ -2456,6 +2636,11 @@ parameters:
 			path: ../app/code/core/Mage/Api/Model/Wsdl/Config/Element.php
 
 		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Varien_Data_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Api2/Block/Adminhtml/Attribute/Grid.php
+
+		-
 			message: "#^Return type \\(void\\) of method Mage_Api2_Block_Adminhtml_Attribute_Grid\\:\\:_prepareCollection\\(\\) should be compatible with return type \\(\\$this\\(Mage_Adminhtml_Block_Widget_Grid\\)\\) of method Mage_Adminhtml_Block_Widget_Grid\\:\\:_prepareCollection\\(\\)$#"
 			count: 1
 			path: ../app/code/core/Mage/Api2/Block/Adminhtml/Attribute/Grid.php
@@ -2464,11 +2649,6 @@ parameters:
 			message: "#^Property Mage_Api2_Block_Adminhtml_Attribute_Tab_Resource\\:\\:\\$_treeModel \\(Mage_Api2_Model_Acl_Global_Rule_Tree\\) does not accept default value of type false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Api2/Block/Adminhtml/Attribute/Tab/Resource.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Api2/Block/Adminhtml/Permissions/User/Edit/Tab/Roles.php
 
 		-
 			message: "#^Property Mage_Api2_Block_Adminhtml_Roles_Tab_Resources\\:\\:\\$_treeModel \\(Mage_Api2_Model_Acl_Global_Rule_Tree\\) does not accept default value of type false\\.$#"
@@ -2874,6 +3054,11 @@ parameters:
 			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Edit/Tab/Bundle/Option.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Edit/Tab/Bundle/Option/Search/Grid.php
 
 		-
 			message: "#^Method Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection\\:\\:isUsedWebsitePrice\\(\\) should return string but returns bool\\.$#"
