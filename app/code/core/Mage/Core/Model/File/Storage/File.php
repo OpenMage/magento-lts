@@ -266,8 +266,6 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
         } else {
             Mage::throwException(Mage::helper('core')->__('Wrong file info format'));
         }
-
-        return false;
     }
 
     /**
