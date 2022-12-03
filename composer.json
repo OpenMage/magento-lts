@@ -22,7 +22,12 @@
     "ext-simplexml": "*",
     "ext-soap": "*",
     "ext-zlib": "*",
-    "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0"
+    "colinmollenhour/cache-backend-redis": "^1.14",
+    "colinmollenhour/magento-redis-session": "^3.0",
+    "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
+    "pelago/emogrifier": "^6.0",
+    "phpseclib/mcrypt_compat": "^2.0.3",
+    "phpseclib/phpseclib": "^3.0.14"
   },
   "require-dev": {
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
