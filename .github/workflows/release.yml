@@ -32,6 +32,8 @@ jobs:
       run: mkdir -p lib/phpseclib; cp -R vendor/phpseclib/phpseclib/phpseclib/Crypt lib/phpseclib
     - name: "Move Emogrifier to /lib"
       run: mkdir -p lib/Pelago; cp -R vendor/pelago/emogrifier/src lib/Pelago/Emogrifier
+    - name: "Move Sabberworm to /lib"
+      run: mkdir -p lib/Sabberworm; cp -R vendor/sabberworm/php-css-parser/src lib/Sabberworm/CSS
     - name: "Reset composer.json"
       run: git checkout composer.json
     - name: "Removing vendor folder"
