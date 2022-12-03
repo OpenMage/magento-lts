@@ -23,38 +23,8 @@
  * @category   Mage
  * @package    Mage_Core
  * @author     Magento Core Team <core@magentocommerce.com>
- *
- * @method array getData(string $value)
- * @method $this setData(string $value, array $value)
+ * @deprecated
  */
-class Mage_Core_Model_Mysql4_Design_Theme_Collection extends Varien_Directory_Collection
+class Mage_Core_Model_Mysql4_Design_Theme_Collection extends Mage_Core_Model_Resource_Design_Theme_Collection
 {
-    /**
-     * @return $this
-     */
-    public function load()
-    {
-        $packages = $this->getData('themes');
-        if (is_null($packages)) {
-            $packages = Mage::getModel('core/design_package')->getThemeList();
-            $this->setData('themes', $packages);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function toOptionArray()
-    {
-        $options = [];
-        $packages = $this->getData('themes');
-        foreach ($packages as $package) {
-            $options[] = ['value' => $package, 'label' => $package];
-        }
-        array_unshift($options, ['value' => '', 'label' => '']);
-
-        return $options;
-    }
 }

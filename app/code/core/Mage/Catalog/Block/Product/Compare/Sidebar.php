@@ -31,7 +31,7 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
     /**
      * Compare Products Collection
      *
-     * @var null|Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection
+     * @var null|Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      */
     protected $_itemsCollection = null;
 
@@ -47,7 +47,7 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
     /**
      * Retrieve Compare Products Collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      */
     public function getItems()
     {
@@ -60,7 +60,7 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
     /**
      * Set Compare Products Collection
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection $collection
+     * @param Mage_Catalog_Model_Resource_Product_Compare_Item_Collection $collection
      * @return $this
      */
     public function setItems($collection)
