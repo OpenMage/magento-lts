@@ -202,6 +202,7 @@ abstract class Mage_Api2_Model_Resource
                 // Creation of objects is possible only when working with collection
                 $this->_critical(self::RESOURCE_METHOD_NOT_IMPLEMENTED);
                 // exception thrown
+                // no break
             case self::ACTION_TYPE_COLLECTION . self::OPERATION_CREATE:
                 // If no of the methods(multi or single) is implemented, request body is not checked
                 if (!$this->_checkMethodExist('_create') && !$this->_checkMethodExist('_multiCreate')) {
