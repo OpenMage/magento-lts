@@ -413,10 +413,12 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
         $this->setFilesFilter($filter);
     }
     /**
-     * add filter
-     * @return  none
+     * @param string $field
+     * @param string|array $value
+     * @param string $type and|or|string
+     * @return $this
      */
-    public function addFilter($field, $value)
+    public function addFilter($field, $value, $type = 'and')
     {
         $filter = [];
         $filter['field']   = $field;

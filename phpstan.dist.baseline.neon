@@ -3556,11 +3556,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Product/List.php
 
 		-
-			message: "#^Property Mage_Catalog_Block_Product_List_Crosssell\\:\\:\\$_itemCollection \\(Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection\\) does not accept Mage_Catalog_Model_Resource_Product_Link_Product_Collection\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/List/Crosssell.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with Mage_Eav_Model_Entity_Collection_Abstract will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/List/Promotion.php
@@ -3837,11 +3832,6 @@ parameters:
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Helper/Product/Compare.php
-
-		-
-			message: "#^Property Mage_Catalog_Helper_Product_Compare\\:\\:\\$_itemCollection \\(Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection\\) does not accept Mage_Catalog_Model_Resource_Product_Compare_Item_Collection\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Helper/Product/Compare.php
 
@@ -4559,11 +4549,6 @@ parameters:
 			message: "#^Parameter \\#5 \\$identifierType \\(null\\) of method Mage_Catalog_Model_Product_Link_Api_V2\\:\\:update\\(\\) should be compatible with parameter \\$identifierType \\(string\\) of method Mage_Catalog_Model_Product_Link_Api\\:\\:update\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Link/Api/V2.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Product_Option\\:\\:getValuesCollection\\(\\) should return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Value_Collection but returns Mage_Catalog_Model_Resource_Product_Option_Value_Collection\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Product_Option\\:\\:groupFactory\\(\\) should return Mage_Catalog_Model_Product_Option_Type_Default but returns Mage_Core_Model_Abstract\\|false\\.$#"
