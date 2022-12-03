@@ -21,7 +21,7 @@ jobs:
     - name: "Switching to composer deploy strategy copy"
       run: sed -i 's/"magento-root-dir"/"magento-deploystrategy":"copy","magento-root-dir"/' composer.json
     - name: "Composer install"
-      uses: MilesChou/composer-action/8.0@master
+      uses: MilesChou/composer-action/8.1@master
       with:
         args: install --ignore-platform-req=ext-* --no-dev
     - name: "Move Cm_Cache_Backend_Redis to /lib"
@@ -33,7 +33,7 @@ jobs:
     - name: "Reset composer.json"
       run: git checkout composer.json
     - name: "Removing vendor folder"
-      run: rm -rf vendor
+      run: sudo rm -rf vendor
     - name: "Create ZIP file"
       run: zip -rq openmage-${{ github.event.release.tag_name }}-php${{ matrix.php-versions }}.zip . -x ".git/*"
     - name: "Attach ZIP to GitHub release"
