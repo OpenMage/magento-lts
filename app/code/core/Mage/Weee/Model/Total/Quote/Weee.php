@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Weee
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -302,7 +303,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 ->unsBasePriceInclTax();
         }
         if ($this->_helper->isTaxable($this->_store)
-            && !$this->_helper->isTaxIncluded($this->_store) && $rowValue) {
+            && !$this->_helper->isTaxIncluded($this->_store) && $rowValue
+        ) {
             if (!$this->_helper->includeInSubtotal($this->_store)) {
                 $item->setExtraTaxableAmount($value)
                     ->setBaseExtraTaxableAmount($baseValue)
@@ -431,8 +433,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             $baseValue = $attribute->getAmount();
             $value = $store->convertPrice($baseValue);
 
-            $rowValue = $value*$item->getQty();
-            $baseRowValue = $baseValue*$item->getQty();
+            $rowValue = $value * $item->getQty();
+            $baseRowValue = $baseValue * $item->getQty();
 
             $title = $attribute->getName();
 
@@ -440,14 +442,14 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
              * Apply discount to fixed tax
              */
             if ($item->getDiscountPercent() && $this->_helper->isDiscounted($store)) {
-                $valueDiscount = $value/100*$item->getDiscountPercent();
-                $baseValueDiscount = $baseValue/100*$item->getDiscountPercent();
+                $valueDiscount = $value / 100 * $item->getDiscountPercent();
+                $baseValueDiscount = $baseValue / 100 * $item->getDiscountPercent();
 
-                $rowValueDiscount = $rowValue/100*$item->getDiscountPercent();
-                $baseRowValueDiscount = $baseRowValue/100*$item->getDiscountPercent();
+                $rowValueDiscount = $rowValue / 100 * $item->getDiscountPercent();
+                $baseRowValueDiscount = $baseRowValue / 100 * $item->getDiscountPercent();
 
-                $address->setDiscountAmount($address->getDiscountAmount()+$rowValueDiscount);
-                $address->setBaseDiscountAmount($address->getBaseDiscountAmount()+$baseRowValueDiscount);
+                $address->setDiscountAmount($address->getDiscountAmount() + $rowValueDiscount);
+                $address->setBaseDiscountAmount($address->getBaseDiscountAmount() + $baseRowValueDiscount);
 
                 $address->setGrandTotal($address->getGrandTotal() - $rowValueDiscount);
                 $address->setBaseGrandTotal($address->getBaseGrandTotal() - $baseRowValueDiscount);
@@ -467,14 +469,14 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 $valueBeforeVAT = $rowValue;
                 $baseValueBeforeVAT = $baseRowValue;
 
-                $oneDisposition = $store->roundPrice($value/(100+$defaultPercent)*$currentPercent);
-                $baseOneDisposition = $store->roundPrice($baseValue/(100+$defaultPercent)*$currentPercent);
+                $oneDisposition = $store->roundPrice($value / (100 + $defaultPercent) * $currentPercent);
+                $baseOneDisposition = $store->roundPrice($baseValue / (100 + $defaultPercent) * $currentPercent);
 
-                $disposition = $store->roundPrice($rowValue/(100+$defaultPercent)*$currentPercent);
-                $baseDisposition = $store->roundPrice($baseRowValue/(100+$defaultPercent)*$currentPercent);
+                $disposition = $store->roundPrice($rowValue / (100 + $defaultPercent) * $currentPercent);
+                $baseDisposition = $store->roundPrice($baseRowValue / (100 + $defaultPercent) * $currentPercent);
 
-                $item->setBaseTaxAmount($item->getBaseTaxAmount()+$baseDisposition);
-                $item->setTaxAmount($item->getTaxAmount()+$disposition);
+                $item->setBaseTaxAmount($item->getBaseTaxAmount() + $baseDisposition);
+                $item->setTaxAmount($item->getTaxAmount() + $disposition);
 
                 $value -= $oneDisposition;
                 $baseValue -= $baseOneDisposition;
@@ -496,8 +498,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 $this->_saveAppliedTaxes(
                     $address,
                     $taxCalculationModel->getAppliedRates($request),
-                    $store->roundPrice($valueBeforeVAT-$rowValue),
-                    $store->roundPrice($baseValueBeforeVAT-$baseRowValue),
+                    $store->roundPrice($valueBeforeVAT - $rowValue),
+                    $store->roundPrice($baseValueBeforeVAT - $baseRowValue),
                     $rate
                 );
 
@@ -528,11 +530,11 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 'row_amount' => $rowValue,
                 'base_row_amount' => $baseRowValue,
 
-                'base_amount_incl_tax' => $baseValue+$baseOneDisposition,
-                'amount_incl_tax' => $value+$oneDisposition,
+                'base_amount_incl_tax' => $baseValue + $baseOneDisposition,
+                'amount_incl_tax' => $value + $oneDisposition,
 
-                'row_amount_incl_tax' => $rowValue+$disposition,
-                'base_row_amount_incl_tax' => $baseRowValue+$baseDisposition,
+                'row_amount_incl_tax' => $rowValue + $disposition,
+                'base_row_amount_incl_tax' => $baseRowValue + $baseDisposition,
             ];
 
             $applied[] = [

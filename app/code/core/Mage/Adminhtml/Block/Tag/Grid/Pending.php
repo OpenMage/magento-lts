@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -95,7 +96,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
                 'type'      => 'store',
                 'index'     => 'stores',
                 'sortable'  => false,
-                'store_view'=> true
+                'store_view' => true
             ]);
         }
 
@@ -137,7 +138,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
         $this->getMassactionBlock()->setFormFieldName('tag');
 
         $this->getMassactionBlock()->addItem('delete', [
-             'label'=> Mage::helper('tag')->__('Delete'),
+             'label' => Mage::helper('tag')->__('Delete'),
              'url'  => $this->getUrl('*/*/massDelete', ['ret' => 'pending']),
              'confirm' => Mage::helper('tag')->__('Are you sure?')
         ]);
@@ -146,11 +147,11 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
         $helper = $this->helper('tag/data');
         $statuses = $helper->getStatusesOptionsArray();
 
-        array_unshift($statuses, ['label'=>'', 'value'=>'']);
+        array_unshift($statuses, ['label' => '', 'value' => '']);
 
         $this->getMassactionBlock()->addItem('status', [
-             'label'=> Mage::helper('tag')->__('Change status'),
-             'url'  => $this->getUrl('*/*/massStatus', ['_current'=>true, 'ret' => 'pending']),
+             'label' => Mage::helper('tag')->__('Change status'),
+             'url'  => $this->getUrl('*/*/massStatus', ['_current' => true, 'ret' => 'pending']),
              'additional' => [
                     'visibility' => [
                          'name' => 'status',

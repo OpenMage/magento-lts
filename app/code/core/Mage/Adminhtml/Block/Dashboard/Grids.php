@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,19 +62,19 @@ class Mage_Adminhtml_Block_Dashboard_Grids extends Mage_Adminhtml_Block_Widget_T
         // load other tabs with ajax
         $this->addTab('reviewed_products', [
             'label'     => $this->__('Most Viewed Products'),
-            'url'       => $this->getUrl('*/*/productsViewed', ['_current'=>true]),
+            'url'       => $this->getUrl('*/*/productsViewed', ['_current' => true]),
             'class'     => 'ajax'
         ]);
 
         $this->addTab('new_customers', [
             'label'     => $this->__('New Customers'),
-            'url'       => $this->getUrl('*/*/customersNewest', ['_current'=>true]),
+            'url'       => $this->getUrl('*/*/customersNewest', ['_current' => true]),
             'class'     => 'ajax'
         ]);
 
         $this->addTab('customers', [
             'label'     => $this->__('Customers'),
-            'url'       => $this->getUrl('*/*/customersMost', ['_current'=>true]),
+            'url'       => $this->getUrl('*/*/customersMost', ['_current' => true]),
             'class'     => 'ajax'
         ]);
 

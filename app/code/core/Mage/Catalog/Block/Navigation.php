@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -275,7 +276,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         $linkClass = '';
         if ($isOutermost && $outermostItemClass) {
             $classes[] = $outermostItemClass;
-            $linkClass = ' class="'.$outermostItemClass.'"';
+            $linkClass = ' class="' . $outermostItemClass . '"';
         }
         if ($isFirst) {
             $classes[] = 'first';
@@ -293,8 +294,8 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
             $attributes['class'] = implode(' ', $classes);
         }
         if ($hasActiveChildren && !$noEventAttributes) {
-             $attributes['onmouseover'] = 'toggleMenu(this,1)';
-             $attributes['onmouseout'] = 'toggleMenu(this,0)';
+            $attributes['onmouseover'] = 'toggleMenu(this,1)';
+            $attributes['onmouseout'] = 'toggleMenu(this,0)';
         }
 
         // assemble list item with attributes
@@ -305,7 +306,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         $htmlLi .= '>';
         $html[] = $htmlLi;
 
-        $html[] = '<a href="'.$this->getCategoryUrl($category).'"'.$linkClass.'>';
+        $html[] = '<a href="' . $this->getCategoryUrl($category) . '"' . $linkClass . '>';
         $html[] = '<span>' . $this->escapeHtml($category->getName()) . '</span>';
         $html[] = '</a>';
 
@@ -397,7 +398,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         }
 
         $html .= '>' . "\n";
-        $html .= '<a href="'.$this->getCategoryUrl($category).'">'
+        $html .= '<a href="' . $this->getCategoryUrl($category) . '">'
             . '<span>' . $this->escapeHtml($category->getName()) . '</span></a>' . "\n";
 
         if (in_array($category->getId(), $this->getCurrentCategoryPath())) {
@@ -415,7 +416,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
                 }
             }
         }
-        $html .= '</li>'."\n";
+        $html .= '</li>' . "\n";
 
         return $html;
     }

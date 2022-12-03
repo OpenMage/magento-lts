@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,11 +34,11 @@
  */
 abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_Template
 {
-    const XML_PATH_DESIGN_EMAIL_LOGO            = 'design/email/logo';
-    const XML_PATH_DESIGN_EMAIL_LOGO_ALT        = 'design/email/logo_alt';
-    const XML_PATH_DESIGN_EMAIL_LOGO_WIDTH      = 'design/email/logo_width';
-    const XML_PATH_DESIGN_EMAIL_LOGO_HEIGHT     = 'design/email/logo_height';
-    const XML_PATH_CSS_NON_INLINE_FILES         = 'design/email/css_non_inline';
+    public const XML_PATH_DESIGN_EMAIL_LOGO            = 'design/email/logo';
+    public const XML_PATH_DESIGN_EMAIL_LOGO_ALT        = 'design/email/logo_alt';
+    public const XML_PATH_DESIGN_EMAIL_LOGO_WIDTH      = 'design/email/logo_width';
+    public const XML_PATH_DESIGN_EMAIL_LOGO_HEIGHT     = 'design/email/logo_height';
+    public const XML_PATH_CSS_NON_INLINE_FILES         = 'design/email/css_non_inline';
 
     protected $_cssFileCache = [];
 
@@ -80,7 +81,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             $storeId = $this->getDesignConfig()->getStore();
 
             $data = &$defaultTemplates[$templateId];
-            $this->setTemplateType($data['type']=='html' ? self::TYPE_HTML : self::TYPE_TEXT);
+            $this->setTemplateType($data['type'] == 'html' ? self::TYPE_HTML : self::TYPE_TEXT);
 
             $localeCode = Mage::getStoreConfig('general/locale/code', $storeId);
             $templateText = Mage::app()->getTranslator()->getTemplateFile(
@@ -146,7 +147,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      *
      * @param array $variables
      * @param int $storeId
-     * @return mixed
+     * @return array
      */
     protected function _addEmailVariables($variables, $storeId)
     {
@@ -196,13 +197,10 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             // Only run Emogrify if HTML exists
             if (strlen($html) && $inlineCssFile) {
                 $cssToInline = $this->_getCssFileContent($inlineCssFile);
-                $emogrifier = new Pelago_Emogrifier();
-                $emogrifier->setHtml($html);
-                $emogrifier->setCss($cssToInline);
-                // Don't parse inline <style> tags, since existing tag is intentionally for no-inline styles
-                $emogrifier->setParseInlineStyleTags(false);
-
-                $processedHtml = $emogrifier->emogrify();
+                $emogrifier = \Pelago\Emogrifier\CssInliner::fromHtml($html)
+                    ->inlineCss($cssToInline)
+                    ->disableInlineStyleAttributesParsing();
+                $processedHtml = $emogrifier->render();
             } else {
                 $processedHtml = $html;
             }

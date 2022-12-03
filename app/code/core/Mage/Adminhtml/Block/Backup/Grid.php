@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,7 +57,7 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->getMassactionBlock()->setFormFieldName('ids');
 
         $this->getMassactionBlock()->addItem('delete', [
-             'label'=> Mage::helper('adminhtml')->__('Delete'),
+             'label' => Mage::helper('adminhtml')->__('Delete'),
              'url'  => $this->getUrl('*/*/massDelete'),
              'confirm' => Mage::helper('backup')->__('Are you sure you want to delete the selected backup(s)?')
         ]);
@@ -107,13 +108,13 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->addColumn('download', [
             'header'    => Mage::helper('backup')->__('Download'),
             'format'    => '<a href="' . $this->getUrl('*/*/download', ['time' => '$time', 'type' => '$type'])
-                . '">$extension</a> &nbsp; <small>('.$url7zip.')</small>',
+                . '">$extension</a> &nbsp; <small>(' . $url7zip . ')</small>',
             'index'     => 'type',
             'sortable'  => false,
             'filter'    => false
         ]);
 
-        if (Mage::helper('backup')->isRollbackAllowed()){
+        if (Mage::helper('backup')->isRollbackAllowed()) {
             $this->addColumn('action', [
                     'header'   => Mage::helper('backup')->__('Action'),
                     'type'     => 'action',

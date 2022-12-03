@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -174,10 +175,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     public function getExtractedData($index = null)
     {
         if (!is_null($index)) {
-            if (isset($this->_extractedData[$index])) {
-                return $this->_extractedData[$index];
-            }
-            return null;
+            return $this->_extractedData[$index] ?? null;
         }
         return $this->_extractedData;
     }
@@ -186,7 +184,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Apply attribute input filter to value
      *
      * @param string $value
-     * @return string
+     * @return false|string
      */
     protected function _applyInputFilter($value)
     {
@@ -491,21 +489,13 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                 $params = $request->getParams();
                 $parts = explode('/', $this->_requestScope);
                 foreach ($parts as $part) {
-                    if (isset($params[$part])) {
-                        $params = $params[$part];
-                    } else {
-                        $params = [];
-                    }
+                    $params = $params[$part] ?? [];
                 }
             } else {
                 $params = $request->getParam($this->_requestScope);
             }
 
-            if (isset($params[$attrCode])) {
-                $value = $params[$attrCode];
-            } else {
-                $value = false;
-            }
+            $value = $params[$attrCode] ?? false;
 
             if (!$this->_requestScopeOnly && $value === false) {
                 $value = $request->getParam($attrCode, false);
@@ -550,7 +540,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     abstract public function restoreValue($value);
 
     /**
-     * Return formated attribute value from entity model
+     * Return formatted attribute value from entity model
      *
      * @param string $format
      * @return string|array

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Dataflow
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +34,7 @@ $dataflowData = [
         'direction'    => 'export',
         'entity_type'  => 'product',
         'store_id'     => 0,
-        'data_transfer'=> 'file'
+        'data_transfer' => 'file'
     ],
     [
         'name'         => 'Export Product Stocks',
@@ -42,7 +43,7 @@ $dataflowData = [
         'direction'    => 'export',
         'entity_type'  => 'product',
         'store_id'     => 0,
-        'data_transfer'=> 'file'
+        'data_transfer' => 'file'
     ],
     [
         'name'         => 'Import All Products',
@@ -51,7 +52,7 @@ $dataflowData = [
         'direction'    => 'import',
         'entity_type'  => 'product',
         'store_id'     => 0,
-        'data_transfer'=> 'interactive'
+        'data_transfer' => 'interactive'
     ],
     [
         'name'         => 'Import Product Stocks',
@@ -60,7 +61,7 @@ $dataflowData = [
         'direction'    => 'import',
         'entity_type'  => 'product',
         'store_id'     => 0,
-        'data_transfer'=> 'interactive'
+        'data_transfer' => 'interactive'
     ],
     [
         'name'         => 'Export Customers',
@@ -69,7 +70,7 @@ $dataflowData = [
         'direction'    => 'export',
         'entity_type'  => 'customer',
         'store_id'     => 0,
-        'data_transfer'=> 'file'
+        'data_transfer' => 'file'
     ],
     [
         'name'         => 'Import Customers',
@@ -78,7 +79,7 @@ $dataflowData = [
         'direction'    => 'import',
         'entity_type'  => 'customer',
         'store_id'     => 0,
-        'data_transfer'=> 'interactive'
+        'data_transfer' => 'interactive'
     ],
 ];
 

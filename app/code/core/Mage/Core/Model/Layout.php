@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -158,11 +159,11 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 $attributes = $infoNode->attributes();
                 $blockName = (string)$attributes->name;
                 if ($blockName) {
-                    $ignoreNodes = $xml->xpath("//block[@name='".$blockName."']");
+                    $ignoreNodes = $xml->xpath("//block[@name='" . $blockName . "']");
                     if (!is_array($ignoreNodes)) {
                         continue;
                     }
-                    $ignoreReferences = $xml->xpath("//reference[@name='".$blockName."']");
+                    $ignoreReferences = $xml->xpath("//reference[@name='" . $blockName . "']");
                     if (is_array($ignoreReferences)) {
                         $ignoreNodes = array_merge($ignoreNodes, $ignoreReferences);
                     }
@@ -234,7 +235,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         }
 
         $blockName = (string)$node['name'];
-        $_profilerKey = 'BLOCK: '.$blockName;
+        $_profilerKey = 'BLOCK: ' . $blockName;
         Varien_Profiler::start($_profilerKey);
 
         $block = $this->addBlock($className, $blockName);
@@ -301,7 +302,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             $parentName = $parent->getBlockName();
         }
 
-        $_profilerKey = 'BLOCK ACTION: '.$parentName.' -> '.$method;
+        $_profilerKey = 'BLOCK ACTION: ' . $parentName . ' -> ' . $method;
         Varien_Profiler::start($_profilerKey);
 
         if (!empty($parentName)) {
@@ -469,7 +470,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             if (!empty($name)) {
                 $block->setAnonSuffix(substr($name, 1));
             }
-            $name = 'ANONYMOUS_'.count($this->_blocks);
+            $name = 'ANONYMOUS_' . count($this->_blocks);
         } elseif (isset($this->_blocks[$name]) && Mage::getIsDeveloperMode()) {
             //Mage::throwException(Mage::helper('core')->__('Block with name "%s" already exists', $name));
         }
@@ -480,7 +481,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         $block->setLayout($this);
 
         $this->_blocks[$name] = $block;
-        Mage::dispatchEvent('core_layout_block_create_after', ['block'=>$block]);
+        Mage::dispatchEvent('core_layout_block_create_after', ['block' => $block]);
         return $this->_blocks[$name];
     }
 
@@ -506,7 +507,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     protected function _getBlockInstance($block, array $attributes = [])
     {
         if (is_string($block)) {
-            if (strpos($block, '/')!==false) {
+            if (strpos($block, '/') !== false) {
                 if (!$block = Mage::getConfig()->getBlockClassName($block)) {
                     Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $block));
                 }
@@ -539,11 +540,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      */
     public function getBlock($name)
     {
-        if (isset($this->_blocks[$name])) {
-            return $this->_blocks[$name];
-        } else {
-            return false;
-        }
+        return $this->_blocks[$name] ?? false;
     }
 
     /**

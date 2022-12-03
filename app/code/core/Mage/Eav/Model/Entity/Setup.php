@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -109,7 +110,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-/******************* ENTITY TYPES *****************/
+    /******************* ENTITY TYPES *****************/
 
     /**
      * Add an entity type
@@ -227,7 +228,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-/******************* ATTRIBUTE SETS *****************/
+    /******************* ATTRIBUTE SETS *****************/
 
     /**
      * Retrieve Attribute Set Sort order
@@ -413,7 +414,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this->getConnection()->fetchOne($select, $bind);
     }
 
-/******************* ATTRIBUTE GROUPS *****************/
+    /******************* ATTRIBUTE GROUPS *****************/
 
     /**
      * Retrieve Attribute Group Sort order
@@ -598,7 +599,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this->getConnection()->fetchOne($select, $bind);
     }
 
-/******************* ATTRIBUTES *****************/
+    /******************* ATTRIBUTES *****************/
 
     /**
      * Retrieve value from array by key or return default value
@@ -613,7 +614,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         if (isset($array[$key]) && is_bool($array[$key])) {
             $array[$key] = (int) $array[$key];
         }
-        return isset($array[$key]) ? $array[$key] : $default;
+        return $array[$key] ?? $default;
     }
 
     /**
@@ -654,7 +655,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         $attributeCodeMaxLength = Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH;
 
         if (isset($data['attribute_code']) &&
-           !Zend_Validate::is($data['attribute_code'], 'StringLength', ['max' => $attributeCodeMaxLength])) {
+            !Zend_Validate::is($data['attribute_code'], 'StringLength', ['max' => $attributeCodeMaxLength])
+        ) {
             throw Mage::exception(
                 'Mage_Eav',
                 Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', $attributeCodeMaxLength)
@@ -687,7 +689,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
 
         $this->_validateAttributeData($data);
 
-        $sortOrder = isset($attr['sort_order']) ? $attr['sort_order'] : null;
+        $sortOrder = $attr['sort_order'] ?? null;
         $attributeId = $this->getAttribute($entityTypeId, $code, 'attribute_id');
         if ($attributeId) {
             $this->updateAttribute($entityTypeId, $attributeId, $data, null, $sortOrder);
@@ -759,13 +761,13 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 if (!$intOptionId) {
                     $data = [
                         'attribute_id'  => $option['attribute_id'],
-                        'sort_order'    => isset($option['order'][$optionId]) ? $option['order'][$optionId] : 0,
+                        'sort_order'    => $option['order'][$optionId] ?? 0,
                     ];
                     $this->_conn->insert($optionTable, $data);
                     $intOptionId = $this->_conn->lastInsertId($optionTable);
                 } else {
                     $data = [
-                        'sort_order'    => isset($option['order'][$optionId]) ? $option['order'][$optionId] : 0,
+                        'sort_order'    => $option['order'][$optionId] ?? 0,
                     ];
                     $this->_conn->update($optionTable, $data, ['option_id=?' => $intOptionId]);
                 }
@@ -965,7 +967,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
 
         $row = $this->_setupCache[$mainTable][$entityTypeId][$id];
         if ($field !== null) {
-            return isset($row[$field]) ? $row[$field] : false;
+            return $row[$field] ?? false;
         }
 
         return $row;
@@ -976,7 +978,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param mixed $entityTypeId
      * @param mixed $id
-     * @return int
+     * @return false|int
      */
     public function getAttributeId($entityTypeId, $id)
     {
@@ -994,7 +996,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param int|string $entityTypeId Entity Type id or Entity Type code
      * @param int|string $id Attribute id or Attribute code
-     * @return string
+     * @return string|false
      */
     public function getAttributeTable($entityTypeId, $id)
     {
@@ -1187,7 +1189,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-/******************* BULK INSTALL *****************/
+    /******************* BULK INSTALL *****************/
 
     /**
      * Install entities
@@ -1206,23 +1208,23 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         foreach ($entities as $entityName => $entity) {
             $this->addEntityType($entityName, $entity);
 
-            $frontendPrefix = isset($entity['frontend_prefix']) ? $entity['frontend_prefix'] : '';
-            $backendPrefix  = isset($entity['backend_prefix']) ? $entity['backend_prefix'] : '';
-            $sourcePrefix   = isset($entity['source_prefix']) ? $entity['source_prefix'] : '';
+            $frontendPrefix = $entity['frontend_prefix'] ?? '';
+            $backendPrefix  = $entity['backend_prefix'] ?? '';
+            $sourcePrefix   = $entity['source_prefix'] ?? '';
 
             foreach ($entity['attributes'] as $attrCode => $attr) {
                 if (!empty($attr['backend'])) {
                     if ($attr['backend'] === '_') {
                         $attr['backend'] = $backendPrefix;
                     } elseif ($attr['backend'][0] === '_') {
-                        $attr['backend'] = $backendPrefix.$attr['backend'];
+                        $attr['backend'] = $backendPrefix . $attr['backend'];
                     }
                 }
                 if (!empty($attr['frontend'])) {
                     if ($attr['frontend'] === '_') {
                         $attr['frontend'] = $frontendPrefix;
                     } elseif ($attr['frontend'][0] === '_') {
-                        $attr['frontend'] = $frontendPrefix.$attr['frontend'];
+                        $attr['frontend'] = $frontendPrefix . $attr['frontend'];
                     }
                 }
                 if (!empty($attr['source'])) {
@@ -1241,7 +1243,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-/****************************** CREATE ENTITY TABLES ***********************************/
+    /****************************** CREATE ENTITY TABLES ***********************************/
 
     /**
      * Create entity tables

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -205,17 +206,17 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * Accept action
      */
-    const REVIEW_ACTION_ACCEPT = 'accept';
+    public const REVIEW_ACTION_ACCEPT = 'accept';
 
     /**
      * Deny action
      */
-    const REVIEW_ACTION_DENY   = 'deny';
+    public const REVIEW_ACTION_DENY   = 'deny';
 
     /**
      * Update action
      */
-    const REVIEW_ACTION_UPDATE = 'update';
+    public const REVIEW_ACTION_UPDATE = 'update';
 
     /**
      * Order model object
@@ -411,7 +412,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 }
             }
         }
-        $isCustomerNotified = ($orderIsNotified !== null) ? $orderIsNotified : $order->getCustomerNoteNotify();
+        $isCustomerNotified = $orderIsNotified ?? $order->getCustomerNoteNotify();
         $message = $order->getCustomerNote();
 
         // add message if order was put into review during authorization or capture
@@ -1208,7 +1209,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         // if the authorization was untouched, we may assume voided amount = order grand total
         // but only if the payment auth amount equals to order grand total
         if ($authTransaction && ($order->getBaseGrandTotal() == $this->getBaseAmountAuthorized())
-            && ($this->getBaseAmountCanceled() == 0)) {
+            && ($this->getBaseAmountCanceled() == 0)
+        ) {
             if ($authTransaction->canVoidAuthorizationCompletely()) {
                 $amount = (float)$order->getBaseGrandTotal();
             }
@@ -1468,8 +1470,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     protected function _formatAmount($amount, $asFloat = false)
     {
-         $amount = Mage::app()->getStore()->roundPrice($amount);
-         return !$asFloat ? (string)$amount : $amount;
+        $amount = Mage::app()->getStore()->roundPrice($amount);
+        return !$asFloat ? (string)$amount : $amount;
     }
 
     /**
@@ -1674,7 +1676,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if (is_null($key)) {
             return $this->_transactionAdditionalInfo;
         }
-        return isset($this->_transactionAdditionalInfo[$key]) ? $this->_transactionAdditionalInfo[$key] : null;
+        return $this->_transactionAdditionalInfo[$key] ?? null;
     }
 
     /**

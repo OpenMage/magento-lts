@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,10 +60,10 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
     public function getUrl()
     {
         $query = [
-            $this->getFilter()->getRequestVar()=>$this->getValue(),
+            $this->getFilter()->getRequestVar() => $this->getValue(),
             Mage::getBlockSingleton('page/html_pager')->getPageVarName() => null // exclude current page from urls
         ];
-        return Mage::getUrl('*/*/*', ['_current'=>true, '_use_rewrite'=>true, '_query'=>$query]);
+        return Mage::getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true, '_query' => $query]);
     }
 
     /**
@@ -72,7 +73,7 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
      */
     public function getRemoveUrl()
     {
-        $query = [$this->getFilter()->getRequestVar()=>$this->getFilter()->getResetValue()];
+        $query = [$this->getFilter()->getRequestVar() => $this->getFilter()->getResetValue()];
         $params['_current']     = true;
         $params['_use_rewrite'] = true;
         $params['_query']       = $query;

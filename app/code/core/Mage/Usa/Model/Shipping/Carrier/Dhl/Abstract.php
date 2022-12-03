@@ -7,14 +7,14 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Usa
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,17 +30,17 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract extends Mage_Usa_Mod
     /**
      * Response condition code for service is unavailable at the requested date
      */
-    const CONDITION_CODE_SERVICE_DATE_UNAVAILABLE = 1003;
+    public const CONDITION_CODE_SERVICE_DATE_UNAVAILABLE = 1003;
 
     /**
      * Count of days to look forward if day is not unavailable
      */
-    const UNAVAILABLE_DATE_LOOK_FORWARD = 5;
+    public const UNAVAILABLE_DATE_LOOK_FORWARD = 5;
 
     /**
      * Date format for request
      */
-    const REQUEST_DATE_FORMAT = 'Y-m-d';
+    public const REQUEST_DATE_FORMAT = 'Y-m-d';
 
     /**
      * Get shipping date

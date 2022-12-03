@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,15 +27,15 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getToken()
- * @method Mage_Oauth_Block_AuthorizeBaseAbstract setToken() setToken(string $token)
+ * @method Mage_Oauth_Block_AuthorizeBaseAbstract setToken(string $token)
  * @method bool getIsSimple()
- * @method Mage_Oauth_Block_Authorize_Button setIsSimple() setIsSimple(bool $flag)
+ * @method Mage_Oauth_Block_Authorize_Button setIsSimple(bool $flag)
  * @method bool getHasException()
- * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsException() setHasException(bool $flag)
+ * @method Mage_Oauth_Block_AuthorizeBaseAbstract setHasException(bool $flag)
  * @method bool getVerifier()
- * @method Mage_Oauth_Block_AuthorizeBaseAbstract setVerifier() setVerifier(string $verifier)
+ * @method Mage_Oauth_Block_AuthorizeBaseAbstract setVerifier(string $verifier)
  * @method bool getIsLogged()
- * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsLogged() setIsLogged(bool $flag)
+ * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsLogged(bool $flag)
  */
 abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Template
 {

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +39,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
         $this->_updateButton('save', 'id', 'save_button');
         $this->_updateButton('delete', 'label', Mage::helper('review')->__('Delete Review'));
 
-        if( $this->getRequest()->getParam('productId', false) ) {
+        if ($this->getRequest()->getParam('productId', false)) {
             $this->_updateButton(
                 'back',
                 'onclick',
@@ -47,11 +48,11 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                         '*/catalog_product/edit',
                         ['id' => $this->getRequest()->getParam('productId', false)]
                     )
-                    .'\')'
+                    . '\')'
             );
         }
 
-        if( $this->getRequest()->getParam('customerId', false) ) {
+        if ($this->getRequest()->getParam('customerId', false)) {
             $this->_updateButton(
                 'back',
                 'onclick',
@@ -60,12 +61,12 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                         '*/customer/edit',
                         ['id' => $this->getRequest()->getParam('customerId', false)]
                     )
-                    .'\')'
+                    . '\')'
             );
         }
 
-        if( $this->getRequest()->getParam('ret', false) == 'pending' ) {
-            $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getUrl('*/*/pending') .'\')' );
+        if ($this->getRequest()->getParam('ret', false) == 'pending') {
+            $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getUrl('*/*/pending') . '\')');
             $this->_updateButton(
                 'delete',
                 'onclick',
@@ -87,7 +88,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
             Mage::register('ret', 'pending');
         }
 
-        if( $this->getRequest()->getParam($this->_objectId) ) {
+        if ($this->getRequest()->getParam($this->_objectId)) {
             $reviewData = Mage::getModel('review/review')
                 ->load($this->getRequest()->getParam($this->_objectId));
             Mage::register('review_data', $reviewData);
@@ -103,7 +104,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                         $(\'save_button\').disabled = true;
                         new Ajax.Updater(
                             "rating_detail",
-                            "' . $this->getUrl('*/*/ratingItems', ['_current'=>true]).'",
+                            "' . $this->getUrl('*/*/ratingItems', ['_current' => true]) . '",
                             {
                                 parameters:Form.serializeElements(elements),
                                 evalScripts:true,
@@ -120,7 +121,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
 
     public function getHeaderText()
     {
-        if( Mage::registry('review_data') && Mage::registry('review_data')->getId() ) {
+        if (Mage::registry('review_data') && Mage::registry('review_data')->getId()) {
             return Mage::helper('review')->__("Edit Review '%s'", $this->escapeHtml(Mage::registry('review_data')->getTitle()));
         } else {
             return Mage::helper('review')->__('New Review');

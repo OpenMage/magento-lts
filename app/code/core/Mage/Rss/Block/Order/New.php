@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,7 +33,7 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
      *
      * @var string
      */
-    const CACHE_TAG = 'block_html_rss_order_new';
+    public const CACHE_TAG = 'block_html_rss_order_new';
 
     protected function _construct()
     {
@@ -51,7 +52,7 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         $order = Mage::getModel('sales/order');
-        $passDate = $order->getResource()->formatDate(mktime(0,0,0,date('m'),date('d')-7));
+        $passDate = $order->getResource()->formatDate(mktime(0, 0, 0, date('m'), date('d') - 7));
 
         $newurl = Mage::helper('adminhtml')->getUrl('adminhtml/sales_order', ['_secure' => true, '_nosecret' => true]);
         $title = Mage::helper('rss')->__('New Orders');
@@ -65,8 +66,8 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
         $rssObj->_addHeader($data);
 
         $collection = $order->getCollection()
-            ->addAttributeToFilter('created_at', ['date'=>true, 'from'=> $passDate])
-            ->addAttributeToSort('created_at','desc')
+            ->addAttributeToFilter('created_at', ['date' => true, 'from' => $passDate])
+            ->addAttributeToSort('created_at', 'desc')
         ;
 
         $detailBlock = Mage::getBlockSingleton('rss/order_details');
@@ -74,7 +75,7 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
         Mage::dispatchEvent('rss_order_new_collection_select', ['collection' => $collection]);
 
         Mage::getSingleton('core/resource_iterator')
-            ->walk($collection->getSelect(), [[$this, 'addNewOrderXmlCallback']], ['rssObj'=> $rssObj, 'order'=>$order , 'detailBlock' => $detailBlock]);
+            ->walk($collection->getSelect(), [[$this, 'addNewOrderXmlCallback']], ['rssObj' => $rssObj, 'order' => $order , 'detailBlock' => $detailBlock]);
 
         return $rssObj->createRssXml();
     }

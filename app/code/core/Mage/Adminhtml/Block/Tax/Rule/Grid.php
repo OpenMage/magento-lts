@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -79,7 +80,6 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 case 'product_tax_classes':
                     $this->getCollection()->joinCalculationData('ptc');
                     break;
-
             }
         }
         return parent::_addColumnFilterToCollection($column);
@@ -90,20 +90,22 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('code',
+        $this->addColumn(
+            'code',
             [
                 'header' => Mage::helper('tax')->__('Name'),
-                'align' =>'left',
+                'align' => 'left',
                 'index' => 'code',
                 'filter_index' => 'code',
             ]
         );
 
-        $this->addColumn('customer_tax_classes',
+        $this->addColumn(
+            'customer_tax_classes',
             [
                 'header' => Mage::helper('tax')->__('Customer Tax Class'),
                 'sortable'  => false,
-                'align' =>'left',
+                'align' => 'left',
                 'index' => 'customer_tax_classes',
                 'filter_index' => 'ctc.customer_tax_class_id',
                 'type'    => 'options',
@@ -113,11 +115,12 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             ]
         );
 
-        $this->addColumn('product_tax_classes',
+        $this->addColumn(
+            'product_tax_classes',
             [
                 'header' => Mage::helper('tax')->__('Product Tax Class'),
                 'sortable'  => false,
-                'align' =>'left',
+                'align' => 'left',
                 'index' => 'product_tax_classes',
                 'filter_index' => 'ptc.product_tax_class_id',
                 'type'    => 'options',
@@ -127,7 +130,8 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             ]
         );
 
-        $this->addColumn('tax_rates',
+        $this->addColumn(
+            'tax_rates',
             [
                 'sortable'  => false,
                 'header'  => Mage::helper('tax')->__('Tax Rate'),
@@ -140,7 +144,8 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             ]
         );
 
-        $this->addColumn('priority',
+        $this->addColumn(
+            'priority',
             [
                 'header' => Mage::helper('tax')->__('Priority'),
                 'width' => '50px',
@@ -148,7 +153,8 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             ]
         );
 
-        $this->addColumn('calculate_subtotal',
+        $this->addColumn(
+            'calculate_subtotal',
             [
                 'header' => Mage::helper('tax')->__('Subtotal only'),
                 'width' => '50px',
@@ -156,7 +162,8 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             ]
         );
 
-        $this->addColumn('position',
+        $this->addColumn(
+            'position',
             [
                 'header' => Mage::helper('tax')->__('Sort Order'),
                 'width' => '50px',

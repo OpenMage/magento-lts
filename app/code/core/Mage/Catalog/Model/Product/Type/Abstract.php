@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -91,15 +92,15 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     protected $_fileQueue       = [];
 
-    const CALCULATE_CHILD = 0;
-    const CALCULATE_PARENT = 1;
+    public const CALCULATE_CHILD = 0;
+    public const CALCULATE_PARENT = 1;
 
     /**
      * values for shipment type (invoice etc)
      *
      */
-    const SHIPMENT_SEPARATELY = 1;
-    const SHIPMENT_TOGETHER = 0;
+    public const SHIPMENT_SEPARATELY = 1;
+    public const SHIPMENT_TOGETHER = 0;
 
     /**
      * Process modes
@@ -107,19 +108,19 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Full validation - all required options must be set, whole configuration
      * must be valid
      */
-    const PROCESS_MODE_FULL = 'full';
+    public const PROCESS_MODE_FULL = 'full';
 
     /**
      * Process modes
      *
      * Lite validation - only received options are validated
      */
-    const PROCESS_MODE_LITE = 'lite';
+    public const PROCESS_MODE_LITE = 'lite';
 
     /**
      * Item options prefix
      */
-    const OPTION_PREFIX = 'option_';
+    public const OPTION_PREFIX = 'option_';
 
     /**
      * Specify type instance product
@@ -185,7 +186,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
-     * Retrieve parent ids array by requered child
+     * Retrieve parent ids array by required child
      *
      * @param int|array $childId
      * @return array
@@ -209,7 +210,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
-     * Compare attribues sorting
+     * Compare attributes sorting
      *
      * @param Mage_Catalog_Model_Entity_Attribute $attribute1
      * @param Mage_Catalog_Model_Entity_Attribute $attribute2
@@ -242,8 +243,9 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
             $editableAttributes = [];
             foreach ($this->getSetAttributes($product) as $attributeCode => $attribute) {
                 if (!is_array($attribute->getApplyTo())
-                    || count($attribute->getApplyTo())==0
-                    || in_array($this->getProduct($product)->getTypeId(), $attribute->getApplyTo())) {
+                    || count($attribute->getApplyTo()) == 0
+                    || in_array($this->getProduct($product)->getTypeId(), $attribute->getApplyTo())
+                ) {
                     $editableAttributes[$attributeCode] = $attribute;
                 }
             }
@@ -329,9 +331,9 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         ) {
             $superProductId = (int) $superProductConfig['product_id'];
             if ($superProductId) {
-                if (!$superProduct = Mage::registry('used_super_product_'.$superProductId)) {
+                if (!$superProduct = Mage::registry('used_super_product_' . $superProductId)) {
                     $superProduct = Mage::getModel('catalog/product')->load($superProductId);
-                    Mage::register('used_super_product_'.$superProductId, $superProduct);
+                    Mage::register('used_super_product_' . $superProductId, $superProduct);
                 }
                 if ($superProduct->getId()) {
                     $assocProductIds = $superProduct->getTypeInstance(true)->getAssociatedProductIds($superProduct);
@@ -370,7 +372,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
-     * Process product configuaration
+     * Process product configuration
      *
      * @param Varien_Object $buyRequest
      * @param Mage_Catalog_Model_Product $product
@@ -434,10 +436,10 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
             if (isset($queueOptions['operation']) && $operation = $queueOptions['operation']) {
                 switch ($operation) {
                     case 'receive_uploaded_file':
-                        $src = isset($queueOptions['src_name']) ? $queueOptions['src_name'] : '';
-                        $dst = isset($queueOptions['dst_name']) ? $queueOptions['dst_name'] : '';
+                        $src = $queueOptions['src_name'] ?? '';
+                        $dst = $queueOptions['dst_name'] ?? '';
                         /** @var Zend_File_Transfer_Adapter_Http $uploader */
-                        $uploader = isset($queueOptions['uploader']) ? $queueOptions['uploader'] : null;
+                        $uploader = $queueOptions['uploader'] ?? null;
 
                         $path = dirname($dst);
                         $io = new Varien_Io_File();
@@ -517,7 +519,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     protected function _prepareOptions(Varien_Object $buyRequest, $product, $processMode)
     {
-        $transport = new stdClass;
+        $transport = new stdClass();
         $transport->options = [];
         foreach ($this->getProduct($product)->getOptions() as $_option) {
             /** @var Mage_Catalog_Model_Product_Option $_option */
@@ -848,7 +850,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
-     * Allow for updates of children qty's
+     * Allow for updates of children quantities
      * (applicable for complicated product types. As default returns false)
      *
      * @param null $product

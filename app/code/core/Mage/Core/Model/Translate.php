@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,20 +28,20 @@
  */
 class Mage_Core_Model_Translate
 {
-    const CSV_SEPARATOR     = ',';
-    const SCOPE_SEPARATOR   = '::';
-    const CACHE_TAG         = 'translate';
+    public const CSV_SEPARATOR     = ',';
+    public const SCOPE_SEPARATOR   = '::';
+    public const CACHE_TAG         = 'translate';
 
-    const CONFIG_KEY_AREA   = 'area';
-    const CONFIG_KEY_LOCALE = 'locale';
-    const CONFIG_KEY_STORE  = 'store';
-    const CONFIG_KEY_DESIGN_PACKAGE = 'package';
-    const CONFIG_KEY_DESIGN_THEME   = 'theme';
+    public const CONFIG_KEY_AREA   = 'area';
+    public const CONFIG_KEY_LOCALE = 'locale';
+    public const CONFIG_KEY_STORE  = 'store';
+    public const CONFIG_KEY_DESIGN_PACKAGE = 'package';
+    public const CONFIG_KEY_DESIGN_THEME   = 'theme';
 
     /**
      * Default translation string
      */
-    const DEFAULT_STRING = 'Translate String';
+    public const DEFAULT_STRING = 'Translate String';
 
     /**
      * Locale name
@@ -113,10 +114,10 @@ class Mage_Core_Model_Translate
      */
     public function init($area, $forceReload = false)
     {
-        $this->setConfig([self::CONFIG_KEY_AREA=>$area]);
+        $this->setConfig([self::CONFIG_KEY_AREA => $area]);
 
         $this->_translateInline = Mage::getSingleton('core/translate_inline')
-            ->isAllowed($area=='adminhtml' ? 'admin' : null);
+            ->isAllowed($area == 'adminhtml' ? 'admin' : null);
 
         if (!$forceReload) {
             if ($this->_canUseCache()) {
@@ -152,11 +153,11 @@ class Mage_Core_Model_Translate
      */
     public function getModulesConfig()
     {
-        if (!Mage::getConfig()->getNode($this->getConfig(self::CONFIG_KEY_AREA).'/translate/modules')) {
+        if (!Mage::getConfig()->getNode($this->getConfig(self::CONFIG_KEY_AREA) . '/translate/modules')) {
             return [];
         }
 
-        $config = Mage::getConfig()->getNode($this->getConfig(self::CONFIG_KEY_AREA).'/translate/modules')->children();
+        $config = Mage::getConfig()->getNode($this->getConfig(self::CONFIG_KEY_AREA) . '/translate/modules')->children();
         if (!$config) {
             return [];
         }
@@ -195,10 +196,7 @@ class Mage_Core_Model_Translate
      */
     public function getConfig($key)
     {
-        if (isset($this->_config[$key])) {
-            return $this->_config[$key];
-        }
-        return null;
+        return $this->_config[$key] ?? null;
     }
 
     /**
@@ -254,7 +252,7 @@ class Mage_Core_Model_Translate
                 $this->_data[$scopeKey] = $value;
             } else {
                 $this->_data[$key]     = $value;
-                $this->_dataScope[$key]= $scope;
+                $this->_dataScope[$key] = $scope;
             }
         }
         return $this;
@@ -306,7 +304,7 @@ class Mage_Core_Model_Translate
     {
         //$file = Mage::getConfig()->getModuleDir('locale', $module);
         $file = Mage::getBaseDir('locale');
-        $file.= DS.$this->getLocale().DS.$fileName;
+        $file .= DS . $this->getLocale() . DS . $fileName;
         return $file;
     }
 
@@ -400,7 +398,8 @@ class Mage_Core_Model_Translate
         if (is_string($text) && $text == ''
             || is_null($text)
             || is_bool($text) && $text === false
-            || is_object($text) && $text->getText() == '') {
+            || is_object($text) && $text->getText() == ''
+        ) {
             return '';
         }
         if ($text instanceof Mage_Core_Model_Translate_Expr) {
@@ -410,11 +409,11 @@ class Mage_Core_Model_Translate
             $translated = $this->_getTranslatedString($text, $code);
         } else {
             if (!empty($_REQUEST['theme'])) {
-                $module = 'frontend/default/'.$_REQUEST['theme'];
+                $module = 'frontend/default/' . $_REQUEST['theme'];
             } else {
                 $module = 'frontend/default/default';
             }
-            $code = $module.self::SCOPE_SEPARATOR.$text;
+            $code = $module . self::SCOPE_SEPARATOR . $text;
             $translated = $this->_getTranslatedString($text, $code);
         }
 
@@ -429,8 +428,8 @@ class Mage_Core_Model_Translate
         }
 
         if ($this->_translateInline && $this->getTranslateInline()) {
-            if (strpos($result, '{{{')===false || strpos($result, '}}}')===false || strpos($result, '}}{{')===false) {
-                $result = '{{{'.$result.'}}{{'.$translated.'}}{{'.$text.'}}{{'.$module.'}}}';
+            if (strpos($result, '{{{') === false || strpos($result, '}}}') === false || strpos($result, '}}{{') === false) {
+                $result = '{{{' . $result . '}}{{' . $translated . '}}{{' . $text . '}}{{' . $module . '}}}';
             }
         }
 
@@ -504,19 +503,19 @@ class Mage_Core_Model_Translate
         if (is_null($this->_cacheId)) {
             $this->_cacheId = 'translate';
             if (isset($this->_config[self::CONFIG_KEY_LOCALE])) {
-                $this->_cacheId.= '_'.$this->_config[self::CONFIG_KEY_LOCALE];
+                $this->_cacheId .= '_' . $this->_config[self::CONFIG_KEY_LOCALE];
             }
             if (isset($this->_config[self::CONFIG_KEY_AREA])) {
-                $this->_cacheId.= '_'.$this->_config[self::CONFIG_KEY_AREA];
+                $this->_cacheId .= '_' . $this->_config[self::CONFIG_KEY_AREA];
             }
             if (isset($this->_config[self::CONFIG_KEY_STORE])) {
-                $this->_cacheId.= '_'.$this->_config[self::CONFIG_KEY_STORE];
+                $this->_cacheId .= '_' . $this->_config[self::CONFIG_KEY_STORE];
             }
             if (isset($this->_config[self::CONFIG_KEY_DESIGN_PACKAGE])) {
-                $this->_cacheId.= '_'.$this->_config[self::CONFIG_KEY_DESIGN_PACKAGE];
+                $this->_cacheId .= '_' . $this->_config[self::CONFIG_KEY_DESIGN_PACKAGE];
             }
             if (isset($this->_config[self::CONFIG_KEY_DESIGN_THEME])) {
-                $this->_cacheId.= '_'.$this->_config[self::CONFIG_KEY_DESIGN_THEME];
+                $this->_cacheId .= '_' . $this->_config[self::CONFIG_KEY_DESIGN_THEME];
             }
         }
         return $this->_cacheId;

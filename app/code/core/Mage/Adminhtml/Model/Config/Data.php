@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,12 +25,27 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array getGroups()
+ * @method $this setGroups(array $value)
+ * @method string getScope()
+ * @method $this setScope(string $value)
+ * @method string getScopeCode()
+ * @method $this setScopeCode(string $value)
+ * @method int getScopeId()
+ * @method $this setScopeId(int $value)
+ * @method string getSection()
+ * @method $this setSection(string $value)
+ * @method string getStore()
+ * @method $this setStore(string $value)
+ * @method string getWebsite()
+ * @method $this setWebsite(string $value)
  */
 class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 {
-    const SCOPE_DEFAULT  = 'default';
-    const SCOPE_WEBSITES = 'websites';
-    const SCOPE_STORES   = 'stores';
+    public const SCOPE_DEFAULT  = 'default';
+    public const SCOPE_WEBSITES = 'websites';
+    public const SCOPE_STORES   = 'stores';
 
     /**
      * Config data for sections
@@ -86,7 +102,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             /**
              * Map field names if they were cloned
              */
-            $groupConfig = $sections->descend($section.'/groups/'.$group);
+            $groupConfig = $sections->descend($section . '/groups/' . $group);
 
             if ($clonedFields = !empty($groupConfig->clone_fields)) {
                 if ($groupConfig->clone_model) {
@@ -95,12 +111,12 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     Mage::throwException('Config form fieldset clone model required to be able to clone fields');
                 }
                 $mappedFields = [];
-                $fieldsConfig = $sections->descend($section.'/groups/'.$group.'/fields');
+                $fieldsConfig = $sections->descend($section . '/groups/' . $group . '/fields');
 
                 if ($fieldsConfig->hasChildren()) {
                     foreach ($fieldsConfig->children() as $field => $node) {
                         foreach ($cloneModel->getPrefixes() as $prefix) {
-                            $mappedFields[$prefix['field'].(string)$field] = (string)$field;
+                            $mappedFields[$prefix['field'] . (string)$field] = (string)$field;
                         }
                     }
                 }
@@ -121,7 +137,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                         . $mappedFields[$field]);
                 }
                 if (!$fieldConfig) {
-                    $node = $sections->xpath($section .'//' . $group . '[@type="group"]/fields/' . $field);
+                    $node = $sections->xpath($section . '//' . $group . '[@type="group"]/fields/' . $field);
                     if ($node) {
                         $fieldConfig = $node[0];
                     }
@@ -130,7 +146,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                 /**
                  * Get field backend model
                  */
-                $backendClass = (isset($fieldConfig->backend_model))? $fieldConfig->backend_model : false;
+                $backendClass = (isset($fieldConfig->backend_model)) ? $fieldConfig->backend_model : false;
                 if (!$backendClass) {
                     $backendClass = 'core/config_data';
                 }
@@ -138,7 +154,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                 /** @var Mage_Core_Model_Config_Data $dataObject */
                 $dataObject = Mage::getModel($backendClass);
                 if (!$dataObject instanceof Mage_Core_Model_Config_Data) {
-                    Mage::throwException('Invalid config field backend model: '.$backendClass);
+                    Mage::throwException('Invalid config field backend model: ' . $backendClass);
                 }
 
                 $dataObject
@@ -192,12 +208,10 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                      */
                     if (!$inherit) {
                         $saveTransaction->addObject($dataObject);
-                    }
-                    else {
+                    } else {
                         $deleteTransaction->addObject($dataObject);
                     }
-                }
-                elseif (!$inherit) {
+                } elseif (!$inherit) {
                     $dataObject->unsConfigId();
                     $saveTransaction->addObject($dataObject);
                 }
@@ -339,8 +353,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     'value'     => $data->getValue(),
                     'config_id' => $data->getConfigId()
                 ];
-            }
-            else {
+            } else {
                 $config[$data->getPath()] = $data->getValue();
             }
         }

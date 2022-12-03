@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -215,6 +216,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Before save type related data
      *
      * @param Mage_Catalog_Model_Product $product
+     * @return $this
      */
     public function beforeSave($product = null)
     {
@@ -257,6 +259,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 }
             }
         }
+        return $this;
     }
 
     /**
@@ -440,7 +443,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         foreach ($selections as $selection) {
             if ($selection->getProductId() == $optionProduct->getId()) {
                 foreach ($options as &$option) {
-                    if ($option->getCode() == 'selection_qty_'.$selection->getSelectionId()) {
+                    if ($option->getCode() == 'selection_qty_' . $selection->getSelectionId()) {
                         if ($optionUpdateFlag) {
                             $option->setValue(intval($option->getValue()));
                         } else {
@@ -580,7 +583,6 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 // Check if added selections are still on sale
                 foreach ($selections->getItems() as $key => $selection) {
                     if (!$selection->isSalable() && !$skipSaleableCheck) {
-                        /** @var Mage_Bundle_Model_Option $_option */
                         $_option = $optionsCollection->getItemById($selection->getOptionId());
                         if (is_array($options[$_option->getId()]) && count($options[$_option->getId()]) > 1) {
                             $moreSelections = true;
@@ -605,16 +607,18 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $product->setOptionsValidationFail(true);
             $product->getTypeInstance(true)->setStoreFilter($product->getStoreId(), $product);
 
-            $optionCollection = $product->getTypeInstance(true)->getOptionsCollection($product);
+            /** @var Mage_Bundle_Model_Product_Type $productType */
+            $productType = $product->getTypeInstance(true);
 
-            $optionIds = $product->getTypeInstance(true)->getOptionsIds($product);
+            $optionCollection = $productType->getOptionsCollection($product);
+
+            $optionIds = $productType->getOptionsIds($product);
             $selectionIds = [];
 
-            $selectionCollection = $product->getTypeInstance(true)
-                ->getSelectionsCollection(
-                    $optionIds,
-                    $product
-                );
+            $selectionCollection = $productType->getSelectionsCollection(
+                $optionIds,
+                $product
+            );
 
             $options = $optionCollection->appendSelections($selectionCollection, false, $_appendAllSelections);
 

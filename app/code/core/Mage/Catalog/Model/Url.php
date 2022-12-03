@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,7 +33,7 @@ class Mage_Catalog_Model_Url
      *
      * @var int
      */
-    const MAX_REQUEST_PATH_LENGTH = 240;
+    public const MAX_REQUEST_PATH_LENGTH = 240;
 
     /**
      * Number of characters allowed to be in URL path
@@ -40,7 +41,7 @@ class Mage_Catalog_Model_Url
      *
      * @var int
      */
-    const ALLOWED_REQUEST_PATH_OVERFLOW = 10;
+    public const ALLOWED_REQUEST_PATH_OVERFLOW = 10;
 
     /**
      * Resource model
@@ -98,12 +99,12 @@ class Mage_Catalog_Model_Url
      */
     protected $_saveRewritesHistory = null;
 
-     /**
-     * Singleton of category model for building URL path
-     *
-     * @var Mage_Catalog_Model_Category
-     */
-    static protected $_categoryForUrlPath;
+    /**
+    * Singleton of category model for building URL path
+    *
+    * @var Mage_Catalog_Model_Category
+    */
+    protected static $_categoryForUrlPath;
 
     /**
      * Adds url_path property for non-root category - to ensure that url path is not empty.
@@ -222,10 +223,7 @@ class Mage_Catalog_Model_Url
      */
     public function getShouldSaveRewritesHistory($storeId = null)
     {
-        if ($this->_saveRewritesHistory !== null) {
-            return $this->_saveRewritesHistory;
-        }
-        return Mage::helper('catalog')->shouldSaveUrlRewritesHistory($storeId);
+        return $this->_saveRewritesHistory ?? Mage::helper('catalog')->shouldSaveUrlRewritesHistory($storeId);
     }
 
     /**
@@ -658,7 +656,7 @@ class Mage_Catalog_Model_Url
                 return $this->getUnusedPathByUrlKey($storeId, '-', $idPath, $urlKey);
             }
             $match['prefix'] = $match['prefix'] . '-';
-            $match['suffix'] = isset($match['suffix']) ? $match['suffix'] : '';
+            $match['suffix'] = $match['suffix'] ?? '';
 
             $lastRequestPath = $this->getResource()
                 ->getLastUsedRewriteRequestIncrement($match['prefix'], $match['suffix'], $storeId);
@@ -826,7 +824,7 @@ class Mage_Catalog_Model_Url
                 }
             }
 
-            $fullPath = $requestPath.$suffix;
+            $fullPath = $requestPath . $suffix;
             if ($this->_deleteOldTargetPath($fullPath, $idPath, $storeId)) {
                 return $fullPath;
             }
@@ -835,7 +833,7 @@ class Mage_Catalog_Model_Url
          * Check 2 variants: $requestPath and $requestPath . '-' . $productId
          */
         $validatedPath = $this->getResource()->checkRequestPaths(
-            [$requestPath.$suffix, $requestPath.'-'.$product->getId().$suffix],
+            [$requestPath . $suffix, $requestPath . '-' . $product->getId() . $suffix],
             $storeId
         );
 

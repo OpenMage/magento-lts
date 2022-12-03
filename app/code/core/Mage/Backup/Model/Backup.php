@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Backup
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,7 +29,7 @@
 class Mage_Backup_Model_Backup extends Varien_Object
 {
     /* internal constants */
-    const COMPRESS_RATE     = 9;
+    public const COMPRESS_RATE     = 9;
 
     /**
      * Type of backup file
@@ -104,10 +105,10 @@ class Mage_Backup_Model_Backup extends Varien_Object
      * @param string $value
      * @return $this
      */
-    public function setType($value='db')
+    public function setType($value = 'db')
     {
         $possibleTypes = Mage::helper('backup')->getBackupTypesList();
-        if(!in_array($value, $possibleTypes)) {
+        if (!in_array($value, $possibleTypes)) {
             $value = Mage::helper('backup')->getDefaultBackupType();
         }
 
@@ -142,7 +143,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
 
         $ioProxy = new Varien_Io_File();
         $ioProxy->setAllowCreateFolders(true);
-        $ioProxy->open(['path'=>$this->getPath()]);
+        $ioProxy->open(['path' => $this->getPath()]);
 
         $compress = 0;
         if (extension_loaded("zlib")) {
@@ -150,8 +151,8 @@ class Mage_Backup_Model_Backup extends Varien_Object
         }
 
         $rawContent = '';
-        if ( $compress ) {
-            $rawContent = gzcompress( $content, self::COMPRESS_RATE );
+        if ($compress) {
+            $rawContent = gzcompress($content, self::COMPRESS_RATE);
         } else {
             $rawContent = $content;
         }
@@ -170,7 +171,6 @@ class Mage_Backup_Model_Backup extends Varien_Object
      */
     public function &getFile()
     {
-
         if (!$this->exists()) {
             Mage::throwException(Mage::helper('backup')->__("Backup file does not exist."));
         }
@@ -217,7 +217,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
         }
 
         $ioProxy = new Varien_Io_File();
-        $ioProxy->open(['path'=>$this->getPath()]);
+        $ioProxy->open(['path' => $this->getPath()]);
         $ioProxy->rm($this->getFileName());
         return $this;
     }
@@ -239,8 +239,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
             $path = $ioAdapter->getCleanPath($this->getPath());
             $ioAdapter->checkAndCreateFolder($path);
             $filePath = $path . DS . $this->getFileName();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::exception('Mage_Backup', $e->getMessage());
         }
 
@@ -302,8 +301,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
 
         try {
             gzwrite($this->_handler, $string);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::exception('Mage_Backup', Mage::helper('backup')->__('An error occurred while writing to the backup file "%s".', $this->getFileName()));
         }
 
