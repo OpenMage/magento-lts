@@ -26,6 +26,10 @@ jobs:
         args: install --ignore-platform-req=ext-* --no-dev
     - name: "Move Cm_Cache_Backend_Redis to /lib"
       run: mkdir -p lib/Cm/Cache/Backend; cp vendor/colinmollenhour/cache-backend-redis/Cm/Cache/Backend/* lib/Cm/Cache/Backend/
+    - name: "Move mcryptcompat to /lib"
+      run: mkdir -p lib/mcryptcompat; cp vendor/phpseclib/mcrypt_compat/lib/* lib/mcryptcompat/
+    - name: "Move Crypt to /lib"
+      run: mkdir -p lib/phpseclib; cp -R vendor/phpseclib/phpseclib/phpseclib/Crypt lib/phpseclib
     - name: "Removing vendor folder"
       run: rm -rf vendor
     - name: "Create ZIP file"
