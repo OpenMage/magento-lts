@@ -30,6 +30,8 @@ jobs:
       run: mkdir -p lib/mcryptcompat; cp vendor/phpseclib/mcrypt_compat/lib/* lib/mcryptcompat/
     - name: "Move Crypt to /lib"
       run: mkdir -p lib/phpseclib; cp -R vendor/phpseclib/phpseclib/phpseclib/Crypt lib/phpseclib
+    - name: "Move Emogrifier to /lib"
+      run: mkdir -p lib/Pelago; cp -R vendor/pelago/emogrifier/src/* lib/Pelago/
     - name: "Reset composer.json"
       run: git checkout composer.json
     - name: "Removing vendor folder"
