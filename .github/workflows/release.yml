@@ -30,6 +30,8 @@ jobs:
       run: mkdir -p lib/mcryptcompat; cp vendor/phpseclib/mcrypt_compat/lib/* lib/mcryptcompat/
     - name: "Move Crypt to /lib"
       run: mkdir -p lib/phpseclib; cp -R vendor/phpseclib/phpseclib/phpseclib/Crypt lib/phpseclib
+    - name: "Reset composer.json"
+      run: git checkout composer.json
     - name: "Removing vendor folder"
       run: rm -rf vendor
     - name: "Create ZIP file"
