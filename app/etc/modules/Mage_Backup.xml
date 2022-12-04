@@ -23,7 +23,7 @@
 <config>
     <modules>
         <Mage_Backup>
-            <active>false</active>
+            <active>true</active>
             <codePool>core</codePool>
             <depends>
                 <Mage_Core/>
