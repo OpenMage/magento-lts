@@ -461,7 +461,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      * Check quantity
      *
      * @param   float $qty
-     * @exception Mage_Core_Exception
+     * @throws  Mage_Core_Exception
      * @return  bool
      */
     public function checkQty($qty)
@@ -477,7 +477,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                     break;
                 default:
                     return false;
-                    break;
             }
         }
         return true;

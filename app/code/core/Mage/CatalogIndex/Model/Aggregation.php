@@ -144,7 +144,6 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
     protected function _processKey($key)
     {
         return $key;
-        return md5($key);
     }
 
     /**
