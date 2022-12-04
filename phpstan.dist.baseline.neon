@@ -1086,11 +1086,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php
-
-		-
 			message: "#^Call to method getIsOldCustomer\\(\\) on an unknown class Mage_Adminhtml_Model_Quote\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Newsletter.php
@@ -1229,11 +1224,6 @@ parameters:
 			message: "#^Return type \\(Mage_Sales_Model_Order_Shipment\\) of method Mage_Adminhtml_Block_Sales_Order_Shipment_View_Items\\:\\:getSource\\(\\) should be compatible with return type \\(Mage_Sales_Model_Order_Invoice\\) of method Mage_Adminhtml_Block_Sales_Items_Abstract\\:\\:getSource\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/View/Items.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/View/Tracking.php
 
 		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
@@ -1866,11 +1856,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Config/Data.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 3
-			path: app/code/core/Mage/Adminhtml/Model/Config/Data.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Abstract\\:\\:load\\(\\) invoked with 1 parameter, 2\\-3 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Giftmessage/Save.php
@@ -2026,11 +2011,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/System/Config/Backend/File.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/System/Config/Backend/File.php
-
-		-
 			message: "#^Comparison operation \"\\=\\=\" between \\(Varien_Simplexml_Element\\|null\\) and 1 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/System/Config/Source/Admin/Page.php
@@ -2054,11 +2034,6 @@ parameters:
 			message: "#^Variable \\$values might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/System/Store.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Api/RoleController.php
 
 		-
 			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
@@ -2184,11 +2159,6 @@ parameters:
 			message: "#^Variable \\$id in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Permissions/BlockController.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Permissions/RoleController.php
 
 		-
 			message: "#^Comparison operation \"\\>\\=\" between int\\<1, max\\> and 1 is always true\\.$#"
@@ -2694,11 +2664,6 @@ parameters:
 			message: "#^Method Mage_Api2_Model_Acl_Global_Rule_ResourcePermission\\:\\:setFilterValue\\(\\) should return Mage_Api2_Model_Acl_PermissionInterface but return statement is missing\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Acl/Global/Rule/ResourcePermission.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Acl/Global/Rule/Tree.php
 
 		-
 			message: "#^Variable \\$operationName might not be defined\\.$#"
@@ -3861,11 +3826,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Helper/Product/Configuration.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Helper/Product/Configuration.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:loadSelf\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Helper/Product/Flat.php
@@ -4612,11 +4572,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Configuration_Item_Option_Interface\\:\\:setValue\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php
 
@@ -5576,11 +5531,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/controllers/Seo/SitemapController.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Aggregation.php
-
-		-
 			message: "#^Call to an undefined method Mage_CatalogIndex_Model_Resource_Attribute\\:\\:checkCount\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Attribute.php
@@ -5901,11 +5851,6 @@ parameters:
 			path: app/code/core/Mage/CatalogInventory/Model/Stock/Item.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Stock/Item.php
-
-		-
 			message: "#^Variable \\$parentItem in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogInventory/Model/Stock/Item.php
@@ -6022,11 +5967,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$currency of method Mage_Directory_Model_Currency\\:\\:getCurrencyRates\\(\\) expects string, Mage_Directory_Model_Currency given\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Block/Advanced/Form.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogSearch/Block/Advanced/Form.php
 
@@ -7466,11 +7406,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/File/Storage/File.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/File/Storage/File.php
-
-		-
 			message: "#^Call to function is_string\\(\\) with array will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/File/Validator/NotProtectedExtension.php
@@ -7861,11 +7796,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Setup.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Setup.php
-
-		-
 			message: "#^Binary operation \"\\.\" between string and array results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Setup/Query/Modifier.php
@@ -8206,11 +8136,6 @@ parameters:
 			path: app/code/core/Mage/Core/functions.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/functions.php
-
-		-
 			message: "#^Strict comparison using \\=\\=\\= between int\\|string and null will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Cron/Model/Observer.php
@@ -8501,11 +8426,6 @@ parameters:
 			path: app/code/core/Mage/Customer/Model/Customer/Api/V2.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Customer/Attribute/Source/Store.php
-
-		-
 			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Resource/Address.php
@@ -8716,11 +8636,6 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Convert/Adapter/Io.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Adapter/Io.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Adapter/Zend/Cache.php
@@ -8818,11 +8733,6 @@ parameters:
 		-
 			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
 			count: 2
-			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php
 
 		-
@@ -10812,11 +10722,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$lastTransactionId of method Mage_Paygate_Helper_Data\\:\\:getExtendedTransactionMessage\\(\\) expects string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paygate/Model/Authorizenet.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paygate/Model/Authorizenet.php
 
@@ -13956,11 +13861,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
-
-		-
 			message: "#^Parameter \\#2 \\$attribute of method Mage_Sales_Model_Resource_Order_Abstract\\:\\:_afterSaveAttribute\\(\\) expects string, array given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Order/Abstract.php
@@ -14552,11 +14452,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Zend_Db_Adapter_Abstract\\:\\:getCheckSql\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sitemap/Model/Resource/Catalog/Abstract.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sitemap/Model/Resource/Catalog/Abstract.php
 
