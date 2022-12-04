@@ -67,7 +67,7 @@ class Mage_Backup_Archive_Tar extends Mage_Archive_Tar
      * Set files that shouldn't be added to tarball
      *
      * @param array $skipFiles
-     * @return Mage_Backup_Archive_Tar
+     * @return $this
      */
     public function setSkipFiles(array $skipFiles)
     {
