@@ -12,12 +12,12 @@ parameters:
         - install.php
         - app/Mage.php
         - app/code/core/Mage
+        - lib/Magento
     excludePaths:
         #todo DOCblocks
         - app/code/core/Mage/Usa
         - app/code/core/Mage/Weee
         - lib/Mage
-        - lib/Magento
         - lib/Varien
 
         # todo check
@@ -73,7 +73,6 @@ parameters:
 
         # Instantiated class not found
         - lib/Varien/Image/Adapter.php
-
     level: 5
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
