@@ -459,7 +459,6 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             default:
                 return parent::getFieldComment($field);
         }
-        return null;
     }
 
     /**
