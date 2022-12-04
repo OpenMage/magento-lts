@@ -59,7 +59,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
                 $result = $uploader->save($uploadDir);
             } catch (Exception $e) {
                 Mage::throwException($e->getMessage());
-                return $this;
             }
 
             $filename = $result['file'];

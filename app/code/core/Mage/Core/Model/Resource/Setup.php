@@ -316,7 +316,6 @@ class Mage_Core_Model_Resource_Setup
                     break;
                 default:
                     return true;
-                   break;
             }
         } elseif ($configVer) {
             $this->_installResourceDb($configVer);

@@ -196,7 +196,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         if ($this->displayTotalsIncludeTax()) {
             return $address->getSubtotal() + $address->getTaxAmount()
                     + $address->getHiddenTaxAmount() + $this->getDiscountAmount();
-            return $subtotalInclTax;
         }
 
         return $address->getSubtotal() + $this->getDiscountAmount();
