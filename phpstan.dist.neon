@@ -12,12 +12,12 @@ parameters:
         - install.php
         - app/Mage.php
         - app/code/core/Mage
+        - lib/Mage
         - lib/Magento
     excludePaths:
         #todo DOCblocks
         - app/code/core/Mage/Usa
         - app/code/core/Mage/Weee
-        - lib/Mage
         - lib/Varien
 
         # todo check
