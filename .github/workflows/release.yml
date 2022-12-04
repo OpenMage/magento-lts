@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['7.3', '7.4', '8.0', '8.1']
+        php-versions: ['7.3']
     steps:
     - name: Install PHP ${{ matrix.php-versions }}
       uses: shivammathur/setup-php@v2
@@ -18,8 +18,6 @@ jobs:
         php-version: ${{ matrix.php-versions }}
     - name: "Checkout repository"
       uses: actions/checkout@master
-    - name: "Switching to composer deploy strategy copy"
-      run: sed -i 's/"magento-root-dir"/"magento-deploystrategy":"copy","magento-root-dir"/' composer.json
     - name: "Composer install"
       uses: MilesChou/composer-action/8.1@master
       with:
@@ -32,18 +30,16 @@ jobs:
       run: mkdir -p lib/phpseclib; cp -R vendor/phpseclib/phpseclib/phpseclib/Crypt lib/phpseclib
     - name: "Move Emogrifier to /lib"
       run: mkdir -p lib/Pelago; cp -R vendor/pelago/emogrifier/src lib/Pelago/Emogrifier
-    - name: "Move Sabberworm to /lib"
+    - name: "Move Sabberworm (needed for Emogrifier) to /lib"
       run: mkdir -p lib/Sabberworm; cp -R vendor/sabberworm/php-css-parser/src lib/Sabberworm/CSS
     - name: "Reset composer.json"
       run: git checkout composer.json
-    - name: "Removing vendor folder"
-      run: sudo rm -rf vendor
     - name: "Create ZIP file"
-      run: zip -rq openmage-${{ github.event.release.tag_name }}-php${{ matrix.php-versions }}.zip . -x ".git/*"
+      run: zip -rq openmage-${{ github.event.release.tag_name }}.zip . -x '.git/*' 'vendor/*'
     - name: "Attach ZIP to GitHub release"
       uses: svenstaro/upload-release-action@master
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: openmage-${{ github.event.release.tag_name }}-php${{ matrix.php-versions }}.zip
+        file: openmage-${{ github.event.release.tag_name }}.zip
         tag: ${{ github.event.release.tag_name }}
         overwrite: true

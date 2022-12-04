@@ -76,7 +76,10 @@
     "branch-alias": {
       "dev-main": "1.9.4.x-dev"
     },
-    "magento-root-dir": "."
+    "magento-root-dir": ".",
+    "magento-deploystrategy": "copy",
+    "magento-deploystrategy-dev": "symlink"
+
   },
   "config": {
     "allow-plugins": {
