@@ -801,7 +801,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param Varien_Object $option
      * @param mixed $value
      * @param Mage_Catalog_Model_Product $product
-     * @return object Mage_Catalog_Model_Product_Type_Abstract
+     * @return $this
      */
     public function updateQtyOption($options, Varien_Object $option, $value, $product = null)
     {
