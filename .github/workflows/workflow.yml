@@ -46,16 +46,15 @@ jobs:
   composer:
     name: Composer
     needs: [check]
-    if: |
-      needs.check.outputs.composer > 0 ||
-      needs.check.outputs.workflow > 0
+#    if: |
+#      needs.check.outputs.composer > 0 ||
+#      needs.check.outputs.workflow > 0
     uses: ./.github/workflows/composer.yml
 
   phpcs:
     name: PHPCS
     needs: [check, composer]
     if: |
-      (needs.composer.result == 'success' || needs.composer.result == 'skipped') ||
       needs.check.outputs.php > 0 ||
       needs.check.outputs.phpcs > 0 ||
       needs.check.outputs.composer > 0 ||
@@ -66,7 +65,6 @@ jobs:
     name: PHP-CS-Fixer
     needs: [check, composer]
     if: |
-      (needs.composer.result == 'success' || needs.composer.result == 'skipped') ||
       needs.check.outputs.php > 0 ||
       needs.check.outputs.php-cs-fixer > 0 ||
       needs.check.outputs.composer > 0 ||
@@ -77,7 +75,6 @@ jobs:
     name: PHPStan
     needs: [check, composer, phpcs, php-cs-fixer]
     if: |
-      (needs.composer.result == 'success' || needs.composer.result == 'skipped') ||
       needs.check.outputs.php > 0 ||
       needs.check.outputs.phpstan > 0 ||
       needs.check.outputs.composer > 0 ||
