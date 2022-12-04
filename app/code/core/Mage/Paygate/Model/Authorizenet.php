@@ -593,7 +593,6 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             default:
                 Mage::throwException($defaultExceptionMessage);
         }
-        return $this;
     }
 
     /**
