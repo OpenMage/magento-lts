@@ -48,8 +48,13 @@ include_once "Varien/Autoload.php";
 
 Varien_Autoload::register();
 
-include_once "phpseclib/bootstrap.php";
-include_once "mcryptcompat/mcrypt.php";
+/** AUTOLOADER PATCH **/
+if (file_exists($autoloaderPath = BP . DS . 'vendor/autoload.php') ||
+    file_exists($autoloaderPath = BP . DS . '../vendor/autoload.php')
+) {
+    require $autoloaderPath;
+}
+/** AUTOLOADER PATCH **/
 
 /* Support additional includes, such as composer's vendor/autoload.php files */
 foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as $path) {
@@ -217,7 +222,7 @@ final class Mage
             return [
                 'major'     => '20',
                 'minor'     => '0',
-                'patch'     => '18',
+                'patch'     => '19',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             ];
@@ -226,7 +231,7 @@ final class Mage
         return [
             'major'     => '19',
             'minor'     => '4',
-            'patch'     => '20',
+            'patch'     => '21',
             'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
