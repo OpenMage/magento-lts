@@ -79,7 +79,6 @@
     "magento-root-dir": ".",
     "magento-deploystrategy": "copy",
     "magento-deploystrategy-dev": "symlink"
-
   },
   "config": {
     "allow-plugins": {
