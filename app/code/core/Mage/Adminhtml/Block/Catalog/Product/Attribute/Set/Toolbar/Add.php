@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add extends Mag
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Back'),
-                    'onclick'   => $this->getSetLocationHtml($this->getUrl('*/*/')),
+                    'onclick'   => $this->getSetLocationJs($this->getUrl('*/*/')),
                     'class' => 'back'
             ])
         );

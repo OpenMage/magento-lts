@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
             $this->_updateButton(
                 'back',
                 'onclick',
-                $this->getSetLocationHtml(
+                $this->getSetLocationJs(
                     $this->getUrl('*/catalog_product/edit', ['id' => $this->getRequest()->getParam('product_id')])
                 )
             );
@@ -53,7 +53,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
             $this->_updateButton(
                 'back',
                 'onclick',
-                $this->getSetLocationHtml(
+                $this->getSetLocationJs(
                     $this->getUrl('*/customer/edit', ['id' => $this->getRequest()->getParam('customer_id')])
                 )
             );
@@ -63,13 +63,13 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
             $this->_updateButton(
                 'back',
                 'onclick',
-                $this->getSetLocationHtml($this->getUrl('*/*/pending'))
+                $this->getSetLocationJs($this->getUrl('*/*/pending'))
             );
 
             $this->_updateButton(
                 'delete',
                 'onclick',
-                $this->getDeleteConfirmHtml(
+                $this->getDeleteConfirmJs(
                     $this->getUrl(
                         '*/*/delete',
                         [$this->_objectId => $this->getRequest()->getParam($this->_objectId), 'ret' => 'pending']

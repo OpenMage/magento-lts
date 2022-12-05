@@ -47,7 +47,7 @@ class Mage_Adminhtml_Block_System_Store_Delete extends Mage_Adminhtml_Block_Widg
 
         $this->_addButton('cancel', [
             'label'     => Mage::helper('adminhtml')->__('Cancel'),
-            'onclick'   => $this->getSetLocationHtml($this->getBackUrl()),
+            'onclick'   => $this->getSetLocationJs($this->getBackUrl()),
         ], 2, 100, 'footer');
     }
 
@@ -82,8 +82,8 @@ class Mage_Adminhtml_Block_System_Store_Delete extends Mage_Adminhtml_Block_Widg
     public function setBackUrl($url)
     {
         $this->setData('back_url', $url);
-        $this->_updateButton('cancel', 'onclick', $this->getSetLocationHtml($url));
-        $this->_updateButton('back', 'onclick', $this->getSetLocationHtml($url));
+        $this->_updateButton('cancel', 'onclick', $this->getSetLocationJs($url));
+        $this->_updateButton('back', 'onclick', $this->getSetLocationJs($url));
         return $this;
     }
 }

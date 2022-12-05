@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Poll_Answer_Edit extends Mage_Adminhtml_Block_Widget_
         $this->_updateButton(
             'back',
             'onclick',
-            $this->getSetLocationHtml(
+            $this->getSetLocationJs(
                 $this->getUrl(
                     '*/poll/edit',
                     ['id' => $answerData->getPollId(), 'tab' => 'answers_section']

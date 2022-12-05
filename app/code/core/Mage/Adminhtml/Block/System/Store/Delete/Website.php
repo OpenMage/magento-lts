@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_System_Store_Delete_Website extends Mage_Adminhtml_Bl
                     'class'     => 'cancel'
                 ])
         );
-        $onClick = $this->getSetLocationHtml($this->getUrl('*/*/editWebsite', ['website_id' => $itemId]));
+        $onClick = $this->getSetLocationJs($this->getUrl('*/*/editWebsite', ['website_id' => $itemId]));
         $this->setChild(
             'cancel_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')

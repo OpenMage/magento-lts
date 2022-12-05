@@ -35,7 +35,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Back'),
-                    'onclick'   => $this->getSetLocationHtml(
+                    'onclick'   => $this->getSetLocationJs(
                         $this->getUrl(
                             '*/catalog_product/',
                             ['store' => $this->getRequest()->getParam('store', 0)]
@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Reset'),
-                    'onclick'   => $this->getSetLocationHtml($this->getUrl('*/*/*', ['_current' => true]))
+                    'onclick'   => $this->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true]))
                 ])
         );
 

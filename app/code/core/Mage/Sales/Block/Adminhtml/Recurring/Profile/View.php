@@ -40,7 +40,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
     {
         $this->_addButton('back', [
             'label'     => Mage::helper('adminhtml')->__('Back'),
-            'onclick'   => $this->getSetLocationHtml($this->getUrl('*/*/')),
+            'onclick'   => $this->getSetLocationJs($this->getUrl('*/*/')),
             'class'     => 'back',
         ]);
 
@@ -50,7 +50,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
         if ($profile->canCancel()) {
             $this->_addButton('cancel', [
                 'label'     => Mage::helper('sales')->__('Cancel'),
-                'onclick'   => $this->getConfirmSetLocationHtml(
+                'onclick'   => $this->getConfirmSetLocationJs(
                     $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'cancel'])
                 ),
                 'class'     => 'delete',
@@ -61,7 +61,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
         if ($profile->canSuspend()) {
             $this->_addButton('suspend', [
                 'label'     => Mage::helper('sales')->__('Suspend'),
-                'onclick'   => $this->getConfirmSetLocationHtml(
+                'onclick'   => $this->getConfirmSetLocationJs(
                     $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'suspend'])
                 ),
                 'class'     => 'delete',
@@ -72,7 +72,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
         if ($profile->canActivate()) {
             $this->_addButton('activate', [
                 'label'     => Mage::helper('sales')->__('Activate'),
-                'onclick'   => $this->getConfirmSetLocationHtml(
+                'onclick'   => $this->getConfirmSetLocationJs(
                     $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'activate'])
                 ),
                 'class'     => 'add',
@@ -83,7 +83,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
         if ($profile->canFetchUpdate()) {
             $this->_addButton('update', [
                 'label'     => Mage::helper('sales')->__('Get Update'),
-                'onclick'   => $this->getConfirmSetLocationHtml(
+                'onclick'   => $this->getConfirmSetLocationJs(
                     $this->getUrl('*/*/updateProfile', ['profile' => $profile->getId()])
                 ),
                 'class'     => 'add',

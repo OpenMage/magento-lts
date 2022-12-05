@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
                     'class'     => 'cancel'
                 ])
         );
-        $onClick = $this->getSetLocationHtml($this->getUrl('*/*/editGroup', ['group_id' => $itemId]));
+        $onClick = $this->getSetLocationJs($this->getUrl('*/*/editGroup', ['group_id' => $itemId]));
         $this->setChild(
             'cancel_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')

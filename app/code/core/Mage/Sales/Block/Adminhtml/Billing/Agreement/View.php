@@ -49,14 +49,14 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View extends Mage_Adminhtml_B
 
         $this->_addButton('back', [
             'label'     => Mage::helper('adminhtml')->__('Back'),
-            'onclick'   => $this->getSetLocationHtml($this->getBackUrl()),
+            'onclick'   => $this->getSetLocationJs($this->getBackUrl()),
             'class'     => 'back',
         ], -1);
 
         if ($this->_getBillingAgreement()->canCancel() && $this->_isAllowed('sales/billing_agreement/actions/manage')) {
             $this->_addButton('cancel', [
                 'label'     => Mage::helper('adminhtml')->__('Cancel'),
-                'onclick'   => $this->getConfirmSetLocationHtml($this->_getCancelUrl()),
+                'onclick'   => $this->getConfirmSetLocationJs($this->_getCancelUrl()),
                 'class'     => 'cancel',
             ], -1);
         }

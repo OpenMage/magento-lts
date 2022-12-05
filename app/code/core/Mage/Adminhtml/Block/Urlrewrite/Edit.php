@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         $this->setTemplate('urlrewrite/edit.phtml');
         $this->_addButton('back', [
             'label'   => Mage::helper('adminhtml')->__('Back'),
-            'onclick' => $this->getSetLocationHtml(Mage::helper('adminhtml')->getUrl('*/*/')),
+            'onclick' => $this->getSetLocationJs(Mage::helper('adminhtml')->getUrl('*/*/')),
             'class'   => 'back',
             'level'   => -1
         ]);
@@ -108,7 +108,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                 $this->_updateButton(
                     'back',
                     'onclick',
-                    $this->getSetLocationHtml(Mage::helper('adminhtml')->getUrl('*/*/edit') . 'product')
+                    $this->getSetLocationJs(Mage::helper('adminhtml')->getUrl('*/*/edit') . 'product')
                 );
             }
         } elseif ($this->getCategoryId()) { // edit form for category
@@ -182,7 +182,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         $this->_updateButton(
             'back',
             'onclick',
-            $this->getSetLocationHtml(Mage::helper('adminhtml')->getUrl('*/*/' . $action, $params) . $suffix)
+            $this->getSetLocationJs(Mage::helper('adminhtml')->getUrl('*/*/' . $action, $params) . $suffix)
         );
 
         return $this;

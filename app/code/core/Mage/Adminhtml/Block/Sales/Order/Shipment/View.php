@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
             $this->_updateButton(
                 'save',
                 'onclick',
-                $this->getDeleteConfirmHtml(
+                $this->getDeleteConfirmJs(
                     $this->getEmailUrl(),
                     Mage::helper('sales')->__('Are you sure you want to send Shipment email to customer?')
                 )
@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
             $this->_addButton('print', [
                 'label'     => Mage::helper('sales')->__('Print'),
                 'class'     => 'save',
-                'onclick'   => $this->getSetLocationHtml($this->getPrintUrl())
+                'onclick'   => $this->getSetLocationJs($this->getPrintUrl())
             ]);
         }
     }
@@ -137,14 +137,14 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
                 return $this->_updateButton(
                     'back',
                     'onclick',
-                    $this->getSetLocationHtml($this->getShipment()->getBackUrl())
+                    $this->getSetLocationJs($this->getShipment()->getBackUrl())
                 );
             }
 
             return $this->_updateButton(
                 'back',
                 'onclick',
-                $this->getSetLocationHtml($this->getUrl('*/sales_shipment/'))
+                $this->getSetLocationJs($this->getUrl('*/sales_shipment/'))
             );
         }
         return $this;

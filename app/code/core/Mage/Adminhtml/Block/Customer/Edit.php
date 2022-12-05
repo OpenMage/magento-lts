@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         ) {
             $this->_addButton('order', [
                 'label' => Mage::helper('customer')->__('Create Order'),
-                'onclick' => $this->getSetLocationHtml($this->getCreateOrderUrl()),
+                'onclick' => $this->getSetLocationJs($this->getCreateOrderUrl()),
                 'class' => 'add',
             ], 0);
         }
@@ -110,7 +110,7 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         if (!Mage::registry('current_customer')->isReadonly()) {
             $this->_addButton('save_and_continue', [
                 'label'     => Mage::helper('customer')->__('Save and Continue Edit'),
-                'onclick'   => $this->getSaveAndContinueEditHtml($this->_getSaveAndContinueUrl()),
+                'onclick'   => $this->getSaveAndContinueEditJs($this->_getSaveAndContinueUrl()),
                 'class'     => 'save'
             ], 10);
         }

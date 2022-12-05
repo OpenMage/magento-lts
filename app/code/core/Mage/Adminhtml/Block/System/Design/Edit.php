@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Back'),
-                    'onclick'   => $this->getSetLocationHtml($this->getUrl('*/*/')),
+                    'onclick'   => $this->getSetLocationJs($this->getUrl('*/*/')),
                     'class'     => 'back'
                 ])
         );
@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Delete'),
-                    'onclick'   => $this->getConfirmSetLocationHtml($this->getDeleteUrl()),
+                    'onclick'   => $this->getConfirmSetLocationJs($this->getDeleteUrl()),
                     'class'     => 'delete'
                 ])
         );

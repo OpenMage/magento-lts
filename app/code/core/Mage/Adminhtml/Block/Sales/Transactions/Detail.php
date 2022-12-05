@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         $backUrl = ($this->_txn->getOrderUrl()) ? $this->_txn->getOrderUrl() : $this->getUrl('*/*/');
         $this->_addButton('back', [
             'label'   => Mage::helper('sales')->__('Back'),
-            'onclick' => $this->getSetLocationHtml($backUrl),
+            'onclick' => $this->getSetLocationJs($backUrl),
             'class'   => 'back'
         ]);
 
@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         ) {
             $this->_addButton('fetch', [
                 'label'   => Mage::helper('sales')->__('Fetch'),
-                'onclick' => $this->getSetLocationHtml($this->getUrl('*/*/fetch', ['_current' => true])),
+                'onclick' => $this->getSetLocationJs($this->getUrl('*/*/fetch', ['_current' => true])),
                 'class'   => 'button'
             ]);
         }

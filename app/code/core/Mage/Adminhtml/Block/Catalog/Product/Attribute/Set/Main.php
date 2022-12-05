@@ -77,7 +77,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             'back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'label'     => Mage::helper('catalog')->__('Back'),
-                'onclick'   => $this->getSetLocationHtml($this->getUrl('*/*/')),
+                'onclick'   => $this->getSetLocationJs($this->getUrl('*/*/')),
                 'class'     => 'back'
             ])
         );
@@ -103,7 +103,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             'delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'label'     => Mage::helper('catalog')->__('Delete Attribute Set'),
-                'onclick'   => $this->getDeleteConfirmHtml(
+                'onclick'   => $this->getDeleteConfirmJs(
                     $this->getUrlSecure('*/*/delete', ['id' => $setId]),
                     Mage::helper('catalog')->__('All products of this set will be deleted! Are you sure you want to delete this attribute set?')
                 ),

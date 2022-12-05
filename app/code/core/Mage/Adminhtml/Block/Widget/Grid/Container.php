@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
 
         $this->_addButton('add', [
             'label'     => $this->getAddButtonLabel(),
-            'onclick'   => $this->getSetLocationHtml($this->getCreateUrl()),
+            'onclick'   => $this->getSetLocationJs($this->getCreateUrl()),
             'class'     => 'add',
         ]);
     }
@@ -111,7 +111,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
     {
         $this->_addButton('back', [
             'label'     => $this->getBackButtonLabel(),
-            'onclick'   => $this->getSetLocationHtml($this->getBackUrl()),
+            'onclick'   => $this->getSetLocationJs($this->getBackUrl()),
             'class'     => 'back',
         ]);
     }

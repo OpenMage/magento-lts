@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Back'),
-                        'onclick'   => $this->getSetLocationHtml($this->getUrl('*/*/', ['store' => $this->getRequest()->getParam('store', 0)])),
+                        'onclick'   => $this->getSetLocationJs($this->getUrl('*/*/', ['store' => $this->getRequest()->getParam('store', 0)])),
                         'class'     => 'back'
                     ])
             );
@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Reset'),
-                        'onclick'   => $this->getSetLocationHtml($this->getUrl('*/*/*', ['_current' => true]))
+                        'onclick'   => $this->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true]))
                     ])
             );
 
@@ -100,7 +100,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     $this->getLayout()->createBlock('adminhtml/widget_button')
                         ->setData([
                             'label'     => Mage::helper('catalog')->__('Save and Continue Edit'),
-                            'onclick'   => $this->getSaveAndContinueEditHtml($this->getSaveAndContinueUrl()),
+                            'onclick'   => $this->getSaveAndContinueEditJs($this->getSaveAndContinueUrl()),
                             'class'     => 'save'
                         ])
                 );
@@ -111,7 +111,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     $this->getLayout()->createBlock('adminhtml/widget_button')
                         ->setData([
                             'label'     => Mage::helper('catalog')->__('Delete'),
-                            'onclick'   => $this->getConfirmSetLocationHtml($this->getDeleteUrl()),
+                            'onclick'   => $this->getConfirmSetLocationJs($this->getDeleteUrl()),
                             'class'     => 'delete'
                         ])
                 );
@@ -123,7 +123,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Duplicate'),
-                        'onclick'   => $this->getSetLocationHtml($this->getDuplicateUrl()),
+                        'onclick'   => $this->getSetLocationJs($this->getDuplicateUrl()),
                         'class'     => 'add'
                     ])
                 );

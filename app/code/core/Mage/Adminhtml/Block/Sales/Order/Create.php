@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
         }
 
         $this->_updateButton('back', 'id', 'back_order_top_button');
-        $this->_updateButton('back', 'onclick', $this->getSetLocationHtml($this->getBackUrl()));
+        $this->_updateButton('back', 'onclick', $this->getSetLocationJs($this->getBackUrl()));
 
         $this->_updateButton('reset', 'id', 'reset_order_top_button');
 
@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
         $this->_updateButton(
             'reset',
             'onclick',
-            $this->getDeleteConfirmHtml(
+            $this->getDeleteConfirmJs(
                 $this->getCancelUrl(),
                 Mage::helper('sales')->__('Are you sure you want to cancel this order?')
             )

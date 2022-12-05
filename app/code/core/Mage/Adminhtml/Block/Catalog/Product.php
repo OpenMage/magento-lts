@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Widget_C
     {
         $this->_addButton('add_new', [
             'label'   => Mage::helper('catalog')->__('Add Product'),
-            'onclick' => $this->getSetLocationHtml($this->getUrl('*/*/new')),
+            'onclick' => $this->getSetLocationJs($this->getUrl('*/*/new')),
             'class'   => 'add'
         ]);
 

@@ -93,7 +93,7 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
      * @return string
      * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
      */
-    protected function getDeleteConfirmHtml(string $url, ?string $message = null): string
+    protected function getDeleteConfirmJs(string $url, ?string $message = null): string
     {
         if (is_null($message)) {
             $message = Mage::helper('adminhtml')->__('Are you sure you want to do this?');
@@ -111,7 +111,7 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
      * @return string
      * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
      */
-    protected function getConfirmSetLocationHtml(string $url, ?string $message = null): string
+    protected function getConfirmSetLocationJs(string $url, ?string $message = null): string
     {
         if (is_null($message)) {
             $message = Mage::helper('adminhtml')->__('Are you sure you want to do this?');
@@ -127,7 +127,7 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
      * @param string $url
      * @return string
      */
-    protected function getSetLocationHtml(string $url): string
+    protected function getSetLocationJs(string $url): string
     {
         return 'setLocation(\'' . $url . '\')';
     }
@@ -138,7 +138,7 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
      * @param string $url
      * @return string
      */
-    protected function getSaveAndContinueEditHtml(string $url): string
+    protected function getSaveAndContinueEditJs(string $url): string
     {
         return 'saveAndContinueEdit(\'' . $url . '\')';
     }

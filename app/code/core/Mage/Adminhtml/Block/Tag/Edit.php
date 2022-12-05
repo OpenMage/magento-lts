@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
 
         $this->addButton('save_and_edit_button', [
             'label'   => Mage::helper('tag')->__('Save and Continue Edit'),
-            'onclick' => $this->getSaveAndContinueEditHtml($this->getSaveAndContinueUrl()),
+            'onclick' => $this->getSaveAndContinueEditJs($this->getSaveAndContinueUrl()),
             'class'   => 'save'
         ], 1);
     }

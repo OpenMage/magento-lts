@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
 
         $this->_addButton('back', [
             'label'     => Mage::helper('adminhtml')->__('Back'),
-            'onclick'   => $this->getSetLocationHtml($this->getBackUrl()),
+            'onclick'   => $this->getSetLocationJs($this->getBackUrl()),
             'class'     => 'back',
         ], -1);
         $this->_addButton('reset', [
@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
             $this->_addButton('delete', [
                 'label'     => Mage::helper('adminhtml')->__('Delete'),
                 'class'     => 'delete',
-                'onclick'   => $this->getDeleteConfirmHtml($this->getDeleteUrl())
+                'onclick'   => $this->getDeleteConfirmJs($this->getDeleteUrl())
             ]);
         }
 

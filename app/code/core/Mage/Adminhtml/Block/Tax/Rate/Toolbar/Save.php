@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('tax')->__('Delete Rate'),
-                    'onclick'   => $this->getDeleteConfirmHtml(
+                    'onclick'   => $this->getDeleteConfirmJs(
                         $this->getUrl('*/*/delete', ['rate' => $this->getRequest()->getParam('rate')])
                     ),
                     'class'     => 'delete'
