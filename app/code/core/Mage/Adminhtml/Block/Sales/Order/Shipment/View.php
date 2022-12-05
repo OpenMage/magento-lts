@@ -88,7 +88,8 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
             $emailSent,
             $this->formatDate(
                 $this->getShipment()->getCreatedAtDate(),
-                'medium', true
+                'medium',
+                true
             )
         );
     }

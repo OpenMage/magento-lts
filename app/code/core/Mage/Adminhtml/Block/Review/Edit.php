@@ -72,7 +72,8 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                 'onclick',
                 $this->getDeleteConfirmHtml(
                     $this->getUrl(
-                        '*/*/delete', [
+                        '*/*/delete',
+                        [
                             $this->_objectId => $this->getRequest()->getParam($this->_objectId),
                             'ret'           => 'pending',
                         ]
