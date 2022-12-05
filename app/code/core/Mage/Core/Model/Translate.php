@@ -299,6 +299,8 @@ class Mage_Core_Model_Translate
      * @param string $module
      * @param string $fileName
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _getModuleFilePath($module, $fileName)
     {

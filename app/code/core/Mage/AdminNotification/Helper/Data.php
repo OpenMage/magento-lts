@@ -77,6 +77,8 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
      * @param bool $withExt
      * @return string
      * @deprecated v19.4.16
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getPopupObjectUrl($withExt = false)
     {

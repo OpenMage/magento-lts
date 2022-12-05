@@ -36,6 +36,8 @@ class Mage_Admin_Model_Acl_Assert_Time implements Zend_Acl_Assert_Interface
      * @param Mage_Admin_Model_Acl_Resource|null $resource
      * @param string|null $privilege
      * @return bool|null
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function assert(
         Mage_Admin_Model_Acl $acl,
@@ -48,6 +50,8 @@ class Mage_Admin_Model_Acl_Assert_Time implements Zend_Acl_Assert_Interface
 
     /**
      * @param int $time
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _isCleanTime($time)
     {

@@ -34,9 +34,9 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
      * @var bool
      */
     protected $_haveChildren = [
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS => false,
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES => false,
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES => true,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS => false,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES => false,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES => true,
     ];
 
     protected $_haveParents = false;
@@ -74,6 +74,8 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
      * @param string $whereField
      * @param int $id
      * @param array $additionalWheres
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = [])
     {

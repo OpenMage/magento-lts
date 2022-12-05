@@ -33,6 +33,8 @@ class Mage_Core_Model_Observer
      *
      * @param  Varien_Event_Observer $observer
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function addSynchronizeNotification(Varien_Event_Observer $observer)
     {
@@ -93,6 +95,8 @@ class Mage_Core_Model_Observer
      * Cron job method to clean old cache resources
      *
      * @param Mage_Cron_Model_Schedule $schedule
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function cleanCache(Mage_Cron_Model_Schedule $schedule)
     {
@@ -125,6 +129,8 @@ class Mage_Core_Model_Observer
      * @param Varien_Event_Observer $observer
      * @throws Exception
      * @return Mage_Core_Model_Observer
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function secureVarProcessing(Varien_Event_Observer $observer)
     {

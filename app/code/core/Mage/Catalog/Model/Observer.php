@@ -135,6 +135,8 @@ class Mage_Catalog_Model_Observer
      *
      * @param   Varien_Event_Observer $observer
      * @return  Mage_Catalog_Model_Observer
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function catalogProductImportAfter(Varien_Event_Observer $observer)
     {
@@ -148,6 +150,8 @@ class Mage_Catalog_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function catalogProductCompareClean(Varien_Event_Observer $observer)
     {
@@ -188,6 +192,8 @@ class Mage_Catalog_Model_Observer
      * Cron job method for product prices to reindex
      *
      * @param Mage_Cron_Model_Schedule $schedule
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function reindexProductPrices(Mage_Cron_Model_Schedule $schedule)
     {

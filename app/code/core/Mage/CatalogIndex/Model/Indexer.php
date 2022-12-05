@@ -585,6 +585,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * @param array $filteredAttributes
      * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function buildEntityPriceFilter($attributes, $values, &$filteredAttributes, $productCollection)
     {
@@ -685,6 +687,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * @param array $filteredAttributes
      * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function buildEntityFilter($attributes, $values, &$filteredAttributes, $productCollection)
     {

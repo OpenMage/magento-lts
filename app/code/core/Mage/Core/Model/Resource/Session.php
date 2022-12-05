@@ -168,6 +168,8 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param string $savePath ignored
      * @param string $sessName ignored
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function open($savePath, $sessName)
     {
@@ -260,6 +262,8 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      *
      * @param int $sessMaxLifeTime ignored
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function gc($sessMaxLifeTime)
     {

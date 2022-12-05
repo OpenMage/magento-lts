@@ -114,6 +114,8 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param array $params
      * @return  string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getSuccessOrderUrl($params)
     {

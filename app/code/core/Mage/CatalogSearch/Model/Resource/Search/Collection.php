@@ -176,6 +176,8 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
      *
      * @param string $query
      * @return false|string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _getSearchInOptionSql($query)
     {

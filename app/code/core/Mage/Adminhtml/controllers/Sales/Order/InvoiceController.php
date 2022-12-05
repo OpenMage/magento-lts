@@ -43,6 +43,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      *
      * @return Mage_Sales_Model_Order_Invoice|false
      * @throws Mage_Core_Exception
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _initInvoice($update = false)
     {

@@ -853,6 +853,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @param null $mergeConfig deprecated
      * @return $this|void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _loadDeclaredModules($mergeConfig = null)
     {
@@ -1291,11 +1293,12 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @param array|string $args Module name if string
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getPathVars($args = null)
     {
         $path = [];
-
         $path['baseUrl'] = Mage::getBaseUrl();
         $path['baseSecureUrl'] = Mage::getBaseUrl('link', true);
 

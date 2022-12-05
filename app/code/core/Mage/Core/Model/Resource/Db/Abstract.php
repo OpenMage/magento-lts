@@ -403,6 +403,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * @param Mage_Core_Model_Abstract $object
      * @return Varien_Db_Select
      * @throws Exception
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _getLoadSelect($field, $value, $object)
     {
@@ -705,6 +707,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @param Mage_Core_Model_Abstract $object
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -716,6 +720,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @param Mage_Core_Model_Abstract $object
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -727,6 +733,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @param Mage_Core_Model_Abstract $object
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -738,6 +746,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @param Mage_Core_Model_Abstract $object
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
@@ -749,6 +759,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @param Mage_Core_Model_Abstract $object
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {

@@ -261,6 +261,8 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
      * @param string $sql
      * @param array $bind
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function processQuery(&$sql, &$bind)
     {

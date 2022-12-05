@@ -36,6 +36,8 @@ class Mage_Api_Model_Acl_Assert_Time implements Zend_Acl_Assert_Interface
      * @param Mage_Api_Model_Acl_Resource|null $resource
      * @param string|null $privilege
      * @return bool|null
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function assert(
         Mage_Api_Model_Acl $acl,
@@ -48,6 +50,8 @@ class Mage_Api_Model_Acl_Assert_Time implements Zend_Acl_Assert_Interface
 
     /**
      * @param bool $time
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _isCleanTime($time)
     {

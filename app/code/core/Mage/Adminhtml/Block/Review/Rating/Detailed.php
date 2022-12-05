@@ -29,6 +29,7 @@
 class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_Template
 {
     protected $_voteCollection = false;
+
     public function __construct()
     {
         parent::__construct();
@@ -38,6 +39,10 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
         }
     }
 
+    /**
+     * @return Mage_Rating_Model_Resource_Rating_Collection
+     * @throws Mage_Core_Exception
+     */
     public function getRating()
     {
         if (!$this->getRatingCollection()) {
@@ -94,12 +99,19 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
         return $this->getRatingCollection();
     }
 
+    /**
+     * @return $this
+     */
     public function setIndependentMode()
     {
         $this->setIsIndependentMode(true);
         return $this;
     }
 
+    /**
+     * @return bool
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function isSelected($option, $rating)
     {
         if ($this->getIsIndependentMode()) {

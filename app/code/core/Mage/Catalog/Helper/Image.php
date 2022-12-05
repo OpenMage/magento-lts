@@ -222,6 +222,8 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * @param bool $flag
      * @param array $position
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function keepFrame($flag, $position = ['center', 'middle'])
     {
@@ -240,6 +242,8 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * @param bool $flag
      * @param int $alphaOpacity
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function keepTransparency($flag, $alphaOpacity = null)
     {

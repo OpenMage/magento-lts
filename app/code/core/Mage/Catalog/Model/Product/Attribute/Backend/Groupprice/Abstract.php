@@ -94,6 +94,8 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
      *
      * @param array $objectArray
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _getAdditionalUniqueFields($objectArray)
     {

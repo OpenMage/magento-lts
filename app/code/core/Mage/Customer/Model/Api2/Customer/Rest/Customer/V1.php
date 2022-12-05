@@ -82,6 +82,8 @@ class Mage_Customer_Model_Api2_Customer_Rest_Customer_V1 extends Mage_Customer_M
      *
      * @param array $data
      * @throws Mage_Api2_Exception
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _multiUpdate(array $data)
     {

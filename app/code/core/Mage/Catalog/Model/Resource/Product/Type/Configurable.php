@@ -98,6 +98,8 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
      * @param int $parentId
      * @param bool $required
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getChildrenIds($parentId, $required = true)
     {

@@ -184,6 +184,8 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
      * Product websites update is not available
      *
      * @param array $data
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _update(array $data)
     {

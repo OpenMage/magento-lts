@@ -463,6 +463,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * @param mixed $qty
      * @param Mage_Catalog_Model_Product $product
      * @return int
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function prepareQuoteItemQty($qty, $product = null)
     {
@@ -892,6 +894,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      *
      * @param Mage_Catalog_Model_Product $product
      * @return bool true
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getForceChildItemQtyChanges($product = null)
     {
@@ -1002,6 +1006,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * @param  Mage_Catalog_Model_Product $product
      * @param  Varien_Object $buyRequest
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function processBuyRequest($product, $buyRequest)
     {
@@ -1036,6 +1042,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * @param Mage_Catalog_Model_Product $product
      * @param int $visibility
      * @return bool|null
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function isMapEnabledInOptions($product, $visibility = null)
     {

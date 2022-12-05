@@ -51,6 +51,8 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param string $namespace
      * @param string|null $sessionName
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function init($namespace, $sessionName = null)
     {

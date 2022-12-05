@@ -168,6 +168,8 @@ class Mage_Backup_Model_Resource_Db
      * @param string $tableName
      * @param array $row
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _quoteRow($tableName, array $row)
     {
@@ -221,6 +223,8 @@ class Mage_Backup_Model_Resource_Db
      * @param string $tableName
      * @param bool $step
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getTableDataDump($tableName, $step = false)
     {

@@ -287,6 +287,8 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      * Check query of a warnings
      *
      * @param mixed $store
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function checkNotes($store = null)
     {

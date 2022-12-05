@@ -48,6 +48,8 @@ class Mage_Cron_Model_Observer
      * Cleanup tasks schedule
      *
      * @param Varien_Event_Observer $observer
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function dispatch($observer)
     {
@@ -75,6 +77,8 @@ class Mage_Cron_Model_Observer
      * Process cron queue for tasks marked as always
      *
      * @param Varien_Event_Observer $observer
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function dispatchAlways($observer)
     {

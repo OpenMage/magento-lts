@@ -110,6 +110,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Define active menu item in menu block
      *
+     * @param string $menuPath
      * @return $this
      */
     protected function _setActiveMenu($menuPath)
@@ -119,6 +120,9 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     }
 
     /**
+     * @param string $label
+     * @param string|null $title
+     * @param string|null $link
      * @return $this
      */
     protected function _addBreadcrumb($label, $title, $link = null)
@@ -130,6 +134,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     }
 
     /**
+     * @param Mage_Core_Block_Abstract $block
      * @return $this
      */
     protected function _addContent(Mage_Core_Block_Abstract $block)
@@ -138,12 +143,20 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         return $this;
     }
 
+    /**
+     * @param Mage_Core_Block_Abstract $block
+     * @return $this
+     */
     protected function _addLeft(Mage_Core_Block_Abstract $block)
     {
         $this->getLayout()->getBlock('left')->append($block);
         return $this;
     }
 
+    /**
+     * @param Mage_Core_Block_Abstract $block
+     * @return $this
+     */
     protected function _addJs(Mage_Core_Block_Abstract $block)
     {
         $this->getLayout()->getBlock('js')->append($block);
@@ -295,6 +308,12 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         $this->renderLayout();
     }
 
+    /**
+     * @param string $ids
+     * @param bool $generateBlocks
+     * @param bool $generateXml
+     * @return $this
+     */
     public function loadLayout($ids = null, $generateBlocks = true, $generateXml = true)
     {
         parent::loadLayout($ids, $generateBlocks, $generateXml);
@@ -302,6 +321,11 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         return $this;
     }
 
+    /**
+     * @param null $coreRoute
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function norouteAction($coreRoute = null)
     {
         $this->getResponse()->setHeader('HTTP/1.1', '404 Not Found');
@@ -351,7 +375,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * Is overriden here to set defaultUrl to admin url
      *
      * @param   string $defaultUrl
-     * @return  Mage_Adminhtml_Controller_Action
+     * @return  $this
      */
     protected function _redirectReferer($defaultUrl = null)
     {
@@ -415,7 +439,6 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * Validate password for current admin user
      *
      * @param string $password - current password
-     *
      * @return mixed - returns true or array of errors
      */
     protected function _validateCurrentPassword($password)
@@ -440,7 +463,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Set actions name for forced use form key if "Secret Key to URLs" disabled
      *
-     * @param array | string $actionNames - action names for forced use form key
+     * @param array|string $actionNames - action names for forced use form key
      */
     protected function _setForcedFormKeyActions($actionNames)
     {
@@ -457,7 +480,6 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      *
      * @param string $param - request parameter
      * @param string $pattern - pattern that should be contained in parameter
-     *
      * @return bool
      */
     protected function _validateRequestParam($param, $pattern = '')
@@ -474,7 +496,6 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      *
      * @param array $params - array of request parameters
      * @param string $pattern - pattern that should be contained in parameter
-     *
      * @return bool
      */
     protected function _validateRequestParams($params, $pattern = '')

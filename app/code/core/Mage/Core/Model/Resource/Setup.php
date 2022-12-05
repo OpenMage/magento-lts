@@ -779,6 +779,8 @@ class Mage_Core_Model_Resource_Setup
      * @param string $parentField
      * @param string|int $parentId
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function updateTableRow($table, $idField, $id, $field, $value = null, $parentField = null, $parentId = 0)
     {
@@ -861,6 +863,8 @@ class Mage_Core_Model_Resource_Setup
      * @param string $default
      * @return $this
      * @deprecated since 1.4.0.1
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function addConfigField($path, $label, array $data = [], $default = null)
     {
@@ -876,6 +880,8 @@ class Mage_Core_Model_Resource_Setup
      * @param int $scopeId
      * @param int $inherit
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setConfigData($path, $value, $scope = 'default', $scopeId = 0, $inherit = 0)
     {

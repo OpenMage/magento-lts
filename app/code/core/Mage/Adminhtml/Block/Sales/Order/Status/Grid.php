@@ -38,6 +38,10 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
         $this->setDefaultDir('DESC');
     }
 
+    /**
+     * @return $this
+     * @throws Exception
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/order_status_collection');
@@ -47,6 +51,9 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('label', [
@@ -96,6 +103,8 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
      * Decorate status column values
      *
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function decorateState($value, $row, $column, $isExport)
     {
@@ -107,6 +116,9 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
         return $cell;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function decorateAction($value, $row, $column, $isExport)
     {
         $cell = '';

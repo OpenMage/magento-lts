@@ -198,6 +198,8 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * @param string $email
      * @param bool $testOnly
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function loadByEmail(Mage_Customer_Model_Customer $customer, $email, $testOnly = false)
     {

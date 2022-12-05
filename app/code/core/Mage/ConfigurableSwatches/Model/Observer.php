@@ -147,6 +147,8 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
      * Observes: controller_action_layout_generate_blocks_after
      *
      * @param Varien_Event_Observer $observer
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function convertLayerBlock(Varien_Event_Observer $observer)
     {

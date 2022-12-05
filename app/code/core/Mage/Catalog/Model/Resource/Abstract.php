@@ -142,6 +142,8 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * @param string $table
      * @param string $type
      * @return Varien_Db_Select
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _addLoadAttributesSelectFields($select, $table, $type)
     {
@@ -171,7 +173,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      *
      * @param Mage_Catalog_Model_Abstract $object
      * @param array $valueRow
-     * @return Mage_Catalog_Model_Resource_Abstract
+     * @return $this
      */
     protected function _setAttributeValue($object, $valueRow)
     {
@@ -211,7 +213,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * @param Mage_Catalog_Model_Abstract $object
      * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @param mixed $value
-     * @return Mage_Catalog_Model_Resource_Abstract
+     * @return $this
      */
     protected function _saveAttributeValue($object, $attribute, $value)
     {
@@ -273,7 +275,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * @param Varien_Object $object
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param mixed $value
-     * @return Mage_Catalog_Model_Resource_Abstract
+     * @return $this
      */
     protected function _insertAttribute($object, $attribute, $value)
     {
@@ -318,7 +320,9 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param mixed $valueId
      * @param mixed $value
-     * @return Mage_Catalog_Model_Resource_Abstract
+     * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _updateAttribute($object, $attribute, $valueId, $value)
     {
@@ -332,7 +336,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * @param object $attribute
      * @param mixed $value
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Abstract
+     * @return $this
      */
     protected function _updateAttributeForStore($object, $attribute, $value, $storeId)
     {
@@ -381,7 +385,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * @param Varien_Object $object
      * @param string $table
      * @param array $info
-     * @return Mage_Catalog_Model_Resource_Abstract
+     * @return $this
      */
     protected function _deleteAttributes($object, $table, $info)
     {
@@ -518,6 +522,8 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param mixed $value
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _isAttributeValueEmpty(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $value)
     {

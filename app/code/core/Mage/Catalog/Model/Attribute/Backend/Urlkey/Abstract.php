@@ -55,8 +55,9 @@ abstract class Mage_Catalog_Model_Attribute_Backend_Urlkey_Abstract extends Mage
      * Executes after url attribute save.
      *
      * @param Varien_Object $object
-     *
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function afterSave($object)
     {

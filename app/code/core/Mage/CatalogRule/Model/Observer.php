@@ -85,8 +85,9 @@ class Mage_CatalogRule_Model_Observer
      * Handle catalog_product_import_after event
      *
      * @param   Varien_Event_Observer $observer
-     *
      * @return  $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function applyAllRules($observer)
     {
@@ -256,8 +257,9 @@ class Mage_CatalogRule_Model_Observer
      * we should generate data for interval -1 day ... +1 day
      *
      * @param   Varien_Event_Observer $observer
-     *
      * @return  $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function dailyCatalogUpdate($observer)
     {
@@ -478,6 +480,8 @@ class Mage_CatalogRule_Model_Observer
      * Runs Catalog Product Price Reindex
      *
      * @param Varien_Event_Observer $observer
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function runCatalogProductPriceReindex(Varien_Event_Observer $observer)
     {

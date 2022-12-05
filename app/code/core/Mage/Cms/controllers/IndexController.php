@@ -32,6 +32,8 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
      * Renders CMS Home page
      *
      * @param string $coreRoute
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function indexAction($coreRoute = null)
     {
@@ -59,6 +61,8 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
      * Render CMS 404 Not found page
      *
      * @param string $coreRoute
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function noRouteAction($coreRoute = null)
     {

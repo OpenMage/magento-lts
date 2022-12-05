@@ -28,6 +28,12 @@ class Mage_Adminhtml_Model_System_Config_Source_Currency_Service
 {
     protected $_options;
 
+    /**
+     * @param null $isMultiselect
+     * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function toOptionArray($isMultiselect)
     {
         if (!$this->_options) {

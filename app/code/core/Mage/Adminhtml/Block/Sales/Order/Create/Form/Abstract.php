@@ -39,7 +39,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
      * Prepare global layout
      * Add renderers to Varien_Data_Form
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -76,7 +76,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     /**
      * Prepare Form and add elements to form
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+     * @return $this
      */
     abstract protected function _prepareForm();
 
@@ -110,7 +110,9 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
      * Add additional data to form element
      *
      * @param Varien_Data_Form_Element_Abstract $element
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+     * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _addAdditionalFormElementData(Varien_Data_Form_Element_Abstract $element)
     {
@@ -122,7 +124,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
      *
      * @param array|Varien_Data_Collection $attributes
      * @param Varien_Data_Form_Abstract $form
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+     * @return $this
      */
     protected function _addAttributesToForm($attributes, Varien_Data_Form_Abstract $form)
     {

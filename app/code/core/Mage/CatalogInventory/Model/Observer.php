@@ -855,6 +855,8 @@ class Mage_CatalogInventory_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      * @return  Mage_CatalogInventory_Model_Observer
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function updateItemsStockUponConfigChange($observer)
     {
@@ -1045,6 +1047,8 @@ class Mage_CatalogInventory_Model_Observer
      * Reindex all events of product-massAction type
      *
      * @param Varien_Event_Observer $observer
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function reindexProductsMassAction($observer)
     {

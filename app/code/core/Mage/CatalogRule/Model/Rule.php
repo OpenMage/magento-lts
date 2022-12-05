@@ -450,8 +450,9 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @deprecated after 1.11.2.0
      *
      * @param string $format
-     *
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function toString($format = '')
     {

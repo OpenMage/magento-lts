@@ -150,6 +150,8 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
     /**
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {

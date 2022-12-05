@@ -558,10 +558,11 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * @param int|string|null $fromDate
      * @param int|string|null $toDate
      * @param int $productId
+     * @return $this
      *
      * @deprecated after 1.7.0.2 use method applyAllRules
      *
-     * @return $this
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function applyAllRulesForDateRange($fromDate = null, $toDate = null, $productId = null)
     {

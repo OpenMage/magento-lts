@@ -362,8 +362,9 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * @param Mage_Core_Block_Abstract $block
      * @param string                   $method
      * @param string[]                 $args
-     *
      * @throws Mage_Core_Exception
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function validateAgainstBlacklist(Mage_Core_Block_Abstract $block, $method, array $args)
     {
@@ -552,7 +553,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      */
     public function addOutputBlock($blockName, $method = 'toHtml')
     {
-        //$this->_output[] = array($blockName, $method);
         $this->_output[$blockName] = [$blockName, $method];
         return $this;
     }

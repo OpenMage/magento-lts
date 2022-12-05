@@ -136,6 +136,8 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
      * @param string $errstr
      * @param string $errfile
      * @param int $errline
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _loadErrorHandler($errno, $errstr, $errfile, $errline)
     {
