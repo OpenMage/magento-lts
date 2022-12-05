@@ -22,20 +22,8 @@ jobs:
       uses: MilesChou/composer-action/8.1@master
       with:
         args: install --ignore-platform-req=ext-* --no-dev
-    - name: "Move Cm_Cache_Backend_Redis to /lib"
-      run: mkdir -p lib/Cm/Cache/Backend; cp vendor/colinmollenhour/cache-backend-redis/Cm/Cache/Backend/* lib/Cm/Cache/Backend/
-    - name: "Move mcryptcompat to /lib"
-      run: mkdir -p lib/mcryptcompat; cp vendor/phpseclib/mcrypt_compat/lib/* lib/mcryptcompat/
-    - name: "Move Crypt to /lib"
-      run: mkdir -p lib/phpseclib; cp -R vendor/phpseclib/phpseclib/phpseclib/Crypt lib/phpseclib
-    - name: "Move Emogrifier to /lib"
-      run: mkdir -p lib/Pelago; cp -R vendor/pelago/emogrifier/src lib/Pelago/Emogrifier
-    - name: "Move Sabberworm (needed for Emogrifier) to /lib"
-      run: mkdir -p lib/Sabberworm; cp -R vendor/sabberworm/php-css-parser/src lib/Sabberworm/CSS
-    - name: "Reset composer.json"
-      run: git checkout composer.json
     - name: "Create ZIP file"
-      run: zip -rq openmage-${{ github.event.release.tag_name }}.zip . -x '.git/*' 'vendor/*'
+      run: zip -rq openmage-${{ github.event.release.tag_name }}.zip . -x '.git/*'
     - name: "Attach ZIP to GitHub release"
       uses: svenstaro/upload-release-action@master
       with:
