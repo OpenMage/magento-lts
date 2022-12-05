@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
         }
 
         $this->_updateButton('back', 'id', 'back_order_top_button');
-        $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getBackUrl() . '\')');
+        $this->_updateButton('back', 'onclick', $this->getSetLocationHtml($this->getBackUrl()));
 
         $this->_updateButton('reset', 'id', 'reset_order_top_button');
 
@@ -59,10 +59,16 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
             $this->_updateButton('back', 'style', 'display:none');
         }
 
-        $confirm = Mage::helper('sales')->__('Are you sure you want to cancel this order?');
         $this->_updateButton('reset', 'label', Mage::helper('sales')->__('Cancel'));
         $this->_updateButton('reset', 'class', 'cancel');
-        $this->_updateButton('reset', 'onclick', 'deleteConfirm(\'' . $confirm . '\', \'' . $this->getCancelUrl() . '\')');
+        $this->_updateButton(
+            'reset',
+            'onclick',
+            $this->getDeleteConfirmHtml(
+                $this->getCancelUrl(),
+                Mage::helper('sales')->__('Are you sure you want to cancel this order?')
+            )
+        );
     }
 
     /**
@@ -99,6 +105,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
         return $html;
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderWidth()
     {
         return 'width: 70%;';
@@ -114,6 +123,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
         return Mage::getSingleton('adminhtml/session_quote');
     }
 
+    /**
+     * @return string
+     */
     public function getCancelUrl()
     {
         if ($this->_getSession()->getOrder()->getId()) {

@@ -26,6 +26,9 @@
  */
 class Mage_Adminhtml_Block_System_Design extends Mage_Adminhtml_Block_Template
 {
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->setTemplate('system/design/index.phtml');
@@ -35,8 +38,8 @@ class Mage_Adminhtml_Block_System_Design extends Mage_Adminhtml_Block_Template
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Add Design Change'),
-                    'onclick'   => "setLocation('" . $this->getUrl('*/*/new') . "')",
-                    'class'   => 'add'
+                    'onclick'   => $this->getSetLocationHtml($this->getUrl('*/*/new')),
+                    'class'     => 'add'
                 ])
         );
 

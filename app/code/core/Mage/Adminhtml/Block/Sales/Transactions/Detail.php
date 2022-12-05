@@ -48,17 +48,16 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         $backUrl = ($this->_txn->getOrderUrl()) ? $this->_txn->getOrderUrl() : $this->getUrl('*/*/');
         $this->_addButton('back', [
             'label'   => Mage::helper('sales')->__('Back'),
-            'onclick' => "setLocation('{$backUrl}')",
+            'onclick' => $this->getSetLocationHtml($backUrl),
             'class'   => 'back'
         ]);
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/transactions/fetch')
             && $this->_txn->getOrderPaymentObject()->getMethodInstance()->canFetchTransactionInfo()
         ) {
-            $fetchUrl = $this->getUrl('*/*/fetch', ['_current' => true]);
             $this->_addButton('fetch', [
                 'label'   => Mage::helper('sales')->__('Fetch'),
-                'onclick' => "setLocation('{$fetchUrl}')",
+                'onclick' => $this->getSetLocationHtml($this->getUrl('*/*/fetch', ['_current' => true])),
                 'class'   => 'button'
             ]);
         }
@@ -74,6 +73,9 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         return Mage::helper('sales')->__("Transaction # %s | %s", $this->_txn->getTxnId(), $this->formatDate($this->_txn->getCreatedAt(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true));
     }
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         $this->setTxnIdHtml(Mage::helper('adminhtml/sales')->escapeHtmlWithLinks(

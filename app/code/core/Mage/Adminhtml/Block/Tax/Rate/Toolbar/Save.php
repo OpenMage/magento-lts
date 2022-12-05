@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
                 ->setData([
                     'label'     => Mage::helper('tax')->__('Back'),
                     'onclick'   => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
-                    'class' => 'back'
+                    'class'     => 'back'
                 ])
         );
 
@@ -69,7 +69,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
                 ->setData([
                     'label'     => Mage::helper('tax')->__('Save Rate'),
                     'onclick'   => 'wigetForm.submit();return false;',
-                    'class' => 'save'
+                    'class'     => 'save'
                 ])
         );
 
@@ -78,14 +78,10 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('tax')->__('Delete Rate'),
-                    'onclick'   => 'deleteConfirm(\''
-                        . Mage::helper('core')->jsQuoteEscape(
-                            Mage::helper('tax')->__('Are you sure you want to do this?')
-                        )
-                        . '\', \''
-                        . $this->getUrl('*/*/delete', ['rate' => $this->getRequest()->getParam('rate')])
-                        . '\')',
-                    'class' => 'delete'
+                    'onclick'   => $this->getDeleteConfirmHtml(
+                        $this->getUrl('*/*/delete', ['rate' => $this->getRequest()->getParam('rate')])
+                    ),
+                    'class'     => 'delete'
                 ])
         );
         return parent::_prepareLayout();

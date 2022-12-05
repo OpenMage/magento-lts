@@ -28,6 +28,9 @@
  */
 class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Block_Template
 {
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $itemId = $this->getRequest()->getParam('group_id');
@@ -43,7 +46,7 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
                     'class'     => 'cancel'
                 ])
         );
-        $onClick = "setLocation('" . $this->getUrl('*/*/editGroup', ['group_id' => $itemId]) . "')";
+        $onClick = $this->getSetLocationHtml($this->getUrl('*/*/editGroup', ['group_id' => $itemId]));
         $this->setChild(
             'cancel_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')

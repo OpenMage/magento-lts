@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
 
         $this->_addButton('back', [
             'label'     => Mage::helper('adminhtml')->__('Back'),
-            'onclick'   => 'setLocation(\'' . $this->getBackUrl() . '\')',
+            'onclick'   => $this->getSetLocationHtml($this->getBackUrl()),
             'class'     => 'back',
         ], -1);
         $this->_addButton('reset', [
@@ -58,13 +58,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
             $this->_addButton('delete', [
                 'label'     => Mage::helper('adminhtml')->__('Delete'),
                 'class'     => 'delete',
-                'onclick'   => 'deleteConfirm(\''
-                    . Mage::helper('core')->jsQuoteEscape(
-                        Mage::helper('adminhtml')->__('Are you sure you want to do this?')
-                    )
-                    . '\', \''
-                    . $this->getDeleteUrl()
-                    . '\')',
+                'onclick'   => $this->getDeleteConfirmHtml($this->getDeleteUrl())
             ]);
         }
 
@@ -75,6 +69,9 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
         ], 1);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         if ($this->_blockGroup && $this->_controller && $this->_mode) {
@@ -98,6 +95,10 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
         return $this->getUrl('*/*/');
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public function getDeleteUrl()
     {
         return $this->getUrl('*/*/delete', [
@@ -131,12 +132,18 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
         return $this->getUrl('*/' . $this->_controller . '/save');
     }
 
+    /**
+     * @return string
+     */
     public function getFormHtml()
     {
         $this->getChild('form')->setData('action', $this->getSaveUrl());
         return $this->getChildHtml('form');
     }
 
+    /**
+     * @return string
+     */
     public function getFormInitScripts()
     {
         if (!empty($this->_formInitScripts) && is_array($this->_formInitScripts)) {
@@ -145,6 +152,9 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
         return '';
     }
 
+    /**
+     * @return string
+     */
     public function getFormScripts()
     {
         if (!empty($this->_formScripts) && is_array($this->_formScripts)) {
@@ -153,16 +163,25 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
         return '';
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderWidth()
     {
         return '';
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderCssClass()
     {
         return 'icon-head head-' . strtr($this->_controller, '_', '-');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderHtml()
     {
         return '<h3 class="' . $this->getHeaderCssClass() . '">' . $this->getHeaderText() . '</h3>';

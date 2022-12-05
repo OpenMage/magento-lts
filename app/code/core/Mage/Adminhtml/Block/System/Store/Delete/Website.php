@@ -28,6 +28,9 @@
  */
 class Mage_Adminhtml_Block_System_Store_Delete_Website extends Mage_Adminhtml_Block_Template
 {
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $itemId = $this->getRequest()->getParam('website_id');
@@ -43,7 +46,7 @@ class Mage_Adminhtml_Block_System_Store_Delete_Website extends Mage_Adminhtml_Bl
                     'class'     => 'cancel'
                 ])
         );
-        $onClick = "setLocation('" . $this->getUrl('*/*/editWebsite', ['website_id' => $itemId]) . "')";
+        $onClick = $this->getSetLocationHtml($this->getUrl('*/*/editWebsite', ['website_id' => $itemId]));
         $this->setChild(
             'cancel_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')

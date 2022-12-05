@@ -48,10 +48,10 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         $coreHelper = Mage::helper('core');
 
         if ($this->_isAllowedAction('edit') && $order->canEdit()) {
-            $confirmationMessage = $coreHelper->jsQuoteEscape(
+            $onclickJs = $this->getDeleteConfirmHtml(
+                $this->getEditUrl(),
                 Mage::helper('sales')->__('Are you sure? This order will be canceled and a new one will be created instead')
             );
-            $onclickJs = 'deleteConfirm(\'' . $confirmationMessage . '\', \'' . $this->getEditUrl() . '\');';
             $this->_addButton('order_edit', [
                 'label'    => Mage::helper('sales')->__('Edit'),
                 'onclick'  => $onclickJs,
@@ -81,73 +81,71 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         }
 
         if ($this->_isAllowedAction('cancel') && $order->canCancel()) {
-            $confirmationMessage = $coreHelper->jsQuoteEscape(
-                Mage::helper('sales')->__('Are you sure you want to cancel this order?')
-            );
             $this->_addButton('order_cancel', [
                 'label'     => Mage::helper('sales')->__('Cancel'),
-                'onclick'   => 'deleteConfirm(\'' . $confirmationMessage . '\', \'' . $this->getCancelUrl() . '\')',
+                'onclick'   => $this->getDeleteConfirmHtml(
+                    $this->getCancelUrl(),
+                    Mage::helper('sales')->__('Are you sure you want to cancel this order?')
+                )
             ]);
         }
 
         if ($this->_isAllowedAction('emails') && !$order->isCanceled()) {
-            $confirmationMessage = $coreHelper->jsQuoteEscape(
-                Mage::helper('sales')->__('Are you sure you want to send order email to customer?')
-            );
             $this->addButton('send_notification', [
                 'label'     => Mage::helper('sales')->__('Send Email'),
-                'onclick'   => "confirmSetLocation('{$confirmationMessage}', '{$this->getEmailUrl()}')",
+                'onclick'   => $this->getDeleteConfirmHtml(
+                    $this->getEmailUrl(),
+                    Mage::helper('sales')->__('Are you sure you want to send order email to customer?')
+                )
             ]);
         }
 
         // invoice action intentionally
         if ($this->_isAllowedAction('invoice') && $order->canVoidPayment()) {
-            $confirmationMessage = $coreHelper->jsQuoteEscape(
-                Mage::helper('sales')->__('Are you sure you want to void the payment?')
-            );
             $this->addButton('void_payment', [
                 'label'     => Mage::helper('sales')->__('Void'),
-                'onclick'   => "confirmSetLocation('{$confirmationMessage}', '{$this->getVoidPaymentUrl()}')",
+                'onclick'   => $this->getDeleteConfirmHtml(
+                    $this->getVoidPaymentUrl(),
+                    Mage::helper('sales')->__('Are you sure you want to void the payment?')
+                )
             ]);
         }
 
         if ($this->_isAllowedAction('hold') && $order->canHold()) {
             $this->_addButton('order_hold', [
                 'label'     => Mage::helper('sales')->__('Hold'),
-                'onclick'   => 'setLocation(\'' . $this->getHoldUrl() . '\')',
+                'onclick'   => $this->getSetLocationHtml($this->getHoldUrl())
             ]);
         }
 
         if ($this->_isAllowedAction('unhold') && $order->canUnhold()) {
             $this->_addButton('order_unhold', [
                 'label'     => Mage::helper('sales')->__('Unhold'),
-                'onclick'   => 'setLocation(\'' . $this->getUnholdUrl() . '\')',
+                'onclick'   => $this->getSetLocationHtml($this->getUnholdUrl())
             ]);
         }
 
         if ($this->_isAllowedAction('review_payment')) {
             if ($order->canReviewPayment()) {
-                $confirmationMessage = $coreHelper->jsQuoteEscape(
-                    Mage::helper('sales')->__('Are you sure you want to accept this payment?')
-                );
-                $onClick = "confirmSetLocation('{$confirmationMessage}', '{$this->getReviewPaymentUrl('accept')}')";
                 $this->_addButton('accept_payment', [
                     'label'     => Mage::helper('sales')->__('Accept Payment'),
-                    'onclick'   => $onClick,
+                    'onclick'   => $this->getConfirmSetLocationHtml(
+                        $this->getReviewPaymentUrl('accept'),
+                        Mage::helper('sales')->__('Are you sure you want to accept this payment?')
+                    )
                 ]);
-                $confirmationMessage = $coreHelper->jsQuoteEscape(
-                    Mage::helper('sales')->__('Are you sure you want to deny this payment?')
-                );
-                $onClick = "confirmSetLocation('{$confirmationMessage}', '{$this->getReviewPaymentUrl('deny')}')";
                 $this->_addButton('deny_payment', [
                     'label'     => Mage::helper('sales')->__('Deny Payment'),
-                    'onclick'   => $onClick,
+                    'onclick'   => $this->getConfirmSetLocationHtml(
+                        $this->getReviewPaymentUrl('deny'),
+                        Mage::helper('sales')->__('Are you sure you want to deny this payment?')
+                    )
                 ]);
             }
             if ($order->canFetchPaymentReviewUpdate()) {
                 $this->_addButton('get_review_payment_update', [
                     'label'     => Mage::helper('sales')->__('Get Payment Update'),
-                    'onclick'   => 'setLocation(\'' . $this->getReviewPaymentUrl('update') . '\')',
+                    'onclick'   => $this->getSetLocationHtml($this->getReviewPaymentUrl('update'))
                 ]);
             }
         }
@@ -158,7 +156,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
                 Mage::helper('sales')->__('Invoice');
             $this->_addButton('order_invoice', [
                 'label'     => $_label,
-                'onclick'   => 'setLocation(\'' . $this->getInvoiceUrl() . '\')',
+                'onclick'   => $this->getSetLocationHtml($this->getInvoiceUrl()),
                 'class'     => 'go'
             ]);
         }
@@ -168,18 +166,18 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         ) {
             $this->_addButton('order_ship', [
                 'label'     => Mage::helper('sales')->__('Ship'),
-                'onclick'   => 'setLocation(\'' . $this->getShipUrl() . '\')',
+                'onclick'   => $this->getSetLocationHtml($this->getShipUrl()),
                 'class'     => 'go'
             ]);
         }
 
         if ($this->_isAllowedAction('creditmemo') && $order->canCreditmemo()) {
-            $onClick = "setLocation('{$this->getCreditmemoUrl()}')";
+            $onClick = $this->getSetLocationHtml($this->getCreditmemoUrl());
             if ($order->getPayment()->getMethodInstance()->isGateway()) {
-                $confirmationMessage = $coreHelper->jsQuoteEscape(
+                $onClick = $this->getConfirmSetLocationHtml(
+                    $this->getCreditmemoUrl(),
                     Mage::helper('sales')->__('This will create an offline refund. To create an online refund, open an invoice and create credit memo for it. Do you wish to proceed?')
                 );
-                $onClick = "confirmSetLocation('{$confirmationMessage}', '{$this->getCreditmemoUrl()}')";
             }
             $this->_addButton('order_creditmemo', [
                 'label'     => Mage::helper('sales')->__('Credit Memo'),
@@ -196,7 +194,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         ) {
             $this->_addButton('order_reorder', [
                 'label'     => Mage::helper('sales')->__('Reorder'),
-                'onclick'   => 'setLocation(\'' . $this->getReorderUrl() . '\')',
+                'onclick'   => $this->getSetLocationHtml($this->getReorderUrl()),
                 'class'     => 'go'
             ]);
         }

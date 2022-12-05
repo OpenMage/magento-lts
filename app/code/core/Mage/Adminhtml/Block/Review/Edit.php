@@ -43,12 +43,12 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
             $this->_updateButton(
                 'back',
                 'onclick',
-                'setLocation(\''
-                    . $this->getUrl(
+                $this->getSetLocationHtml(
+                    $this->getUrl(
                         '*/catalog_product/edit',
                         ['id' => $this->getRequest()->getParam('productId', false)]
                     )
-                    . '\')'
+                )
             );
         }
 
@@ -56,34 +56,28 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
             $this->_updateButton(
                 'back',
                 'onclick',
-                'setLocation(\''
-                    . $this->getUrl(
+                $this->getSetLocationHtml(
+                    $this->getUrl(
                         '*/customer/edit',
                         ['id' => $this->getRequest()->getParam('customerId', false)]
                     )
-                    . '\')'
+                )
             );
         }
 
         if ($this->getRequest()->getParam('ret', false) == 'pending') {
-            $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getUrl('*/*/pending') . '\')');
+            $this->_updateButton('back', 'onclick', $this->getSetLocationHtml($this->getUrl('*/*/pending')));
             $this->_updateButton(
                 'delete',
                 'onclick',
-                'deleteConfirm('
-                    . '\''
-                    . Mage::helper('core')->jsQuoteEscape(
-                        Mage::helper('review')->__('Are you sure you want to do this?')
-                    )
-                    . '\', '
-                    . '\'' . $this->getUrl(
-                        '*/*/delete',
-                        [
+                $this->getDeleteConfirmHtml(
+                    $this->getUrl(
+                        '*/*/delete', [
                             $this->_objectId => $this->getRequest()->getParam($this->_objectId),
                             'ret'           => 'pending',
                         ]
-                    ) . '\''
-                    . ')'
+                    )
+                )
             );
             Mage::register('ret', 'pending');
         }
@@ -119,12 +113,14 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
         ';
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         if (Mage::registry('review_data') && Mage::registry('review_data')->getId()) {
             return Mage::helper('review')->__("Edit Review '%s'", $this->escapeHtml(Mage::registry('review_data')->getTitle()));
-        } else {
-            return Mage::helper('review')->__('New Review');
         }
+        return Mage::helper('review')->__('New Review');
     }
 }
