@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
 
         $objId = $this->getRequest()->getParam($this->_objectId);
 
-        if (! empty($objId)) {
+        if (!empty($objId)) {
             $this->_addButton('delete', [
                 'label'     => Mage::helper('adminhtml')->__('Delete'),
                 'class'     => 'delete',

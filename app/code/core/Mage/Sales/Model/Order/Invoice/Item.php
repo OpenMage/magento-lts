@@ -314,7 +314,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      */
     protected function _afterSave()
     {
-        if (! $this->_orderItem == null) {
+        if (!$this->_orderItem == null) {
             $this->_orderItem->save();
         }
 
