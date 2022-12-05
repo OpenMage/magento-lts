@@ -459,7 +459,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
             return;
         }
-        $this->doError('Invalid response line returned from server: ' . $data);
+        $this->doError('Invalid response line returned from server: ' . implode(' ', $line));
     }
 
     /**
