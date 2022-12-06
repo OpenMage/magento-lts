@@ -151,6 +151,8 @@ class Mage_Persistent_Model_Observer
      * Emulate 'top links' block with persistent data
      *
      * @param Mage_Core_Block_Abstract $block
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function emulateTopLinks($block)
     {
@@ -286,6 +288,8 @@ class Mage_Persistent_Model_Observer
      * Reset session data when customer re-authenticates
      *
      * @param Varien_Event_Observer $observer
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function customerAuthenticatedEvent($observer)
     {
@@ -520,6 +524,8 @@ class Mage_Persistent_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function clearExpiredCronJob(Mage_Cron_Model_Schedule $schedule)
     {

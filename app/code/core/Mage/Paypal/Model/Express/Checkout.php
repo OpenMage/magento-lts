@@ -495,6 +495,8 @@ class Mage_Paypal_Model_Express_Checkout
      *
      * @param string $token
      * @throws Mage_Core_Exception
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function prepareOrderReview($token = null)
     {

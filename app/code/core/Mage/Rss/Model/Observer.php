@@ -55,6 +55,8 @@ class Mage_Rss_Model_Observer
      * Clean cache for catalog review rss
      *
      * @param Varien_Event_Observer $observer
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function reviewSaveAfter(Varien_Event_Observer $observer)
     {
@@ -65,6 +67,8 @@ class Mage_Rss_Model_Observer
      * Clean cache for notify stock rss
      *
      * @param Varien_Event_Observer $observer
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function salesOrderItemSaveAfterNotifyStock(Varien_Event_Observer $observer)
     {
@@ -75,6 +79,8 @@ class Mage_Rss_Model_Observer
      * Clean cache for catalog new orders rss
      *
      * @param Varien_Event_Observer $observer
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function salesOrderItemSaveAfterOrderNew(Varien_Event_Observer $observer)
     {

@@ -363,6 +363,8 @@ class Mage_Paypal_Model_Pro
      * @param Mage_Payment_Model_Recurring_Profile $profile
      * @param Mage_Payment_Model_Info $paymentInfo
      * @throws Mage_Core_Exception
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function submitRecurringProfile(
         Mage_Payment_Model_Recurring_Profile $profile,
@@ -405,6 +407,8 @@ class Mage_Paypal_Model_Pro
      * Update RP data
      *
      * @param Mage_Payment_Model_Recurring_Profile $profile
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function updateRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile)
     {

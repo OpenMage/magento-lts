@@ -146,6 +146,8 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
      * Instantiate state and set it to state object
      * @param string $paymentAction
      * @param Varien_Object $stateObject
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function initialize($paymentAction, $stateObject)
     {
@@ -190,6 +192,8 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
      * @param string $field
      * @param int $storeId
      * @return mixed
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getConfigData($field, $storeId = null)
     {

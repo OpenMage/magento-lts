@@ -84,6 +84,8 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
      *
      * @param int $period
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setDatePeriod($period)
     {
@@ -95,6 +97,8 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
      *
      * @param int $storeId
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setStoreFilter($storeId)
     {

@@ -332,6 +332,8 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param string $itemParams
      * @param string $itemName
      * @param array $itemThe
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _separateOtherHtmlHeadElements(&$lines, $itemIf, $itemType, $itemParams, $itemName, $itemThe)
     {

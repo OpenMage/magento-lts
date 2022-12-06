@@ -182,6 +182,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * @param   Varien_Object $payment
      * @return  bool
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function canVoid(Varien_Object $payment)
     {
@@ -255,6 +257,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * @param Mage_Payment_Model_Info $payment
      * @param string $transactionId
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
@@ -306,6 +310,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * @param string $currencyCode
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function canUseForCurrency($currencyCode)
     {
@@ -415,8 +421,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * @param Varien_Object $payment
      * @param float $amount
-     *
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function order(Varien_Object $payment, $amount)
     {
@@ -431,8 +438,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * @param Varien_Object $payment
      * @param float $amount
-     *
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function authorize(Varien_Object $payment, $amount)
     {
@@ -447,8 +455,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * @param Varien_Object $payment
      * @param float $amount
-     *
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -463,7 +472,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Set capture transaction ID to invoice for informational purposes
      * @param Mage_Sales_Model_Order_Invoice $invoice
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Payment_Model_Method_Abstract
+     * @return $this
      */
     public function processInvoice($invoice, $payment)
     {
@@ -478,7 +487,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * @param Mage_Sales_Model_Order_Invoice $invoice
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Payment_Model_Method_Abstract
+     * @return $this
      */
     public function processBeforeRefund($invoice, $payment)
     {
@@ -491,8 +500,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * @param Varien_Object $payment
      * @param float $amount
-     *
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -507,7 +517,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Set transaction ID into creditmemo for informational purposes
      * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Payment_Model_Method_Abstract
+     * @return $this
      */
     public function processCreditmemo($creditmemo, $payment)
     {
@@ -519,8 +529,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Cancel payment abstract method
      *
      * @param Varien_Object $payment
-     *
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function cancel(Varien_Object $payment)
     {
@@ -533,7 +544,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * there should be method for invoice cancellation
      * @param Mage_Sales_Model_Order_Invoice $invoice
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Payment_Model_Method_Abstract
+     * @return $this
      */
     public function processBeforeVoid($invoice, $payment)
     {
@@ -560,8 +571,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Whether this method can accept or deny payment
      *
      * @param Mage_Payment_Model_Info $payment
-     *
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function canReviewPayment(Mage_Payment_Model_Info $payment)
     {
@@ -743,8 +755,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * @param string $paymentAction
      * @param object $stateObject
-     *
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function initialize($paymentAction, $stateObject)
     {

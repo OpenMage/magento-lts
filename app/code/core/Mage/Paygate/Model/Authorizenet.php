@@ -274,6 +274,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * @param   Varien_Object $payment
      * @return  bool
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function canVoid(Varien_Object $payment)
     {
@@ -1038,7 +1040,9 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * @param Mage_Sales_Model_Order_Invoice $invoice
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Payment_Model_Method_Abstract
+     * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function processInvoice($invoice, $payment)
     {
@@ -1050,7 +1054,9 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Set transaction ID into creditmemo for informational purposes
      * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Payment_Model_Method_Abstract
+     * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function processCreditmemo($creditmemo, $payment)
     {

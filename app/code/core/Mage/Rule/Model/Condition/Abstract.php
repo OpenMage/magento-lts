@@ -171,6 +171,8 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * @param array $arrAttributes
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function asArray(array $arrAttributes = [])
     {
@@ -658,6 +660,8 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * @param string $format
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function asString($format = '')
     {

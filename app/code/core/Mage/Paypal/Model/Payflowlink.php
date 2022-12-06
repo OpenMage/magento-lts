@@ -566,6 +566,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @deprecated since 1.6.2.0
      * @param Varien_Object $payment
      * @param string $txnId
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _addTransaction($payment, $txnId)
     {
@@ -578,6 +580,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param Varien_Object $payment
      * @param mixed $amount
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _initialize(Varien_Object $payment, $amount)
     {
@@ -589,6 +593,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @deprecated since 1.6.2.0
      * @param string $token
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function prepareOrderReview($token = null)
     {
@@ -603,6 +609,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param Mage_Paypal_Model_Payment_Transaction $transaction
      * @param string $txnId
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _authorize(Varien_Object $payment, $amount, $transaction, $txnId)
     {
@@ -614,6 +622,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @deprecated since 1.6.2.0
      * @param Varien_Object $document
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _process(Varien_Object $document)
     {
@@ -626,6 +636,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param Mage_Paypal_Model_Payment_Transaction $transaction
      * @param mixed $amount
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _checkTransaction($transaction, $amount)
     {

@@ -122,6 +122,8 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment extends Mage_Ad
      *
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _getHeaderCommentHtml($element)
     {
@@ -133,6 +135,8 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment extends Mage_Ad
      *
      * @param Varien_Data_Form_Element_Abstract $element
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _getCollapseState($element)
     {

@@ -57,7 +57,7 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
      * Load object data by parameters
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_ProductAlert_Model_Resource_Abstract
+     * @return $this
      */
     public function loadByParam(Mage_Core_Model_Abstract $object)
     {
@@ -74,7 +74,9 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
      * @param Mage_Core_Model_Abstract $object
      * @param int $customerId
      * @param int $websiteId
-     * @return Mage_ProductAlert_Model_Resource_Abstract
+     * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function deleteCustomer(Mage_Core_Model_Abstract $object, $customerId, $websiteId = null)
     {

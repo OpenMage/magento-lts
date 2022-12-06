@@ -328,6 +328,9 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         return $this;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     protected function _isAvailable($quote)
     {
         return $this->_pro->getConfig()->isMethodAvailable($this->_code);

@@ -72,6 +72,8 @@ class Mage_Page_Block_Html_Topmenu_Renderer extends Mage_Page_Block_Html_Topmenu
      * @param Varien_Data_Tree_Node $menuTree
      * @param string $childrenWrapClass
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function render(Varien_Data_Tree_Node $menuTree, $childrenWrapClass)
     {

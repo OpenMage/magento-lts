@@ -181,6 +181,8 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      * @param string $field
      * @param int $storeId
      * @return mixed
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getConfigData($field, $storeId = null)
     {

@@ -118,6 +118,8 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
      * @param string $transactionId
      * @throws Mage_Core_Exception
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {

@@ -79,6 +79,8 @@ class Mage_Reports_Model_Event_Observer
      *
      * @param Varien_Event_Observer $observer
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function customerLogin(Varien_Event_Observer $observer)
     {
@@ -106,6 +108,8 @@ class Mage_Reports_Model_Event_Observer
      *
      * @param Varien_Event_Observer $observer
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function customerLogout(Varien_Event_Observer $observer)
     {
@@ -168,6 +172,8 @@ class Mage_Reports_Model_Event_Observer
      *
      * @param Varien_Event_Observer $observer
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function catalogProductCompareRemoveProduct(Varien_Event_Observer $observer)
     {
@@ -185,6 +191,8 @@ class Mage_Reports_Model_Event_Observer
      *
      * @param Varien_Event_Observer $observer
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function catalogProductCompareClear(Varien_Event_Observer $observer)
     {
@@ -282,6 +290,8 @@ class Mage_Reports_Model_Event_Observer
      *
      * @param Varien_Event_Observer $observer
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function eventClean(Varien_Event_Observer $observer)
     {

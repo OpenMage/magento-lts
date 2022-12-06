@@ -472,8 +472,9 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      * @deprecated since 1.7.0.0
      *
      * @param string $format
-     *
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function asString($format = '')
     {
@@ -496,8 +497,9 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      * @deprecated since 1.7.0.0
      *
      * @param array $arrAttributes
-     *
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function asArray(array $arrAttributes = [])
     {
