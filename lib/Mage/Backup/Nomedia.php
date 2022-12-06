@@ -65,7 +65,7 @@ class Mage_Backup_Nomedia extends Mage_Backup_Snapshot
     /**
      * Add media folder to ignore list
      *
-     * @return Mage_Backup_Media
+     * @return $this
      */
     protected function _prepareIgnoreList()
     {
