@@ -415,6 +415,8 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      *
      * @param array $row
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _filterRow($row)
     {
@@ -659,6 +661,8 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * @return bool
      * @see addFieldToFilter()
      * @see addCallbackFilter()
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function filterCallbackIsNull($field, $filterValue, $row)
     {

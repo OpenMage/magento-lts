@@ -593,6 +593,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      *
      * @param bool $flag
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function distinct($flag)
     {
@@ -605,6 +607,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * @param bool $printQuery
      * @param bool $logQuery
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function loadData($printQuery = false, $logQuery = false)
     {

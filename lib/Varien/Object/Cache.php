@@ -367,6 +367,9 @@ class Varien_Object_Cache
         return $objects;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function debug($idx, $object = null)
     {
         $bt = debug_backtrace();

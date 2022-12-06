@@ -50,6 +50,8 @@ class Varien_Data_Tree
 
     /**
      * @param Varien_Data_Tree_Node $parentNode
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function load($parentNode = null)
     {
@@ -57,6 +59,8 @@ class Varien_Data_Tree
 
     /**
      * @param int $nodeId
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function loadNode($nodeId)
     {
@@ -67,6 +71,8 @@ class Varien_Data_Tree
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
      * @return Varien_Data_Tree_Node
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function appendChild($data, $parentNode, $prevNode = null)
     {
@@ -100,6 +106,8 @@ class Varien_Data_Tree
      * @param Varien_Data_Tree_Node $node
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function moveNodeTo($node, $parentNode, $prevNode = null)
     {
@@ -109,6 +117,8 @@ class Varien_Data_Tree
      * @param Varien_Data_Tree_Node $node
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function copyNodeTo($node, $parentNode, $prevNode = null)
     {
@@ -131,6 +141,8 @@ class Varien_Data_Tree
     /**
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function createNode($parentNode, $prevNode = null)
     {
@@ -138,6 +150,8 @@ class Varien_Data_Tree
 
     /**
      * @param Varien_Data_Tree_Node $node
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getChild($node)
     {
@@ -145,6 +159,8 @@ class Varien_Data_Tree
 
     /**
      * @param Varien_Data_Tree_Node $node
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getChildren($node)
     {

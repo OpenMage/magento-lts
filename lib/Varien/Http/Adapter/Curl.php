@@ -66,7 +66,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Apply current configuration array to transport resource
      *
-     * @return Varien_Http_Adapter_Curl
+     * @return $this
      */
     protected function _applyConfig()
     {
@@ -94,7 +94,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      * Set array of additional cURL options
      *
      * @param array $options
-     * @return Varien_Http_Adapter_Curl
+     * @return $this
      */
     public function setOptions(array $options = [])
     {
@@ -107,7 +107,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      *
      * @param  int $option      the CURLOPT_* constants
      * @param  mixed $value
-     * @return Varien_Http_Adapter_Curl
+     * @return $this
      */
     public function addOption($option, $value)
     {
@@ -120,7 +120,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      *
      * @param array $options
      *
-     * @return Varien_Http_Adapter_Curl
+     * @return $this
      */
     public function addOptions(array $options)
     {
@@ -132,7 +132,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      * Set the configuration array for the adapter
      *
      * @param array $config
-     * @return Varien_Http_Adapter_Curl
+     * @return $this
      */
     public function setConfig($config = [])
     {
@@ -147,7 +147,9 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      * @param string  $host
      * @param int     $port
      * @param boolean $secure
-     * @return Varien_Http_Adapter_Curl
+     * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function connect($host, $port = 80, $secure = false)
     {
@@ -163,6 +165,8 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      * @param array         $headers
      * @param string        $body
      * @return string Request as text
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function write($method, $url, $http_ver = '1.1', $headers = [], $body = '')
     {
@@ -218,7 +222,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Close the connection to the server
      *
-     * @return Varien_Http_Adapter_Curl
+     * @return $this
      */
     public function close()
     {

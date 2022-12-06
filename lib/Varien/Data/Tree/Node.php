@@ -191,6 +191,8 @@ class Varien_Data_Tree_Node extends Varien_Object
     /**
      * @param Varien_Data_Tree_Node $node
      * @todo LTS implement
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function isChildOf($node)
     {

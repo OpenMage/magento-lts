@@ -220,6 +220,9 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
         $this->uploader->image_text_color = $color;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function setTextVisibilityPercent($percent)
     {
         $this->uploader->image_text_percent = $visibilityPercent;

@@ -21,6 +21,9 @@
 
 class Varien_Filter_Email implements Zend_Filter_Interface
 {
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function filter($value)
     {
         $atIndex = 0;

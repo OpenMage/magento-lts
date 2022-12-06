@@ -311,6 +311,9 @@ class Varien_Db_Tree
         return $this->_db->fetchAll($sql);
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function insertBefore($ID, $data)
     {
     }
@@ -344,6 +347,9 @@ class Varien_Db_Tree
         }
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function moveNode($eId, $pId, $aId = 0)
     {
         $eInfo = $this->getNodeInfo($eId);
