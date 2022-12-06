@@ -104,7 +104,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
     }
 
     /**
-     * @param null $element
+     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)

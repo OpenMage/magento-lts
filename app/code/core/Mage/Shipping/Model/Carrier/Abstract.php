@@ -266,7 +266,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
 
     /**
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return $this|bool|false|Mage_Core_Model_Abstract
+     * @return $this|false|Mage_Core_Model_Abstract|Mage_Shipping_Model_Rate_Result_Error
      */
     public function checkAvailableShipCountries(Mage_Shipping_Model_Rate_Request $request)
     {

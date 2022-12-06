@@ -29,7 +29,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Currency_Service
     protected $_options;
 
     /**
-     * @param null $isMultiselect
+     * @param int $isMultiselect
      * @return array
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)

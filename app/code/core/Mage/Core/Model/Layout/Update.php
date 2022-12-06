@@ -148,7 +148,7 @@ class Mage_Core_Model_Layout_Update
     }
 
     /**
-     * @param string $handle
+     * @param array|string $handle
      * @return $this
      */
     public function addHandle($handle)

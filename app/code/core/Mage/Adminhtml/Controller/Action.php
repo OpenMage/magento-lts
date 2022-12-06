@@ -309,7 +309,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     }
 
     /**
-     * @param string $ids
+     * @param array|string|bool $ids
      * @param bool $generateBlocks
      * @param bool $generateXml
      * @return $this

@@ -1731,11 +1731,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
 
 		-
-			message: "#^Parameter \\#1 \\$ids of method Mage_Adminhtml_Controller_Action\\:\\:loadLayout\\(\\) expects bool\\|string\\|null, array\\<int, string\\> given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Controller/Action.php
-
-		-
 			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
 			count: 4
 			path: app/code/core/Mage/Adminhtml/Controller/Action.php
@@ -2094,11 +2089,6 @@ parameters:
 			message: "#^Ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Catalog/Product/SetController.php
-
-		-
-			message: "#^Parameter \\#1 \\$ids of method Mage_Adminhtml_Controller_Action\\:\\:loadLayout\\(\\) expects bool\\|string\\|null, array\\<int, string\\> given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/controllers/Catalog/ProductController.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Controller_Action\\:\\:_setForcedFormKeyActions\\(\\) invoked with 2 parameters, 1 required\\.$#"
@@ -6828,11 +6818,6 @@ parameters:
 		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Action.php
-
-		-
-			message: "#^Parameter \\#1 \\$handles of method Mage_Core_Controller_Varien_Action\\:\\:loadLayout\\(\\) expects bool\\|string\\|null, array\\<int, string\\> given\\.$#"
-			count: 2
 			path: app/code/core/Mage/Core/Controller/Varien/Action.php
 
 		-
@@ -14191,7 +14176,7 @@ parameters:
 			path: app/code/core/Mage/SalesRule/Model/Quote/Discount.php
 
 		-
-			message: "#^Return type \\(Mage_SalesRule_Model_Quote_Freeshipping\\) of method Mage_SalesRule_Model_Quote_Freeshipping\\:\\:fetch\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Quote_Address_Total_Abstract\\:\\:fetch\\(\\)$#"
+			message: "#^Return type \\(\\$this\\(Mage_SalesRule_Model_Quote_Freeshipping\\)\\) of method Mage_SalesRule_Model_Quote_Freeshipping\\:\\:fetch\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Quote_Address_Total_Abstract\\:\\:fetch\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/SalesRule/Model/Quote/Freeshipping.php
 
@@ -14331,11 +14316,6 @@ parameters:
 			path: app/code/core/Mage/Shipping/Model/Carrier/Abstract.php
 
 		-
-			message: "#^Method Mage_Shipping_Model_Carrier_Abstract\\:\\:checkAvailableShipCountries\\(\\) should return \\$this\\(Mage_Shipping_Model_Carrier_Abstract\\)\\|bool\\|Mage_Core_Model_Abstract but returns Mage_Shipping_Model_Rate_Result_Error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Shipping/Model/Carrier/Abstract.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Shipping/Model/Carrier/Abstract.php
@@ -14422,11 +14402,6 @@ parameters:
 
 		-
 			message: "#^Comparison operation \"\\>\" between \\(array\\|float\\|int\\) and float results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Shipping/Model/Shipping.php
-
-		-
-			message: "#^Instanceof between Mage_Core_Model_Abstract\\|Mage_Shipping_Model_Carrier_Abstract\\|true and Mage_Shipping_Model_Rate_Result_Error will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Shipping/Model/Shipping.php
 
