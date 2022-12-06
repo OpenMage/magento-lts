@@ -46,15 +46,15 @@ class Mage_System_Args
 
     /**
      * Constructor
-     * @param array $argv, if false $GLOBALS['argv'] is taken
+     * @param array|false $argv, if false $GLOBALS['argv'] is taken
      * @return void
      */
-    public function __construct($source = false)
+    public function __construct($argv = false)
     {
         $this->flags = [];
         $this->filtered = [];
 
-        if (false === $source) {
+        if (false === $argv) {
             $argv = $GLOBALS['argv'];
             array_shift($argv);
         }

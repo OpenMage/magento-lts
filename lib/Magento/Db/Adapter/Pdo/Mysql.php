@@ -104,8 +104,8 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     /**
      * Quote a raw string.
      *
-     * @param string $value     Raw string
-     * @return string           Quoted string
+     * @param string|float $value   Raw string
+     * @return string|float         Quoted string
      */
     protected function _quote($value)
     {
