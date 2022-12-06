@@ -73,7 +73,6 @@ class Mage_Backup_Filesystem extends Mage_Backup_Abstract
      * Implementation Rollback functionality for Filesystem
      *
      * @throws Mage_Exception
-     * @return bool
      */
     public function rollback()
     {

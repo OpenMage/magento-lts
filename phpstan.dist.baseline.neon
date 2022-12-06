@@ -15229,3 +15229,103 @@ parameters:
 			message: "#^Variable \\$relativeFilename might not be defined\\.$#"
 			count: 4
 			path: get.php
+
+		-
+			message: "#^Comparison operation \"\\>\\=\" between int\\<0, max\\> and 0 is always true\\.$#"
+			count: 1
+			path: lib/Mage/Archive.php
+
+		-
+			message: "#^Offset 'basename' on array\\{dirname\\?\\: string, basename\\: string, extension\\?\\: string, filename\\: string\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: lib/Mage/Archive/Helper/File.php
+
+		-
+			message: "#^Method Mage_Backup_Filesystem\\:\\:create\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: lib/Mage/Backup/Filesystem.php
+
+		-
+			message: "#^Method Mage_Backup_Filesystem\\:\\:rollback\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: lib/Mage/Backup/Filesystem.php
+
+		-
+			message: "#^Call to an undefined method Mage_Backup_Interface\\:\\:getBackupFilename\\(\\)\\.$#"
+			count: 1
+			path: lib/Mage/Backup/Media.php
+
+		-
+			message: "#^Call to an undefined method Mage_Backup_Interface\\:\\:getBackupPath\\(\\)\\.$#"
+			count: 1
+			path: lib/Mage/Backup/Snapshot.php
+
+		-
+			message: "#^Negated boolean expression is always true\\.$#"
+			count: 1
+			path: lib/Mage/Cache/Backend/File.php
+
+		-
+			message: "#^Function mysqli_connect_errno invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: lib/Mage/DB/Mysqli.php
+
+		-
+			message: "#^Function mysqli_connect_error invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: lib/Mage/DB/Mysqli.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
+			count: 2
+			path: lib/Mage/HTTP/Client/Curl.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 2
+			path: lib/Mage/HTTP/Client/Curl.php
+
+		-
+			message: "#^Undefined variable\\: \\$data$#"
+			count: 1
+			path: lib/Mage/HTTP/Client/Curl.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
+			count: 2
+			path: lib/Mage/HTTP/Client/Socket.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 2
+			path: lib/Mage/HTTP/Client/Socket.php
+
+		-
+			message: "#^Property Mage_HTTP_Client_Socket\\:\\:\\$_postFields is never read, only written\\.$#"
+			count: 1
+			path: lib/Mage/HTTP/Client/Socket.php
+
+		-
+			message: "#^Property Mage_HTTP_Client_Socket\\:\\:\\$_redirectCount is never read, only written\\.$#"
+			count: 1
+			path: lib/Mage/HTTP/Client/Socket.php
+
+		-
+			message: "#^Empty array passed to foreach\\.$#"
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: lib/Mage/Xml/Generator.php
+
+		-
+			message: "#^Argument of an invalid type Zend_Db_Statement_Interface supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: lib/Magento/Db/Object/Trigger.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 2
+			path: lib/Magento/Profiler/Output/Firebug.php
