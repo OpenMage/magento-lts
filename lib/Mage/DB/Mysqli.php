@@ -500,6 +500,8 @@ class Mage_DB_Mysqli
      * @param string $table
      * @param string $condition ex: "a>0"
      * @return int
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function simpleCount($table, $condition)
     {

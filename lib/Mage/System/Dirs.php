@@ -86,6 +86,13 @@ class Mage_System_Dirs
         return true;
     }
 
+    /**
+     * @param string $source
+     * @param null $dest
+     * @throws Exception
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public static function copyFileStrict($source, $dest)
     {
         $exists = file_exists($source);

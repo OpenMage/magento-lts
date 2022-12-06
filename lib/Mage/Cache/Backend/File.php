@@ -428,8 +428,9 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  string  $id        Cache id
      * @param  array   $metadatas Associative array of metadatas
      * @param  boolean $save      Optional pass false to disable saving to file
-     *
      * @return boolean In case of success returns true
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _setMetadatas($id, $metadatas, $save = true)
     {
@@ -478,9 +479,10 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param string $dir  Directory to clean
      * @param string $mode Clean mode
      * @param array  $tags
-     *
+     * @return bool In case of success returns true
      * @throws Zend_Cache_Exception
-     * @return boolean In case of success returns true
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _clean($dir, $mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
