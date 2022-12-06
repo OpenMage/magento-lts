@@ -221,7 +221,6 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
                 ->deleteFromRole();
         } catch (Exception $e) {
             throw $e;
-            return false;
         }
         return true;
     }
