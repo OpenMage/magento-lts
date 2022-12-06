@@ -12,19 +12,27 @@ jobs:
         operating-system: [ubuntu-latest]
         php-versions: ['7.3']
     steps:
-    - name: Install PHP ${{ matrix.php-versions }}
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-versions }}
-    - name: "Checkout repository"
+    - name: Checkout repository
       uses: actions/checkout@master
-    - name: "Composer install"
-      uses: MilesChou/composer-action/8.1@master
+
+    - name: Get composer cache directory
+      id: composer-cache
+      run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+    - name: Cache dependencies
+      uses: actions/cache@v3
       with:
-        args: install --ignore-platform-req=ext-* --no-dev
-    - name: "Create ZIP file"
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-
+
+    - name: Composer install
+      run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
+
+    - name: Create ZIP file
       run: zip -rq openmage-${{ github.event.release.tag_name }}.zip . -x '.git/*'
-    - name: "Attach ZIP to GitHub release"
+
+    - name: Attach ZIP to GitHub release
       uses: svenstaro/upload-release-action@master
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
