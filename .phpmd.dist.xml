@@ -9,14 +9,12 @@
     </description>
 
     <!-- UNUSEDCODE
-    UnusedFormalParameter
+    UnusedFormalParameter [fixed]
     UnusedLocalVariable
     UnusedPrivateField
     UnusedPrivateMethod
     -->
-    <rule ref="rulesets/unusedcode.xml">
-        <exclude name="UnusedFormalParameter" />
-    </rule>
+    <rule ref="rulesets/unusedcode.xml" />
 
     <!-- CLEANCODE
     BooleanArgumentFlag
