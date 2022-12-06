@@ -104,8 +104,8 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     /**
      * Quote a raw string.
      *
-     * @param string $value     Raw string
-     * @return string           Quoted string
+     * @param string|float $value   Raw string
+     * @return string|float         Quoted string
      */
     protected function _quote($value)
     {
@@ -132,7 +132,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
         $this->_connect();
 
         if ($type !== null
-            && rray_key_exists($type = strtoupper($type), $this->_numericDataTypes)
+            && array_key_exists($type = strtoupper($type), $this->_numericDataTypes)
             && $this->_numericDataTypes[$type] == Zend_Db::FLOAT_TYPE
         ) {
             $value = $this->_convertFloat($value);
