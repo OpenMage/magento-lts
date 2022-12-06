@@ -161,10 +161,10 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     /**
      * add item to collection
      *
-     * @param   IFactory $item - item of collection
+     * @param   Varien_Object|IFactory $item - item of collection
      * @return  none
      */
-    public function addItem(IFactory $item)
+    public function addItem(Varien_Object $item)
     {
         $this->_items[] = $item;
     }
