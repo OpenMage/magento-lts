@@ -627,8 +627,10 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * Convert collection to XML
      *
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function toXml()
+    public function toXml(&$xml, $recursionLevel = 0, $addOpenTag = true, $rootName = 'Struct')
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
         <collection>
