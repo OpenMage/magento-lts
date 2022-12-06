@@ -41,6 +41,8 @@ class Mage_Sales_Model_Observer
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Mage_Core_Exception
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function cleanExpiredQuotes($schedule)
     {
@@ -175,6 +177,8 @@ class Mage_Sales_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aggregateSalesReportOrderData($schedule)
     {
@@ -192,6 +196,8 @@ class Mage_Sales_Model_Observer
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aggregateSalesReportShipmentData($schedule)
     {
@@ -209,6 +215,8 @@ class Mage_Sales_Model_Observer
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aggregateSalesReportInvoicedData($schedule)
     {
@@ -226,6 +234,8 @@ class Mage_Sales_Model_Observer
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aggregateSalesReportRefundedData($schedule)
     {
@@ -243,6 +253,8 @@ class Mage_Sales_Model_Observer
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aggregateSalesReportBestsellersData($schedule)
     {

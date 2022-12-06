@@ -153,6 +153,8 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @param Mage_Shipping_Model_Shipment_Request $request
      * @return Varien_Object
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function requestToShipment(Mage_Shipping_Model_Shipment_Request $request)
     {
@@ -165,6 +167,8 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @param mixed $request
      * @return Varien_Object
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function returnOfShipment($request)
     {
@@ -176,6 +180,8 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @param Varien_Object|null $params
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getContainerTypes(Varien_Object $params = null)
     {
@@ -250,6 +256,8 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @param Varien_Object|null $params
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getDeliveryConfirmationTypes(Varien_Object $params = null)
     {
@@ -297,7 +305,9 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Processing additional validation to check is carrier applicable.
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|bool
+     * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -547,6 +557,8 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @param string|null $countryId
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function isZipCodeRequired($countryId = null)
     {
@@ -602,6 +614,8 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @param Varien_Object $params
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getContentTypes(Varien_Object $params)
     {

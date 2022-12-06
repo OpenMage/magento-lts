@@ -214,6 +214,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      *
      * @param int $id
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function addUnitId($id)
     {
@@ -230,6 +232,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      *
      * @param $data
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function addReferenceData($data)
     {

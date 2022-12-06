@@ -31,7 +31,9 @@ abstract class Mage_Sales_Model_Order_Invoice_Total_Abstract extends Mage_Sales_
      * Collect invoice subtotal
      *
      * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @return Mage_Sales_Model_Order_Invoice_Total_Abstract
+     * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
     {

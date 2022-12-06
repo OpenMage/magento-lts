@@ -830,6 +830,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      *
      * @param   Mage_Sales_Model_Quote_Item_Abstract $item
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _resetItemPriceInclTax(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -842,6 +844,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      *
      * @param   Mage_Sales_Model_Quote_Address $address
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _processShippingAmount($address)
     {

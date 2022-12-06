@@ -53,7 +53,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract ex
      * Collect recurring item parameters and copy to the address items
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     * @return Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract
+     * @return $this
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
@@ -101,6 +101,8 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract ex
      *
      * @param Mage_Sales_Model_Quote_Address $address
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _afterCollectSuccess($address, $item)
     {

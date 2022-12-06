@@ -41,6 +41,8 @@ class Mage_Sendfriend_Model_Resource_Sendfriend extends Mage_Core_Model_Resource
      * @param int $startTime
      * @param int $websiteId
      * @return int
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getSendCount($object, $ip, $startTime, $websiteId = null)
     {

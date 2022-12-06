@@ -1182,6 +1182,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      *
      * @param Varien_Object|null $params
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getContainerTypes(Varien_Object $params = null)
     {

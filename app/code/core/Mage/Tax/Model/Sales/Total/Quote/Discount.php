@@ -33,6 +33,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Discount extends Mage_Sales_Model_Quote_A
      *
      * @param Mage_Sales_Model_Quote_Address $address
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {

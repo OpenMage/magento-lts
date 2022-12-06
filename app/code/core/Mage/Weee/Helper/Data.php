@@ -182,6 +182,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string                     $zone
      * @param Mage_Core_Model_Store      $store
      * @return bool|int
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function typeOfDisplay($product, $compareTo = null, $zone = null, $store = null)
     {

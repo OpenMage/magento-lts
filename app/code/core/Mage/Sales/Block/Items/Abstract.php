@@ -92,6 +92,8 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
      *
      * @param Mage_Core_Block_Abstract $renderer
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
     {

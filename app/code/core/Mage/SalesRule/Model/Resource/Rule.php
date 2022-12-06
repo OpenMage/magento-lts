@@ -58,7 +58,6 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      * Add customer group ids and website ids to rule data after load
      *
      * @param Mage_Core_Model_Abstract $object
-     *
      * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
@@ -74,7 +73,6 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      * Prepare sales rule's discount quantity
      *
      * @param Mage_Core_Model_Abstract|Mage_SalesRule_Model_Rule $object
-     *
      * @return $this
      */
     public function _beforeSave(Mage_Core_Model_Abstract $object)
@@ -138,7 +136,6 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      *
      * @param Mage_SalesRule_Model_Rule $rule
      * @param int $customerId
-     *
      * @return string
      */
     public function getCustomerUses($rule, $customerId)
@@ -155,7 +152,6 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      *
      * @param int $ruleId
      * @param array $labels
-     *
      * @return $this
      */
     public function saveStoreLabels($ruleId, $labels)
@@ -234,7 +230,9 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      *
      * @param int $websiteId
      * @param int $customerGroupId
-     * @return mixed
+     * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getActiveAttributes($websiteId, $customerGroupId)
     {

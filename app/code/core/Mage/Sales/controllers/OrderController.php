@@ -67,6 +67,8 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
      * @deprecated after 1.6.0.0
      * @param   array $order
      * @return  bool
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _canViewOscommerceOrder($order)
     {

@@ -1929,6 +1929,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
     /**
      * @deprecated
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _methodsMapper($method, $valuesToLabels = true)
     {

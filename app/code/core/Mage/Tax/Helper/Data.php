@@ -209,6 +209,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * @param bool $flag
      * @param mixed $store
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getIncExcText($flag, $store = null)
     {
@@ -394,6 +396,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param   mixed $store
      * @return  bool
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function displayTaxColumn($store = null)
     {

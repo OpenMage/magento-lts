@@ -262,6 +262,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
      *
      * @param Mage_Sales_Model_Quote_Address $address
      * @deprecated after 1.4.0.0
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _processShippingAmount($address)
     {

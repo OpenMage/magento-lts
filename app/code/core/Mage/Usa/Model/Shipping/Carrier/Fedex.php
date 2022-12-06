@@ -1613,6 +1613,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      *
      * @param Varien_Object|null $params
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getDeliveryConfirmationTypes(Varien_Object $params = null)
     {
