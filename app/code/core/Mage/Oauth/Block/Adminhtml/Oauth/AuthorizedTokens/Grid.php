@@ -178,6 +178,8 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @param bool $isExport
      * @return mixed
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function decorateUserType($value, $row, $column, $isExport)
     {
@@ -195,6 +197,8 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @param bool $isExport
      * @return mixed
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function decorateUserId($value, $row, $column, $isExport)
     {

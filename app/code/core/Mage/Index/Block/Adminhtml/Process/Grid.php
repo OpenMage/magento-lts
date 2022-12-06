@@ -182,8 +182,9 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
      * @param Mage_Index_Model_Process $row
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @param bool $isExport
-     *
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function decorateStatus($value, $row, $column, $isExport)
     {
@@ -209,8 +210,9 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
      * @param Mage_Index_Model_Process $row
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @param bool $isExport
-     *
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function decorateUpdateRequired($value, $row, $column, $isExport)
     {
@@ -233,8 +235,9 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
      * @param Mage_Index_Model_Process $row
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @param bool $isExport
-     *
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function decorateDate($value, $row, $column, $isExport)
     {

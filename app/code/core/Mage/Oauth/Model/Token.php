@@ -205,6 +205,8 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
      *
      * @param string $format
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function toString($format = '')
     {

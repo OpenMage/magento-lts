@@ -92,6 +92,9 @@ class Mage_Catalog_Model_Mysql4_Convert
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function exportAttributes()
     {
         $attributeFields = [
@@ -113,6 +116,9 @@ class Mage_Catalog_Model_Mysql4_Convert
         return $this->getConnection()->fetchAll($select);
     }
 
+    /**
+     * @return array
+     */
     public function exportAttributeSets()
     {
         $select = $this->getSelect()
@@ -127,6 +133,9 @@ class Mage_Catalog_Model_Mysql4_Convert
         return $this->getConnection()->fetchAll($select);
     }
 
+    /**
+     * @return array
+     */
     public function exportAttributeOptions()
     {
         $select = $this->getSelect()
@@ -148,6 +157,9 @@ class Mage_Catalog_Model_Mysql4_Convert
         return $this->getConnection()->fetchAll($select);
     }
 
+    /**
+     * @return array
+     */
     public function exportProductLinks()
     {
         $skuTable = $this->getTable('catalog/product') . '_' . $this->getSkuAttribute('backend_type');
@@ -162,6 +174,9 @@ class Mage_Catalog_Model_Mysql4_Convert
         return $this->getConnection()->fetchAll($select);
     }
 
+    /**
+     * @return array
+     */
     public function exportProductsInCategories()
     {
         $skuTable = $this->getTable('catalog/product') . '_' . $this->getSkuAttribute('backend_type');
@@ -175,6 +190,9 @@ class Mage_Catalog_Model_Mysql4_Convert
         return $this->getConnection()->fetchAll($select);
     }
 
+    /**
+     * @return array
+     */
     public function exportProductsInStores()
     {
         $skuTable = $this->getTable('catalog/product') . '_' . $this->getSkuAttribute('backend_type');
@@ -189,6 +207,10 @@ class Mage_Catalog_Model_Mysql4_Convert
         return $this->getConnection()->fetchAll($select);
     }
 
+    /**
+     * @return array
+     * @throws Mage_Core_Exception
+     */
     public function exportCategories()
     {
         $collection = Mage::getResourceModel('catalog/category_collection')
@@ -204,6 +226,11 @@ class Mage_Catalog_Model_Mysql4_Convert
         return $categories;
     }
 
+    /**
+     * @return array
+     * @throws Mage_Core_Exception
+     * @throws Mage_Eav_Exception
+     */
     public function exportProducts()
     {
         $attrSets = Mage::getResourceModel('eav/entity_attribute_set_collection')->load();
@@ -234,30 +261,25 @@ class Mage_Catalog_Model_Mysql4_Convert
         return $products;
     }
 
+    /**
+     * @return array
+     */
     public function exportImageGallery()
     {
         return [];
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function getProductAttributeOption($attribute, $value)
     {
-        #$attribute = Mage::get
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function importProducts(array $data)
     {
-        /*
-        $entity = Mage::getResourceModel('catalog/product')
-           ->loadAllAttributes();
-
-        $options =
-
-        foreach ($data as $row) {
-            if (empty($row['sku'])) {
-                continue;
-            }
-            $sku = $row['sku'];
-        }
-        */
     }
 }

@@ -59,6 +59,8 @@ class Mage_Newsletter_Model_Observer
 
     /**
      * @param Varien_Event_Observer $schedule
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function scheduledSend($schedule)
     {

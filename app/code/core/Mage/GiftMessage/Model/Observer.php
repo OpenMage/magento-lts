@@ -166,6 +166,8 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
      * @deprecated after 1.4.2.0-beta1
      * @param Varien_Event_Observer $observer
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function catalogEventProductCollectionAfterLoad(Varien_Event_Observer $observer)
     {

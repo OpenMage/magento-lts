@@ -56,7 +56,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Reindex all
      *
-     * @return Mage_Index_Model_Resource_Abstract
+     * @return $this
      */
     public function reindexAll()
     {
@@ -95,7 +95,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Synchronize data between index storage and original storage
      *
-     * @return Mage_Index_Model_Resource_Abstract
+     * @return $this
      */
     public function syncData()
     {
@@ -119,7 +119,9 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
      *
      * @deprecated since 1.5.0.0
      * @param bool $asOriginal
-     * @return Mage_Index_Model_Resource_Abstract
+     * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function cloneIndexTable($asOriginal = false)
     {
@@ -132,7 +134,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
      * @param string $sourceTable
      * @param string $destTable
      * @param bool $readToIndex data migration direction (true - read=>index, false - index=>read)
-     * @return Mage_Index_Model_Resource_Abstract
+     * @return $this
      */
     public function insertFromTable($sourceTable, $destTable, $readToIndex = true)
     {
@@ -159,7 +161,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
      * @param string $destTable
      * @param array $columns
      * @param bool $readToIndex data migration direction (true - read=>index, false - index=>read)
-     * @return Mage_Index_Model_Resource_Abstract
+     * @return $this
      */
     public function insertFromSelect($select, $destTable, array $columns, $readToIndex = true)
     {
@@ -237,7 +239,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
      *
      * @deprecated after 1.6.1.0
      * @param bool $value
-     * @return Mage_Index_Model_Resource_Abstract
+     * @return $this
      */
     public function setAllowTableChanges($value = true)
     {
@@ -248,7 +250,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Disable Main Table keys
      *
-     * @return Mage_Index_Model_Resource_Abstract
+     * @return $this
      */
     public function disableTableKeys()
     {
@@ -261,7 +263,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Enable Main Table keys
      *
-     * @return Mage_Index_Model_Resource_Abstract
+     * @return $this
      */
     public function enableTableKeys()
     {

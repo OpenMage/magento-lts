@@ -222,6 +222,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      *
      * @param array $rowData
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _isRowScopeDefault(array $rowData)
     {

@@ -237,6 +237,8 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * @deprecated since 1.6.2.0
      * @param bool $useNamespace
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getOldData($useNamespace = true)
     {
@@ -270,6 +272,8 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * @param null|mixed $value
      * @return $this
      * @deprecated since 1.6.2.0
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function addOldData($key, $value = null)
     {

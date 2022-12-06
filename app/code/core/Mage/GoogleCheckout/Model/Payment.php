@@ -58,6 +58,8 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      * @param Varien_Object $payment
      * @param float $amount
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function authorize(Varien_Object $payment, $amount)
     {
@@ -71,6 +73,8 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      * @param float $amount
      * @throws Exception
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -84,6 +88,8 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      * @param float $amount
      * @throws Exception
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -94,6 +100,8 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      * @param Varien_Object $payment
      * @throws Exception
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function void(Varien_Object $payment)
     {
@@ -106,6 +114,8 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      * @param Varien_Object $payment
      * @throws Exception
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function cancel(Varien_Object $payment)
     {
@@ -117,8 +127,9 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      *
      * @param string $field
      * @param int|string|null|Mage_Core_Model_Store $storeId
-     *
      * @return  null
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getConfigData($field, $storeId = null)
     {
@@ -130,6 +141,8 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      *
      * @param   Varien_Object $payment
      * @return  bool
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function canVoid(Varien_Object $payment)
     {

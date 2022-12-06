@@ -165,7 +165,9 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      *
      * @param   int     $count
      * @param   array   $additionalVariables
-     * @return $this
+     * @return  $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function sendPerSubscriber($count = 20, array $additionalVariables = [])
     {
