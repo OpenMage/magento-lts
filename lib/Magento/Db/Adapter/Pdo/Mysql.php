@@ -132,7 +132,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
         $this->_connect();
 
         if ($type !== null
-            && rray_key_exists($type = strtoupper($type), $this->_numericDataTypes)
+            && array_key_exists($type = strtoupper($type), $this->_numericDataTypes)
             && $this->_numericDataTypes[$type] == Zend_Db::FLOAT_TYPE
         ) {
             $value = $this->_convertFloat($value);
