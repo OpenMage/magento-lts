@@ -116,7 +116,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Retrieve category tree
      *
-     * @param null $parentId
+     * @param int|null $parentId
      * @param string|int $store
      * @return array
      * @throws Mage_Core_Model_Store_Exception
@@ -478,8 +478,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      *
      * @param int $categoryId
      * @param int $productId
-     * @param int $position
-     * @param null $identifierType
+     * @param int|null $position
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -507,8 +507,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * Remove product assignment from category
      *
      * @param int $categoryId
-     * @param int $productId
-     * @param null $identifierType
+     * @param int|null $productId
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
