@@ -38,14 +38,14 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
     /**
      * List of countries
      *
-     * @var array
+     * @var array|null
      */
     protected $_countries = null;
 
     /**
      * List of websites
      *
-     * @var array
+     * @var array|null
      */
     protected $_websites = null;
 

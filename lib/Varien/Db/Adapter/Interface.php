@@ -788,7 +788,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Returns valid IFNULL expression
      *
-     * @param string $column
+     * @param string $expression
      * @param string $value OPTIONAL. Applies when $expression is NULL
      * @return Zend_Db_Expr
      */
