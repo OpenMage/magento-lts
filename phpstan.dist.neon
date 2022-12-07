@@ -14,16 +14,8 @@ parameters:
         - app/code/core/Mage
         - lib/Mage
         - lib/Magento
-    excludePaths:
-        #todo DOCblocks
-        - app/code/core/Mage/Usa
-        - app/code/core/Mage/Weee
         - lib/Varien
-
-        # todo check
-        - app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
-        - app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
-
+    excludePaths:
         #incompatible interfaces
         - app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php
         - app/code/core/Mage/Admin/Model/Acl/Assert/Time.php
