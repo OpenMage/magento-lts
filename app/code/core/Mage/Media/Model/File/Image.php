@@ -55,7 +55,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     /**
      * @param Mage_Media_Model_Image $object
      * @param mixed $file
-     * @param null $field
+     * @param mixed|null $field
      * @return $this
      */
     public function load(Mage_Media_Model_Image $object, $file, $field = null)
