@@ -103,7 +103,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve website models
      *
-     * @param null $websiteId
+     * @param string|int|null $websiteId
      * @return array
      */
     public function getWebsites($websiteId = null)
