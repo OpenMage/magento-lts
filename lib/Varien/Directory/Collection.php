@@ -309,13 +309,13 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * @param   array &$arr - this collection array
      * @return  none
      */
-    public function toArray(&$arr)
+    public function toArray($arrRequiredFields = [])
     {
         if ($this->getRecursionLevel() > 0) {
-            $arr[$this->getDirName()] = [];
-            $this->walk('toArray', [&$arr[$this->getDirName()]]);
+            $arrRequiredFields[$this->getDirName()] = [];
+            $this->walk('toArray', [&$arrRequiredFields[$this->getDirName()]]);
         } else {
-            $this->walk('toArray', [&$arr]);
+            $this->walk('toArray', [&$arrRequiredFields]);
         }
     }
     /**
