@@ -256,10 +256,10 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * add to array file name
      *
-     * @param   array &$arr -export array
+     * @param   array $arrRequiredFields -export array
      * @return  none
      */
-    public function toArray(&$arr)
+    public function toArray($arrRequiredFields = [])
     {
         if ($this->_isCorrect) {
             $arr['files_in_dirs'][] = $this->_filename;
