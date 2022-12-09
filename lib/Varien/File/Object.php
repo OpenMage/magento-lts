@@ -41,7 +41,6 @@ class Varien_File_Object extends SplFileObject implements IFactory
      * Constructor
      *
      * @param   string $path - path to directory
-     * @return  none
      */
     public function __construct($path)
     {
@@ -53,7 +52,6 @@ class Varien_File_Object extends SplFileObject implements IFactory
      * add file name to array
      *
      * @param   array &$files - array of files
-     * @return  none
      */
     public function getFilesName(&$files)
     {
@@ -63,7 +61,6 @@ class Varien_File_Object extends SplFileObject implements IFactory
      * add file name to array
      *
      * @param   array &$files - array of files
-     * @return  none
      */
     public function getFileName(&$files = null)
     {
@@ -78,7 +75,6 @@ class Varien_File_Object extends SplFileObject implements IFactory
      * add file path to array
      *
      * @param   array &$paths - array of paths
-     * @return  none
      */
     public function getFilesPaths(&$paths)
     {
@@ -89,8 +85,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * add file path to array
      *
-     * @param   array &$paths - array of paths
-     * @return  none
+     * @param   array &$path - array of paths
      */
     public function getFilePath(&$path = null)
     {
@@ -105,7 +100,6 @@ class Varien_File_Object extends SplFileObject implements IFactory
      * use filter
      *
      * @param   bool $useFilter - use or not filter
-     * @return  none
      */
     public function useFilter($useFilter)
     {
@@ -120,7 +114,6 @@ class Varien_File_Object extends SplFileObject implements IFactory
      * add file object to array
      *
      * @param   array &$objs - array of gile objects
-     * @return  none
      */
     public function getFilesObj(&$objs)
     {
@@ -132,7 +125,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
      * nothing
      *
      * @param   array &$dirs - array of dirs
-     * @return  none
+     * @return  string
      */
     public function getDirsName(&$dirs)
     {
@@ -141,18 +134,16 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * nothing
      *
-     * @param   array &$dirs - array of dirs
-     * @return  none
+     * @return  string
      */
     public function getDirName()
     {
-        return Varien_Directory_Collection::lastDir($this->_path);
+        return Varien_Directory_Collection::lastDir();
     }
     /**
      * set file filter
      *
      * @param   array $filter - array of filter
-     * @return  none
      */
     public function setFilesFilter($filter)
     {
@@ -162,7 +153,6 @@ class Varien_File_Object extends SplFileObject implements IFactory
      * set file filter
      *
      * @param   array $filter - array of filter
-     * @return  none
      */
     public function addFilter($filter)
     {
@@ -203,12 +193,9 @@ class Varien_File_Object extends SplFileObject implements IFactory
     }
     /**
      * render filters
-     *
-     * @return  none
      */
     public function renderFilter()
     {
-        #print_r($this->_filter);
         if (isset($this->_filter) && count($this->_filter) > 0 && $this->filtered == false) {
             $this->filtered = true;
             if (isset($this->_filter['extension'])) {
@@ -257,7 +244,6 @@ class Varien_File_Object extends SplFileObject implements IFactory
      * add to array file name
      *
      * @param   array $arrRequiredFields -export array
-     * @return  none
      */
     public function toArray($arrRequiredFields = [])
     {
@@ -268,11 +254,10 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * add to xml file name
      *
-     * @param   array &$xml -export xml
+     * @param   string &$xml -export xml
      * @param   int $recursionLevel - level of recursion
      * @param   bool $addOpenTag - nothing
      * @param   string $rootName - nothing
-     * @return  none
      */
     public function toXml(&$xml, $recursionLevel = 0, $addOpenTag = true, $rootName = 'Struct')
     {
