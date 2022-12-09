@@ -431,29 +431,14 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Checkout/Agreement/Edit/Form.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'afterLoad' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Checkout/Agreement/Grid.php
-
-		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Cms/Block/Edit/Form.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'afterLoad' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Cms/Block/Grid.php
-
-		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Cms/Page/Edit/Tab/Main.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'afterLoad' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Cms/Page/Grid.php
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
@@ -2119,21 +2104,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/IndexController.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'delete' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Newsletter/ProblemController.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'unsubscribe' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Newsletter/ProblemController.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'sendPerSubscriber' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Newsletter/QueueController.php
 
 		-
 			message: "#^Variable \\$id in isset\\(\\) always exists and is not nullable\\.$#"
@@ -7446,11 +7416,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Design/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'afterLoad' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Email/Queue/Collection.php
-
-		-
 			message: "#^Method Mage_Core_Model_Resource_Entity_Abstract\\:\\:getConfig\\(\\) should return bool\\|string but returns Varien_Simplexml_Config\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Entity/Abstract.php
@@ -10241,11 +10206,6 @@ parameters:
 			path: app/code/core/Mage/Media/Model/Image.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'sendPerSubscriber' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Observer.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with Mage_Newsletter_Model_Subscriber will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Newsletter/Model/Problem.php
@@ -11204,11 +11164,6 @@ parameters:
 			message: "#^Return type \\(void\\) of method Mage_PaypalUk_Model_Pro\\:\\:fetchTransactionInfo\\(\\) should be compatible with return type \\(array\\) of method Mage_Paypal_Model_Pro\\:\\:fetchTransactionInfo\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/PaypalUk/Model/Pro.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'delete' given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Persistent/Model/Observer.php
 
 		-
 			message: "#^Variable \\$key might not be defined\\.$#"
@@ -12591,11 +12546,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Payment/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'delete' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Observer.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Resource_Order_Invoice_Collection will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order.php
@@ -13621,24 +13571,9 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Resource/Order/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'afterLoad' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Order/Creditmemo/Collection.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'afterLoad' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Order/Invoice/Collection.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isFailsafe\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Order/Payment/Transaction.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'afterLoad' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Order/Shipment/Collection.php
 
 		-
 			message: "#^Parameter \\#3 \\$object of method Mage_Core_Model_Resource_Db_Abstract\\:\\:_getLoadSelect\\(\\) expects Mage_Core_Model_Abstract, Varien_Object given\\.$#"
@@ -14309,11 +14244,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$date of method Mage_Core_Model_Resource_Abstract\\:\\:formatDate\\(\\) expects string\\|Zend_Date\\|true\\|null, int\\<1, max\\> given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tag/Model/Resource/Tag/Relation.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'aggregate' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Model/Tag.php
 
 		-
 			message: "#^Parameter \\#1 \\$date of method Mage_Core_Model_Resource_Abstract\\:\\:formatDate\\(\\) expects string\\|Zend_Date\\|true\\|null, int\\<1, max\\> given\\.$#"
@@ -16256,9 +16186,24 @@ parameters:
 			path: lib/Varien/Debug.php
 
 		-
+			message: "#^Parameter \\#1 \\$item of method Varien_Directory_Collection\\:\\:addItem\\(\\) expects Varien_Object, Varien_Directory_Collection\\|Varien_File_Object given\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Undefined variable\\: \\$this$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
 			message: "#^Call to function is_object\\(\\) with string will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Varien/Event/Observer.php
+
+		-
+			message: "#^Static call to instance method Varien_Directory_Collection\\:\\:lastDir\\(\\)\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
 
 		-
 			message: "#^Method Varien_File_Transfer_Adapter_Http\\:\\:_detectMimeType\\(\\) should return string but returns null\\.$#"
