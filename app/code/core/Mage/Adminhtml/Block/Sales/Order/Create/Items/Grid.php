@@ -290,6 +290,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         $html = '';
         $prices = $item->getProduct()->getTierPrice();
         if ($prices) {
+            $info = [];
             foreach ($prices as $data) {
                 $qty    = $data['price_qty'] * 1;
                 $price  = $this->convertPrice($data['price']);
