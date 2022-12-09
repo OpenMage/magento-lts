@@ -352,6 +352,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             default:
                 break;
         }
+
+        return $this;
     }
 
     /**

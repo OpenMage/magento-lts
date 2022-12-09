@@ -146,6 +146,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     {
         parent::unsetAll();
         $this->_quote = null;
+        return $this;
     }
 
     /**

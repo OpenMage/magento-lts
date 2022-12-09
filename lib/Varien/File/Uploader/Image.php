@@ -24,8 +24,9 @@
  * @deprecated after 1.4.0.0-rc1
  * @file       Image.php
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @property mixed $uploader
  */
-
 class Varien_File_Uploader_Image extends Varien_File_Uploader
 {
     public function __construct($file = null)
@@ -222,7 +223,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
 
     public function setTextVisibilityPercent($percent)
     {
-        $this->uploader->image_text_percent = $visibilityPercent;
+        $this->uploader->image_text_percent = $percent;
     }
 
     public function setTextBackgroundColor($color)

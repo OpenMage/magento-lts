@@ -147,6 +147,8 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
             default:
                 break;
         }
+
+        return $this;
     }
 
     /**
