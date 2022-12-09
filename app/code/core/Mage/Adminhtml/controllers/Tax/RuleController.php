@@ -102,8 +102,6 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Save action
-     *
-     * @return Mage_Core_Controller_Response_Http|Mage_Core_Controller_Varien_Action
      */
     public function saveAction()
     {

@@ -1901,7 +1901,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Retrieve column data type by data from describe table
      *
      * @param array $column
-     * @return string
+     * @return string|void
      */
     protected function _getColumnTypeByDdl($column)
     {
@@ -1944,7 +1944,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 return Varien_Db_Ddl_Table::TYPE_DECIMAL;
             case 'varbinary':
                 return Varien_Db_Ddl_Table::TYPE_VARBINARY;
-                break;
         }
     }
 
@@ -2684,7 +2683,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $this->quote($tableName),
             $fromDbName
         );
-        $ddl = $this->raw_FetchRow($sql, 'tbl_exists');
+        $ddl = $this->raw_fetchRow($sql, 'tbl_exists');
         if ($ddl) {
             return true;
         }
