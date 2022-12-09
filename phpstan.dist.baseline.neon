@@ -1071,11 +1071,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php
 
 		-
-			message: "#^Undefined variable\\: \\$info$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php
-
-		-
 			message: "#^Call to method getIsOldCustomer\\(\\) on an unknown class Mage_Adminhtml_Model_Quote\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Newsletter.php
@@ -1786,11 +1781,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Helper/Dashboard/Abstract.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Model_Config\\:\\:getSection\\(\\) should return Varien_Simplexml_Element but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Config.php
-
-		-
 			message: "#^Parameter \\#1 \\$cache of method Varien_Simplexml_Config\\:\\:setCache\\(\\) expects Varien_Simplexml_Config_Cache_Abstract, Zend_Cache_Core given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Config.php
@@ -2371,16 +2361,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Tax_RuleController\\:\\:saveAction\\(\\) should return Mage_Core_Controller_Response_Http\\|Mage_Core_Controller_Varien_Action but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Tax_RuleController\\:\\:saveAction\\(\\) should return Mage_Core_Controller_Response_Http\\|Mage_Core_Controller_Varien_Action but returns Zend_Controller_Response_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php
-
-		-
 			message: "#^Parameter \\#1 \\$ruleModel of method Mage_Adminhtml_Tax_RuleController\\:\\:_isValidRuleRequest\\(\\) expects Mage_Tax_Model_Calculation_Rule, Mage_Core_Model_Abstract given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php
@@ -2646,11 +2626,6 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Acl/Global/Rule/ResourcePermission.php
 
 		-
-			message: "#^Method Mage_Api2_Model_Acl_Global_Rule_ResourcePermission\\:\\:setFilterValue\\(\\) should return Mage_Api2_Model_Acl_PermissionInterface but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Acl/Global/Rule/ResourcePermission.php
-
-		-
 			message: "#^Variable \\$operationName might not be defined\\.$#"
 			count: 2
 			path: app/code/core/Mage/Api2/Model/Acl/Global/Rule/Tree.php
@@ -2852,11 +2827,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:encrypt\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
-
-		-
-			message: "#^Method Mage_Authorizenet_Model_Directpost\\:\\:initialize\\(\\) should return \\$this\\(Mage_Authorizenet_Model_Directpost\\) but return statement is missing\\.$#"
 			count: 1
 			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
 
@@ -3279,11 +3249,6 @@ parameters:
 			message: "#^Variable \\$valueIdCond might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/Resource/Price/Index.php
-
-		-
-			message: "#^Method Mage_Bundle_Model_Resource_Selection_Collection\\:\\:_initSelect\\(\\) should return \\$this\\(Mage_Bundle_Model_Resource_Selection_Collection\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Resource/Selection/Collection.php
 
 		-
 			message: "#^Variable \\$_items might not be defined\\.$#"
@@ -6146,11 +6111,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Api/Resource/Customer.php
 
 		-
-			message: "#^Method Mage_Checkout_Model_Cart\\:\\:saveQuote\\(\\) should return Mage_Checkout_Model_Cart_Interface but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Model/Cart.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 5
 			path: app/code/core/Mage/Checkout/Model/Cart.php
@@ -6264,11 +6224,6 @@ parameters:
 			message: "#^Method Mage_Checkout_Model_Session\\:\\:getQuoteId\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Observer.php
-
-		-
-			message: "#^Method Mage_Checkout_Model_Session\\:\\:unsetAll\\(\\) should return \\$this\\(Mage_Checkout_Model_Session\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Model/Session.php
 
 		-
 			message: "#^Parameter \\#1 \\$quoteId of method Mage_Checkout_Model_Session\\:\\:setQuoteId\\(\\) expects int, null given\\.$#"
@@ -8351,11 +8306,6 @@ parameters:
 			path: app/code/core/Mage/Customer/controllers/AccountController.php
 
 		-
-			message: "#^Method Mage_Customer_AccountController\\:\\:postDispatch\\(\\) should return \\$this\\(Mage_Customer_AccountController\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
 			message: "#^Method Mage_Customer_AccountController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Customer_AccountController\\) but empty return statement found\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/controllers/AccountController.php
@@ -10096,11 +10046,6 @@ parameters:
 			path: app/code/core/Mage/Index/Model/Resource/Process/Collection.php
 
 		-
-			message: "#^Method Mage_Index_Model_Resource_Setup\\:\\:_syncIndexes\\(\\) should return \\$this\\(Mage_Index_Model_Resource_Setup\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Index/Model/Resource/Setup.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Index/Model/Resource/Setup.php
@@ -10399,11 +10344,6 @@ parameters:
 			message: "#^Property Mage_Newsletter_Model_Template\\:\\:\\$_mail \\(Zend_Mail\\) does not accept null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Newsletter/Model/Template.php
-
-		-
-			message: "#^Method Mage_Newsletter_ManageController\\:\\:saveAction\\(\\) should return Mage_Newsletter_ManageController but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/controllers/ManageController.php
 
 		-
 			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
@@ -11071,11 +11011,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
 
 		-
-			message: "#^Method Mage_Paypal_Model_Hostedpro\\:\\:initialize\\(\\) should return \\$this\\(Mage_Paypal_Model_Hostedpro\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Hostedpro.php
-
-		-
 			message: "#^Return type \\(bool\\) of method Mage_Paypal_Model_Hostedpro\\:\\:getAllowedCcTypes\\(\\) should be compatible with return type \\(string\\) of method Mage_Paypal_Model_Direct\\:\\:getAllowedCcTypes\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Hostedpro.php
@@ -11244,11 +11179,6 @@ parameters:
 			message: "#^Property Mage_Paypal_Model_Pro\\:\\:\\$_config \\(Mage_Paypal_Model_Config\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Pro.php
-
-		-
-			message: "#^Method Mage_Paypal_Model_Standard\\:\\:initialize\\(\\) should return \\$this\\(Mage_Paypal_Model_Standard\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Standard.php
 
 		-
 			message: "#^Method Varien_Data_Collection\\:\\:toOptionArray\\(\\) invoked with 1 parameter, 0 required\\.$#"
@@ -13571,11 +13501,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote/Item.php
 
 		-
-			message: "#^Method Mage_Sales_Model_Quote_Item\\:\\:save\\(\\) should return \\$this\\(Mage_Sales_Model_Quote_Item\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Item.php
@@ -13687,11 +13612,6 @@ parameters:
 
 		-
 			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Recurring_Profile\\:\\:_getItem\\(\\) should return Mage_Sales_Model_Order_Item but return statement is missing\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
 
@@ -14069,11 +13989,6 @@ parameters:
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/SalesRule/Model/Resource/Coupon/Usage.php
-
-		-
-			message: "#^Method Mage_SalesRule_Model_Resource_Report_Collection\\:\\:_applyRulesFilter\\(\\) should return \\$this\\(Mage_SalesRule_Model_Resource_Report_Collection\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/SalesRule/Model/Resource/Report/Collection.php
 
 		-
 			message: "#^Parameter \\#1 \\$conn of method Varien_Data_Collection_Db\\:\\:setConnection\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface given\\.$#"
@@ -15046,16 +14961,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/Page.php
 
 		-
-			message: "#^Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder\\:\\:\\$_fontBold\\.$#"
-			count: 8
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
-
-		-
-			message: "#^Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder\\:\\:\\$_fontNormal\\.$#"
-			count: 19
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
-
-		-
 			message: "#^Call to an undefined method Zend_Pdf_Page\\:\\:drawLines\\(\\)\\.$#"
 			count: 5
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
@@ -15396,16 +15301,6 @@ parameters:
 			path: app/code/core/Mage/Weee/Model/Total/Invoice/Weee.php
 
 		-
-			message: "#^Method Mage_Weee_Model_Total_Quote_Weee\\:\\:_process\\(\\) should return Mage_Weee_Model_Total_Quote_Weee but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
-
-		-
-			message: "#^Method Mage_Weee_Model_Total_Quote_Weee\\:\\:_processItem\\(\\) should return Mage_Weee_Model_Total_Quote_Weee but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
-
-		-
 			message: "#^PHPDoc type Mage_Weee_Helper_Data of property Mage_Weee_Model_Total_Quote_Weee\\:\\:\\$_helper is not covariant with PHPDoc type Mage_Tax_Helper_Data of overridden property Mage_Tax_Model_Sales_Total_Quote_Tax\\:\\:\\$_helper\\.$#"
 			count: 1
 			path: app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
@@ -15569,11 +15464,6 @@ parameters:
 			message: "#^Result of && is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Helper/Data.php
-
-		-
-			message: "#^Method Mage_Wishlist_Model_Item\\:\\:save\\(\\) should return \\$this\\(Mage_Wishlist_Model_Item\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Item.php
 
 		-
 			message: "#^Negated boolean expression is always true\\.$#"
@@ -15911,11 +15801,6 @@ parameters:
 			path: lib/Varien/Convert/Parser/Xml/Excel.php
 
 		-
-			message: "#^Access to constant FATAL on an unknown class Varien_Convert_Exceptin\\.$#"
-			count: 1
-			path: lib/Varien/Convert/Validator/Dryrun.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Varien/Data/Collection.php
@@ -15991,17 +15876,7 @@ parameters:
 			path: lib/Varien/Data/Collection/Filesystem.php
 
 		-
-			message: "#^Method Varien_Data_Collection_Filesystem\\:\\:_usort\\(\\) should return int but return statement is missing\\.$#"
-			count: 1
-			path: lib/Varien/Data/Collection/Filesystem.php
-
-		-
 			message: "#^Property Varien_Data_Collection_Filesystem\\:\\:\\$_targetDirs \\(string\\) does not accept default value of type array\\.$#"
-			count: 1
-			path: lib/Varien/Data/Collection/Filesystem.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: lib/Varien/Data/Collection/Filesystem.php
 
@@ -16201,11 +16076,6 @@ parameters:
 			path: lib/Varien/Db/Adapter/Mysqli.php
 
 		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:raw_fetchRow\\(\\) with incorrect case\\: raw_FetchRow$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
 			message: "#^Cannot call method query\\(\\) on object\\|resource\\.$#"
 			count: 1
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
@@ -16222,11 +16092,6 @@ parameters:
 
 		-
 			message: "#^Comparison operation \"\\>\" between int\\<65537, max\\> and 65536 is always true\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
-			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:_getColumnTypeByDdl\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
@@ -16297,7 +16162,7 @@ parameters:
 
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 2
+			count: 1
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
@@ -16381,11 +16246,6 @@ parameters:
 			path: lib/Varien/Db/Tree/Node.php
 
 		-
-			message: "#^Access to an undefined property Varien_Db_Tree_NodeSet\\:\\:\\$count\\.$#"
-			count: 4
-			path: lib/Varien/Db/Tree/NodeSet.php
-
-		-
 			message: "#^Method Varien_Db_Tree_NodeSet\\:\\:next\\(\\) with return type void returns false but should not return anything\\.$#"
 			count: 1
 			path: lib/Varien/Db/Tree/NodeSet.php
@@ -16441,29 +16301,9 @@ parameters:
 			path: lib/Varien/File/Uploader.php
 
 		-
-			message: "#^Access to an undefined property Varien_File_Uploader_Image\\:\\:\\$uploader\\.$#"
-			count: 41
-			path: lib/Varien/File/Uploader/Image.php
-
-		-
 			message: "#^Call to an undefined method Varien_File_Uploader_Image\\:\\:newUploader\\(\\)\\.$#"
 			count: 1
 			path: lib/Varien/File/Uploader/Image.php
-
-		-
-			message: "#^Undefined variable\\: \\$visibilityPercent$#"
-			count: 1
-			path: lib/Varien/File/Uploader/Image.php
-
-		-
-			message: "#^Method Varien_Filter_Array\\:\\:addFilter\\(\\) should return Zend_Filter but return statement is missing\\.$#"
-			count: 1
-			path: lib/Varien/Filter/Array.php
-
-		-
-			message: "#^Method Varien_Filter_Object\\:\\:addFilter\\(\\) should return Zend_Filter but return statement is missing\\.$#"
-			count: 1
-			path: lib/Varien/Filter/Object.php
 
 		-
 			message: "#^Method Varien_Filter_Template\\:\\:getEmailPathValidator\\(\\) should return Mage_Core_Model_Abstract but returns Mage_Adminhtml_Model_Email_PathValidator\\.$#"
@@ -16639,11 +16479,6 @@ parameters:
 			message: "#^Result of && is always false\\.$#"
 			count: 1
 			path: lib/Varien/Io/Abstract.php
-
-		-
-			message: "#^Access to an undefined property Varien_Io_File\\:\\:\\$_streamException\\.$#"
-			count: 1
-			path: lib/Varien/Io/File.php
 
 		-
 			message: "#^If condition is always true\\.$#"
