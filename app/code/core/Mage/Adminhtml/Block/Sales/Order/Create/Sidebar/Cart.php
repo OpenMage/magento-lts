@@ -42,6 +42,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
         $this->setDataId('cart');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Shopping Cart');
@@ -62,6 +65,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
         return $collection;
     }
 
+    /**
+     * @return bool
+     */
     public function canDisplayItemQty()
     {
         return true;
@@ -90,11 +96,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
     }
 
     /**
-     * Prepare layout
-     *
-     * Add button that clears customer's shopping cart
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
