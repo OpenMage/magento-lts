@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Review
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Review
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,7 +28,6 @@
  */
 class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 {
-
     /**
      * Action list where need check enabled cookie
      *
@@ -67,7 +67,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      */
     protected function _initProduct()
     {
-        Mage::dispatchEvent('review_controller_product_init_before', ['controller_action'=>$this]);
+        Mage::dispatchEvent('review_controller_product_init_before', ['controller_action' => $this]);
         $categoryId = (int) $this->getRequest()->getParam('category', false);
         $productId  = (int) $this->getRequest()->getParam('id');
 
@@ -82,7 +82,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         }
 
         try {
-            Mage::dispatchEvent('review_controller_product_init', ['product'=>$product]);
+            Mage::dispatchEvent('review_controller_product_init', ['product' => $product]);
             Mage::dispatchEvent('review_controller_product_init_after', [
                 'product'           => $product,
                 'controller_action' => $this
@@ -287,7 +287,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         $update->addHandle('default');
         $this->addActionLayoutHandles();
 
-        $update->addHandle('PRODUCT_TYPE_'.$product->getTypeId());
+        $update->addHandle('PRODUCT_TYPE_' . $product->getTypeId());
 
         if ($product->getPageLayout()) {
             $this->getLayout()->helper('page/layout')

@@ -7,41 +7,42 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CatalogInventory Stock Status per website Model
  *
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_CatalogInventory_Model_Resource_Stock_Status _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock_Status getResource()
  * @method int getProductId()
- * @method Mage_CatalogInventory_Model_Stock_Status setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method int getWebsiteId()
- * @method Mage_CatalogInventory_Model_Stock_Status setWebsiteId(int $value)
+ * @method $this setWebsiteId(int $value)
  * @method int getStockId()
- * @method Mage_CatalogInventory_Model_Stock_Status setStockId(int $value)
+ * @method $this setStockId(int $value)
  * @method float getQty()
- * @method Mage_CatalogInventory_Model_Stock_Status setQty(float $value)
+ * @method $this setQty(float $value)
  * @method int getStockStatus()
- * @method Mage_CatalogInventory_Model_Stock_Status setStockStatus(int $value)
- *
- * @category    Mage
- * @package     Mage_CatalogInventory
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method $this setStockStatus(int $value)
  */
 class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
 {
-    const STATUS_OUT_OF_STOCK       = 0;
-    const STATUS_IN_STOCK           = 1;
+    public const STATUS_OUT_OF_STOCK       = 0;
+    public const STATUS_IN_STOCK           = 1;
 
     /**
      * Product Type Instances cache
@@ -96,16 +97,13 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     public function getProductTypeInstance($productType)
     {
         $types = $this->getProductTypeInstances();
-        if (isset($types[$productType])) {
-            return $types[$productType];
-        }
-        return false;
+        return $types[$productType] ?? false;
     }
 
     /**
      * Retrieve website models
      *
-     * @param null $websiteId
+     * @param string|int|null $websiteId
      * @return array
      */
     public function getWebsites($websiteId = null)
@@ -131,10 +129,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     public function getWebsiteDefaultStoreId($websiteId)
     {
         $websites = $this->getWebsites();
-        if (isset($websites[$websiteId])) {
-            return $websites[$websiteId];
-        }
-        return 0;
+        return $websites[$websiteId] ?? 0;
     }
 
     /**
@@ -202,7 +197,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
         if (is_null($stockStatus)) {
             $websiteId = $product->getStore()->getWebsiteId();
             $status = $this->getProductStatus($product->getId(), $websiteId, $stockId);
-            $stockStatus = isset($status[$product->getId()]) ? $status[$product->getId()] : null;
+            $stockStatus = $status[$product->getId()] ?? null;
         }
 
         $product->setIsSalable($stockStatus);
@@ -363,7 +358,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
         $item         = $this->getStockItemModel();
 
         foreach ($parentIds as $parentId) {
-            $parentType = isset($productTypes[$parentId]) ? $productTypes[$parentId] : null;
+            $parentType = $productTypes[$parentId] ?? null;
             $item->setData(['stock_id' => $stockId])
                 ->setOrigData()
                 ->loadByProduct($parentId);
@@ -432,10 +427,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     public function getProductType($productId)
     {
         $types = $this->getResource()->getProductsType($productId);
-        if (isset($types[$productId])) {
-            return $types[$productId];
-        }
-        return false;
+        return $types[$productId] ?? false;
     }
 
     /**

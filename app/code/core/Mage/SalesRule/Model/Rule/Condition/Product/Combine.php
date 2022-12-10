@@ -7,33 +7,39 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Model_Condition_Combine
 {
     /**
      * Quote item conditions group
      */
-    const PRODUCT_ATTRIBUTES_TYPE_QUOTE_ITEM = 'quote_item';
+    public const PRODUCT_ATTRIBUTES_TYPE_QUOTE_ITEM = 'quote_item';
 
     /**
      * "Product attribute match a value" conditions group
      */
-    const PRODUCT_ATTRIBUTES_TYPE_PRODUCT = 'product_attribute_match';
+    public const PRODUCT_ATTRIBUTES_TYPE_PRODUCT = 'product_attribute_match';
 
     /**
      * "Product attribute is set" conditions group
      */
-    const PRODUCT_ATTRIBUTES_TYPE_ISSET = 'product_attribute_isset';
+    public const PRODUCT_ATTRIBUTES_TYPE_ISSET = 'product_attribute_isset';
 
     /**
      * Products attributes info

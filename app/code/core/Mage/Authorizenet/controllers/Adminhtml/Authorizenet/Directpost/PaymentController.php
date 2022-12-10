@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Authorizenet
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Authorizenet
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 require_once 'Mage/Adminhtml/controllers/Sales/Order/CreateController.php';
@@ -23,11 +24,10 @@ require_once 'Mage/Adminhtml/controllers/Sales/Order/CreateController.php';
  * Admihtml DirtectPost Payment Controller
  *
  * @category   Mage
- * @package    Mage_DirtectPost
+ * @package    Mage_Authorizenet
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
-    extends Mage_Adminhtml_Sales_Order_CreateController
+class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController extends Mage_Adminhtml_Sales_Order_CreateController
 {
     /**
      * Get session model
@@ -80,7 +80,6 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
         }
 
         if (isset($paymentParam['method'])) {
-
             $result = [];
 
             //create order partially
@@ -115,7 +114,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
                     $adminUrl = Mage::getSingleton('adminhtml/url');
                     if ($adminUrl->useSecretKey()) {
                         $requestToPaygate->setKey(
-                            $adminUrl->getSecretKey('authorizenet_directpost_payment','redirect')
+                            $adminUrl->getSecretKey('authorizenet_directpost_payment', 'redirect')
                         );
                     }
                     $result['directpost'] = ['fields' => $requestToPaygate->getData()];
@@ -123,15 +122,13 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
 
                 $result['success'] = 1;
                 $isError = false;
-            }
-            catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception $e) {
                 $message = $e->getMessage();
-                if( !empty($message) ) {
+                if (!empty($message)) {
                     $this->_getSession()->addError($message);
                 }
                 $isError = true;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $this->_getSession()->addException($e, $this->__('Order saving error: %s', $e->getMessage()));
                 $isError = true;
             }
@@ -143,8 +140,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
             }
 
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-        }
-        else {
+        } else {
             $result = [
                 'error_messages' => $this->__('Please, choose payment method')
             ];

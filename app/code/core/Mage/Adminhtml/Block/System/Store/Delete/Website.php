@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,14 +28,14 @@
  */
 class Mage_Adminhtml_Block_System_Store_Delete_Website extends Mage_Adminhtml_Block_Template
 {
-
     protected function _prepareLayout()
     {
         $itemId = $this->getRequest()->getParam('website_id');
 
         $this->setTemplate('system/store/delete_website.phtml');
-        $this->setAction($this->getUrl('*/*/deleteWebsitePost', ['website_id'=>$itemId]));
-        $this->setChild('confirm_deletion_button',
+        $this->setAction($this->getUrl('*/*/deleteWebsitePost', ['website_id' => $itemId]));
+        $this->setChild(
+            'confirm_deletion_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Delete Website'),
@@ -42,8 +43,9 @@ class Mage_Adminhtml_Block_System_Store_Delete_Website extends Mage_Adminhtml_Bl
                     'class'     => 'cancel'
                 ])
         );
-        $onClick = "setLocation('".$this->getUrl('*/*/editWebsite', ['website_id'=>$itemId])."')";
-        $this->setChild('cancel_button',
+        $onClick = "setLocation('" . $this->getUrl('*/*/editWebsite', ['website_id' => $itemId]) . "')";
+        $this->setChild(
+            'cancel_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Cancel'),
@@ -51,7 +53,8 @@ class Mage_Adminhtml_Block_System_Store_Delete_Website extends Mage_Adminhtml_Bl
                     'class'     => 'cancel'
                 ])
         );
-        $this->setChild('back_button',
+        $this->setChild(
+            'back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Back'),
@@ -61,5 +64,4 @@ class Mage_Adminhtml_Block_System_Store_Delete_Website extends Mage_Adminhtml_Bl
         );
         return parent::_prepareLayout();
     }
-
 }

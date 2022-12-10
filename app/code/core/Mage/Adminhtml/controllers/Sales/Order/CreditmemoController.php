@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -37,11 +38,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
         }
 
-        if (isset($data['items'])) {
-            $qtys = $data['items'];
-        } else {
-            $qtys = [];
-        }
+        $qtys = $data['items'] ?? [];
         return $qtys;
     }
 
@@ -104,6 +101,10 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
         $orderId = $this->getRequest()->getParam('order_id');
         if ($creditmemoId) {
             $creditmemo = Mage::getModel('sales/order_creditmemo')->load($creditmemoId);
+            if (!$creditmemo->getId()) {
+                $this->_getSession()->addError($this->__('The credit memo no longer exists.'));
+                return false;
+            }
         } elseif ($orderId) {
             $data   = $this->getRequest()->getParam('creditmemo');
             $order  = Mage::getModel('sales/order')->load($orderId);
@@ -117,7 +118,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
             $qtys = [];
             $backToStock = [];
-            foreach ($savedData as $orderItemId =>$itemData) {
+            foreach ($savedData as $orderItemId => $itemData) {
                 if (isset($itemData['qty'])) {
                     $qtys[$orderItemId] = $itemData['qty'];
                 }
@@ -196,7 +197,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             $this->_setActiveMenu('sales/order')
                 ->renderLayout();
         } else {
-            $this->_forward('noRoute');
+            $this->_redirect('*/*');
         }
     }
 
@@ -208,7 +209,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
         /**
          * Clear old values for creditmemo qty's
          */
-        $this->_redirect('*/*/new', ['_current'=>true]);
+        $this->_redirect('*/*/new', ['_current' => true]);
     }
 
     /**
@@ -274,7 +275,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
         try {
             $creditmemo = $this->_initCreditmemo();
             if ($creditmemo) {
-                if (($creditmemo->getGrandTotal() <=0) && (!$creditmemo->getAllowZeroGrandTotal())) {
+                if (($creditmemo->getGrandTotal() <= 0) && (!$creditmemo->getAllowZeroGrandTotal())) {
                     Mage::throwException(
                         $this->__('Credit memo\'s total must be positive.')
                     );
@@ -341,7 +342,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             } catch (Exception $e) {
                 $this->_getSession()->addError($this->__('Unable to cancel the credit memo.'));
             }
-            $this->_redirect('*/*/view', ['creditmemo_id'=>$creditmemo->getId()]);
+            $this->_redirect('*/*/view', ['creditmemo_id' => $creditmemo->getId()]);
         } else {
             $this->_forward('noRoute');
         }
@@ -363,7 +364,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             } catch (Exception $e) {
                 $this->_getSession()->addError($this->__('Unable to void the credit memo.'));
             }
-            $this->_redirect('*/*/view', ['creditmemo_id'=>$creditmemo->getId()]);
+            $this->_redirect('*/*/view', ['creditmemo_id' => $creditmemo->getId()]);
         } else {
             $this->_forward('noRoute');
         }
@@ -420,24 +421,25 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
      * @param array $qtys
      * @return bool
      */
-    protected function _needToAddDummy($item, $qtys) {
+    protected function _needToAddDummy($item, $qtys)
+    {
         if ($item->getHasChildren()) {
             foreach ($item->getChildrenItems() as $child) {
                 if (isset($qtys[$child->getId()])
                     && isset($qtys[$child->getId()]['qty'])
-                    && $qtys[$child->getId()]['qty'] > 0)
-                {
+                    && $qtys[$child->getId()]['qty'] > 0
+                ) {
                     return true;
                 }
             }
             return false;
         }
 
-        if($item->getParentItem()) {
+        if ($item->getParentItem()) {
             if (isset($qtys[$item->getParentItem()->getId()])
                 && isset($qtys[$item->getParentItem()->getId()]['qty'])
-                && $qtys[$item->getParentItem()->getId()]['qty'] > 0)
-            {
+                && $qtys[$item->getParentItem()->getId()]['qty'] > 0
+            ) {
                 return true;
             }
             return false;

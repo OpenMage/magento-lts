@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Page
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Page
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -176,7 +177,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      */
     public function removeItem($type, $name)
     {
-        unset($this->_data['items'][$type.'/'.$name]);
+        unset($this->_data['items'][$type . '/' . $name]);
         return $this;
     }
 
@@ -222,13 +223,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 if (strpos($if, "><!-->") !== false) {
                     $html .= $if . "\n";
                 } else {
-                    $html .= '<!--[if '.$if.']>' . "\n";
+                    $html .= '<!--[if ' . $if . ']>' . "\n";
                 }
             }
 
             // static and skin css
             $html .= $this->_prepareStaticAndSkinElements(
-                '<link rel="stylesheet" type="text/css" href="%s"%s />'."\n",
+                '<link rel="stylesheet" type="text/css" href="%s"%s />' . "\n",
                 empty($items['js_css']) ? [] : $items['js_css'],
                 empty($items['skin_css']) ? [] : $items['skin_css'],
                 $shouldMergeCss ? [Mage::getDesign(), 'getMergedCssUrl'] : null
@@ -375,11 +376,11 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         $chunks = [];
         $chunk  = $prefix;
         foreach ($items as $item) {
-            if (strlen($chunk.','.$item)>$maxLen) {
+            if (strlen($chunk . ',' . $item) > $maxLen) {
                 $chunks[] = $chunk;
                 $chunk = $prefix;
             }
-            $chunk .= ','.$item;
+            $chunk .= ',' . $item;
         }
         $chunks[] = $chunk;
         return $chunks;
@@ -393,7 +394,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     public function getContentType()
     {
         if (empty($this->_data['content_type'])) {
-            $this->_data['content_type'] = $this->getMediaType().'; charset='.$this->getCharset();
+            $this->_data['content_type'] = $this->getMediaType() . '; charset=' . $this->getCharset();
         }
         return $this->_data['content_type'];
     }

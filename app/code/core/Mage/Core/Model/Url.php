@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -68,7 +69,7 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setType(string $value)
  * @method $this setSecure(bool $value)
@@ -83,51 +84,51 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Default controller name
      */
-    const DEFAULT_CONTROLLER_NAME   = 'index';
+    public const DEFAULT_CONTROLLER_NAME   = 'index';
 
     /**
      * Default action name
      */
-    const DEFAULT_ACTION_NAME       = 'index';
+    public const DEFAULT_ACTION_NAME       = 'index';
 
     /**
      * XML base url path unsecure
      */
-    const XML_PATH_UNSECURE_URL     = 'web/unsecure/base_url';
+    public const XML_PATH_UNSECURE_URL     = 'web/unsecure/base_url';
 
     /**
      * XML base url path secure
      */
-    const XML_PATH_SECURE_URL       = 'web/secure/base_url';
+    public const XML_PATH_SECURE_URL       = 'web/secure/base_url';
 
     /**
      * XML path for using in adminhtml
      */
-    const XML_PATH_SECURE_IN_ADMIN  = 'default/web/secure/use_in_adminhtml';
+    public const XML_PATH_SECURE_IN_ADMIN  = 'default/web/secure/use_in_adminhtml';
 
     /**
      * XML path for using in frontend
      */
-    const XML_PATH_SECURE_IN_FRONT  = 'web/secure/use_in_frontend';
+    public const XML_PATH_SECURE_IN_FRONT  = 'web/secure/use_in_frontend';
 
     /**
      * Param name for form key functionality
      */
-    const FORM_KEY = 'form_key';
+    public const FORM_KEY = 'form_key';
 
     /**
      * Configuration data cache
      *
      * @var array
      */
-    static protected $_configDataCache;
+    protected static $_configDataCache;
 
     /**
      * Encrypted session identifier
      *
      * @var string|null
      */
-    static protected $_encryptedSessionId;
+    protected static $_encryptedSessionId;
 
     /**
      * Reserved Route parameter keys
@@ -202,7 +203,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set use_url_cache flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setUseUrlCache($flag)
@@ -268,7 +269,7 @@ class Mage_Core_Model_Url extends Varien_Object
     public function getConfigData($key, $prefix = null)
     {
         if (is_null($prefix)) {
-            $prefix = 'web/' . ($this->getSecure() ? 'secure' : 'unsecure').'/';
+            $prefix = 'web/' . ($this->getSecure() ? 'secure' : 'unsecure') . '/';
         }
         $path = $prefix . $key;
 
@@ -397,7 +398,8 @@ class Mage_Core_Model_Url extends Varien_Object
          * Add availability support urls without store code
          */
         if ($this->getType() == Mage_Core_Model_Store::URL_TYPE_LINK
-            && Mage::app()->getRequest()->isDirectAccessFrontendName($this->getRouteFrontName())) {
+            && Mage::app()->getRequest()->isDirectAccessFrontendName($this->getRouteFrontName())
+        ) {
             $this->setType(Mage_Core_Model_Store::URL_TYPE_DIRECT_LINK);
         }
 
@@ -621,7 +623,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Set route params
      *
      * @param array $data
-     * @param boolean $unsetOldParams
+     * @param bool $unsetOldParams
      * @return $this
      */
     public function setRouteParams(array $data, $unsetOldParams = true)
@@ -1193,7 +1195,7 @@ class Mage_Core_Model_Url extends Varien_Object
             return $match[1]
                 . $session->getSessionIdQueryParam()
                 . '=' . $session->getEncryptedSessionId()
-                . (isset($match[3]) ? $match[3] : '');
+                . ($match[3] ?? '');
         } else {
             if ($match[1] == '?' && isset($match[3])) {
                 return '?';
@@ -1211,7 +1213,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Check if users originated URL is one of the domain URLs assigned to stores
      *
-     * @return boolean
+     * @return bool
      */
     public function isOwnOriginUrl()
     {

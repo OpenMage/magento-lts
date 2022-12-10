@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Newsletter
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Newsletter queue model.
+ *
+ * @category   Mage
+ * @package    Mage_Newsletter
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Newsletter_Model_Resource_Queue _getResource()
  * @method Mage_Newsletter_Model_Resource_Queue getResource()
@@ -45,10 +50,6 @@
  * @method $this setQueueStartAt(string $value)
  * @method string getQueueFinishAt()
  * @method $this setQueueFinishAt(string $value)
- *
- * @category    Mage
- * @package     Mage_Newsletter
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
 {
@@ -68,7 +69,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * save template flag
      *
-     * @var boolean
+     * @var bool
      * @deprecated since 1.4.0.1
      */
     protected $_saveTemplateFlag = false;
@@ -76,7 +77,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Save stores flag.
      *
-     * @var boolean
+     * @var bool
      */
     protected $_saveStoresFlag = false;
 
@@ -87,15 +88,12 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     protected $_stores = [];
 
-    const STATUS_NEVER = 0;
-    const STATUS_SENDING = 1;
-    const STATUS_CANCEL = 2;
-    const STATUS_SENT = 3;
-    const STATUS_PAUSE = 4;
+    public const STATUS_NEVER = 0;
+    public const STATUS_SENDING = 1;
+    public const STATUS_CANCEL = 2;
+    public const STATUS_SENT = 3;
+    public const STATUS_PAUSE = 4;
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('newsletter/queue');
@@ -104,7 +102,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Return: is this queue newly created or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function isNew()
     {
@@ -171,8 +169,8 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function sendPerSubscriber($count = 20, array $additionalVariables = [])
     {
-        if ($this->getQueueStatus()!=self::STATUS_SENDING
-           && ($this->getQueueStatus()!=self::STATUS_NEVER && $this->getQueueStartAt())
+        if ($this->getQueueStatus() != self::STATUS_SENDING
+            && ($this->getQueueStatus() != self::STATUS_NEVER && $this->getQueueStartAt())
         ) {
             return $this;
         }
@@ -220,7 +218,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             }
         }
 
-        if (count($collection->getItems()) < $count-1 || count($collection->getItems()) == 0) {
+        if (count($collection->getItems()) < $count - 1 || count($collection->getItems()) == 0) {
             $this->_finishQueue();
         }
         return $this;
@@ -270,20 +268,20 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Setter for save template flag.
      *
-     * @param boolean|integer|string $value
+     * @param bool|int|string $value
      * @return $this
      * @deprecated since 1.4.0.1
      */
     public function setSaveTemplateFlag($value)
     {
-        $this->_saveTemplateFlag = (boolean)$value;
+        $this->_saveTemplateFlag = (bool)$value;
         return $this;
     }
 
     /**
      * Getter for save template flag.
      *
-     * @return boolean
+     * @return bool
      * @deprecated since 1.4.0.1
      */
     public function getSaveTemplateFlag()
@@ -294,19 +292,19 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Setter for save stores flag.
      *
-     * @param boolean|integer|string $value
+     * @param bool|int|string $value
      * @return $this
      */
     public function setSaveStoresFlag($value)
     {
-        $this->_saveStoresFlag = (boolean)$value;
+        $this->_saveStoresFlag = (bool)$value;
         return $this;
     }
 
     /**
      * Getter for save stores flag.
      *
-     * @return boolean
+     * @return bool
      */
     public function getSaveStoresFlag()
     {

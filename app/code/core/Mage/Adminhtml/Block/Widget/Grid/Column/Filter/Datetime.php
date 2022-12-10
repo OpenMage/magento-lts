@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -24,18 +25,17 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
- * @todo        date format
+ * @todo       date format
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date
+class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date
 {
     //full day is 86400, we need 23 hours:59 minutes:59 seconds = 86399
-    const END_OF_DAY_IN_SECONDS = 86399;
+    public const END_OF_DAY_IN_SECONDS = 86399;
 
-    public function getValue($index=null)
+    public function getValue($index = null)
     {
         if ($index) {
-            if ($data = $this->getData('value', 'orig_'.$index)) {
+            if ($data = $this->getData('value', 'orig_' . $index)) {
                 return $data;//date('Y-m-d', strtotime($data));
             }
             return null;
@@ -86,8 +86,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime
                 $dateObj->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
 
                 return $dateObj;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 return null;
             }
         }
@@ -110,37 +109,37 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime
         }
 
         $html = '<div class="range"><div class="range-line date">'
-            . '<span class="label">' . Mage::helper('adminhtml')->__('From').'</span>'
-            . '<input type="text" name="'.$this->_getHtmlName().'[from]" id="'.$htmlId.'_from"'
-                . ' value="'.$this->getEscapedValue('from').'" class="input-text no-changes"/>'
+            . '<span class="label">' . Mage::helper('adminhtml')->__('From') . '</span>'
+            . '<input type="text" name="' . $this->_getHtmlName() . '[from]" id="' . $htmlId . '_from"'
+                . ' value="' . $this->getEscapedValue('from') . '" class="input-text no-changes"/>'
             . '<img src="' . Mage::getDesign()->getSkinUrl('images/grid-cal.gif') . '" alt="" class="v-middle"'
-                . ' id="'.$htmlId.'_from_trig"'
-                . ' title="'.$this->escapeHtml(Mage::helper('adminhtml')->__('Date selector')).'"/>'
+                . ' id="' . $htmlId . '_from_trig"'
+                . ' title="' . $this->escapeHtml(Mage::helper('adminhtml')->__('Date selector')) . '"/>'
             . '</div>';
-        $html.= '<div class="range-line date">'
-            . '<span class="label">' . Mage::helper('adminhtml')->__('To').'</span>'
-            . '<input type="text" name="'.$this->_getHtmlName().'[to]" id="'.$htmlId.'_to"'
-                . ' value="'.$this->getEscapedValue('to').'" class="input-text no-changes"/>'
+        $html .= '<div class="range-line date">'
+            . '<span class="label">' . Mage::helper('adminhtml')->__('To') . '</span>'
+            . '<input type="text" name="' . $this->_getHtmlName() . '[to]" id="' . $htmlId . '_to"'
+                . ' value="' . $this->getEscapedValue('to') . '" class="input-text no-changes"/>'
             . '<img src="' . Mage::getDesign()->getSkinUrl('images/grid-cal.gif') . '" alt="" class="v-middle"'
-                . ' id="'.$htmlId.'_to_trig"'
-                . ' title="'.$this->escapeHtml(Mage::helper('adminhtml')->__('Date selector')).'"/>'
+                . ' id="' . $htmlId . '_to_trig"'
+                . ' title="' . $this->escapeHtml(Mage::helper('adminhtml')->__('Date selector')) . '"/>'
             . '</div></div>';
-        $html.= '<input type="hidden" name="'.$this->_getHtmlName().'[locale]"'
-            . ' value="'.$this->getLocale()->getLocaleCode().'"/>';
-        $html.= '<script type="text/javascript">
+        $html .= '<input type="hidden" name="' . $this->_getHtmlName() . '[locale]"'
+            . ' value="' . $this->getLocale()->getLocaleCode() . '"/>';
+        $html .= '<script type="text/javascript">
             Calendar.setup({
-                inputField : "'.$htmlId.'_from",
-                ifFormat : "'.$format.'",
-                button : "'.$htmlId.'_from_trig",
-                showsTime: '. ( $this->getColumn()->getFilterTime() ? 'true' : 'false') .',
+                inputField : "' . $htmlId . '_from",
+                ifFormat : "' . $format . '",
+                button : "' . $htmlId . '_from_trig",
+                showsTime: ' . ($this->getColumn()->getFilterTime() ? 'true' : 'false') . ',
                 align : "Bl",
                 singleClick : true
             });
             Calendar.setup({
-                inputField : "'.$htmlId.'_to",
-                ifFormat : "'.$format.'",
-                button : "'.$htmlId.'_to_trig",
-                showsTime: '. ( $this->getColumn()->getFilterTime() ? 'true' : 'false') .',
+                inputField : "' . $htmlId . '_to",
+                ifFormat : "' . $format . '",
+                button : "' . $htmlId . '_to_trig",
+                showsTime: ' . ($this->getColumn()->getFilterTime() ? 'true' : 'false') . ',
                 align : "Bl",
                 singleClick : true
             });
@@ -154,7 +153,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime
      * @param string $index
      * @return string
      */
-    public function getEscapedValue($index=null)
+    public function getEscapedValue($index = null)
     {
         if ($this->getColumn()->getFilterTime()) {
             $value = $this->getValue($index);

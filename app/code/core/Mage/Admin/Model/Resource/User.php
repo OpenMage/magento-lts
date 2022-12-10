@@ -7,38 +7,33 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Admin
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * ACL user resource
  *
- * @category    Mage
- * @package     Mage_Admin
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Admin
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Define main table
-     *
-     */
     protected function _construct()
     {
         $this->_init('admin/user', 'user_id');
     }
 
     /**
-     * Initialize unique fields
-     *
      * @return $this
      */
     protected function _initUniqueFields()
@@ -226,13 +221,11 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     public function _saveRelations(Mage_Core_Model_Abstract $user)
     {
         $rolesIds = $user->getRoleIds();
-
         if (!is_array($rolesIds) || count($rolesIds) == 0) {
             return $user;
         }
 
         $adapter = $this->_getWriteAdapter();
-
         $adapter->beginTransaction();
 
         try {
@@ -244,22 +237,27 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             foreach ($rolesIds as $rid) {
                 $rid = intval($rid);
                 if ($rid > 0) {
-                    $row = Mage::getModel('admin/role')->load($rid)->getData();
+                    $role = Mage::getModel('admin/role')->load($rid);
                 } else {
-                    $row = ['tree_level' => 0];
+                    $role = new Varien_Object(['tree_level' => 0]);
                 }
 
                 $data = new Varien_Object([
-                    'parent_id'     => $rid,
-                    'tree_level'    => $row['tree_level'] + 1,
-                    'sort_order'    => 0,
-                    'role_type'     => 'U',
-                    'user_id'       => $user->getId(),
-                    'role_name'     => $user->getFirstname()
+                    'parent_id'  => $rid,
+                    'tree_level' => $role->getTreeLevel() + 1,
+                    'sort_order' => 0,
+                    'role_type'  => Mage_Admin_Model_Acl::ROLE_TYPE_USER,
+                    'user_id'    => $user->getId(),
+                    'role_name'  => $user->getFirstname()
                 ]);
 
                 $insertData = $this->_prepareDataForTable($data, $this->getTable('admin/role'));
                 $adapter->insert($this->getTable('admin/role'), $insertData);
+            }
+
+            if ($user->getId() > 0) {
+                // reload acl on next user http request
+                $this->saveReloadAclFlag($user, 1);
             }
             $adapter->commit();
         } catch (Mage_Core_Exception $e) {
@@ -285,10 +283,9 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             return [];
         }
 
-        $table  = $this->getTable('admin/role');
-        $adapter   = $this->_getReadAdapter();
-
-        $select = $adapter->select()
+        $table   = $this->getTable('admin/role');
+        $adapter = $this->_getReadAdapter();
+        $select  = $adapter->select()
                     ->from($table, [])
                     ->joinLeft(
                         ['ar' => $table],
@@ -319,37 +316,38 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     public function add(Mage_Core_Model_Abstract $user)
     {
         $dbh = $this->_getWriteAdapter();
-
         $aRoles = $this->hasAssigned2Role($user);
         if (count($aRoles)) {
             foreach ($aRoles as $idx => $data) {
-                $conditions = [
-                    'role_id = ?' => $data['role_id'],
-                ];
-
-                $dbh->delete($this->getTable('admin/role'), $conditions);
+                $dbh->delete(
+                    $this->getTable('admin/role'),
+                    ['role_id = ?' => $data['role_id']]
+                );
             }
         }
 
         if ($user->getId() > 0) {
             $role = Mage::getModel('admin/role')->load($user->getRoleId());
         } else {
-            $role = new Varien_Object();
-            $role->setTreeLevel(0);
+            $role = new Varien_Object(['tree_level' => 0]);
         }
 
         $data = new Varien_Object([
             'parent_id'  => $user->getRoleId(),
-            'tree_level' => ($role->getTreeLevel() + 1),
+            'tree_level' => $role->getTreeLevel() + 1,
             'sort_order' => 0,
-            'role_type'  => 'U',
+            'role_type'  => Mage_Admin_Model_Acl::ROLE_TYPE_USER,
             'user_id'    => $user->getUserId(),
             'role_name'  => $user->getFirstname()
         ]);
 
         $insertData = $this->_prepareDataForTable($data, $this->getTable('admin/role'));
-
         $dbh->insert($this->getTable('admin/role'), $insertData);
+
+        if ($user->getId() > 0) {
+            // reload acl on next user http request
+            $this->saveReloadAclFlag($user, 1);
+        }
 
         return $this;
     }
@@ -384,7 +382,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * Check if role user exists
      *
      * @param Mage_Core_Model_Abstract|Mage_Admin_Model_User $user
-     * @return array|false
+     * @return array
      */
     public function roleUserExists(Mage_Core_Model_Abstract $user)
     {
@@ -417,7 +415,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     public function userExists(Mage_Core_Model_Abstract $user)
     {
         $adapter = $this->_getReadAdapter();
-        $select = $adapter->select();
+        $select  = $adapter->select();
 
         $binds = [
             'username' => $user->getUsername(),
@@ -467,6 +465,13 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
                 ['reload_acl_flag' => $flag],
                 ['user_id = ?' => (int) $object->getId()]
             );
+            if ($flag) {
+                // refresh cache menu
+                Mage::app()->getCache()->clean(
+                    Zend_Cache::CLEANING_MODE_MATCHING_TAG,
+                    [Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS]
+                );
+            }
         }
 
         return $this;

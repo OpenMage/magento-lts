@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sendfriend
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sendfriend
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * SendFriend Log
+ *
+ * @category   Mage
+ * @package    Mage_Sendfriend
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sendfriend_Model_Resource_Sendfriend _getResource()
  * @method Mage_Sendfriend_Model_Resource_Sendfriend getResource()
@@ -29,10 +34,6 @@
  * @method $this setIp(int $value)
  * @method int getTime()
  * @method $this setTime(int $value)
- *
- * @category    Mage
- * @package     Mage_Sendfriend
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
 {
@@ -78,10 +79,6 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      */
     protected $_lastCookieValue = [];
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('sendfriend/sendfriend');
@@ -295,7 +292,8 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         // validate array
         if (!is_array($recipients) || !isset($recipients['email'])
             || !isset($recipients['name']) || !is_array($recipients['email'])
-            || !is_array($recipients['name'])) {
+            || !is_array($recipients['name'])
+        ) {
             return $this;
         }
 
@@ -416,7 +414,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Get max allowed uses of "Send to Friend" function per hour
      *
-     * @return integer
+     * @return int
      */
     public function getMaxSendsToFriend()
     {
@@ -436,7 +434,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Get max allowed recipients for "Send to a Friend" function
      *
-     * @return integer
+     * @return int
      */
     public function getMaxRecipients()
     {
@@ -446,7 +444,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Check if user is allowed to email product to a friend
      *
-     * @return boolean
+     * @return bool
      */
     public function canEmailToFriend()
     {
@@ -456,7 +454,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Check if user is exceed limit
      *
-     * @return boolean
+     * @return bool
      */
     public function isExceedLimit()
     {
@@ -514,11 +512,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         $time     = time();
         $newTimes = [];
 
-        if (isset($this->_lastCookieValue[$cookie])) {
-            $oldTimes = $this->_lastCookieValue[$cookie];
-        } else {
-            $oldTimes = $this->getCookie()->get($cookie);
-        }
+        $oldTimes = $this->_lastCookieValue[$cookie] ?? $this->getCookie()->get($cookie);
 
         if ($oldTimes) {
             $oldTimes = explode(',', $oldTimes);

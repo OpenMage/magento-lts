@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -26,31 +27,31 @@
  *  - Store save (new store creation, changed store group) - require reindex all data
  *  - Store group save (changed root category or group website) - require reindex all data
  *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Catalog_Model_Resource_Category_Indexer_Product _getResource()
  * @method Mage_Catalog_Model_Resource_Category_Indexer_Product getResource()
  * @method int getCategoryId()
- * @method Mage_Catalog_Model_Category_Indexer_Product setCategoryId(int $value)
+ * @method $this setCategoryId(int $value)
  * @method int getProductId()
- * @method Mage_Catalog_Model_Category_Indexer_Product setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method int getPosition()
- * @method Mage_Catalog_Model_Category_Indexer_Product setPosition(int $value)
+ * @method $this setPosition(int $value)
  * @method int getIsParent()
- * @method Mage_Catalog_Model_Category_Indexer_Product setIsParent(int $value)
+ * @method $this setIsParent(int $value)
  * @method int getStoreId()
- * @method Mage_Catalog_Model_Category_Indexer_Product setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method int getVisibility()
- * @method Mage_Catalog_Model_Category_Indexer_Product setVisibility(int $value)
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method $this setVisibility(int $value)
  */
 class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Indexer_Abstract
 {
     /**
      * Data key for matching result to be saved in
      */
-    const EVENT_MATCH_RESULT_KEY = 'catalog_category_product_match_result';
+    public const EVENT_MATCH_RESULT_KEY = 'catalog_category_product_match_result';
 
     /**
      * @var array
@@ -190,7 +191,8 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
              * Check if product categories data was changed
              */
             if ($product->getIsChangedCategories() || $product->dataHasChangedFor('status')
-                || $product->dataHasChangedFor('visibility') || $product->getIsChangedWebsites()) {
+                || $product->dataHasChangedFor('visibility') || $product->getIsChangedWebsites()
+            ) {
                 $event->addNewData('category_ids', $product->getCategoryIds());
             }
         } elseif ($eventType == Mage_Index_Model_Event::TYPE_MASS_ACTION) {
