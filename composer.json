@@ -22,8 +22,6 @@
     "ext-simplexml": "*",
     "ext-soap": "*",
     "ext-zlib": "*",
-    "colinmollenhour/cache-backend-redis": "^1.14",
-    "colinmollenhour/magento-redis-session": "^3.0",
     "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
     "pelago/emogrifier": "^6.0",
     "phpseclib/mcrypt_compat": "^2.0.3",

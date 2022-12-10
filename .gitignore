@@ -19,9 +19,9 @@
 /app/etc/local.xml
 
 # CM Redis
-/app/code/community/Cm
-/app/etc/modules/Cm_RedisSession.xml
-/lib/Credis
+# /app/code/community/Cm
+# /app/etc/modules/Cm_RedisSession.xml
+# /lib/Credis
 
 # Add a base setup for running unit Tests with code coverage and send them to SonarCloud
 # https://github.com/OpenMage/magento-lts/pull/1836
