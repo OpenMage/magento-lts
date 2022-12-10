@@ -416,7 +416,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * add filter
      * @return  none
      */
-    public function addFilter($field, $value)
+    public function addFilter($field, $value, $type = 'and')
     {
         $filter = [];
         $filter['field']   = $field;
