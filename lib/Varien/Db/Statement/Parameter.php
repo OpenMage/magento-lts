@@ -47,22 +47,22 @@ class Varien_Db_Statement_Parameter
      */
     protected $_isBlob = false;
 
-    /*
+    /**
      * Data type to set to DB driver during parameter bind
      */
     protected $_dataType = null;
 
-    /*
+    /**
      * Length to set to DB driver during parameter bind
      */
     protected $_length = null;
 
-    /*
+    /**
      * Specific driver options to set to DB driver during parameter bind
      */
     protected $_driverOptions = null;
 
-    /*
+    /**
      * Additional information to be used by DB adapter internally
      */
     protected $_additional = null;
@@ -71,13 +71,11 @@ class Varien_Db_Statement_Parameter
      * Inits instance
      *
      * @param mixed $value
-     * @return Varien_Db_Statement_Parameter
      */
     public function __construct($value)
     {
         $this->_value = $value;
         $this->_additional = new Varien_Object();
-        return $this;
     }
 
     /**
