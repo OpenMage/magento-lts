@@ -272,7 +272,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     /**
      * Converts meaningful xml characters to xml entities
      *
-     * @param  string
+     * @param  string $value
      * @return string
      */
     public function xmlentities($value = null)

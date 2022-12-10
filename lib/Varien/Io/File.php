@@ -25,6 +25,8 @@
  * @category   Varien
  * @package    Varien_Io
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @property mixed $_streamException
  */
 class Varien_Io_File extends Varien_Io_Abstract
 {
@@ -727,7 +729,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      *   - LS_FILES = 2
      *   - LS_ALL   = 3
      *
-     * @param Varien_Io_File const
+     * @param Varien_Io_File $grep const
      * @access public
      * @return array
      */

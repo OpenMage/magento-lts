@@ -42,7 +42,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * Stream resource
-     * @var object
+     * @var resource
      */
     private $_sock = null;
 
@@ -437,7 +437,6 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      * @param string $method
      * @param string $uri
      * @param array $params
-     * @return null
      */
     protected function makeRequest($method, $uri, $params = [])
     {

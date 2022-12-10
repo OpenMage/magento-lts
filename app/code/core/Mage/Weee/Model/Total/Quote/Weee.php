@@ -241,6 +241,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 null
             );
         }
+
+        return $this;
     }
 
     /**
@@ -609,6 +611,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 null
             );
         }
+
+        return $this;
     }
 
     /**

@@ -29,7 +29,7 @@
 class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Order_Item_Renderer_Default
 {
     /**
-     * @param null $item
+     * @param Varien_Object|null $item
      * @return bool
      */
     public function isShipmentSeparately($item = null)
@@ -72,7 +72,7 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
     }
 
     /**
-     * @param null $item
+     * @param Varien_Object|null $item
      * @return bool
      */
     public function isChildCalculated($item = null)

@@ -99,6 +99,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     {
         parent::postDispatch();
         $this->_getSession()->unsNoReferer(false);
+        return $this;
     }
 
     /**

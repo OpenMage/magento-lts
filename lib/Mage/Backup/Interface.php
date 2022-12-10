@@ -37,7 +37,7 @@ interface Mage_Backup_Interface
     /**
      * Rollback Backup
      *
-     * @return boolean
+     * @return bool
      */
     public function rollback();
 

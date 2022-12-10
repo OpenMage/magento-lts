@@ -120,7 +120,7 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param null $type
+     * @param int|null $type
      * @return array
      */
     public function getAttributes($type = null)

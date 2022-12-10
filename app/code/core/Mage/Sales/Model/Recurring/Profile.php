@@ -640,7 +640,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * Create and return new order item based on profile item data and $itemInfo
      *
      * @param Varien_Object $itemInfo
-     * @return Mage_Sales_Model_Order_Item
+     * @return Mage_Sales_Model_Order_Item|void
      */
     protected function _getItem($itemInfo)
     {
