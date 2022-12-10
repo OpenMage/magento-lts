@@ -27,7 +27,6 @@ class Mage_Xml_Parser
     {
         $this->_dom = new DOMDocument();
         $this->_currentDom = $this->_dom;
-        return $this;
     }
 
     public function getDom()

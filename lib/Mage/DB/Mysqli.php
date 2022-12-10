@@ -42,7 +42,7 @@ class Mage_DB_Mysqli
 
     /**
      * Value escaper
-     * @var unknown_type
+     * @var string
      */
     public const VALUE_ESCAPER = '"';
 
@@ -53,7 +53,7 @@ class Mage_DB_Mysqli
     protected $conn;
     /**
      * Fetch mode
-     * @var unknown_type
+     * @var int
      */
     private $fetch_mode = MYSQLI_ASSOC;
 
@@ -119,7 +119,7 @@ class Mage_DB_Mysqli
 
     /**
      * Escape field name
-     * @param stirng $fld
+     * @param string $fld
      * @return string
      */
     public function escapeFieldName($fld)
@@ -314,7 +314,7 @@ class Mage_DB_Mysqli
 
     /**
      * Query - perform with throwing exception on error
-     * @param sting $sql query
+     * @param string $sql query
      * @throws Mage_DB_Exception
      * @return mixed
      */

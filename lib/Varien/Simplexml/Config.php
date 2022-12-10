@@ -88,7 +88,6 @@ class Varien_Simplexml_Config
      *
      * @see self::setXml
      * @param string|Varien_Simplexml_Element $sourceData
-     * @param string $sourceType
      */
     public function __construct($sourceData = null)
     {
@@ -104,14 +103,12 @@ class Varien_Simplexml_Config
                 $this->loadString($sourceData);
             }
         }
-        #$this->setCache(new Varien_Simplexml_Config_Cache_File());
-        #$this->getCache()->setConfig($this);
     }
 
     /**
      * Sets xml for this configuration
      *
-     * @param Varien_Simplexml_Element $sourceData
+     * @param Varien_Simplexml_Element $node
      * @return Varien_Simplexml_Config
      */
     public function setXml(Varien_Simplexml_Element $node)

@@ -235,7 +235,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @return Varien_Object
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -776,6 +776,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         if ($hasDataChanges && !$this->_flagOptionsSaved) {
             $this->_saveItemOptions();
         }
+
+        return $this;
     }
 
     /**

@@ -236,17 +236,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Composite/Fieldset/Grouped.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Created.php
-
-		-
 			message: "#^Parameter \\#1 \\$attributeId of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getAttributeById\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Created.php
-
-		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getAttributeById\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Created.php
 
@@ -1081,11 +1071,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php
 
 		-
-			message: "#^Undefined variable\\: \\$info$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php
-
-		-
 			message: "#^Call to method getIsOldCustomer\\(\\) on an unknown class Mage_Adminhtml_Model_Quote\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Newsletter.php
@@ -1796,11 +1781,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Helper/Dashboard/Abstract.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Model_Config\\:\\:getSection\\(\\) should return Varien_Simplexml_Element but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Config.php
-
-		-
 			message: "#^Parameter \\#1 \\$cache of method Varien_Simplexml_Config\\:\\:setCache\\(\\) expects Varien_Simplexml_Config_Cache_Abstract, Zend_Cache_Core given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Config.php
@@ -2381,16 +2361,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Tax_RuleController\\:\\:saveAction\\(\\) should return Mage_Core_Controller_Response_Http\\|Mage_Core_Controller_Varien_Action but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Tax_RuleController\\:\\:saveAction\\(\\) should return Mage_Core_Controller_Response_Http\\|Mage_Core_Controller_Varien_Action but returns Zend_Controller_Response_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php
-
-		-
 			message: "#^Parameter \\#1 \\$ruleModel of method Mage_Adminhtml_Tax_RuleController\\:\\:_isValidRuleRequest\\(\\) expects Mage_Tax_Model_Calculation_Rule, Mage_Core_Model_Abstract given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php
@@ -2586,11 +2556,6 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Wsdl/Config.php
 
 		-
-			message: "#^Parameter \\#3 \\$mergeModel of method Mage_Core_Model_Config\\:\\:loadModulesConfiguration\\(\\) expects null, Mage_Api_Model_Wsdl_Config_Base given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Api/Model/Wsdl/Config.php
-
-		-
 			message: "#^Call to an undefined method SimpleXMLElement\\:\\:extendChild\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api/Model/Wsdl/Config/Element.php
@@ -2657,11 +2622,6 @@ parameters:
 
 		-
 			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Acl/Global/Rule/ResourcePermission.php
-
-		-
-			message: "#^Method Mage_Api2_Model_Acl_Global_Rule_ResourcePermission\\:\\:setFilterValue\\(\\) should return Mage_Api2_Model_Acl_PermissionInterface but return statement is missing\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Acl/Global/Rule/ResourcePermission.php
 
@@ -2871,11 +2831,6 @@ parameters:
 			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
 
 		-
-			message: "#^Method Mage_Authorizenet_Model_Directpost\\:\\:initialize\\(\\) should return \\$this\\(Mage_Authorizenet_Model_Directpost\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
-
-		-
 			message: "#^Parameter \\#1 \\$payment of method Mage_Authorizenet_Model_Directpost\\:\\:_getRealParentTransactionId\\(\\) expects Mage_Sales_Model_Order_Payment, Varien_Object given\\.$#"
 			count: 3
 			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
@@ -3016,11 +2971,6 @@ parameters:
 			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Composite/Fieldset/Options/Type/Select.php
 
 		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Edit/Tab/Bundle/Option.php
-
-		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Edit/Tab/Bundle/Option/Search/Grid.php
@@ -3054,11 +3004,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getIsPricesCalculatedByIndex\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Block/Catalog/Product/Price.php
-
-		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle.php
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getSelectionPreFinalPrice\\(\\)\\.$#"
@@ -3114,11 +3059,6 @@ parameters:
 			message: "#^Property Mage_Bundle_Model_CatalogIndex_Data_Bundle\\:\\:\\$_haveChildren \\(bool\\) does not accept default value of type array\\<int, bool\\>\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/CatalogIndex/Data/Bundle.php
-
-		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Observer.php
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
@@ -3186,11 +3126,6 @@ parameters:
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
 
 		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Price.php
-
-		-
 			message: "#^Parameter \\#2 \\$qty of method Mage_Catalog_Model_Product_Type_Price\\:\\:_applyOptionsPrice\\(\\) expects int, float\\|null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
@@ -3227,26 +3162,6 @@ parameters:
 
 		-
 			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Type.php
-
-		-
-			message: "#^Parameter \\#1 \\$product \\(Mage_Catalog_Model_Product\\) of method Mage_Bundle_Model_Product_Type\\:\\:getForceChildItemQtyChanges\\(\\) should be compatible with parameter \\$product \\(null\\) of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getForceChildItemQtyChanges\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Type.php
-
-		-
-			message: "#^Parameter \\#2 \\$product \\(Mage_Catalog_Model_Product\\) of method Mage_Bundle_Model_Product_Type\\:\\:prepareQuoteItemQty\\(\\) should be compatible with parameter \\$product \\(null\\) of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:prepareQuoteItemQty\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Type.php
-
-		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 4
-			path: app/code/core/Mage/Bundle/Model/Product/Type.php
-
-		-
-			message: "#^Parameter \\#4 \\$product \\(Mage_Catalog_Model_Product\\) of method Mage_Bundle_Model_Product_Type\\:\\:updateQtyOption\\(\\) should be compatible with parameter \\$product \\(null\\) of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:updateQtyOption\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/Product/Type.php
 
@@ -3334,11 +3249,6 @@ parameters:
 			message: "#^Variable \\$valueIdCond might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/Resource/Price/Index.php
-
-		-
-			message: "#^Method Mage_Bundle_Model_Resource_Selection_Collection\\:\\:_initSelect\\(\\) should return \\$this\\(Mage_Bundle_Model_Resource_Selection_Collection\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Resource/Selection/Collection.php
 
 		-
 			message: "#^Variable \\$_items might not be defined\\.$#"
@@ -3592,16 +3502,6 @@ parameters:
 
 		-
 			message: "#^Call to function is_null\\(\\) with int\\|Mage_Core_Model_Store will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/View/Abstract.php
-
-		-
-			message: "#^Parameter \\#1 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/View/Abstract.php
-
-		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/View/Abstract.php
 
@@ -4501,24 +4401,9 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Indexer/Eav.php
 
 		-
-			message: "#^Parameter \\#1 \\$type of method Mage_Catalog_Model_Product_Link\\:\\:getAttributes\\(\\) expects null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Link/Api.php
-
-		-
 			message: "#^Parameter \\#2 \\$store of method Mage_Catalog_Helper_Product\\:\\:getProduct\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Link/Api.php
-
-		-
-			message: "#^Parameter \\#5 \\$identifierType \\(null\\) of method Mage_Catalog_Model_Product_Link_Api_V2\\:\\:assign\\(\\) should be compatible with parameter \\$identifierType \\(string\\) of method Mage_Catalog_Model_Product_Link_Api\\:\\:assign\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Link/Api/V2.php
-
-		-
-			message: "#^Parameter \\#5 \\$identifierType \\(null\\) of method Mage_Catalog_Model_Product_Link_Api_V2\\:\\:update\\(\\) should be compatible with parameter \\$identifierType \\(string\\) of method Mage_Catalog_Model_Product_Link_Api\\:\\:update\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Link/Api/V2.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Product_Option\\:\\:getValuesCollection\\(\\) should return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Value_Collection but returns Mage_Catalog_Model_Resource_Product_Option_Value_Collection\\.$#"
@@ -4621,22 +4506,12 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getAttributeById\\(\\) should return Mage_Eav_Model_Entity_Attribute_Abstract but returns null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php
-
-		-
 			message: "#^Parameter \\#1 \\$optionId of method Mage_Catalog_Model_Product\\:\\:getOptionById\\(\\) expects int, string given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php
 
 		-
 			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Eav_Model_Entity_Attribute_Abstract will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
 
@@ -4661,11 +4536,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
 
 		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
-
-		-
 			message: "#^Parameter \\#3 \\$product of method Mage_Catalog_Model_Product\\:\\:addCustomOption\\(\\) expects int\\|null, Mage_Catalog_Model_Product given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
@@ -4686,11 +4556,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable/Price.php
 
 		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable/Price.php
-
-		-
 			message: "#^Parameter \\#2 \\$qty of method Mage_Catalog_Model_Product_Type_Price\\:\\:_applyOptionsPrice\\(\\) expects int, float\\|null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable/Price.php
@@ -4707,11 +4572,6 @@ parameters:
 
 		-
 			message: "#^Call to function is_null\\(\\) with float will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Grouped/Price.php
-
-		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:setStoreFilter\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Grouped/Price.php
 
@@ -5236,11 +5096,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$select of method Mage_Catalog_Model_Resource_Product_Collection\\:\\:_getSelectCountSql\\(\\) expects null, Varien_Db_Select given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
-
-		-
 			message: "#^Parameter \\#4 \\$cond of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:joinTable\\(\\) expects array\\|null, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
@@ -5424,11 +5279,6 @@ parameters:
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Option/Collection.php
-
-		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getAttributeById\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Type/Configurable/Attribute/Collection.php
 
 		-
 			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Resource_Product\\:\\:refreshEnabledIndex\\(\\) expects Mage_Catalog_Model_Product\\|null, array given\\.$#"
@@ -5716,17 +5566,7 @@ parameters:
 			path: app/code/core/Mage/CatalogInventory/Model/Observer.php
 
 		-
-			message: "#^Parameter \\#1 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getForceChildItemQtyChanges\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Observer.php
-
-		-
 			message: "#^Parameter \\#1 \\$type of method Mage_Sales_Model_Quote\\:\\:removeErrorInfosByParams\\(\\) expects string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Observer.php
-
-		-
-			message: "#^Parameter \\#2 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:prepareQuoteItemQty\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogInventory/Model/Observer.php
 
@@ -6271,11 +6111,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Api/Resource/Customer.php
 
 		-
-			message: "#^Method Mage_Checkout_Model_Cart\\:\\:saveQuote\\(\\) should return Mage_Checkout_Model_Cart_Interface but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Model/Cart.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 5
 			path: app/code/core/Mage/Checkout/Model/Cart.php
@@ -6389,11 +6224,6 @@ parameters:
 			message: "#^Method Mage_Checkout_Model_Session\\:\\:getQuoteId\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Observer.php
-
-		-
-			message: "#^Method Mage_Checkout_Model_Session\\:\\:unsetAll\\(\\) should return \\$this\\(Mage_Checkout_Model_Session\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Model/Session.php
 
 		-
 			message: "#^Parameter \\#1 \\$quoteId of method Mage_Checkout_Model_Session\\:\\:setQuoteId\\(\\) expects int, null given\\.$#"
@@ -6751,16 +6581,6 @@ parameters:
 			path: app/code/core/Mage/Core/Block/Text.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method Mage_Core_Block_Text_Tag\\:\\:setTagParam\\(\\) expects null, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Text/Tag/Css.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method Mage_Core_Block_Text_Tag\\:\\:setTagParam\\(\\) expects null, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Text/Tag/Css/Admin.php
-
-		-
 			message: "#^Parameter \\#1 \\$name of method Mage_Core_Block_Abstract\\:\\:setAttribute\\(\\) expects string, array\\<string, string\\> given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Block/Text/Tag/Debug.php
@@ -6774,11 +6594,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$return of function print_r expects bool, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Block/Text/Tag/Debug.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method Mage_Core_Block_Text_Tag\\:\\:setTagParam\\(\\) expects null, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Text/Tag/Js.php
 
 		-
 			message: "#^Parameter \\#2 \\$value of method Zend_Controller_Response_Abstract\\:\\:setHeader\\(\\) expects string, int\\|false given\\.$#"
@@ -7322,16 +7137,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Core_Model_Email_Template\\:\\:getProcessedTemplate\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Email/Template.php
-
-		-
-			message: "#^Parameter \\#1 \\$html of method Mage_Core_Model_Email_Template\\:\\:getPreparedTemplateText\\(\\) expects null, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Email/Template.php
-
-		-
-			message: "#^Parameter \\#1 \\$html of method Mage_Core_Model_Email_Template_Abstract\\:\\:_applyInlineCss\\(\\) expects string, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Email/Template.php
 
@@ -8501,11 +8306,6 @@ parameters:
 			path: app/code/core/Mage/Customer/controllers/AccountController.php
 
 		-
-			message: "#^Method Mage_Customer_AccountController\\:\\:postDispatch\\(\\) should return \\$this\\(Mage_Customer_AccountController\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
 			message: "#^Method Mage_Customer_AccountController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Customer_AccountController\\) but empty return statement found\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/controllers/AccountController.php
@@ -9169,6 +8969,36 @@ parameters:
 			message: "#^Variable \\$entityIds might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Convert/Adapter/Entity.php
+
+		-
+			message: "#^Binary operation \"\\.\" between Mage_Eav_Model_Entity_Interface and '_collection' results in an error\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
+
+		-
+			message: "#^Cannot call method addData\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
+
+		-
+			message: "#^Cannot call method getId\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
+
+		-
+			message: "#^Parameter \\#1 \\$modelClass of static method Mage\\:\\:getResourceModel\\(\\) expects string, Mage_Eav_Model_Entity_Interface given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
+
+		-
+			message: "#^Variable \\$collection might not be defined\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
+
+		-
+			message: "#^Variable \\$entity might not be defined\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
 
 		-
 			message: "#^Parameter \\#2 \\$string of function explode expects string, array given\\.$#"
@@ -10216,11 +10046,6 @@ parameters:
 			path: app/code/core/Mage/Index/Model/Resource/Process/Collection.php
 
 		-
-			message: "#^Method Mage_Index_Model_Resource_Setup\\:\\:_syncIndexes\\(\\) should return \\$this\\(Mage_Index_Model_Resource_Setup\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Index/Model/Resource/Setup.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Index/Model/Resource/Setup.php
@@ -10521,11 +10346,6 @@ parameters:
 			path: app/code/core/Mage/Newsletter/Model/Template.php
 
 		-
-			message: "#^Method Mage_Newsletter_ManageController\\:\\:saveAction\\(\\) should return Mage_Newsletter_ManageController but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/controllers/ManageController.php
-
-		-
 			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Newsletter/controllers/ManageController.php
@@ -10804,11 +10624,6 @@ parameters:
 			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Payment/Block/Info/Banktransfer.php
-
-		-
-			message: "#^Parameter \\#1 \\$message of method Exception\\:\\:__construct\\(\\) expects string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Payment/Exception.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isAvailable\\(\\)\\.$#"
@@ -11196,11 +11011,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
 
 		-
-			message: "#^Method Mage_Paypal_Model_Hostedpro\\:\\:initialize\\(\\) should return \\$this\\(Mage_Paypal_Model_Hostedpro\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Hostedpro.php
-
-		-
 			message: "#^Return type \\(bool\\) of method Mage_Paypal_Model_Hostedpro\\:\\:getAllowedCcTypes\\(\\) should be compatible with return type \\(string\\) of method Mage_Paypal_Model_Direct\\:\\:getAllowedCcTypes\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Hostedpro.php
@@ -11369,11 +11179,6 @@ parameters:
 			message: "#^Property Mage_Paypal_Model_Pro\\:\\:\\$_config \\(Mage_Paypal_Model_Config\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Pro.php
-
-		-
-			message: "#^Method Mage_Paypal_Model_Standard\\:\\:initialize\\(\\) should return \\$this\\(Mage_Paypal_Model_Standard\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Standard.php
 
 		-
 			message: "#^Method Varien_Data_Collection\\:\\:toOptionArray\\(\\) invoked with 1 parameter, 0 required\\.$#"
@@ -13081,11 +12886,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Payment.php
 
 		-
-			message: "#^Parameter \\#1 \\$setFailsafe of method Mage_Sales_Model_Order_Payment_Transaction\\:\\:isFailsafe\\(\\) expects null, bool given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Sales/Model/Order/Payment.php
-
-		-
 			message: "#^Parameter \\#1 \\$txnId of method Mage_Sales_Model_Order_Payment\\:\\:_lookupTransaction\\(\\) expects string, false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Payment.php
@@ -13226,32 +13026,12 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Creditmemo.php
 
 		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:insertAddress\\(\\) expects null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Creditmemo.php
-
-		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:insertLogo\\(\\) expects null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Creditmemo.php
-
-		-
 			message: "#^Variable \\$creditmemo might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Creditmemo.php
 
 		-
 			message: "#^Parameter \\#1 \\$object of method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:_setFontBold\\(\\) expects Zend_Pdf_Page, Zend_Pdf_Style given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Invoice.php
-
-		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:insertAddress\\(\\) expects null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Invoice.php
-
-		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:insertLogo\\(\\) expects null, Mage_Core_Model_Store given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Invoice.php
 
@@ -13307,16 +13087,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$obj of method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:insertOrder\\(\\) expects Mage_Sales_Model_Order, Mage_Sales_Model_Order_Shipment given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Shipment.php
-
-		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:insertAddress\\(\\) expects null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Shipment.php
-
-		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:insertLogo\\(\\) expects null, Mage_Core_Model_Store given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Shipment.php
 
@@ -13731,22 +13501,12 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote/Item.php
 
 		-
-			message: "#^Method Mage_Sales_Model_Quote_Item\\:\\:save\\(\\) should return \\$this\\(Mage_Sales_Model_Quote_Item\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Item.php
 
 		-
 			message: "#^Negated boolean expression is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item.php
-
-		-
-			message: "#^Parameter \\#4 \\$product of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:updateQtyOption\\(\\) expects null, Mage_Catalog_Model_Product given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Item.php
 
@@ -13852,11 +13612,6 @@ parameters:
 
 		-
 			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Recurring_Profile\\:\\:_getItem\\(\\) should return Mage_Sales_Model_Order_Item but return statement is missing\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
 
@@ -14234,11 +13989,6 @@ parameters:
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/SalesRule/Model/Resource/Coupon/Usage.php
-
-		-
-			message: "#^Method Mage_SalesRule_Model_Resource_Report_Collection\\:\\:_applyRulesFilter\\(\\) should return \\$this\\(Mage_SalesRule_Model_Resource_Report_Collection\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/SalesRule/Model/Resource/Report/Collection.php
 
 		-
 			message: "#^Parameter \\#1 \\$conn of method Varien_Data_Collection_Db\\:\\:setConnection\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface given\\.$#"
@@ -14621,11 +14371,6 @@ parameters:
 			path: app/code/core/Mage/Tax/Helper/Data.php
 
 		-
-			message: "#^Elseif condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Helper/Data.php
-
-		-
 			message: "#^If condition is always false\\.$#"
 			count: 2
 			path: app/code/core/Mage/Tax/Helper/Data.php
@@ -14811,11 +14556,6 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Shipping.php
 
 		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Tax_Model_Calculation\\:\\:getStoreRate\\(\\) expects null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Shipping.php
-
-		-
 			message: "#^Parameter \\#4 \\$store of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Shipping.php
@@ -14842,11 +14582,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$rate of method Mage_Tax_Model_Sales_Total_Quote_Subtotal\\:\\:_deltaRound\\(\\) expects string, float given\\.$#"
-			count: 4
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Subtotal.php
-
-		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Tax_Model_Calculation\\:\\:getStoreRate\\(\\) expects null, Mage_Core_Model_Store given\\.$#"
 			count: 4
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Subtotal.php
 
@@ -14979,6 +14714,616 @@ parameters:
 			message: "#^Parameter \\#2 \\$return of function print_r expects bool, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Uploader/Model/Config/Abstract.php
+
+		-
+			message: "#^Parameter \\#1 \\$type of method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:getCode\\(\\) expects strin, string given\\.$#"
+			count: 5
+			path: app/code/core/Mage/Usa/Block/Adminhtml/Dhl/Unitofmeasure.php
+
+		-
+			message: "#^Parameter \\#2 \\$type of class Zend_Measure_Length constructor expects int\\|null, string given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Helper/Data.php
+
+		-
+			message: "#^Parameter \\#2 \\$type of class Zend_Measure_Weight constructor expects int\\|null, string given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Helper/Data.php
+
+		-
+			message: "#^Property Mage_Shipping_Model_Carrier_Abstract\\:\\:\\$_code \\(string\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract.php
+
+		-
+			message: "#^Right side of \\|\\| is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract.php
+
+		-
+			message: "#^Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:\\$_rawTrackRequest\\.$#"
+			count: 2
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
+
+		-
+			message: "#^Instanceof between Mage_Shipping_Model_Rate_Result\\|null and Mage_Shipping_Model_Tracking_Result will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:_doRequest\\(\\) should return Mage_Shipping_Model_Rate_Result\\|Varien_Object but empty return statement found\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:_getQuotes\\(\\) should return Mage_Shipping_Model_Rate_Result but returns Varien_Object\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:_mapRequestToShipment\\(\\) should return null but return statement is missing\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:_parseXmlTrackingResponse\\(\\) should return null but return statement is missing\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:setTrackingReqeust\\(\\) should return null but return statement is missing\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
+
+		-
+			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:\\$_request \\(Mage_Shipping_Model_Rate_Request\\|null\\) does not accept Varien_Object\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
+
+		-
+			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:\\$_result \\(Mage_Shipping_Model_Rate_Result\\|null\\) does not accept Mage_Shipping_Model_Tracking_Result\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
+
+		-
+			message: "#^Variable \\$shipKey might not be defined\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
+
+		-
+			message: "#^Variable \\$shippingLabelContent might not be defined\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
+
+		-
+			message: "#^Variable \\$specialServices might not be defined\\.$#"
+			count: 2
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
+
+		-
+			message: "#^Variable \\$statuses in empty\\(\\) always exists and is always falsy\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
+
+		-
+			message: "#^Variable \\$trackingNumber might not be defined\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
+
+		-
+			message: "#^Variable \\$xml might not be defined\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
+
+		-
+			message: "#^Parameter \\#1 \\$shippingDays of method Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract\\:\\:_determineShippingDay\\(\\) expects array, string\\|false given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Abstract.php
+
+		-
+			message: "#^Parameter \\#2 \\$string of function explode expects string, array given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Abstract.php
+
+		-
+			message: "#^Access to an undefined property Varien_Object\\:\\:\\$domestic\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Access to an undefined property Varien_Object\\:\\:\\$name\\.$#"
+			count: 4
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Access to an undefined property Varien_Object\\:\\:\\$region\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Comparison operation \"\\<\" between \\(array\\|float\\|int\\) and float results in an error\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Comparison operation \"\\>\" between \\(array\\|float\\|int\\) and float results in an error\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
+			count: 2
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Invalid array key type strin\\.$#"
+			count: 3
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:_mapRequestToShipment\\(\\) should return null but return statement is missing\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:_parseResponse\\(\\) should return Mage_Shipping_Model_Rate_Result but returns Varien_Object\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:_parseResponse\\(\\) should return Mage_Shipping_Model_Rate_Result but returns bool\\|Mage_Shipping_Model_Rate_Result_Error\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Parameter \\#1 \\$cost of method Mage_Shipping_Model_Carrier_Abstract\\:\\:getMethodPrice\\(\\) expects string, float given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Parameter \\#1 \\$type of method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:getCode\\(\\) expects strin, string given\\.$#"
+			count: 6
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method SimpleXMLElement\\:\\:addChild\\(\\) expects string\\|null, \\(array\\|float\\|int\\) given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method SimpleXMLElement\\:\\:addChild\\(\\) expects string\\|null, float given\\.$#"
+			count: 12
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method SimpleXMLElement\\:\\:addChild\\(\\) expects string\\|null, int given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method SimpleXMLElement\\:\\:addChild\\(\\) expects string\\|null, int\\<0, max\\> given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method SimpleXMLElement\\:\\:addChild\\(\\) expects string\\|null, int\\<1, max\\> given\\.$#"
+			count: 4
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Parameter \\#3 \\$toDimensionMeasure of method Mage_Usa_Helper_Data\\:\\:convertMeasureDimension\\(\\) expects string, array\\|bool given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Parameter \\#3 \\$toWeightMeasure of method Mage_Usa_Helper_Data\\:\\:convertMeasureWeight\\(\\) expects string, array\\|bool given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Parameter \\$type of method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:getCode\\(\\) has invalid type strin\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:\\$_request \\(Mage_Shipping_Model_Rate_Request\\|null\\) does not accept Varien_Object\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:\\$_result \\(Mage_Shipping_Model_Rate_Result\\|null\\) does not accept Mage_Shipping_Model_Tracking_Result\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Variable \\$package might not be defined\\.$#"
+			count: 2
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Variable \\$packageType might not be defined\\.$#"
+			count: 2
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+
+		-
+			message: "#^Parameter \\#1 \\$type of method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:getCode\\(\\) expects strin, string given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International/Source/Method/Size.php
+
+		-
+			message: "#^Parameter \\#1 \\$type of method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:getCode\\(\\) expects strin, string given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International/Source/Method/Unitofmeasure.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page\\:\\:drawText\\(\\) should return \\$this\\(Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page\\) but returns Zend_Pdf_Canvas_Interface\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/Page.php
+
+		-
+			message: "#^Call to an undefined method Zend_Pdf_Page\\:\\:drawLines\\(\\)\\.$#"
+			count: 5
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
+
+		-
+			message: "#^Call to an undefined method Zend_Pdf_Page\\:\\:getTextWidth\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
+
+		-
+			message: "#^Method Zend_Pdf_Canvas_Abstract\\:\\:drawText\\(\\) invoked with 5 parameters, 3\\-4 required\\.$#"
+			count: 3
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
+
+		-
+			message: "#^Parameter \\#1 \\$pt of method Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder\\:\\:_x\\(\\) expects int, float given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
+
+		-
+			message: "#^Parameter \\#1 \\$pt of method Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder\\:\\:_y\\(\\) expects int, float given\\.$#"
+			count: 8
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function strlen expects string, bool given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
+
+		-
+			message: "#^Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Fedex\\:\\:\\$_defaultGatewayUrl\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
+
+		-
+			message: "#^Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Fedex\\:\\:\\$_rawTrackingRequest\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
+
+		-
+			message: "#^Instanceof between Mage_Shipping_Model_Rate_Result\\|null and Mage_Shipping_Model_Tracking_Result will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Fedex\\:\\:_getQuotes\\(\\) should return Mage_Shipping_Model_Rate_Result but returns true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Fedex\\:\\:_getRateAmountOriginBased\\(\\) should return float\\|null but returns string\\|null\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
+
+		-
+			message: "#^Parameter \\#1 \\$cost of method Mage_Shipping_Model_Carrier_Abstract\\:\\:getMethodPrice\\(\\) expects string, float\\|null given\\.$#"
+			count: 2
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
+
+		-
+			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Fedex\\:\\:\\$_result \\(Mage_Shipping_Model_Rate_Result\\|null\\) does not accept Mage_Shipping_Model_Tracking_Result\\.$#"
+			count: 2
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
+
+		-
+			message: "#^Variable \\$errorTitle might not be defined\\.$#"
+			count: 2
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
+
+		-
+			message: "#^Variable \\$statuses in empty\\(\\) always exists and is always falsy\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
+
+		-
+			message: "#^Instanceof between Mage_Shipping_Model_Rate_Result\\|null and Mage_Shipping_Model_Tracking_Result will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:_getQuotes\\(\\) should return Mage_Shipping_Model_Rate_Result but returns null\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:_parseXmlTrackingResponse\\(\\) should return null but returns Mage_Shipping_Model_Rate_Result\\|Mage_Shipping_Model_Tracking_Result\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:_setFreeMethodRequest\\(\\) should return null but return statement is missing\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:setXMLAccessRequest\\(\\) should return null but return statement is missing\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
+
+		-
+			message: "#^Parameter \\#1 \\$cost of method Mage_Shipping_Model_Carrier_Abstract\\:\\:getMethodPrice\\(\\) expects string, float given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
+
+		-
+			message: "#^Parameter \\#1 \\$cost of method Mage_Shipping_Model_Carrier_Abstract\\:\\:getMethodPrice\\(\\) expects string, float\\|null given\\.$#"
+			count: 2
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method SimpleXMLElement\\:\\:addChild\\(\\) expects string\\|null, float given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
+
+		-
+			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:\\$_baseCurrencyRate \\(float\\) does not accept string\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
+
+		-
+			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:\\$_result \\(Mage_Shipping_Model_Rate_Result\\|null\\) does not accept Mage_Shipping_Model_Tracking_Result\\.$#"
+			count: 2
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
+
+		-
+			message: "#^Variable \\$debugData might not be defined\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
+
+		-
+			message: "#^Variable \\$response might not be defined\\.$#"
+			count: 2
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
+
+		-
+			message: "#^Variable \\$statuses in empty\\(\\) always exists and is always falsy\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
+
+		-
+			message: "#^Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Usps\\:\\:\\$_rawTrackRequest\\.$#"
+			count: 2
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
+
+		-
+			message: "#^Instanceof between Mage_Shipping_Model_Rate_Result\\|null and Mage_Shipping_Model_Tracking_Result will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Usps\\:\\:_parseXmlResponse\\(\\) should return Mage_Shipping_Model_Rate_Result but return statement is missing\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Usps\\:\\:_parseXmlTrackingResponse\\(\\) should return null but return statement is missing\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
+
+		-
+			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Usps\\:\\:setTrackingRequest\\(\\) should return null but return statement is missing\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
+
+		-
+			message: "#^Parameter \\#2 \\$serviceType of method Mage_Usa_Model_Shipping_Carrier_Usps\\:\\:_formUsSignatureConfirmationShipmentRequest\\(\\) expects string, array\\|bool given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method SimpleXMLElement\\:\\:addAttribute\\(\\) expects string, int given\\.$#"
+			count: 2
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method SimpleXMLElement\\:\\:addChild\\(\\) expects string\\|null, \\(float\\|int\\) given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method SimpleXMLElement\\:\\:addChild\\(\\) expects string\\|null, float\\|int given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method SimpleXMLElement\\:\\:addChild\\(\\) expects string\\|null, int given\\.$#"
+			count: 3
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
+
+		-
+			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Usps\\:\\:\\$_result \\(Mage_Shipping_Model_Rate_Result\\|null\\) does not accept Mage_Shipping_Model_Tracking_Result\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
+
+		-
+			message: "#^Variable \\$statuses in empty\\(\\) always exists and is always falsy\\.$#"
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
+
+		-
+			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:priceIncludesTax\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Helper/Data.php
+
+		-
+			message: "#^Method Mage_Weee_Helper_Data\\:\\:getOriginalAmount\\(\\) should return int but returns float\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Helper/Data.php
+
+		-
+			message: "#^Parameter \\#1 \\$item of method Mage_Weee_Helper_Data\\:\\:getApplied\\(\\) expects Mage_Sales_Model_Quote_Item_Abstract, Mage_Core_Model_Abstract given\\.$#"
+			count: 9
+			path: app/code/core/Mage/Weee/Helper/Data.php
+
+		-
+			message: "#^Parameter \\#2 \\$compareTo of method Mage_Weee_Helper_Data\\:\\:typeOfDisplay\\(\\) expects array\\|null, int given\\.$#"
+			count: 2
+			path: app/code/core/Mage/Weee/Helper/Data.php
+
+		-
+			message: "#^Parameter \\#2 \\$shipping of method Mage_Weee_Model_Tax\\:\\:getProductWeeeAttributes\\(\\) expects Mage_Sales_Model_Quote_Address\\|null, Varien_Object\\|false\\|null given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Helper/Data.php
+
+		-
+			message: "#^Parameter \\#3 \\$billing of method Mage_Weee_Model_Tax\\:\\:getProductWeeeAttributes\\(\\) expects Mage_Sales_Model_Quote_Address\\|null, Varien_Object\\|false\\|null given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Helper/Data.php
+
+		-
+			message: "#^Parameter \\#4 \\$website of method Mage_Weee_Model_Tax\\:\\:getProductWeeeAttributes\\(\\) expects int\\|null, Mage_Core_Model_Website\\|null given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Helper/Data.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Helper/Data.php
+
+		-
+			message: "#^Variable \\$title in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Helper/Data.php
+
+		-
+			message: "#^Parameter \\#1 \\$product of method Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax\\:\\:deleteProductData\\(\\) expects Mage_Catalog_Model_Product, Varien_Object given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Attribute/Backend/Weee/Tax.php
+
+		-
+			message: "#^Return type \\(\\$this\\(Mage_Weee_Model_Attribute_Backend_Weee_Tax\\)\\) of method Mage_Weee_Model_Attribute_Backend_Weee_Tax\\:\\:validate\\(\\) should be compatible with return type \\(bool\\) of method Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\:\\:validate\\(\\)$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Attribute/Backend/Weee/Tax.php
+
+		-
+			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Observer.php
+
+		-
+			message: "#^Parameter \\#2 \\$compareTo of method Mage_Weee_Helper_Data\\:\\:typeOfDisplay\\(\\) expects array\\|null, int given\\.$#"
+			count: 2
+			path: app/code/core/Mage/Weee/Model/Observer.php
+
+		-
+			message: "#^Parameter \\#2 \\$true of method Varien_Db_Adapter_Interface\\:\\:getCheckSql\\(\\) expects string, int given\\.$#"
+			count: 2
+			path: app/code/core/Mage/Weee/Model/Observer.php
+
+		-
+			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:isScopeGlobal\\(\\)\\.$#"
+			count: 2
+			path: app/code/core/Mage/Weee/Model/Resource/Attribute/Backend/Weee/Tax.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Resource/Tax.php
+
+		-
+			message: "#^Binary operation \"\\*\" between non\\-falsy\\-string and int\\<min, \\-1\\>\\|int\\<1, max\\> results in an error\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Tax.php
+
+		-
+			message: "#^Binary operation \"\\-\" between non\\-falsy\\-string and \\(float\\|int\\) results in an error\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Tax.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Tax.php
+
+		-
+			message: "#^Method Mage_Core_Model_Abstract\\:\\:_init\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Tax.php
+
+		-
+			message: "#^Parameter \\#1 \\$store of method Mage_Tax_Helper_Data\\:\\:isCrossBorderTradeEnabled\\(\\) expects int\\|null, Mage_Core_Model_Store\\|false given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Tax.php
+
+		-
+			message: "#^Parameter \\#2 \\$shipping of method Mage_Weee_Model_Tax\\:\\:getProductWeeeAttributes\\(\\) expects Mage_Sales_Model_Quote_Address\\|null, Mage_Customer_Model_Address_Abstract\\|null given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Tax.php
+
+		-
+			message: "#^Parameter \\#3 \\$billing of method Mage_Weee_Model_Tax\\:\\:getProductWeeeAttributes\\(\\) expects Mage_Sales_Model_Quote_Address\\|null, Mage_Customer_Model_Address_Abstract\\|null given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Tax.php
+
+		-
+			message: "#^Parameter \\#4 \\$store of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects int\\|null, Mage_Core_Model_Store\\|false given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Tax.php
+
+		-
+			message: "#^Parameter \\#1 \\$item of method Mage_Weee_Helper_Data\\:\\:getApplied\\(\\) expects Mage_Sales_Model_Quote_Item_Abstract, Mage_Sales_Model_Order_Creditmemo_Item given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Total/Creditmemo/Weee.php
+
+		-
+			message: "#^Parameter \\#1 \\$item of method Mage_Weee_Helper_Data\\:\\:setApplied\\(\\) expects Mage_Sales_Model_Quote_Item_Abstract, Mage_Sales_Model_Order_Creditmemo_Item given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Total/Creditmemo/Weee.php
+
+		-
+			message: "#^Parameter \\#1 \\$item of method Mage_Weee_Helper_Data\\:\\:getApplied\\(\\) expects Mage_Sales_Model_Quote_Item_Abstract, Mage_Sales_Model_Order_Invoice_Item given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Total/Invoice/Weee.php
+
+		-
+			message: "#^Parameter \\#1 \\$item of method Mage_Weee_Helper_Data\\:\\:setApplied\\(\\) expects Mage_Sales_Model_Quote_Item_Abstract, Mage_Sales_Model_Order_Invoice_Item given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Total/Invoice/Weee.php
+
+		-
+			message: "#^PHPDoc type Mage_Weee_Helper_Data of property Mage_Weee_Model_Total_Quote_Weee\\:\\:\\$_helper is not covariant with PHPDoc type Mage_Tax_Helper_Data of overridden property Mage_Tax_Model_Sales_Total_Quote_Tax\\:\\:\\$_helper\\.$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
+
+		-
+			message: "#^Parameter \\#4 \\$store of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
+			count: 2
+			path: app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
+
+		-
+			message: "#^Parameter \\#4 \\$website of method Mage_Weee_Helper_Data\\:\\:getProductWeeeAttributes\\(\\) expects Mage_Core_Model_Website\\|null, int\\|string\\|null given\\.$#"
+			count: 2
+			path: app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
+
+		-
+			message: "#^Parameter \\#5 \\$rate of method Mage_Tax_Model_Sales_Total_Quote_Tax\\:\\:_saveAppliedTaxes\\(\\) expects float, null given\\.$#"
+			count: 2
+			path: app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
+
+		-
+			message: "#^Return type \\(void\\) of method Mage_Weee_Model_Total_Quote_Weee\\:\\:_recalculateParent\\(\\) should be compatible with return type \\(\\$this\\(Mage_Tax_Model_Sales_Total_Quote_Tax\\)\\) of method Mage_Tax_Model_Sales_Total_Quote_Tax\\:\\:_recalculateParent\\(\\)$#"
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
 
 		-
 			message: "#^Method Mage_Widget_Block_Adminhtml_Widget_Chooser\\:\\:getConfig\\(\\) should return Varien_Object but returns mixed\\.$#"
@@ -15121,11 +15466,6 @@ parameters:
 			path: app/code/core/Mage/Wishlist/Helper/Data.php
 
 		-
-			message: "#^Method Mage_Wishlist_Model_Item\\:\\:save\\(\\) should return \\$this\\(Mage_Wishlist_Model_Item\\) but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Item.php
-
-		-
 			message: "#^Negated boolean expression is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Model/Item.php
@@ -15244,3 +15584,1133 @@ parameters:
 			message: "#^Variable \\$relativeFilename might not be defined\\.$#"
 			count: 4
 			path: get.php
+
+		-
+			message: "#^Comparison operation \"\\>\\=\" between int\\<0, max\\> and 0 is always true\\.$#"
+			count: 1
+			path: lib/Mage/Archive.php
+
+		-
+			message: "#^Offset 'basename' on array\\{dirname\\?\\: string, basename\\: string, extension\\?\\: string, filename\\: string\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: lib/Mage/Archive/Helper/File.php
+
+		-
+			message: "#^Method Mage_Backup_Filesystem\\:\\:create\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: lib/Mage/Backup/Filesystem.php
+
+		-
+			message: "#^Method Mage_Backup_Filesystem\\:\\:rollback\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: lib/Mage/Backup/Filesystem.php
+
+		-
+			message: "#^Call to an undefined method Mage_Backup_Interface\\:\\:getBackupFilename\\(\\)\\.$#"
+			count: 1
+			path: lib/Mage/Backup/Media.php
+
+		-
+			message: "#^Call to an undefined method Mage_Backup_Interface\\:\\:getBackupPath\\(\\)\\.$#"
+			count: 1
+			path: lib/Mage/Backup/Snapshot.php
+
+		-
+			message: "#^Negated boolean expression is always true\\.$#"
+			count: 1
+			path: lib/Mage/Cache/Backend/File.php
+
+		-
+			message: "#^Function mysqli_connect_errno invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: lib/Mage/DB/Mysqli.php
+
+		-
+			message: "#^Function mysqli_connect_error invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: lib/Mage/DB/Mysqli.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
+			count: 2
+			path: lib/Mage/HTTP/Client/Curl.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 2
+			path: lib/Mage/HTTP/Client/Curl.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
+			count: 2
+			path: lib/Mage/HTTP/Client/Socket.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 2
+			path: lib/Mage/HTTP/Client/Socket.php
+
+		-
+			message: "#^Property Mage_HTTP_Client_Socket\\:\\:\\$_postFields is never read, only written\\.$#"
+			count: 1
+			path: lib/Mage/HTTP/Client/Socket.php
+
+		-
+			message: "#^Property Mage_HTTP_Client_Socket\\:\\:\\$_redirectCount is never read, only written\\.$#"
+			count: 1
+			path: lib/Mage/HTTP/Client/Socket.php
+
+		-
+			message: "#^Empty array passed to foreach\\.$#"
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: lib/Mage/Xml/Generator.php
+
+		-
+			message: "#^Argument of an invalid type Zend_Db_Statement_Interface supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: lib/Magento/Db/Object/Trigger.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 2
+			path: lib/Magento/Profiler/Output/Firebug.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: lib/Varien/Autoload.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 3
+			path: lib/Varien/Cache/Backend/Database.php
+
+		-
+			message: "#^Method Varien_Cache_Backend_Database\\:\\:touch\\(\\) should return bool but returns int\\.$#"
+			count: 1
+			path: lib/Varien/Cache/Backend/Database.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: lib/Varien/Cache/Backend/Database.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between int\\<min, \\-1\\>\\|int\\<1, max\\> and null will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Varien/Cache/Backend/Database.php
+
+		-
+			message: "#^Method Varien_Cache_Backend_Memcached\\:\\:_cleanTheMess\\(\\) should return null but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/Cache/Backend/Memcached.php
+
+		-
+			message: "#^Parameter \\#2 \\$chunks of method Varien_Cache_Backend_Memcached\\:\\:_cleanTheMess\\(\\) expects int, string given\\.$#"
+			count: 1
+			path: lib/Varien/Cache/Backend/Memcached.php
+
+		-
+			message: "#^Parameter \\#4 \\$specificLifetime \\(bool\\) of method Varien_Cache_Backend_Memcached\\:\\:save\\(\\) should be compatible with parameter \\$specificLifetime \\(int\\) of method Zend_Cache_Backend_Interface\\:\\:save\\(\\)$#"
+			count: 2
+			path: lib/Varien/Cache/Backend/Memcached.php
+
+		-
+			message: "#^Parameter \\#4 \\$specificLifetime \\(bool\\) of method Varien_Cache_Backend_Memcached\\:\\:save\\(\\) should be compatible with parameter \\$specificLifetime \\(int\\) of method Zend_Cache_Backend_Memcached\\:\\:save\\(\\)$#"
+			count: 1
+			path: lib/Varien/Cache/Backend/Memcached.php
+
+		-
+			message: "#^Parameter \\#4 \\$specificLifetime of method Zend_Cache_Backend_Memcached\\:\\:save\\(\\) expects int, bool given\\.$#"
+			count: 2
+			path: lib/Varien/Cache/Backend/Memcached.php
+
+		-
+			message: "#^Method Varien_Cache_Core\\:\\:_cleanTheMess\\(\\) should return null but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/Cache/Core.php
+
+		-
+			message: "#^Parameter \\#2 \\$chunks of method Varien_Cache_Core\\:\\:_cleanTheMess\\(\\) expects int, string given\\.$#"
+			count: 1
+			path: lib/Varien/Cache/Core.php
+
+		-
+			message: "#^Call to an undefined method Varien_Convert_Action\\:\\:getData\\(\\)\\.$#"
+			count: 1
+			path: lib/Varien/Convert.php
+
+		-
+			message: "#^Call to an undefined method Varien_Convert_Action_Abstract\\:\\:addException\\(\\)\\.$#"
+			count: 2
+			path: lib/Varien/Convert/Action/Abstract.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: lib/Varien/Convert/Action/Abstract.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: lib/Varien/Convert/Adapter/Db/Table.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: lib/Varien/Convert/Adapter/Io.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: lib/Varien/Convert/Adapter/Zend/Cache.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: lib/Varien/Convert/Adapter/Zend/Db.php
+
+		-
+			message: "#^Call to an undefined method Varien_Convert_Container_Interface\\:\\:getName\\(\\)\\.$#"
+			count: 2
+			path: lib/Varien/Convert/Container/Collection.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: lib/Varien/Convert/Mapper/Column.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with SimpleXMLElement will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Varien/Convert/Parser/Xml/Excel.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Varien/Convert/Parser/Xml/Excel.php
+
+		-
+			message: "#^Variable \\$data might not be defined\\.$#"
+			count: 3
+			path: lib/Varien/Convert/Parser/Xml/Excel.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Varien/Data/Collection.php
+
+		-
+			message: "#^Cannot access property \\$_items on array\\.$#"
+			count: 2
+			path: lib/Varien/Data/Collection.php
+
+		-
+			message: "#^Method Varien_Data_Collection\\:\\:getFilter\\(\\) should return array\\|Varien_Object\\|null but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/Data/Collection.php
+
+		-
+			message: "#^Method Varien_Data_Collection\\:\\:getLastPageNumber\\(\\) should return int but returns float\\.$#"
+			count: 1
+			path: lib/Varien/Data/Collection.php
+
+		-
+			message: "#^Call to an undefined method Varien_Data_Collection_Db\\:\\:_initSelect\\(\\)\\.$#"
+			count: 1
+			path: lib/Varien/Data/Collection/Db.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Varien/Data/Collection/Db.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Varien/Data/Collection/Db.php
+
+		-
+			message: "#^Method Varien_Data_Collection_Db\\:\\:getConnection\\(\\) should return Varien_Db_Adapter_Interface but returns Zend_Db_Adapter_Abstract\\.$#"
+			count: 1
+			path: lib/Varien/Data/Collection/Db.php
+
+		-
+			message: "#^Property Varien_Data_Collection\\:\\:\\$_totalRecords \\(int\\) does not accept string\\.$#"
+			count: 1
+			path: lib/Varien/Data/Collection/Db.php
+
+		-
+			message: "#^Property Varien_Data_Collection_Db\\:\\:\\$_data \\(array\\) does not accept null\\.$#"
+			count: 2
+			path: lib/Varien/Data/Collection/Db.php
+
+		-
+			message: "#^Property Varien_Data_Collection_Db\\:\\:\\$_fetchStmt \\(Zend_Db_Statement_Pdo\\) does not accept Zend_Db_Statement_Interface\\.$#"
+			count: 1
+			path: lib/Varien/Data/Collection/Db.php
+
+		-
+			message: "#^Property Varien_Data_Collection_Db\\:\\:\\$_map \\(array\\) in isset\\(\\) is not nullable\\.$#"
+			count: 1
+			path: lib/Varien/Data/Collection/Db.php
+
+		-
+			message: "#^Property Varien_Data_Collection_Db\\:\\:\\$_select \\(Varien_Db_Select\\) does not accept Zend_Db_Select\\.$#"
+			count: 1
+			path: lib/Varien/Data/Collection/Db.php
+
+		-
+			message: "#^Cannot assign offset string to string\\.$#"
+			count: 1
+			path: lib/Varien/Data/Collection/Filesystem.php
+
+		-
+			message: "#^Empty array passed to foreach\\.$#"
+			count: 1
+			path: lib/Varien/Data/Collection/Filesystem.php
+
+		-
+			message: "#^Property Varien_Data_Collection_Filesystem\\:\\:\\$_targetDirs \\(string\\) does not accept default value of type array\\.$#"
+			count: 1
+			path: lib/Varien/Data/Collection/Filesystem.php
+
+		-
+			message: "#^Parameter \\#1 \\$form of method Varien_Data_Form_Element_Abstract\\:\\:setForm\\(\\) expects Varien_Data_Form, \\$this\\(Varien_Data_Form_Abstract\\) given\\.$#"
+			count: 2
+			path: lib/Varien/Data/Form/Abstract.php
+
+		-
+			message: "#^Property Varien_Data_Form_Abstract\\:\\:\\$_elements \\(Varien_Data_Form_Element_Collection\\) in empty\\(\\) is not falsy\\.$#"
+			count: 1
+			path: lib/Varien/Data/Form/Abstract.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 2
+			path: lib/Varien/Data/Form/Element/Abstract.php
+
+		-
+			message: "#^Method Varien_Data_Form_Element_Date\\:\\:getValueInstance\\(\\) should return Zend_Date but returns null\\.$#"
+			count: 1
+			path: lib/Varien/Data/Form/Element/Date.php
+
+		-
+			message: "#^Property Varien_Data_Form_Element_Date\\:\\:\\$_value \\(Zend_Date\\) does not accept string\\.$#"
+			count: 2
+			path: lib/Varien/Data/Form/Element/Date.php
+
+		-
+			message: "#^Property Varien_Data_Form_Element_Date\\:\\:\\$_value \\(Zend_Date\\) in empty\\(\\) is not falsy\\.$#"
+			count: 2
+			path: lib/Varien/Data/Form/Element/Date.php
+
+		-
+			message: "#^Access to an undefined property Varien_Data_Form_Element_Fieldset\\:\\:\\$_sortDirection\\.$#"
+			count: 1
+			path: lib/Varien/Data/Form/Element/Fieldset.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: lib/Varien/Data/Form/Element/Fieldset.php
+
+		-
+			message: "#^Parameter \\#1 \\$idSuffix of method Varien_Data_Form_Element_Abstract\\:\\:getLabelHtml\\(\\) expects string, int given\\.$#"
+			count: 1
+			path: lib/Varien/Data/Form/Element/Multiline.php
+
+		-
+			message: "#^Parameter \\#1 \\$index of method Varien_Data_Form_Element_Abstract\\:\\:getEscapedValue\\(\\) expects string\\|null, int\\<0, max\\> given\\.$#"
+			count: 2
+			path: lib/Varien/Data/Form/Element/Multiline.php
+
+		-
+			message: "#^Parameter \\#1 \\$suffix \\(int\\) of method Varien_Data_Form_Element_Multiline\\:\\:getLabelHtml\\(\\) should be compatible with parameter \\$idSuffix \\(string\\) of method Varien_Data_Form_Element_Abstract\\:\\:getLabelHtml\\(\\)$#"
+			count: 1
+			path: lib/Varien/Data/Form/Element/Multiline.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of function in_array expects array, string given\\.$#"
+			count: 1
+			path: lib/Varien/Data/Form/Element/Multiselect.php
+
+		-
+			message: "#^Parameter \\#2 \\$selected of method Varien_Data_Form_Element_Multiselect\\:\\:_optionToHtml\\(\\) expects string, array given\\.$#"
+			count: 2
+			path: lib/Varien/Data/Form/Element/Multiselect.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of function in_array expects array, string given\\.$#"
+			count: 1
+			path: lib/Varien/Data/Form/Element/Select.php
+
+		-
+			message: "#^Parameter \\#2 \\$selected of method Varien_Data_Form_Element_Select\\:\\:_optionToHtml\\(\\) expects string, array given\\.$#"
+			count: 3
+			path: lib/Varien/Data/Form/Element/Select.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function str_pad expects string, int\\<0, 23\\> given\\.$#"
+			count: 1
+			path: lib/Varien/Data/Form/Element/Time.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function str_pad expects string, int\\<0, 59\\> given\\.$#"
+			count: 2
+			path: lib/Varien/Data/Form/Element/Time.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 2
+			path: lib/Varien/Data/Tree.php
+
+		-
+			message: "#^Variable \\$node might not be defined\\.$#"
+			count: 1
+			path: lib/Varien/Data/Tree.php
+
+		-
+			message: "#^Binary operation \"\\+\" between string and 1 results in an error\\.$#"
+			count: 1
+			path: lib/Varien/Data/Tree/Db.php
+
+		-
+			message: "#^Function explode invoked with 1 parameter, 2\\-3 required\\.$#"
+			count: 1
+			path: lib/Varien/Data/Tree/Dbp.php
+
+		-
+			message: "#^Parameter \\#1 \\$children of method Varien_Data_Tree_Dbp\\:\\:_addChildNodes\\(\\) expects Varien_Data_Tree_Node, array\\<string, array\\<int, mixed\\>\\> given\\.$#"
+			count: 1
+			path: lib/Varien/Data/Tree/Dbp.php
+
+		-
+			message: "#^Parameter \\#1 \\$children of method Varien_Data_Tree_Dbp\\:\\:addChildNodes\\(\\) expects Varien_Data_Tree_Node, array\\<string, array\\<int, mixed\\>\\> given\\.$#"
+			count: 1
+			path: lib/Varien/Data/Tree/Dbp.php
+
+		-
+			message: "#^Property Varien_Data_Tree_Dbp\\:\\:\\$_select \\(Varien_Db_Select\\) does not accept Zend_Db_Select\\.$#"
+			count: 1
+			path: lib/Varien/Data/Tree/Dbp.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: lib/Varien/Data/Tree/Node.php
+
+		-
+			message: "#^Method Varien_Data_Tree\\:\\:load\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
+			count: 1
+			path: lib/Varien/Data/Tree/Node.php
+
+		-
+			message: "#^Parameter \\#1 \\$parent of method Varien_Data_Tree_Node\\:\\:setParent\\(\\) expects Varien_Data_Tree_Node, Varien_Data_Tree given\\.$#"
+			count: 1
+			path: lib/Varien/Data/Tree/Node/Collection.php
+
+		-
+			message: "#^Default value of the parameter \\#2 \\$value \\(int\\) of method Varien_Db_Adapter_Interface\\:\\:getIfNullSql\\(\\) is incompatible with type string\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Interface.php
+
+		-
+			message: "#^Call to an undefined method Zend_Db_Statement_Interface\\:\\:fetch_assoc\\(\\)\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Mysqli.php
+
+		-
+			message: "#^Cannot access property \\$error on object\\|resource\\.$#"
+			count: 3
+			path: lib/Varien/Db/Adapter/Mysqli.php
+
+		-
+			message: "#^Cannot call method multi_query\\(\\) on object\\|resource\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Mysqli.php
+
+		-
+			message: "#^Cannot call method next_result\\(\\) on object\\|resource\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Mysqli.php
+
+		-
+			message: "#^Cannot call method query\\(\\) on object\\|resource\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Mysqli.php
+
+		-
+			message: "#^Cannot call method store_result\\(\\) on object\\|resource\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Mysqli.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Mysqli.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Mysqli.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method mysqli\\:\\:options\\(\\) expects int\\|string, true given\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Mysqli.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between false and mysqli will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Mysqli.php
+
+		-
+			message: "#^Variable \\$result might not be defined\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Mysqli.php
+
+		-
+			message: "#^Cannot call method query\\(\\) on object\\|resource\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Cannot call method setAttribute\\(\\) on object\\|resource\\.$#"
+			count: 2
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Comparison operation \"\\>\" between int\\<256, max\\> and 255 is always true\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Comparison operation \"\\>\" between int\\<65537, max\\> and 65536 is always true\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:addColumn\\(\\) should return bool\\|int but returns Zend_Db_Statement_Interface\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:createTable\\(\\) has invalid return type Zend_Db_Pdo_Statement\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:createTable\\(\\) should return Zend_Db_Pdo_Statement but returns Zend_Db_Statement_Pdo\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:createTemporaryTable\\(\\) has invalid return type Zend_Db_Pdo_Statement\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:createTemporaryTable\\(\\) should return Zend_Db_Pdo_Statement but returns Zend_Db_Statement_Pdo\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:dropColumn\\(\\) should return bool but returns Zend_Db_Statement_Interface\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:dropTemporaryTable\\(\\) should return bool but returns \\$this\\(Varien_Db_Adapter_Pdo_Mysql\\)\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:showTableStatus\\(\\) should return array\\|false but returns bool\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 2
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Property Varien_Db_Adapter_Pdo_Mysql\\:\\:\\$_cacheAdapter \\(Zend_Cache_Core\\) does not accept Zend_Cache_Backend_Interface\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Regex pattern is invalid\\: Compilation failed\\: invalid range in character class at offset 40 in pattern\\: \\#SQLSTATE\\\\\\[23000\\\\\\]\\: \\[\\^\\:\\]\\+\\: 1062\\[\\^'\\]\\+'\\(\\[\\\\d\\-\\\\\\.\\]\\+\\)'\\#$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Return type \\(array\\) of method Varien_Db_Adapter_Pdo_Mysql\\:\\:multiQuery\\(\\) should be compatible with return type \\(Varien_Db_Adapter_Interface\\) of method Varien_Db_Adapter_Interface\\:\\:multiQuery\\(\\)$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Return type \\(bool\\|int\\) of method Varien_Db_Adapter_Pdo_Mysql\\:\\:addColumn\\(\\) should be compatible with return type \\(Varien_Db_Adapter_Interface\\) of method Varien_Db_Adapter_Interface\\:\\:addColumn\\(\\)$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Variable \\$result might not be defined\\.$#"
+			count: 4
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Varien/Db/Ddl/Table.php
+
+		-
+			message: "#^Method Varien_Db_Ddl_Table\\:\\:setOption\\(\\) should return string but returns \\$this\\(Varien_Db_Ddl_Table\\)\\.$#"
+			count: 1
+			path: lib/Varien/Db/Ddl/Table.php
+
+		-
+			message: "#^Method Varien_Db_Select\\:\\:_tableCols\\(\\) with return type void returns void but should not return anything\\.$#"
+			count: 1
+			path: lib/Varien/Db/Select.php
+
+		-
+			message: "#^Result of method Zend_Db_Select\\:\\:_tableCols\\(\\) \\(void\\) is used\\.$#"
+			count: 1
+			path: lib/Varien/Db/Select.php
+
+		-
+			message: "#^Method Varien_Db_Statement_Parameter\\:\\:__construct\\(\\) with return type void returns \\$this\\(Varien_Db_Statement_Parameter\\) but should not return anything\\.$#"
+			count: 1
+			path: lib/Varien/Db/Statement/Parameter.php
+
+		-
+			message: "#^Cannot call method bindParam\\(\\) on object\\|resource\\.$#"
+			count: 1
+			path: lib/Varien/Db/Statement/Pdo/Mysql.php
+
+		-
+			message: "#^Cannot call method execute\\(\\) on object\\|resource\\.$#"
+			count: 1
+			path: lib/Varien/Db/Statement/Pdo/Mysql.php
+
+		-
+			message: "#^Call to static method registry\\(\\) on an unknown class Zend\\.$#"
+			count: 1
+			path: lib/Varien/Db/Tree.php
+
+		-
+			message: "#^Dead catch \\- PDOException is never thrown in the try block\\.$#"
+			count: 1
+			path: lib/Varien/Db/Tree.php
+
+		-
+			message: "#^Undefined variable\\: \\$pID$#"
+			count: 1
+			path: lib/Varien/Db/Tree.php
+
+		-
+			message: "#^Variable \\$aInfo might not be defined\\.$#"
+			count: 2
+			path: lib/Varien/Db/Tree.php
+
+		-
+			message: "#^Variable \\$pInfo might not be defined\\.$#"
+			count: 4
+			path: lib/Varien/Db/Tree.php
+
+		-
+			message: "#^Variable \\$sql might not be defined\\.$#"
+			count: 2
+			path: lib/Varien/Db/Tree.php
+
+		-
+			message: "#^Method Varien_Db_Tree_Node\\:\\:__construct\\(\\) with return type void returns \\$this\\(Varien_Db_Tree_Node\\) but should not return anything\\.$#"
+			count: 1
+			path: lib/Varien/Db/Tree/Node.php
+
+		-
+			message: "#^Property Varien_Db_Tree_Node\\:\\:\\$title is unused\\.$#"
+			count: 1
+			path: lib/Varien/Db/Tree/Node.php
+
+		-
+			message: "#^Method Varien_Db_Tree_NodeSet\\:\\:next\\(\\) with return type void returns false but should not return anything\\.$#"
+			count: 1
+			path: lib/Varien/Db/Tree/NodeSet.php
+
+		-
+			message: "#^Method Varien_Db_Tree_NodeSet\\:\\:next\\(\\) with return type void returns mixed but should not return anything\\.$#"
+			count: 1
+			path: lib/Varien/Db/Tree/NodeSet.php
+
+		-
+			message: "#^Call to function is_float\\(\\) with mixed will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Varien/Debug.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Varien/Debug.php
+
+		-
+			message: "#^Variable \\$methodName might not be defined\\.$#"
+			count: 2
+			path: lib/Varien/Debug.php
+
+		-
+			message: "#^Call to function is_object\\(\\) with string will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Varien/Event/Observer.php
+
+		-
+			message: "#^Method Varien_File_Transfer_Adapter_Http\\:\\:_detectMimeType\\(\\) should return string but returns null\\.$#"
+			count: 1
+			path: lib/Varien/File/Transfer/Adapter/Http.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method Zend_Controller_Response_Abstract\\:\\:setHeader\\(\\) expects string, int\\<0, max\\>\\|false given\\.$#"
+			count: 1
+			path: lib/Varien/File/Transfer/Adapter/Http.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, string given\\.$#"
+			count: 2
+			path: lib/Varien/File/Uploader.php
+
+		-
+			message: "#^Property Varien_File_Uploader\\:\\:\\$_result \\(array\\|false\\) does not accept bool\\.$#"
+			count: 1
+			path: lib/Varien/File/Uploader.php
+
+		-
+			message: "#^Property Varien_File_Uploader\\:\\:\\$_uploadType \\(string\\) does not accept int\\.$#"
+			count: 3
+			path: lib/Varien/File/Uploader.php
+
+		-
+			message: "#^Call to an undefined method Varien_File_Uploader_Image\\:\\:newUploader\\(\\)\\.$#"
+			count: 1
+			path: lib/Varien/File/Uploader/Image.php
+
+		-
+			message: "#^Method Varien_Filter_Template\\:\\:getEmailPathValidator\\(\\) should return Mage_Core_Model_Abstract but returns Mage_Adminhtml_Model_Email_PathValidator\\.$#"
+			count: 1
+			path: lib/Varien/Filter/Template.php
+
+		-
+			message: "#^Parameter \\#2 \\$default of method Varien_Filter_Template\\:\\:_getVariable\\(\\) expects string, null given\\.$#"
+			count: 1
+			path: lib/Varien/Filter/Template.php
+
+		-
+			message: "#^Right side of && is always false\\.$#"
+			count: 1
+			path: lib/Varien/Filter/Template/Tokenizer/Parameter.php
+
+		-
+			message: "#^Left side of \\|\\| is always false\\.$#"
+			count: 1
+			path: lib/Varien/Filter/Template/Tokenizer/Variable.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with resource will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Varien/Http/Adapter/Curl.php
+
+		-
+			message: "#^Parameter \\#1 \\$handle of function curl_close expects CurlHandle, resource given\\.$#"
+			count: 1
+			path: lib/Varien/Http/Adapter/Curl.php
+
+		-
+			message: "#^Parameter \\#1 \\$handle of function curl_errno expects CurlHandle, resource given\\.$#"
+			count: 1
+			path: lib/Varien/Http/Adapter/Curl.php
+
+		-
+			message: "#^Parameter \\#1 \\$handle of function curl_error expects CurlHandle, resource given\\.$#"
+			count: 1
+			path: lib/Varien/Http/Adapter/Curl.php
+
+		-
+			message: "#^Parameter \\#1 \\$handle of function curl_exec expects CurlHandle, resource given\\.$#"
+			count: 1
+			path: lib/Varien/Http/Adapter/Curl.php
+
+		-
+			message: "#^Parameter \\#1 \\$handle of function curl_getinfo expects CurlHandle, resource given\\.$#"
+			count: 2
+			path: lib/Varien/Http/Adapter/Curl.php
+
+		-
+			message: "#^Parameter \\#1 \\$handle of function curl_setopt expects CurlHandle, resource given\\.$#"
+			count: 3
+			path: lib/Varien/Http/Adapter/Curl.php
+
+		-
+			message: "#^Parameter \\#1 \\$handle of function curl_setopt_array expects CurlHandle, resource given\\.$#"
+			count: 2
+			path: lib/Varien/Http/Adapter/Curl.php
+
+		-
+			message: "#^Property Varien_Http_Adapter_Curl\\:\\:\\$_resource \\(resource\\) does not accept CurlHandle\\.$#"
+			count: 1
+			path: lib/Varien/Http/Adapter/Curl.php
+
+		-
+			message: "#^Property Varien_Http_Adapter_Curl\\:\\:\\$_resource \\(resource\\) does not accept null\\.$#"
+			count: 1
+			path: lib/Varien/Http/Adapter/Curl.php
+
+		-
+			message: "#^Default value of the parameter \\#2 \\$adapter \\(string\\) of method Varien_Image\\:\\:__construct\\(\\) is incompatible with type Varien_Image_Adapter\\.$#"
+			count: 1
+			path: lib/Varien/Image.php
+
+		-
+			message: "#^Parameter \\#1 \\$adapter of method Varien_Image\\:\\:_getAdapter\\(\\) expects string\\|null, Varien_Image_Adapter given\\.$#"
+			count: 1
+			path: lib/Varien/Image.php
+
+		-
+			message: "#^Property Varien_Image\\:\\:\\$_adapter \\(Varien_Image_Adapter_Abstract\\) in isset\\(\\) is not nullable\\.$#"
+			count: 1
+			path: lib/Varien/Image.php
+
+		-
+			message: "#^Method Varien_Image_Adapter_Abstract\\:\\:backgroundColor\\(\\) should return array but empty return statement found\\.$#"
+			count: 2
+			path: lib/Varien/Image/Adapter/Abstract.php
+
+		-
+			message: "#^Binary operation \"\\*\\=\" between string and 1024 results in an error\\.$#"
+			count: 1
+			path: lib/Varien/Image/Adapter/Gd2.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
+			count: 2
+			path: lib/Varien/Image/Adapter/Gd2.php
+
+		-
+			message: "#^Instanceof between \\*NEVER\\* and GdImage will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Varien/Image/Adapter/Gd2.php
+
+		-
+			message: "#^Parameter \\#1 \\$dst_image of function imagecopymerge expects GdImage, resource given\\.$#"
+			count: 7
+			path: lib/Varien/Image/Adapter/Gd2.php
+
+		-
+			message: "#^Parameter \\#1 \\$image of function imagecolorsforindex expects GdImage, resource given\\.$#"
+			count: 1
+			path: lib/Varien/Image/Adapter/Gd2.php
+
+		-
+			message: "#^Parameter \\#1 \\$image of function imagecolorstotal expects GdImage, resource given\\.$#"
+			count: 1
+			path: lib/Varien/Image/Adapter/Gd2.php
+
+		-
+			message: "#^Parameter \\#1 \\$image of function imagedestroy expects GdImage, resource given\\.$#"
+			count: 1
+			path: lib/Varien/Image/Adapter/Gd2.php
+
+		-
+			message: "#^Parameter \\#1 \\$image of function imageinterlace expects GdImage, resource given\\.$#"
+			count: 1
+			path: lib/Varien/Image/Adapter/Gd2.php
+
+		-
+			message: "#^Parameter \\#1 \\$image of function imagerotate expects GdImage, resource given\\.$#"
+			count: 1
+			path: lib/Varien/Image/Adapter/Gd2.php
+
+		-
+			message: "#^Parameter \\#1 \\$image of function imagesx expects GdImage, resource given\\.$#"
+			count: 2
+			path: lib/Varien/Image/Adapter/Gd2.php
+
+		-
+			message: "#^Parameter \\#1 \\$image of function imagesy expects GdImage, resource given\\.$#"
+			count: 2
+			path: lib/Varien/Image/Adapter/Gd2.php
+
+		-
+			message: "#^Parameter \\#2 \\$enable of function imageinterlace expects bool\\|null, int given\\.$#"
+			count: 1
+			path: lib/Varien/Image/Adapter/Gd2.php
+
+		-
+			message: "#^Parameter \\#2 \\$src_image of function imagecopy expects GdImage, resource given\\.$#"
+			count: 1
+			path: lib/Varien/Image/Adapter/Gd2.php
+
+		-
+			message: "#^Parameter \\#2 \\$src_image of function imagecopyresampled expects GdImage, resource given\\.$#"
+			count: 2
+			path: lib/Varien/Image/Adapter/Gd2.php
+
+		-
+			message: "#^Property Varien_Image_Adapter_Abstract\\:\\:\\$_imageHandler \\(resource\\) does not accept GdImage\\|false\\.$#"
+			count: 2
+			path: lib/Varien/Image/Adapter/Gd2.php
+
+		-
+			message: "#^Offset 0 on array\\{\\} in isset\\(\\) does not exist\\.$#"
+			count: 1
+			path: lib/Varien/Io/Abstract.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: lib/Varien/Io/Abstract.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: lib/Varien/Io/File.php
+
+		-
+			message: "#^Method Varien_Io_File\\:\\:createDestinationDir\\(\\) should return Varien_Io_File but returns bool\\.$#"
+			count: 1
+			path: lib/Varien/Io/File.php
+
+		-
+			message: "#^Method Varien_Io_File\\:\\:createDestinationDir\\(\\) should return Varien_Io_File but returns false\\.$#"
+			count: 1
+			path: lib/Varien/Io/File.php
+
+		-
+			message: "#^Method Varien_Io_File\\:\\:setAllowCreateFolders\\(\\) with return type void returns \\$this\\(Varien_Io_File\\) but should not return anything\\.$#"
+			count: 1
+			path: lib/Varien/Io/File.php
+
+		-
+			message: "#^Method Varien_Io_File\\:\\:streamRead\\(\\) should return string but returns false\\.$#"
+			count: 2
+			path: lib/Varien/Io/File.php
+
+		-
+			message: "#^Method Varien_Io_File\\:\\:streamReadCsv\\(\\) should return string but returns array\\|false\\.$#"
+			count: 1
+			path: lib/Varien/Io/File.php
+
+		-
+			message: "#^Method Varien_Io_File\\:\\:streamReadCsv\\(\\) should return string but returns false\\.$#"
+			count: 1
+			path: lib/Varien/Io/File.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 8
+			path: lib/Varien/Io/File.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of function posix_getgrnam expects string, int\\|false given\\.$#"
+			count: 1
+			path: lib/Varien/Io/File.php
+
+		-
+			message: "#^Parameter \\#2 \\$mode of method Varien_Io_File\\:\\:chmod\\(\\) expects int, string given\\.$#"
+			count: 1
+			path: lib/Varien/Io/File.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of function ini_set expects string, int given\\.$#"
+			count: 1
+			path: lib/Varien/Io/File.php
+
+		-
+			message: "#^Parameter \\$src of method Varien_Io_File\\:\\:filePutContent\\(\\) has invalid type srting\\.$#"
+			count: 1
+			path: lib/Varien/Io/File.php
+
+		-
+			message: "#^Return type \\(void\\) of method Varien_Io_File\\:\\:setAllowCreateFolders\\(\\) should be compatible with return type \\(Varien_Io_Abstract\\) of method Varien_Io_Abstract\\:\\:setAllowCreateFolders\\(\\)$#"
+			count: 1
+			path: lib/Varien/Io/File.php
+
+		-
+			message: "#^Method Varien_Io_Ftp\\:\\:read\\(\\) should return string but returns false\\.$#"
+			count: 1
+			path: lib/Varien/Io/Ftp.php
+
+		-
+			message: "#^Parameter \\#1 \\$prefix of function uniqid expects string, int\\<0, max\\> given\\.$#"
+			count: 1
+			path: lib/Varien/Io/Ftp.php
+
+		-
+			message: "#^Parameter \\#2 \\$return of function print_r expects bool, int given\\.$#"
+			count: 1
+			path: lib/Varien/Object.php
+
+		-
+			message: "#^Access to an undefined property Varien_Object_Cache\\:\\:\\$_referencesByObject\\.$#"
+			count: 1
+			path: lib/Varien/Object/Cache.php
+
+		-
+			message: "#^Method Varien_Object_Cache\\:\\:reference\\(\\) should return bool but empty return statement found\\.$#"
+			count: 1
+			path: lib/Varien/Object/Cache.php
+
+		-
+			message: "#^Method Varien_Object_Cache\\:\\:save\\(\\) should return string but returns false\\.$#"
+			count: 1
+			path: lib/Varien/Object/Cache.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: lib/Varien/Object/Cache.php
+
+		-
+			message: "#^Offset 'function' on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: '\\-\\>'\\|'\\:\\:', args\\?\\: array, object\\?\\: object\\} in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: lib/Varien/Object/Cache.php
+
+		-
+			message: "#^Undefined variable\\: \\$ids$#"
+			count: 1
+			path: lib/Varien/Object/Cache.php
+
+		-
+			message: "#^Undefined variable\\: \\$references$#"
+			count: 1
+			path: lib/Varien/Object/Cache.php
+
+		-
+			message: "#^Cannot call method hasData\\(\\) on array\\|\\(callable\\)\\|object\\.$#"
+			count: 2
+			path: lib/Varien/Object/Mapper.php
+
+		-
+			message: "#^Call to an undefined method Varien_Simplexml_Config_Cache_Abstract\\:\\:load\\(\\)\\.$#"
+			count: 2
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Call to an undefined method Varien_Simplexml_Config_Cache_Abstract\\:\\:remove\\(\\)\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Call to an undefined method Varien_Simplexml_Config_Cache_Abstract\\:\\:save\\(\\)\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Method Varien_Simplexml_Config\\:\\:_removeCache\\(\\) has invalid return type unknown\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Method Varien_Simplexml_Config\\:\\:getCacheChecksum\\(\\) should return string but returns unknown_type\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Method Varien_Simplexml_Config\\:\\:getNode\\(\\) should return Varien_Simplexml_Element but returns false\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Method Varien_Simplexml_Config\\:\\:getXpath\\(\\) should return array but returns false\\.$#"
+			count: 2
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Method Varien_Simplexml_Config\\:\\:loadDom\\(\\) should return Varien_Simplexml_Element but returns false\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Method Varien_Simplexml_Config\\:\\:loadDom\\(\\) should return Varien_Simplexml_Element but returns true\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Method Varien_Simplexml_Config\\:\\:loadString\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Parameter \\#1 \\$data of function simplexml_load_string expects string, bool given\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Property Varien_Simplexml_Config\\:\\:\\$_cacheChecksum \\(unknown_type\\) does not accept default value of type false\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Property Varien_Simplexml_Config\\:\\:\\$_cacheChecksum \\(unknown_type\\) does not accept false\\.$#"
+			count: 2
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Property Varien_Simplexml_Config\\:\\:\\$_cacheChecksum \\(unknown_type\\) does not accept null\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Property Varien_Simplexml_Config\\:\\:\\$_cacheChecksum \\(unknown_type\\) does not accept string\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Property Varien_Simplexml_Config\\:\\:\\$_cacheChecksum has unknown class unknown_type as its type\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Property Varien_Simplexml_Config\\:\\:\\$_xml \\(Varien_Simplexml_Element\\) does not accept SimpleXMLElement\\.$#"
+			count: 2
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between false and string will always evaluate to false\\.$#"
+			count: 3
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Method Varien_Simplexml_Config_Cache_File\\:\\:setKey\\(\\) should return string but returns \\$this\\(Varien_Simplexml_Config_Cache_File\\)\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config/Cache/File.php
+
+		-
+			message: "#^Parameter \\#1 \\$filename of method Varien_Simplexml_Element\\:\\:asNiceXml\\(\\) expects string, int given\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Element.php
