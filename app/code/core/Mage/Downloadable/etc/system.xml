@@ -46,6 +46,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
                         </downloads_number>
                         <shareable translate="label">
                             <label>Shareable</label>
@@ -62,6 +63,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </samples_title>
                         <links_title translate="label">
                             <label>Default Link Title</label>
@@ -69,6 +71,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </links_title>
                         <links_target_new_window translate="label">
                             <label>Open Links in New Window</label>

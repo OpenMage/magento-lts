@@ -55,7 +55,12 @@
  */
 class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
 {
+    public const VALIDATE_REQUIRED_ENTRY        = 'required-entry';
+    public const VALIDATE_DIGITS                = 'validate-digits';
+    public const VALIDATE_NUMBER                = 'validate-number';
+
     public const ENTITY = 'core_config_data';
+
     /**
      * Prefix of model events names
      *
@@ -88,6 +93,88 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
     {
         $this->_afterLoad();
         return $this;
+    }
+
+    /**
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
+    protected function _beforeSave()
+    {
+        [$validation, $label] = $this->getFieldValidationRules();
+        if (!is_null($validation)) {
+            $value = $this->getValue();
+            foreach ($validation as $rule) {
+                switch ($rule) {
+                    case self::VALIDATE_REQUIRED_ENTRY:
+                        self::validateRequiredEntry($value, $label);
+                        break;
+                    case self::VALIDATE_DIGITS:
+                        self::validateDigit($value, $label);
+                        break;
+                    case self::VALIDATE_NUMBER:
+                        self::validateNumber($value, $label);
+                        break;
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Field validateion rules
+     *
+     * @return array|null
+     */
+    protected function getFieldValidationRules(): ?array
+    {
+        $config = $this->getFieldConfig();
+        if ($config instanceof Varien_Simplexml_Element) {
+            $validate = $config->descend('validate');
+            if ($validate !== false) {
+                $rules = array_map('trim', explode(' ', $validate));
+                $label = $config->descend('label');
+                return [$rules, $label];
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @param string $value
+     * @param string $label
+     * @return void
+     * @throws Mage_Core_Exception
+     */
+    protected static function validateRequiredEntry(string $value, string $label): void
+    {
+        $value = str_replace(' ', '', $value);
+        if ($value === '') {
+            Mage::throwException(Mage::helper('core')->__('%s cannot be emtpy.', $label));
+        }
+    }
+
+    /**
+     * @param string $value
+     * @param string $label
+     * @return void
+     * @throws Mage_Core_Exception
+     */
+    protected static function validateDigit(string $value, string $label): void
+    {
+        if (!is_numeric($value) || str_contains($value, '.')) {
+            Mage::throwException(Mage::helper('core')->__('%s is not a digit.', $label));
+        }
+    }
+
+    /**
+     * @throws Mage_Core_Exception
+     */
+    protected static function validateNumber(string $value, string $label): void
+    {
+        if (!is_numeric($value)) {
+            Mage::throwException(Mage::helper('core')->__('%s is not a number.', $label));
+        }
     }
 
     /**
