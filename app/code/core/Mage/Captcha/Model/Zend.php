@@ -453,7 +453,9 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     public function getWord()
     {
         $sessionData = $this->getSession()->getData($this->_getFormIdKey(self::SESSION_WORD));
-        if (!is_array($sessionData)) return null;
+        if (!is_array($sessionData)) {
+            return null;
+        }
         return time() < $sessionData['expires'] ? $sessionData['data'] : null;
     }
 
