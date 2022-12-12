@@ -87,7 +87,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
 
         // set default config values from database
         foreach ($rowset as $r) {
-            if ($r['scope'] !== 'default') {
+            if (is_null($r['value']) || $r['scope'] !== 'default') {
                 continue;
             }
             $value = str_replace($substFrom, $substTo, $r['value']);
@@ -104,7 +104,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
         $deleteWebsites = [];
         // set websites config values from database
         foreach ($rowset as $r) {
-            if ($r['scope'] !== 'websites') {
+            if (is_null($r['value']) || $r['scope'] !== 'websites') {
                 continue;
             }
             $value = str_replace($substFrom, $substTo, $r['value']);
@@ -133,7 +133,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
         $deleteStores = [];
         // set stores config values from database
         foreach ($rowset as $r) {
-            if ($r['scope'] !== 'stores') {
+            if (is_null($r['value']) || $r['scope'] !== 'stores') {
                 continue;
             }
             $value = str_replace($substFrom, $substTo, $r['value']);
