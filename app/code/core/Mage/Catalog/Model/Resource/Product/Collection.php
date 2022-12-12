@@ -878,7 +878,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Get SQL for get record count
      *
-     * @param null $select
+     * @param Varien_Db_Select|null $select
      * @param bool $resetLeftJoins
      * @return Varien_Db_Select
      */

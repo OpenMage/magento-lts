@@ -77,7 +77,7 @@ class Mage_Payment_Model_Config
     /**
      * @param string $code
      * @param array $config
-     * @param null $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
      * @return false|Mage_Payment_Model_Method_Abstract
      */
     protected function _getMethod($code, $config, $store = null)

@@ -258,8 +258,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Retrieve product attribute by identifier
      *
      * @param int $attributeId
-     * @param null $product
-     * @return  Mage_Eav_Model_Entity_Attribute_Abstract
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract|null
      */
     public function getAttributeById($attributeId, $product = null)
     {
@@ -800,9 +800,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param array $options
      * @param Varien_Object $option
      * @param mixed $value
-     *
-     * @param null $product
-     * @return object       Mage_Catalog_Model_Product_Type_Abstract
+     * @param Mage_Catalog_Model_Product $product
+     * @return $this
      */
     public function updateQtyOption($options, Varien_Object $option, $value, $product = null)
     {
@@ -826,7 +825,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Retrieve store filter for associated products
      *
-     * @param null $product
+     * @param Mage_Catalog_Model_Product|null $product
      * @return int|Mage_Core_Model_Store
      */
     public function getStoreFilter($product = null)
@@ -839,7 +838,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Set store filter for associated products
      *
      * @param int|Mage_Core_Model_Store $store
-     * @param null $product
+     * @param Mage_Catalog_Model_Product|null $product
      * @return $this
      */
     public function setStoreFilter($store = null, $product = null)
@@ -853,7 +852,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Allow for updates of children quantities
      * (applicable for complicated product types. As default returns false)
      *
-     * @param null $product
+     * @param Mage_Catalog_Model_Product|null $product
      * @return bool false
      */
     public function getForceChildItemQtyChanges($product = null)
@@ -865,7 +864,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Prepare Quote Item Quantity
      *
      * @param mixed $qty
-     * @param null $product
+     * @param Mage_Catalog_Model_Product|null $product
      * @return float
      */
     public function prepareQuoteItemQty($qty, $product = null)

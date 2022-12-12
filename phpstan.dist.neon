@@ -5,74 +5,66 @@ parameters:
     phpVersion: 80000 # PHP 8.0
     magentoRootPath: %currentWorkingDirectory%
     paths:
-         - %currentWorkingDirectory%/api.php
-         - %currentWorkingDirectory%/cron.php
-         - %currentWorkingDirectory%/get.php
-         - %currentWorkingDirectory%/index.php
-         - %currentWorkingDirectory%/install.php
-         - %currentWorkingDirectory%/app/Mage.php
-         - %currentWorkingDirectory%/app/code/core/Mage
+        - api.php
+        - cron.php
+        - get.php
+        - index.php
+        - install.php
+        - app/Mage.php
+        - app/code/core/Mage
+        - lib/Mage
+        - lib/Magento
+        - lib/Varien
     excludePaths:
-        #todo DOCblocks
-        - %currentWorkingDirectory%/app/code/core/Mage/Usa
-        - %currentWorkingDirectory%/app/code/core/Mage/Weee
-        - %currentWorkingDirectory%/lib/Mage
-        - %currentWorkingDirectory%/lib/Magento
-        - %currentWorkingDirectory%/lib/Varien
-
         #incompatible interfaces
-        - */app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php
-        - */app/code/core/Mage/Admin/Model/Acl/Assert/Time.php
-        - */app/code/core/Mage/Api/Model/Acl/Assert/Ip.php
-        - */app/code/core/Mage/Api/Model/Acl/Assert/Time.php
-        - */app/code/core/Mage/Adminhtml/Block/Widget/Grid/Block.php
-        - */app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
-        - */lib/Varien/Directory/Collection.php
-        - */lib/Varien/Directory/Factory.php
-        - */lib/Varien/File/Object.php
+        - app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php
+        - app/code/core/Mage/Admin/Model/Acl/Assert/Time.php
+        - app/code/core/Mage/Api/Model/Acl/Assert/Ip.php
+        - app/code/core/Mage/Api/Model/Acl/Assert/Time.php
+        - app/code/core/Mage/Adminhtml/Block/Widget/Grid/Block.php
+        - app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
+        - lib/Varien/Directory/Collection.php
+        - lib/Varien/Directory/Factory.php
+        - lib/Varien/File/Object.php
 
         # deprecated _getHelper()
-        - */app/code/core/Mage/Adminhtml/Controller/Rss/Abstract.php
-        - */app/code/core/Mage/Adminhtml/controllers/Rss/OrderController.php
-        - */app/code/core/Mage/Adminhtml/controllers/Rss/CatalogController.php
+        - app/code/core/Mage/Adminhtml/Controller/Rss/Abstract.php
+        - app/code/core/Mage/Adminhtml/controllers/Rss/OrderController.php
+        - app/code/core/Mage/Adminhtml/controllers/Rss/CatalogController.php
 
         # contains 1 abstract method and must therefore be declared abstract or implement the remaining methods
-        - */app/code/core/Mage/Dataflow/Model/Session/Adapter/Http.php
-        - */app/code/core/Mage/Dataflow/Model/Convert/Iterator/Http.php
-        - */app/code/core/Mage/Dataflow/Model/Convert/Iterator/File/Csv.php
-        - */lib/Varien/Convert/Validator/Column.php
+        - app/code/core/Mage/Dataflow/Model/Session/Adapter/Http.php
+        - app/code/core/Mage/Dataflow/Model/Convert/Iterator/Http.php
+        - app/code/core/Mage/Dataflow/Model/Convert/Iterator/File/Csv.php
+        - lib/Varien/Convert/Validator/Column.php
 
         # Cannot declare class Varien_Date, because the name is already in use
-        - */app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
+        - app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
 
         # Cannot declare class XMLParser, because the name is already in use
-        - */app/code/core/Mage/Centinel/Model/Api.php
-        - */app/code/core/Mage/Centinel/Model/Api/Client.php
+        - app/code/core/Mage/Centinel/Model/Api.php
+        - app/code/core/Mage/Centinel/Model/Api/Client.php
 
         # Class phpseclib\Net\SSH2 not found.
-        - */app/code/core/Mage/Paypal/Model/Report/Settlement.php
-        - */lib/Varien/Io/Sftp.php
+        - app/code/core/Mage/Paypal/Model/Report/Settlement.php
+        - lib/Varien/Io/Sftp.php
 
         # Class backup/db was not found while trying to analyse it
-        - */app/code/core/Mage/Adminhtml/controllers/System/BackupController.php
+        - app/code/core/Mage/Adminhtml/controllers/System/BackupController.php
 
         # Dataflow/Model/Convert/Iterator.php
-        - */app/code/core/Mage/Dataflow/Model/Convert/Iterator.php
+        - app/code/core/Mage/Dataflow/Model/Convert/Iterator.php
 
         # Too much noise from "Variable $this might not be defined"
-        - */app/code/core/*/*/data/*
-        - */app/code/core/*/*/sql/*
+        - app/code/core/*/*/data/*
+        - app/code/core/*/*/sql/*
 
         # requires Mycrypt
-        - */lib/Magento/Crypt.php
-        - */lib/Varien/Crypt/Mcrypt.php
+        - lib/Magento/Crypt.php
+        - lib/Varien/Crypt/Mcrypt.php
 
         # Instantiated class not found
-        - */lib/Varien/Image/Adapter.php
-
-        # todo check
-        - */app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
-        - */app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
+        - lib/Varien/Image/Adapter.php
     level: 5
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
