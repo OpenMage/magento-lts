@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Core_Helper_Js as JsHelper;
+
 /**
  * Review edit form
  *
@@ -43,7 +45,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
             $this->_updateButton(
                 'back',
                 'onclick',
-                $this->getSetLocationJs(
+                JsHelper::getSetLocationJs(
                     $this->getUrl(
                         '*/catalog_product/edit',
                         ['id' => $this->getRequest()->getParam('productId', false)]
@@ -56,7 +58,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
             $this->_updateButton(
                 'back',
                 'onclick',
-                $this->getSetLocationJs(
+                JsHelper::getSetLocationJs(
                     $this->getUrl(
                         '*/customer/edit',
                         ['id' => $this->getRequest()->getParam('customerId', false)]
@@ -66,11 +68,11 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
         }
 
         if ($this->getRequest()->getParam('ret', false) == 'pending') {
-            $this->_updateButton('back', 'onclick', $this->getSetLocationJs($this->getUrl('*/*/pending')));
+            $this->_updateButton('back', 'onclick', JsHelper::getSetLocationJs($this->getUrl('*/*/pending')));
             $this->_updateButton(
                 'delete',
                 'onclick',
-                $this->getDeleteConfirmJs(
+                JsHelper::getDeleteConfirmJs(
                     $this->getUrl(
                         '*/*/delete',
                         [

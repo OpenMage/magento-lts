@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Core_Helper_Js as JsHelper;
+
 /**
  * Adminhtml store delete group block
  *
@@ -46,7 +48,7 @@ class Mage_Adminhtml_Block_System_Store_Delete_Website extends Mage_Adminhtml_Bl
                     'class'     => 'cancel'
                 ])
         );
-        $onClick = $this->getSetLocationJs($this->getUrl('*/*/editWebsite', ['website_id' => $itemId]));
+        $onClick = JsHelper::getSetLocationJs($this->getUrl('*/*/editWebsite', ['website_id' => $itemId]));
         $this->setChild(
             'cancel_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')

@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Core_Helper_Js as JsHelper;
+
 /**
  * Customer edit block
  *
@@ -56,7 +58,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Back'),
-                        'onclick'   => $this->getSetLocationJs($this->getUrl('*/*/', ['store' => $this->getRequest()->getParam('store', 0)])),
+                        'onclick'   => JsHelper::getSetLocationJs($this->getUrl('*/*/', ['store' => $this->getRequest()->getParam('store', 0)])),
                         'class'     => 'back'
                     ])
             );
@@ -78,7 +80,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Reset'),
-                        'onclick'   => $this->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true]))
+                        'onclick'   => JsHelper::getSetLocationJs($this->getUrl('*/*/*', ['_current' => true]))
                     ])
             );
 
@@ -100,7 +102,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     $this->getLayout()->createBlock('adminhtml/widget_button')
                         ->setData([
                             'label'     => Mage::helper('catalog')->__('Save and Continue Edit'),
-                            'onclick'   => $this->getSaveAndContinueEditJs($this->getSaveAndContinueUrl()),
+                            'onclick'   => JsHelper::getSaveAndContinueEditJs($this->getSaveAndContinueUrl()),
                             'class'     => 'save'
                         ])
                 );
@@ -111,7 +113,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     $this->getLayout()->createBlock('adminhtml/widget_button')
                         ->setData([
                             'label'     => Mage::helper('catalog')->__('Delete'),
-                            'onclick'   => $this->getConfirmSetLocationJs($this->getDeleteUrl()),
+                            'onclick'   => JsHelper::getConfirmSetLocationJs($this->getDeleteUrl()),
                             'class'     => 'delete'
                         ])
                 );
@@ -123,7 +125,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Duplicate'),
-                        'onclick'   => $this->getSetLocationJs($this->getDuplicateUrl()),
+                        'onclick'   => JsHelper::getSetLocationJs($this->getDuplicateUrl()),
                         'class'     => 'add'
                     ])
                 );

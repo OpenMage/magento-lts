@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Core_Helper_Js as JsHelper;
+
 /**
  * Admin poll answer edit block
  *
@@ -44,7 +46,7 @@ class Mage_Adminhtml_Block_Poll_Answer_Edit extends Mage_Adminhtml_Block_Widget_
         $this->_updateButton(
             'back',
             'onclick',
-            $this->getSetLocationJs(
+            JsHelper::getSetLocationJs(
                 $this->getUrl(
                     '*/poll/edit',
                     ['id' => $answerData->getPollId(), 'tab' => 'answers_section']

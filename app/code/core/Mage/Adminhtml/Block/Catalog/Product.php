@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Core_Helper_Js as JsHelper;
+
 /**
  * Catalog manage products block
  *
@@ -44,7 +46,7 @@ class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Widget_C
     {
         $this->_addButton('add_new', [
             'label'   => Mage::helper('catalog')->__('Add Product'),
-            'onclick' => $this->getSetLocationJs($this->getUrl('*/*/new')),
+            'onclick' => JsHelper::getSetLocationJs($this->getUrl('*/*/new')),
             'class'   => 'add'
         ]);
 

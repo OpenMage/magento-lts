@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Core_Helper_Js as JsHelper;
+
 /**
  * Admin tax rate save toolbar
  *
@@ -78,7 +80,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('tax')->__('Delete Rate'),
-                    'onclick'   => $this->getDeleteConfirmJs(
+                    'onclick'   => JsHelper::getDeleteConfirmJs(
                         $this->getUrl('*/*/delete', ['rate' => $this->getRequest()->getParam('rate')])
                     ),
                     'class'     => 'delete'

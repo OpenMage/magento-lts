@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Core_Helper_Js as JsHelper;
+
 /**
  * Adminhtml sales order view
  *
@@ -48,7 +50,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         $coreHelper = Mage::helper('core');
 
         if ($this->_isAllowedAction('edit') && $order->canEdit()) {
-            $onclickJs = $this->getDeleteConfirmJs(
+            $onclickJs = JsHelper::getDeleteConfirmJs(
                 $this->getEditUrl(),
                 Mage::helper('sales')->__('Are you sure? This order will be canceled and a new one will be created instead')
             );
@@ -83,7 +85,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         if ($this->_isAllowedAction('cancel') && $order->canCancel()) {
             $this->_addButton('order_cancel', [
                 'label'     => Mage::helper('sales')->__('Cancel'),
-                'onclick'   => $this->getDeleteConfirmJs(
+                'onclick'   => JsHelper::getDeleteConfirmJs(
                     $this->getCancelUrl(),
                     Mage::helper('sales')->__('Are you sure you want to cancel this order?')
                 )
@@ -93,7 +95,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         if ($this->_isAllowedAction('emails') && !$order->isCanceled()) {
             $this->addButton('send_notification', [
                 'label'     => Mage::helper('sales')->__('Send Email'),
-                'onclick'   => $this->getDeleteConfirmJs(
+                'onclick'   => JsHelper::getDeleteConfirmJs(
                     $this->getEmailUrl(),
                     Mage::helper('sales')->__('Are you sure you want to send order email to customer?')
                 )
@@ -104,7 +106,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         if ($this->_isAllowedAction('invoice') && $order->canVoidPayment()) {
             $this->addButton('void_payment', [
                 'label'     => Mage::helper('sales')->__('Void'),
-                'onclick'   => $this->getDeleteConfirmJs(
+                'onclick'   => JsHelper::getDeleteConfirmJs(
                     $this->getVoidPaymentUrl(),
                     Mage::helper('sales')->__('Are you sure you want to void the payment?')
                 )
@@ -114,14 +116,14 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         if ($this->_isAllowedAction('hold') && $order->canHold()) {
             $this->_addButton('order_hold', [
                 'label'     => Mage::helper('sales')->__('Hold'),
-                'onclick'   => $this->getSetLocationJs($this->getHoldUrl())
+                'onclick'   => JsHelper::getSetLocationJs($this->getHoldUrl())
             ]);
         }
 
         if ($this->_isAllowedAction('unhold') && $order->canUnhold()) {
             $this->_addButton('order_unhold', [
                 'label'     => Mage::helper('sales')->__('Unhold'),
-                'onclick'   => $this->getSetLocationJs($this->getUnholdUrl())
+                'onclick'   => JsHelper::getSetLocationJs($this->getUnholdUrl())
             ]);
         }
 
@@ -129,14 +131,14 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             if ($order->canReviewPayment()) {
                 $this->_addButton('accept_payment', [
                     'label'     => Mage::helper('sales')->__('Accept Payment'),
-                    'onclick'   => $this->getConfirmSetLocationJs(
+                    'onclick'   => JsHelper::getConfirmSetLocationJs(
                         $this->getReviewPaymentUrl('accept'),
                         Mage::helper('sales')->__('Are you sure you want to accept this payment?')
                     )
                 ]);
                 $this->_addButton('deny_payment', [
                     'label'     => Mage::helper('sales')->__('Deny Payment'),
-                    'onclick'   => $this->getConfirmSetLocationJs(
+                    'onclick'   => JsHelper::getConfirmSetLocationJs(
                         $this->getReviewPaymentUrl('deny'),
                         Mage::helper('sales')->__('Are you sure you want to deny this payment?')
                     )
@@ -145,7 +147,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             if ($order->canFetchPaymentReviewUpdate()) {
                 $this->_addButton('get_review_payment_update', [
                     'label'     => Mage::helper('sales')->__('Get Payment Update'),
-                    'onclick'   => $this->getSetLocationJs($this->getReviewPaymentUrl('update'))
+                    'onclick'   => JsHelper::getSetLocationJs($this->getReviewPaymentUrl('update'))
                 ]);
             }
         }
@@ -156,7 +158,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
                 Mage::helper('sales')->__('Invoice');
             $this->_addButton('order_invoice', [
                 'label'     => $_label,
-                'onclick'   => $this->getSetLocationJs($this->getInvoiceUrl()),
+                'onclick'   => JsHelper::getSetLocationJs($this->getInvoiceUrl()),
                 'class'     => 'go'
             ]);
         }
@@ -166,15 +168,15 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         ) {
             $this->_addButton('order_ship', [
                 'label'     => Mage::helper('sales')->__('Ship'),
-                'onclick'   => $this->getSetLocationJs($this->getShipUrl()),
+                'onclick'   => JsHelper::getSetLocationJs($this->getShipUrl()),
                 'class'     => 'go'
             ]);
         }
 
         if ($this->_isAllowedAction('creditmemo') && $order->canCreditmemo()) {
-            $onClick = $this->getSetLocationJs($this->getCreditmemoUrl());
+            $onClick = JsHelper::getSetLocationJs($this->getCreditmemoUrl());
             if ($order->getPayment()->getMethodInstance()->isGateway()) {
-                $onClick = $this->getConfirmSetLocationJs(
+                $onClick = JsHelper::getConfirmSetLocationJs(
                     $this->getCreditmemoUrl(),
                     Mage::helper('sales')->__('This will create an offline refund. To create an online refund, open an invoice and create credit memo for it. Do you wish to proceed?')
                 );
@@ -194,7 +196,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         ) {
             $this->_addButton('order_reorder', [
                 'label'     => Mage::helper('sales')->__('Reorder'),
-                'onclick'   => $this->getSetLocationJs($this->getReorderUrl()),
+                'onclick'   => JsHelper::getSetLocationJs($this->getReorderUrl()),
                 'class'     => 'go'
             ]);
         }

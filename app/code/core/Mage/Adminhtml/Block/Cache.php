@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Core_Helper_Js as JsHelper;
+
 /**
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -37,13 +39,13 @@ class Mage_Adminhtml_Block_Cache extends Mage_Adminhtml_Block_Widget_Grid_Contai
         $this->_removeButton('add');
         $this->_addButton('flush_magento', [
             'label'     => Mage::helper('core')->__('Flush OpenMage Cache'),
-            'onclick'   => $this->getSetLocationJs($this->getFlushSystemUrl()),
+            'onclick'   => JsHelper::getSetLocationJs($this->getFlushSystemUrl()),
             'class'     => 'delete',
         ]);
 
         $this->_addButton('flush_system', [
             'label'     => Mage::helper('core')->__('Flush Cache Storage'),
-            'onclick'   => $this->getConfirmSetLocationJs(
+            'onclick'   => JsHelper::getConfirmSetLocationJs(
                 $this->getFlushStorageUrl(),
                 Mage::helper('core')->__('Cache storage may contain additional data. Are you sure that you want flush it?')
             ),

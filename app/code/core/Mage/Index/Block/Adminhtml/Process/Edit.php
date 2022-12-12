@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Core_Helper_Js as JsHelper;
+
 /**
  * @category   Mage
  * @package    Mage_Index
@@ -40,7 +42,7 @@ class Mage_Index_Block_Adminhtml_Process_Edit extends Mage_Adminhtml_Block_Widge
         $this->_updateButton('save', 'label', Mage::helper('cms')->__('Save Process'));
         $this->_addButton('reindex', [
             'label'     => Mage::helper('index')->__('Reindex Data'),
-            'onclick'   => $this->getSetLocationJs($this->getRunUrl())
+            'onclick'   => JsHelper::getSetLocationJs($this->getRunUrl())
         ]);
         $this->_removeButton('reset');
         $this->_removeButton('delete');

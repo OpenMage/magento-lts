@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Core_Helper_Js as JsHelper;
+
 /**
  * Block for Urlrewrites edit form and selectors container
  *
@@ -50,7 +52,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         $this->setTemplate('urlrewrite/edit.phtml');
         $this->_addButton('back', [
             'label'   => Mage::helper('adminhtml')->__('Back'),
-            'onclick' => $this->getSetLocationJs(Mage::helper('adminhtml')->getUrl('*/*/')),
+            'onclick' => JsHelper::getSetLocationJs(Mage::helper('adminhtml')->getUrl('*/*/')),
             'class'   => 'back',
             'level'   => -1
         ]);
@@ -108,7 +110,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                 $this->_updateButton(
                     'back',
                     'onclick',
-                    $this->getSetLocationJs(Mage::helper('adminhtml')->getUrl('*/*/edit') . 'product')
+                    JsHelper::getSetLocationJs(Mage::helper('adminhtml')->getUrl('*/*/edit') . 'product')
                 );
             }
         } elseif ($this->getCategoryId()) { // edit form for category
@@ -182,7 +184,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         $this->_updateButton(
             'back',
             'onclick',
-            $this->getSetLocationJs(Mage::helper('adminhtml')->getUrl('*/*/' . $action, $params) . $suffix)
+            JsHelper::getSetLocationJs(Mage::helper('adminhtml')->getUrl('*/*/' . $action, $params) . $suffix)
         );
 
         return $this;

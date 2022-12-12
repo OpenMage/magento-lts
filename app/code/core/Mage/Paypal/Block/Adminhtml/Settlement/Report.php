@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Core_Helper_Js as JsHelper;
+
 /**
  * Adminhtml paypal settlement reports grid block
  *
@@ -37,7 +39,7 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report extends Mage_Adminhtml_Block
         $this->_removeButton('add');
         $this->_addButton('fetch', [
             'label'   => Mage::helper('paypal')->__('Fetch Updates'),
-            'onclick' => $this->getConfirmSetLocationJs(
+            'onclick' => JsHelper::getConfirmSetLocationJs(
                 $this->getUrl('*/*/fetch'),
                 Mage::helper('paypal')->__('Connecting to PayPal SFTP server to fetch new reports. Are you sure you want to proceed?')
             ),

@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Core_Helper_Js as JsHelper;
+
 /**
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -38,7 +40,7 @@ class Mage_Adminhtml_Block_System_Design extends Mage_Adminhtml_Block_Template
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Add Design Change'),
-                    'onclick'   => $this->getSetLocationJs($this->getUrl('*/*/new')),
+                    'onclick'   => JsHelper::getSetLocationJs($this->getUrl('*/*/new')),
                     'class'     => 'add'
                 ])
         );

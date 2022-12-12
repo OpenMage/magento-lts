@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Core_Helper_Js as JsHelper;
+
 /**
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -50,7 +52,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add extends Mag
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Back'),
-                    'onclick'   => $this->getSetLocationJs($this->getUrl('*/*/')),
+                    'onclick'   => JsHelper::getSetLocationJs($this->getUrl('*/*/')),
                     'class' => 'back'
             ])
         );
