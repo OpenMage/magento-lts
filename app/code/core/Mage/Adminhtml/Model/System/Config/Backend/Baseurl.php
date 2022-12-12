@@ -36,7 +36,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
 
         if ($value === '') {
             $label = $this->getFieldConfig()->descend('label');
-            Mage::throwException(Mage::helper('core')->__('%s cannot be emtpy.', $label));
+            Mage::throwException(Mage::helper('core')->__('"%s" is a required value.', $label));
         }
 
         if (!preg_match('#^{{((un)?secure_)?base_url}}#', $value)) {
