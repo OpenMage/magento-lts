@@ -293,7 +293,7 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
             return $value;
         }
         $this->_connect();
-        return $this->_connection->quote($value);
+        return $this->_connection->quote((string) $value);
     }
 
     /**
