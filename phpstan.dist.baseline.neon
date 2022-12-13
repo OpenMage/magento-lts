@@ -1086,11 +1086,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Shipping/Address.php
 
 		-
-			message: "#^Variable \\$button might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Sidebar.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Sidebar/Compared.php
@@ -3236,21 +3231,6 @@ parameters:
 			path: app/code/core/Mage/Bundle/Model/Resource/Price/Index.php
 
 		-
-			message: "#^Variable \\$priceCond might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Resource/Price/Index.php
-
-		-
-			message: "#^Variable \\$priceTypeCond might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Resource/Price/Index.php
-
-		-
-			message: "#^Variable \\$valueIdCond might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Resource/Price/Index.php
-
-		-
 			message: "#^Variable \\$_items might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/Sales/Order/Pdf/Items/Abstract.php
@@ -5316,16 +5296,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Url.php
 
 		-
-			message: "#^Variable \\$rootCategoryPath might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Url.php
-
-		-
-			message: "#^Variable \\$rootCategoryPathLength might not be defined\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Url.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Resource_Url will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Url.php
@@ -6298,11 +6268,6 @@ parameters:
 		-
 			message: "#^Right side of && is always true\\.$#"
 			count: 1
-			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
-
-		-
-			message: "#^Variable \\$customerRequest might not be defined\\.$#"
-			count: 2
 			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
 
 		-
@@ -11001,11 +10966,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
 
 		-
-			message: "#^Variable \\$address might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
 			message: "#^Variable \\$shippingAddress might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
@@ -13007,16 +12967,6 @@ parameters:
 
 		-
 			message: "#^Variable \\$shipment might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php
-
-		-
-			message: "#^Variable \\$shippingAddress might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php
-
-		-
-			message: "#^Variable \\$shippingMethod might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php
 
@@ -15581,11 +15531,6 @@ parameters:
 			path: get.php
 
 		-
-			message: "#^Variable \\$relativeFilename might not be defined\\.$#"
-			count: 4
-			path: get.php
-
-		-
 			message: "#^Comparison operation \"\\>\\=\" between int\\<0, max\\> and 0 is always true\\.$#"
 			count: 1
 			path: lib/Mage/Archive.php
@@ -16167,7 +16112,7 @@ parameters:
 
 		-
 			message: "#^Variable \\$result might not be defined\\.$#"
-			count: 4
+			count: 3
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
@@ -16597,7 +16542,7 @@ parameters:
 
 		-
 			message: "#^Cannot call method hasData\\(\\) on array\\|\\(callable\\)\\|object\\.$#"
-			count: 2
+			count: 1
 			path: lib/Varien/Object/Mapper.php
 
 		-
