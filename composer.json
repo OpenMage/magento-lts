@@ -78,7 +78,8 @@
     },
     "magento-root-dir": ".",
     "magento-deploystrategy": "copy",
-    "magento-deploystrategy-dev": "symlink"
+    "magento-deploystrategy-dev": "symlink",
+    "magento-force": true
   },
   "config": {
     "allow-plugins": {
