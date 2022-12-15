@@ -54,23 +54,23 @@ class Mage_Core_Block_Text_List_Link extends Mage_Core_Block_Text
         $params = $this->getLiParams();
         if (!empty($params) && is_array($params)) {
             foreach ($params as $key => $value) {
-                $this->addText(' '.$key.'="'.addslashes($value).'"');
+                $this->addText(' ' . $key . '="' . addslashes($value) . '"');
             }
         } elseif (is_string($params)) {
-            $this->addText(' '.$params);
+            $this->addText(' ' . $params);
         }
         $this->addText('><a');
 
         $params = $this->getAParams();
         if (!empty($params) && is_array($params)) {
             foreach ($params as $key => $value) {
-                $this->addText(' '.$key.'="'.addslashes($value).'"');
+                $this->addText(' ' . $key . '="' . addslashes($value) . '"');
             }
         } elseif (is_string($params)) {
-            $this->addText(' '.$params);
+            $this->addText(' ' . $params);
         }
 
-        $this->addText('>'.$this->getInnerText().'</a>'.$this->getAfterText().'</li>'."\r\n");
+        $this->addText('>' . $this->getInnerText() . '</a>' . $this->getAfterText() . '</li>' . "\r\n");
 
         return parent::_toHtml();
     }

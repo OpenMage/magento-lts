@@ -55,9 +55,6 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         $this->renderLayout();
     }
 
-    /**
-     * @return Mage_Newsletter_ManageController
-     */
     public function saveAction()
     {
         if (!$this->_validateFormKey()) {

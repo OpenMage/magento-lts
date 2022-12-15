@@ -29,12 +29,12 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Price conversion constant for positive
      */
-    const PRICE_CONVERSION_PLUS = 1;
+    public const PRICE_CONVERSION_PLUS = 1;
 
     /**
      * Price conversion constat for negative
      */
-    const PRICE_CONVERSION_MINUS = 2;
+    public const PRICE_CONVERSION_MINUS = 2;
 
     protected $_moduleName = 'Mage_Tax';
 
@@ -1133,7 +1133,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get all FPTs
      *
-     * @param null $source
+     * @param mixed|null $source
      * @return array
      * @throws Mage_Core_Model_Store_Exception
      */

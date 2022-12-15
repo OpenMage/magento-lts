@@ -37,22 +37,10 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
      */
     public function getShippingRates()
     {
-
         if (empty($this->_rates)) {
             $this->getAddress()->collectShippingRates()->save();
 
             $groups = $this->getAddress()->getGroupedAllShippingRates();
-            /*
-            if (!empty($groups)) {
-                $ratesFilter = new Varien_Filter_Object_Grid();
-                $ratesFilter->addFilter(Mage::app()->getStore()->getPriceFilter(), 'price');
-
-                foreach ($groups as $code => $groupItems) {
-                    $groups[$code] = $ratesFilter->filter($groupItems);
-                }
-            }
-            */
-
             return $this->_rates = $groups;
         }
 
@@ -76,7 +64,7 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
      */
     public function getCarrierName($carrierCode)
     {
-        if ($name = Mage::getStoreConfig('carriers/'.$carrierCode.'/title')) {
+        if ($name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title')) {
             return $name;
         }
         return $carrierCode;

@@ -33,7 +33,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
     /**
      * Value of fetched from DB of rules per cycle
      */
-    const TAX_RULES_CHUNK_SIZE = 1000;
+    public const TAX_RULES_CHUNK_SIZE = 1000;
 
     protected function _construct()
     {

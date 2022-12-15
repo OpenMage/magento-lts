@@ -32,15 +32,18 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'catalog/products';
+    public const ADMIN_RESOURCE = 'catalog/products';
 
     public function uploadAction()
     {
         try {
             $uploader = new Mage_Core_Model_File_Uploader('image');
             $uploader->setAllowedExtensions(['jpg','jpeg','gif','png']);
-            $uploader->addValidateCallback('catalog_product_image',
-                Mage::helper('catalog/image'), 'validateUploadFile');
+            $uploader->addValidateCallback(
+                'catalog_product_image',
+                Mage::helper('catalog/image'),
+                'validateUploadFile'
+            );
             $uploader->setAllowRenameFiles(true);
             $uploader->setFilesDispersion(true);
             $uploader->addValidateCallback(
@@ -72,7 +75,6 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
                 'path'     => $this->_getSession()->getCookiePath(),
                 'domain'   => $this->_getSession()->getCookieDomain()
             ];
-
         } catch (Exception $e) {
             $result = [
                 'error' => $e->getMessage(),

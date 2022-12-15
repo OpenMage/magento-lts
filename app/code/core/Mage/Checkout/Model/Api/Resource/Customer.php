@@ -31,15 +31,15 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     /**
      * Customer address types
      */
-    const ADDRESS_BILLING    = Mage_Sales_Model_Quote_Address::TYPE_BILLING;
-    const ADDRESS_SHIPPING   = Mage_Sales_Model_Quote_Address::TYPE_SHIPPING;
+    public const ADDRESS_BILLING    = Mage_Sales_Model_Quote_Address::TYPE_BILLING;
+    public const ADDRESS_SHIPPING   = Mage_Sales_Model_Quote_Address::TYPE_SHIPPING;
 
     /**
      * Customer checkout types
      */
-     const MODE_CUSTOMER = Mage_Checkout_Model_Type_Onepage::METHOD_CUSTOMER;
-     const MODE_REGISTER = Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER;
-     const MODE_GUEST    = Mage_Checkout_Model_Type_Onepage::METHOD_GUEST;
+    public const MODE_CUSTOMER = Mage_Checkout_Model_Type_Onepage::METHOD_CUSTOMER;
+    public const MODE_REGISTER = Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER;
+    public const MODE_GUEST    = Mage_Checkout_Model_Type_Onepage::METHOD_GUEST;
 
     /**
      * @param int $customerId
@@ -170,7 +170,8 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
             $billing->setCustomerAddress($customerBilling);
         }
         if ($shipping && ((!$shipping->getCustomerId() && !$shipping->getSameAsBilling())
-            || (!$shipping->getSameAsBilling() && $shipping->getSaveInAddressBook()))) {
+            || (!$shipping->getSameAsBilling() && $shipping->getSaveInAddressBook()))
+        ) {
             $customerShipping = $shipping->exportCustomerAddress();
             $customer->addAddress($customerShipping);
             $shipping->setCustomerAddress($customerShipping);

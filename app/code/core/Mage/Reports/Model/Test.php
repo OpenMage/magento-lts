@@ -33,7 +33,7 @@ class Mage_Reports_Model_Test extends Varien_Object
      */
     public function getUsersCountries()
     {
-        return file_get_contents(Mage::getModuleDir('etc', 'Mage_Reports').DS.'flexTestDataCountries.xml');
+        return file_get_contents(Mage::getModuleDir('etc', 'Mage_Reports') . DS . 'flexTestDataCountries.xml');
     }
 
     /**
@@ -44,14 +44,14 @@ class Mage_Reports_Model_Test extends Varien_Object
     {
         $dom = new DOMDocument();
         $dom -> preserveWhiteSpace = false;
-        $dom -> load(Mage::getModuleDir('etc', 'Mage_Reports').DS.'flexTestDataCities.xml');
+        $dom -> load(Mage::getModuleDir('etc', 'Mage_Reports') . DS . 'flexTestDataCities.xml');
 
         $root = $dom -> documentElement;
         $rows = $root -> getElementsByTagName('row');
 
         $childsToRemove = [];
         for ($i = 0; $i < $rows -> length; $i++) {
-            for ($j = 0; $j < $rows -> item($i) -> childNodes -> length; $j ++) {
+            for ($j = 0; $j < $rows -> item($i) -> childNodes -> length; $j++) {
                 if ($rows -> item($i) -> childNodes -> item($j) -> nodeType == XML_ELEMENT_NODE
                         &&
                     $rows -> item($i) -> childNodes -> item($j) -> nodeName == 'countryId'
@@ -75,7 +75,7 @@ class Mage_Reports_Model_Test extends Varien_Object
      */
     public function getTimelineData()
     {
-        return file_get_contents(Mage::getModuleDir('etc', 'Mage_Reports').DS.'flexTestDataTimeline.xml');
+        return file_get_contents(Mage::getModuleDir('etc', 'Mage_Reports') . DS . 'flexTestDataTimeline.xml');
     }
 
     /**
@@ -85,16 +85,16 @@ class Mage_Reports_Model_Test extends Varien_Object
     {
         $session = Mage::getModel('review/session');
 
-        $startPoint = time() - 24*60*60;
+        $startPoint = time() - 24 * 60 * 60;
 
         $allData = [];
         $countOfStartData = 12;
-        for ($i = 1; $i<= $countOfStartData; $i++) {
-            $allData[] = ['time'=>date("Y-m-d H:i", $startPoint), 'value'=>rand(1, 100)];
-            $startPoint += 30*60;
+        for ($i = 1; $i <= $countOfStartData; $i++) {
+            $allData[] = ['time' => date("Y-m-d H:i", $startPoint), 'value' => rand(1, 100)];
+            $startPoint += 30 * 60;
         }
 
-        $allData[] = ['time'=>date("Y-m-d H:i", $startPoint+(90*60))];
+        $allData[] = ['time' => date("Y-m-d H:i", $startPoint + (90 * 60))];
 
         $session -> setData('startPoint', $startPoint);
 
@@ -113,11 +113,11 @@ class Mage_Reports_Model_Test extends Varien_Object
         $reset = 12;
 
         $newData  = [
-            ['time'=> date("Y-m-d H:i", $startPoint), 'value'=>rand(1, 100)]
+            ['time' => date("Y-m-d H:i", $startPoint), 'value' => rand(1, 100)]
         ];
 
-        $startPoint += 30*60;
-        $newData[]  = ['time'=> date("Y-m-d H:i", $startPoint+(90*60))];
+        $startPoint += 30 * 60;
+        $newData[]  = ['time' => date("Y-m-d H:i", $startPoint + (90 * 60))];
 
         $session->setData('startPoint', $startPoint);
 
@@ -133,7 +133,7 @@ class Mage_Reports_Model_Test extends Varien_Object
     {
         $dom = new DOMDocument();
         $dom -> preserveWhiteSpace = false;
-        $dom -> loadXML("<"."?xml version=\"1.0\" encoding=\"UTF-8\"?".">\n<dataSource></dataSource>");
+        $dom -> loadXML("<" . "?xml version=\"1.0\" encoding=\"UTF-8\"?" . ">\n<dataSource></dataSource>");
         $root = $dom ->documentElement;
         if ($reset) {
             $resetItem = $dom -> createElement("reset");

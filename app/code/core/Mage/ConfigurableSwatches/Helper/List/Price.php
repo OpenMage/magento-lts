@@ -31,7 +31,7 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
     /**
      * Path to to check is it required to change prices
      */
-    const XML_PATH_SWATCH_PRICE = 'configswatches/general/product_list_price_change';
+    public const XML_PATH_SWATCH_PRICE = 'configswatches/general/product_list_price_change';
 
     protected $_moduleName = 'Mage_ConfigurableSwatches';
 
@@ -51,7 +51,7 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
         foreach ($products as $product) {
             /** @var Mage_Catalog_Model_Product $product */
             if ($product->getTypeId() !== Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE
-               && !is_array($product->getChildrenProducts())
+                && !is_array($product->getChildrenProducts())
             ) {
                 continue;
             }

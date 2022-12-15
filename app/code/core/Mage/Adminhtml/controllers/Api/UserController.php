@@ -30,7 +30,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/api/users';
+    public const ADMIN_RESOURCE = 'system/api/users';
 
     /**
      * Controller pre-dispatch method
@@ -160,17 +160,17 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
 
             try {
                 $model->save();
-                if ( $uRoles = $this->getRequest()->getParam('roles', false) ) {
+                if ($uRoles = $this->getRequest()->getParam('roles', false)) {
                     if (count($uRoles) === 1) {
                         $model->setRoleIds($uRoles)
                             ->setRoleUserId($model->getUserId())
                             ->saveRelations();
-                    } else if (count($uRoles) > 1) {
+                    } elseif (count($uRoles) > 1) {
                         //@FIXME: stupid fix of previous multi-roles logic.
                         //@TODO:  make proper DB upgrade in the future revisions.
                         $rs = [];
                         $rs[0] = $uRoles[0];
-                        $model->setRoleIds( $rs )->setRoleUserId( $model->getUserId() )->saveRelations();
+                        $model->setRoleIds($rs)->setRoleUserId($model->getUserId())->saveRelations();
                     }
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been saved.'));
@@ -211,8 +211,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', ['user_id' => $id]);
                 return;

@@ -50,7 +50,6 @@ class Mage_Adminhtml_Block_System_Store_Delete extends Mage_Adminhtml_Block_Widg
             'label'     => Mage::helper('adminhtml')->__('Cancel'),
             'onclick'   => 'setLocation(\'' . $this->getBackUrl() . '\')',
         ], 2, 100, 'footer');
-
     }
 
     /**

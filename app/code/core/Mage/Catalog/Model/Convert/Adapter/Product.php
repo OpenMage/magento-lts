@@ -30,8 +30,8 @@
  */
 class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_Adapter_Entity
 {
-    const MULTI_DELIMITER   = ' , ';
-    const ENTITY            = 'catalog_product_import';
+    public const MULTI_DELIMITER   = ' , ';
+    public const ENTITY            = 'catalog_product_import';
 
     protected $_eventPrefix = 'catalog_product_import';
 
@@ -403,7 +403,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
                 $this->_inventoryFields[] = $code;
                 if ($node->is('use_config')) {
-                    $this->_inventoryFields[] = 'use_config_'.$code;
+                    $this->_inventoryFields[] = 'use_config_' . $code;
                 }
             }
             if ($node->is('required')) {
@@ -493,7 +493,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
         $collections = $this->getData();
         if ($collections instanceof Mage_Catalog_Model_Resource_Product_Collection) {
-            $collections = [$collections->getEntity()->getStoreId()=>$collections];
+            $collections = [$collections->getEntity()->getStoreId() => $collections];
         } elseif (!is_array($collections)) {
             $this->addException(
                 Mage::helper('catalog')->__('No product collections found.'),
@@ -559,16 +559,16 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                             foreach ($stock as $field => $value) {
                                 if (!$stockItemId) {
                                     if (in_array($field, $this->_configs)) {
-                                        $stockItem->setData('use_config_'.$field, 0);
+                                        $stockItem->setData('use_config_' . $field, 0);
                                     }
-                                    $stockItem->setData($field, $value?$value:0);
+                                    $stockItem->setData($field, $value ? $value : 0);
                                 } else {
                                     if (in_array($field, $this->_configs)) {
-                                        if ($data['use_config_'.$field] == 0) {
-                                            $stockItem->setData($field, $value?$value:0);
+                                        if ($data['use_config_' . $field] == 0) {
+                                            $stockItem->setData($field, $value ? $value : 0);
                                         }
                                     } else {
-                                        $stockItem->setData($field, $value?$value:0);
+                                        $stockItem->setData($field, $value ? $value : 0);
                                     }
                                 }
                             }

@@ -39,7 +39,7 @@
  * @method string getRoleName()
  * @method $this setRoleName(string $value)
  * @method string getName()
- * @method Mage_Api_Model_Role setName() setName(string $name)
+ * @method $this setName(string $name)
  * @method int getPid()
  */
 class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
@@ -130,10 +130,10 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
             $level = -1;
         } else {
             $resourceName = $parentName;
-            if ($resource->getName()!='title' && $resource->getName()!='sort_order'
+            if ($resource->getName() != 'title' && $resource->getName() != 'sort_order'
                 && $resource->getName() != 'children'
             ) {
-                $resourceName = (is_null($parentName) ? '' : $parentName.'/').$resource->getName();
+                $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
 
                 //assigning module for its' children nodes
                 if ($resource->getAttribute('module')) {
@@ -164,7 +164,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
             }
         }
         foreach ($children as $child) {
-            $this->_buildResourcesArray($child, $resourceName, $level+1, $represent2Darray, $rawNodes, $module);
+            $this->_buildResourcesArray($child, $resourceName, $level + 1, $represent2Darray, $rawNodes, $module);
         }
         if ($rawNodes) {
             return $resource;

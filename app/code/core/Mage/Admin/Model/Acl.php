@@ -37,31 +37,31 @@ class Mage_Admin_Model_Acl extends Zend_Acl
      * All the group roles are prepended by G
      *
      */
-    const ROLE_TYPE_GROUP = 'G';
+    public const ROLE_TYPE_GROUP = 'G';
 
     /**
      * All the user roles are prepended by U
      *
      */
-    const ROLE_TYPE_USER = 'U';
+    public const ROLE_TYPE_USER = 'U';
 
     /**
      * Permission level to deny access
      *
      */
-    const RULE_PERM_DENY = 0;
+    public const RULE_PERM_DENY = 0;
 
     /**
      * Permission level to inheric access from parent role
      *
      */
-    const RULE_PERM_INHERIT = 1;
+    public const RULE_PERM_INHERIT = 1;
 
     /**
      * Permission level to allow access
      *
      */
-    const RULE_PERM_ALLOW = 2;
+    public const RULE_PERM_ALLOW = 2;
 
     /**
      * Get role registry object or create one

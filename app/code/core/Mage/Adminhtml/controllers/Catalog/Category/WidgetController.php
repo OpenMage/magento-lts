@@ -32,7 +32,7 @@ class Mage_Adminhtml_Catalog_Category_WidgetController extends Mage_Adminhtml_Co
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'cms/widget_instance';
+    public const ADMIN_RESOURCE = 'cms/widget_instance';
 
     /**
      * Chooser Source action
@@ -50,7 +50,6 @@ class Mage_Adminhtml_Catalog_Category_WidgetController extends Mage_Adminhtml_Co
     public function categoriesJsonAction()
     {
         if ($categoryId = (int) $this->getRequest()->getPost('id')) {
-
             $category = Mage::getModel('catalog/category')->load($categoryId);
             if ($category->getId()) {
                 Mage::register('category', $category);

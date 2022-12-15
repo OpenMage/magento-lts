@@ -33,7 +33,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Translate extends Mage_Core_Mod
      *
      * @var string
      */
-    const XML_PATH_INVALID_CACHES = 'dev/translate_inline/invalid_caches';
+    public const XML_PATH_INVALID_CACHES = 'dev/translate_inline/invalid_caches';
 
     /**
      * Set status 'invalidate' for blocks and other output caches

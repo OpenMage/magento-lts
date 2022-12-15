@@ -210,7 +210,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
                     '1',
                     '0'
                 )
-            ) . " > 0 AND ".
+            ) . " > 0 AND " .
             $write->getCheckSql(
                 $specialTo . ' IS NULL',
                 '1',
@@ -422,7 +422,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
             $tierExpr = $write->getCheckSql(
                 'i.base_tier IS NOT NULL',
                 $write->getCheckSql(
-                    $selectionPriceType .' = 1',
+                    $selectionPriceType . ' = 1',
                     'ROUND(i.base_tier - (i.base_tier * (' . $selectionPriceValue . ' / 100)),2)',
                     $write->getCheckSql(
                         'i.tier_percent > 0',
@@ -437,7 +437,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
             $groupExpr = $write->getCheckSql(
                 'i.base_group_price IS NOT NULL',
                 $write->getCheckSql(
-                    $selectionPriceType .' = 1',
+                    $selectionPriceType . ' = 1',
                     $priceExpr,
                     $write->getCheckSql(
                         'i.group_price_percent > 0',

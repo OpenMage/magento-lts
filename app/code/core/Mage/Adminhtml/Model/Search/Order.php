@@ -55,16 +55,16 @@ class Mage_Adminhtml_Model_Search_Order extends Varien_Object
         $collection = Mage::getResourceModel('sales/order_collection')
             ->addAttributeToSelect('*')
             ->addAttributeToSearchFilter([
-                ['attribute' => 'increment_id',       'like'=>$query.'%'],
-                ['attribute' => 'billing_firstname',  'like'=>$query.'%'],
-                ['attribute' => 'billing_lastname',   'like'=>$query.'%'],
-                ['attribute' => 'billing_telephone',  'like'=>$query.'%'],
-                ['attribute' => 'billing_postcode',   'like'=>$query.'%'],
+                ['attribute' => 'increment_id',       'like' => $query . '%'],
+                ['attribute' => 'billing_firstname',  'like' => $query . '%'],
+                ['attribute' => 'billing_lastname',   'like' => $query . '%'],
+                ['attribute' => 'billing_telephone',  'like' => $query . '%'],
+                ['attribute' => 'billing_postcode',   'like' => $query . '%'],
 
-                ['attribute' => 'shipping_firstname', 'like'=>$query.'%'],
-                ['attribute' => 'shipping_lastname',  'like'=>$query.'%'],
-                ['attribute' => 'shipping_telephone', 'like'=>$query.'%'],
-                ['attribute' => 'shipping_postcode',  'like'=>$query.'%'],
+                ['attribute' => 'shipping_firstname', 'like' => $query . '%'],
+                ['attribute' => 'shipping_lastname',  'like' => $query . '%'],
+                ['attribute' => 'shipping_telephone', 'like' => $query . '%'],
+                ['attribute' => 'shipping_postcode',  'like' => $query . '%'],
             ])
             ->setCurPage($this->getStart())
             ->setPageSize($this->getLimit())
@@ -72,12 +72,12 @@ class Mage_Adminhtml_Model_Search_Order extends Varien_Object
 
         foreach ($collection as $order) {
             $arr[] = [
-                'id'                => 'order/1/'.$order->getId(),
+                'id'                => 'order/1/' . $order->getId(),
                 'type'              => Mage::helper('adminhtml')->__('Order'),
                 'name'              => Mage::helper('adminhtml')->__('Order #%s', $order->getIncrementId()),
-                'description'       => $order->getBillingFirstname().' '.$order->getBillingLastname(),
-                'form_panel_title'  => Mage::helper('adminhtml')->__('Order #%s (%s)', $order->getIncrementId(), $order->getBillingFirstname().' '.$order->getBillingLastname()),
-                'url' => Mage::helper('adminhtml')->getUrl('*/sales_order/view', ['order_id'=>$order->getId()]),
+                'description'       => $order->getBillingFirstname() . ' ' . $order->getBillingLastname(),
+                'form_panel_title'  => Mage::helper('adminhtml')->__('Order #%s (%s)', $order->getIncrementId(), $order->getBillingFirstname() . ' ' . $order->getBillingLastname()),
+                'url' => Mage::helper('adminhtml')->getUrl('*/sales_order/view', ['order_id' => $order->getId()]),
             ];
         }
 

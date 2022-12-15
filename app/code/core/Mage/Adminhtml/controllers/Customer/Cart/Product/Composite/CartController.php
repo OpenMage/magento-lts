@@ -32,7 +32,7 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'customer/manage';
+    public const ADMIN_RESOURCE = 'customer/manage';
 
     /**
      * Customer we're working with

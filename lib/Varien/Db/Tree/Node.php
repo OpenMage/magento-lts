@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Db
+ * @category   Varien
+ * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -21,8 +21,8 @@
 
 require_once 'Varien/Db/Tree/Node/Exception.php';
 
-class Varien_Db_Tree_Node {
-
+class Varien_Db_Tree_Node
+{
     private $left;
     private $right;
     private $id;
@@ -40,7 +40,7 @@ class Varien_Db_Tree_Node {
      * @param array $keys
      * @throws Varien_Db_Tree_Node_Exception
      */
-    function __construct($nodeData, $keys)
+    public function __construct($nodeData, $keys)
     {
         if (empty($nodeData)) {
             throw new Varien_Db_Tree_Node_Exception('Empty array of node information');
@@ -64,7 +64,8 @@ class Varien_Db_Tree_Node {
         return $this;
     }
 
-    function getData($name) {
+    public function getData($name)
+    {
         if (isset($this->data[$name])) {
             return $this->data[$name];
         } else {
@@ -72,23 +73,28 @@ class Varien_Db_Tree_Node {
         }
     }
 
-    function getLevel() {
+    public function getLevel()
+    {
         return $this->level;
     }
 
-    function getLeft() {
+    public function getLeft()
+    {
         return $this->left;
     }
 
-    function getRight() {
+    public function getRight()
+    {
         return $this->right;
     }
 
-    function getPid() {
+    public function getPid()
+    {
         return $this->pid;
     }
 
-    function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -97,7 +103,8 @@ class Varien_Db_Tree_Node {
      *
      * @return boolean
      */
-    function isParent() {
+    public function isParent()
+    {
         if ($this->right - $this->left > 1) {
             return true;
         } else {

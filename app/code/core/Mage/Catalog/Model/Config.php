@@ -30,7 +30,7 @@
  */
 class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
 {
-    const XML_PATH_LIST_DEFAULT_SORT_BY     = 'catalog/frontend/default_sort_by';
+    public const XML_PATH_LIST_DEFAULT_SORT_BY     = 'catalog/frontend/default_sort_by';
 
     protected $_attributeSetsById;
     protected $_attributeSetsByName;
@@ -63,7 +63,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
 
     protected $_storeId = null;
 
-    const XML_PATH_PRODUCT_COLLECTION_ATTRIBUTES = 'frontend/product/collection/attributes';
+    public const XML_PATH_PRODUCT_COLLECTION_ATTRIBUTES = 'frontend/product/collection/attributes';
 
     protected function _construct()
     {
@@ -278,7 +278,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     public function getSourceOptionId($source, $value)
     {
         foreach ($source->getAllOptions() as $option) {
-            if (strcasecmp($option['label'], $value)==0 || $option['value'] == $value) {
+            if (strcasecmp($option['label'], $value) == 0 || $option['value'] == $value) {
                 return $option['value'];
             }
         }

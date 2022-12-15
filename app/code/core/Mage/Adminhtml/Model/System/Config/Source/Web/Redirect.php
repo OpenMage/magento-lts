@@ -29,9 +29,9 @@ class Mage_Adminhtml_Model_System_Config_Source_Web_Redirect
     public function toOptionArray()
     {
         return [
-            ['value' => 0, 'label'=>Mage::helper('adminhtml')->__('No')],
-            ['value' => 1, 'label'=>Mage::helper('adminhtml')->__('Yes (302 Found)')],
-            ['value' => 301, 'label'=>Mage::helper('adminhtml')->__('Yes (301 Moved Permanently)')],
+            ['value' => 0, 'label' => Mage::helper('adminhtml')->__('No')],
+            ['value' => 1, 'label' => Mage::helper('adminhtml')->__('Yes (302 Found)')],
+            ['value' => 301, 'label' => Mage::helper('adminhtml')->__('Yes (301 Moved Permanently)')],
         ];
     }
 }

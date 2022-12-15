@@ -144,7 +144,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     public function getCustomerUses($rule, $customerId)
     {
         $read = $this->_getReadAdapter();
-        $select = $read->select()->from($this->getTable('rule_customer'), ['cnt'=>'count(*)'])
+        $select = $read->select()->from($this->getTable('rule_customer'), ['cnt' => 'count(*)'])
             ->where('rule_id = :rule_id')
             ->where('customer_id = :customer_id');
         return $read->fetchOne($select, [':rule_id' => $rule->getRuleId(), ':customer_id' => $customerId]);
@@ -300,11 +300,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     public function getProductAttributes($serializedString)
     {
         $result = [];
-        if (preg_match_all(
-            '~s:32:"salesrule/rule_condition_product";s:9:"attribute";s:\d+:"(.*?)"~s',
-            $serializedString,
-            $matches
-        )) {
+        if (preg_match_all('~s:32:"salesrule/rule_condition_product";s:9:"attribute";s:\d+:"(.*?)"~s', $serializedString, $matches)) {
             foreach ($matches[1] as $offset => $attributeCode) {
                 $result[] = $attributeCode;
             }

@@ -44,7 +44,7 @@ class Mage_Core_Block_Template_Zend extends Mage_Core_Block_Template
 
     /**
      * @param array|string $key
-     * @param null $value
+     * @param array|string|null $value
      * @return $this|Mage_Core_Block_Template
      * @throws Zend_View_Exception
      */
@@ -66,7 +66,7 @@ class Mage_Core_Block_Template_Zend extends Mage_Core_Block_Template
      */
     public function setScriptPath($dir)
     {
-        $this->_view->setScriptPath($dir.DS);
+        $this->_view->setScriptPath($dir . DS);
     }
 
     /**

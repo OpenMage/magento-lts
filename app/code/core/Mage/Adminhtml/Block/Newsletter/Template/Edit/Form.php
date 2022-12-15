@@ -47,8 +47,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
     {
         $model  = $this->getModel();
         $identity = Mage::getStoreConfig(Mage_Newsletter_Model_Subscriber::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY);
-        $identityName = Mage::getStoreConfig('trans_email/ident_'.$identity.'/name');
-        $identityEmail = Mage::getStoreConfig('trans_email/ident_'.$identity.'/email');
+        $identityName = Mage::getStoreConfig('trans_email/ident_' . $identity . '/name');
+        $identityEmail = Mage::getStoreConfig('trans_email/ident_' . $identity . '/email');
 
         $form   = new Varien_Data_Form([
             'id'        => 'edit_form',
@@ -85,7 +85,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
         ]);
 
         $fieldset->addField('sender_name', 'text', [
-            'name'      =>'sender_name',
+            'name'      => 'sender_name',
             'label'     => Mage::helper('newsletter')->__('Sender Name'),
             'title'     => Mage::helper('newsletter')->__('Sender Name'),
             'required'  => true,
@@ -95,7 +95,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
         ]);
 
         $fieldset->addField('sender_email', 'text', [
-            'name'      =>'sender_email',
+            'name'      => 'sender_email',
             'label'     => Mage::helper('newsletter')->__('Sender Email'),
             'title'     => Mage::helper('newsletter')->__('Sender Email'),
             'class'     => 'validate-email',
@@ -123,7 +123,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
 
         if (!$model->isPlain()) {
             $fieldset->addField('template_styles', 'textarea', [
-                'name'          =>'styles',
+                'name'          => 'styles',
                 'label'         => Mage::helper('newsletter')->__('Template Styles'),
                 'container_id'  => 'field_template_styles',
                 'value'         => $model->getTemplateStyles()

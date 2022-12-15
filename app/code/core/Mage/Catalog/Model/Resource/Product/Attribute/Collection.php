@@ -53,7 +53,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
         foreach ($columns as $labelColumn => $columnData) {
             $retColumns[$labelColumn] = $labelColumn;
             if ($columnData['DATA_TYPE'] == Varien_Db_Ddl_Table::TYPE_TEXT) {
-                $retColumns[$labelColumn] = $helper->castField('main_table.'.$labelColumn);
+                $retColumns[$labelColumn] = $helper->castField('main_table.' . $labelColumn);
             }
         }
         $this->getSelect()
@@ -191,7 +191,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
     public function addSearchableAttributeFilter()
     {
         $this->getSelect()->where(
-            'additional_table.is_searchable = 1 OR '.
+            'additional_table.is_searchable = 1 OR ' .
             $this->getConnection()->quoteInto('main_table.attribute_code IN (?)', ['status', 'visibility'])
         );
 

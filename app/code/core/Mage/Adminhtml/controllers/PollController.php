@@ -32,7 +32,7 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'cms/poll';
+    public const ADMIN_RESOURCE = 'cms/poll';
 
     public function indexAction()
     {
@@ -84,8 +84,7 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The poll has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
                 return;
@@ -113,27 +112,27 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
         $response = new Varien_Object();
         $response->setError(false);
 
-        if ( $this->getRequest()->getPost() ) {
+        if ($this->getRequest()->getPost()) {
             try {
                 $pollModel = Mage::getModel('poll/poll');
 
                 $now = Varien_Date::now();
-                if( !$this->getRequest()->getParam('id') ) {
+                if (!$this->getRequest()->getParam('id')) {
                     $pollModel->setDatePosted($now);
                 }
 
-                if( $this->getRequest()->getParam('closed') && !$this->getRequest()->getParam('was_closed') ) {
+                if ($this->getRequest()->getParam('closed') && !$this->getRequest()->getParam('was_closed')) {
                     $pollModel->setDateClosed($now);
                 }
 
-                if( !$this->getRequest()->getParam('closed') ) {
+                if (!$this->getRequest()->getParam('closed')) {
                     $pollModel->setDateClosed(new Zend_Db_Expr('null'));
                 }
 
                 $pollModel->setPollTitle($this->getRequest()->getParam('poll_title'))
                       ->setClosed($this->getRequest()->getParam('closed'));
 
-                if( $this->getRequest()->getParam('id') > 0 ) {
+                if ($this->getRequest()->getParam('id') > 0) {
                     $pollModel->setId($this->getRequest()->getParam('id'));
                 }
 
@@ -146,11 +145,11 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
                     $storeIds = [];
                     foreach ($stores as $storeIdList) {
                         $storeIdList = explode(',', $storeIdList);
-                        if(!$storeIdList) {
+                        if (!$storeIdList) {
                             continue;
                         }
-                        foreach($storeIdList as $storeId) {
-                            if( $storeId > 0 ) {
+                        foreach ($storeIdList as $storeId) {
+                            if ($storeId > 0) {
                                 $storeIds[] = $storeId;
                             }
                         }
@@ -163,20 +162,20 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
 
                 $answers = $this->getRequest()->getParam('answer');
 
-                if( !is_array($answers) || !count($answers) ) {
+                if (!is_array($answers) || !count($answers)) {
                     Mage::throwException(Mage::helper('adminhtml')->__('Please, add some answers to this poll first.'));
                 }
 
-                if( is_array($answers) ) {
+                if (is_array($answers)) {
                     $_titles = [];
-                    foreach( $answers as $key => $answer ) {
-                        if( in_array($answer['title'], $_titles) ) {
+                    foreach ($answers as $key => $answer) {
+                        if (in_array($answer['title'], $_titles)) {
                             Mage::throwException(Mage::helper('adminhtml')->__('Your answers contain duplicates.'));
                         }
                         $_titles[] = $answer['title'];
 
                         $answerModel = Mage::getModel('poll/poll_answer');
-                        if( intval($key) > 0 ) {
+                        if (intval($key) > 0) {
                             $answerModel->setId($key);
                         }
                         $answerModel->setAnswerTitle($answer['title'])
@@ -191,15 +190,14 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
                 Mage::register('current_poll_model', $pollModel);
 
                 $answersDelete = $this->getRequest()->getParam('deleteAnswer');
-                if( is_array($answersDelete) ) {
-                    foreach( $answersDelete as $answer ) {
+                if (is_array($answersDelete)) {
+                    foreach ($answersDelete as $answer) {
                         $answerModel = Mage::getModel('poll/poll_answer');
                         $answerModel->setId($answer)
                             ->delete();
                     }
                 }
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_initLayoutMessages('adminhtml/session');
                 $response->setError(true);

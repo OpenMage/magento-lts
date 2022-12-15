@@ -28,17 +28,17 @@
  */
 class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
 {
-    const APPLY_FOR_PRODUCT     = 1;
-    const APPLY_FOR_CATEGORY    = 2;
+    public const APPLY_FOR_PRODUCT     = 1;
+    public const APPLY_FOR_CATEGORY    = 2;
 
     /**
      * @deprecated after 1.4.1.0
      * Category / Custom Design / Apply To constants
      */
-    const CATEGORY_APPLY_CATEGORY_AND_PRODUCT_RECURSIVE = 1;
-    const CATEGORY_APPLY_CATEGORY_ONLY                  = 2;
-    const CATEGORY_APPLY_CATEGORY_AND_PRODUCT_ONLY      = 3;
-    const CATEGORY_APPLY_CATEGORY_RECURSIVE             = 4;
+    public const CATEGORY_APPLY_CATEGORY_AND_PRODUCT_RECURSIVE = 1;
+    public const CATEGORY_APPLY_CATEGORY_ONLY                  = 2;
+    public const CATEGORY_APPLY_CATEGORY_AND_PRODUCT_ONLY      = 3;
+    public const CATEGORY_APPLY_CATEGORY_RECURSIVE             = 4;
 
     /**
      * Apply design from catalog object
@@ -214,7 +214,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                 if ($category &&
                     $category->getId() &&
                     $category->getLevel() > 1 &&
-                    $category->getId() != Mage_Catalog_Model_Category::TREE_ROOT_ID) {
+                    $category->getId() != Mage_Catalog_Model_Category::TREE_ROOT_ID
+                ) {
                     return $this->_inheritDesign($category, $calledFrom);
                 }
             }
@@ -259,12 +260,12 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        $pass ++;
+        $pass++;
 
         $category = null;
         if ($object instanceof Mage_Catalog_Model_Product) {
             $category = $object->getCategory();
-            $pass --;
+            $pass--;
         } elseif ($object instanceof Mage_Catalog_Model_Category) {
             $category = $object->getParentCategory();
         }
@@ -304,7 +305,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             }
         }
 
-        $pass ++;
+        $pass++;
 
         if ($loaded === false && is_object($designUpdateData)) {
             $_designUpdateData = [];
@@ -314,7 +315,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                     $_designUpdateData,
                     [$_category]
                 );
-                $pass --;
+                $pass--;
             } elseif ($designUpdateData instanceof Mage_Catalog_Model_Category) {
                 $_category = &$designUpdateData;
             }
@@ -355,7 +356,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                 return $this->_extractSettings($object);
             }
         } else {
-             return $this->_extractSettings($category);
+            return $this->_extractSettings($category);
         }
     }
 
@@ -367,13 +368,14 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      */
     protected function _extractSettings($object)
     {
-        $settings = new Varien_Object;
+        $settings = new Varien_Object();
         if (!$object) {
             return $settings;
         }
         $date = $object->getCustomDesignDate();
         if (array_key_exists('from', $date) && array_key_exists('to', $date)
-            && Mage::app()->getLocale()->isStoreDateInInterval(null, $date['from'], $date['to'])) {
+            && Mage::app()->getLocale()->isStoreDateInInterval(null, $date['from'], $date['to'])
+        ) {
             $customLayout = $object->getCustomLayoutUpdate();
             if ($customLayout) {
                 try {

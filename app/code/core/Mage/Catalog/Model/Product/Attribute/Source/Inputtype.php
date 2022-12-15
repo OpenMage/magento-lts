@@ -47,7 +47,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Inputtype extends Mage_Eav_Mod
 
         $response = new Varien_Object();
         $response->setTypes([]);
-        Mage::dispatchEvent('adminhtml_product_attribute_types', ['response'=>$response]);
+        Mage::dispatchEvent('adminhtml_product_attribute_types', ['response' => $response]);
         $_disabledTypes = [];
         $_hiddenFields = [];
         foreach ($response->getTypes() as $type) {

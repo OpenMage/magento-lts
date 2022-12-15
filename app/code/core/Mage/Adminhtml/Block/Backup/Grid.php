@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->getMassactionBlock()->setFormFieldName('ids');
 
         $this->getMassactionBlock()->addItem('delete', [
-             'label'=> Mage::helper('adminhtml')->__('Delete'),
+             'label' => Mage::helper('adminhtml')->__('Delete'),
              'url'  => $this->getUrl('*/*/massDelete'),
              'confirm' => Mage::helper('backup')->__('Are you sure you want to delete the selected backup(s)?')
         ]);
@@ -108,13 +108,13 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->addColumn('download', [
             'header'    => Mage::helper('backup')->__('Download'),
             'format'    => '<a href="' . $this->getUrl('*/*/download', ['time' => '$time', 'type' => '$type'])
-                . '">$extension</a> &nbsp; <small>('.$url7zip.')</small>',
+                . '">$extension</a> &nbsp; <small>(' . $url7zip . ')</small>',
             'index'     => 'type',
             'sortable'  => false,
             'filter'    => false
         ]);
 
-        if (Mage::helper('backup')->isRollbackAllowed()){
+        if (Mage::helper('backup')->isRollbackAllowed()) {
             $this->addColumn('action', [
                     'header'   => Mage::helper('backup')->__('Action'),
                     'type'     => 'action',

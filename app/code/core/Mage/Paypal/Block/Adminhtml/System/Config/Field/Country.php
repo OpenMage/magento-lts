@@ -32,8 +32,8 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Admin
      *
      * Request parameters names
      */
-    const REQUEST_PARAM_COUNTRY = 'country';
-    const REQUEST_PARAM_DEFAULT = 'default_country';
+    public const REQUEST_PARAM_COUNTRY = 'country';
+    public const REQUEST_PARAM_DEFAULT = 'default_country';
     /**#@-*/
 
     /**

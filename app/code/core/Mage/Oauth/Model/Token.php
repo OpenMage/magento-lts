@@ -32,50 +32,50 @@
  * @method Mage_Oauth_Model_Resource_Token getResource()
  * @method Mage_Oauth_Model_Resource_Token _getResource()
  * @method int getConsumerId()
- * @method Mage_Oauth_Model_Token setConsumerId() setConsumerId(int $consumerId)
+ * @method $this setConsumerId(int $consumerId)
  * @method int getAdminId()
- * @method Mage_Oauth_Model_Token setAdminId() setAdminId(int $adminId)
+ * @method $this setAdminId(int $adminId)
  * @method int getCustomerId()
- * @method Mage_Oauth_Model_Token setCustomerId() setCustomerId(int $customerId)
+ * @method $this setCustomerId(int $customerId)
  * @method string getType()
- * @method Mage_Oauth_Model_Token setType() setType(string $type)
+ * @method $this setType(string $type)
  * @method string getVerifier()
- * @method Mage_Oauth_Model_Token setVerifier() setVerifier(string $verifier)
+ * @method $this setVerifier(string $verifier)
  * @method string getCallbackUrl()
- * @method Mage_Oauth_Model_Token setCallbackUrl() setCallbackUrl(string $callbackUrl)
+ * @method $this setCallbackUrl(string $callbackUrl)
  * @method string getCreatedAt()
- * @method Mage_Oauth_Model_Token setCreatedAt() setCreatedAt(string $createdAt)
+ * @method $this setCreatedAt(string $createdAt)
  * @method string getToken()
- * @method Mage_Oauth_Model_Token setToken() setToken(string $token)
+ * @method $this setToken(string $token)
  * @method string getSecret()
- * @method Mage_Oauth_Model_Token setSecret() setSecret(string $tokenSecret)
+ * @method $this setSecret(string $tokenSecret)
  * @method int getRevoked()
- * @method Mage_Oauth_Model_Token setRevoked() setRevoked(int $revoked)
+ * @method $this setRevoked(int $revoked)
  * @method int getAuthorized()
- * @method Mage_Oauth_Model_Token setAuthorized() setAuthorized(int $authorized)
+ * @method $this setAuthorized(int $authorized)
  */
 class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
 {
     /**#@+
      * Token types
      */
-    const TYPE_REQUEST = 'request';
-    const TYPE_ACCESS  = 'access';
+    public const TYPE_REQUEST = 'request';
+    public const TYPE_ACCESS  = 'access';
     /**#@- */
 
     /**#@+
      * Lengths of token fields
      */
-    const LENGTH_TOKEN    = 32;
-    const LENGTH_SECRET   = 32;
-    const LENGTH_VERIFIER = 32;
+    public const LENGTH_TOKEN    = 32;
+    public const LENGTH_SECRET   = 32;
+    public const LENGTH_VERIFIER = 32;
     /**#@- */
 
     /**#@+
      * Customer types
      */
-    const USER_TYPE_ADMIN    = 'admin';
-    const USER_TYPE_CUSTOMER = 'customer';
+    public const USER_TYPE_ADMIN    = 'admin';
+    public const USER_TYPE_CUSTOMER = 'customer';
     /**#@- */
 
     /**
@@ -145,7 +145,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
      */
     public function convertToAccess()
     {
-        if (Mage_Oauth_Model_Token::TYPE_REQUEST != $this->getType()) {
+        if (self::TYPE_REQUEST != $this->getType()) {
             Mage::throwException('Can not convert due to token is not request type');
         }
         /** @var Mage_Oauth_Helper_Data $helper */

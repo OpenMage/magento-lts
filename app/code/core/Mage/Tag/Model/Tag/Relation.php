@@ -52,14 +52,14 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
     /**
      * Relation statuses
      */
-    const STATUS_ACTIVE     = 1;
-    const STATUS_NOT_ACTIVE = 0;
+    public const STATUS_ACTIVE     = 1;
+    public const STATUS_NOT_ACTIVE = 0;
 
     /**
      * Entity code.
      * Can be used as part of method name for entity processing
      */
-    const ENTITY = 'tag_relation';
+    public const ENTITY = 'tag_relation';
 
     protected function _construct()
     {

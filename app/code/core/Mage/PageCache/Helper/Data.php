@@ -31,21 +31,21 @@ class Mage_PageCache_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Pathes to external cache config options
      */
-    const XML_PATH_EXTERNAL_CACHE_ENABLED  = 'system/external_page_cache/enabled';
-    const XML_PATH_EXTERNAL_CACHE_LIFETIME = 'system/external_page_cache/cookie_lifetime';
-    const XML_PATH_EXTERNAL_CACHE_CONTROL  = 'system/external_page_cache/control';
+    public const XML_PATH_EXTERNAL_CACHE_ENABLED  = 'system/external_page_cache/enabled';
+    public const XML_PATH_EXTERNAL_CACHE_LIFETIME = 'system/external_page_cache/cookie_lifetime';
+    public const XML_PATH_EXTERNAL_CACHE_CONTROL  = 'system/external_page_cache/control';
 
     /**
      * Path to external cache controls
      */
-    const XML_PATH_EXTERNAL_CACHE_CONTROLS = 'global/external_cache/controls';
+    public const XML_PATH_EXTERNAL_CACHE_CONTROLS = 'global/external_cache/controls';
 
     /**
      * Cookie name for disabling external caching
      *
      * @var string
      */
-    const NO_CACHE_COOKIE = 'external_no_cache';
+    public const NO_CACHE_COOKIE = 'external_no_cache';
 
     protected $_moduleName = 'Mage_PageCache';
 
@@ -56,7 +56,7 @@ class Mage_PageCache_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isEnabled()
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_EXTERNAL_CACHE_ENABLED);
+        return Mage::getStoreConfigFlag(self::XML_PATH_EXTERNAL_CACHE_ENABLED);
     }
 
     /**

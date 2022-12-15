@@ -60,7 +60,8 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
     protected function _loadVersionData($needType)
     {
         if ((($needType == 'db') && is_null(self::$_versions))
-            || (($needType == 'data') && is_null(self::$_dataVersions))) {
+            || (($needType == 'data') && is_null(self::$_dataVersions))
+        ) {
             self::$_versions     = []; // Db version column always exists
             self::$_dataVersions = null; // Data version array will be filled only if Data column exist
 

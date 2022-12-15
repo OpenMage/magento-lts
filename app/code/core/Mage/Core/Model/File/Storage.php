@@ -31,18 +31,18 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
     /**
      * Storage systems ids
      */
-    const STORAGE_MEDIA_FILE_SYSTEM         = 0;
-    const STORAGE_MEDIA_DATABASE            = 1;
+    public const STORAGE_MEDIA_FILE_SYSTEM         = 0;
+    public const STORAGE_MEDIA_DATABASE            = 1;
 
     /**
      * Config pathes for storing storage configuration
      */
-    const XML_PATH_STORAGE_MEDIA            = 'default/system/media_storage_configuration/media_storage';
-    const XML_PATH_STORAGE_MEDIA_DATABASE   = 'default/system/media_storage_configuration/media_database';
-    const XML_PATH_MEDIA_RESOURCE_WHITELIST = 'default/system/media_storage_configuration/allowed_resources';
-    const XML_PATH_MEDIA_RESOURCE_IGNORED   = 'default/system/media_storage_configuration/ignored_resources';
-    const XML_PATH_MEDIA_LOADED_MODULES     = 'default/system/media_storage_configuration/loaded_modules';
-    const XML_PATH_MEDIA_UPDATE_TIME        = 'system/media_storage_configuration/configuration_update_time';
+    public const XML_PATH_STORAGE_MEDIA            = 'default/system/media_storage_configuration/media_storage';
+    public const XML_PATH_STORAGE_MEDIA_DATABASE   = 'default/system/media_storage_configuration/media_database';
+    public const XML_PATH_MEDIA_RESOURCE_WHITELIST = 'default/system/media_storage_configuration/allowed_resources';
+    public const XML_PATH_MEDIA_RESOURCE_IGNORED   = 'default/system/media_storage_configuration/ignored_resources';
+    public const XML_PATH_MEDIA_LOADED_MODULES     = 'default/system/media_storage_configuration/loaded_modules';
+    public const XML_PATH_MEDIA_UPDATE_TIME        = 'system/media_storage_configuration/configuration_update_time';
 
     /**
      * Prefix of model events names

@@ -113,7 +113,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
         }
         if (($size = count($options))) {
             $selectBlock = new Mage_Core_Block_Html_Select([
-                'name'         => $this->getFilterElementName($attribute->getAttributeCode()). '[]',
+                'name'         => $this->getFilterElementName($attribute->getAttributeCode()) . '[]',
                 'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
                 'class'        => 'multiselect',
                 'extra_params' => 'multiple="multiple" size="' . ($size > 5 ? 5 : ($size < 2 ? 2 : $size))
@@ -251,7 +251,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
         }
         if (($size = count($options))) {
             $selectBlock = new Mage_Core_Block_Html_Select([
-                'name'         => $this->getFilterElementName($attribute->getAttributeCode()). '[]',
+                'name'         => $this->getFilterElementName($attribute->getAttributeCode()) . '[]',
                 'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
                 'class'        => 'multiselect multiselect-export-filter',
                 'extra_params' => 'multiple="multiple" size="' . ($size > 5 ? 5 : ($size < 2 ? 2 : $size))

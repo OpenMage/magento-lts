@@ -33,7 +33,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
      *
      * @var string
      */
-    const VAR_DIRECTORY = 'var';
+    public const VAR_DIRECTORY = 'var';
     /**
      * Flag cache for existing or already created directories
      *
@@ -46,25 +46,25 @@ class Mage_Core_Model_Config_Options extends Varien_Object
      */
     protected function _construct()
     {
-        $appRoot= Mage::getRoot();
+        $appRoot = Mage::getRoot();
         $root   = dirname($appRoot);
 
         $this->_data['app_dir']     = $appRoot;
         $this->_data['base_dir']    = $root;
-        $this->_data['code_dir']    = $appRoot.DS.'code';
-        $this->_data['design_dir']  = $appRoot.DS.'design';
-        $this->_data['etc_dir']     = $appRoot.DS.'etc';
-        $this->_data['lib_dir']     = $root.DS.'lib';
-        $this->_data['locale_dir']  = $appRoot.DS.'locale';
-        $this->_data['media_dir']   = $root.DS.'media';
-        $this->_data['skin_dir']    = $root.DS.'skin';
+        $this->_data['code_dir']    = $appRoot . DS . 'code';
+        $this->_data['design_dir']  = $appRoot . DS . 'design';
+        $this->_data['etc_dir']     = $appRoot . DS . 'etc';
+        $this->_data['lib_dir']     = $root . DS . 'lib';
+        $this->_data['locale_dir']  = $appRoot . DS . 'locale';
+        $this->_data['media_dir']   = $root . DS . 'media';
+        $this->_data['skin_dir']    = $root . DS . 'skin';
         $this->_data['var_dir']     = $this->getVarDir();
-        $this->_data['tmp_dir']     = $this->_data['var_dir'].DS.'tmp';
-        $this->_data['cache_dir']   = $this->_data['var_dir'].DS.'cache';
-        $this->_data['log_dir']     = $this->_data['var_dir'].DS.'log';
-        $this->_data['session_dir'] = $this->_data['var_dir'].DS.'session';
-        $this->_data['upload_dir']  = $this->_data['media_dir'].DS.'upload';
-        $this->_data['export_dir']  = $this->_data['var_dir'].DS.'export';
+        $this->_data['tmp_dir']     = $this->_data['var_dir'] . DS . 'tmp';
+        $this->_data['cache_dir']   = $this->_data['var_dir'] . DS . 'cache';
+        $this->_data['log_dir']     = $this->_data['var_dir'] . DS . 'log';
+        $this->_data['session_dir'] = $this->_data['var_dir'] . DS . 'session';
+        $this->_data['upload_dir']  = $this->_data['media_dir'] . DS . 'upload';
+        $this->_data['export_dir']  = $this->_data['var_dir'] . DS . 'export';
     }
 
     /**
@@ -74,10 +74,10 @@ class Mage_Core_Model_Config_Options extends Varien_Object
      */
     public function getDir($type)
     {
-        $method = 'get'.ucwords($type).'Dir';
+        $method = 'get' . ucwords($type) . 'Dir';
         $dir = $this->$method();
         if (!$dir) {
-            throw Mage::exception('Mage_Core', 'Invalid dir type requested: '.$type);
+            throw Mage::exception('Mage_Core', 'Invalid dir type requested: ' . $type);
         }
         return $dir;
     }
@@ -180,7 +180,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
         //$dir = $this->getDataSetDefault('var_dir', $this->getBaseDir().DS.'var');
         $dir = $this->_data['var_dir'] ?? ($this->_data['base_dir'] . DS . self::VAR_DIRECTORY);
         if (!$this->createDirIfNotExists($dir)) {
-            $dir = $this->getSysTmpDir().DS.'magento'.DS.'var';
+            $dir = $this->getSysTmpDir() . DS . 'magento' . DS . 'var';
             if (!$this->createDirIfNotExists($dir)) {
                 throw new Mage_Core_Exception('Unable to find writable var_dir');
             }
@@ -197,7 +197,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
         //$dir = $this->getDataSetDefault('tmp_dir', $this->getVarDir().DS.'tmp');
         $dir = $this->_data['tmp_dir'];
         if (!$this->createDirIfNotExists($dir)) {
-            $dir = $this->getSysTmpDir().DS.'magento'.DS.'tmp';
+            $dir = $this->getSysTmpDir() . DS . 'magento' . DS . 'tmp';
             if (!$this->createDirIfNotExists($dir)) {
                 throw new Mage_Core_Exception('Unable to find writable tmp_dir');
             }

@@ -26,7 +26,7 @@
  */
 class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
 {
-    const XML_PATH_DISPLAY_LAYER_COUNT = 'catalog/search/use_layered_navigation_count';
+    public const XML_PATH_DISPLAY_LAYER_COUNT = 'catalog/search/use_layered_navigation_count';
 
     /**
      * Get current layer product collection
@@ -78,7 +78,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     {
         if ($this->_stateKey === null) {
             $this->_stateKey = 'Q_' . Mage::helper('catalogsearch')->getQuery()->getId()
-                . '_'. parent::getStateKey();
+                . '_' . parent::getStateKey();
         }
         return $this->_stateKey;
     }

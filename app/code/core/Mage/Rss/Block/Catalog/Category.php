@@ -36,7 +36,8 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
         /*
         * setting cache to save the rss for 10 minutes
         */
-        $this->setCacheKey('rss_catalog_category_'
+        $this->setCacheKey(
+            'rss_catalog_category_'
             . $this->getRequest()->getParam('cid') . '_'
             . $this->getRequest()->getParam('store_id') . '_'
             . Mage::getModel('customer/session')->getId()
@@ -75,7 +76,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                 $_collection->addAttributeToSelect('url_key')
                     ->addAttributeToSelect('name')
                     ->addAttributeToSelect('is_anchor')
-                    ->addAttributeToFilter('is_active',1)
+                    ->addAttributeToFilter('is_active', 1)
                     ->addIdFilter($category->getChildren())
                     ->load()
                 ;
@@ -91,13 +92,13 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                 */
                 $_productCollection = $currentCategory
                     ->getProductCollection()
-                    ->addAttributeToSort('updated_at','desc')
+                    ->addAttributeToSort('updated_at', 'desc')
                     ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds())
                     ->setCurPage(1)
                     ->setPageSize(50)
                 ;
 
-                if ($_productCollection->getSize()>0) {
+                if ($_productCollection->getSize() > 0) {
                     $args = ['rssObj' => $rssObj];
                     foreach ($_productCollection as $_product) {
                         $args['product'] = $_product;
@@ -130,13 +131,13 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
         $helper = $this->helper('catalog/image');
 
         $description = '<table><tr>'
-                     . '<td><a href="'.$product->getProductUrl().'"><img src="'
+                     . '<td><a href="' . $product->getProductUrl() . '"><img src="'
                      . $helper->init($product, 'thumbnail')->resize(75, 75)
                      . '" border="0" align="left" height="75" width="75"></a></td>'
                      . '<td  style="text-decoration:none;">' . $product->getDescription();
 
         if ($product->getAllowedPriceInRss()) {
-            $description.= $this->getPriceHtml($product,true);
+            $description .= $this->getPriceHtml($product, true);
         }
 
         $description .= '</td></tr></table>';

@@ -30,8 +30,8 @@
  */
 class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block_Cart_Item_Renderer
 {
-    const GROUPED_PRODUCT_IMAGE = 'checkout/cart/grouped_product_image';
-    const USE_PARENT_IMAGE      = 'parent';
+    public const GROUPED_PRODUCT_IMAGE = 'checkout/cart/grouped_product_image';
+    public const USE_PARENT_IMAGE      = 'parent';
 
     /**
      * Get item grouped product
@@ -56,8 +56,9 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
     {
         $product = $this->getProduct();
         if (!$product->getData('thumbnail')
-            ||($product->getData('thumbnail') === 'no_selection')
-            || (Mage::getStoreConfig(self::GROUPED_PRODUCT_IMAGE) === self::USE_PARENT_IMAGE)) {
+            || ($product->getData('thumbnail') === 'no_selection')
+            || (Mage::getStoreConfig(self::GROUPED_PRODUCT_IMAGE) === self::USE_PARENT_IMAGE)
+        ) {
             $product = $this->getGroupedProduct();
         }
 

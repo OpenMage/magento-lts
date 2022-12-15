@@ -75,6 +75,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', ['id'=>$row->getAttributeSetId()]);
+        return $this->getUrl('*/*/edit', ['id' => $row->getAttributeSetId()]);
     }
 }

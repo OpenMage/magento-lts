@@ -31,7 +31,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * @deprecated since 1.5.0.0
      */
-    const CHECKSUM_KEY_NAME= 'Checksum';
+    public const CHECKSUM_KEY_NAME = 'Checksum';
 
     /**
      * Cached resources singleton
@@ -435,7 +435,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         $this->_beforeSave($object);
         $this->_checkUnique($object);
         if (!is_null($object->getId()) && (!$this->_useIsObjectNew || !$object->isObjectNew())) {
-            $condition = $this->_getWriteAdapter()->quoteInto($this->getIdFieldName().'=?', $object->getId());
+            $condition = $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $object->getId());
             /**
              * Not auto increment primary key support
              */
@@ -493,7 +493,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         // update
         if (!is_null($object->getId()) && $this->_isPkAutoIncrement) {
             unset($bind[$this->getIdFieldName()]);
-            $condition = $adapter->quoteInto($this->getIdFieldName().'=?', $object->getId());
+            $condition = $adapter->quoteInto($this->getIdFieldName() . '=?', $object->getId());
             $adapter->update($this->getMainTable(), $bind, $condition);
         } else {
             $adapter->insertOnDuplicate($this->getMainTable(), $bind, $this->_fieldsForUpdate);
@@ -547,7 +547,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     public function resetUniqueField()
     {
         $this->_uniqueFields = [];
-         return $this;
+        return $this;
     }
 
     /**

@@ -30,8 +30,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Source_Dutypaymenttype
     {
         $dhl = Mage::getSingleton('usa/shipping_carrier_dhl');
         $arr = [];
-        foreach ($dhl->getCode('dutypayment_type') as $k=>$v) {
-            $arr[] = ['value'=>$k, 'label'=>$v];
+        foreach ($dhl->getCode('dutypayment_type') as $k => $v) {
+            $arr[] = ['value' => $k, 'label' => $v];
         }
         return $arr;
     }

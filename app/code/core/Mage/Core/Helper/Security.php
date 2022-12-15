@@ -47,7 +47,8 @@ class Mage_Core_Helper_Security
             $calledMethod = strtolower($method);
             if (($block instanceof $action['block'] && strtolower($action['method']) === $calledMethod)
                 || ($block instanceof $action['block']
-                    && strtolower($action['block'] . '::' . $action['method']) === $calledMethod)) {
+                    && strtolower($action['block'] . '::' . $action['method']) === $calledMethod)
+            ) {
                 Mage::throwException(
                     sprintf('Action with combination block %s and method %s is forbidden.', get_class($block), $method)
                 );

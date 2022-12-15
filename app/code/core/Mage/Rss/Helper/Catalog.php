@@ -36,9 +36,9 @@ class Mage_Rss_Helper_Catalog extends Mage_Core_Helper_Abstract
     public function getTagFeedUrl()
     {
         $url = '';
-        if(Mage::getStoreConfig('rss/catalog/tag') && $this->_getRequest()->getParam('tagId')){
+        if (Mage::getStoreConfig('rss/catalog/tag') && $this->_getRequest()->getParam('tagId')) {
             $tagModel = Mage::getModel('tag/tag')->load($this->_getRequest()->getParam('tagId'));
-            if($tagModel && $tagModel->getId()){
+            if ($tagModel && $tagModel->getId()) {
                 return Mage::getUrl('rss/catalog/tag', ['tagName' => urlencode($tagModel->getName())]);
             }
         }

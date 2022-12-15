@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Autoload
+ * @category   Varien
+ * @package    Varien_Autoload
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2018 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -27,14 +27,14 @@ class Varien_Autoload
     /**
      * @var Varien_Autoload
      */
-    static protected $_instance;
+    protected static $_instance;
 
     /**
      * Singleton pattern implementation
      *
      * @return Varien_Autoload
      */
-    static public function instance()
+    public static function instance()
     {
         if (!self::$_instance) {
             self::$_instance = new Varien_Autoload();
@@ -45,9 +45,9 @@ class Varien_Autoload
     /**
      * Register SPL autoload function
      */
-    static public function register()
+    public static function register()
     {
-        spl_autoload_register(array(self::instance(), 'autoload'));
+        spl_autoload_register([self::instance(), 'autoload']);
     }
 
     /**

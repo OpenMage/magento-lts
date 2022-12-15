@@ -31,22 +31,22 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Used for "name" attribute of captcha's input field
      */
-    const INPUT_NAME_FIELD_VALUE = 'captcha';
+    public const INPUT_NAME_FIELD_VALUE = 'captcha';
 
     /**
      * Always show captcha
      */
-    const MODE_ALWAYS     = 'always';
+    public const MODE_ALWAYS     = 'always';
 
     /**
      * Show captcha only after certain number of unsuccessful attempts
      */
-    const MODE_AFTER_FAIL = 'after_fail';
+    public const MODE_AFTER_FAIL = 'after_fail';
 
     /**
      * Captcha fonts path
      */
-    const XML_PATH_CAPTCHA_FONTS = 'default/captcha/fonts';
+    public const XML_PATH_CAPTCHA_FONTS = 'default/captcha/fonts';
 
     protected $_moduleName = 'Mage_Captcha';
 
@@ -103,7 +103,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getFonts()
     {
-        $node = Mage::getConfig()->getNode(Mage_Captcha_Helper_Data::XML_PATH_CAPTCHA_FONTS);
+        $node = Mage::getConfig()->getNode(self::XML_PATH_CAPTCHA_FONTS);
         $fonts = [];
         if ($node) {
             foreach ($node->children() as $fontName => $fontNode) {

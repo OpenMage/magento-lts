@@ -55,7 +55,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     /**
      * @param Mage_Media_Model_Image $object
      * @param mixed $file
-     * @param null $field
+     * @param mixed|null $field
      * @return $this
      */
     public function load(Mage_Media_Model_Image $object, $file, $field = null)
@@ -211,7 +211,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
             Mage::throwException(Mage::helper('media')->__('The image does not exist or is invalid.'));
         }
 
-        $info = ['width'=>$info[0], 'height'=>$info[1], 'type'=>$info[2]];
+        $info = ['width' => $info[0], 'height' => $info[1], 'type' => $info[2]];
         return new Varien_Object($info);
     }
 

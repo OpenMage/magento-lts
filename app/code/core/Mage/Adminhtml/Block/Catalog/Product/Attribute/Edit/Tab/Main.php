@@ -26,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
-    extends Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
+class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
 {
     /**
      * Adding product form elements for editing attribute
@@ -73,7 +72,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
 
         $response = new Varien_Object();
         $response->setTypes([]);
-        Mage::dispatchEvent('adminhtml_product_attribute_types', ['response'=>$response]);
+        Mage::dispatchEvent('adminhtml_product_attribute_types', ['response' => $response]);
         $_disabledTypes = [];
         $_hiddenFields = [];
         foreach ($response->getTypes() as $type) {
@@ -94,13 +93,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
         $yesnoSource = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
 
         $scopes = [
-            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE =>Mage::helper('catalog')->__('Store View'),
-            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE =>Mage::helper('catalog')->__('Website'),
-            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL =>Mage::helper('catalog')->__('Global'),
+            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE => Mage::helper('catalog')->__('Store View'),
+            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE => Mage::helper('catalog')->__('Website'),
+            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL => Mage::helper('catalog')->__('Global'),
         ];
 
-        if (
-            $attributeObject->getAttributeCode() === 'status'
+        if ($attributeObject->getAttributeCode() === 'status'
             || $attributeObject->getAttributeCode() === 'tax_class_id'
         ) {
             unset($scopes[Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE]);
@@ -111,7 +109,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
             'label' => Mage::helper('catalog')->__('Scope'),
             'title' => Mage::helper('catalog')->__('Scope'),
             'note'  => Mage::helper('catalog')->__('Declare attribute value saving scope'),
-            'values'=> $scopes
+            'values' => $scopes
         ], 'attribute_code');
 
         $fieldset->addField('apply_to', 'apply', [
@@ -132,7 +130,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
         ], 'apply_to');
 
         // frontend properties fieldset
-        $fieldset = $form->addFieldset('front_fieldset', ['legend'=>Mage::helper('catalog')->__('Frontend Properties')]);
+        $fieldset = $form->addFieldset('front_fieldset', ['legend' => Mage::helper('catalog')->__('Frontend Properties')]);
 
         $fieldset->addField('is_searchable', 'select', [
             'name'     => 'is_searchable',
@@ -246,8 +244,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
             ->addFieldMap("is_html_allowed_on_front", 'html_allowed_on_front')
             ->addFieldMap("frontend_input", 'frontend_input_type')
             ->addFieldDependence('wysiwyg_enabled', 'frontend_input_type', 'textarea')
-            ->addFieldDependence('html_allowed_on_front', 'wysiwyg_enabled', '0')
-        );
+            ->addFieldDependence('html_allowed_on_front', 'wysiwyg_enabled', '0'));
 
         Mage::dispatchEvent('adminhtml_catalog_product_attribute_edit_prepare_form', [
             'form'      => $form,

@@ -1,23 +1,18 @@
-name: XML Validation
+name: XML Syntax
 
 on:
-  # Run on all pushes and on all pull requests.
-  # Prevent the build from running when there are only irrelevant changes.
-  push:
-    paths:
-      - '**.xml'
-      - '.github/workflows/syntax-xml.yml'
-  pull_request:
-    paths:
-      - '**.xml'
-      - '.github/workflows/syntax-xml.yml'
+  # Run automatically every Monday on midnight.
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_call:
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
 jobs:
-  validate:
+  syntax_xml:
+    name: XML Validation
     runs-on: [ubuntu-latest]
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3

@@ -42,8 +42,8 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
         if (is_string($value)) {
             $select = $this->_getReadAdapter()->select()
                 ->from($this->getMainTable())
-                ->where($this->getMainTable().'.string=:tr_string');
-            $result = $this->_getReadAdapter()->fetchRow($select, ['tr_string'=>$value]);
+                ->where($this->getMainTable() . '.string=:tr_string');
+            $result = $this->_getReadAdapter()->fetchRow($select, ['tr_string' => $value]);
             $object->setData($result);
             $this->_afterLoad($object);
             return $result;
@@ -121,8 +121,8 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
 
         if (is_array($translations)) {
             foreach ($translations as $storeId => $translate) {
-                if (is_null($translate) || $translate=='') {
-                     $where = [
+                if (is_null($translate) || $translate == '') {
+                    $where = [
                         'store_id = ?'    => $storeId,
                         'string = ?'      => $object->getString()
                      ];

@@ -149,7 +149,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
      */
     protected function _getItemsData()
     {
-        $key = $this->getLayer()->getStateKey().'_SUBCATEGORIES';
+        $key = $this->getLayer()->getStateKey() . '_SUBCATEGORIES';
         $data = $this->getLayer()->getAggregator()->getCacheData($key);
 
         if ($data === null) {

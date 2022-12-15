@@ -53,10 +53,10 @@
  */
 class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Mage_Core_Model_Url_Rewrite_Interface
 {
-    const TYPE_CATEGORY = 1;
-    const TYPE_PRODUCT  = 2;
-    const TYPE_CUSTOM   = 3;
-    const REWRITE_REQUEST_PATH_ALIAS = 'rewrite_request_path';
+    public const TYPE_CATEGORY = 1;
+    public const TYPE_PRODUCT  = 2;
+    public const TYPE_CUSTOM   = 3;
+    public const REWRITE_REQUEST_PATH_ALIAS = 'rewrite_request_path';
 
     /**
      * Cache tag for clear cache in after save and after delete
@@ -126,7 +126,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
         $search = $this->getResourceCollection();
         foreach ($loadTags as $k => $t) {
             if (!is_numeric($k)) {
-                $t = $k.'='.$t;
+                $t = $k . '=' . $t;
             }
             $search->addTagsFilter($t);
         }
@@ -136,7 +136,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
         $search->setPageSize(1)->load();
 
-        if ($search->getSize()>0) {
+        if ($search->getSize() > 0) {
             /** @var Mage_Core_Model_Url_Rewrite $rewrite */
             foreach ($search as $rewrite) {
                 $this->setData($rewrite->getData());
@@ -169,7 +169,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
         foreach ($addTags as $k => $t) {
             if (!is_numeric($k)) {
-                $t = $k.'='.$t;
+                $t = $k . '=' . $t;
             }
             if (!in_array($t, $curTags)) {
                 $curTags[] = $t;
@@ -193,7 +193,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
         foreach ($removeTags as $k => $t) {
             if (!is_numeric($k)) {
-                $t = $k.'='.$t;
+                $t = $k . '=' . $t;
             }
             if ($key = array_search($t, $curTags)) {
                 unset($curTags[$key]);
@@ -270,7 +270,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
             $this->setStoreId($currentStore->getId())->loadByIdPath($this->getIdPath());
 
             Mage::app()->getCookie()->set(Mage_Core_Model_Store::COOKIE_NAME, $currentStore->getCode(), true);
-            $targetUrl = $request->getBaseUrl(). '/' . $this->getRequestPath();
+            $targetUrl = $request->getBaseUrl() . '/' . $this->getRequestPath();
 
             $this->_sendRedirectHeaders($targetUrl, true);
         }
@@ -288,24 +288,24 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
             $this->_sendRedirectHeaders($this->getTargetPath(), $isPermanentRedirectOption);
         } else {
-            $targetUrl = $request->getBaseUrl(). '/' . $this->getTargetPath();
+            $targetUrl = $request->getBaseUrl() . '/' . $this->getTargetPath();
         }
         $isRedirectOption = $this->hasOption('R');
         if ($isRedirectOption || $isPermanentRedirectOption) {
             if (Mage::getStoreConfig('web/url/use_store') && $storeCode = Mage::app()->getStore()->getCode()) {
-                $targetUrl = $request->getBaseUrl(). '/' . $storeCode . '/' .$this->getTargetPath();
+                $targetUrl = $request->getBaseUrl() . '/' . $storeCode . '/' . $this->getTargetPath();
             }
 
             $this->_sendRedirectHeaders($targetUrl, $isPermanentRedirectOption);
         }
 
         if (Mage::getStoreConfig('web/url/use_store') && $storeCode = Mage::app()->getStore()->getCode()) {
-                $targetUrl = $request->getBaseUrl(). '/' . $storeCode . '/' .$this->getTargetPath();
+            $targetUrl = $request->getBaseUrl() . '/' . $storeCode . '/' . $this->getTargetPath();
         }
 
         $queryString = $this->_getQueryString();
         if ($queryString) {
-            $targetUrl .= '?'.$queryString;
+            $targetUrl .= '?' . $queryString;
         }
 
         $request->setRequestUri($targetUrl);

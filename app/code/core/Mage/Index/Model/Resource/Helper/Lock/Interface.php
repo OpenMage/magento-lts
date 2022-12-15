@@ -31,7 +31,7 @@ interface Mage_Index_Model_Resource_Helper_Lock_Interface
     /**
      * Timeout for lock get proc.
      */
-    const LOCK_GET_TIMEOUT = 5;
+    public const LOCK_GET_TIMEOUT = 5;
 
     /**
      * Set lock

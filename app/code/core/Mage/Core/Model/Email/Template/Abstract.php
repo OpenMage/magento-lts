@@ -34,11 +34,11 @@
  */
 abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_Template
 {
-    const XML_PATH_DESIGN_EMAIL_LOGO            = 'design/email/logo';
-    const XML_PATH_DESIGN_EMAIL_LOGO_ALT        = 'design/email/logo_alt';
-    const XML_PATH_DESIGN_EMAIL_LOGO_WIDTH      = 'design/email/logo_width';
-    const XML_PATH_DESIGN_EMAIL_LOGO_HEIGHT     = 'design/email/logo_height';
-    const XML_PATH_CSS_NON_INLINE_FILES         = 'design/email/css_non_inline';
+    public const XML_PATH_DESIGN_EMAIL_LOGO            = 'design/email/logo';
+    public const XML_PATH_DESIGN_EMAIL_LOGO_ALT        = 'design/email/logo_alt';
+    public const XML_PATH_DESIGN_EMAIL_LOGO_WIDTH      = 'design/email/logo_width';
+    public const XML_PATH_DESIGN_EMAIL_LOGO_HEIGHT     = 'design/email/logo_height';
+    public const XML_PATH_CSS_NON_INLINE_FILES         = 'design/email/css_non_inline';
 
     protected $_cssFileCache = [];
 
@@ -81,7 +81,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             $storeId = $this->getDesignConfig()->getStore();
 
             $data = &$defaultTemplates[$templateId];
-            $this->setTemplateType($data['type']=='html' ? self::TYPE_HTML : self::TYPE_TEXT);
+            $this->setTemplateType($data['type'] == 'html' ? self::TYPE_HTML : self::TYPE_TEXT);
 
             $localeCode = Mage::getStoreConfig('general/locale/code', $storeId);
             $templateText = Mage::app()->getTranslator()->getTemplateFile(
@@ -197,13 +197,10 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             // Only run Emogrify if HTML exists
             if (strlen($html) && $inlineCssFile) {
                 $cssToInline = $this->_getCssFileContent($inlineCssFile);
-                $emogrifier = new Pelago_Emogrifier();
-                $emogrifier->setHtml($html);
-                $emogrifier->setCss($cssToInline);
-                // Don't parse inline <style> tags, since existing tag is intentionally for no-inline styles
-                $emogrifier->setParseInlineStyleTags(false);
-
-                $processedHtml = $emogrifier->emogrify();
+                $emogrifier = \Pelago\Emogrifier\CssInliner::fromHtml($html)
+                    ->inlineCss($cssToInline)
+                    ->disableInlineStyleAttributesParsing();
+                $processedHtml = $emogrifier->render();
             } else {
                 $processedHtml = $html;
             }

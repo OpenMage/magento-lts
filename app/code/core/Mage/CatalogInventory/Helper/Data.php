@@ -26,18 +26,18 @@
  */
 class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_SHOW_OUT_OF_STOCK    = 'cataloginventory/options/show_out_of_stock';
-    const XML_PATH_ITEM_AUTO_RETURN     = 'cataloginventory/item_options/auto_return';
+    public const XML_PATH_SHOW_OUT_OF_STOCK    = 'cataloginventory/options/show_out_of_stock';
+    public const XML_PATH_ITEM_AUTO_RETURN     = 'cataloginventory/item_options/auto_return';
     /**
      * Path to configuration option 'Display product stock status'
      */
-    const XML_PATH_DISPLAY_PRODUCT_STOCK_STATUS = 'cataloginventory/options/display_product_stock_status';
+    public const XML_PATH_DISPLAY_PRODUCT_STOCK_STATUS = 'cataloginventory/options/display_product_stock_status';
 
     /**
      * Error codes, that Catalog Inventory module can set to quote or quote items
      */
-    const ERROR_QTY =               1;
-    const ERROR_QTY_INCREMENTS =    2;
+    public const ERROR_QTY =               1;
+    public const ERROR_QTY_INCREMENTS =    2;
 
     protected $_moduleName = 'Mage_CatalogInventory';
 

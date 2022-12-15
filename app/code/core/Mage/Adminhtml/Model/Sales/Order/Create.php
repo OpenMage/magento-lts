@@ -292,10 +292,13 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
          * Initialize catalog rule data with new session values
          */
         $this->initRuleData();
-        foreach ($order->getItemsCollection(
+
+        $itemsCollection = $order->getItemsCollection(
             array_keys(Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()),
             true
-        ) as $orderItem) {
+        );
+
+        foreach ($itemsCollection as $orderItem) {
             /** @var Mage_Sales_Model_Order_Item $orderItem */
             if (!$orderItem->getParentItem()) {
                 if ($order->getReordered()) {
@@ -966,7 +969,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     {
         if ($optionIds = $item->getOptionByCode('option_ids')) {
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
-                $item->removeOption('option_'.$optionId);
+                $item->removeOption('option_' . $optionId);
             }
             $item->removeOption('option_ids');
         }
@@ -987,7 +990,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 $item->addOption(new Varien_Object(
                     [
                         'product' => $item->getProduct(),
-                        'code' => 'option_'.$optionId,
+                        'code' => 'option_' . $optionId,
                         'value' => $optionValue
                     ]
                 ));
@@ -1018,7 +1021,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         if ($optionIds = $item->getOptionByCode('option_ids')) {
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
                 $option = $item->getProduct()->getOptionById($optionId);
-                $optionValue = $item->getOptionByCode('option_'.$optionId)->getValue();
+                $optionValue = $item->getOptionByCode('option_' . $optionId)->getValue();
 
                 $group = Mage::getSingleton('catalog/product_option')->groupFactory($option->getType())
                     ->setOption($option)
@@ -1033,7 +1036,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     protected function _parseCustomPrice($price)
     {
         $price = Mage::app()->getLocale()->getNumber($price);
-        $price = $price>0 ? $price : 0;
+        $price = $price > 0 ? $price : 0;
         return $price;
     }
 
@@ -1535,8 +1538,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 'original_increment_id'     => $originalId,
                 'relation_parent_id'        => $oldOrder->getId(),
                 'relation_parent_real_id'   => $oldOrder->getIncrementId(),
-                'edit_increment'            => $oldOrder->getEditIncrement()+1,
-                'increment_id'              => $originalId.'-'.($oldOrder->getEditIncrement()+1)
+                'edit_increment'            => $oldOrder->getEditIncrement() + 1,
+                'increment_id'              => $originalId . '-' . ($oldOrder->getEditIncrement() + 1)
             ];
             $quote->setReservedOrderId($orderData['increment_id']);
             $service->setOrderData($orderData);
@@ -1653,7 +1656,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 ->getStore()
                 ->getConfig(Mage_Customer_Model_Customer::XML_PATH_DEFAULT_EMAIL_DOMAIN);
             $account = $customer->getIncrementId() ? $customer->getIncrementId() : time();
-            $email = $account.'@'. $host;
+            $email = $account . '@' . $host;
             $account = $this->getData('account');
             $account['email'] = $email;
             $this->setData('account', $account);

@@ -110,7 +110,6 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      */
     public function getProducts($product = null, $lastEntityId = 0, $limit = 100)
     {
-
         $select = $this->_getReadAdapter()->select()
             ->from(
                 ['e' => $this->getTable('catalog/product')],
@@ -834,11 +833,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         $specialPrice       = $priceData['special_price'];
 
         if (!is_null($specialPrice) && $specialPrice != false) {
-            if (Mage::app()->getLocale()->isStoreDateInInterval(
-                $store,
-                $priceData['special_from_date'],
-                $priceData['special_to_date']
-            )) {
+            if (Mage::app()->getLocale()->isStoreDateInInterval($store, $priceData['special_from_date'], $priceData['special_to_date'])) {
                 $specialPrice   = ($finalPrice * $specialPrice) / 100;
                 $finalPrice     = min($finalPrice, $specialPrice);
             }

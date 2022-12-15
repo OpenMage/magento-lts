@@ -50,7 +50,7 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
             $this->getRequest()->getParam('item'),
             $this->getRequest()->getParam('type'),
             $this->getRequest()->getParam('message'),
-            ['uniqueId'=>$this->getRequest()->getParam('uniqueId')]
+            ['uniqueId' => $this->getRequest()->getParam('uniqueId')]
         );
     }
 
@@ -93,7 +93,7 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
         return $helper->getRemoveUrl(
             $this->getRequest()->getParam('item'),
             $this->getRequest()->getParam('type'),
-            ['uniqueId'=>$this->getRequest()->getParam('uniqueId')]
+            ['uniqueId' => $this->getRequest()->getParam('uniqueId')]
         );
     }
 

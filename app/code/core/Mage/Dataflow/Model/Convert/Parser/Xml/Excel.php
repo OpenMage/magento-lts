@@ -55,8 +55,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         try {
             $adapter = Mage::getModel($adapterName);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $message = Mage::helper('dataflow')->__('Declared adapter %s was not found.', $adapterName);
             $this->addException($message, Mage_Dataflow_Model_Convert_Exception::FATAL);
             return $this;
@@ -118,20 +117,17 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                     $xmlString = substr($xmlTmpString, $strposF);
                     $isWorksheet = true;
                     continue;
-                }
-                else {
-                    if (preg_match('/ss:Name=\"'.preg_quote($worksheet, '/').'\"/siU', substr($xmlTmpString, 0, $strposF))) {
+                } else {
+                    if (preg_match('/ss:Name=\"' . preg_quote($worksheet, '/') . '\"/siU', substr($xmlTmpString, 0, $strposF))) {
                         $xmlString = substr($xmlTmpString, $strposF);
                         $isWorksheet = true;
                         continue;
-                    }
-                    else {
+                    } else {
                         $xmlString = '';
                         continue;
                     }
                 }
-            }
-            else {
+            } else {
                 $xmlString = $this->_parseXmlRow($xmlString);
 
                 $strposS = strpos($xmlString, '</Worksheet>');
@@ -157,76 +153,6 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             ->setAdapter($adapterName)
             ->save();
 
-        return $this;
-
-        $dom = new DOMDocument();
-        if (Mage::app()->getRequest()->getParam('files')) {
-            $path = Mage::app()->getConfig()->getTempVarDir().'/import/';
-            $file = $path.urldecode(Mage::app()->getRequest()->getParam('files'));
-            if (file_exists($file)) {
-                $dom->load($file);
-            }
-        } else {
-
-            $this->validateDataString();
-            $dom->loadXML($this->getData());
-        }
-
-        $worksheets = $dom->getElementsByTagName('Worksheet');
-        if ($this->getVar('adapter') && $this->getVar('method')) {
-            $adapter = Mage::getModel($this->getVar('adapter'));
-        }
-        foreach ($worksheets as $worksheet) {
-            $wsName = $worksheet->getAttribute('ss:Name');
-            $rows = $worksheet->getElementsByTagName('Row');
-            $firstRow = true;
-            $fieldNames = [];
-            $wsData = [];
-            $i = 0;
-            foreach ($rows as $rowSet) {
-                $index = 1;
-                $cells = $rowSet->getElementsByTagName('Cell');
-                $rowData = [];
-                foreach ($cells as $cell) {
-                    $value = $cell->getElementsByTagName('Data')->item(0)->nodeValue;
-                    $ind = $cell->getAttribute('ss:Index');
-                    if (!is_null($ind) && $ind>0) {
-                        $index = $ind;
-                    }
-                    if ($firstRow && !$this->getVar('fieldnames')) {
-                        $fieldNames[$index] = 'column'.$index;
-                    }
-                    if ($firstRow && $this->getVar('fieldnames')) {
-                        $fieldNames[$index] = $value;
-                    } else {
-                        $rowData[$fieldNames[$index]] = $value;
-                    }
-                    $index++;
-                }
-                $row = $rowData;
-                if ($row) {
-                    $loadMethod = $this->getVar('method');
-                    $adapter->$loadMethod(compact('i', 'row'));
-                }
-                $i++;
-
-                $firstRow = false;
-                if (!empty($rowData)) {
-                    $wsData[] = $rowData;
-                }
-            }
-            $data[$wsName] = $wsData;
-            $this->addException('Found worksheet "'.$wsName.'" with '.count($wsData).' row(s)');
-        }
-        if ($wsName = $this->getVar('single_sheet')) {
-            if (isset($data[$wsName])) {
-                $data = $data[$wsName];
-            } else {
-                reset($data);
-                $data = current($data);
-            }
-        }
-        $this->setData($data);
         return $this;
     }
 
@@ -256,8 +182,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                 $this->_saveParsedRow($xmlRowString);
 
                 $xmlString = substr($xmlTmpString, $strposF + 6);
-            }
-            else {
+            } else {
                 $found = false;
                 continue;
             }
@@ -268,23 +193,22 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
     protected function _saveParsedRow($xmlString)
     {
-        $xml = '<'.'?xml version="1.0"?'.'><'.'?mso-application progid="Excel.Sheet"?'
-            .'><Workbook'
-            .' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
-            .' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
-            .' xmlns:x="urn:schemas-microsoft-com:office:excel"'
-            .' xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml"'
-            .' xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"'
-            .' xmlns:o="urn:schemas-microsoft-com:office:office"'
-            .' xmlns:html="http://www.w3.org/TR/REC-html40"'
-            .' xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet">'
+        $xml = '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
+            . '><Workbook'
+            . ' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
+            . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
+            . ' xmlns:x="urn:schemas-microsoft-com:office:excel"'
+            . ' xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml"'
+            . ' xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"'
+            . ' xmlns:o="urn:schemas-microsoft-com:office:office"'
+            . ' xmlns:html="http://www.w3.org/TR/REC-html40"'
+            . ' xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet">'
             . $xmlString
-            .'</Workbook>';
+            . '</Workbook>';
 
         try {
             $xmlElement = new SimpleXMLElement($xml);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $message = 'Invalid XML row';
             $this->addException($message, Mage_Dataflow_Model_Convert_Exception::ERROR);
             return $this;
@@ -302,7 +226,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                     $cellIndex = $attributes['Index'] - 1;
                 }
                 $xmlData[$cellIndex] = (string)$cell->Data;
-                $cellIndex ++;
+                $cellIndex++;
             }
         }
 
@@ -316,7 +240,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $i = 0;
         foreach ($this->_parseFieldNames as $field) {
             $itemData[$field] = $xmlData[$i] ?? null;
-            $i ++;
+            $i++;
         }
 
         $batchImportModel = $this->getBatchImportModel()
@@ -343,20 +267,20 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $io = $this->getBatchModel()->getIoAdapter();
         $io->open();
 
-        $xml = '<'.'?xml version="1.0"?'.'><'.'?mso-application progid="Excel.Sheet"?'
-            .'><Workbook'
-            .' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
-            .' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
-            .' xmlns:x="urn:schemas-microsoft-com:office:excel"'
-            .' xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml"'
-            .' xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"'
-            .' xmlns:o="urn:schemas-microsoft-com:office:office"'
-            .' xmlns:html="http://www.w3.org/TR/REC-html40"'
-            .' xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet">'
-            .'<OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">'
-            .'</OfficeDocumentSettings>'
-            .'<ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">'
-            .'</ExcelWorkbook>';
+        $xml = '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
+            . '><Workbook'
+            . ' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
+            . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
+            . ' xmlns:x="urn:schemas-microsoft-com:office:excel"'
+            . ' xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml"'
+            . ' xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"'
+            . ' xmlns:o="urn:schemas-microsoft-com:office:office"'
+            . ' xmlns:html="http://www.w3.org/TR/REC-html40"'
+            . ' xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet">'
+            . '<OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">'
+            . '</OfficeDocumentSettings>'
+            . '<ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">'
+            . '</ExcelWorkbook>';
         $io->write($xml);
 
         $wsName = htmlspecialchars($this->getVar('single_sheet'));

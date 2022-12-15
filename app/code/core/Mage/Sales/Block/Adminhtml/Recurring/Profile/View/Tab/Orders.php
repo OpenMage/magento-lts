@@ -64,7 +64,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     protected function _prepareColumns()
     {
         $this->addColumn('real_order_id', [
-            'header'=> Mage::helper('sales')->__('Order #'),
+            'header' => Mage::helper('sales')->__('Order #'),
             'width' => '80px',
             'type'  => 'text',
             'index' => 'increment_id',
@@ -75,7 +75,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
                 'header'    => Mage::helper('sales')->__('Purchased From (Store)'),
                 'index'     => 'store_id',
                 'type'      => 'store',
-                'store_view'=> true,
+                'store_view' => true,
                 'display_deleted' => true,
             ]);
         }
@@ -129,7 +129,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
                     'actions'   => [
                         [
                             'caption' => Mage::helper('sales')->__('View'),
-                            'url'     => ['base'=>'*/sales_order/view'],
+                            'url'     => ['base' => '*/sales_order/view'],
                             'field'   => 'order_id'
                         ]
                     ],

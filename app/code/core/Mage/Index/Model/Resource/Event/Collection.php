@@ -46,7 +46,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     public function addEntityFilter($entity)
     {
         if (is_array($entity) && !empty($entity)) {
-            $this->addFieldToFilter('entity', ['in'=>$entity]);
+            $this->addFieldToFilter('entity', ['in' => $entity]);
         } else {
             $this->addFieldToFilter('entity', $entity);
         }
@@ -62,7 +62,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     public function addTypeFilter($type)
     {
         if (is_array($type) && !empty($type)) {
-            $this->addFieldToFilter('type', ['in'=>$type]);
+            $this->addFieldToFilter('type', ['in' => $type]);
         } else {
             $this->addFieldToFilter('type', $type);
         }

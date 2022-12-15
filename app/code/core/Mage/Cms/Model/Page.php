@@ -74,15 +74,15 @@
  */
 class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
 {
-    const NOROUTE_PAGE_ID = 'no-route';
+    public const NOROUTE_PAGE_ID = 'no-route';
 
     /**
      * Page's Statuses
      */
-    const STATUS_ENABLED = 1;
-    const STATUS_DISABLED = 0;
+    public const STATUS_ENABLED = 1;
+    public const STATUS_DISABLED = 0;
 
-    const CACHE_TAG              = 'cms_page';
+    public const CACHE_TAG              = 'cms_page';
     protected $_cacheTag         = 'cms_page';
 
     /**

@@ -37,11 +37,15 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
         $form = new Varien_Data_Form();
         $customerGroup = Mage::registry('current_group');
 
-        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('customer')->__('Group Information')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('customer')->__('Group Information')]);
 
-        $validateClass = sprintf('required-entry validate-length maximum-length-%d',
-            Mage_Customer_Model_Group::GROUP_CODE_MAX_LENGTH);
-        $name = $fieldset->addField('customer_group_code', 'text',
+        $validateClass = sprintf(
+            'required-entry validate-length maximum-length-%d',
+            Mage_Customer_Model_Group::GROUP_CODE_MAX_LENGTH
+        );
+        $name = $fieldset->addField(
+            'customer_group_code',
+            'text',
             [
                 'name'  => 'code',
                 'label' => Mage::helper('customer')->__('Group Name'),
@@ -52,11 +56,13 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
             ]
         );
 
-        if ($customerGroup->getId()==0 && $customerGroup->getCustomerGroupCode() ) {
+        if ($customerGroup->getId() == 0 && $customerGroup->getCustomerGroupCode()) {
             $name->setDisabled(true);
         }
 
-        $fieldset->addField('tax_class_id', 'select',
+        $fieldset->addField(
+            'tax_class_id',
+            'select',
             [
                 'name'  => 'tax_class',
                 'label' => Mage::helper('customer')->__('Tax Class'),
@@ -69,7 +75,9 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
 
         if (!is_null($customerGroup->getId())) {
             // If edit add id
-            $form->addField('id', 'hidden',
+            $form->addField(
+                'id',
+                'hidden',
                 [
                     'name'  => 'id',
                     'value' => $customerGroup->getId(),
@@ -77,7 +85,7 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
             );
         }
 
-        if( Mage::getSingleton('adminhtml/session')->getCustomerGroupData() ) {
+        if (Mage::getSingleton('adminhtml/session')->getCustomerGroupData()) {
             $form->addValues(Mage::getSingleton('adminhtml/session')->getCustomerGroupData());
             Mage::getSingleton('adminhtml/session')->setCustomerGroupData(null);
         } else {

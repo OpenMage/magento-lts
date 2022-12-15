@@ -128,7 +128,7 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
 
         $select->joinLeft(
             ['def' => $this->getTable('core/variable_value')],
-            'def.variable_id = '.$this->getMainTable().'.variable_id AND def.store_id = 0',
+            'def.variable_id = ' . $this->getMainTable() . '.variable_id AND def.store_id = 0',
             []
         )
             ->joinLeft(

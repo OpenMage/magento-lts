@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Form extends Mage_Adminhtml_Block_Widge
     {
         $form = new Varien_Data_Form();
 
-        $fieldset = $form->addFieldset('poll_form', ['legend'=>Mage::helper('poll')->__('Poll information')]);
+        $fieldset = $form->addFieldset('poll_form', ['legend' => Mage::helper('poll')->__('Poll information')]);
         $fieldset->addField('poll_title', 'text', [
             'label'     => Mage::helper('poll')->__('Poll Question'),
             'class'     => 'required-entry',
@@ -65,8 +65,7 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Form extends Mage_Adminhtml_Block_Widge
                 'value'     => Mage::registry('poll_data')->getStoreIds(),
                 'after_element_html' => Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml()
             ]);
-        }
-        else {
+        } else {
             $fieldset->addField('store_ids', 'hidden', [
                 'name'      => 'store_ids[]',
                 'value'     => Mage::app()->getStore(true)->getId()
@@ -74,10 +73,10 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Form extends Mage_Adminhtml_Block_Widge
             Mage::registry('poll_data')->setStoreIds(Mage::app()->getStore(true)->getId());
         }
 
-        if( Mage::getSingleton('adminhtml/session')->getPollData() ) {
+        if (Mage::getSingleton('adminhtml/session')->getPollData()) {
             $form->setValues(Mage::getSingleton('adminhtml/session')->getPollData());
             Mage::getSingleton('adminhtml/session')->setPollData(null);
-        } elseif( Mage::registry('poll_data') ) {
+        } elseif (Mage::registry('poll_data')) {
             $form->setValues(Mage::registry('poll_data')->getData());
 
             $fieldset->addField('was_closed', 'hidden', [

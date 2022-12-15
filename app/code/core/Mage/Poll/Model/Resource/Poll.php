@@ -61,7 +61,7 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
     {
         $read = $this->_getReadAdapter();
         $select = $read->select()
-            ->from(['main_table'=>$this->getMainTable()], $this->getIdFieldName())
+            ->from(['main_table' => $this->getMainTable()], $this->getIdFieldName())
             ->where('closed = ?', 0);
 
         $excludeIds = $object->getExcludeFilter();

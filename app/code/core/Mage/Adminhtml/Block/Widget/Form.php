@@ -165,7 +165,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      * @param Varien_Data_Form_Element_Fieldset $fieldset
      * @param array $exclude attributes that should be skipped
      */
-    protected function _setFieldset($attributes, $fieldset, $exclude= [])
+    protected function _setFieldset($attributes, $fieldset, $exclude = [])
     {
         $this->_addElementTypes($fieldset);
         foreach ($attributes as $attribute) {
@@ -173,11 +173,10 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
             if (!$attribute || ($attribute->hasIsVisible() && !$attribute->getIsVisible())) {
                 continue;
             }
-            if ( ($inputType = $attribute->getFrontend()->getInputType())
+            if (($inputType = $attribute->getFrontend()->getInputType())
                  && !in_array($attribute->getAttributeCode(), $exclude)
                  && ($inputType != 'media_image')
-                 ) {
-
+            ) {
                 $fieldType      = $inputType;
                 $rendererClass  = $attribute->getFrontend()->getInputRendererClass();
                 if (!empty($rendererClass)) {
@@ -185,7 +184,9 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
                     $fieldset->addType($fieldType, $rendererClass);
                 }
 
-                $element = $fieldset->addField($attribute->getAttributeCode(), $fieldType,
+                $element = $fieldset->addField(
+                    $attribute->getAttributeCode(),
+                    $fieldType,
                     [
                         'name'      => $attribute->getAttributeCode(),
                         'label'     => $attribute->getFrontend()->getLabel(),
@@ -200,20 +201,20 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
 
                 if ($inputType == 'select') {
                     $element->setValues($attribute->getSource()->getAllOptions(true, true));
-                } else if ($inputType == 'multiselect') {
+                } elseif ($inputType == 'multiselect') {
                     $element->setValues($attribute->getSource()->getAllOptions(false, true));
                     $element->setCanBeEmpty(true);
-                } else if ($inputType == 'date') {
+                } elseif ($inputType == 'date') {
                     $element->setImage($this->getSkinUrl('images/grid-cal.gif'));
                     $element->setFormat(Mage::app()->getLocale()->getDateFormatWithLongYear());
-                } else if ($inputType == 'datetime') {
+                } elseif ($inputType == 'datetime') {
                     $element->setImage($this->getSkinUrl('images/grid-cal.gif'));
                     $element->setTime(true);
                     $element->setStyle('width:50%;');
                     $element->setFormat(
                         Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT)
                     );
-                } else if ($inputType == 'multiline') {
+                } elseif ($inputType == 'multiline') {
                     $element->setLineCount($attribute->getMultilineCount());
                 }
             }
