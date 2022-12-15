@@ -83,7 +83,7 @@ class Varien_Db_Ddl_Table
     /**
      * Name of table
      *
-     * @var string
+     * @var string|null
      */
     protected $_tableName;
 
@@ -597,7 +597,7 @@ class Varien_Db_Ddl_Table
      *
      * @param string $key
      * @param string $value
-     * @return string
+     * @return $this
      */
     public function setOption($key, $value)
     {

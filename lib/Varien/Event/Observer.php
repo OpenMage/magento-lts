@@ -97,7 +97,7 @@ class Varien_Event_Observer extends Varien_Object
     }
 
     /**
-     * @return string
+     * @return array
      */
     public function getCallback()
     {
