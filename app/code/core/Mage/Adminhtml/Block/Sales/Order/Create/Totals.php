@@ -41,11 +41,17 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Bloc
         return $this->getQuote()->getTotals();
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Order Totals');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderCssClass()
     {
         return 'head-money';
@@ -92,6 +98,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Bloc
         return $html;
     }
 
+    /**
+     * @return bool
+     */
     public function canSendNewOrderConfirmationEmail()
     {
         return Mage::helper('sales')->canSendNewOrderConfirmationEmail($this->getQuote()->getStoreId());

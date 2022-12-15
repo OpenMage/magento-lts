@@ -119,12 +119,14 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
         ';
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         if (Mage::registry('review_data') && Mage::registry('review_data')->getId()) {
             return Mage::helper('review')->__("Edit Review '%s'", $this->escapeHtml(Mage::registry('review_data')->getTitle()));
-        } else {
-            return Mage::helper('review')->__('New Review');
         }
+        return Mage::helper('review')->__('New Review');
     }
 }

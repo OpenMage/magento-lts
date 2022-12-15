@@ -54,8 +54,7 @@ class Mage_Adminhtml_Block_Sitemap_Edit extends Mage_Adminhtml_Block_Widget_Form
     {
         if (Mage::registry('sitemap_sitemap')->getId()) {
             return Mage::helper('sitemap')->__('Edit Sitemap');
-        } else {
-            return Mage::helper('sitemap')->__('New Sitemap');
         }
+        return Mage::helper('sitemap')->__('New Sitemap');
     }
 }
