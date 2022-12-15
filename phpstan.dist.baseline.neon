@@ -1801,11 +1801,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Config.php
 
 		-
-			message: "#^Property Varien_Simplexml_Config\\:\\:\\$_cacheChecksum \\(unknown_type\\) does not accept null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Config.php
-
-		-
 			message: "#^Call to an undefined method Mage_Adminhtml_Model_Config_Data\\:\\:__\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Config/Data.php
@@ -2921,6 +2916,11 @@ parameters:
 			path: app/code/core/Mage/Backup/Model/Observer.php
 
 		-
+			message: "#^Argument of an invalid type true supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: app/code/core/Mage/Backup/Model/Resource/Db.php
+
+		-
 			message: "#^Property Mage_Backup_Model_Resource_Db\\:\\:\\$_write \\(Varien_Db_Adapter_Pdo_Mysql\\) does not accept Varien_Db_Adapter_Interface\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Backup/Model/Resource/Db.php
@@ -3971,7 +3971,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
 
 		-
-			message: "#^Property Mage_Catalog_Model_Convert_Adapter_Product\\:\\:\\$_productModel \\(Mage_Catalog_Model_Product\\) does not accept string\\.$#"
+			message: "#^Property Mage_Catalog_Model_Convert_Adapter_Product\\:\\:\\$_productModel \\(Mage_Catalog_Model_Product\\) does not accept string\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
 
@@ -6951,11 +6951,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Config.php
 
 		-
-			message: "#^Property Varien_Simplexml_Config\\:\\:\\$_cacheChecksum \\(unknown_type\\) does not accept null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Config.php
-
-		-
 			message: "#^Return type \\(Mage_Core_Model_App\\) of method Mage_Core_Model_Config\\:\\:_saveCache\\(\\) should be compatible with return type \\(bool\\) of method Varien_Simplexml_Config\\:\\:_saveCache\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Config.php
@@ -7022,11 +7017,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$value of method Varien_Simplexml_Config\\:\\:setNode\\(\\) expects string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Config.php
-
-		-
-			message: "#^Property Varien_Simplexml_Config\\:\\:\\$_cacheChecksum \\(unknown_type\\) does not accept null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Design/Config.php
 
@@ -7216,6 +7206,11 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Layout.php
 
 		-
+			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getBlockName\\(\\)\\.$#"
+			count: 2
+			path: app/code/core/Mage/Core/Model/Layout.php
+
+		-
 			message: "#^Cannot unset offset '@attributes' on \\(array\\{\\}\\|array\\{\\000\\*\\000_parent\\: Varien_Simplexml_Element\\}\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Layout.php
@@ -7251,22 +7246,7 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Layout.php
 
 		-
-			message: "#^Parameter \\#1 \\$parent of method Mage_Core_Model_Layout\\:\\:generateBlocks\\(\\) expects Mage_Core_Model_Layout_Element\\|null, Varien_Simplexml_Element given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Model/Layout.php
-
-		-
 			message: "#^Parameter \\#1 \\$sourceData of method Varien_Simplexml_Config\\:\\:__construct\\(\\) expects string\\|Varien_Simplexml_Element\\|null, array given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Layout.php
-
-		-
-			message: "#^Parameter \\#2 \\$parent of method Mage_Core_Model_Layout\\:\\:_generateAction\\(\\) expects Mage_Core_Model_Layout_Element, Varien_Simplexml_Element given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Layout.php
-
-		-
-			message: "#^Parameter \\#2 \\$parent of method Mage_Core_Model_Layout\\:\\:_generateBlock\\(\\) expects Mage_Core_Model_Layout_Element, Varien_Simplexml_Element given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Layout.php
 
@@ -8106,7 +8086,7 @@ parameters:
 			path: app/code/core/Mage/Customer/Model/Convert/Adapter/Customer.php
 
 		-
-			message: "#^Property Mage_Customer_Model_Convert_Adapter_Customer\\:\\:\\$_customerModel \\(Mage_Customer_Model_Customer\\) does not accept string\\.$#"
+			message: "#^Property Mage_Customer_Model_Convert_Adapter_Customer\\:\\:\\$_customerModel \\(Mage_Customer_Model_Customer\\) does not accept string\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Convert/Adapter/Customer.php
 
@@ -8316,12 +8296,12 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Batch.php
 
 		-
-			message: "#^Property Mage_Dataflow_Model_Batch\\:\\:\\$_batchExport \\(Mage_Dataflow_Model_Batch_Export\\) does not accept string\\.$#"
+			message: "#^Property Mage_Dataflow_Model_Batch\\:\\:\\$_batchExport \\(Mage_Dataflow_Model_Batch_Export\\) does not accept string\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Batch.php
 
 		-
-			message: "#^Property Mage_Dataflow_Model_Batch\\:\\:\\$_batchImport \\(Mage_Dataflow_Model_Batch_Import\\) does not accept string\\.$#"
+			message: "#^Property Mage_Dataflow_Model_Batch\\:\\:\\$_batchImport \\(Mage_Dataflow_Model_Batch_Import\\) does not accept string\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Batch.php
 
@@ -8436,12 +8416,12 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Convert/Mapper/Column.php
 
 		-
-			message: "#^Property Mage_Dataflow_Model_Convert_Mapper_Column\\:\\:\\$_batchExport \\(Mage_Dataflow_Model_Batch_Export\\) does not accept string\\.$#"
+			message: "#^Property Mage_Dataflow_Model_Convert_Mapper_Column\\:\\:\\$_batchExport \\(Mage_Dataflow_Model_Batch_Export\\) does not accept string\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Mapper/Column.php
 
 		-
-			message: "#^Property Mage_Dataflow_Model_Convert_Mapper_Column\\:\\:\\$_batchImport \\(Mage_Dataflow_Model_Batch_Import\\) does not accept string\\.$#"
+			message: "#^Property Mage_Dataflow_Model_Convert_Mapper_Column\\:\\:\\$_batchImport \\(Mage_Dataflow_Model_Batch_Import\\) does not accept string\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Mapper/Column.php
 
@@ -8461,12 +8441,12 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Abstract.php
 
 		-
-			message: "#^Property Mage_Dataflow_Model_Convert_Parser_Abstract\\:\\:\\$_batchExport \\(Mage_Dataflow_Model_Batch_Export\\) does not accept string\\.$#"
+			message: "#^Property Mage_Dataflow_Model_Convert_Parser_Abstract\\:\\:\\$_batchExport \\(Mage_Dataflow_Model_Batch_Export\\) does not accept string\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Abstract.php
 
 		-
-			message: "#^Property Mage_Dataflow_Model_Convert_Parser_Abstract\\:\\:\\$_batchImport \\(Mage_Dataflow_Model_Batch_Import\\) does not accept string\\.$#"
+			message: "#^Property Mage_Dataflow_Model_Convert_Parser_Abstract\\:\\:\\$_batchImport \\(Mage_Dataflow_Model_Batch_Import\\) does not accept string\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Abstract.php
 
@@ -8703,11 +8683,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$code of class Exception constructor expects int, string given\\.$#"
 			count: 2
-			path: app/code/core/Mage/Downloadable/Model/Link/Api/Uploader.php
-
-		-
-			message: "#^Property Varien_File_Uploader\\:\\:\\$_uploadType \\(string\\) does not accept int\\.$#"
-			count: 1
 			path: app/code/core/Mage/Downloadable/Model/Link/Api/Uploader.php
 
 		-
@@ -9886,11 +9861,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Import/Uploader.php
 
 		-
-			message: "#^Property Varien_File_Uploader\\:\\:\\$_uploadType \\(string\\) does not accept int\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import/Uploader.php
-
-		-
 			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Resource/Import/Data.php
@@ -9986,11 +9956,6 @@ parameters:
 			path: app/code/core/Mage/Index/Model/Resource/Event/Collection.php
 
 		-
-			message: "#^Property Varien_Data_Collection_Db\\:\\:\\$_data \\(array\\) does not accept null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Index/Model/Resource/Event/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$adapter of method Varien_Db_Adapter_Interface\\:\\:setCacheAdapter\\(\\) expects Zend_Cache_Backend_Interface, Zend_Cache_Core given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Index/Model/Resource/Lock/Resource.php
@@ -10026,7 +9991,7 @@ parameters:
 			path: app/code/core/Mage/Install/Controller/Action.php
 
 		-
-			message: "#^Offset 'path' does not exist on array\\{\\000\\*\\000_parent\\: Varien_Simplexml_Element\\}\\.$#"
+			message: "#^Offset 'path' does not exist on array\\{\\000\\*\\000_parent\\: Varien_Simplexml_Element\\}\\|array\\{false\\}\\.$#"
 			count: 1
 			path: app/code/core/Mage/Install/Model/Config.php
 
@@ -14086,12 +14051,17 @@ parameters:
 			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
 
 		-
-			message: "#^Parameter \\#1 \\$row of method Mage_Shipping_Model_Resource_Carrier_Tablerate\\:\\:_getImportRow\\(\\) expects array, string given\\.$#"
+			message: "#^If condition is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, string given\\.$#"
+			message: "#^Parameter \\#1 \\$row of method Mage_Shipping_Model_Resource_Carrier_Tablerate\\:\\:_getImportRow\\(\\) expects array, string\\|true given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, string\\|true given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
 
@@ -14101,13 +14071,8 @@ parameters:
 			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
-
-		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 4
+			count: 2
 			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
 
 		-
@@ -15651,11 +15616,6 @@ parameters:
 			path: lib/Varien/Cache/Backend/Database.php
 
 		-
-			message: "#^Method Varien_Cache_Backend_Memcached\\:\\:_cleanTheMess\\(\\) should return null but return statement is missing\\.$#"
-			count: 1
-			path: lib/Varien/Cache/Backend/Memcached.php
-
-		-
 			message: "#^Parameter \\#2 \\$chunks of method Varien_Cache_Backend_Memcached\\:\\:_cleanTheMess\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: lib/Varien/Cache/Backend/Memcached.php
@@ -15674,16 +15634,6 @@ parameters:
 			message: "#^Parameter \\#4 \\$specificLifetime of method Zend_Cache_Backend_Memcached\\:\\:save\\(\\) expects int, bool given\\.$#"
 			count: 2
 			path: lib/Varien/Cache/Backend/Memcached.php
-
-		-
-			message: "#^Method Varien_Cache_Core\\:\\:_cleanTheMess\\(\\) should return null but return statement is missing\\.$#"
-			count: 1
-			path: lib/Varien/Cache/Core.php
-
-		-
-			message: "#^Parameter \\#2 \\$chunks of method Varien_Cache_Core\\:\\:_cleanTheMess\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: lib/Varien/Cache/Core.php
 
 		-
 			message: "#^Call to an undefined method Varien_Convert_Action\\:\\:getData\\(\\)\\.$#"
@@ -15771,11 +15721,6 @@ parameters:
 			path: lib/Varien/Data/Collection/Db.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Varien/Data/Collection/Db.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Varien/Data/Collection/Db.php
@@ -15791,17 +15736,7 @@ parameters:
 			path: lib/Varien/Data/Collection/Db.php
 
 		-
-			message: "#^Property Varien_Data_Collection_Db\\:\\:\\$_data \\(array\\) does not accept null\\.$#"
-			count: 2
-			path: lib/Varien/Data/Collection/Db.php
-
-		-
 			message: "#^Property Varien_Data_Collection_Db\\:\\:\\$_fetchStmt \\(Zend_Db_Statement_Pdo\\) does not accept Zend_Db_Statement_Interface\\.$#"
-			count: 1
-			path: lib/Varien/Data/Collection/Db.php
-
-		-
-			message: "#^Property Varien_Data_Collection_Db\\:\\:\\$_map \\(array\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: lib/Varien/Data/Collection/Db.php
 
@@ -15811,24 +15746,9 @@ parameters:
 			path: lib/Varien/Data/Collection/Db.php
 
 		-
-			message: "#^Cannot assign offset string to string\\.$#"
-			count: 1
-			path: lib/Varien/Data/Collection/Filesystem.php
-
-		-
 			message: "#^Empty array passed to foreach\\.$#"
 			count: 1
 			path: lib/Varien/Data/Collection/Filesystem.php
-
-		-
-			message: "#^Property Varien_Data_Collection_Filesystem\\:\\:\\$_targetDirs \\(string\\) does not accept default value of type array\\.$#"
-			count: 1
-			path: lib/Varien/Data/Collection/Filesystem.php
-
-		-
-			message: "#^Parameter \\#1 \\$form of method Varien_Data_Form_Element_Abstract\\:\\:setForm\\(\\) expects Varien_Data_Form, \\$this\\(Varien_Data_Form_Abstract\\) given\\.$#"
-			count: 2
-			path: lib/Varien/Data/Form/Abstract.php
 
 		-
 			message: "#^Property Varien_Data_Form_Abstract\\:\\:\\$_elements \\(Varien_Data_Form_Element_Collection\\) in empty\\(\\) is not falsy\\.$#"
@@ -15839,21 +15759,6 @@ parameters:
 			message: "#^If condition is always true\\.$#"
 			count: 2
 			path: lib/Varien/Data/Form/Element/Abstract.php
-
-		-
-			message: "#^Method Varien_Data_Form_Element_Date\\:\\:getValueInstance\\(\\) should return Zend_Date but returns null\\.$#"
-			count: 1
-			path: lib/Varien/Data/Form/Element/Date.php
-
-		-
-			message: "#^Property Varien_Data_Form_Element_Date\\:\\:\\$_value \\(Zend_Date\\) does not accept string\\.$#"
-			count: 2
-			path: lib/Varien/Data/Form/Element/Date.php
-
-		-
-			message: "#^Property Varien_Data_Form_Element_Date\\:\\:\\$_value \\(Zend_Date\\) in empty\\(\\) is not falsy\\.$#"
-			count: 2
-			path: lib/Varien/Data/Form/Element/Date.php
 
 		-
 			message: "#^Access to an undefined property Varien_Data_Form_Element_Fieldset\\:\\:\\$_sortDirection\\.$#"
@@ -15879,26 +15784,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$suffix \\(int\\) of method Varien_Data_Form_Element_Multiline\\:\\:getLabelHtml\\(\\) should be compatible with parameter \\$idSuffix \\(string\\) of method Varien_Data_Form_Element_Abstract\\:\\:getLabelHtml\\(\\)$#"
 			count: 1
 			path: lib/Varien/Data/Form/Element/Multiline.php
-
-		-
-			message: "#^Parameter \\#2 \\$haystack of function in_array expects array, string given\\.$#"
-			count: 1
-			path: lib/Varien/Data/Form/Element/Multiselect.php
-
-		-
-			message: "#^Parameter \\#2 \\$selected of method Varien_Data_Form_Element_Multiselect\\:\\:_optionToHtml\\(\\) expects string, array given\\.$#"
-			count: 2
-			path: lib/Varien/Data/Form/Element/Multiselect.php
-
-		-
-			message: "#^Parameter \\#2 \\$haystack of function in_array expects array, string given\\.$#"
-			count: 1
-			path: lib/Varien/Data/Form/Element/Select.php
-
-		-
-			message: "#^Parameter \\#2 \\$selected of method Varien_Data_Form_Element_Select\\:\\:_optionToHtml\\(\\) expects string, array given\\.$#"
-			count: 3
-			path: lib/Varien/Data/Form/Element/Select.php
 
 		-
 			message: "#^Parameter \\#1 \\$string of function str_pad expects string, int\\<0, 23\\> given\\.$#"
@@ -16021,6 +15906,11 @@ parameters:
 			path: lib/Varien/Db/Adapter/Mysqli.php
 
 		-
+			message: "#^Cannot access offset 'Engine' on bool\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
 			message: "#^Cannot call method query\\(\\) on object\\|resource\\.$#"
 			count: 1
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
@@ -16041,46 +15931,6 @@ parameters:
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
-			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:addColumn\\(\\) should return bool\\|int but returns Zend_Db_Statement_Interface\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
-			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:createTable\\(\\) has invalid return type Zend_Db_Pdo_Statement\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
-			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:createTable\\(\\) should return Zend_Db_Pdo_Statement but returns Zend_Db_Statement_Pdo\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
-			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:createTemporaryTable\\(\\) has invalid return type Zend_Db_Pdo_Statement\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
-			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:createTemporaryTable\\(\\) should return Zend_Db_Pdo_Statement but returns Zend_Db_Statement_Pdo\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
-			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:dropColumn\\(\\) should return bool but returns Zend_Db_Statement_Interface\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
-			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:dropTemporaryTable\\(\\) should return bool but returns \\$this\\(Varien_Db_Adapter_Pdo_Mysql\\)\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
-			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:showTableStatus\\(\\) should return array\\|false but returns bool\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 2
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
@@ -16096,12 +15946,12 @@ parameters:
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
-			message: "#^Return type \\(array\\) of method Varien_Db_Adapter_Pdo_Mysql\\:\\:multiQuery\\(\\) should be compatible with return type \\(Varien_Db_Adapter_Interface\\) of method Varien_Db_Adapter_Interface\\:\\:multiQuery\\(\\)$#"
+			message: "#^Return type \\(\\$this\\(Varien_Db_Adapter_Pdo_Mysql\\)\\) of method Varien_Db_Adapter_Pdo_Mysql\\:\\:dropTemporaryTable\\(\\) should be compatible with return type \\(bool\\) of method Varien_Db_Adapter_Interface\\:\\:dropTemporaryTable\\(\\)$#"
 			count: 1
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
-			message: "#^Return type \\(bool\\|int\\) of method Varien_Db_Adapter_Pdo_Mysql\\:\\:addColumn\\(\\) should be compatible with return type \\(Varien_Db_Adapter_Interface\\) of method Varien_Db_Adapter_Interface\\:\\:addColumn\\(\\)$#"
+			message: "#^Return type \\(array\\) of method Varien_Db_Adapter_Pdo_Mysql\\:\\:multiQuery\\(\\) should be compatible with return type \\(Varien_Db_Adapter_Interface\\) of method Varien_Db_Adapter_Interface\\:\\:multiQuery\\(\\)$#"
 			count: 1
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
@@ -16114,31 +15964,6 @@ parameters:
 			message: "#^Variable \\$result might not be defined\\.$#"
 			count: 3
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Varien/Db/Ddl/Table.php
-
-		-
-			message: "#^Method Varien_Db_Ddl_Table\\:\\:setOption\\(\\) should return string but returns \\$this\\(Varien_Db_Ddl_Table\\)\\.$#"
-			count: 1
-			path: lib/Varien/Db/Ddl/Table.php
-
-		-
-			message: "#^Method Varien_Db_Select\\:\\:_tableCols\\(\\) with return type void returns void but should not return anything\\.$#"
-			count: 1
-			path: lib/Varien/Db/Select.php
-
-		-
-			message: "#^Result of method Zend_Db_Select\\:\\:_tableCols\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: lib/Varien/Db/Select.php
-
-		-
-			message: "#^Method Varien_Db_Statement_Parameter\\:\\:__construct\\(\\) with return type void returns \\$this\\(Varien_Db_Statement_Parameter\\) but should not return anything\\.$#"
-			count: 1
-			path: lib/Varien/Db/Statement/Parameter.php
 
 		-
 			message: "#^Cannot call method bindParam\\(\\) on object\\|resource\\.$#"
@@ -16181,16 +16006,6 @@ parameters:
 			path: lib/Varien/Db/Tree.php
 
 		-
-			message: "#^Method Varien_Db_Tree_Node\\:\\:__construct\\(\\) with return type void returns \\$this\\(Varien_Db_Tree_Node\\) but should not return anything\\.$#"
-			count: 1
-			path: lib/Varien/Db/Tree/Node.php
-
-		-
-			message: "#^Property Varien_Db_Tree_Node\\:\\:\\$title is unused\\.$#"
-			count: 1
-			path: lib/Varien/Db/Tree/Node.php
-
-		-
 			message: "#^Method Varien_Db_Tree_NodeSet\\:\\:next\\(\\) with return type void returns false but should not return anything\\.$#"
 			count: 1
 			path: lib/Varien/Db/Tree/NodeSet.php
@@ -16206,29 +16021,9 @@ parameters:
 			path: lib/Varien/Debug.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Varien/Debug.php
-
-		-
 			message: "#^Variable \\$methodName might not be defined\\.$#"
 			count: 2
 			path: lib/Varien/Debug.php
-
-		-
-			message: "#^Call to function is_object\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Varien/Event/Observer.php
-
-		-
-			message: "#^Method Varien_File_Transfer_Adapter_Http\\:\\:_detectMimeType\\(\\) should return string but returns null\\.$#"
-			count: 1
-			path: lib/Varien/File/Transfer/Adapter/Http.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method Zend_Controller_Response_Abstract\\:\\:setHeader\\(\\) expects string, int\\<0, max\\>\\|false given\\.$#"
-			count: 1
-			path: lib/Varien/File/Transfer/Adapter/Http.php
 
 		-
 			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, string given\\.$#"
@@ -16236,29 +16031,9 @@ parameters:
 			path: lib/Varien/File/Uploader.php
 
 		-
-			message: "#^Property Varien_File_Uploader\\:\\:\\$_result \\(array\\|false\\) does not accept bool\\.$#"
-			count: 1
-			path: lib/Varien/File/Uploader.php
-
-		-
-			message: "#^Property Varien_File_Uploader\\:\\:\\$_uploadType \\(string\\) does not accept int\\.$#"
-			count: 3
-			path: lib/Varien/File/Uploader.php
-
-		-
 			message: "#^Call to an undefined method Varien_File_Uploader_Image\\:\\:newUploader\\(\\)\\.$#"
 			count: 1
 			path: lib/Varien/File/Uploader/Image.php
-
-		-
-			message: "#^Method Varien_Filter_Template\\:\\:getEmailPathValidator\\(\\) should return Mage_Core_Model_Abstract but returns Mage_Adminhtml_Model_Email_PathValidator\\.$#"
-			count: 1
-			path: lib/Varien/Filter/Template.php
-
-		-
-			message: "#^Parameter \\#2 \\$default of method Varien_Filter_Template\\:\\:_getVariable\\(\\) expects string, null given\\.$#"
-			count: 1
-			path: lib/Varien/Filter/Template.php
 
 		-
 			message: "#^Right side of && is always false\\.$#"
@@ -16271,71 +16046,6 @@ parameters:
 			path: lib/Varien/Filter/Template/Tokenizer/Variable.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with resource will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Parameter \\#1 \\$handle of function curl_close expects CurlHandle, resource given\\.$#"
-			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Parameter \\#1 \\$handle of function curl_errno expects CurlHandle, resource given\\.$#"
-			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Parameter \\#1 \\$handle of function curl_error expects CurlHandle, resource given\\.$#"
-			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Parameter \\#1 \\$handle of function curl_exec expects CurlHandle, resource given\\.$#"
-			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Parameter \\#1 \\$handle of function curl_getinfo expects CurlHandle, resource given\\.$#"
-			count: 2
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Parameter \\#1 \\$handle of function curl_setopt expects CurlHandle, resource given\\.$#"
-			count: 3
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Parameter \\#1 \\$handle of function curl_setopt_array expects CurlHandle, resource given\\.$#"
-			count: 2
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Property Varien_Http_Adapter_Curl\\:\\:\\$_resource \\(resource\\) does not accept CurlHandle\\.$#"
-			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Property Varien_Http_Adapter_Curl\\:\\:\\$_resource \\(resource\\) does not accept null\\.$#"
-			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Default value of the parameter \\#2 \\$adapter \\(string\\) of method Varien_Image\\:\\:__construct\\(\\) is incompatible with type Varien_Image_Adapter\\.$#"
-			count: 1
-			path: lib/Varien/Image.php
-
-		-
-			message: "#^Parameter \\#1 \\$adapter of method Varien_Image\\:\\:_getAdapter\\(\\) expects string\\|null, Varien_Image_Adapter given\\.$#"
-			count: 1
-			path: lib/Varien/Image.php
-
-		-
-			message: "#^Property Varien_Image\\:\\:\\$_adapter \\(Varien_Image_Adapter_Abstract\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: lib/Varien/Image.php
-
-		-
 			message: "#^Method Varien_Image_Adapter_Abstract\\:\\:backgroundColor\\(\\) should return array but empty return statement found\\.$#"
 			count: 2
 			path: lib/Varien/Image/Adapter/Abstract.php
@@ -16346,73 +16056,13 @@ parameters:
 			path: lib/Varien/Image/Adapter/Gd2.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 2
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: "#^Instanceof between \\*NEVER\\* and GdImage will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: "#^Parameter \\#1 \\$dst_image of function imagecopymerge expects GdImage, resource given\\.$#"
-			count: 7
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: "#^Parameter \\#1 \\$image of function imagecolorsforindex expects GdImage, resource given\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: "#^Parameter \\#1 \\$image of function imagecolorstotal expects GdImage, resource given\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: "#^Parameter \\#1 \\$image of function imagedestroy expects GdImage, resource given\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: "#^Parameter \\#1 \\$image of function imageinterlace expects GdImage, resource given\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: "#^Parameter \\#1 \\$image of function imagerotate expects GdImage, resource given\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: "#^Parameter \\#1 \\$image of function imagesx expects GdImage, resource given\\.$#"
-			count: 2
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: "#^Parameter \\#1 \\$image of function imagesy expects GdImage, resource given\\.$#"
-			count: 2
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
 			message: "#^Parameter \\#2 \\$enable of function imageinterlace expects bool\\|null, int given\\.$#"
 			count: 1
 			path: lib/Varien/Image/Adapter/Gd2.php
 
 		-
-			message: "#^Parameter \\#2 \\$src_image of function imagecopy expects GdImage, resource given\\.$#"
+			message: "#^Result of \\|\\| is always true\\.$#"
 			count: 1
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: "#^Parameter \\#2 \\$src_image of function imagecopyresampled expects GdImage, resource given\\.$#"
-			count: 2
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: "#^Property Varien_Image_Adapter_Abstract\\:\\:\\$_imageHandler \\(resource\\) does not accept GdImage\\|false\\.$#"
-			count: 2
 			path: lib/Varien/Image/Adapter/Gd2.php
 
 		-
@@ -16427,36 +16077,6 @@ parameters:
 
 		-
 			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: "#^Method Varien_Io_File\\:\\:createDestinationDir\\(\\) should return Varien_Io_File but returns bool\\.$#"
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: "#^Method Varien_Io_File\\:\\:createDestinationDir\\(\\) should return Varien_Io_File but returns false\\.$#"
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: "#^Method Varien_Io_File\\:\\:setAllowCreateFolders\\(\\) with return type void returns \\$this\\(Varien_Io_File\\) but should not return anything\\.$#"
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: "#^Method Varien_Io_File\\:\\:streamRead\\(\\) should return string but returns false\\.$#"
-			count: 2
-			path: lib/Varien/Io/File.php
-
-		-
-			message: "#^Method Varien_Io_File\\:\\:streamReadCsv\\(\\) should return string but returns array\\|false\\.$#"
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: "#^Method Varien_Io_File\\:\\:streamReadCsv\\(\\) should return string but returns false\\.$#"
 			count: 1
 			path: lib/Varien/Io/File.php
 
@@ -16481,21 +16101,6 @@ parameters:
 			path: lib/Varien/Io/File.php
 
 		-
-			message: "#^Parameter \\$src of method Varien_Io_File\\:\\:filePutContent\\(\\) has invalid type srting\\.$#"
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: "#^Return type \\(void\\) of method Varien_Io_File\\:\\:setAllowCreateFolders\\(\\) should be compatible with return type \\(Varien_Io_Abstract\\) of method Varien_Io_Abstract\\:\\:setAllowCreateFolders\\(\\)$#"
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: "#^Method Varien_Io_Ftp\\:\\:read\\(\\) should return string but returns false\\.$#"
-			count: 1
-			path: lib/Varien/Io/Ftp.php
-
-		-
 			message: "#^Parameter \\#1 \\$prefix of function uniqid expects string, int\\<0, max\\> given\\.$#"
 			count: 1
 			path: lib/Varien/Io/Ftp.php
@@ -16512,11 +16117,6 @@ parameters:
 
 		-
 			message: "#^Method Varien_Object_Cache\\:\\:reference\\(\\) should return bool but empty return statement found\\.$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Method Varien_Object_Cache\\:\\:save\\(\\) should return string but returns false\\.$#"
 			count: 1
 			path: lib/Varien/Object/Cache.php
 
@@ -16546,6 +16146,11 @@ parameters:
 			path: lib/Varien/Object/Mapper.php
 
 		-
+			message: "#^Call to an undefined method SimpleXMLElement\\:\\:setNode\\(\\)\\.$#"
+			count: 1
+			path: lib/Varien/Simplexml/Config.php
+
+		-
 			message: "#^Call to an undefined method Varien_Simplexml_Config_Cache_Abstract\\:\\:load\\(\\)\\.$#"
 			count: 2
 			path: lib/Varien/Simplexml/Config.php
@@ -16561,37 +16166,7 @@ parameters:
 			path: lib/Varien/Simplexml/Config.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Varien/Simplexml/Config.php
-
-		-
-			message: "#^Method Varien_Simplexml_Config\\:\\:_removeCache\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: lib/Varien/Simplexml/Config.php
-
-		-
-			message: "#^Method Varien_Simplexml_Config\\:\\:getCacheChecksum\\(\\) should return string but returns unknown_type\\.$#"
-			count: 1
-			path: lib/Varien/Simplexml/Config.php
-
-		-
-			message: "#^Method Varien_Simplexml_Config\\:\\:getNode\\(\\) should return Varien_Simplexml_Element but returns false\\.$#"
-			count: 1
-			path: lib/Varien/Simplexml/Config.php
-
-		-
-			message: "#^Method Varien_Simplexml_Config\\:\\:getXpath\\(\\) should return array but returns false\\.$#"
-			count: 2
-			path: lib/Varien/Simplexml/Config.php
-
-		-
-			message: "#^Method Varien_Simplexml_Config\\:\\:loadDom\\(\\) should return Varien_Simplexml_Element but returns false\\.$#"
-			count: 1
-			path: lib/Varien/Simplexml/Config.php
-
-		-
-			message: "#^Method Varien_Simplexml_Config\\:\\:loadDom\\(\\) should return Varien_Simplexml_Element but returns true\\.$#"
+			message: "#^Method Varien_Simplexml_Config\\:\\:getXpath\\(\\) should return array\\<Varien_Simplexml_Element\\>\\|false but returns non\\-empty\\-array\\<SimpleXMLElement\\>\\.$#"
 			count: 1
 			path: lib/Varien/Simplexml/Config.php
 
@@ -16606,54 +16181,14 @@ parameters:
 			path: lib/Varien/Simplexml/Config.php
 
 		-
-			message: "#^Property Varien_Simplexml_Config\\:\\:\\$_cacheChecksum \\(unknown_type\\) does not accept default value of type false\\.$#"
-			count: 1
-			path: lib/Varien/Simplexml/Config.php
-
-		-
-			message: "#^Property Varien_Simplexml_Config\\:\\:\\$_cacheChecksum \\(unknown_type\\) does not accept false\\.$#"
-			count: 2
-			path: lib/Varien/Simplexml/Config.php
-
-		-
-			message: "#^Property Varien_Simplexml_Config\\:\\:\\$_cacheChecksum \\(unknown_type\\) does not accept null\\.$#"
-			count: 1
-			path: lib/Varien/Simplexml/Config.php
-
-		-
-			message: "#^Property Varien_Simplexml_Config\\:\\:\\$_cacheChecksum \\(unknown_type\\) does not accept string\\.$#"
-			count: 1
-			path: lib/Varien/Simplexml/Config.php
-
-		-
-			message: "#^Property Varien_Simplexml_Config\\:\\:\\$_cacheChecksum has unknown class unknown_type as its type\\.$#"
-			count: 1
-			path: lib/Varien/Simplexml/Config.php
-
-		-
-			message: "#^Property Varien_Simplexml_Config\\:\\:\\$_xml \\(Varien_Simplexml_Element\\) does not accept SimpleXMLElement\\.$#"
-			count: 2
-			path: lib/Varien/Simplexml/Config.php
-
-		-
 			message: "#^Result of && is always false\\.$#"
 			count: 1
-			path: lib/Varien/Simplexml/Config.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between false and string will always evaluate to false\\.$#"
-			count: 3
 			path: lib/Varien/Simplexml/Config.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Varien/Simplexml/Config.php
-
-		-
-			message: "#^Method Varien_Simplexml_Config_Cache_File\\:\\:setKey\\(\\) should return string but returns \\$this\\(Varien_Simplexml_Config_Cache_File\\)\\.$#"
-			count: 1
-			path: lib/Varien/Simplexml/Config/Cache/File.php
 
 		-
 			message: "#^Parameter \\#1 \\$filename of method Varien_Simplexml_Element\\:\\:asNiceXml\\(\\) expects string, int given\\.$#"
