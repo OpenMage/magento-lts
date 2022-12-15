@@ -33,16 +33,25 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Coupons extends Mage_Adminhtml_Blo
         $this->setId('sales_order_create_coupons_form');
     }
 
+    /**
+     * @return string
+     */
     public function getCouponCode()
     {
         return $this->getQuote()->getCouponCode();
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Coupons');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderCssClass()
     {
         return 'head-promo-quote';

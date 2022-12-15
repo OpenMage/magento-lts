@@ -38,12 +38,14 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit extends Mage_Adminhtml_Block_Widg
         $this->_updateButton('delete', 'label', Mage::helper('catalog')->__('Delete Search'));
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         if (Mage::registry('current_catalog_search')->getId()) {
             return Mage::helper('catalog')->__("Edit Search '%s'", $this->escapeHtml(Mage::registry('current_catalog_search')->getQueryText()));
-        } else {
-            return Mage::helper('catalog')->__('New Search');
         }
+        return Mage::helper('catalog')->__('New Search');
     }
 }

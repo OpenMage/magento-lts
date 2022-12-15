@@ -38,9 +38,7 @@ class Mage_Adminhtml_Block_System_Email_Template extends Mage_Adminhtml_Block_Te
     }
 
     /**
-     * Create add button and grid blocks
-     *
-     * @return Mage_Core_Block_Abstract
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
