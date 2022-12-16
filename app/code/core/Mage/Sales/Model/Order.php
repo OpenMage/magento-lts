@@ -441,42 +441,42 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     protected $_eventObject = 'order';
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Address_Collection|Mage_Sales_Model_Order_Address[]|null
+     * @var Mage_Sales_Model_Resource_Order_Address_Collection|Mage_Sales_Model_Order_Address[]
      */
     protected $_addresses       = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Item_Collection|Mage_Sales_Model_Order_Item[]|null
+     * @var Mage_Sales_Model_Resource_Order_Item_Collection|Mage_Sales_Model_Order_Item[]
      */
     protected $_items           = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Payment_Collection|Mage_Sales_Model_Order_Payment[]|null
+     * @var Mage_Sales_Model_Resource_Order_Payment_Collection|Mage_Sales_Model_Order_Payment[]
      */
     protected $_payments        = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Status_History_Collection|Mage_Sales_Model_Order_Status_History[]|null
+     * @var Mage_Sales_Model_Resource_Order_Status_History_Collection|Mage_Sales_Model_Order_Status_History[]
      */
     protected $_statusHistory   = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Invoice_Collection|null
+     * @var Mage_Sales_Model_Resource_Order_Invoice_Collection
      */
     protected $_invoices;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Shipment_Track_Collection|null
+     * @var Mage_Sales_Model_Resource_Order_Shipment_Track_Collection
      */
     protected $_tracks;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Shipment_Collection|false|null
+     * @var Mage_Sales_Model_Resource_Order_Shipment_Collection|false
      */
     protected $_shipments;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Creditmemo_Collection|Mage_Sales_Model_Order_Creditmemo[]|false|null
+     * @var Mage_Sales_Model_Resource_Order_Creditmemo_Collection|Mage_Sales_Model_Order_Creditmemo[]|false
      */
     protected $_creditmemos;
 
@@ -519,11 +519,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     protected function _initOldFieldsMap()
     {
         // pre 1.6 fields names, old => new
-        $this->_oldFieldsMap = [
-            'payment_authorization_expiration' => 'payment_auth_expiration',
-            'forced_do_shipment_with_invoice' => 'forced_shipment_with_invoice',
-            'base_shipping_hidden_tax_amount' => 'base_shipping_hidden_tax_amnt',
-        ];
+        $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('order');
         return $this;
     }
 
@@ -1745,7 +1741,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $items = [];
         foreach ($this->getItemsCollection() as $item) {
             if (!$item->isDeleted() && !$item->getParentItemId()) {
-                $items[] = $item;
+                $items[] =  $item;
             }
         }
         return $items;
@@ -1753,7 +1749,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * @param int $itemId
-     * @return Mage_Sales_Model_Order_Item|null
+     * @return Varien_Object|null
      */
     public function getItemById($itemId)
     {
