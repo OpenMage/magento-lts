@@ -111,7 +111,18 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 - bug fixes and PHP 7.x, 8.0 and 8.1 compatibility
 - added config cache for system.xml [#1916](https://github.com/OpenMage/magento-lts/pull/1916)
 - search for "NULL" in backend grids [#1203](https://github.com/OpenMage/magento-lts/pull/1203)
-- removed modules `Mage_Compiler`, `Mage_GoogleBase`, `Mage_Xmlconnect`, `Phoenix_Moneybookers`
+- removed modules
+  - `Mage_Backup`
+  - `Mage_Compiler`
+  - `Mage_GoogleBase`
+  - `Mage_Xmlconnect`
+  - `Phoenix_Moneybookers`
+
+`Mage_Backup` was disabled by Magento an has removed in <VERSIONUMBER>. If you still want to use it:
+
+```
+composer require openmage/bc-mage-backup:dev-master
+```
 
 ### Between OpenMage 19.4.18 / 20.0.16 and 19.4.19 / 20.0.17
 
