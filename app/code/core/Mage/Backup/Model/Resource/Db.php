@@ -31,7 +31,7 @@ class Mage_Backup_Model_Resource_Db
     /**
      * Database connection adapter
      *
-     * @var Varien_Db_Adapter_Pdo_Mysql
+     * @var Varien_Db_Adapter_Pdo_Mysql|false
      */
     protected $_write;
 

@@ -28,7 +28,7 @@
  */
 class Mage_Backup_Model_Backup extends Varien_Object
 {
-    /* internal constants */
+    /** internal constants */
     public const COMPRESS_RATE     = 9;
 
     /**
@@ -41,7 +41,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
     /**
      * Gz file pointer
      *
-     * @var resource
+     * @var resource|null
      */
     protected $_handler = null;
 
@@ -234,6 +234,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
             Mage::exception('Mage_Backup', Mage::helper('backup')->__('Backup file path was not specified.'));
         }
 
+        $filePath = null;
         $ioAdapter = new Varien_Io_File();
         try {
             $path = $ioAdapter->getCleanPath($this->getPath());
@@ -278,6 +279,9 @@ class Mage_Backup_Model_Backup extends Varien_Object
         return gzread($this->_handler, $length);
     }
 
+    /**
+     * @return bool
+     */
     public function eof()
     {
         if (is_null($this->_handler)) {
@@ -323,7 +327,6 @@ class Mage_Backup_Model_Backup extends Varien_Object
 
     /**
      * Print output
-     *
      */
     public function output()
     {
@@ -341,6 +344,9 @@ class Mage_Backup_Model_Backup extends Varien_Object
         $ioAdapter->streamClose();
     }
 
+    /**
+     * @return mixed|int
+     */
     public function getSize()
     {
         if (!is_null($this->getData('size'))) {

@@ -230,7 +230,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
         ];
 
         if (!isset($messagesMap[$type])) {
-            return;
+            return '';
         }
 
         return $messagesMap[$type];

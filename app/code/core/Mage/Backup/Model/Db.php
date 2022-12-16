@@ -54,34 +54,55 @@ class Mage_Backup_Model_Db
         return Mage::getResourceSingleton('backup/db');
     }
 
+    /**
+     * @return array
+     */
     public function getTables()
     {
         return $this->getResource()->getTables();
     }
 
+    /**
+     * @param string $tableName
+     * @param bool $addDropIfExists
+     * @return string
+     */
     public function getTableCreateScript($tableName, $addDropIfExists = false)
     {
         return $this->getResource()->getTableCreateScript($tableName, $addDropIfExists);
     }
 
+    /**
+     * @param string $tableName
+     * @return string
+     */
     public function getTableDataDump($tableName)
     {
         return $this->getResource()->getTableDataDump($tableName);
     }
 
+    /**
+     * @return string
+     */
     public function getHeader()
     {
         return $this->getResource()->getHeader();
     }
 
+    /**
+     * @return string
+     */
     public function getFooter()
     {
         return $this->getResource()->getFooter();
     }
 
+    /**
+     * @return string
+     */
     public function renderSql()
     {
-        ini_set('max_execution_time', 0);
+        ini_set('max_execution_time', '0');
         $sql = $this->getHeader();
 
         $tables = $this->getTables();

@@ -2886,42 +2886,12 @@ parameters:
 			path: app/code/core/Mage/Authorizenet/controllers/Directpost/PaymentController.php
 
 		-
-			message: "#^Method Mage_Backup_Helper_Data\\:\\:getCreateSuccessMessageByType\\(\\) should return string but empty return statement found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Backup/Helper/Data.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with resource will always evaluate to false\\.$#"
-			count: 3
-			path: app/code/core/Mage/Backup/Model/Backup.php
-
-		-
-			message: "#^Property Mage_Backup_Model_Backup\\:\\:\\$_handler \\(resource\\) does not accept null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Backup/Model/Backup.php
-
-		-
-			message: "#^Variable \\$filePath might not be defined\\.$#"
-			count: 4
-			path: app/code/core/Mage/Backup/Model/Backup.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of function ini_set expects string, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Backup/Model/Db.php
-
-		-
 			message: "#^Call to an undefined method Mage_Backup_Interface\\:\\:setRootDir\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Backup/Model/Observer.php
 
 		-
 			message: "#^Argument of an invalid type true supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Property Mage_Backup_Model_Resource_Db\\:\\:\\$_write \\(Varien_Db_Adapter_Pdo_Mysql\\) does not accept Varien_Db_Adapter_Interface\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Backup/Model/Resource/Db.php
 
