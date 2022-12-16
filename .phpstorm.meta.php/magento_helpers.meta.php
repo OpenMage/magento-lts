@@ -30,8 +30,6 @@ namespace PHPSTORM_META {
             'authorizenet/admin' => \Mage_Authorizenet_Helper_Admin::class,
             'authorizenet' => \Mage_Authorizenet_Helper_Data::class,
             'authorizenet/data' => \Mage_Authorizenet_Helper_Data::class,
-            'backup' => \Mage_Backup_Helper_Data::class,
-            'backup/data' => \Mage_Backup_Helper_Data::class,
             'bundle/catalog_product_configuration' => \Mage_Bundle_Helper_Catalog_Product_Configuration::class,
             'bundle' => \Mage_Bundle_Helper_Data::class,
             'bundle/data' => \Mage_Bundle_Helper_Data::class,
