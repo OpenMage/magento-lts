@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * @return Mage_Reports_Model_Grouped_Collection
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|Mage_Reports_Model_Grouped_Collection
      */
     public function getCollection()
     {

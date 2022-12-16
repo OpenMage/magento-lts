@@ -273,7 +273,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     * Return variable value for var construction
     *
     * @param string $value raw parameters
-    * @param string $default default value
+    * @param string|null $default default value
     * @return string
     */
     protected function _getVariable($value, $default = '{no_value_defined}')
@@ -284,7 +284,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         $stackVars = $tokenizer->tokenize();
         $result = $default;
         $last = 0;
-        /** @var $emailPathValidator Mage_Adminhtml_Model_Email_PathValidator */
+        /** @var Mage_Adminhtml_Model_Email_PathValidator $emailPathValidator */
         $emailPathValidator = $this->getEmailPathValidator();
         for ($i = 0; $i < count($stackVars); $i++) {
             if ($i == 0 && isset($this->_templateVars[$stackVars[$i]['name']])) {
@@ -327,7 +327,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Retrieve model object
      *
-     * @return Mage_Core_Model_Abstract
+     * @return Mage_Adminhtml_Model_Email_PathValidator
      */
     protected function getEmailPathValidator()
     {

@@ -275,7 +275,7 @@ class Magento_Profiler
         if (!self::$_enabled) {
             return;
         }
-        /** @var $output Magento_Profiler_OutputAbstract */
+        /** @var Magento_Profiler_OutputAbstract $output */
         foreach (self::$_outputs as $output) {
             $output->display();
         }

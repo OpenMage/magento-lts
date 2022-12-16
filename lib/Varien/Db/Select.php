@@ -397,13 +397,7 @@ class Varien_Db_Select extends Zend_Db_Select
     }
 
     /**
-     * Adds to the internal table-to-column mapping array.
-     *
-     * @param  string $tbl The table/join the columns come from.
-     * @param  array|string $cols The list of columns; preferably as
-     * an array, but possibly as a string containing one column.
-     * @param  bool|string True if it should be prepended, a correlation name if it should be inserted
-     * @return void
+     * @inheritDoc
      */
     protected function _tableCols($correlationName, $cols, $afterCorrelationName = null)
     {
@@ -417,7 +411,7 @@ class Varien_Db_Select extends Zend_Db_Select
             }
         }
 
-        return parent::_tableCols($correlationName, $cols, $afterCorrelationName);
+        parent::_tableCols($correlationName, $cols, $afterCorrelationName);
     }
 
     /**

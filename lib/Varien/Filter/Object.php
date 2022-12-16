@@ -21,8 +21,16 @@
 
 class Varien_Filter_Object extends Zend_Filter
 {
+    /**
+     * @var array
+     */
     protected $_columnFilters = [];
 
+    /**
+     * @param Zend_Filter_Interface $filter
+     * @param string $column
+     * @return $this
+     */
     public function addFilter(Zend_Filter_Interface $filter, $column = '')
     {
         if ('' === $column) {
@@ -33,8 +41,14 @@ class Varien_Filter_Object extends Zend_Filter
             }
             $this->_columnFilters[$column]->addFilter($filter);
         }
+        return $this;
     }
 
+    /**
+     * @param Varien_Object $object
+     * @return mixed
+     * @throws Exception
+     */
     public function filter($object)
     {
         if (!$object instanceof Varien_Object) {

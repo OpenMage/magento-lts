@@ -63,7 +63,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA IP Anonymization is enabled
      *
-     * @param null $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
      * @return bool
      */
     public function isIpAnonymizationEnabled($store = null)

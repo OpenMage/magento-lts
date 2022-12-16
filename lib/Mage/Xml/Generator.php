@@ -28,19 +28,28 @@ class Mage_Xml_Generator
         $this->_dom = new DOMDocument('1.0');
         $this->_dom->formatOutput = true;
         $this->_currentDom = $this->_dom;
-        return $this;
     }
 
+    /**
+     * @return DOMDocument|null
+     */
     public function getDom()
     {
         return $this->_dom;
     }
 
+    /**
+     * @return DOMElement
+     */
     protected function _getCurrentDom()
     {
         return $this->_currentDom;
     }
 
+    /**
+     * @param DOMElement $node
+     * @return $this
+     */
     protected function _setCurrentDom($node)
     {
         $this->_currentDom = $node;
@@ -48,7 +57,7 @@ class Mage_Xml_Generator
     }
 
     /**
-    * @param array $content
+    * @param array|array[] $content
     */
     public function arrayToXml($content)
     {
@@ -95,11 +104,18 @@ class Mage_Xml_Generator
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getDom()->saveXML();
     }
 
+    /**
+     * @param string $file
+     * @return $this
+     */
     public function save($file)
     {
         $this->getDom()->save($file);

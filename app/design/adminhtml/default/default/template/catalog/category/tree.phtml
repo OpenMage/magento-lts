@@ -381,20 +381,27 @@ Ext.onReady(function()
     reRenderTree();
 });
 
-function addNew(url, isRoot)
+function addNew(url, isRoot, node)
 {
     if (isRoot) {
+        if (tree.currentNodeId && (node = tree.getNodeById(tree.currentNodeId))) {
+            node.unselect();
+        }
         tree.currentNodeId = tree.root.id;
+    }
+    else if (!tree.currentNodeId || (tree.currentNodeId == tree.root.id)) {
+        alert("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please select a parent category before adding a new one.')) ?>");
+        return;
     }
 
     if (/store\/\d+/.test(url)) {
         url = url.replace(/store\/\d+/, "store/" + tree.storeId);
     }
-    else    {
-        url+= "store/" + tree.storeId + "/";
+    else {
+        url += "store/" + tree.storeId + "/";
     }
 
-    url+= 'parent/'+tree.currentNodeId;
+    url += 'parent/' + tree.currentNodeId + '/';
     updateContent(url);
 }
 

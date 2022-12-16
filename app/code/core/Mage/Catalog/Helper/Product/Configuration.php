@@ -161,10 +161,8 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         switch ($typeId) {
             case Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE:
                 return $this->getConfigurableOptions($item);
-                break;
             case Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE:
                 return $this->getGroupedOptions($item);
-                break;
         }
         return $this->getCustomOptions($item);
     }

@@ -468,13 +468,10 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         switch ($this->getScope()) {
             case self::SCOPE_DEFAULT:
                 return (bool)(int)$field->show_in_default;
-                break;
             case self::SCOPE_WEBSITES:
                 return (bool)(int)$field->show_in_website;
-                break;
             case self::SCOPE_STORES:
                 return (bool)(int)$field->show_in_store;
-                break;
         }
 
         return true;
