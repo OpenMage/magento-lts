@@ -153,6 +153,8 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         $stateObject->setState($state);
         $stateObject->setStatus('pending_payment');
         $stateObject->setIsNotified(false);
+
+        return $this;
     }
 
     /**

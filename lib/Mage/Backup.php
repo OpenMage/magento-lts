@@ -38,7 +38,7 @@ class Mage_Backup
      * get Backup Instance By File Name
      *
      * @param  string $type
-     * @return Mage_Backup_Interface
+     * @return Mage_Backup_Db|Mage_Backup_Interface
      */
     public static function getBackupInstance($type)
     {

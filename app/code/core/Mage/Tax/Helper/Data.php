@@ -1133,7 +1133,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get all FPTs
      *
-     * @param null $source
+     * @param mixed|null $source
      * @return array
      * @throws Mage_Core_Model_Store_Exception
      */
