@@ -34,7 +34,10 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage_Adminhtml_Block_Widget
 {
-    // current massactions
+    /**#@+
+     * Current massactions
+     * @var string
+     */
     public const ASSIGN_GROUP              = 'assign_group';
     public const ATTRIBUTES                = 'attributes';
     public const CANCEL_ORDER              = 'cancel_order';
@@ -60,6 +63,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     public const UNHOLD_ORDER              = 'unhold_order';
     public const UNSUBSCRIBE               = 'unsubscribe';
     public const UPDATE_STATUS             = 'update_status';
+    /**#@-*/
 
     /**
      * @var string[]
