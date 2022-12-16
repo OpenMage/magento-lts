@@ -237,9 +237,11 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * its full names
      *
      * @return Varien_Object
+     * @deprecated
      */
     protected function _initOldFieldsMap()
     {
+        // pre 1.6 fields names, old => new
         $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('order_item');
         return $this;
     }

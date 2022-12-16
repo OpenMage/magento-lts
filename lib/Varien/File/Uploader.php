@@ -51,7 +51,7 @@ class Varien_File_Uploader
     /**
      * Upload type. Used to right handle $_FILES array.
      *
-     * @var string Varien_File_Uploader::SINGLE_STYLE|Varien_File_Uploader::MULTIPLE_STYLE
+     * @var int Varien_File_Uploader::SINGLE_STYLE|Varien_File_Uploader::MULTIPLE_STYLE
      * @access protected
      */
     protected $_uploadType;
@@ -141,7 +141,7 @@ class Varien_File_Uploader
     /**
      * Resulting of uploaded file
      *
-     * @var array|false     Array with file info keys: path, file. Result is
+     * @var array|bool      Array with file info keys: path, file. Result is
      *                      FALSE when file not uploaded
      */
     protected $_result;
@@ -504,7 +504,10 @@ class Varien_File_Uploader
         } else {
             preg_match("/^(.*?)\[(.*?)\]$/", $fileId, $file);
 
-            if (count($file) > 0 && (count($file[0]) > 0) && (count($file[1]) > 0)) {
+            if (count($file) > 0
+                && (count($file[0]) > 0)
+                && (count($file[1]) > 0)
+            ) {
                 array_shift($file);
                 $this->_uploadType = self::MULTIPLE_STYLE;
 
