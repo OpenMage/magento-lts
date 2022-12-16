@@ -74,7 +74,7 @@ class Mage_PageCache_Helper_Data extends Mage_Core_Helper_Abstract
      * Initialize proper external cache control model
      *
      * @throws Mage_Core_Exception
-     * @return Mage_PageCache_Model_Control_Interface
+     * @return Mage_Core_Model_Abstract|Mage_PageCache_Model_Control_Interface
      */
     public function getCacheControlInstance()
     {
@@ -101,7 +101,7 @@ class Mage_PageCache_Helper_Data extends Mage_Core_Helper_Abstract
         if ($noCache) {
             $cookie->renew(self::NO_CACHE_COOKIE, $lifetime);
         } else {
-            $cookie->set(self::NO_CACHE_COOKIE, 1, $lifetime);
+            $cookie->set(self::NO_CACHE_COOKIE, '1', $lifetime);
         }
     }
 

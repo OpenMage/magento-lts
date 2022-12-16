@@ -10391,16 +10391,6 @@ parameters:
 			path: app/code/core/Mage/Page/Block/Html/Topmenu/Renderer.php
 
 		-
-			message: "#^Method Mage_PageCache_Helper_Data\\:\\:getCacheControlInstance\\(\\) should return Mage_PageCache_Model_Control_Interface but returns Mage_Core_Model_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/PageCache/Helper/Data.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method Mage_Core_Model_Cookie\\:\\:set\\(\\) expects string, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/PageCache/Helper/Data.php
-
-		-
 			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:isPartialAuthorization\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paygate/Block/Authorizenet/Form/Cc.php
