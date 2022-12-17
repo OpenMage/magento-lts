@@ -10201,26 +10201,6 @@ parameters:
 			path: app/code/core/Mage/Page/Block/Html/Breadcrumbs.php
 
 		-
-			message: "#^Parameter \\#3 \\$after of method Mage_Page_Block_Html_Breadcrumbs\\:\\:addCrumb\\(\\) expects bool, \\(int\\|string\\) given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Page/Block/Html/Breadcrumbs.php
-
-		-
-			message: "#^Parameter \\#2 \\$before of method Mage_Page_Block_Html_Head\\:\\:_sortItems\\(\\) expects string, bool given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Page/Block/Html/Head.php
-
-		-
-			message: "#^Variable \\$finish might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Page/Block/Html/Pager.php
-
-		-
-			message: "#^Variable \\$start might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Page/Block/Html/Pager.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Page/Block/Html/Topmenu/Renderer.php
