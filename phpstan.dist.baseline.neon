@@ -846,7 +846,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Sales/Coupons/Grid.php
 
 		-
-			message: "#^Parameter \\#2 \\$filter of method Mage_Reports_Model_Resource_Quote_Collection\\:\\:prepareForAbandonedReport\\(\\) expects string\\|null, array\\<int\\|string, array\\<int, string\\>\\|string\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$filter of method Mage_Reports_Model_Resource_Quote_Collection\\:\\:prepareForAbandonedReport\\(\\) expects string\\|null, array\\<int\\|string, array\\|string\\> given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Abandoned/Grid.php
 
