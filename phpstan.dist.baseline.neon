@@ -11141,56 +11141,6 @@ parameters:
 			path: app/code/core/Mage/Persistent/Model/Observer.php
 
 		-
-			message: "#^Variable \\$key might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Poll/Block/ActivePoll.php
-
-		-
-			message: "#^Variable \\$value might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Poll/Block/ActivePoll.php
-
-		-
-			message: "#^Method Mage_Poll_Model_Poll\\:\\:getPoolId\\(\\) should return int but returns string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Poll/Model/Poll.php
-
-		-
-			message: "#^Method Mage_Poll_Model_Poll\\:\\:getRandomId\\(\\) should return string but returns int\\.$#"
-			count: 1
-			path: app/code/core/Mage/Poll/Model/Poll.php
-
-		-
-			message: "#^Parameter \\#1 \\$pollId of method Mage_Poll_Model_Poll\\:\\:getCookieName\\(\\) expects int\\|null, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Poll/Model/Poll.php
-
-		-
-			message: "#^Parameter \\#1 \\$pollId of method Mage_Poll_Model_Poll\\:\\:getPollId\\(\\) expects string\\|null, int\\|null given\\.$#"
-			count: 4
-			path: app/code/core/Mage/Poll/Model/Poll.php
-
-		-
-			message: "#^Parameter \\#2 \\$pollId of method Mage_Poll_Model_Resource_Poll\\:\\:getVotedPollIdsByIp\\(\\) expects int\\|false, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Poll/Model/Poll.php
-
-		-
-			message: "#^Method Mage_Poll_Model_Resource_Poll\\:\\:checkAnswerId\\(\\) should return bool but returns string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Poll/Model/Resource/Poll.php
-
-		-
-			message: "#^Method Mage_Poll_Model_Resource_Poll\\:\\:getRandomId\\(\\) should return int but returns string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Poll/Model/Resource/Poll.php
-
-		-
-			message: "#^Method Mage_Poll_Model_Resource_Poll_Answer_Collection\\:\\:countPercent\\(\\) should return \\$this\\(Mage_Poll_Model_Resource_Poll_Answer_Collection\\) but empty return statement found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Poll/Model/Resource/Poll/Answer/Collection.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Store will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/ProductAlert/Block/Email/Abstract.php
