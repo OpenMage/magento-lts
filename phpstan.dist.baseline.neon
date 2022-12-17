@@ -6306,11 +6306,6 @@ parameters:
 			path: app/code/core/Mage/ConfigurableSwatches/Model/System/Config/Source/Catalog/Product/Configattribute/Select.php
 
 		-
-			message: "#^Return type \\(void\\) of method Mage_Contacts_IndexController\\:\\:preDispatch\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Controller_Front_Action\\)\\) of method Mage_Core_Controller_Front_Action\\:\\:preDispatch\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Contacts/controllers/IndexController.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with Mage_Core_Block_Messages will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Block/Abstract.php
