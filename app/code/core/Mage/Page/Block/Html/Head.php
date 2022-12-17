@@ -132,7 +132,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param string $if
      * @param string $cond
      * @param string $referenceName name of the item to insert the element before. If name is not found, insert at the end, * has special meaning (before all / before all)
-     * @param bool $before If true insert before the $referenceName instead of after
+     * @param string|bool $before If true insert before the $referenceName instead of after
      * @return $this
      */
     public function addItem($type, $name, $params = null, $if = null, $cond = null, $referenceName = "*", $before = false)
@@ -563,7 +563,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
 
     /**
      * @param string $referenceName
-     * @param string $before
+     * @param string|bool $before
      * @param string $type
      */
     protected function _sortItems($referenceName, $before, $type)

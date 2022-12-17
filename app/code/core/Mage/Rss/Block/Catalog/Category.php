@@ -58,7 +58,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
         $rssObj = Mage::getModel('rss/rss');
         if ($categoryId) {
             $category = Mage::getModel('catalog/category')->load($categoryId);
-            if ($category && $category->getId()) {
+            if ($category->getId()) {
                 $layer = Mage::getSingleton('catalog/layer')->setStore($storeId);
                 //want to load all products no matter anchor or not
                 $category->setIsAnchor(true);
