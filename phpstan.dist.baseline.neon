@@ -401,29 +401,14 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Checkout/Agreement/Edit/Form.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'afterLoad' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Checkout/Agreement/Grid.php
-
-		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Cms/Block/Edit/Form.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'afterLoad' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Cms/Block/Grid.php
-
-		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Cms/Page/Edit/Tab/Main.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'afterLoad' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Cms/Page/Grid.php
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
@@ -1676,11 +1661,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Controller/Action.php
 
 		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 4
-			path: app/code/core/Mage/Adminhtml/Controller/Action.php
-
-		-
 			message: "#^Return type \\(Mage_Admin_Model_Session\\) of method Mage_Adminhtml_Controller_Report_Abstract\\:\\:_getSession\\(\\) should be compatible with return type \\(Mage_Adminhtml_Model_Session\\) of method Mage_Adminhtml_Controller_Action\\:\\:_getSession\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Controller/Report/Abstract.php
@@ -2071,21 +2051,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/IndexController.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'delete' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Newsletter/ProblemController.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'unsubscribe' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Newsletter/ProblemController.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'sendPerSubscriber' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Newsletter/QueueController.php
-
-		-
 			message: "#^Variable \\$id in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Permissions/BlockController.php
@@ -2211,11 +2176,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
 
 		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
-
-		-
 			message: "#^Variable \\$pdf might not be defined\\.$#"
 			count: 4
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
@@ -2231,11 +2191,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/TransactionsController.php
 
 		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/TransactionsController.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/System/Config/System/StorageController.php
@@ -2244,11 +2199,6 @@ parameters:
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/System/Config/System/StorageController.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/controllers/System/ConfigController.php
 
 		-
 			message: "#^Variable \\$data in isset\\(\\) always exists and is not nullable\\.$#"
@@ -3251,17 +3201,7 @@ parameters:
 			path: app/code/core/Mage/Captcha/controllers/Adminhtml/RefreshController.php
 
 		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Captcha/controllers/Adminhtml/RefreshController.php
-
-		-
 			message: "#^Call to an undefined method Mage_Captcha_Model_Interface\\:\\:getImgSrc\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Captcha/controllers/RefreshController.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Captcha/controllers/RefreshController.php
 
@@ -5241,11 +5181,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/controllers/ProductController.php
 
 		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/controllers/Seo/SitemapController.php
-
-		-
 			message: "#^Call to an undefined method Mage_CatalogIndex_Model_Resource_Attribute\\:\\:checkCount\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Attribute.php
@@ -5821,11 +5756,6 @@ parameters:
 			path: app/code/core/Mage/CatalogSearch/Model/Resource/Search/Collection.php
 
 		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/controllers/TermController.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Centinel/Block/Adminhtml/Validation.php
@@ -5937,11 +5867,6 @@ parameters:
 
 		-
 			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Controller/Action.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Controller/Action.php
 
@@ -6161,22 +6086,12 @@ parameters:
 			path: app/code/core/Mage/Checkout/controllers/MultishippingController.php
 
 		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 7
-			path: app/code/core/Mage/Checkout/controllers/MultishippingController.php
-
-		-
 			message: "#^Call to an undefined method Mage_Sales_Model_Service_Order\\:\\:register\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
 
 		-
 			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Order will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
 
@@ -6478,11 +6393,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$value of method Zend_Controller_Response_Abstract\\:\\:setHeader\\(\\) expects string, int\\|false given\\.$#"
 			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Action.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 3
 			path: app/code/core/Mage/Core/Controller/Varien/Action.php
 
 		-
@@ -7261,11 +7171,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Design/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'afterLoad' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Email/Queue/Collection.php
-
-		-
 			message: "#^Method Mage_Core_Model_Resource_Entity_Abstract\\:\\:getConfig\\(\\) should return bool\\|string but returns Varien_Simplexml_Config\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Entity/Abstract.php
@@ -7716,11 +7621,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Website.php
 
 		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/controllers/AjaxController.php
-
-		-
 			message: "#^Function mageCoreErrorHandler\\(\\) never returns void so it can be removed from the return type\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/functions.php
@@ -8104,16 +8004,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$storeId of method Mage_Customer_Model_Customer\\:\\:sendNewAccountEmail\\(\\) expects string, int given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/controllers/AddressController.php
 
 		-
 			message: "#^Variable \\$address might not be defined\\.$#"
@@ -8567,11 +8457,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$loginUrl of method Mage_Customer_Model_Session\\:\\:authenticate\\(\\) expects bool\\|null, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Downloadable/controllers/CustomerController.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Downloadable/controllers/CustomerController.php
 
@@ -9386,16 +9271,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Abstract.php
 
 		-
-			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getFrontendInput\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Customer.php
-
-		-
-			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getSource\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Customer.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Customer.php
@@ -9501,11 +9376,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Abstract.php
 
 		-
-			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getBackend\\(\\)\\.$#"
-			count: 3
-			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Customer.php
-
-		-
 			message: "#^Call to an undefined method Varien_Convert_Adapter_Interface\\:\\:insertMultiple\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Customer.php
@@ -9534,11 +9404,6 @@ parameters:
 			message: "#^Variable \\$entityId might not be defined\\.$#"
 			count: 4
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Customer.php
-
-		-
-			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getBackend\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Customer/Address.php
 
 		-
 			message: "#^Call to an undefined method Varien_Convert_Adapter_Interface\\:\\:delete\\(\\)\\.$#"
@@ -9796,11 +9661,6 @@ parameters:
 			path: app/code/core/Mage/Index/Model/Resource/Setup.php
 
 		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/Controller/Action.php
-
-		-
 			message: "#^Offset 'path' does not exist on array\\{\\000\\*\\000_parent\\: Varien_Simplexml_Element\\}\\|array\\{false\\}\\.$#"
 			count: 1
 			path: app/code/core/Mage/Install/Model/Config.php
@@ -9886,11 +9746,6 @@ parameters:
 			path: app/code/core/Mage/Install/controllers/IndexController.php
 
 		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/controllers/IndexController.php
-
-		-
 			message: "#^Result of method Mage_Core_Controller_Varien_Action\\:\\:preDispatch\\(\\) \\(void\\) is used\\.$#"
 			count: 1
 			path: app/code/core/Mage/Install/controllers/IndexController.php
@@ -9898,11 +9753,6 @@ parameters:
 		-
 			message: "#^Method Mage_Install_WizardController\\:\\:preDispatch\\(\\) with return type void returns void but should not return anything\\.$#"
 			count: 1
-			path: app/code/core/Mage/Install/controllers/WizardController.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 8
 			path: app/code/core/Mage/Install/controllers/WizardController.php
 
 		-
@@ -9996,61 +9846,6 @@ parameters:
 			path: app/code/core/Mage/Media/Model/Image.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'sendPerSubscriber' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Observer.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Newsletter_Model_Subscriber will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Problem.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Problem.php
-
-		-
-			message: "#^Method Mage_Newsletter_Model_Problem\\:\\:getSubscriber\\(\\) should return Mage_Newsletter_Model_Subscriber but returns null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Problem.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Newsletter_Model_Resource_Subscriber_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Queue.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Newsletter_Model_Template will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Queue.php
-
-		-
-			message: "#^Parameter \\#1 \\$queue of method Mage_Newsletter_Model_Resource_Queue\\:\\:setStores\\(\\) expects Mage_Newsletter_Model_Queue, Mage_Core_Model_Abstract given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Resource/Queue.php
-
-		-
-			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getAttributeId\\(\\)\\.$#"
-			count: 3
-			path: app/code/core/Mage/Newsletter/Model/Resource/Subscriber/Collection.php
-
-		-
-			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getBackend\\(\\)\\.$#"
-			count: 3
-			path: app/code/core/Mage/Newsletter/Model/Resource/Subscriber/Collection.php
-
-		-
-			message: "#^Parameter \\#2 \\$true of method Varien_Db_Adapter_Interface\\:\\:getCheckSql\\(\\) expects string, int given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Newsletter/Model/Resource/Subscriber/Collection.php
-
-		-
-			message: "#^Parameter \\#3 \\$false of method Varien_Db_Adapter_Interface\\:\\:getCheckSql\\(\\) expects string, int given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Newsletter/Model/Resource/Subscriber/Collection.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Newsletter/Model/Resource/Template.php
@@ -10059,36 +9854,6 @@ parameters:
 			message: "#^Call to function is_null\\(\\) with bool will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Newsletter/Model/Subscriber.php
-
-		-
-			message: "#^Parameter \\#1 \\$scope of method Mage_Newsletter_Model_Resource_Subscriber\\:\\:setMessagesScope\\(\\) expects string, bool given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Subscriber.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Zend_Mail will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Template.php
-
-		-
-			message: "#^Parameter \\#1 \\$storeId of method Mage_Core_Model_Email_Template_Filter\\:\\:setStoreId\\(\\) expects int, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Template.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function strlen expects string, bool given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Template.php
-
-		-
-			message: "#^Property Mage_Newsletter_Model_Template\\:\\:\\$_mail \\(Zend_Mail\\) does not accept null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Template.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/controllers/ManageController.php
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
@@ -10109,11 +9874,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$value of method Varien_Data_Collection\\:\\:addFilter\\(\\) expects array\\|string, int given\\.$#"
 			count: 4
 			path: app/code/core/Mage/Oauth/Model/Resource/Token/Collection.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Oauth/controllers/Adminhtml/Oauth/AuthorizeController.php
 
 		-
 			message: "#^Return type \\(void\\) of method Mage_Oauth_Adminhtml_Oauth_AuthorizeController\\:\\:preDispatch\\(\\) should be compatible with return type \\(\\$this\\(Mage_Adminhtml_Controller_Action\\)\\) of method Mage_Adminhtml_Controller_Action\\:\\:preDispatch\\(\\)$#"
@@ -10137,11 +9897,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$modelClass of static method Mage\\:\\:getSingleton\\(\\) expects string, Mage_Customer_Model_Session given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Oauth/controllers/Customer/TokenController.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Oauth/controllers/Customer/TokenController.php
 
@@ -10513,11 +10268,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$setToken of method Mage_Paypal_Controller_Express_Abstract\\:\\:_initToken\\(\\) expects string\\|null, false given\\.$#"
 			count: 2
-			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
 			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
 
 		-
@@ -10926,11 +10676,6 @@ parameters:
 			path: app/code/core/Mage/PaypalUk/Model/Pro.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'delete' given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Persistent/Model/Observer.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Store will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/ProductAlert/Block/Email/Abstract.php
@@ -11021,19 +10766,9 @@ parameters:
 			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
 
 		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
-
-		-
 			message: "#^Return type \\(void\\) of method Mage_ProductAlert_AddController\\:\\:preDispatch\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Controller_Front_Action\\)\\) of method Mage_Core_Controller_Front_Action\\:\\:preDispatch\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/controllers/UnsubscribeController.php
 
 		-
 			message: "#^Method Mage_Rating_Model_Resource_Rating\\:\\:getEntityIdByCode\\(\\) should return int but returns string\\.$#"
@@ -11449,16 +11184,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Review/Model/Review.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Review/controllers/CustomerController.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Review/controllers/ProductController.php
 
 		-
 			message: "#^Cannot call method getId\\(\\) on true\\.$#"
@@ -12069,11 +11794,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Payment.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'delete' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Observer.php
 
 		-
 			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Resource_Order_Invoice_Collection will always evaluate to false\\.$#"
@@ -13091,24 +12811,9 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Resource/Order/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'afterLoad' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Order/Creditmemo/Collection.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'afterLoad' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Order/Invoice/Collection.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isFailsafe\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Order/Payment/Transaction.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'afterLoad' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Order/Shipment/Collection.php
 
 		-
 			message: "#^Parameter \\#3 \\$object of method Mage_Core_Model_Resource_Db_Abstract\\:\\:_getLoadSelect\\(\\) expects Mage_Core_Model_Abstract, Varien_Object given\\.$#"
@@ -13341,11 +13046,6 @@ parameters:
 			path: app/code/core/Mage/Sales/controllers/Billing/AgreementController.php
 
 		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/controllers/Billing/AgreementController.php
-
-		-
 			message: "#^Variable \\$billingAgreement might not be defined\\.$#"
 			count: 2
 			path: app/code/core/Mage/Sales/controllers/Billing/AgreementController.php
@@ -13366,17 +13066,7 @@ parameters:
 			path: app/code/core/Mage/Sales/controllers/OrderController.php
 
 		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/controllers/OrderController.php
-
-		-
 			message: "#^Method Mage_Sales_Recurring_ProfileController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Sales_Recurring_ProfileController\\) but empty return statement found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/controllers/Recurring/ProfileController.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/controllers/Recurring/ProfileController.php
 
@@ -13512,11 +13202,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$ipAddr of method Mage_Sendfriend_Model_Sendfriend\\:\\:setRemoteAddr\\(\\) expects int, string\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sendfriend/controllers/ProductController.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sendfriend/controllers/ProductController.php
 
@@ -13764,11 +13449,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$condition of method Mage_Tag_Model_Resource_Tag_Collection\\:\\:addFieldToFilter\\(\\) expects array\\|null, int given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Tag/Model/Resource/Tag/Collection.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'aggregate' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Model/Tag.php
 
 		-
 			message: "#^Variable \\$result might not be defined\\.$#"
@@ -14992,11 +14672,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$qty of method Mage_Wishlist_Model_Item\\:\\:setQty\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method Mage_Core_Controller_Varien_Action\\:\\:setFlag\\(\\) expects int\\|string, true given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
 
