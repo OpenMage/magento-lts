@@ -79,9 +79,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
     {
         if ($this->getWidgetInstance()->getId()) {
             return Mage::helper('widget')->__('Widget "%s"', $this->escapeHtml($this->getWidgetInstance()->getTitle()));
-        } else {
-            return Mage::helper('widget')->__('New Widget Instance');
         }
+        return Mage::helper('widget')->__('New Widget Instance');
     }
 
     /**

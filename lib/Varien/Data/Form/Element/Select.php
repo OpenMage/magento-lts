@@ -60,8 +60,9 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
                 if (!is_array($option)) {
                     $html .= $this->_optionToHtml(
                         [
-                        'value' => $key,
-                        'label' => $option],
+                            'value' => $key,
+                            'label' => $option
+                        ],
                         $value
                     );
                 } elseif (is_array($option['value'])) {
@@ -83,7 +84,7 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
 
     /**
      * @param array $option
-     * @param string $selected
+     * @param string|array $selected
      * @return string
      */
     protected function _optionToHtml($option, $selected)

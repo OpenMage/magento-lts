@@ -19,7 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Setup  $installer */
 $installer = $this;
 $installer->startSetup();
 $installer->getConnection()->addColumn($installer->getTable('downloadable/link_purchased'), 'is_shareable', "smallint(1) unsigned NOT NULL default '0' AFTER `link_title`");

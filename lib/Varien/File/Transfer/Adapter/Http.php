@@ -95,7 +95,7 @@ class Varien_File_Transfer_Adapter_Http
 
         $response = new Zend_Controller_Response_Http();
 
-        $response->setHeader('Content-length', filesize($filepath));
+        $response->setHeader('Content-length', (string)filesize($filepath));
         $response->setHeader('Content-Type', $mimeType);
 
         $response->sendHeaders();
@@ -107,7 +107,7 @@ class Varien_File_Transfer_Adapter_Http
      * Internal method to detect the mime type of a file
      *
      * @param  array $value File infos
-     * @return string Mime type of given file
+     * @return string|null Mime type of given file
      */
     protected function _detectMimeType($value)
     {

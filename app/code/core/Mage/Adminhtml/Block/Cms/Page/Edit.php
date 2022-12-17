@@ -65,9 +65,8 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
     {
         if (Mage::registry('cms_page')->getId()) {
             return Mage::helper('cms')->__("Edit Page '%s'", $this->escapeHtml(Mage::registry('cms_page')->getTitle()));
-        } else {
-            return Mage::helper('cms')->__('New Page');
         }
+        return Mage::helper('cms')->__('New Page');
     }
 
     /**
@@ -97,9 +96,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
     }
 
     /**
-     * Prepare layout
-     *
-     * @return Mage_Core_Block_Abstract
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
