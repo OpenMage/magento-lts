@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
 /**
  * Coupon codes grid
  *
@@ -38,7 +40,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
     /**
      * Prepare collection for grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -114,10 +116,10 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
         $this->getMassactionBlock()->setUseAjax(true);
         $this->getMassactionBlock()->setHideFormElement(true);
 
-        $this->getMassactionBlock()->addItem('delete', [
-             'label' => Mage::helper('adminhtml')->__('Delete'),
-             'url'  => $this->getUrl('*/*/couponsMassDelete', ['_current' => true]),
-             'confirm' => Mage::helper('salesrule')->__('Are you sure you want to delete the selected coupon(s)?'),
+        $this->getMassactionBlock()->addItem(MassAction::DELETE, [
+             'label'    => Mage::helper('adminhtml')->__('Delete'),
+             'url'      => $this->getUrl('*/*/couponsMassDelete', ['_current' => true]),
+             'confirm'  => Mage::helper('salesrule')->__('Are you sure you want to delete the selected coupon(s)?'),
              'complete' => 'refreshCouponCodesGrid'
         ]);
 

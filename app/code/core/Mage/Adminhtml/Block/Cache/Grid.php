@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
 /**
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -63,7 +65,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * Prepare grid columns
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
@@ -136,6 +138,8 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     /**
      * Add mass-actions to grid
+     *
+     * @return $this
      */
     protected function _prepareMassaction()
     {
@@ -144,15 +148,15 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $modeOptions = Mage::getModel('index/process')->getModesOptions();
 
-        $this->getMassactionBlock()->addItem('enable', [
-            'label'         => Mage::helper('index')->__('Enable'),
-            'url'           => $this->getUrl('*/*/massEnable'),
+        $this->getMassactionBlock()->addItem(MassAction::ENABLE, [
+            'label'    => Mage::helper('index')->__('Enable'),
+            'url'      => $this->getUrl('*/*/massEnable'),
         ]);
-        $this->getMassactionBlock()->addItem('disable', [
+        $this->getMassactionBlock()->addItem(MassAction::DISABLE, [
             'label'    => Mage::helper('index')->__('Disable'),
             'url'      => $this->getUrl('*/*/massDisable'),
         ]);
-        $this->getMassactionBlock()->addItem('refresh', [
+        $this->getMassactionBlock()->addItem(MassAction::REFRESH, [
             'label'    => Mage::helper('index')->__('Refresh'),
             'url'      => $this->getUrl('*/*/massRefresh'),
             'selected' => true,
