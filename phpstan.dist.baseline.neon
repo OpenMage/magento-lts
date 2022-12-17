@@ -61,26 +61,6 @@ parameters:
 			path: app/code/core/Mage/Admin/Model/Session.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_AdminNotification_Model_Inbox will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/AdminNotification/Helper/Data.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/AdminNotification/Helper/Data.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/AdminNotification/Model/Feed.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/AdminNotification/Model/Feed.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Api/Tab/Rolesedit.php
