@@ -29,7 +29,7 @@
 class Varien_Image
 {
     /**
-     * @var Varien_Image_Adapter_Abstract|Varien_Image_Adapter_Gd2
+     * @var Varien_Image_Adapter_Abstract|Varien_Image_Adapter_Gd2|null
      */
     protected $_adapter;
 
@@ -43,7 +43,7 @@ class Varien_Image
     /**
      * Constructor
      *
-     * @param Varien_Image_Adapter $adapter. Default value is GD2
+     * @param string $adapter Default value is GD2
      * @param string $fileName
      * @return void
      */

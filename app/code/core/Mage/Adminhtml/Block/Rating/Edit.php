@@ -45,12 +45,14 @@ class Mage_Adminhtml_Block_Rating_Edit extends Mage_Adminhtml_Block_Widget_Form_
         }
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         if (Mage::registry('rating_data') && Mage::registry('rating_data')->getId()) {
             return Mage::helper('rating')->__("Edit Rating", $this->escapeHtml(Mage::registry('rating_data')->getRatingCode()));
-        } else {
-            return Mage::helper('rating')->__('New Rating');
         }
+        return Mage::helper('rating')->__('New Rating');
     }
 }

@@ -31,7 +31,7 @@ class Varien_Simplexml_Config
     /**
      * Configuration xml
      *
-     * @var Varien_Simplexml_Element
+     * @var Varien_Simplexml_Element|SimpleXMLElement
      */
     protected $_xml = null;
 
@@ -51,7 +51,7 @@ class Varien_Simplexml_Config
     protected $_cacheLifetime = null;
 
     /**
-     * @var unknown_type
+     * @var string|false|null
      */
     protected $_cacheChecksum = false;
 
@@ -109,7 +109,7 @@ class Varien_Simplexml_Config
      * Sets xml for this configuration
      *
      * @param Varien_Simplexml_Element $node
-     * @return Varien_Simplexml_Config
+     * @return $this
      */
     public function setXml(Varien_Simplexml_Element $node)
     {
@@ -122,7 +122,7 @@ class Varien_Simplexml_Config
      *
      * @see     Varien_Simplexml_Element::descend
      * @param   string $path
-     * @return  Varien_Simplexml_Element
+     * @return  Varien_Simplexml_Element|false
      */
     public function getNode($path = null)
     {
@@ -139,7 +139,7 @@ class Varien_Simplexml_Config
      * Returns nodes found by xpath expression
      *
      * @param string $xpath
-     * @return array
+     * @return Varien_Simplexml_Element[]|false
      *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
@@ -158,7 +158,7 @@ class Varien_Simplexml_Config
 
     /**
      * @param Varien_Simplexml_Config_Cache_Abstract $cache
-     * @return Varien_Simplexml_Config
+     * @return $this
      */
     public function setCache($cache)
     {
@@ -176,7 +176,7 @@ class Varien_Simplexml_Config
 
     /**
      * @param boolean $flag
-     * @return Varien_Simplexml_Config
+     * @return $this
      */
     public function setCacheSaved($flag)
     {
@@ -185,7 +185,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getCacheSaved()
     {
@@ -194,7 +194,7 @@ class Varien_Simplexml_Config
 
     /**
      * @param string $id
-     * @return Varien_Simplexml_Config
+     * @return $this
      */
     public function setCacheId($id)
     {
@@ -212,7 +212,7 @@ class Varien_Simplexml_Config
 
     /**
      * @param array $tags
-     * @return Varien_Simplexml_Config
+     * @return $this
      */
     public function setCacheTags($tags)
     {
@@ -230,7 +230,7 @@ class Varien_Simplexml_Config
 
     /**
      * @param int $lifetime
-     * @return Varien_Simplexml_Config
+     * @return $this
      */
     public function setCacheLifetime($lifetime)
     {
@@ -248,7 +248,7 @@ class Varien_Simplexml_Config
 
     /**
      * @param string|null $data
-     * @return Varien_Simplexml_Config
+     * @return $this
      */
     public function setCacheChecksum($data)
     {
@@ -263,8 +263,8 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param string $data
-     * @return Varien_Simplexml_Config
+     * @param string|false $data
+     * @return $this
      */
     public function updateCacheChecksum($data)
     {
@@ -280,7 +280,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @return string
+     * @return string|false|null
      */
     public function getCacheChecksum()
     {
@@ -296,7 +296,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function fetchCacheChecksum()
     {
@@ -304,7 +304,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function validateCacheChecksum()
     {
@@ -320,7 +320,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function loadCache()
     {
@@ -341,7 +341,7 @@ class Varien_Simplexml_Config
 
     /**
      * @param array $tags
-     * @return Varien_Simplexml_Config
+     * @return $this
      */
     public function saveCache($tags = null)
     {
@@ -379,7 +379,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @return Varien_Simplexml_Config
+     * @return $this
      */
     public function removeCache()
     {
@@ -390,7 +390,7 @@ class Varien_Simplexml_Config
 
     /**
      * @param string $id
-     * @return boolean
+     * @return bool
      */
     protected function _loadCache($id)
     {
@@ -402,7 +402,7 @@ class Varien_Simplexml_Config
      * @param string $id
      * @param array $tags
      * @param int|boolean $lifetime
-     * @return boolean
+     * @return bool
      */
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
     {
@@ -412,7 +412,7 @@ class Varien_Simplexml_Config
     /**
      * @todo check this, as there are no caches that implement remove() method
      * @param string $id
-     * @return unknown
+     * @return mixed
      */
     protected function _removeCache($id)
     {
@@ -423,7 +423,7 @@ class Varien_Simplexml_Config
      * Imports XML file
      *
      * @param string $filePath
-     * @return boolean
+     * @return bool
      */
     public function loadFile($filePath)
     {
@@ -441,7 +441,7 @@ class Varien_Simplexml_Config
      * Imports XML string
      *
      * @param  string $string
-     * @return boolean
+     * @return bool
      */
     public function loadString($string)
     {
@@ -462,7 +462,7 @@ class Varien_Simplexml_Config
      * Imports DOM node
      *
      * @param DOMNode $dom
-     * @return Varien_Simplexml_Element
+     * @return bool
      */
     public function loadDom($dom)
     {
@@ -482,7 +482,7 @@ class Varien_Simplexml_Config
      * @param string $path separated by slashes
      * @param string $value
      * @param boolean $overwrite
-     * @return Varien_Simplexml_Config
+     * @return $this
      */
     public function setNode($path, $value, $overwrite = true)
     {
@@ -493,7 +493,7 @@ class Varien_Simplexml_Config
     /**
      * Process configuration xml
      *
-     * @return Varien_Simplexml_Config
+     * @return $this
      */
     public function applyExtends()
     {
@@ -508,10 +508,7 @@ class Varien_Simplexml_Config
                 foreach ($sources as $source) {
                     $target->extend($source);
                 }
-            } else {
-                #echo "Not found extend: ".(string)$target['extends'];
             }
-            #unset($target['extends']);
         }
         return $this;
     }
@@ -530,7 +527,7 @@ class Varien_Simplexml_Config
     /**
      * @param Varien_Simplexml_Config $config
      * @param boolean $overwrite
-     * @return Varien_Simplexml_Config
+     * @return $this
      */
     public function extend(Varien_Simplexml_Config $config, $overwrite = true)
     {

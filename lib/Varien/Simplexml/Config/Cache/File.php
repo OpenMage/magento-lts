@@ -32,7 +32,7 @@ class Varien_Simplexml_Config_Cache_File extends Varien_Simplexml_Config_Cache_A
      * Initialize variables that depend on the cache key
      *
      * @param string $key
-     * @return string
+     * @return $this
      */
     public function setKey($key)
     {

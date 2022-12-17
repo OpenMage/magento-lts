@@ -63,7 +63,6 @@ class Varien_Cache_Core extends Zend_Cache_Core
      *
      * @param string $id     ID of data's info cell
      * @param int    $chunks Number of chunks to remove (basically, the number after '{splitted}|')
-     * @return null
      */
     protected function _cleanTheMess($id, $chunks)
     {
@@ -166,7 +165,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
                         // Some chunk in chain was not found, we can not glue-up the data:
                         // clean the mess and return nothing
 
-                        $this->_cleanTheMess($id, $chunks);
+                        $this->_cleanTheMess($id, (int)$chunks);
                         return false;
                     }
 

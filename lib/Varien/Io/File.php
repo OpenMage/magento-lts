@@ -181,7 +181,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Binary-safe file read
      *
      * @param int $length
-     * @return string
+     * @return bool|string
      *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
@@ -199,7 +199,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Gets line from file pointer and parse for CSV fields
      *
-     * @return string
+     * @return bool|string
      *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
@@ -215,7 +215,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Binary-safe file write
      *
      * @param string $str
-     * @return bool
+     * @return bool|int
      *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
@@ -323,9 +323,9 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Used to set {@link _allowCreateFolders} value
      *
-     * @param mixed $flag
+     * @param bool $flag
      * @access public
-     * @return void
+     * @return $this
      */
     public function setAllowCreateFolders($flag)
     {
@@ -585,7 +585,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * File put content wrapper
      *
      * @param string $filename
-     * @param srting|resource $src
+     * @param string|resource $src
      *
      * @return int
      *
@@ -650,7 +650,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Create destination folder
      *
      * @param string $path
-     * @return Varien_Io_File
+     * @return bool
      */
     public function createDestinationDir($path)
     {
