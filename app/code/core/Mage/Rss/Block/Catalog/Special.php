@@ -31,7 +31,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
     /**
      * Zend_Date object for date comparsions
      *
-     * @var Zend_Date $_currentDate
+     * @var Zend_Date|null
      */
     protected static $_currentDate = null;
 
@@ -95,7 +95,9 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
         ];
         $rssObj->_addHeader($data);
 
+        /** @var array[] $results */
         $results = [];
+
         /*
         using resource iterator to load the data one by one
         instead of loading all at the same time. loading all data at the same time can cause the big memory allocation.

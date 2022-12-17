@@ -111,7 +111,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Add Id filter
      *
-     * @param array $categoryIds
+     * @param int|string|array $categoryIds
      * @return $this
      */
     public function addIdFilter($categoryIds)
