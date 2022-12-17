@@ -104,8 +104,8 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     /**
      * Retrieve defined or current Id
      *
-     * @param string $pollId
-     * @return string
+     * @param int|string|null $pollId
+     * @return int|string
      */
     public function getPollId($pollId = null)
     {
@@ -202,8 +202,8 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     /**
      * Check answer existing for poll
      *
-     * @param   mixed $answer
-     * @return  bool
+     * @param   Mage_Poll_Model_Poll_Answer|string|int $answer
+     * @return  string|false
      */
     public function hasAnswer($answer)
     {

@@ -58,7 +58,7 @@ class Mage_Poll_Model_Resource_Poll_Answer_Collection extends Mage_Core_Model_Re
     public function countPercent($pollObject)
     {
         if (!$pollObject) {
-            return;
+            return $this;
         } else {
             foreach ($this->getItems() as $answer) {
                 $answer->countPercent($pollObject);
