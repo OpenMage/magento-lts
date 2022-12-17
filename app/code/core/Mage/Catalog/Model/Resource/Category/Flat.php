@@ -815,7 +815,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Return attribute values for given entities and store
      *
-     * @param array $entityIds
+     * @param int|string|array $entityIds
      * @param int $store_id
      * @return array
      */
