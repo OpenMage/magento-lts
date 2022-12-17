@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
 /**
  * Adminhtml sales orders grid
  *
@@ -145,7 +147,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
         $this->getMassactionBlock()->setFormFieldName('invoice_ids');
         $this->getMassactionBlock()->setUseSelectAll(false);
 
-        $this->getMassactionBlock()->addItem('pdfinvoices_order', [
+        $this->getMassactionBlock()->addItem(MassAction::PDF_INVOICE_ORDER, [
              'label' => Mage::helper('sales')->__('PDF Invoices'),
              'url'  => $this->getUrl('*/sales_invoice/pdfinvoices'),
         ]);

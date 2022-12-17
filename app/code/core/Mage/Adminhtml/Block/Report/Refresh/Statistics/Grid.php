@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
 /**
  * Adminhtml sales report grid block
  *
@@ -36,6 +38,11 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
         $this->setUseAjax(false);
     }
 
+    /**
+     * @param string $reportCode
+     * @return string
+     * @throws Zend_Date_Exception
+     */
     protected function _getUpdatedAt($reportCode)
     {
         $flag = Mage::getModel('reports/flag')->setReportFlagCode($reportCode)->loadSelf();
@@ -48,6 +55,9 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
             : '';
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = new Varien_Data_Collection();
@@ -114,6 +124,9 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('report', [
@@ -142,18 +155,21 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
         return parent::_prepareColumns();
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('id');
         $this->getMassactionBlock()->setFormFieldName('code');
 
-        $this->getMassactionBlock()->addItem('refresh_lifetime', [
+        $this->getMassactionBlock()->addItem(MassAction::REFRESH_LIFETIME, [
             'label'    => Mage::helper('reports')->__('Refresh Lifetime Statistics'),
             'url'      => $this->getUrl('*/*/refreshLifetime'),
             'confirm'  => Mage::helper('reports')->__('Are you sure you want to refresh lifetime statistics? There can be performance impact during this operation.')
         ]);
 
-        $this->getMassactionBlock()->addItem('refresh_recent', [
+        $this->getMassactionBlock()->addItem(MassAction::REFRESH_RECENT, [
             'label'    => Mage::helper('reports')->__('Refresh Statistics for the Last Day'),
             'url'      => $this->getUrl('*/*/refreshRecent'),
             'confirm'  => Mage::helper('reports')->__('Are you sure?'),

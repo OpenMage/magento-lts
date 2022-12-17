@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
 /**
  * Adminhtml pending tags grid
  *
@@ -137,10 +139,9 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
         $this->setMassactionIdField('tag_id');
         $this->getMassactionBlock()->setFormFieldName('tag');
 
-        $this->getMassactionBlock()->addItem('delete', [
+        $this->getMassactionBlock()->addItem(MassAction::DELETE, [
              'label' => Mage::helper('tag')->__('Delete'),
-             'url'  => $this->getUrl('*/*/massDelete', ['ret' => 'pending']),
-             'confirm' => Mage::helper('tag')->__('Are you sure?')
+             'url'  => $this->getUrl('*/*/massDelete', ['ret' => 'pending'])
         ]);
 
         /** @var Mage_Tag_Helper_Data $helper */
@@ -149,7 +150,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
 
         array_unshift($statuses, ['label' => '', 'value' => '']);
 
-        $this->getMassactionBlock()->addItem('status', [
+        $this->getMassactionBlock()->addItem(MassAction::STATUS, [
              'label' => Mage::helper('tag')->__('Change status'),
              'url'  => $this->getUrl('*/*/massStatus', ['_current' => true, 'ret' => 'pending']),
              'additional' => [
