@@ -433,7 +433,7 @@ final class Mage
     /**
      * Generate url by route and parameters
      *
-     * @param   string $route
+     * @param   null|string $route
      * @param   array $params
      * @return  string
      */
