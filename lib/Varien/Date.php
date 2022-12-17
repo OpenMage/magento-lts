@@ -144,8 +144,8 @@ class Varien_Date
     /**
      * Format date to internal format
      *
-     * @param string|Zend_Date|true|null $date
-     * @param boolean $includeTime
+     * @param int|string|Zend_Date|bool|null $date
+     * @param bool $includeTime
      * @return string|null
      */
     public static function formatDate($date, $includeTime = true)

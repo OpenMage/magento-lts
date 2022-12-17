@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
 /**
  * @category    Mage
  * @category   Mage
@@ -152,10 +154,9 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
         $this->setMassactionIdField('query_id');
         $this->getMassactionBlock()->setFormFieldName('search');
 
-        $this->getMassactionBlock()->addItem('delete', [
+        $this->getMassactionBlock()->addItem(MassAction::DELETE, [
              'label'    => Mage::helper('catalog')->__('Delete'),
-             'url'      => $this->getUrl('*/*/massDelete'),
-             'confirm'  => Mage::helper('catalog')->__('Are you sure?')
+             'url'      => $this->getUrl('*/*/massDelete')
         ]);
 
         return parent::_prepareMassaction();

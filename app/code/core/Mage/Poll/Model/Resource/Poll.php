@@ -85,7 +85,7 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
      * Get random identifier not closed poll
      *
      * @param Mage_Poll_Model_Poll $object
-     * @return int
+     * @return string
      */
     public function getRandomId($object)
     {
@@ -110,7 +110,7 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param Mage_Poll_Model_Poll $poll
      * @param int $answerId
-     * @return bool
+     * @return string
      */
     public function checkAnswerId($poll, $answerId)
     {

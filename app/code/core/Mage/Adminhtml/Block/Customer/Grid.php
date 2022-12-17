@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
 /**
  * Adminhtml customer grid block
  *
@@ -178,18 +180,17 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
         $this->setMassactionIdField('entity_id');
         $this->getMassactionBlock()->setFormFieldName('customer');
 
-        $this->getMassactionBlock()->addItem('delete', [
+        $this->getMassactionBlock()->addItem(MassAction::DELETE, [
              'label'    => Mage::helper('customer')->__('Delete'),
-             'url'      => $this->getUrl('*/*/massDelete'),
-             'confirm'  => Mage::helper('customer')->__('Are you sure?')
+             'url'      => $this->getUrl('*/*/massDelete')
         ]);
 
-        $this->getMassactionBlock()->addItem('newsletter_subscribe', [
+        $this->getMassactionBlock()->addItem(MassAction::NEWSLETTER_SUBSCRIBE, [
              'label'    => Mage::helper('customer')->__('Subscribe to Newsletter'),
              'url'      => $this->getUrl('*/*/massSubscribe')
         ]);
 
-        $this->getMassactionBlock()->addItem('newsletter_unsubscribe', [
+        $this->getMassactionBlock()->addItem(MassAction::NEWSLETTER_UNSUBSCRIBE, [
              'label'    => Mage::helper('customer')->__('Unsubscribe from Newsletter'),
              'url'      => $this->getUrl('*/*/massUnsubscribe')
         ]);
@@ -199,7 +200,7 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
         $groups = $helper->getGroups()->toOptionArray();
 
         array_unshift($groups, ['label' => '', 'value' => '']);
-        $this->getMassactionBlock()->addItem('assign_group', [
+        $this->getMassactionBlock()->addItem(MassAction::ASSIGN_GROUP, [
              'label'        => Mage::helper('customer')->__('Assign a Customer Group'),
              'url'          => $this->getUrl('*/*/massAssignGroup'),
              'additional'   => [
