@@ -606,11 +606,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Newsletter/Subscriber/Grid/Filter/Website.php
 
 		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Newsletter/Template/Edit/Form.php
-
-		-
 			message: "#^Variable \\$class might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Notification/Grid/Renderer/Severity.php
@@ -3411,11 +3406,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Product/List/Promotion.php
 
 		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Catalog_Model_Resource_Product_Collection\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/List/Promotion.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with Mage_Eav_Model_Entity_Collection_Abstract will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/List/Random.php
@@ -3741,11 +3731,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Api/Resource.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Api/Resource.php
-
-		-
 			message: "#^Variable \\$storeId might not be defined\\.$#"
 			count: 2
 			path: app/code/core/Mage/Catalog/Model/Api/Resource.php
@@ -3818,11 +3803,6 @@ parameters:
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\:\\:formatDate\\(\\)\\.$#"
 			count: 1
-			path: app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int\\|string will always evaluate to false\\.$#"
-			count: 2
 			path: app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php
 
 		-
@@ -4209,11 +4189,6 @@ parameters:
 			message: "#^Property Mage_Catalog_Model_Product\\:\\:\\$_typeInstance \\(Mage_Catalog_Model_Product_Type_Abstract\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Api.php
 
 		-
 			message: "#^Parameter \\#1 \\$productType of method Mage_Catalog_Model_Product_Api\\:\\:_checkProductTypeExists\\(\\) expects int, string given\\.$#"
@@ -4651,17 +4626,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
 		-
-			message: "#^Parameter \\#1 \\$categoryIds of method Mage_Catalog_Model_Resource_Category_Collection\\:\\:addIdFilter\\(\\) expects array, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
-
-		-
 			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
-
-		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
@@ -4696,11 +4661,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Collection.php
 
 		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Collection.php
-
-		-
 			message: "#^Variable \\$condition might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Collection.php
@@ -4727,21 +4687,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Catalog_Model_Resource_Category_Flat\\:\\:checkId\\(\\) should return bool but returns string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
-
-		-
-			message: "#^Parameter \\#1 \\$entityIds of method Mage_Catalog_Model_Resource_Category_Flat\\:\\:_getAttributeValues\\(\\) expects array, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
-
-		-
-			message: "#^Parameter \\#1 \\$entityIds of method Mage_Catalog_Model_Resource_Category_Flat\\:\\:_getAttributeValues\\(\\) expects array, int\\|string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
-
-		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
 
@@ -4883,11 +4828,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$cols of method Zend_Db_Select\\:\\:from\\(\\) expects array\\|string\\|Zend_Db_Expr, null given\\.$#"
 			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
-
-		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 2
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
 		-
@@ -5056,11 +4996,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$date of method Mage_Core_Model_Resource_Abstract\\:\\:formatDate\\(\\) expects string\\|Zend_Date\\|true\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$expression of class Zend_Db_Expr constructor expects string, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
@@ -5167,11 +5102,6 @@ parameters:
 
 		-
 			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
-
-		-
-			message: "#^Parameter \\#1 \\$date of method Mage_Core_Model_Resource_Abstract\\:\\:formatDate\\(\\) expects string\\|Zend_Date\\|true\\|null, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
 
@@ -5442,11 +5372,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$aggregationId of method Mage_CatalogIndex_Model_Resource_Aggregation\\:\\:_saveTagRelations\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Resource/Aggregation.php
-
-		-
-			message: "#^Parameter \\#1 \\$date of method Mage_Core_Model_Resource_Abstract\\:\\:formatDate\\(\\) expects string\\|Zend_Date\\|true\\|null, int\\<1, max\\> given\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Resource/Aggregation.php
 
@@ -6056,19 +5981,9 @@ parameters:
 			path: app/code/core/Mage/Checkout/Helper/Data.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int\\|string will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Checkout/Model/Api/Resource.php
-
-		-
 			message: "#^Variable \\$storeId might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Api/Resource.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Model/Api/Resource/Customer.php
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
@@ -6136,11 +6051,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Cart/Customer/Api/V2.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int\\|string will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Checkout/Model/Cart/Payment/Api.php
-
-		-
 			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Cart/Payment/Api.php
@@ -6156,11 +6066,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Cart/Payment/Api/V2.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int\\|string will always evaluate to false\\.$#"
-			count: 4
-			path: app/code/core/Mage/Checkout/Model/Cart/Product/Api.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Cart/Product/Api.php
@@ -6169,11 +6074,6 @@ parameters:
 			message: "#^Method Mage_Checkout_Model_Cart_Product_Api_V2\\:\\:_prepareProductsData\\(\\) should return array but returns mixed\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Cart/Product/Api/V2.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int\\|string will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Checkout/Model/Cart/Shipping/Api.php
 
 		-
 			message: "#^Variable \\$ratesResult might not be defined\\.$#"
@@ -7321,11 +7221,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Db/Abstract.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int\\|string will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Model/Resource/Db/Abstract.php
-
-		-
 			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Db/Abstract.php
@@ -7876,11 +7771,6 @@ parameters:
 			path: app/code/core/Mage/Core/functions.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between int\\|string and null will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Cron/Model/Observer.php
-
-		-
 			message: "#^Variable \\$arguments might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Cron/Model/Observer.php
@@ -8054,11 +7944,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Customer_Model_Api2_Customer_Address\\:\\:_getDefaultAddressesInfo\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Api2/Customer/Address.php
-
-		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Api2/Customer/Rest/Customer/V1.php
 
 		-
 			message: "#^Call to function is_null\\(\\) with Mage_Customer_Model_Customer will always evaluate to false\\.$#"
@@ -8506,16 +8391,6 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
-			message: "#^Parameter \\#1 \\$date of method Mage_Core_Model_Resource_Abstract\\:\\:formatDate\\(\\) expects string\\|Zend_Date\\|true\\|null, int\\<1, max\\> given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Dataflow/Model/Resource/Profile.php
-
-		-
-			message: "#^Parameter \\#1 \\$date of method Mage_Core_Model_Resource_Abstract\\:\\:formatDate\\(\\) expects string\\|Zend_Date\\|true\\|null, int\\<1, max\\> given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Resource/Profile/History.php
-
-		-
 			message: "#^Parameter \\#1 \\$currency of method Mage_Directory_Model_Currency\\:\\:getCurrencyRates\\(\\) expects string, Mage_Directory_Model_Currency given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Directory/Block/Currency.php
@@ -8649,11 +8524,6 @@ parameters:
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Downloadable/Helper/File.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Downloadable/Model/Link/Api.php
 
 		-
 			message: "#^Cannot access offset 'file' on bool\\|void\\.$#"
@@ -9146,11 +9016,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
 
 		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int\\<min, \\-1\\>\\|int\\<1, max\\> given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
 			message: "#^Parameter \\#2 \\$return of function print_r expects bool, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
@@ -9394,11 +9259,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/GiftMessage/Helper/Message.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/GiftMessage/Model/Api.php
 
 		-
 			message: "#^Method Mage_GiftMessage_Model_Api_V2\\:\\:_prepareData\\(\\) should return array but returns mixed\\.$#"
@@ -9866,11 +9726,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/controllers/Adminhtml/ImportController.php
 
 		-
-			message: "#^Parameter \\#1 \\$date of method Mage_Core_Model_Resource_Abstract\\:\\:formatDate\\(\\) expects string\\|Zend_Date\\|true\\|null, int\\<1, max\\> given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Index/Model/Event.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with Mage_Index_Model_Resource_Process_Collection will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Index/Model/Indexer.php
@@ -9954,11 +9809,6 @@ parameters:
 			message: "#^Return type \\(Varien_Db_Adapter_Interface\\|false\\) of method Mage_Index_Model_Resource_Lock_Resource\\:\\:_getDefaultConnection\\(\\) should be compatible with return type \\(string\\) of method Mage_Core_Model_Resource\\:\\:_getDefaultConnection\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Index/Model/Resource/Lock/Resource.php
-
-		-
-			message: "#^Parameter \\#1 \\$date of method Mage_Core_Model_Resource_Abstract\\:\\:formatDate\\(\\) expects string\\|Zend_Date\\|true\\|null, int\\<1, max\\> given\\.$#"
-			count: 5
-			path: app/code/core/Mage/Index/Model/Resource/Process.php
 
 		-
 			message: "#^Parameter \\#2 \\$true of method Varien_Db_Adapter_Interface\\:\\:getCheckSql\\(\\) expects string, int given\\.$#"
@@ -10284,11 +10134,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$idFieldName of method Mage_Core_Model_Resource_Db_Abstract\\:\\:_init\\(\\) expects string, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Oauth/Model/Resource/Nonce.php
-
-		-
-			message: "#^Parameter \\#1 \\$date of static method Varien_Date\\:\\:formatDate\\(\\) expects string\\|Zend_Date\\|true\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Oauth/Model/Resource/Token.php
 
 		-
 			message: "#^Parameter \\#2 \\$value of method Varien_Data_Collection\\:\\:addFilter\\(\\) expects array\\|string, int given\\.$#"
@@ -10876,11 +10721,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Express.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
 			message: "#^Cannot call method getData\\(\\) on array\\.$#"
 			count: 2
 			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
@@ -11221,26 +11061,6 @@ parameters:
 			path: app/code/core/Mage/ProductAlert/Model/Observer.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/Model/Resource/Price.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 3
-			path: app/code/core/Mage/ProductAlert/Model/Resource/Price.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/Model/Resource/Stock.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 3
-			path: app/code/core/Mage/ProductAlert/Model/Resource/Stock.php
-
-		-
 			message: "#^Method Mage_ProductAlert_Model_Observer\\:\\:process\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
@@ -11466,11 +11286,6 @@ parameters:
 			path: app/code/core/Mage/Reports/Model/Resource/Product/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$date of static method Varien_Date\\:\\:formatDate\\(\\) expects string\\|Zend_Date\\|true\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Product/Index/Abstract.php
-
-		-
 			message: "#^Parameter \\#2 \\$true of method Varien_Db_Adapter_Interface\\:\\:getCheckSql\\(\\) expects string, int given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Reports/Model/Resource/Product/Lowstock/Collection.php
@@ -11514,11 +11329,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$attribute of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addExpressionAttributeToSelect\\(\\) expects string, array\\<int, string\\> given\\.$#"
 			count: 7
 			path: app/code/core/Mage/Reports/Model/Resource/Refunded/Collection.php
-
-		-
-			message: "#^Parameter \\#1 \\$date of method Mage_Core_Model_Resource_Abstract\\:\\:formatDate\\(\\) expects string\\|Zend_Date\\|true\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Report/Abstract.php
 
 		-
 			message: "#^Parameter \\#1 \\$select of method Mage_Reports_Model_Resource_Report_Abstract\\:\\:_makeConditionFromDateRangeSelect\\(\\) expects Varien_Db_Select, string\\|Zend_Db_Select given\\.$#"
@@ -11701,66 +11511,6 @@ parameters:
 			path: app/code/core/Mage/Review/controllers/ProductController.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/Block/Catalog/Category.php
-
-		-
-			message: "#^Parameter \\#1 \\$categoryIds of method Mage_Catalog_Model_Resource_Category_Collection\\:\\:addIdFilter\\(\\) expects array, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/Block/Catalog/Category.php
-
-		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/Block/Catalog/Category.php
-
-		-
-			message: "#^Parameter \\#2 \\$joinType of method Mage_Catalog_Model_Resource_Product_Collection\\:\\:addAttributeToSelect\\(\\) expects string\\|false, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/Block/Catalog/NotifyStock.php
-
-		-
-			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/Block/Catalog/Special.php
-
-		-
-			message: "#^Static property Mage_Rss_Block_Catalog_Special\\:\\:\\$_currentDate \\(Zend_Date\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/Block/Catalog/Special.php
-
-		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/Block/List.php
-
-		-
-			message: "#^Parameter \\#1 \\$date of method Mage_Core_Model_Resource_Abstract\\:\\:formatDate\\(\\) expects string\\|Zend_Date\\|true\\|null, int\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/Block/Order/New.php
-
-		-
-			message: "#^Parameter \\#4 \\$month of function mktime expects int\\|null, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/Block/Order/New.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Customer_Model_Customer will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/Block/Wishlist.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Wishlist_Model_Wishlist will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/Block/Wishlist.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/Helper/Catalog.php
-
-		-
 			message: "#^Cannot call method getId\\(\\) on true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Rss/Helper/Data.php
@@ -11769,31 +11519,6 @@ parameters:
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Rss/Helper/Data.php
-
-		-
-			message: "#^Parameter \\#1 \\$headers of method Mage_Core_Helper_Http\\:\\:authValidate\\(\\) expects string\\|null, array\\|null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/Helper/Data.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/Helper/Order.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Customer_Model_Customer will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/controllers/IndexController.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Wishlist_Model_Wishlist will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/controllers/IndexController.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/controllers/IndexController.php
 
 		-
 			message: "#^Call to function is_string\\(\\) with array will always evaluate to false\\.$#"
@@ -12146,11 +11871,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Address.php
 
 		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Address/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Creditmemo.php
@@ -12171,11 +11891,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Creditmemo/Comment.php
 
 		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Creditmemo/Comment/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Creditmemo/Item.php
@@ -12184,11 +11899,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Creditmemo/Item.php
-
-		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Creditmemo/Item/Collection.php
 
 		-
 			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
@@ -12211,11 +11921,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Invoice/Comment.php
 
 		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Invoice/Comment/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Invoice/Item.php
@@ -12224,11 +11929,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Invoice/Item.php
-
-		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Invoice/Item/Collection.php
 
 		-
 			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
@@ -12241,11 +11941,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Item.php
 
 		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Item/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Payment.php
@@ -12254,11 +11949,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Payment.php
-
-		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Payment/Collection.php
 
 		-
 			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
@@ -12281,11 +11971,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Shipment/Comment.php
 
 		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Shipment/Comment/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Shipment/Item.php
@@ -12294,11 +11979,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Shipment/Item.php
-
-		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Shipment/Item/Collection.php
 
 		-
 			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
@@ -12311,11 +11991,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Shipment/Track.php
 
 		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Shipment/Track/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Status/History.php
@@ -12324,11 +11999,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Order/Status/History.php
-
-		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Status/History/Collection.php
 
 		-
 			message: "#^Call to an undefined method Mage_Sales_Model_Resource_Quote_Collection\\:\\:addAttributeToSelect\\(\\)\\.$#"
@@ -12396,11 +12066,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Attribute/Frontend/Tax.php
 
 		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Item.php
@@ -12411,11 +12076,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Item.php
 
 		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Item/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Rate.php
@@ -12424,11 +12084,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Rate.php
-
-		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Rate/Collection.php
 
 		-
 			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
@@ -12464,11 +12119,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Payment.php
-
-		-
-			message: "#^Parameter \\#2 \\$condition of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:addAttributeToFilter\\(\\) expects array\\|string\\|null, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Payment/Collection.php
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'delete' given\\.$#"
@@ -14176,17 +13826,7 @@ parameters:
 			path: app/code/core/Mage/Tag/Model/Resource/Tag/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$date of method Mage_Core_Model_Resource_Abstract\\:\\:formatDate\\(\\) expects string\\|Zend_Date\\|true\\|null, int\\<1, max\\> given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Model/Resource/Tag/Relation.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of method Varien_Data_Collection\\:\\:walk\\(\\) expects callable\\(\\)\\: mixed, 'aggregate' given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Model/Tag.php
-
-		-
-			message: "#^Parameter \\#1 \\$date of method Mage_Core_Model_Resource_Abstract\\:\\:formatDate\\(\\) expects string\\|Zend_Date\\|true\\|null, int\\<1, max\\> given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tag/Model/Tag.php
 
