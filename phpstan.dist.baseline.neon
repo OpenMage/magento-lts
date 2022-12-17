@@ -6,16 +6,6 @@ parameters:
 			path: app/Mage.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/Mage.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of function ini_set expects string, int given\\.$#"
-			count: 1
-			path: app/Mage.php
-
-		-
 			message: "#^Right side of && is always false\\.$#"
 			count: 1
 			path: app/Mage.php

@@ -27,7 +27,7 @@ Mage::register('original_include_path', get_include_path());
 
 if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPER_MODE'])) {
     Mage::setIsDeveloperMode(true);
-    ini_set('display_errors', 1);
+    ini_set('display_errors', '1');
     ini_set('error_prepend_string', '<pre>');
     ini_set('error_append_string', '</pre>');
 }
@@ -455,7 +455,7 @@ final class Mage
     /**
      * Retrieve a config instance
      *
-     * @return Mage_Core_Model_Config
+     * @return Mage_Core_Model_Config|null
      */
     public static function getConfig()
     {
