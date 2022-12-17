@@ -911,11 +911,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Review/Grid.php
 
 		-
-			message: "#^Return type \\(void\\) of method Mage_Adminhtml_Block_Review_Grid\\:\\:_prepareMassaction\\(\\) should be compatible with return type \\(\\$this\\(Mage_Adminhtml_Block_Widget_Grid\\)\\) of method Mage_Adminhtml_Block_Widget_Grid\\:\\:_prepareMassaction\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Review/Grid.php
-
-		-
 			message: "#^Return type \\(int\\) of method Mage_Adminhtml_Block_Review_Grid_Filter_Type\\:\\:getCondition\\(\\) should be compatible with return type \\(array\\|null\\) of method Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select\\:\\:getCondition\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Review/Grid/Filter/Type.php
