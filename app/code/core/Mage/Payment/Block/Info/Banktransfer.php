@@ -31,7 +31,7 @@ class Mage_Payment_Block_Info_Banktransfer extends Mage_Payment_Block_Info
     /**
      * Instructions text
      *
-     * @var string
+     * @var string|null
      */
     protected $_instructions;
 

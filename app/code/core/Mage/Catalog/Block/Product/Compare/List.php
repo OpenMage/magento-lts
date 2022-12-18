@@ -31,14 +31,14 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     /**
      * Product Compare items collection
      *
-     * @var Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
+     * @var Mage_Catalog_Model_Resource_Product_Compare_Item_Collection|null
      */
     protected $_items;
 
     /**
      * Compare Products comparable attributes cache
      *
-     * @var array
+     * @var array|null
      */
     protected $_attributes;
 

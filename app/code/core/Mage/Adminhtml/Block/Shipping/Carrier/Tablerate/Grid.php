@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     /**
      * Website filter
      *
-     * @var int
+     * @var int|null
      */
     protected $_websiteId;
 

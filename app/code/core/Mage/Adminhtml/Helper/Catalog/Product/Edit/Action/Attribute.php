@@ -31,14 +31,14 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     /**
      * Selected products for mass-update
      *
-     * @var Mage_Catalog_Model_Resource_Product_Collection
+     * @var Mage_Catalog_Model_Resource_Product_Collection|null
      */
     protected $_products;
 
     /**
      * Array of same attributes for selected products
      *
-     * @var Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @var Mage_Eav_Model_Resource_Entity_Attribute_Collection|null
      */
     protected $_attributes;
 

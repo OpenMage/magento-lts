@@ -57,7 +57,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     /**
      * Resource instance
      *
-     * @var Mage_Catalog_Model_Resource_Layer_Filter_Price
+     * @var Mage_Catalog_Model_Resource_Layer_Filter_Price|null
      */
     protected $_resource;
 

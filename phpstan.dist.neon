@@ -1,5 +1,6 @@
 includes:
     - vendor/macopedia/phpstan-magento1/extension.neon
+    - phpstan.dist.issues.neon
     - phpstan.dist.baseline.neon
 parameters:
     phpVersion: 80000 # PHP 8.0
@@ -65,13 +66,6 @@ parameters:
 
         # Instantiated class not found
         - lib/Varien/Image/Adapter.php
-    ignoreErrors:
-        - '#Negated boolean expression is always [(true|false)].#'
-        - '#Result of && is always [(true|false)].#'
-        - "#Variable \\$+[a-zA-Z_]+ might not be defined.#"
-        - '#[(If|Elseif)] condition is always [(true|false)].#'
-        - '#[(Left|Right)] side of && is always [(true|false)].#'
-        - '#[(Left|Right)] side of \\|\\| is always [(true|false)].#'
     level: 5
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true

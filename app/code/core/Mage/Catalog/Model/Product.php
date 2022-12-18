@@ -934,7 +934,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Returns calculated final price
      *
-     * @return float
+     * @return float|null
      */
     public function getCalculatedFinalPrice()
     {

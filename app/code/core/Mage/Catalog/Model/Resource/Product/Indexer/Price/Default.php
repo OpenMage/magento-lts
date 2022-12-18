@@ -32,7 +32,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Product type code
      *
-     * @var string
+     * @var string|null
      */
     protected $_typeId;
 

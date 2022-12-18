@@ -201,14 +201,14 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Website model
      *
-     * @var Mage_Core_Model_Website
+     * @var Mage_Core_Model_Website|null
      */
     protected $_website;
 
     /**
      * Group model
      *
-     * @var Mage_Core_Model_Store_Group
+     * @var Mage_Core_Model_Store_Group|null
      */
     protected $_group;
 

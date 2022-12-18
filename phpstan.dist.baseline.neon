@@ -181,11 +181,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Attributes.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Varien_Object will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Attributes/Create.php
-
-		-
 			message: "#^Cannot assign offset 'expanded' to string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Categories.php
@@ -209,16 +204,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Price.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Price/Group/Abstract.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Price/Group/Abstract.php
 
 		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Link_Product_Collection given\\.$#"
@@ -259,11 +244,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$replace of function str_replace expects array\\|string, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Websites.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tabs.php
 
 		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
@@ -316,11 +296,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Renderer/Region.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Store will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Account.php
-
-		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 4
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Account.php
@@ -361,11 +336,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Wishlist.php
 
 		-
-			message: "#^Call to function is_array\\(\\) with mixed will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Form/Element/File.php
-
-		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Customer_Model_Resource_Customer_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Grid.php
@@ -391,42 +361,12 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Dashboard/Tab/Products/Viewed.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Varien_Object will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Media/Editor.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Newsletter_Model_Resource_Queue_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Newsletter/Subscriber.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Resource_Website_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Newsletter/Subscriber/Grid/Filter/Website.php
-
-		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Notification/Toolbar.php
 
 		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Notification_Window\\:\\:\\$_aclResourcePath\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Notification/Window.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with bool will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Notification/Window.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Notification/Window.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Notification/Window.php
 
@@ -716,16 +656,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Data.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 5
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Varien_Data_Form will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Abstract.php
-
-		-
 			message: "#^Parameter \\#1 \\$renderer of static method Varien_Data_Form\\:\\:setElementRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Abstract.php
@@ -741,11 +671,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Abstract.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Customer_Model_Form will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Address.php
-
-		-
 			message: "#^Parameter \\#1 \\$addressId of method Mage_Customer_Model_Customer\\:\\:getAddressById\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Address.php
@@ -756,16 +681,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Address.php
 
 		-
-			message: "#^Property Mage_Adminhtml_Block_Sales_Order_Create_Form_Address\\:\\:\\$_addressForm \\(Mage_Customer_Model_Form\\) does not accept Mage_Eav_Model_Form\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Address.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_GiftMessage_Model_Message will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Giftmessage/Form.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form\\:\\:getEntity\\(\\) should return Varien_Object but returns Mage_Eav_Model_Entity_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Giftmessage/Form.php
@@ -774,16 +689,6 @@ parameters:
 			message: "#^Property Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form\\:\\:\\$_entity \\(Mage_Eav_Model_Entity_Abstract\\) does not accept Varien_Object\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Giftmessage/Form.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with 0 will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Header.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Header.php
 
 		-
 			message: "#^Argument of an invalid type float supplied for foreach, only iterables are supported\\.$#"
@@ -871,16 +776,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Status/New/Form.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_GiftMessage_Model_Message will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Giftmessage.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Order will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Giftmessage.php
-
-		-
 			message: "#^Parameter \\#1 \\$entity of method Mage_Adminhtml_Block_Sales_Order_View_Giftmessage\\:\\:setEntity\\(\\) expects Mage_Sales_Model_Order, Mage_Eav_Model_Entity_Abstract given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Giftmessage.php
@@ -934,11 +829,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Varien_Data_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Transactions/Detail/Grid.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Shipping/Carrier/Tablerate/Grid.php
 
 		-
 			message: "#^Property Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid\\:\\:\\$_conditionName \\(string\\) does not accept int\\.$#"
@@ -1161,11 +1051,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Filter/Datetime.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Filter/Select.php
-
-		-
 			message: "#^Parameter \\#2 \\$checked of method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox\\:\\:_getCheckboxHtml\\(\\) expects bool, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Checkbox.php
@@ -1236,21 +1121,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Helper/Catalog/Product/Edit/Action/Attribute.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Resource_Product_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Helper/Catalog/Product/Edit/Action/Attribute.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Eav_Model_Resource_Entity_Attribute_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Helper/Catalog/Product/Edit/Action/Attribute.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array\\|Mage_Core_Model_Resource_Db_Collection_Abstract\\|Mage_Eav_Model_Entity_Collection_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Helper/Dashboard/Abstract.php
-
-		-
 			message: "#^Parameter \\#1 \\$cache of method Varien_Simplexml_Config\\:\\:setCache\\(\\) expects Varien_Simplexml_Config_Cache_Abstract, Zend_Cache_Core given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Config.php
@@ -1281,16 +1151,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Config/Data.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Config_Element will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Config/Data.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Config/Data.php
-
-		-
 			message: "#^Parameter \\#1 \\$field of method Mage_Adminhtml_Model_Config_Data\\:\\:_isValidField\\(\\) expects Mage_Core_Model_Config_Element, Varien_Simplexml_Element\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Config/Data.php
@@ -1311,26 +1171,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Giftmessage/Save.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Product_Compare_List will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Customer_Model_Form will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Quote will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Wishlist_Model_Wishlist will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Model_Sales_Order_Create\\:\\:initFromOrderItem\\(\\) should return Mage_Sales_Model_Quote_Item\\|string but returns \\$this\\(Mage_Adminhtml_Model_Sales_Order_Create\\)\\.$#"
 			count: 2
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
@@ -1347,16 +1187,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$storeId of method Mage_Customer_Model_Customer\\:\\:sendNewAccountEmail\\(\\) expects string, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
-			message: "#^Property Mage_Adminhtml_Model_Sales_Order_Create\\:\\:\\$_customerAddressForm \\(Mage_Customer_Model_Form\\) does not accept bool\\|Mage_Eav_Model_Form\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
-			message: "#^Property Mage_Adminhtml_Model_Sales_Order_Create\\:\\:\\$_customerForm \\(Mage_Customer_Model_Form\\) does not accept bool\\|Mage_Eav_Model_Form\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
 
@@ -1384,26 +1214,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Sales_Model_Quote\\:\\:addCatalogProduct\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Random.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Store will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Session/Quote.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Customer_Model_Customer will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Session/Quote.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Order will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Session/Quote.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Quote will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Session/Quote.php
 
 		-
 			message: "#^Cannot access offset 'file' on bool\\|void\\.$#"
@@ -2146,11 +1956,6 @@ parameters:
 			path: app/code/core/Mage/Backup/Helper/Data.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with resource will always evaluate to false\\.$#"
-			count: 3
-			path: app/code/core/Mage/Backup/Model/Backup.php
-
-		-
 			message: "#^Property Mage_Backup_Model_Backup\\:\\:\\$_handler \\(resource\\) does not accept null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Backup/Model/Backup.php
@@ -2246,16 +2051,6 @@ parameters:
 			path: app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array\\|int\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with bool will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Configuration_Item_Interface\\:\\:getQty\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Helper/Catalog/Product/Configuration.php
@@ -2291,18 +2086,8 @@ parameters:
 			path: app/code/core/Mage/Bundle/Model/Price/Index.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Attribute/Source/Price/View.php
-
-		-
 			message: "#^Call to an undefined method Mage_Bundle_Model_Product_Price\\:\\:getPricesTierPrice\\(\\)\\.$#"
 			count: 2
-			path: app/code/core/Mage/Bundle/Model/Product/Price.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with float will always evaluate to false\\.$#"
-			count: 1
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
 
 		-
@@ -2311,18 +2096,8 @@ parameters:
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
 
 		-
-			message: "#^Method Mage_Bundle_Model_Product_Price\\:\\:getPrice\\(\\) should return string but returns int\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Price.php
-
-		-
 			message: "#^Offset 'option_id' does not exist on array\\{final_price\\: mixed\\}\\.$#"
 			count: 4
-			path: app/code/core/Mage/Bundle/Model/Product/Price.php
-
-		-
-			message: "#^Parameter \\#1 \\$price of method Mage_Catalog_Model_Product\\:\\:setFinalPrice\\(\\) expects float, string given\\.$#"
-			count: 1
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
 
 		-
@@ -2342,11 +2117,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#4 \\$selectionQty of method Mage_Bundle_Model_Product_Price\\:\\:getSelectionFinalTotalPrice\\(\\) expects float, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Price.php
-
-		-
-			message: "#^Return type \\(string\\) of method Mage_Bundle_Model_Product_Price\\:\\:getPrice\\(\\) should be compatible with return type \\(float\\) of method Mage_Catalog_Model_Product_Type_Price\\:\\:getPrice\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
 
@@ -2391,24 +2161,9 @@ parameters:
 			path: app/code/core/Mage/Bundle/Model/Resource/Indexer/Stock.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Resource/Option/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$selection of method Mage_Bundle_Model_Option\\:\\:addSelection\\(\\) expects Mage_Bundle_Model_Selection, Mage_Catalog_Model_Product given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/Resource/Option/Collection.php
-
-		-
-			message: "#^Property Mage_Bundle_Model_Resource_Option_Collection\\:\\:\\$_itemIds \\(array\\) does not accept null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Resource/Option/Collection.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Bundle/Model/Resource/Price/Index.php
 
 		-
 			message: "#^Parameter \\#1 \\$item of method Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract\\:\\:canShowPriceInfo\\(\\) expects Mage_Sales_Model_Order_Item, Mage_Sales_Model_Order_Invoice_Item given\\.$#"
@@ -2476,11 +2231,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Navigation.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Category will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Navigation.php
-
-		-
 			message: "#^Cannot call method count\\(\\) on string\\.$#"
 			count: 2
 			path: app/code/core/Mage/Catalog/Block/Navigation.php
@@ -2506,24 +2256,9 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Product/Abstract.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Resource_Product_Compare_Item_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/Compare/List.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/Compare/List.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection\\:\\:useProductItem\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/Compare/List.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Eav_Model_Entity_Collection_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/List.php
 
 		-
 			message: "#^Method Mage_Catalog_Block_Product_List\\:\\:_getProductCollection\\(\\) should return Mage_Catalog_Model_Resource_Product_Collection but returns Mage_Eav_Model_Entity_Collection_Abstract\\.$#"
@@ -2534,16 +2269,6 @@ parameters:
 			message: "#^Property Mage_Catalog_Block_Product_List_Crosssell\\:\\:\\$_itemCollection \\(Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection\\) does not accept Mage_Catalog_Model_Resource_Product_Link_Product_Collection\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/List/Crosssell.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Eav_Model_Entity_Collection_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/List/Promotion.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Eav_Model_Entity_Collection_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/List/Random.php
 
 		-
 			message: "#^Method Mage_Catalog_Block_Product_List_Toolbar\\:\\:getDefaultPerPageValue\\(\\) should return string but returns int\\.$#"
@@ -2584,11 +2309,6 @@ parameters:
 			message: "#^Property Mage_Catalog_Block_Product_New\\:\\:\\$_productsCount \\(null\\) does not accept int\\.$#"
 			count: 2
 			path: app/code/core/Mage/Catalog/Block/Product/New.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int\\|Mage_Core_Model_Store will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/View/Abstract.php
 
 		-
 			message: "#^Parameter \\#1 \\$price of method Mage_Core_Model_Store\\:\\:convertPrice\\(\\) expects float, string given\\.$#"
@@ -2691,11 +2411,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Helper/Data.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with bool will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Helper/Flat/Abstract.php
-
-		-
 			message: "#^Property Mage_Catalog_Helper_Image\\:\\:\\$_angle \\(int\\) does not accept null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Helper/Image.php
@@ -2761,11 +2476,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Helper/Product/Flat.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Product_Flat_Flag will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Helper/Product/Flat.php
-
-		-
 			message: "#^Property Mage_Catalog_Helper_Product_Flat\\:\\:\\$_forceFlatStatusOld \\(bool\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Helper/Product/Flat.php
@@ -2806,11 +2516,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Product will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php
-
-		-
 			message: "#^Parameter \\#1 \\$shippingAddress of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects Mage_Sales_Model_Quote_Address\\|false\\|null, Mage_Customer_Model_Address\\|null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php
@@ -2841,11 +2546,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest/Admin/V1.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Customer_Model_Customer will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest/Customer/V1.php
-
-		-
 			message: "#^Return type \\(int\\) of method Mage_Catalog_Model_Api2_Product_Rest_Customer_V1\\:\\:_getCustomerGroupId\\(\\) should be compatible with return type \\(null\\) of method Mage_Catalog_Model_Api2_Product_Rest\\:\\:_getCustomerGroupId\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest/Customer/V1.php
@@ -2869,11 +2569,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Object\\:\\:formatUrlKey\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Attribute/Backend/Urlkey/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Resource_Category_Tree will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Category.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Category\\:\\:getDefaultAttributeSetId\\(\\) should return int but returns string\\|null\\.$#"
@@ -2911,11 +2606,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Category/Attribute/Backend/Image.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Category/Attribute/Source/Sortby.php
-
-		-
 			message: "#^Property Mage_Catalog_Model_Category_Url\\:\\:\\$_url \\(Mage_Core_Model_Url\\) does not accept bool\\|Mage_Core_Model_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Category/Url.php
@@ -2923,11 +2613,6 @@ parameters:
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Config\\:\\:_init\\(\\)\\.$#"
 			count: 1
-			path: app/code/core/Mage/Catalog/Model/Config.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 3
 			path: app/code/core/Mage/Catalog/Model/Config.php
 
 		-
@@ -2946,16 +2631,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Product will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
@@ -2971,11 +2646,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
 
 		-
-			message: "#^Property Mage_Catalog_Model_Convert_Adapter_Product\\:\\:\\$_productModel \\(Mage_Catalog_Model_Product\\) does not accept string\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
-
-		-
 			message: "#^Return type \\(Mage_Catalog_Model_Resource_Product_Collection\\) of method Mage_Catalog_Model_Convert_Adapter_Product\\:\\:_getCollectionForLoad\\(\\) should be compatible with return type \\(Mage_Eav_Model_Entity_Collection\\) of method Mage_Eav_Model_Convert_Adapter_Entity\\:\\:_getCollectionForLoad\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
@@ -2987,11 +2657,6 @@ parameters:
 
 		-
 			message: "#^Call to function is_array\\(\\) with bool\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Convert/Parser/Product.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Convert/Parser/Product.php
 
@@ -3041,16 +2706,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Layer.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Resource_Layer_Filter_Attribute will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Attribute.php
-
-		-
 			message: "#^Comparison operation \"\\=\\=\" between Mage_Catalog_Model_Resource_Eav_Attribute and 1 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Attribute.php
@@ -3061,17 +2716,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Attribute.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Category.php
-
-		-
 			message: "#^Argument of an invalid type int supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Resource_Layer_Filter_Decimal will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
 
@@ -3117,11 +2762,6 @@ parameters:
 
 		-
 			message: "#^Argument of an invalid type int\\<min, \\-1\\>\\|int\\<1, max\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Price.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Resource_Layer_Filter_Price will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Price.php
 
@@ -3261,11 +2901,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Groupprice/Abstract.php
-
-		-
 			message: "#^Cannot call method getBackend\\(\\) on bool\\|Mage_Catalog_Model_Resource_Attribute\\.$#"
 			count: 11
 			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api.php
@@ -3298,11 +2933,6 @@ parameters:
 		-
 			message: "#^Binary operation \"\\*\" between string and 1024 results in an error\\.$#"
 			count: 3
-			path: app/code/core/Mage/Catalog/Model/Product/Image.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 2
 			path: app/code/core/Mage/Catalog/Model/Product/Image.php
 
 		-
@@ -3426,16 +3056,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array\\<Mage_Catalog_Model_Resource_Eav_Attribute\\> will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int\\|Mage_Core_Model_Store will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Product_Type_Configurable\\:\\:getProductByAttributes\\(\\) should return Mage_Catalog_Model_Product\\|null but returns Varien_Object\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
@@ -3444,11 +3064,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$product of method Mage_Catalog_Model_Product\\:\\:addCustomOption\\(\\) expects int\\|null, Mage_Catalog_Model_Product given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with float will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable/Price.php
 
 		-
 			message: "#^Cannot access offset 'pricing_value' on true\\.$#"
@@ -3476,17 +3091,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Grouped.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with float will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Grouped/Price.php
-
-		-
 			message: "#^Call to function is_array\\(\\) with float will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Price.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with float will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Price.php
 
@@ -3601,27 +3206,12 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Collection.php
-
-		-
 			message: "#^Variable \\$ids in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Collection.php
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Resource_Category_Collection\\:\\:addSortedField\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
 
@@ -3652,11 +3242,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Zend_Db_Select\\:\\:insertFromSelect\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Indexer/Product.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Indexer/Product.php
 
@@ -3696,16 +3281,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Resource_Category_Collection will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Resource_Category_Tree\\:\\:_getItemIsActive\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
@@ -3741,16 +3316,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
 		-
-			message: "#^Property Mage_Catalog_Model_Resource_Category_Tree\\:\\:\\$_isActiveAttributeId \\(int\\) does not accept string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Collection/Abstract.php
-
-		-
 			message: "#^Parameter \\#2 \\$alias of method Varien_Db_Adapter_Interface\\:\\:quoteColumnAs\\(\\) expects string, null given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Catalog/Model/Resource/Collection/Abstract.php
@@ -3761,11 +3326,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Config.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Eav/Attribute.php
-
-		-
 			message: "#^Binary operation \"\\-\" between int and non\\-falsy\\-string results in an error\\.$#"
 			count: 2
 			path: app/code/core/Mage/Catalog/Model/Resource/Layer/Filter/Price.php
@@ -3773,11 +3333,6 @@ parameters:
 		-
 			message: "#^Binary operation \"\\-\" between non\\-falsy\\-string and 1 results in an error\\.$#"
 			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Layer/Filter/Price.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Varien_Db_Select will always evaluate to false\\.$#"
-			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Layer/Filter/Price.php
 
 		-
@@ -3871,16 +3426,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with float will always evaluate to false\\.$#"
-			count: 3
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Collection\\:\\:_addUrlRewrite\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
@@ -3921,11 +3466,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Compare/Item.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Compare/Item/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$object of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:setObject\\(\\) expects Varien_Object\\|null, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Compare/Item/Collection.php
@@ -3944,11 +3484,6 @@ parameters:
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Indexer_Abstract\\:\\:_getAttribute\\(\\) should return Mage_Catalog_Model_Resource_Eav_Attribute but returns Mage_Eav_Model_Entity_Attribute_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Eav.php
 
 		-
 			message: "#^Parameter \\#5 \\$condition of method Mage_Catalog_Model_Resource_Product_Indexer_Abstract\\:\\:_addAttributeToSelect\\(\\) expects Zend_Db_Expr\\|null, string given\\.$#"
@@ -3981,11 +3516,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
-
-		-
 			message: "#^Cannot call method setTypeId\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
@@ -3994,11 +3524,6 @@ parameters:
 			message: "#^Parameter \\#5 \\$condition of method Mage_Catalog_Model_Resource_Product_Indexer_Abstract\\:\\:_addAttributeToSelect\\(\\) expects Zend_Db_Expr\\|null, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price/Configurable.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price/Default.php
 
 		-
 			message: "#^Parameter \\#3 \\$false of method Varien_Db_Adapter_Pdo_Mysql\\:\\:getCheckSql\\(\\) expects string, int given\\.$#"
@@ -4061,11 +3586,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Url.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Resource_Url will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Url.php
-
-		-
 			message: "#^Parameter \\#2 \\$categoryIds of method Mage_Catalog_Model_Resource_Url\\:\\:prepareRewrites\\(\\) expects array\\|int\\|null, false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Url.php
@@ -4101,17 +3621,7 @@ parameters:
 			path: app/code/core/Mage/CatalogIndex/Model/Attribute.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Product_Type_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Data/Abstract.php
-
-		-
 			message: "#^Parameter \\#1 \\$products of method Mage_CatalogIndex_Model_Data_Abstract\\:\\:getAttributeData\\(\\) expects array, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Data/Abstract.php
-
-		-
-			message: "#^Property Mage_CatalogIndex_Model_Data_Abstract\\:\\:\\$_typeInstance \\(Mage_Catalog_Model_Product_Type_Abstract\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Data/Abstract.php
 
@@ -4141,11 +3651,6 @@ parameters:
 			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
-
-		-
 			message: "#^Variable \\$kill in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
@@ -4154,11 +3659,6 @@ parameters:
 			message: "#^Return type \\(string\\) of method Mage_CatalogIndex_Model_Indexer_Eav\\:\\:_getIndexableAttributeConditions\\(\\) should be compatible with return type \\(array\\) of method Mage_CatalogIndex_Model_Indexer_Abstract\\:\\:_getIndexableAttributeConditions\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Indexer/Eav.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Indexer/Minimalprice.php
 
 		-
 			message: "#^Return type \\(string\\) of method Mage_CatalogIndex_Model_Indexer_Price\\:\\:_getIndexableAttributeConditions\\(\\) should be compatible with return type \\(array\\) of method Mage_CatalogIndex_Model_Indexer_Abstract\\:\\:_getIndexableAttributeConditions\\(\\)$#"
@@ -4191,29 +3691,14 @@ parameters:
 			path: app/code/core/Mage/CatalogIndex/Model/Resource/Price.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Resource/Setup.php
-
-		-
 			message: "#^Parameter \\#3 \\$storeIds of method Mage_CatalogIndex_Model_Resource_Setup\\:\\:_setWebsiteInfo\\(\\) expects array, Mage_Core_Model_Website given\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Resource/Setup.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Customer_Model_Resource_Group_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Retreiver.php
-
-		-
 			message: "#^Method Mage_CatalogIndex_Model_Retreiver\\:\\:getRetreiver\\(\\) should return Mage_CatalogIndex_Model_Data_Abstract but returns Mage_Core_Model_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Retreiver.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Block/Adminhtml/Form/Field/Customergroup.php
 
 		-
 			message: "#^Parameter \\#1 \\$value of method Mage_Core_Block_Html_Select\\:\\:addOption\\(\\) expects string, int given\\.$#"
@@ -4246,11 +3731,6 @@ parameters:
 			path: app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
-
-		-
 			message: "#^Cannot call method setTypeId\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
@@ -4264,11 +3744,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$false of method Varien_Db_Adapter_Pdo_Mysql\\:\\:getCheckSql\\(\\) expects string, int given\\.$#"
 			count: 2
 			path: app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock/Configurable.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock/Default.php
 
 		-
 			message: "#^Parameter \\#2 \\$true of method Varien_Db_Adapter_Pdo_Mysql\\:\\:getCheckSql\\(\\) expects string, int given\\.$#"
@@ -4351,11 +3826,6 @@ parameters:
 			path: app/code/core/Mage/CatalogInventory/Model/Stock/Item/Api/V2.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/CatalogInventory/Model/Stock/Status.php
-
-		-
 			message: "#^Parameter \\#1 \\$expression of class Zend_Db_Expr constructor expects string, int given\\.$#"
 			count: 4
 			path: app/code/core/Mage/CatalogRule/Model/Action/Index/Refresh.php
@@ -4364,11 +3834,6 @@ parameters:
 			message: "#^Return type \\(int\\) of method Mage_CatalogRule_Model_Action_Index_Refresh_Row\\:\\:_getProduct\\(\\) should be compatible with return type \\(null\\) of method Mage_CatalogRule_Model_Action_Index_Refresh\\:\\:_getProduct\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/CatalogRule/Model/Action/Index/Refresh/Row.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogRule/Model/Observer.php
 
 		-
 			message: "#^Parameter \\#1 \\$combine of method Mage_CatalogRule_Model_Observer\\:\\:_removeAttributeFromConditions\\(\\) expects Mage_CatalogRule_Model_Rule_Condition_Combine, Mage_Rule_Model_Condition_Combine given\\.$#"
@@ -4392,11 +3857,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Rule_Model_Condition_Combine\\:\\:collectValidatedAttributes\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogRule/Model/Rule.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogRule/Model/Rule.php
 
@@ -4431,27 +3891,12 @@ parameters:
 			path: app/code/core/Mage/CatalogSearch/Block/Advanced/Result.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_CatalogSearch_Model_Resource_Fulltext_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Block/Result.php
-
-		-
-			message: "#^Property Mage_CatalogSearch_Block_Result\\:\\:\\$_productCollection \\(Mage_CatalogSearch_Model_Resource_Fulltext_Collection\\) does not accept Mage_Eav_Model_Entity_Collection_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Block/Result.php
-
-		-
 			message: "#^Property Mage_CatalogSearch_Helper_Data\\:\\:\\$_queryText \\(string\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogSearch/Helper/Data.php
 
 		-
 			message: "#^Call to function is_array\\(\\) with bool\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Advanced.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_CatalogSearch_Model_Resource_Advanced_Collection will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogSearch/Model/Advanced.php
 
@@ -4467,11 +3912,6 @@ parameters:
 
 		-
 			message: "#^Call to function is_array\\(\\) with bool\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php
 
@@ -4499,11 +3939,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php
 
 		-
 			message: "#^Property Mage_CatalogSearch_Model_Resource_Fulltext_Collection\\:\\:\\$_relevanceSortOrder \\(null\\) does not accept default value of type int\\.$#"
@@ -4541,11 +3976,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/Block/Cart/Sidebar.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Quote_Address will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Onepage/Billing.php
-
-		-
 			message: "#^Property Mage_Checkout_Block_Onepage_Billing\\:\\:\\$_taxvat \\(Mage_Customer_Block_Widget_Taxvat\\) does not accept Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Block/Onepage/Billing.php
@@ -4554,11 +3984,6 @@ parameters:
 			message: "#^Method Mage_Checkout_Block_Onepage_Progress\\:\\:getShippingPriceInclTax\\(\\) should return float but returns string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Block/Onepage/Progress.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Quote_Address will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Onepage/Shipping.php
 
 		-
 			message: "#^Property Mage_Checkout_Block_Onepage_Success\\:\\:\\$_order is unused\\.$#"
@@ -4651,11 +4076,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Order will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
-
-		-
 			message: "#^Parameter \\#1 \\$route of static method Mage\\:\\:getUrl\\(\\) expects string, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Cms/Helper/Page.php
@@ -4696,21 +4116,6 @@ parameters:
 			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productimg.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Product_Type_Configurable_Attribute will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productlist.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productlist.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productlist.php
-
-		-
 			message: "#^Method Mage_ConfigurableSwatches_Helper_Productlist\\:\\:getSwatchAttribute\\(\\) should return Mage_Eav_Model_Attribute but returns Mage_Catalog_Model_Product_Type_Configurable_Attribute\\.$#"
 			count: 1
 			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productlist.php
@@ -4734,21 +4139,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$array of function array_unshift expects array, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/ConfigurableSwatches/Model/System/Config/Source/Catalog/Product/Configattribute/Select.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Block_Messages will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_App will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Factory will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Abstract.php
 
 		-
 			message: "#^Method Mage_Core_Block_Abstract\\:\\:_getUrlModel\\(\\) should return Mage_Core_Model_Url but returns Mage_Core_Model_Abstract\\|false\\.$#"
@@ -4916,26 +4306,6 @@ parameters:
 			path: app/code/core/Mage/Core/Helper/Abstract.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Helper/File/Storage.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Resource_File_Storage_Database will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Helper/File/Storage/Database.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Helper/Http.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Varien_Simplexml_Config will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Helper/Js.php
-
-		-
 			message: "#^Property Mage_Core_Helper_String\\:\\:\\$_arrayHelper \\(Mage_Core_Helper_Array\\) does not accept Mage_Core_Helper_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Helper/String.php
@@ -4954,16 +4324,6 @@ parameters:
 			message: "#^Property Mage_Core_Model_Abstract\\:\\:\\$_isObjectNew \\(bool\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Store will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Website will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
 
 		-
 			message: "#^Method Mage_Core_Model_App\\:\\:getDefaultStoreView\\(\\) should return Mage_Core_Model_Store but returns null\\.$#"
@@ -5011,17 +4371,7 @@ parameters:
 			path: app/code/core/Mage/Core/Model/App.php
 
 		-
-			message: "#^Property Mage_Core_Model_App\\:\\:\\$_store \\(Mage_Core_Model_Store\\) in empty\\(\\) is not falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
 			message: "#^Property Mage_Core_Model_App\\:\\:\\$_useSessionInUrl \\(bool\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
-			message: "#^Property Mage_Core_Model_App\\:\\:\\$_website \\(Mage_Core_Model_Website\\) does not accept null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/App.php
 
@@ -5039,11 +4389,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$store of method Mage_Core_Model_App\\:\\:setCurrentStore\\(\\) expects string, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/App/Emulation.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Cache.php
 
 		-
 			message: "#^Method Mage_Core_Model_Cache\\:\\:getDbAdapter\\(\\) should return Zend_Db_Adapter_Abstract but returns Varien_Db_Adapter_Interface\\|false\\.$#"
@@ -5067,11 +4412,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:is\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Config.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Resource_Config will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Config.php
 
@@ -5131,11 +4471,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Config.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Store will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Cookie.php
-
-		-
 			message: "#^Method Mage_Core_Model_Cookie\\:\\:getHttponly\\(\\) should return bool but returns null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Cookie.php
@@ -5186,21 +4521,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Design/Package.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Design_Config will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Design_Fallback will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
 			message: "#^Cannot assign offset 'layout'\\|'locale'\\|'skin'\\|'template' to string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Design/Package.php
@@ -5219,11 +4539,6 @@ parameters:
 			message: "#^Property Mage_Core_Model_Design_Package\\:\\:\\$_store \\(int\\|Mage_Core_Model_Store\\|string\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Source/Design.php
 
 		-
 			message: "#^Parameter \\#1 \\$policyCode of method Mage_Core_Model_Domainpolicy\\:\\:_getDomainPolicyByCode\\(\\) expects string, int given\\.$#"
@@ -5271,11 +4586,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Factory.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_File_Storage_Directory_Database will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/File/Storage/Database.php
-
-		-
 			message: "#^Parameter \\#1 \\$params of method Mage_Core_Model_File_Storage_Database_Abstract\\:\\:__construct\\(\\) expects array, string\\|null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/File/Storage/Database.php
@@ -5286,19 +4596,9 @@ parameters:
 			path: app/code/core/Mage/Core/Model/File/Storage/Directory/Database.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/File/Storage/File.php
-
-		-
 			message: "#^Call to function is_string\\(\\) with array will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/File/Validator/NotProtectedExtension.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Model/Flag.php
 
 		-
 			message: "#^PHPDoc tag @param for parameter \\$filter with type array\\|Zend_Filter_Interface is not subtype of native type Zend_Filter_Interface\\.$#"
@@ -5416,11 +4716,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Model/Resource/Db/Abstract.php
-
-		-
 			message: "#^Method Mage_Core_Model_Resource_Db_Abstract\\:\\:_getConnection\\(\\) should return Magento_Db_Adapter_Pdo_Mysql but returns Varien_Db_Adapter_Interface\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Db/Abstract.php
@@ -5476,11 +4771,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/File/Storage/Directory/Database.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/File/Storage/File.php
-
-		-
 			message: "#^Property Mage_Core_Model_Resource_File_Storage_File\\:\\:\\$filePointer \\(resource\\) does not accept null\\.$#"
 			count: 2
 			path: app/code/core/Mage/Core/Model/Resource/File/Storage/File.php
@@ -5501,27 +4791,7 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Iterator.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Model/Resource/Resource.php
-
-		-
-			message: "#^Static property Mage_Core_Model_Resource_Resource\\:\\:\\$_dataVersions \\(array\\) does not accept null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Resource.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Session.php
-
-		-
 			message: "#^Parameter \\#6 \\$gc of function session_set_save_handler expects callable\\(string\\)\\: bool, array\\{\\$this\\(Mage_Core_Model_Resource_Session\\), 'gc'\\} given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Session.php
-
-		-
-			message: "#^Property Mage_Core_Model_Resource_Session\\:\\:\\$_lifeTime \\(int\\) does not accept string\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Session.php
 
@@ -5561,11 +4831,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Setup/Query/Modifier.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Url/Rewrite.php
-
-		-
 			message: "#^Parameter \\#1 \\$host of method Mage_Core_Model_Session_Abstract\\:\\:addHost\\(\\) expects string, true given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Core/Model/Session/Abstract.php
@@ -5584,16 +4849,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$clear \\(bool\\) of method Mage_Core_Model_Session_Abstract_Zend\\:\\:getData\\(\\) should be compatible with parameter \\$index \\(int\\|string\\) of method Varien_Object\\:\\:getData\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Session/Abstract/Zend.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Store_Group will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Store.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Website will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Store.php
 
 		-
 			message: "#^Method Mage_Core_Model_Store\\:\\:_getSession\\(\\) should return Mage_Core_Model_Session but returns Mage_Core_Model_Session_Abstract\\.$#"
@@ -5621,26 +4876,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Store.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Website will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Store/Group.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 5
-			path: app/code/core/Mage/Core/Model/Store/Group.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Store/Group.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Varien_Object will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Template.php
-
-		-
 			message: "#^Property Mage_Core_Model_Template\\:\\:\\$_emulatedDesignConfig \\(Varien_Object\\) does not accept default value of type false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Template.php
@@ -5666,21 +4901,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Translate.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Zend_Translate will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Translate.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Translate.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Model/Translate.php
-
-		-
 			message: "#^Parameter \\#1 \\$options of class Zend_Translate constructor expects array\\|Zend_Config\\|Zend_Translate_Adapter, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Translate.php
@@ -5689,11 +4909,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$scope of method Mage_Core_Model_Translate\\:\\:_addData\\(\\) expects string, false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Translate.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with bool will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Translate/Inline.php
 
 		-
 			message: "#^Parameter \\#1 \\$storeId of method Mage_Core_Helper_Data\\:\\:isDevAllowed\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
@@ -5711,19 +4926,9 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Translate/Inline.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with bool will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Url.php
-
-		-
 			message: "#^Method Mage_Core_Model_Url\\:\\:getRequest\\(\\) should return Mage_Core_Controller_Request_Http but returns Zend_Controller_Request_Http\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Url.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
 
 		-
 			message: "#^PHPDoc type mixed of property Mage_Core_Model_Url_Rewrite\\:\\:\\$_cacheTag is not covariant with PHPDoc type string\\|true of overridden property Mage_Core_Model_Abstract\\:\\:\\$_cacheTag\\.$#"
@@ -5756,24 +4961,9 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Url/Rewrite/Request.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between int and null will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Url/Rewrite/Request.php
-
-		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Url/Rewrite/Request.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 8
-			path: app/code/core/Mage/Core/Model/Website.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with bool will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Website.php
 
 		-
 			message: "#^Function mageCoreErrorHandler\\(\\) never returns void so it can be removed from the return type\\.$#"
@@ -5811,16 +5001,6 @@ parameters:
 			path: app/code/core/Mage/CurrencySymbol/Model/System/Currencysymbol.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Newsletter_Model_Subscriber will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Block/Account/Dashboard/Info.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Newsletter_Model_Subscriber will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Block/Account/Dashboard/Newsletter.php
-
-		-
 			message: "#^Call to an undefined method Mage_Wishlist_Model_Resource_Item_Collection\\:\\:addAttributeToSelect\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Block/Account/Dashboard/Sidebar.php
@@ -5841,11 +5021,6 @@ parameters:
 			path: app/code/core/Mage/Customer/Block/Address/Edit.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Customer_Model_Address will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Block/Form/Register.php
-
-		-
 			message: "#^Method Mage_Customer_Block_Form_Register\\:\\:getCountryId\\(\\) should return int but returns string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Block/Form/Register.php
@@ -5859,11 +5034,6 @@ parameters:
 			message: "#^Method Mage_Customer_Block_Newsletter\\:\\:getAction\\(\\) should return Mage_Core_Controller_Varien_Action but returns string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Block/Newsletter.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Helper/Address.php
 
 		-
 			message: "#^Parameter \\#1 \\$entityType of method Mage_Eav_Model_Config\\:\\:getEntityAttributeCodes\\(\\) expects Mage_Eav_Model_Entity_Type, string given\\.$#"
@@ -5916,11 +5086,6 @@ parameters:
 			path: app/code/core/Mage/Customer/Model/Address/Api/V2.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Store will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Address/Config.php
-
-		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:getResource\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Api/Resource.php
@@ -5931,17 +5096,7 @@ parameters:
 			path: app/code/core/Mage/Customer/Model/Api2/Customer/Address.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Customer_Model_Customer will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Convert/Adapter/Customer.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Convert/Adapter/Customer.php
-
-		-
-			message: "#^Property Mage_Customer_Model_Convert_Adapter_Customer\\:\\:\\$_customerModel \\(Mage_Customer_Model_Customer\\) does not accept string\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Convert/Adapter/Customer.php
 
@@ -5952,11 +5107,6 @@ parameters:
 
 		-
 			message: "#^Call to function is_array\\(\\) with bool\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Convert/Parser/Customer.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Convert/Parser/Customer.php
 
@@ -6076,21 +5226,6 @@ parameters:
 			path: app/code/core/Mage/Customer/controllers/AccountController.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch_Export will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Batch.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch_Import will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Batch.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch_Io will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Batch.php
-
-		-
 			message: "#^Method Mage_Dataflow_Model_Batch\\:\\:setParams\\(\\) should return Mage_Dataflow_Model_Batch_Abstract but returns \\$this\\(Mage_Dataflow_Model_Batch\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Batch.php
@@ -6114,16 +5249,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Abstract\\:\\:getIdCollection\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Batch/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Varien_Io_File will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Batch/Io.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Dataflow/Model/Batch/Io.php
 
 		-
 			message: "#^Call to an undefined method Mage_Dataflow_Model_Convert_Action\\:\\:getData\\(\\)\\.$#"
@@ -6161,21 +5286,6 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Convert/Container/Collection.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Mapper/Column.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch_Export will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Mapper/Column.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch_Import will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Mapper/Column.php
-
-		-
 			message: "#^Method Mage_Dataflow_Model_Convert_Mapper_Column\\:\\:getBatchImportModel\\(\\) has invalid return type Mage_Dataflow_Model_Import_Export\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Mapper/Column.php
@@ -6189,21 +5299,6 @@ parameters:
 			message: "#^Property Mage_Dataflow_Model_Convert_Mapper_Column\\:\\:\\$_batchImport \\(Mage_Dataflow_Model_Batch_Import\\) does not accept string\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Mapper/Column.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch_Export will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch_Import will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Abstract.php
 
 		-
 			message: "#^Property Mage_Dataflow_Model_Convert_Parser_Abstract\\:\\:\\$_batchExport \\(Mage_Dataflow_Model_Batch_Export\\) does not accept string\\|false\\.$#"
@@ -6229,16 +5324,6 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with SimpleXMLElement will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php
 
 		-
 			message: "#^Method Mage_Dataflow_Model_Convert_Profile_Abstract\\:\\:run\\(\\) should return Mage_Dataflow_Model_Convert_Profile_Abstract but empty return statement found\\.$#"
@@ -6301,19 +5386,9 @@ parameters:
 			path: app/code/core/Mage/Directory/Model/Resource/Region.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Resource_Eav_Attribute will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Downloadable/Block/Adminhtml/Catalog/Product/Edit/Tab/Downloadable/Links.php
-
-		-
 			message: "#^Property Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links\\:\\:\\$_purchasedSeparatelyAttribute \\(Mage_Catalog_Model_Resource_Eav_Attribute\\) does not accept Mage_Eav_Model_Entity_Attribute\\.$#"
 			count: 1
 			path: app/code/core/Mage/Downloadable/Block/Adminhtml/Catalog/Product/Edit/Tab/Downloadable/Links.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with resource will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Downloadable/Helper/Download.php
 
 		-
 			message: "#^Cannot call method streamRead\\(\\) on resource\\.$#"
@@ -6354,11 +5429,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$resource \\(object\\) of method Mage_Downloadable_Model_Link_Api_V2\\:\\:add\\(\\) should be compatible with parameter \\$resource \\(array\\) of method Mage_Downloadable_Model_Link_Api\\:\\:add\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Downloadable/Model/Link/Api/V2.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with float will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Downloadable/Model/Product/Price.php
 
 		-
 			message: "#^Parameter \\#1 \\$item of method Mage_Sales_Model_Order_Pdf_Items_Abstract\\:\\:getSku\\(\\) expects Mage_Sales_Model_Order_Creditmemo_Item\\|Mage_Sales_Model_Order_Invoice_Item, Varien_Object given\\.$#"
@@ -6424,16 +5494,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Eav_Model_Resource_Entity_Attribute\\:\\:getUsedInForms\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Attribute.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Website will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Attribute.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Attribute/Data/Abstract.php
 
 		-
 			message: "#^Method Mage_Eav_Model_Attribute_Data_Abstract\\:\\:setRequestScope\\(\\) should return string but returns \\$this\\(Mage_Eav_Model_Attribute_Data_Abstract\\)\\.$#"
@@ -6509,11 +5569,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Config.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Store will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Convert/Adapter/Entity.php
 
 		-
 			message: "#^Method Mage_Eav_Model_Convert_Adapter_Entity\\:\\:_getCollectionForLoad\\(\\) should return Mage_Eav_Model_Entity_Collection but returns Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
@@ -6666,11 +5721,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Group.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Boolean.php
-
-		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:getStoreId\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Table.php
@@ -6806,26 +5856,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Type.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Form.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Store will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Form.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Eav_Model_Entity_Type will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Form.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 3
-			path: app/code/core/Mage/Eav/Model/Form.php
-
-		-
 			message: "#^Parameter \\#1 \\$attribute of static method Mage_Eav_Model_Attribute_Data\\:\\:factory\\(\\) expects Mage_Eav_Model_Attribute, Mage_Eav_Model_Entity_Attribute given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Form.php
@@ -6861,11 +5891,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Resource/Entity/Attribute/Set.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Resource/Form/Fieldset/Collection.php
-
-		-
 			message: "#^PHPDoc tag @param for parameter \\$object with type Mage_Eav_Model_Resource_Form_Type is incompatible with native type Mage_Core_Model_Abstract\\.$#"
 			count: 2
 			path: app/code/core/Mage/Eav/Model/Resource/Form/Type.php
@@ -6879,11 +5904,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/GiftMessage/Block/Adminhtml/Sales/Order/View/Items.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_GiftMessage_Model_Message will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/GiftMessage/Block/Message/Form.php
 
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
@@ -7186,11 +6206,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_ImportExport_Model_Import_Uploader will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
-
-		-
 			message: "#^Instanceof between Mage_Core_Model_Abstract and Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
@@ -7221,11 +6236,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product/Type/Grouped.php
-
-		-
 			message: "#^Cannot access offset 'name' on bool\\|void\\.$#"
 			count: 2
 			path: app/code/core/Mage/ImportExport/Model/Import/Uploader.php
@@ -7239,11 +6249,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$elementId of method Mage_ImportExport_Block_Adminhtml_Import_Frame_Result\\:\\:addAction\\(\\) expects string, array\\<int, string\\> given\\.$#"
 			count: 2
 			path: app/code/core/Mage/ImportExport/controllers/Adminhtml/ImportController.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Index_Model_Resource_Process_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Index/Model/Indexer.php
 
 		-
 			message: "#^Method Mage_Index_Model_Lock\\:\\:getInstance\\(\\) should return \\$this\\(Mage_Index_Model_Lock\\) but returns Mage_Index_Model_Lock\\.$#"
@@ -7281,11 +6286,6 @@ parameters:
 			path: app/code/core/Mage/Index/Model/Lock/Storage/Db.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Index_Model_Lock will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Index/Model/Process.php
-
-		-
 			message: "#^Parameter \\#1 \\$namespace of method Mage_Index_Model_Event\\:\\:setDataNamespace\\(\\) expects string, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Index/Model/Process.php
@@ -7304,11 +6304,6 @@ parameters:
 			message: "#^Call to function is_array\\(\\) with '' will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Index/Model/Resource/Event.php
-
-		-
-			message: "#^Property Varien_Data_Collection\\:\\:\\$_totalRecords \\(int\\) does not accept null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Index/Model/Resource/Event/Collection.php
 
 		-
 			message: "#^Parameter \\#1 \\$adapter of method Varien_Db_Adapter_Interface\\:\\:setCacheAdapter\\(\\) expects Zend_Cache_Backend_Interface, Zend_Cache_Core given\\.$#"
@@ -7336,12 +6331,17 @@ parameters:
 			path: app/code/core/Mage/Install/Model/Config.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Install_Model_Session will always evaluate to false\\.$#"
+			message: "#^Constant data not found\\.$#"
 			count: 1
 			path: app/code/core/Mage/Install/Model/Installer.php
 
 		-
-			message: "#^Constant data not found\\.$#"
+			message: "#^Method Mage_Install_Model_Installer\\:\\:getDataModel\\(\\) should return Mage_Install_Model_Session but returns Mage_Install_Model_Installer_Data\\|null\\.$#"
+			count: 1
+			path: app/code/core/Mage/Install/Model/Installer.php
+
+		-
+			message: "#^Parameter \\#1 \\$model of method Mage_Install_Model_Installer\\:\\:setDataModel\\(\\) expects Mage_Install_Model_Installer_Data, Mage_Install_Model_Session given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Install/Model/Installer.php
 
@@ -7349,26 +6349,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$value of method Mage_Core_Model_Resource_Setup\\:\\:setConfigData\\(\\) expects string, int given\\.$#"
 			count: 5
 			path: app/code/core/Mage/Install/Model/Installer.php
-
-		-
-			message: "#^Property Mage_Install_Model_Installer\\:\\:\\$_dataModel \\(Mage_Install_Model_Session\\) does not accept Varien_Object\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Install_Model_Installer will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Install_Model_Installer_Data\\|Mage_Install_Model_Session will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer/Console.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer/Console.php
 
 		-
 			message: "#^Call to an undefined method Mage_Install_Model_Installer_Db_Abstract\\:\\:getVersion\\(\\)\\.$#"
@@ -7481,24 +6461,9 @@ parameters:
 			path: app/code/core/Mage/Media/Model/File/Image.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with resource will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Media/Model/Image.php
-
-		-
-			message: "#^Property Mage_Media_Model_Image\\:\\:\\$_image \\(resource\\) does not accept null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Media/Model/Image.php
-
-		-
 			message: "#^Property Mage_Media_Model_Image\\:\\:\\$_tmpImage \\(resource\\) does not accept null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Media/Model/Image.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with bool will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Subscriber.php
 
 		-
 			message: "#^Parameter \\#1 \\$length of function openssl_random_pseudo_bytes expects int, float given\\.$#"
@@ -7586,11 +6551,6 @@ parameters:
 			path: app/code/core/Mage/Paygate/Block/Authorizenet/Info/Cc.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Paygate_Model_Authorizenet_Cards will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paygate/Model/Authorizenet.php
-
-		-
 			message: "#^Cannot assign new offset to string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paygate/Model/Authorizenet.php
@@ -7666,24 +6626,9 @@ parameters:
 			path: app/code/core/Mage/Payment/Block/Catalog/Product/View/Profile.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Payment/Block/Form/Banktransfer.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Payment/Block/Form/Cashondelivery.php
-
-		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Payment/Block/Form/Cc.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Payment/Block/Info/Banktransfer.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isAvailable\\(\\)\\.$#"
@@ -7694,11 +6639,6 @@ parameters:
 			message: "#^Method Mage_Payment_Helper_Data\\:\\:getStoreMethods\\(\\) should return array\\<Mage_Payment_Model_Method_Abstract\\> but returns array\\<int, Mage_Core_Model_Abstract\\>\\.$#"
 			count: 1
 			path: app/code/core/Mage/Payment/Helper/Data.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Payment_Model_Method_Abstract will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Payment/Model/Billing/AgreementAbstract.php
 
 		-
 			message: "#^Method Mage_Payment_Model_Config\\:\\:_getMethod\\(\\) should return Mage_Payment_Model_Method_Abstract\\|false but returns Mage_Core_Model_Abstract\\.$#"
@@ -7749,16 +6689,6 @@ parameters:
 			message: "#^Method Mage_Paypal_Block_Express_Review\\:\\:_getShippingPrice\\(\\) should return bool but returns float\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Block/Express/Review.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Quote_Address will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Block/Express/Review/Billing.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Quote_Address will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Block/Express/Review/Shipping.php
 
 		-
 			message: "#^Return type \\(false\\) of method Mage_Paypal_Block_Hosted_Pro_Info\\:\\:getCcTypeName\\(\\) should be compatible with return type \\(string\\|null\\) of method Mage_Paypal_Block_Payment_Info\\:\\:getCcTypeName\\(\\)$#"
@@ -7854,11 +6784,6 @@ parameters:
 			message: "#^Empty array passed to foreach\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Cart.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Config.php
 
 		-
 			message: "#^Property Mage_Paypal_Model_Direct\\:\\:\\$_pro \\(Mage_Paypal_Model_Pro\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
@@ -8111,59 +7036,9 @@ parameters:
 			path: app/code/core/Mage/PaypalUk/Model/Pro.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Store will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/Block/Email/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_ProductAlert_Helper_Data will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/Block/Product/View.php
-
-		-
-			message: "#^Method Mage_ProductAlert_Helper_Data\\:\\:createBlock\\(\\) should return string but returns Mage_Core_Block_Abstract\\.$#"
+			message: "#^Method Mage_ProductAlert_Helper_Data\\:\\:createBlock\\(\\) should return Mage_ProductAlert_Block_Email_Price\\|Mage_ProductAlert_Block_Email_Stock but returns Mage_Core_Block_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/ProductAlert/Helper/Data.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Website will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/Model/Email.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Customer_Model_Customer will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/Model/Email.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_ProductAlert_Block_Email_Price will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/Model/Email.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_ProductAlert_Block_Email_Stock will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/Model/Email.php
-
-		-
-			message: "#^Property Mage_ProductAlert_Model_Email\\:\\:\\$_customer \\(Mage_Customer_Model_Customer\\) does not accept null\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/Model/Email.php
-
-		-
-			message: "#^Property Mage_ProductAlert_Model_Email\\:\\:\\$_priceBlock \\(Mage_ProductAlert_Block_Email_Price\\) does not accept string\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/Model/Email.php
-
-		-
-			message: "#^Property Mage_ProductAlert_Model_Email\\:\\:\\$_stockBlock \\(Mage_ProductAlert_Block_Email_Stock\\) does not accept string\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/Model/Email.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/Model/Observer.php
 
 		-
 			message: "#^Parameter \\#1 \\$store of method Mage_Core_Model_App\\:\\:setCurrentStore\\(\\) expects string, Mage_Core_Model_Store given\\.$#"
@@ -8216,22 +7091,7 @@ parameters:
 			path: app/code/core/Mage/Rating/Model/Resource/Rating/Option/Collection.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Reports_Model_Product_Index_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Block/Product/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Reports_Model_Resource_Product_Index_Collection_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Block/Product/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Block/Product/Abstract.php
-
-		-
-			message: "#^Property Mage_Reports_Block_Product_Abstract\\:\\:\\$_indexModel \\(Mage_Reports_Model_Product_Index_Abstract\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
+			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Reports/Block/Product/Abstract.php
 
@@ -8314,11 +7174,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$false of method Varien_Db_Adapter_Interface\\:\\:getCheckSql\\(\\) expects string, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Resource/Invoiced/Collection.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Order/Collection.php
 
 		-
 			message: "#^Method Mage_Reports_Model_Resource_Order_Collection\\:\\:_prepareSummaryAggregated\\(\\) invoked with 4 parameters, 3 required\\.$#"
@@ -8414,11 +7269,6 @@ parameters:
 			message: "#^Property Mage_Reports_Model_Resource_Report_Collection\\:\\:\\$_to \\(string\\) does not accept int\\.$#"
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Resource/Report/Collection.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed/Collection.php
 
 		-
 			message: "#^Comparison operation \"\\!\\=\" between array\\|int and 0 results in an error\\.$#"
@@ -8576,16 +7426,6 @@ parameters:
 			path: app/code/core/Mage/Rule/Model/Condition/Abstract.php
 
 		-
-			message: "#^Call to function is_array\\(\\) with non\\-empty\\-string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rule/Model/Condition/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rule/Model/Condition/Abstract.php
-
-		-
 			message: "#^Property Mage_Rule_Model_Condition_Abstract\\:\\:\\$_inputType \\(string\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Rule/Model/Condition/Abstract.php
@@ -8599,11 +7439,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$arr of method Mage_Rule_Model_Condition_Combine\\:\\:loadArray\\(\\) expects array, \\$this\\(Mage_Rule_Model_Condition_Combine\\) given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Rule/Model/Condition/Combine.php
-
-		-
-			message: "#^Call to function is_int\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rule/Model/Condition/Product/Abstract.php
 
 		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
@@ -8636,37 +7471,17 @@ parameters:
 			path: app/code/core/Mage/Sales/Block/Adminhtml/Report/Filter/Form/Coupon.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Billing_Agreement will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Billing/Agreement/View.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Resource_Order_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Billing/Agreement/View.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Resource_Billing_Agreement_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Billing/Agreements.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Order/Comments.php
-
-		-
 			message: "#^Cannot call method setParentFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Block/Order/Comments.php
 
 		-
-			message: "#^Property Mage_Sales_Block_Order_Comments\\:\\:\\$_commentCollection \\(Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract\\) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
+			message: "#^Method Mage_Sales_Block_Order_Comments\\:\\:getComments\\(\\) should return Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract but returns Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Block/Order/Comments.php
 
 		-
-			message: "#^Property Mage_Sales_Block_Order_Comments\\:\\:\\$_commentCollection \\(Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract\\) does not accept null\\.$#"
+			message: "#^Property Mage_Sales_Block_Order_Comments\\:\\:\\$_commentCollection \\(Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract\\|null\\) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Block/Order/Comments.php
 
@@ -9031,37 +7846,7 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Payment.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Resource_Order_Invoice_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with iterable\\<Mage_Sales_Model_Order_Address\\>&Mage_Sales_Model_Resource_Order_Address_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with iterable\\<Mage_Sales_Model_Order_Item\\>&Mage_Sales_Model_Resource_Order_Item_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with iterable\\<Mage_Sales_Model_Order_Payment\\>&Mage_Sales_Model_Resource_Order_Payment_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with iterable\\<Mage_Sales_Model_Order_Status_History\\>&Mage_Sales_Model_Resource_Order_Status_History_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order.php
-
-		-
 			message: "#^Parameter \\#1 \\$prefix of function uniqid expects string, int\\<0, max\\> given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Order\\:\\:\\$_addresses \\(iterable\\<Mage_Sales_Model_Order_Address\\>&Mage_Sales_Model_Resource_Order_Address_Collection\\) does not accept null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order.php
 
@@ -9071,27 +7856,7 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order.php
 
 		-
-			message: "#^Property Mage_Sales_Model_Order\\:\\:\\$_invoices \\(Mage_Sales_Model_Resource_Order_Invoice_Collection\\) does not accept null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Order\\:\\:\\$_items \\(iterable\\<Mage_Sales_Model_Order_Item\\>&Mage_Sales_Model_Resource_Order_Item_Collection\\) does not accept null\\.$#"
-			count: 2
-			path: app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Order\\:\\:\\$_payments \\(iterable\\<Mage_Sales_Model_Order_Payment\\>&Mage_Sales_Model_Resource_Order_Payment_Collection\\) does not accept null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order.php
-
-		-
 			message: "#^Property Mage_Sales_Model_Order\\:\\:\\$_shipments \\(Mage_Sales_Model_Resource_Order_Shipment_Collection\\|false\\) does not accept null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Order\\:\\:\\$_statusHistory \\(iterable\\<Mage_Sales_Model_Order_Status_History\\>&Mage_Sales_Model_Resource_Order_Status_History_Collection\\) does not accept null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order.php
 
@@ -9104,11 +7869,6 @@ parameters:
 			message: "#^Property Mage_Sales_Model_Order\\:\\:\\$_tracks \\(Mage_Sales_Model_Resource_Order_Shipment_Track_Collection\\) in empty\\(\\) is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with iterable\\<Mage_Sales_Model_Order_Creditmemo_Comment\\>&Mage_Sales_Model_Resource_Order_Creditmemo_Comment_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Creditmemo.php
 
 		-
 			message: "#^Parameter \\#1 \\$string of function trim expects string, float given\\.$#"
@@ -9131,17 +7891,7 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Creditmemo/Total/Shipping.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with iterable\\<Mage_Sales_Model_Order_Invoice_Comment\\>&Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Invoice.php
-
-		-
 			message: "#^Cannot call method addAttributeToFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Invoice.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Order_Invoice\\:\\:\\$_comments \\(iterable\\<Mage_Sales_Model_Order_Invoice_Comment\\>&Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection\\) does not accept null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Invoice.php
 
@@ -9176,22 +7926,7 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Invoice/Comment.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Order_Item will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Invoice/Item.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Order_Invoice_Item\\:\\:\\$_orderItem \\(Mage_Sales_Model_Order_Item\\) does not accept Varien_Object\\|null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Invoice/Item.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getForceApplyDiscountToParentItem\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Item.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Order will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Item.php
 
@@ -9219,11 +7954,6 @@ parameters:
 			message: "#^Property Mage_Sales_Model_Order_Payment\\:\\:\\$_canVoidLookup \\(string\\) does not accept bool\\.$#"
 			count: 2
 			path: app/code/core/Mage/Sales/Model/Order/Payment.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php
 
 		-
 			message: "#^Parameter \\#1 \\$order of method Mage_Sales_Model_Order_Payment_Transaction\\:\\:setOrder\\(\\) expects bool\\|Mage_Sales_Model_Order_Payment\\|null, Mage_Sales_Model_Order given\\.$#"
@@ -9296,31 +8026,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Invoice.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Items/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Order will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Items/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Order_Pdf_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Items/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Varien_Object will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Items/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Zend_Pdf_Page will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Items/Abstract.php
-
-		-
 			message: "#^Method Mage_Sales_Model_Order_Pdf_Items_Abstract\\:\\:getSku\\(\\) should return string but returns array\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Items/Abstract.php
@@ -9354,11 +8059,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$text of method Zend_Pdf_Canvas_Abstract\\:\\:drawText\\(\\) expects string, \\(float\\|int\\) given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Shipment/Packaging.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment.php
 
 		-
 			message: "#^Property Mage_Sales_Model_Order_Shipment\\:\\:\\$_items \\(Mage_Sales_Model_Resource_Order_Shipment_Item_Collection\\) in empty\\(\\) is not falsy\\.$#"
@@ -9451,26 +8151,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Total/Config/Base.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Customer_Model_Customer will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Resource_Order_Address_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Resource_Quote_Item_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Resource_Quote_Payment_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
 			message: "#^Method Mage_Sales_Model_Quote\\:\\:getIsVirtual\\(\\) should return bool but returns int\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote.php
@@ -9494,16 +8174,6 @@ parameters:
 			message: "#^Variable \\$old in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 2
 			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with iterable\\<Mage_Sales_Model_Quote_Address_Item\\>&Mage_Sales_Model_Resource_Quote_Address_Item_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with iterable\\<Mage_Sales_Model_Quote_Address_Rate\\>&Mage_Sales_Model_Resource_Quote_Address_Rate_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address.php
 
 		-
 			message: "#^Method Mage_Sales_Model_Quote_Address\\:\\:getItemsCollection\\(\\) should return Mage_Eav_Model_Entity_Collection_Abstract but returns iterable\\<Mage_Sales_Model_Quote_Address_Item\\>&Mage_Sales_Model_Resource_Quote_Address_Item_Collection\\.$#"
@@ -9756,11 +8426,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
-
-		-
 			message: "#^Comparison operation \"\\!\\=\" between array\\|int and 0 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
@@ -9782,11 +8447,6 @@ parameters:
 
 		-
 			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Report/Collection/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Report/Collection/Abstract.php
 
@@ -9849,11 +8509,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$conn of method Varien_Data_Collection_Db\\:\\:setConnection\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Report/Shipping/Collection/Shipment.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Sale/Collection.php
 
 		-
 			message: "#^Call to an undefined method Varien_Db_Adapter_Interface\\:\\:listTables\\(\\)\\.$#"
@@ -9946,19 +8601,9 @@ parameters:
 			path: app/code/core/Mage/SalesRule/Model/Rule.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/SalesRule/Model/Rule/Condition/Product/Attribute/Assigned.php
-
-		-
 			message: "#^Return type \\(string\\) of method Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned\\:\\:getOperatorName\\(\\) should be compatible with return type \\(array\\) of method Mage_Rule_Model_Condition_Abstract\\:\\:getOperatorName\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/SalesRule/Model/Rule/Condition/Product/Attribute/Assigned.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/SalesRule/Model/Rule/Condition/Product/Combine.php
 
 		-
 			message: "#^Call to an undefined method Mage_Rule_Model_Action_Collection\\:\\:validate\\(\\)\\.$#"
@@ -9989,11 +8634,6 @@ parameters:
 			message: "#^Parameter \\#4 \\$value of method Mage_Weee_Helper_Data\\:\\:setWeeeTaxesAppliedProperty\\(\\) expects string, float given\\.$#"
 			count: 2
 			path: app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sendfriend/Model/Sendfriend.php
 
 		-
 			message: "#^Parameter \\#1 \\$ipAddr of method Mage_Sendfriend_Model_Sendfriend\\:\\:setRemoteAddr\\(\\) expects int, string\\|false given\\.$#"
@@ -10049,11 +8689,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$hash of method Mage_Shipping_Helper_Data\\:\\:decodeTrackingHash\\(\\) expects string, array given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Shipping/Model/Info.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 3
-			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
 
 		-
 			message: "#^Parameter \\#1 \\$row of method Mage_Shipping_Model_Resource_Carrier_Tablerate\\:\\:_getImportRow\\(\\) expects array, string\\|true given\\.$#"
@@ -10116,21 +8751,6 @@ parameters:
 			path: app/code/core/Mage/Tag/Block/Customer/Tags.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Tag_Model_Resource_Product_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Block/Customer/View.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Tag_Model_Tag will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Block/Customer/View.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Block/Product/List.php
-
-		-
 			message: "#^Method Mage_Tag_Block_Product_List\\:\\:_beforeToHtml\\(\\) should return \\$this\\(Mage_Tag_Block_Product_List\\) but returns false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tag/Block/Product/List.php
@@ -10139,11 +8759,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$productId of method Mage_Tag_Model_Resource_Tag_Collection\\:\\:addProductFilter\\(\\) expects int, true given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tag/Block/Product/List.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Tag_Model_Resource_Tag_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Block/Product/Result.php
 
 		-
 			message: "#^Property Mage_Tag_Block_Product_Result\\:\\:\\$_productCollection \\(Mage_Tag_Model_Resource_Tag_Collection\\) does not accept Mage_Tag_Model_Resource_Product_Collection\\.$#"
@@ -10291,29 +8906,9 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Calculation.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Tax_Model_Calculation_Rate_Title will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Calculation/Rate.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Calculation/Rate.php
-
-		-
 			message: "#^Property Mage_Tax_Model_Calculation_Rate\\:\\:\\$_titles \\(array\\) does not accept Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tax/Model/Calculation/Rate.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Tax_Model_Calculation will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Calculation/Rule.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Class/Source/Product.php
 
 		-
 			message: "#^Method Mage_Tax_Model_Config_Notification\\:\\:_getConfig\\(\\) should return Mage_Core_Model_Config_Data but returns bool\\|Mage_Core_Model_Abstract\\.$#"
@@ -10356,11 +8951,6 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Nominal/Tax.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Varien_Object will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Shipping.php
-
-		-
 			message: "#^Parameter \\#1 \\$store of method Mage_Tax_Helper_Data\\:\\:isCrossBorderTradeEnabled\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Shipping.php
@@ -10379,11 +8969,6 @@ parameters:
 			message: "#^Parameter \\#4 \\$store of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Shipping.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Varien_Object will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Subtotal.php
 
 		-
 			message: "#^Parameter \\#1 \\$store of method Mage_Tax_Helper_Data\\:\\:isCrossBorderTradeEnabled\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
@@ -10444,21 +9029,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 3
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Uploader_Model_Config_Browsebutton will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Uploader/Block/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Uploader_Model_Config_Misc will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Uploader/Block/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Uploader_Model_Config_Uploader will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Uploader/Block/Abstract.php
 
 		-
 			message: "#^Binary operation \"\\*\" between string and 1024 results in an error\\.$#"
@@ -10931,11 +9501,6 @@ parameters:
 			path: app/code/core/Mage/Weee/Model/Tax.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Weee/Model/Tax.php
-
-		-
 			message: "#^Method Mage_Core_Model_Abstract\\:\\:_init\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Weee/Model/Tax.php
@@ -11046,24 +9611,9 @@ parameters:
 			path: app/code/core/Mage/Widget/Model/Resource/Widget/Instance.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with Mage_Wishlist_Model_Resource_Item_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Block/Abstract.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Block/Customer/Sharing.php
-
-		-
 			message: "#^Return type \\(void\\) of method Mage_Wishlist_Block_Customer_Sharing\\:\\:_prepareLayout\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Block_Abstract\\)\\) of method Mage_Core_Block_Abstract\\:\\:_prepareLayout\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Block/Customer/Sharing.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Wishlist_Model_Resource_Item_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Block/Customer/Sidebar.php
 
 		-
 			message: "#^Return type \\(void\\) of method Mage_Wishlist_Block_Customer_Wishlist\\:\\:_prepareLayout\\(\\) should be compatible with return type \\(\\$this\\(Mage_Catalog_Block_Product_Abstract\\)\\) of method Mage_Catalog_Block_Product_Abstract\\:\\:_prepareLayout\\(\\)$#"
@@ -11084,26 +9634,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$item of method Mage_Wishlist_Block_Abstract\\:\\:hasDescription\\(\\) expects Mage_Catalog_Model_Product, Mage_Wishlist_Model_Item given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Block/Share/Email/Items.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Customer_Model_Customer will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Block/Share/Wishlist.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Wishlist_Model_Resource_Item_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Helper/Data.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Wishlist_Model_Resource_Product_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Helper/Data.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Wishlist_Model_Wishlist will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Helper/Data.php
 
 		-
 			message: "#^Parameter \\#1 \\$item of method Mage_Wishlist_Model_Resource_Item_Option_Collection\\:\\:addItemFilter\\(\\) expects array\\|int, \\$this\\(Mage_Wishlist_Model_Item\\) given\\.$#"
@@ -11131,29 +9661,9 @@ parameters:
 			path: app/code/core/Mage/Wishlist/Model/Item/Option.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Resource/Item/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Helper_Sales\\:\\:applySalableProductTypesFilter\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Model/Resource/Item/Collection.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Store will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Wishlist.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Wishlist_Model_Resource_Item_Collection will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Wishlist.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Wishlist.php
 
 		-
 			message: "#^Comparison operation \"\\!\\=\" between int and \\(array\\<int, string\\>\\|string\\) results in an error\\.$#"
@@ -11221,16 +9731,6 @@ parameters:
 			path: lib/Mage/DB/Mysqli.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 2
-			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 2
-			path: lib/Mage/HTTP/Client/Socket.php
-
-		-
 			message: "#^Property Mage_HTTP_Client_Socket\\:\\:\\$_postFields is never read, only written\\.$#"
 			count: 1
 			path: lib/Mage/HTTP/Client/Socket.php
@@ -11296,21 +9796,6 @@ parameters:
 			path: lib/Varien/Convert/Container/Collection.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with SimpleXMLElement will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Varien/Convert/Parser/Xml/Excel.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Varien/Convert/Parser/Xml/Excel.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Varien/Data/Collection.php
-
-		-
 			message: "#^Cannot access property \\$_items on array\\.$#"
 			count: 2
 			path: lib/Varien/Data/Collection.php
@@ -11331,17 +9816,7 @@ parameters:
 			path: lib/Varien/Data/Collection/Db.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Varien/Data/Collection/Db.php
-
-		-
 			message: "#^Method Varien_Data_Collection_Db\\:\\:getConnection\\(\\) should return Varien_Db_Adapter_Interface but returns Zend_Db_Adapter_Abstract\\.$#"
-			count: 1
-			path: lib/Varien/Data/Collection/Db.php
-
-		-
-			message: "#^Property Varien_Data_Collection\\:\\:\\$_totalRecords \\(int\\) does not accept string\\.$#"
 			count: 1
 			path: lib/Varien/Data/Collection/Db.php
 
