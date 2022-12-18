@@ -111,6 +111,10 @@ class Varien_Object implements ArrayAccess
 
     protected function _addFullNames()
     {
+        if (empty($this->_syncFieldsMap)) {
+            return;
+        }
+
         $existedShortKeys = array_intersect_key(array_flip($this->_syncFieldsMap), $this->_data);
         foreach ($existedShortKeys as $key => $fullFieldName) {
             $this->_data[$fullFieldName] = $this->_data[$key];
