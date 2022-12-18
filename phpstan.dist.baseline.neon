@@ -616,7 +616,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Sales/Coupons/Grid.php
 
 		-
-			message: "#^Parameter \\#2 \\$filter of method Mage_Reports_Model_Resource_Quote_Collection\\:\\:prepareForAbandonedReport\\(\\) expects string\\|null, array\\<int\\|string, array\\<int, string\\>\\|string\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$filter of method Mage_Reports_Model_Resource_Quote_Collection\\:\\:prepareForAbandonedReport\\(\\) expects string\\|null, array\\<int\\|string, array\\|string\\> given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Abandoned/Grid.php
 
@@ -1406,11 +1406,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Session/Quote.php
 
 		-
-			message: "#^Cannot access offset 'file' on bool\\|void\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/System/Config/Backend/File.php
-
-		-
 			message: "#^Comparison operation \"\\=\\=\" between \\(Varien_Simplexml_Element\\|null\\) and 1 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/System/Config/Source/Admin/Page.php
@@ -1464,21 +1459,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$pattern of class Zend_Validate_Regex constructor expects string\\|Zend_Config, array\\<string, string\\> given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Catalog/Product/AttributeController.php
-
-		-
-			message: "#^Cannot access offset 'tmp_name' on bool\\|void\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/controllers/Catalog/Product/GalleryController.php
-
-		-
-			message: "#^Offset 'file' does not exist on array\\{path\\: \\(array\\<int, string\\>\\|string\\), url\\: string\\}\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Catalog/Product/GalleryController.php
-
-		-
-			message: "#^Offset 'file' does not exist on array\\{path\\: \\(array\\<int, string\\>\\|string\\)\\}\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Catalog/Product/GalleryController.php
 
 		-
 			message: "#^Parameter \\#1 \\$ids of method Mage_Adminhtml_Controller_Action\\:\\:loadLayout\\(\\) expects bool\\|string\\|null, array\\<int, string\\> given\\.$#"
@@ -2906,11 +2886,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Category/Attribute/Api.php
 
 		-
-			message: "#^Cannot access offset 'file' on bool\\|void\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Category/Attribute/Backend/Image.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Category/Attribute/Source/Sortby.php
@@ -3003,11 +2978,6 @@ parameters:
 		-
 			message: "#^Method Mage_Catalog_Model_Design\\:\\:applyCustomDesign\\(\\) should return false\\|null but return statement is missing\\.$#"
 			count: 1
-			path: app/code/core/Mage/Catalog/Model/Design.php
-
-		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Core_Model_Locale\\:\\:isStoreDateInInterval\\(\\) expects int\\|Mage_Core_Model_Store\\|string, null given\\.$#"
-			count: 2
 			path: app/code/core/Mage/Catalog/Model/Design.php
 
 		-
@@ -4086,16 +4056,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Url.php
 
 		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Core_Model_Locale\\:\\:isStoreDateInInterval\\(\\) expects int\\|Mage_Core_Model_Store\\|string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/controllers/CategoryController.php
-
-		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Core_Model_Locale\\:\\:isStoreDateInInterval\\(\\) expects int\\|Mage_Core_Model_Store\\|string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/controllers/ProductController.php
-
-		-
 			message: "#^Call to an undefined method Mage_CatalogIndex_Model_Resource_Attribute\\:\\:checkCount\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Attribute.php
@@ -4656,27 +4616,7 @@ parameters:
 			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
 
 		-
-			message: "#^Parameter \\#1 \\$route of static method Mage\\:\\:getUrl\\(\\) expects string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Cms/Helper/Page.php
-
-		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Core_Model_Locale\\:\\:isStoreDateInInterval\\(\\) expects int\\|Mage_Core_Model_Store\\|string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Cms/Helper/Page.php
-
-		-
-			message: "#^Cannot access offset 'cookie' on void\\|true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php
-
-		-
 			message: "#^Method Mage_Cms_Model_Wysiwyg_Images_Storage\\:\\:getConfig\\(\\) should return Mage_Core_Model_Config_Element but returns Varien_Simplexml_Element\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php
-
-		-
-			message: "#^Property Mage_Cms_Model_Wysiwyg_Images_Storage\\:\\:\\$_config \\(Mage_Core_Model_Config_Element\\) does not accept Varien_Simplexml_Element\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php
 
@@ -6336,16 +6276,6 @@ parameters:
 			path: app/code/core/Mage/Downloadable/Helper/Download.php
 
 		-
-			message: "#^Cannot access offset 'file' on bool\\|void\\.$#"
-			count: 1
-			path: app/code/core/Mage/Downloadable/Model/Link/Api.php
-
-		-
-			message: "#^Offset 'file' does not exist on array\\{status\\: 'new'\\}\\.$#"
-			count: 2
-			path: app/code/core/Mage/Downloadable/Model/Link/Api.php
-
-		-
 			message: "#^Parameter \\#2 \\$code of class Exception constructor expects int, string given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Downloadable/Model/Link/Api/Uploader.php
@@ -6369,16 +6299,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$item of method Mage_Sales_Model_Order_Pdf_Items_Abstract\\:\\:getSku\\(\\) expects Mage_Sales_Model_Order_Creditmemo_Item\\|Mage_Sales_Model_Order_Invoice_Item, Varien_Object given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Downloadable/Model/Sales/Order/Pdf/Items/Invoice.php
-
-		-
-			message: "#^Cannot access offset 'tmp_name' on bool\\|void\\.$#"
-			count: 2
-			path: app/code/core/Mage/Downloadable/controllers/Adminhtml/Downloadable/FileController.php
-
-		-
-			message: "#^Offset 'file' on array\\{path\\: \\(array\\<int, string\\>\\|string\\)\\} in isset\\(\\) does not exist\\.$#"
-			count: 1
-			path: app/code/core/Mage/Downloadable/controllers/Adminhtml/Downloadable/FileController.php
 
 		-
 			message: "#^Parameter \\#2 \\$loginUrl of method Mage_Customer_Model_Session\\:\\:authenticate\\(\\) expects bool\\|null, string given\\.$#"
@@ -7061,16 +6981,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Import.php
 
 		-
-			message: "#^Cannot access offset 'file' on bool\\|void\\.$#"
-			count: 2
-			path: app/code/core/Mage/ImportExport/Model/Import.php
-
-		-
-			message: "#^Cannot access offset 'path' on bool\\|void\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import.php
-
-		-
 			message: "#^Instanceof between Mage_Core_Model_Abstract\\|false and Mage_ImportExport_Model_Import_Entity_Abstract will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Import.php
@@ -7224,11 +7134,6 @@ parameters:
 			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product/Type/Grouped.php
-
-		-
-			message: "#^Cannot access offset 'name' on bool\\|void\\.$#"
-			count: 2
-			path: app/code/core/Mage/ImportExport/Model/Import/Uploader.php
 
 		-
 			message: "#^Property Mage_ImportExport_Model_Resource_Import_Data\\:\\:\\$_iterator \\(IteratorIterator\\) does not accept null\\.$#"
