@@ -42,9 +42,9 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
     /**
      * Get mapped help pages url
      *
-     * @deprecated
      * @param null|string $url
      * @return mixed
+     * @deprecated
      */
     public function getPageHelpUrl($url = null)
     {
@@ -57,9 +57,10 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
     /**
      * Set help page url
      *
-     * @deprecated
      * @param null|string $url
+     * @param null|string $suffix
      * @return $this
+     * @deprecated
      */
     public function setPageHelpUrl($url = null)
     {
@@ -67,11 +68,32 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
         return $this;
     }
 
+    /**
+     * Add suffix for help page url
+     *
+     * @param string $suffix
+     * @return $this
+     * @deprecated
+     */
+    public function addPageHelpUrl($suffix)
+    {
+        $this->_pageHelpUrl = $this->getPageHelpUrl(null, $suffix);
+        return $this;
+    }
+
+    /**
+     * @param string $route
+     * @param array $params
+     * @return string
+     */
     public static function getUrl($route = '', $params = [])
     {
         return Mage::getModel('adminhtml/url')->getUrl($route, $params);
     }
 
+    /**
+     * @return false|int
+     */
     public function getCurrentUserId()
     {
         if (Mage::getSingleton('admin/session')->getUser()) {
