@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,8 +28,8 @@
  */
 abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
-    const IDX_SUFFIX= '_idx';
-    const TMP_SUFFIX= '_tmp';
+    public const IDX_SUFFIX = '_idx';
+    public const TMP_SUFFIX = '_tmp';
 
     /**
      * Flag that defines if need to use "_idx" index table suffix instead of "_tmp"
@@ -180,7 +181,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
             while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
                 $data[] = $row;
                 $counter++;
-                if ($counter>2000) {
+                if ($counter > 2000) {
                     $to->insertArray($destTable, $columns, $data);
                     $data = [];
                     $counter = 0;

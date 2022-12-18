@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,6 +28,8 @@
  */
 abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Adminhtml';
+
     /**
      * Mapping of help page urls depending on module and page route
      *
@@ -85,35 +88,35 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
             'poll' => 'marketing/polls.html',
             /* Reports → Sales */
             'report_sales/sales' => 'store-operations/reports-generating.html',
-            'report_sales/tax' =>'store-operations/reports-available.html',
-            'report_sales/invoiced' =>'store-operations/reports-available.html',
-            'report_sales/shipping' =>'store-operations/reports-available.html',
-            'report_sales/refunded' =>'store-operations/reports-available.html',
-            'report_sales/coupons' =>'store-operations/reports-available.html',
+            'report_sales/tax' => 'store-operations/reports-available.html',
+            'report_sales/invoiced' => 'store-operations/reports-available.html',
+            'report_sales/shipping' => 'store-operations/reports-available.html',
+            'report_sales/refunded' => 'store-operations/reports-available.html',
+            'report_sales/coupons' => 'store-operations/reports-available.html',
             /* Reports → Shopping Cart */
-            'report_shopcart/product' =>'store-operations/reports-available.html',
-            'report_shopcart/abandoned' =>'store-operations/reports-available.html',
+            'report_shopcart/product' => 'store-operations/reports-available.html',
+            'report_shopcart/abandoned' => 'store-operations/reports-available.html',
             /* Reports → Products */
-            'report_sales/bestsellers' =>'store-operations/reports-available.html',
-            'report_product/sold' =>'store-operations/reports-available.html',
-            'report_product/viewed' =>'store-operations/reports-available.html',
-            'report_product/lowstock' =>'store-operations/reports-available.html',
-            'report_product/downloads' =>'store-operations/reports-available.html',
+            'report_sales/bestsellers' => 'store-operations/reports-available.html',
+            'report_product/sold' => 'store-operations/reports-available.html',
+            'report_product/viewed' => 'store-operations/reports-available.html',
+            'report_product/lowstock' => 'store-operations/reports-available.html',
+            'report_product/downloads' => 'store-operations/reports-available.html',
             /* Reports → Customers */
-            'report_customer/accounts' =>'store-operations/reports-available.html',
-            'report_customer/totals' =>'store-operations/reports-available.html',
-            'report_customer/orders' =>'store-operations/reports-available.html',
+            'report_customer/accounts' => 'store-operations/reports-available.html',
+            'report_customer/totals' => 'store-operations/reports-available.html',
+            'report_customer/orders' => 'store-operations/reports-available.html',
             /* Reports → Tags */
-            'report_tag/customer' =>'store-operations/reports-available.html',
-            'report_tag/product' =>'store-operations/reports-available.html',
-            'report_tag/popular' =>'store-operations/reports-available.html',
+            'report_tag/customer' => 'store-operations/reports-available.html',
+            'report_tag/product' => 'store-operations/reports-available.html',
+            'report_tag/popular' => 'store-operations/reports-available.html',
             /* Reports → Reviews */
-            'report_review/customer' =>'store-operations/reports-available.html',
-            'report_review/product' =>'store-operations/reports-available.html',
+            'report_review/customer' => 'store-operations/reports-available.html',
+            'report_review/product' => 'store-operations/reports-available.html',
             /* Search Terms */
-            'report/search' =>'store-operations/reports-available.html',
+            'report/search' => 'store-operations/reports-available.html',
             /* Refresh statistics */
-            'report_statistics' =>'store-operations/reports-refresh.html',
+            'report_statistics' => 'store-operations/reports-refresh.html',
             /* My Account */
             'system_account' => 'store-operations/admin-my-account.html',
             /* Notifications */

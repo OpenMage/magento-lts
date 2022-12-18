@@ -7,16 +7,19 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
 
 /**
  * @category   Mage
@@ -159,7 +162,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                 'actions'   => [
                     [
                         'caption'   => Mage::helper('index')->__('Reindex Data'),
-                        'url'       => ['base'=> '*/*/reindexProcess'],
+                        'url'       => ['base' => '*/*/reindexProcess'],
                         'field'     => 'process'
                     ],
                 ],
@@ -198,7 +201,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                 $class = 'grid-severity-critical';
                 break;
         }
-        return '<span class="'.$class.'"><span>'.$value.'</span></span>';
+        return '<span class="' . $class . '"><span>' . $value . '</span></span>';
     }
 
     /**
@@ -222,7 +225,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                 $class = 'grid-severity-critical';
                 break;
         }
-        return '<span class="'.$class.'"><span>'.$value.'</span></span>';
+        return '<span class="' . $class . '"><span>' . $value . '</span></span>';
     }
 
     /**
@@ -267,7 +270,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
 
         $modeOptions = Mage::getModel('index/process')->getModesOptions();
 
-        $this->getMassactionBlock()->addItem('change_mode', [
+        $this->getMassactionBlock()->addItem(MassAction::CHANGE_MODE, [
             'label'         => Mage::helper('index')->__('Change Index Mode'),
             'url'           => $this->getUrl('*/*/massChangeMode'),
             'additional'    => [
@@ -281,7 +284,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
             ]
         ]);
 
-        $this->getMassactionBlock()->addItem('reindex', [
+        $this->getMassactionBlock()->addItem(MassAction::REINDEX, [
             'label'    => Mage::helper('index')->__('Reindex Data'),
             'url'      => $this->getUrl('*/*/massReindex'),
             'selected' => true,

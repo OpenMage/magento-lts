@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,7 +28,7 @@
  */
 class Mage_Catalog_Model_Product_Type_Price
 {
-    const CACHE_TAG = 'PRODUCT_PRICE';
+    public const CACHE_TAG = 'PRODUCT_PRICE';
 
     public static $attributeCache = [];
 
@@ -122,7 +123,6 @@ class Mage_Catalog_Model_Product_Type_Price
      */
     public function getGroupPrice($product)
     {
-
         $groupPrices = $product->getData('group_price');
 
         if (is_null($groupPrices)) {
@@ -210,7 +210,7 @@ class Mage_Catalog_Model_Product_Type_Price
             $prevGroup = $allGroups;
 
             foreach ($prices as $price) {
-                if ($price['cust_group']!=$custGroup && $price['cust_group']!=$allGroups) {
+                if ($price['cust_group'] != $custGroup && $price['cust_group'] != $allGroups) {
                     // tier not for current customer group nor is for all groups
                     continue;
                 }
@@ -302,7 +302,7 @@ class Mage_Catalog_Model_Product_Type_Price
      *
      * @param float|null $qty
      * @param Mage_Catalog_Model_Product $product
-     * @return  array|float
+     * @return  array|float|string
      */
     public function getFormatedTierPrice($qty, $product)
     {
@@ -325,7 +325,7 @@ class Mage_Catalog_Model_Product_Type_Price
      * Get formatted by currency product price
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return string | float
+     * @return string|float
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getFormatedPrice($product)
@@ -347,7 +347,7 @@ class Mage_Catalog_Model_Product_Type_Price
             $basePrice = $finalPrice;
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
                 if ($option = $product->getOptionById($optionId)) {
-                    $confItemOption = $product->getCustomOption('option_'.$option->getId());
+                    $confItemOption = $product->getCustomOption('option_' . $option->getId());
 
                     $group = $option->groupFactory($option->getType())
                         ->setOption($option)

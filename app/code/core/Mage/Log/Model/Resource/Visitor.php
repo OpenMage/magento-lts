@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Log
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -77,7 +78,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
         $adapter    = $this->_getWriteAdapter();
         $data       = new Varien_Object([
             'url'    => Mage::helper('core/string')->substr($visitor->getUrl(), 0, 250),
-            'referer'=> Mage::helper('core/string')->substr($visitor->getHttpReferer(), 0, 250)
+            'referer' => Mage::helper('core/string')->substr($visitor->getHttpReferer(), 0, 250)
         ]);
         $bind = $this->_prepareDataForTable($data, $this->getTable('log/url_info_table'));
 

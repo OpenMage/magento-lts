@@ -5,10 +5,15 @@
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/license.svg" alt="License"></a>
 <br />
-<img src="https://github.com/openmage/magento-lts/actions/workflows/php.yml/badge.svg" alt="PHP workflow Badge" />
-<img src="https://github.com/openmage/magento-lts/actions/workflows/sonar.yml/badge.svg" alt="Sonar workflow badge" />
-<img src="https://github.com/openmage/magento-lts/actions/workflows/static-code-analyses.yml/badge.svg" alt="Static Code Analyses workflow badge" />
-<img src="https://github.com/openmage/magento-lts/actions/workflows/unit-tests.yml/badge.svg" alt="Unit Tests workflow badge" />
+<a href="https://github.com/openmage/magento-lts/actions/workflows/security-php.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/security-php.yml/badge.svg" alt="PHP Security workflow Badge" /></a>
+<a href="https://github.com/openmage/magento-lts/actions/workflows/composer.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/composer.yml/badge.svg" alt="Composer workflow Badge" /></a>
+<a href="https://github.com/openmage/magento-lts/actions/workflows/syntax-php.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/syntax-php.yml/badge.svg" alt="PHP Syntax Check workflow badge" /></a>
+<a href="https://github.com/openmage/magento-lts/actions/workflows/syntax-xml.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/syntax-xml.yml/badge.svg" alt="XML Syntax Check workflow badge" /></a>
+<a href="https://github.com/openmage/magento-lts/actions/workflows/phpcs.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/phpcs.yml/badge.svg" alt="PHPCS workflow badge" /></a>
+<a href="https://github.com/openmage/magento-lts/actions/workflows/php-cs-fixer.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/php-cs-fixer.yml/badge.svg" alt="PHP-CS-Fixer workflow badge" /></a>
+<a href="https://github.com/openmage/magento-lts/actions/workflows/phpstan.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/phpstan.yml/badge.svg" alt="PHPStan workflow badge" /></a>
+<a href="https://github.com/openmage/magento-lts/actions/workflows/sonar.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/sonar.yml/badge.svg" alt="Sonar workflow badge" /></a>
+<a href="https://github.com/openmage/magento-lts/actions/workflows/phpunit.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/phpunit.yml/badge.svg" alt="PHPUnit workflow badge" /></a>
 </p>
 
 # Magento - Long Term Support
@@ -125,6 +130,7 @@ Do not use 20.x.x if you need IE support.
 - removed module `Mage_PageCache` [#2258](https://github.com/OpenMage/magento-lts/pull/2258)
 - removed lib/flex containing unused ActionScript "file uploader" files [#2271](https://github.com/OpenMage/magento-lts/pull/2271)
 - enabled website level config cache [#2355](https://github.com/OpenMage/magento-lts/pull/2355)
+- make overrides of Mage_Core_Model_Resource_Db_Abstract::delete respect parent api [#1257](https://github.com/OpenMage/magento-lts/pull/1257)
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
@@ -155,9 +161,27 @@ For full list of changes, you can [compare tags](https://github.com/OpenMage/mag
 ### Changes to SOAP/WSDL
 
 Since `19.4.17`/`20.0.15` we changed the `targetNamespace` of all the WSDL files (used in the API modules), from `Magento` to `OpenMage`.
-If your custom modules extends OpenMage's APIs with a custom WSDL file and there are some hardcoded `targetNamespace="urn:Magento"` string, your APIs may stop working.
-Please replace all occurrences of `targetNamespace="urn:Magento"` with `targetNamespace="urn:OpenMage"` (or alternatively `targetNamespace="urn:{{var wsdl.name}}"`) to avoid any problem.
-To find which files need the modification you can run `grep -rn 'urn:Magento' --include \*.xml` from the root directory of your project.
+If your custom modules extends OpenMage's APIs with a custom WSDL file and there are some hardcoded `targetNamespace="urn:Magento"` strings, your APIs may stop working.
+
+Please replace all occurrences of 
+
+```
+targetNamespace="urn:Magento"
+```
+with
+```
+targetNamespace="urn:OpenMage"
+```
+or alternatively 
+```
+targetNamespace="urn:{{var wsdl.name}}"
+```
+ to avoid any problem.
+
+To find which files need the modification you can run this command from the root directory of your project.
+```
+grep -rn 'urn:Magento' --include \*.xml
+```
 
 ## Development Environment with ddev
 

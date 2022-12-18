@@ -22,18 +22,25 @@
     "ext-simplexml": "*",
     "ext-soap": "*",
     "ext-zlib": "*",
-    "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0"
+    "colinmollenhour/cache-backend-redis": "^1.14",
+    "colinmollenhour/magento-redis-session": "^3.0",
+    "cweagans/composer-patches": "^1.7",
+    "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
+    "pelago/emogrifier": "^6.0",
+    "phpseclib/mcrypt_compat": "^2.0.3",
+    "phpseclib/phpseclib": "^3.0.14"
   },
   "require-dev": {
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
-    "friendsofphp/php-cs-fixer": ">=3.4",
+    "friendsofphp/php-cs-fixer": "^3.4",
     "macopedia/phpstan-magento1": "^1.0.4",
     "magento-ecg/coding-standard": "^4.5",
     "phpcompatibility/php-compatibility": "^9.3",
-    "phpmd/phpmd": "^2.12",
-    "phpstan/phpstan": "^1.8.5",
+    "phpmd/phpmd": "^2.13",
+    "phpstan/phpstan": "^1.9.4",
     "phpunit/phpunit": "^9.5",
-    "squizlabs/php_codesniffer": "^3.7"
+    "squizlabs/php_codesniffer": "^3.7",
+    "symplify/vendor-patches": "^11.1"
   },
   "conflict": {
     "n98/n98_layouthelper": "*"
@@ -71,12 +78,16 @@
     "branch-alias": {
       "dev-main": "1.9.4.x-dev"
     },
-    "magento-root-dir": "."
+    "magento-root-dir": ".",
+    "magento-deploystrategy": "copy",
+    "magento-deploystrategy-dev": "symlink",
+    "magento-force": true
   },
   "config": {
     "allow-plugins": {
       "magento-hackathon/magento-composer-installer": true,
-      "dealerdirect/phpcodesniffer-composer-installer": true
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "cweagans/composer-patches": true
     },
     "sort-packages": true
   }

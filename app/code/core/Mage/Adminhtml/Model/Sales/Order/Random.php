@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -76,13 +77,15 @@ class Mage_Adminhtml_Model_Sales_Order_Random
     protected function _getProducts()
     {
         if (!$this->_productCollection) {
-            $this->_productCollection= Mage::getResourceModel('catalog/product_collection');
-            //$this->_productCollection->getEntity()->setStore($this->_getStore());
-            Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($this->_productCollection);
+            $this->_productCollection = Mage::getResourceModel('catalog/product_collection');
             Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($this->_productCollection);
-            $this->_productCollection->addAttributeToSelect('name')
+            $this->_productCollection
+                ->addAttributeToSelect('name')
                 ->addAttributeToSelect('sku')
                 ->addAttributeToFilter('type_id', Mage_Catalog_Model_Product_Type::TYPE_SIMPLE)
+                ->addAttributeToFilter('status', [
+                    'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds()
+                ])
                 ->load();
         }
         return $this->_productCollection->getItems();
@@ -129,7 +132,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
         $this->_quote->getShippingAddress()->importCustomerAddress($customer->getDefaultShippingAddress());
 
         $productCount = rand(3, 10);
-        for ($i=0; $i<$productCount; $i++) {
+        for ($i = 0; $i < $productCount; $i++) {
             $product = $this->_getRandomProduct();
             if ($product) {
                 $product->setQuoteQty(1);
@@ -149,7 +152,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
     protected function _getRandomDate()
     {
         $timestamp = mktime(rand(0, 23), rand(0, 59), 0, rand(1, 11), rand(1, 28), rand(2006, 2007));
-        return date('Y-m-d H:i:s', $timestamp);
+        return date(Varien_Date::DATETIME_PHP_FORMAT, $timestamp);
     }
 
     public function save()

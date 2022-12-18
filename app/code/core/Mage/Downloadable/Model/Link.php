@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,14 +70,14 @@
  */
 class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
 {
-    const XML_PATH_LINKS_TITLE              = 'catalog/downloadable/links_title';
-    const XML_PATH_DEFAULT_DOWNLOADS_NUMBER = 'catalog/downloadable/downloads_number';
-    const XML_PATH_TARGET_NEW_WINDOW        = 'catalog/downloadable/links_target_new_window';
-    const XML_PATH_CONFIG_IS_SHAREABLE      = 'catalog/downloadable/shareable';
+    public const XML_PATH_LINKS_TITLE              = 'catalog/downloadable/links_title';
+    public const XML_PATH_DEFAULT_DOWNLOADS_NUMBER = 'catalog/downloadable/downloads_number';
+    public const XML_PATH_TARGET_NEW_WINDOW        = 'catalog/downloadable/links_target_new_window';
+    public const XML_PATH_CONFIG_IS_SHAREABLE      = 'catalog/downloadable/shareable';
 
-    const LINK_SHAREABLE_YES    = 1;
-    const LINK_SHAREABLE_NO     = 0;
-    const LINK_SHAREABLE_CONFIG = 2;
+    public const LINK_SHAREABLE_YES    = 1;
+    public const LINK_SHAREABLE_NO     = 0;
+    public const LINK_SHAREABLE_CONFIG = 2;
 
     protected function _construct()
     {

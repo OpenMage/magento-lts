@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,29 +48,29 @@ class Mage_Adminhtml_Block_Permissions_Grid_User extends Mage_Adminhtml_Block_Wi
     protected function _prepareColumns()
     {
         $this->addColumn('user_id', [
-            'header'    =>Mage::helper('adminhtml')->__('ID'),
-            'width'     =>5,
-            'align'     =>'right',
-            'sortable'  =>true,
-            'index'     =>'user_id'
+            'header'    => Mage::helper('adminhtml')->__('ID'),
+            'width'     => 5,
+            'align'     => 'right',
+            'sortable'  => true,
+            'index'     => 'user_id'
         ]);
         $this->addColumn('username', [
-            'header'    =>Mage::helper('adminhtml')->__('User Name'),
-            'index'     =>'username'
+            'header'    => Mage::helper('adminhtml')->__('User Name'),
+            'index'     => 'username'
         ]);
         $this->addColumn('firstname', [
-            'header'    =>Mage::helper('adminhtml')->__('First Name'),
-            'index'     =>'firstname'
+            'header'    => Mage::helper('adminhtml')->__('First Name'),
+            'index'     => 'firstname'
         ]);
         $this->addColumn('lastname', [
-            'header'    =>Mage::helper('adminhtml')->__('Last Name'),
-            'index'     =>'lastname'
+            'header'    => Mage::helper('adminhtml')->__('Last Name'),
+            'index'     => 'lastname'
         ]);
         $this->addColumn('email', [
-            'header'    =>Mage::helper('adminhtml')->__('Email'),
-            'width'     =>40,
-            'align'     =>'left',
-            'index'     =>'email'
+            'header'    => Mage::helper('adminhtml')->__('Email'),
+            'width'     => 40,
+            'align'     => 'left',
+            'index'     => 'email'
         ]);
 
         return parent::_prepareColumns();
@@ -80,4 +81,3 @@ class Mage_Adminhtml_Block_Permissions_Grid_User extends Mage_Adminhtml_Block_Wi
         return $this->getUrl('*/*/edituser', ['id' => $row->getUserId()]);
     }
 }
-

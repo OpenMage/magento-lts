@@ -7,16 +7,19 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Mage_Customer_Helper_Data as Helper;
 
 /**
  * Customer account controller
@@ -27,8 +30,8 @@
  */
 class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 {
-    const CUSTOMER_ID_SESSION_NAME = "customerId";
-    const TOKEN_SESSION_NAME = "token";
+    public const CUSTOMER_ID_SESSION_NAME = "customerId";
+    public const TOKEN_SESSION_NAME = "token";
 
     /**
      * Action list where need check enabled cookie
@@ -96,6 +99,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     {
         parent::postDispatch();
         $this->_getSession()->unsNoReferer(false);
+        return $this;
     }
 
     /**
@@ -157,7 +161,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 } catch (Mage_Core_Exception $e) {
                     switch ($e->getCode()) {
                         case Mage_Customer_Model_Customer::EXCEPTION_EMAIL_NOT_CONFIRMED:
-                            /** @var Mage_Customer_Helper_Data $helper */
+                            /** @var Helper $helper */
                             $helper = $this->_getHelper('customer');
                             $value = $helper->getEmailConfirmationUrl($login['username']);
                             $message = $helper->__('This account is not confirmed. <a href="%s">Click here</a> to resend confirmation email.', $value);
@@ -186,7 +190,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      */
     protected function _loginPostRedirect()
     {
-        /** @var Mage_Customer_Helper_Data $helper */
+        /** @var Helper $helper */
         $helper = $this->_getHelper('customer');
 
         $session = $this->_getSession();
@@ -196,10 +200,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $session->setBeforeAuthUrl($helper->getAccountUrl());
             // Redirect customer to the last page visited after logging in
             if ($session->isLoggedIn()) {
-                if (!Mage::getStoreConfigFlag(
-                    Mage_Customer_Helper_Data::XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD
-                )) {
-                    $referer = $this->getRequest()->getParam(Mage_Customer_Helper_Data::REFERER_QUERY_PARAM_NAME);
+                if (!Mage::getStoreConfigFlag(Helper::XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD)) {
+                    $referer = $this->getRequest()->getParam(Helper::REFERER_QUERY_PARAM_NAME);
                     if ($referer) {
                         // Rebuild referer URL to handle the case when SID was changed
                         $referer = $this->_getModel('core/url')
@@ -235,7 +237,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         $session = $this->_getSession();
         $session->logout()->renewSession();
 
-        if (Mage::getStoreConfigFlag(Mage_Customer_Helper_Data::XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD)) {
+        if (Mage::getStoreConfigFlag(Helper::XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD)) {
             $session->setBeforeAuthUrl(Mage::getBaseUrl());
         } else {
             $session->setBeforeAuthUrl($this->_getRefererUrl());
@@ -341,7 +343,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 $store->getId(),
                 $this->getRequest()->getPost('password')
             );
-            /** @var Mage_Customer_Helper_Data $customerHelper */
+            /** @var Helper $customerHelper */
             $customerHelper = $this->_getHelper('customer');
             $session->addSuccess($this->__(
                 'Account confirmation is required. Please, check your email for the confirmation link. To resend the confirmation email please <a href="%s">click here</a>.',
@@ -411,7 +413,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Validate customer data and return errors if they are
      *
      * @param Mage_Customer_Model_Customer $customer
-     * @return array|string
+     * @return array
      */
     protected function _getCustomerErrors($customer)
     {
@@ -769,7 +771,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $customerId = $customer->getId();
             if ($customerId) {
                 try {
-                    /** @var Mage_Customer_Helper_Data $helper */
+                    /** @var Helper $helper */
                     $helper = $this->_getHelper('customer');
                     $newResetPasswordLinkToken = $helper->generateResetPasswordLinkToken();
                     $newResetPasswordLinkCustomerId = $helper->generateResetPasswordLinkCustomerId($customerId);

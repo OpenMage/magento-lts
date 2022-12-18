@@ -7,14 +7,14 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,14 +30,16 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
     /**#@+
      * Validation error constants
      */
-    const VERR_MANYSLASHES = 1; // Too many slashes in a row of request path, e.g. '///foo//'
-    const VERR_ANCHOR = 2;      // Anchor is not supported in request path, e.g. 'foo#bar'
+    public const VERR_MANYSLASHES = 1; // Too many slashes in a row of request path, e.g. '///foo//'
+    public const VERR_ANCHOR = 2;      // Anchor is not supported in request path, e.g. 'foo#bar'
     /**#@-*/
 
     /**
      * Allowed request path length
      */
-    const TARGET_PATH_ALLOWED_LENGTH = 255;
+    public const TARGET_PATH_ALLOWED_LENGTH = 255;
+
+    protected $_moduleName = 'Mage_Core';
 
     /**
      * Core func to validate request path

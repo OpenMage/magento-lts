@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -91,21 +92,21 @@
  */
 class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
 {
-    const XML_PATH_GLOBAL                = 'cataloginventory/options/';
-    const XML_PATH_CAN_SUBTRACT          = 'cataloginventory/options/can_subtract';
-    const XML_PATH_CAN_BACK_IN_STOCK     = 'cataloginventory/options/can_back_in_stock';
+    public const XML_PATH_GLOBAL                = 'cataloginventory/options/';
+    public const XML_PATH_CAN_SUBTRACT          = 'cataloginventory/options/can_subtract';
+    public const XML_PATH_CAN_BACK_IN_STOCK     = 'cataloginventory/options/can_back_in_stock';
 
-    const XML_PATH_ITEM                  = 'cataloginventory/item_options/';
-    const XML_PATH_MIN_QTY               = 'cataloginventory/item_options/min_qty';
-    const XML_PATH_MIN_SALE_QTY          = 'cataloginventory/item_options/min_sale_qty';
-    const XML_PATH_MAX_SALE_QTY          = 'cataloginventory/item_options/max_sale_qty';
-    const XML_PATH_BACKORDERS            = 'cataloginventory/item_options/backorders';
-    const XML_PATH_NOTIFY_STOCK_QTY      = 'cataloginventory/item_options/notify_stock_qty';
-    const XML_PATH_MANAGE_STOCK          = 'cataloginventory/item_options/manage_stock';
-    const XML_PATH_ENABLE_QTY_INCREMENTS = 'cataloginventory/item_options/enable_qty_increments';
-    const XML_PATH_QTY_INCREMENTS        = 'cataloginventory/item_options/qty_increments';
+    public const XML_PATH_ITEM                  = 'cataloginventory/item_options/';
+    public const XML_PATH_MIN_QTY               = 'cataloginventory/item_options/min_qty';
+    public const XML_PATH_MIN_SALE_QTY          = 'cataloginventory/item_options/min_sale_qty';
+    public const XML_PATH_MAX_SALE_QTY          = 'cataloginventory/item_options/max_sale_qty';
+    public const XML_PATH_BACKORDERS            = 'cataloginventory/item_options/backorders';
+    public const XML_PATH_NOTIFY_STOCK_QTY      = 'cataloginventory/item_options/notify_stock_qty';
+    public const XML_PATH_MANAGE_STOCK          = 'cataloginventory/item_options/manage_stock';
+    public const XML_PATH_ENABLE_QTY_INCREMENTS = 'cataloginventory/item_options/enable_qty_increments';
+    public const XML_PATH_QTY_INCREMENTS        = 'cataloginventory/item_options/qty_increments';
 
-    const ENTITY                         = 'cataloginventory_stock_item';
+    public const ENTITY                         = 'cataloginventory_stock_item';
 
     /**
      * @var array
@@ -167,6 +168,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      */
     protected function _initOldFieldsMap()
     {
+        // pre 1.6 fields names, old => new
         $this->_oldFieldsMap = [
             'stock_status_changed_automatically' => 'stock_status_changed_auto',
             'use_config_enable_qty_increments'   => 'use_config_enable_qty_inc'
@@ -219,7 +221,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     public function subtractQty($qty)
     {
         if ($this->canSubtractQty()) {
-            $this->setQty($this->getQty()-$qty);
+            $this->setQty($this->getQty() - $qty);
         }
         return $this;
     }
@@ -250,7 +252,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        $this->setQty($this->getQty()+$qty);
+        $this->setQty($this->getQty() + $qty);
         return $this;
     }
 
@@ -407,12 +409,12 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         return $this->_qtyIncrements;
     }
 
-     /**
-     * Retrieve Default Quantity Increments data wrapper
-     *
-     * @deprecated since 1.7.0.0
-     * @return int|false
-     */
+    /**
+    * Retrieve Default Quantity Increments data wrapper
+    *
+    * @deprecated since 1.7.0.0
+    * @return int|false
+    */
     public function getDefaultQtyIncrements()
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_ENABLE_QTY_INCREMENTS)
@@ -460,7 +462,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      * Check quantity
      *
      * @param   float $qty
-     * @exception Mage_Core_Exception
+     * @throws  Mage_Core_Exception
      * @return  bool
      */
     public function checkQty($qty)
@@ -476,7 +478,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                     break;
                 default:
                     return false;
-                    break;
             }
         }
         return true;

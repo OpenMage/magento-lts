@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +46,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
         if ($read && !is_null($templateCode)) {
             $select = $this->_getLoadSelect('template_code', $templateCode, $object)
                 ->where('template_actual = :template_actual');
-            $data = $read->fetchRow($select, ['template_actual'=>1]);
+            $data = $read->fetchRow($select, ['template_actual' => 1]);
 
             if ($data) {
                 $object->setData($data);
@@ -70,7 +71,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
                 ->from($this->getTable('newsletter/queue'), new Zend_Db_Expr('COUNT(queue_id)'))
                 ->where('template_id = :template_id');
 
-            $countOfQueue = $this->_getReadAdapter()->fetchOne($select, ['template_id'=>$template->getId()]);
+            $countOfQueue = $this->_getReadAdapter()->fetchOne($select, ['template_id' => $template->getId()]);
 
             return $countOfQueue > 0;
         } elseif ($template->getIsSystem()) {

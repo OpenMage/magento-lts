@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,27 +36,27 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
 
         parent::__construct();
 
-        if( $this->getRequest()->getParam('product_id') ) {
+        if ($this->getRequest()->getParam('product_id')) {
             $this->_updateButton('back', 'onclick', "setLocation('" . $this->getUrl('*/catalog_product/edit', ['id' => $this->getRequest()->getParam('product_id')]) . "')");
         }
 
-        if( $this->getRequest()->getParam('customer_id') ) {
+        if ($this->getRequest()->getParam('customer_id')) {
             $this->_updateButton('back', 'onclick', "setLocation('" . $this->getUrl('*/customer/edit', ['id' => $this->getRequest()->getParam('customer_id')]) . "')");
         }
 
-        if( $this->getRequest()->getParam('ret', false) == 'pending' ) {
-            $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getUrl('*/*/pending') .'\')' );
+        if ($this->getRequest()->getParam('ret', false) == 'pending') {
+            $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getUrl('*/*/pending') . '\')');
             $this->_updateButton('delete', 'onclick', 'deleteConfirm(\''
                 . Mage::helper('core')->jsQuoteEscape(
                     Mage::helper('tag')->__('Are you sure you want to do this?')
                 )
                 . '\', \''
-                . $this->getUrl('*/*/delete',
+                . $this->getUrl(
+                    '*/*/delete',
                     [$this->_objectId => $this->getRequest()->getParam($this->_objectId), 'ret' => 'pending',
                     ]
                 )
-                .'\')'
-            );
+                . '\')');
             Mage::register('ret', 'pending');
         }
 
@@ -66,7 +67,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
     /**
      * Add to layout accordion block
      *
-     * @return Mage_Adminhtml_Block_Tag_Edit
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -86,13 +87,14 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
         return $html . $this->getChildHtml('accordion');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         if (Mage::registry('tag_tag')->getId()) {
             return Mage::helper('tag')->__("Edit Tag '%s'", $this->escapeHtml(Mage::registry('tag_tag')->getName()));
         }
-        else {
-            return Mage::helper('tag')->__('New Tag');
-        }
+        return Mage::helper('tag')->__('New Tag');
     }
 }

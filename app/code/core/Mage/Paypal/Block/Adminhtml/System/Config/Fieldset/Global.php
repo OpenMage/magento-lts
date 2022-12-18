@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,9 +27,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated  since 1.7.0.1
  */
-class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
-    extends Mage_Adminhtml_Block_Abstract
-    implements Varien_Data_Form_Element_Renderer_Interface
+class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
     /**
      * Associative array of PayPal product selection elements
@@ -201,7 +200,8 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
      */
     public function getInheritElementLabelHtml(Varien_Data_Form_Element_Abstract $element)
     {
-        return sprintf('<label for="%s" class="inherit" title="%s">%s</label>',
+        return sprintf(
+            '<label for="%s" class="inherit" title="%s">%s</label>',
             $element->getHtmlId() . '_inherit',
             $element->getDefaultValue(),
             Mage::helper('adminhtml')->__('Use Default')
@@ -216,7 +216,8 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
      */
     public function getElementLabelTextHtml(Varien_Data_Form_Element_Abstract $element)
     {
-        return sprintf('<span id="%s">%s</span>',
+        return sprintf(
+            '<span id="%s">%s</span>',
             $element->getHtmlId() . '_label_text',
             $this->escapeHtml($this->getElementLabel($element))
         );

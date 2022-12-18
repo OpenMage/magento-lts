@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -92,7 +93,6 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * @param   string $tabId new tab Id
      * @param   string|array|Varien_Object $tab
      * @param   string $afterTabId
-     * @return  Mage_Adminhtml_Block_Widget_Tabs
      */
     public function addTabAfter($tabId, $tab, $afterTabId)
     {
@@ -111,29 +111,24 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     {
         if (is_array($tab)) {
             $this->_tabs[$tabId] = new Varien_Object($tab);
-        }
-        elseif ($tab instanceof Varien_Object) {
+        } elseif ($tab instanceof Varien_Object) {
             $this->_tabs[$tabId] = $tab;
             if (!$this->_tabs[$tabId]->hasTabId()) {
                 $this->_tabs[$tabId]->setTabId($tabId);
             }
-        }
-        elseif (is_string($tab)) {
+        } elseif (is_string($tab)) {
             if (strpos($tab, '/')) {
                 $this->_tabs[$tabId] = $this->getLayout()->createBlock($tab);
-            }
-            elseif ($this->getChild($tab)) {
+            } elseif ($this->getChild($tab)) {
                 $this->_tabs[$tabId] = $this->getChild($tab);
-            }
-            else {
+            } else {
                 $this->_tabs[$tabId] = null;
             }
 
             if (!($this->_tabs[$tabId] instanceof Mage_Adminhtml_Block_Widget_Tab_Interface)) {
                 throw new Exception(Mage::helper('adminhtml')->__('Wrong tab configuration.'));
             }
-        }
-        else {
+        } else {
             throw new Exception(Mage::helper('adminhtml')->__('Wrong tab configuration.'));
         }
 
@@ -177,7 +172,8 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     public function setActiveTab($tabId)
     {
         if (isset($this->_tabs[$tabId]) && $this->canShowTab($this->_tabs[$tabId])
-            && !$this->getTabIsHidden($this->_tabs[$tabId])) {
+            && !$this->getTabIsHidden($this->_tabs[$tabId])
+        ) {
             $this->_activeTab = $tabId;
         }
         return $this;
@@ -271,17 +267,18 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
 
     public function getTabsIds()
     {
-        if (empty($this->_tabs))
+        if (empty($this->_tabs)) {
             return [];
+        }
         return array_keys($this->_tabs);
     }
 
     public function getTabId($tab, $withPrefix = true)
     {
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
-            return ($withPrefix ? $this->getId().'_' : '').$tab->getTabId();
+            return ($withPrefix ? $this->getId() . '_' : '') . $tab->getTabId();
         }
-        return ($withPrefix ? $this->getId().'_' : '').$tab->getId();
+        return ($withPrefix ? $this->getId() . '_' : '') . $tab->getId();
     }
 
     public function canShowTab($tab)

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -217,8 +218,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      *
      * @param int|string $productId
      * @param array $productData
-     * @param string|int $store
-     * @param null $identifierType
+     * @param string|int|null $store
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -322,9 +323,9 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         }
 
         if (isset($productData['tier_price']) && is_array($productData['tier_price'])) {
-             $tierPrices = Mage::getModel('catalog/product_attribute_tierprice_api')
+            $tierPrices = Mage::getModel('catalog/product_attribute_tierprice_api')
                  ->prepareTierPrices($product, $productData['tier_price']);
-             $product->setData(Mage_Catalog_Model_Product_Attribute_Tierprice_Api::ATTRIBUTE_CODE, $tierPrices);
+            $product->setData(Mage_Catalog_Model_Product_Attribute_Tierprice_Api::ATTRIBUTE_CODE, $tierPrices);
         }
     }
 
@@ -369,7 +370,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * Delete product
      *
      * @param int|string $productId
-     * @param null $identifierType
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -386,13 +387,13 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         return true;
     }
 
-   /**
-    * Get list of additional attributes which are not in default create/update list
-    *
-    * @param  int $productType
-    * @param  int $attributeSetId
-    * @return array
-    */
+    /**
+     * Get list of additional attributes which are not in default create/update list
+     *
+     * @param  int $productType
+     * @param  int $attributeSetId
+     * @return array
+     */
     public function getAdditionalAttributes($productType, $attributeSetId)
     {
         $this->_checkProductTypeExists($productType);
@@ -408,7 +409,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         foreach ($productAttributes as $attribute) {
             /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if ($attribute->isInSet($attributeSetId) && $this->_isAllowedAttribute($attribute)
-                && !in_array($attribute->getAttributeCode(), $this->_defaultProductAttributeList)) {
+                && !in_array($attribute->getAttributeCode(), $this->_defaultProductAttributeList)
+            ) {
                 if ($attribute->isScopeGlobal()) {
                     $scope = 'global';
                 } elseif ($attribute->isScopeWebsite()) {

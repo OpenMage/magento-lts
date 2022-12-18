@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Data
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -48,14 +49,14 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
      */
     protected $_elementsIndex;
 
-    static protected $_defaultElementRenderer;
-    static protected $_defaultFieldsetRenderer;
-    static protected $_defaultFieldsetElementRenderer;
+    protected static $_defaultElementRenderer;
+    protected static $_defaultFieldsetRenderer;
+    protected static $_defaultFieldsetElementRenderer;
 
     /**
      * @inheritDoc
      */
-    public function __construct($attributes = array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->_allElements = new Varien_Data_Form_Element_Collection($this);
@@ -115,7 +116,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
      */
     public function getHtmlAttributes()
     {
-        return array('id', 'name', 'method', 'action', 'enctype', 'class', 'onsubmit');
+        return ['id', 'name', 'method', 'action', 'enctype', 'class', 'onsubmit'];
     }
 
     /**
@@ -126,7 +127,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
      * @return Varien_Data_Form
      * @throws Exception
      */
-    public function addElement(Varien_Data_Form_Element_Abstract $element, $after=false)
+    public function addElement(Varien_Data_Form_Element_Abstract $element, $after = false)
     {
         $this->checkElementId($element->getId());
         parent::addElement($element, $after);
@@ -164,7 +165,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     public function checkElementId($elementId)
     {
         if ($this->_elementIdExists($elementId)) {
-            throw new Exception('Element with id "'.$elementId.'" already exists');
+            throw new Exception('Element with id "' . $elementId . '" already exists');
         }
         return true;
     }
@@ -198,8 +199,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         foreach ($this->_allElements as $element) {
             if (isset($values[$element->getId()])) {
                 $element->setValue($values[$element->getId()]);
-            }
-            else {
+            } else {
                 $element->setValue(null);
             }
         }
@@ -215,7 +215,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         if (!is_array($values)) {
             return $this;
         }
-        foreach ($values as $elementId=>$value) {
+        foreach ($values as $elementId => $value) {
             if ($element = $this->getElement($elementId)) {
                 $element->setValue($value);
             }
@@ -252,10 +252,10 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         }
         $vars = explode('[', $name);
         $newName = $suffix;
-        foreach ($vars as $index=>$value) {
-            $newName.= '['.$value;
-            if ($index==0) {
-                $newName.= ']';
+        foreach ($vars as $index => $value) {
+            $newName .= '[' . $value;
+            if ($index == 0) {
+                $newName .= ']';
             }
         }
         return $newName;
@@ -299,20 +299,20 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         Varien_Profiler::start('form/toHtml');
         $html = '';
         if ($useContainer = $this->getUseContainer()) {
-            $html .= '<form '.$this->serialize($this->getHtmlAttributes()).'>';
+            $html .= '<form ' . $this->serialize($this->getHtmlAttributes()) . '>';
             $html .= '<div>';
             if (strtolower((string)$this->getData('method')) == 'post') {
-                $html .= '<input name="form_key" type="hidden" value="'.Mage::getSingleton('core/session')->getFormKey().'" />';
+                $html .= '<input name="form_key" type="hidden" value="' . Mage::getSingleton('core/session')->getFormKey() . '" />';
             }
             $html .= '</div>';
         }
 
         foreach ($this->getElements() as $element) {
-            $html.= $element->toHtml();
+            $html .= $element->toHtml();
         }
 
         if ($useContainer) {
-            $html.= '</form>';
+            $html .= '</form>';
         }
         Varien_Profiler::stop('form/toHtml');
         return $html;

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -89,7 +90,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     public function useQueue(Mage_Newsletter_Model_Queue $queue)
     {
         $this->getSelect()
-            ->join(['link'=>$this->_queueLinkTable], "link.subscriber_id = main_table.subscriber_id", [])
+            ->join(['link' => $this->_queueLinkTable], "link.subscriber_id = main_table.subscriber_id", [])
             ->where("link.queue_id = ? ", $queue->getId());
         $this->_queueJoinedFlag = true;
         return $this;
@@ -127,19 +128,19 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
                 ['customer_lastname_table' => $lastname->getBackend()->getTable()],
                 $adapter->quoteInto('customer_lastname_table.entity_id=main_table.customer_id
                     AND customer_lastname_table.attribute_id = ?', (int) $lastname->getAttributeId()),
-                ['customer_lastname'=>'value']
+                ['customer_lastname' => 'value']
             )
             ->joinLeft(
                 ['customer_middlename_table' => $middlename->getBackend()->getTable()],
                 $adapter->quoteInto('customer_middlename_table.entity_id=main_table.customer_id
                     AND customer_middlename_table.attribute_id = ?', (int) $middlename->getAttributeId()),
-                ['customer_middlename'=>'value']
+                ['customer_middlename' => 'value']
             )
             ->joinLeft(
                 ['customer_firstname_table' => $firstname->getBackend()->getTable()],
                 $adapter->quoteInto('customer_firstname_table.entity_id=main_table.customer_id
                     AND customer_firstname_table.attribute_id = ?', (int) $firstname->getAttributeId()),
-                ['customer_firstname'=>'value']
+                ['customer_firstname' => 'value']
             );
 
         return $this;
@@ -153,7 +154,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     public function addSubscriberTypeField()
     {
         $this->getSelect()
-            ->columns(['type'=>new Zend_Db_Expr($this->_getMappedField('type'))]);
+            ->columns(['type' => new Zend_Db_Expr($this->_getMappedField('type'))]);
         return $this;
     }
 
@@ -184,7 +185,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     public function _getFieldTableAlias($field)
     {
         if (strpos($field, 'customer') === 0) {
-            return $field .'_table.value';
+            return $field . '_table.value';
         }
 
         if ($field == 'type') {
@@ -201,16 +202,13 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Returns select count sql
      *
-     * @return string
+     * @return Varien_Db_Select
      */
     public function getSelectCountSql()
     {
-
         $select = parent::getSelectCountSql();
         $countSelect = clone $this->getSelect();
-
         $countSelect->reset(Zend_Db_Select::HAVING);
-
         return $select;
     }
 
@@ -246,7 +244,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
      */
     public function addStoreFilter($storeIds)
     {
-        $this->addFieldToFilter('main_table.store_id', ['in'=>$storeIds]);
+        $this->addFieldToFilter('main_table.store_id', ['in' => $storeIds]);
         return $this;
     }
 }

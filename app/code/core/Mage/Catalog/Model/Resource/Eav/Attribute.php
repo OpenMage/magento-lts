@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,12 +71,12 @@
  */
 class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_Attribute
 {
-    const SCOPE_STORE                           = 0;
-    const SCOPE_GLOBAL                          = 1;
-    const SCOPE_WEBSITE                         = 2;
+    public const SCOPE_STORE                           = 0;
+    public const SCOPE_GLOBAL                          = 1;
+    public const SCOPE_WEBSITE                         = 2;
 
-    const MODULE_NAME                           = 'Mage_Catalog';
-    const ENTITY                                = 'catalog_eav_attribute';
+    public const MODULE_NAME                           = 'Mage_Catalog';
+    public const ENTITY                                = 'catalog_eav_attribute';
 
     /**
      * @var string
@@ -91,7 +92,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
      *
      * @var array
      */
-    static protected $_labels                   = null;
+    protected static $_labels                   = null;
 
     protected function _construct()
     {
@@ -112,7 +113,8 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
                 $this->_data['is_global'] = self::SCOPE_GLOBAL;
             }
             if (($this->_data['is_global'] != $this->_origData['is_global'])
-                && $this->_getResource()->isUsedBySuperProducts($this)) {
+                && $this->_getResource()->isUsedBySuperProducts($this)
+            ) {
                 Mage::throwException(Mage::helper('catalog')->__('Scope must not be changed, because the attribute is used in configurable products.'));
             }
         }

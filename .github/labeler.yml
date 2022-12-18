@@ -1,19 +1,13 @@
 'Environment':
   - .github/*
   - .github/**/*
-  - .phpstorm.meta.php/*
-  - .travis.yml
-
-'phpstan':
-  - .github/phpstan.neon
-  - .github/phpstan-baseline.neon
-  - .github/phpstan_experimental_level.neon
 
 'htaccess':
   - .htaccess
 
 'composer':
   - composer.json
+  - composer.lock
 
 'downloader':
   - downloader/*
@@ -31,6 +25,10 @@
 'Component: lib/Mage':
   - lib/Mage/*
   - lib/Mage/**/*
+
+'Component: lib/Magento':
+  - lib/Magento/*
+  - lib/Magento/**/*
 
 'Component: lib/Varien':
   - lib/Varien/*
@@ -603,3 +601,25 @@
 # Add Documentation Label
 'Documentation':
   - '*.md'
+
+'PHPStorm':
+  - .phpstorm.meta.php/*
+
+'phpcs':
+  - phpcs*
+  - .github/workflows/phpcs.yml
+
+'php-cs-fixer':
+  - .php-cs-fixer*
+  - .github/workflows/php-cs-fixer.yml
+
+'phpstan':
+  - phpstan*
+  - .github/workflows/phpstan.yml
+
+'phpunit':
+  - dev/test/*
+  - dev/phpunit*
+  - dev/sonar*
+  - .github/workflows/phpunit.yml
+  - .github/workflows/sonar.yml

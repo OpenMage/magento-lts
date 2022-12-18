@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Retrieve an instance of the fallback helper
@@ -108,11 +108,12 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         $undefinedResources = array_diff(array_keys($resources), array_keys($resourcesPermissionsMap));
 
         foreach ($undefinedResources as $undefinedResourceId) {
-            if ($this->_getFallbackHelper()->fallbackResourcePermissions(
-                    $resourcesPermissionsMap,
-                    $undefinedResourceId
-                ) == Mage_Admin_Model_Rules::RULE_PERMISSION_ALLOWED
-            ) {
+            // Fallback resource permissions
+            $permissions = $this->_getFallbackHelper()->fallbackResourcePermissions(
+                $resourcesPermissionsMap,
+                $undefinedResourceId
+            );
+            if ($permissions == Mage_Admin_Model_Rules::RULE_PERMISSION_ALLOWED) {
                 $selrids[] = $undefinedResourceId;
             }
         }
@@ -120,8 +121,6 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         $this->setSelectedResources($selrids);
 
         $this->setTemplate('permissions/rolesedit.phtml');
-        //->assign('resources', $resources);
-        //->assign('checkedResources', join(',', $selrids));
     }
 
     /**
@@ -154,11 +153,11 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
      *
      * @param array $a
      * @param array $b
-     * @return bool
+     * @return int
      */
     protected function _sortTree($a, $b)
     {
-        return $a['sort_order']<$b['sort_order'] ? -1 : ($a['sort_order']>$b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
     }
 
     /**
@@ -178,8 +177,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
             $item['sort_order'] = isset($node->sort_order) ? (string)$node->sort_order : 0;
             $item['id'] = (string)$node->attributes()->aclpath;
 
-            if (in_array($item['id'], $selres))
+            if (in_array($item['id'], $selres)) {
                 $item['checked'] = true;
+            }
         }
         if (isset($node->children)) {
             $children = $node->children->children();
@@ -199,9 +199,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
                         continue;
                     }
                     if ($level != 0) {
-                        $item['children'][] = $this->_getNodeJson($child, $level+1);
+                        $item['children'][] = $this->_getNodeJson($child, $level + 1);
                     } else {
-                        $item = $this->_getNodeJson($child, $level+1);
+                        $item = $this->_getNodeJson($child, $level + 1);
                     }
                 }
             }

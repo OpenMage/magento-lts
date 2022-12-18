@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,6 +28,8 @@
  */
 class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Downloadable';
+
     /**
      * @see Mage_Uploader_Helper_File::getMimeTypes
      * @var array
@@ -99,13 +102,13 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
         $ioObject = new Varien_Io_File();
         $destDirectory = dirname($this->getFilePath($basePath, $file));
         try {
-            $ioObject->open(['path'=>$destDirectory]);
+            $ioObject->open(['path' => $destDirectory]);
         } catch (Exception $e) {
             $ioObject->mkdir($destDirectory, 0777, true);
-            $ioObject->open(['path'=>$destDirectory]);
+            $ioObject->open(['path' => $destDirectory]);
         }
 
-        if (strrpos($file, '.tmp') == strlen($file)-4) {
+        if (strrpos($file, '.tmp') == strlen($file) - 4) {
             $file = substr($file, 0, -4);
         }
 
@@ -163,7 +166,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     {
         $file = '';
 
-        $file = substr($pathFile, strrpos($this->_prepareFileForPath($pathFile), DS)+1);
+        $file = substr($pathFile, strrpos($this->_prepareFileForPath($pathFile), DS) + 1);
 
         return $file;
     }
@@ -176,7 +179,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
      */
     public function getFileType($filePath)
     {
-        $ext = substr($filePath, strrpos($filePath, '.')+1);
+        $ext = substr($filePath, strrpos($filePath, '.') + 1);
         return $this->_getFileTypeByExt($ext);
     }
 

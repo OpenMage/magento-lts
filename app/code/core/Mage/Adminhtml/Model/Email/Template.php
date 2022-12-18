@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +32,7 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
      * Xml path to email template nodes
      *
      */
-    const XML_PATH_TEMPLATE_EMAIL = '//sections/*/groups/*/fields/*[source_model="adminhtml/system_config_source_email_template"]';
+    public const XML_PATH_TEMPLATE_EMAIL = '//sections/*/groups/*/fields/*[source_model="adminhtml/system_config_source_email_template"]';
 
     /**
      * Collect all system config pathes where current template is used as default
@@ -44,8 +45,8 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
         if (!$templateCode) {
             return [];
         }
-        $paths = [];
 
+        $paths = [];
         $configSections = Mage::getSingleton('adminhtml/config')->getSections();
 
         // find nodes which are using $templateCode value
@@ -75,13 +76,13 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
         if (!$templateId) {
             return [];
         }
-        $paths = [];
 
+        $paths = [];
         $configSections = Mage::getSingleton('adminhtml/config')->getSections();
 
         // look for node entries in all system.xml that use source_model=adminhtml/system_config_source_email_template
         // they are will be templates, what we try find
-        $sysCfgNodes    = $configSections->xpath(self::XML_PATH_TEMPLATE_EMAIL);
+        $sysCfgNodes = $configSections->xpath(self::XML_PATH_TEMPLATE_EMAIL);
         if (!is_array($sysCfgNodes)) {
             return [];
         }

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,9 +31,9 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Checkout types: Checkout as Guest, Register, Logged In Customer
      */
-    const METHOD_GUEST    = 'guest';
-    const METHOD_REGISTER = 'register';
-    const METHOD_CUSTOMER = 'customer';
+    public const METHOD_GUEST    = 'guest';
+    public const METHOD_REGISTER = 'register';
+    public const METHOD_CUSTOMER = 'customer';
 
     /**
      * Error message of "customer already exists"
@@ -126,7 +127,7 @@ class Mage_Checkout_Model_Type_Onepage
         $customerSession = $this->getCustomerSession();
         if (is_array($checkout->getStepData())) {
             foreach ($checkout->getStepData() as $step => $data) {
-                if (!($step==='login' || $customerSession->isLoggedIn() && $step==='billing')) {
+                if (!($step === 'login' || $customerSession->isLoggedIn() && $step === 'billing')) {
                     $checkout->setStepData($step, 'allow', false);
                 }
             }
@@ -498,7 +499,8 @@ class Mage_Checkout_Model_Type_Onepage
                 'confirmation' => 'confirm_password',
                 'taxvat'       => 'taxvat',
                 'gender'       => 'gender',
-                     ] as $key => $dataKey) {
+                     ] as $key => $dataKey
+            ) {
                 $customer->setData($key, $address->getData($dataKey));
             }
             if ($dob) {
@@ -585,7 +587,7 @@ class Mage_Checkout_Model_Type_Onepage
         $address->implodeStreetAddress();
         $address->setCollectShippingRates(true);
 
-        if (($validateRes = $address->validate())!==true) {
+        if (($validateRes = $address->validate()) !== true) {
             return ['error' => 1, 'message' => $validateRes];
         }
 
@@ -747,7 +749,8 @@ class Mage_Checkout_Model_Type_Onepage
             $billing->setCustomerAddress($customerBilling);
         }
         if ($shipping && !$shipping->getSameAsBilling() &&
-            (!$shipping->getCustomerId() || $shipping->getSaveInAddressBook())) {
+            (!$shipping->getCustomerId() || $shipping->getSaveInAddressBook())
+        ) {
             $customerShipping = $shipping->exportCustomerAddress();
             $customer->addAddress($customerShipping);
             $shipping->setCustomerAddress($customerShipping);
@@ -826,7 +829,7 @@ class Mage_Checkout_Model_Type_Onepage
         if ($order) {
             Mage::dispatchEvent(
                 'checkout_type_onepage_save_order_after',
-                ['order'=>$order, 'quote'=>$this->getQuote()]
+                ['order' => $order, 'quote' => $this->getQuote()]
             );
 
             /**
@@ -895,7 +898,7 @@ class Mage_Checkout_Model_Type_Onepage
             if ($addressValidation !== true) {
                 Mage::throwException(Mage::helper('checkout')->__('Please check shipping address information.'));
             }
-            $method= $address->getShippingMethod();
+            $method = $address->getShippingMethod();
             $rate  = $address->getShippingRateByCode($method);
             if (!$this->getQuote()->isVirtual() && (!$method || !$rate)) {
                 Mage::throwException(Mage::helper('checkout')->__('Please specify shipping method.'));

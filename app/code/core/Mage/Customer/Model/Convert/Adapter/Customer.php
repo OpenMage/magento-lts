@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,7 +26,7 @@
  */
 class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Convert_Adapter_Entity
 {
-    const MULTI_DELIMITER = ' , ';
+    public const MULTI_DELIMITER = ' , ';
 
     /**
      * Customer model
@@ -56,7 +57,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
 
     protected $_shippingMappedFields = [];
 
-    protected $_shippingStreetFields= [];
+    protected $_shippingStreetFields = [];
 
     protected $_shippingRequiredFields = [];
 
@@ -198,7 +199,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
             $this->_customerGroups = [];
             $collection = Mage::getModel('customer/group')
                 ->getCollection()
-                ->addFieldToFilter('customer_group_id', ['gt'=> 0]);
+                ->addFieldToFilter('customer_group_id', ['gt' => 0]);
             /** @var Mage_Customer_Model_Group $group */
             foreach ($collection as $group) {
                 $this->_customerGroups[$group->getCustomerGroupCode()] = $group->getId();
@@ -235,10 +236,10 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
                 $this->_ignoreFields[] = $code;
             }
             if ($node->is('billing')) {
-                $this->_billingFields[] = 'billing_'.$code;
+                $this->_billingFields[] = 'billing_' . $code;
             }
             if ($node->is('shipping')) {
-                $this->_shippingFields[] = 'shipping_'.$code;
+                $this->_shippingFields[] = 'shipping_' . $code;
             }
 
             if ($node->is('billing') && $node->is('shipping')) {
@@ -246,23 +247,23 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
             }
 
             if ($node->is('mapped') || $node->is('billing_mapped')) {
-                $this->_billingMappedFields['billing_'.$code] = $code;
+                $this->_billingMappedFields['billing_' . $code] = $code;
             }
             if ($node->is('mapped') || $node->is('shipping_mapped')) {
-                $this->_shippingMappedFields['shipping_'.$code] = $code;
+                $this->_shippingMappedFields['shipping_' . $code] = $code;
             }
             if ($node->is('street')) {
-                $this->_billingStreetFields[] = 'billing_'.$code;
-                $this->_shippingStreetFields[] = 'shipping_'.$code;
+                $this->_billingStreetFields[] = 'billing_' . $code;
+                $this->_shippingStreetFields[] = 'shipping_' . $code;
             }
             if ($node->is('required')) {
                 $this->_requiredFields[] = $code;
             }
             if ($node->is('billing_required')) {
-                $this->_billingRequiredFields[] = 'billing_'.$code;
+                $this->_billingRequiredFields[] = 'billing_' . $code;
             }
             if ($node->is('shipping_required')) {
-                $this->_shippingRequiredFields[] = 'shipping_'.$code;
+                $this->_shippingRequiredFields[] = 'shipping_' . $code;
             }
         }
     }
@@ -275,7 +276,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     public function load()
     {
         $addressType = $this->getVar('filter/adressType'); //error in key filter addressType
-        if ($addressType=='both') {
+        if ($addressType == 'both') {
             $addressType = ['default_billing','default_shipping'];
         }
         $attrFilterArray = [];
@@ -383,7 +384,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
 
         $collections = $this->getData();
         if ($collections instanceof Mage_Customer_Model_Entity_Customer_Collection) {
-            $collections = [$collections->getEntity()->getStoreId()=>$collections];
+            $collections = [$collections->getEntity()->getStoreId() => $collections];
         } elseif (!is_array($collections)) {
             $this->addException(Mage::helper('customer')->__('No customer collections found'), Mage_Dataflow_Model_Convert_Exception::FATAL);
         }
@@ -573,14 +574,14 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
         if ($importBillingAddress && $importShippingAddress) {
             $onlyAddress = true;
             foreach ($this->_addressFields as $field) {
-                if (!isset($importData['billing_'.$field]) && !isset($importData['shipping_'.$field])) {
+                if (!isset($importData['billing_' . $field]) && !isset($importData['shipping_' . $field])) {
                     continue;
                 }
-                if (!isset($importData['billing_'.$field]) || !isset($importData['shipping_'.$field])) {
+                if (!isset($importData['billing_' . $field]) || !isset($importData['shipping_' . $field])) {
                     $onlyAddress = false;
                     break;
                 }
-                if ($importData['billing_'.$field] != $importData['shipping_'.$field]) {
+                if ($importData['billing_' . $field] != $importData['shipping_' . $field]) {
                     $onlyAddress = false;
                     break;
                 }
@@ -608,7 +609,8 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
                 if (isset($importData[$field])) {
                     $billingAddress->setDataUsingMethod($cleanField, $importData[$field]);
                 } elseif (isset($this->_billingMappedFields[$field])
-                    && isset($importData[$this->_billingMappedFields[$field]])) {
+                    && isset($importData[$this->_billingMappedFields[$field]])
+                ) {
                     $billingAddress->setDataUsingMethod($cleanField, $importData[$this->_billingMappedFields[$field]]);
                 }
             }
@@ -661,7 +663,8 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
                 if (isset($importData[$field])) {
                     $shippingAddress->setDataUsingMethod($cleanField, $importData[$field]);
                 } elseif (isset($this->_shippingMappedFields[$field])
-                    && isset($importData[$this->_shippingMappedFields[$field]])) {
+                    && isset($importData[$this->_shippingMappedFields[$field]])
+                ) {
                     $shippingAddress->setDataUsingMethod($cleanField, $importData[$this->_shippingMappedFields[$field]]);
                 }
             }

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,14 +50,14 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     /**
      * Email types
      */
-    const EMAIL_TYPE_TO  = 0;
-    const EMAIL_TYPE_CC  = 1;
-    const EMAIL_TYPE_BCC = 2;
+    public const EMAIL_TYPE_TO  = 0;
+    public const EMAIL_TYPE_CC  = 1;
+    public const EMAIL_TYPE_BCC = 2;
 
     /**
      * Maximum number of messages to be sent oer one cron run
      */
-    const MESSAGES_LIMIT_PER_CRON_RUN = 100;
+    public const MESSAGES_LIMIT_PER_CRON_RUN = 100;
 
     /**
      * Store message recipients list
@@ -240,7 +241,6 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                 } catch (Exception $e) {
                     Mage::logException($e);
                 }
-
             }
         }
 
