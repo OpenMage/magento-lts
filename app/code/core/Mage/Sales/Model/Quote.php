@@ -254,7 +254,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * its full names
      *
      * @return Varien_Object
-     * @deprecated
      */
     protected function _initOldFieldsMap()
     {

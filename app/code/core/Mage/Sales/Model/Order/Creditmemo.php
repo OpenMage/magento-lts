@@ -217,7 +217,6 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      * Init mapping array of short fields to its full names
      *
      * @return $this
-     * @deprecated
      */
     protected function _initOldFieldsMap()
     {
