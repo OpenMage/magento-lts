@@ -26,6 +26,11 @@ parameters:
 			path: app/code/core/Mage/Admin/Model/Config.php
 
 		-
+			message: "#^Call to an undefined method Zend_Controller_Request_Http\\:\\:setRouteName\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Admin/Model/Observer.php
+
+		-
 			message: "#^Cannot call method getClassName\\(\\) on SimpleXMLElement\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Admin/Model/Resource/Acl.php
@@ -2671,11 +2676,6 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Resource.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource/Acl/Global/Role.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method Varien_Data_Collection\\:\\:addFilter\\(\\) expects array\\|string, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Resource/Acl/Global/Rule/Collection.php
@@ -4551,7 +4551,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Resource_Attribute\\:\\:isUsedBySuperProducts\\(\\) should return int but returns string\\.$#"
+			message: "#^Method Mage_Catalog_Model_Resource_Attribute\\:\\:isUsedBySuperProducts\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Attribute.php
 
@@ -4566,17 +4566,12 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Resource_Category\\:\\:checkId\\(\\) should return bool but returns string\\.$#"
+			message: "#^Method Mage_Catalog_Model_Resource_Category\\:\\:getChildrenAmount\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Resource_Category\\:\\:getChildrenAmount\\(\\) should return int but returns string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Resource_Category\\:\\:getChildrenCount\\(\\) should return int but returns string\\.$#"
+			message: "#^Method Mage_Catalog_Model_Resource_Category\\:\\:getChildrenCount\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
@@ -4606,7 +4601,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
 		-
-			message: "#^Property Mage_Catalog_Model_Resource_Category\\:\\:\\$_isActiveAttributeId \\(int\\) does not accept string\\.$#"
+			message: "#^Property Mage_Catalog_Model_Resource_Category\\:\\:\\$_isActiveAttributeId \\(int\\) does not accept string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
@@ -4647,11 +4642,6 @@ parameters:
 
 		-
 			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Resource_Category_Flat\\:\\:checkId\\(\\) should return bool but returns string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
 
@@ -4801,7 +4791,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
 		-
-			message: "#^Property Mage_Catalog_Model_Resource_Category_Tree\\:\\:\\$_isActiveAttributeId \\(int\\) does not accept string\\.$#"
+			message: "#^Property Mage_Catalog_Model_Resource_Category_Tree\\:\\:\\$_isActiveAttributeId \\(int\\) does not accept string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
@@ -4848,11 +4838,6 @@ parameters:
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Resource_Category\\:\\:refreshProductIndex\\(\\)\\.$#"
 			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Product.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Resource_Product\\:\\:getIdBySku\\(\\) should return int\\|false but returns string\\.$#"
-			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product.php
 
 		-
@@ -4991,7 +4976,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item\\:\\:getCount\\(\\) should return int but returns string\\.$#"
+			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item\\:\\:getCount\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Compare/Item.php
 
@@ -5039,16 +5024,6 @@ parameters:
 			message: "#^Parameter \\#5 \\$condition of method Mage_Catalog_Model_Resource_Product_Indexer_Abstract\\:\\:_addAttributeToSelect\\(\\) expects Zend_Db_Expr\\|null, string given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Eav/Source.php
-
-		-
-			message: "#^Binary operation \"\\*\" between string and 0\\.3 results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
-
-		-
-			message: "#^Binary operation \"\\+\" between int\\<0, max\\> and string results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface\\:\\:getIsComposite\\(\\)\\.$#"
@@ -5346,11 +5321,6 @@ parameters:
 			path: app/code/core/Mage/CatalogIndex/Model/Resource/Indexer/Abstract.php
 
 		-
-			message: "#^Binary operation \"\\*\" between string and float results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Resource/Price.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Resource/Setup.php
@@ -5409,16 +5379,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$type of method Mage_Sales_Model_Quote\\:\\:removeErrorInfosByParams\\(\\) expects string, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogInventory/Model/Observer.php
-
-		-
-			message: "#^Binary operation \"\\*\" between string and 0\\.3 results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
-
-		-
-			message: "#^Binary operation \"\\+\" between int\\<0, max\\> and string results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
 
 		-
 			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
@@ -7156,11 +7116,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Db/Abstract.php
 
 		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Db/Abstract.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 2
 			path: app/code/core/Mage/Core/Model/Resource/Db/Abstract.php
@@ -7996,7 +7951,7 @@ parameters:
 			path: app/code/core/Mage/Customer/Model/Resource/Address.php
 
 		-
-			message: "#^Method Mage_Customer_Model_Resource_Customer\\:\\:getWebsiteId\\(\\) should return int but returns string\\.$#"
+			message: "#^Method Mage_Customer_Model_Resource_Customer\\:\\:getWebsiteId\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Resource/Customer.php
 
@@ -8391,11 +8346,6 @@ parameters:
 			path: app/code/core/Mage/Directory/Model/Resource/Country/Collection.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Directory/Model/Resource/Currency.php
-
-		-
 			message: "#^Parameter \\#2 \\$countryId of method Mage_Directory_Model_Resource_Region\\:\\:_loadByCountry\\(\\) expects int, string given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Directory/Model/Resource/Region.php
@@ -8781,16 +8731,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
 
 		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
 			message: "#^Variable \\$attributeCode might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
@@ -8971,11 +8911,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
 
 		-
-			message: "#^Binary operation \"\\+\" between string and 1 results in an error\\.$#"
-			count: 3
-			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
 			message: "#^Binary operation \"\\+\" between string and 10 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
@@ -9096,17 +9031,17 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Resource/Config.php
 
 		-
-			message: "#^Method Mage_Eav_Model_Resource_Entity_Attribute\\:\\:_getMaxSortOrder\\(\\) should return int but returns string\\.$#"
+			message: "#^Method Mage_Eav_Model_Resource_Entity_Attribute\\:\\:_getMaxSortOrder\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Resource/Entity/Attribute.php
 
 		-
-			message: "#^Method Mage_Eav_Model_Resource_Entity_Attribute\\:\\:getIdByCode\\(\\) should return int but returns string\\.$#"
+			message: "#^Method Mage_Eav_Model_Resource_Entity_Attribute\\:\\:getIdByCode\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Resource/Entity/Attribute.php
 
 		-
-			message: "#^Method Mage_Eav_Model_Resource_Entity_Attribute_Group\\:\\:_getMaxSortOrder\\(\\) should return int but returns string\\.$#"
+			message: "#^Method Mage_Eav_Model_Resource_Entity_Attribute_Group\\:\\:_getMaxSortOrder\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Resource/Entity/Attribute/Group.php
 
@@ -9116,7 +9051,7 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Resource/Entity/Attribute/Option.php
 
 		-
-			message: "#^Method Mage_Eav_Model_Resource_Entity_Attribute_Set\\:\\:getDefaultGroupId\\(\\) should return int\\|null but returns string\\.$#"
+			message: "#^Method Mage_Eav_Model_Resource_Entity_Attribute_Set\\:\\:getDefaultGroupId\\(\\) should return int\\|null but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Resource/Entity/Attribute/Set.php
 
@@ -9561,7 +9496,7 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
 
 		-
-			message: "#^Property Mage_ImportExport_Model_Import_Entity_Product\\:\\:\\$_urlKeyAttributeId \\(int\\) does not accept string\\.$#"
+			message: "#^Property Mage_ImportExport_Model_Import_Entity_Product\\:\\:\\$_urlKeyAttributeId \\(int\\) does not accept string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
 
@@ -10966,7 +10901,7 @@ parameters:
 			path: app/code/core/Mage/ProductAlert/controllers/UnsubscribeController.php
 
 		-
-			message: "#^Method Mage_Rating_Model_Resource_Rating\\:\\:getEntityIdByCode\\(\\) should return int but returns string\\.$#"
+			message: "#^Method Mage_Rating_Model_Resource_Rating\\:\\:getEntityIdByCode\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Rating/Model/Resource/Rating.php
 
@@ -10996,7 +10931,7 @@ parameters:
 			path: app/code/core/Mage/Rating/Model/Resource/Rating/Collection.php
 
 		-
-			message: "#^Method Mage_Rating_Model_Resource_Rating_Entity\\:\\:getIdByCode\\(\\) should return int but returns string\\.$#"
+			message: "#^Method Mage_Rating_Model_Resource_Rating_Entity\\:\\:getIdByCode\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Rating/Model/Resource/Rating/Entity.php
 
@@ -11301,7 +11236,7 @@ parameters:
 			path: app/code/core/Mage/Reports/Model/Resource/Tax/Collection.php
 
 		-
-			message: "#^Method Mage_Reports_Model_Resource_Wishlist_Collection\\:\\:getSharedCount\\(\\) should return int but returns string\\.$#"
+			message: "#^Method Mage_Reports_Model_Resource_Wishlist_Collection\\:\\:getSharedCount\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Resource/Wishlist/Collection.php
 
@@ -11346,12 +11281,7 @@ parameters:
 			path: app/code/core/Mage/Review/Block/Form.php
 
 		-
-			message: "#^Method Mage_Review_Model_Resource_Review\\:\\:getEntityIdByCode\\(\\) should return bool\\|int but returns string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Review/Model/Resource/Review.php
-
-		-
-			message: "#^Method Mage_Review_Model_Resource_Review\\:\\:getTotalReviews\\(\\) should return int but returns string\\.$#"
+			message: "#^Method Mage_Review_Model_Resource_Review\\:\\:getTotalReviews\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Review/Model/Resource/Review.php
 
@@ -13346,11 +13276,6 @@ parameters:
 			path: app/code/core/Mage/SalesRule/Model/Resource/Coupon.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/SalesRule/Model/Resource/Coupon.php
-
-		-
 			message: "#^Parameter \\#2 \\$true of method Varien_Db_Adapter_Interface\\:\\:getCheckSql\\(\\) expects string, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/SalesRule/Model/Resource/Coupon/Collection.php
@@ -13361,12 +13286,7 @@ parameters:
 			path: app/code/core/Mage/SalesRule/Model/Resource/Coupon/Collection.php
 
 		-
-			message: "#^Binary operation \"\\+\\=\" between string and \\-1\\|1 results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/SalesRule/Model/Resource/Coupon/Usage.php
-
-		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
+			message: "#^Binary operation \"\\+\\=\" between string\\|null and \\-1\\|1 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/SalesRule/Model/Resource/Coupon/Usage.php
 
@@ -15266,11 +15186,6 @@ parameters:
 			path: lib/Varien/Data/Tree.php
 
 		-
-			message: "#^Binary operation \"\\+\" between string and 1 results in an error\\.$#"
-			count: 1
-			path: lib/Varien/Data/Tree/Db.php
-
-		-
 			message: "#^Function explode invoked with 1 parameter, 2\\-3 required\\.$#"
 			count: 1
 			path: lib/Varien/Data/Tree/Dbp.php
@@ -15391,8 +15306,18 @@ parameters:
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
+			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:query\\(\\) should return Zend_Db_Statement_Pdo but returns PDOStatement\\|Zend_Db_Statement_Interface\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 2
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Parameter \\#4 \\$result of method Varien_Db_Adapter_Pdo_Mysql\\:\\:_debugStat\\(\\) expects Zend_Db_Statement_Pdo\\|null, PDOStatement\\|Zend_Db_Statement_Interface given\\.$#"
+			count: 1
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
