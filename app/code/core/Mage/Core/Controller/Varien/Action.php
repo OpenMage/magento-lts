@@ -196,7 +196,7 @@ abstract class Mage_Core_Controller_Varien_Action
      *
      * @param   string $action
      * @param   string $flag
-     * @param   string|int $value
+     * @param   string|int|bool $value
      * @return  $this
      */
     public function setFlag($action, $flag, $value)

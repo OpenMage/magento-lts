@@ -75,7 +75,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
         $this->_map['fields']['customer_middlename'] = 'customer_middlename_table.value';
         $this->_map['fields']['customer_firstname']  = 'customer_firstname_table.value';
         $this->_map['fields']['type']                = $this->getResource()->getReadConnection()
-            ->getCheckSql('main_table.customer_id = 0', 1, 2);
+            ->getCheckSql('main_table.customer_id = 0', '1', '2');
         $this->_map['fields']['website_id']          = 'store.website_id';
         $this->_map['fields']['group_id']            = 'store.group_id';
         $this->_map['fields']['store_id']            = 'main_table.store_id';
@@ -189,7 +189,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
         }
 
         if ($field == 'type') {
-            return $this->getConnection()->getCheckSql('main_table.customer_id = 0', 1, 2);
+            return $this->getConnection()->getCheckSql('main_table.customer_id = 0', '1', '2');
         }
 
         if (in_array($field, ['website_id', 'group_id'])) {
