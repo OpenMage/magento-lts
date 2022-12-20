@@ -1,20 +1,20 @@
 {
     "patches": {
         "shardj/zf1-future": {
-            "MAG-1.1.1": "patches/MAG-1.1.1.patch",
-            "MAG-1.9.3.0": "patches/MAG-1.9.3.0.patch",
-            "MAG-1.9.3.7 - SUPEE-10415": "patches/MAG-1.9.3.7.patch",
-            "MAG-1.9.3.9": "patches/MAG-1.9.3.9.patch",
-            "MAG-1.9.3.10": "patches/MAG-1.9.3.10.patch",
-            "MAG-1.9.4.0": "patches/MAG-1.9.4.0.patch",
-            "ZF-295 - SUPEE-9652/10570": "patches/ZF-295.patch",
-            "ZF-296 - Better IIS suport": "patches/ZF-296.patch",
-            "ZF-297 - Invalid argument type": "patches/ZF-297.patch",
-            "ZF-299 - Limit mktime() year": "patches/ZF-299.patch",
-            "OM-918 - Add runtime cache to Zend_Locale_Data": "patches/OM-918.patch",
-            "OM-1081 - Not detecting HTTPS behind a proxy": "patches/OM-1081.patch",
-            "OM-2047 - Pass delimiter char to preg_quote": "patches/OM-2047.patch",
-            "OM-2050 - Prevent checking known date codes": "patches/OM-2050.patch"
+            "MAG-1.1.1": ".patches/MAG-1.1.1.patch",
+            "MAG-1.9.3.0": ".patches/MAG-1.9.3.0.patch",
+            "MAG-1.9.3.7 - SUPEE-10415": ".patches/MAG-1.9.3.7.patch",
+            "MAG-1.9.3.9": ".patches/MAG-1.9.3.9.patch",
+            "MAG-1.9.3.10": ".patches/MAG-1.9.3.10.patch",
+            "MAG-1.9.4.0": ".patches/MAG-1.9.4.0.patch",
+            "ZF-295 - SUPEE-9652/10570": ".patches/ZF-295.patch",
+            "ZF-296 - Better IIS suport": ".patches/ZF-296.patch",
+            "ZF-297 - Invalid argument type": ".patches/ZF-297.patch",
+            "ZF-299 - Limit mktime() year": ".patches/ZF-299.patch",
+            "OM-918 - Add runtime cache to Zend_Locale_Data": ".patches/OM-918.patch",
+            "OM-1081 - Not detecting HTTPS behind a proxy": ".patches/OM-1081.patch",
+            "OM-2047 - Pass delimiter char to preg_quote": ".patches/OM-2047.patch",
+            "OM-2050 - Prevent checking known date codes": ".patches/OM-2050.patch"
         }
     }
 }
