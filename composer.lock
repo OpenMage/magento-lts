@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "850981ef61070ca42e688e23ac87d96d",
+    "content-hash": "b2e8ecba8340aaf59022c093c6ce9aa9",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -5517,16 +5517,16 @@
         },
         {
             "name": "symplify/vendor-patches",
-            "version": "11.1.18",
+            "version": "11.1.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/vendor-patches.git",
-                "reference": "08de658e9391e0f8743e52313a4589b749a08742"
+                "reference": "21e3a7f074e2f1ac92a754b5b399193274575b9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/08de658e9391e0f8743e52313a4589b749a08742",
-                "reference": "08de658e9391e0f8743e52313a4589b749a08742",
+                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/21e3a7f074e2f1ac92a754b5b399193274575b9d",
+                "reference": "21e3a7f074e2f1ac92a754b5b399193274575b9d",
                 "shasum": ""
             },
             "require": {
@@ -5548,7 +5548,7 @@
             ],
             "description": "Generate vendor patches for packages with single command",
             "support": {
-                "source": "https://github.com/symplify/vendor-patches/tree/11.1.18"
+                "source": "https://github.com/symplify/vendor-patches/tree/11.1.20"
             },
             "funding": [
                 {
@@ -5560,7 +5560,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-12-16T14:02:57+00:00"
+            "time": "2022-12-19T12:26:41+00:00"
         },
         {
             "name": "theseer/tokenizer",
