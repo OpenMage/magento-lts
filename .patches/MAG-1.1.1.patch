@@ -1,24 +1,4 @@
 --- /dev/null
-+++ ../library/Zend/Date.php
-@@ -1827,6 +1827,16 @@
-
-                 require_once 'Zend/Date/Exception.php';
-                 throw new Zend_Date_Exception("invalid date ($date) operand, hour expected", 0, null, $date);
-+                break;
-+
-+            case self::HOUR_SHORT:
-+                if (is_numeric($date)) {
-+                    return $this->_assign($calc, $this->mktime((int)$date, 0, 0, 1, 1, 1970, true),
-+                                                 $this->mktime($hour,         0, 0, 1, 1, 1970, true), false);
-+                }
-+
-+                require_once 'Zend/Date/Exception.php';
-+                throw new Zend_Date_Exception("invalid date ($date) operand, hour expected", 0, null, $date);
-
-             case self::HOUR_AM:
-                 if (is_numeric($date)) {
-
---- /dev/null
 +++ ../library/Zend/Mime.php
 @@ -38,7 +38,7 @@
      const ENCODING_BASE64          = 'base64';

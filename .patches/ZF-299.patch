@@ -17,7 +17,7 @@
       * Generates the standard date object, could be a unix timestamp, localized date,
       * string, integer, array and so on. Also parts of dates or time are supported
       * Always set the default timezone: http://php.net/date_default_timezone_set
-@@ -4796,5 +4806,46 @@
+@@ -4786,5 +4796,46 @@
          }
  
          return $token;
