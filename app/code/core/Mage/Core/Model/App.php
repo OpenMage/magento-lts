@@ -752,7 +752,7 @@ class Mage_Core_Model_App
     /**
      * Set current default store
      *
-     * @param string $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return $this
      */
     public function setCurrentStore($store)
@@ -936,7 +936,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve default store for default group and website
      *
-     * @return Mage_Core_Model_Store
+     * @return Mage_Core_Model_Store|null
      */
     public function getDefaultStoreView()
     {

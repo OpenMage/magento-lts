@@ -2711,17 +2711,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php
 
 		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Tax_Helper_Data\\:\\:isCrossBorderTradeEnabled\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php
-
-		-
 			message: "#^Parameter \\#2 \\$billingAddress of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects Mage_Sales_Model_Quote_Address\\|false\\|null, Mage_Customer_Model_Address\\|null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php
-
-		-
-			message: "#^Parameter \\#4 \\$store of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php
 
@@ -3477,11 +3467,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Catalog_Model_Resource_Category_Flat\\:\\:checkId\\(\\) should return bool but returns string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between Mage_Core_Model_Store and null will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
 
@@ -4706,11 +4691,6 @@ parameters:
 			path: app/code/core/Mage/Core/Controller/Varien/Router/Admin.php
 
 		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Core_Model_App\\:\\:setCurrentStore\\(\\) expects string, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Router/Default.php
-
-		-
 			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
@@ -4781,7 +4761,7 @@ parameters:
 			path: app/code/core/Mage/Core/Model/App.php
 
 		-
-			message: "#^Method Mage_Core_Model_App\\:\\:getDefaultStoreView\\(\\) should return Mage_Core_Model_Store but returns null\\.$#"
+			message: "#^Method Mage_Core_Model_App\\:\\:getAnyStoreView\\(\\) should return Mage_Core_Model_Store but return statement is missing\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/App.php
 
@@ -4841,19 +4821,9 @@ parameters:
 			path: app/code/core/Mage/Core/Model/App.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
 			message: "#^Variable \\$id in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/App.php
-
-		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Core_Model_App\\:\\:setCurrentStore\\(\\) expects string, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/App/Emulation.php
 
 		-
 			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
@@ -5507,11 +5477,6 @@ parameters:
 
 		-
 			message: "#^Call to function is_null\\(\\) with bool will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Translate/Inline.php
-
-		-
-			message: "#^Parameter \\#1 \\$storeId of method Mage_Core_Helper_Data\\:\\:isDevAllowed\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Translate/Inline.php
 
@@ -7901,11 +7866,6 @@ parameters:
 			path: app/code/core/Mage/ProductAlert/Model/Observer.php
 
 		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Core_Model_App\\:\\:setCurrentStore\\(\\) expects string, Mage_Core_Model_Store given\\.$#"
-			count: 4
-			path: app/code/core/Mage/ProductAlert/Model/Observer.php
-
-		-
 			message: "#^Method Mage_ProductAlert_Model_Observer\\:\\:process\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
@@ -9256,11 +9216,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Subtotal.php
 
 		-
-			message: "#^Parameter \\#4 \\$store of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Tax.php
-
-		-
 			message: "#^Return type \\(\\$this\\(Mage_Sales_Model_Quote_Address_Total_Tax\\)\\) of method Mage_Sales_Model_Quote_Address_Total_Tax\\:\\:fetch\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Quote_Address_Total_Abstract\\:\\:fetch\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Tax.php
@@ -9292,11 +9247,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Sales_Model_Quote_Item_Abstract\\:\\:getParentItem\\(\\) should return \\$this\\(Mage_Sales_Model_Quote_Item_Abstract\\) but returns Mage_Sales_Model_Quote_Item_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item/Abstract.php
-
-		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Tax_Helper_Data\\:\\:discountTax\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Item/Abstract.php
 
@@ -9641,11 +9591,6 @@ parameters:
 			path: app/code/core/Mage/SalesRule/Model/Validator.php
 
 		-
-			message: "#^Parameter \\#4 \\$store of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
 			message: "#^Parameter \\#4 \\$value of method Mage_Weee_Helper_Data\\:\\:setWeeeTaxesAppliedProperty\\(\\) expects string, \\(float\\|int\\) given\\.$#"
 			count: 2
 			path: app/code/core/Mage/SalesRule/Model/Validator.php
@@ -9891,11 +9836,6 @@ parameters:
 			path: app/code/core/Mage/Tax/Helper/Data.php
 
 		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Tax_Helper_Data\\:\\:isCrossBorderTradeEnabled\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Helper/Data.php
-
-		-
 			message: "#^Parameter \\#2 \\$billingAddress of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects Mage_Sales_Model_Quote_Address\\|false\\|null, Mage_Customer_Model_Address\\|null given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Tax/Helper/Data.php
@@ -9906,27 +9846,7 @@ parameters:
 			path: app/code/core/Mage/Tax/Helper/Data.php
 
 		-
-			message: "#^Parameter \\#4 \\$store of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Tax/Helper/Data.php
-
-		-
 			message: "#^Parameter \\#1 \\$request of method Mage_Tax_Model_Resource_Calculation\\:\\:getCalculationProcess\\(\\) expects Varien_Object, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Calculation.php
-
-		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Tax_Helper_Data\\:\\:isCrossBorderTradeEnabled\\(\\) expects int\\|null, Mage_Core_Model_Store\\|null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Calculation.php
-
-		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Tax_Model_Calculation\\:\\:getRateOriginRequest\\(\\) expects Mage_Core_Model_Store\\|null, int\\|null given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Tax/Model/Calculation.php
-
-		-
-			message: "#^Parameter \\#4 \\$store of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects int\\|null, Mage_Core_Model_Store\\|null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tax/Model/Calculation.php
 
@@ -10006,23 +9926,8 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Shipping.php
 
 		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Tax_Helper_Data\\:\\:isCrossBorderTradeEnabled\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Shipping.php
-
-		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Tax_Model_Config\\:\\:discountTax\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Shipping.php
-
-		-
 			message: "#^Parameter \\#2 \\$rate of method Mage_Tax_Model_Sales_Total_Quote_Shipping\\:\\:_round\\(\\) expects string, float given\\.$#"
 			count: 4
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Shipping.php
-
-		-
-			message: "#^Parameter \\#4 \\$store of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
-			count: 2
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Shipping.php
 
 		-
@@ -10031,23 +9936,8 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Subtotal.php
 
 		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Tax_Helper_Data\\:\\:isCrossBorderTradeEnabled\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Subtotal.php
-
-		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Tax_Model_Config\\:\\:discountTax\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
-			count: 4
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Subtotal.php
-
-		-
 			message: "#^Parameter \\#2 \\$rate of method Mage_Tax_Model_Sales_Total_Quote_Subtotal\\:\\:_deltaRound\\(\\) expects string, float given\\.$#"
 			count: 4
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Subtotal.php
-
-		-
-			message: "#^Parameter \\#4 \\$store of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
-			count: 1
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Subtotal.php
 
 		-
@@ -10057,16 +9947,6 @@ parameters:
 
 		-
 			message: "#^Empty array passed to foreach\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
-
-		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Tax_Helper_Data\\:\\:isCrossBorderTradeEnabled\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
-
-		-
-			message: "#^Parameter \\#4 \\$store of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
 
@@ -10586,22 +10466,12 @@ parameters:
 			path: app/code/core/Mage/Weee/Model/Tax.php
 
 		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Tax_Helper_Data\\:\\:isCrossBorderTradeEnabled\\(\\) expects int\\|null, Mage_Core_Model_Store\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Weee/Model/Tax.php
-
-		-
 			message: "#^Parameter \\#2 \\$shipping of method Mage_Weee_Model_Tax\\:\\:getProductWeeeAttributes\\(\\) expects Mage_Sales_Model_Quote_Address\\|null, Mage_Customer_Model_Address_Abstract\\|null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Weee/Model/Tax.php
 
 		-
 			message: "#^Parameter \\#3 \\$billing of method Mage_Weee_Model_Tax\\:\\:getProductWeeeAttributes\\(\\) expects Mage_Sales_Model_Quote_Address\\|null, Mage_Customer_Model_Address_Abstract\\|null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Weee/Model/Tax.php
-
-		-
-			message: "#^Parameter \\#4 \\$store of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects int\\|null, Mage_Core_Model_Store\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Weee/Model/Tax.php
 
@@ -10628,11 +10498,6 @@ parameters:
 		-
 			message: "#^PHPDoc type Mage_Weee_Helper_Data of property Mage_Weee_Model_Total_Quote_Weee\\:\\:\\$_helper is not covariant with PHPDoc type Mage_Tax_Helper_Data of overridden property Mage_Tax_Model_Sales_Total_Quote_Tax\\:\\:\\$_helper\\.$#"
 			count: 1
-			path: app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
-
-		-
-			message: "#^Parameter \\#4 \\$store of method Mage_Tax_Model_Calculation\\:\\:getRateRequest\\(\\) expects int\\|null, Mage_Core_Model_Store given\\.$#"
-			count: 2
 			path: app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
 
 		-
