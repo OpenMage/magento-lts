@@ -556,7 +556,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Sales/Coupons/Grid.php
 
 		-
-			message: "#^Parameter \\#2 \\$filter of method Mage_Reports_Model_Resource_Quote_Collection\\:\\:prepareForAbandonedReport\\(\\) expects string\\|null, array\\<int\\|string, array\\<int, string\\>\\|string\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$filter of method Mage_Reports_Model_Resource_Quote_Collection\\:\\:prepareForAbandonedReport\\(\\) expects string\\|null, array\\<int\\|string, array\\|string\\> given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Abandoned/Grid.php
 
@@ -1151,12 +1151,17 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Config/Data.php
 
 		-
+			message: "#^Method Mage_Adminhtml_Model_Config_Data\\:\\:getConfigRoot\\(\\) should return Mage_Core_Model_Config_Element but returns Varien_Simplexml_Element\\|false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/Model/Config/Data.php
+
+		-
 			message: "#^Parameter \\#1 \\$field of method Mage_Adminhtml_Model_Config_Data\\:\\:_isValidField\\(\\) expects Mage_Core_Model_Config_Element, Varien_Simplexml_Element\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Config/Data.php
 
 		-
-			message: "#^Property Mage_Adminhtml_Model_Config_Data\\:\\:\\$_configRoot \\(Mage_Core_Model_Config_Element\\) does not accept Varien_Simplexml_Element\\|false\\.$#"
+			message: "#^Property Mage_Adminhtml_Model_Config_Data\\:\\:\\$_configRoot \\(Mage_Core_Model_Config_Element\\|null\\) does not accept Varien_Simplexml_Element\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Config/Data.php
 
@@ -1169,6 +1174,26 @@ parameters:
 			message: "#^Parameter \\#1 \\$object of method Mage_Eav_Model_Entity_Abstract\\:\\:load\\(\\) expects Mage_Core_Model_Abstract, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Giftmessage/Save.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Product_Compare_List will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Customer_Model_Form will always evaluate to false\\.$#"
+			count: 2
+			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Quote will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Wishlist_Model_Wishlist will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Model_Sales_Order_Create\\:\\:initFromOrderItem\\(\\) should return Mage_Sales_Model_Quote_Item\\|string but returns \\$this\\(Mage_Adminhtml_Model_Sales_Order_Create\\)\\.$#"
@@ -1214,11 +1239,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Sales_Model_Quote\\:\\:addCatalogProduct\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Random.php
-
-		-
-			message: "#^Cannot access offset 'file' on bool\\|void\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/System/Config/Backend/File.php
 
 		-
 			message: "#^Comparison operation \"\\=\\=\" between \\(Varien_Simplexml_Element\\|null\\) and 1 results in an error\\.$#"
@@ -1274,21 +1294,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$pattern of class Zend_Validate_Regex constructor expects string\\|Zend_Config, array\\<string, string\\> given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Catalog/Product/AttributeController.php
-
-		-
-			message: "#^Cannot access offset 'tmp_name' on bool\\|void\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/controllers/Catalog/Product/GalleryController.php
-
-		-
-			message: "#^Offset 'file' does not exist on array\\{path\\: \\(array\\<int, string\\>\\|string\\), url\\: string\\}\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Catalog/Product/GalleryController.php
-
-		-
-			message: "#^Offset 'file' does not exist on array\\{path\\: \\(array\\<int, string\\>\\|string\\)\\}\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Catalog/Product/GalleryController.php
 
 		-
 			message: "#^Parameter \\#1 \\$ids of method Mage_Adminhtml_Controller_Action\\:\\:loadLayout\\(\\) expects bool\\|string\\|null, array\\<int, string\\> given\\.$#"
@@ -1956,6 +1961,11 @@ parameters:
 			path: app/code/core/Mage/Backup/Helper/Data.php
 
 		-
+			message: "#^Call to function is_null\\(\\) with resource will always evaluate to false\\.$#"
+			count: 3
+			path: app/code/core/Mage/Backup/Model/Backup.php
+
+		-
 			message: "#^Property Mage_Backup_Model_Backup\\:\\:\\$_handler \\(resource\\) does not accept null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Backup/Model/Backup.php
@@ -2476,6 +2486,11 @@ parameters:
 			path: app/code/core/Mage/Catalog/Helper/Product/Flat.php
 
 		-
+			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Product_Flat_Flag will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Helper/Product/Flat.php
+
+		-
 			message: "#^Property Mage_Catalog_Helper_Product_Flat\\:\\:\\$_forceFlatStatusOld \\(bool\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Helper/Product/Flat.php
@@ -2601,11 +2616,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Category/Attribute/Api.php
 
 		-
-			message: "#^Cannot access offset 'file' on bool\\|void\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Category/Attribute/Backend/Image.php
-
-		-
 			message: "#^Property Mage_Catalog_Model_Category_Url\\:\\:\\$_url \\(Mage_Core_Model_Url\\) does not accept bool\\|Mage_Core_Model_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Category/Url.php
@@ -2668,11 +2678,6 @@ parameters:
 		-
 			message: "#^Method Mage_Catalog_Model_Design\\:\\:applyCustomDesign\\(\\) should return false\\|null but return statement is missing\\.$#"
 			count: 1
-			path: app/code/core/Mage/Catalog/Model/Design.php
-
-		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Core_Model_Locale\\:\\:isStoreDateInInterval\\(\\) expects int\\|Mage_Core_Model_Store\\|string, null given\\.$#"
-			count: 2
 			path: app/code/core/Mage/Catalog/Model/Design.php
 
 		-
@@ -3606,16 +3611,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Url.php
 
 		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Core_Model_Locale\\:\\:isStoreDateInInterval\\(\\) expects int\\|Mage_Core_Model_Store\\|string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/controllers/CategoryController.php
-
-		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Core_Model_Locale\\:\\:isStoreDateInInterval\\(\\) expects int\\|Mage_Core_Model_Store\\|string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/controllers/ProductController.php
-
-		-
 			message: "#^Call to an undefined method Mage_CatalogIndex_Model_Resource_Attribute\\:\\:checkCount\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Attribute.php
@@ -3659,6 +3654,11 @@ parameters:
 			message: "#^Return type \\(string\\) of method Mage_CatalogIndex_Model_Indexer_Eav\\:\\:_getIndexableAttributeConditions\\(\\) should be compatible with return type \\(array\\) of method Mage_CatalogIndex_Model_Indexer_Abstract\\:\\:_getIndexableAttributeConditions\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Indexer/Eav.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/CatalogIndex/Model/Indexer/Minimalprice.php
 
 		-
 			message: "#^Return type \\(string\\) of method Mage_CatalogIndex_Model_Indexer_Price\\:\\:_getIndexableAttributeConditions\\(\\) should be compatible with return type \\(array\\) of method Mage_CatalogIndex_Model_Indexer_Abstract\\:\\:_getIndexableAttributeConditions\\(\\)$#"
@@ -3834,6 +3834,11 @@ parameters:
 			message: "#^Return type \\(int\\) of method Mage_CatalogRule_Model_Action_Index_Refresh_Row\\:\\:_getProduct\\(\\) should be compatible with return type \\(null\\) of method Mage_CatalogRule_Model_Action_Index_Refresh\\:\\:_getProduct\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/CatalogRule/Model/Action/Index/Refresh/Row.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/CatalogRule/Model/Observer.php
 
 		-
 			message: "#^Parameter \\#1 \\$combine of method Mage_CatalogRule_Model_Observer\\:\\:_removeAttributeFromConditions\\(\\) expects Mage_CatalogRule_Model_Rule_Condition_Combine, Mage_Rule_Model_Condition_Combine given\\.$#"
@@ -4076,27 +4081,12 @@ parameters:
 			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
 
 		-
-			message: "#^Parameter \\#1 \\$route of static method Mage\\:\\:getUrl\\(\\) expects string, null given\\.$#"
+			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Order will always evaluate to false\\.$#"
 			count: 1
-			path: app/code/core/Mage/Cms/Helper/Page.php
-
-		-
-			message: "#^Parameter \\#1 \\$store of method Mage_Core_Model_Locale\\:\\:isStoreDateInInterval\\(\\) expects int\\|Mage_Core_Model_Store\\|string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Cms/Helper/Page.php
-
-		-
-			message: "#^Cannot access offset 'cookie' on void\\|true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php
+			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
 
 		-
 			message: "#^Method Mage_Cms_Model_Wysiwyg_Images_Storage\\:\\:getConfig\\(\\) should return Mage_Core_Model_Config_Element but returns Varien_Simplexml_Element\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php
-
-		-
-			message: "#^Property Mage_Cms_Model_Wysiwyg_Images_Storage\\:\\:\\$_config \\(Mage_Core_Model_Config_Element\\) does not accept Varien_Simplexml_Element\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php
 
@@ -4114,6 +4104,21 @@ parameters:
 			message: "#^Variable \\$mediaGalleryImages in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productimg.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Product_Type_Configurable_Attribute will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productlist.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productlist.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productlist.php
 
 		-
 			message: "#^Method Mage_ConfigurableSwatches_Helper_Productlist\\:\\:getSwatchAttribute\\(\\) should return Mage_Eav_Model_Attribute but returns Mage_Catalog_Model_Product_Type_Configurable_Attribute\\.$#"
@@ -4139,6 +4144,21 @@ parameters:
 			message: "#^Parameter \\#1 \\$array of function array_unshift expects array, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/ConfigurableSwatches/Model/System/Config/Source/Catalog/Product/Configattribute/Select.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Core_Block_Messages will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Core/Block/Abstract.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_App will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Core/Block/Abstract.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Factory will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Core/Block/Abstract.php
 
 		-
 			message: "#^Method Mage_Core_Block_Abstract\\:\\:_getUrlModel\\(\\) should return Mage_Core_Model_Url but returns Mage_Core_Model_Abstract\\|false\\.$#"
@@ -5226,6 +5246,21 @@ parameters:
 			path: app/code/core/Mage/Customer/controllers/AccountController.php
 
 		-
+			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch_Export will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Dataflow/Model/Batch.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch_Import will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Dataflow/Model/Batch.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch_Io will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Dataflow/Model/Batch.php
+
+		-
 			message: "#^Method Mage_Dataflow_Model_Batch\\:\\:setParams\\(\\) should return Mage_Dataflow_Model_Batch_Abstract but returns \\$this\\(Mage_Dataflow_Model_Batch\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Batch.php
@@ -5249,6 +5284,16 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Abstract\\:\\:getIdCollection\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Batch/Abstract.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Varien_Io_File will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Dataflow/Model/Batch/Io.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
+			count: 2
+			path: app/code/core/Mage/Dataflow/Model/Batch/Io.php
 
 		-
 			message: "#^Call to an undefined method Mage_Dataflow_Model_Convert_Action\\:\\:getData\\(\\)\\.$#"
@@ -5286,6 +5331,21 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Convert/Container/Collection.php
 
 		-
+			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Dataflow/Model/Convert/Mapper/Column.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch_Export will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Dataflow/Model/Convert/Mapper/Column.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch_Import will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Dataflow/Model/Convert/Mapper/Column.php
+
+		-
 			message: "#^Method Mage_Dataflow_Model_Convert_Mapper_Column\\:\\:getBatchImportModel\\(\\) has invalid return type Mage_Dataflow_Model_Import_Export\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Mapper/Column.php
@@ -5299,6 +5359,21 @@ parameters:
 			message: "#^Property Mage_Dataflow_Model_Convert_Mapper_Column\\:\\:\\$_batchImport \\(Mage_Dataflow_Model_Batch_Import\\) does not accept string\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Mapper/Column.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Abstract.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch_Export will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Abstract.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Dataflow_Model_Batch_Import will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Abstract.php
 
 		-
 			message: "#^Property Mage_Dataflow_Model_Convert_Parser_Abstract\\:\\:\\$_batchExport \\(Mage_Dataflow_Model_Batch_Export\\) does not accept string\\|false\\.$#"
@@ -5324,6 +5399,16 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with SimpleXMLElement will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
+			count: 2
+			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php
 
 		-
 			message: "#^Method Mage_Dataflow_Model_Convert_Profile_Abstract\\:\\:run\\(\\) should return Mage_Dataflow_Model_Convert_Profile_Abstract but empty return statement found\\.$#"
@@ -5386,9 +5471,19 @@ parameters:
 			path: app/code/core/Mage/Directory/Model/Resource/Region.php
 
 		-
+			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Resource_Eav_Attribute will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Downloadable/Block/Adminhtml/Catalog/Product/Edit/Tab/Downloadable/Links.php
+
+		-
 			message: "#^Property Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links\\:\\:\\$_purchasedSeparatelyAttribute \\(Mage_Catalog_Model_Resource_Eav_Attribute\\) does not accept Mage_Eav_Model_Entity_Attribute\\.$#"
 			count: 1
 			path: app/code/core/Mage/Downloadable/Block/Adminhtml/Catalog/Product/Edit/Tab/Downloadable/Links.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with resource will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Downloadable/Helper/Download.php
 
 		-
 			message: "#^Cannot call method streamRead\\(\\) on resource\\.$#"
@@ -5411,16 +5506,6 @@ parameters:
 			path: app/code/core/Mage/Downloadable/Helper/Download.php
 
 		-
-			message: "#^Cannot access offset 'file' on bool\\|void\\.$#"
-			count: 1
-			path: app/code/core/Mage/Downloadable/Model/Link/Api.php
-
-		-
-			message: "#^Offset 'file' does not exist on array\\{status\\: 'new'\\}\\.$#"
-			count: 2
-			path: app/code/core/Mage/Downloadable/Model/Link/Api.php
-
-		-
 			message: "#^Parameter \\#2 \\$code of class Exception constructor expects int, string given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Downloadable/Model/Link/Api/Uploader.php
@@ -5439,16 +5524,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$item of method Mage_Sales_Model_Order_Pdf_Items_Abstract\\:\\:getSku\\(\\) expects Mage_Sales_Model_Order_Creditmemo_Item\\|Mage_Sales_Model_Order_Invoice_Item, Varien_Object given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Downloadable/Model/Sales/Order/Pdf/Items/Invoice.php
-
-		-
-			message: "#^Cannot access offset 'tmp_name' on bool\\|void\\.$#"
-			count: 2
-			path: app/code/core/Mage/Downloadable/controllers/Adminhtml/Downloadable/FileController.php
-
-		-
-			message: "#^Offset 'file' on array\\{path\\: \\(array\\<int, string\\>\\|string\\)\\} in isset\\(\\) does not exist\\.$#"
-			count: 1
-			path: app/code/core/Mage/Downloadable/controllers/Adminhtml/Downloadable/FileController.php
 
 		-
 			message: "#^Parameter \\#2 \\$loginUrl of method Mage_Customer_Model_Session\\:\\:authenticate\\(\\) expects bool\\|null, string given\\.$#"
@@ -5494,6 +5569,16 @@ parameters:
 			message: "#^Call to an undefined method Mage_Eav_Model_Resource_Entity_Attribute\\:\\:getUsedInForms\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Attribute.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Core_Model_Website will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Attribute.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Attribute/Data/Abstract.php
 
 		-
 			message: "#^Method Mage_Eav_Model_Attribute_Data_Abstract\\:\\:setRequestScope\\(\\) should return string but returns \\$this\\(Mage_Eav_Model_Attribute_Data_Abstract\\)\\.$#"
@@ -5856,6 +5941,11 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Type.php
 
 		-
+			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
+			count: 3
+			path: app/code/core/Mage/Eav/Model/Form.php
+
+		-
 			message: "#^Parameter \\#1 \\$attribute of static method Mage_Eav_Model_Attribute_Data\\:\\:factory\\(\\) expects Mage_Eav_Model_Attribute, Mage_Eav_Model_Entity_Attribute given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Form.php
@@ -6081,16 +6171,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Import.php
 
 		-
-			message: "#^Cannot access offset 'file' on bool\\|void\\.$#"
-			count: 2
-			path: app/code/core/Mage/ImportExport/Model/Import.php
-
-		-
-			message: "#^Cannot access offset 'path' on bool\\|void\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import.php
-
-		-
 			message: "#^Instanceof between Mage_Core_Model_Abstract\\|false and Mage_ImportExport_Model_Import_Entity_Abstract will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Import.php
@@ -6236,9 +6316,9 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
 
 		-
-			message: "#^Cannot access offset 'name' on bool\\|void\\.$#"
-			count: 2
-			path: app/code/core/Mage/ImportExport/Model/Import/Uploader.php
+			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product/Type/Grouped.php
 
 		-
 			message: "#^Property Mage_ImportExport_Model_Resource_Import_Data\\:\\:\\$_iterator \\(IteratorIterator\\) does not accept null\\.$#"
@@ -8161,7 +8241,7 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote.php
 
 		-
-			message: "#^Property Mage_Sales_Model_Quote\\:\\:\\$_addresses \\(Mage_Sales_Model_Resource_Order_Address_Collection\\) does not accept Mage_Sales_Model_Resource_Quote_Address_Collection\\.$#"
+			message: "#^Property Mage_Sales_Model_Quote\\:\\:\\$_addresses \\(Mage_Sales_Model_Resource_Order_Address_Collection\\|null\\) does not accept Mage_Sales_Model_Resource_Quote_Address_Collection\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote.php
 
@@ -8176,7 +8256,7 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote.php
 
 		-
-			message: "#^Method Mage_Sales_Model_Quote_Address\\:\\:getItemsCollection\\(\\) should return Mage_Eav_Model_Entity_Collection_Abstract but returns iterable\\<Mage_Sales_Model_Quote_Address_Item\\>&Mage_Sales_Model_Resource_Quote_Address_Item_Collection\\.$#"
+			message: "#^Method Mage_Sales_Model_Quote_Address\\:\\:getItemsCollection\\(\\) should return Mage_Eav_Model_Entity_Collection_Abstract but returns Mage_Sales_Model_Resource_Quote_Address_Item_Collection\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Address.php
 
@@ -8701,11 +8781,6 @@ parameters:
 			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 2
-			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
-
-		-
 			message: "#^Return type \\(void\\) of method Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection\\:\\:_initSelect\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Model_Resource_Db_Collection_Abstract\\)\\) of method Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:_initSelect\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate/Collection.php
@@ -8761,7 +8836,7 @@ parameters:
 			path: app/code/core/Mage/Tag/Block/Product/List.php
 
 		-
-			message: "#^Property Mage_Tag_Block_Product_Result\\:\\:\\$_productCollection \\(Mage_Tag_Model_Resource_Tag_Collection\\) does not accept Mage_Tag_Model_Resource_Product_Collection\\.$#"
+			message: "#^Property Mage_Tag_Block_Product_Result\\:\\:\\$_productCollection \\(Mage_Tag_Model_Resource_Tag_Collection\\|null\\) does not accept Mage_Tag_Model_Resource_Product_Collection\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tag/Block/Product/Result.php
 
@@ -8906,7 +8981,7 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Calculation.php
 
 		-
-			message: "#^Property Mage_Tax_Model_Calculation_Rate\\:\\:\\$_titles \\(array\\) does not accept Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection\\.$#"
+			message: "#^Property Mage_Tax_Model_Calculation_Rate\\:\\:\\$_titles \\(array\\|null\\) does not accept Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tax/Model/Calculation/Rate.php
 
