@@ -786,11 +786,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Header.php
 
 		-
-			message: "#^Argument of an invalid type float supplied for foreach, only iterables are supported\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php
-
-		-
 			message: "#^Parameter \\#1 \\$optionId of method Mage_Catalog_Model_Product\\:\\:getOptionById\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php
@@ -1231,11 +1226,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Controller/Sales/Shipment.php
 
 		-
-			message: "#^Call to function is_array\\(\\) with string\\|null will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Helper/Catalog/Product/Edit/Action/Attribute.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Resource_Product_Collection will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Helper/Catalog/Product/Edit/Action/Attribute.php
@@ -1424,31 +1414,6 @@ parameters:
 			message: "#^Method Mage_Adminhtml_Model_System_Store\\:\\:__construct\\(\\) with return type void returns \\$this\\(Mage_Adminhtml_Model_System_Store\\) but should not return anything\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/System/Store.php
-
-		-
-			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php
-
-		-
-			message: "#^Call to function is_array\\(\\) with string\\|null will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php
-
-		-
-			message: "#^Parameter \\#1 \\$productIds of method Mage_Catalog_Model_Product_Action\\:\\:updateAttributes\\(\\) expects array, string\\|null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php
-
-		-
-			message: "#^Parameter \\#1 \\$productIds of method Mage_Catalog_Model_Product_Action\\:\\:updateWebsites\\(\\) expects array, string\\|null given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, string\\|null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php
 
 		-
 			message: "#^Return type \\(Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute\\) of method Mage_Adminhtml_Catalog_Product_Action_AttributeController\\:\\:_getHelper\\(\\) should be compatible with return type \\(Mage_Adminhtml_Helper_Data\\) of method Mage_Adminhtml_Controller_Action\\:\\:_getHelper\\(\\)$#"
@@ -2751,11 +2716,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Helper/Product/Flat.php
 
 		-
-			message: "#^Argument of an invalid type float supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Helper/Product/Type/Composite.php
-
-		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, float given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Helper/Product/Type/Composite.php
@@ -2779,11 +2739,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Catalog_Model_Api_Resource\\:\\:_checkAttributeAcl\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Api/Resource.php
-
-		-
-			message: "#^Argument of an invalid type float supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php
 
 		-
 			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Product will always evaluate to false\\.$#"
@@ -3036,11 +2991,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Category.php
 
 		-
-			message: "#^Argument of an invalid type int supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Resource_Layer_Filter_Decimal will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
@@ -3052,11 +3002,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$string of function strlen expects string, float given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
 
@@ -3086,27 +3031,12 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
 
 		-
-			message: "#^Argument of an invalid type int\\<min, \\-1\\>\\|int\\<1, max\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Price.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with Mage_Catalog_Model_Resource_Layer_Filter_Price will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Price.php
 
 		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, int\\<min, \\-1\\>\\|int\\<1, max\\> given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Price.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function strlen expects string, float given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Price.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Price.php
 
@@ -3451,22 +3381,12 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Grouped/Price.php
 
 		-
-			message: "#^Call to function is_array\\(\\) with float will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Price.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with float will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Price.php
 
 		-
 			message: "#^Parameter \\#1 \\$optionId of method Mage_Catalog_Model_Product\\:\\:getOptionById\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Price.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, float given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Price.php
 
@@ -6154,21 +6074,6 @@ parameters:
 			message: "#^Property Mage_Dataflow_Model_Convert_Parser_Abstract\\:\\:\\$_batchImport \\(Mage_Dataflow_Model_Batch_Import\\) does not accept string\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Abstract.php
-
-		-
-			message: "#^Argument of an invalid type string\\|false supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php
 
 		-
 			message: "#^Call to function is_null\\(\\) with SimpleXMLElement will always evaluate to false\\.$#"
@@ -9958,16 +9863,6 @@ parameters:
 		-
 			message: "#^Call to function is_null\\(\\) with array will always evaluate to false\\.$#"
 			count: 3
-			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
-
-		-
-			message: "#^Parameter \\#1 \\$row of method Mage_Shipping_Model_Resource_Carrier_Tablerate\\:\\:_getImportRow\\(\\) expects array, string\\|true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, string\\|true given\\.$#"
-			count: 1
 			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
 
 		-

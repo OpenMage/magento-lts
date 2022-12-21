@@ -1431,6 +1431,10 @@ class Mage_Core_Model_App
         return $this->_updateMode;
     }
 
+    /**
+     * @param string $text
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function throwStoreException($text = '')
     {
         throw new Mage_Core_Model_Store_Exception($text);
