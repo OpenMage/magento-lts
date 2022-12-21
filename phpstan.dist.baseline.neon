@@ -141,11 +141,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Grid.php
 
 		-
-			message: "#^Return type \\(void\\) of method Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid\\:\\:_prepareColumns\\(\\) should be compatible with return type \\(\\$this\\(Mage_Adminhtml_Block_Widget_Grid\\)\\) of method Mage_Adminhtml_Block_Widget_Grid\\:\\:_prepareColumns\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Set/Grid.php
-
-		-
 			message: "#^Parameter \\#1 \\$attributeId of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getAttributeById\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Created.php
@@ -173,11 +168,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 4
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Attributes.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes\\:\\:_prepareForm\\(\\) should be compatible with return type \\(\\$this\\(Mage_Adminhtml_Block_Widget_Form\\)\\) of method Mage_Adminhtml_Block_Widget_Form\\:\\:_prepareForm\\(\\)$#"
-			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Attributes.php
 
 		-
@@ -511,11 +501,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid.php
 
 		-
-			message: "#^Return type \\(void\\) of method Mage_Adminhtml_Block_Report_Grid\\:\\:_prepareCollection\\(\\) should be compatible with return type \\(\\$this\\(Mage_Adminhtml_Block_Widget_Grid\\)\\) of method Mage_Adminhtml_Block_Widget_Grid\\:\\:_prepareCollection\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid.php
-
-		-
 			message: "#^Call to an undefined method Mage_Reports_Model_Resource_Report_Collection_Abstract\\:\\:addOrderStatusFilter\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
@@ -576,11 +561,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php
 
 		-
-			message: "#^Return type \\(void\\) of method Mage_Adminhtml_Block_Report_Product_Grid\\:\\:_afterLoadCollection\\(\\) should be compatible with return type \\(\\$this\\(Mage_Adminhtml_Block_Widget_Grid\\)\\) of method Mage_Adminhtml_Block_Widget_Grid\\:\\:_afterLoadCollection\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php
-
-		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Product_Lowstock_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Product/Lowstock/Grid.php
@@ -622,11 +602,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Customer_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Customer/Grid.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid\\:\\:_afterLoadCollection\\(\\) should be compatible with return type \\(\\$this\\(Mage_Adminhtml_Block_Widget_Grid\\)\\) of method Mage_Adminhtml_Block_Widget_Grid\\:\\:_afterLoadCollection\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Customer/Grid.php
 
@@ -684,11 +659,6 @@ parameters:
 			message: "#^Return type \\(int\\) of method Mage_Adminhtml_Block_Review_Grid_Filter_Type\\:\\:getCondition\\(\\) should be compatible with return type \\(array\\|null\\) of method Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select\\:\\:getCondition\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Review/Grid/Filter/Type.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Adminhtml_Block_Review_Product_Grid\\:\\:_prepareColumns\\(\\) should be compatible with return type \\(\\$this\\(Mage_Adminhtml_Block_Widget_Grid\\)\\) of method Mage_Adminhtml_Block_Catalog_Product_Grid\\:\\:_prepareColumns\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Review/Product/Grid.php
 
 		-
 			message: "#^Parameter \\#1 \\$storeId of method Mage_Rating_Model_Resource_Rating_Collection\\:\\:setStoreFilter\\(\\) expects int, array given\\.$#"
@@ -1811,11 +1781,6 @@ parameters:
 			path: app/code/core/Mage/Api2/Block/Adminhtml/Attribute/Grid.php
 
 		-
-			message: "#^Return type \\(void\\) of method Mage_Api2_Block_Adminhtml_Attribute_Grid\\:\\:_prepareCollection\\(\\) should be compatible with return type \\(\\$this\\(Mage_Adminhtml_Block_Widget_Grid\\)\\) of method Mage_Adminhtml_Block_Widget_Grid\\:\\:_prepareCollection\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Block/Adminhtml/Attribute/Grid.php
-
-		-
 			message: "#^Property Mage_Api2_Block_Adminhtml_Attribute_Tab_Resource\\:\\:\\$_treeModel \\(Mage_Api2_Model_Acl_Global_Rule_Tree\\) does not accept default value of type false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api2/Block/Adminhtml/Attribute/Tab/Resource.php
@@ -2169,11 +2134,6 @@ parameters:
 			message: "#^Method Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection\\:\\:isUsedWebsitePrice\\(\\) should return string but returns bool\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Edit/Tab/Bundle/Option/Selection.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tabs\\:\\:_prepareLayout\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Block_Abstract\\)\\) of method Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs\\:\\:_prepareLayout\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Edit/Tabs.php
 
 		-
 			message: "#^Parameter \\#4 \\$cond of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:joinTable\\(\\) expects array\\|null, string given\\.$#"
@@ -4201,7 +4161,7 @@ parameters:
 			path: app/code/core/Mage/CatalogInventory/Model/Resource/Stock/Item.php
 
 		-
-			message: "#^Return type \\(Varien_Db_Select\\) of method Mage_CatalogInventory_Model_Resource_Stock_Item_Collection\\:\\:_initSelect\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Model_Resource_Db_Collection_Abstract\\)\\) of method Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:_initSelect\\(\\)$#"
+			message: "#^Method Mage_CatalogInventory_Model_Resource_Stock_Item_Collection\\:\\:_initSelect\\(\\) should return \\$this\\(Mage_CatalogInventory_Model_Resource_Stock_Item_Collection\\) but returns Varien_Db_Select\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogInventory/Model/Resource/Stock/Item/Collection.php
 
@@ -4654,11 +4614,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Block/Template.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Core_Block_Template_Zend\\:\\:setScriptPath\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Block_Template\\)\\) of method Mage_Core_Block_Template\\:\\:setScriptPath\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Template/Zend.php
 
 		-
 			message: "#^Parameter \\#1 \\$name of method Mage_Core_Block_Abstract\\:\\:setAttribute\\(\\) expects string, array\\<string, string\\> given\\.$#"
@@ -6221,11 +6176,6 @@ parameters:
 			path: app/code/core/Mage/Downloadable/controllers/DownloadController.php
 
 		-
-			message: "#^Return type \\(void\\) of method Mage_Downloadable_FileController\\:\\:preDispatch\\(\\) should be compatible with return type \\(\\$this\\(Mage_Adminhtml_Controller_Action\\)\\) of method Mage_Adminhtml_Controller_Action\\:\\:preDispatch\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Downloadable/controllers/FileController.php
-
-		-
 			message: "#^Return type \\(void\\) of method Mage_Downloadable_Product_EditController\\:\\:preDispatch\\(\\) should be compatible with return type \\(Mage_Adminhtml_Controller_Action\\) of method Mage_Adminhtml_Catalog_ProductController\\:\\:preDispatch\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Downloadable/controllers/Product/EditController.php
@@ -7326,11 +7276,6 @@ parameters:
 			path: app/code/core/Mage/Oauth/Model/Resource/Token/Collection.php
 
 		-
-			message: "#^Return type \\(void\\) of method Mage_Oauth_Adminhtml_Oauth_AuthorizeController\\:\\:preDispatch\\(\\) should be compatible with return type \\(\\$this\\(Mage_Adminhtml_Controller_Action\\)\\) of method Mage_Adminhtml_Controller_Action\\:\\:preDispatch\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Oauth/controllers/Adminhtml/Oauth/AuthorizeController.php
-
-		-
 			message: "#^Parameter \\#1 \\$data of method Mage_Oauth_Adminhtml_Oauth_ConsumerController\\:\\:_setFormData\\(\\) expects array, null given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Oauth/controllers/Adminhtml/Oauth/ConsumerController.php
@@ -7359,16 +7304,6 @@ parameters:
 			message: "#^Property Mage_Oauth_Customer_TokenController\\:\\:\\$_sessionName \\(Mage_Customer_Model_Session\\) does not accept default value of type string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Oauth/controllers/Customer/TokenController.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Oauth_InitiateController\\:\\:preDispatch\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Controller_Front_Action\\)\\) of method Mage_Core_Controller_Front_Action\\:\\:preDispatch\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Oauth/controllers/InitiateController.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Oauth_TokenController\\:\\:preDispatch\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Controller_Front_Action\\)\\) of method Mage_Core_Controller_Front_Action\\:\\:preDispatch\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Oauth/controllers/TokenController.php
 
 		-
 			message: "#^Method Mage_PageCache_Helper_Data\\:\\:getCacheControlInstance\\(\\) should return Mage_PageCache_Model_Control_Interface but returns Mage_Core_Model_Abstract\\.$#"
@@ -7681,11 +7616,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Express.php
 
 		-
-			message: "#^Method Mage_Paypal_Model_Express\\:\\:assignData\\(\\) should return Mage_Payment_Model_Info but returns \\$this\\(Mage_Paypal_Model_Express\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Express.php
-
-		-
 			message: "#^Parameter \\#1 \\$amount of method Mage_Paypal_Model_Express\\:\\:_callDoAuthorize\\(\\) expects int, float given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Paypal/Model/Express.php
@@ -7702,11 +7632,6 @@ parameters:
 
 		-
 			message: "#^Property Mage_Paypal_Model_Express\\:\\:\\$_pro \\(Mage_Paypal_Model_Pro\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Express.php
-
-		-
-			message: "#^Return type \\(Mage_Payment_Model_Info\\) of method Mage_Paypal_Model_Express\\:\\:assignData\\(\\) should be compatible with return type \\(\\$this\\(Mage_Payment_Model_Method_Abstract\\)\\) of method Mage_Payment_Model_Method_Abstract\\:\\:assignData\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Express.php
 
@@ -7982,11 +7907,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_ProductAlert_Model_Observer\\:\\:process\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_ProductAlert_AddController\\:\\:preDispatch\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Controller_Front_Action\\)\\) of method Mage_Core_Controller_Front_Action\\:\\:preDispatch\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
 
@@ -8481,74 +8401,14 @@ parameters:
 			path: app/code/core/Mage/Sales/Block/Order/Comments.php
 
 		-
-			message: "#^Return type \\(void\\) of method Mage_Sales_Block_Order_Creditmemo\\:\\:_prepareLayout\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Block_Abstract\\)\\) of method Mage_Core_Block_Abstract\\:\\:_prepareLayout\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Order/Creditmemo.php
-
-		-
 			message: "#^Call to method setOrderFilter\\(\\) on an unknown class Mage_Sales_Model_Resource_Invoice_Collection\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Block/Order/Details.php
 
 		-
-			message: "#^Return type \\(void\\) of method Mage_Sales_Block_Order_Email_Creditmemo_Items\\:\\:_prepareItem\\(\\) should be compatible with return type \\(\\$this\\(Mage_Sales_Block_Items_Abstract\\)\\) of method Mage_Sales_Block_Items_Abstract\\:\\:_prepareItem\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Order/Email/Creditmemo/Items.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Sales_Block_Order_Email_Invoice_Items\\:\\:_prepareItem\\(\\) should be compatible with return type \\(\\$this\\(Mage_Sales_Block_Items_Abstract\\)\\) of method Mage_Sales_Block_Items_Abstract\\:\\:_prepareItem\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Order/Email/Invoice/Items.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Sales_Block_Order_Email_Shipment_Items\\:\\:_prepareItem\\(\\) should be compatible with return type \\(\\$this\\(Mage_Sales_Block_Items_Abstract\\)\\) of method Mage_Sales_Block_Items_Abstract\\:\\:_prepareItem\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Order/Email/Shipment/Items.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Sales_Block_Order_Info\\:\\:_prepareLayout\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Block_Abstract\\)\\) of method Mage_Core_Block_Abstract\\:\\:_prepareLayout\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Order/Info.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Sales_Block_Order_Invoice\\:\\:_prepareLayout\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Block_Abstract\\)\\) of method Mage_Core_Block_Abstract\\:\\:_prepareLayout\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Order/Invoice.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Sales_Block_Order_Print\\:\\:_prepareLayout\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Block_Abstract\\)\\) of method Mage_Core_Block_Abstract\\:\\:_prepareLayout\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Order/Print.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Sales_Block_Order_Print_Creditmemo\\:\\:_prepareLayout\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Block_Abstract\\)\\) of method Mage_Core_Block_Abstract\\:\\:_prepareLayout\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Order/Print/Creditmemo.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Sales_Block_Order_Print_Invoice\\:\\:_prepareLayout\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Block_Abstract\\)\\) of method Mage_Core_Block_Abstract\\:\\:_prepareLayout\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Order/Print/Invoice.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Sales_Block_Order_Print_Shipment\\:\\:_prepareLayout\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Block_Abstract\\)\\) of method Mage_Core_Block_Abstract\\:\\:_prepareLayout\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Order/Print/Shipment.php
-
-		-
 			message: "#^Parameter \\#1 \\$size of method Varien_Data_Collection\\:\\:setPageSize\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Block/Order/Recent.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Sales_Block_Order_Shipment\\:\\:_prepareLayout\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Block_Abstract\\)\\) of method Mage_Core_Block_Abstract\\:\\:_prepareLayout\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Order/Shipment.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Sales_Block_Order_View\\:\\:_prepareLayout\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Block_Abstract\\)\\) of method Mage_Core_Block_Abstract\\:\\:_prepareLayout\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Order/View.php
 
 		-
 			message: "#^Property Mage_Sales_Block_Recurring_Profiles\\:\\:\\$_profiles \\(Mage_Sales_Model_Resource_Recurring_Profile_Collection\\) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract\\.$#"
@@ -8764,11 +8624,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Sales_Model_Entity_Quote_Address_Attribute_Backend_Region\\:\\:beforeSave\\(\\) should be compatible with return type \\(\\$this\\(Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\)\\) of method Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\:\\:beforeSave\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Attribute/Backend/Region.php
 
 		-
 			message: "#^Return type \\(\\$this\\(Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Custbalance\\)\\) of method Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Custbalance\\:\\:fetchTotals\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend\\:\\:fetchTotals\\(\\)$#"
@@ -9871,11 +9726,6 @@ parameters:
 			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
 
 		-
-			message: "#^Return type \\(void\\) of method Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection\\:\\:_initSelect\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Model_Resource_Db_Collection_Abstract\\)\\) of method Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:_initSelect\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate/Collection.php
-
-		-
 			message: "#^Comparison operation \"\\<\" between \\(array\\|float\\|int\\) and float results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Shipping/Model/Shipping.php
@@ -10144,11 +9994,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$expression of class Zend_Db_Expr constructor expects string, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tax/Model/Resource/Report/Tax/Createdat.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Tax_Model_Sales_Total_Quote_Discount\\:\\:collect\\(\\) should be compatible with return type \\(\\$this\\(Mage_Sales_Model_Quote_Address_Total_Abstract\\)\\) of method Mage_Sales_Model_Quote_Address_Total_Abstract\\:\\:collect\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Discount.php
 
 		-
 			message: "#^Return type \\(array\\) of method Mage_Tax_Model_Sales_Total_Quote_Nominal_Tax\\:\\:fetch\\(\\) should be compatible with return type \\(\\$this\\(Mage_Tax_Model_Sales_Total_Quote_Tax\\)\\) of method Mage_Tax_Model_Sales_Total_Quote_Tax\\:\\:fetch\\(\\)$#"
@@ -10801,11 +10646,6 @@ parameters:
 			path: app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
 
 		-
-			message: "#^Return type \\(void\\) of method Mage_Weee_Model_Total_Quote_Weee\\:\\:_recalculateParent\\(\\) should be compatible with return type \\(\\$this\\(Mage_Tax_Model_Sales_Total_Quote_Tax\\)\\) of method Mage_Tax_Model_Sales_Total_Quote_Tax\\:\\:_recalculateParent\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
-
-		-
 			message: "#^Method Mage_Widget_Block_Adminhtml_Widget_Chooser\\:\\:getConfig\\(\\) should return Varien_Object but returns mixed\\.$#"
 			count: 2
 			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Chooser.php
@@ -10856,19 +10696,9 @@ parameters:
 			path: app/code/core/Mage/Wishlist/Block/Customer/Sharing.php
 
 		-
-			message: "#^Return type \\(void\\) of method Mage_Wishlist_Block_Customer_Sharing\\:\\:_prepareLayout\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Block_Abstract\\)\\) of method Mage_Core_Block_Abstract\\:\\:_prepareLayout\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Block/Customer/Sharing.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with Mage_Wishlist_Model_Resource_Item_Collection will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Block/Customer/Sidebar.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Wishlist_Block_Customer_Wishlist\\:\\:_prepareLayout\\(\\) should be compatible with return type \\(\\$this\\(Mage_Catalog_Block_Product_Abstract\\)\\) of method Mage_Catalog_Block_Product_Abstract\\:\\:_prepareLayout\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Block/Customer/Wishlist.php
 
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
@@ -10972,11 +10802,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$qty of method Mage_Wishlist_Model_Item\\:\\:setQty\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Wishlist_IndexController\\:\\:preDispatch\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Controller_Front_Action\\)\\) of method Mage_Core_Controller_Front_Action\\:\\:preDispatch\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
 

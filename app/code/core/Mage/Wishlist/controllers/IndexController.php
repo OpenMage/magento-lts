@@ -48,7 +48,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Extend preDispatch
      *
-     * @return void
+     * @return $this|void
      */
     public function preDispatch()
     {
@@ -65,6 +65,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $this->norouteAction();
             return;
         }
+        return $this;
     }
 
     /**
@@ -81,7 +82,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Retrieve wishlist object
      * @param int $wishlistId
-     * @return Mage_Wishlist_Model_Wishlist|bool
+     * @return Mage_Wishlist_Model_Wishlist|false
      */
     protected function _getWishlist($wishlistId = null)
     {
@@ -95,7 +96,6 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                 $wishlistId = $this->getRequest()->getParam('wishlist_id');
             }
             $customerId = Mage::getSingleton('customer/session')->getCustomerId();
-            /** @var Mage_Wishlist_Model_Wishlist $wishlist */
             $wishlist = Mage::getModel('wishlist/wishlist');
             if ($wishlistId) {
                 $wishlist->load($wishlistId);
