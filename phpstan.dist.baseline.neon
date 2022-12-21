@@ -1956,41 +1956,6 @@ parameters:
 			path: app/code/core/Mage/Authorizenet/controllers/Directpost/PaymentController.php
 
 		-
-			message: "#^Method Mage_Backup_Helper_Data\\:\\:getCreateSuccessMessageByType\\(\\) should return string but empty return statement found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Backup/Helper/Data.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with resource will always evaluate to false\\.$#"
-			count: 3
-			path: app/code/core/Mage/Backup/Model/Backup.php
-
-		-
-			message: "#^Property Mage_Backup_Model_Backup\\:\\:\\$_handler \\(resource\\) does not accept null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Backup/Model/Backup.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of function ini_set expects string, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Backup/Model/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Backup_Interface\\:\\:setRootDir\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Backup/Model/Observer.php
-
-		-
-			message: "#^Argument of an invalid type true supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Property Mage_Backup_Model_Resource_Db\\:\\:\\$_write \\(Varien_Db_Adapter_Pdo_Mysql\\) does not accept Varien_Db_Adapter_Interface\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
 			message: "#^Parameter \\#1 \\$elementId \\(string\\) of method Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Checkbox\\:\\:setValidationContainer\\(\\) should be compatible with parameter \\$elementId \\(int\\) of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:setValidationContainer\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Composite/Fieldset/Options/Type/Checkbox.php
@@ -6604,16 +6569,6 @@ parameters:
 			message: "#^Return type \\(void\\) of method Mage_Oauth_TokenController\\:\\:preDispatch\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Controller_Front_Action\\)\\) of method Mage_Core_Controller_Front_Action\\:\\:preDispatch\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Oauth/controllers/TokenController.php
-
-		-
-			message: "#^Method Mage_PageCache_Helper_Data\\:\\:getCacheControlInstance\\(\\) should return Mage_PageCache_Model_Control_Interface but returns Mage_Core_Model_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/PageCache/Helper/Data.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method Mage_Core_Model_Cookie\\:\\:set\\(\\) expects string, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/PageCache/Helper/Data.php
 
 		-
 			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:isPartialAuthorization\\(\\)\\.$#"
