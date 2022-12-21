@@ -73,21 +73,21 @@ abstract class Mage_Eav_Model_Form
     /**
      * Array of form attributes
      *
-     * @var array
+     * @var array|null
      */
     protected $_attributes;
 
     /**
      * Array of form system attributes
      *
-     * @var array
+     * @var array|null
      */
     protected $_systemAttributes;
 
     /**
      * Array of form user defined attributes
      *
-     * @var array
+     * @var array|null
      */
     protected $_userAttributes;
 

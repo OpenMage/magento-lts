@@ -41,21 +41,21 @@ class Mage_Dataflow_Model_Batch_Io
     /**
      * Full path to tmp dir
      *
-     * @var string
+     * @var string|null
      */
     protected $_path;
 
     /**
      * Filename
      *
-     * @var string
+     * @var string|null
      */
     protected $_filename;
 
     /**
      * Varien IO File class
      *
-     * @var Varien_Io_File
+     * @var Varien_Io_File|null
      */
     protected $_ioFile;
 
