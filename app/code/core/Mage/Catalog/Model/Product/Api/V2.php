@@ -160,7 +160,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @param int|string $productId
      * @param array $productData
      * @param string|int $store
-     * @param null $identifierType
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception

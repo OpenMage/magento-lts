@@ -27,7 +27,7 @@ Mage::register('original_include_path', get_include_path());
 
 if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPER_MODE'])) {
     Mage::setIsDeveloperMode(true);
-    ini_set('display_errors', 1);
+    ini_set('display_errors', '1');
     ini_set('error_prepend_string', '<pre>');
     ini_set('error_append_string', '</pre>');
 }
@@ -47,14 +47,6 @@ include_once "Mage/Core/functions.php";
 include_once "Varien/Autoload.php";
 
 Varien_Autoload::register();
-
-/** AUTOLOADER PATCH **/
-if (file_exists($autoloaderPath = BP . DS . 'vendor/autoload.php') ||
-    file_exists($autoloaderPath = BP . DS . '../vendor/autoload.php')
-) {
-    require $autoloaderPath;
-}
-/** AUTOLOADER PATCH **/
 
 /* Support additional includes, such as composer's vendor/autoload.php files */
 foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as $path) {
@@ -418,7 +410,8 @@ final class Mage
      */
     public static function getStoreConfigFlag($path, $store = null)
     {
-        $flag = strtolower(self::getStoreConfig($path, $store));
+        $flag = self::getStoreConfig($path, $store);
+        $flag = is_string($flag) ? strtolower($flag) : $flag;
         if (!empty($flag) && $flag !== 'false') {
             return true;
         } else {
@@ -441,7 +434,7 @@ final class Mage
     /**
      * Generate url by route and parameters
      *
-     * @param   string $route
+     * @param   null|string $route
      * @param   array $params
      * @return  string
      */
@@ -463,7 +456,7 @@ final class Mage
     /**
      * Retrieve a config instance
      *
-     * @return Mage_Core_Model_Config
+     * @return Mage_Core_Model_Config|null
      */
     public static function getConfig()
     {
@@ -836,7 +829,7 @@ final class Mage
      *
      * @param array|object|string $message
      * @param int $level
-     * @param string $file
+     * @param string|null $file
      * @param bool $forceLog
      */
     public static function log($message, $level = null, $file = '', $forceLog = false)

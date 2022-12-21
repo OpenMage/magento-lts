@@ -1790,7 +1790,7 @@ XMLAuth;
      * Get delivery confirmation level based on origin/destination
      * Return null if delivery confirmation is not acceptable
      *
-     * @var string $countyDest
+     * @param string $countyDest
      * @return int|null
      */
     protected function _getDeliveryConfirmationLevel($countyDest = null)

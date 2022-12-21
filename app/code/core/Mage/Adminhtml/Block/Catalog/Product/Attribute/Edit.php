@@ -68,6 +68,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit extends Mage_Adminhtml
         }
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         if (Mage::registry('entity_attribute')->getId()) {
@@ -76,16 +79,21 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit extends Mage_Adminhtml
                 $frontendLabel = $frontendLabel[0];
             }
             return Mage::helper('catalog')->__('Edit Product Attribute "%s"', $this->escapeHtml($frontendLabel));
-        } else {
-            return Mage::helper('catalog')->__('New Product Attribute');
         }
+        return Mage::helper('catalog')->__('New Product Attribute');
     }
 
+    /**
+     * @return string
+     */
     public function getValidationUrl()
     {
         return $this->getUrl('*/*/validate', ['_current' => true]);
     }
 
+    /**
+     * @return string
+     */
     public function getSaveUrl()
     {
         return $this->getUrl('*/' . $this->_controller . '/save', ['_current' => true, 'back' => null]);

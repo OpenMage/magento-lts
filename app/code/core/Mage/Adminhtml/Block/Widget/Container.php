@@ -166,9 +166,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     }
 
     /**
-     * Preparing child blocks for each added button
-     *
-     * @return Mage_Core_Block_Abstract
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {

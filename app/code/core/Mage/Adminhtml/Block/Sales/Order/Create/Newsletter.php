@@ -34,16 +34,25 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Newsletter extends Mage_Adminhtml_
         $this->setId('sales_order_create_newsletter');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Newsletter Subscription');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderCssClass()
     {
         return 'icon-head head-newsletter';
     }
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         if (!Mage::getSingleton('adminhtml/quote')->getIsOldCustomer()) {

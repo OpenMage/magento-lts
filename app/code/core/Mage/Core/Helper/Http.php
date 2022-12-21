@@ -40,7 +40,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
 
     /**
      * Validate and retrieve user and password from HTTP
-     * @param string|null $headers
+     * @param array|null $headers
      * @return array
      */
     public function authValidate($headers = null)

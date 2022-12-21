@@ -758,7 +758,7 @@ class Zend_Db_Select
      * Gets the Zend_Db_Adapter_Abstract for this
      * particular Zend_Db_Select object.
      *
-     * @return Zend_Db_Adapter_Abstract
+     * @return Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract
      */
     public function getAdapter()
     {

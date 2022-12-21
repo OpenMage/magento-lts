@@ -340,8 +340,8 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @return string
      */
     /**
-     * @param null $html
-     * @return null|string
+     * @param string|null $html
+     * @return string
      */
     public function getPreparedTemplateText($html = null)
     {

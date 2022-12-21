@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
 /**
  * Adminhtml customer grid block
  *
@@ -310,16 +312,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->setMassactionIdField('entity_id');
         $this->getMassactionBlock()->setFormFieldName('product');
 
-        $this->getMassactionBlock()->addItem('delete', [
+        $this->getMassactionBlock()->addItem(MassAction::DELETE, [
              'label' => Mage::helper('catalog')->__('Delete'),
-             'url'  => $this->getUrl('*/*/massDelete'),
-             'confirm' => Mage::helper('catalog')->__('Are you sure?')
+             'url'  => $this->getUrl('*/*/massDelete')
         ]);
 
         $statuses = Mage::getSingleton('catalog/product_status')->getOptionArray();
 
         array_unshift($statuses, ['label' => '', 'value' => '']);
-        $this->getMassactionBlock()->addItem('status', [
+        $this->getMassactionBlock()->addItem(MassAction::STATUS, [
              'label' => Mage::helper('catalog')->__('Change status'),
              'url'  => $this->getUrl('*/*/massStatus', ['_current' => true]),
              'additional' => [
@@ -334,7 +335,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         ]);
 
         if (Mage::getSingleton('admin/session')->isAllowed('catalog/update_attributes')) {
-            $this->getMassactionBlock()->addItem('attributes', [
+            $this->getMassactionBlock()->addItem(MassAction::ATTRIBUTES, [
                 'label' => Mage::helper('catalog')->__('Update Attributes'),
                 'url'   => $this->getUrl('*/catalog_product_action_attribute/edit', ['_current' => true])
             ]);

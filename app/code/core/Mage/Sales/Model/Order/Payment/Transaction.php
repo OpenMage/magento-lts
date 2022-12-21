@@ -607,7 +607,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Setter/Getter whether transaction is supposed to prevent exceptions on saving
      *
-     * @param null $setFailsafe
+     * @param bool|null $setFailsafe
      * @return bool|$this
      */
     public function isFailsafe($setFailsafe = null)

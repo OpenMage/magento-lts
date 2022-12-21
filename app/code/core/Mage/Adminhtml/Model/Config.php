@@ -143,7 +143,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param string $sectionCode
      * @param string $websiteCode
      * @param string $storeCode
-     * @return Varien_Simplexml_Element
+     * @return Varien_Simplexml_Element|void
      */
     public function getSection($sectionCode = null, $websiteCode = null, $storeCode = null)
     {
