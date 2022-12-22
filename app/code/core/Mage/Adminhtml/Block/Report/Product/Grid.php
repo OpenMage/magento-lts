@@ -51,12 +51,14 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * @return void
+     * @inheritDoc
      */
     protected function _afterLoadCollection()
     {
         $totalObj = new Mage_Reports_Model_Totals();
         $this->setTotals($totalObj->countTotals($this));
+
+        return parent::_afterLoadCollection();
     }
 
     /**

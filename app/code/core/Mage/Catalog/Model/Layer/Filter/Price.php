@@ -142,7 +142,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * Get information about products count in range
      *
      * @param   int $range
-     * @return  int
+     * @return  array
      */
     public function getRangeItemCounts($range)
     {
