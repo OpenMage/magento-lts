@@ -34,10 +34,14 @@ class Mage_Adminhtml_Block_Report_Customer_Accounts_Grid extends Mage_Adminhtml_
         $this->setId('gridAccounts');
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareCollection()
     {
         parent::_prepareCollection();
         $this->getCollection()->initReport('reports/accounts_collection');
+        return $this;
     }
 
     /**

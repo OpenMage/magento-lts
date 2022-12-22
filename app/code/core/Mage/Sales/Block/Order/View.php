@@ -35,7 +35,7 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
     }
 
     /**
-     * @return void
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -51,6 +51,8 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
             'payment_info',
             $helper->getInfoBlock($this->getOrder()->getPayment())
         );
+
+        return parent::_prepareLayout();
     }
 
     /**

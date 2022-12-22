@@ -75,7 +75,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     /**
      * Return array of selected product ids from post or session
      *
-     * @return string|null
+     * @return array|string|null
      */
     public function getProductIds()
     {

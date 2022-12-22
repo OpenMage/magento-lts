@@ -391,7 +391,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param int|null $storeId
+     * @param null|string|bool|int|Mage_Core_Model_Store $storeId
      * @return bool
      */
     public function isDevAllowed($storeId = null)
