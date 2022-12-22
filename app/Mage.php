@@ -213,18 +213,18 @@ final class Mage
         if ($majorVersion === 20) {
             return [
                 'major'     => '20',
-                'minor'     => '0',
-                'patch'     => '19',
-                'stability' => '', // beta,alpha,rc
+                'minor'     => '1',
+                'patch'     => '0',
+                'stability' => 'rc1', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             ];
         }
 
         return [
             'major'     => '19',
-            'minor'     => '4',
-            'patch'     => '21',
-            'stability' => '', // beta,alpha,rc
+            'minor'     => '5',
+            'patch'     => '0',
+            'stability' => 'rc1', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
     }
