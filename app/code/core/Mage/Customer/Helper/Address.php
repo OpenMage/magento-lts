@@ -42,7 +42,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Array of Customer Address Attributes
      *
-     * @var array
+     * @var array|null
      */
     protected $_attributes;
 

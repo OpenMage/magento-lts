@@ -40,21 +40,21 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Quote customer wishlist model object
      *
-     * @var Mage_Wishlist_Model_Wishlist
+     * @var Mage_Wishlist_Model_Wishlist|false|null
      */
     protected $_wishlist;
 
     /**
      * Sales Quote instance
      *
-     * @var Mage_Sales_Model_Quote
+     * @var Mage_Sales_Model_Quote|null
      */
     protected $_cart;
 
     /**
      * Catalog Compare List instance
      *
-     * @var Mage_Catalog_Model_Product_Compare_List
+     * @var Mage_Catalog_Model_Product_Compare_List|false|null
      */
     protected $_compareList;
 
@@ -89,14 +89,14 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Customer Address Form instance
      *
-     * @var Mage_Customer_Model_Form
+     * @var Mage_Customer_Model_Form|null
      */
     protected $_customerAddressForm;
 
     /**
      * Customer Form instance
      *
-     * @var Mage_Customer_Model_Form
+     * @var Mage_Customer_Model_Form|null
      */
     protected $_customerForm;
 

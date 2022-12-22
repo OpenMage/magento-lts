@@ -342,7 +342,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getStoreId()
     {

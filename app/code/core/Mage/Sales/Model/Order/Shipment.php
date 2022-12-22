@@ -100,7 +100,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     protected $_order;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection
+     * @var Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection|null
      */
     protected $_comments;
 

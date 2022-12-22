@@ -59,14 +59,14 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Array of countries keyed by iso2 code
      *
-     * @var array
+     * @var array|null
      */
     protected $_importIso2Countries;
 
     /**
      * Array of countries keyed by iso3 code
      *
-     * @var array
+     * @var array|null
      */
     protected $_importIso3Countries;
 
@@ -74,7 +74,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      * Associative array of countries and regions
      * [country_id][region_code] = region_id
      *
-     * @var array
+     * @var array|null
      */
     protected $_importRegions;
 

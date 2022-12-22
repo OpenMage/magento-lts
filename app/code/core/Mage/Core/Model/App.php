@@ -92,14 +92,14 @@ class Mage_Core_Model_App
     /**
      * Application store object
      *
-     * @var Mage_Core_Model_Store
+     * @var Mage_Core_Model_Store|null
      */
     protected $_store;
 
     /**
      * Application website object
      *
-     * @var Mage_Core_Model_Website
+     * @var Mage_Core_Model_Website|null
      */
     protected $_website;
 
