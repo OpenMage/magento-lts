@@ -42,14 +42,14 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     /**
      * Website Model
      *
-     * @var Mage_Core_Model_Website
+     * @var Mage_Core_Model_Website|null
      */
     protected $_website;
 
     /**
      * Customer model
      *
-     * @var Mage_Customer_Model_Customer
+     * @var Mage_Customer_Model_Customer|null
      */
     protected $_customer;
 
@@ -70,14 +70,14 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     /**
      * Price block
      *
-     * @var Mage_ProductAlert_Block_Email_Price
+     * @var Mage_ProductAlert_Block_Email_Price|null
      */
     protected $_priceBlock;
 
     /**
      * Stock block
      *
-     * @var Mage_ProductAlert_Block_Email_Stock
+     * @var Mage_ProductAlert_Block_Email_Stock|null
      */
     protected $_stockBlock;
 

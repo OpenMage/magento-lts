@@ -85,7 +85,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Total items number
      *
-     * @var int
+     * @var int|null
      */
     protected $_totalRecords;
 

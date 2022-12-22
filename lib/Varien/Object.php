@@ -31,7 +31,7 @@ class Varien_Object implements ArrayAccess
     /**
      * Object attributes
      *
-     * @var array
+     * @var array|null
      */
     protected $_data = [];
 

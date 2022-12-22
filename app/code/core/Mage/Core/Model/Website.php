@@ -73,7 +73,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Website Group Coleection array
      *
-     * @var array
+     * @var array|null
      */
     protected $_groups;
 
@@ -94,7 +94,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Website Store collection array
      *
-     * @var array
+     * @var array|null
      */
     protected $_stores;
 
@@ -136,7 +136,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * is can delete website
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_isCanDelete;
 

@@ -38,14 +38,14 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Product model
      *
-     * @var Mage_Catalog_Model_Product
+     * @var Mage_Catalog_Model_Product|string|null
      */
     protected $_productModel;
 
     /**
      * product types collection array
      *
-     * @var array
+     * @var array|null
      */
     protected $_productTypes;
 
@@ -59,7 +59,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * product attribute set collection array
      *
-     * @var array
+     * @var array|null
      */
     protected $_productAttributeSets;
 
