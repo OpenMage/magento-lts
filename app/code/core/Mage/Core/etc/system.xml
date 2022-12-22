@@ -1382,6 +1382,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_url>
                         <base_link_url translate="label">
                             <label>Base Link URL</label>
@@ -1390,6 +1391,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_link_url>
                         <base_skin_url translate="label">
                             <label>Base Skin URL</label>
@@ -1398,6 +1400,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_skin_url>
                         <base_media_url translate="label">
                             <label>Base Media URL</label>
@@ -1406,6 +1409,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_media_url>
                         <base_js_url translate="label comment">
                             <label>Base JavaScript URL</label>
@@ -1415,6 +1419,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment><![CDATA[<strong style="color:red">Warning!</strong> When using CDN, in some cases JavaScript may not run properly if CDN is not in your subdomain]]></comment>
+                            <validate>required-entry</validate>
                         </base_js_url>
                     </fields>
                 </unsecure>
@@ -1433,6 +1438,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Make sure that base URL ends with '/' (slash), e.g. http://yourdomain/magento/</comment>
+                            <validate>required-entry</validate>
                         </base_url>
                         <base_link_url translate="label comment">
                             <label>Base Link URL</label>
@@ -1442,6 +1448,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Make sure that base URL ends with '/' (slash), e.g. http://yourdomain/magento/</comment>
+                            <validate>required-entry</validate>
                         </base_link_url>
                         <base_skin_url translate="label">
                             <label>Base Skin URL</label>
@@ -1450,6 +1457,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_skin_url>
                         <base_media_url translate="label">
                             <label>Base Media URL</label>
@@ -1458,6 +1466,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_media_url>
                         <base_js_url translate="label comment">
                             <label>Base JavaScript URL</label>
@@ -1467,6 +1476,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment><![CDATA[<strong style="color:red">Warning!</strong> When using CDN, in some cases JavaScript may not run properly if CDN is not in your subdomain]]></comment>
+                            <validate>required-entry</validate>
                         </base_js_url>
                         <use_in_frontend translate="label">
                             <label>Use Secure URLs in Frontend</label>
