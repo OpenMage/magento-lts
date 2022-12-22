@@ -33,14 +33,18 @@ class Mage_Adminhtml_Block_Report_Product_Ordered_Grid extends Mage_Adminhtml_Bl
     }
 
     /**
-     * @return void
+     * @return $this
      */
     protected function _prepareCollection()
     {
         parent::_prepareCollection();
         $this->getCollection()->initReport('reports/product_ordered_collection');
+        return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('name', [

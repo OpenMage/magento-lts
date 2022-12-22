@@ -184,7 +184,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
      * Retrieve information about products count in range
      *
      * @param int $range
-     * @return int
+     * @return array
      */
     public function getRangeItemCounts($range)
     {
