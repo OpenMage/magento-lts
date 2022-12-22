@@ -162,7 +162,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     /**
      * Apply locale of the specified store
      *
-     * @param int $storeId
+     * @param null|string|bool|int|Mage_Core_Model_Store $storeId
      * @param string $area
      *
      * @return string initial locale code
@@ -182,7 +182,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      * Retrieve config value for store by path
      *
      * @param string $path
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return mixed
      */
     protected function _getStoreConfig($path, $store = null)
