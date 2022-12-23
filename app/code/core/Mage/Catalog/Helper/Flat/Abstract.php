@@ -44,14 +44,14 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
     /**
      * Flag for accessibility
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_isAccessible = null;
 
     /**
      * Flag for availability
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_isAvailable = null;
 

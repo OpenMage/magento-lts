@@ -194,11 +194,12 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
      */
     public function getEscapedValue($index = null)
     {
-        if (is_array($this->getValue())) {
+        $value = $this->getValue();
+        if (is_array($value)) {
             return false;
         }
-        $value = $this->getValue();
-        if (is_array($value) && is_null($index)) {
+
+        if (is_null($index)) {
             $index = 'value';
         }
 

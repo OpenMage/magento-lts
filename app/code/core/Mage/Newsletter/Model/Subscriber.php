@@ -186,7 +186,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Set the error messages scope for subscription
      *
-     * @param bool $scope
+     * @param string $scope
      * @return $this
      */
 

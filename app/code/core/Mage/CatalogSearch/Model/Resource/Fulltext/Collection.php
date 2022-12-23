@@ -36,7 +36,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     /**
      * Found data
      *
-     * @var array
+     * @var array|null
      */
     protected $_foundData = null;
 

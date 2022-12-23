@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
 /**
  * @category   Mage
  * @package    Mage_Index
@@ -268,7 +270,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
 
         $modeOptions = Mage::getModel('index/process')->getModesOptions();
 
-        $this->getMassactionBlock()->addItem('change_mode', [
+        $this->getMassactionBlock()->addItem(MassAction::CHANGE_MODE, [
             'label'         => Mage::helper('index')->__('Change Index Mode'),
             'url'           => $this->getUrl('*/*/massChangeMode'),
             'additional'    => [
@@ -282,7 +284,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
             ]
         ]);
 
-        $this->getMassactionBlock()->addItem('reindex', [
+        $this->getMassactionBlock()->addItem(MassAction::REINDEX, [
             'label'    => Mage::helper('index')->__('Reindex Data'),
             'url'      => $this->getUrl('*/*/massReindex'),
             'selected' => true,

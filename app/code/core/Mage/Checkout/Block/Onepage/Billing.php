@@ -31,7 +31,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
     /**
      * Sales Qoute Billing Address instance
      *
-     * @var Mage_Sales_Model_Quote_Address
+     * @var Mage_Sales_Model_Quote_Address|null
      */
     protected $_address;
 

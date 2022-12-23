@@ -78,6 +78,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->setCountTotals(true);
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -114,7 +117,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * @return void
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -201,6 +204,8 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'adminhtml_widget_grid_filter_collection',
             ['collection' => $this->getCollection(), 'filter_values' => $this->_filterValues]
         );
+
+        return $this;
     }
 
     /**

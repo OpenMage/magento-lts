@@ -33,7 +33,7 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
     /**
      * Resource instance
      *
-     * @var Mage_Catalog_Model_Resource_Layer_Filter_Attribute
+     * @var Mage_Catalog_Model_Resource_Layer_Filter_Attribute|null
      */
     protected $_resource;
 

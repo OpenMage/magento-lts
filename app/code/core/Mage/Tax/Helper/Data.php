@@ -907,7 +907,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get configuration setting "Apply Discount On Prices Including Tax" value
      *
-     * @param null|int $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return bool 0|1
      */
     public function discountTax($store = null)
@@ -1207,7 +1207,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return whether cross border trade is enabled or not
      *
-     * @param   null|int $store
+     * @param  null|string|bool|int|Mage_Core_Model_Store $store
      * @return bool
      */
     public function isCrossBorderTradeEnabled($store = null)
