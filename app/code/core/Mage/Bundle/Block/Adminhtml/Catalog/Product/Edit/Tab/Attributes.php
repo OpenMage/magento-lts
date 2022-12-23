@@ -33,7 +33,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
     /**
      * Prepare attributes form of bundle product
      *
-     * @return void
+     * @return $this
      */
     protected function _prepareForm()
     {
@@ -155,6 +155,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
                 . '</script>'
             );
         }
+
+        return $this;
     }
 
     /**

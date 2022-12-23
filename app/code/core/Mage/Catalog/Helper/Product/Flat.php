@@ -73,7 +73,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     /**
      * Catalog Product Flat Flag object
      *
-     * @var Mage_Catalog_Model_Product_Flat_Flag
+     * @var Mage_Catalog_Model_Product_Flat_Flag|null
      */
     protected $_flagObject;
 

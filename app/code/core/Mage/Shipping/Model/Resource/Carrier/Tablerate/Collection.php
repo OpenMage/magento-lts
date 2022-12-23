@@ -65,7 +65,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
     /**
      * Initialize select, add country iso3 code and region name
      *
-     * @return void
+     * @return $this
      */
     public function _initSelect()
     {
@@ -87,6 +87,8 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
         $this->addOrder('dest_region', self::SORT_ORDER_ASC);
         $this->addOrder('dest_zip', self::SORT_ORDER_ASC);
         $this->addOrder('condition_value', self::SORT_ORDER_ASC);
+
+        return $this;
     }
 
     /**

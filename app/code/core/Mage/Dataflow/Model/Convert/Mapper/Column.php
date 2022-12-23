@@ -31,21 +31,21 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
     /**
      * Dataflow batch model
      *
-     * @var Mage_Dataflow_Model_Batch
+     * @var Mage_Dataflow_Model_Batch|null
      */
     protected $_batch;
 
     /**
      * Dataflow batch export model
      *
-     * @var Mage_Dataflow_Model_Batch_Export
+     * @var Mage_Dataflow_Model_Batch_Export|string|false|null
      */
     protected $_batchExport;
 
     /**
      * Dataflow batch import model
      *
-     * @var Mage_Dataflow_Model_Batch_Import
+     * @var Mage_Dataflow_Model_Batch_Import|string|false|null
      */
     protected $_batchImport;
 

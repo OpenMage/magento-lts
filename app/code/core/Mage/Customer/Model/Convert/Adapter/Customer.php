@@ -31,9 +31,10 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     /**
      * Customer model
      *
-     * @var Mage_Customer_Model_Customer
+     * @var Mage_Customer_Model_Customer|string|null
      */
     protected $_customerModel;
+
     protected $_stores;
     protected $_attributes = [];
     protected $_customerGroups;

@@ -30,6 +30,7 @@
  * @method string getCode()
  * @method int getProductId()
  * @method $this setProductId(int $value)
+ * @method int getWishlistItemId()
  * @method $this setWishlistItemId(int $value)
  * @method $this setValue(string $sBuyRequest)
  */

@@ -52,7 +52,9 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         $order = Mage::getModel('sales/order');
-        $passDate = $order->getResource()->formatDate(mktime(0, 0, 0, date('m'), date('d') - 7));
+        $passDate = $order->getResource()->formatDate(
+            mktime(0, 0, 0, (int)date('m'), (int)date('d') - 7)
+        );
 
         $newurl = Mage::helper('adminhtml')->getUrl('adminhtml/sales_order', ['_secure' => true, '_nosecret' => true]);
         $title = Mage::helper('rss')->__('New Orders');

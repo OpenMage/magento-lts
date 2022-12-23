@@ -57,14 +57,14 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     /**
      * List of tax titles
      *
-     * @var array
+     * @var array|null
      */
     protected $_titles = null;
 
     /**
      * The Mage_Tax_Model_Calculation_Rate_Title
      *
-     * @var Mage_Tax_Model_Calculation_Rate_Title
+     * @var Mage_Tax_Model_Calculation_Rate_Title|null
      */
     protected $_titleModel = null;
 

@@ -47,14 +47,14 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Product Type Instances cache
      *
-     * @var array
+     * @var array|null
      */
     protected $_productTypes;
 
     /**
      * Websites cache
      *
-     * @var array
+     * @var array|null
      */
     protected $_websites;
 

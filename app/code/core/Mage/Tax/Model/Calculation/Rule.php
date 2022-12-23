@@ -88,7 +88,7 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
     /**
      * Holds the tax Calculation model
      *
-     * @var Mage_Tax_Model_Calculation
+     * @var Mage_Tax_Model_Calculation|null
      */
     protected $_calculationModel    = null;
 

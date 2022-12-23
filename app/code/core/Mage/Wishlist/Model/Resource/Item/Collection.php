@@ -76,7 +76,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     /**
      * Sum of items collection qty
      *
-     * @var int
+     * @var int|null
      */
     protected $_itemsQty;
 

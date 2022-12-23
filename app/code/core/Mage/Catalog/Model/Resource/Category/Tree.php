@@ -36,14 +36,14 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Categories resource collection
      *
-     * @var Mage_Catalog_Model_Resource_Category_Collection
+     * @var Mage_Catalog_Model_Resource_Category_Collection|null
      */
     protected $_collection;
 
     /**
      * Id of 'is_active' category attribute
      *
-     * @var int
+     * @var string|null
      */
     protected $_isActiveAttributeId              = null;
 
@@ -259,7 +259,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Returns attribute id for attribute "is_active"
      *
-     * @return int
+     * @return string
      */
     protected function _getIsActiveAttributeId()
     {

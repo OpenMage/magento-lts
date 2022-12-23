@@ -358,7 +358,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Get request object for getting tax rate based on store shippig original address
      *
-     * @param   null|Mage_Core_Model_Store $store
+     * @param   null|string|bool|int|Mage_Core_Model_Store $store
      * @return  Varien_Object
      */
     public function getRateOriginRequest($store = null)
@@ -375,7 +375,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Return the default rate request. It can be either based on store address or customer address
      *
-     * @param null|Mage_Core_Model_Store $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return Varien_Object
      */
     public function getDefaultRateRequest($store = null)
@@ -400,7 +400,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * @param   null|false|Mage_Sales_Model_Quote_Address $shippingAddress
      * @param   null|false|Mage_Sales_Model_Quote_Address $billingAddress
      * @param   null|int $customerTaxClass
-     * @param   null|int $store
+     * @param   null|string|bool|int|Mage_Core_Model_Store $store
      * @return  Varien_Object
      */
     public function getRateRequest(

@@ -39,7 +39,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
     /**
      * Current scope (store Id)
      *
-     * @var int
+     * @var int|null
      */
     protected $_storeId;
 
