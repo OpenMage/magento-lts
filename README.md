@@ -111,7 +111,16 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 - bug fixes and PHP 7.x, 8.0 and 8.1 compatibility
 - added config cache for system.xml [#1916](https://github.com/OpenMage/magento-lts/pull/1916)
 - search for "NULL" in backend grids [#1203](https://github.com/OpenMage/magento-lts/pull/1203)
-- removed modules `Mage_Compiler`, `Mage_GoogleBase`, `Mage_Xmlconnect`, `Phoenix_Moneybookers`
+- removed modules:
+  - `Mage_Compiler`
+  - `Mage_GoogleBase`
+  - `Mage_PageCache` [#2258](https://github.com/OpenMage/magento-lts/pull/2258)
+  - `Mage_Xmlconnect`
+  - `Phoenix_Moneybookers`
+
+
+_If you rely on that modules you can reinstall them with composer:_
+- `Mage_PageCache`: `composer require openmage/bc-mage-pagecache:dev-master`
 
 ### Between OpenMage 19.4.18 / 20.0.16 and 19.4.19 / 20.0.17
 
@@ -127,7 +136,6 @@ Do not use 20.x.x if you need IE support.
 - added redis as a valid option for `global/session_save` [#1513](https://github.com/OpenMage/magento-lts/pull/1513)
 - reduce needless saves by avoiding setting `_hasDataChanges` flag [#2066](https://github.com/OpenMage/magento-lts/pull/2066)
 - removed support for `global/sales/old_fields_map` defined in XML [#921](https://github.com/OpenMage/magento-lts/pull/921)
-- removed module `Mage_PageCache` [#2258](https://github.com/OpenMage/magento-lts/pull/2258)
 - removed lib/flex containing unused ActionScript "file uploader" files [#2271](https://github.com/OpenMage/magento-lts/pull/2271)
 - enabled website level config cache [#2355](https://github.com/OpenMage/magento-lts/pull/2355)
 - make overrides of Mage_Core_Model_Resource_Db_Abstract::delete respect parent api [#1257](https://github.com/OpenMage/magento-lts/pull/1257)
