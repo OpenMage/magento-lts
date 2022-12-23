@@ -831,7 +831,7 @@ class Mage_Core_Model_App
      * Retrieve application store object
      *
      * @param null|string|bool|int|Mage_Core_Model_Store $id
-     * @return Mage_Core_Model_Store
+     * @return Mage_Core_Model_Store|null
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore($id = null)

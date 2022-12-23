@@ -67,7 +67,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     /**
      * Path to template file in theme.
      *
-     * @var string
+     * @var string|null
      */
     protected $_template;
 
