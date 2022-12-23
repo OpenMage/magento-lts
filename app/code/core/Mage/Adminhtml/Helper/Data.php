@@ -42,14 +42,15 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
     /**
      * Get mapped help pages url
      *
-     * @deprecated
      * @param null|string $url
+     * @param null|string $suffix
      * @return mixed
+     * @deprecated
      */
-    public function getPageHelpUrl($url = null)
+    public function getPageHelpUrl($url = null, $suffix = null)
     {
         if (!$this->_pageHelpUrl) {
-            $this->setPageHelpUrl($url);
+            $this->setPageHelpUrl($url, $suffix);
         }
         return $this->_pageHelpUrl;
     }
@@ -57,11 +58,12 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
     /**
      * Set help page url
      *
-     * @deprecated
      * @param null|string $url
+     * @param null|string $suffix
      * @return $this
+     * @deprecated
      */
-    public function setPageHelpUrl($url = null)
+    public function setPageHelpUrl($url = null, $suffix = null)
     {
         $this->_pageHelpUrl = $url;
         return $this;
