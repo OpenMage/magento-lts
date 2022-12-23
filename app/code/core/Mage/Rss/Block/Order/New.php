@@ -55,7 +55,8 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
         $order = Mage::getModel('sales/order');
         $period = Mage::helper('rss')->getRssAdminOrderNewPeriod($storeId);
         $passDate = $order->getResource()->formatDate(
-            mktime(0, 0, 0, (int)date('m'), (int)date('d') - $period));
+            mktime(0, 0, 0, (int)date('m'), (int)date('d') - $period)
+        );
 
         $newurl = Mage::helper('adminhtml')->getUrl('adminhtml/sales_order', ['_secure' => true, '_nosecret' => true]);
         $title = Mage::helper('rss')->__('New Orders');
