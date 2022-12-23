@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Giftmessage object
      *
-     * @var Mage_GiftMessage_Model_Message
+     * @var Mage_GiftMessage_Model_Message|null
      */
     protected $_giftMessage;
 

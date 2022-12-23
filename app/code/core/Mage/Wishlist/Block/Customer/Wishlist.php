@@ -48,7 +48,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Preparing global layout
      *
-     * @return void
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -57,6 +57,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
         if ($headBlock) {
             $headBlock->setTitle($this->__('My Wishlist'));
         }
+        return $this;
     }
 
     /**

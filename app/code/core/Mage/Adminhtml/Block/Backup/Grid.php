@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
 /**
  * Adminhtml backups grid block
  *
@@ -56,7 +58,7 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->setMassactionIdField('id');
         $this->getMassactionBlock()->setFormFieldName('ids');
 
-        $this->getMassactionBlock()->addItem('delete', [
+        $this->getMassactionBlock()->addItem(MassAction::DELETE, [
              'label' => Mage::helper('adminhtml')->__('Delete'),
              'url'  => $this->getUrl('*/*/massDelete'),
              'confirm' => Mage::helper('backup')->__('Are you sure you want to delete the selected backup(s)?')

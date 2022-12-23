@@ -36,7 +36,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Product Type instance
      *
-     * @var Mage_Catalog_Model_Product_Type_Abstract
+     * @var Mage_Catalog_Model_Product_Type_Abstract|Mage_Core_Model_Abstract|null
      */
     protected $_typeInstance;
 

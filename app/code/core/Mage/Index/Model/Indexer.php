@@ -31,7 +31,7 @@ class Mage_Index_Model_Indexer
     /**
      * Collection of available processes
      *
-     * @var Mage_Index_Model_Resource_Process_Collection
+     * @var Mage_Index_Model_Resource_Process_Collection|null
      */
     protected $_processesCollection;
 
