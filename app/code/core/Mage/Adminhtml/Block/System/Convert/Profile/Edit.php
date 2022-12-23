@@ -49,12 +49,14 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit extends Mage_Adminhtml_Bl
         return Mage::registry('current_convert_profile')->getId();
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         if (Mage::registry('current_convert_profile')->getId()) {
             return $this->escapeHtml(Mage::registry('current_convert_profile')->getName());
-        } else {
-            return Mage::helper('adminhtml')->__('New Profile');
         }
+        return Mage::helper('adminhtml')->__('New Profile');
     }
 }

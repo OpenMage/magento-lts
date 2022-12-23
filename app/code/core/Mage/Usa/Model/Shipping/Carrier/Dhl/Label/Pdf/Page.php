@@ -41,8 +41,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      * Create/Make a copy of pdf page
      *
      * @param Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page|string $param1
-     * @param null $param2
-     * @param null $param3
+     * @param mixed $param2
+     * @param mixed $param3
      */
     public function __construct($param1, $param2 = null, $param3 = null)
     {

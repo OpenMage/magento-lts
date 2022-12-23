@@ -30,7 +30,6 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View extends Mage_Adminhtml_B
 {
     /**
      * Initialize view container
-     *
      */
     public function __construct()
     {

@@ -32,7 +32,7 @@ class Varien_Debug
     /**
      * Magento Root path
      *
-     * @var string
+     * @var string|null
      */
     protected static $_filePath;
 

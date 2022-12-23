@@ -112,7 +112,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Retrieve information from carrier configuration
      *
      * @param   string $field
-     * @return  mixed
+     * @return  string|false
      */
     public function getConfigData($field)
     {
@@ -514,7 +514,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         */
         $this->_numBoxes = 1;
         $weight = $this->convertWeightToLbs($weight);
-        $maxPackageWeight = $this->getConfigData('max_package_weight');
+        $maxPackageWeight = (float)$this->getConfigData('max_package_weight');
         if ($weight > $maxPackageWeight && $maxPackageWeight != 0) {
             $this->_numBoxes = ceil($weight / $maxPackageWeight);
             $weight = $weight / $this->_numBoxes;

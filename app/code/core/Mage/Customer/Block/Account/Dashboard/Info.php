@@ -29,7 +29,7 @@
 class Mage_Customer_Block_Account_Dashboard_Info extends Mage_Core_Block_Template
 {
     /**
-     * @var Mage_Newsletter_Model_Subscriber
+     * @var Mage_Newsletter_Model_Subscriber|null
      */
     private $_subscription;
 

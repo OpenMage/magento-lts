@@ -31,14 +31,14 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
     /**
      * Simple Xml object
      *
-     * @var SimpleXMLElement
+     * @var SimpleXMLElement|null
      */
     protected $_xmlElement;
 
     /**
      * Field list
      *
-     * @var array
+     * @var array|null
      */
     protected $_parseFieldNames;
 
@@ -153,75 +153,6 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             ->setAdapter($adapterName)
             ->save();
 
-        return $this;
-
-        $dom = new DOMDocument();
-        if (Mage::app()->getRequest()->getParam('files')) {
-            $path = Mage::app()->getConfig()->getTempVarDir() . '/import/';
-            $file = $path . urldecode(Mage::app()->getRequest()->getParam('files'));
-            if (file_exists($file)) {
-                $dom->load($file);
-            }
-        } else {
-            $this->validateDataString();
-            $dom->loadXML($this->getData());
-        }
-
-        $worksheets = $dom->getElementsByTagName('Worksheet');
-        if ($this->getVar('adapter') && $this->getVar('method')) {
-            $adapter = Mage::getModel($this->getVar('adapter'));
-        }
-        foreach ($worksheets as $worksheet) {
-            $wsName = $worksheet->getAttribute('ss:Name');
-            $rows = $worksheet->getElementsByTagName('Row');
-            $firstRow = true;
-            $fieldNames = [];
-            $wsData = [];
-            $i = 0;
-            foreach ($rows as $rowSet) {
-                $index = 1;
-                $cells = $rowSet->getElementsByTagName('Cell');
-                $rowData = [];
-                foreach ($cells as $cell) {
-                    $value = $cell->getElementsByTagName('Data')->item(0)->nodeValue;
-                    $ind = $cell->getAttribute('ss:Index');
-                    if (!is_null($ind) && $ind > 0) {
-                        $index = $ind;
-                    }
-                    if ($firstRow && !$this->getVar('fieldnames')) {
-                        $fieldNames[$index] = 'column' . $index;
-                    }
-                    if ($firstRow && $this->getVar('fieldnames')) {
-                        $fieldNames[$index] = $value;
-                    } else {
-                        $rowData[$fieldNames[$index]] = $value;
-                    }
-                    $index++;
-                }
-                $row = $rowData;
-                if ($row) {
-                    $loadMethod = $this->getVar('method');
-                    $adapter->$loadMethod(compact('i', 'row'));
-                }
-                $i++;
-
-                $firstRow = false;
-                if (!empty($rowData)) {
-                    $wsData[] = $rowData;
-                }
-            }
-            $data[$wsName] = $wsData;
-            $this->addException('Found worksheet "' . $wsName . '" with ' . count($wsData) . ' row(s)');
-        }
-        if ($wsName = $this->getVar('single_sheet')) {
-            if (isset($data[$wsName])) {
-                $data = $data[$wsName];
-            } else {
-                reset($data);
-                $data = current($data);
-            }
-        }
-        $this->setData($data);
         return $this;
     }
 

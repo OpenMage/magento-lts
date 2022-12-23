@@ -65,7 +65,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
      *
      * @param int $parentId
      * @param array $categoryData
-     * @param null $store
+     * @param int|string|null $store
      * @return int
      * @throws Mage_Api_Exception
      * @throws Mage_Eav_Model_Entity_Attribute_Exception

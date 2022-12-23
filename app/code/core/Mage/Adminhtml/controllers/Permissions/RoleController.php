@@ -272,7 +272,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
      *
      * @param int $userId
      * @param int $roleId
-     * @return bool
+     * @return true
      */
     protected function _deleteUserFromRole($userId, $roleId)
     {
@@ -283,7 +283,6 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
                 ->deleteFromRole();
         } catch (Exception $e) {
             throw $e;
-            return false;
         }
         return true;
     }

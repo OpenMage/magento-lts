@@ -128,7 +128,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
     /**
      * Load tree
      *
-     * @param   int || Varien_Data_Tree_Node $parentNode
+     * @param   int|Varien_Data_Tree_Node $parentNode
      * @param   int $recursionLevel recursion level
      * @return  $this
      */

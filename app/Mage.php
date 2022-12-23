@@ -27,7 +27,7 @@ Mage::register('original_include_path', get_include_path());
 
 if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPER_MODE'])) {
     Mage::setIsDeveloperMode(true);
-    ini_set('display_errors', 1);
+    ini_set('display_errors', '1');
     ini_set('error_prepend_string', '<pre>');
     ini_set('error_append_string', '</pre>');
 }
@@ -47,9 +47,6 @@ include_once "Mage/Core/functions.php";
 include_once "Varien/Autoload.php";
 
 Varien_Autoload::register();
-
-include_once "phpseclib/bootstrap.php";
-include_once "mcryptcompat/mcrypt.php";
 
 /* Support additional includes, such as composer's vendor/autoload.php files */
 foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as $path) {
@@ -205,31 +202,37 @@ final class Mage
      */
     public static function getOpenMageVersionInfo()
     {
-        $majorVersion = 19;
-
         /**
          * This code construct is to make merging for forward porting of changes easier.
          * By having the version numbers of different branches in own lines, they do not provoke a merge conflict
          * also as releases are usually done together, this could in theory be done at once.
          * The major Version then needs to be only changed once per branch.
          */
-        if ($majorVersion === 20) {
+        if (self::getOpenMageMajorVersion() === 20) {
             return [
                 'major'     => '20',
-                'minor'     => '0',
-                'patch'     => '18',
-                'stability' => '', // beta,alpha,rc
+                'minor'     => '1',
+                'patch'     => '0',
+                'stability' => 'rc1', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             ];
         }
 
         return [
             'major'     => '19',
-            'minor'     => '4',
-            'patch'     => '20',
-            'stability' => '', // beta,alpha,rc
+            'minor'     => '5',
+            'patch'     => '0',
+            'stability' => 'rc1', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
+    }
+
+    /**
+     * @return int<19,20>
+     */
+    public static function getOpenMageMajorVersion(): int
+    {
+        return 19;
     }
 
     /**
@@ -413,7 +416,8 @@ final class Mage
      */
     public static function getStoreConfigFlag($path, $store = null)
     {
-        $flag = strtolower(self::getStoreConfig($path, $store));
+        $flag = self::getStoreConfig($path, $store);
+        $flag = is_string($flag) ? strtolower($flag) : $flag;
         if (!empty($flag) && $flag !== 'false') {
             return true;
         } else {
@@ -436,7 +440,7 @@ final class Mage
     /**
      * Generate url by route and parameters
      *
-     * @param   string $route
+     * @param   null|string $route
      * @param   array $params
      * @return  string
      */
@@ -458,7 +462,7 @@ final class Mage
     /**
      * Retrieve a config instance
      *
-     * @return Mage_Core_Model_Config
+     * @return Mage_Core_Model_Config|null
      */
     public static function getConfig()
     {
@@ -831,7 +835,7 @@ final class Mage
      *
      * @param array|object|string $message
      * @param int $level
-     * @param string $file
+     * @param string|null $file
      * @param bool $forceLog
      */
     public static function log($message, $level = null, $file = '', $forceLog = false)

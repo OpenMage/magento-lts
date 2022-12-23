@@ -66,7 +66,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Array of info about stores
      *
-     * @var array
+     * @var array|null
      */
     protected $_storesInfo;
 
@@ -523,8 +523,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Rebuild index for anchor categories and associated to child categories products
      *
-     * @param null | array $categoryIds
-     * @param null | array $productIds
+     * @param null|array $categoryIds
+     * @param null|array $productIds
      * @return $this
      */
     protected function _refreshAnchorRelations($categoryIds = null, $productIds = null)

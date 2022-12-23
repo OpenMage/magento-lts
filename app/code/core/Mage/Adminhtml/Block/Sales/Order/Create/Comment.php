@@ -29,21 +29,33 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Comment extends Mage_Adminhtml_Blo
 {
     protected $_form;
 
+    /**
+     * @return string
+     */
     public function getHeaderCssClass()
     {
         return 'head-comment';
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Order Comment');
     }
 
+    /**
+     * @return string
+     */
     public function getCommentNote()
     {
         return $this->escapeHtml($this->getQuote()->getCustomerNote());
     }
 
+    /**
+     * @return bool
+     */
     public function getNoteNotify()
     {
         $notify = $this->getQuote()->getCustomerNoteNotify();

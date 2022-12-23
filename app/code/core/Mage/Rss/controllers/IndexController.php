@@ -31,14 +31,14 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
     /**
      * Current wishlist
      *
-     * @var Mage_Wishlist_Model_Wishlist
+     * @var Mage_Wishlist_Model_Wishlist|null
      */
     protected $_wishlist;
 
     /**
      * Current customer
      *
-     * @var Mage_Customer_Model_Customer
+     * @var Mage_Customer_Model_Customer|null
      */
     protected $_customer;
 
@@ -116,7 +116,7 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
     /**
      * Retrieve Wishlist model
      *
-     * @return Mage_Wishlist_Model_Wishlist
+     * @return Mage_Wishlist_Model_Wishlist|null
      */
     protected function _getWishlist()
     {

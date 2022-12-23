@@ -25,6 +25,8 @@
  * @category   Varien
  * @package    Varien_Io
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @property mixed $_streamException
  */
 class Varien_Io_File extends Varien_Io_Abstract
 {
@@ -177,7 +179,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Binary-safe file read
      *
      * @param int $length
-     * @return string
+     * @return bool|string
      */
     public function streamRead($length = 1024)
     {
@@ -193,7 +195,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Gets line from file pointer and parse for CSV fields
      *
-     * @return string
+     * @return array|false|null
      */
     public function streamReadCsv($delimiter = ',', $enclosure = '"')
     {
@@ -207,7 +209,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Binary-safe file write
      *
      * @param string $str
-     * @return bool
+     * @return bool|int
      */
     public function streamWrite($str)
     {
@@ -307,9 +309,9 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Used to set {@link _allowCreateFolders} value
      *
-     * @param mixed $flag
+     * @param bool $flag
      * @access public
-     * @return void
+     * @return $this
      */
     public function setAllowCreateFolders($flag)
     {
@@ -553,7 +555,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * File put content wrapper
      *
      * @param string $filename
-     * @param srting|resource $src
+     * @param string|resource $src
      *
      * @return int
      */
@@ -610,7 +612,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Create destination folder
      *
      * @param string $path
-     * @return Varien_Io_File
+     * @return bool
      */
     public function createDestinationDir($path)
     {
@@ -727,7 +729,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      *   - LS_FILES = 2
      *   - LS_ALL   = 3
      *
-     * @param Varien_Io_File const
+     * @param Varien_Io_File $grep const
      * @access public
      * @return array
      */

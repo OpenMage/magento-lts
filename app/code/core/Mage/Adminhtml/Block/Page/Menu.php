@@ -285,9 +285,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
                 . (!empty($item['title']) ? 'title="' . $item['title'] . '"' : '') . ' '
                 . (!empty($item['target']) ? 'target="' . $item['target'] . '"' : '') . ' '
                 . (!empty($item['click']) ? 'onclick="' . $item['click'] . '"' : '') . ' class="'
-                . ($level === 0 && !empty($item['active']) ? 'active' : '') . '"><span>'
+                . (!empty($item['active']) ? 'active' : '') . '"><span>'
                 . $this->escapeHtml($item['label']) . '</span></a>' . PHP_EOL;
-
             if (!empty($item['children'])) {
                 $html .= $this->getMenuLevel($item['children'], $level + 1);
             }

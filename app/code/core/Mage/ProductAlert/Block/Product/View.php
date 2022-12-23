@@ -40,7 +40,7 @@ class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
     /**
      * Helper instance
      *
-     * @var Mage_ProductAlert_Helper_Data
+     * @var Mage_ProductAlert_Helper_Data|null
      */
     protected $_helper = null;
 

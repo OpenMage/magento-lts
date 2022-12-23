@@ -31,7 +31,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
     /**
      * Current Product Type Id
      *
-     * @var string
+     * @var string|null
      */
     protected $_typeId;
 

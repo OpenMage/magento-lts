@@ -46,9 +46,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     }
 
     /**
-     * Preparing block layout
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -254,7 +252,6 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
         if ($this->getEditMode()) {
             return Mage::helper('newsletter')->__('Edit Newsletter Template');
         }
-
         return  Mage::helper('newsletter')->__('New Newsletter Template');
     }
 

@@ -181,7 +181,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Resource model
      * Used for operations with DB
      *
-     * @var Mage_Core_Model_Resource_Config
+     * @var Mage_Core_Model_Resource_Config|null
      */
     protected $_resourceModel;
 
@@ -1014,7 +1014,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @param string $fileName
      * @param null|Mage_Core_Model_Config_Base|Varien_Simplexml_Config $mergeToObject
-     * @param null $mergeModel
+     * @param Varien_Simplexml_Config|null $mergeModel
      * @return Mage_Core_Model_Config_Base|Varien_Simplexml_Config
      */
     public function loadModulesConfiguration($fileName, $mergeToObject = null, $mergeModel = null)

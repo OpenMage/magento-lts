@@ -33,11 +33,17 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method extends Mage_Adminh
         $this->setId('sales_order_create_billing_method');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Payment Method');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderCssClass()
     {
         return 'head-payment-method';

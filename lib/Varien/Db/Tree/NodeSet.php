@@ -28,6 +28,7 @@ class Varien_Db_Tree_NodeSet implements Iterator
     private $_nodes = [];
     private $_currentNode = 0;
     private $_current = 0;
+    private $count = 0;
 
     public function __construct()
     {
@@ -37,6 +38,10 @@ class Varien_Db_Tree_NodeSet implements Iterator
         $this->count = 0;
     }
 
+    /**
+     * @param Varien_Db_Tree_Node $node
+     * @return int
+     */
     public function addNode(Varien_Db_Tree_Node $node)
     {
         $this->_nodes[$this->_currentNode] = $node;
@@ -44,14 +49,20 @@ class Varien_Db_Tree_NodeSet implements Iterator
         return ++$this->_currentNode;
     }
 
+    /**
+     * @return int
+     */
     public function count()
     {
         return $this->count;
     }
 
+    /**
+     * @return bool
+     */
     public function valid()
     {
-        return  isset($this->_nodes[$this->_current]);
+        return isset($this->_nodes[$this->_current]);
     }
 
     public function next()

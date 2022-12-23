@@ -139,7 +139,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * Insert logo to pdf page
      *
      * @param Zend_Pdf_Page $page
-     * @param null $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
      */
     protected function insertLogo(&$page, $store = null)
     {
@@ -185,7 +185,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * Insert address to pdf page
      *
      * @param Zend_Pdf_Page $page
-     * @param null $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
      */
     protected function insertAddress(&$page, $store = null)
     {

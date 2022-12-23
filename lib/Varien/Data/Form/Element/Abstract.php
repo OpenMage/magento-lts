@@ -150,7 +150,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param Varien_Data_Form $form
+     * @param Varien_Data_Form_Abstract $form
      * @return $this
      */
     public function setForm($form)

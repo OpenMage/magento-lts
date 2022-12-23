@@ -160,7 +160,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @param int|string $productId
      * @param array $productData
      * @param string|int $store
-     * @param null $identifierType
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -204,7 +204,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @param array      $productData
      * @param string|int $store
      * @param string     $identifierType
-     * @return bool
+     * @return true|void
      */
     public function multiUpdate($productIds, $productData, $store = null, $identifierType = null)
     {
@@ -225,11 +225,9 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
 
         if (empty($failMessages)) {
             return true;
-        } else {
-            $this->_fault('partially_updated', implode("\n", $failMessages));
         }
 
-        return false;
+        $this->_fault('partially_updated', implode("\n", $failMessages));
     }
 
     /**
