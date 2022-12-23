@@ -210,7 +210,7 @@ final class Mage
          * also as releases are usually done together, this could in theory be done at once.
          * The major Version then needs to be only changed once per branch.
          */
-        if ($majorVersion === 20) {
+        if ($majorVersion === 20) { // @phpstan-ignore-line
             return [
                 'major'     => '20',
                 'minor'     => '0',
