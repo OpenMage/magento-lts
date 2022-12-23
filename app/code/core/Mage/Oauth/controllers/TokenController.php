@@ -31,7 +31,7 @@ class Mage_Oauth_TokenController extends Mage_Core_Controller_Front_Action
     /**
      * Dispatch event before action
      *
-     * @return void
+     * @inheritDoc
      */
     public function preDispatch()
     {
@@ -40,7 +40,7 @@ class Mage_Oauth_TokenController extends Mage_Core_Controller_Front_Action
         $this->setFlag('', self::FLAG_NO_COOKIES_REDIRECT, 0);
         $this->setFlag('', self::FLAG_NO_PRE_DISPATCH, 1);
 
-        parent::preDispatch();
+        return parent::preDispatch();
     }
 
     /**

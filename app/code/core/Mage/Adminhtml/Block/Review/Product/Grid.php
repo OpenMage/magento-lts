@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
     }
 
     /**
-     * @return void
+     * @return $this
      */
     protected function _prepareColumns()
     {
@@ -103,6 +103,8 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
                 ]
             );
         }
+
+        return $this;
     }
 
     /**

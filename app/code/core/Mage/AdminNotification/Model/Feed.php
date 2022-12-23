@@ -36,7 +36,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     /**
      * Feed url
      *
-     * @var string
+     * @var string|null
      */
     protected $_feedUrl;
 
