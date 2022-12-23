@@ -33,6 +33,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Store extends Mage_Adminhtml_Block
         $this->setId('sales_order_create_store');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Please Select a Store');

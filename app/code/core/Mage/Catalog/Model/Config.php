@@ -43,21 +43,21 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     /**
      * Array of attributes codes needed for product load
      *
-     * @var array
+     * @var array|null
      */
     protected $_productAttributes;
 
     /**
      * Product Attributes used in product listing
      *
-     * @var array
+     * @var array|null
      */
     protected $_usedInProductListing;
 
     /**
      * Product Attributes For Sort By
      *
-     * @var array
+     * @var array|null
      */
     protected $_usedForSortBy;
 

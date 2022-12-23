@@ -36,7 +36,6 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create extends Mage_Adminhtml_Bl
 
         parent::__construct();
 
-        //$this->_updateButton('save', 'label', Mage::helper('sales')->__('Submit Shipment'));
         $this->_removeButton('save');
         $this->_removeButton('delete');
     }
@@ -51,6 +50,9 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create extends Mage_Adminhtml_Bl
         return Mage::registry('current_shipment');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__(
@@ -59,6 +61,9 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create extends Mage_Adminhtml_Bl
         );
     }
 
+    /**
+     * @return string
+     */
     public function getBackUrl()
     {
         return $this->getUrl('*/sales_order/view', ['order_id' => $this->getShipment()->getOrderId()]);

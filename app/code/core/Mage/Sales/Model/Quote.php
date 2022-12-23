@@ -202,28 +202,28 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Quote customer model object
      *
-     * @var Mage_Customer_Model_Customer
+     * @var Mage_Customer_Model_Customer|null
      */
     protected $_customer;
 
     /**
      * Quote addresses collection
      *
-     * @var Mage_Sales_Model_Resource_Order_Address_Collection
+     * @var Mage_Sales_Model_Resource_Order_Address_Collection|null
      */
     protected $_addresses = null;
 
     /**
      * Quote items collection
      *
-     * @var Mage_Sales_Model_Resource_Quote_Item_Collection
+     * @var Mage_Sales_Model_Resource_Quote_Item_Collection|null
      */
     protected $_items = null;
 
     /**
      * Quote payments
      *
-     * @var Mage_Sales_Model_Resource_Quote_Payment_Collection
+     * @var Mage_Sales_Model_Resource_Quote_Payment_Collection|null
      */
     protected $_payments = null;
 
@@ -254,6 +254,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * its full names
      *
      * @return Varien_Object
+     * @deprecated
      */
     protected function _initOldFieldsMap()
     {

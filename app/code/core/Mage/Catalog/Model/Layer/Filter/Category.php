@@ -31,7 +31,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
     /**
      * Active Category Id
      *
-     * @var int
+     * @var int|null
      */
     protected $_categoryId;
 

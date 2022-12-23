@@ -463,7 +463,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Get customer attribute model object
      *
      * @param string $attributeCode
-     * @return Mage_Customer_Model_Entity_Attribute|null
+     * @return Mage_Customer_Model_Customer|null
      * @throws Mage_Core_Exception
      */
     public function getAttribute($attributeCode)

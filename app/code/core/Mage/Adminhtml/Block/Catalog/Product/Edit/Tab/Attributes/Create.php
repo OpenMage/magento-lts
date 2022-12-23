@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
     /**
      * Config of create new attribute
      *
-     * @var Varien_Object
+     * @var Varien_Object|null
      */
     protected $_config = null;
 
@@ -49,6 +49,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
         return $this->_config;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _beforeToHtml()
     {
         $this->setId('create_attribute_' . $this->getConfig()->getGroupId())
@@ -74,6 +77,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
         return parent::_beforeToHtml();
     }
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         $this->setCanShow(true);
@@ -91,6 +97,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
         return $html;
     }
 
+    /**
+     * @return string
+     */
     public function getJsObjectName()
     {
         return $this->getId() . 'JsObject';

@@ -56,13 +56,13 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Newsletter Template object
      *
-     * @var Mage_Newsletter_Model_Template
+     * @var Mage_Newsletter_Model_Template|null
      */
     protected $_template;
 
     /**
      * Subscribers collection
-     * @var Mage_Newsletter_Model_Resource_Subscriber_Collection
+     * @var Mage_Newsletter_Model_Resource_Subscriber_Collection|null
      */
     protected $_subscribersCollection = null;
 

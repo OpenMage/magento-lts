@@ -69,14 +69,14 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * All collection data array
      * Used for getData method
      *
-     * @var array
+     * @var array|null
      */
     protected $_data = null;
 
     /**
      * Fields map for corellation names & real selected fields
      *
-     * @var array
+     * @var array|null
      */
     protected $_map = null;
 
@@ -216,7 +216,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         if (is_null($this->_totalRecords)) {
             $sql = $this->getSelectCountSql();
-            $this->_totalRecords = $this->getConnection()->fetchOne($sql, $this->_bindParams);
+            $this->_totalRecords = (int)$this->getConnection()->fetchOne($sql, $this->_bindParams);
         }
         return intval($this->_totalRecords);
     }

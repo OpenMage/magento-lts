@@ -31,7 +31,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
     /**
      * XML instance for a cell data
      *
-     * @var SimpleXMLElement
+     * @var SimpleXMLElement|null
      */
     protected $_xmlElement;
 

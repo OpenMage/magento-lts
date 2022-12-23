@@ -31,7 +31,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * Category instance
      *
-     * @var Mage_Catalog_Model_Category
+     * @var Mage_Catalog_Model_Category|null
      */
     protected $_categoryInstance;
 

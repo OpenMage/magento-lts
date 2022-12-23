@@ -73,7 +73,6 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
      *
      * @param string $id     ID of data's info cell
      * @param int    $chunks Number of chunks to remove (basically, the number after '{splitted}|')
-     * @return null
      */
     protected function _cleanTheMess($id, $chunks)
     {

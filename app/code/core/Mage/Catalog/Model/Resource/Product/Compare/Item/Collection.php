@@ -45,7 +45,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Comparable attributes cache
      *
-     * @var array
+     * @var array|null
      */
     protected $_comparableAttributes;
 

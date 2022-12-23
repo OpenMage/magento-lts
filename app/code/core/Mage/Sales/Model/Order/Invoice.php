@@ -163,7 +163,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     protected $_items;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection|Mage_Sales_Model_Order_Invoice_Comment[]
+     * @var Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection|Mage_Sales_Model_Order_Invoice_Comment[]|null
      */
     protected $_comments;
 
@@ -212,6 +212,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Init mapping array of short fields to its full names
      *
      * @return $this
+     * @deprecated
      */
     protected function _initOldFieldsMap()
     {

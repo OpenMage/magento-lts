@@ -58,6 +58,9 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         }
     }
 
+    /**
+     * @return string
+     */
     public function getCreateOrderUrl()
     {
         return $this->getUrl('*/sales_order_create/start', ['customer_id' => $this->getCustomerId()]);
@@ -68,13 +71,15 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         return Mage::registry('current_customer')->getId();
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         if (Mage::registry('current_customer')->getId()) {
             return $this->escapeHtml(Mage::registry('current_customer')->getName());
-        } else {
-            return Mage::helper('customer')->__('New Customer');
         }
+        return Mage::helper('customer')->__('New Customer');
     }
 
     /**
@@ -89,11 +94,17 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         return $html;
     }
 
+    /**
+     * @return string
+     */
     public function getValidationUrl()
     {
         return $this->getUrl('*/*/validate', ['_current' => true]);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         if (!Mage::registry('current_customer')->isReadonly()) {
@@ -107,6 +118,9 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return string
+     */
     protected function _getSaveAndContinueUrl()
     {
         return $this->getUrl('*/*/save', [

@@ -25,6 +25,8 @@
  * @category   Mage
  * @package    Mage_Sales
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Sales_Model_Order_Item getItemById(int $value)
  */
 class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {

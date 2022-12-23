@@ -113,7 +113,10 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
             $value = $this->_convertFloat($value);
             return $value;
         }
-
+        // Fix for null-byte injection
+        if (is_string($value)) {
+            $value = addcslashes($value, "\000\032");
+        }
         return parent::_quote($value);
     }
 
