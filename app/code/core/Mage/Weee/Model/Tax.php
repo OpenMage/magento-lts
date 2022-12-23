@@ -51,7 +51,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
     /**
      * All weee attributes
      *
-     * @var array
+     * @var array|null
      */
     protected $_allAttributes = null;
 

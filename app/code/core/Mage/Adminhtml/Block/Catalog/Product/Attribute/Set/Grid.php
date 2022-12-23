@@ -48,25 +48,19 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
     }
 
     /**
-     * @return void
+     * @return $this
      * @throws Exception
      */
     protected function _prepareColumns()
     {
-        /*$this->addColumn('set_id', array(
-            'header'    => Mage::helper('catalog')->__('ID'),
-            'align'     => 'right',
-            'sortable'  => true,
-            'width'     => '50px',
-            'index'     => 'attribute_set_id',
-        ));*/
-
         $this->addColumn('set_name', [
             'header'    => Mage::helper('catalog')->__('Set Name'),
             'align'     => 'left',
             'sortable'  => true,
             'index'     => 'attribute_set_name',
         ]);
+
+        return $this;
     }
 
     /**

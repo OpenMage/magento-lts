@@ -50,7 +50,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Translate config
      *
-     * @var Varien_Simplexml_Config
+     * @var Varien_Simplexml_Config|null
      */
     protected $_config = null;
 

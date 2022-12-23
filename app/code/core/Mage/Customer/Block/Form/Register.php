@@ -36,7 +36,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     /**
      * Address instance with data
      *
-     * @var Mage_Customer_Model_Address
+     * @var Mage_Customer_Model_Address|null
      */
     protected $_address;
 

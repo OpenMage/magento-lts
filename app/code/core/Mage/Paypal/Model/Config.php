@@ -211,7 +211,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Current payment method code
-     * @var string
+     * @var string|null
      */
     protected $_methodCode = null;
 

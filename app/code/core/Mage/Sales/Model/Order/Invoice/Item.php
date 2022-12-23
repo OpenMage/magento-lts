@@ -96,10 +96,14 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     protected $_eventPrefix = 'sales_invoice_item';
     protected $_eventObject = 'invoice_item';
 
-    /** @var Mage_Sales_Model_Order_Invoice */
+    /**
+     * @var Mage_Sales_Model_Order_Invoice
+     */
     protected $_invoice = null;
 
-    /** @var Mage_Sales_Model_Order_Item */
+    /**
+     * @var Mage_Sales_Model_Order_Item|null
+     */
     protected $_orderItem = null;
 
     public function _construct()
@@ -111,7 +115,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @return Varien_Object
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
