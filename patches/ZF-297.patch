@@ -1,0 +1,25 @@
+--- /dev/null
++++ ../library/Zend/Db/Profiler/Firebug.php
+@@ -133,7 +133,7 @@
+ 
+         $this->_totalElapsedTime += $profile->getElapsedSecs();
+ 
+-        $this->_message->addRow([(string)round($profile->getElapsedSecs(),5),
++        $this->_message->addRow([(string)round((float)$profile->getElapsedSecs(),5),
+                                       $profile->getQuery(),
+                                       ($params=$profile->getQueryParams())?$params:null]);
+
+--- /dev/null
++++ ../library/Zend/Locale/Math.php
+@@ -65,9 +65,9 @@
+     public static function round($op1, $precision = 0)
+     {
+         if (self::$_bcmathDisabled) {
+-            $op1 = round($op1, $precision);
++            $op1 = round((float)$op1, $precision);
+             if (strpos((string) $op1, 'E') === false) {
+-                return self::normalize(round($op1, $precision));
++                return self::normalize(round((float)$op1, $precision));
+             }
+         }
+

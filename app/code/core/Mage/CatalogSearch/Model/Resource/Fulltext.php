@@ -31,7 +31,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     /**
      * Searchable attributes cache
      *
-     * @var array
+     * @var array|null
      */
     protected $_searchableAttributes     = null;
 

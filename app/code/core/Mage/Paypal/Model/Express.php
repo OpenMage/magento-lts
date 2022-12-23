@@ -542,10 +542,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     }
 
     /**
-     * Assign data to info model instance
-     *
-     * @param   mixed $data
-     * @return  Mage_Payment_Model_Info
+     * @inheritDoc
      */
     public function assignData($data)
     {

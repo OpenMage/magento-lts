@@ -135,7 +135,7 @@ class Varien_Object_Cache
      * @param object $object
      * @param string $idx
      * @param array|string $tags
-     * @return string
+     * @return string|false
      */
     public function save($object, $idx = null, $tags = null)
     {

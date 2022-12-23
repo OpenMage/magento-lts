@@ -264,6 +264,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     {
         $out = '';
         foreach ($this->children() as $child) {
+            /** @var Varien_Simplexml_Element $child */
             $out .= $child->asNiceXml($level);
         }
         return $out;

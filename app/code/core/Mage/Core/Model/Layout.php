@@ -190,7 +190,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     /**
      * Create layout blocks hierarchy from layout xml configuration
      *
-     * @param Mage_Core_Model_Layout_Element|null $parent
+     * @param Mage_Core_Model_Layout_Element|Varien_Simplexml_Element|null $parent
      */
     public function generateBlocks($parent = null)
     {
@@ -223,7 +223,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Add block object to layout based on xml node data
      *
      * @param Varien_Simplexml_Element $node
-     * @param Mage_Core_Model_Layout_Element $parent
+     * @param Mage_Core_Model_Layout_Element|Varien_Simplexml_Element $parent
      * @return $this
      */
     protected function _generateBlock($node, $parent)
@@ -284,7 +284,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
 
     /**
      * @param Varien_Simplexml_Element $node
-     * @param Mage_Core_Model_Layout_Element $parent
+     * @param Mage_Core_Model_Layout_Element|Varien_Simplexml_Element $parent
      * @return $this
      */
     protected function _generateAction($node, $parent)

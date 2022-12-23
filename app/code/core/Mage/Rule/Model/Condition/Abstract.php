@@ -362,7 +362,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @return string
+     * @return string|int|array|null
      */
     public function getValue()
     {

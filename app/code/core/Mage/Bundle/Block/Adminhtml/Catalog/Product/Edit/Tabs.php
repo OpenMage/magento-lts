@@ -31,7 +31,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tabs extends Mage_Adminht
     protected $_attributeTabBlock = 'bundle/adminhtml_catalog_product_edit_tab_attributes';
 
     /**
-     * @return void
+     * @return $this
      * @throws Exception
      */
     protected function _prepareLayout()
@@ -44,5 +44,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tabs extends Mage_Adminht
             'class' => 'ajax',
         ]);
         $this->bindShadowTabs('bundle_items', 'customer_options');
+
+        return $this;
     }
 }

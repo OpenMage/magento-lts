@@ -79,7 +79,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Tproduct types sorted by index priority
      *
-     * @var array
+     * @var array|null
      */
     protected $_productTypePriority = null;
 

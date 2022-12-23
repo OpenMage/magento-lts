@@ -31,14 +31,14 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Database versions
      *
-     * @var array
+     * @var array|null
      */
     protected static $_versions        = null;
 
     /**
      * Resource data versions cache array
      *
-     * @var array
+     * @var array|null
      */
     protected static $_dataVersions    = null;
 

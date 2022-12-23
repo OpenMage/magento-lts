@@ -34,7 +34,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Website currency codes and rates
      *
-     * @var array
+     * @var array|null
      */
     protected $_rates;
 

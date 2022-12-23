@@ -42,7 +42,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     /**
      * Configuration of desing package for template
      *
-     * @var Varien_Object
+     * @var Varien_Object|null
      */
     protected $_designConfig;
 

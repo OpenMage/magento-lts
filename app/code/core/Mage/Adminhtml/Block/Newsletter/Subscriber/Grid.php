@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
 /**
  * Adminhtml newsletter subscribers grid block
  *
@@ -201,12 +203,12 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
         $this->getMassactionBlock()->setFormFieldName('subscriber');
         $this->getMassactionBlock()->setUseSelectAll(false);
 
-        $this->getMassactionBlock()->addItem('unsubscribe', [
+        $this->getMassactionBlock()->addItem(MassAction::UNSUBSCRIBE, [
              'label'        => Mage::helper('newsletter')->__('Unsubscribe'),
              'url'          => $this->getUrl('*/*/massUnsubscribe')
         ]);
 
-        $this->getMassactionBlock()->addItem('delete', [
+        $this->getMassactionBlock()->addItem(MassAction::DELETE, [
              'label'        => Mage::helper('newsletter')->__('Delete'),
              'url'          => $this->getUrl('*/*/massDelete')
         ]);

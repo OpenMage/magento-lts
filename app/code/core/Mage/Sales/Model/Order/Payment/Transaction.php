@@ -130,7 +130,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     protected $_eventObject = 'order_payment_transaction';
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $_orderWebsiteId = null;
 

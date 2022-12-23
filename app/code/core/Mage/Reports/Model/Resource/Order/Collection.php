@@ -40,7 +40,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Sales amount expression
      *
-     * @var string
+     * @var string|null
      */
     protected $_salesAmountExpression;
 

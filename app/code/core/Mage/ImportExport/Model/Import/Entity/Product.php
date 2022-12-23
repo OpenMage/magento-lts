@@ -419,7 +419,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Media files uploader
      *
-     * @var Mage_ImportExport_Model_Import_Uploader
+     * @var Mage_ImportExport_Model_Import_Uploader|null
      */
     protected $_fileUploader;
 

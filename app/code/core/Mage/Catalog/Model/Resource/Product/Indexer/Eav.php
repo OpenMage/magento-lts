@@ -31,7 +31,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
     /**
      * EAV Indexers by type
      *
-     * @var array
+     * @var array|null
      */
     protected $_types;
 

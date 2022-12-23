@@ -38,7 +38,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     /**
      * Product Type Price indexer resource models
      *
-     * @var array
+     * @var array|null
      */
     protected $_indexers;
 

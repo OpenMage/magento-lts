@@ -31,7 +31,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Current loaded product
      *
-     * @var Mage_Catalog_Model_Product
+     * @var Mage_Catalog_Model_Product|null
      */
     protected $_product;
 

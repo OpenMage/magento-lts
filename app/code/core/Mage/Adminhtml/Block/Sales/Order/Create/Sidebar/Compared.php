@@ -34,6 +34,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Compared extends Mage_Admi
         $this->setDataId('compared');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Products in Comparison List');

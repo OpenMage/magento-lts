@@ -80,7 +80,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Store matched product Ids
      *
-     * @var array
+     * @var array|null
      */
     protected $_productIds;
 

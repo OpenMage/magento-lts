@@ -31,14 +31,14 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
     /**
      * Entered Data cache
      *
-     * @var array
+     * @var array|null
      */
     protected $_enteredData = null;
 
     /**
      * Prepare Global Layout
      *
-     * @return void
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -46,6 +46,7 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
         if ($headBlock) {
             $headBlock->setTitle($this->__('Wishlist Sharing'));
         }
+        return $this;
     }
 
     /**

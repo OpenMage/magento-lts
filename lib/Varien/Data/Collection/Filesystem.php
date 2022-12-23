@@ -39,7 +39,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Target directory
      *
-     * @var string
+     * @var array
      */
     protected $_targetDirs = [];
 

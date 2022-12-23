@@ -342,12 +342,13 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      * Recalculate parent item amounts based on children results
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return void
+     * @return $this
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _recalculateParent(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
+        return $this;
     }
 
     /**

@@ -110,6 +110,9 @@ class Mage_Adminhtml_Block_Review_Add extends Mage_Adminhtml_Block_Widget_Form_C
         ';
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('review')->__('Add New Review');

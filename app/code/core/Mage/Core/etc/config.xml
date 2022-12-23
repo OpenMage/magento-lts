@@ -488,7 +488,6 @@
                     <protected>
                         <app>/app/*/*</app>
                         <dev>/dev/*/*</dev>
-                        <downloader>/downloader/*/*</downloader>
                         <errors>/errors/*/*</errors>
                         <includes>/includes/*/*</includes>
                         <js>/js/*/*</js>

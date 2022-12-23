@@ -132,7 +132,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Messages block instance
      *
-     * @var Mage_Core_Block_Messages
+     * @var Mage_Core_Block_Messages|null
      */
     protected $_messagesBlock = null;
 
@@ -184,14 +184,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Factory instance
      *
-     * @var Mage_Core_Model_Factory
+     * @var Mage_Core_Model_Factory|null
      */
     protected $_factory;
 
     /**
      * Application instance
      *
-     * @var Mage_Core_Model_App
+     * @var Mage_Core_Model_App|null
      */
     protected $_app;
 

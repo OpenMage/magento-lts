@@ -161,7 +161,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Retrieve model object identifier
      *
-     * @return int|string
+     * @return int|string|null
      */
     public function getId()
     {

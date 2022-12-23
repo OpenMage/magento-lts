@@ -34,12 +34,19 @@ class Mage_Adminhtml_Block_Report_Customer_Totals_Grid extends Mage_Adminhtml_Bl
         $this->setId('gridTotalsCustomer');
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareCollection()
     {
         parent::_prepareCollection();
         $this->getCollection()->initReport('reports/customer_totals_collection');
+        return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('name', [

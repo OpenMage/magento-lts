@@ -39,7 +39,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
     /**
      * Billing agreements collection
      *
-     * @var Mage_Sales_Model_Resource_Billing_Agreement_Collection
+     * @var Mage_Sales_Model_Resource_Billing_Agreement_Collection|null
      */
     protected $_billingAgreements = null;
 

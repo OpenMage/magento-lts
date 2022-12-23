@@ -93,7 +93,7 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
 
     /**
      * @param string $block
-     * @return string
+     * @return Mage_ProductAlert_Block_Email_Price|Mage_ProductAlert_Block_Email_Stock
      * @throws Mage_Core_Exception
      */
     public function createBlock($block)
