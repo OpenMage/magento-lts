@@ -54,7 +54,7 @@
  * @method $this setUsedForSortBy(int $value)
  * @method int getIsConfigurable()
  * @method $this setIsConfigurable(int $value)
- * @method $this setApplyTo(string $value)
+ * @method $this setApplyTo(string|array $value)
  * @method int getIsVisibleInAdvancedSearch()
  * @method $this setIsVisibleInAdvancedSearch(int $value)
  * @method int getPosition()
