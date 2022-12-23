@@ -70,7 +70,12 @@ parameters:
 
         # Instantiated class not found
         - lib/Varien/Image/Adapter.php
-    level: 5
+    ignoreErrors:
+      # OpenMage version comparison
+      -
+        message: "#^Strict comparison using \\=\\=\\= between 19 and 20 will always evaluate to false\\.$#"
+        path: app/Mage.php
+    level: 4
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
     treatPhpDocTypesAsCertain: false
