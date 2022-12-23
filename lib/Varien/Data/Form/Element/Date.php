@@ -36,7 +36,7 @@
 class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
 {
     /**
-     * @var Zend_Date
+     * @var Zend_Date|string
      */
     protected $_value;
 
@@ -79,7 +79,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
      * @param mixed $value
      * @param string $format
      * @param string $locale
-     * @return Varien_Data_Form_Element_Date
+     * @return $this
      */
     public function setValue($value, $format = null, $locale = null)
     {
@@ -138,7 +138,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
     /**
      * Get value instance, if any
      *
-     * @return Zend_Date
+     * @return Zend_Date|string|null
      */
     public function getValueInstance()
     {

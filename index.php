@@ -29,23 +29,11 @@ Whoops, it looks like you have an invalid PHP version.</h3></div><p>OpenMage sup
     exit;
 }
 
-/**
- * Compilation includes configuration file
- */
 define('MAGENTO_ROOT', getcwd());
 
 $mageFilename = MAGENTO_ROOT . '/app/Mage.php';
 $maintenanceFile = 'maintenance.flag';
 $maintenanceIpFile = 'maintenance.ip';
-
-if (!file_exists($mageFilename)) {
-    if (is_dir('downloader')) {
-        header("Location: downloader");
-    } else {
-        echo $mageFilename . " was not found";
-    }
-    exit;
-}
 
 require MAGENTO_ROOT . '/app/bootstrap.php';
 require_once $mageFilename;

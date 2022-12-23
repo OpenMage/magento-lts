@@ -202,7 +202,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $filename
      * @param string|resource|null $dest destination file name, stream, or if null will return file contents
-     * @return string
+     * @return bool|string
      */
     public function read($filename, $dest = null)
     {

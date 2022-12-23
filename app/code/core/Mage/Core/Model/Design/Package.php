@@ -49,7 +49,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Package area
      *
-     * @var string
+     * @var string|null
      */
     protected $_area;
 
@@ -82,12 +82,12 @@ class Mage_Core_Model_Design_Package
     protected $_callbackFileDir;
 
     /**
-     * @var Mage_Core_Model_Design_Config
+     * @var Mage_Core_Model_Design_Config|null
      */
     protected $_config = null;
 
     /**
-     * @var Mage_Core_Model_Design_Fallback
+     * @var Mage_Core_Model_Design_Fallback|null
      */
     protected $_fallback = null;
 

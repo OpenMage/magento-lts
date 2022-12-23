@@ -52,7 +52,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     /**
      * Resource open handle
      *
-     * @var resource
+     * @var resource|Varien_Io_File|null
      */
     protected $_handle          = null;
 

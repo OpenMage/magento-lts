@@ -1083,7 +1083,6 @@ namespace PHPSTORM_META {
             'oauth/authorize_button' => \Mage_Oauth_Block_Authorize_Button::class,
             'oauth/authorize_buttonBaseAbstract' => \Mage_Oauth_Block_Authorize_ButtonBaseAbstract::class,
             'oauth/customer_token_list' => \Mage_Oauth_Block_Customer_Token_List::class,
-            'pagecache/adminhtml_cache_additional' => \Mage_PageCache_Block_Adminhtml_Cache_Additional::class,
             'page/html' => \Mage_Page_Block_Html::class,
             'page/html_breadcrumbs' => \Mage_Page_Block_Html_Breadcrumbs::class,
             'page/html_cookieNotice' => \Mage_Page_Block_Html_CookieNotice::class,

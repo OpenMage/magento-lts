@@ -28,7 +28,6 @@ class Varien_Db_Tree_Node
     private $id;
     private $pid;
     private $level;
-    private $title;
     private $data;
 
     public $hasChild = false;
@@ -61,7 +60,6 @@ class Varien_Db_Tree_Node
             $this->hasChild = true;
             $this->numChild = ($a - 1) / 2;
         }
-        return $this;
     }
 
     public function getData($name)
