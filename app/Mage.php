@@ -202,15 +202,13 @@ final class Mage
      */
     public static function getOpenMageVersionInfo()
     {
-        $majorVersion = 20;
-
         /**
          * This code construct is to make merging for forward porting of changes easier.
          * By having the version numbers of different branches in own lines, they do not provoke a merge conflict
          * also as releases are usually done together, this could in theory be done at once.
          * The major Version then needs to be only changed once per branch.
          */
-        if ($majorVersion === 20) { // @phpstan-ignore-line
+        if (self::getOpenMageMajorVersion() === 20) {
             return [
                 'major'     => '20',
                 'minor'     => '1',
@@ -227,6 +225,14 @@ final class Mage
             'stability' => 'rc1', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
+    }
+
+    /**
+     * @return int<19,20>
+     */
+    public static function getOpenMageMajorVersion(): int
+    {
+        return 19;
     }
 
     /**
@@ -958,7 +964,6 @@ final class Mage
     public static function printException(Throwable $e, $extra = '')
     {
         if (self::$_isDeveloperMode) {
-            @http_response_code(500);
             print '<pre>';
 
             if (!empty($extra)) {
@@ -1043,5 +1048,14 @@ final class Mage
         }
 
         return $baseUrl;
+    }
+
+    /**
+     * Set is downloader flag
+     *
+     * @deprecated
+     */
+    public static function setIsDownloader()
+    {
     }
 }
