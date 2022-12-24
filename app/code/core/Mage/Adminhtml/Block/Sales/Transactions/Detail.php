@@ -19,7 +19,6 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Mage_Core_Helper_Js as JsHelper;
 
 /**
  * Adminhtml transaction detail
@@ -49,7 +48,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         $backUrl = ($this->_txn->getOrderUrl()) ? $this->_txn->getOrderUrl() : $this->getUrl('*/*/');
         $this->_addButton('back', [
             'label'   => Mage::helper('sales')->__('Back'),
-            'onclick' => JsHelper::getSetLocationJs($backUrl),
+            'onclick' => Mage::helper('core/js')->getSetLocationJs($backUrl),
             'class'   => 'back'
         ]);
 
@@ -58,7 +57,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         ) {
             $this->_addButton('fetch', [
                 'label'   => Mage::helper('sales')->__('Fetch'),
-                'onclick' => JsHelper::getSetLocationJs($this->getUrl('*/*/fetch', ['_current' => true])),
+                'onclick' => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/fetch', ['_current' => true])),
                 'class'   => 'button'
             ]);
         }

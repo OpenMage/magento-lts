@@ -19,7 +19,6 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Mage_Core_Helper_Js as JsHelper;
 
 /**
  * Adminhtml sales order create
@@ -51,7 +50,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
         }
 
         $this->_updateButton('back', 'id', 'back_order_top_button');
-        $this->_updateButton('back', 'onclick', JsHelper::getSetLocationJs($this->getBackUrl()));
+        $this->_updateButton('back', 'onclick', Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()));
 
         $this->_updateButton('reset', 'id', 'reset_order_top_button');
 
@@ -66,7 +65,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
         $this->_updateButton(
             'reset',
             'onclick',
-            JsHelper::getDeleteConfirmJs(
+            Mage::helper('core/js')->getDeleteConfirmJs(
                 $this->getCancelUrl(),
                 Mage::helper('sales')->__('Are you sure you want to cancel this order?')
             )

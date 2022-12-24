@@ -19,7 +19,6 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Mage_Core_Helper_Js as JsHelper;
 
 /**
  * Adminhtml shipment packaging
@@ -274,7 +273,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
             ->createBlock('adminhtml/widget_button')
             ->setData([
                 'label'   => Mage::helper('sales')->__('Print'),
-                'onclick' => JsHelper::getSetLocationJs($url)
+                'onclick' => Mage::helper('core/js')->getSetLocationJs($url)
             ])
             ->toHtml();
     }

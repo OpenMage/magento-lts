@@ -19,7 +19,6 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Mage_Core_Helper_Js as JsHelper;
 
 /**
  * Admin tag edit block
@@ -45,7 +44,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
 
         $this->addButton('save_and_edit_button', [
             'label'   => Mage::helper('tag')->__('Save and Continue Edit'),
-            'onclick' => JsHelper::getSaveAndContinueEditJs($this->getSaveAndContinueUrl()),
+            'onclick' => Mage::helper('core/js')->getSaveAndContinueEditJs($this->getSaveAndContinueUrl()),
             'class'   => 'save'
         ], 1);
     }

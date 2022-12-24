@@ -19,7 +19,6 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Mage_Core_Helper_Js as JsHelper;
 
 /**
  * Adminhtml invoice create
@@ -56,7 +55,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         if ($this->_isAllowedAction('cancel') && $this->getInvoice()->canCancel()) {
             $this->_addButton('cancel', [
                 'label'     => Mage::helper('sales')->__('Cancel'),
-                'onclick'   => JsHelper::getSetLocationJs($this->getCancelUrl()),
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCancelUrl()),
                 'class'     => 'delete'
             ]);
         }
@@ -64,7 +63,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         if ($this->_isAllowedAction('emails')) {
             $this->addButton('send_notification', [
                 'label'     => Mage::helper('sales')->__('Send Email'),
-                'onclick'   => JsHelper::getConfirmSetLocationJs(
+                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
                     $this->getEmailUrl(),
                     Mage::helper('sales')->__('Are you sure you want to send Invoice email to customer?')
                 )
@@ -82,7 +81,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
                 $this->_addButton('capture', [ // capture?
                     'label'     => Mage::helper('sales')->__('Credit Memo'),
                     'class'     => 'go',
-                    'onclick'   => JsHelper::getSetLocationJs($this->getCreditMemoUrl())
+                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCreditMemoUrl())
                 ]);
             }
         }
@@ -91,7 +90,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
             $this->_addButton('capture', [
                 'label'     => Mage::helper('sales')->__('Capture'),
                 'class'     => 'save',
-                'onclick'   => JsHelper::getSetLocationJs($this->getCaptureUrl())
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCaptureUrl())
             ]);
         }
 
@@ -99,7 +98,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
             $this->_addButton('void', [
                 'label'     => Mage::helper('sales')->__('Void'),
                 'class'     => 'save',
-                'onclick'   => JsHelper::getSetLocationJs($this->getVoidUrl())
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getVoidUrl())
             ]);
         }
 
@@ -107,7 +106,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
             $this->_addButton('print', [
                 'label'     => Mage::helper('sales')->__('Print'),
                 'class'     => 'save',
-                'onclick'   => JsHelper::getSetLocationJs($this->getPrintUrl())
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getPrintUrl())
             ]);
         }
     }
@@ -226,13 +225,13 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
                 return $this->_updateButton(
                     'back',
                     'onclick',
-                    JsHelper::getSetLocationJs($this->getInvoice()->getBackUrl())
+                    Mage::helper('core/js')->getSetLocationJs($this->getInvoice()->getBackUrl())
                 );
             }
             return $this->_updateButton(
                 'back',
                 'onclick',
-                JsHelper::getSetLocationJs($this->getUrl('*/sales_invoice/'))
+                Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/sales_invoice/'))
             );
         }
         return $this;

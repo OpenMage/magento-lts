@@ -19,7 +19,6 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Mage_Core_Helper_Js as JsHelper;
 
 /**
  * Adminhtml store content block
@@ -46,21 +45,21 @@ class Mage_Adminhtml_Block_System_Store_Store extends Mage_Adminhtml_Block_Widge
         /* Add website button */
         $this->_addButton('add', [
             'label'     => Mage::helper('core')->__('Create Website'),
-            'onclick'   => JsHelper::getSetLocationJs($this->getUrl('*/*/newWebsite')),
+            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/newWebsite')),
             'class'     => 'add',
         ]);
 
         /* Add Store Group button */
         $this->_addButton('add_group', [
             'label'     => Mage::helper('core')->__('Create Store'),
-            'onclick'   => JsHelper::getSetLocationJs($this->getUrl('*/*/newGroup')),
+            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/newGroup')),
             'class'     => 'add',
         ]);
 
         /* Add Store button */
         $this->_addButton('add_store', [
             'label'     => Mage::helper('core')->__('Create Store View'),
-            'onclick'   => JsHelper::getSetLocationJs($this->getUrl('*/*/newStore')),
+            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/newStore')),
             'class'     => 'add',
         ]);
 

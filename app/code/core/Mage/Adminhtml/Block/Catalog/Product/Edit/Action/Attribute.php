@@ -19,8 +19,6 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Mage_Core_Helper_Js as JsHelper;
-
 /**
  * Adminhtml catalog product action attribute update
  *
@@ -37,7 +35,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Back'),
-                    'onclick'   => JsHelper::getSetLocationJs(
+                    'onclick'   => Mage::helper('core/js')->getSetLocationJs(
                         $this->getUrl(
                             '*/catalog_product/',
                             ['store' => $this->getRequest()->getParam('store', 0)]
@@ -52,7 +50,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Reset'),
-                    'onclick'   => JsHelper::getSetLocationJs($this->getUrl('*/*/*', ['_current' => true]))
+                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true]))
                 ])
         );
 

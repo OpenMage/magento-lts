@@ -19,7 +19,6 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Mage_Core_Helper_Js as JsHelper;
 
 /**
  * Adminhtml store edit
@@ -62,7 +61,7 @@ class Mage_Adminhtml_Block_System_Store_Edit extends Mage_Adminhtml_Block_Widget
 
         $this->_updateButton('save', 'label', $saveLabel);
         $this->_updateButton('delete', 'label', $deleteLabel);
-        $this->_updateButton('delete', 'onclick', JsHelper::getConfirmSetLocationJs($deleteUrl));
+        $this->_updateButton('delete', 'onclick', Mage::helper('core/js')->getConfirmSetLocationJs($deleteUrl));
 
         if (!Mage::registry('store_data')->isCanDelete()) {
             $this->_removeButton('delete');

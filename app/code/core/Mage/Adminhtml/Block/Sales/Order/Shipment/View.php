@@ -19,7 +19,6 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Mage_Core_Helper_Js as JsHelper;
 
 /**
  * Adminhtml shipment create
@@ -48,7 +47,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
             $this->_updateButton(
                 'save',
                 'onclick',
-                JsHelper::getDeleteConfirmJs(
+                Mage::helper('core/js')->getDeleteConfirmJs(
                     $this->getEmailUrl(),
                     Mage::helper('sales')->__('Are you sure you want to send Shipment email to customer?')
                 )
@@ -59,7 +58,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
             $this->_addButton('print', [
                 'label'     => Mage::helper('sales')->__('Print'),
                 'class'     => 'save',
-                'onclick'   => JsHelper::getSetLocationJs($this->getPrintUrl())
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getPrintUrl())
             ]);
         }
     }
@@ -139,14 +138,14 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
                 return $this->_updateButton(
                     'back',
                     'onclick',
-                    JsHelper::getSetLocationJs($this->getShipment()->getBackUrl())
+                    Mage::helper('core/js')->getSetLocationJs($this->getShipment()->getBackUrl())
                 );
             }
 
             return $this->_updateButton(
                 'back',
                 'onclick',
-                JsHelper::getSetLocationJs($this->getUrl('*/sales_shipment/'))
+                Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/sales_shipment/'))
             );
         }
         return $this;

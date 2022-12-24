@@ -19,7 +19,6 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Mage_Core_Helper_Js as JsHelper;
 
 /**
  * Adminhtml form container block
@@ -46,7 +45,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
 
         $this->_addButton('back', [
             'label'     => Mage::helper('adminhtml')->__('Back'),
-            'onclick'   => JsHelper::getSetLocationJs($this->getBackUrl()),
+            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
             'class'     => 'back',
         ], -1);
         $this->_addButton('reset', [
@@ -60,7 +59,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
             $this->_addButton('delete', [
                 'label'     => Mage::helper('adminhtml')->__('Delete'),
                 'class'     => 'delete',
-                'onclick'   => JsHelper::getDeleteConfirmJs($this->getDeleteUrl())
+                'onclick'   => Mage::helper('core/js')->getDeleteConfirmJs($this->getDeleteUrl())
             ]);
         }
 

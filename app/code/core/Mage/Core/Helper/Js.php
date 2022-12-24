@@ -197,7 +197,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      * @return string
      * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
      */
-    public static function getDeleteConfirmJs(string $url, ?string $message = null): string
+    public function getDeleteConfirmJs(string $url, ?string $message = null): string
     {
         if (is_null($message)) {
             $message = Mage::helper('adminhtml')->__('Are you sure you want to do this?');
@@ -215,7 +215,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      * @return string
      * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
      */
-    public static function getConfirmSetLocationJs(string $url, ?string $message = null): string
+    public function getConfirmSetLocationJs(string $url, ?string $message = null): string
     {
         if (is_null($message)) {
             $message = Mage::helper('adminhtml')->__('Are you sure you want to do this?');
@@ -231,7 +231,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      * @param string $url
      * @return string
      */
-    public static function getSetLocationJs(string $url): string
+    public function getSetLocationJs(string $url): string
     {
         return 'setLocation(\'' . $url . '\')';
     }
@@ -242,7 +242,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      * @param string $url
      * @return string
      */
-    public static function getSaveAndContinueEditJs(string $url): string
+    public function getSaveAndContinueEditJs(string $url): string
     {
         return 'saveAndContinueEdit(\'' . $url . '\')';
     }

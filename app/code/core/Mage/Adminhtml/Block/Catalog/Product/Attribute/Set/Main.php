@@ -19,8 +19,6 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Mage_Core_Helper_Js as JsHelper;
-
 /**
  * Adminhtml Catalog Attribute Set Main Block
  *
@@ -79,7 +77,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             'back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'label'     => Mage::helper('catalog')->__('Back'),
-                'onclick'   => JsHelper::getSetLocationJs($this->getUrl('*/*/')),
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/')),
                 'class'     => 'back'
             ])
         );
@@ -105,7 +103,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             'delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'label'     => Mage::helper('catalog')->__('Delete Attribute Set'),
-                'onclick'   => JsHelper::getDeleteConfirmJs(
+                'onclick'   => Mage::helper('core/js')->getDeleteConfirmJs(
                     $this->getUrlSecure('*/*/delete', ['id' => $setId]),
                     Mage::helper('catalog')->__('All products of this set will be deleted! Are you sure you want to delete this attribute set?')
                 ),

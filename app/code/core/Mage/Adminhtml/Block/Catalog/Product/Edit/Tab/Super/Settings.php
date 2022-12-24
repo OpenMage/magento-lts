@@ -19,8 +19,6 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Mage_Core_Helper_Js as JsHelper;
-
 /**
  * Create Configuranle procuct Settings Tab Block
  *
@@ -49,7 +47,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
         $backButton = $this->getLayout()->createBlock('adminhtml/widget_button')
             ->setData([
                 'label'     => Mage::helper('catalog')->__('Back'),
-                'onclick'   => JsHelper::getSetLocationJs($this->getBackUrl()),
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
                 'class'     => 'back'
             ]);
 
