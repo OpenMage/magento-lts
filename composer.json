@@ -110,6 +110,9 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "cweagans/composer-patches": true
         },
+        "platform": {
+            "php": "7.3"
+        },
         "sort-packages": true
     }
 }
