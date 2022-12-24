@@ -109,7 +109,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Hold the customer
      *
-     * @var Mage_Customer_Model_Customer
+     * @var Mage_Customer_Model_Customer|false
      */
     protected $_customer = null;
 

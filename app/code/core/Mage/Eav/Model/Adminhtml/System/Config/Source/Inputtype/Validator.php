@@ -28,6 +28,11 @@
  */
 class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends Zend_Validate_InArray
 {
+    /**
+     * @var array<string, string>|null
+     */
+    protected $_messageTemplates;
+
     public function __construct()
     {
         //set data haystack
@@ -49,7 +54,7 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
     /**
      * Initialize message templates with translating
      *
-     * @return Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator
+     * @return $this
      */
     protected function _initMessageTemplates()
     {
