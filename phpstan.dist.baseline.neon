@@ -121,11 +121,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Edit/Tab/Main.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:addColumn\\(\\) invoked with 3 parameters, 2 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Grid.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Composite/Fieldset/Grouped.php
