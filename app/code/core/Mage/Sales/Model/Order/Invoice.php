@@ -158,7 +158,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     protected static $_states;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Invoice_Item_Collection|Mage_Sales_Model_Order_Invoice_Item[]
+     * @var Mage_Sales_Model_Resource_Order_Invoice_Item_Collection|Mage_Sales_Model_Order_Invoice_Item[]|null
      */
     protected $_items;
 
@@ -168,7 +168,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     protected $_comments;
 
     /**
-     * @var Mage_Sales_Model_Order
+     * @var Mage_Sales_Model_Order|null
      */
     protected $_order;
 

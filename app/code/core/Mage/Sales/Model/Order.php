@@ -466,17 +466,17 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     protected $_invoices;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Shipment_Track_Collection
+     * @var Mage_Sales_Model_Resource_Order_Shipment_Track_Collection|null
      */
     protected $_tracks;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Shipment_Collection|false
+     * @var Mage_Sales_Model_Resource_Order_Shipment_Collection|false|null
      */
     protected $_shipments;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Creditmemo_Collection|Mage_Sales_Model_Order_Creditmemo[]|false
+     * @var Mage_Sales_Model_Resource_Order_Creditmemo_Collection|Mage_Sales_Model_Order_Creditmemo[]|false|null
      */
     protected $_creditmemos;
 

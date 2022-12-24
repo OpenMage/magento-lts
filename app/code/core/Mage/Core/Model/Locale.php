@@ -66,7 +66,7 @@ class Mage_Core_Model_Locale
     /**
      * Locale object
      *
-     * @var Zend_Locale
+     * @var Zend_Locale|null
      */
     protected $_locale;
 
