@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
             'align' => 'center',
         ], 'is_visible');
 
-        $this->addColumn('is_searchable', [
+        $this->addColumnAfter('is_searchable', [
             'header' => Mage::helper('catalog')->__('Searchable'),
             'sortable' => true,
             'index' => 'is_searchable',

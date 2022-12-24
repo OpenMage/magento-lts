@@ -864,8 +864,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Get product tier price by qty
      *
-     * @param   double $qty
-     * @return  double
+     * @param   float $qty
+     * @return  float|array
      */
     public function getTierPrice($qty = null)
     {
@@ -934,7 +934,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Returns calculated final price
      *
-     * @return float
+     * @return float|null
      */
     public function getCalculatedFinalPrice()
     {

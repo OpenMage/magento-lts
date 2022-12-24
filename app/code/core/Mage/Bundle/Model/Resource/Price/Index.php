@@ -38,14 +38,14 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Websites cache
      *
-     * @var array
+     * @var array|null
      */
     protected $_websites;
 
     /**
      * Customer Groups cache
      *
-     * @var array
+     * @var array|null
      */
     protected $_customerGroups;
 

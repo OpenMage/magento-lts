@@ -65,7 +65,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     /**
      * Found products collection
      *
-     * @var Mage_CatalogSearch_Model_Resource_Advanced_Collection
+     * @var Mage_CatalogSearch_Model_Resource_Advanced_Collection|null
      */
     protected $_productCollection;
 

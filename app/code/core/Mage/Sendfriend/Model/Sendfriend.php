@@ -68,7 +68,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Count of sent in last period
      *
-     * @var int
+     * @var int|null
      */
     protected $_sentCount;
 

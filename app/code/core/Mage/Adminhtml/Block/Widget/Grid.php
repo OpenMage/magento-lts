@@ -1710,7 +1710,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Retrieve subtotal item
      *
      * @param Varien_Object $item
-     * @return Varien_Object
+     * @return Varien_Object|string
      */
     public function getSubTotalItem($item)
     {

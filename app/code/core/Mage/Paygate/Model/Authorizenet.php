@@ -112,7 +112,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     protected $_allowCurrencyCode = ['USD'];
 
     /**
-     * @var Mage_Paygate_Model_Authorizenet_Cards
+     * @var Mage_Paygate_Model_Authorizenet_Cards|null
      */
     protected $_cardsStorage;
 

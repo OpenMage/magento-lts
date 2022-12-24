@@ -132,8 +132,6 @@ namespace PHPSTORM_META {
             'newsletter/data' => \Mage_Newsletter_Helper_Data::class,
             'oauth' => \Mage_Oauth_Helper_Data::class,
             'oauth/data' => \Mage_Oauth_Helper_Data::class,
-            'pagecache' => \Mage_PageCache_Helper_Data::class,
-            'pagecache/data' => \Mage_PageCache_Helper_Data::class,
             'page' => \Mage_Page_Helper_Data::class,
             'page/data' => \Mage_Page_Helper_Data::class,
             'page/html' => \Mage_Page_Helper_Html::class,

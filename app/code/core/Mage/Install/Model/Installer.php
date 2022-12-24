@@ -37,7 +37,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Installer data model used to store data between installation steps
      *
-     * @var Mage_Install_Model_Session
+     * @var Mage_Install_Model_Installer_Data|null
      */
     protected $_dataModel;
 
@@ -67,7 +67,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Set data model to store data between installation steps
      *
-     * @param Varien_Object $model
+     * @param Mage_Install_Model_Installer_Data $model
      * @return $this
      */
     public function setDataModel(Varien_Object $model)

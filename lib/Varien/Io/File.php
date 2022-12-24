@@ -195,7 +195,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Gets line from file pointer and parse for CSV fields
      *
-     * @return bool|string
+     * @return array|false|null
      */
     public function streamReadCsv($delimiter = ',', $enclosure = '"')
     {

@@ -135,7 +135,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      * get address street
      *
      * @param   int $line address line index
-     * @return  string
+     * @return  string|array
      */
     public function getStreet($line = 0)
     {
