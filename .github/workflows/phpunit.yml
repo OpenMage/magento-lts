@@ -48,7 +48,7 @@ jobs:
         run: bash ./run_unit_tests.sh
 
       - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1.6
+        uses: EnricoMi/publish-unit-test-result-action@v1.40
         if: always()
         continue-on-error: true
         with:
