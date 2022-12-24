@@ -33,17 +33,15 @@ to do so (based on available resources). For example, Magento version `1.9.4.5` 
 
 ## Requirements
 
-- PHP 7.3+ (PHP 8.0 is supported)
+- PHP 7.3+ (PHP 8.0 is supported)<br/>
+`mcrypt` extension needs to be disabled to fallback on `mcryptcompat` and `phpseclib`. 
 - MySQL 5.6+ (8.0+ recommended) or MariaDB
 
-__Please be aware that although OpenMage is compatible that one or more extensions may not be__
+__Please be aware that although OpenMage is compatible that one or more extensions may not be.__
 
 ### Optional
 
 - Redis 5+ (6.x recommended, latest verified compatible 6.0.7 with 20.x)
-
-### PHP 7.2+
-If using php 7.2+ then `mcrypt` needs to be disabled in `php.ini` or pecl to fallback on `mcryptcompat` and `phpseclib`. `mcrypt` is deprecated from 7.2+ onwards.
 
 ## Installation
 
@@ -234,6 +232,7 @@ for more information.
 * [Daniel Fahlke aka Flyingmana](https://github.com/Flyingmana)
 * [Tymoteusz Motylewski](https://github.com/tmotyl)
 * [Sven Reichel](https://github.com/sreichel)
+* [Fabrizio Balliano](https://github.com/fballiano)
 
 ## License
 
