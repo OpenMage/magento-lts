@@ -9,6 +9,9 @@ on:
       php:
         description: "Count changed PHP files"
         value: ${{ jobs.check.outputs.php }}
+      phtml:
+        description: "Count changed Template files"
+        value: ${{ jobs.check.outputs.phtml }}
       xml:
         description: "Count changed XML files"
         value: ${{ jobs.check.outputs.xml }}
@@ -43,6 +46,7 @@ jobs:
     outputs:
       composer: ${{ steps.all.outputs.composer }}
       php: ${{ steps.all.outputs.php }}
+      phtml: ${{ steps.all.outputs.phtml }}
       xml: ${{ steps.all.outputs.xml }}
       workflow: ${{ steps.all.outputs.workflow }}
       phpcs: ${{ steps.all.outputs.phpcs }}
@@ -77,6 +81,7 @@ jobs:
             composer.*
             *.php
             **/*.php
+            **/*.phtml
             **/*.xml
             .github/workflows/**
             **phpcs**
@@ -99,6 +104,10 @@ jobs:
           count="$(grep -oE "*.php" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
           echo "$count PHP file(s) changed"
           echo "php=$count" >> $GITHUB_OUTPUT
+
+          count="$(grep -oE "*.phtml" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          echo "$count Template file(s) changed"
+          echo "phtml=$count" >> $GITHUB_OUTPUT
 
           count="$(grep -oE "*.xml" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
           echo "$count XML file(s) changed"
