@@ -29,6 +29,10 @@ level of backwards compatibility to the official releases.
 - PHP 7.3+ (PHP 8.0 is supported)
 - MySQL 5.6+ (8.0+ recommended) or MariaDB
 
+
+- PHP extension `intl` <small>since 1.9.4.19 & 20.0.17</small>
+- Command `patch` (v2.7+) <small>since 1.9.5.0 & 20.1.0</small>
+
 __Please be aware that although OpenMage is compatible that one or more extensions may not be.__
 
 ### Optional
