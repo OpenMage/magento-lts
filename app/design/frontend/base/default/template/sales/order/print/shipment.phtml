@@ -19,7 +19,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php /* @var $this Mage_Sales_Block_Order_Print_Shipment */?>
+<?php /** @var Mage_Sales_Block_Order_Print_Shipment $this */?>
 <?php $order = $this->getOrder(); ?>
 <h1><?php echo $this->__('Order #%s', $this->getObjectData($order, 'real_order_id')); ?></h1>
 <p class="order-date"><?php echo $this->__('Order Date: %s', $this->formatDate($this->getObjectData($order, 'created_at_store_date'), 'long')) ?></p>

@@ -21,20 +21,20 @@
 ?>
 <?php
 /**
- * @var $this Mage_Bundle_Block_Catalog_Product_Price
+ * @var Mage_Bundle_Block_Catalog_Product_Price $this
  */
 /**
- * @var $_coreHelper Mage_Core_Helper_Data
- * @var $_weeeHelper Mage_Weee_Helper_Data
- * @var $_taxHelper Mage_Tax_Helper_Data
+ * @var Mage_Core_Helper_Data $_coreHelper
+ * @var Mage_Weee_Helper_Data $_weeeHelper
+ * @var Mage_Tax_Helper_Data $_taxHelper
  */
 $_coreHelper = $this->helper('core');
 $_weeeHelper = $this->helper('weee');
 $_taxHelper  = $this->helper('tax');
 
 /**
- * @var $_product Mage_Catalog_Model_Product
- * @var $_priceModel Mage_Bundle_Model_Product_Price
+ * @var Mage_Catalog_Model_Product $_product
+ * @var Mage_Bundle_Model_Product_Price $_priceModel
  */
 $_product     = $this->getProduct();
 $_priceModel  = $_product->getPriceModel();

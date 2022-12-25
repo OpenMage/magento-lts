@@ -19,7 +19,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-/** @var $this Mage_Oauth_Block_Customer_Token_List */
+/** @var Mage_Oauth_Block_Customer_Token_List $this */
 ?>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
 <div class="page-title">
@@ -39,7 +39,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php /** @var $item Mage_Oauth_Model_Token */ ?>
+                <?php /** @var Mage_Oauth_Model_Token $item */ ?>
                 <?php foreach ($this->getCollection() as $item) : ?>
                 <tr>
                     <td><span class="app-name">
