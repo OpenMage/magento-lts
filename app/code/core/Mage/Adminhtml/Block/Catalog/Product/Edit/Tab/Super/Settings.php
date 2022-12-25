@@ -47,7 +47,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
         $backButton = $this->getLayout()->createBlock('adminhtml/widget_button')
             ->setData([
                 'label'     => Mage::helper('catalog')->__('Back'),
-                'onclick'   => "setLocation('" . $this->getBackUrl() . "')",
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
                 'class'     => 'back'
             ]);
 

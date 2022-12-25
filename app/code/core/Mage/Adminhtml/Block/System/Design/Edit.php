@@ -19,6 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -33,6 +34,9 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
         $this->setId('design_edit');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -40,8 +44,8 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Back'),
-                    'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/') . '\')',
-                    'class' => 'back'
+                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/')),
+                    'class'     => 'back'
                 ])
         );
 
@@ -51,21 +55,17 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
                 ->setData([
                     'label'     => Mage::helper('core')->__('Save'),
                     'onclick'   => 'designForm.submit()',
-                    'class' => 'save'
+                    'class'     => 'save'
                 ])
         );
 
-        $confirmationMessage = Mage::helper('core')->jsQuoteEscape(
-            Mage::helper('core')->__('Are you sure?')
-        );
         $this->setChild(
             'delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Delete'),
-                    'onclick'   => 'confirmSetLocation(\'' . $confirmationMessage . '\', \'' . $this->getDeleteUrl()
-                        . '\')',
-                    'class'  => 'delete'
+                    'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs($this->getDeleteUrl()),
+                    'class'     => 'delete'
                 ])
         );
         return parent::_prepareLayout();
@@ -76,6 +76,9 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
         return Mage::registry('design')->getId();
     }
 
+    /**
+     * @return string
+     */
     public function getDeleteUrl()
     {
         return $this->getUrlSecure('*/*/delete', [
@@ -84,24 +87,30 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function getSaveUrl()
     {
         return $this->getUrl('*/*/save', ['_current' => true]);
     }
 
+    /**
+     * @return string
+     */
     public function getValidationUrl()
     {
         return $this->getUrl('*/*/validate', ['_current' => true]);
     }
 
+    /**
+     * @return string
+     */
     public function getHeader()
     {
-        $header = '';
         if (Mage::registry('design')->getId()) {
-            $header = Mage::helper('core')->__('Edit Design Change');
-        } else {
-            $header = Mage::helper('core')->__('New Design Change');
+            return Mage::helper('core')->__('Edit Design Change');
         }
-        return $header;
+        return Mage::helper('core')->__('New Design Change');
     }
 }

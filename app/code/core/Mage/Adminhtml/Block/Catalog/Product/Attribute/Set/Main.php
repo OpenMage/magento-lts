@@ -30,7 +30,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
 {
     /**
      * Initialize template
-     *
      */
     protected function _construct()
     {
@@ -78,7 +77,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             'back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'label'     => Mage::helper('catalog')->__('Back'),
-                'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/') . '\')',
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/')),
                 'class'     => 'back'
             ])
         );
@@ -100,14 +99,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             ])
         );
 
-        $deleteConfirmMessage = $this->jsQuoteEscape(Mage::helper('catalog')
-            ->__('All products of this set will be deleted! Are you sure you want to delete this attribute set?'));
-        $deleteUrl = $this->getUrlSecure('*/*/delete', ['id' => $setId]);
         $this->setChild(
             'delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'label'     => Mage::helper('catalog')->__('Delete Attribute Set'),
-                'onclick'   => 'deleteConfirm(\'' . $deleteConfirmMessage . '\', \'' . $deleteUrl . '\')',
+                'onclick'   => Mage::helper('core/js')->getDeleteConfirmJs(
+                    $this->getUrlSecure('*/*/delete', ['id' => $setId]),
+                    Mage::helper('catalog')->__('All products of this set will be deleted! Are you sure you want to delete this attribute set?')
+                ),
                 'class'     => 'delete'
             ])
         );

@@ -596,7 +596,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getCategoryIds()
     {
-        if (! $this->hasData('category_ids')) {
+        if (!$this->hasData('category_ids')) {
             $wasLocked = false;
             if ($this->isLockedAttribute('category_ids')) {
                 $wasLocked = true;
