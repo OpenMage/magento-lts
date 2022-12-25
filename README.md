@@ -33,8 +33,7 @@ to do so (based on available resources). For example, Magento version `1.9.4.5` 
 
 ## Requirements
 
-- PHP 7.3+ (PHP 8.0 is supported)<br/>
-`mcrypt` extension needs to be disabled to fallback on `mcryptcompat` and `phpseclib`. 
+- PHP 7.3+ (PHP 8.0 is supported)
 - MySQL 5.6+ (8.0+ recommended) or MariaDB
 
 __Please be aware that although OpenMage is compatible that one or more extensions may not be.__
