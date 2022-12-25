@@ -65,7 +65,7 @@ class Varien_Autoload
         $path = str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $class))) . '.php';
         /** @see https://stackoverflow.com/a/5504486/716029 */
         $found = stream_resolve_include_path($path);
-        if ($found !== FALSE) {
+        if ($found !== false) {
             return include $found;
         }
     }
