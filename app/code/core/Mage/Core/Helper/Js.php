@@ -188,4 +188,62 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
         }
         return $this->_config;
     }
+
+    /**
+     * Helper for "onclick.deleteConfirm"
+     *
+     * @param string $url
+     * @param string|null $message null for default message, do not use jsQuoteEscape() before
+     * @return string
+     * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
+     */
+    public function getDeleteConfirmJs(string $url, ?string $message = null): string
+    {
+        if (is_null($message)) {
+            $message = Mage::helper('adminhtml')->__('Are you sure you want to do this?');
+        }
+
+        $message = Mage::helper('core')->jsQuoteEscape($message);
+        return 'deleteConfirm(\'' . $message . '\', \'' . $url . '\')';
+    }
+
+    /**
+     * Helper for "onclick.confirmSetLocation"
+     *
+     * @param string $url
+     * @param string|null $message null for default message, do not use jsQuoteEscape() before
+     * @return string
+     * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
+     */
+    public function getConfirmSetLocationJs(string $url, ?string $message = null): string
+    {
+        if (is_null($message)) {
+            $message = Mage::helper('adminhtml')->__('Are you sure you want to do this?');
+        }
+
+        $message = Mage::helper('core')->jsQuoteEscape($message);
+        return "confirmSetLocation('{$message}', '{$url}')";
+    }
+
+    /**
+     * Helper for "onclick.setLocation"
+     *
+     * @param string $url
+     * @return string
+     */
+    public function getSetLocationJs(string $url): string
+    {
+        return 'setLocation(\'' . $url . '\')';
+    }
+
+    /**
+     * Helper for "onclick.saveAndContinueEdit"
+     *
+     * @param string $url
+     * @return string
+     */
+    public function getSaveAndContinueEditJs(string $url): string
+    {
+        return 'saveAndContinueEdit(\'' . $url . '\')';
+    }
 }

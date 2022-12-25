@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Files extends Mage_Adminht
      */
     public function getFiles()
     {
-        if (! $this->_filesCollection) {
+        if (!$this->_filesCollection) {
             $this->_filesCollection = Mage::getSingleton('cms/wysiwyg_images_storage')->getFilesCollection(Mage::helper('cms/wysiwyg_images')->getCurrentPath(), $this->_getMediaType());
         }
 

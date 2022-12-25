@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit extends Mage_Adminhtml
         $this->_updateButton('save', 'label', Mage::helper('catalog')->__('Save Attribute'));
         $this->_updateButton('save', 'onclick', 'saveAttribute()');
 
-        if (! Mage::registry('entity_attribute')->getIsUserDefined()) {
+        if (!Mage::registry('entity_attribute')->getIsUserDefined()) {
             $this->_removeButton('delete');
         } else {
             $this->_updateButton('delete', 'label', Mage::helper('catalog')->__('Delete Attribute'));
