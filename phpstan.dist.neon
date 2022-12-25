@@ -5,6 +5,9 @@ includes:
 parameters:
     phpVersion: 80000 # PHP 8.0
     magentoRootPath: %currentWorkingDirectory%
+    fileExtensions:
+      - php
+      - phtml
     paths:
         - api.php
         - cron.php
@@ -13,6 +16,7 @@ parameters:
         - install.php
         - app/Mage.php
         - app/code/core/Mage
+        - app/design/
         - lib/Mage
         - lib/Magento
         - lib/Varien
