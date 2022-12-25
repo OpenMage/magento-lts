@@ -36,7 +36,7 @@ class Mage_Catalog_Model_Product_Type_Price
      * Default action to get price of product
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return float
+     * @return string|float|int
      */
     public function getPrice($product)
     {
@@ -48,7 +48,6 @@ class Mage_Catalog_Model_Product_Type_Price
      *
      * @param Mage_Catalog_Model_Product $product
      * @param float|null $qty
-     *
      * @return float
      */
     public function getBasePrice($product, $qty = null)

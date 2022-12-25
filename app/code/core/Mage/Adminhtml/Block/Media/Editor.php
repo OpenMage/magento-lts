@@ -28,7 +28,9 @@
  */
 class Mage_Adminhtml_Block_Media_Editor extends Mage_Adminhtml_Block_Widget
 {
-    /** @var Varien_Object */
+    /**
+     * @var Varien_Object|null
+     */
     protected $_config;
 
     /**

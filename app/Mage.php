@@ -155,6 +155,7 @@ final class Mage
      * Gets the detailed Magento version information
      *
      * @return array
+     * @deprecated
      */
     public static function getVersionInfo()
     {
@@ -175,16 +176,16 @@ final class Mage
      *
      * @return string
      */
-    public static function getOpenMageVersion()
+    public static function getOpenMageVersion(): string
     {
-        $i = self::getOpenMageVersionInfo();
-        $versionString = "{$i['major']}.{$i['minor']}.{$i['patch']}";
-        if ($i['stability'] || $i['number']) {
-            $versionString .= "-";
-            if ($i['stability'] && $i['number']) {
-                $versionString .= implode('.', [$i['stability'], $i['number']]);
+        $info = self::getOpenMageVersionInfo();
+        $versionString = "{$info['major']}.{$info['minor']}.{$info['patch']}";
+        if ($info['stability'] || $info['number']) {
+            $versionString .= '-';
+            if ($info['stability'] && $info['number']) {
+                $versionString .= implode('.', [$info['stability'], $info['number']]);
             } else {
-                $versionString .= implode('', [$i['stability'], $i['number']]);
+                $versionString .= implode('', [$info['stability'], $info['number']]);
             }
         }
         return trim(
@@ -200,33 +201,39 @@ final class Mage
      *
      * @return array
      */
-    public static function getOpenMageVersionInfo()
+    public static function getOpenMageVersionInfo(): array
     {
-        $majorVersion = 19;
-
         /**
          * This code construct is to make merging for forward porting of changes easier.
          * By having the version numbers of different branches in own lines, they do not provoke a merge conflict
          * also as releases are usually done together, this could in theory be done at once.
          * The major Version then needs to be only changed once per branch.
          */
-        if ($majorVersion === 20) {
+        if (self::getOpenMageMajorVersion() === 20) {
             return [
                 'major'     => '20',
-                'minor'     => '0',
-                'patch'     => '19',
-                'stability' => '', // beta,alpha,rc
+                'minor'     => '1',
+                'patch'     => '0',
+                'stability' => 'rc1', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             ];
         }
 
         return [
             'major'     => '19',
-            'minor'     => '4',
-            'patch'     => '21',
-            'stability' => '', // beta,alpha,rc
+            'minor'     => '5',
+            'patch'     => '0',
+            'stability' => 'rc1', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
+    }
+
+    /**
+     * @return int<19,20>
+     */
+    public static function getOpenMageMajorVersion(): int
+    {
+        return 19;
     }
 
     /**
@@ -410,7 +417,8 @@ final class Mage
      */
     public static function getStoreConfigFlag($path, $store = null)
     {
-        $flag = strtolower(self::getStoreConfig($path, $store));
+        $flag = self::getStoreConfig($path, $store);
+        $flag = is_string($flag) ? strtolower($flag) : $flag;
         if (!empty($flag) && $flag !== 'false') {
             return true;
         } else {
@@ -433,7 +441,7 @@ final class Mage
     /**
      * Generate url by route and parameters
      *
-     * @param   string $route
+     * @param   null|string $route
      * @param   array $params
      * @return  string
      */
@@ -828,7 +836,7 @@ final class Mage
      *
      * @param array|object|string $message
      * @param int $level
-     * @param string $file
+     * @param string|null $file
      * @param bool $forceLog
      */
     public static function log($message, $level = null, $file = '', $forceLog = false)

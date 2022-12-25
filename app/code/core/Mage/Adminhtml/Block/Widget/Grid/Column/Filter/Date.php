@@ -31,14 +31,21 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
 {
     protected $_locale;
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         if ($head = $this->getLayout()->getBlock('head')) {
             $head->setCanLoadCalendarJs(true);
         }
-        return $this;
+        return parent::_prepareLayout();
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public function getHtml()
     {
         $htmlId = $this->_getHtmlId() . microtime(true);
@@ -170,7 +177,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
      *
      * @param string $date
      * @param string $locale
-     * @return Zend_Date
+     * @return Zend_Date|null
      */
     protected function _convertDate($date, $locale)
     {

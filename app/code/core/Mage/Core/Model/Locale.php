@@ -66,7 +66,7 @@ class Mage_Core_Model_Locale
     /**
      * Locale object
      *
-     * @var Zend_Locale
+     * @var Zend_Locale|null
      */
     protected $_locale;
 
@@ -826,7 +826,7 @@ class Mage_Core_Model_Locale
     /**
      * Checks if current date of the given store (in the store timezone) is within the range
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param int|string|Mage_Core_Model_Store|null $store
      * @param string|null $dateFrom
      * @param string|null $dateTo
      * @return bool

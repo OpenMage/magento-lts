@@ -34,21 +34,21 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     /**
      * Product Index model name
      *
-     * @var string
+     * @var string|null
      */
     protected $_indexName;
 
     /**
      * Product Index model instance
      *
-     * @var Mage_Reports_Model_Product_Index_Abstract
+     * @var Mage_Core_Model_Abstract|Mage_Reports_Model_Product_Index_Abstract|null
      */
     protected $_indexModel;
 
     /**
      * Product Index Collection
      *
-     * @var Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
+     * @var Mage_Reports_Model_Resource_Product_Index_Collection_Abstract|null
      */
     protected $_collection;
 
@@ -92,7 +92,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     /**
      * Retrieve Product Index model instance
      *
-     * @return Mage_Reports_Model_Product_Index_Abstract
+     * @return Mage_Core_Model_Abstract|Mage_Reports_Model_Product_Index_Abstract
      */
     protected function _getModel()
     {
@@ -110,7 +110,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     /**
      * Public method for retrieve Product Index model
      *
-     * @return Mage_Reports_Model_Product_Index_Abstract
+     * @return Mage_Core_Model_Abstract|Mage_Reports_Model_Product_Index_Abstract
      */
     public function getModel()
     {

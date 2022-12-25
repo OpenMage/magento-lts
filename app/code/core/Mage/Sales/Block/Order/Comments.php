@@ -36,7 +36,7 @@ class Mage_Sales_Block_Order_Comments extends Mage_Core_Block_Template
     /**
      * Currect comments collection
      *
-     * @var Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
+     * @var Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract|null
      */
     protected $_commentCollection;
 

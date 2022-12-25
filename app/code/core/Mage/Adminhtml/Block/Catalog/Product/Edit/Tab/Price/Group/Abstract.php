@@ -45,7 +45,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Websites cache
      *
-     * @var array
+     * @var array|null
      */
     protected $_websites;
 
@@ -75,7 +75,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
      * Set form element instance
      *
      * @param Varien_Data_Form_Element_Abstract $element
-     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstract
+     * @return $this
      */
     public function setElement(Varien_Data_Form_Element_Abstract $element)
     {
@@ -271,9 +271,8 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     {
         if ($this->hasData('price_column_header')) {
             return $this->getData('price_column_header');
-        } else {
-            return $default;
         }
+        return $default;
     }
 
     /**
@@ -286,9 +285,8 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     {
         if ($this->hasData('price_validation')) {
             return $this->getData('price_validation');
-        } else {
-            return $default;
         }
+        return $default;
     }
 
     /**

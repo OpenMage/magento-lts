@@ -1,0 +1,15 @@
+--- /dev/null
++++ ../library/Zend/Form/Decorator/Form.php
+@@ -129,6 +129,12 @@
+         $attribs       = $this->getOptions();
+         $name          = $form->getFullyQualifiedName();
+         $attribs['id'] = $form->getId();
++        if ($helper == 'unserialize') {
++            $filter = new Varien_Filter_FormElementName(true);
++            if($filter->filter($name) != $name){
++                throw new Zend_Form_Exception(sprintf('Invalid element name:"%s"', $name));
++            }
++        }
+         return $view->$helper($name, $attribs, $content);
+     }
+ }

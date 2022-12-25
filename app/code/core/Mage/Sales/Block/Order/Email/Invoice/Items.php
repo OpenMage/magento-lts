@@ -29,14 +29,13 @@
 class Mage_Sales_Block_Order_Email_Invoice_Items extends Mage_Sales_Block_Items_Abstract
 {
     /**
-     * Prepare item before output
-     *
-     * @param Mage_Core_Block_Abstract $renderer
-     * @return void
+     * @inheritDoc
      */
     protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
     {
         $renderer->getItem()->setOrder($this->getOrder());
         $renderer->getItem()->setSource($this->getInvoice());
+
+        return parent::_prepareItem($renderer);
     }
 }
