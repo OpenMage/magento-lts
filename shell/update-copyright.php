@@ -17,8 +17,8 @@ define('MAX_SCAN_LINES', 50);
 $commits = explode("\n", shell_exec("git log --pretty='%H %cs %s'"));
 
 // Keep track of upstream Magento and OpenMage commits for debugging
-$commits_magento = array();
-$commits_openmage = array();
+$commits_magento = [];
+$commits_openmage = [];
 
 // Filter only commits by OpenMage contributors and reduce to assoc array with format:
 // array(
@@ -36,7 +36,7 @@ $commits = array_reduce(
         $msg = trim($msg);
 
         // Push into upstream magento commits for now. If we don't return early we'll move to openmage commits
-        $commits_magento[] = implode(' ', array($hash, $date, $msg));
+        $commits_magento[] = implode(' ', [$hash, $date, $msg]);
 
         // Ignore any "Updated Copyright" type commits
         if (preg_match('/^(Add(ed)?|Update(d)?).*?Copyright/i', $msg)) {
@@ -111,7 +111,7 @@ $commits = array_reduce(
 
         return $acc;
     },
-    array()
+    []
 );
 
 // If `php update-copyright.php dump` then stop here
@@ -138,7 +138,7 @@ foreach ($files as $file) {
     $commits_file = array_filter(explode("\n", shell_exec("git log --pretty='%H' '$file'")));
 
     // Find the years this file has been modified from our filtered $commits assoc array
-    $copyright_years = array();
+    $copyright_years = [];
     foreach ($commits_file as $hash) {
         if (array_key_exists($hash, $commits) && !in_array($commits[$hash], $copyright_years)) {
             $copyright_years[] = $commits[$hash];

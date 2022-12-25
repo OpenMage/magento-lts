@@ -61,7 +61,7 @@ abstract class Mage_Shell_Abstract
      *
      * @var array
      */
-    protected $_args        = array();
+    protected $_args        = [];
 
     /**
      * Factory instance
@@ -112,7 +112,7 @@ abstract class Mage_Shell_Abstract
         if (file_exists($htaccess)) {
             // parse htaccess file
             $data = file_get_contents($htaccess);
-            $matches = array();
+            $matches = [];
             preg_match_all('#^\s+?php_value\s+([a-z_]+)\s+(.+)$#siUm', $data, $matches, PREG_SET_ORDER);
             if ($matches) {
                 foreach ($matches as $match) {
@@ -137,7 +137,7 @@ abstract class Mage_Shell_Abstract
     {
         $current = null;
         foreach ($_SERVER['argv'] as $arg) {
-            $match = array();
+            $match = [];
             if (preg_match('#^--([\w\d_-]{1,})$#', $arg, $match) || preg_match('#^-([\w\d_]{1,})$#', $arg, $match)) {
                 $current = $match[1];
                 $this->_args[$current] = true;

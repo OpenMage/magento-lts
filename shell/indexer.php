@@ -48,7 +48,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
      */
     protected function _parseIndexerString($string)
     {
-        $processes = array();
+        $processes = [];
         if ($string == 'all') {
             $collection = $this->_getIndexer()->getProcessesCollection();
             foreach ($collection as $process) {
@@ -79,11 +79,11 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
      */
     public function run()
     {
-        $_SESSION = array();
+        $_SESSION = [];
         if ($this->getArg('info')) {
             $processes = $this->_parseIndexerString('all');
             foreach ($processes as $process) {
-                /* @var $process Mage_Index_Model_Process */
+                /** @var Mage_Index_Model_Process $process */
                 echo sprintf('%-30s', $process->getIndexerCode());
                 echo $process->getIndexer()->getName() . "\n";
             }
@@ -94,7 +94,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                 $processes  = $this->_parseIndexerString($this->getArg('mode'));
             }
             foreach ($processes as $process) {
-                /* @var $process Mage_Index_Model_Process */
+                /** @var Mage_Index_Model_Process $process */
                 $status = 'unknown';
                 if ($this->getArg('status')) {
                     switch ($process->getStatus()) {
@@ -136,7 +136,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                 $processes  = $this->_parseIndexerString($this->getArg('mode-manual'));
             }
             foreach ($processes as $process) {
-                /* @var $process Mage_Index_Model_Process */
+                /** @var Mage_Index_Model_Process $process */
                 try {
                     $process->setMode($mode)->save();
                     echo $process->getIndexer()->getName() . " index was successfully changed index mode\n";
@@ -161,7 +161,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                     if( $this->getArg('reindexallrequired') && $process->getStatus() == Mage_Index_Model_Process::STATUS_PENDING ) {
                         continue;
                     }
-                    /* @var $process Mage_Index_Model_Process */
+                    /** @var Mage_Index_Model_Process $process */
                     try {
                         $startTime = microtime(true);
                         $process->reindexEverything();

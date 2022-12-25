@@ -104,7 +104,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
             $resource = $this->_getLog()->getResource();
             $adapter  = $resource->getReadConnection();
             // log tables
-            $tables = array(
+            $tables = [
                 $resource->getTable('log/customer'),
                 $resource->getTable('log/visitor'),
                 $resource->getTable('log/visitor_info'),
@@ -117,7 +117,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
                 $resource->getTable('reports/event'),
 
                 $resource->getTable('catalog/compare_item'),
-            );
+            ];
 
             $rows        = 0;
             $dataLengh   = 0;
