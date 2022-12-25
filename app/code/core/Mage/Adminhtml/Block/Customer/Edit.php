@@ -19,6 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Customer edit block
  *
@@ -37,9 +38,9 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
             Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/create')
         ) {
             $this->_addButton('order', [
-                'label' => Mage::helper('customer')->__('Create Order'),
-                'onclick' => 'setLocation(\'' . $this->getCreateOrderUrl() . '\')',
-                'class' => 'add',
+                'label'     => Mage::helper('customer')->__('Create Order'),
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCreateOrderUrl()),
+                'class'     => 'add',
             ], 0);
         }
 
@@ -110,7 +111,7 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         if (!Mage::registry('current_customer')->isReadonly()) {
             $this->_addButton('save_and_continue', [
                 'label'     => Mage::helper('customer')->__('Save and Continue Edit'),
-                'onclick'   => 'saveAndContinueEdit(\'' . $this->_getSaveAndContinueUrl() . '\')',
+                'onclick'   => Mage::helper('core/js')->getSaveAndContinueEditJs($this->_getSaveAndContinueUrl()),
                 'class'     => 'save'
             ], 10);
         }

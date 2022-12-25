@@ -460,7 +460,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             return $this;
         }
 
-        if (! $this->getRequest()->getParam('create_backup')) {
+        if (!$this->getRequest()->getParam('create_backup')) {
             return $this;
         }
         try {

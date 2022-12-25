@@ -572,13 +572,16 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             return $gatewayResponse;
         }
 
+        $countryCodeForVatNumber = $this->_getCountryCodeForVatNumber($countryCode);
+        $requesterCountryCodeForVatNumber = $this->_getCountryCodeForVatNumber($requesterCountryCode);
+
         try {
             $soapClient = $this->_createVatNumberValidationSoapClient();
 
             $requestParams = [];
-            $requestParams['countryCode'] = $countryCode;
+            $requestParams['countryCode'] = $countryCodeForVatNumber;
             $requestParams['vatNumber'] = str_replace([' ', '-'], ['', ''], $vatNumber);
-            $requestParams['requesterCountryCode'] = $requesterCountryCode;
+            $requestParams['requesterCountryCode'] = $requesterCountryCodeForVatNumber;
             $requestParams['requesterVatNumber'] = str_replace([' ', '-'], ['', ''], $requesterVatNumber);
 
             // Send request to service
@@ -737,5 +740,19 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     protected function _createVatNumberValidationSoapClient($trace = false)
     {
         return new SoapClient(self::VAT_VALIDATION_WSDL_URL, ['trace' => $trace]);
+    }
+
+    /**
+     * Returns the country code used in VAT number which can be different from the ISO-2 country code.
+     *
+     * @param string $countryCode
+     * @return string
+     */
+    protected function _getCountryCodeForVatNumber(string $countryCode): string
+    {
+        // Greece uses a different code for VAT validation than its ISO-2 country code.
+        // See: https://en.wikipedia.org/wiki/VAT_identification_number#European_Union_VAT_identification_numbers
+
+        return $countryCode === 'GR' ? 'EL' : $countryCode;
     }
 }

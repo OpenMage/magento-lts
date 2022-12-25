@@ -19,6 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Shipment view form
  *
@@ -89,7 +90,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Form extends Mage_Adminhtml
             ->createBlock('adminhtml/widget_button')
             ->setData([
                 'label'   => Mage::helper('sales')->__('Print Shipping Label'),
-                'onclick' => 'setLocation(\'' . $url . '\')'
+                'onclick' => Mage::helper('core/js')->getSetLocationJs($url),
             ])
             ->toHtml();
     }
