@@ -38,7 +38,7 @@ abstract class Mage_Shell_Abstract
     /**
      * Magento Root path
      *
-     * @var string
+     * @var string|null
      */
     protected $_rootPath;
 
@@ -144,7 +144,7 @@ abstract class Mage_Shell_Abstract
             } else {
                 if ($current) {
                     $this->_args[$current] = $arg;
-                } else if (preg_match('#^([\w\d_]{1,})$#', $arg, $match)) {
+                } elseif (preg_match('#^([\w\d_]{1,})$#', $arg, $match)) {
                     $this->_args[$match[1]] = true;
                 }
             }

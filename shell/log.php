@@ -32,7 +32,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
     /**
      * Log instance
      *
-     * @var Mage_Log_Model_Log
+     * @var Mage_Log_Model_Log|null
      */
     protected $_log;
 
@@ -58,14 +58,17 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
     protected function _humanCount($number)
     {
         if ($number < 1000) {
-            return $number;
-        } else if ($number >= 1000 && $number < 1000000) {
-            return sprintf('%.2fK', $number / 1000);
-        } else if ($number >= 1000000 && $number < 1000000000) {
-            return sprintf('%.2fM', $number / 1000000);
-        } else {
-            return sprintf('%.2fB', $number / 1000000000);
+            return (string)$number;
         }
+        if ($number < 1000000) {
+            return sprintf('%.2fK', $number / 1000);
+        }
+
+        if ($number < 1000000000) {
+            return sprintf('%.2fM', $number / 1000000);
+        }
+
+        return sprintf('%.2fB', $number / 1000000000);
     }
 
     /**
@@ -78,13 +81,17 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
     {
         if ($number < 1000) {
             return sprintf('%d b', $number);
-        } else if ($number >= 1000 && $number < 1000000) {
-            return sprintf('%.2fKb', $number / 1000);
-        } else if ($number >= 1000000 && $number < 1000000000) {
-            return sprintf('%.2fMb', $number / 1000000);
-        } else {
-            return sprintf('%.2fGb', $number / 1000000000);
         }
+
+        if ($number < 1000000) {
+            return sprintf('%.2fKb', $number / 1000);
+        }
+
+        if ($number < 1000000000) {
+            return sprintf('%.2fMb', $number / 1000000);
+        }
+
+        return sprintf('%.2fGb', $number / 1000000000);
     }
 
     /**
@@ -100,7 +107,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
             }
             $this->_getLog()->clean();
             echo "Log cleaned\n";
-        } else if ($this->getArg('status')) {
+        } elseif ($this->getArg('status')) {
             $resource = $this->_getLog()->getResource();
             $adapter  = $resource->getReadConnection();
             // log tables
