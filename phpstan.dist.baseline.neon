@@ -7859,3 +7859,8 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Varien/Simplexml/Config.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between '' and 'dump' will always evaluate to false\\.$#"
+			count: 1
+			path: shell/update-copyright.php
