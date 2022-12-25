@@ -33,7 +33,6 @@ chdir(dirname(__DIR__, 1));
  */
 class Mage_Shell_Translation extends Mage_Shell_Abstract
 {
-
     /**
      * Remember if we used stdin for file list
      *
@@ -60,7 +59,6 @@ class Mage_Shell_Translation extends Mage_Shell_Abstract
             $files = array_merge(
                 // Grep for all files that might call the __ function
                 explode("\n", shell_exec("grep -Frl --exclude-dir='.git' --include=*.php --include=*.phtml '__' .")),
-
                 // Grep for all XML files that might use the translate attribute
                 explode("\n", shell_exec("grep -Frl --exclude-dir='.git' --include=*.xml 'translate=' ."))
             );
@@ -94,7 +92,6 @@ class Mage_Shell_Translation extends Mage_Shell_Abstract
         $map = [];
         $files = $this->getFiles();
         foreach ($files as $file) {
-
             // Ignore this file
             if ($file === './shell/translations.php') {
                 continue;
@@ -122,7 +119,7 @@ class Mage_Shell_Translation extends Mage_Shell_Abstract
                 if (preg_match_all($re_sq, $contents, $_matches)) {
                     $matches = array_merge($matches, str_replace("\'", "'", $_matches[1]));
                 }
-            } else if ($ext === 'xml') {
+            } elseif ($ext === 'xml') {
                 $xml = new SimpleXMLElement($contents);
                 // Get all nodes with translate="" attribute
                 $nodes = $xml->xpath('//*[@translate]');
@@ -153,7 +150,6 @@ class Mage_Shell_Translation extends Mage_Shell_Abstract
     {
         $files = $this->getFiles();
         foreach ($files as $file) {
-
             // Ignore this file
             if ($file === './shell/translations.php') {
                 continue;
@@ -206,7 +202,6 @@ class Mage_Shell_Translation extends Mage_Shell_Abstract
     public function run()
     {
         if ($this->getArg('missing')) {
-
             $defined_file_map = $this->getDefinedStrings();
             $used_file_map = $this->getUsedStrings();
 
@@ -225,9 +220,7 @@ class Mage_Shell_Translation extends Mage_Shell_Abstract
                 sort($missing);
                 echo implode("\n", $missing) . "\n";
             }
-
-        } else if ($this->getArg('unused')) {
-
+        } elseif ($this->getArg('unused')) {
             $defined_file_map = $this->getDefinedStrings();
             $used_file_map = $this->getUsedStrings();
 
@@ -250,8 +243,7 @@ class Mage_Shell_Translation extends Mage_Shell_Abstract
                 sort($unused);
                 echo implode("\n", $unused) . "\n";
             }
-
-        } else if ($this->getArg('deprecated')) {
+        } elseif ($this->getArg('deprecated')) {
             $this->findDeprecated();
         } else {
             echo $this->usageHelp();
