@@ -24,13 +24,6 @@ level of backwards compatibility to the official releases.
 
 **Pull requests with unofficial bug fixes and security patches from the community are encouraged and welcome!**
 
-### Versioning
-
-Though Magento does __not__ follow [Semantic Versioning](http://semver.org/) we aim to provide a workable system for
-dependency definition. Each Magento `1.<minor>.<revision>` release will get its own branch (named `1.<minor>.<revision>.x`)
-that will be independently maintained with upstream patches and community bug fixes for as long as it makes sense
-to do so (based on available resources). For example, Magento version `1.9.4.5` was merged into the `1.9.4.x` branch.
-
 ## Requirements
 
 - PHP 7.3+ (PHP 8.0 is supported)
@@ -235,6 +228,13 @@ n98-magerun.phar dev:ide:phpstorm:meta
 You can add additional meta files in this directory to cover your own project files. See
 [PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
 for more information.
+
+## Versioning
+
+Though Magento does __not__ follow [Semantic Versioning](http://semver.org/) we aim to provide a workable system for
+dependency definition. Each Magento `1.<minor>.<revision>` release will get its own branch (named `1.<minor>.<revision>.x`)
+that will be independently maintained with upstream patches and community bug fixes for as long as it makes sense
+to do so (based on available resources). For example, Magento version `1.9.4.5` was merged into the `1.9.4.x` branch.
 
 ## Public Communication
 
