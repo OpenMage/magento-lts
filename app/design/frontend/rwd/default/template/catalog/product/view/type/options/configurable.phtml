@@ -28,7 +28,7 @@ $_renderers = $this->getChild('attr_renderers')->getSortedChildren();
 ?>
 <?php if ($_product->isSaleable() && count($_attributes)):?>
     <dl>
-    <?php foreach($_attributes as $_attribute): ?>
+    <?php foreach ($_attributes as $_attribute): ?>
         <?php
         $_rendered = false;
         foreach ($_renderers as $_rendererName):
@@ -45,7 +45,7 @@ $_renderers = $this->getChild('attr_renderers')->getSortedChildren();
         if (!$_rendered):
         ?>
         <dt><label class="required"><em>*</em><?php echo $_attribute->getLabel() ?></label></dt>
-        <dd<?php if ($_attribute->decoratedIsLast){?> class="last"<?php }?>>
+        <dd<?php if ($_attribute->decoratedIsLast) {?> class="last"<?php }?>>
             <div class="input-box">
                 <select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select">
                     <option><?php echo $this->__('Choose an Option...') ?></option>

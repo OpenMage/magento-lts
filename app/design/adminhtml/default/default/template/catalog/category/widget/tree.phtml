@@ -28,9 +28,9 @@
 
 var tree<?php echo $this->getId() ?>;
 
-var useMassaction = <?php echo $this->getUseMassaction()?1:0; ?>;
+var useMassaction = <?php echo $this->getUseMassaction() ? 1 : 0; ?>;
 
-var isAnchorOnly = <?php echo $this->getIsAnchorOnly()?1:0; ?>;
+var isAnchorOnly = <?php echo $this->getIsAnchorOnly() ? 1 : 0; ?>;
 
 Ext.tree.TreePanel.Enhanced = function(el, config)
 {
@@ -68,7 +68,7 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
 
 Ext.onReady(function()
 {
-    var emptyNodeAdded = <?php echo ($this->getWithEmptyNode() ? 'false' : 'true') ?>;
+    var emptyNodeAdded = <?php echo($this->getWithEmptyNode() ? 'false' : 'true') ?>;
 
     var categoryLoader = new Ext.tree.TreeLoader({
        dataUrl: '<?php echo $this->getLoadTreeUrl() ?>'

@@ -52,7 +52,7 @@ var bundleTemplateRow ='<td>' +
                 '    </div>' +
                 '</td>' +
                 <?php if ($this->getCanReadPrice() !== false) : ?>
-                '<td class="price-type-box"><input id="<?php echo $this->getFieldId() ?>_{{index}}_price_value" class="input-text required-entry validate-zero-or-greater" type="text" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][selection_price_value]" value="{{selection_price_value}}"<?php if($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif ?>></td>' +
+                '<td class="price-type-box"><input id="<?php echo $this->getFieldId() ?>_{{index}}_price_value" class="input-text required-entry validate-zero-or-greater" type="text" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][selection_price_value]" value="{{selection_price_value}}"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif ?>></td>' +
                 '<td class="price-type-box"><?php echo $this->getPriceTypeSelectHtml() ?><div><?php echo $this->getCheckboxScopeHtml() ?></div></td>' +
                 <?php else: ?>
                     '<input type="hidden" id="<?php echo $this->getFieldId(); ?>_{{index}}_price_value" name="<?php echo $this->getFieldName(); ?>[{{parentIndex}}][{{index}}][selection_price_value]" value="0" />' +

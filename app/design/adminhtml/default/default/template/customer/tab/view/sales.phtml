@@ -50,7 +50,7 @@
                         <?php if ($_row->getStoreId() == 0): ?>
                         <td colspan="3" class="label"><?php echo $this->escapeHtml($_row->getStoreName()); ?></td>
                         <?php else: ?>
-                <tr<?php echo ($_i++ % 2 ? ' class="even"' : '') ?>>
+                <tr<?php echo($_i++ % 2 ? ' class="even"' : '') ?>>
                         <?php if (!$_websiteRow): ?>
                     <td rowspan="<?php echo $this->getWebsiteCount($_websiteId) ?>"><?php echo $this->escapeHtml($_row->getWebsiteName()); ?></td>
                             <?php $_websiteRow = true; ?>

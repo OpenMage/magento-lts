@@ -41,7 +41,7 @@ $product = $item->getProduct();
             <?php endif ?>
         <?php endif ?>
     </div>
-    <?php foreach($this->getSortedChildren() as $childName):?>
+    <?php foreach ($this->getSortedChildren() as $childName):?>
         <?php echo $this->getChildHtml($childName, false);?>
     <?php endforeach ?>
 </div>

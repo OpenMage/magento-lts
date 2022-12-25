@@ -20,7 +20,7 @@
  */
 ?>
 <span class="field-row grid" id="shipment_tracking_info">
-<?php if($this->getTrackingInfo()): ?>
+<?php if ($this->getTrackingInfo()): ?>
     <?php if ($this->getTrackingInfo()->getErrorMessage()): ?>
         <?php echo $this->getTrackingInfo()->getErrorMessage() ?>
     <?php else: ?>

@@ -29,9 +29,9 @@
     </div>
     <?php echo $this->getStoreSwitcherHtml();?>
     <div class="tree-actions">
-        <?php if($this->getRoot()): ?>
-            <?php //echo $this->getCollapseButtonHtml() ?>
-            <?php //echo $this->getExpandButtonHtml() ?>
+        <?php if ($this->getRoot()): ?>
+            <?php //echo $this->getCollapseButtonHtml()?>
+            <?php //echo $this->getExpandButtonHtml()?>
             <a href="#" onclick="tree.collapseTree(); return false;"><?php echo Mage::helper('catalog')->__('Collapse All'); ?></a> <span class="separator">|</span> <a href="#" onclick="tree.expandTree(); return false;"><?php echo Mage::helper('catalog')->__('Expand All'); ?></a>
         <?php endif ?>
     </div>

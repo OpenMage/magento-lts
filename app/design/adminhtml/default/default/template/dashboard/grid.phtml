@@ -23,7 +23,7 @@
 
 $numColumns = count($this->getColumns());
 ?>
-<?php if($this->getCollection()): ?>
+<?php if ($this->getCollection()): ?>
 <div class="grid np">
 <table cellspacing="0" style="border:0;" id="<?php echo $this->getId() ?>_table">
     <?php foreach ($this->getColumns() as $_column): ?>
@@ -44,8 +44,8 @@ $numColumns = count($this->getColumns());
     <?php if (($this->getCollection()->getSize()>0) && (!$this->getIsCollapsed())): ?>
     <?php foreach ($this->getCollection() as $_index=>$_item): ?>
         <tr title="<?php echo $this->getRowId($_item) ?>">
-        <?php $i=0;foreach ($this->getColumns() as $_column): ?>
-            <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i==$numColumns?'last':'' ?>"><?php echo (($_html = $_column->getRowField($_item)) != '' ? $_html : '&nbsp;') ?></td>
+        <?php $i=0; foreach ($this->getColumns() as $_column): ?>
+            <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i==$numColumns ? 'last' : '' ?>"><?php echo(($_html = $_column->getRowField($_item)) != '' ? $_html : '&nbsp;') ?></td>
         <?php endforeach ?>
         </tr>
     <?php endforeach ?>
@@ -57,22 +57,22 @@ $numColumns = count($this->getColumns());
     </tbody>
 </table>
 </div>
-<?php if($this->canDisplayContainer()): ?>
+<?php if ($this->canDisplayContainer()): ?>
 <script type="text/javascript">
 //<![CDATA[
     <?php echo $this->getJsObjectName() ?> = new varienGrid('<?php echo $this->getId() ?>', '<?php echo $this->getGridUrl() ?>', '<?php echo $this->getVarNamePage() ?>', '<?php echo $this->getVarNameSort() ?>', '<?php echo $this->getVarNameDir() ?>', '<?php echo $this->getVarNameFilter() ?>');
     <?php echo $this->getJsObjectName() ?>.useAjax = '<?php echo $this->getUseAjax() ?>';
-    <?php if($this->getRowClickCallback()): ?>
+    <?php if ($this->getRowClickCallback()): ?>
         <?php echo $this->getJsObjectName() ?>.rowClickCallback = <?php echo $this->getRowClickCallback() ?>;
     <?php endif ?>
-    <?php if($this->getCheckboxCheckCallback()): ?>
+    <?php if ($this->getCheckboxCheckCallback()): ?>
         <?php echo $this->getJsObjectName() ?>.checkboxCheckCallback = <?php echo $this->getCheckboxCheckCallback() ?>;
     <?php endif ?>
-    <?php if($this->getRowInitCallback()): ?>
+    <?php if ($this->getRowInitCallback()): ?>
         <?php echo $this->getJsObjectName() ?>.initRowCallback = <?php echo $this->getRowInitCallback() ?>;
         <?php echo $this->getJsObjectName() ?>.rows.each(function(row){<?php echo $this->getRowInitCallback() ?>(<?php echo $this->getJsObjectName() ?>, row)});
     <?php endif ?>
-    <?php if($this->getMassactionBlock()->isAvailable()): ?>
+    <?php if ($this->getMassactionBlock()->isAvailable()): ?>
     <?php echo $this->getMassactionBlock()->getJavaScript() ?>
     <?php endif ?>
 //]]>

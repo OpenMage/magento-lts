@@ -25,7 +25,7 @@
 <div class="page-title">
     <h1><?php echo $this->__('Wishlist') ?></h1>
 </div>
-<?php if($wishlist->getSize()): ?>
+<?php if ($wishlist->getSize()): ?>
 <form action="<?php echo $this->getUrl('customer/wishlist/updatePost') ?>" method="post">
     <table class="data-table">
         <col />
@@ -41,7 +41,7 @@
             </tr>
         </thead>
         <tbody>
-        <?php foreach($wishlist as $item): ?>
+        <?php foreach ($wishlist as $item): ?>
             <tr>
                 <td>
                     <input type="hidden" value="1" name="wishlist[<?php echo $item->getItemId() ?>]" />

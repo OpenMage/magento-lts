@@ -133,7 +133,7 @@
 </div>
 <?php echo $this->getGridHtml() ?>
 <script type="text/javascript">
-var superProduct = new Product.Configurable(<?php echo $this->getAttributesJson() ?>,<?php echo $this->getLinksJson() ?>,'<?php echo $this->getHtmlId() ?>_',<?php echo $this->getGridJsObject() ?>, <?php echo ( $this->isReadonly() ? 'true' : 'false'); ?>);
+var superProduct = new Product.Configurable(<?php echo $this->getAttributesJson() ?>,<?php echo $this->getLinksJson() ?>,'<?php echo $this->getHtmlId() ?>_',<?php echo $this->getGridJsObject() ?>, <?php echo($this->isReadonly() ? 'true' : 'false'); ?>);
 superProduct.createEmptyUrl = '<?php echo $this->getNewEmptyProductUrl() ?>';
 superProduct.createNormalUrl = '<?php echo $this->getNewProductUrl() ?>';
 superProduct.createQuickUrl = '<?php echo $this->getQuickCreationUrl() ?>';

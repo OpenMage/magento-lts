@@ -24,8 +24,8 @@
 <div class="col2-set">
     <?php echo $this->getChildHtml('login_before')?>
     <div class="col-1">
-        <h3><?php if( $this->getQuote()->isAllowedGuestCheckout() ): ?><?php echo $this->__('Checkout as a Guest or Register') ?><?php else: ?><?php echo $this->__('Register to Create an Account') ?><?php endif ?></h3>
-        <?php if( $this->getQuote()->isAllowedGuestCheckout() ): ?>
+        <h3><?php if ($this->getQuote()->isAllowedGuestCheckout()): ?><?php echo $this->__('Checkout as a Guest or Register') ?><?php else: ?><?php echo $this->__('Register to Create an Account') ?><?php endif ?></h3>
+        <?php if ($this->getQuote()->isAllowedGuestCheckout()): ?>
             <p><?php echo $this->__('Register with us for future convenience:') ?></p>
         <?php else: ?>
             <p><strong><?php echo $this->__('Register and save time!') ?></strong><br />
@@ -35,15 +35,15 @@
                 <li><?php echo $this->__('Easy access to your order history and status') ?></li>
             </ul>
         <?php endif ?>
-        <?php if( $this->getQuote()->isAllowedGuestCheckout() ): ?>
+        <?php if ($this->getQuote()->isAllowedGuestCheckout()): ?>
             <ul class="form-list">
-                <?php if( $this->getQuote()->isAllowedGuestCheckout() ): ?>
+                <?php if ($this->getQuote()->isAllowedGuestCheckout()): ?>
                 <li class="control">
-                    <input type="radio" name="checkout_method" id="login:guest" value="guest"<?php if($this->getQuote()->getCheckoutMethod()==Mage_Checkout_Model_Type_Onepage::METHOD_GUEST): ?> checked="checked"<?php endif ?> class="radio" /><label for="login:guest"><?php echo $this->__('Checkout as Guest') ?></label>
+                    <input type="radio" name="checkout_method" id="login:guest" value="guest"<?php if ($this->getQuote()->getCheckoutMethod()==Mage_Checkout_Model_Type_Onepage::METHOD_GUEST): ?> checked="checked"<?php endif ?> class="radio" /><label for="login:guest"><?php echo $this->__('Checkout as Guest') ?></label>
                 </li>
                 <?php endif ?>
                 <li class="control">
-                    <input type="radio" name="checkout_method" id="login:register" value="register"<?php if($this->getQuote()->getCheckoutMethod()==Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER || !$this->getQuote()->isAllowedGuestCheckout()): ?> checked="checked"<?php endif ?> class="radio" /><label for="login:register"><?php echo $this->__('Register') ?></label>
+                    <input type="radio" name="checkout_method" id="login:register" value="register"<?php if ($this->getQuote()->getCheckoutMethod()==Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER || !$this->getQuote()->isAllowedGuestCheckout()): ?> checked="checked"<?php endif ?> class="radio" /><label for="login:register"><?php echo $this->__('Register') ?></label>
                 </li>
             </ul>
             <h4><?php echo $this->__('Register and save time!') ?></h4>
@@ -87,7 +87,7 @@
     <div class="col-1">
         <div class="buttons-set">
             <p class="required">&nbsp;</p>
-            <button type="button" class="button" onclick="checkout.setMethod();"><span><span><?php echo ($this->getQuote()->isAllowedGuestCheckout() ? $this->__('Continue') : $this->__('Register')) ?></span></span></button>
+            <button type="button" class="button" onclick="checkout.setMethod();"><span><span><?php echo($this->getQuote()->isAllowedGuestCheckout() ? $this->__('Continue') : $this->__('Register')) ?></span></span></button>
         </div>
     </div>
     <div class="col-2">

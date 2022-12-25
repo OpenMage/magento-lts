@@ -33,7 +33,7 @@
         <?php $_links = $this->getLinks(); ?>
         <ul id="order-info-tabs">
         <?php foreach ($_links as $_link): ?>
-            <?php if($_link->getUrl()): ?>
+            <?php if ($_link->getUrl()): ?>
                 <li><a href="<?php echo $_link->getUrl() ?>"><?php echo $_link->getLabel() ?></a></li>
             <?php else: ?>
                 <li class="current"><?php echo $_link->getLabel() ?></li>

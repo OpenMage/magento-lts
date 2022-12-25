@@ -34,12 +34,12 @@
             <td class="label"><label for="name"><?php echo Mage::helper('downloadable')->__('Title')?></label>
             </td>
             <td class="value">
-                <input type="text" class="input-text" id="downloadable_links_title" name="product[links_title]" value="<?php echo $_product->getId() ? $this->escapeHtml($_product->getLinksTitle()) : $this->escapeHtml($this->getLinksTitle()); ?>" <?php echo ($_product->getStoreId() && $this->getUsedDefault())?'disabled="disabled"':'' ?> />
+                <input type="text" class="input-text" id="downloadable_links_title" name="product[links_title]" value="<?php echo $_product->getId() ? $this->escapeHtml($_product->getLinksTitle()) : $this->escapeHtml($this->getLinksTitle()); ?>" <?php echo ($_product->getStoreId() && $this->getUsedDefault()) ? 'disabled="disabled"' : '' ?> />
             </td>
             <td class="scope-label"><?php echo !Mage::app()->isSingleStoreMode() ? Mage::helper('adminhtml')->__('[STORE VIEW]') : ''; ?></td>
             <td class="value use-default">
-            <?php if($_product->getStoreId()): ?>
-                <input id="link_title_default" type="checkbox" name="use_default[]" value="links_title" onclick="toggleValueElements(this, this.parentNode.parentNode)" <?php echo $this->getUsedDefault()?'checked="checked"':'' ?> />
+            <?php if ($_product->getStoreId()): ?>
+                <input id="link_title_default" type="checkbox" name="use_default[]" value="links_title" onclick="toggleValueElements(this, this.parentNode.parentNode)" <?php echo $this->getUsedDefault() ? 'checked="checked"' : '' ?> />
                 <label class="normal" for="link_title_default"><?php echo Mage::helper('downloadable')->__('Use Default Value'); ?></label>
             <?php endif ?>
             </td>
@@ -106,7 +106,7 @@ var linkTemplate = '<tr id="downloadable_link_{{id}}">'+
         '<input type="hidden" class="__delete__" name="downloadable[link][{{id}}][is_delete]" value="" />'+
         '<input type="hidden" name="downloadable[link][{{id}}][link_id]" value="{{link_id}}" />'+
         '<input type="text" class="required-entry input-text" name="downloadable[link][{{id}}][title]" value="{{title}}" />'+
-        '<?php echo $_product->getStoreId()?'<input type="checkbox" id="downloadable_link_{{id}}_title" name="downloadable[link][{{id}}][use_default_title]" value="1" /><label class="normal" for="downloadable_link_{{id}}_title">Use Default Value</label>':'' ?>'+
+        '<?php echo $_product->getStoreId() ? '<input type="checkbox" id="downloadable_link_{{id}}_title" name="downloadable[link][{{id}}][use_default_title]" value="1" /><label class="normal" for="downloadable_link_{{id}}_title">Use Default Value</label>' : '' ?>'+
     '</td>'+
     <?php if ($this->getCanReadPrice() !== false) : ?>
     '<td class="input-price">'+

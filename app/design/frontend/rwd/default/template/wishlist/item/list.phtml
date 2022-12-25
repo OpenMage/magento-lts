@@ -31,7 +31,7 @@
             <?php
                 /** @var Mage_Wishlist_Block_Customer_Wishlist_Item_Column $column */
                 foreach ($columns as $column):
-                    $_blockName = str_replace('.','-',strtolower($column->getNameInLayout()));
+                    $_blockName = str_replace('.', '-', strtolower($column->getNameInLayout()));
             ?>
                 <th class="<?php echo $_blockName; ?>"><?php echo $column->getTitle();?></th>
             <?php endforeach ?>
@@ -43,7 +43,7 @@
                 <tr id="item_<?php echo $item->getId();?>">
                     <?php
                         foreach ($columns as $key => $column):
-                            $_blockName = str_replace('.','-',strtolower($column->getNameInLayout()));
+                            $_blockName = str_replace('.', '-', strtolower($column->getNameInLayout()));
 
                             /* Override default column title in layout, useful for certain cases like select all box */
                             if ($column->getRwdTitle()) {
@@ -52,7 +52,7 @@
                                 $_rwdLabel = ($column->getTitle()) ? $column->getTitle() : false;
                             }
                     ?>
-                        <td class="<?php echo 'wishlist-cell'.$key; ?> <?php echo $_blockName; ?>"<?php if($_rwdLabel): ?> data-rwd-label="<?php echo $_rwdLabel; ?>"<?php endif ?>><?php $column->setItem($item); echo $column->toHtml($item);?></td>
+                        <td class="<?php echo 'wishlist-cell'.$key; ?> <?php echo $_blockName; ?>"<?php if ($_rwdLabel): ?> data-rwd-label="<?php echo $_rwdLabel; ?>"<?php endif ?>><?php $column->setItem($item); echo $column->toHtml($item);?></td>
                     <?php endforeach ?>
                 </tr>
             <?php endforeach ?>

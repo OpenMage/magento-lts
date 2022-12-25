@@ -34,12 +34,12 @@
                 <td class="label"><label for="name"><?php echo Mage::helper('downloadable')->__('Title')?></label>
                 </td>
                 <td class="value">
-                    <input type="text" class="input-text" name="product[samples_title]" value="<?php echo $_product->getId()?$_product->getSamplesTitle():$this->getSamplesTitle() ?>" <?php echo ($_product->getStoreId() && $this->getUsedDefault())?'disabled="disabled"':'' ?> />
+                    <input type="text" class="input-text" name="product[samples_title]" value="<?php echo $_product->getId() ? $_product->getSamplesTitle() : $this->getSamplesTitle() ?>" <?php echo ($_product->getStoreId() && $this->getUsedDefault()) ? 'disabled="disabled"' : '' ?> />
                 </td>
                 <td class="scope-label"><?php echo !Mage::app()->isSingleStoreMode() ? Mage::helper('adminhtml')->__('[STORE VIEW]') : ''; ?></td>
                 <td class="value use-default">
-                <?php if($_product->getStoreId()): ?>
-                    <input id="sample_title_default" type="checkbox" name="use_default[]" value="samples_title" onclick="toggleValueElements(this, this.parentNode.parentNode)" <?php echo $this->getUsedDefault()?'checked="checked"':'' ?> />
+                <?php if ($_product->getStoreId()): ?>
+                    <input id="sample_title_default" type="checkbox" name="use_default[]" value="samples_title" onclick="toggleValueElements(this, this.parentNode.parentNode)" <?php echo $this->getUsedDefault() ? 'checked="checked"' : '' ?> />
                     <label class="normal" for="sample_title_default">Use Default Value</label>
                 <?php endif ?>
                 </td>
@@ -81,7 +81,7 @@ var sampleTemplate = '<tr id="downloadable_sample_{{id}}">'+
                             '<input type="hidden" class="__delete__" name="downloadable[sample][{{id}}][is_delete]" value="" />'+
                             '<input type="hidden" name="downloadable[sample][{{id}}][sample_id]" value="{{sample_id}}" />'+
                             '<input type="text" class="required-entry input-text" name="downloadable[sample][{{id}}][title]" value="{{title}}" />'+
-                            '<?php echo $_product->getStoreId()?'<br /><input type="checkbox" id="downloadable_sample_{{id}}_title" name="downloadable[sample][{{id}}][use_default_title]" value="1" /><label class="normal" for="downloadable_sample_{{id}}_title">Use Default Value</label>':'' ?>'+
+                            '<?php echo $_product->getStoreId() ? '<br /><input type="checkbox" id="downloadable_sample_{{id}}_title" name="downloadable[sample][{{id}}][use_default_title]" value="1" /><label class="normal" for="downloadable_sample_{{id}}_title">Use Default Value</label>' : '' ?>'+
                         '</td>'+
                         '<td>'+
                             '<div class="files-wide">'+

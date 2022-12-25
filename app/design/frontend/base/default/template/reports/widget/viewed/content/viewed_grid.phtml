@@ -36,13 +36,13 @@
         <?php if ($i++%$_columnCount==0): ?>
             <ul class="products-grid">
         <?php endif ?>
-                <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif ?>">
+                <li class="item<?php if (($i-1)%$_columnCount==0): ?> first<?php elseif ($i%$_columnCount==0): ?> last<?php endif ?>">
                     <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(85) ?>" width="85" height="85" alt="<?php echo $this->stripTags($_product->getName(), null, true) ?>" /></a>
-                    <h3 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName() , 'name') ?></a></h3>
+                    <h3 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name') ?></a></h3>
                     <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
                     <?php echo $this->getPriceHtml($_product, true, '-widget-viewed-grid') ?>
                     <div class="actions">
-                        <?php if($_product->isSaleable()): ?>
+                        <?php if ($_product->isSaleable()): ?>
                             <button type="button"
                                     title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>"
                                     class="button btn-cart"

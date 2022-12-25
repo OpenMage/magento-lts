@@ -41,8 +41,8 @@
 ?>
     <div class="price-box map-info">
     <?php $_price = $this->helper('tax')->getPrice($_product, $_product->getMsrp()) ?>
-        <?php if($_product->getMsrp()): ?>
-            <?php $_msrpPrice = $_coreHelper->currency($_product->getMsrp(),true,true) ?>
+        <?php if ($_product->getMsrp()): ?>
+            <?php $_msrpPrice = $_coreHelper->currency($_product->getMsrp(), true, true) ?>
             <span class="old-price" ><?php echo $_msrpPrice ?></span>
         <?php endif ?>
 

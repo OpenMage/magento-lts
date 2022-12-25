@@ -22,7 +22,7 @@
 <script type="text/javascript">countryRegions = <?php echo Mage::helper('directory')->getRegionJsonByStore() ?></script>
 
 <div class="page-title">
-    <h1><?php if($data->getAddressId()): ?><?php echo $this->__('Edit Address Entry') ?><?php else: ?><?php echo $this->__('New Address Entry') ?><?php endif ?></h1>
+    <h1><?php if ($data->getAddressId()): ?><?php echo $this->__('Edit Address Entry') ?><?php else: ?><?php echo $this->__('New Address Entry') ?><?php endif ?></h1>
 </div>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
 <form action="<?php echo $action ?>" method="post" id="form-validate">
@@ -113,7 +113,9 @@
                 </div>
             </li>
         <?php foreach ($primaryTypes as $code=>$type): ?>
-            <li<?php if (!$address->isPrimary($type['address_type_id'])) echo ' class="control"' ?>>
+            <li<?php if (!$address->isPrimary($type['address_type_id'])) {
+    echo ' class="control"';
+} ?>>
             <?php if ($address->isPrimary($type['address_type_id'])): ?>
                 <strong><?php echo $this->__("This is My Default %s Address", ucfirst($type['name'])) ?></strong>
             <?php else: ?>

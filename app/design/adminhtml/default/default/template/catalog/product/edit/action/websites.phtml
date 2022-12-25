@@ -27,7 +27,7 @@
     <?php foreach ($this->getWebsiteCollection() as $_website): ?>
     <div>
         <div class="website-name">
-            <input name="add_website_ids[]" value="<?php echo $_website->getId() ?>" <?php if($this->getWebsitesReadonly()): ?>disabled="disabled"<?php endif ?> class="checkbox website-checkbox" id="add_product_website_<?php echo $_website->getId() ?>" type="checkbox" />
+            <input name="add_website_ids[]" value="<?php echo $_website->getId() ?>" <?php if ($this->getWebsitesReadonly()): ?>disabled="disabled"<?php endif ?> class="checkbox website-checkbox" id="add_product_website_<?php echo $_website->getId() ?>" type="checkbox" />
             <big><strong><label for="add_product_website_<?php echo $_website->getId() ?>"><?php echo $this->escapeHtml($_website->getName()) ?></label></strong></big>
         </div>
         <div class="webiste-groups" id="add_product_website_<?php echo $_website->getId() ?>_data">
@@ -65,7 +65,7 @@
     <?php foreach ($this->getWebsiteCollection() as $_website): ?>
     <div>
         <div class="website-name">
-            <input name="remove_website_ids[]" value="<?php echo $_website->getId() ?>" <?php if($this->getWebsitesReadonly()): ?>disabled="disabled"<?php endif ?> class="checkbox website-checkbox" id="remove_product_website_<?php echo $_website->getId() ?>" type="checkbox"/>
+            <input name="remove_website_ids[]" value="<?php echo $_website->getId() ?>" <?php if ($this->getWebsitesReadonly()): ?>disabled="disabled"<?php endif ?> class="checkbox website-checkbox" id="remove_product_website_<?php echo $_website->getId() ?>" type="checkbox"/>
             <big><strong><label for="remove_product_website_<?php echo $_website->getId() ?>"><?php echo $this->escapeHtml($_website->getName()) ?></label></strong></big>
         </div>
         <div class="webiste-groups" id="remove_product_website_<?php echo $_website->getId() ?>_data">

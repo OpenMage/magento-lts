@@ -21,7 +21,7 @@
 ?>
 
 <?php  $_order = $this->getOrder() ?>
-<?php if($this->helper('rss/order')->isStatusNotificationAllow()): ?>
+<?php if ($this->helper('rss/order')->isStatusNotificationAllow()): ?>
     <a href="<?php echo $this->helper('rss/order')->getStatusHistoryRssUrl($_order) ?>" class="link-rss f-none"><?php echo $this->__('Subscribe to Order Status') ?></a>
     <span class="separator">|</span>
 <?php endif ?>

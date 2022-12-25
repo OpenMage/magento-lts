@@ -30,14 +30,14 @@
 <div class="clearer"></div>
 <?php echo $this->getToolbarHtml() ?>
 <table class="data-table" id="my-tags-table">
-<?php if(count($this->getMyProducts()) > 0): ?>
+<?php if (count($this->getMyProducts()) > 0): ?>
     <col width="1" />
     <col />
     <col width="1" />
     <tbody>
     <?php $iterator = 0 ?>
-    <?php foreach($this->getMyProducts() as $_product): ?>
-        <tr<?php if($iterator % 2 == 0): ?> class="odd"<?php $iterator++;endif; ?>>
+    <?php foreach ($this->getMyProducts() as $_product): ?>
+        <tr<?php if ($iterator % 2 == 0): ?> class="odd"<?php $iterator++;endif; ?>>
             <td><a href="<?php echo $_product->getProductUrl(); ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(100, 100); ?>" width="100" height="100" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" /></a></td>
             <td>
                 <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->escapeHtml($_product->getName()) ?></a></h2>
@@ -46,7 +46,7 @@
                 <?php echo $this->escapeHtml($_product->getDescription()) ?>
             </td>
             <td>
-                <?php if($_product->isSaleable()): ?>
+                <?php if ($_product->isSaleable()): ?>
                     <?php $params[Mage_Core_Model_Url::FORM_KEY] = Mage::getSingleton('core/session')->getFormKey() ?>
                     <?php $params['product'] = $_product->getId(); ?>
                     <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getUrl('checkout/cart/add', $params) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
@@ -66,7 +66,7 @@
     <tbody>
         <tr>
             <td>
-                <?php echo $this->__("Unable to find any products tagged with '%s' in the current store", $this->escapeHtml($this->getTagInfo()->getName()) ) ?>
+                <?php echo $this->__("Unable to find any products tagged with '%s' in the current store", $this->escapeHtml($this->getTagInfo()->getName())) ?>
             </td>
         </tr>
     </tbody>

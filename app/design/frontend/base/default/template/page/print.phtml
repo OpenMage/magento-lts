@@ -29,7 +29,7 @@
 <head>
 <?php echo $this->getChildHtml('head') ?>
 </head>
-<body class="page-print <?php echo $this->getBodyClass()?$this->getBodyClass():'' ?>">
+<body class="page-print <?php echo $this->getBodyClass() ? $this->getBodyClass() : '' ?>">
 <div>
     <div class="print-head">
         <img src="<?php echo $this->getPrintLogoUrl() ? $this->getPrintLogoUrl() : $this->getSkinUrl('images/logo_print.gif') ?>" class="logo" alt="" />

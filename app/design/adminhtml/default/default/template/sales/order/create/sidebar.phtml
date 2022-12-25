@@ -26,7 +26,7 @@
     <?php $_alias = $_child->getBlockAlias(); ?>
     <?php if ($_alias != 'top_button' && $_alias != 'bottom_button'): ?>
         <div id="order-sidebar_<?php echo $_alias ?>">
-            <?php if($this->canDisplay($_child)): ?>
+            <?php if ($this->canDisplay($_child)): ?>
                 <?php echo $this->getChildHtml($_alias) ?>
             <?php endif ?>
         </div>

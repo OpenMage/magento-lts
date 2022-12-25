@@ -19,17 +19,17 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if($this->getType()!== 'main' && !$this->getScriptIncluded() && $this->getCanDisplayContainer()): ?>
+<?php if ($this->getType()!== 'main' && !$this->getScriptIncluded() && $this->getCanDisplayContainer()): ?>
 <?php echo $this->helper('core/js')->includeScript('mage/adminhtml/giftmessage.js') ?>
 <?php $this->setScriptIncluded(true); ?>
 <?php endif ?>
-<?php if($this->getCanDisplayContainer()): ?>
+<?php if ($this->getCanDisplayContainer()): ?>
 <div id="<?php echo $this->getId() ?>">
 <?php endif ?>
 <?php switch ($this->getType()): ?>
 <?php case 'item': ?>
     <a class="listen-for-click" href="#">
-        <?php if($this->hasGiftMessage()): ?>
+        <?php if ($this->hasGiftMessage()): ?>
         <?php echo Mage::helper('giftmessage')->__('Edit') ?>
         <?php else: ?>
         <?php echo Mage::helper('giftmessage')->__('Add') ?>
@@ -38,7 +38,7 @@
     <?php break ?>
 <?php case 'order_item': ?>
     <a class="listen-for-click" href="#">
-        <?php if($this->hasGiftMessage()): ?>
+        <?php if ($this->hasGiftMessage()): ?>
         <?php echo Mage::helper('giftmessage')->__('Edit') ?>
         <?php else: ?>
         <?php echo Mage::helper('giftmessage')->__('Add') ?>
@@ -46,8 +46,8 @@
     </a>
     <?php break ?>
 <?php case 'main': ?>
-        <?php if($this->hasGiftMessage()): ?>
-            <?php if($_giftMessage=$this->getMessage()): ?>
+        <?php if ($this->hasGiftMessage()): ?>
+            <?php if ($_giftMessage=$this->getMessage()): ?>
             <span class="field-row">
                 <label><?php echo Mage::helper('giftmessage')->__('From') ?></label>
                 <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
@@ -67,8 +67,8 @@
         <?php endif ?>
     <?php break ?>
 <?php case 'order': ?>
-        <?php if($this->hasGiftMessage()): ?>
-            <?php if($_giftMessage=$this->getMessage()): ?>
+        <?php if ($this->hasGiftMessage()): ?>
+            <?php if ($_giftMessage=$this->getMessage()): ?>
 
             <span class="field-row">
                 <label><?php echo Mage::helper('giftmessage')->__('From') ?></label>
@@ -90,7 +90,7 @@
         <?php endif ?>
     <?php break ?>
 <?php endswitch ?>
-<?php if($this->getCanDisplayContainer()): ?>
+<?php if ($this->getCanDisplayContainer()): ?>
 </div>
 <script type="text/javascript">
 var <?php echo $this->getJsObjectName() ?> = new GiftMessage('<?php echo $this->getId() ?>');

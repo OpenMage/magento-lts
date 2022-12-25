@@ -19,7 +19,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if($this->getItems()->getSize()): ?>
+<?php if ($this->getItems()->getSize()): ?>
 <div class="block block-related">
     <div class="block-title">
         <h2><?php echo $this->__('Related Products') ?></h2>
@@ -27,9 +27,9 @@
     <div class="block-content">
         <p class="block-subtitle"><?php echo $this->__('Check items to add to the cart or') ?>&nbsp;<a href="#" onclick="selectAllRelated(this); return false;"><?php echo $this->__('select all') ?></a></p>
         <ol class="mini-products-list" id="block-related">
-        <?php foreach($this->getItems() as $_item): ?>
+        <?php foreach ($this->getItems() as $_item): ?>
             <li class="item">
-                <?php if(!$_item->isComposite() && $_item->isSaleable()): ?>
+                <?php if (!$_item->isComposite() && $_item->isSaleable()): ?>
                     <?php if (!$_item->getRequiredOptions()): ?>
                         <input type="checkbox" class="checkbox related-checkbox" id="related-checkbox<?php echo $_item->getId() ?>" name="related_products[]" value="<?php echo $_item->getId() ?>" />
                     <?php endif ?>

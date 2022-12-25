@@ -21,7 +21,7 @@
 ?>
 <span class="field-row grid" id="shipment_tracking_info">
 
-<?php if($this->trackingInfo): ?>
+<?php if ($this->trackingInfo): ?>
     <strong><?php echo $this->escapeHtml($this->trackingInfo->getCarrierTitle()) ?></strong> - <?php echo $this->trackingInfo->getTracking() ?>
     <div class="info">
         <?php if ($this->trackingInfo->getErrorMessage()): ?>

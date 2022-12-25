@@ -45,7 +45,7 @@ $canApplyMAP  = Mage::helper('catalog')->canApplyMsrp($_product);
                 <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
                 <span class="price" id="price-excluding-tax-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>">
                 <?php if (!$canApplyMAP): ?>
-                    <?php echo Mage::helper('core')->currency($_finalPrice,true,false) ?>
+                    <?php echo Mage::helper('core')->currency($_finalPrice, true, false) ?>
                 <?php endif ?>
                 </span>
             </span>
@@ -68,7 +68,7 @@ $canApplyMAP  = Mage::helper('catalog')->canApplyMsrp($_product);
                 <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
                 <span class="price" id="price-including-tax-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>">
                 <?php if (!$canApplyMAP): ?>
-                    <?php echo Mage::helper('core')->currency($_finalPriceInclTax,true,false) ?>
+                    <?php echo Mage::helper('core')->currency($_finalPriceInclTax, true, false) ?>
                 <?php endif ?>
                 </span>
             </span>
@@ -76,7 +76,7 @@ $canApplyMAP  = Mage::helper('catalog')->canApplyMsrp($_product);
         <?php else: ?>
         <span class="price" id="product-price-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>">
             <?php if (!$canApplyMAP): ?>
-                <?php echo Mage::helper('core')->currency($_finalPrice,true,false) ?>
+                <?php echo Mage::helper('core')->currency($_finalPrice, true, false) ?>
             <?php endif ?>
         </span>
         <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && Mage::helper('weee')->typeOfDisplay($_product, [2, 1, 4])): ?>
@@ -100,7 +100,7 @@ $canApplyMAP  = Mage::helper('catalog')->canApplyMsrp($_product);
     </p>
 </div>
 <?php endif ?>
-<?php if($_product->isSaleable()): ?>
+<?php if ($_product->isSaleable()): ?>
 <script type="text/javascript">
 document.observe("dom:loaded", function() {
     bundle.reloadPrice();

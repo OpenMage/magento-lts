@@ -28,7 +28,9 @@
         <?php $_index = 0; ?>
             <?php $_count = $_items->count(); ?>
         <?php foreach ($_items as $_item): ?>
-        <?php if ($_item->getParentItem()) continue; ?>
+        <?php if ($_item->getParentItem()) {
+    continue;
+} ?>
         <?php echo $this->getItemHtml($_item) ?>
         <?php endforeach ?>
 </table>

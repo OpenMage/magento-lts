@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-    <?php if( $this->isNewsletterEnabled() ): ?>
+    <?php if ($this->isNewsletterEnabled()): ?>
     <div class="col-2">
         <div class="box">
             <div class="box-title">
@@ -44,7 +44,7 @@
             </div>
             <div class="box-content">
                 <p>
-                    <?php if( $this->getIsSubscribed() ): ?>
+                    <?php if ($this->getIsSubscribed()): ?>
                         <?php echo $this->__("You are currently subscribed to 'General Subscription'.") ?>
                     <?php else: ?>
                         <?php echo $this->__('You are currently not subscribed to any newsletter.') ?>

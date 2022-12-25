@@ -24,7 +24,7 @@
         <tr>
             <td style="width:50%;">
                 <h3>
-                  <?php if($this->getUser()->getUserId()): ?>
+                  <?php if ($this->getUser()->getUserId()): ?>
                   <?php $_userName = $this->getUser()->getFirstname() . ' ' . $this->getUser()->getLastname() ?>
                   <?php echo $this->__("Edit User '%s'", $_userName) ?>
                   <?php else: ?>

@@ -76,7 +76,7 @@
                             <h4><?php echo $this->__('Shipping Method') ?> <span class="separator">|</span> <a href="<?php echo $this->getEditShippingUrl() ?>"><?php echo $this->__('Change') ?></a></h4>
                         </div>
                         <div class="box-content">
-                            <?php if($_rate=$this->getShippingAddressRate($_address)): ?>
+                            <?php if ($_rate=$this->getShippingAddressRate($_address)): ?>
                             <p>
                             <?php echo $this->escapeHtml($_rate->getCarrierTitle()) ?> - <?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
                             <?php $_excl = $this->getShippingPriceExclTax($_address); ?>
@@ -130,7 +130,7 @@
                     </table>
                     <script type="text/javascript">decorateTable('overview-table-<?php echo $_address->getId() ?>')</script>
                 </div>
-            <?php if($this->getShippingAddressCount()!=$_index+1): ?>
+            <?php if ($this->getShippingAddressCount()!=$_index+1): ?>
                 <div class="divider"></div>
             <?php endif ?>
         <?php endforeach ?>

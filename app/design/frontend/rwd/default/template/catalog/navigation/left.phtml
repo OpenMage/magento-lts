@@ -25,10 +25,12 @@
  * @see Mage_Catalog_Block_Navigation
  */
 ?>
-<?php if (!Mage::registry('current_category')) return ?>
+<?php if (!Mage::registry('current_category')) {
+    return;
+} ?>
 <?php $_categories = $this->getCurrentChildCategories() ?>
-<?php $_count = is_array($_categories)?count($_categories):$_categories->count(); ?>
-<?php if($_count): ?>
+<?php $_count = is_array($_categories) ? count($_categories) : $_categories->count(); ?>
+<?php if ($_count): ?>
 <div class="block block-layered-nav block-layered-nav--no-filters">
     <div class="block-title">
         <strong><span><?php echo $this->__('Browse By') ?></span></strong>
@@ -40,7 +42,7 @@
             <dd>
                 <ol>
                 <?php foreach ($_categories as $_category): ?>
-                    <?php if($_category->getIsActive()): ?>
+                    <?php if ($_category->getIsActive()): ?>
                     <li>
                         <a href="<?php echo $this->getCategoryUrl($_category) ?>"<?php if ($this->isCategoryActive($_category)): ?> class="current"<?php endif ?>>
                             <?php echo $this->escapeHtml($_category->getName()) ?>

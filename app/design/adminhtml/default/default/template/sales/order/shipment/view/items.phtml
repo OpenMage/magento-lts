@@ -31,8 +31,8 @@
             </tr>
         </thead>
         <?php $_items = $this->getShipment()->getAllItems() ?>
-        <?php $_i=0;foreach ($_items as $_item): if ($_item->getOrderItem()->getIsVirtual() || $_item->getOrderItem()->getParentItem()): continue; endif; $_i++ ?>
-            <tbody class="<?php echo $_i%2?'odd':'even' ?>">
+        <?php $_i=0; foreach ($_items as $_item): if ($_item->getOrderItem()->getIsVirtual() || $_item->getOrderItem()->getParentItem()): continue; endif; $_i++ ?>
+            <tbody class="<?php echo $_i%2 ? 'odd' : 'even' ?>">
                 <?php echo $this->getItemHtml($_item) ?>
                 <?php echo $this->getItemExtraInfoHtml($_item->getOrderItem()) ?>
             </tbody>

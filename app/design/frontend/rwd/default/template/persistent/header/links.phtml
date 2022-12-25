@@ -25,8 +25,8 @@
  */
 ?>
 <?php $_links = $this->getLinks(); ?>
-<?php if(count($_links)>0): ?>
-    <?php foreach($_links as $_link): ?>
+<?php if (count($_links)>0): ?>
+    <?php foreach ($_links as $_link): ?>
         <?php if ($_link instanceof Mage_Core_Block_Abstract):?>
             <?php echo $_link->toHtml() ?>
         <?php else: ?>

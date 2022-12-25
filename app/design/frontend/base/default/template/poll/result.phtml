@@ -19,16 +19,16 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if(isset($poll)) : ?>
+<?php if (isset($poll)) : ?>
 <div class="block block-poll">
     <div class="block-title">
         <strong><span><?php echo $this->__('Community Poll') ?></span></strong>
     </div>
     <div class="block-content">
         <p class="block-subtitle"><?php echo $this->escapeHtml($poll->getPollTitle()); ?></p>
-        <?php if( $poll_answers ): ?>
+        <?php if ($poll_answers): ?>
         <ol id="poll-answers">
-            <?php foreach( $poll_answers as $answer ): ?>
+            <?php foreach ($poll_answers as $answer): ?>
                 <li>
                     <span class="votes"><?php echo $answer->getVotesCount() ?> (<?php echo $answer->getPercent() ?>%)</span>
                     <span class="answer"><?php echo $this->escapeHtml($answer->getAnswerTitle()) ?>:</span>

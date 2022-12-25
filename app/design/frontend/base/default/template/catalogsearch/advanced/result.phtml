@@ -23,7 +23,7 @@
     <h1><?php echo $this->__('Catalog Advanced Search') ?></h1>
 </div>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
-<?php if($this->getResultCount()): ?>
+<?php if ($this->getResultCount()): ?>
     <p class="advanced-search-amount">
         <?php echo $this->helper('catalogsearch')->__('<strong>%d item(s)</strong> were found using the following search criteria', $this->getResultCount()); ?>
     </p>
@@ -34,22 +34,22 @@
 <div class="advanced-search-summary">
     <?php $searchCriterias=$this->getSearchCriterias(); ?>
         <?php foreach (['left', 'right'] as $side): ?>
-            <?php if(@$searchCriterias[$side]): ?>
+            <?php if (@$searchCriterias[$side]): ?>
                 <ul>
-                    <?php foreach($searchCriterias[$side] as $criteria): ?>
+                    <?php foreach ($searchCriterias[$side] as $criteria): ?>
                         <li><strong><?php echo $this->escapeHtml($this->helper('catalog')->__($criteria['name'])); ?>:</strong> <?php echo $this->escapeHtml($criteria['value']); ?></li>
                     <?php endforeach ?>
                 </ul>
             <?php endif ?>
         <?php endforeach ?>
-    <?php if($this->getResultCount()): ?>
+    <?php if ($this->getResultCount()): ?>
         <p>
             <?php echo $this->helper('catalogsearch')->__("Don't see what you're looking for?"); ?>
             <a href="<?php echo $this->getFormUrl(); ?>"><?php echo $this->helper('catalogsearch')->__('Modify your search'); ?></a>
         </p>
     <?php endif ?>
 </div>
-<?php if($this->getResultCount()): ?>
+<?php if ($this->getResultCount()): ?>
     <?php echo $this->getProductListHtml() ?>
 <?php endif ?>
 <?php $this->getSearchCriterias(); ?>

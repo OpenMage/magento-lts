@@ -41,7 +41,7 @@
         <?php echo $this->formatPrice($this->getShippingIncludeTax()) ?>
     </td>
 </tr>
-<?php elseif($this->displayIncludeTax()) : ?>
+<?php elseif ($this->displayIncludeTax()) : ?>
 <tr>
     <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
         <?php echo $this->getTotal()->getTitle() ?>

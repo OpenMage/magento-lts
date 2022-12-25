@@ -24,14 +24,14 @@
         <h3 class="icon-head head-categories"><?php echo $this->escapeHtml($this->getHeader()) . ($this->getCategoryId() ? ' (' . Mage::helper('catalog')->__('ID: %s', $this->getCategoryId()) . ')' : '') ?></h3>
         <p class="content-buttons form-buttons">
             <?php echo $this->getResetButtonHtml() ?>
-            <?php if($this->getCategoryId()): ?>
+            <?php if ($this->getCategoryId()): ?>
                     <?php echo $this->getDeleteButtonHtml() ?>
             <?php endif ?>
             <?php echo $this->getAdditionalButtonsHtml(); ?>
             <?php echo $this->getSaveButtonHtml() ?>
         </p>
 </div>
-<?php if($this->hasStoreRootCategory()): ?>
+<?php if ($this->hasStoreRootCategory()): ?>
     <?php echo $this->getTabsHtml() ?>
 <?php else: ?>
 <div class="messages warning-msg">
@@ -182,7 +182,7 @@
         categoryForm.submit();
     }
 
-<?php if(($block = $this->getLayout()->getBlock('category.product.grid')) && ($_gridJsObject=$block->getJsObjectName())): ?>
+<?php if (($block = $this->getLayout()->getBlock('category.product.grid')) && ($_gridJsObject=$block->getJsObjectName())): ?>
 
     var categoryProducts = $H(<?php echo $this->getProductsJson() ?>);
     $('in_category_products').value = categoryProducts.toQueryString();
@@ -242,7 +242,7 @@
     <?php echo $_gridJsObject ?>.rows.each(function(row){categoryProductRowInit(<?php echo $_gridJsObject ?>, row)});
 
 <?php endif ?>
-<?php if($this->isAjax() && ($block = $this->getLayout()->getBlock('tabs')) && ($_tabsJsObject=$block->getJsObjectName())): ?>
+<?php if ($this->isAjax() && ($block = $this->getLayout()->getBlock('tabs')) && ($_tabsJsObject=$block->getJsObjectName())): ?>
     <?php echo $_tabsJsObject ?>.moveTabContentInDest();
     if (<?php echo $_tabsJsObject ?>.activeTab) {
         $('active_tab_id').value = <?php echo $_tabsJsObject ?>.activeTab.id;

@@ -59,7 +59,9 @@
                 <tbody>
                     <?php foreach ($this->getCatalogData() as $_item): ?>
                     <?php /* disable reindex buttons. functionality moved to index management*/?>
-                    <?php if ($_item['buttons'][0]['name']!='clear_images_cache') continue;?>
+                    <?php if ($_item['buttons'][0]['name']!='clear_images_cache') {
+    continue;
+}?>
                     <tr>
                         <td class="label"><label><?php echo $_item['label'] ?></label></td>
                         <td class="value">

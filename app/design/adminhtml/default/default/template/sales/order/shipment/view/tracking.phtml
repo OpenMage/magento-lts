@@ -52,10 +52,10 @@
             <td class="last"><?php echo $this->getSaveButtonHtml() ?></td>
         </tr>
     </tfoot>
-<?php if($_tracks = $this->getShipment()->getAllTracks()): ?>
+<?php if ($_tracks = $this->getShipment()->getAllTracks()): ?>
     <tbody>
-    <?php $i=0;foreach ($_tracks as $_track):$i++ ?>
-        <tr class="<?php echo ($i%2==0)?'even':'odd' ?>">
+    <?php $i=0; foreach ($_tracks as $_track):$i++ ?>
+        <tr class="<?php echo ($i%2==0) ? 'even' : 'odd' ?>">
             <td><?php echo $this->escapeHtml($this->getCarrierTitle($_track->getCarrierCode())) ?></td>
             <td><?php echo $this->escapeHtml($_track->getTitle()) ?></td>
             <td>

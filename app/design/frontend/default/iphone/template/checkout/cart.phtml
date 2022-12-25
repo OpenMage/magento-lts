@@ -29,7 +29,7 @@
 <div class="cart">
     <?php echo $this->getChildHtml('form_before') ?>
     <?php echo $this->getMessagesBlock()->toHtml() ?>
-    <?php if(!$this->hasError() && count($this->getItems()) > 1): ?>
+    <?php if (!$this->hasError() && count($this->getItems()) > 1): ?>
         <ul class="checkout-types">
         <?php foreach ($this->getMethods('methods') as $method): ?>
             <?php $methodHtml = $this->getMethodHtml($method); ?>
@@ -52,7 +52,7 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                <?php foreach($this->getItems() as $_item): ?>
+                <?php foreach ($this->getItems() as $_item): ?>
                     <?php echo $this->getItemHtml($_item) ?>
                 <?php endforeach ?>
                 </tbody>
@@ -60,7 +60,9 @@
         </fieldset>
     </form>
     <?php echo $this->getChildHtml('shopping.cart.table.after'); ?>
-    <div class="cart-collaterals<?php if($this->getChildHtml('crosssell')) echo ' cross-inside'; ?>">
+    <div class="cart-collaterals<?php if ($this->getChildHtml('crosssell')) {
+    echo ' cross-inside';
+} ?>">
         <?php echo $this->getChildHtml('crosssell') ?>
         <div class="deals">
             <?php /* Extensions placeholder */ ?>
@@ -75,7 +77,7 @@
     <div class="totals">
         <?php echo $this->getChildHtml('totals'); ?>
     </div>
-    <?php if(!$this->hasError()): ?>
+    <?php if (!$this->hasError()): ?>
         <ul class="checkout-types">
         <?php foreach ($this->getMethods('methods') as $method): ?>
             <?php $methodHtml = $this->getMethodHtml($method); ?>

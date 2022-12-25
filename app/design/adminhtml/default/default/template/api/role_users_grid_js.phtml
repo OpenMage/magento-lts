@@ -22,7 +22,7 @@
 <script type="text/javascript">
 <!--
 <?php $myBlock = $this->getLayout()->getBlock('roleUsersGrid'); ?>
-<?php if( is_object($myBlock) && $myBlock->getJsObjectName() ): ?>
+<?php if (is_object($myBlock) && $myBlock->getJsObjectName()): ?>
     var checkBoxes = $H({});
     var warning = false;
     var inRoleUsers = $H(<?php echo $myBlock->_getUsers(true) ?>);

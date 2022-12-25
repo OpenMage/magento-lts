@@ -30,8 +30,8 @@
     <td>
         <h3 class="product-name"><a href="<?php echo $this->getItemUrl($_item) ?>"><?php echo $this->getItemName($_item) ?></a></h3>
         <?php echo $this->getItemDescription($_item) ?>
-        <?php if($_item->getMessage()): ?>
-        <p class="item-msg <?php if($_item->getHasError()): ?>error<?php else: ?>notice<?php endif ?>">* <?php echo $_item->getMessage() ?></p>
+        <?php if ($_item->getMessage()): ?>
+        <p class="item-msg <?php if ($_item->getHasError()): ?>error<?php else: ?>notice<?php endif ?>">* <?php echo $_item->getMessage() ?></p>
         <?php endif ?>
     </td>
     <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>

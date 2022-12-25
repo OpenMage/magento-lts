@@ -34,11 +34,11 @@ $_height = $this->getImagesHeight();
     <?php foreach ($this->getFiles() as $file): ?>
     <div class="filecnt" id="<?php echo $this->getFileId($file) ?>">
         <p class="nm" style="height:<?php echo $_height ?>px;width:<?php echo $_width ?>px;">
-        <?php if($this->getFileThumbUrl($file)):?>
+        <?php if ($this->getFileThumbUrl($file)):?>
             <img src="<?php echo $this->getFileThumbUrl($file) ?>" alt="<?php echo $this->escapeHtml($this->getFileName($file)) ?>"/>
         <?php endif ?>
         </p>
-        <?php if($this->getFileWidth($file)): ?>
+        <?php if ($this->getFileWidth($file)): ?>
             <small><?php echo $this->getFileWidth($file) ?>x<?php echo $this->getFileHeight($file) ?> <?php echo $this->helper('cms')->__('px.') ?></small><br/>
         <?php endif ?>
         <small><?php echo $this->getFileShortName($file); ?></small>

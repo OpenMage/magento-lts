@@ -19,7 +19,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if($this->getRatingSummary()->getCount()): ?>
+<?php if ($this->getRatingSummary()->getCount()): ?>
     <div class="rating-box">
         <div class="rating" style="width:<?php echo ceil($this->getRatingSummary()->getSum() / ($this->getRatingSummary()->getCount())) ?>%;"></div>
     </div>

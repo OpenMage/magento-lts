@@ -30,7 +30,9 @@
 <?php $isRegistrationAllowed = $this->helper('customer')->isRegistrationAllowed() ?>
 <?php $isAllowedGuestCheckout = $this->getQuote()->isAllowedGuestCheckout() ?>
 <?php echo $this->getChildHtml('login_before') ?>
-<div class="col2-set<?php if (!$isRegistrationAllowed && !$isAllowedGuestCheckout) echo ' login-only' ?>">
+<div class="col2-set<?php if (!$isRegistrationAllowed && !$isAllowedGuestCheckout) {
+    echo ' login-only';
+} ?>">
     <div class="col-1">
         <h3>
             <?php if ($isAllowedGuestCheckout && $isRegistrationAllowed): ?>
@@ -55,12 +57,12 @@
             <ul class="form-list">
                 <?php if ($isAllowedGuestCheckout): ?>
                 <li class="control">
-                    <input type="radio" name="checkout_method" id="login:guest" value="guest"<?php if($this->getQuote()->getCheckoutMethod()!=Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER): ?> checked="checked"<?php endif ?> class="radio" /><label for="login:guest"><?php echo $this->__('Checkout as Guest') ?></label>
+                    <input type="radio" name="checkout_method" id="login:guest" value="guest"<?php if ($this->getQuote()->getCheckoutMethod()!=Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER): ?> checked="checked"<?php endif ?> class="radio" /><label for="login:guest"><?php echo $this->__('Checkout as Guest') ?></label>
                 </li>
                 <?php endif ?>
                 <?php if ($isRegistrationAllowed): ?>
                 <li class="control">
-                    <input type="radio" name="checkout_method" id="login:register" value="register"<?php if($this->getQuote()->getCheckoutMethod()==Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER || !$isAllowedGuestCheckout): ?> checked="checked"<?php endif ?> class="radio" />
+                    <input type="radio" name="checkout_method" id="login:register" value="register"<?php if ($this->getQuote()->getCheckoutMethod()==Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER || !$isAllowedGuestCheckout): ?> checked="checked"<?php endif ?> class="radio" />
                     <label for="login:register"><?php echo $this->__('Register and Checkout') ?></label>
                 </li>
                 <?php endif ?>

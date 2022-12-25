@@ -27,12 +27,12 @@
 
 <?php $_item = $this->getItem() ?>
 <?php $items = $this->getChilds($_item); ?>
-<?php $_count = count ($items) ?>
+<?php $_count = count($items) ?>
 <?php $_index = 0 ?>
 
 <?php $_prevOptionId = '' ?>
 
-<?php if($this->getOrderOptions() || $_item->getDescription()): ?>
+<?php if ($this->getOrderOptions() || $_item->getDescription()): ?>
     <?php $_showlastRow = true ?>
 <?php else: ?>
     <?php $_showlastRow = false ?>
@@ -51,7 +51,7 @@
         <?php $_prevOptionId = $attributes['option_id'] ?>
         <?php endif ?>
     <?php endif ?>
-    <tr class="<?php echo (++$_index==$_count && !$_showlastRow)?'border':'' ?>">
+    <tr class="<?php echo (++$_index==$_count && !$_showlastRow) ? 'border' : '' ?>">
         <?php if (!$_item->getOrderItem()->getParentItem()): ?>
         <td><h5 class="title"><?php echo $this->escapeHtml($_item->getName()) ?></h5>
             <div>
@@ -78,7 +78,7 @@
         </td>
     </tr>
 <?php endforeach ?>
-<?php if($_showlastRow): ?>
+<?php if ($_showlastRow): ?>
     <tr class="border">
         <td>
             <?php if ($this->getOrderOptions($_item->getOrderItem())): ?>

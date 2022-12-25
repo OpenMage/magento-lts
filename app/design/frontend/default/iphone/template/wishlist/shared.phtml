@@ -30,7 +30,7 @@
         <form action="<?php echo $this->getUrl('*/*/update') ?>" method="post">
             <fieldset>
                 <table class="data-table" id="wishlist-table">
-                <?php foreach($this->getWishlistItems() as $item): ?>
+                <?php foreach ($this->getWishlistItems() as $item): ?>
                     <?php
                         $product = $item->getProduct();
                         $isVisibleProduct = $product->isVisibleInSiteVisibility();
@@ -55,7 +55,7 @@
                 <?php endforeach ?>
                 </table>
             </fieldset>
-            <?php if($this->isSaleable()):?>
+            <?php if ($this->isSaleable()):?>
                 <div class="buttons-set">
                     <button type="button" title="<?php echo $this->__('Add All to Cart') ?>" onclick="setLocation('<?php echo $this->getUrl('*/*/allcart', ['_current'=>true]) ?>')" class="button"><?php echo $this->__('Add All to Cart') ?></button>
                 </div>

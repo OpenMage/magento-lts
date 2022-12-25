@@ -39,21 +39,21 @@
 ?>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
 <div class="category-view">
-    <?php if($_imgUrl): ?>
+    <?php if ($_imgUrl): ?>
         <?php echo $_imgHtml ?>
     <?php endif ?>
 
-    <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
+    <?php if ($_description=$this->getCurrentCategory()->getDescription()): ?>
         <div class="category-description std">
             <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
         </div>
     <?php endif ?>
 
-    <?php if($this->isContentMode()): ?>
+    <?php if ($this->isContentMode()): ?>
         <?php echo $_categoryTitle ?>
         <?php echo $this->getCmsBlockHtml() ?>
 
-    <?php elseif($this->isMixedMode()): ?>
+    <?php elseif ($this->isMixedMode()): ?>
         <?php echo $this->getCmsBlockHtml() ?>
         <?php echo $_categoryTitle ?>
         <?php echo $this->getProductListHtml() ?>

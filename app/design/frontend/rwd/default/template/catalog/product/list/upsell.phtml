@@ -19,12 +19,12 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if(count($this->getItemCollection()->getItems())): ?>
+<?php if (count($this->getItemCollection()->getItems())): ?>
 <?php $_columnCount = $this->getColumnCount(); ?>
 <div class="box-collateral box-up-sell">
     <h2><?php echo $this->__('You may also be interested in the following product(s)') ?></h2>
     <ul class="products-grid products-grid--max-<?php echo $_columnCount; ?>-col" id="upsell-product-table">
-    <?php // $this->setColumnCount(5); // uncomment this line if you want to have another number of columns. also can be changed in layout ?>
+    <?php // $this->setColumnCount(5); // uncomment this line if you want to have another number of columns. also can be changed in layout?>
     <?php $this->resetItemsIterator() ?>
     <?php foreach ($this->getItemCollection()->getItems() as $_link): ?>
     <?php /*for($_i=0;$_i<$this->getRowCount();$_i++): ?>

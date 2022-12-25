@@ -44,7 +44,7 @@ $title = $this->getObjectData($column, 'title');
             </tr>
         </thead>
         <tbody>
-<?php foreach($gridElements as $row): ?>
+<?php foreach ($gridElements as $row): ?>
             <tr>
 <?php foreach ($this->getGridColumns() as $column):
 $nobr = $this->getObjectData($column, 'is_nobr') ? '<span class="nobr">%s</span>' : '%s';

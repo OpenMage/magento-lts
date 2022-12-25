@@ -28,7 +28,7 @@
 
 <?php
 $_cartQty = $this->getSummaryCount();
-if(empty($_cartQty)) {
+if (empty($_cartQty)) {
     $_cartQty = 0;
 }
 ?>
@@ -44,10 +44,10 @@ if(empty($_cartQty)) {
 
     <?php $_items = $this->getRecentItems() ?>
     <?php $countItems = count($_items); ?>
-    <?php if($countItems): ?>
+    <?php if ($countItems): ?>
         <div>
             <ul id="cart-sidebar" class="mini-products-list">
-                <?php foreach($_items as $_item): ?>
+                <?php foreach ($_items as $_item): ?>
                     <?php echo $this->getItemHtml($_item) ?>
                 <?php endforeach ?>
             </ul>
@@ -82,7 +82,7 @@ if(empty($_cartQty)) {
 
 
         <div class="minicart-actions">
-            <?php if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
+            <?php if ($_cartQty && $this->isPossibleOnepageCheckout()): ?>
                 <ul class="checkout-types minicart">
                     <?php echo $this->getChildHtml('extra_actions') ?>
                     <li>

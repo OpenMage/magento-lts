@@ -86,9 +86,9 @@
             });
             packaging.setLabelCreatedCallback(function(response){
                 setLocation("<?php echo $this->getUrl(
-                    '*/sales_order/view',
-                    ['order_id' => $this->getShipment()->getOrderId()]
-                ); ?>");
+    '*/sales_order/view',
+    ['order_id' => $this->getShipment()->getOrderId()]
+); ?>");
             });
             packaging.setCancelCallback(function() {
                 packaging.cleanPackages();

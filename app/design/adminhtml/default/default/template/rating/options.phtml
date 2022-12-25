@@ -23,15 +23,15 @@
     <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('rating')->__('Assigned Options') ?></h4>
 </div>
 <fieldset id="options_form">
-<?php if( !$options ): ?>
-    <?php for( $_i=1;$_i<=5;$_i++ ): ?>
+<?php if (!$options): ?>
+    <?php for ($_i=1;$_i<=5;$_i++): ?>
         <span class="field-row">
             <label for="option_<?php echo $_i ?>"><?php echo Mage::helper('rating')->__('Option Title:') ?></label>
             <input id="option_<?php echo $_i ?>" name="option[<?php echo $_i ?>][code]" value="<?php echo $_i ?>" class="input-text" type="text" />
         </span>
     <?php endfor ?>
-<?php elseif( $options->getSize() > 0 ): ?>
-    <?php foreach($options->getItems() as $_item): ?>
+<?php elseif ($options->getSize() > 0): ?>
+    <?php foreach ($options->getItems() as $_item): ?>
         <span class="field-row">
             <label for="option_<?php echo $_item->getId() ?>"><?php echo Mage::helper('rating')->__('Option Title:') ?></label>
             <input id="option_<?php echo $_item->getId() ?>" name="option[<?php echo $_item->getId() ?>][code]" value="<?php echo $_item->getCode() ?>" class="input-text" type="text" />

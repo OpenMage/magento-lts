@@ -26,11 +26,11 @@
  * @see Mage_Catalog_Block_Product_List_Toolbar
  */
 ?>
-<?php if($this->getCollection()->getSize()): ?>
+<?php if ($this->getCollection()->getSize()): ?>
 <div class="toolbar">
     <div class="pager">
         <p class="amount" style="display:none;">
-            <?php if($this->getLastPageNum()>1): ?>
+            <?php if ($this->getLastPageNum()>1): ?>
                 <?php echo $this->__('%s-%s/%s', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
             <?php else: ?>
                 <strong><?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
@@ -41,10 +41,10 @@
 
     </div>
 
-    <?php if( $this->isExpanded() ): ?>
+    <?php if ($this->isExpanded()): ?>
     <div class="sorter">
         <div class="sort-by">
-            <?php if($this->getCurrentDirection() == 'desc'): ?>
+            <?php if ($this->getCurrentDirection() == 'desc'): ?>
                 <a class="order asc" href="<?php echo $this->getOrderUrl(null, 'asc') ?>" title="<?php echo $this->__('Set Ascending Direction') ?>">&nbsp;</a>
             <?php else: ?>
                 <a class="order desc" href="<?php echo $this->getOrderUrl(null, 'desc') ?>" title="<?php echo $this->__('Set Descending Direction') ?>">&nbsp;</a>
@@ -52,8 +52,8 @@
             <label for="sort_by"><?php echo $this->__('Sort') ?></label>
             <span class="sort-by-wrap">
             <select id="sort_by" onchange="setLocation(this.value)">
-            <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
-                <option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif ?>>
+            <?php foreach ($this->getAvailableOrders() as $_key=>$_order): ?>
+                <option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if ($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif ?>>
                     <?php echo $this->__($_order) ?>
                 </option>
             <?php endforeach ?>

@@ -43,7 +43,7 @@
         <?php echo $_shipping->getStreet() ?><br />
         <?php echo $_shipping->getCity() ?>, <?php echo $_shipping->getRegion() ?> <?php echo $_shipping->getPostcode() ?><br />
         <strong>T</strong> | <?php echo $_shipping->getTelephone();
-        if($_shipping->getFax()): ?>
+        if ($_shipping->getFax()): ?>
             <br /><strong>F</strong> | <?php echo $_shipping->getFax() ?>
         <?php endif ?>
         </address>
@@ -56,7 +56,7 @@
         <?php echo $_billing->getStreet() ?><br />
         <?php echo $_billing->getCity() ?>, <?php echo $_billing->getRegion() ?> <?php echo $_billing->getPostcode() ?><br />
         <strong>T</strong> | <?php echo $_billing->getTelephone();
-        if($_billing->getFax()): ?>
+        if ($_billing->getFax()): ?>
             <br /><strong>F</strong> | <?php echo $_billing->getFax() ?>
         <?php endif ?>
         </address>
@@ -91,7 +91,7 @@
         <?php $_count = $_items->count(); ?>
         <?php $_index = 0; ?>
         <?php foreach ($_items as $_item): ?>
-        <tr<?php echo ($_index++ > $_count ? ' class="last"' : '') ?>>
+        <tr<?php echo($_index++ > $_count ? ' class="last"' : '') ?>>
             <td><?php echo $this->escapeHtml($_item->getProductName()) ?></td>
             <td class="a-right"><?php echo $_order->formatPrice($_item->getPrice()*1) ?></td>
             <td class="a-center"><?php echo $_item->getQty()*1 ?></td>

@@ -24,7 +24,7 @@ $_helper = $this->helper('googleanalytics');
 $_accountId = $_helper->getAccountId();
 ?>
 <?php if (!$this->helper('core/cookie')->isUserNotAllowSaveCookie()): ?>
-    <?php if($_helper->isUseUniversalAnalytics()): ?>
+    <?php if ($_helper->isUseUniversalAnalytics()): ?>
         <!-- BEGIN GOOGLE UNIVERSAL ANALYTICS CODE -->
         <script type="text/javascript">
         //<![CDATA[

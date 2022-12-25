@@ -19,7 +19,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php switch ($element->getType()){
+<?php switch ($element->getType()) {
     case 'fieldset': ?>
 
     <h3><?php echo $element->getLegend() ?></h3>
@@ -30,6 +30,7 @@
         <?php endforeach ?>
     </fieldset>
       <?php break;
+    // no break
     case 'column': ?>
       <?php break;
     case 'hidden': ?>
@@ -37,39 +38,43 @@
       <?php break;
     case 'select': ?>
     <span class="form_row">
-        <?php if($element->getLabel()): ?><label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label><?php endif ?>
+        <?php if ($element->getLabel()): ?><label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label><?php endif ?>
         <select name="<?php echo $element->getName() ?>" id="<?php echo $element->getHtmlId() ?>" class="select<?php echo $element->getClass() ?>" title="<?php echo $element->getTitle() ?>">
         <?php foreach ($element->getValues() as $_value): ?>
-            <option <?php echo $_value->serialize() ?><?php if($_value->getValue() == $element->getValue()): ?> selected="selected"<?php endif ?>><?php echo $_value->getLabel() ?></option>
+            <option <?php echo $_value->serialize() ?><?php if ($_value->getValue() == $element->getValue()): ?> selected="selected"<?php endif ?>><?php echo $_value->getLabel() ?></option>
         <?php endforeach ?>
         </select>
     </span>
       <?php break;
+    // no break
     case 'text':
     case 'button':
     case 'password': ?>
     <span class="form_row">
-        <?php if($element->getLabel()): ?><label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label><?php endif ?>
-        <input type="<?php echo $element->getType() ?>" name="<?php echo $element->getName() ?>" id="<?php echo $element->getHtmlId() ?>" value="<?php echo $element->getValue() ?>" class="input-text <?php echo $element->getClass() ?>" title="<?php echo $element->getTitle() ?>" <?php echo ( $element->getOnClick() ? 'onClick="'.$element->getOnClick().'"' : '' ) ?>/>
+        <?php if ($element->getLabel()): ?><label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label><?php endif ?>
+        <input type="<?php echo $element->getType() ?>" name="<?php echo $element->getName() ?>" id="<?php echo $element->getHtmlId() ?>" value="<?php echo $element->getValue() ?>" class="input-text <?php echo $element->getClass() ?>" title="<?php echo $element->getTitle() ?>" <?php echo($element->getOnClick() ? 'onClick="'.$element->getOnClick().'"' : '') ?>/>
     </span>
       <?php break;
+    // no break
     case 'radio': ?>
     <span class="form_row">
-        <?php if($element->getLabel()): ?><label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label><?php endif ?>
+        <?php if ($element->getLabel()): ?><label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label><?php endif ?>
         <input type="<?php echo $element->getType() ?>" name="<?php echo $element->getName() ?>" id="<?php echo $element->getHtmlId() ?>" value="<?php echo $element->getValue() ?>" class="input-text <?php echo $element->getClass() ?>" title="<?php echo $element->getTitle() ?>"/>
     </span>
       <?php break;
+    // no break
     case 'hidden': ?>
         <input type="<?php echo $element->getType() ?>" name="<?php echo $element->getName() ?>" id="<?php echo $element->getHtmlId() ?>" value="<?php echo $element->getValue() ?>">
       <?php break;
     case 'radios': ?>
     <span class="form_row">
         <label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label>
-    <?php foreach($element->getRadios() as $_radio): ?>
-    <input type="radio" name="<?php echo $_radio->getName() ?>" id="<?php echo $_radio->getHtmlId() ?>" value="<?php echo $_radio->getValue() ?>" class="input-radio <?php echo $_radio->getClass() ?>" title="<?php echo $_radio->getTitle() ?>" <?php echo ( $_radio->getValue() == $element->getChecked() ) ? 'checked="true"' : '' ?> >&nbsp;<?php echo $_radio->getLabel() ?>
+    <?php foreach ($element->getRadios() as $_radio): ?>
+    <input type="radio" name="<?php echo $_radio->getName() ?>" id="<?php echo $_radio->getHtmlId() ?>" value="<?php echo $_radio->getValue() ?>" class="input-radio <?php echo $_radio->getClass() ?>" title="<?php echo $_radio->getTitle() ?>" <?php echo ($_radio->getValue() == $element->getChecked()) ? 'checked="true"' : '' ?> >&nbsp;<?php echo $_radio->getLabel() ?>
     <?php endforeach ?>
     </span>
       <?php break;
+    // no break
     case 'wysiwyg': ?>
     <span class="form_row">
       <label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label>
@@ -115,7 +120,7 @@
     case 'checkbox': ?>
       <?php break;
 } ?>
-<?php if($element->getScript()): ?>
+<?php if ($element->getScript()): ?>
 <script type="text/javascript">
     <?php echo $element->getScript() ?>
 </script>

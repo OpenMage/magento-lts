@@ -30,7 +30,7 @@
         <thead>
             <tr>
                 <th class="cell-name">
-                    <?php if($_itemCount > 1): echo $this->__('Items in your order'); else: echo $this->__('Item in your order'); endif; ?>
+                    <?php if ($_itemCount > 1): echo $this->__('Items in your order'); else: echo $this->__('Item in your order'); endif; ?>
                 </th>
                 <th class="cell-name align-center">
                     <?php echo $this->__('Qty'); ?>
@@ -42,7 +42,11 @@
         </thead>
 
         <?php $i=0; foreach ($_invoice->getAllItems() as $_item): ?>
-        <?php if($_item->getOrderItem()->getParentItem()) continue; else $i++; ?>
+        <?php if ($_item->getOrderItem()->getParentItem()) {
+    continue;
+} else {
+    $i++;
+} ?>
             <?php echo $this->getItemHtml($_item) ?>
         <?php endforeach ?>
 

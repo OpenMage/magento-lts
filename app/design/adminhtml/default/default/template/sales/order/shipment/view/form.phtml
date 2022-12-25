@@ -42,7 +42,7 @@
         </div>
         <fieldset>
             <div>
-                <?php if($this->getShipment()->getTracksCollection()->count()): ?>
+                <?php if ($this->getShipment()->getTracksCollection()->count()): ?>
                 <a href="#" id="linkId" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($this->getShipment()) ?>','trackshipment','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Track this shipment')) ?>"><?php echo $this->__('Track this shipment') ?></a>
                 <br/>
                 <?php endif ?>
@@ -84,9 +84,9 @@
                 });
                 packaging.setLabelCreatedCallback(function(response){
                     setLocation("<?php echo $this->getUrl(
-                        '*/sales_order_shipment/view',
-                        ['shipment_id' => $this->getShipment()->getId()]
-                    ); ?>");
+    '*/sales_order_shipment/view',
+    ['shipment_id' => $this->getShipment()->getId()]
+); ?>");
                 });
             }, 500);
         });

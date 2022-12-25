@@ -30,7 +30,7 @@
             <ol id="widget-compared-<?php echo $suffix; ?>">
             <?php $i=0; foreach ($_products as $_product): ?>
                 <li class="item">
-                    <p class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName() , 'name') ?></a></p>
+                    <p class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name') ?></a></p>
                 </li>
             <?php endforeach ?>
             </ol>

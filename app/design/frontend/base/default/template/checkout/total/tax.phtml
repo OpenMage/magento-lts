@@ -23,7 +23,9 @@
 <?php if ($this->helper('tax')->displayFullSummary() && $this->getTotal()->getValue()!=0): ?>
 <?php $isTop = 1; ?>
             <?php foreach ($this->getTotal()->getFullInfo() as $info): ?>
-                <?php if (isset($info['hidden']) && $info['hidden']) continue; ?>
+                <?php if (isset($info['hidden']) && $info['hidden']) {
+    continue;
+} ?>
                 <?php $percent = $info['percent']; ?>
                 <?php $amount = $info['amount']; ?>
                 <?php $rates = $info['rates']; ?>

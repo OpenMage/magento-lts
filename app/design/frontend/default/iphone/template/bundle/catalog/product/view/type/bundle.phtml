@@ -22,7 +22,7 @@
 ?>
 <?php $_product = $this->getProduct() ?>
 
-<?php if($_product->isSaleable()): ?>
+<?php if ($_product->isSaleable()): ?>
 <script type="text/javascript">
 //<![CDATA[
     var bundle = new Product.Bundle(<?php echo $this->getJsonConfig() ?>);

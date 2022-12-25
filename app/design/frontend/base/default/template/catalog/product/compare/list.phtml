@@ -28,11 +28,11 @@
 $_total = $this->getItems()->getSize();
 $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
 ?>
-<?php if($_total): ?>
+<?php if ($_total): ?>
     <table class="data-table compare-table" id="product_comparison">
     <?php $_i=0 ?>
-    <?php foreach($this->getItems() as $_item): ?>
-        <?php if($_i++%10==0): ?>
+    <?php foreach ($this->getItems() as $_item): ?>
+        <?php if ($_i++%10==0): ?>
             <col width="1" />
         <?php endif ?>
             <col width="<?php echo floor(100/$_total); ?>%" />
@@ -41,8 +41,8 @@ $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
         <thead>
             <tr>
             <?php $_i=0 ?>
-            <?php foreach($this->getItems() as $_item): ?>
-                <?php if($_i++%10==0): ?>
+            <?php foreach ($this->getItems() as $_item): ?>
+                <?php if ($_i++%10==0): ?>
                     <th>&nbsp;</th>
                 <?php endif ?>
                 <td class="a-right"><a href="#" class="btn-remove" onclick="removeItem('<?php echo $this->helper('catalog/product_compare')->getRemoveUrl($_item) ?>');" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove This Item')) ?>"><?php echo $this->__('Remove This Item') ?></a></td>
@@ -53,8 +53,8 @@ $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
         <tbody>
             <tr class="product-shop-row">
             <?php $_i=0 ?>
-            <?php foreach($this->getItems() as $_item): ?>
-                <?php if($_i++%10==0): ?>
+            <?php foreach ($this->getItems() as $_item): ?>
+                <?php if ($_i++%10==0): ?>
                     <th>&nbsp;</th>
                 <?php endif ?>
                 <td>
@@ -62,7 +62,7 @@ $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
                     <h2 class="product-name"><a href="#" onclick="setPLocation('<?php echo $this->getProductUrl($_item) ?>', true)" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_item, $_item->getName(), 'name') ?></a></h2>
                     <?php echo $this->getReviewsSummaryHtml($_item, 'short') ?>
                     <?php echo $this->getPriceHtml($_item, true, '-compare-list-top') ?>
-                    <?php if($_item->isSaleable()): ?>
+                    <?php if ($_item->isSaleable()): ?>
                         <button type="button"
                                 title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>"
                                 class="button btn-cart"
@@ -97,8 +97,8 @@ $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
         <?php foreach ($this->getAttributes() as $_attribute): ?>
             <tr>
                 <?php $_i=0 ?>
-                <?php foreach($this->getItems() as $_item): ?>
-                <?php if($_i++%10==0): ?>
+                <?php foreach ($this->getItems() as $_item): ?>
+                <?php if ($_i++%10==0): ?>
                 <th><span class="nobr"><?php echo $_attribute->getStoreLabel() ?></span></th>
                 <?php endif ?>
                 <td>
@@ -110,7 +110,7 @@ $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
                             <img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(125, 125); ?>" width="125" height="125" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>" />
                             <?php break;
                         case "date":
-                              echo substr($this->getProductAttributeValue($_item, $_attribute),0,10);
+                              echo substr($this->getProductAttributeValue($_item, $_attribute), 0, 10);
                               break;
                         default: ?>
                             <div class="std">
@@ -126,13 +126,13 @@ $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
         <tbody>
                 <tr class="add-to-row">
                 <?php $_i=0 ?>
-                <?php foreach($this->getItems() as $_item): ?>
-                <?php if($_i++%10==0): ?>
+                <?php foreach ($this->getItems() as $_item): ?>
+                <?php if ($_i++%10==0): ?>
                 <th>&nbsp;</th>
                 <?php endif ?>
                 <td>
                     <?php echo $this->getPriceHtml($_item, true, '-compare-list-bottom') ?>
-                    <?php if($_item->isSaleable()): ?>
+                    <?php if ($_item->isSaleable()): ?>
                         <p>
                             <button type="button"
                                     title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>"

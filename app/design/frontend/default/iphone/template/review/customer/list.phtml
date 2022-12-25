@@ -24,7 +24,7 @@
 </div>
 <div class="review-history">
     <?php echo $this->getMessagesBlock()->toHtml() ?>
-    <?php if( $this->getCollection() && $this->count()): ?>
+    <?php if ($this->getCollection() && $this->count()): ?>
         <?php echo $this->getToolbarHtml() ?>
             <ol class="list">
                 <?php foreach ($this->getCollection() as $_review): ?>
@@ -34,10 +34,10 @@
                             <h2 class="product-name"><a href="<?php echo $this->getProductLink() ?>id/<?php echo $_review->getEntityPkValue() ?>"><?php echo $this->escapeHtml($_review->getName()) ?></a></h2>
                             <span class="date">(<?php echo $this->dateFormat($_review->getReviewCreatedAt()); ?>)</span>
                         </dt>
-                        <?php if($_review->getSum()): ?>
+                        <?php if ($_review->getSum()): ?>
                             <dd>
                                 <div class="rating-box">
-                                    <div class="rating" style="width:<?php echo ( $_review->getSum() / $_review->getCount() ) ?>%;"></div>
+                                    <div class="rating" style="width:<?php echo($_review->getSum() / $_review->getCount()) ?>%;"></div>
                                 </div>
                             </dd>
                         <?php endif ?>

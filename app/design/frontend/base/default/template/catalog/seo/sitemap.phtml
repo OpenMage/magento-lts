@@ -25,7 +25,7 @@
  */
 ?>
 <?php $_items = $this->getCollection(); ?>
-<?php if($_items->getSize()): ?>
+<?php if ($_items->getSize()): ?>
     <ul class="sitemap">
         <?php foreach ($_items as $_item): ?>
             <li><a href="<?php echo $this->getItemUrl($_item) ?>"><?php echo $this->escapeHtml($_item->name) ?></a></li>

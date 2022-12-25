@@ -22,10 +22,10 @@
 <div class="page-title">
     <h1><?php echo $this->__('Redirecting...') ?></h1>
 </div>
-<?php if($this->getMessage()): ?>
+<?php if ($this->getMessage()): ?>
     <p><?php echo $this->getMessage() ?></p>
 <?php endif ?>
 <?php echo $this->getRedirectOutput() ?>
-<?php if(!$this->isHtmlFormRedirect()): ?>
+<?php if (!$this->isHtmlFormRedirect()): ?>
     <p><?php echo $this->__('Click <a href="%s">here</a> if nothing has happened', $this->getTargetURL()) ?></p>
 <?php endif ?>

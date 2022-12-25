@@ -26,15 +26,15 @@
  * @var Mage_Page_Block_Html_Pager $this
  */
 ?>
-<?php if($this->getCollection()->getSize()): ?>
+<?php if ($this->getCollection()->getSize()): ?>
 
-    <?php if($this->getUseContainer()): ?>
+    <?php if ($this->getUseContainer()): ?>
     <div class="pager">
     <?php endif ?>
 
-    <?php if($this->getShowAmounts()): ?>
+    <?php if ($this->getShowAmounts()): ?>
     <p class="amount">
-        <?php if($this->getLastPageNum()>1): ?>
+        <?php if ($this->getLastPageNum()>1): ?>
             <?php echo $this->__('Items %s to %s of %s total', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
         <?php else: ?>
             <strong><?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
@@ -48,7 +48,7 @@
             <label><?php echo $this->__('Show') ?></label>
             <select onchange="setLocation(this.value)">
             <?php foreach ($availableLimits as $_key => $_limit): ?>
-                <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
+                <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if ($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
                     <?php echo $_limit ?>
                 </option>
             <?php endforeach ?>
@@ -56,7 +56,7 @@
         </div>
     <?php endif ?>
 
-    <?php if($this->getLastPageNum()>1): ?>
+    <?php if ($this->getLastPageNum()>1): ?>
     <div class="pages">
         <strong><?php echo $this->__('Page') ?></strong>
         <select onchange="setLocation(this.value)">
@@ -101,7 +101,7 @@
     </div>
     <?php endif ?>
 
-    <?php if($this->getUseContainer()): ?>
+    <?php if ($this->getUseContainer()): ?>
     </div>
     <?php endif ?>
 

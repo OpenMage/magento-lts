@@ -30,12 +30,12 @@
 </div>
 <div class="downloadable-products-history">
     <?php echo $this->getMessagesBlock()->toHtml() ?>
-    <?php if(count($_items)): ?>
+    <?php if (count($_items)): ?>
         <ol class="list">
             <?php foreach ($_items as $_item): ?>
             <li class="list-item">
                 <dl>
-                    <dt><?php echo $this->escapeHtml($_item->getPurchased()->getProductName()) ?> - <a href="<?php echo $this->getDownloadUrl($_item) ?>" title="<?php echo Mage::helper('downloadable')->__('Start Download') ?>" <?php echo $this->getIsOpenInNewWindow()?'onclick="this.target=\'_blank\'"':''; ?>><?php echo $this->escapeHtml($_item->getLinkTitle()); ?></a></dt>
+                    <dt><?php echo $this->escapeHtml($_item->getPurchased()->getProductName()) ?> - <a href="<?php echo $this->getDownloadUrl($_item) ?>" title="<?php echo Mage::helper('downloadable')->__('Start Download') ?>" <?php echo $this->getIsOpenInNewWindow() ? 'onclick="this.target=\'_blank\'"' : ''; ?>><?php echo $this->escapeHtml($_item->getLinkTitle()); ?></a></dt>
                     <dd><strong><?php echo Mage::helper('downloadable')->__('Order #') ?></strong> <a href="<?php echo $this->getOrderViewUrl($_item->getPurchased()->getOrderId()) ?>" title="<?php echo Mage::helper('downloadable')->__('View Order') ?>"><?php echo $_item->getPurchased()->getOrderIncrementId() ?></a></dd>
                     <dd><strong><?php echo Mage::helper('downloadable')->__('Date') ?></strong> <span class="nobr"><?php echo $this->formatDate($_item->getPurchased()->getCreatedAt()) ?></span></dd>
                     <dd><strong><?php echo Mage::helper('downloadable')->__('Status') ?></strong> <em><?php echo Mage::helper('downloadable')->__(ucfirst($_item->getStatus())) ?></em></dd>

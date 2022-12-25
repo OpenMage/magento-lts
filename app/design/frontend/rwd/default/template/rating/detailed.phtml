@@ -19,7 +19,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if(!empty($collection) && $collection->getSize()): ?>
+<?php if (!empty($collection) && $collection->getSize()): ?>
     <table class="ratings-table">
         <colgroup>
             <col class="review-label" />
@@ -27,7 +27,7 @@
         </colgroup>
         <tbody>
             <?php foreach ($collection as $_rating): ?>
-                <?php if($_rating->getSummary()): ?>
+                <?php if ($_rating->getSummary()): ?>
                     <tr>
                         <th><?php echo $this->__($this->escapeHtml($_rating->getRatingCode())) ?></th>
                         <td>

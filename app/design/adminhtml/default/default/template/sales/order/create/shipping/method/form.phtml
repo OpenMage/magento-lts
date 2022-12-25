@@ -85,7 +85,7 @@
     <?php else: ?>
         <script type="text/javascript">$('order-shipping-method-choose').show();</script>
     <?php endif ?>
-<?php elseif($this->getIsRateRequest()): ?>
+<?php elseif ($this->getIsRateRequest()): ?>
     <strong><?php echo Mage::helper('sales')->__('Sorry, no quotes are available for this order at this time.') ?></strong>
 <?php else: ?>
     <div id="order-shipping-method-summary">

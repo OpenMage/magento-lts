@@ -22,7 +22,7 @@
  * @see Mage_CatalogInventory_Block_Stockqty_Default
  */
 ?>
-<?php if($this->isMsgVisible()): ?>
+<?php if ($this->isMsgVisible()): ?>
     <p class="availability-only">
         <span title="<?php echo $this->__('Only %s left', ($this->getStockQty())) ?>"><?php echo $this->__('Only %s left', "<strong>{$this->getStockQty()}</strong>") ?></span>
     </p>

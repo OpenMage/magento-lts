@@ -28,7 +28,7 @@
 <head>
     <?php echo $this->getChildHtml('head') ?>
 </head>
-<body class="page-empty <?php echo $this->getBodyClass()?$this->getBodyClass():'' ?>">
+<body class="page-empty <?php echo $this->getBodyClass() ? $this->getBodyClass() : '' ?>">
     <div>
         <?php echo $this->getChildHtml('after_body_start') ?>
         <?php echo $this->getChildHtml('global_messages') ?>

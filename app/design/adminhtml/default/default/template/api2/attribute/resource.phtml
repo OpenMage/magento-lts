@@ -38,8 +38,8 @@
         <span class="field-row">
             <label for="all"><?php echo $this->__('Resource Access') ?></label>
             <select id="all" name="all" onchange="$('resources_container').toggle()" class="select">
-                <option value="0" <?php echo ($this->getEverythingAllowed()?'':'selected'); ?>><?php echo $this->__('Custom') ?></option>
-                <option value="1" <?php echo ($this->getEverythingAllowed()?'selected':''); ?>><?php echo $this->__('All') ?></option>
+                <option value="0" <?php echo($this->getEverythingAllowed() ? '' : 'selected'); ?>><?php echo $this->__('Custom') ?></option>
+                <option value="1" <?php echo($this->getEverythingAllowed() ? 'selected' : ''); ?>><?php echo $this->__('All') ?></option>
             </select>
         </span>
 
@@ -59,7 +59,7 @@
 <!-- Draw Resources Tree -->
 <script type="text/javascript">
 //<![CDATA[
-<?php if($this->getEverythingAllowed()): ?>
+<?php if ($this->getEverythingAllowed()): ?>
     $('resources_container').hide();
 <?php endif ?>
 Ext.EventManager.onDocumentReady(function() {

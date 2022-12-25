@@ -34,7 +34,7 @@
                         <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_imgSize); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
                     </a>
                     <h3 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>"><?php echo $this->escapeHtml($_product->getName()) ?></a></h3>
-                    <?php // echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                    <?php // echo $this->getReviewsSummaryHtml($_product, 'short')?>
                     <?php echo $this->getPriceHtml($_product, true, '-new') ?>
                 </div>
             </td>

@@ -27,14 +27,13 @@
     <?php foreach ($roles as $role): ?>
     <?php
         $checked = false;
-        foreach( $user_roles->getItems() as $user_role )
-        {
-            if( $user_role->getParentId() == $role->getRoleId() ) {
+        foreach ($user_roles->getItems() as $user_role) {
+            if ($user_role->getParentId() == $role->getRoleId()) {
                 $checked = true;
             }
         }
     ?>
-        <input type="checkbox" value="<?php echo $role->getRoleId(); ?>" <?php echo ($checked ? "checked" : ""); ?> name="roles[]" id="_<?php echo $role->getRoleId(); ?>" /> <label for="_<?php echo $role->getRoleId(); ?>" class="normal"><?php echo $role->getRoleName(); ?></label><br />
+        <input type="checkbox" value="<?php echo $role->getRoleId(); ?>" <?php echo($checked ? "checked" : ""); ?> name="roles[]" id="_<?php echo $role->getRoleId(); ?>" /> <label for="_<?php echo $role->getRoleId(); ?>" class="normal"><?php echo $role->getRoleName(); ?></label><br />
     <?php endforeach ?>
     </fieldset>
 </div>

@@ -28,7 +28,7 @@
         <div id="product-categories" class="tree"></div>
     </fieldset>
 </div>
-<?php if($this->getRootNode() && $this->getRootNode()->hasChildren()): ?>
+<?php if ($this->getRootNode() && $this->getRootNode()->hasChildren()): ?>
 <script type="text/javascript">
 Ext.EventManager.onDocumentReady(function() {
     var categoryLoader = new Ext.tree.TreeLoader({
@@ -81,7 +81,7 @@ Ext.EventManager.onDocumentReady(function() {
         draggable:false,
         checked:'<?php echo $this->getRootNode()->getChecked() ?>',
         id:'<?php echo $this->getRootNode()->getId() ?>',
-        disabled: <?php echo ($this->getRootNode()->getDisabled() ? 'true' : 'false') ?>,
+        disabled: <?php echo($this->getRootNode()->getDisabled() ? 'true' : 'false') ?>,
         uiProvider: Ext.tree.CheckboxNodeUI
     });
 

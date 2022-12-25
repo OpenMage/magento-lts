@@ -42,7 +42,9 @@ $_swatchArray = $_config->attributes->$_id;
         <span id="select_label_<?php echo $_attrCode ?>" class="select-label"></span>
     </label>
 </dt>
-<dd class="clearfix swatch-attr<?php if ($_attribute->decoratedIsLast) echo ' last'; ?>">
+<dd class="clearfix swatch-attr<?php if ($_attribute->decoratedIsLast) {
+    echo ' last';
+} ?>">
     <div class="input-box">
         <select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select no-display swatch-select">
             <option><?php echo $this->__('Choose an Option...') ?></option>

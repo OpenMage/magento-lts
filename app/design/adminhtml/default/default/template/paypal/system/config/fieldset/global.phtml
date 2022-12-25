@@ -35,7 +35,7 @@
         </tr>
     </thead>
     <tbody>
-<?php foreach($this->getElements() as $htmlId => $element): ?>
+<?php foreach ($this->getElements() as $htmlId => $element): ?>
         <tr>
         <?php if ($this->getIsElementSimplified($element)):?>
             <td colspan="2" class="paypal-selection-simplified">
@@ -105,63 +105,72 @@ PaypalConfig.prototype = {
                     switcher: 'express',
                     fieldset: 'express',
                     backendConfig : $H(<?php echo $this->getElementBackendConfig(
-                        $this->getElement('paypal_global_express'));
+    $this->getElement('paypal_global_express')
+);
                     ?>)
                 }),
                 wps: $H({
                     switcher: 'wps',
                     fieldset: 'wps',
                     backendConfig : $H(<?php echo $this->getElementBackendConfig(
-                        $this->getElement('paypal_global_wps'));
+                        $this->getElement('paypal_global_wps')
+                    );
                     ?>)
                 }),
                 wpp: $H({
                     switcher: 'wpp',
                     fieldset: 'wpp',
                     backendConfig : $H(<?php echo $this->getElementBackendConfig(
-                        $this->getElement('paypal_global_wpp'));
+                        $this->getElement('paypal_global_wpp')
+                    );
                     ?>)
                 }),
                 wpppe: $H({
                     switcher: 'wpp_pe',
                     fieldset: 'wpp_pe',
                     backendConfig : $H(<?php echo $this->getElementBackendConfig(
-                        $this->getElement('paypal_global_wpp_pe'));
+                        $this->getElement('paypal_global_wpp_pe')
+                    );
                     ?>)
                 }),
                 wpppl: $H({
                     switcher: 'payflow_link',
                     fieldset: 'payflow_link',
                     backendConfig : $H(<?php echo $this->getElementBackendConfig(
-                        $this->getElement('paypal_global_payflow_link'));
+                        $this->getElement('paypal_global_payflow_link')
+                    );
                     ?>)
                 }),
                 wpppa: $H({
                     switcher: 'payflow_advanced',
                     fieldset: 'payflow_advanced',
                     backendConfig : $H(<?php echo $this->getElementBackendConfig(
-                        $this->getElement('paypal_global_payflow_advanced'));
+                        $this->getElement('paypal_global_payflow_advanced')
+                    );
                     ?>)
                 }),
                 ecpe: $H({
                     switcher: 'express_pe',
                     fieldset: 'express_pe',
                     backendConfig : $H(<?php echo $this->getElementBackendConfig(
-                        $this->getElement('paypal_global_express_pe'));
+                        $this->getElement('paypal_global_express_pe')
+                    );
                     ?>)
                 }),
                 payflowpro: $H({
                     switcher: 'verisign',
                     fieldset: 'verisign',
                     backendConfig : $H(<?php echo $this->getElementBackendConfig(
-                        $this->getElement('paypal_global_verisign'));
+                        $this->getElement('paypal_global_verisign')
+                    );
                     ?>)
                 }),
                 hosted_pro: $H({
                     switcher: 'hosted_pro',
                     fieldset: 'hosted_pro',
                     backendConfig : $H(<?php echo $this->getElementBackendConfig(
-                        $this->getElement('paypal_global_hosted_pro'));
+                        $this->getElement('paypal_global_hosted_pro')
+                    );
                     ?>)
                 })
         });

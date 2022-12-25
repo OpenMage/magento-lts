@@ -29,7 +29,7 @@
 <div>
     <?php echo $this->getChildHtml('grid') ?>
 </div>
-<?php if(count($this->getQueueAsOptions())>0 && $this->getShowQueueAdd()): ?>
+<?php if (count($this->getQueueAsOptions())>0 && $this->getShowQueueAdd()): ?>
 <div class="form-buttons">
     <select id="queueList" name="queue">
     <?php foreach ($this->getQueueAsOptions() as $_queue): ?>

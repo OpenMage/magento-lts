@@ -33,7 +33,7 @@
 <head>
 <?php echo $this->getChildHtml('head') ?>
 </head>
-<body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+<body<?php echo $this->getBodyClass() ? ' class="'.$this->getBodyClass().'"' : '' ?>>
 <?php echo $this->getChildHtml('after_body_start') ?>
 <div class="wrapper">
     <?php echo $this->getChildHtml('global_notices') ?>
@@ -43,7 +43,7 @@
             <div class="main">
                 <?php echo $this->getChildHtml('breadcrumbs') ?>
                 <div class="col-wrapper">
-                    <?php // This left_first block will display above the main content on smaller viewports ?>
+                    <?php // This left_first block will display above the main content on smaller viewports?>
                     <?php if ($_leftContent = $this->getChildHtml('left_first')): ?>
                         <div class="col-left sidebar col-left-first"><?php echo $_leftContent;   ?></div>
                     <?php endif ?>

@@ -27,7 +27,7 @@
     <?php echo $this->getMessagesBlock()->toHtml() ?>
     <?php echo $this->getChildHtml('info');?>
     <?php echo $this->getPagerHtml(); ?>
-    <?php if($_orders->getSize()): ?>
+    <?php if ($_orders->getSize()): ?>
     <table class="data-table" id="my-orders-table">
         <thead>
             <tr>

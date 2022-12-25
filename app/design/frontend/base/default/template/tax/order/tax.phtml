@@ -32,7 +32,9 @@
 <?php if ($this->displayFullSummary()): ?>
 <?php $isTop = 1; ?>
     <?php if ($_fullInfo) foreach ($_fullInfo as $info): ?>
-        <?php if (isset($info['hidden']) && $info['hidden']) continue; ?>
+        <?php if (isset($info['hidden']) && $info['hidden']) {
+    continue;
+} ?>
         <?php
             $percent    = $info['percent'];
             $amount     = $info['amount'];

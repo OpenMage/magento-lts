@@ -188,10 +188,14 @@ Event.observe(window, 'load', function(){
                     <?php foreach ($this->getWebsiteCollection() as $_website): ?>
                         <?php $_websiteShow=false; ?>
                         <?php foreach ($this->getGroupCollection() as $_group): ?>
-                            <?php if ($_website->getId() != $_group->getWebsiteId()) continue; ?>
+                            <?php if ($_website->getId() != $_group->getWebsiteId()) {
+    continue;
+} ?>
                             <?php $_groupShow=false; ?>
                             <?php foreach ($this->getStoreCollection() as $_store): ?>
-                                <?php if ($_group->getId() != $_store->getGroupId()) continue; ?>
+                                <?php if ($_group->getId() != $_store->getGroupId()) {
+    continue;
+} ?>
                                 <?php if (!$_websiteShow): ?>
                                     <?php $_websiteShow=true; ?>
                                     <optgroup label="<?php echo Mage::helper('core')->quoteEscape($_website->getName()) ?>"></optgroup>
@@ -223,14 +227,14 @@ Event.observe(window, 'load', function(){
         <span class="field-row">
             <label for="profile_number_of_records"><?php echo $this->__("Number of records:") ?></label>
             <span class="with-tip">
-                <input class="required-entry validate-number input-text" id="profile_number_of_records" name="gui_data[import][number_of_records]" value="<?php echo (($numbers = $this->getValue('gui_data/import/number_of_records')) ? $numbers : 1) ?>"/>
+                <input class="required-entry validate-number input-text" id="profile_number_of_records" name="gui_data[import][number_of_records]" value="<?php echo(($numbers = $this->getValue('gui_data/import/number_of_records')) ? $numbers : 1) ?>"/>
                 <small><?php echo $this->__("(You have to increase php memory_limit before changing this value)") ?></small>
             </span>
         </span>
         <span class="field-row">
             <label for="profile_decimal_separator"><?php echo $this->__("Decimal separator:") ?></label>
             <span class="with-tip">
-                <input class="required-entry input-text" id="profile_decimal_separator" name="gui_data[import][decimal_separator]" value="<?php echo (($separator = $this->getValue('gui_data/import/decimal_separator')) ? $separator : '.') ?>"/>
+                <input class="required-entry input-text" id="profile_decimal_separator" name="gui_data[import][decimal_separator]" value="<?php echo(($separator = $this->getValue('gui_data/import/decimal_separator')) ? $separator : '.') ?>"/>
             </span>
         </span>
     </fieldset>

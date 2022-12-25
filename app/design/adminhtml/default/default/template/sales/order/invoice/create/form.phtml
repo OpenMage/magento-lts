@@ -66,13 +66,13 @@
                 <?php if ($this->canCreateShipment() && $this->canShipPartiallyItem()): ?>
                 <p class="nm">
                     <label for="invoice_do_shipment" class="normal"><?php echo Mage::helper('sales')->__('Create Shipment') ?></label>
-                    <input type="checkbox" name="invoice[do_shipment]" id="invoice_do_shipment" value="1" <?php echo $this->hasInvoiceShipmentTypeMismatch()?' disabled="disabled"':'' ?> />
+                    <input type="checkbox" name="invoice[do_shipment]" id="invoice_do_shipment" value="1" <?php echo $this->hasInvoiceShipmentTypeMismatch() ? ' disabled="disabled"' : '' ?> />
                 </p>
                 <?php if ($this->hasInvoiceShipmentTypeMismatch()): ?>
                     <small><?php echo $this->__('Some items in this order have different invoice and shipment types. You can create shipment only after the invoice is created.') ?></small>
                     <?php endif ?>
                 <?php endif ?>
-                <div id="tracking" style="display:none;"><?php echo $this->getChildHtml('tracking',false) ?></div>
+                <div id="tracking" style="display:none;"><?php echo $this->getChildHtml('tracking', false) ?></div>
             </fieldset>
         </div>
     </div>
@@ -82,7 +82,7 @@
     <div class="entry-edit">
         <div class="entry-edit-head">
             <?php
-                $_itemsGridLabel = $this->getForcedShipmentCreate()?'Items to Invoice and Ship':'Items to Invoice';
+                $_itemsGridLabel = $this->getForcedShipmentCreate() ? 'Items to Invoice and Ship' : 'Items to Invoice';
             ?>
             <h4 class="icon-head head-products"><?php echo Mage::helper('sales')->__('%s', $_itemsGridLabel) ?></h4>
         </div>

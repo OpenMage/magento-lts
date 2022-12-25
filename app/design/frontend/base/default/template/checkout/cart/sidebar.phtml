@@ -52,17 +52,17 @@
             </p>
         </div>
     <?php endif ?>
-    <?php if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
+    <?php if ($_cartQty && $this->isPossibleOnepageCheckout()): ?>
     <div class="actions">
         <?php echo $this->getChildHtml('extra_actions') ?>
         <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Checkout')) ?>" class="button" onclick="setLocation('<?php echo $this->getCheckoutUrl() ?>')"><span><span><?php echo $this->__('Checkout') ?></span></span></button>
     </div>
     <?php endif ?>
     <?php $_items = $this->getRecentItems() ?>
-    <?php if(count($_items)): ?>
+    <?php if (count($_items)): ?>
         <p class="block-subtitle"><?php echo $this->__('Recently added item(s)') ?></p>
         <ol id="cart-sidebar" class="mini-products-list">
-        <?php foreach($_items as $_item): ?>
+        <?php foreach ($_items as $_item): ?>
             <?php echo $this->getItemHtml($_item) ?>
         <?php endforeach ?>
         </ol>

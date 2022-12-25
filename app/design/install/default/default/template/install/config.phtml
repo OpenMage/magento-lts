@@ -30,7 +30,7 @@
     <h3><?php echo $this->__('Configuration') ?></h3>
 </div>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
-<?php if($this->getInstaller()->getServerCheckStatus()): ?>
+<?php if ($this->getInstaller()->getServerCheckStatus()): ?>
 <form action="<?php echo $this->getPostUrl() ?>" method="post" id="form-validate">
 
 <!--    database connection    -->
@@ -52,21 +52,21 @@
             </p>
         </li>
         <li>
-            <input type="checkbox" name="config[enable_charts]" id="enable_charts" value="1" <?php if($this->getFormData()->getEnableCharts()): ?>checked="checked"<?php endif ?> />
+            <input type="checkbox" name="config[enable_charts]" id="enable_charts" value="1" <?php if ($this->getFormData()->getEnableCharts()): ?>checked="checked"<?php endif ?> />
             <label for="enable_charts"><?php echo $this->__('Enable Charts') ?></label><br />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small><?php echo $this->__('Enable this option if you want the charts to be displayed on Dashboard.') ?></small>
             </p>
         </li>
         <li>
-            <input type="checkbox" name="skip_base_url_validation" id="skip_base_url_validation" value="1" <?php if($this->getSkipBaseUrlValidation()): ?>checked="checked"<?php endif ?> />
+            <input type="checkbox" name="skip_base_url_validation" id="skip_base_url_validation" value="1" <?php if ($this->getSkipBaseUrlValidation()): ?>checked="checked"<?php endif ?> />
             <label for="skip_base_url_validation"><?php echo $this->__('Skip Base URL Validation Before the Next Step') ?></label><br />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small><?php echo $this->__('Check this box only if it is not possible to automatically validate the Base URL.') ?></small>
             </p>
         </li>
         <li>
-            <input type="checkbox" name="config[use_rewrites]" id="use_rewrites" value="1" <?php if($this->getFormData()->getUseRewrites()): ?>checked="checked"<?php endif ?> />
+            <input type="checkbox" name="config[use_rewrites]" id="use_rewrites" value="1" <?php if ($this->getFormData()->getUseRewrites()): ?>checked="checked"<?php endif ?> />
             <label for="use_rewrites"><?php echo $this->__('Use Web Server (Apache) Rewrites') ?></label><br />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small>
@@ -76,14 +76,14 @@
             </p>
         </li>
         <li>
-            <input type="checkbox" name="config[use_secure]" id="use_secure" value="1" <?php if($this->getFormData()->getUseSecure()): ?>checked="checked"<?php endif ?> onclick="this.checked ? $('use_secure_options').show() : $('use_secure_options').hide(); return true;" />
+            <input type="checkbox" name="config[use_secure]" id="use_secure" value="1" <?php if ($this->getFormData()->getUseSecure()): ?>checked="checked"<?php endif ?> onclick="this.checked ? $('use_secure_options').show() : $('use_secure_options').hide(); return true;" />
             <label for="use_secure"><?php echo $this->__('Use Secure URLs (SSL)') ?></label><br />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small><?php echo $this->__('Enable this option only if you have SSL available.') ?></small>
             </p>
         </li>
     </ul>
-    <ul id="use_secure_options" <?php if(!$this->getFormData()->getUseSecure()): ?>style="display:none"<?php endif ?>>
+    <ul id="use_secure_options" <?php if (!$this->getFormData()->getUseSecure()): ?>style="display:none"<?php endif ?>>
         <li>
             <label for="secure_base_url"><?php echo $this->__('Secure Base URL') ?> <span class="required">*</span></label><br />
             <input type="text" name="config[secure_base_url]" id="secure_base_url" value="<?php echo $this->getFormData()->getSecureBaseUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Secure Base URL')) ?>" class="required-entry validate-url input-text" />
@@ -92,11 +92,11 @@
             </p>
         </li>
         <li>
-            <input type="checkbox" name="config[use_secure_admin]" id="use_secure_admin" value="1" <?php if($this->getFormData()->getUseSecureAdmin()): ?>checked="checked"<?php endif ?> />
+            <input type="checkbox" name="config[use_secure_admin]" id="use_secure_admin" value="1" <?php if ($this->getFormData()->getUseSecureAdmin()): ?>checked="checked"<?php endif ?> />
             <label for="use_secure_admin"><?php echo $this->__('Run admin interface with SSL') ?></label><br />
         </li>
         <li>
-            <input type="checkbox" name="skip_url_validation" id="skip_url_validation" value="1" <?php if($this->getSkipUrlValidation()): ?>checked="checked"<?php endif ?> />
+            <input type="checkbox" name="skip_url_validation" id="skip_url_validation" value="1" <?php if ($this->getSkipUrlValidation()): ?>checked="checked"<?php endif ?> />
             <label for="skip_url_validation"><?php echo $this->__('Skip Secure URL validation before next step') ?></label><br />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small><?php echo $this->__('Check this box only if it is not possible to automatically validate Secure URL, for example if HTTP authentication is required.') ?></small>

@@ -19,10 +19,10 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if( $this->getRating() && $this->getRating()->getSize()): ?>
+<?php if ($this->getRating() && $this->getRating()->getSize()): ?>
     <div class="ratings-container">
         <?php foreach ($this->getRating() as $_rating): ?>
-        <?php if($_rating->getPercent()): ?>
+        <?php if ($_rating->getPercent()): ?>
             <div class="ratings">
                <?php echo $this->escapeHtml($_rating->getRatingCode()) ?>
                 <div class="rating-box">

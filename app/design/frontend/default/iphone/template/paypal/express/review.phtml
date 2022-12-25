@@ -37,7 +37,7 @@ $shippingAddress = $this->getShippingAddress();
         Please confirm your addresses
     </h2>
     <form method="post" id="order_review_form" action="<?php echo $this->getPlaceOrderUrl() ?>">
-    <?php if(!$billingBlock->isCustomerLoggedIn()): ?>
+    <?php if (!$billingBlock->isCustomerLoggedIn()): ?>
         <div class="info-set">
             <h2 class="legend"><?php echo $this->__('Customer Information') ?></h2>
             <ul class="form-list form-list-narrow">

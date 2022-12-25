@@ -26,7 +26,7 @@
  * @see Mage_Customer_Block_Address_Edit
  */
 ?>
-<?php if($this->getTitle()): ?>
+<?php if ($this->getTitle()): ?>
 <div class="page-title">
     <h1><?php echo $this->getTitle() ?></h1>
 </div>
@@ -126,19 +126,23 @@
                     </div>
                 </div>
             </li>
-            <li<?php if($this->canSetAsDefaultBilling()) echo ' class="control"' ?>>
-                <?php if($this->isDefaultBilling()): ?>
+            <li<?php if ($this->canSetAsDefaultBilling()) {
+    echo ' class="control"';
+} ?>>
+                <?php if ($this->isDefaultBilling()): ?>
                     <strong><?php echo $this->__('Default Billing Address') ?></strong>
-                <?php elseif($this->canSetAsDefaultBilling()): ?>
+                <?php elseif ($this->canSetAsDefaultBilling()): ?>
                     <input type="checkbox" id="primary_billing" name="default_billing" value="1" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Use as My Default Billing Address')) ?>" class="checkbox" /><label for="primary_billing"><?php echo $this->__('Use as my default billing address') ?></label>
                 <?php else: ?>
                     <input type="hidden" name="default_billing" value="1" />
                 <?php endif ?>
             </li>
-            <li<?php if($this->canSetAsDefaultShipping()) echo ' class="control"' ?>>
-                <?php if($this->isDefaultShipping()): ?>
+            <li<?php if ($this->canSetAsDefaultShipping()) {
+    echo ' class="control"';
+} ?>>
+                <?php if ($this->isDefaultShipping()): ?>
                     <strong><?php echo $this->__('Default Shipping Address') ?></strong>
-                <?php elseif($this->canSetAsDefaultShipping()): ?>
+                <?php elseif ($this->canSetAsDefaultShipping()): ?>
                     <input type="checkbox" id="primary_shipping" name="default_shipping" value="1" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Use as My Default Shipping Address')) ?>" class="checkbox" /><label for="primary_shipping"><?php echo $this->__('Use as my default shipping address') ?></label>
                 <?php else: ?>
                     <input type="hidden" name="default_shipping" value="1" />

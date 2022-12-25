@@ -31,9 +31,9 @@
             <?php foreach ($_links as $_link): ?>
                 <?php $_last = ($_index++ >= $_count); ?>
                 <?php if ($this->isActive($_link)): ?>
-                    <li class="current<?php echo ($_last ? ' last' : '') ?>"><a href="<?php echo $_link->getUrl() ?>"><strong><?php echo $_link->getLabel() ?></strong></a></li>
+                    <li class="current<?php echo($_last ? ' last' : '') ?>"><a href="<?php echo $_link->getUrl() ?>"><strong><?php echo $_link->getLabel() ?></strong></a></li>
                 <?php else: ?>
-                    <li<?php echo ($_last ? ' class="last"' : '') ?>><a href="<?php echo $_link->getUrl() ?>"><?php echo $_link->getLabel() ?></a></li>
+                    <li<?php echo($_last ? ' class="last"' : '') ?>><a href="<?php echo $_link->getUrl() ?>"><?php echo $_link->getLabel() ?></a></li>
                 <?php endif ?>
             <?php endforeach ?>
         </ul>

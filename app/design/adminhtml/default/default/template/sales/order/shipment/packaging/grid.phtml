@@ -39,7 +39,7 @@
                 </thead>
 
                 <tbody>
-                <?php foreach($this->getCollection() as $item): ?>
+                <?php foreach ($this->getCollection() as $item): ?>
                     <?php $_order = $this->getShipment()->getOrder() ?>
                     <?php $_orderItem = $_order->getItemById($item->getOrderItemId()); ?>
                     <?php if ($item->getIsVirtual()

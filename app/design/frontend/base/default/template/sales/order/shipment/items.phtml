@@ -43,13 +43,13 @@
                 <?php
                 $i = 1;
                 $_size = $tracks->count();
-                foreach($tracks as $track): ?>
-                <?php if($track->isCustom()): ?>
+                foreach ($tracks as $track): ?>
+                <?php if ($track->isCustom()): ?>
                     <?php echo $this->escapeHtml($track->getNumber()) ?>
                 <?php else: ?>
                     <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($track) ?>','trackorder','width=800,height=600,left=0,top=0,resizable=yes,scrollbars=yes')" ><?php echo $this->escapeHtml($track->getNumber()) ?></a>
                 <?php endif ?>
-                <?php if($i!=$_size): ?>, <?php endif ?>
+                <?php if ($i!=$_size): ?>, <?php endif ?>
                 <?php $i++;
                 endforeach; ?>
                 </td>
@@ -73,7 +73,9 @@
     <?php $_items = $_shipment->getAllItems(); ?>
     <?php $_count = count($_items) ?>
     <?php foreach ($_items as $_item): ?>
-    <?php if ($_item->getOrderItem()->getParentItem()) continue; ?>
+    <?php if ($_item->getOrderItem()->getParentItem()) {
+                    continue;
+                } ?>
     <tbody>
         <?php echo $this->getItemHtml($_item) ?>
     </tbody>

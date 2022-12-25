@@ -22,7 +22,7 @@
 <div class="box-collateral box-tags">
     <h2><?php echo $this->__('Product Tags') ?></h2>
     <?php echo $this->getChildHtml('list_before')?>
-    <?php if( $this->getCount() ): ?>
+    <?php if ($this->getCount()): ?>
     <h3><?php echo $this->__('Other people marked this product with these tags:') ?></h3>
     <ul id="<?php echo $this->getUniqueHtmlId('product-tags_'); ?>" class="product-tags">
         <?php echo $this->renderTags('<li><a href="%1$s">%2$s</a> (%3$s)</li>') ?>

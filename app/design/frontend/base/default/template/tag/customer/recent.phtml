@@ -26,7 +26,7 @@
     </div>
     <ol id="my_recent_tags">
         <?php $iterator = 0; ?>
-        <?php foreach( $this->getCollection()->getItems() as $_item ): ?>
+        <?php foreach ($this->getCollection()->getItems() as $_item): ?>
             <li class="item">
                 <span class="number"><?php echo ++$iterator ?></span>
                 <div class="details">
@@ -37,8 +37,8 @@
                         <ul>
                         <?php $_itemProductTags = $_item->getProductTags(); ?>
                         <?php $_itemProductTagCount = count($_itemProductTags->getItems()); ?>
-                        <?php foreach($_itemProductTags as $_tag): ?>
-                            <li><a href="<?php echo $_tag->getViewTagUrl() ?>"><?php echo $this->escapeHtml($_tag->getName()) ?></a><?php if(++$_i !== $_itemProductTagCount): ?>,<?php endif ?></li>
+                        <?php foreach ($_itemProductTags as $_tag): ?>
+                            <li><a href="<?php echo $_tag->getViewTagUrl() ?>"><?php echo $this->escapeHtml($_tag->getName()) ?></a><?php if (++$_i !== $_itemProductTagCount): ?>,<?php endif ?></li>
                         <?php endforeach ?>
                         </ul>
                     </div>

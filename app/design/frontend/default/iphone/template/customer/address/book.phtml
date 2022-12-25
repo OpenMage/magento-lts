@@ -34,7 +34,7 @@
     <div class="col-1 addresses-primary">
         <h2 class="sub-title"><?php echo $this->__('Default Addresses') ?></h2>
         <ol>
-        <?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling()): ?>
+        <?php if ($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling()): ?>
             <li class="info-box">
                 <h3 class="box-title"><?php echo $this->__('Default Billing Address') ?> <span class="separator">|</span> <a href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>"><?php echo $this->__('Edit') ?></a></h3>
                 <address class="box-content">
@@ -48,7 +48,7 @@
             </li>
         <?php endif ?>
 
-        <?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultShipping()): ?>
+        <?php if ($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultShipping()): ?>
             <li class="info-box">
                 <h3 class="box-title"><?php echo $this->__('Default Shipping Address') ?> <span class="separator">|</span> <a href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>"><?php echo $this->__('Edit') ?></a></h3>
                 <address class="box-content">
@@ -66,8 +66,8 @@
     <div class="col-2 addresses-additional">
         <h2 class="sub-title"><?php echo $this->__('Additional Address Entries') ?></h2>
         <ol>
-        <?php if($_pAddsses = $this->getAdditionalAddresses()): ?>
-            <?php foreach($_pAddsses as $_address): ?>
+        <?php if ($_pAddsses = $this->getAdditionalAddresses()): ?>
+            <?php foreach ($_pAddsses as $_address): ?>
             <li class="item">
                 <address>
                     <?php echo $this->getAddressHtml($_address) ?><br />

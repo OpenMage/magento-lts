@@ -53,7 +53,7 @@
                 <img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading...')) ?>" class="v-middle"/>
             </span>
             <?php $defSearch = $this->__('Global Record Search') ?>
-            <input id="global_search" name="query" type="text" class="input-text" value="<?php if(!empty($query)): ?><?php echo $query ?><?php else: ?><?php echo Mage::helper('core')->quoteEscape($defSearch) ?><?php endif ?>" onfocus="if(this.value=='<?php echo Mage::helper('core')->quoteEscape($defSearch, true) ?>')this.value=''; " onblur="if(this.value=='')this.value='<?php echo $defSearch ?>';" autocomplete="off" />
+            <input id="global_search" name="query" type="text" class="input-text" value="<?php if (!empty($query)): ?><?php echo $query ?><?php else: ?><?php echo Mage::helper('core')->quoteEscape($defSearch) ?><?php endif ?>" onfocus="if(this.value=='<?php echo Mage::helper('core')->quoteEscape($defSearch, true) ?>')this.value=''; " onblur="if(this.value=='')this.value='<?php echo $defSearch ?>';" autocomplete="off" />
             <div id="global_search_autocomplete" class="autocomplete"></div>
             <script type="text/javascript">
                 new Ajax.Autocompleter(

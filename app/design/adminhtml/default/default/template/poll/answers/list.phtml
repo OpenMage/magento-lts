@@ -20,12 +20,12 @@
  */
 ?>
 <div id="answers_container">
-<?php if( !$answers ): ?>
+<?php if (!$answers): ?>
 <?php else: ?>
     <div class="entry-edit-head">
     <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('poll')->__('Assigned Answers') ?></h4>
     </div>
-    <?php foreach($answers->getItems() as $_item): ?>
+    <?php foreach ($answers->getItems() as $_item): ?>
         <div class="fieldset fieldset-wide" id="poll_answer_fieldset_<?php echo $_item->getId() ?>">
         <table cellspacing="0" class="form-list">
             <tr>

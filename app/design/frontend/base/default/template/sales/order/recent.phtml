@@ -23,9 +23,9 @@
 <?php $_orders = $this->getOrders(); ?>
     <div class="box-head">
         <h2><?php echo $this->__('Recent Orders') ?></h2>
-        <?php if(count($_orders->getItems()) > 0): ?><a href="<?php echo $this->getUrl('sales/order/history') ?>"><?php echo $this->__('View All') ?></a><?php endif ?>
+        <?php if (count($_orders->getItems()) > 0): ?><a href="<?php echo $this->getUrl('sales/order/history') ?>"><?php echo $this->__('View All') ?></a><?php endif ?>
     </div>
-<?php if(count($_orders->getItems()) > 0): ?>
+<?php if (count($_orders->getItems()) > 0): ?>
     <table class="data-table" id="my-orders-table">
     <col width="1" />
     <col width="1" />

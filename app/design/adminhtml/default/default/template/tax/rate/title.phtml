@@ -29,7 +29,7 @@
         <?php $_labels = $this->getTitles() ?>
         <?php foreach ($this->getStores() as $_store): ?>
         <td>
-            <input class="input-text<?php if($_store->getId()==0): ?> required-entry<?php endif ?>" type="text" name="title[<?php echo $_store->getId() ?>]" value="<?php echo $_labels[$_store->getId()] ?>" />
+            <input class="input-text<?php if ($_store->getId()==0): ?> required-entry<?php endif ?>" type="text" name="title[<?php echo $_store->getId() ?>]" value="<?php echo $_labels[$_store->getId()] ?>" />
         </td>
         <?php endforeach ?>
     </tr>

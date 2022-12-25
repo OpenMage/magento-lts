@@ -19,12 +19,12 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if(count($this->getTotals()) > 0): ?>
+<?php if (count($this->getTotals()) > 0): ?>
 <div class="box">
     <div class="entry-edit">
         <table border="0" cellspacing="0" width="100%">
             <tr>
-            <?php foreach( $this->getTotals() as $_total ): ?>
+            <?php foreach ($this->getTotals() as $_total): ?>
                 <td class="a-center">
                     <div <?php if ($_total['grand']): ?>class="grand-total"<?php endif ?>>
                         <?php echo $_total['label'] ?><br />

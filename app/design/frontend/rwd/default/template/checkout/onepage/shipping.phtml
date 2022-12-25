@@ -127,7 +127,7 @@
             </div>
         </li>
         <li class="control">
-            <input type="checkbox" name="shipping[same_as_billing]" id="shipping:same_as_billing" value="1"<?php if($this->getAddress()->getSameAsBilling()): ?> checked="checked"<?php endif ?> title="<?php echo Mage::helper('core')->quoteEscape($this->__('Use Billing Address')) ?>" onclick="shipping.setSameAsBilling(this.checked)" class="checkbox" /><label for="shipping:same_as_billing"><?php echo $this->__('Use Billing Address') ?></label>
+            <input type="checkbox" name="shipping[same_as_billing]" id="shipping:same_as_billing" value="1"<?php if ($this->getAddress()->getSameAsBilling()): ?> checked="checked"<?php endif ?> title="<?php echo Mage::helper('core')->quoteEscape($this->__('Use Billing Address')) ?>" onclick="shipping.setSameAsBilling(this.checked)" class="checkbox" /><label for="shipping:same_as_billing"><?php echo $this->__('Use Billing Address') ?></label>
         </li>
     </ul>
     <div class="buttons-set" id="shipping-buttons-container">
