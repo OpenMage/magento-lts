@@ -1,36 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * EAV Entity Attribute Multiply line Data Model
  *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_Data_Text
 {
@@ -46,7 +40,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         if (!is_array($value)) {
             $value = false;
         } else {
-            $value = array_map(array($this, '_applyInputFilter'), $value);
+            $value = array_map([$this, '_applyInputFilter'], $value);
         }
         return $value;
     }
@@ -56,11 +50,11 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
      * Return true or array of errors
      *
      * @param array|string $value
-     * @return boolean|array
+     * @return bool|array
      */
     public function validateValue($value)
     {
-        $errors     = array();
+        $errors     = [];
         $attribute  = $this->getAttribute();
 
         if ($value === false) {
@@ -72,9 +66,9 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         }
 
         if (!is_array($value)) {
-            $value = array($value);
+            $value = [$value];
         }
-        for ($i = 0; $i < $attribute->getMultilineCount(); $i ++) {
+        for ($i = 0; $i < $attribute->getMultilineCount(); $i++) {
             if (!isset($value[$i])) {
                 $value[$i] = null;
             }
@@ -125,7 +119,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
     }
 
     /**
-     * Return formated attribute value from entity model
+     * Return formatted attribute value from entity model
      *
      * @param string $format
      * @return string|array
@@ -137,7 +131,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         if (!is_array($values)) {
             $values = explode("\n", $values);
         }
-        $values = array_map(array($this, '_applyOutputFilter'), $values);
+        $values = array_map([$this, '_applyOutputFilter'], $values);
         switch ($format) {
             case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY:
                 $output = $values;

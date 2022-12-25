@@ -1,4 +1,27 @@
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+# PhpStorm
+.idea
+
+# Openmage config
 /app/etc/local.xml
+
+# CM Redis
+/app/code/community/Cm
+/app/etc/modules/Cm_RedisSession.xml
+/lib/Credis
 
 # Add a base setup for running unit Tests with code coverage and send them to SonarCloud
 # https://github.com/OpenMage/magento-lts/pull/1836
@@ -28,3 +51,28 @@
 
 /var/*
 !/var/.htaccess
+
+# composer
+/vendor
+
+# ddev
+.ddev/config.yaml
+
+# scss-cache
+/skin/*/*/*/scss/.sass-cache
+
+# .phar (n98-magerun, ...)
+*.phar
+
+# PHP-CS-Fixer cache
+.php-cs-fixer.cache
+
+# Ignore custom config files
+.php-cs-fixer*
+!.php-cs-fixer.dist.*
+
+.phpcs*.xml
+!.phpcs*.xml.dist
+
+phpstan*.neon
+!phpstan.dist.*.neon

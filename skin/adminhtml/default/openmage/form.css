@@ -3,6 +3,15 @@
    Edit scss version and compile with sass from scss folder like this:
    $ sass form.scss ../form.css
  */
+/*
+ 205 = default,
+   0 = red,
+  60 = yellow,
+ 120 = green,
+ 180 = turquoise,
+ 240 = blue,
+ 300 = purple
+*/
 input.input-text, textarea, select {
   font: 400 12px/1.33 'Open Sans', sans-serif;
   display: inline-block;
@@ -11,7 +20,7 @@ input.input-text, textarea, select {
   background-color: #fff;
   height: 26px;
   color: #202856;
-  border: 1px solid #ccc;
+  border: 1px solid #c8c8c8;
   box-sizing: border-box;
 }
 
@@ -82,7 +91,7 @@ button.save.disabled, button.ok_button.disabled, button.add.disabled, button.sav
 
 .field-100 textarea, .field-100 input.input-text {
   float: none;
-  border: 1px solid #ccc !important;
+  border: 1px solid #c8c8c8 !important;
   padding: 1px 3px !important;
 }
 
@@ -102,8 +111,7 @@ textarea.disabled {
 
 select {
   height: 26px;
-  margin: 0 0 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #c8c8c8;
   box-sizing: border-box;
   text-transform: none;
   margin: 0;

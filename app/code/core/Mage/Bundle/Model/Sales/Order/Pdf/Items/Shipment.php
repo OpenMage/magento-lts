@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -46,13 +41,13 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
         $this->_setFontRegular();
 
         $shipItems = $this->getChilds($item);
-        $items = array_merge(array($item->getOrderItem()), $item->getOrderItem()->getChildrenItems());
+        $items = array_merge([$item->getOrderItem()], $item->getOrderItem()->getChildrenItems());
 
         $_prevOptionId = '';
-        $drawItems = array();
+        $drawItems = [];
 
         foreach ($items as $_item) {
-            $line   = array();
+            $line   = [];
 
             $attributes = $this->getSelectionAttributes($_item);
             if (is_array($attributes)) {
@@ -62,26 +57,26 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
             }
 
             if (!isset($drawItems[$optionId])) {
-                $drawItems[$optionId] = array(
-                    'lines'  => array(),
+                $drawItems[$optionId] = [
+                    'lines'  => [],
                     'height' => 15
-                );
+                ];
             }
 
             if ($_item->getParentItem()) {
                 if ($_prevOptionId != $attributes['option_id']) {
-                    $line[0] = array(
+                    $line[0] = [
                         'font'  => 'italic',
                         'text'  => Mage::helper('core/string')->str_split($attributes['option_label'], 60, true, true),
                         'feed'  => 60
-                    );
+                    ];
 
-                    $drawItems[$optionId] = array(
-                        'lines'  => array($line),
+                    $drawItems[$optionId] = [
+                        'lines'  => [$line],
                         'height' => 15
-                    );
+                    ];
 
-                    $line = array();
+                    $line = [];
 
                     $_prevOptionId = $attributes['option_id'];
                 }
@@ -91,7 +86,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                 || (!$this->isShipmentSeparately() && !$_item->getParentItem())
             ) {
                 if (isset($shipItems[$_item->getId()])) {
-                    $qty = $shipItems[$_item->getId()]->getQty()*1;
+                    $qty = $shipItems[$_item->getId()]->getQty() * 1;
                 } elseif ($_item->getIsVirtual()) {
                     $qty = Mage::helper('bundle')->__('N/A');
                 } else {
@@ -101,10 +96,10 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                 $qty = '';
             }
 
-            $line[] = array(
+            $line[] = [
                 'text'  => $qty,
                 'feed'  => 35
-            );
+            ];
 
             // draw Name
             if ($_item->getParentItem()) {
@@ -114,24 +109,24 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                 $feed = 60;
                 $name = $_item->getName();
             }
-            $text = array();
+            $text = [];
             foreach (Mage::helper('core/string')->str_split($name, 60, true, true) as $part) {
                 $text[] = $part;
             }
-            $line[] = array(
+            $line[] = [
                 'text'  => $text,
                 'feed'  => $feed
-            );
+            ];
 
             // draw SKUs
-            $text = array();
+            $text = [];
             foreach (Mage::helper('core/string')->str_split($_item->getSku(), 25) as $part) {
                 $text[] = $part;
             }
-            $line[] = array(
+            $line[] = [
                 'text'  => $text,
                 'feed'  => 440
-            );
+            ];
 
             $drawItems[$optionId]['lines'][] = $line;
         }
@@ -141,18 +136,16 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
         if ($options) {
             if (isset($options['options'])) {
                 foreach ($options['options'] as $option) {
-                    $lines = array();
-                    $lines[][] = array(
+                    $lines = [];
+                    $lines[][] = [
                         'text'  => Mage::helper('core/string')->str_split(strip_tags($option['label']), 70, true, true),
                         'font'  => 'italic',
                         'feed'  => 60
-                    );
+                    ];
 
                     if ($option['value']) {
-                        $text = array();
-                        $_printValue = isset($option['print_value'])
-                            ? $option['print_value']
-                            : strip_tags($option['value']);
+                        $text = [];
+                        $_printValue = $option['print_value'] ?? strip_tags($option['value']);
                         $values = explode(', ', $_printValue);
                         foreach ($values as $value) {
                             foreach (Mage::helper('core/string')->str_split($value, 50, true, true) as $_value) {
@@ -160,21 +153,21 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                             }
                         }
 
-                        $lines[][] = array(
+                        $lines[][] = [
                             'text'  => $text,
                             'feed'  => 65
-                        );
+                        ];
                     }
 
-                    $drawItems[] = array(
+                    $drawItems[] = [
                         'lines'  => $lines,
                         'height' => 15
-                    );
+                    ];
                 }
             }
         }
 
-        $page = $pdf->drawLineBlocks($page, $drawItems, array('table_header' => true));
+        $page = $pdf->drawLineBlocks($page, $drawItems, ['table_header' => true]);
         $this->setPage($page);
     }
 }

@@ -1,29 +1,23 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Backup
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Backup
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Backup by cron backend model
@@ -34,12 +28,12 @@
  */
 class Mage_Backup_Model_Config_Backend_Cron extends Mage_Core_Model_Config_Data
 {
-    const CRON_STRING_PATH  = 'crontab/jobs/system_backup/schedule/cron_expr';
-    const CRON_MODEL_PATH   = 'crontab/jobs/system_backup/run/model';
+    public const CRON_STRING_PATH  = 'crontab/jobs/system_backup/schedule/cron_expr';
+    public const CRON_MODEL_PATH   = 'crontab/jobs/system_backup/run/model';
 
-    const XML_PATH_BACKUP_ENABLED       = 'groups/backup/fields/enabled/value';
-    const XML_PATH_BACKUP_TIME          = 'groups/backup/fields/time/value';
-    const XML_PATH_BACKUP_FREQUENCY     = 'groups/backup/fields/frequency/value';
+    public const XML_PATH_BACKUP_ENABLED       = 'groups/backup/fields/enabled/value';
+    public const XML_PATH_BACKUP_TIME          = 'groups/backup/fields/time/value';
+    public const XML_PATH_BACKUP_FREQUENCY     = 'groups/backup/fields/frequency/value';
 
     /**
      * Cron settings after save
@@ -56,16 +50,15 @@ class Mage_Backup_Model_Config_Backend_Cron extends Mage_Core_Model_Config_Data
         $frequencyMonthly = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_MONTHLY;
 
         if ($enabled) {
-            $cronExprArray = array(
+            $cronExprArray = [
                 intval($time[1]),                                   # Minute
                 intval($time[0]),                                   # Hour
                 ($frequency == $frequencyMonthly) ? '1' : '*',          # Day of the Month
                 '*',                                                    # Month of the Year
                 ($frequency == $frequencyWeekly) ? '1' : '*',           # Day of the Week
-            );
+            ];
             $cronExprString = implode(' ', $cronExprArray);
-        }
-        else {
+        } else {
             $cronExprString = '';
         }
 
@@ -81,8 +74,7 @@ class Mage_Backup_Model_Config_Backend_Cron extends Mage_Core_Model_Config_Data
                 ->setValue((string) Mage::getConfig()->getNode(self::CRON_MODEL_PATH))
                 ->setPath(self::CRON_MODEL_PATH)
                 ->save();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::throwException(Mage::helper('backup')->__('Unable to save the cron expression.'));
         }
         return $this;

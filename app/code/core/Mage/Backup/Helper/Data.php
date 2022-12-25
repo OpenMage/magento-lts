@@ -1,58 +1,57 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Backup
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Backup
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Backup data helper
+ * @category   Mage
+ * @package    Mage_Backup
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
      * Backup type constant for database backup
      */
-    const TYPE_DB = 'db';
+    public const TYPE_DB = 'db';
 
     /**
      * Backup type constant for filesystem backup
      */
-    const TYPE_FILESYSTEM = 'filesystem';
+    public const TYPE_FILESYSTEM = 'filesystem';
 
     /**
      * Backup type constant for full system backup(database + filesystem)
      */
-    const TYPE_SYSTEM_SNAPSHOT = 'snapshot';
+    public const TYPE_SYSTEM_SNAPSHOT = 'snapshot';
 
     /**
      * Backup type constant for media and database backup
      */
-    const TYPE_MEDIA = 'media';
+    public const TYPE_MEDIA = 'media';
 
     /**
      * Backup type constant for full system backup excluding media folder
      */
-    const TYPE_SNAPSHOT_WITHOUT_MEDIA = 'nomedia';
+    public const TYPE_SNAPSHOT_WITHOUT_MEDIA = 'nomedia';
+
+    protected $_moduleName = 'Mage_Backup';
 
     /**
      * Get all possible backup type values with descriptive title
@@ -61,12 +60,12 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getBackupTypes()
     {
-        return array(
+        return [
             self::TYPE_DB                     => $this->__('Database'),
             self::TYPE_MEDIA                  => $this->__('Database and Media'),
             self::TYPE_SYSTEM_SNAPSHOT        => $this->__('System'),
             self::TYPE_SNAPSHOT_WITHOUT_MEDIA => $this->__('System (excluding Media)')
-        );
+        ];
     }
 
     /**
@@ -76,12 +75,12 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getBackupTypesList()
     {
-        return array(
+        return [
             self::TYPE_DB,
             self::TYPE_SYSTEM_SNAPSHOT,
             self::TYPE_SNAPSHOT_WITHOUT_MEDIA,
             self::TYPE_MEDIA
-        );
+        ];
     }
 
     /**
@@ -113,7 +112,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
     public function getExtensionByType($type)
     {
         $extensions = $this->getExtensions();
-        return isset($extensions[$type]) ? $extensions[$type] : '';
+        return $extensions[$type] ?? '';
     }
 
     /**
@@ -123,12 +122,12 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getExtensions()
     {
-        return array(
+        return [
             self::TYPE_SYSTEM_SNAPSHOT => 'tgz',
             self::TYPE_SNAPSHOT_WITHOUT_MEDIA => 'tgz',
             self::TYPE_MEDIA => 'tgz',
             self::TYPE_DB => 'gz'
-        );
+        ];
     }
 
     /**
@@ -147,10 +146,11 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check Permission for Rollback
      *
-     * @return boolean
+     * @return bool
      */
-    public function isRollbackAllowed(){
-        return Mage::getSingleton('admin/session')->isAllowed('system/tools/backup/rollback' );
+    public function isRollbackAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('system/tools/backup/rollback');
     }
 
     /**
@@ -160,7 +160,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getBackupIgnorePaths()
     {
-        return array(
+        return [
             '.svn',
             'maintenance.flag',
             Mage::getBaseDir('var') . DS . 'session',
@@ -169,7 +169,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
             Mage::getBaseDir('var') . DS . 'locks',
             Mage::getBaseDir('var') . DS . 'log',
             Mage::getBaseDir('var') . DS . 'report'
-        );
+        ];
     }
 
     /**
@@ -179,7 +179,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getRollbackIgnorePaths()
     {
-        return array(
+        return [
             '.svn',
             'maintenance.flag',
             Mage::getBaseDir('var') . DS . 'session',
@@ -189,7 +189,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
             Mage::getBaseDir('app') . DS . 'Mage.php',
             Mage::getBaseDir() . DS . 'errors',
             Mage::getBaseDir() . DS . 'index.php'
-        );
+        ];
     }
 
     /**
@@ -222,12 +222,12 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCreateSuccessMessageByType($type)
     {
-        $messagesMap = array(
+        $messagesMap = [
             self::TYPE_SYSTEM_SNAPSHOT => $this->__('The system backup has been created.'),
             self::TYPE_SNAPSHOT_WITHOUT_MEDIA => $this->__('The system (excluding Media) backup has been created.'),
             self::TYPE_MEDIA => $this->__('The database and media backup has been created.'),
             self::TYPE_DB => $this->__('The database backup has been created.')
-        );
+        ];
 
         if (!isset($messagesMap[$type])) {
             return;
@@ -266,7 +266,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function invalidateIndexer()
     {
-        foreach (Mage::getResourceModel('index/process_collection') as $process){
+        foreach (Mage::getResourceModel('index/process_collection') as $process) {
             $process->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
         }
         return $this;
@@ -296,7 +296,9 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
         $filenameWithoutExtension = $filename;
 
         foreach ($extensions as $extension) {
-            $filenameWithoutExtension = preg_replace('/' . preg_quote($extension, '/') . '$/', '',
+            $filenameWithoutExtension = preg_replace(
+                '/' . preg_quote($extension, '/') . '$/',
+                '',
                 $filenameWithoutExtension
             );
         }
@@ -312,11 +314,11 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $result = new Varien_Object();
-        $result->addData(array(
+        $result->addData([
             'name' => $name,
             'type' => $type,
             'time' => $time
-        ));
+        ]);
 
         return $result;
     }

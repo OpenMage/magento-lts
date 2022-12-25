@@ -1,0 +1,119 @@
+name: CI
+
+on:
+  push:
+    paths:
+      - '.github/workflows/*'
+      - 'composer.json'
+      - 'composer.lock'
+      - '**.php'
+      - '**.xml'
+      - '.php-cs-fixer.dist.php'
+      - '.phpcs.xml.dist'
+      - '.phpcs.ecg.xml.dist'
+      - '.phpcs.php.xml.dist'
+      - 'phpstan.dist.neon'
+      - 'phpstan.dist.baseline.neon'
+
+  pull_request:
+    paths:
+      - '.github/workflows/*'
+      - 'composer.json'
+      - 'composer.lock'
+      - '**.php'
+      - '**.xml'
+      - '.php-cs-fixer.dist.php'
+      - '.phpcs.xml.dist'
+      - '.phpcs.ecg.xml.dist'
+      - '.phpcs.php.xml.dist'
+      - 'phpstan.dist.neon'
+      - 'phpstan.dist.baseline.neon'
+
+jobs:
+  debug:
+    name: Debug
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+  check:
+    name: Check files
+    uses: ./.github/workflows/check-files.yml
+
+  composer:
+    name: Composer
+    needs: [check]
+#    if: |
+#      needs.check.outputs.composer > 0 ||
+#      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/composer.yml
+
+  phpcs:
+    name: PHPCS
+    needs: [check, composer]
+    if: |
+      needs.check.outputs.php > 0 ||
+      needs.check.outputs.phpcs > 0 ||
+      needs.check.outputs.composer > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/phpcs.yml
+
+  php-cs-fixer:
+    name: PHP-CS-Fixer
+    needs: [check, composer]
+    if: |
+      needs.check.outputs.php > 0 ||
+      needs.check.outputs.php-cs-fixer > 0 ||
+      needs.check.outputs.composer > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/php-cs-fixer.yml
+
+  phpstan:
+    name: PHPStan
+    needs: [check, composer, phpcs, php-cs-fixer]
+    if: |
+      needs.check.outputs.php > 0 ||
+      needs.check.outputs.phpstan > 0 ||
+      needs.check.outputs.composer > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/phpstan.yml
+
+  # DOES NOT run by default
+  # runs on schedule or when worklfow changed
+  syntax_php:
+    name: Syntax
+    needs: [check, phpcs, php-cs-fixer]
+    if: needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/syntax-php.yml
+
+  syntax_xml:
+    name: Syntax
+    needs: [check]
+    if: needs.check.outputs.xml > 0
+    uses: ./.github/workflows/syntax-xml.yml
+
+  # DOES NOT run by default
+  # runs on schedule or when worklfow or unit tests changed
+  sonar:
+    name: Sonar Unit Tests
+    needs: [check, phpcs, php-cs-fixer]
+    if: |
+      needs.check.outputs.phpunit-test > 0 ||
+      needs.check.outputs.phpunit > 0 ||
+      needs.check.outputs.sonar > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/sonar.yml
+
+  # DOES NOT run by default
+  # runs on schedule or when worklfow or unit tests changed
+  unit_tests:
+    name: OpenMage LTS - Unit Tests
+    needs: [check, sonar]
+    if: |
+      needs.check.outputs.phpunit-test > 0 ||
+      needs.check.outputs.phpunit > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/phpunit.yml

@@ -1342,6 +1342,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "discountscott",
+      "name": "Scott Moore",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5454596?v=4",
+      "profile": "https://github.com/discountscott",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

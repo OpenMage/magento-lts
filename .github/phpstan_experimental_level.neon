@@ -1,4 +1,0 @@
-includes:
-    - ./phpstan.neon
-parameters:
-    level: 1

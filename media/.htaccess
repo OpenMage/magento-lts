@@ -7,7 +7,7 @@ Options All -Indexes
     php_flag engine 0
 </IfModule>
 
-<IfModule mod_php8.c>
+<IfModule mod_php.c>
     php_flag engine 0
 </IfModule>
 
