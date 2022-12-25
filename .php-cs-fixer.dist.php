@@ -99,7 +99,8 @@ return $config
                 'app/design/',
                 'lib/Mage/',
                 'lib/Magento/',
-                'lib/Varien/'
+                'lib/Varien/',
+                'shell/',
             ])
             ->notPath('app/design/adminhtml/default/default/template/giftmessage/helper.phtml')
             ->name('*.php')

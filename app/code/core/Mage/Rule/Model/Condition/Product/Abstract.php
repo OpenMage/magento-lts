@@ -520,7 +520,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
 
         if ($attrCode == 'category_ids') {
             return $this->validateAttribute($object->getCategoryIds());
-        } elseif (! isset($this->_entityAttributeValues[$object->getId()])) {
+        } elseif (!isset($this->_entityAttributeValues[$object->getId()])) {
             if (!$object->getResource()) {
                 return false;
             }

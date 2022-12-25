@@ -20,6 +20,7 @@ parameters:
         - lib/Mage
         - lib/Magento
         - lib/Varien
+        - shell
     excludePaths:
         # removed and fixed modules (OM-2811, OM-2813)
         - app/code/core/Mage/Backup/*
