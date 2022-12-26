@@ -14,7 +14,7 @@ This repository is the home of an **unofficial** community-driven project. It's 
 to the Magento CE official releases which integrates improvements directly from the community while maintaining a high
 level of backwards compatibility to the official releases.
 
-**Pull requests with unofficial bug fixes and security patches from the community are encouraged and welcome!**
+**Pull requests with bug fixes and security patches from the community are encouraged and welcome!**
 
 ## Requirements
 
