@@ -79,9 +79,16 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
      */
     public function getCreateDate()
     {
-        return ($date = $this->getCustomer()->getCreatedAt())
-            ? $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true, false)
-            : null;
+        $date = $this->getCustomer()->getCreatedAt();
+        if (!$date) {
+            return null;
+        }
+        return $this->formatDate(
+            $date,
+            Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
+            true,
+            false
+        );
     }
 
     /**
@@ -113,9 +120,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
      */
     public function getLastLoginDate()
     {
-        return ($date = $this->getCustomerLog()->getLoginAtTimestamp())
-            ? $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true, false)
-            : Mage::helper('customer')->__('Never');
+        $date = $this->getCustomerLog()->getLoginAtTimestamp();
+        if ($date) {
+            return Mage::helper('core')->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true, false);
+        }
+        return Mage::helper('customer')->__('Never');
     }
 
     /**
@@ -248,10 +257,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
     }
 
     /**
-     * @deprecated
      * Return instance of core helper
      *
      * @return Mage_Core_Helper_Data
+     * @deprecated
      */
     protected function _getCoreHelper()
     {

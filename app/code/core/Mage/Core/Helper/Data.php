@@ -176,9 +176,11 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             }
         }
 
-        $format = $showTime
-            ? Mage::app()->getLocale()->getDateTimeFormat($format)
-            : Mage::app()->getLocale()->getDateFormat($format);
+        if ($showTime) {
+            $format = Mage::app()->getLocale()->getDateTimeFormat($format);
+        } else {
+            $format = Mage::app()->getLocale()->getDateFormat($format);
+        }
 
         return $date->toString($format);
     }
