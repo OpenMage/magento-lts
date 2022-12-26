@@ -172,29 +172,31 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param   bool                $useTimezone Convert to local datetime?
      * @return  string
      */
-    public function formatTimezoneDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false, $useTimezone = true)
-    {
+    public function formatTimezoneDate(
+        $date = null,
+        string $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
+        bool $showTime = false,
+        bool $useTimezone = true
+    ) {
         if (!in_array($format, $this->_allowedFormats, true)) {
             return $date;
         }
+
+        $locale = Mage::app()->getLocale();
+
         if (empty($date)) {
-            $date = Mage::app()->getLocale()->date(Mage::getSingleton('core/date')->gmtTimestamp(), null, null, $useTimezone);
+            $date = $locale->date(Mage::getSingleton('core/date')->gmtTimestamp(), null, null, $useTimezone);
         } elseif (is_int($date)) {
-            $date = Mage::app()->getLocale()->date($date, null, null, $useTimezone);
+            $date = $locale->date($date, null, null, $useTimezone);
         } elseif (!$date instanceof Zend_Date) {
-            if ($time = strtotime($date)) {
-                $date = Mage::app()->getLocale()->date($time, null, null, $useTimezone);
-            } else {
-                return '';
+            $time = strtotime($date);
+            if ($time) {
+                $date = $locale->date($time, null, null, $useTimezone);
             }
+            return '';
         }
 
-        if ($showTime) {
-            $format = Mage::app()->getLocale()->getDateTimeFormat($format);
-        } else {
-            $format = Mage::app()->getLocale()->getDateFormat($format);
-        }
-
+        $format = $showTime ? $locale->getDateTimeFormat($format) : $locale->getDateFormat($format);
         return $date->toString($format);
     }
 
