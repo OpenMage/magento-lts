@@ -49,6 +49,11 @@
 !/media/dhl/logo.jpg
 !/media/downloadable/.htaccess
 
+/shell/*
+!/shell/abstract.php
+!/shell/indexer.php
+!/shell/log.php
+
 /var/*
 !/var/.htaccess
 
