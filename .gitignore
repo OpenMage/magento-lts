@@ -49,11 +49,6 @@
 !/media/dhl/logo.jpg
 !/media/downloadable/.htaccess
 
-/shell/*
-!/shell/abstract.php
-!/shell/indexer.php
-!/shell/log.php
-
 /var/*
 !/var/.htaccess
 
@@ -81,3 +76,7 @@
 
 phpstan*.neon
 !phpstan.dist.*.neon
+
+# dev scripts loaded via composer
+/shell/update-copyright.php
+/shell/translations.php
