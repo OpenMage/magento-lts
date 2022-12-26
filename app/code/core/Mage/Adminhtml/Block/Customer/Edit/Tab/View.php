@@ -83,7 +83,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         if (!$date) {
             return null;
         }
-        return $this->formatDate(
+        return $this->_getCoreHelper()->formatTimezoneDate(
             $date,
             Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
             true,
@@ -122,7 +122,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
     {
         $date = $this->getCustomerLog()->getLoginAtTimestamp();
         if ($date) {
-            return Mage::helper('core')->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true, false);
+            return Mage::helper('core')->formatTimezoneDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true, false);
         }
         return Mage::helper('customer')->__('Never');
     }
@@ -260,7 +260,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
      * Return instance of core helper
      *
      * @return Mage_Core_Helper_Data
-     * @deprecated
      */
     protected function _getCoreHelper()
     {
