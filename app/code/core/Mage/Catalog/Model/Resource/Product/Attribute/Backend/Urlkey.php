@@ -31,7 +31,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Urlkey extends Mage_
     /**
      * Before save
      *
-     * @param Varien_Object $object
+     * @param Mage_Catalog_Model_Product $object
      * @return $this
      */
     public function beforeSave($object)
@@ -51,7 +51,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Urlkey extends Mage_
     /**
      * Refresh product rewrites
      *
-     * @param Varien_Object $object
+     * @param Mage_Catalog_Model_Product $object
      * @return $this
      */
     public function afterSave($object)
