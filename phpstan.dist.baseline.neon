@@ -131,11 +131,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute\\:\\:_getHelper\\(\\) should return Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute but returns Mage_Core_Helper_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Action/Attribute.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Js.php
@@ -1722,11 +1717,6 @@ parameters:
 
 		-
 			message: "#^Invalid array key type array\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php
-
-		-
-			message: "#^Method Mage_Catalog_Block_Product_View_Type_Configurable\\:\\:_getHelper\\(\\) should return Mage_Catalog_Helper_Product_Type_Composite but returns Mage_Core_Helper_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php
 
@@ -7326,11 +7316,6 @@ parameters:
 			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:jsonEncode\\(\\)\\.$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/authorizenet/directpost/iframe.phtml
-
-		-
 			message: "#^Call to protected method _isSelected\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
 			count: 1
 			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/checkbox.phtml
@@ -7406,11 +7391,6 @@ parameters:
 			path: app/design/adminhtml/default/default/template/captcha/zend.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getPrice\\(\\)\\.$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/composite/fieldset/grouped.phtml
-
-		-
 			message: "#^Access to an undefined property Mage_Catalog_Model_Product_Option\\:\\:\\$decoratedIsLast\\.$#"
 			count: 1
 			path: app/design/adminhtml/default/default/template/catalog/product/composite/fieldset/options/type/date.phtml
@@ -7426,11 +7406,6 @@ parameters:
 			path: app/design/adminhtml/default/default/template/catalog/product/composite/fieldset/options/type/text.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getTranslatorScript\\(\\)\\.$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/page/head.phtml
-
-		-
 			message: "#^Comparison operation \"\\>\" between int\\<1, max\\> and 0 is always true\\.$#"
 			count: 1
 			path: app/design/adminhtml/default/default/template/report/grid.phtml
@@ -7439,16 +7414,6 @@ parameters:
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/design/adminhtml/default/default/template/sales/order/create/giftmessage.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayShippingBothPrices\\(\\)\\.$#"
-			count: 2
-			path: app/design/adminhtml/default/default/template/sales/order/create/shipping/method/form.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayShippingPriceIncludingTax\\(\\)\\.$#"
-			count: 2
-			path: app/design/adminhtml/default/default/template/sales/order/create/shipping/method/form.phtml
 
 		-
 			message: "#^Call to an undefined method Mage_Tax_Block_Checkout_Grandtotal\\:\\:formatPrice\\(\\)\\.$#"
@@ -7464,41 +7429,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/design/adminhtml/default/default/template/sales/order/shipment/packaging/grid.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getTrackingPopupUrlBySalesModel\\(\\)\\.$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/sales/order/shipment/view/tracking.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayFullSummary\\(\\)\\.$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/sales/order/totals/tax.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatPrice\\(\\)\\.$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/sales/order/totals/tax.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAllWeee\\(\\)\\.$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/sales/order/totals/tax.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayShippingBothPrices\\(\\)\\.$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/sales/order/view/tab/info.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayShippingPriceIncludingTax\\(\\)\\.$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/sales/order/view/tab/info.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getTrackingPopupUrlBySalesModel\\(\\)\\.$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/sales/order/view/tab/info.phtml
 
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
@@ -7531,43 +7461,8 @@ parameters:
 			path: app/design/adminhtml/default/default/template/widget/grid.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:jsonEncode\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/authorizenet/directpost/iframe.phtml
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getTotalPrices\\(\\)\\.$#"
 			count: 2
-			path: app/design/frontend/base/default/template/bundle/catalog/product/price.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayPriceIncludingTax\\(\\)\\.$#"
-			count: 7
-			path: app/design/frontend/base/default/template/bundle/catalog/product/price.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAmountForDisplay\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/price.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAmountInclTaxes\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/price.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getProductWeeeAttributesForRenderer\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/base/default/template/bundle/catalog/product/price.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isTaxable\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/price.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:typeOfDisplay\\(\\)\\.$#"
-			count: 22
 			path: app/design/frontend/base/default/template/bundle/catalog/product/price.phtml
 
 		-
@@ -7626,66 +7521,6 @@ parameters:
 			path: app/design/frontend/base/default/template/captcha/zend.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:categoryAttribute\\(\\)\\.$#"
-			count: 3
-			path: app/design/frontend/base/default/template/catalog/category/view.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAddToCartUrlCustom\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/base/default/template/catalog/product/compare/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getRemoveUrl\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/compare/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/base/default/template/catalog/product/compare/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isAllow\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/base/default/template/catalog/product/compare/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:productAttribute\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/base/default/template/catalog/product/compare/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getClearListUrl\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/compare/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getItemCollection\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/compare/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getItemCount\\(\\)\\.$#"
-			count: 4
-			path: app/design/frontend/base/default/template/catalog/product/compare/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getListUrl\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/compare/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getRemoveUrl\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/compare/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:productAttribute\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/compare/sidebar.phtml
-
-		-
 			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/design/frontend/base/default/template/catalog/product/list/toolbar.phtml
@@ -7699,56 +7534,6 @@ parameters:
 			message: "#^Ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/design/frontend/base/default/template/catalog/product/price.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:currency\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/price_msrp.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getPrice\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/price_msrp.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getRandomString\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/price_msrp.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isShowPriceOnGesture\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/price_msrp.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getPrice\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/price_msrp_item.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:currency\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/price_msrp_noform.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getPrice\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/price_msrp_noform.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getRandomString\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/price_msrp_noform.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isShowPriceOnGesture\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/price_msrp_noform.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:canApplyMsrp\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/price_msrp_rss.phtml
 
 		-
 			message: "#^Access to an undefined property Mage_Catalog_Model_Product_Option\\:\\:\\$decoratedIsLast\\.$#"
@@ -7766,21 +7551,6 @@ parameters:
 			path: app/design/frontend/base/default/template/checkout/cart/item/default.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayShippingBothPrices\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/checkout/cart/shipping.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayShippingPriceIncludingTax\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/checkout/cart/shipping.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getCountriesWithOptionalZip\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/checkout/cart/shipping.phtml
-
-		-
 			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
 			count: 6
 			path: app/design/frontend/base/default/template/checkout/cart/sidebar/default.phtml
@@ -7791,44 +7561,9 @@ parameters:
 			path: app/design/frontend/base/default/template/checkout/multishipping/address/select.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayCartBothPrices\\(\\)\\.$#"
-			count: 8
-			path: app/design/frontend/base/default/template/checkout/multishipping/overview.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayShippingBothPrices\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/checkout/multishipping/overview.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatPrice\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/checkout/multishipping/overview.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getIncExcTaxLabel\\(\\)\\.$#"
-			count: 8
-			path: app/design/frontend/base/default/template/checkout/multishipping/overview.phtml
-
-		-
 			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
 			count: 12
 			path: app/design/frontend/base/default/template/checkout/multishipping/overview/item.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayShippingBothPrices\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/checkout/multishipping/shipping.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayShippingPriceIncludingTax\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/checkout/multishipping/shipping.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInline\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/base/default/template/checkout/multishipping/shipping.phtml
 
 		-
 			message: "#^Method Mage_Checkout_Block_Multishipping_Shipping\\:\\:getItemsEditUrl\\(\\) invoked with 1 parameter, 0 required\\.$#"
@@ -7876,34 +7611,9 @@ parameters:
 			path: app/design/frontend/base/default/template/checkout/onepage/review/item.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayShippingBothPrices\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/checkout/onepage/shipping_method/available.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayShippingPriceIncludingTax\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/checkout/onepage/shipping_method/available.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAttributeValidationClass\\(\\)\\.$#"
-			count: 6
-			path: app/design/frontend/base/default/template/customer/form/register.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getStreetLines\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/customer/form/register.phtml
-
-		-
 			message: "#^Cannot call method isEnabled\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 3
 			path: app/design/frontend/base/default/template/customer/form/register.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAttributeValidationClass\\(\\)\\.$#"
-			count: 7
-			path: app/design/frontend/base/default/template/customer/widget/name.phtml
 
 		-
 			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
@@ -7914,11 +7624,6 @@ parameters:
 			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
 			count: 12
 			path: app/design/frontend/base/default/template/downloadable/checkout/onepage/review/item.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/email/productalert/stock.phtml
 
 		-
 			message: "#^Left side of && is always true\\.$#"
@@ -7941,34 +7646,9 @@ parameters:
 			path: app/design/frontend/base/default/template/paypal/express/review/shipping/method.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAttributeValidationClass\\(\\)\\.$#"
-			count: 8
-			path: app/design/frontend/base/default/template/persistent/checkout/onepage/billing.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getStreetLines\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/persistent/checkout/onepage/billing.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isVatAttributeVisible\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/persistent/checkout/onepage/billing.phtml
-
-		-
 			message: "#^Cannot call method isEnabled\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 4
 			path: app/design/frontend/base/default/template/persistent/checkout/onepage/billing.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getRegistrationUrl\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/persistent/checkout/onepage/login.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isCustomerMustBeLogged\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/persistent/checkout/onepage/login.phtml
 
 		-
 			message: "#^If condition is always true\\.$#"
@@ -7981,89 +7661,9 @@ parameters:
 			path: app/design/frontend/base/default/template/persistent/checkout/onepage/login.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAttributeValidationClass\\(\\)\\.$#"
-			count: 6
-			path: app/design/frontend/base/default/template/persistent/customer/form/register.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getStreetLines\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/persistent/customer/form/register.phtml
-
-		-
 			message: "#^Cannot call method isEnabled\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 3
 			path: app/design/frontend/base/default/template/persistent/customer/form/register.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/reports/home_product_compared.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isAllow\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/reports/home_product_compared.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:productAttribute\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/reports/home_product_compared.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/reports/home_product_viewed.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isAllow\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/reports/home_product_viewed.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:productAttribute\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/reports/home_product_viewed.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:productAttribute\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/reports/product_compared.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:productAttribute\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/reports/product_viewed.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatPrice\\(\\)\\.$#"
-			count: 3
-			path: app/design/frontend/base/default/template/tax/checkout/grandtotal.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatPrice\\(\\)\\.$#"
-			count: 4
-			path: app/design/frontend/base/default/template/tax/checkout/shipping.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatPrice\\(\\)\\.$#"
-			count: 3
-			path: app/design/frontend/base/default/template/tax/checkout/subtotal.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayFullSummary\\(\\)\\.$#"
-			count: 3
-			path: app/design/frontend/base/default/template/tax/checkout/tax.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatPrice\\(\\)\\.$#"
-			count: 3
-			path: app/design/frontend/base/default/template/tax/checkout/tax.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/wishlist/email/items.phtml
 
 		-
 			message: "#^Call to method getCleanProductPriceHtml\\(\\) on an unknown class Mage_Wishlist_Block_Customer_Wishlist_Render_Item_Price\\.$#"
@@ -8081,79 +7681,9 @@ parameters:
 			path: app/design/frontend/base/default/template/wishlist/render/item/price.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getPrice\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/wishlist/render/item/price_msrp_item.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:canApplyMsrp\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/wishlist/render/item/price_msrp_rss.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/wishlist/shared.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getListUrl\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/wishlist/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/wishlist/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isAllow\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/wishlist/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getRssUrl\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/wishlist/view.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isAllow\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/wishlist/view.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isRssAllow\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/wishlist/view.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:currency\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/default/iphone/template/catalog/product/price_msrp.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getPrice\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/default/iphone/template/catalog/product/price_msrp.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:currency\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/default/iphone/template/catalog/product/price_msrp_noform.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getPrice\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/default/iphone/template/catalog/product/price_msrp_noform.phtml
-
-		-
 			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: app/design/frontend/default/iphone/template/catalog/product/view.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getQueryParamName\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/default/iphone/template/catalogsearch/form.mini.phtml
 
 		-
 			message: "#^Class Mage_CatalogSearch_Helper_Data referenced with incorrect case\\: Mage_Catalogsearch_Helper_Data\\.$#"
@@ -8181,21 +7711,6 @@ parameters:
 			path: app/design/frontend/default/iphone/template/downloadable/checkout/onepage/review/item.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getSummaryCount\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/default/iphone/template/page/html/header.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getRegistrationUrl\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/default/iphone/template/persistent/checkout/onepage/login.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isCustomerMustBeLogged\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/default/iphone/template/persistent/checkout/onepage/login.phtml
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 2
 			path: app/design/frontend/default/iphone/template/persistent/checkout/onepage/login.phtml
@@ -8209,16 +7724,6 @@ parameters:
 			message: "#^File ends with a trailing whitespace\\. This may cause problems when running the code in the web browser\\. Remove the closing \\?\\> mark or remove the whitespace\\.$#"
 			count: 1
 			path: app/design/frontend/default/iphone/template/shipping/tracking/ajax.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/default/iphone/template/wishlist/shared.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isAllow\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/default/iphone/template/wishlist/view.phtml
 
 		-
 			message: "#^Class Mage_CatalogSearch_Helper_Data referenced with incorrect case\\: Mage_Catalogsearch_Helper_Data\\.$#"
@@ -8291,81 +7796,6 @@ parameters:
 			path: app/design/frontend/rwd/default/template/catalog/layer/state.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAddToCartUrlCustom\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/rwd/default/template/catalog/product/compare/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getRemoveUrl\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/product/compare/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/rwd/default/template/catalog/product/compare/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isAllow\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/rwd/default/template/catalog/product/compare/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:productAttribute\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/rwd/default/template/catalog/product/compare/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getClearListUrl\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/product/compare/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getItemCollection\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/product/compare/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getItemCount\\(\\)\\.$#"
-			count: 4
-			path: app/design/frontend/rwd/default/template/catalog/product/compare/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getListUrl\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/product/compare/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getRemoveUrl\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/product/compare/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:productAttribute\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/product/compare/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAddUrlWithCustomParams\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/rwd/default/template/catalog/product/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/rwd/default/template/catalog/product/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isAllow\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/rwd/default/template/catalog/product/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:productAttribute\\(\\)\\.$#"
-			count: 3
-			path: app/design/frontend/rwd/default/template/catalog/product/list.phtml
-
-		-
 			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/design/frontend/rwd/default/template/catalog/product/list/toolbar.phtml
@@ -8379,11 +7809,6 @@ parameters:
 			message: "#^Ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/design/frontend/rwd/default/template/catalog/product/price.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/rwd/default/template/catalog/product/view/media.phtml
 
 		-
 			message: "#^Cannot call method setAttributeObj\\(\\) on class\\-string\\|object\\.$#"
@@ -8406,16 +7831,6 @@ parameters:
 			path: app/design/frontend/rwd/default/template/catalogsearch/form.mini.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayCartBothPrices\\(\\)\\.$#"
-			count: 4
-			path: app/design/frontend/rwd/default/template/checkout/cart.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getIncExcTaxLabel\\(\\)\\.$#"
-			count: 4
-			path: app/design/frontend/rwd/default/template/checkout/cart.phtml
-
-		-
 			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
 			count: 12
 			path: app/design/frontend/rwd/default/template/checkout/cart/item/default.phtml
@@ -8431,44 +7846,9 @@ parameters:
 			path: app/design/frontend/rwd/default/template/checkout/cart/minicart/items.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayShippingBothPrices\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/checkout/cart/shipping.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayShippingPriceIncludingTax\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/checkout/cart/shipping.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getCountriesWithOptionalZip\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/checkout/cart/shipping.phtml
-
-		-
 			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
 			count: 6
 			path: app/design/frontend/rwd/default/template/checkout/cart/sidebar/default.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayCartBothPrices\\(\\)\\.$#"
-			count: 10
-			path: app/design/frontend/rwd/default/template/checkout/multishipping/overview.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayShippingBothPrices\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/checkout/multishipping/overview.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatPrice\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/checkout/multishipping/overview.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getIncExcTaxLabel\\(\\)\\.$#"
-			count: 8
-			path: app/design/frontend/rwd/default/template/checkout/multishipping/overview.phtml
 
 		-
 			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
@@ -8491,36 +7871,6 @@ parameters:
 			path: app/design/frontend/rwd/default/template/downloadable/checkout/onepage/review/item.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAddUrlWithCustomParams\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/rwd/default/template/email/catalog/product/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/rwd/default/template/email/catalog/product/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isAllow\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/rwd/default/template/email/catalog/product/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:productAttribute\\(\\)\\.$#"
-			count: 3
-			path: app/design/frontend/rwd/default/template/email/catalog/product/list.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/email/productalert/stock.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAccountUrl\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/page/html/header.phtml
-
-		-
 			message: "#^Call to protected method _getRenderedMenuItemAttributes\\(\\) of class Mage_Page_Block_Html_Topmenu\\.$#"
 			count: 1
 			path: app/design/frontend/rwd/default/template/page/html/topmenu/renderer.phtml
@@ -8536,39 +7886,9 @@ parameters:
 			path: app/design/frontend/rwd/default/template/paypal/express/review/shipping/method.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAttributeValidationClass\\(\\)\\.$#"
-			count: 8
-			path: app/design/frontend/rwd/default/template/persistent/checkout/onepage/billing.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getStreetLines\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/persistent/checkout/onepage/billing.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isVatAttributeVisible\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/persistent/checkout/onepage/billing.phtml
-
-		-
 			message: "#^Cannot call method isEnabled\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 4
 			path: app/design/frontend/rwd/default/template/persistent/checkout/onepage/billing.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getRegistrationUrl\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/persistent/checkout/onepage/login.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isCustomerMustBeLogged\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/persistent/checkout/onepage/login.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isRegistrationAllowed\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/persistent/checkout/onepage/login.phtml
 
 		-
 			message: "#^If condition is always true\\.$#"
@@ -8581,69 +7901,9 @@ parameters:
 			path: app/design/frontend/rwd/default/template/persistent/checkout/onepage/login.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isRegistrationAllowed\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/persistent/customer/form/login.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAttributeValidationClass\\(\\)\\.$#"
-			count: 6
-			path: app/design/frontend/rwd/default/template/persistent/customer/form/register.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getStreetLines\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/persistent/customer/form/register.phtml
-
-		-
 			message: "#^Cannot call method isEnabled\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 3
 			path: app/design/frontend/rwd/default/template/persistent/customer/form/register.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/reports/product_viewed.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:productAttribute\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/reports/product_viewed.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/wishlist/shared.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getListUrl\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/wishlist/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/wishlist/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isAllow\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/wishlist/sidebar.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getRssUrl\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/wishlist/view.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isAllow\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/wishlist/view.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isRssAllow\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/wishlist/view.phtml
 
 		-
 			message: "#^Comparison operation \"\\>\\=\" between int\\<0, max\\> and 0 is always true\\.$#"
