@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab06c1a7a813cf80d01af650a9396f67",
+    "content-hash": "02777979d49d3d6513aac121560f35a2",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -2855,12 +2855,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/dev-copyright.git",
-                "reference": "55bb0fcc4d65efea0ea687a7cf5426dc222c2f96"
+                "reference": "0452d373a72fed9eaa46dc409119b1ad5473b006"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-copyright/zipball/55bb0fcc4d65efea0ea687a7cf5426dc222c2f96",
-                "reference": "55bb0fcc4d65efea0ea687a7cf5426dc222c2f96",
+                "url": "https://api.github.com/repos/OpenMage/dev-copyright/zipball/0452d373a72fed9eaa46dc409119b1ad5473b006",
+                "reference": "0452d373a72fed9eaa46dc409119b1ad5473b006",
                 "shasum": ""
             },
             "require": {
@@ -2883,27 +2883,26 @@
                 "issues": "https://github.com/OpenMage/dev-copyright/issues",
                 "source": "https://github.com/OpenMage/dev-copyright/tree/main"
             },
-            "time": "2022-12-26T03:04:40+00:00"
+            "time": "2022-12-27T20:49:35+00:00"
         },
         {
             "name": "openmage/dev-meta-package",
-            "version": "dev-main",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/dev-meta-package.git",
-                "reference": "5683cb742332efb0ef33f80f05ebbcc9ff4e815b"
+                "reference": "eb70dc9a321fde24f148f6f52ddd76d8dbfbfe02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-meta-package/zipball/5683cb742332efb0ef33f80f05ebbcc9ff4e815b",
-                "reference": "5683cb742332efb0ef33f80f05ebbcc9ff4e815b",
+                "url": "https://api.github.com/repos/OpenMage/dev-meta-package/zipball/eb70dc9a321fde24f148f6f52ddd76d8dbfbfe02",
+                "reference": "eb70dc9a321fde24f148f6f52ddd76d8dbfbfe02",
                 "shasum": ""
             },
             "require": {
                 "openmage/dev-copyright": "dev-main",
                 "openmage/dev-translations": "dev-main"
             },
-            "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2918,9 +2917,9 @@
             "description": "OpenMage tools that are only needed for development.",
             "support": {
                 "issues": "https://github.com/OpenMage/dev-meta-package/issues",
-                "source": "https://github.com/OpenMage/dev-meta-package/tree/main"
+                "source": "https://github.com/OpenMage/dev-meta-package/tree/v1.0.0"
             },
-            "time": "2022-12-26T02:50:24+00:00"
+            "time": "2022-12-27T21:05:44+00:00"
         },
         {
             "name": "openmage/dev-translations",
@@ -5724,9 +5723,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "openmage/dev-meta-package": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
