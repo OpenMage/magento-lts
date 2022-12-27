@@ -871,7 +871,8 @@ class Varien_Object implements ArrayAccess
      * @param string $offset
      * @return mixed
      */
-    public function offsetGet($offset): mixed
+    #[\ReturnTypeWillChange]
+    public function offsetGet($offset)
     {
         return isset($this->_data[$offset]) ? $this->_data[$offset] : null;
     }
