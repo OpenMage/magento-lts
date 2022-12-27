@@ -3,7 +3,6 @@ includes:
     - phpstan.dist.issues.neon
     - phpstan.dist.baseline.neon
 parameters:
-    phpVersion: 80000 # PHP 8.0
     magentoRootPath: %currentWorkingDirectory%
     paths:
         - api.php
