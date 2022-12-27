@@ -79,7 +79,8 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
      * @param string $key
      * @return mixed|Varien_Data_Tree_Node
      */
-    public function offsetGet($key): mixed
+    #[\ReturnTypeWillChange]
+    public function offsetGet($key)
     {
         return $this->_nodes[$key];
     }

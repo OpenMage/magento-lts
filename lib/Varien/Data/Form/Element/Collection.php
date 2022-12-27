@@ -80,7 +80,8 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * @param mixed $key
      * @return mixed
      */
-    public function offsetGet($key): mixed
+    #[\ReturnTypeWillChange]
+    public function offsetGet($key)
     {
         return $this->_elements[$key];
     }
