@@ -168,6 +168,8 @@ class Mage_Backup_Model_Backup extends Varien_Object
      * @todo rewrite to Varien_IO, but there no possibility read part of files.
      * @return string
      * @throws Mage_Backup_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function &getFile()
     {
@@ -227,6 +229,8 @@ class Mage_Backup_Model_Backup extends Varien_Object
      *
      * @param bool $write
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function open($write = false)
     {
@@ -312,6 +316,8 @@ class Mage_Backup_Model_Backup extends Varien_Object
      * Close open backup file
      *
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function close()
     {

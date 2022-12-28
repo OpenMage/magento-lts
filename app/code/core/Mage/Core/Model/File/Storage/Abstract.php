@@ -63,6 +63,8 @@ abstract class Mage_Core_Model_File_Storage_Abstract extends Mage_Core_Model_Abs
      *
      * @param  string $path
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function collectFileInfo($path)
     {

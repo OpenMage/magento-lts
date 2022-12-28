@@ -36,6 +36,9 @@ class Mage_Autoload_Simple
         spl_autoload_register([self::instance(), 'autoload']);
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     */
     public function autoload($class)
     {
         $classFile = str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $class)));

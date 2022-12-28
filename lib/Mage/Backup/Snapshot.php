@@ -126,6 +126,8 @@ class Mage_Backup_Snapshot extends Mage_Backup_Filesystem
      * Remove Db backup after added it to the snapshot
      *
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _removeDbBackup()
     {

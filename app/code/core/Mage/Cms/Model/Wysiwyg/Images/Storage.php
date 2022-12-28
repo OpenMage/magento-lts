@@ -100,6 +100,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * @param string $path Parent directory path
      * @param string $type Type of storage, e.g. image, media etc.
      * @return Varien_Data_Collection_Filesystem
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function getFilesCollection($path, $type = null)
     {

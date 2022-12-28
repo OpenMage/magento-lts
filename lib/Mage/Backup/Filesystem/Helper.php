@@ -66,6 +66,8 @@ class Mage_Backup_Filesystem_Helper
      * @param array $skipPaths
      * @param bool $removeRoot
      * @throws Mage_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function rm($path, $skipPaths = [], $removeRoot = false)
     {
