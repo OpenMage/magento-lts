@@ -102,7 +102,6 @@ return $config
                 'lib/Varien/',
                 'shell/',
             ])
-            ->notPath('app/design/adminhtml/default/default/template/giftmessage/helper.phtml')
             ->name('*.php')
             ->name('*.phtml')
             ->ignoreDotFiles(true)
