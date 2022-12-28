@@ -412,6 +412,8 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * @param string $destination path to file is unpacked
      * @return array list of files
      * @throws Mage_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _unpackCurrentTar($destination)
     {

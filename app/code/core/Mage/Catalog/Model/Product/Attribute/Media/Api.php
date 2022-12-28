@@ -111,6 +111,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @param string|null $identifierType
      * @return string
      * @throws Mage_Api_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function create($productId, $data, $store = null, $identifierType = null)
     {
@@ -202,6 +204,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function update($productId, $file, $data, $store = null, $identifierType = null)
     {

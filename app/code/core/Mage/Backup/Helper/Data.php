@@ -207,6 +207,8 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Turn off store maintenance mode
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function turnOffMaintenanceMode()
     {

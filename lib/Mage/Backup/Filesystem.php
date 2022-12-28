@@ -93,6 +93,8 @@ class Mage_Backup_Filesystem extends Mage_Backup_Abstract
      *
      * @throws Mage_Exception
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function create()
     {
