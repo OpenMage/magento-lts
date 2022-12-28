@@ -153,7 +153,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format date using current locale options and time zone.
      *
-     * @param   string|Zend_Date|null $date   If empty, return current datetime.
+     * @param   string|Zend_Date|int|null $date If empty, return current local datetime.
      * @param   string              $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
      * @param   bool                $showTime Whether to include time
      * @return  string
