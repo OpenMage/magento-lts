@@ -108,7 +108,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 
 _If you rely on those modules you can reinstall them with composer:_
 - `Mage_PageCache`: `composer require openmage/module-mage-pagecache`
-- `M1 default themes`: `composer require openmage/module-m1-default-themes`
+- `Legacy frontend themes`: `composer require openmage/legacy-frontend-themes`
 
 ### Between OpenMage 19.4.18 / 20.0.16 and 19.4.19 / 20.0.17
 
