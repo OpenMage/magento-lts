@@ -47,7 +47,7 @@ class Mage_Paypal_Model_Pro
     /**
      * API instance
      *
-     * @var Mage_Paypal_Model_Api_Nvp
+     * @var Mage_Paypal_Model_Api_Nvp|false|null
      */
     protected $_api = null;
 

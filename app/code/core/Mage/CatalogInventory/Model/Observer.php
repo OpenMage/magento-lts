@@ -310,8 +310,8 @@ class Mage_CatalogInventory_Model_Observer
      */
     public function checkQuoteItemQty($observer)
     {
-        $quoteItem = $observer->getEvent()->getItem();
         /** @var Mage_Sales_Model_Quote_Item $quoteItem */
+        $quoteItem = $observer->getEvent()->getItem();
         if (!$quoteItem || !$quoteItem->getProductId() || !$quoteItem->getQuote()
             || $quoteItem->getQuote()->getIsSuperMode()
         ) {

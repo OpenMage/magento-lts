@@ -20,6 +20,9 @@
  */
 class Mage_System_Dirs
 {
+    /**
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     */
     public static function rm($dirname)
     {
         if (is_array($dirname)) {
@@ -70,6 +73,9 @@ class Mage_System_Dirs
         return true;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     */
     public static function mkdirStrict($path, $recursive = true, $mode = 0777)
     {
         $exists = file_exists($path);

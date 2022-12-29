@@ -327,6 +327,8 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      * By default this feature is enabled in configuration.
      *
      * @param Mage_Core_Controller_Request_Http $request
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _checkBaseUrl($request)
     {

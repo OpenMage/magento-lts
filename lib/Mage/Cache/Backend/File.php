@@ -264,6 +264,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * Return an array of stored tags
      *
      * @return array Array of stored tags (string)
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function getTags()
     {
@@ -375,8 +377,9 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * @param  string $file  Cache file
      * @param  bool $withData
-     *
      * @return array|bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _getCache($file, $withData)
     {
@@ -650,6 +653,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * Return the complete directory path where tags are stored
      *
      * @return string Complete directory path
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _tagPath()
     {
@@ -673,6 +678,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param string|resource $tag
      *
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _getTagIds($tag)
     {
@@ -746,6 +753,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  string $string String to put in file
      *
      * @return boolean In case of success returns true
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _filePutContents($file, $string)
     {
@@ -762,6 +771,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * @param string $id cache id
      * @return boolean true
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _recursiveMkdirAndChmod($id)
     {

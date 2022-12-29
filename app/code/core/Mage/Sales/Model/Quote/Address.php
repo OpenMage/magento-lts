@@ -298,7 +298,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Whether to segregate by nominal items only
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_nominalOnly = null;
 

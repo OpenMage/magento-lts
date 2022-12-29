@@ -58,7 +58,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      *
      * @return ArrayIterator
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->_elements);
     }
@@ -69,7 +69,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * @param mixed $key
      * @param mixed $value
      */
-    public function offsetSet($key, $value)
+    public function offsetSet($key, $value): void
     {
         $this->_elements[$key] = $value;
     }
@@ -80,6 +80,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * @param mixed $key
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($key)
     {
         return $this->_elements[$key];
@@ -90,7 +91,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      *
      * @param mixed $key
      */
-    public function offsetUnset($key)
+    public function offsetUnset($key): void
     {
         unset($this->_elements[$key]);
     }
@@ -99,9 +100,9 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * Implementation of ArrayAccess:offsetExists()
      *
      * @param mixed $key
-     * @return boolean
+     * @return bool
      */
-    public function offsetExists($key)
+    public function offsetExists($key): bool
     {
         return isset($this->_elements[$key]);
     }
@@ -179,7 +180,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->_elements);
     }

@@ -132,7 +132,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
         if (($data = $this->getRequest()->getPost()) && ($reviewId = $this->getRequest()->getParam('id'))) {
             $review = Mage::getModel('review/review')->load($reviewId);
             $session = Mage::getSingleton('adminhtml/session');
-            if (! $review->getId()) {
+            if (!$review->getId()) {
                 $session->addError(Mage::helper('catalog')->__('The review was removed by another user or does not exist.'));
             } else {
                 try {

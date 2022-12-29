@@ -31,6 +31,8 @@ class Mage_Backup_Db extends Mage_Backup_Abstract
      * Implements Rollback functionality for Db
      *
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function rollback()
     {

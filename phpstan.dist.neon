@@ -3,7 +3,6 @@ includes:
     - phpstan.dist.issues.neon
     - phpstan.dist.baseline.neon
 parameters:
-    phpVersion: 80000 # PHP 8.0
     magentoRootPath: %currentWorkingDirectory%
     paths:
         - api.php
@@ -16,6 +15,7 @@ parameters:
         - lib/Mage
         - lib/Magento
         - lib/Varien
+        - shell
     excludePaths:
         # removed and fixed modules (OM-2811, OM-2813)
         - app/code/core/Mage/Backup/*
@@ -70,6 +70,9 @@ parameters:
 
         # Instantiated class not found
         - lib/Varien/Image/Adapter.php
+    stubFiles:
+        - dev/phpstan/stubs/Zend_Captcha_Word.stub
+        - dev/phpstan/stubs/Zend_Validate_InArray.stub
     level: 4
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true

@@ -107,7 +107,7 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
         // 2. Initial checking
         if ($id) {
             $model->load($id);
-            if (! $model->getId()) {
+            if (!$model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError(
                     Mage::helper('sitemap')->__('This sitemap no longer exists.')
                 );
@@ -120,7 +120,7 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 
         // 3. Set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
-        if (! empty($data)) {
+        if (!empty($data)) {
             $model->setData($data);
         }
 
