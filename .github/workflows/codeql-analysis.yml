@@ -48,6 +48,13 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
+        paths-ignore:
+          - 'js/mage/adminhtml/wysiwyg/tiny_mce/setup.js'
+          - 'js/prototype/validation.js'
+          - 'js/tiny_mce/tiny_mce_jquery_src.js'
+          - 'js/tiny_mce/classes/**/*.js'
+          - 'js/tiny_mce/plugins/**/*.js'
+          - '**/*.test.js'
         # If you wish to specify custom queries, you can do so here or in a config file.
         # By default, queries listed here will override any specified in a config file.
         # Prefix the list here with "+" to use these queries and those in the config file.
