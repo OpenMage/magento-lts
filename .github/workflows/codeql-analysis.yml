@@ -20,8 +20,6 @@ on:
     paths-ignore:
       - '**/*.md'
       - '**/*.txt'
-  schedule:
-    - cron: '33 4 * * 4'
 
 jobs:
   analyze:
