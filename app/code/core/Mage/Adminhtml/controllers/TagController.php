@@ -117,18 +117,18 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
         $this->_title($this->__('Catalog'))
              ->_title($this->__('Tags'));
 
-        if (! (int) $this->getRequest()->getParam('store')) {
+        if (!(int) $this->getRequest()->getParam('store')) {
             return $this->_redirect('*/*/*/', ['store' => Mage::app()->getAnyStoreView()->getId(), '_current' => true]);
         }
 
-        if (! ($model = $this->_initTag())) {
+        if (!($model = $this->_initTag())) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Wrong tag was specified.'));
             return $this->_redirect('*/*/index', ['store' => $this->getRequest()->getParam('store')]);
         }
 
         // set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getTagData(true);
-        if (! empty($data)) {
+        if (!empty($data)) {
             $model->addData($data);
         }
 

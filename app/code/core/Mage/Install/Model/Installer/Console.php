@@ -316,6 +316,8 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Install Magento
      *
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function install()
     {

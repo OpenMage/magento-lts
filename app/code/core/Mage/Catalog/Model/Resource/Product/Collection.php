@@ -93,7 +93,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Cache for all ids
      *
-     * @var array
+     * @var array|null
      */
     protected $_allIdsCache                  = null;
 
@@ -124,7 +124,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Category product count select
      *
-     * @var Zend_Db_Select
+     * @var Zend_Db_Select|null
      */
     protected $_productCountSelect           = null;
 

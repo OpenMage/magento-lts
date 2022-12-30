@@ -10,6 +10,7 @@
     <file>lib/Mage/</file>
     <file>lib/Magento/</file>
     <file>lib/Varien/</file>
+    <file>shell/</file>
     <!--
     <rule ref="Ecg" />
     -->

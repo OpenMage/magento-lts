@@ -74,7 +74,7 @@ class Mage_Catalog_Model_Url
     /**
      * Current url rewrite rule
      *
-     * @var Varien_Object
+     * @var Varien_Object|null
      */
     protected $_rewrite;
 

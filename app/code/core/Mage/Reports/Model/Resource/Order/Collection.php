@@ -168,7 +168,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
 
         $this->getSelect()
             ->columns([
-                'quantity' => 'COUNT(main_table.entity_id)',
+                'quantity' => new Zend_Db_Expr('COUNT(main_table.entity_id)'),
                 'range' => $tzRangeOffsetExpression,
             ])
             ->where('main_table.state NOT IN (?)', [
@@ -203,8 +203,8 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
         $rangePeriod2 = str_replace($tableName, "MIN($tableName)", $rangePeriod);
 
         $this->getSelect()->columns([
-            'revenue'  => 'SUM(main_table.total_revenue_amount)',
-            'quantity' => 'SUM(main_table.orders_count)',
+            'revenue'  => new Zend_Db_Expr('SUM(main_table.total_revenue_amount)'),
+            'quantity' => new Zend_Db_Expr('SUM(main_table.orders_count)'),
             'range' => $rangePeriod2,
         ])
         ->order('range')
@@ -512,7 +512,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                 0
             );
             $this->getSelect()->columns([
-                'lifetime' => 'SUM(main_table.total_revenue_amount)',
+                'lifetime' => new Zend_Db_Expr('SUM(main_table.total_revenue_amount)'),
                 'average'  => $averageExpr
             ]);
 
@@ -535,8 +535,8 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
 
             $this->getSelect()
                 ->columns([
-                    'lifetime' => "SUM({$expr})",
-                    'average'  => "AVG({$expr})"
+                    'lifetime' => new Zend_Db_Expr("SUM({$expr})"),
+                    'average'  => new Zend_Db_Expr("AVG({$expr})")
                 ])
                 ->where('main_table.status NOT IN(?)', $statuses)
                 ->where('main_table.state NOT IN(?)', [
@@ -584,31 +584,31 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
         $baseTotalInvocedCost = $adapter->getIfNullSql('main_table.base_total_invoiced_cost', 0);
         if ($storeIds) {
             $this->getSelect()->columns([
-                'subtotal'  => 'SUM(main_table.base_subtotal)',
-                'tax'       => 'SUM(main_table.base_tax_amount)',
-                'shipping'  => 'SUM(main_table.base_shipping_amount)',
-                'discount'  => 'SUM(main_table.base_discount_amount)',
-                'total'     => 'SUM(main_table.base_grand_total)',
-                'invoiced'  => 'SUM(main_table.base_total_paid)',
-                'refunded'  => 'SUM(main_table.base_total_refunded)',
-                'profit'    => "SUM($baseSubtotalInvoiced) "
+                'subtotal'  => new Zend_Db_Expr('SUM(main_table.base_subtotal)'),
+                'tax'       => new Zend_Db_Expr('SUM(main_table.base_tax_amount)'),
+                'shipping'  => new Zend_Db_Expr('SUM(main_table.base_shipping_amount)'),
+                'discount'  => new Zend_Db_Expr('SUM(main_table.base_discount_amount)'),
+                'total'     => new Zend_Db_Expr('SUM(main_table.base_grand_total)'),
+                'invoiced'  => new Zend_Db_Expr('SUM(main_table.base_total_paid)'),
+                'refunded'  => new Zend_Db_Expr('SUM(main_table.base_total_refunded)'),
+                'profit'    => new Zend_Db_Expr("SUM($baseSubtotalInvoiced) "
                                 . "+ SUM({$baseDiscountRefunded}) - SUM({$baseSubtotalRefunded}) "
-                                . "- SUM({$baseDiscountInvoiced}) - SUM({$baseTotalInvocedCost})"
+                                . "- SUM({$baseDiscountInvoiced}) - SUM({$baseTotalInvocedCost})")
             ]);
         } else {
             $this->getSelect()->columns([
-                'subtotal'  => 'SUM(main_table.base_subtotal * main_table.base_to_global_rate)',
-                'tax'       => 'SUM(main_table.base_tax_amount * main_table.base_to_global_rate)',
-                'shipping'  => 'SUM(main_table.base_shipping_amount * main_table.base_to_global_rate)',
-                'discount'  => 'SUM(main_table.base_discount_amount * main_table.base_to_global_rate)',
-                'total'     => 'SUM(main_table.base_grand_total * main_table.base_to_global_rate)',
-                'invoiced'  => 'SUM(main_table.base_total_paid * main_table.base_to_global_rate)',
-                'refunded'  => 'SUM(main_table.base_total_refunded * main_table.base_to_global_rate)',
-                'profit'    => "SUM({$baseSubtotalInvoiced} *  main_table.base_to_global_rate) "
+                'subtotal'  => new Zend_Db_Expr('SUM(main_table.base_subtotal * main_table.base_to_global_rate)'),
+                'tax'       => new Zend_Db_Expr('SUM(main_table.base_tax_amount * main_table.base_to_global_rate)'),
+                'shipping'  => new Zend_Db_Expr('SUM(main_table.base_shipping_amount * main_table.base_to_global_rate)'),
+                'discount'  => new Zend_Db_Expr('SUM(main_table.base_discount_amount * main_table.base_to_global_rate)'),
+                'total'     => new Zend_Db_Expr('SUM(main_table.base_grand_total * main_table.base_to_global_rate)'),
+                'invoiced'  => new Zend_Db_Expr('SUM(main_table.base_total_paid * main_table.base_to_global_rate)'),
+                'refunded'  => new Zend_Db_Expr('SUM(main_table.base_total_refunded * main_table.base_to_global_rate)'),
+                'profit'    => new Zend_Db_Expr("SUM({$baseSubtotalInvoiced} *  main_table.base_to_global_rate) "
                                 . "+ SUM({$baseDiscountRefunded} * main_table.base_to_global_rate) "
                                 . "- SUM({$baseSubtotalRefunded} * main_table.base_to_global_rate) "
                                 . "- SUM({$baseDiscountInvoiced} * main_table.base_to_global_rate) "
-                                . "- SUM({$baseTotalInvocedCost} * main_table.base_to_global_rate)"
+                                . "- SUM({$baseTotalInvocedCost} * main_table.base_to_global_rate)")
             ]);
         }
 

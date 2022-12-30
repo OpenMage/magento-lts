@@ -45,6 +45,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
     /**
      * Destroy object image on shutdown
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function destruct()
     {

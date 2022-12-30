@@ -81,7 +81,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
 
         if ($id) {
             $model->load($id);
-            if (! $model->getId()) {
+            if (!$model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError($this->__('This user no longer exists.'));
                 $this->_redirect('*/*/');
                 return;

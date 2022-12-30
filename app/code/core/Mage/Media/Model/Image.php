@@ -45,7 +45,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
 
     /**
      * Tmp image resource
-     * @var resource
+     * @var resource|null
      */
     protected $_tmpImage;
 

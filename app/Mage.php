@@ -155,6 +155,7 @@ final class Mage
      * Gets the detailed Magento version information
      *
      * @return array
+     * @deprecated
      */
     public static function getVersionInfo()
     {
@@ -175,16 +176,16 @@ final class Mage
      *
      * @return string
      */
-    public static function getOpenMageVersion()
+    public static function getOpenMageVersion(): string
     {
-        $i = self::getOpenMageVersionInfo();
-        $versionString = "{$i['major']}.{$i['minor']}.{$i['patch']}";
-        if ($i['stability'] || $i['number']) {
-            $versionString .= "-";
-            if ($i['stability'] && $i['number']) {
-                $versionString .= implode('.', [$i['stability'], $i['number']]);
+        $info = self::getOpenMageVersionInfo();
+        $versionString = "{$info['major']}.{$info['minor']}.{$info['patch']}";
+        if ($info['stability'] || $info['number']) {
+            $versionString .= '-';
+            if ($info['stability'] && $info['number']) {
+                $versionString .= implode('.', [$info['stability'], $info['number']]);
             } else {
-                $versionString .= implode('', [$i['stability'], $i['number']]);
+                $versionString .= implode('', [$info['stability'], $info['number']]);
             }
         }
         return trim(
@@ -200,7 +201,7 @@ final class Mage
      *
      * @return array
      */
-    public static function getOpenMageVersionInfo()
+    public static function getOpenMageVersionInfo(): array
     {
         /**
          * This code construct is to make merging for forward porting of changes easier.

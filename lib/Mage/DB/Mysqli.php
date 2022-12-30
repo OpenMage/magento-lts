@@ -73,6 +73,8 @@ class Mage_DB_Mysqli
      * @param string $db
      * @param int $port
      * @return mixed
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function connect($host, $user, $paswd, $db, $port = self::DEFAULT_PORT)
     {
