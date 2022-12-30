@@ -54,8 +54,6 @@ class Varien_Autoload
      * Load class source code
      *
      * @param string $class
-     *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function autoload($class)
     {
