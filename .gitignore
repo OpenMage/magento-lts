@@ -77,11 +77,6 @@
 phpstan*.neon
 !phpstan.dist.*.neon
 
-# Ignore Mage_Backup
-/app/code/core/Mage/Adminhtml/Block/Backup/
-/app/code/core/Mage/Adminhtml/Block/Backup.php
-/app/code/core/Mage/Backup/
-/app/design/adminhtml/default/default/template/backup/
-/app/etc/modules/Mage_Backup.xml
-/lib/Mage/Backup/
-/lib/Mage/Backup.php
+# dev scripts loaded via composer
+/shell/update-copyright.php
+/shell/translations.php

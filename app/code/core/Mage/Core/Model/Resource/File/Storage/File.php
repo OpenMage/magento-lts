@@ -113,6 +113,8 @@ class Mage_Core_Model_Resource_File_Storage_File
      *
      * @param  string $dir
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function clear($dir = '')
     {
@@ -161,6 +163,8 @@ class Mage_Core_Model_Resource_File_Storage_File
      *
      * @param  array $dir
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function saveDir($dir)
     {
@@ -192,6 +196,8 @@ class Mage_Core_Model_Resource_File_Storage_File
      * @param  bool $overwrite
      * @return bool true if file written, otherwise false
      * @throws Mage_Core_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function saveFile($filePath, $content, $overwrite = false)
     {
@@ -236,6 +242,8 @@ class Mage_Core_Model_Resource_File_Storage_File
      *
      * @param string $filePath
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function lockCreateFile($filePath)
     {
@@ -279,6 +287,8 @@ class Mage_Core_Model_Resource_File_Storage_File
      * Unlock, close and remove a locked file (in case the file could not be read from remote storage)
      *
      * @param string $filePath
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function removeLockedFile($filePath)
     {

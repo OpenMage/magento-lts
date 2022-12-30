@@ -86,6 +86,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * @param  Zend_Pdf_Resource_Font $font
      * @param  float $fontSize Font size in points
      * @return float
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function widthForStringUsingFontSize($string, $font, $fontSize)
     {

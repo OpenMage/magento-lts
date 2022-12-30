@@ -88,46 +88,46 @@ jobs:
 
       - name: Run step if any file(s) changed
         id: all
-        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
           echo "One or more files have changed."
 
-          count="$(grep -oE "composer.*" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          count="$(grep -oE "composer.*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count Composer file(s) changed"
           echo "composer=$count" >> $GITHUB_OUTPUT
 
-          count="$(grep -oE "*.php" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          count="$(grep -oE "*.php" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count PHP file(s) changed"
           echo "php=$count" >> $GITHUB_OUTPUT
 
-          count="$(grep -oE "*.xml" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          count="$(grep -oE "*.xml" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count XML file(s) changed"
           echo "xml=$count" >> $GITHUB_OUTPUT
 
-          count="$(grep -oE ".github/workflows/**" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          count="$(grep -oE ".github/workflows/**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count Workflow file(s) changed"
           echo "workflow=$count" >> $GITHUB_OUTPUT
 
-          count="$(grep -oE "**phpcs**" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          count="$(grep -oE "**phpcs**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count PHPCS file(s) changed"
           echo "phpcs=$count" >> $GITHUB_OUTPUT
 
-          count="$(grep -oE "**php-cs-fixer**" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          count="$(grep -oE "**php-cs-fixer**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count PHP-CS-Fixer file(s) changed"
           echo "php-cs-fixer=$count" >> $GITHUB_OUTPUT
 
-          count="$(grep -oE "**phpstan**" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          count="$(grep -oE "**phpstan**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count PHPStan file(s) changed"
           echo "phpstan=$count" >> $GITHUB_OUTPUT
 
-          count="$(grep -oE "dev/tests/" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          count="$(grep -oE "dev/tests/" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count UnitTest test file(s) changed"
           echo "phpunit-test=$count" >> $GITHUB_OUTPUT
 
-          count="$(grep -oE "dev/phpunit*" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          count="$(grep -oE "dev/phpunit*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count UnitTest file(s) changed"
           echo "phpunit=$count" >> $GITHUB_OUTPUT
 
-          count="$(grep -oE "dev/sonar*" <<< "${{ steps.changed-files-specific.outputs.all_changed_files }}" | wc -l)"
+          count="$(grep -oE "dev/sonar*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count Sonar file(s) changed"
           echo "sonar=$count" >> $GITHUB_OUTPUT
