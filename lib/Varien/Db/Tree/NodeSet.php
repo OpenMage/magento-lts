@@ -74,12 +74,14 @@ class Varien_Db_Tree_NodeSet implements Iterator
         }
     }
 
-    public function key(): mixed
+    #[\ReturnTypeWillChange]
+    public function key()
     {
         return $this->_current;
     }
 
-    public function current(): mixed
+    #[\ReturnTypeWillChange]
+    public function current()
     {
         return $this->_nodes[$this->_current];
     }

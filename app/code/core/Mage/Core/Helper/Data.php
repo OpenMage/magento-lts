@@ -350,6 +350,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $string
      * @param bool $german
      * @return false|string
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function removeAccents($string, $german = false)
     {
@@ -778,6 +780,8 @@ XML;
      * @param callable $beforeMergeCallback
      * @param array|string $extensionsFilter
      * @return bool|string
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function mergeFiles(
         array $srcFiles,
