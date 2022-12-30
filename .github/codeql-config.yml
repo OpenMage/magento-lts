@@ -1,0 +1,8 @@
+
+paths-ignore:
+  - 'js/mage/adminhtml/wysiwyg/tiny_mce/setup.js'
+  - 'js/prototype/validation.js'
+  - 'js/tiny_mce/tiny_mce_jquery_src.js'
+  - 'js/tiny_mce/classes/**/*.js'
+  - 'js/tiny_mce/plugins/**/*.js'
+  - '**/*.test.js'
