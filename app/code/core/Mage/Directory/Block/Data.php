@@ -126,7 +126,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
             ->setTitle(Mage::helper('directory')->__('State/Province'))
             ->setId('state')
             ->setClass('required-entry validate-state')
-            ->setValue(intval($this->getRegionId()))
+            ->setValue((int) $this->getRegionId())
             ->setOptions($options)
             ->getHtml();
         Varien_Profiler::start('TEST: ' . __METHOD__);

@@ -59,7 +59,7 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
             $regionCollection = self::$_regionCollections[$countryId];
         }
 
-        $regionId = intval($element->getForm()->getElement('region_id')->getValue());
+        $regionId = (int) $element->getForm()->getElement('region_id')->getValue();
 
         $htmlAttributes = $element->getHtmlAttributes();
         foreach ($htmlAttributes as $key => $attribute) {

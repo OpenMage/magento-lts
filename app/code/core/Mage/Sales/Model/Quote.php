@@ -1841,7 +1841,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function getIsVirtual()
     {
-        return intval($this->isVirtual());
+        return (int) $this->isVirtual();
     }
 
     /**

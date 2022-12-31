@@ -124,28 +124,28 @@ class Mage_Authorizenet_Model_Directpost_Response extends Varien_Object
         $order = Mage::getModel('sales/order')->loadByIncrementId($this->getData('x_invoice_num'));
         $billing = $order->getBillingAddress();
         if (!empty($billing)) {
-            $this->setXFirstName(strval($billing->getFirstname()))
-                ->setXLastName(strval($billing->getLastname()))
-                ->setXCompany(strval($billing->getCompany()))
-                ->setXAddress(strval($billing->getStreet(1)))
-                ->setXCity(strval($billing->getCity()))
-                ->setXState(strval($billing->getRegion()))
-                ->setXZip(strval($billing->getPostcode()))
-                ->setXCountry(strval($billing->getCountry()))
-                ->setXPhone(strval($billing->getTelephone()))
-                ->setXFax(strval($billing->getFax()))
-                ->setXEmail(strval($order->getCustomerEmail()));
+            $this->setXFirstName((string) $billing->getFirstname())
+                ->setXLastName((string) $billing->getLastname())
+                ->setXCompany((string) $billing->getCompany())
+                ->setXAddress((string) $billing->getStreet(1))
+                ->setXCity((string) $billing->getCity())
+                ->setXState((string) $billing->getRegion())
+                ->setXZip((string) $billing->getPostcode())
+                ->setXCountry((string) $billing->getCountry())
+                ->setXPhone((string) $billing->getTelephone())
+                ->setXFax((string) $billing->getFax())
+                ->setXEmail((string) $order->getCustomerEmail());
         }
         $shipping = $order->getShippingAddress();
         if (!empty($shipping)) {
-            $this->setXShipToFirstName(strval($shipping->getFirstname()))
-                ->setXShipToLastName(strval($shipping->getLastname()))
-                ->setXShipToCompany(strval($shipping->getCompany()))
-                ->setXShipToAddress(strval($shipping->getStreet(1)))
-                ->setXShipToCity(strval($shipping->getCity()))
-                ->setXShipToState(strval($shipping->getRegion()))
-                ->setXShipToZip(strval($shipping->getPostcode()))
-                ->setXShipToCountry(strval($shipping->getCountry()));
+            $this->setXShipToFirstName((string) $shipping->getFirstname())
+                ->setXShipToLastName((string) $shipping->getLastname())
+                ->setXShipToCompany((string) $shipping->getCompany())
+                ->setXShipToAddress((string) $shipping->getStreet(1))
+                ->setXShipToCity((string) $shipping->getCity())
+                ->setXShipToState((string) $shipping->getRegion())
+                ->setXShipToZip((string) $shipping->getPostcode())
+                ->setXShipToCountry((string) $shipping->getCountry());
         }
 
         $message = '^';

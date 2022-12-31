@@ -349,7 +349,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         $basePriceTax = 0;
         $priceTax = 0;
 
-        if (floatval($qty)) {
+        if ((float) $qty) {
             $basePriceTax = $item->getBasePrice() + $baseTax / $qty;
             $priceTax = $item->getPrice() + $tax / $qty;
         }
