@@ -85,7 +85,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         $this->_initAction();
 
         $roleId = $this->getRequest()->getParam('rid');
-        if (intval($roleId) > 0) {
+        if ((int) $roleId > 0) {
             $breadCrumb = $this->__('Edit Role');
             $breadCrumbTitle = $this->__('Edit Role');
             $this->_title($this->__('Edit Role'));

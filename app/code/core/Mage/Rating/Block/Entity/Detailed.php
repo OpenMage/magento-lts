@@ -43,7 +43,7 @@ class Mage_Rating_Block_Entity_Detailed extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         $entityId = Mage::app()->getRequest()->getParam('id');
-        if (intval($entityId) <= 0) {
+        if ((int) $entityId <= 0) {
             return '';
         }
 

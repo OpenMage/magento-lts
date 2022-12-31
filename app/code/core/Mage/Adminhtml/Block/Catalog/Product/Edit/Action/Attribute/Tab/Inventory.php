@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Inventory e
     public function getStoreId()
     {
         $storeId = $this->getRequest()->getParam('store');
-        return intval($storeId);
+        return (int) $storeId;
     }
 
     /**

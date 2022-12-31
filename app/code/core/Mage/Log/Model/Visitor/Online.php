@@ -105,7 +105,7 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
      */
     public function getOnlineInterval()
     {
-        $value = intval(Mage::getStoreConfig(self::XML_PATH_ONLINE_INTERVAL));
+        $value = (int) Mage::getStoreConfig(self::XML_PATH_ONLINE_INTERVAL);
         if (!$value) {
             $value = Mage_Log_Model_Visitor::DEFAULT_ONLINE_MINUTES_INTERVAL;
         }

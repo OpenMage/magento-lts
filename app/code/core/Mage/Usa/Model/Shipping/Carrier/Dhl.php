@@ -833,8 +833,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         if (is_object($shipXml->Faults)
             && is_object($shipXml->Faults->Fault)
             && is_object($shipXml->Faults->Fault->Desc)
-            && intval($shipXml->Faults->Fault->Code) != self::SUCCESS_CODE
-            && intval($shipXml->Faults->Fault->Code) != self::SUCCESS_LABEL_CODE
+            && (int) $shipXml->Faults->Fault->Code != self::SUCCESS_CODE
+            && (int) $shipXml->Faults->Fault->Code != self::SUCCESS_LABEL_CODE
         ) {
             $code = (string)$shipXml->Faults->Fault->Code;
             $description = $shipXml->Faults->Fault->Desc;
@@ -842,8 +842,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         } elseif (is_object($shipXml->Faults)
             && is_object($shipXml->Result->Code)
             && is_object($shipXml->Result->Desc)
-            && intval($shipXml->Result->Code) != self::SUCCESS_CODE
-            && intval($shipXml->Result->Code) != self::SUCCESS_LABEL_CODE
+            && (int) $shipXml->Result->Code != self::SUCCESS_CODE
+            && (int) $shipXml->Result->Code != self::SUCCESS_LABEL_CODE
         ) {
             $code = (string)$shipXml->Result->Code;
             $description = $shipXml->Result->Desc;
