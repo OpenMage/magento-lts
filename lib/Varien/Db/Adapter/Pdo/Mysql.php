@@ -4026,13 +4026,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         switch ($last) {
             case 'k':
-                $size = intval($size) * 1024;
+                $size = (int) $size * 1024;
                 break;
             case 'm':
-                $size = intval($size) * 1024 * 1024;
+                $size = (int) $size * 1024 * 1024;
                 break;
             case 'g':
-                $size = intval($size) * 1024 * 1024 * 1024;
+                $size = (int) $size * 1024 * 1024 * 1024;
                 break;
         }
 
@@ -4043,7 +4043,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             return Varien_Db_Ddl_Table::MAX_TEXT_SIZE;
         }
 
-        return intval($size);
+        return (int) $size;
     }
 
     /**

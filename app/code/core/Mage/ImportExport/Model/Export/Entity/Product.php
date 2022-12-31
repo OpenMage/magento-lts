@@ -609,7 +609,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         // Minimum Products limit
         $minProductsLimit = 500;
 
-        $limitProducts = intval(($memoryLimit  * $memoryUsagePercent - memory_get_usage(true)) / $memoryPerProduct);
+        $limitProducts = (int) (($memoryLimit  * $memoryUsagePercent - memory_get_usage(true)) / $memoryPerProduct);
         if ($limitProducts < $minProductsLimit) {
             $limitProducts = $minProductsLimit;
         }

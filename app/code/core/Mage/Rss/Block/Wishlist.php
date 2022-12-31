@@ -80,7 +80,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
 
             $params = Mage::helper('core')->urlDecode($this->getRequest()->getParam('data'));
             $data   = explode(',', $params);
-            $cId    = abs(intval($data[0]));
+            $cId    = abs((int) $data[0]);
             if ($cId && ($cId == Mage::getSingleton('customer/session')->getCustomerId())) {
                 $this->_customer->load($cId);
             }
