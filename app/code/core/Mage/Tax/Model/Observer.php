@@ -250,20 +250,19 @@ class Mage_Tax_Model_Observer
      */
     public function updateTaxNotifications(Varien_Event_Observer $observer)
     {
-        $config = Mage::getModel('core/config_data');
         $block  = $observer->getData('block') ?: Mage::getBlockSingleton('tax/adminhtml_notifications');
 
-        $this->_updateTaxNotificationFlag($config, Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_DISCOUNT);
-        $this->_updateTaxNotificationFlag($config, Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_PRICE_DISPLAY);
-        $this->_updateTaxNotificationFlag($config, Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_FPT_CONFIGURATION);
+        $this->_updateTaxNotificationFlag(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_DISCOUNT);
+        $this->_updateTaxNotificationFlag(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_PRICE_DISPLAY);
+        $this->_updateTaxNotificationFlag(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_FPT_CONFIGURATION);
 
-        $this->_updateTaxNotificationFlag($config, Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_DISCOUNT,
+        $this->_updateTaxNotificationFlag(Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_DISCOUNT,
             $block->getWebsitesWithWrongDiscountSettings() ? 1 : 0);
 
-        $this->_updateTaxNotificationFlag($config, Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_PRICE_DISPLAY,
+        $this->_updateTaxNotificationFlag(Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_PRICE_DISPLAY,
             $block->getStoresWithWrongDisplaySettings() ? 1 : 0);
 
-        $this->_updateTaxNotificationFlag($config, Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_FPT_CONFIGURATION,
+        $this->_updateTaxNotificationFlag(Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_FPT_CONFIGURATION,
             ($block->getStoresWithConflictingFptTaxConfigurationSettings() ||
                 $block->isDefaultStoreWithConflictingFptTaxConfigurationSettings()) ? 1 : 0);
 
@@ -274,14 +273,13 @@ class Mage_Tax_Model_Observer
     /**
      * Set flag for showing tax notification
      *
-     * @param Mage_Core_Model_Config_Data $config
      * @param string $path
      * @param int $value
      * @return $this
      */
-    protected function _updateTaxNotificationFlag($config, $path, $value = 0)
+    protected function _updateTaxNotificationFlag($path, $value = 0)
     {
-        $config
+        Mage::getModel('core/config_data')
             ->load($path, 'path')
             ->setPath($path)
             ->setValue($value)
