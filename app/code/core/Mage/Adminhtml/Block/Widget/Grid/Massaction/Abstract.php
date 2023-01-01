@@ -110,7 +110,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function addItem($itemId, array $item)
     {
-        if ($this->isConfirmMassAction($itemId) && !isset($item['confirm'])) {
+        if (is_string($itemId) && $this->isConfirmMassAction($itemId) && !isset($item['confirm'])) {
             $item['confirm'] = Mage::helper('core')->__('Are you sure?');
         }
 
@@ -131,7 +131,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      * Retrieve massaction item with id $itemId
      *
      * @param string $itemId
-     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Item
+     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Item|null
      */
     public function getItem($itemId)
     {
