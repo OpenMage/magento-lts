@@ -456,7 +456,7 @@ class Mage_Paypal_Model_Cart
         }
 
         // aggregate item price if item qty * price does not match row total
-        if (($amount * $qty) != $salesItem->getBaseRowTotal()) {
+        if ($amount * $qty != $salesItem->getBaseRowTotal()) {
             $amount = (float) $salesItem->getBaseRowTotal();
             $subAggregatedLabel = ' x' . $qty;
             $qty = 1;
