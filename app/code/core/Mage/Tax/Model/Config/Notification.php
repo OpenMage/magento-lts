@@ -27,5 +27,4 @@
  */
 class Mage_Tax_Model_Config_Notification extends Mage_Core_Model_Config_Data
 {
-
 }

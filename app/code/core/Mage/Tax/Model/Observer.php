@@ -256,15 +256,21 @@ class Mage_Tax_Model_Observer
         $this->_updateTaxNotificationFlag(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_PRICE_DISPLAY);
         $this->_updateTaxNotificationFlag(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_FPT_CONFIGURATION);
 
-        $this->_updateTaxNotificationFlag(Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_DISCOUNT,
-            $block->getWebsitesWithWrongDiscountSettings() ? 1 : 0);
+        $this->_updateTaxNotificationFlag(
+            Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_DISCOUNT,
+            $block->getWebsitesWithWrongDiscountSettings() ? 1 : 0
+        );
 
-        $this->_updateTaxNotificationFlag(Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_PRICE_DISPLAY,
-            $block->getStoresWithWrongDisplaySettings() ? 1 : 0);
+        $this->_updateTaxNotificationFlag(
+            Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_PRICE_DISPLAY,
+            $block->getStoresWithWrongDisplaySettings() ? 1 : 0
+        );
 
-        $this->_updateTaxNotificationFlag(Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_FPT_CONFIGURATION,
+        $this->_updateTaxNotificationFlag(
+            Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_FPT_CONFIGURATION,
             ($block->getStoresWithConflictingFptTaxConfigurationSettings() ||
-                $block->isDefaultStoreWithConflictingFptTaxConfigurationSettings()) ? 1 : 0);
+                $block->isDefaultStoreWithConflictingFptTaxConfigurationSettings()) ? 1 : 0
+        );
 
         Mage::getConfig()->reinit();
         return $this;
