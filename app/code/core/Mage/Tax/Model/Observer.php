@@ -250,7 +250,7 @@ class Mage_Tax_Model_Observer
      */
     public function updateTaxNotifications(Varien_Event_Observer $observer)
     {
-        $block  = $observer->getData('block') ?: Mage::getBlockSingleton('tax/adminhtml_notifications');
+        $block = $observer->getData('block') ?: Mage::getBlockSingleton('tax/adminhtml_notifications');
 
         $this->_updateTaxNotificationFlag(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_DISCOUNT);
         $this->_updateTaxNotificationFlag(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_PRICE_DISPLAY);

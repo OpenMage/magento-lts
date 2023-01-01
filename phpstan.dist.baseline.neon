@@ -4326,11 +4326,6 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Calculation/Rate.php
 
 		-
-			message: "#^Method Mage_Tax_Model_Config_Notification\\:\\:_getConfig\\(\\) should return Mage_Core_Model_Config_Data but returns bool\\|Mage_Core_Model_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Config/Notification.php
-
-		-
 			message: "#^Call to an undefined static method Mage_Core_Model_Config_Data\\:\\:afterSave\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tax/Model/Config/Price/Include.php
