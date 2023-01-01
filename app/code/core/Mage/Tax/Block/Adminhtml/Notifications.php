@@ -198,4 +198,16 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
         }
         return '';
     }
+
+    /**
+     * Get key pieces for caching block content
+     *
+     * @return array
+     */
+    public function getCacheKeyInfo()
+    {
+        return array_merge(parent::getCacheKeyInfo(), [
+            Mage_Core_Model_Config::CACHE_TAG
+        ]);
+    }
 }

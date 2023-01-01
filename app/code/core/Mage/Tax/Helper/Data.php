@@ -1168,6 +1168,37 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Check if notification about wrong display settings must be shown
+     *
+     * @return bool
+     */
+    public function isWrongDisplaySettings()
+    {
+        return (bool)$this->_app->getStore()->getConfig(Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_PRICE_DISPLAY);
+    }
+
+    /**
+     * Check if notification about wrong discount settings must be shown
+     *
+     * @return bool
+     */
+    public function isWrongDiscountSettings()
+    {
+        return (bool)$this->_app->getStore()->getConfig(Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_DISCOUNT);
+    }
+
+    /**
+     * Check if notification about conflicting FPT configuration must be shown
+     *
+     * @return bool
+     */
+    public function isConflictingFptTaxConfigurationSettings()
+    {
+        return (bool) $this->_app->getStore()
+            ->getConfig(Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_FPT_CONFIGURATION);
+    }
+
+    /**
      * Check if do not show notification about wrong display settings
      *
      * @return bool
@@ -1188,7 +1219,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Check if warning about conflicting FPT configuration should be shown
+     * Check if do not show notification about conflicting FPT configuration
      *
      * @return bool
      */

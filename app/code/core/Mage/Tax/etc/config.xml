@@ -234,6 +234,16 @@
                 </Mage_Tax>
             </modules>
         </translate>
+        <events>
+            <admin_system_config_changed_section_tax>
+                <observers>
+                    <mage_tax_notification>
+                        <class>tax/observer</class>
+                        <method>updateTaxNotifications</method>
+                    </mage_tax_notification>
+                </observers>
+            </admin_system_config_changed_section_tax>
+        </events>
     </adminhtml>
     <frontend>
         <translate>
