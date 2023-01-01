@@ -15,7 +15,7 @@
  * @category   Varien
  * @package    Varien_Autoload
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,6 +57,11 @@ class Varien_Autoload
      */
     public function autoload($class)
     {
-        return @include str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $class))) . '.php';
+        $path = str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $class))) . '.php';
+        /** @see https://stackoverflow.com/a/5504486/716029 */
+        $found = stream_resolve_include_path($path);
+        if ($found !== false) {
+            return include $found;
+        }
     }
 }

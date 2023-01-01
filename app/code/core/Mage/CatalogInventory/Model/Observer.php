@@ -70,7 +70,7 @@ class Mage_CatalogInventory_Model_Observer
     {
         $product = $observer->getEvent()->getProduct();
         if ($product instanceof Mage_Catalog_Model_Product) {
-            $productId = intval($product->getId());
+            $productId = (int) $product->getId();
             if (!isset($this->_stockItemsArray[$productId])) {
                 $this->_stockItemsArray[$productId] = Mage::getModel('cataloginventory/stock_item');
             }
@@ -432,7 +432,7 @@ class Mage_CatalogInventory_Model_Observer
                     /**
                      * if option's qty was updates we also need to update quote item qty
                      */
-                    $quoteItem->setData('qty', intval($qty));
+                    $quoteItem->setData('qty', (int) $qty);
                 }
                 if (!is_null($result->getMessage())) {
                     $option->setMessage($result->getMessage());

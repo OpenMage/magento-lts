@@ -154,13 +154,14 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
                         'tr.store_id',
                         'customers'         => 'COUNT(DISTINCT tr.customer_id)',
                         'products'          => 'COUNT(DISTINCT tr.product_id)',
-                        'popularity'        => 'COUNT(tr.customer_id) + MIN('
+                        'popularity'        => new Zend_Db_Expr(
+                            'COUNT(tr.customer_id) + MIN('
                             . $writeAdapter->getCheckSql(
                                 'tp.base_popularity IS NOT NULL',
                                 'tp.base_popularity',
                                 '0'
-                            )
-                            . ')',
+                            ) . ')'
+                        ),
                         'uses'              => new Zend_Db_Expr(0), // deprecated since 1.4.0.1
                         'historical_uses'   => new Zend_Db_Expr(0), // deprecated since 1.4.0.1
                         'base_popularity'   => new Zend_Db_Expr(0)  // deprecated since 1.4.0.1

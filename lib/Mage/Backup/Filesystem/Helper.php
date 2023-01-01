@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Backup
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,6 +67,8 @@ class Mage_Backup_Filesystem_Helper
      * @param array $skipPaths
      * @param bool $removeRoot
      * @throws Mage_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function rm($path, $skipPaths = [], $removeRoot = false)
     {

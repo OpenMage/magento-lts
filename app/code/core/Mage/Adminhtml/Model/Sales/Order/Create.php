@@ -1706,7 +1706,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     protected function _saveCustomerAfterOrder($order)
     {
         if ($this->_customer) {
-            if (! $this->_customer->getId()) {
+            if (!$this->_customer->getId()) {
                 $billing          = $this->getBillingAddress();
                 $customerBilling  = $billing->exportCustomerAddress();
                 $shipping         = $this->getShippingAddress();
@@ -1714,7 +1714,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
                 $this->_customer->addAddress($customerBilling);
 
-                if (! $shipping->getSameAsBilling()) {
+                if (!$shipping->getSameAsBilling()) {
                     $this->_customer->addAddress($customerShipping);
                 }
                 // preliminary save to find addresses id

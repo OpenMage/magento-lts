@@ -1,19 +1,11 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-146-orange.svg?style=flat-square" alt="All Contributors"></a>
+<a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-146-orange.svg" alt="All Contributors"></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/license.svg" alt="License"></a>
-<br />
 <a href="https://github.com/openmage/magento-lts/actions/workflows/security-php.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/security-php.yml/badge.svg" alt="PHP Security workflow Badge" /></a>
-<a href="https://github.com/openmage/magento-lts/actions/workflows/composer.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/composer.yml/badge.svg" alt="Composer workflow Badge" /></a>
-<a href="https://github.com/openmage/magento-lts/actions/workflows/syntax-php.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/syntax-php.yml/badge.svg" alt="PHP Syntax Check workflow badge" /></a>
-<a href="https://github.com/openmage/magento-lts/actions/workflows/syntax-xml.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/syntax-xml.yml/badge.svg" alt="XML Syntax Check workflow badge" /></a>
-<a href="https://github.com/openmage/magento-lts/actions/workflows/phpcs.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/phpcs.yml/badge.svg" alt="PHPCS workflow badge" /></a>
-<a href="https://github.com/openmage/magento-lts/actions/workflows/php-cs-fixer.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/php-cs-fixer.yml/badge.svg" alt="PHP-CS-Fixer workflow badge" /></a>
-<a href="https://github.com/openmage/magento-lts/actions/workflows/phpstan.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/phpstan.yml/badge.svg" alt="PHPStan workflow badge" /></a>
-<a href="https://github.com/openmage/magento-lts/actions/workflows/sonar.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/sonar.yml/badge.svg" alt="Sonar workflow badge" /></a>
-<a href="https://github.com/openmage/magento-lts/actions/workflows/phpunit.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/phpunit.yml/badge.svg" alt="PHPUnit workflow badge" /></a>
+<a href="https://github.com/OpenMage/magento-lts/actions/workflows/workflow.yml"><img src="https://github.com/OpenMage/magento-lts/actions/workflows/workflow.yml/badge.svg" alt="CI workflow Badge" /></a>
 </p>
 
 # Magento - Long Term Support
@@ -22,28 +14,22 @@ This repository is the home of an **unofficial** community-driven project. It's 
 to the Magento CE official releases which integrates improvements directly from the community while maintaining a high
 level of backwards compatibility to the official releases.
 
-**Pull requests with unofficial bug fixes and security patches from the community are encouraged and welcome!**
-
-### Versioning
-
-Though Magento does __not__ follow [Semantic Versioning](http://semver.org/) we aim to provide a workable system for
-dependency definition. Each Magento `1.<minor>.<revision>` release will get its own branch (named `1.<minor>.<revision>.x`)
-that will be independently maintained with upstream patches and community bug fixes for as long as it makes sense
-to do so (based on available resources). For example, Magento version `1.9.4.5` was merged into the `1.9.4.x` branch.
+**Pull requests with bug fixes and security patches from the community are encouraged and welcome!**
 
 ## Requirements
 
 - PHP 7.3+ (PHP 8.0 is supported)
 - MySQL 5.6+ (8.0+ recommended) or MariaDB
 
-__Please be aware that although OpenMage is compatible that one or more extensions may not be__
+
+- PHP extension `intl` <small>since 1.9.4.19 & 20.0.17</small>
+- Command `patch` 2.7+ (or `gpatch` on MacOS/HomeBrew) <small>since 1.9.5.0 & 20.1.0</small>
+
+__Please be aware that although OpenMage is compatible that one or more extensions may not be.__
 
 ### Optional
 
 - Redis 5+ (6.x recommended, latest verified compatible 6.0.7 with 20.x)
-
-### PHP 7.2+
-If using php 7.2+ then `mcrypt` needs to be disabled in `php.ini` or pecl to fallback on `mcryptcompat` and `phpseclib`. `mcrypt` is deprecated from 7.2+ onwards.
 
 ## Installation
 
@@ -52,7 +38,7 @@ If using php 7.2+ then `mcrypt` needs to be disabled in `php.ini` or pecl to fal
 Download the latest archive and extract it, clone the repo, or add a composer dependency to your existing project like so:
 
 ```bash
-composer require "openmage/magento-lts":"^19.4.0"
+composer require "openmage/magento-lts":"^19.5.0"
 ```
 
 To get the latest changes use:
@@ -111,6 +97,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 - bug fixes and PHP 7.x, 8.0 and 8.1 compatibility
 - added config cache for system.xml [#1916](https://github.com/OpenMage/magento-lts/pull/1916)
 - search for "NULL" in backend grids [#1203](https://github.com/OpenMage/magento-lts/pull/1203)
+- removed lib/flex containing unused ActionScript "file uploader" files [#2271](https://github.com/OpenMage/magento-lts/pull/2271)
 - removed modules:
   - `Mage_Compiler`
   - `Mage_GoogleBase`
@@ -118,9 +105,8 @@ Most important changes will be listed here, all other changes since `19.4.0` can
   - `Mage_Xmlconnect`
   - `Phoenix_Moneybookers`
 
-
-_If you rely on that modules you can reinstall them with composer:_
-- `Mage_PageCache`: `composer require openmage/bc-mage-pagecache:dev-master`
+_If you rely on those modules you can reinstall them with composer:_
+- `Mage_PageCache`: `composer require openmage/module-mage-pagecache`
 
 ### Between OpenMage 19.4.18 / 20.0.16 and 19.4.19 / 20.0.17
 
@@ -136,11 +122,27 @@ Do not use 20.x.x if you need IE support.
 - added redis as a valid option for `global/session_save` [#1513](https://github.com/OpenMage/magento-lts/pull/1513)
 - reduce needless saves by avoiding setting `_hasDataChanges` flag [#2066](https://github.com/OpenMage/magento-lts/pull/2066)
 - removed support for `global/sales/old_fields_map` defined in XML [#921](https://github.com/OpenMage/magento-lts/pull/921)
-- removed lib/flex containing unused ActionScript "file uploader" files [#2271](https://github.com/OpenMage/magento-lts/pull/2271)
 - enabled website level config cache [#2355](https://github.com/OpenMage/magento-lts/pull/2355)
 - make overrides of Mage_Core_Model_Resource_Db_Abstract::delete respect parent api [#1257](https://github.com/OpenMage/magento-lts/pull/1257)
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
+
+### Since OpenMage 19.5.0 / 20.1.0
+
+Most of the 3rd party libraries/modules that were bundled in our repository were removed and migrated to composer dependencies.
+This allows for better maintenance and upgradability.
+
+Specifically:
+- phpseclib, mcrypt_compat, Cm_RedisSession, Cm_Cache_Backend_Redis, Pelago_Emogrifier (#2411)
+- Zend Framework 1 (#2827)
+
+If your project uses OpenMage through composer then all dependencies will be managed automatically.  
+If you just extracted the release zip/tarball in your project's main folder then be sure to:
+- remove the old copy of aforementioned libraries from your project, you can do that with this command:
+  `rm -rf lib/Cm lib/Credis lib/mcryptcompat lib/Pelago lib/phpseclib lib/Zend`
+- download the new release zip file that is named `openmage-VERSIONNUMBER.zip`, this one is built to contain the `vendor`
+  folder generated by composer, with all the dependencies in it
+- extract the zip file in your project's repository as you always did
 
 ### New Config Options
 
@@ -223,6 +225,13 @@ You can add additional meta files in this directory to cover your own project fi
 [PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
 for more information.
 
+## Versioning
+
+Though Magento does __not__ follow [Semantic Versioning](http://semver.org/) we aim to provide a workable system for
+dependency definition. Each Magento `1.<minor>.<revision>` release will get its own branch (named `1.<minor>.<revision>.x`)
+that will be independently maintained with upstream patches and community bug fixes for as long as it makes sense
+to do so (based on available resources). For example, Magento version `1.9.4.5` was merged into the `1.9.4.x` branch.
+
 ## Public Communication
 
 * [Discord](https://discord.gg/EV8aNbU) (maintained by Flyingmana)
@@ -234,6 +243,7 @@ for more information.
 * [Daniel Fahlke aka Flyingmana](https://github.com/Flyingmana)
 * [Tymoteusz Motylewski](https://github.com/tmotyl)
 * [Sven Reichel](https://github.com/sreichel)
+* [Fabrizio Balliano](https://github.com/fballiano)
 
 ## License
 
@@ -440,6 +450,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/eneiasramos"><img src="https://avatars.githubusercontent.com/u/2862728?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Enéias Ramos de Melo</b></sub></a></td>
     <td align="center"><a href="https://github.com/discountscott"><img src="https://avatars.githubusercontent.com/u/5454596?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Scott Moore</b></sub></a></td>
+    <td align="center"><a href="https://github.com/rfeese"><img src="https://avatars.githubusercontent.com/u/7074181?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Roger Feese</b></sub></a></td>
   </tr>
 </table>
 

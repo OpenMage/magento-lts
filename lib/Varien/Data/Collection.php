@@ -247,7 +247,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         if (is_null($this->_totalRecords)) {
             $this->_totalRecords = count($this->getItems());
         }
-        return intval($this->_totalRecords);
+        return (int) $this->_totalRecords;
     }
 
     /**

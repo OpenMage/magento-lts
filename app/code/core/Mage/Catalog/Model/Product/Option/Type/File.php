@@ -617,6 +617,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Quote item to order item copy process
      *
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function copyQuoteToOrder()
     {
@@ -798,6 +800,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      *
      * @param string $ini_key php.ini Var name
      * @return int Setting value
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _getBytesIniValue($ini_key)
     {
@@ -805,13 +809,13 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
         // kilobytes
         if (stristr($_bytes, 'k')) {
-            $_bytes = intval($_bytes) * 1024;
+            $_bytes = (int) $_bytes * 1024;
         // megabytes
         } elseif (stristr($_bytes, 'm')) {
-            $_bytes = intval($_bytes) * 1024 * 1024;
+            $_bytes = (int) $_bytes * 1024 * 1024;
         // gigabytes
         } elseif (stristr($_bytes, 'g')) {
-            $_bytes = intval($_bytes) * 1024 * 1024 * 1024;
+            $_bytes = (int) $_bytes * 1024 * 1024 * 1024;
         }
         return (int)$_bytes;
     }

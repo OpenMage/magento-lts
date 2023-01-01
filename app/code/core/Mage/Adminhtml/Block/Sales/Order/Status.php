@@ -19,6 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Adminhtml sales order's status namagement block
  *
@@ -38,7 +39,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status extends Mage_Adminhtml_Block_Widge
         $this->_addButtonLabel = Mage::helper('sales')->__('Create New Status');
         $this->_addButton('assign', [
             'label'     => Mage::helper('sales')->__('Assign Status to State'),
-            'onclick'   => 'setLocation(\'' . $this->getAssignUrl() . '\')',
+            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getAssignUrl()),
             'class'     => 'add',
         ]);
         parent::__construct();

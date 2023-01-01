@@ -187,6 +187,8 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      *
      * @param array $config SFTP credentials
      * @return int Number of report rows that were fetched and saved successfully
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function fetchAndSave($config)
     {

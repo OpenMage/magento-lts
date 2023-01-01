@@ -586,6 +586,8 @@ class Mage_Core_Model_Locale
      *
      * @param   mixed $store
      * @return  int
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function storeTimeStamp($store = null)
     {
@@ -662,7 +664,7 @@ class Mage_Core_Model_Locale
         }
 
         if (!is_string($value)) {
-            return floatval($value);
+            return (float) $value;
         }
 
         //trim spaces and apostrophes
@@ -682,7 +684,7 @@ class Mage_Core_Model_Locale
             $value = str_replace(',', '.', $value);
         }
 
-        return floatval($value);
+        return (float) $value;
     }
 
     /**

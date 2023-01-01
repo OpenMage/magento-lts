@@ -565,7 +565,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     protected function _filterQty($value)
     {
-        return intval($value);
+        return (int) $value;
     }
 
     /**
