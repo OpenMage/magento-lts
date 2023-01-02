@@ -69,7 +69,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      */
     public function rotate($degrees = null)
     {
-        $this->uploader->image_rotate = intval($degrees);
+        $this->uploader->image_rotate = (int) $degrees;
     }
 
     /**
@@ -188,7 +188,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      */
     public function addReflection($height = "10%", $space = 0, $color = "#FFFFFF", $opacity = 60)
     {
-        if (intval($height) == 0) {
+        if ((int) $height == 0) {
             return;
         }
 

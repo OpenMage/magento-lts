@@ -120,7 +120,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
         return array_merge(parent::getCacheKeyInfo(), [
             $this->getDisplayType(),
             $this->getProductsPerPage(),
-            intval($this->getRequest()->getParam(self::PAGE_VAR_NAME))
+            (int) $this->getRequest()->getParam(self::PAGE_VAR_NAME)
         ]);
     }
 
