@@ -74,8 +74,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formgroup extends 
 
     protected function _getSetId()
     {
-        return (intval($this->getRequest()->getParam('id')) > 0)
-                    ? intval($this->getRequest()->getParam('id'))
+        return ((int) $this->getRequest()->getParam('id') > 0)
+                    ? (int) $this->getRequest()->getParam('id')
                     : Mage::getModel('eav/entity_type')
                         ->load(Mage::registry('entityType'))
                         ->getDefaultAttributeSetId();

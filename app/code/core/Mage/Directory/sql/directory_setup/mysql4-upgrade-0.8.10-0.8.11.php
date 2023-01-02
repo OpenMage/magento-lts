@@ -203,7 +203,7 @@ $regionsToIns = [
 ];
 
 foreach ($regionsToIns as $row) {
-    if (! ($connection->fetchOne("SELECT 1 FROM `{$regionTable}` WHERE `country_id` = :country_id && `code` = :code", ['country_id' => $row[0], 'code' => $row[1]]))) {
+    if (!($connection->fetchOne("SELECT 1 FROM `{$regionTable}` WHERE `country_id` = :country_id && `code` = :code", ['country_id' => $row[0], 'code' => $row[1]]))) {
         $connection->insert($regionTable, [
             'country_id'   => $row[0],
             'code'         => $row[1],

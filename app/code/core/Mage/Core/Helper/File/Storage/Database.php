@@ -32,13 +32,13 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
 
     /**
      * Database storage model
-     * @var null|Mage_Core_Model_File_Storage_Database
+     * @var Mage_Core_Model_File_Storage_Database|null
      */
     protected $_databaseModel = null;
 
     /**
      * Storage resource model
-     * @var Mage_Core_Model_Resource_File_Storage_Database
+     * @var Mage_Core_Model_Resource_File_Storage_Database|null
      */
     protected $_resourceModel = null;
 

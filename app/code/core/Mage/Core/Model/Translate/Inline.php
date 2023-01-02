@@ -45,7 +45,7 @@ class Mage_Core_Model_Translate_Inline
     /**
      * Is enabled and allowed inline translates flags
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_isAllowed;
 
@@ -579,7 +579,7 @@ class Mage_Core_Model_Translate_Inline
      */
     public function setIsAjaxRequest($flag)
     {
-        Mage::app()->getRequest()->setQuery('isAjax', intval((bool)$flag));
+        Mage::app()->getRequest()->setQuery('isAjax', (int) (bool)$flag);
         return $this;
     }
 

@@ -81,7 +81,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
 
         if ($id) {
             $model->load($id);
-            if (! $model->getId()) {
+            if (!$model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError($this->__('This user no longer exists.'));
                 $this->_redirect('*/*/');
                 return;

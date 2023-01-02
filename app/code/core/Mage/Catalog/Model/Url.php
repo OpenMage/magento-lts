@@ -46,7 +46,7 @@ class Mage_Catalog_Model_Url
     /**
      * Resource model
      *
-     * @var Mage_Catalog_Model_Resource_Url
+     * @var Mage_Catalog_Model_Resource_Url|null
      */
     protected $_resourceModel;
 
@@ -74,7 +74,7 @@ class Mage_Catalog_Model_Url
     /**
      * Current url rewrite rule
      *
-     * @var Varien_Object
+     * @var Varien_Object|null
      */
     protected $_rewrite;
 

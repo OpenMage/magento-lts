@@ -50,14 +50,14 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     /**
      * Config data for sections
      *
-     * @var array
+     * @var array|null
      */
     protected $_configData;
 
     /**
      * Root config node
      *
-     * @var Mage_Core_Model_Config_Element
+     * @var Mage_Core_Model_Config_Element|null
      */
     protected $_configRoot;
 

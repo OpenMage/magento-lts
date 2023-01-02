@@ -34,11 +34,17 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search extends Mage_Adminhtml_Bloc
         $this->setId('sales_order_create_search');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Please Select Products to Add');
     }
 
+    /**
+     * @return string
+     */
     public function getButtonsHtml()
     {
         $addButtonData = [
@@ -49,6 +55,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search extends Mage_Adminhtml_Bloc
         return $this->getLayout()->createBlock('adminhtml/widget_button')->setData($addButtonData)->toHtml();
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderCssClass()
     {
         return 'head-catalog-product';

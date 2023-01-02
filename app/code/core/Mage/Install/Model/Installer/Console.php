@@ -30,7 +30,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Available options
      *
-     * @var array
+     * @var array|null
      */
     protected $_options;
 
@@ -44,7 +44,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Installer data model to store data between installations steps
      *
-     * @var Mage_Install_Model_Installer_Data|Mage_Install_Model_Session
+     * @var Mage_Install_Model_Installer_Data|Mage_Install_Model_Session|null
      */
     protected $_dataModel;
 
@@ -316,6 +316,8 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Install Magento
      *
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function install()
     {

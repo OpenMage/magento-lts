@@ -53,7 +53,7 @@ class Mage_Adminhtml_Block_Api_Editroles extends Mage_Adminhtml_Block_Widget_Tab
             'content'   => $this->getLayout()->createBlock('adminhtml/api_tab_rolesedit')->toHtml(),
         ]);
 
-        if (intval($roleId) > 0) {
+        if ((int) $roleId > 0) {
             $this->addTab('roles', [
                 'label'     => Mage::helper('adminhtml')->__('Role Users'),
                 'title'     => Mage::helper('adminhtml')->__('Role Users'),

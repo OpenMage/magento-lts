@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,14 +45,14 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
     /**
      * Flag for accessibility
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_isAccessible = null;
 
     /**
      * Flag for availability
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_isAvailable = null;
 

@@ -37,7 +37,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Current model
      *
-     * @var Mage_Catalog_Model_Product_Image
+     * @var Mage_Catalog_Model_Product_Image|null
      */
     protected $_model;
 
@@ -58,49 +58,49 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Angle
      *
-     * @var int
+     * @var int|null
      */
     protected $_angle;
 
     /**
      * Watermark file name
      *
-     * @var string
+     * @var string|null
      */
     protected $_watermark;
 
     /**
      * Watermark Position
      *
-     * @var string
+     * @var string|null
      */
     protected $_watermarkPosition;
 
     /**
      * Watermark Size
      *
-     * @var string
+     * @var string|null
      */
     protected $_watermarkSize;
 
     /**
      * Watermark Image opacity
      *
-     * @var int
+     * @var int|null
      */
     protected $_watermarkImageOpacity;
 
     /**
      * Current Product
      *
-     * @var Mage_Catalog_Model_Product
+     * @var Mage_Catalog_Model_Product|null
      */
     protected $_product;
 
     /**
      * Image File
      *
-     * @var string
+     * @var string|null
      */
     protected $_imageFile;
 
@@ -642,7 +642,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         }
 
         if ($imageInfo[0] > $maxDimension || $imageInfo[1] > $maxDimension) {
-            Mage::throwException($this->__('Disalollowed file format.'));
+            Mage::throwException($this->__('Disallowed file format.'));
         }
 
         $_processor = new Varien_Image($filePath);

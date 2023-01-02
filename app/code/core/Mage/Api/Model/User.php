@@ -106,7 +106,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
         }
 
         if (!is_null($this->getIsActive())) {
-            $data['is_active']  = intval($this->getIsActive());
+            $data['is_active']  = (int) $this->getIsActive();
         }
 
         $this->setData($data);

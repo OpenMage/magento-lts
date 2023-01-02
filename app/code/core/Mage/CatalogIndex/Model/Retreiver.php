@@ -56,7 +56,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     /**
      * Customer group cache
      *
-     * @var Mage_Customer_Model_Resource_Group_Collection
+     * @var Mage_Customer_Model_Resource_Group_Collection|null
      */
     protected $_customerGroups;
 

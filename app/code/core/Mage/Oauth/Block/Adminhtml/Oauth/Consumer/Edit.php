@@ -90,8 +90,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
     {
         if ($this->getModel()->getId()) {
             return $this->__('Edit Consumer');
-        } else {
-            return $this->__('New Consumer');
         }
+        return $this->__('New Consumer');
     }
 }

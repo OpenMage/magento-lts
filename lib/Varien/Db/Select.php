@@ -15,7 +15,7 @@
  * @category   Varien
  * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -397,13 +397,7 @@ class Varien_Db_Select extends Zend_Db_Select
     }
 
     /**
-     * Adds to the internal table-to-column mapping array.
-     *
-     * @param  string $correlationName The table/join the columns come from.
-     * @param  array|string $cols The list of columns; preferably as
-     * an array, but possibly as a string containing one column.
-     * @param  bool|string $afterCorrelationName True if it should be prepended, a correlation name if it should be inserted
-     * @return void
+     * @inheritDoc
      */
     protected function _tableCols($correlationName, $cols, $afterCorrelationName = null)
     {
@@ -417,7 +411,7 @@ class Varien_Db_Select extends Zend_Db_Select
             }
         }
 
-        return parent::_tableCols($correlationName, $cols, $afterCorrelationName);
+        parent::_tableCols($correlationName, $cols, $afterCorrelationName);
     }
 
     /**

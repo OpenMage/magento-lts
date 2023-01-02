@@ -85,7 +85,7 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
                     $gotoSection = $this->_cancelPayment(
                         Mage::helper('core')
                             ->stripTags(
-                                strval($this->getRequest()->getParam('RESPMSG'))
+                                (string) $this->getRequest()->getParam('RESPMSG')
                             )
                     );
                     $redirectBlock->setGotoSection($gotoSection);

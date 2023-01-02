@@ -55,11 +55,12 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_
     }
 
     /**
-     * @return void
+     * @inheritDoc
      */
     protected function _afterLoadCollection()
     {
         $this->getCollection()->addCartInfo();
+        return parent::_afterLoadCollection();
     }
 
     /**

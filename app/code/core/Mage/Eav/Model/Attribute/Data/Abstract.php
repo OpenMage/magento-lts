@@ -74,7 +74,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Mage_Core_Model_Locale FORMAT
      *
-     * @var string
+     * @var string|null
      */
     protected $_dateFilterFormat;
 

@@ -137,9 +137,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
     }
 
     /**
-     * Initialize select object
-     *
-     * @return Varien_Db_Select
+     * @inheritDoc
      */
     protected function _initSelect()
     {

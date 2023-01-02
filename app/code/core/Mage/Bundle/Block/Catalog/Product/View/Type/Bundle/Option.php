@@ -35,14 +35,14 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Store preconfigured options
      *
-     * @var int|array|string
+     * @var int|array|string|null
      */
     protected $_selectedOptions = null;
 
     /**
      * Show if option has a single selection
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_showSingle = null;
 

@@ -84,9 +84,8 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
     {
         if ($this->getVariable()->getId()) {
             return Mage::helper('adminhtml')->__('Custom Variable "%s"', $this->escapeHtml($this->getVariable()->getName()));
-        } else {
-            return Mage::helper('adminhtml')->__('New Custom Variable');
         }
+        return Mage::helper('adminhtml')->__('New Custom Variable');
     }
 
     /**

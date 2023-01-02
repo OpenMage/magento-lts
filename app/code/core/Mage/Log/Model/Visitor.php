@@ -162,8 +162,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public static function getOnlineMinutesInterval()
     {
         $configValue = Mage::getStoreConfig('customer/online_customers/online_minutes_interval');
-        return intval($configValue) > 0
-            ? intval($configValue)
+        return (int) $configValue > 0
+            ? (int) $configValue
             : self::DEFAULT_ONLINE_MINUTES_INTERVAL;
     }
 
@@ -354,7 +354,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function addCustomerData($data)
     {
         $customerId = $data->getCustomerId();
-        if (intval($customerId) <= 0) {
+        if ((int) $customerId <= 0) {
             return $this;
         }
         $customerData = Mage::getModel('customer/customer')->load($customerId);
@@ -374,7 +374,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function addQuoteData($data)
     {
         $quoteId = $data->getQuoteId();
-        if (intval($quoteId) <= 0) {
+        if ((int) $quoteId <= 0) {
             return $this;
         }
         $data->setQuoteData(Mage::getModel('sales/quote')->load($quoteId));

@@ -29,6 +29,8 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      *
      * @return void
      * @throws Zend_Db_Adapter_Mysqli_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _connect()
     {

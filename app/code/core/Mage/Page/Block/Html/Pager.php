@@ -298,6 +298,8 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     {
         $collection = $this->getCollection();
 
+        $start = 1;
+        $finish = 1;
         $pages = [];
         if ($collection->getLastPageNumber() <= $this->_displayPages) {
             $pages = range(1, $collection->getLastPageNumber());
@@ -503,7 +505,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function setFrameLength($frame)
     {
-        $frame = abs(intval($frame));
+        $frame = abs((int) $frame);
         if ($frame == 0) {
             $frame = $this->_frameLength;
         }
@@ -523,7 +525,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function setJump($jump)
     {
-        $jump = abs(intval($jump));
+        $jump = abs((int) $jump);
         if ($this->getJump() != $jump) {
             $this->_setFrameInitialized(false);
             $this->_jump = $jump;

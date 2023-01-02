@@ -110,7 +110,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
             throw $e;
         }
         $stores = Mage::getResourceModel('core/store_collection')->setWithoutDefaultFilter()->load()->toOptionHash();
-        if (! empty($values)) {
+        if (!empty($values)) {
             foreach ($values as $v) {
                 $obj = new Varien_Object($v);
                 $storeName = $stores[$obj->getStoreId()] ?? null;

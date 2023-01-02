@@ -15,7 +15,7 @@
  * @category   Varien
  * @package    Varien_Image
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +29,7 @@
 class Varien_Image
 {
     /**
-     * @var Varien_Image_Adapter_Abstract|Varien_Image_Adapter_Gd2
+     * @var Varien_Image_Adapter_Abstract|Varien_Image_Adapter_Gd2|null
      */
     protected $_adapter;
 
@@ -43,7 +43,7 @@ class Varien_Image
     /**
      * Constructor
      *
-     * @param Varien_Image_Adapter $adapter. Default value is GD2
+     * @param string $adapter Default value is GD2
      * @param string $fileName
      * @return void
      */
@@ -244,7 +244,7 @@ class Varien_Image
      */
     public function setImageBackgroundColor($color)
     {
-        $this->_getAdapter()->imageBackgroundColor = intval($color);
+        $this->_getAdapter()->imageBackgroundColor = (int) $color;
     }
 
     /**

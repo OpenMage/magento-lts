@@ -419,7 +419,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Media files uploader
      *
-     * @var Mage_ImportExport_Model_Import_Uploader
+     * @var Mage_ImportExport_Model_Import_Uploader|null
      */
     protected $_fileUploader;
 
@@ -605,7 +605,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             if (!$model) {
                 Mage::throwException("Entity type model '{$typeModel}' is not found");
             }
-            if (! $model instanceof Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract) {
+            if (!$model instanceof Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract) {
                 Mage::throwException(
                     Mage::helper('importexport')->__('Entity type model must be an instance of Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract')
                 );

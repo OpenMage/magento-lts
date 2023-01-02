@@ -426,7 +426,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
         foreach (Mage::getModel('tax/calculation_rate_title')->getCollection() as $title) {
             $rateId = $title->getTaxCalculationRateId();
 
-            if (! array_key_exists($rateId, $taxCalculationRateTitleDict)) {
+            if (!array_key_exists($rateId, $taxCalculationRateTitleDict)) {
                 $taxCalculationRateTitleDict[$rateId] = $storeTaxTitleTemplate;
             }
 
