@@ -149,12 +149,12 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateFileDetails(&$var)
     {
-        if (!isset($var['name']) || !is_string($var['name']) || strlen($var['name']) === 0) {
+        if (!isset($var['name']) || !is_string($var['name']) || $var['name'] === '') {
             throw new Exception('no_filename');
         }
         if (!isset($var['base64_content'])
             || !is_string($var['base64_content'])
-            || strlen($var['base64_content']) === 0
+            || $var['base64_content'] === ''
         ) {
             throw new Exception('no_file_base64_content');
         }
@@ -186,7 +186,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateTitle(&$var)
     {
-        if (!is_string($var) || strlen($var) === 0) {
+        if (!is_string($var) || $var === '') {
             throw new Exception('no_title');
         }
     }
