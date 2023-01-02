@@ -305,7 +305,7 @@ class Mage_DB_Mysqli
     /**
      * Throw connect exception
      * @throws Mage_DB_Exception
-     * @return void
+     * @return never
      */
     protected function throwConnectException()
     {
