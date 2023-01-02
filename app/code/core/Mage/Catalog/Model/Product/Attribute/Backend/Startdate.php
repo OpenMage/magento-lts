@@ -39,9 +39,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
     {
         $attributeName  = $this->getAttribute()->getName();
         $startDate      = $object->getData($attributeName);
-        if ($startDate === false) {
-            return false;
-        }
         return $startDate;
     }
 

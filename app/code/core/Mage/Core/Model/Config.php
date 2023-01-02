@@ -690,10 +690,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $this->_cacheLoadedSections[$sectionKey] = $this->_loadSectionCache($sectionKey);
             Varien_Profiler::stop('init_config_section:' . $sectionKey);
         }
-
-        if ($this->_cacheLoadedSections[$sectionKey] === false) {
-            return false;
-        }
         return $this->_cacheLoadedSections[$sectionKey];
     }
 
