@@ -1745,7 +1745,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
              */
             $affected = ['tinyint', 'smallint', 'mediumint', 'int', 'bigint'];
             foreach ($ddl as $key => $columnData) {
-                if (($columnData['DEFAULT'] === '') && (array_search($columnData['DATA_TYPE'], $affected) !== false)) {
+                if (($columnData['DEFAULT'] === '') && (in_array($columnData['DATA_TYPE'], $affected))) {
                     $ddl[$key]['DEFAULT'] = null;
                 }
             }

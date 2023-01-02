@@ -154,7 +154,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     {
         $optArr = explode(',', $this->getOptions());
 
-        return array_search($key, $optArr) !== false;
+        return in_array($key, $optArr);
     }
 
     /**

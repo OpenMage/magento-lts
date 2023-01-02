@@ -2081,36 +2081,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Api.php
 
 		-
-			message: "#^Cannot access property \\$additional_attributes on array\\.$#"
-			count: 5
-			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
-
-		-
-			message: "#^Cannot access property \\$categories on array\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
-
-		-
-			message: "#^Cannot access property \\$stock_data on array\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
-
-		-
-			message: "#^Cannot access property \\$tier_price on array\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
-
-		-
-			message: "#^Cannot access property \\$website_ids on array\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
-
-		-
-			message: "#^Cannot access property \\$websites on array\\.$#"
-			count: 3
-			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
-
-		-
 			message: "#^Parameter \\#3 \\$attributes \\(stdClass\\) of method Mage_Catalog_Model_Product_Api_V2\\:\\:info\\(\\) should be compatible with parameter \\$attributes \\(array\\) of method Mage_Catalog_Model_Product_Api\\:\\:info\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
@@ -2134,6 +2104,16 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between \\*NEVER\\* and true will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$customer_group_id\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api/V2.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$website\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api/V2.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item\\:\\:clean\\(\\) invoked with 1 parameter, 0 required\\.$#"
@@ -7769,16 +7749,6 @@ parameters:
 			message: "#^Result of \\|\\| is always true\\.$#"
 			count: 1
 			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: "#^Offset 0 on array\\{\\} in isset\\(\\) does not exist\\.$#"
-			count: 1
-			path: lib/Varien/Io/Abstract.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: lib/Varien/Io/Abstract.php
 
 		-
 			message: "#^If condition is always true\\.$#"
