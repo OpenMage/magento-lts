@@ -301,6 +301,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
             $model->addData($data);
 
             if (!$id) {
+                $data['entity_type_id'] = $this->_entityTypeId;
                 $model->setEntityTypeId($this->_entityTypeId);
                 $model->setIsUserDefined(1);
             }
