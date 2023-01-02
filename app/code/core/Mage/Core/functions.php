@@ -123,11 +123,12 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
         return false;
     }
 
+    if (isset($_ENV['DEV_PHP_STRICT']) && $_ENV['DEV_PHP_STRICT'] == '1') {
+        return false;
+    }
+
     // Suppress deprecation warnings on PHP 7.x
-    if ((!isset($_ENV['DEV_PHP_STRICT']) || $_ENV['DEV_PHP_STRICT'] != '1')
-        && $errno == E_DEPRECATED
-        && version_compare(PHP_VERSION, '7.0.0', '>=')
-    ) {
+    if ($errno == E_DEPRECATED && version_compare(PHP_VERSION, '7.0.0', '>=')) {
         return true;
     }
 
