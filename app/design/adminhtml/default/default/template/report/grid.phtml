@@ -141,7 +141,7 @@ $numColumns = count($this->getColumns());
                     <?php $i++; ?>
                     <?php $j=0; foreach ($this->getColumns() as $_column): ?>
                         <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$j==$numColumns ? 'last' : '' ?>">
-                            <?php echo(($_html = $_column->getRowField($_subItem)) != '' ? $_html : '&nbsp;') ?>
+                            <?php echo (($_html = $_column->getRowField($_subItem)) != '' ? $_html : '&nbsp;') ?>
                         </td>
                     <?php endforeach ?>
                     </tr>

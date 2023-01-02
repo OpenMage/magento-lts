@@ -50,7 +50,7 @@
             <?php $priceElementId = $priceElementIdPrefix . $_id . $this->getIdSuffix(); ?>
             <span id="<?php echo $priceElementId ?>" style="display:none"></span>
             <?php $popupId = 'msrp-popup-' . $_id . $_coreHelper->getRandomString(20); ?>
-            <a href="#" id="<?php echo($popupId);?>"><?php echo $this->__('Click for price'); ?></a>
+            <a href="#" id="<?php echo ($popupId);?>"><?php echo $this->__('Click for price'); ?></a>
             <script type="text/javascript">
                 Event.observe(window, 'load', function() {
                     var priceElement = $("<?php echo $priceElementId ?>"),
@@ -92,7 +92,7 @@
         <?php endif ?>
 
         <?php $helpLinkId = 'msrp-help-' . $_id . $_coreHelper->getRandomString(20); ?>
-        <a href="#" id="<?php echo($helpLinkId);?>"><?php echo $this->__("What's this?"); ?></a>
+        <a href="#" id="<?php echo ($helpLinkId);?>"><?php echo $this->__("What's this?"); ?></a>
         <script type="text/javascript">
             Catalog.Map.addHelpLink(
                 $('<?php echo $helpLinkId ?>'),
