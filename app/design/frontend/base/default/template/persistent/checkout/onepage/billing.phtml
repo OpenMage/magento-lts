@@ -157,7 +157,8 @@
                                    name="billing[customer_password]"
                                    id="billing:customer_password"
                                    title="<?php echo $this->quoteEscape($this->__('Password')) ?>"
-                                   class="input-text required-entry validate-password min-pass-length-<?php echo $minPasswordLength ?>" />
+                                   class="input-text required-entry validate-password min-pass-length-<?php echo $minPasswordLength ?>"
+                                   autocomplete="off" />
                             <p class="form-instructions">
                                 <?php echo Mage::helper('customer')->__('The minimum password length is %s', $minPasswordLength) ?>
                             </p>
@@ -166,7 +167,7 @@
                     <div class="field">
                         <label for="billing:confirm_password" class="required"><em>*</em><?php echo $this->__('Confirm Password') ?></label>
                         <div class="input-box">
-                            <input type="password" name="billing[confirm_password]" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Confirm Password')) ?>" id="billing:confirm_password" class="input-text required-entry validate-cpassword" />
+                            <input type="password" name="billing[confirm_password]" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Confirm Password')) ?>" id="billing:confirm_password" class="input-text required-entry validate-cpassword" autocomplete="off" />
                         </div>
                     </div>
                 </li>

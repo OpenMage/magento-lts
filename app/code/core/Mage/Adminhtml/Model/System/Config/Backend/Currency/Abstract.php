@@ -67,7 +67,7 @@ abstract class Mage_Adminhtml_Model_System_Config_Backend_Currency_Abstract exte
                 $this->getScopeId()
             );
         }
-        return strval($value);
+        return (string) $value;
     }
 
     /**
@@ -84,6 +84,6 @@ abstract class Mage_Adminhtml_Model_System_Config_Backend_Currency_Abstract exte
                 $this->getScopeId()
             );
         }
-        return strval($value);
+        return (string) $value;
     }
 }

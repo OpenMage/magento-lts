@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="Custom ruleset"
+<ruleset name="OpenMage ruleset"
          xmlns="http://pmd.sf.net/ruleset/1.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
@@ -9,22 +9,22 @@
     </description>
 
     <!-- UNUSEDCODE
-    UnusedFormalParameter [fixed]
-    UnusedLocalVariable
-    UnusedPrivateField
-    UnusedPrivateMethod
+    [?] UnusedFormalParameter
+    [x] UnusedLocalVariable
+    [x] UnusedPrivateField
+    [x] UnusedPrivateMethod
     -->
     <rule ref="rulesets/unusedcode.xml" />
 
     <!-- CLEANCODE
-    BooleanArgumentFlag
-    ElseExpression
-    ErrorControlOperator
-    DuplicatedArrayKey
-    IfStatementAssignment
-    MissingImport
-    StaticAccess
-    UndefinedVariable
+    [-] BooleanArgumentFlag
+    [?] ElseExpression
+    [?] ErrorControlOperator
+    [x] DuplicatedArrayKey
+    [ ] IfStatementAssignment
+    [?] MissingImport
+    [-] StaticAccess
+    [?] UndefinedVariable
     -->
     <rule ref="rulesets/cleancode.xml">
         <exclude name="BooleanArgumentFlag" />
@@ -41,12 +41,12 @@
     </rule>
 
     <!-- CONTROVERSIAL
-    CamelCaseClassName
-    CamelCaseMethodName
-    CamelCaseParameterName
-    CamelCasePropertyName
-    CamelCaseVariableName
-    Superglobals
+    [ ] CamelCaseClassName
+    [ ] CamelCaseMethodName
+    [ ] CamelCaseParameterName
+    [ ] CamelCasePropertyName
+    [ ] CamelCaseVariableName
+    [x] Superglobals
     -->
     <rule ref="rulesets/controversial.xml/CamelCaseMethodName">
         <properties>
@@ -67,31 +67,32 @@
     <rule ref="rulesets/controversial.xml/Superglobals" />
 
     <!-- NAMEING
-    BooleanGetMethodName
-    ConstantNamingConventions
-    ConstructorWithNameAsEnclosingClass
-    LongClassName
-    ShortClassName
-    LongVariable
-    ShortVariable
-    ShortMethodName
+    [ ] BooleanGetMethodName
+    [ ] ConstantNamingConventions
+    [ ] ConstructorWithNameAsEnclosingClass
+    [ ] LongClassName
+    [ ] ShortClassName
+    [ ] LongVariable
+    [?] ShortVariable
+    [ ] ShortMethodName
     -->
     <rule ref="rulesets/naming.xml/ShortVariable">
         <properties>
             <property name="exceptions" value="a,b,e,id,idx,io,ip,to,x,y,x1,x2,y1,y2" />
         </properties>
     </rule>
+    <rule ref="rulesets/naming.xml/ShortMethodName" />
 
     <!-- DESIGN
-    CountInLoopExpression
-    CouplingBetweenObjects
-    DepthOfInheritance
-    DevelopmentCodeFragment
-    EmptyCatchBlock
-    EvalExpression
-    ExitExpression
-    GotoStatement
-    NumberOfChildren
+    [-] CountInLoopExpression
+    [x] CouplingBetweenObjects
+    [-] DepthOfInheritance
+    [x] DevelopmentCodeFragment
+    [x] EmptyCatchBlock
+    [x] EvalExpression
+    [x] ExitExpression
+    [x] GotoStatement
+    [-] NumberOfChildren
     -->
     <rule ref="rulesets/design.xml">
         <exclude name="CouplingBetweenObjects" />
@@ -100,16 +101,16 @@
     </rule>
 
     <!-- CODESIZE
-    ExcessiveClassComplexity
-    ExcessiveClassLength
-    ExcessiveMethodLength
-    ExcessiveParameterList
-    ExcessivePublicCount
-    CyclomaticComplexity
-    NPathComplexity
-    TooManyFields
-    TooManyMethods
-    TooManyPublicMethods
+    [-] ExcessiveClassComplexity
+    [-] ExcessiveClassLength
+    [-] ExcessiveMethodLength
+    [-] ExcessiveParameterList
+    [-] ExcessivePublicCount
+    [-] CyclomaticComplexity
+    [-] NPathComplexity
+    [-] TooManyFields
+    [-] TooManyMethods
+    [-] TooManyPublicMethods
     -->
     <rule ref="rulesets/codesize.xml">
         <exclude name="CyclomaticComplexity" />

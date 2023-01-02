@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bbac088534d12b83ee79f841b502e35f",
+    "content-hash": "5c29dfe419dc8e936c58187f7fbf5aba",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
-            "version": "1.14.4",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis.git",
-                "reference": "6661e3f07baa10e7b48305f9282eac5f7ad8e50a"
+                "reference": "841d59ef81b2eb9018e43fd9e8ae5b1adce3dc31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colinmollenhour/Cm_Cache_Backend_Redis/zipball/6661e3f07baa10e7b48305f9282eac5f7ad8e50a",
-                "reference": "6661e3f07baa10e7b48305f9282eac5f7ad8e50a",
+                "url": "https://api.github.com/repos/colinmollenhour/Cm_Cache_Backend_Redis/zipball/841d59ef81b2eb9018e43fd9e8ae5b1adce3dc31",
+                "reference": "841d59ef81b2eb9018e43fd9e8ae5b1adce3dc31",
                 "shasum": ""
             },
             "require": {
@@ -42,9 +42,9 @@
             "homepage": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis",
             "support": {
                 "issues": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/issues",
-                "source": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/tree/1.14.4"
+                "source": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/tree/1.15.0"
             },
-            "time": "2022-08-12T20:16:06+00:00"
+            "time": "2022-12-29T19:46:03+00:00"
         },
         {
             "name": "colinmollenhour/credis",

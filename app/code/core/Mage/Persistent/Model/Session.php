@@ -216,7 +216,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         $lifetime = Mage::getConfig()->getNode(
             Mage_Persistent_Helper_Data::XML_PATH_LIFE_TIME,
             'website',
-            intval($websiteId)
+            (int) $websiteId
         );
 
         if ($lifetime) {

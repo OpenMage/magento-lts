@@ -175,7 +175,7 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
                         $_titles[] = $answer['title'];
 
                         $answerModel = Mage::getModel('poll/poll_answer');
-                        if (intval($key) > 0) {
+                        if ((int) $key > 0) {
                             $answerModel->setId($key);
                         }
                         $answerModel->setAnswerTitle($answer['title'])
