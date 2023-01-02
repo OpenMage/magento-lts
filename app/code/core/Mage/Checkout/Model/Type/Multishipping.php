@@ -128,11 +128,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                 }
                 if ($item->getQty() > 1) {
                     for ($i = 0, $n = $item->getQty(); $i < $n; $i++) {
-                        if ($i == 0) {
-                            $addressItem = $item;
-                        } else {
-                            $addressItem = clone $item;
-                        }
+                        $addressItem = $i == 0 ? $item : clone $item;
                         $addressItem->setQty(1)
                             ->setCustomerAddressId($address->getCustomerAddressId())
                             ->save();

@@ -129,11 +129,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             $data['qtys'] = $qtys;
 
             $service = Mage::getModel('sales/service_order', $order);
-            if ($invoice) {
-                $creditmemo = $service->prepareInvoiceCreditmemo($invoice, $data);
-            } else {
-                $creditmemo = $service->prepareCreditmemo($data);
-            }
+            $creditmemo = $invoice ? $service->prepareInvoiceCreditmemo($invoice, $data) : $service->prepareCreditmemo($data);
 
             /**
              * Process back to stock flags

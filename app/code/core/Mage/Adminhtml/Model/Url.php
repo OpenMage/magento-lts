@@ -93,11 +93,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
         } else {
             $secret = [self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($_controller, $_action)];
         }
-        if (is_array($routeParams)) {
-            $routeParams = array_merge($secret, $routeParams);
-        } else {
-            $routeParams = $secret;
-        }
+        $routeParams = is_array($routeParams) ? array_merge($secret, $routeParams) : $secret;
         if (is_array($this->getRouteParams())) {
             $routeParams = array_merge($this->getRouteParams(), $routeParams);
         }

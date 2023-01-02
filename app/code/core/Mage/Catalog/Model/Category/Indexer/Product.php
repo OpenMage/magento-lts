@@ -120,20 +120,12 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
         $entity = $event->getEntity();
         if ($entity == Mage_Core_Model_Store::ENTITY) {
             $store = $event->getDataObject();
-            if ($store && ($store->isObjectNew() || $store->dataHasChangedFor('group_id'))) {
-                $result = true;
-            } else {
-                $result = false;
-            }
+            $result = $store && ($store->isObjectNew() || $store->dataHasChangedFor('group_id')) ? true : false;
         } elseif ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             $storeGroup = $event->getDataObject();
             $hasDataChanges = $storeGroup && ($storeGroup->dataHasChangedFor('root_category_id')
                 || $storeGroup->dataHasChangedFor('website_id'));
-            if ($storeGroup && !$storeGroup->isObjectNew() && $hasDataChanges) {
-                $result = true;
-            } else {
-                $result = false;
-            }
+            $result = $storeGroup && !$storeGroup->isObjectNew() && $hasDataChanges ? true : false;
         } else {
             $result = parent::matchEvent($event);
         }

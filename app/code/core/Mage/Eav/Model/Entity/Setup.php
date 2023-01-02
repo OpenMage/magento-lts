@@ -144,11 +144,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             $this->_conn->insert($this->getTable('eav/entity_type'), $data);
         }
 
-        if (!empty($params['default_group'])) {
-            $defaultGroup = $params['default_group'];
-        } else {
-            $defaultGroup = $this->_defaultGroupName;
-        }
+        $defaultGroup = !empty($params['default_group']) ? $params['default_group'] : $this->_defaultGroupName;
 
         $this->addAttributeSet($code, $this->_defaultAttributeSetName);
         $this->addAttributeGroup($code, $this->_defaultGroupName, $this->_generalGroupName);
@@ -402,11 +398,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     public function getDefaultAttributeSetId($entityType)
     {
         $bind = ['entity_type' => $entityType];
-        if (is_numeric($entityType)) {
-            $where = 'entity_type_id = :entity_type';
-        } else {
-            $where = 'entity_type_code = :entity_type';
-        }
+        $where = is_numeric($entityType) ? 'entity_type_id = :entity_type' : 'entity_type_code = :entity_type';
         $select = $this->getConnection()->select()
             ->from($this->getTable('eav/entity_type'), 'default_attribute_set_id')
             ->where($where);

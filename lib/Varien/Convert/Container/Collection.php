@@ -40,11 +40,7 @@ class Varien_Convert_Container_Collection
     public function addItem($name, Varien_Convert_Container_Interface $item)
     {
         if (is_null($name)) {
-            if ($item->getName()) {
-                $name = $item->getName();
-            } else {
-                $name = count($this->_items);
-            }
+            $name = $item->getName() ? $item->getName() : count($this->_items);
         }
 
         $this->_items[$name] = $item;

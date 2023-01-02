@@ -553,11 +553,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                     $attribute = $usedAttributes[$attributeId];
                     $label = $attribute->getLabel();
                     $value = $attribute->getProductAttribute();
-                    if ($value->getSourceModel()) {
-                        $value = $value->getSource()->getOptionText($attributeValue);
-                    } else {
-                        $value = '';
-                    }
+                    $value = $value->getSourceModel() ? $value->getSource()->getOptionText($attributeValue) : '';
 
                     $attributes[] = ['label' => $label, 'value' => $value];
                 }

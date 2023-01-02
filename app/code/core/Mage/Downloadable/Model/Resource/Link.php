@@ -112,11 +112,7 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
                 'website_id' => (int)$linkObject->getWebsiteId(),
                 'price'      => (float)$linkObject->getPrice()
             ];
-            if ($linkObject->getOrigData('link_id') != $linkObject->getLinkId()) {
-                $_isNew = true;
-            } else {
-                $_isNew = false;
-            }
+            $_isNew = $linkObject->getOrigData('link_id') != $linkObject->getLinkId() ? true : false;
             if ($linkObject->getWebsiteId() == 0 && $_isNew && !Mage::helper('catalog')->isPriceGlobal()) {
                 $websiteIds = $linkObject->getProductWebsiteIds();
                 foreach ($websiteIds as $websiteId) {

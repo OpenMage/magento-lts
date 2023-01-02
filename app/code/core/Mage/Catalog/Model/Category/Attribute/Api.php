@@ -88,14 +88,10 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
         $result = [];
         if ($attribute->usesSource()) {
             foreach ($attribute->getSource()->getAllOptions(false) as $optionId => $optionValue) {
-                if (is_array($optionValue)) {
-                    $result[] = $optionValue;
-                } else {
-                    $result[] = [
-                        'value' => $optionId,
-                        'label' => $optionValue
-                    ];
-                }
+                $result[] = is_array($optionValue) ? $optionValue : [
+                    'value' => $optionId,
+                    'label' => $optionValue
+                ];
             }
         }
 

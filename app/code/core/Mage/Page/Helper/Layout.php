@@ -60,11 +60,7 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
      */
     public function applyTemplate($pageLayout = null)
     {
-        if ($pageLayout === null) {
-            $pageLayout = $this->getCurrentPageLayout();
-        } else {
-            $pageLayout = $this->_getConfig()->getPageLayout($pageLayout);
-        }
+        $pageLayout = $pageLayout === null ? $this->getCurrentPageLayout() : $this->_getConfig()->getPageLayout($pageLayout);
 
         if (!$pageLayout) {
             return $this;

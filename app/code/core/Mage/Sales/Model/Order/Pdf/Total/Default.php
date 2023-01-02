@@ -55,11 +55,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
             $amount = $this->getAmountPrefix() . $amount;
         }
         $title = $this->_getSalesHelper()->__($this->getTitle());
-        if ($this->getTitleSourceField()) {
-            $label = $title . ' (' . $this->getTitleDescription() . '):';
-        } else {
-            $label = $title . ':';
-        }
+        $label = $this->getTitleSourceField() ? $title . ' (' . $this->getTitleDescription() . '):' : $title . ':';
 
         $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
         $total = [

@@ -269,11 +269,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         }
 
         $productCondition = $observer->getEvent()->getProductCondition();
-        if ($productCondition) {
-            $eventProduct = $productCondition;
-        } else {
-            $eventProduct = $observer->getEvent()->getProduct();
-        }
+        $eventProduct = $productCondition ? $productCondition : $observer->getEvent()->getProduct();
         Mage::getModel('weee/tax')->updateProductsDiscountPercent($eventProduct);
 
         return $this;

@@ -495,11 +495,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     {
         $price = $this->_getData('calculation_price');
         if (is_null($price)) {
-            if ($this->hasCustomPrice()) {
-                $price = $this->getCustomPrice();
-            } else {
-                $price = $this->getConvertedPrice();
-            }
+            $price = $this->hasCustomPrice() ? $this->getCustomPrice() : $this->getConvertedPrice();
             $this->setData('calculation_price', $price);
         }
         return $price;
@@ -515,11 +511,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     {
         $price = $this->_getData('calculation_price');
         if (is_null($price)) {
-            if ($this->hasOriginalCustomPrice()) {
-                $price = $this->getOriginalCustomPrice();
-            } else {
-                $price = $this->getConvertedPrice();
-            }
+            $price = $this->hasOriginalCustomPrice() ? $this->getOriginalCustomPrice() : $this->getConvertedPrice();
             $this->setData('calculation_price', $price);
         }
         return $price;

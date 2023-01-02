@@ -91,11 +91,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                             $rowWeight = 0;
                         } elseif (is_numeric($child->getFreeShipping())) {
                             $freeQty = $child->getFreeShipping();
-                            if ($itemQty > $freeQty) {
-                                $rowWeight = $itemWeight * ($itemQty - $freeQty);
-                            } else {
-                                $rowWeight = 0;
-                            }
+                            $rowWeight = $itemQty > $freeQty ? $itemWeight * ($itemQty - $freeQty) : 0;
                         }
                         $freeMethodWeight += $rowWeight;
                         $item->setRowWeight($rowWeight);
@@ -109,11 +105,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                         $rowWeight = 0;
                     } elseif (is_numeric($item->getFreeShipping())) {
                         $freeQty = $item->getFreeShipping();
-                        if ($item->getQty() > $freeQty) {
-                            $rowWeight = $itemWeight * ($item->getQty() - $freeQty);
-                        } else {
-                            $rowWeight = 0;
-                        }
+                        $rowWeight = $item->getQty() > $freeQty ? $itemWeight * ($item->getQty() - $freeQty) : 0;
                     }
                     $freeMethodWeight += $rowWeight;
                     $item->setRowWeight($rowWeight);
@@ -129,11 +121,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                     $rowWeight = 0;
                 } elseif (is_numeric($item->getFreeShipping())) {
                     $freeQty = $item->getFreeShipping();
-                    if ($item->getQty() > $freeQty) {
-                        $rowWeight = $itemWeight * ($item->getQty() - $freeQty);
-                    } else {
-                        $rowWeight = 0;
-                    }
+                    $rowWeight = $item->getQty() > $freeQty ? $itemWeight * ($item->getQty() - $freeQty) : 0;
                 }
                 $freeMethodWeight += $rowWeight;
                 $item->setRowWeight($rowWeight);

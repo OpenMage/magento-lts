@@ -261,19 +261,11 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
 
         if (strpos($entityName, '/')) {
-            if (!is_null($entitySuffix)) {
-                $modelEntity = [$entityName, $entitySuffix];
-            } else {
-                $modelEntity = $entityName;
-            }
+            $modelEntity = !is_null($entitySuffix) ? [$entityName, $entitySuffix] : $entityName;
             $this->_tables[$cacheName] = $this->_resources->getTableName($modelEntity);
         } elseif (!empty($this->_resourceModel)) {
             $entityName = sprintf('%s/%s', $this->_resourceModel, $entityName);
-            if (!is_null($entitySuffix)) {
-                $modelEntity = [$entityName, $entitySuffix];
-            } else {
-                $modelEntity = $entityName;
-            }
+            $modelEntity = !is_null($entitySuffix) ? [$entityName, $entitySuffix] : $entityName;
             $this->_tables[$cacheName] = $this->_resources->getTableName($modelEntity);
         } else {
             if (!is_null($entitySuffix)) {

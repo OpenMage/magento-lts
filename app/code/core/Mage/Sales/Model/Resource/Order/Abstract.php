@@ -246,13 +246,9 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     public function getGridColumns()
     {
         if ($this->_gridColumns === null) {
-            if ($this->_grid) {
-                $this->_gridColumns = array_keys(
-                    $this->_getReadAdapter()->describeTable($this->getGridTable())
-                );
-            } else {
-                $this->_gridColumns = [];
-            }
+            $this->_gridColumns = $this->_grid ? array_keys(
+                $this->_getReadAdapter()->describeTable($this->getGridTable())
+            ) : [];
         }
 
         return $this->_gridColumns;

@@ -60,11 +60,7 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
                 break;
             case '{}':
             case '!{}':
-                if (preg_match('/^.*(category_id)$/', $field) && is_array($value)) {
-                    $selectOperator = ' IN (?)';
-                } else {
-                    $selectOperator = ' LIKE ?';
-                }
+                $selectOperator = preg_match('/^.*(category_id)$/', $field) && is_array($value) ? ' IN (?)' : ' LIKE ?';
                 if (substr($operator, 0, 1) == '!') {
                     $selectOperator = ' NOT' . $selectOperator;
                 }

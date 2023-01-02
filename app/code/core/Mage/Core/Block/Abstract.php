@@ -897,11 +897,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function setFrameTags($openTag, $closeTag = null)
     {
         $this->_frameOpenTag = $openTag;
-        if ($closeTag) {
-            $this->_frameCloseTag = $closeTag;
-        } else {
-            $this->_frameCloseTag = '/' . $openTag;
-        }
+        $this->_frameCloseTag = $closeTag ? $closeTag : '/' . $openTag;
         return $this;
     }
 

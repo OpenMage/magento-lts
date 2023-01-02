@@ -99,11 +99,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
      */
     public function decorateState($value, $row, $column, $isExport)
     {
-        if ($value) {
-            $cell = $value . ' [' . Mage::getSingleton('sales/order_config')->getStateLabel($value) . ']';
-        } else {
-            $cell = $value;
-        }
+        $cell = $value ? $value . ' [' . Mage::getSingleton('sales/order_config')->getStateLabel($value) . ']' : $value;
         return $cell;
     }
 

@@ -1268,11 +1268,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $cancelState = self::STATE_CANCELED;
             foreach ($this->getAllItems() as $item) {
                 if ($cancelState != self::STATE_PROCESSING && $item->getQtyToRefund()) {
-                    if ($item->getQtyToShip() > $item->getQtyToCancel()) {
-                        $cancelState = self::STATE_PROCESSING;
-                    } else {
-                        $cancelState = self::STATE_COMPLETE;
-                    }
+                    $cancelState = $item->getQtyToShip() > $item->getQtyToCancel() ? self::STATE_PROCESSING : self::STATE_COMPLETE;
                 }
                 $item->cancel();
             }

@@ -191,11 +191,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
         }
 
         foreach ($productIds as $productId) {
-            if (isset($rows[$productId])) {
-                $statuses[$productId] = $rows[$productId];
-            } else {
-                $statuses[$productId] = -1;
-            }
+            $statuses[$productId] = isset($rows[$productId]) ? $rows[$productId] : -1;
         }
 
         return $statuses;

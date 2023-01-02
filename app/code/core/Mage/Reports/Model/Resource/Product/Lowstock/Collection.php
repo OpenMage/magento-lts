@@ -152,11 +152,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
         }
 
         if (!is_array($fields)) {
-            if (empty($fields)) {
-                $fields = [];
-            } else {
-                $fields = [$fields];
-            }
+            $fields = empty($fields) ? [] : [$fields];
         }
 
         foreach ($fields as $alias => $field) {

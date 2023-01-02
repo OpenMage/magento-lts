@@ -37,11 +37,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
     public function extractValue(Zend_Controller_Request_Http $request)
     {
         $value = $this->_getRequestValue($request);
-        if (!is_array($value)) {
-            $value = false;
-        } else {
-            $value = array_map([$this, '_applyInputFilter'], $value);
-        }
+        $value = !is_array($value) ? false : array_map([$this, '_applyInputFilter'], $value);
         return $value;
     }
 

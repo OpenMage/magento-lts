@@ -50,11 +50,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
     protected function _initStatus()
     {
         $statusCode = $this->getRequest()->getParam('status');
-        if ($statusCode) {
-            $status = Mage::getModel('sales/order_status')->load($statusCode);
-        } else {
-            $status = false;
-        }
+        $status = $statusCode ? Mage::getModel('sales/order_status')->load($statusCode) : false;
         return $status;
     }
 

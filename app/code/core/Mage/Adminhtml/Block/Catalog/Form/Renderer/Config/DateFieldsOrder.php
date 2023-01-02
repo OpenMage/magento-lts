@@ -39,11 +39,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Config_DateFieldsOrder extends 
         $element->setValues($_options)
             ->setClass('select-date')
             ->setName($element->getName() . '[]');
-        if ($element->getValue()) {
-            $values = explode(',', $element->getValue());
-        } else {
-            $values = [];
-        }
+        $values = $element->getValue() ? explode(',', $element->getValue()) : [];
 
         $_parts = [];
         $_parts[] = $element->setValue($values[0] ?? null)->getElementHtml();

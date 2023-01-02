@@ -45,11 +45,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal extends Mage_Catal
         $write      = $this->_getWriteAdapter();
         $idxTable   = $this->getIdxTable();
         // prepare select attributes
-        if (is_null($attributeId)) {
-            $attrIds    = $this->_getIndexableAttributes();
-        } else {
-            $attrIds    = [$attributeId];
-        }
+        $attrIds = is_null($attributeId) ? $this->_getIndexableAttributes() : [$attributeId];
 
         if (!$attrIds) {
             return $this;

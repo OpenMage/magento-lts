@@ -136,11 +136,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
         $string = $field;
         if (!is_numeric($field) && (strpos($field, '.') !== false)) {
             $size  = strpos($field, '.');
-            if ($reverse) {
-                $string = substr($field, 0, $size);
-            } else {
-                $string = substr($field, $size + 1);
-            }
+            $string = $reverse ? substr($field, 0, $size) : substr($field, $size + 1);
         }
 
         return $string;
@@ -302,11 +298,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      */
     public function addGroupConcatColumn($select, $fieldAlias, $fields, $groupConcatDelimiter = ',', $fieldsDelimiter = '', $additionalWhere = '')
     {
-        if (is_array($fields)) {
-            $fieldExpr = $this->_getReadAdapter()->getConcatSql($fields, $fieldsDelimiter);
-        } else {
-            $fieldExpr = $fields;
-        }
+        $fieldExpr = is_array($fields) ? $this->_getReadAdapter()->getConcatSql($fields, $fieldsDelimiter) : $fields;
         if ($additionalWhere) {
             $fieldExpr = $this->_getReadAdapter()->getCheckSql($additionalWhere, $fieldExpr, "''");
         }

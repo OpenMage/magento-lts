@@ -36,11 +36,7 @@ class Mage_Sales_Block_Order_Item_Renderer_Grouped extends Mage_Sales_Block_Orde
      */
     protected function _toHtml()
     {
-        if ($this->getItem()->getOrderItem()) {
-            $item = $this->getItem()->getOrderItem();
-        } else {
-            $item = $this->getItem();
-        }
+        $item = $this->getItem()->getOrderItem() ? $this->getItem()->getOrderItem() : $this->getItem();
         if ($productType = $item->getRealProductType()) {
             $renderer = $this->getRenderedBlock()->getItemRenderer($productType);
             $renderer->setItem($this->getItem());

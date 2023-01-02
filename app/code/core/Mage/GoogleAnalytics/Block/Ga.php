@@ -213,11 +213,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             ->addFieldToFilter('entity_id', ['in' => $orderIds]);
         $result = [];
         foreach ($collection as $order) {
-            if ($order->getIsVirtual()) {
-                $address = $order->getBillingAddress();
-            } else {
-                $address = $order->getShippingAddress();
-            }
+            $address = $order->getIsVirtual() ? $order->getBillingAddress() : $order->getShippingAddress();
             $result[] = sprintf(
                 "_gaq.push(['_addTrans', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s']);",
                 $order->getIncrementId(),

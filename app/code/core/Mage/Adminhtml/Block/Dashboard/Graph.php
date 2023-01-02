@@ -223,11 +223,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     break;
             }
             foreach ($this->getAllSeries() as $index => $serie) {
-                if (in_array($d, $this->_axisLabels['x'])) {
-                    $datas[$index][] = (float)array_shift($this->_allSeries[$index]);
-                } else {
-                    $datas[$index][] = 0;
-                }
+                $datas[$index][] = in_array($d, $this->_axisLabels['x']) ? (float)array_shift($this->_allSeries[$index]) : 0;
             }
             $dates[] = $d;
         }
@@ -272,16 +268,8 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
             $localminvalue[$index] = min($serie);
         }
 
-        if (is_numeric($this->_max)) {
-            $maxvalue = $this->_max;
-        } else {
-            $maxvalue = max($localmaxvalue);
-        }
-        if (is_numeric($this->_min)) {
-            $minvalue = $this->_min;
-        } else {
-            $minvalue = min($localminvalue);
-        }
+        $maxvalue = is_numeric($this->_max) ? $this->_max : max($localmaxvalue);
+        $minvalue = is_numeric($this->_min) ? $this->_min : min($localminvalue);
 
         // default values
         $yrange = 0;
@@ -372,18 +360,10 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     $tmpstring = implode('|', $this->_axisLabels[$idx]);
 
                     $valueBuffer[] = $indexid . ":|" . $tmpstring;
-                    if (count($this->_axisLabels[$idx]) > 1) {
-                        $deltaX = 100 / (count($this->_axisLabels[$idx]) - 1);
-                    } else {
-                        $deltaX = 100;
-                    }
+                    $deltaX = count($this->_axisLabels[$idx]) > 1 ? 100 / (count($this->_axisLabels[$idx]) - 1) : 100;
                 } elseif ($idx === 'y') {
                     $valueBuffer[] = $indexid . ":|" . implode('|', $yLabels);
-                    if (count($yLabels) - 1) {
-                        $deltaY = 100 / (count($yLabels) - 1);
-                    } else {
-                        $deltaY = 100;
-                    }
+                    $deltaY = count($yLabels) - 1 ? 100 / (count($yLabels) - 1) : 100;
                     // setting range values for y axis
                     $rangeBuffer = $indexid . "," . $miny . "," . $maxy . "|";
                 }

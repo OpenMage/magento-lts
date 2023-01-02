@@ -540,11 +540,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         $faviconFile = Mage::getBaseUrl('media') . $folderName . '/' . $storeConfig;
         $absolutePath = Mage::getBaseDir('media') . '/' . $folderName . '/' . $storeConfig;
 
-        if (!is_null($storeConfig) && $this->_isFile($absolutePath)) {
-            $url = $faviconFile;
-        } else {
-            $url = $this->getSkinUrl('favicon.ico');
-        }
+        $url = !is_null($storeConfig) && $this->_isFile($absolutePath) ? $faviconFile : $this->getSkinUrl('favicon.ico');
         return $url;
     }
 

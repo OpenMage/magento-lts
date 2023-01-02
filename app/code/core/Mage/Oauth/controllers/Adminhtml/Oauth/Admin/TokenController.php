@@ -101,11 +101,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
                 $item->load($item->getId());
                 $item->setRevoked($status)->save();
             }
-            if ($status) {
-                $message = $this->__('Selected entries revoked.');
-            } else {
-                $message = $this->__('Selected entries enabled.');
-            }
+            $message = $status ? $this->__('Selected entries revoked.') : $this->__('Selected entries enabled.');
             $this->_getSession()->addSuccess($message);
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());

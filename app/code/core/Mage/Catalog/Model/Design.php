@@ -338,11 +338,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      */
     public function getDesignSettings($object)
     {
-        if ($object instanceof Mage_Catalog_Model_Product) {
-            $currentCategory = $object->getCategory();
-        } else {
-            $currentCategory = $object;
-        }
+        $currentCategory = $object instanceof Mage_Catalog_Model_Product ? $object->getCategory() : $object;
 
         $category = null;
         if ($currentCategory) {

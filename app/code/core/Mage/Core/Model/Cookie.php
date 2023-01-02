@@ -230,11 +230,7 @@ class Mage_Core_Model_Cookie
             $period = $this->getLifetime();
         }
 
-        if ($period == 0) {
-            $expire = 0;
-        } else {
-            $expire = time() + $period;
-        }
+        $expire = $period == 0 ? 0 : time() + $period;
         if (is_null($path)) {
             $path = $this->getPath();
         }

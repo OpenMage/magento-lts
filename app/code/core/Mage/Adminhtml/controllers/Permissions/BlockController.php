@@ -102,11 +102,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
 
         Mage::register('permissions_block', $model);
 
-        if (isset($id)) {
-            $breadcrumb = $this->__('Edit Block');
-        } else {
-            $breadcrumb = $this->__('New Block');
-        }
+        $breadcrumb = isset($id) ? $this->__('Edit Block') : $this->__('New Block');
         $this->_initAction()
             ->_addBreadcrumb($breadcrumb, $breadcrumb);
 

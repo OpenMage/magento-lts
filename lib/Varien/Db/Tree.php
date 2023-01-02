@@ -420,11 +420,7 @@ class Varien_Db_Tree
         $level = $eInfo[$this->_level];
         $left_key = $eInfo[$this->_left];
         $right_key = $eInfo[$this->_right];
-        if ($pId == 0) {
-            $level_up = 0;
-        } else {
-            $level_up = $pInfo[$this->_level];
-        }
+        $level_up = $pId == 0 ? 0 : $pInfo[$this->_level];
 
         $right_key_near = 0;
         $left_key_near = 0;

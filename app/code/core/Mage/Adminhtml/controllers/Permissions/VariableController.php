@@ -101,11 +101,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
 
         Mage::register('permissions_variable', $model);
 
-        if (isset($id)) {
-            $breadcrumb = $this->__('Edit Variable');
-        } else {
-            $breadcrumb = $this->__('New Variable');
-        }
+        $breadcrumb = isset($id) ? $this->__('Edit Variable') : $this->__('New Variable');
         $this->_initAction()
             ->_addBreadcrumb($breadcrumb, $breadcrumb);
 

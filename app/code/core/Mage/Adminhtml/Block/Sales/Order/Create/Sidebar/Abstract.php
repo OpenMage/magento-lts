@@ -132,11 +132,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
         $collection = $this->getItemCollection();
         if ($collection) {
             $productTypes = Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray();
-            if (is_array($collection)) {
-                $items = $collection;
-            } else {
-                $items = $collection->getItems();
-            }
+            $items = is_array($collection) ? $collection : $collection->getItems();
 
             /*
              * Filtering items by allowed product type

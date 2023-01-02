@@ -106,14 +106,10 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         if ($attribute->usesSource()) {
             $attribute->setStoreId($storeId);
             foreach ($attribute->getSource()->getAllOptions() as $optionId => $optionValue) {
-                if (is_array($optionValue)) {
-                    $options[] = $optionValue;
-                } else {
-                    $options[] = [
-                        'value' => $optionId,
-                        'label' => $optionValue
-                    ];
-                }
+                $options[] = is_array($optionValue) ? $optionValue : [
+                    'value' => $optionId,
+                    'label' => $optionValue
+                ];
             }
         }
 

@@ -584,11 +584,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 foreach ($selections->getItems() as $key => $selection) {
                     if (!$selection->isSalable() && !$skipSaleableCheck) {
                         $_option = $optionsCollection->getItemById($selection->getOptionId());
-                        if (is_array($options[$_option->getId()]) && count($options[$_option->getId()]) > 1) {
-                            $moreSelections = true;
-                        } else {
-                            $moreSelections = false;
-                        }
+                        $moreSelections = is_array($options[$_option->getId()]) && count($options[$_option->getId()]) > 1 ? true : false;
                         if ($_option->getRequired()
                             && (!$_option->isMultiSelection() || ($_option->isMultiSelection() && !$moreSelections))
                         ) {
@@ -827,11 +823,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         /**
          * Product Prices calculations save
          */
-        if ($product->getPriceType()) {
-            $optionArr['product_calculations'] = self::CALCULATE_PARENT;
-        } else {
-            $optionArr['product_calculations'] = self::CALCULATE_CHILD;
-        }
+        $optionArr['product_calculations'] = $product->getPriceType() ? self::CALCULATE_PARENT : self::CALCULATE_CHILD;
 
         $optionArr['shipment_type'] = $product->getShipmentType();
 

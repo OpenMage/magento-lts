@@ -187,11 +187,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                 return false;
             }
         }
-        if ($this->_options['read_control']) {
-            $hash = $this->_hash($data, $this->_options['read_control_type']);
-        } else {
-            $hash = '';
-        }
+        $hash = $this->_options['read_control'] ? $this->_hash($data, $this->_options['read_control_type']) : '';
         $metadatas = [
             'hash'   => $hash,
             'mtime'  => time(),
@@ -719,11 +715,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                     if ($this->_options['file_locking']) {
                         flock($fd, LOCK_EX);
                     }
-                    if ($mode == 'diff') {
-                        $_ids = array_diff($this->_getTagIds($fd), $ids);
-                    } else {
-                        $_ids = array_merge($this->_getTagIds($fd), $ids);
-                    }
+                    $_ids = $mode == 'diff' ? array_diff($this->_getTagIds($fd), $ids) : array_merge($this->_getTagIds($fd), $ids);
                     fseek($fd, 0);
                     ftruncate($fd, 0);
                     $result = fwrite($fd, implode("\n", array_unique($_ids)) . "\n") && $result;

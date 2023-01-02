@@ -152,25 +152,13 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
             $r->setProduct('GND' . $this->getConfigData('dest_type'));
         }
 
-        if ($request->getUpsPickup()) {
-            $pickup = $request->getUpsPickup();
-        } else {
-            $pickup = $this->getConfigData('pickup');
-        }
+        $pickup = $request->getUpsPickup() ? $request->getUpsPickup() : $this->getConfigData('pickup');
         $r->setPickup($this->getCode('pickup', $pickup));
 
-        if ($request->getUpsContainer()) {
-            $container = $request->getUpsContainer();
-        } else {
-            $container = $this->getConfigData('container');
-        }
+        $container = $request->getUpsContainer() ? $request->getUpsContainer() : $this->getConfigData('container');
         $r->setContainer($this->getCode('container', $container));
 
-        if ($request->getUpsDestType()) {
-            $destType = $request->getUpsDestType();
-        } else {
-            $destType = $this->getConfigData('dest_type');
-        }
+        $destType = $request->getUpsDestType() ? $request->getUpsDestType() : $this->getConfigData('dest_type');
         $r->setDestType($this->getCode('dest_type', $destType));
 
         if ($request->getOrigCountry()) {
@@ -215,11 +203,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
             ));
         }
 
-        if ($request->getDestCountryId()) {
-            $destCountry = $request->getDestCountryId();
-        } else {
-            $destCountry = self::USA_COUNTRY_ID;
-        }
+        $destCountry = $request->getDestCountryId() ? $request->getDestCountryId() : self::USA_COUNTRY_ID;
 
         //for UPS, puero rico state for US will assume as puerto rico country
         if ($destCountry == self::USA_COUNTRY_ID
@@ -254,11 +238,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
         $r->setValue($request->getPackageValue());
         $r->setValueWithDiscount($request->getPackageValueWithDiscount());
 
-        if ($request->getUpsUnitMeasure()) {
-            $unit = $request->getUpsUnitMeasure();
-        } else {
-            $unit = $this->getConfigData('unit_of_measure');
-        }
+        $unit = $request->getUpsUnitMeasure() ? $request->getUpsUnitMeasure() : $this->getConfigData('unit_of_measure');
         $r->setUnitMeasure($unit);
 
         $r->setIsReturn($request->getIsReturn());

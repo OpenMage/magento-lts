@@ -474,11 +474,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     {
         $this->loadAllAttributes($object);
 
-        if ($this->getUseDataSharing()) {
-            $storeId = $object->getStoreId();
-        } else {
-            $storeId = $this->getStoreId();
-        }
+        $storeId = $this->getUseDataSharing() ? $object->getStoreId() : $this->getStoreId();
 
         $data = [];
         foreach ($this->getAttributesByTable() as $table => $attributes) {

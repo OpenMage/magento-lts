@@ -534,11 +534,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         }
         $result = [];
         if (!empty($pathIds)) {
-            if ($addCollectionData) {
-                $select = $this->_createCollectionDataSelect(false);
-            } else {
-                $select = clone $this->_select;
-            }
+            $select = $addCollectionData ? $this->_createCollectionDataSelect(false) : clone $this->_select;
             $select
                 ->where('e.entity_id IN(?)', $pathIds)
                 ->order($this->_conn->getLengthSql('e.path') . ' ' . Varien_Db_Select::SQL_ASC);

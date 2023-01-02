@@ -78,11 +78,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
      */
     public function setFieldOption($fieldId, $option, $value = null)
     {
-        if (is_array($option)) {
-            $options = $option;
-        } else {
-            $options = [$option => $value];
-        }
+        $options = is_array($option) ? $option : [$option => $value];
         if (!array_key_exists($fieldId, $this->_fieldOptions)) {
             $this->_fieldOptions[$fieldId] = [];
         }

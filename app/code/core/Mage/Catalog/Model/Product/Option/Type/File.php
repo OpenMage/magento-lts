@@ -132,11 +132,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         $fileInfo = $this->_getCurrentConfigFileInfo();
 
         if ($fileInfo !== null) {
-            if (is_array($fileInfo) && $this->_validateFile($fileInfo)) {
-                $value = $fileInfo;
-            } else {
-                $value = null;
-            }
+            $value = is_array($fileInfo) && $this->_validateFile($fileInfo) ? $fileInfo : null;
             $this->setUserValue($value);
             return $this;
         }

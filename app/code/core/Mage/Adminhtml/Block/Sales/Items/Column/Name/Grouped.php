@@ -37,11 +37,7 @@ class Mage_Adminhtml_Block_Sales_Items_Column_Name_Grouped extends Mage_Adminhtm
      */
     protected function _toHtml()
     {
-        if ($this->getItem()->getOrderItem()) {
-            $item = $this->getItem()->getOrderItem();
-        } else {
-            $item = $this->getItem();
-        }
+        $item = $this->getItem()->getOrderItem() ? $this->getItem()->getOrderItem() : $this->getItem();
         if ($productType = $item->getRealProductType()) {
             return $this->getRenderedBlock()->getColumnHtml($this->getItem(), $productType);
         }

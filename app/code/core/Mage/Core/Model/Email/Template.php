@@ -231,11 +231,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
 
         $idLabel = [];
         foreach (self::getDefaultTemplates() as $templateId => $row) {
-            if (isset($row['@']) && isset($row['@']['module'])) {
-                $module = $row['@']['module'];
-            } else {
-                $module = 'adminhtml';
-            }
+            $module = isset($row['@']) && isset($row['@']['module']) ? $row['@']['module'] : 'adminhtml';
             $idLabel[$templateId] = Mage::helper($module)->__($row['label']);
         }
         asort($idLabel);

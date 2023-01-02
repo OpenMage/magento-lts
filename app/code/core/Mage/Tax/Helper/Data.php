@@ -212,11 +212,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getIncExcText($flag, $store = null)
     {
-        if ($flag) {
-            $s = $this->__('Incl. Tax');
-        } else {
-            $s = $this->__('Excl. Tax');
-        }
+        $s = $flag ? $this->__('Incl. Tax') : $this->__('Excl. Tax');
         return $s;
     }
 

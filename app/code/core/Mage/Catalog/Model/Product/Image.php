@@ -317,11 +317,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     {
         $result = [];
         foreach ($rgbArray as $value) {
-            if ($value === null) {
-                $result[] = 'null';
-            } else {
-                $result[] = sprintf('%02s', dechex($value));
-            }
+            $result[] = $value === null ? 'null' : sprintf('%02s', dechex($value));
         }
         return implode($result);
     }

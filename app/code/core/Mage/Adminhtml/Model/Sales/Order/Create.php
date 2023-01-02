@@ -859,11 +859,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                             }
                         }
                         $itemQty    = $itemQty > 0 ? $itemQty : 1;
-                        if (isset($info['custom_price'])) {
-                            $itemPrice  = $this->_parseCustomPrice($info['custom_price']);
-                        } else {
-                            $itemPrice = null;
-                        }
+                        $itemPrice = isset($info['custom_price']) ? $this->_parseCustomPrice($info['custom_price']) : null;
                         $noDiscount = !isset($info['use_discount']);
 
                         if (empty($info['action']) || !empty($info['configured'])) {

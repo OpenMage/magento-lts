@@ -151,11 +151,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
         }
 
         $rawContent = '';
-        if ($compress) {
-            $rawContent = gzcompress($content, self::COMPRESS_RATE);
-        } else {
-            $rawContent = $content;
-        }
+        $rawContent = $compress ? gzcompress($content, self::COMPRESS_RATE) : $content;
 
         $fileHeaders = pack("ll", $compress, strlen($rawContent));
         $ioProxy->write($this->getFileName(), $fileHeaders . $rawContent);
@@ -195,11 +191,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
             Mage::throwException(Mage::helper('backup')->__('The file was compressed with Zlib, but this extension is not installed on server.'));
         }
 
-        if ($compressed) {
-            $content = gzuncompress(fread($fResource, $info['length']));
-        } else {
-            $content = fread($fResource, $info['length']);
-        }
+        $content = $compressed ? gzuncompress(fread($fResource, $info['length'])) : fread($fResource, $info['length']);
 
         fclose($fResource);
 

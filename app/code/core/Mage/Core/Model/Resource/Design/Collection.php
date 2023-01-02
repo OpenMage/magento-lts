@@ -59,11 +59,7 @@ class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resourc
      */
     public function addDateFilter($date = null)
     {
-        if (is_null($date)) {
-            $date = $this->formatDate(true);
-        } else {
-            $date = $this->formatDate($date);
-        }
+        $date = is_null($date) ? $this->formatDate(true) : $this->formatDate($date);
 
         $this->addFieldToFilter('date_from', ['lteq' => $date]);
         $this->addFieldToFilter('date_to', ['gteq' => $date]);

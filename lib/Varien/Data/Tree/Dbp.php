@@ -215,11 +215,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                 $node->setPathId($node->getData($this->_pathField));
                 $this->addNode($node, $parentNode);
 
-                if ($path) {
-                    $childrenPath = explode('/', $path);
-                } else {
-                    $childrenPath = [];
-                }
+                $childrenPath = $path ? explode('/', $path) : [];
                 $childrenPath[] = $node->getId();
                 $childrenPath = implode('/', $childrenPath);
 
@@ -394,11 +390,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                     $this->_loaded = false;
                 }
 
-                if ($path) {
-                    $childrenPath = explode('/', $path);
-                } else {
-                    $childrenPath = [];
-                }
+                $childrenPath = $path ? explode('/', $path) : [];
                 $childrenPath[] = $node->getId();
                 $childrenPath = implode('/', $childrenPath);
 

@@ -69,11 +69,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
     {
         $read = $this->_getReadAdapter();
 
-        if ($rule instanceof Mage_SalesRule_Model_Rule) {
-            $ruleId = $rule->getId();
-        } else {
-            $ruleId = (int)$rule;
-        }
+        $ruleId = $rule instanceof Mage_SalesRule_Model_Rule ? $rule->getId() : (int)$rule;
 
         $select = $read->select()->from($this->getMainTable())
             ->where('rule_id = :rule_id')

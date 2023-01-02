@@ -142,11 +142,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
         if ($inputRuleClass) {
             $out[] = $inputRuleClass;
         }
-        if (!empty($out)) {
-            $out = implode(' ', $out);
-        } else {
-            $out = '';
-        }
+        $out = !empty($out) ? implode(' ', $out) : '';
         return $out;
     }
 

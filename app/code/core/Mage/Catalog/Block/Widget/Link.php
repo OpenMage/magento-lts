@@ -60,11 +60,7 @@ class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implement
     public function getHref()
     {
         if (!$this->_href) {
-            if ($this->hasStoreId()) {
-                $store = Mage::app()->getStore($this->getStoreId());
-            } else {
-                $store = Mage::app()->getStore();
-            }
+            $store = $this->hasStoreId() ? Mage::app()->getStore($this->getStoreId()) : Mage::app()->getStore();
 
             $idPath = explode('/', $this->_getData('id_path'));
 
@@ -107,11 +103,7 @@ class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implement
      */
     public function getAnchorText()
     {
-        if ($this->hasStoreId()) {
-            $store = Mage::app()->getStore($this->getStoreId());
-        } else {
-            $store = Mage::app()->getStore();
-        }
+        $store = $this->hasStoreId() ? Mage::app()->getStore($this->getStoreId()) : Mage::app()->getStore();
 
         if (!$this->_anchorText && $this->_entityResource) {
             if (!$this->_getData('anchor_text')) {

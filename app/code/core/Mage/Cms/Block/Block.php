@@ -78,15 +78,11 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
     public function getCacheKeyInfo()
     {
         $blockId = $this->getBlockId();
-        if ($blockId) {
-            $result = [
-                'CMS_BLOCK',
-                $blockId,
-                Mage::app()->getStore()->getCode(),
-            ];
-        } else {
-            $result = parent::getCacheKeyInfo();
-        }
+        $result = $blockId ? [
+            'CMS_BLOCK',
+            $blockId,
+            Mage::app()->getStore()->getCode(),
+        ] : parent::getCacheKeyInfo();
         return $result;
     }
 }

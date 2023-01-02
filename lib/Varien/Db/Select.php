@@ -445,11 +445,7 @@ class Varien_Db_Select extends Zend_Db_Select
      */
     public function exists($select, $joinCondition, $isExists = true)
     {
-        if ($isExists) {
-            $exists = 'EXISTS (%s)';
-        } else {
-            $exists = 'NOT EXISTS (%s)';
-        }
+        $exists = $isExists ? 'EXISTS (%s)' : 'NOT EXISTS (%s)';
         $select->reset(self::COLUMNS)
             ->columns([new Zend_Db_Expr('1')])
             ->where($joinCondition);

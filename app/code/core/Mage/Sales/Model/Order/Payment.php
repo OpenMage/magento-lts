@@ -1517,11 +1517,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         $txn = Mage::getModel('sales/order_payment_transaction')
             ->setOrderPaymentObject($this)
             ->loadByTxnId($txnId);
-        if ($txn->getId()) {
-            $this->_transactionsLookup[$txnId] = $txn;
-        } else {
-            $this->_transactionsLookup[$txnId] = false;
-        }
+        $this->_transactionsLookup[$txnId] = $txn->getId() ? $txn : false;
         return $this->_transactionsLookup[$txnId];
     }
 
@@ -1542,11 +1538,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     public function getAuthorizationTransaction()
     {
-        if ($this->getParentTransactionId()) {
-            $txn = $this->_lookupTransaction($this->getParentTransactionId());
-        } else {
-            $txn = false;
-        }
+        $txn = $this->getParentTransactionId() ? $this->_lookupTransaction($this->getParentTransactionId()) : false;
 
         if (!$txn) {
             $txn = $this->_lookupTransaction(false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH);

@@ -51,11 +51,7 @@ class Mage_Catalog_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_
     public function compareIndexColumnProperties($column, $describe)
     {
         $type = $column['type'];
-        if (isset($column['length'])) {
-            $type = sprintf('%s(%s)', $type[0], $column['length']);
-        } else {
-            $type = $type[0];
-        }
+        $type = isset($column['length']) ? sprintf('%s(%s)', $type[0], $column['length']) : $type[0];
         $length     = null;
         $precision  = null;
         $scale      = null;

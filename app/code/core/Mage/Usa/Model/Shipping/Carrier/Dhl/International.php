@@ -256,11 +256,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     {
         $request = $this->_request;
         foreach ($this->_requestVariables as $code => $objectCode) {
-            if ($request->getDhlId()) {
-                $value = $request->getData($objectCode['code']);
-            } else {
-                $value = $this->getConfigData($code);
-            }
+            $value = $request->getDhlId() ? $request->getData($objectCode['code']) : $this->getConfigData($code);
             $requestObject->setData($objectCode['setCode'], $value);
         }
         return $requestObject;
@@ -341,11 +337,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             $requestObject->setOrigState($request->getOrigState());
         }
 
-        if ($request->getDestCountryId()) {
-            $destCountry = $request->getDestCountryId();
-        } else {
-            $destCountry = self::USA_COUNTRY_ID;
-        }
+        $destCountry = $request->getDestCountryId() ? $request->getDestCountryId() : self::USA_COUNTRY_ID;
 
         // for DHL, Puerto Rico state for US will assume as Puerto Rico country
         // for Puerto Rico, dhl will ship as international

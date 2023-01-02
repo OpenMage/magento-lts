@@ -132,11 +132,7 @@ class Mage_Core_Model_Locale
      */
     public function setLocale($locale = null)
     {
-        if (($locale !== null) && is_string($locale)) {
-            $this->_localeCode = $locale;
-        } else {
-            $this->_localeCode = $this->getDefaultLocale();
-        }
+        $this->_localeCode = ($locale !== null) && is_string($locale) ? $locale : $this->getDefaultLocale();
         Mage::dispatchEvent('core_locale_set_locale', ['locale' => $this]);
         return $this;
     }
@@ -717,11 +713,7 @@ class Mage_Core_Model_Locale
             $requiredPrecision = strlen($t) - $pos - $totalPrecision;
         }
         $group = 0;
-        if (strrpos($format, ',') !== false) {
-            $group = ($decimalPoint - strrpos($format, ',') - 1);
-        } else {
-            $group = strrpos($format, '.');
-        }
+        $group = strrpos($format, ',') !== false ? $decimalPoint - strrpos($format, ',') - 1 : strrpos($format, '.');
         $integerRequired = (strpos($format, '.') - strpos($format, '0'));
 
         return [

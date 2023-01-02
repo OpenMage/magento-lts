@@ -276,11 +276,7 @@ class Mage_Core_Model_Cache
         } else {
             $options['auto_refresh_fast_cache'] = false;
         }
-        if (isset($cacheOptions['slow_backend'])) {
-            $options['slow_backend'] = $cacheOptions['slow_backend'];
-        } else {
-            $options['slow_backend'] = $this->_defaultBackend;
-        }
+        $options['slow_backend'] = isset($cacheOptions['slow_backend']) ? $cacheOptions['slow_backend'] : $this->_defaultBackend;
         if (isset($cacheOptions['slow_backend_options'])) {
             $options['slow_backend_options'] = $cacheOptions['slow_backend_options'];
         } else {
@@ -597,11 +593,7 @@ class Mage_Core_Model_Cache
     protected function _getInvalidatedTypes()
     {
         $types = $this->load(self::INVALIDATED_TYPES);
-        if ($types) {
-            $types = unserialize($types, ['allowed_classes' => false]);
-        } else {
-            $types = [];
-        }
+        $types = $types ? unserialize($types, ['allowed_classes' => false]) : [];
         return $types;
     }
 

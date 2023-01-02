@@ -434,11 +434,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         $mapper = $this->_getMapper();
 
-        if (isset($mapper['fields'][$field])) {
-            $mappedFiled = $mapper['fields'][$field];
-        } else {
-            $mappedFiled = $field;
-        }
+        $mappedFiled = isset($mapper['fields'][$field]) ? $mapper['fields'][$field] : $field;
 
         return $mappedFiled;
     }

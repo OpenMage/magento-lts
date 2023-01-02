@@ -44,11 +44,7 @@ class Varien_Debug
     public static function getRootPath()
     {
         if (is_null(self::$_filePath)) {
-            if (defined('BP')) {
-                self::$_filePath = BP;
-            } else {
-                self::$_filePath = dirname(__DIR__);
-            }
+            self::$_filePath = defined('BP') ? BP : dirname(__DIR__);
         }
         return self::$_filePath;
     }

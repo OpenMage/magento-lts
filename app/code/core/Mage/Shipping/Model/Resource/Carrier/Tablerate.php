@@ -369,11 +369,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         }
 
         // detect zip code
-        if ($row[2] == '*' || $row[2] == '') {
-            $zipCode = '*';
-        } else {
-            $zipCode = $row[2];
-        }
+        $zipCode = $row[2] == '*' || $row[2] == '' ? '*' : $row[2];
 
         // validate condition value
         $value = $this->_parseDecimalValue($row[3]);

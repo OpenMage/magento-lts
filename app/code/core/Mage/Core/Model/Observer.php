@@ -40,11 +40,7 @@ class Mage_Core_Model_Observer
         if (!$adminSession->hasSyncProcessStopWatch()) {
             $flag = Mage::getSingleton('core/file_storage')->getSyncFlag();
             $state = $flag->getState();
-            if ($state == Mage_Core_Model_File_Storage_Flag::STATE_RUNNING) {
-                $syncProcessStopWatch = true;
-            } else {
-                $syncProcessStopWatch = false;
-            }
+            $syncProcessStopWatch = $state == Mage_Core_Model_File_Storage_Flag::STATE_RUNNING ? true : false;
 
             $adminSession->setSyncProcessStopWatch($syncProcessStopWatch);
         }

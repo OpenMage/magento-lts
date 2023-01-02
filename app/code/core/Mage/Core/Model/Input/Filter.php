@@ -318,12 +318,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     protected function _createCustomZendFilter($filterData)
     {
         $filter = $filterData['model'];
-        if (!isset($filterData['args'])) {
-            $filterData['args'] = null;
-        } else {
-            //use only first element because Mage factory cannot get more
-            $filterData['args'] = $filterData['args'][0];
-        }
+        $filterData['args'] = !isset($filterData['args']) ? null : $filterData['args'][0];
         if (is_string($filterData['model'])) {
             $filter = Mage::getModel($filterData['model'], $filterData['args']);
         }

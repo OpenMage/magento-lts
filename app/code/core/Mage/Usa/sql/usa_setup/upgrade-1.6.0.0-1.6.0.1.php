@@ -87,11 +87,7 @@ foreach ($mapsOld as $mapOld) {
     } elseif (stripos($mapOld['path'], 'allowed_methods')) {
         $mapNew = [];
         foreach (explode(',', $mapOld['value']) as $shippingMethod) {
-            if (isset($codes['method'][$shippingMethod])) {
-                $mapNew[] = $codes['method'][$shippingMethod];
-            } else {
-                $mapNew[] = $shippingMethod;
-            }
+            $mapNew[] = isset($codes['method'][$shippingMethod]) ? $codes['method'][$shippingMethod] : $shippingMethod;
         }
         $mapNew = implode(',', $mapNew);
     } else {

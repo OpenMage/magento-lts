@@ -225,11 +225,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
      */
     public function getHeaderText()
     {
-        if ($_extOrderId = $this->getOrder()->getExtOrderId()) {
-            $_extOrderId = '[' . $_extOrderId . '] ';
-        } else {
-            $_extOrderId = '';
-        }
+        $_extOrderId = ($_extOrderId = $this->getOrder()->getExtOrderId()) ? '[' . $_extOrderId . '] ' : '';
         return Mage::helper('sales')->__(
             'Order # %s %s | %s',
             $this->getOrder()->getRealOrderId(),

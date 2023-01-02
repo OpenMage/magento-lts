@@ -810,11 +810,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
         $inventoryFields = $this->_inventoryFieldsProductTypes[$product->getTypeId()] ?? [];
         foreach ($inventoryFields as $field) {
             if (isset($importData[$field])) {
-                if (in_array($field, $this->_toNumber)) {
-                    $stockData[$field] = $this->getNumber($importData[$field]);
-                } else {
-                    $stockData[$field] = $importData[$field];
-                }
+                $stockData[$field] = in_array($field, $this->_toNumber) ? $this->getNumber($importData[$field]) : $importData[$field];
             }
         }
         $product->setStockData($stockData);

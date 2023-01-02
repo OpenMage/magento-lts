@@ -42,11 +42,7 @@ class Mage_Adminhtml_Block_Report_Config_Form_Field_YtdStart extends Mage_Adminh
             $_days[$i] = $i < 10 ? '0' . $i : $i;
         }
 
-        if ($element->getValue()) {
-            $values = explode(',', $element->getValue());
-        } else {
-            $values = [];
-        }
+        $values = $element->getValue() ? explode(',', $element->getValue()) : [];
 
         $element->setName($element->getName() . '[]');
 

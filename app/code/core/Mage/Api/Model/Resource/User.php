@@ -271,12 +271,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             );
             foreach ($rolesIds as $rid) {
                 $rid = (int) $rid;
-                if ($rid > 0) {
-                    //$row = $this->load($user, $rid);
-                    $row = ['tree_level' => 0];
-                } else {
-                    $row = ['tree_level' => 0];
-                }
+                $row = $rid > 0 ? ['tree_level' => 0] : ['tree_level' => 0];
 
                 $data = [
                     'parent_id'  => $rid,

@@ -61,11 +61,7 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     public function displayPrices($dataObject, $basePrice, $price, $strong = false, $separator = '<br/>')
     {
         $order = false;
-        if ($dataObject instanceof Mage_Sales_Model_Order) {
-            $order = $dataObject;
-        } else {
-            $order = $dataObject->getOrder();
-        }
+        $order = $dataObject instanceof Mage_Sales_Model_Order ? $dataObject : $dataObject->getOrder();
 
         if ($order && $order->isCurrencyDifferent()) {
             $res = '<strong>';

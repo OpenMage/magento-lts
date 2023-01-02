@@ -103,11 +103,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
                     $value = $this->_toArray($value);
                 } elseif (count($value->attributes()) > 0) {
                     $attributes = $value->attributes();
-                    if (isset($attributes['value'])) {
-                        $value = (string)$attributes['value'];
-                    } else {
-                        $value = $this->_toArray($value);
-                    }
+                    $value = isset($attributes['value']) ? (string)$attributes['value'] : $this->_toArray($value);
                 } else {
                     $value = (string) $value;
                 }

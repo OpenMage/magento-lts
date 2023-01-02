@@ -695,11 +695,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         foreach ($options as $option) {
             $optionPrices = [];
             foreach ($option['values'] as $value) {
-                if ($value['price_type'] == 'percent') {
-                    $valuePrice = $basePrice * $value['price_value'] / 100;
-                } else {
-                    $valuePrice = $value['price_value'];
-                }
+                $valuePrice = $value['price_type'] == 'percent' ? $basePrice * $value['price_value'] / 100 : $value['price_value'];
                 $optionPrices[] = $valuePrice;
             }
             if ($option['is_require']) {

@@ -39,11 +39,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
         /*
          * Checking if user have permissions to save information
          */
-        if ($this->_isAllowedAction('save')) {
-            $isElementDisabled = false;
-        } else {
-            $isElementDisabled = true;
-        }
+        $isElementDisabled = $this->_isAllowedAction('save') ? false : true;
 
         $form = new Varien_Data_Form();
 

@@ -202,11 +202,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 $type = $this->getEmailPriceDisplayType($store);
                 break;
             default:
-                if (Mage::registry('current_product')) {
-                    $type = $this->getPriceDisplayType($store);
-                } else {
-                    $type = $this->getListPriceDisplayType($store);
-                }
+                $type = Mage::registry('current_product') ? $this->getPriceDisplayType($store) : $this->getListPriceDisplayType($store);
                 break;
         }
 

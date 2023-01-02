@@ -172,11 +172,7 @@ class Mage_Core_Model_Design_Package
         if (empty($name)) {
             // see, if exceptions for user-agents defined in config
             $customPackage = $this->_checkUserAgentAgainstRegexps('design/package/ua_regexp');
-            if ($customPackage) {
-                $this->_name = $customPackage;
-            } else {
-                $this->_name = Mage::getStoreConfig('design/package/name', $this->getStore());
-            }
+            $this->_name = $customPackage ? $customPackage : Mage::getStoreConfig('design/package/name', $this->getStore());
         } else {
             $this->_name = $name;
         }
@@ -763,11 +759,7 @@ class Mage_Core_Model_Design_Package
             if (!file_exists($targetFile)) {
                 Mage::helper('core/file_storage_database')->saveFileToFilesystem($targetFile);
             }
-            if (file_exists($targetFile)) {
-                $filemtime = filemtime($targetFile);
-            } else {
-                $filemtime = null;
-            }
+            $filemtime = file_exists($targetFile) ? filemtime($targetFile) : null;
             $result = Mage::helper('core')->mergeFiles(
                 $srcFiles,
                 $targetFile,

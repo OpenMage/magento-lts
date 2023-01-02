@@ -199,11 +199,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
             $product->setRequestPath($requestPath);
         }
 
-        if (isset($params['_store'])) {
-            $storeId = $this->_getStoreId($params['_store']);
-        } else {
-            $storeId = $product->getStoreId();
-        }
+        $storeId = isset($params['_store']) ? $this->_getStoreId($params['_store']) : $product->getStoreId();
 
         if ($storeId != $this->_getStoreId()) {
             $params['_store_to_url'] = true;

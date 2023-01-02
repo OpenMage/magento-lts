@@ -102,16 +102,8 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
     protected function _prepareConfigArray($code, $totalConfig)
     {
         $totalConfig = (array)$totalConfig;
-        if (isset($totalConfig['before'])) {
-            $totalConfig['before'] = explode(',', $totalConfig['before']);
-        } else {
-            $totalConfig['before'] = [];
-        }
-        if (isset($totalConfig['after'])) {
-            $totalConfig['after'] = explode(',', $totalConfig['after']);
-        } else {
-            $totalConfig['after'] = [];
-        }
+        $totalConfig['before'] = isset($totalConfig['before']) ? explode(',', $totalConfig['before']) : [];
+        $totalConfig['after'] = isset($totalConfig['after']) ? explode(',', $totalConfig['after']) : [];
         $totalConfig['_code'] = $code;
         return $totalConfig;
     }

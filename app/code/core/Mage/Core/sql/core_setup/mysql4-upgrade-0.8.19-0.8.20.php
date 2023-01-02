@@ -37,11 +37,7 @@ $select = $installer->getConnection()->select()
 
 $data = [];
 foreach ($installer->getConnection()->fetchAll($select) as $row) {
-    if ($row['is_html']) {
-        $value = ['html_value' => $row['value']];
-    } else {
-        $value = ['plain_value' => $row['value']];
-    }
+    $value = $row['is_html'] ? ['html_value' => $row['value']] : ['plain_value' => $row['value']];
     $data[$row['variable_id']] = $value;
 }
 

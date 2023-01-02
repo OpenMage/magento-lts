@@ -67,11 +67,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             ->where('a.store_id=?', $storeId)
             ->where('a.key=?', $key);
         $data = $this->_getReadAdapter()->fetchOne($select);
-        if ($data) {
-            $data = unserialize($data, ['allowed_classes' => false]);
-        } else {
-            $data = [];
-        }
+        $data = $data ? unserialize($data, ['allowed_classes' => false]) : [];
         return $data;
     }
 

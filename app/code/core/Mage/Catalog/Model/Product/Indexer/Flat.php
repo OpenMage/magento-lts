@@ -144,11 +144,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
             if ($attribute && $event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
                 $result = $enableBefore;
             } elseif ($attribute && $event->getType() == Mage_Index_Model_Event::TYPE_SAVE) {
-                if ($enableAfter || $enableBefore) {
-                    $result = true;
-                } else {
-                    $result = false;
-                }
+                $result = $enableAfter || $enableBefore ? true : false;
             } else {
                 $result = false;
             }
@@ -158,20 +154,12 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
             } else {
                 /** @var Mage_Core_Model_Store $store */
                 $store = $event->getDataObject();
-                if ($store && $store->isObjectNew()) {
-                    $result = true;
-                } else {
-                    $result = false;
-                }
+                $result = $store && $store->isObjectNew() ? true : false;
             }
         } elseif ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             /** @var Mage_Core_Model_Store_Group $storeGroup */
             $storeGroup = $event->getDataObject();
-            if ($storeGroup && $storeGroup->dataHasChangedFor('website_id')) {
-                $result = true;
-            } else {
-                $result = false;
-            }
+            $result = $storeGroup && $storeGroup->dataHasChangedFor('website_id') ? true : false;
         } else {
             $result = parent::matchEvent($event);
         }

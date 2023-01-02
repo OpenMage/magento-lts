@@ -157,11 +157,7 @@ class Mage_Paypal_Model_Ipn
          */
         $responseCode = Zend_Http_Response::extractCode($postbackResult);
         if (empty($postbackResult) || in_array($responseCode, ['500', '502', '503'])) {
-            if (empty($postbackResult)) {
-                $reason = 'Empty response.';
-            } else {
-                $reason = 'Response code: ' . $responseCode . '.';
-            }
+            $reason = empty($postbackResult) ? 'Empty response.' : 'Response code: ' . $responseCode . '.';
             $this->_debugData['exception'] = 'PayPal IPN postback failure. ' . $reason;
             throw new Mage_Paypal_UnavailableException($reason);
         }

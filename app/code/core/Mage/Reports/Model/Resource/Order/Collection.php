@@ -807,11 +807,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
 
         $this->checkIsLive($period);
 
-        if ($this->isLive()) {
-            $fieldToFilter = 'created_at';
-        } else {
-            $fieldToFilter = 'period';
-        }
+        $fieldToFilter = $this->isLive() ? 'created_at' : 'period';
 
         $this->addFieldToFilter($fieldToFilter, [
             'from'  => $from->toString(Varien_Date::DATETIME_INTERNAL_FORMAT),

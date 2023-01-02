@@ -1055,11 +1055,7 @@ abstract class Mage_Api2_Model_Resource
         try {
             if ($this->getUserType() != Mage_Api2_Model_Auth_User_Admin::USER_TYPE) {
                 // customer or guest role
-                if (!$store) {
-                    $store = Mage::app()->getDefaultStoreView();
-                } else {
-                    $store = Mage::app()->getStore($store);
-                }
+                $store = !$store ? Mage::app()->getDefaultStoreView() : Mage::app()->getStore($store);
             } else {
                 // admin role
                 if (is_null($store)) {

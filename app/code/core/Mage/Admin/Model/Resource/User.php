@@ -236,11 +236,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             $adapter->delete($this->getTable('admin/role'), $conditions);
             foreach ($rolesIds as $rid) {
                 $rid = (int) $rid;
-                if ($rid > 0) {
-                    $role = Mage::getModel('admin/role')->load($rid);
-                } else {
-                    $role = new Varien_Object(['tree_level' => 0]);
-                }
+                $role = $rid > 0 ? Mage::getModel('admin/role')->load($rid) : new Varien_Object(['tree_level' => 0]);
 
                 $data = new Varien_Object([
                     'parent_id'  => $rid,

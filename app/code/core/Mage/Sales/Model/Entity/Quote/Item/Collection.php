@@ -70,11 +70,7 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
         $recollectQuote = false;
         foreach ($this as $item) {
             Varien_Profiler::start('TEST2: ' . __METHOD__);
-            if ($productCollection) {
-                $product = $productCollection->getItemById($item->getProductId());
-            } else {
-                $product = false;
-            }
+            $product = $productCollection ? $productCollection->getItemById($item->getProductId()) : false;
             if ($this->_quote) {
                 $item->setQuote($this->_quote);
             }

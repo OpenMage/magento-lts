@@ -1087,11 +1087,7 @@ class Mage_Core_Model_Url extends Varien_Object
     {
         $this->parseUrl($url);
         $port = $this->getPort();
-        if ($port) {
-            $port = ':' . $port;
-        } else {
-            $port = '';
-        }
+        $port = $port ? ':' . $port : '';
         $url = $this->getScheme() . '://' . $this->getHost() . $port . $this->getPath();
 
         $this->_prepareSessionUrl($url);

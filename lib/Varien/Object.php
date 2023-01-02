@@ -466,11 +466,7 @@ class Varien_Object implements ArrayAccess
 
         $arrRes = [];
         foreach ($arrAttributes as $attribute) {
-            if (isset($this->_data[$attribute])) {
-                $arrRes[$attribute] = $this->_data[$attribute];
-            } else {
-                $arrRes[$attribute] = null;
-            }
+            $arrRes[$attribute] = isset($this->_data[$attribute]) ? $this->_data[$attribute] : null;
         }
         return $arrRes;
     }
@@ -524,11 +520,7 @@ class Varien_Object implements ArrayAccess
         $xmlModel = new Varien_Simplexml_Element('<node></node>');
         $arrData = $this->toArray($arrAttributes);
         foreach ($arrData as $fieldName => $fieldValue) {
-            if ($addCdata === true) {
-                $fieldValue = "<![CDATA[$fieldValue]]>";
-            } else {
-                $fieldValue = $xmlModel->xmlentities($fieldValue);
-            }
+            $fieldValue = $addCdata === true ? "<![CDATA[$fieldValue]]>" : $xmlModel->xmlentities($fieldValue);
             $xml .= "<$fieldName>$fieldValue</$fieldName>" . "\n";
         }
         if (!empty($rootName)) {

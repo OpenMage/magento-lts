@@ -59,11 +59,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
     {
         $productIds = [];
         foreach ($products as $product) {
-            if ($product instanceof Mage_Catalog_Model_Product) {
-                $productIds[] = $product->getId();
-            } else {
-                $productIds[] = $product;
-            }
+            $productIds[] = $product instanceof Mage_Catalog_Model_Product ? $product->getId() : $product;
         }
         if (empty($productIds)) {
             $productIds[] = false;

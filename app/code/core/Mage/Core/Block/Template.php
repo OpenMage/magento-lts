@@ -271,11 +271,7 @@ HTML;
             echo '</div>';
         }
 
-        if (!$do) {
-            $html = ob_get_clean();
-        } else {
-            $html = '';
-        }
+        $html = !$do ? ob_get_clean() : '';
         Varien_Profiler::stop($fileName);
         return $html;
     }

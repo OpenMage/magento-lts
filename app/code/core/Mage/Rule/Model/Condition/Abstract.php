@@ -768,11 +768,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                     $value = (array)$value;
                     $match = count(array_intersect($validatedValue, $value));
 
-                    if (in_array($op, ['[]', '![]'])) {
-                        $result = $match == count($value);
-                    } else {
-                        $result = $match > 0;
-                    }
+                    $result = in_array($op, ['[]', '![]']) ? $match == count($value) : $match > 0;
                 } else {
                     $value = (array)$value;
                     foreach ($value as $item) {

@@ -91,11 +91,7 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
      */
     public function getRequestPathByIdPath($idPath, $store)
     {
-        if ($store instanceof Mage_Core_Model_Store) {
-            $storeId = (int)$store->getId();
-        } else {
-            $storeId = (int)$store;
-        }
+        $storeId = $store instanceof Mage_Core_Model_Store ? (int)$store->getId() : (int)$store;
 
         $select = $this->_getReadAdapter()->select();
         $select->from(['main_table' => $this->getMainTable()], 'request_path')

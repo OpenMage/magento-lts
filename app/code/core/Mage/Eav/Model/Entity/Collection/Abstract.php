@@ -1123,11 +1123,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         foreach ($selectGroups as $selects) {
             if (!empty($selects)) {
                 try {
-                    if (is_array($selects)) {
-                        $select = implode(' UNION ALL ', $selects);
-                    } else {
-                        $select = $selects;
-                    }
+                    $select = is_array($selects) ? implode(' UNION ALL ', $selects) : $selects;
 
                     $values = $this->getConnection()->fetchAll($select);
                 } catch (Exception $e) {

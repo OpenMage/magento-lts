@@ -127,11 +127,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     protected function _validateFile()
     {
         $filePath = $this->_file['tmp_name'];
-        if (is_readable($filePath)) {
-            $this->_fileExists = true;
-        } else {
-            $this->_fileExists = false;
-        }
+        $this->_fileExists = is_readable($filePath) ? true : false;
 
         $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
         if (!$this->checkAllowedExtension($fileExtension)) {

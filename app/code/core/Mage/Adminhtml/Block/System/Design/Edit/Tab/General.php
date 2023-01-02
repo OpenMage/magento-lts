@@ -76,11 +76,7 @@ class Mage_Adminhtml_Block_System_Design_Edit_Tab_General extends Mage_Adminhtml
         ]);
 
         $formData = Mage::getSingleton('adminhtml/session')->getDesignData(true);
-        if (!$formData) {
-            $formData = Mage::registry('design')->getData();
-        } else {
-            $formData = $formData['design'];
-        }
+        $formData = !$formData ? Mage::registry('design')->getData() : $formData['design'];
 
         $form->addValues($formData);
         $form->setFieldNameSuffix('design');

@@ -232,11 +232,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         } elseif (is_object($this->getAttributeObject())) {
             $attributeObject = $this->getAttributeObject();
             if ($attributeObject->usesSource()) {
-                if ($attributeObject->getFrontendInput() == 'multiselect') {
-                    $addEmptyOption = false;
-                } else {
-                    $addEmptyOption = true;
-                }
+                $addEmptyOption = $attributeObject->getFrontendInput() == 'multiselect' ? false : true;
                 $selectOptions = $attributeObject->getSource()->getAllOptions($addEmptyOption);
             }
         }

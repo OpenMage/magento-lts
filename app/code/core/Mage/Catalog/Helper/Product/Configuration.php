@@ -236,11 +236,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
             $_truncatedValue = nl2br($_truncatedValue);
             return ['value' => $_truncatedValue];
         } else {
-            if ($maxLength) {
-                $_truncatedValue = Mage::helper('core/string')->truncate($optionValue, $maxLength, '');
-            } else {
-                $_truncatedValue = $optionValue;
-            }
+            $_truncatedValue = $maxLength ? Mage::helper('core/string')->truncate($optionValue, $maxLength, '') : $optionValue;
             $_truncatedValue = nl2br($_truncatedValue);
         }
 

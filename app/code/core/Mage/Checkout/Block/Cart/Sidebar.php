@@ -87,11 +87,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         $config = Mage::getSingleton('tax/config');
         if (isset($totals['subtotal'])) {
             if ($config->displayCartSubtotalBoth()) {
-                if ($skipTax) {
-                    $subtotal = $totals['subtotal']->getValueExclTax();
-                } else {
-                    $subtotal = $totals['subtotal']->getValueInclTax();
-                }
+                $subtotal = $skipTax ? $totals['subtotal']->getValueExclTax() : $totals['subtotal']->getValueInclTax();
             } elseif ($config->displayCartSubtotalInclTax()) {
                 $subtotal = $totals['subtotal']->getValueInclTax();
             } else {

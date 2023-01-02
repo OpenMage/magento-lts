@@ -113,11 +113,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
      */
     public function joinOrders($from = '', $to = '')
     {
-        if ($from != '' && $to != '') {
-            $dateFilter = " AND orders.created_at BETWEEN '{$from}' AND '{$to}'";
-        } else {
-            $dateFilter = '';
-        }
+        $dateFilter = $from != '' && $to != '' ? " AND orders.created_at BETWEEN '{$from}' AND '{$to}'" : '';
 
         $this->getSelect()
             ->joinLeft(

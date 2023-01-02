@@ -385,11 +385,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             $this->_hasChild = (bool)$whetherHasChild;
             return $this;
         } elseif ($this->_hasChild === null) {
-            if ($this->getChildTransactions()) {
-                $this->_hasChild = true;
-            } else {
-                $this->_hasChild = false;
-            }
+            $this->_hasChild = $this->getChildTransactions() ? true : false;
         }
         return $this->_hasChild;
     }

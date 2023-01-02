@@ -289,11 +289,7 @@ class Mage_Index_Model_Lock
         if (!isset(self::$_lockFileResource[$lockName]) || self::$_lockFileResource[$lockName] === null) {
             $varDir = Mage::getConfig()->getVarDir('locks');
             $file = $varDir . DS . $lockName . '.lock';
-            if (is_file($file)) {
-                self::$_lockFileResource[$lockName] = fopen($file, 'w');
-            } else {
-                self::$_lockFileResource[$lockName] = fopen($file, 'x');
-            }
+            self::$_lockFileResource[$lockName] = is_file($file) ? fopen($file, 'w') : fopen($file, 'x');
             fwrite(self::$_lockFileResource[$lockName], date('r'));
         }
         return self::$_lockFileResource[$lockName];

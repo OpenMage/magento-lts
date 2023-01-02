@@ -123,11 +123,7 @@ class Mage_Eav_Model_Attribute_Data_Select extends Mage_Eav_Model_Attribute_Data
                 $output = $value;
                 break;
             default:
-                if ($value != '') {
-                    $output = $this->_getOptionText($value);
-                } else {
-                    $output = '';
-                }
+                $output = $value != '' ? $this->_getOptionText($value) : '';
                 break;
         }
 

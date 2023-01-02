@@ -291,11 +291,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
             $item['checked'] = false;
             $item['sort_order'] = isset($node->sort_order) ? (string) $node->sort_order : 0;
         }
-        if (isset($node->children)) {
-            $children = $node->children->children();
-        } else {
-            $children = $node->children();
-        }
+        $children = isset($node->children) ? $node->children->children() : $node->children();
 
         if (empty($children)) {
             /**

@@ -97,11 +97,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
 
                 $this->_sendTokenStatusChangeNotification($item, $status ? $this->__('revoked') : $this->__('enabled'));
             }
-            if ($status) {
-                $message = $this->__('Selected entries revoked.');
-            } else {
-                $message = $this->__('Selected entries enabled.');
-            }
+            $message = $status ? $this->__('Selected entries revoked.') : $this->__('Selected entries enabled.');
             $this->_getSession()->addSuccess($message);
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());

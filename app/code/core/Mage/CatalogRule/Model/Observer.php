@@ -149,11 +149,7 @@ class Mage_CatalogRule_Model_Observer
         $pId        = $product->getId();
         $storeId    = $product->getStoreId();
 
-        if ($observer->hasDate()) {
-            $date = $observer->getEvent()->getDate();
-        } else {
-            $date = Mage::app()->getLocale()->storeTimeStamp($storeId);
-        }
+        $date = $observer->hasDate() ? $observer->getEvent()->getDate() : Mage::app()->getLocale()->storeTimeStamp($storeId);
 
         if ($observer->hasWebsiteId()) {
             $wId = $observer->getEvent()->getWebsiteId();

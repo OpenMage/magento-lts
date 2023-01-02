@@ -341,11 +341,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     $parent->setChildrenNodes($childrenNodes);
                 }
 
-                if ($path) {
-                    $childrenPath = explode('/', $path);
-                } else {
-                    $childrenPath = [];
-                }
+                $childrenPath = $path ? explode('/', $path) : [];
                 $childrenPath[] = $child->getId();
                 $childrenPath = implode('/', $childrenPath);
                 $this->addChildNodes($children, $childrenPath, $child);
@@ -381,11 +377,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 }
                 $this->addChildNodes($childrenItems, $parentNode->getPath(), $parentNode);
                 $childrenNodes = $this->_nodes[$parentNode->getId()];
-                if ($childrenNodes->getChildrenNodes()) {
-                    $this->_nodes = $childrenNodes->getChildrenNodes();
-                } else {
-                    $this->_nodes = [];
-                }
+                $this->_nodes = $childrenNodes->getChildrenNodes() ? $childrenNodes->getChildrenNodes() : [];
                 $this->_loaded = true;
             }
         }
@@ -458,11 +450,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     public function isBuilt($storeView = null)
     {
         $storeView = is_null($storeView) ? Mage::app()->getDefaultStoreView() : Mage::app()->getStore($storeView);
-        if ($storeView === null) {
-            $storeId = Mage_Core_Model_App::ADMIN_STORE_ID;
-        } else {
-            $storeId = $storeView->getId();
-        }
+        $storeId = $storeView === null ? Mage_Core_Model_App::ADMIN_STORE_ID : $storeView->getId();
         if (!isset($this->_isBuilt[$storeId])) {
             $select = $this->_getReadAdapter()->select()
                 ->from($this->getMainStoreTable($storeId), 'entity_id')
@@ -542,11 +530,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     {
         $values = [];
         foreach (array_keys($this->_columns) as $key => $column) {
-            if (isset($data[$column])) {
-                $values[$column] = $data[$column];
-            } else {
-                $values[$column] = null;
-            }
+            $values[$column] = isset($data[$column]) ? $data[$column] : null;
         }
         return $values;
     }

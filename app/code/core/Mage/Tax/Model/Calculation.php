@@ -654,11 +654,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     {
         $taxRate = $taxRate / 100;
 
-        if ($priceIncludeTax) {
-            $amount = $price * (1 - 1 / (1 + $taxRate));
-        } else {
-            $amount = $price * $taxRate;
-        }
+        $amount = $priceIncludeTax ? $price * (1 - 1 / (1 + $taxRate)) : $price * $taxRate;
 
         if ($round) {
             return $this->round($amount);

@@ -97,11 +97,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
 
             $menuArr['sort_order'] = $child->sort_order ? (int)$child->sort_order : $sortOrder;
 
-            if ($child->action) {
-                $menuArr['url'] = (string)$child->action;
-            } else {
-                $menuArr['url'] = '';
-            }
+            $menuArr['url'] = $child->action ? (string)$child->action : '';
 
             $menuArr['level'] = $level;
             $menuArr['path'] = $path . $childName;

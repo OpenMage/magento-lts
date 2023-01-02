@@ -98,11 +98,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
 
         Mage::register('permissions_user', $model);
 
-        if (isset($id)) {
-            $breadcrumb = $this->__('Edit User');
-        } else {
-            $breadcrumb = $this->__('New User');
-        }
+        $breadcrumb = isset($id) ? $this->__('Edit User') : $this->__('New User');
         $this->_initAction()
             ->_addBreadcrumb($breadcrumb, $breadcrumb);
 

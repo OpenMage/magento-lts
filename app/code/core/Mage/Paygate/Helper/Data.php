@@ -101,11 +101,7 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
             $amount = $this->__('amount %s', $this->_formatPrice($payment, $amount));
         }
 
-        if ($exception) {
-            $result = $this->__('failed');
-        } else {
-            $result = $this->__('successful');
-        }
+        $result = $exception ? $this->__('failed') : $this->__('successful');
 
         $card = $this->__('Credit Card: xxxx-%s', $card->getCcLast4());
 

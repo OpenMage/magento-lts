@@ -214,11 +214,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     public function getDefaultValue()
     {
         if ($this->_defaultValue === null) {
-            if ($this->getAttribute()->getDefaultValue()) {
-                $this->_defaultValue = $this->getAttribute()->getDefaultValue();
-            } else {
-                $this->_defaultValue = "";
-            }
+            $this->_defaultValue = $this->getAttribute()->getDefaultValue() ? $this->getAttribute()->getDefaultValue() : "";
         }
 
         return $this->_defaultValue;

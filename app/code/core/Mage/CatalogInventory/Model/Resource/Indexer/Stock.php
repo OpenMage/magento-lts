@@ -80,11 +80,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
             $productIds = [$productIds];
         }
         $parentIds = $this->getRelationsByChild($productIds);
-        if ($parentIds) {
-            $processIds = array_merge($parentIds, $productIds);
-        } else {
-            $processIds = $productIds;
-        }
+        $processIds = $parentIds ? array_merge($parentIds, $productIds) : $productIds;
 
         // retrieve product types by processIds
         $select = $adapter->select()

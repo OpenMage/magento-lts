@@ -150,11 +150,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
             }
         }
 
-        if ($withForeignKeys) {
-            $sql = $row['Create Table'];
-        } else {
-            $sql = preg_replace($regExp, '', $row['Create Table']);
-        }
+        $sql = $withForeignKeys ? $row['Create Table'] : preg_replace($regExp, '', $row['Create Table']);
 
         return $sql . ';';
     }

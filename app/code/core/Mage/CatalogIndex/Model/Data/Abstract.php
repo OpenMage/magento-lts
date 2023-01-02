@@ -216,11 +216,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     {
         $attributeId = Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'tax_class_id');
         $taxClassId  = $this->getResource()->getAttributeData([$productId], [$attributeId], $store->getId());
-        if (is_array($taxClassId) && isset($taxClassId[0]['value'])) {
-            $taxClassId = $taxClassId[0]['value'];
-        } else {
-            $taxClassId = 0;
-        }
+        $taxClassId = is_array($taxClassId) && isset($taxClassId[0]['value']) ? $taxClassId[0]['value'] : 0;
         return $taxClassId;
     }
 

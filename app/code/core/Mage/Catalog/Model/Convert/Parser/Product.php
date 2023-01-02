@@ -468,11 +468,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                         );
                         continue;
                     }
-                    if (is_array($option)) {
-                        $value = implode(self::MULTI_DELIMITER, $option);
-                    } else {
-                        $value = $option;
-                    }
+                    $value = is_array($option) ? implode(self::MULTI_DELIMITER, $option) : $option;
                     unset($option);
                 } elseif (is_array($value)) {
                     continue;

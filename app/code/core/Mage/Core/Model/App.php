@@ -409,11 +409,7 @@ class Mage_Core_Model_App
     {
         $this->_isCacheLocked = true;
         $options = $this->_config->getNode('global/cache');
-        if ($options) {
-            $options = $options->asArray();
-        } else {
-            $options = [];
-        }
+        $options = $options ? $options->asArray() : [];
         $options = array_merge($options, $cacheInitOptions);
         $this->_cache = Mage::getModel('core/cache', $options);
         $this->_isCacheLocked = false;

@@ -58,11 +58,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
         }
         if (is_array($data)) {
             foreach ($data as $key => $value) {
-                if (is_object($value) || is_array($value)) {
-                    $data[$key] = $this->_prepareData($value);
-                } else {
-                    $data[$key] = $value;
-                }
+                $data[$key] = is_object($value) || is_array($value) ? $this->_prepareData($value) : $value;
             }
             return parent::_prepareData($data);
         }

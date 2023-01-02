@@ -74,11 +74,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     {
         $adapter = $this->_getReadAdapter();
 
-        if ($product instanceof Mage_Catalog_Model_Product) {
-            $productId = $product->getId();
-        } else {
-            $productId = $product;
-        }
+        $productId = $product instanceof Mage_Catalog_Model_Product ? $product->getId() : $product;
 
         $select = $adapter->select()
             ->from($this->_productWebsiteTable, 'website_id')

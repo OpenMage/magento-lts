@@ -120,11 +120,7 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
      */
     public function getOptionsByItem($item)
     {
-        if ($item instanceof Mage_Wishlist_Model_Item) {
-            $itemId = $item->getId();
-        } else {
-            $itemId = $item;
-        }
+        $itemId = $item instanceof Mage_Wishlist_Model_Item ? $item->getId() : $item;
 
         $this->load();
 
@@ -146,11 +142,7 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
      */
     public function getOptionsByProduct($product)
     {
-        if ($product instanceof Mage_Catalog_Model_Product) {
-            $productId = $product->getId();
-        } else {
-            $productId = $product;
-        }
+        $productId = $product instanceof Mage_Catalog_Model_Product ? $product->getId() : $product;
 
         $this->load();
 

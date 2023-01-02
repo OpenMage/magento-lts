@@ -57,11 +57,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
         }
 
         $shipment = Mage::registry('current_shipment');
-        if ($shipment) {
-            $this->_shipmentsCollection = [$shipment];
-        } else {
-            $this->_shipmentsCollection = $this->getOrder()->getShipmentsCollection();
-        }
+        $this->_shipmentsCollection = $shipment ? [$shipment] : $this->getOrder()->getShipmentsCollection();
 
         return parent::_beforeToHtml();
     }

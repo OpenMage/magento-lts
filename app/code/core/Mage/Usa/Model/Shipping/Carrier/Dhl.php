@@ -192,32 +192,16 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             $r->setService($request->getLimitMethod());
         }
 
-        if ($request->getDhlId()) {
-            $id = $request->getDhlId();
-        } else {
-            $id = $this->getConfigData('id');
-        }
+        $id = $request->getDhlId() ? $request->getDhlId() : $this->getConfigData('id');
         $r->setId($id);
 
-        if ($request->getDhlPassword()) {
-            $password = $request->getDhlPassword();
-        } else {
-            $password = $this->getConfigData('password');
-        }
+        $password = $request->getDhlPassword() ? $request->getDhlPassword() : $this->getConfigData('password');
         $r->setPassword($password);
 
-        if ($request->getDhlAccount()) {
-            $accountNbr = $request->getDhlAccount();
-        } else {
-            $accountNbr = $this->getConfigData('account');
-        }
+        $accountNbr = $request->getDhlAccount() ? $request->getDhlAccount() : $this->getConfigData('account');
         $r->setAccountNbr($accountNbr);
 
-        if ($request->getDhlShippingKey()) {
-            $shippingKey = $request->getDhlShippingKey();
-        } else {
-            $shippingKey = $this->getConfigData('shipping_key');
-        }
+        $shippingKey = $request->getDhlShippingKey() ? $request->getDhlShippingKey() : $this->getConfigData('shipping_key');
         $r->setShippingKey($shippingKey);
 
         if ($request->getDhlShippingIntlKey()) {
@@ -227,18 +211,10 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         }
         $r->setShippingIntlKey($shippingKey);
 
-        if ($request->getDhlShipmentType()) {
-            $shipmentType = $request->getDhlShipmentType();
-        } else {
-            $shipmentType = $this->getConfigData('shipment_type');
-        }
+        $shipmentType = $request->getDhlShipmentType() ? $request->getDhlShipmentType() : $this->getConfigData('shipment_type');
         $r->setShipmentType($shipmentType);
 
-        if ($request->getDhlDutiable()) {
-            $shipmentDutible = $request->getDhlDutiable();
-        } else {
-            $shipmentDutible = $this->getConfigData('dutiable');
-        }
+        $shipmentDutible = $request->getDhlDutiable() ? $request->getDhlDutiable() : $this->getConfigData('dutiable');
         $r->setDutiable($shipmentDutible);
 
         if ($request->getDhlDutyPaymentType()) {
@@ -248,11 +224,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         }
         $r->setDutyPaymentType($dutypaytype);
 
-        if ($request->getDhlContentDesc()) {
-            $contentdesc = $request->getDhlContentDesc();
-        } else {
-            $contentdesc = $this->getConfigData('contentdesc');
-        }
+        $contentdesc = $request->getDhlContentDesc() ? $request->getDhlContentDesc() : $this->getConfigData('contentdesc');
         $r->setContentDesc($contentdesc);
 
         if ($request->getDestPostcode()) {
@@ -345,11 +317,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             $r->setOrigState($request->getOrigState());
         }
 
-        if ($request->getDestCountryId()) {
-            $destCountry = $request->getDestCountryId();
-        } else {
-            $destCountry = self::USA_COUNTRY_ID;
-        }
+        $destCountry = $request->getDestCountryId() ? $request->getDestCountryId() : self::USA_COUNTRY_ID;
 
         //for DHL, puero rico state for US will assume as puerto rico country
         //for puerto rico, dhl will ship as international
@@ -486,11 +454,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                 } elseif ($r->getDestCountryId() != self::USA_COUNTRY_ID && $method == $internationcode) {
                     $shipment = $xml->addChild('IntlShipment');
                     $shipKey = $r->getShippingIntlKey();
-                    if ($r->getCustomsValue() != null && $r->getCustomsValue() != '') {
-                        $customsValue =  $r->getCustomsValue();
-                    } else {
-                        $customsValue =  $r->getValue();
-                    }
+                    $customsValue = $r->getCustomsValue() != null && $r->getCustomsValue() != '' ? $r->getCustomsValue() : $r->getValue();
 
                     $r->setShipDate($this->_getShipDate(false));
 

@@ -78,11 +78,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if ($this->_encryptor === null) {
             $encryptionModel = (string)Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
-            if ($encryptionModel) {
-                $this->_encryptor = new $encryptionModel();
-            } else {
-                $this->_encryptor = Mage::getModel('core/encryption');
-            }
+            $this->_encryptor = $encryptionModel ? new $encryptionModel() : Mage::getModel('core/encryption');
 
             $this->_encryptor->setHelper($this);
         }
@@ -479,11 +475,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 continue;
             }
 
-            if ($sourceIsArray) {
-                $value = $source[$code] ?? null;
-            } else {
-                $value = $source->getDataUsingMethod($code);
-            }
+            $value = $sourceIsArray ? $source[$code] ?? null : $source->getDataUsingMethod($code);
 
             $targetCode = (string)$node->$aspect;
             $targetCode = $targetCode == '*' ? $code : $targetCode;
@@ -670,11 +662,7 @@ XML;
             } else {
                 // try to transform it into string value, trimming spaces between elements
                 $array[$key] = trim((string)$value);
-                if (empty($array[$key]) && !empty($value)) {
-                    $array[$key] = self::xmlToAssoc($value);
-                } else { // untrim strings values
-                    $array[$key] = (string)$value;
-                }
+                $array[$key] = empty($array[$key]) && !empty($value) ? self::xmlToAssoc($value) : (string)$value;
             }
         }
         return $array;

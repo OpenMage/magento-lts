@@ -72,11 +72,7 @@ abstract class Mage_Adminhtml_Helper_Dashboard_Abstract extends Mage_Core_Helper
         $result = [];
         foreach ($this->getItems() as $item) {
             if (is_array($item)) {
-                if (isset($item[$index])) {
-                    $result[] = $item[$index];
-                } else {
-                    $result[] = null;
-                }
+                $result[] = isset($item[$index]) ? $item[$index] : null;
             } elseif ($item instanceof Varien_Object) {
                 $result[] = $item->getData($index);
             } else {

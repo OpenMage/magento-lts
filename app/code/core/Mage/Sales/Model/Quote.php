@@ -341,11 +341,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $globalCurrencyCode  = Mage::app()->getBaseCurrencyCode();
         $baseCurrency = $this->getStore()->getBaseCurrency();
 
-        if ($this->hasForcedCurrency()) {
-            $quoteCurrency = $this->getForcedCurrency();
-        } else {
-            $quoteCurrency = $this->getStore()->getCurrentCurrency();
-        }
+        $quoteCurrency = $this->hasForcedCurrency() ? $this->getForcedCurrency() : $this->getStore()->getCurrentCurrency();
 
         $this->setGlobalCurrencyCode($globalCurrencyCode);
         $this->setBaseCurrencyCode($baseCurrency->getCode());
@@ -403,11 +399,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function loadByCustomer($customer)
     {
-        if ($customer instanceof Mage_Customer_Model_Customer) {
-            $customerId = $customer->getId();
-        } else {
-            $customerId = (int) $customer;
-        }
+        $customerId = $customer instanceof Mage_Customer_Model_Customer ? $customer->getId() : (int) $customer;
         $this->_getResource()->loadByCustomerId($this, $customerId);
         $this->_afterLoad();
         return $this;

@@ -43,11 +43,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
     public function loadByProduct(Mage_Catalog_Model_Product_Compare_Item $object, $product)
     {
         $read = $this->_getReadAdapter();
-        if ($product instanceof Mage_Catalog_Model_Product) {
-            $productId = $product->getId();
-        } else {
-            $productId = $product;
-        }
+        $productId = $product instanceof Mage_Catalog_Model_Product ? $product->getId() : $product;
         $select = $read->select()->from($this->getMainTable())
             ->where('product_id = ?', (int)$productId);
 

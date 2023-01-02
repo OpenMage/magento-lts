@@ -60,11 +60,7 @@ class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model
 
         if (is_array($indexTable)) {
             foreach ($indexTable as $k => $v) {
-                if (is_string($k)) {
-                    $indexAlias = $k;
-                } else {
-                    $indexAlias = $v;
-                }
+                $indexAlias = is_string($k) ? $k : $v;
                 break;
             }
         } else {

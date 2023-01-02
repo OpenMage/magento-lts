@@ -66,11 +66,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
             ->setSharedStoreIds($storeIds)
             ->loadByCustomer($customer);
 
-        if ($quote) {
-            $collection = $quote->getItemsCollection(false);
-        } else {
-            $collection = new Varien_Data_Collection();
-        }
+        $collection = $quote ? $quote->getItemsCollection(false) : new Varien_Data_Collection();
 
         $collection->addFieldToFilter('parent_item_id', ['null' => true]);
 

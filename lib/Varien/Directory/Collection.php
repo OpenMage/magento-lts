@@ -395,21 +395,9 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
             }
         }
         $filter = [];
-        if (count($exts) > 0) {
-            $filter['extension'] = $exts;
-        } else {
-            $filter['extension'] = null;
-        }
-        if (count($names) > 0) {
-            $filter['name'] = $names;
-        } else {
-            $filter['name'] = null;
-        }
-        if (count($regName) > 0) {
-            $filter['regName'] = $regName;
-        } else {
-            $filter['regName'] = null;
-        }
+        $filter['extension'] = count($exts) > 0 ? $exts : null;
+        $filter['name'] = count($names) > 0 ? $names : null;
+        $filter['regName'] = count($regName) > 0 ? $regName : null;
         $this->setFilesFilter($filter);
     }
     /**

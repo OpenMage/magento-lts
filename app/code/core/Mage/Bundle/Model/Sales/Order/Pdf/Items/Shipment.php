@@ -50,11 +50,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
             $line   = [];
 
             $attributes = $this->getSelectionAttributes($_item);
-            if (is_array($attributes)) {
-                $optionId   = $attributes['option_id'];
-            } else {
-                $optionId = 0;
-            }
+            $optionId = is_array($attributes) ? $attributes['option_id'] : 0;
 
             if (!isset($drawItems[$optionId])) {
                 $drawItems[$optionId] = [
