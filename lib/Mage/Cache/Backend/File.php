@@ -369,7 +369,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
             'tags'   => $metadatas['tags']
         ];
 
-        return !!$this->_filePutContents($file, serialize($newMetadatas) . "\n" . $data);
+        return (bool) $this->_filePutContents($file, serialize($newMetadatas) . "\n" . $data);
     }
 
     /**
