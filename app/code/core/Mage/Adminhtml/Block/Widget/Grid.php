@@ -423,7 +423,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $values = array_values($this->_columns);
 
         foreach ($this->getColumnsOrder() as $columnId => $after) {
-            if (array_search($after, $keys) !== false) {
+            if (in_array($after, $keys)) {
                 // Moving grid column
                 $positionCurrent = array_search($columnId, $keys);
 
