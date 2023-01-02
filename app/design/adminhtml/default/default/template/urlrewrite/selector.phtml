@@ -35,7 +35,7 @@
             <?php $url = Mage::helper('adminhtml')->getUrl('*/*/*')?>
             <select class="select" onchange="window.location = this.value;">
             <?php foreach ($this->getModes() as $mode => $label): ?>
-                <option <?php echo ($this->isMode($mode) ? 'selected="selected" ' : '') ?>value="<?php echo $url . $mode ?>"><?php echo $label ?></option>
+                <option <?php echo($this->isMode($mode) ? 'selected="selected" ' : '') ?>value="<?php echo $url . $mode ?>"><?php echo $label ?></option>
             <?php endforeach ?>
             </select>
         </td>

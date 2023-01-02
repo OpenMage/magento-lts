@@ -28,7 +28,7 @@
     <?php $_index=0 ?>
     <?php foreach ($this->getAddressCollection() as $_address): ?>
         <?php if ($_index%3==0): ?><div class="col3-set"><?php endif ?>
-        <div class="col-<?php echo ($_index%3+1) ?>">
+        <div class="col-<?php echo($_index%3+1) ?>">
                 <p class="actions">
                     <a href="<?php echo $this->getEditAddressUrl($_address) ?>"><?php echo $this->__('Edit Address') ?></a> <span class="separator">|</span>
                     <a href="<?php echo $this->getSetAddressUrl($_address) ?>"><strong><?php echo $this->__('Select Address') ?></strong></a>

@@ -40,7 +40,7 @@
     echo '<em>*</em>';
 } ?><?php echo $this->__('State/Province') ?></label>
                     <div class="input-box">
-                        <select id="region_id" name="region_id" title="<?php echo Mage::helper('core')->quoteEscape($this->__('State/Province')) ?>" style="display:none;"<?php echo ($this->isStateProvinceRequired() ? ' class="validate-select"' : '') ?>>
+                        <select id="region_id" name="region_id" title="<?php echo Mage::helper('core')->quoteEscape($this->__('State/Province')) ?>" style="display:none;"<?php echo($this->isStateProvinceRequired() ? ' class="validate-select"' : '') ?>>
                             <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
                         </select>
                        <script type="text/javascript">

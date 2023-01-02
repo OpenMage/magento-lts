@@ -38,7 +38,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
 
 ?>
 <?php if (count($_tierPrices) > 0): ?>
-    <ul class="<?php echo ($this->getInGrouped() ? 'tier-prices-grouped product-pricing-grouped' : 'tier-prices product-pricing'); ?>">
+    <ul class="<?php echo($this->getInGrouped() ? 'tier-prices-grouped product-pricing-grouped' : 'tier-prices product-pricing'); ?>">
     <?php if ($this->getInGrouped()): ?>
         <?php $_tierPrices = $this->getTierPrices($_product); ?>
     <?php endif ?>
@@ -187,7 +187,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
 
         <?php if ($_catalogHelper->isShowPriceOnGesture($_product)):?>
             <?php $popupId = 'msrp-popup-' . $_product->getId() . $this->helper('core')->getRandomString(20); ?>
-            <a href="#" id="<?php echo ($popupId);?>"><?php echo $this->__('Click for price'); ?></a>
+            <a href="#" id="<?php echo($popupId);?>"><?php echo $this->__('Click for price'); ?></a>
             <script type="text/javascript">
             <?php
                     $addToCartUrl = $this->getProduct()->isSalable()

@@ -113,8 +113,8 @@
                 <?php elseif (isset($track['title']) && isset($track['number']) && $track['number']): ?>
                 <!--if the tracking is custom value-->
                   <tr>
-                    <td class="first label"><?php echo ($track['title'] ? $this->escapeHtml($track['title']) : $this->__('N/A')); ?>:</td>
-                    <td><?php echo (isset($track['number']) ? $this->escapeHtml($track['number']) : ''); ?></td>
+                    <td class="first label"><?php echo($track['title'] ? $this->escapeHtml($track['title']) : $this->__('N/A')); ?>:</td>
+                    <td><?php echo(isset($track['number']) ? $this->escapeHtml($track['number']) : ''); ?></td>
                 </tr>
                 <?php endif ?>
 
@@ -135,10 +135,10 @@
                     <?php $_detailDate = (isset($_detail['deliverydate']) ? $this->formatDeliveryDate($_detail['deliverydate']) : '') ?>
                     <?php $_detailTime = (isset($_detail['deliverytime']) ? $this->formatDeliveryTime($_detail['deliverytime'], $_detailDate) : '') ?>
                     <tr>
-                        <td><?php echo (isset($_detail['deliverylocation']) ? $_detail['deliverylocation'] : ''); ?></td>
+                        <td><?php echo(isset($_detail['deliverylocation']) ? $_detail['deliverylocation'] : ''); ?></td>
                         <td><?php echo $_detailDate ?></td>
                         <td><?php echo $_detailTime ?></td>
-                        <td><?php echo (isset($_detail['activity']) ? $_detail['activity'] : '') ?></td>
+                        <td><?php echo(isset($_detail['activity']) ? $_detail['activity'] : '') ?></td>
                     </tr>
                    <?php endforeach ?>
                 </table>
