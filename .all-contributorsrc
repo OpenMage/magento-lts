@@ -1332,7 +1332,10 @@
       "login": "cebe",
       "name": "Carsten Brandt",
       "avatar_url": "https://avatars.githubusercontent.com/u/189796?v=4",
-      "profile": "http://cebe.cc/"
+      "profile": "http://cebe.cc/",
+      "contributions": [
+        "code"
+      ]
     },
     {
       "login": "eneiasramos",
@@ -1348,6 +1351,15 @@
       "name": "Scott Moore",
       "avatar_url": "https://avatars.githubusercontent.com/u/5454596?v=4",
       "profile": "https://github.com/discountscott",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "rfeese",
+      "name": "Roger Feese",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7074181?v=4",
+      "profile": "https://github.com/rfeese",
       "contributions": [
         "code"
       ]

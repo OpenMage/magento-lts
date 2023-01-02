@@ -37,13 +37,14 @@ class Mage_Autoload_Simple
         spl_autoload_register([self::instance(), 'autoload']);
     }
 
-    /**
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
-     */
     public function autoload($class)
     {
         $classFile = str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $class)));
         $classFile .= '.php';
-        @include $classFile;
+        /** @see https://stackoverflow.com/a/5504486/716029 */
+        $found = stream_resolve_include_path($classFile);
+        if ($found !== false) {
+            include $found;
+        }
     }
 }
