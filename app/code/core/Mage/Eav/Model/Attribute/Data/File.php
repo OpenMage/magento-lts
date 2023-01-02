@@ -59,7 +59,6 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
                 $mainScope  = $this->_requestScope;
                 $scopes     = [];
             }
-
             if (!empty($_FILES[$mainScope])) {
                 foreach ($_FILES[$mainScope] as $fileKey => $scopeData) {
                     foreach ($scopes as $scopeName) {
@@ -77,12 +76,10 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             } else {
                 $value = [];
             }
+        } elseif (isset($_FILES[$attrCode])) {
+            $value = $_FILES[$attrCode];
         } else {
-            if (isset($_FILES[$attrCode])) {
-                $value = $_FILES[$attrCode];
-            } else {
-                $value = [];
-            }
+            $value = [];
         }
 
         if (!empty($extend['delete'])) {

@@ -193,12 +193,10 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
             }
             $this->loadLayout('print');
             $this->renderLayout();
+        } elseif (Mage::getSingleton('customer/session')->isLoggedIn()) {
+            $this->_redirect('*/*/history');
         } else {
-            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-                $this->_redirect('*/*/history');
-            } else {
-                $this->_redirect('sales/guest/form');
-            }
+            $this->_redirect('sales/guest/form');
         }
     }
 
@@ -222,12 +220,10 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
             }
             $this->loadLayout('print');
             $this->renderLayout();
+        } elseif (Mage::getSingleton('customer/session')->isLoggedIn()) {
+            $this->_redirect('*/*/history');
         } else {
-            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-                $this->_redirect('*/*/history');
-            } else {
-                $this->_redirect('sales/guest/form');
-            }
+            $this->_redirect('sales/guest/form');
         }
     }
 
@@ -252,12 +248,10 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
             }
             $this->loadLayout('print');
             $this->renderLayout();
+        } elseif (Mage::getSingleton('customer/session')->isLoggedIn()) {
+            $this->_redirect('*/*/history');
         } else {
-            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-                $this->_redirect('*/*/history');
-            } else {
-                $this->_redirect('sales/guest/form');
-            }
+            $this->_redirect('sales/guest/form');
         }
     }
 }

@@ -174,14 +174,12 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
                 Mage::getSingleton('catalog/session')->addSuccess($this->__('The link to a friend was sent.'));
                 $this->_redirectSuccess($product->getProductUrl());
                 return;
-            } else {
-                if (is_array($validate)) {
-                    foreach ($validate as $errorMessage) {
-                        Mage::getSingleton('catalog/session')->addError($errorMessage);
-                    }
-                } else {
-                    Mage::getSingleton('catalog/session')->addError($this->__('There were some problems with the data.'));
+            } elseif (is_array($validate)) {
+                foreach ($validate as $errorMessage) {
+                    Mage::getSingleton('catalog/session')->addError($errorMessage);
                 }
+            } else {
+                Mage::getSingleton('catalog/session')->addError($this->__('There were some problems with the data.'));
             }
         } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('catalog/session')->addError($e->getMessage());

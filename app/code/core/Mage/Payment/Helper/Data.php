@@ -207,12 +207,10 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
         $groupRelations = [];
 
         foreach ($this->getPaymentMethods($store) as $code => $data) {
-            if ((isset($data['title']))) {
+            if (isset($data['title'])) {
                 $methods[$code] = $data['title'];
-            } else {
-                if ($this->getMethodInstance($code)) {
-                    $methods[$code] = $this->getMethodInstance($code)->getConfigData('title', $store);
-                }
+            } elseif ($this->getMethodInstance($code)) {
+                $methods[$code] = $this->getMethodInstance($code)->getConfigData('title', $store);
             }
             if ($asLabelValue && $withGroups && isset($data['group'])) {
                 $groupRelations[$code] = $data['group'];

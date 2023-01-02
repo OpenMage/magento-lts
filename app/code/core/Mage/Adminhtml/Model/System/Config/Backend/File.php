@@ -45,7 +45,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
         $value = $this->getValue();
         if (!empty($_FILES['groups']['tmp_name'][$this->getGroupId()]['fields'][$this->getField()]['value'])) {
             $uploadDir = $this->_getUploadDir();
-
             try {
                 $file = [];
                 $tmpName = $_FILES['groups']['tmp_name'];
@@ -60,7 +59,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
             } catch (Exception $e) {
                 Mage::throwException($e->getMessage());
             }
-
             $filename = $result['file'];
             if ($filename) {
                 if ($this->_addWhetherScopeInfo()) {
@@ -68,15 +66,13 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
                 }
                 $this->setValue($filename);
             }
+        } elseif (is_array($value) && !empty($value['delete'])) {
+            // Delete record before it is saved
+            $this->delete();
+            // Prevent record from being saved, since it was just deleted
+            $this->_dataSaveAllowed = false;
         } else {
-            if (is_array($value) && !empty($value['delete'])) {
-                // Delete record before it is saved
-                $this->delete();
-                // Prevent record from being saved, since it was just deleted
-                $this->_dataSaveAllowed = false;
-            } else {
-                $this->unsValue();
-            }
+            $this->unsValue();
         }
 
         return $this;

@@ -200,11 +200,9 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
             if ($category->getId() || $product->getId()) {
                 $_category = $category;
             }
-
             if ($product->getId()) {
                 $_product = $product;
             }
-
             if ($_category || $_product) {
                 $catalogUrlModel = Mage::getSingleton('catalog/url');
                 $idPath->setValue($catalogUrlModel->generatePath('id', $_product, $_category));
@@ -216,11 +214,9 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
                 $idPath->unsetData('disabled');
                 $targetPath->unsetData('disabled');
             }
-        } else {
-            if (!$model->getProductId() && !$model->getCategoryId()) {
-                $idPath->unsetData('disabled');
-                $targetPath->unsetData('disabled');
-            }
+        } elseif (!$model->getProductId() && !$model->getCategoryId()) {
+            $idPath->unsetData('disabled');
+            $targetPath->unsetData('disabled');
         }
 
         $fieldset->addField('options', 'select', [

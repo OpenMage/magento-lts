@@ -410,19 +410,17 @@ class Mage_Eav_Model_Config
             $data = $this->_attributeData[$entityTypeCode][$code];
             unset($this->_attributeData[$entityTypeCode][$code]);
             $attribute = Mage::getModel($data['attribute_model'], $data);
-        } else {
-            if (is_numeric($code)) {
-                /** @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute */
-                $attribute = Mage::getModel($entityType->getAttributeModel())->load($code);
-                if ($attribute->getEntityTypeId() != $entityType->getId()) {
-                    return false;
-                }
-                $attributeKey = $this->_getAttributeKey($entityTypeCode, $attribute->getAttributeCode());
-            } else {
-                $attribute = Mage::getModel($entityType->getAttributeModel())
-                    ->loadByCode($entityType, $code)
-                    ->setAttributeCode($code);
+        } elseif (is_numeric($code)) {
+            /** @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute */
+            $attribute = Mage::getModel($entityType->getAttributeModel())->load($code);
+            if ($attribute->getEntityTypeId() != $entityType->getId()) {
+                return false;
             }
+            $attributeKey = $this->_getAttributeKey($entityTypeCode, $attribute->getAttributeCode());
+        } else {
+            $attribute = Mage::getModel($entityType->getAttributeModel())
+                ->loadByCode($entityType, $code)
+                ->setAttributeCode($code);
         }
 
         if ($attribute) {
