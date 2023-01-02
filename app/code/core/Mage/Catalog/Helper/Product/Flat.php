@@ -155,7 +155,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      */
     public function isAddFilterableAttributes()
     {
-        return intval(Mage::getConfig()->getNode(self::XML_NODE_ADD_FILTERABLE_ATTRIBUTES));
+        return (int) Mage::getConfig()->getNode(self::XML_NODE_ADD_FILTERABLE_ATTRIBUTES);
     }
 
     /**
@@ -165,7 +165,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      */
     public function isAddChildData()
     {
-        return intval(Mage::getConfig()->getNode(self::XML_NODE_ADD_CHILD_DATA));
+        return (int) Mage::getConfig()->getNode(self::XML_NODE_ADD_CHILD_DATA);
     }
 
     /**

@@ -411,7 +411,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         if (count($line) != 3) {
             return $this->doError("Invalid response line returned from server: " . $responseLine);
         }
-        $this->_responseStatus = intval($line[1]);
+        $this->_responseStatus = (int) $line[1];
         $this->processResponseHeaders();
 
         $this->processRedirect();

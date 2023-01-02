@@ -579,7 +579,7 @@ class Mage_Core_Model_Translate_Inline
      */
     public function setIsAjaxRequest($flag)
     {
-        Mage::app()->getRequest()->setQuery('isAjax', intval((bool)$flag));
+        Mage::app()->getRequest()->setQuery('isAjax', (int) (bool)$flag);
         return $this;
     }
 

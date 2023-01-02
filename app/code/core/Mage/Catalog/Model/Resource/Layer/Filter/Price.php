@@ -255,7 +255,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         /**
          * Check and set correct variable values to prevent SQL-injections
          */
-        $range = floatval($range);
+        $range = (float) $range;
         if ($range == 0) {
             $range = 1;
         }
