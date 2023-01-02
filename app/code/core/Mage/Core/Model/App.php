@@ -1434,6 +1434,7 @@ class Mage_Core_Model_App
     /**
      * @param string $text
      * @throws Mage_Core_Model_Store_Exception
+     * @return never
      */
     public function throwStoreException($text = '')
     {

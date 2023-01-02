@@ -85,6 +85,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Send auth failed Headers and exit
      *
+     * @return never
      */
     public function authFailed()
     {
