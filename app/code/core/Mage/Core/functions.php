@@ -124,6 +124,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
     }
 
     // Suppress deprecation warnings on PHP 7.x
+    // set environment variable DEV_PHP_STRICT to 1 will show E_DEPRECATED errors
     if ((!isset($_ENV['DEV_PHP_STRICT']) || $_ENV['DEV_PHP_STRICT'] != '1')
         && $errno == E_DEPRECATED
         && version_compare(PHP_VERSION, '7.0.0', '>=')
