@@ -1286,8 +1286,7 @@ class Mage_Paypal_Model_Config
         }
         $type = $type ? $type : $configType;
         $locale = $this->_getSupportedLocaleCode($localeCode);
-        $supportedTypes = array_keys($this->getAdditionalOptionsLogoTypes());
-        if (!in_array($type, $supportedTypes)) {
+        if (!array_key_exists($type, $this->getAdditionalOptionsLogoTypes())) {
             $type = self::DEFAULT_LOGO_TYPE;
         }
         return sprintf('https://www.paypalobjects.com/%s/i/bnr/bnr_%s.gif', $locale, $type);

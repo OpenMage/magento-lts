@@ -348,7 +348,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 $parseFileXml = '<action type="dataflow/convert_parser_xml_excel" method="'
                     . ($import ? 'parse' : 'unparse') . '">' . $nl;
                 $parseFileXml .= '    <var name="single_sheet"><![CDATA['
-                    . ($p['parse']['single_sheet'] !== '' ? $p['parse']['single_sheet'] : '')
+                    . ($p['parse']['single_sheet'])
                     . ']]></var>' . $nl;
                 break;
 
