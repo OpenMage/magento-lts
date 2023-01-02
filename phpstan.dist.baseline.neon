@@ -7441,6 +7441,11 @@ parameters:
 			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/options.phtml
 
 		-
+			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getPrices\\(\\)\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/bundle/rss/catalog/product/price.phtml
+
+		-
 			message: "#^Call to an undefined method Mage_Captcha_Model_Interface\\:\\:getImgSrc\\(\\)\\.$#"
 			count: 1
 			path: app/design/frontend/base/default/template/captcha/zend.phtml
@@ -7451,14 +7456,14 @@ parameters:
 			path: app/design/frontend/base/default/template/captcha/zend.phtml
 
 		-
+			message: "#^Call to function is_array\\(\\) with Mage_Catalog_Model_Resource_Category_Collection will always evaluate to false\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/catalog/navigation/left.phtml
+
+		-
 			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/design/frontend/base/default/template/catalog/product/list/toolbar.phtml
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/price.phtml
 
 		-
 			message: "#^Ternary operator condition is always true\\.$#"
@@ -7726,14 +7731,14 @@ parameters:
 			path: app/design/frontend/rwd/default/template/catalog/layer/state.phtml
 
 		-
+			message: "#^Call to function is_array\\(\\) with Mage_Catalog_Model_Resource_Category_Collection will always evaluate to false\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/catalog/navigation/left.phtml
+
+		-
 			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/design/frontend/rwd/default/template/catalog/product/list/toolbar.phtml
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/product/price.phtml
 
 		-
 			message: "#^Ternary operator condition is always true\\.$#"
