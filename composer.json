@@ -34,7 +34,7 @@
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
         "friendsofphp/php-cs-fixer": "^3.4",
-        "macopedia/phpstan-magento1": "^1.0.4",
+        "macopedia/phpstan-magento1": "^1.0.5",
         "magento-ecg/coding-standard": "^4.5",
         "openmage/dev-meta-package": "^1.0",
         "phpcompatibility/php-compatibility": "^9.3",
@@ -93,9 +93,6 @@
         },
         "magento-force": true,
         "patches": {
-            "macopedia/phpstan-magento1": {
-                "PR-2": "https://patch-diff.githubusercontent.com/raw/macopedia/phpstan-magento1/pull/2.diff"
-            },
             "shardj/zf1-future": {
                 "MAG-1.1.1": "https://raw.githubusercontent.com/OpenMage/magento-lts/1.9.4.x/patches/MAG-1.1.1.patch",
                 "MAG-1.9.3.0": "https://raw.githubusercontent.com/OpenMage/magento-lts/1.9.4.x/patches/MAG-1.9.3.0.patch",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5c29dfe419dc8e936c58187f7fbf5aba",
+    "content-hash": "9e674198b26efc780698d30bc054429f",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -2661,16 +2661,16 @@
         },
         {
             "name": "macopedia/phpstan-magento1",
-            "version": "v1.0.4",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/macopedia/phpstan-magento1.git",
-                "reference": "c615c3e7e4cc48978842580611004ebe54ae89d8"
+                "reference": "69346472b19422b2aefeb928d6488b5d907e8b1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/macopedia/phpstan-magento1/zipball/c615c3e7e4cc48978842580611004ebe54ae89d8",
-                "reference": "c615c3e7e4cc48978842580611004ebe54ae89d8",
+                "url": "https://api.github.com/repos/macopedia/phpstan-magento1/zipball/69346472b19422b2aefeb928d6488b5d907e8b1d",
+                "reference": "69346472b19422b2aefeb928d6488b5d907e8b1d",
                 "shasum": ""
             },
             "require": {
@@ -2693,9 +2693,10 @@
             ],
             "description": "Extension for PHPStan to allow analysis of Magento 1 code.",
             "support": {
-                "source": "https://github.com/macopedia/phpstan-magento1/tree/v1.0.4"
+                "issues": "https://github.com/macopedia/phpstan-magento1/issues",
+                "source": "https://github.com/macopedia/phpstan-magento1/tree/v1.0.5"
             },
-            "time": "2022-03-07T13:47:54+00:00"
+            "time": "2022-12-30T08:43:52+00:00"
         },
         {
             "name": "magento-ecg/coding-standard",
