@@ -183,7 +183,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                 if ($request->getActionName()) {
                     $action = $request->getActionName();
                 } else {
-                    $action = !empty($p[2]) ? $p[2] : $front->getDefault('action');
+                    $action = empty($p[2]) ? $front->getDefault('action') : $p[2];
                 }
             }
 

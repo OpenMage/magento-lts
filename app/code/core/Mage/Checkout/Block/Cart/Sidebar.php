@@ -289,7 +289,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
 
         return array_merge(
             parent::getCacheTags(),
-            (!$quoteTags) ? [] : $quoteTags,
+            ($quoteTags) ? $quoteTags : [],
             $this->getItemsTags($items)
         );
     }

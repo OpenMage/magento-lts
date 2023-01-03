@@ -103,7 +103,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         }
 
         // buld url
-        $logo = !empty($logo) ? Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_MEDIA_URL) . $logo : '';
+        $logo = empty($logo) ? '' : Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_MEDIA_URL) . $logo;
 
         return $logo;
     }

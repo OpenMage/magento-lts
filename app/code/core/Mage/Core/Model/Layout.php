@@ -228,7 +228,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      */
     protected function _generateBlock($node, $parent)
     {
-        $className = !empty($node['class']) ? (string)$node['class'] : (string)$node['type'];
+        $className = empty($node['class']) ? (string)$node['type'] : (string)$node['class'];
 
         $blockName = (string)$node['name'];
         $_profilerKey = 'BLOCK: ' . $blockName;
@@ -290,7 +290,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         }
 
         $method = (string)$node['method'];
-        $parentName = !empty($node['block']) ? (string)$node['block'] : $parent->getBlockName();
+        $parentName = empty($node['block']) ? $parent->getBlockName() : (string)$node['block'];
 
         $_profilerKey = 'BLOCK ACTION: ' . $parentName . ' -> ' . $method;
         Varien_Profiler::start($_profilerKey);

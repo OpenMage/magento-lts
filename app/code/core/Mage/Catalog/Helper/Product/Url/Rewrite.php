@@ -50,8 +50,8 @@ class Mage_Catalog_Helper_Product_Url_Rewrite implements Mage_Catalog_Helper_Pro
     public function __construct(array $args = [])
     {
         $this->_resource = Mage::getSingleton('core/resource');
-        $this->_connection = !empty($args['connection']) ? $args['connection'] : $this->_resource
-            ->getConnection(Mage_Core_Model_Resource::DEFAULT_READ_RESOURCE);
+        $this->_connection = empty($args['connection']) ? $this->_resource
+            ->getConnection(Mage_Core_Model_Resource::DEFAULT_READ_RESOURCE) : $args['connection'];
     }
 
     /**

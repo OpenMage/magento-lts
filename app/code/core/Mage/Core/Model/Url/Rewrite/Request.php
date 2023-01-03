@@ -82,13 +82,13 @@ class Mage_Core_Model_Url_Rewrite_Request
      */
     public function __construct(array $args)
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getModel('core/factory');
-        $this->_app     = !empty($args['app']) ? $args['app'] : Mage::app();
-        $this->_config  = !empty($args['config']) ? $args['config'] : Mage::getConfig();
-        $this->_request = !empty($args['request'])
-            ? $args['request'] : Mage::app()->getFrontController()->getRequest();
-        $this->_rewrite = !empty($args['rewrite'])
-            ? $args['rewrite'] : $this->_factory->getModel('core/url_rewrite');
+        $this->_factory = empty($args['factory']) ? Mage::getModel('core/factory') : $args['factory'];
+        $this->_app     = empty($args['app']) ? Mage::app() : $args['app'];
+        $this->_config  = empty($args['config']) ? Mage::getConfig() : $args['config'];
+        $this->_request = empty($args['request'])
+            ? Mage::app()->getFrontController()->getRequest() : $args['request'];
+        $this->_rewrite = empty($args['rewrite'])
+            ? $this->_factory->getModel('core/url_rewrite') : $args['rewrite'];
 
         if (!empty($args['routers'])) {
             $this->_routers = $args['routers'];

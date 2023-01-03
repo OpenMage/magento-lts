@@ -71,7 +71,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
         $this->_setConnection($args['connection']);
         $this->_setFactory($args['factory']);
         $this->_setResource($args['resource']);
-        $this->_app = !empty($args['app']) ? $args['app'] : Mage::app();
+        $this->_app = empty($args['app']) ? Mage::app() : $args['app'];
     }
 
     /**

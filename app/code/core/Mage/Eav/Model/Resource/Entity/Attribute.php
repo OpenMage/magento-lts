@@ -312,7 +312,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                         continue;
                     }
 
-                    $sortOrder = !empty($option['order'][$optionId]) ? $option['order'][$optionId] : 0;
+                    $sortOrder = empty($option['order'][$optionId]) ? 0 : $option['order'][$optionId];
                     if (!$intOptionId) {
                         $data = [
                            'attribute_id'  => $object->getId(),

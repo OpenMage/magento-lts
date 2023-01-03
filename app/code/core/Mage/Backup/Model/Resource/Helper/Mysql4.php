@@ -164,8 +164,8 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
         $dbConfig = $this->_getReadAdapter()->getConfig();
 
         $versionRow = $this->_getReadAdapter()->fetchRow('SHOW VARIABLES LIKE \'version\'');
-        $hostName   = !empty($dbConfig['unix_socket']) ? $dbConfig['unix_socket']
-            : (!empty($dbConfig['host']) ? $dbConfig['host'] : 'localhost');
+        $hostName   = empty($dbConfig['unix_socket']) ? (empty($dbConfig['host']) ? 'localhost' : $dbConfig['host'])
+            : ($dbConfig['unix_socket']);
 
         return "-- Magento DB backup\n"
             . "--\n"

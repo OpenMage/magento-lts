@@ -55,7 +55,7 @@ class Mage_Log_Model_Adminhtml_System_Config_Source_Loglevel
      */
     public function __construct(array $data = [])
     {
-        $this->_helper = !empty($data['helper']) ? $data['helper'] : Mage::helper('log');
+        $this->_helper = empty($data['helper']) ? Mage::helper('log') : $data['helper'];
     }
 
     /**

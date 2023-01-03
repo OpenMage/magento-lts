@@ -79,7 +79,7 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
      */
     public function isInternalStorage($storage = null)
     {
-        $storage = (!is_null($storage)) ? (int) $storage : $this->getCurrentStorageCode();
+        $storage = (is_null($storage)) ? $this->getCurrentStorageCode() : (int) $storage;
 
         return in_array($storage, $this->_internalStorageList);
     }

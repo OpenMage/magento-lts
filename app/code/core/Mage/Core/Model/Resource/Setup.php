@@ -617,7 +617,7 @@ class Mage_Core_Model_Resource_Setup
                         break;
                     case 'sql':
                         $sql = file_get_contents($fileName);
-                        $result = !empty($sql) ? $this->run($sql) : true;
+                        $result = empty($sql) ? true : $this->run($sql);
                         break;
                     default:
                         $result = false;

@@ -63,8 +63,8 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      */
     public function __construct(array $args = [])
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
-        $this->_store = !empty($args['store']) ? $args['store'] : Mage::app()->getStore();
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('catalog/factory') : $args['factory'];
+        $this->_store = empty($args['store']) ? Mage::app()->getStore() : $args['store'];
     }
 
     /**

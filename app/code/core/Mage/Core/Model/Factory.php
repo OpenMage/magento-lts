@@ -47,7 +47,7 @@ class Mage_Core_Model_Factory
      */
     public function __construct(array $arguments = [])
     {
-        $this->_config = !empty($arguments['config']) ? $arguments['config'] : Mage::getConfig();
+        $this->_config = empty($arguments['config']) ? Mage::getConfig() : $arguments['config'];
     }
 
     /**

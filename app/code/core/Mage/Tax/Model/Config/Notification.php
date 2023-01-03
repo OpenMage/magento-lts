@@ -46,7 +46,7 @@ class Mage_Tax_Model_Config_Notification extends Mage_Core_Model_Config_Data
      */
     public function __construct(array $args = [])
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('core/factory') : $args['factory'];
         parent::__construct($args);
     }
 

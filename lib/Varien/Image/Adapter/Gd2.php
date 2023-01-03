@@ -131,7 +131,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
     public function save($destination = null, $newName = null)
     {
-        $fileName = (!isset($destination)) ? $this->_fileName : $destination;
+        $fileName = (isset($destination)) ? $destination : $this->_fileName;
 
         if (isset($destination) && isset($newName)) {
             $fileName = $destination . "/" . $newName;
