@@ -441,7 +441,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     protected $_eventObject = 'order';
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Address_Collection|Mage_Sales_Model_Order_Address[]
+     * @var Mage_Sales_Model_Resource_Order_Address_Collection|Mage_Sales_Model_Order_Address[]|null
      */
     protected $_addresses       = null;
 
@@ -519,7 +519,11 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     protected function _initOldFieldsMap()
     {
         // pre 1.6 fields names, old => new
-        $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('order');
+        $this->_oldFieldsMap = [
+            'payment_authorization_expiration' => 'payment_auth_expiration',
+            'forced_do_shipment_with_invoice' => 'forced_shipment_with_invoice',
+            'base_shipping_hidden_tax_amount' => 'base_shipping_hidden_tax_amnt',
+        ];
         return $this;
     }
 
@@ -1749,7 +1753,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * @param int $itemId
-     * @return Varien_Object|null
+     * @return Mage_Sales_Model_Order_Item|null
      */
     public function getItemById($itemId)
     {
