@@ -109,7 +109,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
 
         $contentHeadingBlock = $action->getLayout()->getBlock('page_content_heading');
         if ($contentHeadingBlock) {
-            $contentHeading = $this->escapeHtml((string)$page->getContentHeading());
+            $contentHeading = $this->escapeHtml($page->getContentHeading());
             $contentHeadingBlock->setContentHeading($contentHeading);
         }
 
