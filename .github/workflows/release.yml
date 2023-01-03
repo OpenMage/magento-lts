@@ -31,7 +31,7 @@ jobs:
 
     - name: Install legacy frontend themes on v19
       if: startsWith(github.event.release.tag_name, 'v19')
-      run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-* --no-dev openmage/legacy-frontend-themes
+      run: composer require --prefer-dist --no-progress --ignore-platform-req=ext-* --no-dev openmage/legacy-frontend-themes
 
     - name: Create ZIP file
       run: zip -rq openmage-${{ github.event.release.tag_name }}.zip . -x '.git/*'
