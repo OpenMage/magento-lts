@@ -859,7 +859,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      */
     public function newPage(array $settings = [])
     {
-        $pageSize = !empty($settings['page_size']) ? $settings['page_size'] : Zend_Pdf_Page::SIZE_A4;
+        $pageSize = empty($settings['page_size']) ? Zend_Pdf_Page::SIZE_A4 : $settings['page_size'];
         $page = $this->_getPdf()->newPage($pageSize);
         $this->_getPdf()->pages[] = $page;
         $this->y = 800;
@@ -906,7 +906,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 foreach ($lines as $line) {
                     $maxHeight = 0;
                     foreach ($line as $column) {
-                        $lineSpacing = !empty($column['height']) ? $column['height'] : $height;
+                        $lineSpacing = empty($column['height']) ? $height : $column['height'];
                         if (!is_array($column['text'])) {
                             $column['text'] = [$column['text']];
                         }
@@ -952,7 +952,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                         $column['text'] = [$column['text']];
                     }
 
-                    $lineSpacing = !empty($column['height']) ? $column['height'] : $height;
+                    $lineSpacing = empty($column['height']) ? $height : $column['height'];
                     $top = 0;
                     foreach ($column['text'] as $part) {
                         if ($this->y - $lineSpacing < 15) {

@@ -74,7 +74,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
         $orderData = $this->getRequest()->getPost('order');
         $sendConfirmationFlag = 0;
         if ($orderData) {
-            $sendConfirmationFlag = (!empty($orderData['send_confirmation'])) ? 1 : 0;
+            $sendConfirmationFlag = (empty($orderData['send_confirmation'])) ? 0 : 1;
         } else {
             $orderData = [];
         }

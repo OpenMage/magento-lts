@@ -61,7 +61,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     public function __construct($resource = null, array $args = [])
     {
         parent::__construct($resource);
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('catalog/factory') : $args['factory'];
     }
 
     /**

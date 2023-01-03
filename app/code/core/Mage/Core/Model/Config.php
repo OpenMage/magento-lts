@@ -1312,7 +1312,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         $classArr = explode('/', trim($classId));
         $group = $classArr[0];
-        $class = !empty($classArr[1]) ? $classArr[1] : null;
+        $class = empty($classArr[1]) ? null : $classArr[1];
 
         if (isset($this->_classNameCache[$groupRootNode][$group][$class])) {
             return $this->_classNameCache[$groupRootNode][$group][$class];

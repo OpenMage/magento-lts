@@ -116,7 +116,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
         $writeAdapter->insertOnDuplicate($this->getTable('tag/properties'), [
             'tag_id'            => $tagId,
             'store_id'          => $object->getStore(),
-            'base_popularity'   => (!$object->getBasePopularity()) ? 0 : $object->getBasePopularity()
+            'base_popularity'   => ($object->getBasePopularity()) ? $object->getBasePopularity() : 0
         ]);
 
         return parent::_afterSave($object);

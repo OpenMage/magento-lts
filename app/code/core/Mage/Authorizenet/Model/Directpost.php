@@ -396,7 +396,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     {
         $response = $this->getResponse();
         $xSHA2Hash = $response->getData('x_SHA2_Hash');
-        $hashConfigKey = !empty($xSHA2Hash) ? 'signature_key' : 'trans_md5';
+        $hashConfigKey = empty($xSHA2Hash) ? 'trans_md5' : 'signature_key';
 
         //hash check
         if (!$this->getConfigData($hashConfigKey)

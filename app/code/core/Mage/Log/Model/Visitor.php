@@ -94,11 +94,11 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      */
     public function __construct(array $data = [])
     {
-        $this->_httpHelper = !empty($data['http_helper']) ? $data['http_helper'] : Mage::helper('core/http');
-        $this->_config = !empty($data['config']) ? $data['config'] : Mage::getConfig();
-        $this->_logCondition = !empty($data['log_condition']) ?
-            $data['log_condition'] : Mage::helper('log');
-        $this->_session = !empty($data['session']) ? $data['session'] : Mage::getSingleton('core/session');
+        $this->_httpHelper = empty($data['http_helper']) ? Mage::helper('core/http') : $data['http_helper'];
+        $this->_config = empty($data['config']) ? Mage::getConfig() : $data['config'];
+        $this->_logCondition = empty($data['log_condition']) ?
+            Mage::helper('log') : $data['log_condition'];
+        $this->_session = empty($data['session']) ? Mage::getSingleton('core/session') : $data['session'];
         parent::__construct($data);
     }
 

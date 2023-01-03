@@ -406,13 +406,13 @@ class Mage_Core_Model_Translate
             $text = $text->getText();
             $translated = $this->_getTranslatedString($text, $code);
         } else {
-            $module = !empty($_REQUEST['theme']) ? 'frontend/default/' . $_REQUEST['theme'] : 'frontend/default/default';
+            $module = empty($_REQUEST['theme']) ? 'frontend/default/default' : 'frontend/default/' . $_REQUEST['theme'];
             $code = $module . self::SCOPE_SEPARATOR . $text;
             $translated = $this->_getTranslatedString($text, $code);
         }
 
         try {
-            $result = !empty($args) ? vsprintf($translated, $args) : false;
+            $result = empty($args) ? false : vsprintf($translated, $args);
         } catch (ValueError $e) {
             $result = false;
         }

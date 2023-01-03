@@ -422,7 +422,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         $sendInformationEmail = false;
         if ($customer->hasIsSubscribed()) {
             $status = $customer->getIsSubscribed()
-                ? (!is_null($confirmation) ? self::STATUS_UNCONFIRMED : self::STATUS_SUBSCRIBED)
+                ? (is_null($confirmation) ? self::STATUS_SUBSCRIBED : self::STATUS_UNCONFIRMED)
                 : self::STATUS_UNSUBSCRIBED;
             /**
              * If subscription status has been changed then send email to the customer

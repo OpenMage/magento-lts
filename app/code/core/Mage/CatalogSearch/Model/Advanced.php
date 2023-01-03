@@ -166,7 +166,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 $value['from'] = isset($value['from']) ? trim($value['from']) : '';
                 $value['to'] = isset($value['to']) ? trim($value['to']) : '';
                 if (is_numeric($value['from']) || is_numeric($value['to'])) {
-                    $rate = !empty($value['currency']) ? Mage::app()->getStore()->getBaseCurrency()->getRate($value['currency']) : 1;
+                    $rate = empty($value['currency']) ? 1 : Mage::app()->getStore()->getBaseCurrency()->getRate($value['currency']);
                     if ($this->_getResource()
                         ->addRatedPriceFilter(
                             $this->getProductCollection(),

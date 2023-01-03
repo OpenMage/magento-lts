@@ -94,7 +94,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
      */
     protected function _getEntityUrl($row, $entity)
     {
-        return !empty($row['request_path']) ? $row['request_path'] : 'catalog/category/view/id/' . $entity->getId();
+        return empty($row['request_path']) ? 'catalog/category/view/id/' . $entity->getId() : $row['request_path'];
     }
 
     /**

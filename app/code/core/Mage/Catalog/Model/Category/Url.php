@@ -56,7 +56,7 @@ class Mage_Catalog_Model_Category_Url
      */
     public function __construct(array $args = [])
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('catalog/factory') : $args['factory'];
     }
 
     /**

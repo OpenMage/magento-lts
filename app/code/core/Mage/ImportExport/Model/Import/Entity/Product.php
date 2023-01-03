@@ -967,8 +967,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                             'option_type_id' => $nextValueId,
                             'sort_order'     => empty($rowData['_custom_option_row_sort'])
                                 ? 0 : abs($rowData['_custom_option_row_sort']),
-                            'sku'            => !empty($rowData['_custom_option_row_sku'])
-                                ? $rowData['_custom_option_row_sku'] : ''
+                            'sku'            => empty($rowData['_custom_option_row_sku'])
+                                ? '' : $rowData['_custom_option_row_sku']
                         ];
                         if (!isset($customOptions[$typeTitleTable][$nextValueId][0])) { // ensure default title is set
                             $customOptions[$typeTitleTable][$nextValueId][0] = $rowData['_custom_option_row_title'];

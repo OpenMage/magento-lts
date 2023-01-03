@@ -219,8 +219,8 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
 
             // apply date boundaries (before calling $this->_applyDateRangeFilter())
             $dtFormat   = Varien_Date::DATE_INTERNAL_FORMAT;
-            $periodFrom = (!is_null($this->_from) ? new Zend_Date($this->_from, $dtFormat) : null);
-            $periodTo   = (!is_null($this->_to) ? new Zend_Date($this->_to, $dtFormat) : null);
+            $periodFrom = (is_null($this->_from) ? null : new Zend_Date($this->_from, $dtFormat));
+            $periodTo   = (is_null($this->_to) ? null : new Zend_Date($this->_to, $dtFormat));
             if ($this->_period == 'year') {
                 // not the first day of the year
                 if ($periodFrom && ($periodFrom->toValue(Zend_Date::MONTH) != 1 || $periodFrom->toValue(Zend_Date::DAY) != 1)) {

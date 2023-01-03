@@ -758,7 +758,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     {
         if (!$this->_valueTablePrefix) {
             $prefix = (string)$this->getEntityType()->getValueTablePrefix();
-            $this->_valueTablePrefix = !empty($prefix) ? $prefix : $this->getEntityTable();
+            $this->_valueTablePrefix = empty($prefix) ? $this->getEntityTable() : $prefix;
         }
 
         return $this->_valueTablePrefix;

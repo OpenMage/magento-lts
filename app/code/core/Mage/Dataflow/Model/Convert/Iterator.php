@@ -102,7 +102,7 @@ function updateProgress(sessionId, idx, time, memory) {
 
     public function updateProgress($args)
     {
-        $memory = !empty($args['memory']) ? $args['memory'] : '';
+        $memory = empty($args['memory']) ? '' : $args['memory'];
         echo '<script type="text/javascript">updateProgress("'
             . $args['row']['session_id'] . '", "' . $args['idx'] . '", "' . time() . '", "' . $memory . '");</script>';
         echo '<li>' . $memory . '</li>';

@@ -105,7 +105,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
                     }
                     $validator = $this->_getValidatorInstance(
                         $validatorConfig['type'],
-                        !empty($validatorConfig['options']) ? $validatorConfig['options'] : []
+                        empty($validatorConfig['options']) ? [] : $validatorConfig['options']
                     );
                     // set custom message
                     if (isset($validatorConfig['message'])) {

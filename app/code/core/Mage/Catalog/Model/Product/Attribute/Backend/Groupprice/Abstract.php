@@ -317,7 +317,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             ));
 
             $useForAllGroups = $data['cust_group'] == Mage_Customer_Model_Group::CUST_GROUP_ALL;
-            $customerGroupId = !$useForAllGroups ? $data['cust_group'] : 0;
+            $customerGroupId = $useForAllGroups ? 0 : $data['cust_group'];
 
             $new[$key] = array_merge([
                 'website_id'        => $data['website_id'],
