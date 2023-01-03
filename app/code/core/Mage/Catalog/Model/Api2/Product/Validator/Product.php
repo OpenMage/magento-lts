@@ -628,6 +628,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      * @param string $message
      * @param int $code
      * @throws Mage_Api2_Exception
+     * @return never
      */
     protected function _critical($message, $code)
     {
