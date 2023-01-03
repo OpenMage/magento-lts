@@ -306,45 +306,13 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Save user roles
      *
+     * @deprecated Use {@see _saveRelations} instead.
      * @param Mage_Core_Model_Abstract|Mage_Admin_Model_User $user
      * @return $this
      */
     public function add(Mage_Core_Model_Abstract $user)
     {
-        $dbh = $this->_getWriteAdapter();
-        $aRoles = $this->hasAssigned2Role($user);
-        if (count($aRoles)) {
-            foreach ($aRoles as $idx => $data) {
-                $dbh->delete(
-                    $this->getTable('admin/role'),
-                    ['role_id = ?' => $data['role_id']]
-                );
-            }
-        }
-
-        if ($user->getId() > 0) {
-            $role = Mage::getModel('admin/role')->load($user->getRoleId());
-        } else {
-            $role = new Varien_Object(['tree_level' => 0]);
-        }
-
-        $data = new Varien_Object([
-            'parent_id'  => $user->getRoleId(),
-            'tree_level' => $role->getTreeLevel() + 1,
-            'sort_order' => 0,
-            'role_type'  => Mage_Admin_Model_Acl::ROLE_TYPE_USER,
-            'user_id'    => $user->getUserId(),
-            'role_name'  => $user->getFirstname()
-        ]);
-
-        $insertData = $this->_prepareDataForTable($data, $this->getTable('admin/role'));
-        $dbh->insert($this->getTable('admin/role'), $insertData);
-
-        if ($user->getId() > 0) {
-            // reload acl on next user http request
-            $this->saveReloadAclFlag($user, 1);
-        }
-
+        $this->_saveRelations($user);
         return $this;
     }
 
