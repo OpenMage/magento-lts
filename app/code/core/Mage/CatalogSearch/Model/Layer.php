@@ -1,32 +1,32 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
 {
-    const XML_PATH_DISPLAY_LAYER_COUNT = 'catalog/search/use_layered_navigation_count';
+    public const XML_PATH_DISPLAY_LAYER_COUNT = 'catalog/search/use_layered_navigation_count';
 
     /**
      * Get current layer product collection
@@ -38,7 +38,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
         if (isset($this->_productCollections[$this->getCurrentCategory()->getId()])) {
             $collection = $this->_productCollections[$this->getCurrentCategory()->getId()];
         } else {
-            $collection = Mage::getResourceModel('catalogsearch/fulltext_collection');
+            $collection = Mage::helper('catalogsearch')->getEngine()->getResultCollection();
             $this->prepareProductCollection($collection);
             $this->_productCollections[$this->getCurrentCategory()->getId()] = $collection;
         }
@@ -60,9 +60,10 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
             ->addPriceData()
             ->addTaxPercents()
             ->addStoreFilter()
-            ->addUrlRewrite();
-
-        Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
+            ->addUrlRewrite()
+            ->addAttributeToFilter('status', [
+                'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds()
+            ]);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($collection);
 
         return $this;
@@ -77,7 +78,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     {
         if ($this->_stateKey === null) {
             $this->_stateKey = 'Q_' . Mage::helper('catalogsearch')->getQuery()->getId()
-                . '_'. parent::getStateKey();
+                . '_' . parent::getStateKey();
         }
         return $this->_stateKey;
     }
@@ -88,7 +89,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
      * @param   array $additionalTags
      * @return  array
      */
-    public function getStateTags(array $additionalTags = array())
+    public function getStateTags(array $additionalTags = [])
     {
         $additionalTags = parent::getStateTags($additionalTags);
         $additionalTags[] = Mage_CatalogSearch_Model_Query::CACHE_TAG;

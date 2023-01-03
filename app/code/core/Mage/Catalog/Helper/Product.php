@@ -1,46 +1,45 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog category helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
 {
-    const XML_PATH_PRODUCT_URL_SUFFIX           = 'catalog/seo/product_url_suffix';
-    const XML_PATH_PRODUCT_URL_USE_CATEGORY     = 'catalog/seo/product_use_categories';
-    const XML_PATH_USE_PRODUCT_CANONICAL_TAG    = 'catalog/seo/product_canonical_tag';
+    public const XML_PATH_PRODUCT_URL_SUFFIX           = 'catalog/seo/product_url_suffix';
+    public const XML_PATH_PRODUCT_URL_USE_CATEGORY     = 'catalog/seo/product_use_categories';
+    public const XML_PATH_USE_PRODUCT_CANONICAL_TAG    = 'catalog/seo/product_canonical_tag';
 
-    const DEFAULT_QTY                           = 1;
+    public const DEFAULT_QTY                           = 1;
+
+    protected $_moduleName = 'Mage_Catalog';
 
     /**
      * Flag that shows if Magento has to check product to be saleable (enabled and/or inStock)
      *
-     * @var boolean
+     * @var bool
      */
     protected $_skipSaleableCheck = false;
 
@@ -49,7 +48,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      *
      * @var array
      */
-    protected $_productUrlSuffix = array();
+    protected $_productUrlSuffix = [];
 
     protected $_statuses;
 
@@ -59,7 +58,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Retrieve product view page url
      *
      * @param   Mage_Catalog_Model_Product|string|int $product
-     * @return  string
+     * @return  string|false
      */
     public function getProductUrl($product)
     {
@@ -171,10 +170,10 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if ($category = Mage::registry('current_category')) {
             $categoryId = $category->getId();
         }
-        return $this->_getUrl('sendfriend/product/send', array(
+        return $this->_getUrl('sendfriend/product/send', [
             'id' => $product->getId(),
             'cat_id' => $categoryId
-        ));
+        ]);
     }
 
     /**
@@ -183,7 +182,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     public function getStatuses()
     {
         if (is_null($this->_statuses)) {
-            $this->_statuses = array();//Mage::getModel('catalog/product_status')->getResourceCollection()->load();
+            $this->_statuses = [];//Mage::getModel('catalog/product_status')->getResourceCollection()->load();
         }
 
         return $this->_statuses;
@@ -194,7 +193,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      *
      * @param Mage_Catalog_Model_Product|int $product
      * @param string $where
-     * @return boolean
+     * @return bool
      */
     public function canShow($product, $where = 'catalog')
     {
@@ -202,7 +201,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
             $product = Mage::getModel('catalog/product')->load($product);
         }
 
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
 
         if (!$product->getId()) {
             return false;
@@ -253,21 +252,21 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         /**
         * @todo specify there all relations for properties depending on input type
         */
-        $inputTypes = array(
-            'multiselect'   => array(
+        $inputTypes = [
+            'multiselect'   => [
                 'backend_model'     => 'eav/entity_attribute_backend_array'
-            ),
-            'boolean'       => array(
+            ],
+            'boolean'       => [
                 'source_model'      => 'eav/entity_attribute_source_boolean'
-            )
-        );
+            ]
+        ];
 
         if (is_null($inputType)) {
             return $inputTypes;
         } elseif (isset($inputTypes[$inputType])) {
             return $inputTypes[$inputType];
         }
-        return array();
+        return [];
     }
 
     /**
@@ -320,10 +319,10 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         }
 
         // Init and load product
-        Mage::dispatchEvent('catalog_controller_product_init_before', array(
+        Mage::dispatchEvent('catalog_controller_product_init_before', [
             'controller_action' => $controller,
             'params' => $params,
-        ));
+        ]);
 
         if (!$productId) {
             return false;
@@ -362,12 +361,12 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         Mage::register('product', $product);
 
         try {
-            Mage::dispatchEvent('catalog_controller_product_init', array('product' => $product));
+            Mage::dispatchEvent('catalog_controller_product_init', ['product' => $product]);
             Mage::dispatchEvent(
                 'catalog_controller_product_init_after',
-                array('product' => $product,
+                ['product' => $product,
                                 'controller_action' => $controller
-                            )
+                ]
             );
         } catch (Mage_Core_Exception $e) {
             Mage::logException($e);
@@ -416,7 +415,6 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if (is_array($params)) {
             $params = new Varien_Object($params);
         }
-
 
         // Ensure that currentConfig goes as Varien_Object - for easier work with it later
         $currentConfig = $params->getCurrentConfig();
@@ -496,7 +494,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Get flag that shows if Magento has to check product to be saleable (enabled and/or inStock)
      *
-     * @return boolean
+     * @return bool
      */
     public function getSkipSaleableCheck()
     {
@@ -551,9 +549,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     public function getDefaultProductValue($fieldName, $productType)
     {
         $fieldData = $this->getFieldset($fieldName) ? (array) $this->getFieldset($fieldName) : null;
-        if (
-            count($fieldData)
-            && array_key_exists($productType, $fieldData['product_type'])
+        if (!empty($fieldData)
+            && ((is_array($fieldData['product_type']) && array_key_exists($productType, $fieldData['product_type'])) || (is_object($fieldData['product_type']) && property_exists($fieldData['product_type'], $productType)))
             && (bool)$fieldData['use_config']
         ) {
             return $fieldData['inventory'];

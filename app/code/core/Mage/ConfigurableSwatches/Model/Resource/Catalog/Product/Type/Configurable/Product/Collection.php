@@ -1,27 +1,28 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable_Product_Collection extends Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection
 {
@@ -54,7 +55,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
         try {
             /**
              * Prepare select query
-             * @var string $query
+             *
              */
             $query = $this->_prepareSelect($this->getSelect());
             $rows = $this->_fetchAll($query);
@@ -68,12 +69,12 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
             if (!isset($this->_items[$v['entity_id']])) {
                 $object = $this->getNewEmptyItem()
                     ->setData($v)
-                    ->setParentIds(array($v['parent_id']));
+                    ->setParentIds([$v['parent_id']]);
                 $this->addItem($object);
                 if (isset($this->_itemsById[$object->getId()])) {
                     $this->_itemsById[$object->getId()][] = $object;
                 } else {
-                    $this->_itemsById[$object->getId()] = array($object);
+                    $this->_itemsById[$object->getId()] = [$object];
                 }
             } else {
                 $parents = $this->_items[$v['entity_id']]->getParentIds();

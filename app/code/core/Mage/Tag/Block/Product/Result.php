@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tag
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,15 +24,14 @@
  *
  * @category   Mage
  * @package    Mage_Tag
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setResultCount(int $value)
  */
-
 class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
 {
     /**
-     * @var Mage_Tag_Model_Resource_Tag_Collection
+     * @var Mage_Tag_Model_Resource_Tag_Collection|null
      */
     protected $_productCollection;
 
@@ -50,7 +44,7 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
     }
 
     /**
-     * @return Mage_Catalog_Block_Product_Abstract
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -63,17 +57,17 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
     public function setListOrders()
     {
         $this->getChild('search_result_list')
-            ->setAvailableOrders(array(
+            ->setAvailableOrders([
                 'name' => Mage::helper('tag')->__('Name'),
-                'price'=>Mage::helper('tag')->__('Price')));
+                'price' => Mage::helper('tag')->__('Price')]);
     }
 
     public function setListModes()
     {
         $this->getChild('search_result_list')
-            ->setModes(array(
+            ->setModes([
                 'grid' => Mage::helper('tag')->__('Grid'),
-                'list' => Mage::helper('tag')->__('List')));
+                'list' => Mage::helper('tag')->__('List')]);
     }
 
     /**
@@ -105,10 +99,12 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
                 ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
                 ->addTagFilter($this->getTag()->getId())
                 ->addStoreFilter(Mage::app()->getStore()->getId())
+                ->addAttributeToFilter('status', [
+                    'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()
+                ])
                 ->addMinimalPrice()
                 ->addUrlRewrite()
                 ->setActiveFilter();
-            Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($this->_productCollection);
             Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection(
                 $this->_productCollection
             );
@@ -137,9 +133,8 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
     {
         if ($this->getTag()->getName()) {
             return Mage::helper('tag')->__("Products tagged with '%s'", $this->escapeHtml($this->getTag()->getName()));
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**

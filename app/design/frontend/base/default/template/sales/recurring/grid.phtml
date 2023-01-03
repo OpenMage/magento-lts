@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php /* @var $this Mage_Core_Block_Template */?>
@@ -29,7 +24,7 @@
 
 <?php if ($caption = $this->getGridCaption()): ?>
 <h2 class="table-caption"><?php echo $this->escapeHtml($caption) ?></h2>
-<?php endif; ?>
+<?php endif ?>
 
 <?php $gridElements = $this->getGridElements(); ?>
 <?php if ($gridElements): ?>
@@ -37,7 +32,7 @@
     <table id="<?php echo $this->getGridHtmlId() ?>" class="data-table">
 <?php foreach ($this->getGridColumns() as $column):?>
         <col <?php $width = $this->getObjectData($column, 'width'); echo $width ? ' width="' . $width . '"' : '' ?>/>
-<?php endforeach; ?>
+<?php endforeach ?>
         <thead>
             <tr>
 <?php foreach ($this->getGridColumns() as $column):
@@ -45,7 +40,7 @@ $nobr = $this->getObjectData($column, 'is_nobr') ? '<span class="nobr">%s</span>
 $title = $this->getObjectData($column, 'title');
 ?>
                 <th><?php echo $title ? sprintf($nobr, $this->escapeHtml($title)) : '&nbsp;' ?></th>
-<?php endforeach; ?>
+<?php endforeach ?>
             </tr>
         </thead>
         <tbody>
@@ -67,14 +62,14 @@ if ($linkFormat) {
     echo sprintf($nobr, $this->escapeHtml($value));
 }
                 ?></td>
-<?php endforeach; ?>
+<?php endforeach ?>
             </tr>
-<?php endforeach; ?>
+<?php endforeach ?>
         </tbody>
     </table>
     <?php echo $this->getChildHtml('pager'); ?>
     <script type="text/javascript">decorateTable('<?php echo $this->getGridHtmlId() ?>')</script>
 <?php else: ?>
     <p><?php echo $this->escapeHtml($this->getEmptyGridMessage()); ?></p>
-<?php endif; ?>
+<?php endif ?>
 </div>

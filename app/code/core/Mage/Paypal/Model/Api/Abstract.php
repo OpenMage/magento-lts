@@ -1,33 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract class for Paypal API wrappers
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
 {
@@ -41,29 +38,29 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * Global private to public interface map
      * @var array
      */
-    protected $_globalMap = array();
+    protected $_globalMap = [];
 
     /**
      * Filter callbacks for exporting $this data to API call
      *
      * @var array
      */
-    protected $_exportToRequestFilters = array();
+    protected $_exportToRequestFilters = [];
 
     /**
      * Filter callbacks for importing API result to $this data
      *
      * @var array
      */
-    protected $_importFromRequestFilters = array();
+    protected $_importFromRequestFilters = [];
 
     /**
      * Line items export to request mapping settings
      * @var array
      */
-    protected $_lineItemExportItemsFormat = array();
-    protected $_lineItemExportItemsFilters = array();
-    protected $_lineItemTotalExportMap = array();
+    protected $_lineItemExportItemsFormat = [];
+    protected $_lineItemExportItemsFilters = [];
+    protected $_lineItemTotalExportMap = [];
 
     /**
      * PayPal shopping cart instance
@@ -76,21 +73,21 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * Shipping options export to request mapping settings
      * @var array
      */
-    protected $_shippingOptionsExportItemsFormat = array();
+    protected $_shippingOptionsExportItemsFormat = [];
 
     /**
      * Imported recurring profiles array
      *
      * @var array
      */
-    protected $_recurringPaymentProfiles = array();
+    protected $_recurringPaymentProfiles = [];
 
-   /**
-     * Fields that should be replaced in debug with '***'
-     *
-     * @var array
-     */
-    protected $_debugReplacePrivateDataKeys = array();
+    /**
+      * Fields that should be replaced in debug with '***'
+      *
+      * @var array
+      */
+    protected $_debugReplacePrivateDataKeys = [];
 
     /**
      * Return Paypal Api user name based on config data
@@ -257,9 +254,9 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * @param array $publicMap
      * @return array|Varien_Object
      */
-    public function &import($to, array $publicMap = array())
+    public function &import($to, array $publicMap = [])
     {
-        return Varien_Object_Mapper::accumulateByMap(array($this, 'getDataUsingMethod'), $to, $publicMap);
+        return Varien_Object_Mapper::accumulateByMap([$this, 'getDataUsingMethod'], $to, $publicMap);
     }
 
     /**
@@ -269,9 +266,9 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * @param array $publicMap
      * @return Mage_Paypal_Model_Api_Abstract
      */
-    public function export($from, array $publicMap = array())
+    public function export($from, array $publicMap = [])
     {
-        Varien_Object_Mapper::accumulateByMap($from, array($this, 'setDataUsingMethod'), $publicMap);
+        Varien_Object_Mapper::accumulateByMap($from, [$this, 'setDataUsingMethod'], $publicMap);
         return $this;
     }
 
@@ -309,7 +306,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     }
 
     /**
-     * Always take into accoun
+     * Always take into account
      */
     public function getFraudManagementFiltersEnabled()
     {
@@ -337,21 +334,21 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * @param array $request
      * @return array
      */
-    protected function &_exportToRequest(array $privateRequestMap, array $request = array())
+    protected function &_exportToRequest(array $privateRequestMap, array $request = [])
     {
-        $map = array();
+        $map = [];
         foreach ($privateRequestMap as $key) {
             if (isset($this->_globalMap[$key])) {
                 $map[$this->_globalMap[$key]] = $key;
             }
         }
-        $result = Varien_Object_Mapper::accumulateByMap(array($this, 'getDataUsingMethod'), $request, $map);
+        $result = Varien_Object_Mapper::accumulateByMap([$this, 'getDataUsingMethod'], $request, $map);
         foreach ($privateRequestMap as $key) {
             if (isset($this->_exportToRequestFilters[$key]) && isset($result[$key])) {
                 $callback   = $this->_exportToRequestFilters[$key];
                 $privateKey = $result[$key];
                 $publicKey  = $map[$this->_globalMap[$key]];
-                $result[$key] = call_user_func(array($this, $callback), $privateKey, $publicKey);
+                $result[$key] = call_user_func([$this, $callback], $privateKey, $publicKey);
             }
         }
         return $result;
@@ -365,17 +362,17 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     protected function _importFromResponse(array $privateResponseMap, array $response)
     {
-        $map = array();
+        $map = [];
         foreach ($privateResponseMap as $key) {
             if (isset($this->_globalMap[$key])) {
                 $map[$key] = $this->_globalMap[$key];
             }
             if (isset($response[$key]) && isset($this->_importFromRequestFilters[$key])) {
                 $callback = $this->_importFromRequestFilters[$key];
-                $response[$key] = call_user_func(array($this, $callback), $response[$key], $key, $map[$key]);
+                $response[$key] = call_user_func([$this, $callback], $response[$key], $key, $map[$key]);
             }
         }
-        Varien_Object_Mapper::accumulateByMap($response, array($this, 'setDataUsingMethod'), $map);
+        Varien_Object_Mapper::accumulateByMap($response, [$this, 'setDataUsingMethod'], $map);
     }
 
     /**
@@ -415,7 +412,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
                 $value = $item->getDataUsingMethod($publicKey);
                 if (isset($this->_lineItemExportItemsFilters[$publicKey])) {
                     $callback   = $this->_lineItemExportItemsFilters[$publicKey];
-                    $value = call_user_func(array($this, $callback), $value);
+                    $value = call_user_func([$this, $callback], $value);
                 }
                 if (is_float($value)) {
                     $value = $this->_filterAmount($value);
@@ -504,7 +501,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
         return $this->_config->$key ? $this->_config->$key : $default;
     }
 
-
     /**
      * region_id workaround: PayPal requires state code, try to find one in the address
      *
@@ -531,7 +527,9 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     protected function _importStreetFromAddress(Varien_Object $address, array &$to)
     {
-        $keys = func_get_args(); array_shift($keys); array_shift($keys);
+        $keys = func_get_args();
+        array_shift($keys);
+        array_shift($keys);
         $street = $address->getStreet();
         if (!$keys || !$street || !is_array($street)) {
             return;
@@ -542,7 +540,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
 
         $i = 0;
         foreach ($keys as $key) {
-            $to[$key] = isset($street[$i]) ? $street[$i]: '';
+            $to[$key] = $street[$i] ?? '';
             $i++;
         }
     }
@@ -563,11 +561,11 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * Paypal note: The value for quantity must be a positive integer. Null, zero, or negative numbers are not allowed.
      *
      * @param float|string|int $value
-     * @return string
+     * @return int
      */
     protected function _filterQty($value)
     {
-        return intval($value);
+        return (int) $value;
     }
 
     /**

@@ -1,35 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Backup
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Backup
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Rollback worker for rolling back via ftp
  *
- * @category    Mage
- * @package     Mage_Backup
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Backup
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollback_Abstract
 {
@@ -65,7 +60,7 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
         $this->_cleanupFtp();
         $this->_uploadBackupToFtp($tmpDir);
 
-        $fsHelper->rm($tmpDir, array(), true);
+        $fsHelper->rm($tmpDir, [], true);
     }
 
     /**
@@ -87,6 +82,8 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
      * Perform ftp validation. Check whether ftp account provided points to current magento installation
      *
      * @throws Mage_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _validateFtp()
     {
@@ -127,6 +124,8 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
     /**
      * @throws Mage_Exception
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _createTmpDir()
     {
@@ -149,7 +148,8 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
         $rootDir = $this->_snapshot->getRootDir();
 
         $filesystemIterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($rootDir), RecursiveIteratorIterator::CHILD_FIRST
+            new RecursiveDirectoryIterator($rootDir),
+            RecursiveIteratorIterator::CHILD_FIRST
         );
 
         $iterator = new Mage_Backup_Filesystem_Iterator_Filter($filesystemIterator, $this->_snapshot->getIgnorePaths());
@@ -171,7 +171,8 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
     protected function _uploadBackupToFtp($tmpDir)
     {
         $filesystemIterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($tmpDir), RecursiveIteratorIterator::SELF_FIRST
+            new RecursiveDirectoryIterator($tmpDir),
+            RecursiveIteratorIterator::SELF_FIRST
         );
 
         $iterator = new Mage_Backup_Filesystem_Iterator_Filter($filesystemIterator, $this->_snapshot->getIgnorePaths());

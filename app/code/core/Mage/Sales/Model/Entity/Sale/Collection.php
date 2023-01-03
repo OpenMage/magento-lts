@@ -1,33 +1,31 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements IteratorAggregate
 {
-
     /**
      * Read connection
      *
@@ -35,9 +33,9 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
      */
     protected $_read;
 
-    protected $_items = array();
+    protected $_items = [];
 
-    protected $_totals = array('lifetime' => 0, 'num_orders' => 0);
+    protected $_totals = ['lifetime' => 0, 'num_orders' => 0];
 
     /**
      * Entity attribute
@@ -54,8 +52,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     protected $_select;
 
     /**
-     * Enter description here...
-     *
      * @var Mage_Customer_Model_Customer
      */
     protected $_customer;
@@ -85,18 +81,18 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     public function load($printQuery = false, $logQuery = false)
     {
         $this->_select = $this->_read->select();
-        $entityTable= $this->getEntity()->getEntityTable();
+        $entityTable = $this->getEntity()->getEntityTable();
         $paidTable  = $this->getAttribute('grand_total')->getBackend()->getTable();
         $idField    = $this->getEntity()->getIdFieldName();
         $this->getSelect()
             ->from(
-                array('sales' => $entityTable),
-                array(
+                ['sales' => $entityTable],
+                [
                     'store_id',
                     'lifetime'  => 'sum(sales.base_grand_total)',
                     'avgsale'   => 'avg(sales.base_grand_total)',
-                    'num_orders'=> 'count(sales.base_grand_total)'
-                )
+                    'num_orders' => 'count(sales.base_grand_total)'
+                ]
             )
             ->where('sales.entity_type_id=?', $this->getEntity()->getTypeId())
             ->group('sales.store_id')
@@ -114,10 +110,10 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
             throw $e;
         }
         $stores = Mage::getResourceModel('core/store_collection')->setWithoutDefaultFilter()->load()->toOptionHash();
-        if (! empty($values)) {
+        if (!empty($values)) {
             foreach ($values as $v) {
                 $obj = new Varien_Object($v);
-                $storeName = isset($stores[$obj->getStoreId()]) ? $stores[$obj->getStoreId()] : null;
+                $storeName = $stores[$obj->getStoreId()] ?? null;
 
                 $this->_items[ $v['store_id'] ] = $obj;
                 $this->_items[ $v['store_id'] ]->setStoreName($storeName);
@@ -137,8 +133,8 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     /**
      * Print and/or log query
      *
-     * @param boolean $printQuery
-     * @param boolean $logQuery
+     * @param bool $printQuery
+     * @param bool $logQuery
      * @param null|string $sql
      * @return Mage_Sales_Model_Entity_Sale_Collection
      */
@@ -165,8 +161,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $attr
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
@@ -176,8 +170,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
-     *
      * @return Mage_Eav_Model_Entity_Abstract
      */
     public function getEntity()
@@ -186,18 +178,15 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
-     *
      * @return ArrayIterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->_items);
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getItems()
@@ -206,8 +195,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
-     *
      * @return Varien_Object
      */
     public function getTotals()

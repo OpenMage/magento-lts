@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php /** @var $this Mage_Checkout_Block_Multishipping_Overview */ ?>
@@ -89,9 +84,9 @@
                             <?php echo $_excl; ?>
                             <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
                                 (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
-                            <?php endif; ?>
+                            <?php endif ?>
                             </p>
-                            <?php endif; ?>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
@@ -102,12 +97,12 @@
                         <col width="1" />
                         <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                         <col width="1" />
-                        <?php endif; ?>
+                        <?php endif ?>
                         <col width="1" />
                         <col width="1" />
                         <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                         <col width="1" />
-                        <?php endif; ?>
+                        <?php endif ?>
                         <thead>
                             <tr>
                                 <th rowspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Product Name') ?></th>
@@ -122,7 +117,7 @@
                                 <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
                                 <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
                             </tr>
-                            <?php endif; ?>
+                            <?php endif ?>
                         </thead>
                         <tfoot>
                             <?php echo $this->renderTotals($this->getShippingAddressTotals($_address)); ?>
@@ -130,15 +125,15 @@
                         <tbody>
                         <?php foreach ($this->getShippingAddressItems($_address) as $_item): ?>
                             <?php echo $this->getRowItemHtml($_item); ?>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                         </tbody>
                     </table>
                     <script type="text/javascript">decorateTable('overview-table-<?php echo $_address->getId() ?>')</script>
                 </div>
             <?php if($this->getShippingAddressCount()!=$_index+1): ?>
                 <div class="divider"></div>
-            <?php endif; ?>
-        <?php endforeach; ?>
+            <?php endif ?>
+        <?php endforeach ?>
         </div>
         <?php if ($this->getQuote()->hasVirtualItems()): ?>
         <div class="col2-set">
@@ -152,12 +147,12 @@
                     <col width="1" />
                     <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                     <col width="1" />
-                    <?php endif; ?>
+                    <?php endif ?>
                     <col width="1" />
                     <col width="1" />
                     <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                     <col width="70" />
-                    <?php endif; ?>
+                    <?php endif ?>
                     <thead>
                         <tr>
                             <th rowspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Product Name') ?></th>
@@ -172,7 +167,7 @@
                             <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
                             <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
                         </tr>
-                        <?php endif; ?>
+                        <?php endif ?>
                     </thead>
                     <tfoot>
                         <?php echo $this->renderTotals($this->getBillinAddressTotals()); ?>
@@ -180,13 +175,13 @@
                     <tbody>
                     <?php foreach ($this->getVirtualItems() as $_item): ?>
                         <?php echo $this->getRowItemHtml($_item); ?>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </tbody>
                     </table>
                     <script type="text/javascript">decorateTable('virtual-overview-table')</script>
                 </div>
         </div>
-        <?php endif; ?>
+        <?php endif ?>
 
            <?php echo $this->getChildHtml('items_after'); ?>
 

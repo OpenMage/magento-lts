@@ -1,46 +1,87 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
 
 /**
  * Grid widget massaction block
  *
- * @method Mage_Sales_Model_Quote setHideFormElement(boolean $value) Hide Form element to prevent IE errors
- * @method boolean getHideFormElement()
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setFormFieldName(string $value)
+ * @method $this setHideFormElement(bool $value) Hide Form element to prevent IE errors
+ * @method bool getHideFormElement()
  */
 abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage_Adminhtml_Block_Widget
 {
+    /**#@+
+     * Current massactions
+     * @var string
+     */
+    public const ASSIGN_GROUP              = 'assign_group';
+    public const ATTRIBUTES                = 'attributes';
+    public const CANCEL_ORDER              = 'cancel_order';
+    public const CHANGE_MODE               = 'change_mode';
+    public const ENABLE                    = 'enable';
+    public const DELETE                    = 'delete';
+    public const DISABLE                   = 'disable';
+    public const HOLD_ORDER                = 'hold_order';
+    public const MARK_AS_READ              = 'mark_as_read';
+    public const NEWSLETTER_SUBSCRIBE      = 'newsletter_subscribe';
+    public const NEWSLETTER_UNSUBSCRIBE    = 'newsletter_unsubscribe';
+    public const PDF_CREDITMEMOS_ORDER     = 'pdfcreditmemos_order';
+    public const PDF_DOCS_ORDER            = 'pdfdocs_order';
+    public const PDF_INVOICE_ORDER         = 'pdfinvoices_order';
+    public const PDF_SHIPMENTS_ORDER       = 'pdfshipments_order';
+    public const PRINT_SHIPMENT_LABEL      = 'print_shipping_label';
+    public const REFRESH                   = 'refresh';
+    public const REFRESH_LIFETIME          = 'refresh_lifetime';
+    public const REFRESH_RECENT            = 'refresh_recent';
+    public const REINDEX                   = 'reindex';
+    public const REMOVE                    = 'remove';
+    public const STATUS                    = 'status';
+    public const UNHOLD_ORDER              = 'unhold_order';
+    public const UNSUBSCRIBE               = 'unsubscribe';
+    public const UPDATE_STATUS             = 'update_status';
+    /**#@-*/
+
+    /**
+     * @var string[]
+     */
+    protected static $needsConfirm = [
+        self::CANCEL_ORDER,
+        self::HOLD_ORDER,
+        self::UNHOLD_ORDER,
+        self::DELETE,
+        self::REMOVE
+    ];
+
     /**
      * Massaction items
      *
      * @var array
      */
-    protected $_items = array();
+    protected $_items = [];
 
     /**
      * Sets Massaction template
@@ -69,12 +110,16 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function addItem($itemId, array $item)
     {
+        if (is_string($itemId) && $this->isConfirmMassAction($itemId) && !isset($item['confirm'])) {
+            $item['confirm'] = Mage::helper('core')->__('Are you sure?');
+        }
+
         $this->_items[$itemId] =  $this->getLayout()->createBlock('adminhtml/widget_grid_massaction_item')
             ->setData($item)
             ->setMassaction($this)
             ->setId($itemId);
 
-        if($this->_items[$itemId]->getAdditional()) {
+        if ($this->_items[$itemId]->getAdditional()) {
             $this->_items[$itemId]->setAdditionalActionBlock($this->_items[$itemId]->getAdditional());
             $this->_items[$itemId]->unsAdditional();
         }
@@ -86,15 +131,11 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      * Retrieve massaction item with id $itemId
      *
      * @param string $itemId
-     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Item
+     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Item|null
      */
     public function getItem($itemId)
     {
-        if(isset($this->_items[$itemId])) {
-            return $this->_items[$itemId];
-        }
-
-        return null;
+        return $this->_items[$itemId] ?? null;
     }
 
     /**
@@ -114,8 +155,8 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getItemsJson()
     {
-        $result = array();
-        foreach ($this->getItems() as $itemId=>$item) {
+        $result = [];
+        foreach ($this->getItems() as $itemId => $item) {
             $result[$itemId] = $item->toArray();
         }
 
@@ -125,7 +166,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Retrieve massaction items count
      *
-     * @return integer
+     * @return int
      */
     public function getCount()
     {
@@ -135,7 +176,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Checks are massactions available
      *
-     * @return boolean
+     * @return bool
      */
     public function isAvailable()
     {
@@ -189,9 +230,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getSelectedJson()
     {
-        if($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
+        if ($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
             $selected = explode(',', $this->quoteEscape($selected));
-            return join(',', $selected);
+            return implode(',', $selected);
         } else {
             return '';
         }
@@ -204,11 +245,11 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getSelected()
     {
-        if($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
+        if ($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
             $selected = explode(',', $this->quoteEscape($selected));
             return $selected;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -222,6 +263,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         return $this->getButtonHtml($this->__('Submit'), $this->getJsObjectName() . ".apply()");
     }
 
+    /**
+     * @return string
+     */
     public function getJavaScript()
     {
         return " var {$this->getJsObjectName()} = new varienGridMassaction('{$this->getHtmlId()}', "
@@ -234,6 +278,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
                 . "{$this->getJsObjectName()}.errorText = '{$this->getErrorText()}';";
     }
 
+    /**
+     * @return string
+     */
     public function getGridIdsJson()
     {
         if (!$this->getUseSelectAll()) {
@@ -242,12 +289,15 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
 
         $gridIds = $this->getParentBlock()->getCollection()->getAllIds();
 
-        if(!empty($gridIds)) {
-            return join(",", $gridIds);
+        if (!empty($gridIds)) {
+            return implode(",", $gridIds);
         }
         return '';
     }
 
+    /**
+     * @return string
+     */
     public function getHtmlId()
     {
         return $this->getParentBlock()->getHtmlId() . '_massaction';
@@ -271,7 +321,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Retrieve select all functionality flag check
      *
-     * @return boolean
+     * @return bool
      */
     public function getUseSelectAll()
     {
@@ -281,12 +331,43 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Retrieve select all functionality flag check
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
      */
     public function setUseSelectAll($flag)
     {
         $this->setData('use_select_all', (bool) $flag);
         return $this;
+    }
+
+    /**
+     * Group items for optgroups
+     *
+     * @return array
+     */
+    public function getGroupedItems(): array
+    {
+        $groupedItems = [
+            'default' => [],
+        ];
+
+        foreach ($this->getItems() as $item) {
+            if ($item->getData('group')) {
+                $groupedItems['grouped'][$item->getData('group')][$item->getId()] = $item;
+            } else {
+                $groupedItems['default'][$item->getId()] = $item;
+            }
+        }
+
+        return $groupedItems;
+    }
+
+    /**
+     * @param string $itemId
+     * @return bool
+     */
+    protected function isConfirmMassAction(string $itemId): bool
+    {
+        return in_array($itemId, static::$needsConfirm);
     }
 }

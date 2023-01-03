@@ -1,48 +1,40 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Persistent
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Persistent
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Persistent Session Resource Model
  *
- * @category    Mage
- * @package     Mage_Persistent
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Persistent
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
      * Use is object new method for object saving
      *
-     * @var boolean
+     * @var bool
      */
     protected $_useIsObjectNew = true;
 
-    /**
-     * Initialize connection and define main table and primary key
-     */
     protected function _construct()
     {
         $this->_init('persistent/session', 'persistent_id');
@@ -62,7 +54,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
         if (!$object->getLoadExpired()) {
             $tableName = $this->getMainTable();
             $select->join(
-                array('customer' => $this->getTable('customer/entity')),
+                ['customer' => $this->getTable('customer/entity')],
                 'customer.entity_id = ' . $tableName . '.customer_id'
             )->where($tableName . '.updated_at >= ?', $object->getExpiredBefore());
         }
@@ -78,7 +70,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
      */
     public function deleteByCustomerId($customerId)
     {
-        $this->_getWriteAdapter()->delete($this->getMainTable(), array('customer_id = ?' => $customerId));
+        $this->_getWriteAdapter()->delete($this->getMainTable(), ['customer_id = ?' => $customerId]);
         return $this;
     }
 
@@ -106,10 +98,10 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
     {
         $this->_getWriteAdapter()->delete(
             $this->getMainTable(),
-            array(
+            [
                 'website_id = ?' => $websiteId,
                 'updated_at < ?' => $expiredBefore,
-            )
+            ]
         );
         return $this;
     }

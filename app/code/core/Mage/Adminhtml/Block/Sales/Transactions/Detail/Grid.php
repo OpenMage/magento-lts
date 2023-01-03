@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -52,7 +47,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail_Grid extends Mage_Adminhtml
     {
         $collection = new Varien_Data_Collection();
         foreach ($this->getTransactionAdditionalInfo() as $key => $value) {
-            $data = new Varien_Object(array('key' => $key, 'value' => $value));
+            $data = new Varien_Object(['key' => $key, 'value' => $value]);
             $collection->addItem($data);
         }
 
@@ -67,21 +62,21 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail_Grid extends Mage_Adminhtml
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('key', array(
+        $this->addColumn('key', [
             'header'    => Mage::helper('sales')->__('Key'),
             'index'     => 'key',
             'sortable'  => false,
             'type'      => 'text',
             'width'     => '50%'
-        ));
+        ]);
 
-        $this->addColumn('value', array(
+        $this->addColumn('value', [
             'header'    => Mage::helper('sales')->__('Value'),
             'index'     => 'value',
             'sortable'  => false,
             'type'      => 'text',
             'escape'    => true
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -96,6 +91,6 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail_Grid extends Mage_Adminhtml
         $info = Mage::registry('current_transaction')->getAdditionalInformation(
             Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS
         );
-        return (is_array($info)) ? $info : array();
+        return (is_array($info)) ? $info : [];
     }
 }

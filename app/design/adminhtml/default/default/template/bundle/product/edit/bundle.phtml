@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <script type="text/javascript">
@@ -38,9 +33,9 @@ if(typeof Bundle=='undefined') {
         <table cellspacing="0" class="form-list">
         <tr>
             <td class="label"><label for="shipment_type"><?php echo Mage::helper('bundle')->__('Ship Bundle Items') ?></label></td>
-            <td class="value"><select <?php if ($this->isReadonly()): ?>disabled="disabled" <?php endif;?>id="shipment_type" name="<?php echo $this->getFieldSuffix() ?>[shipment_type]" class="select">
+            <td class="value"><select <?php if ($this->isReadonly()): ?>disabled="disabled" <?php endif ?>id="shipment_type" name="<?php echo $this->getFieldSuffix() ?>[shipment_type]" class="select">
                 <option value="1"><?php echo Mage::helper('bundle')->__('Separately') ?></option>
-                <option value="0"<?php if ($this->getProduct()->getShipmentType() == 0): ?> selected="selected"<?php endif; ?>><?php echo Mage::helper('bundle')->__('Together') ?></option>
+                <option value="0"<?php if ($this->getProduct()->getShipmentType() == 0): ?> selected="selected"<?php endif ?>><?php echo Mage::helper('bundle')->__('Together') ?></option>
             </select>
             </td>
         </tr>
@@ -70,7 +65,7 @@ $('product_bundle_container').select('input', 'select', 'textarea', 'button').ea
         input.addClassName('disabled');
     }
 });
-<?php endif; ?>
+<?php endif ?>
 Validation.add('validate-greater-zero-based-on-option', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please enter a number greater 0 in this field.')) ?>', function(v, el) {
     var optionType = $(el).up('div.grid').previous('table.option-header').select('select.select-product-option-type')[0],
         v = Number(v) || 0;
