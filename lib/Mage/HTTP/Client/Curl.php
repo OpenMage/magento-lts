@@ -391,6 +391,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      * Throw error excpetion
      * @param $string
      * @throws Exception
+     * @return never
      */
     public function doError($string)
     {

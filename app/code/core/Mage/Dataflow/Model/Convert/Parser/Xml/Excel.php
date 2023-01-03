@@ -31,14 +31,14 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
     /**
      * Simple Xml object
      *
-     * @var SimpleXMLElement
+     * @var SimpleXMLElement|null
      */
     protected $_xmlElement;
 
     /**
      * Field list
      *
-     * @var array
+     * @var array|null
      */
     protected $_parseFieldNames;
 

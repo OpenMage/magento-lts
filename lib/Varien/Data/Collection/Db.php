@@ -216,9 +216,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         if (is_null($this->_totalRecords)) {
             $sql = $this->getSelectCountSql();
-            $this->_totalRecords = $this->getConnection()->fetchOne($sql, $this->_bindParams);
+            $this->_totalRecords = (int)$this->getConnection()->fetchOne($sql, $this->_bindParams);
         }
-        return intval($this->_totalRecords);
+        return (int) $this->_totalRecords;
     }
 
     /**

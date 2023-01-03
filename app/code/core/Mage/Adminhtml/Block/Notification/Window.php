@@ -34,14 +34,14 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
     /**
      * Severity icons url
      *
-     * @var string
+     * @var string|null
      */
     protected $_severityIconsUrl;
 
     /**
      * Is available flag
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_available = null;
 

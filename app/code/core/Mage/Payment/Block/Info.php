@@ -33,7 +33,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     /**
      * Payment rendered specific information
      *
-     * @var Varien_Object
+     * @var Varien_Object|null
      */
     protected $_paymentSpecificInformation = null;
 

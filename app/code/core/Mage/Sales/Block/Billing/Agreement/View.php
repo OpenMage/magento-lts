@@ -47,14 +47,14 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
     /**
      * Billing Agreement instance
      *
-     * @var Mage_Sales_Model_Billing_Agreement
+     * @var Mage_Sales_Model_Billing_Agreement|null
      */
     protected $_billingAgreementInstance = null;
 
     /**
      * Related orders collection
      *
-     * @var Mage_Sales_Model_Resource_Order_Collection
+     * @var Mage_Sales_Model_Resource_Order_Collection|null
      */
     protected $_relatedOrders = null;
 

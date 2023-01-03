@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
     /**
      * Customer Address Form instance
      *
-     * @var Mage_Customer_Model_Form
+     * @var Mage_Customer_Model_Form|null
      */
     protected $_addressForm;
 

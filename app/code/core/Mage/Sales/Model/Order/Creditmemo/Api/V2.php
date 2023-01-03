@@ -69,7 +69,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api_V2 extends Mage_Sales_Model_Order_Cr
     protected function _prepareCreateData($data)
     {
         // convert data object to array, if it's null turn it into empty array
-        $data = (isset($data) and is_object($data)) ? get_object_vars($data) : [];
+        $data = (isset($data) && is_object($data)) ? get_object_vars($data) : [];
         // convert qtys object to array
         if (isset($data['qtys']) && count($data['qtys'])) {
             $qtysArray = [];

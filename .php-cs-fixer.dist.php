@@ -98,7 +98,8 @@ return $config
                 'app/code/core/Mage/',
                 'lib/Mage/',
                 'lib/Magento/',
-                'lib/Varien/'
+                'lib/Varien/',
+                'shell/',
             ])
             ->name('*.php')
             ->ignoreDotFiles(true)

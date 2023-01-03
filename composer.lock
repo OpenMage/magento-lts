@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "81672a390862764563f0915ff936b22d",
+    "content-hash": "5c29dfe419dc8e936c58187f7fbf5aba",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
-            "version": "1.14.4",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis.git",
-                "reference": "6661e3f07baa10e7b48305f9282eac5f7ad8e50a"
+                "reference": "841d59ef81b2eb9018e43fd9e8ae5b1adce3dc31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colinmollenhour/Cm_Cache_Backend_Redis/zipball/6661e3f07baa10e7b48305f9282eac5f7ad8e50a",
-                "reference": "6661e3f07baa10e7b48305f9282eac5f7ad8e50a",
+                "url": "https://api.github.com/repos/colinmollenhour/Cm_Cache_Backend_Redis/zipball/841d59ef81b2eb9018e43fd9e8ae5b1adce3dc31",
+                "reference": "841d59ef81b2eb9018e43fd9e8ae5b1adce3dc31",
                 "shasum": ""
             },
             "require": {
@@ -42,9 +42,9 @@
             "homepage": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis",
             "support": {
                 "issues": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/issues",
-                "source": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/tree/1.14.4"
+                "source": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/tree/1.15.0"
             },
-            "time": "2022-08-12T20:16:06+00:00"
+            "time": "2022-12-29T19:46:03+00:00"
         },
         {
             "name": "colinmollenhour/credis",
@@ -178,16 +178,16 @@
         },
         {
             "name": "cweagans/composer-patches",
-            "version": "1.7.2",
+            "version": "1.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cweagans/composer-patches.git",
-                "reference": "e9969cfc0796e6dea9b4e52f77f18e1065212871"
+                "reference": "e190d4466fe2b103a55467dfa83fc2fecfcaf2db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/e9969cfc0796e6dea9b4e52f77f18e1065212871",
-                "reference": "e9969cfc0796e6dea9b4e52f77f18e1065212871",
+                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/e190d4466fe2b103a55467dfa83fc2fecfcaf2db",
+                "reference": "e190d4466fe2b103a55467dfa83fc2fecfcaf2db",
                 "shasum": ""
             },
             "require": {
@@ -220,9 +220,9 @@
             "description": "Provides a way to patch Composer packages.",
             "support": {
                 "issues": "https://github.com/cweagans/composer-patches/issues",
-                "source": "https://github.com/cweagans/composer-patches/tree/1.7.2"
+                "source": "https://github.com/cweagans/composer-patches/tree/1.7.3"
             },
-            "time": "2022-01-25T19:21:20+00:00"
+            "time": "2022-12-20T22:53:13+00:00"
         },
         {
             "name": "eloquent/enumeration",
@@ -621,34 +621,34 @@
         },
         {
             "name": "pelago/emogrifier",
-            "version": "v6.0.0",
+            "version": "v7.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MyIntervals/emogrifier.git",
-                "reference": "aa72d5407efac118f3896bcb995a2cba793df0ae"
+                "reference": "547b8c814794aec871e3c98b1c712f416755f4eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MyIntervals/emogrifier/zipball/aa72d5407efac118f3896bcb995a2cba793df0ae",
-                "reference": "aa72d5407efac118f3896bcb995a2cba793df0ae",
+                "url": "https://api.github.com/repos/MyIntervals/emogrifier/zipball/547b8c814794aec871e3c98b1c712f416755f4eb",
+                "reference": "547b8c814794aec871e3c98b1c712f416755f4eb",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
-                "php": "~7.2.0 || ~7.3.0 || ~7.4.0 || ~8.0.0 || ~8.1.0",
-                "sabberworm/php-css-parser": "^8.3.1",
-                "symfony/css-selector": "^3.4.32 || ^4.4 || ^5.3 || ^6.0"
+                "php": "~7.3.0 || ~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0",
+                "sabberworm/php-css-parser": "^8.4.0",
+                "symfony/css-selector": "^4.4.23 || ^5.4.0 || ^6.0.0"
             },
             "require-dev": {
-                "php-parallel-lint/php-parallel-lint": "^1.3.0",
-                "phpunit/phpunit": "^8.5.16",
+                "php-parallel-lint/php-parallel-lint": "^1.3.2",
+                "phpunit/phpunit": "^9.5.25",
                 "rawr/cross-data-providers": "^2.3.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "7.0.x-dev"
+                    "dev-main": "8.0.x-dev"
                 }
             },
             "autoload": {
@@ -695,20 +695,20 @@
                 "issues": "https://github.com/MyIntervals/emogrifier/issues",
                 "source": "https://github.com/MyIntervals/emogrifier"
             },
-            "time": "2021-09-16T16:22:04+00:00"
+            "time": "2022-11-01T17:53:29+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
-            "version": "2.0.3",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/mcrypt_compat.git",
-                "reference": "8a9f9f05b25fedce2ded16fa6008c1a6e4290603"
+                "reference": "6505669343743daf290b7d7b6b7105f85fd9988f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/mcrypt_compat/zipball/8a9f9f05b25fedce2ded16fa6008c1a6e4290603",
-                "reference": "8a9f9f05b25fedce2ded16fa6008c1a6e4290603",
+                "url": "https://api.github.com/repos/phpseclib/mcrypt_compat/zipball/6505669343743daf290b7d7b6b7105f85fd9988f",
+                "reference": "6505669343743daf290b7d7b6b7105f85fd9988f",
                 "shasum": ""
             },
             "require": {
@@ -763,20 +763,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-27T15:58:45+00:00"
+            "time": "2022-12-19T00:32:45+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.17",
+            "version": "3.0.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "dbc2307d5c69aeb22db136c52e91130d7f2ca761"
+                "reference": "f28693d38ba21bb0d9f0c411ee5dae2b178201da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/dbc2307d5c69aeb22db136c52e91130d7f2ca761",
-                "reference": "dbc2307d5c69aeb22db136c52e91130d7f2ca761",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/f28693d38ba21bb0d9f0c411ee5dae2b178201da",
+                "reference": "f28693d38ba21bb0d9f0c411ee5dae2b178201da",
                 "shasum": ""
             },
             "require": {
@@ -857,7 +857,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.17"
+                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.18"
             },
             "funding": [
                 {
@@ -873,7 +873,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-10-24T10:51:50+00:00"
+            "time": "2022-12-17T18:26:50+00:00"
         },
         {
             "name": "psr/container",
@@ -975,6 +975,66 @@
                 "source": "https://github.com/sabberworm/PHP-CSS-Parser/tree/8.4.0"
             },
             "time": "2021-12-11T13:40:54+00:00"
+        },
+        {
+            "name": "shardj/zf1-future",
+            "version": "1.21.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Shardj/zf1-future.git",
+                "reference": "7b57530525f48c173a7cf61f5cdfb7d652f3c5d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Shardj/zf1-future/zipball/7b57530525f48c173a7cf61f5cdfb7d652f3c5d8",
+                "reference": "7b57530525f48c173a7cf61f5cdfb7d652f3c5d8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1",
+                "symfony/polyfill-mbstring": "^1.26",
+                "symfony/polyfill-php81": "^1.24"
+            },
+            "replace": {
+                "zendframework/zendframework1": ">=1.12.20"
+            },
+            "require-dev": {
+                "php-parallel-lint/php-parallel-lint": "1.0.0",
+                "phpunit/dbunit": "1.3.*",
+                "zf1s/phpunit": "3.7.39"
+            },
+            "suggest": {
+                "ext-mbstring": "Multibyte strings handling"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.12.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Zend_": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                "library/"
+            ],
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Zend Framework 1. The aim is to keep ZF1 working with the latest PHP versions",
+            "homepage": "http://framework.zend.com/",
+            "keywords": [
+                "ZF1",
+                "framework"
+            ],
+            "support": {
+                "issues": "https://github.com/Shardj/zf1-future/issues",
+                "source": "https://github.com/Shardj/zf1-future/tree/release-1.21.4"
+            },
+            "time": "2022-09-22T11:00:12+00:00"
         },
         {
             "name": "symfony/console",
@@ -1701,6 +1761,85 @@
             "time": "2022-11-03T14:55:06+00:00"
         },
         {
+            "name": "symfony/polyfill-php81",
+            "version": "v1.27.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php81.git",
+                "reference": "707403074c8ea6e2edaf8794b0157a0bfa52157a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php81/zipball/707403074c8ea6e2edaf8794b0157a0bfa52157a",
+                "reference": "707403074c8ea6e2edaf8794b0157a0bfa52157a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.27-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php81\\": ""
+                },
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 8.1+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-php81/tree/v1.27.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-11-03T14:55:06+00:00"
+        },
+        {
             "name": "symfony/service-contracts",
             "version": "v2.5.2",
             "source": {
@@ -2166,16 +2305,16 @@
         },
         {
             "name": "doctrine/annotations",
-            "version": "1.14.1",
+            "version": "1.14.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "9e034d7a70032d422169f27d8759e8d84abb4f51"
+                "reference": "ad785217c1e9555a7d6c6c8c9f406395a5e2882b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/9e034d7a70032d422169f27d8759e8d84abb4f51",
-                "reference": "9e034d7a70032d422169f27d8759e8d84abb4f51",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/ad785217c1e9555a7d6c6c8c9f406395a5e2882b",
+                "reference": "ad785217c1e9555a7d6c6c8c9f406395a5e2882b",
                 "shasum": ""
             },
             "require": {
@@ -2236,9 +2375,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/annotations/issues",
-                "source": "https://github.com/doctrine/annotations/tree/1.14.1"
+                "source": "https://github.com/doctrine/annotations/tree/1.14.2"
             },
-            "time": "2022-12-12T12:46:12+00:00"
+            "time": "2022-12-15T06:48:22+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -2355,16 +2494,16 @@
         },
         {
             "name": "doctrine/lexer",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/lexer.git",
-                "reference": "3cf140b81e55d5d640f73367d829db7e3023ef69"
+                "reference": "39ab8fcf5a51ce4b85ca97c7a7d033eb12831124"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/3cf140b81e55d5d640f73367d829db7e3023ef69",
-                "reference": "3cf140b81e55d5d640f73367d829db7e3023ef69",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/39ab8fcf5a51ce4b85ca97c7a7d033eb12831124",
+                "reference": "39ab8fcf5a51ce4b85ca97c7a7d033eb12831124",
                 "shasum": ""
             },
             "require": {
@@ -2413,7 +2552,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/lexer/issues",
-                "source": "https://github.com/doctrine/lexer/tree/2.0.0"
+                "source": "https://github.com/doctrine/lexer/tree/2.1.0"
             },
             "funding": [
                 {
@@ -2429,7 +2568,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-11T10:51:23+00:00"
+            "time": "2022-12-14T08:49:07+00:00"
         },
         {
             "name": "friendsofphp/php-cs-fixer",
@@ -2709,6 +2848,114 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v4.15.2"
             },
             "time": "2022-11-12T15:38:23+00:00"
+        },
+        {
+            "name": "openmage/dev-copyright",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OpenMage/dev-copyright.git",
+                "reference": "0452d373a72fed9eaa46dc409119b1ad5473b006"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OpenMage/dev-copyright/zipball/0452d373a72fed9eaa46dc409119b1ad5473b006",
+                "reference": "0452d373a72fed9eaa46dc409119b1ad5473b006",
+                "shasum": ""
+            },
+            "require": {
+                "magento-hackathon/magento-composer-installer": "*"
+            },
+            "default-branch": true,
+            "type": "magento-module",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "OSL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Justin Beaty",
+                    "homepage": "https://github.com/justinbeaty"
+                }
+            ],
+            "description": "Updated copyright blocks.",
+            "support": {
+                "issues": "https://github.com/OpenMage/dev-copyright/issues",
+                "source": "https://github.com/OpenMage/dev-copyright/tree/main"
+            },
+            "time": "2022-12-27T20:49:35+00:00"
+        },
+        {
+            "name": "openmage/dev-meta-package",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OpenMage/dev-meta-package.git",
+                "reference": "eb70dc9a321fde24f148f6f52ddd76d8dbfbfe02"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OpenMage/dev-meta-package/zipball/eb70dc9a321fde24f148f6f52ddd76d8dbfbfe02",
+                "reference": "eb70dc9a321fde24f148f6f52ddd76d8dbfbfe02",
+                "shasum": ""
+            },
+            "require": {
+                "openmage/dev-copyright": "dev-main",
+                "openmage/dev-translations": "dev-main"
+            },
+            "type": "metapackage",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "OSL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Sven Reichel",
+                    "email": "github-sr@hotmail.com"
+                }
+            ],
+            "description": "OpenMage tools that are only needed for development.",
+            "support": {
+                "issues": "https://github.com/OpenMage/dev-meta-package/issues",
+                "source": "https://github.com/OpenMage/dev-meta-package/tree/v1.0.0"
+            },
+            "time": "2022-12-27T21:05:44+00:00"
+        },
+        {
+            "name": "openmage/dev-translations",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OpenMage/dev-translations.git",
+                "reference": "cace35f0901a3be333b6b09ca78a36c207ce3c5b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OpenMage/dev-translations/zipball/cace35f0901a3be333b6b09ca78a36c207ce3c5b",
+                "reference": "cace35f0901a3be333b6b09ca78a36c207ce3c5b",
+                "shasum": ""
+            },
+            "require": {
+                "magento-hackathon/magento-composer-installer": "*"
+            },
+            "default-branch": true,
+            "type": "magento-module",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "OSL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Justin Beaty",
+                    "homepage": "https://github.com/justinbeaty"
+                }
+            ],
+            "description": "Finds missing and unused translations.",
+            "support": {
+                "issues": "https://github.com/OpenMage/dev-translations/issues",
+                "source": "https://github.com/OpenMage/dev-translations/tree/main"
+            },
+            "time": "2022-12-26T04:10:49+00:00"
         },
         {
             "name": "pdepend/pdepend",
@@ -3137,16 +3384,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.21",
+            "version": "9.2.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "3f893e19712bb0c8bc86665d1562e9fd509c4ef0"
+                "reference": "e4bf60d2220b4baaa0572986b5d69870226b06df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/3f893e19712bb0c8bc86665d1562e9fd509c4ef0",
-                "reference": "3f893e19712bb0c8bc86665d1562e9fd509c4ef0",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/e4bf60d2220b4baaa0572986b5d69870226b06df",
+                "reference": "e4bf60d2220b4baaa0572986b5d69870226b06df",
                 "shasum": ""
             },
             "require": {
@@ -3202,7 +3449,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.21"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.22"
             },
             "funding": [
                 {
@@ -3210,7 +3457,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-12-14T13:26:54+00:00"
+            "time": "2022-12-18T16:40:55+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -5253,85 +5500,6 @@
             "time": "2022-07-20T13:00:38+00:00"
         },
         {
-            "name": "symfony/polyfill-php81",
-            "version": "v1.27.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/polyfill-php81.git",
-                "reference": "707403074c8ea6e2edaf8794b0157a0bfa52157a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php81/zipball/707403074c8ea6e2edaf8794b0157a0bfa52157a",
-                "reference": "707403074c8ea6e2edaf8794b0157a0bfa52157a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "1.27-dev"
-                },
-                "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Polyfill\\Php81\\": ""
-                },
-                "classmap": [
-                    "Resources/stubs"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony polyfill backporting some PHP 8.1+ features to lower PHP versions",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "polyfill",
-                "portable",
-                "shim"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-php81/tree/v1.27.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2022-11-03T14:55:06+00:00"
-        },
-        {
             "name": "symfony/process",
             "version": "v5.4.11",
             "source": {
@@ -5457,16 +5625,16 @@
         },
         {
             "name": "symplify/vendor-patches",
-            "version": "11.1.18",
+            "version": "11.1.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/vendor-patches.git",
-                "reference": "08de658e9391e0f8743e52313a4589b749a08742"
+                "reference": "b71e245723d5e1bedcecb1ec0341fb51c2b9ca55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/08de658e9391e0f8743e52313a4589b749a08742",
-                "reference": "08de658e9391e0f8743e52313a4589b749a08742",
+                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/b71e245723d5e1bedcecb1ec0341fb51c2b9ca55",
+                "reference": "b71e245723d5e1bedcecb1ec0341fb51c2b9ca55",
                 "shasum": ""
             },
             "require": {
@@ -5488,7 +5656,7 @@
             ],
             "description": "Generate vendor patches for packages with single command",
             "support": {
-                "source": "https://github.com/symplify/vendor-patches/tree/11.1.18"
+                "source": "https://github.com/symplify/vendor-patches/tree/11.1.24"
             },
             "funding": [
                 {
@@ -5500,7 +5668,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-12-16T14:02:57+00:00"
+            "time": "2022-12-23T14:59:34+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -5554,9 +5722,9 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": [],
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.3 <8.2",
@@ -5576,5 +5744,8 @@
         "ext-zlib": "*"
     },
     "platform-dev": [],
+    "platform-overrides": {
+        "php": "7.3"
+    },
     "plugin-api-version": "2.3.0"
 }

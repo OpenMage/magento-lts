@@ -181,7 +181,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Resource model
      * Used for operations with DB
      *
-     * @var Mage_Core_Model_Resource_Config
+     * @var Mage_Core_Model_Resource_Config|null
      */
     protected $_resourceModel;
 
@@ -689,10 +689,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             Varien_Profiler::start('init_config_section:' . $sectionKey);
             $this->_cacheLoadedSections[$sectionKey] = $this->_loadSectionCache($sectionKey);
             Varien_Profiler::stop('init_config_section:' . $sectionKey);
-        }
-
-        if ($this->_cacheLoadedSections[$sectionKey] === false) {
-            return false;
         }
         return $this->_cacheLoadedSections[$sectionKey];
     }

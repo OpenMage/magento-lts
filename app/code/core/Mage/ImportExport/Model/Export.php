@@ -79,7 +79,7 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
                         Mage::helper('importexport')->__('Invalid entity model')
                     );
                 }
-                if (! $this->_entityAdapter instanceof Mage_ImportExport_Model_Export_Entity_Abstract) {
+                if (!$this->_entityAdapter instanceof Mage_ImportExport_Model_Export_Entity_Abstract) {
                     Mage::throwException(
                         Mage::helper('importexport')->__('Entity adapter obejct must be an instance of Mage_ImportExport_Model_Export_Entity_Abstract')
                     );
@@ -118,7 +118,7 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
                         Mage::helper('importexport')->__('Invalid entity model')
                     );
                 }
-                if (! $this->_writer instanceof Mage_ImportExport_Model_Export_Adapter_Abstract) {
+                if (!$this->_writer instanceof Mage_ImportExport_Model_Export_Adapter_Abstract) {
                     Mage::throwException(
                         Mage::helper('importexport')->__('Adapter object must be an instance of %s', 'Mage_ImportExport_Model_Export_Adapter_Abstract')
                     );

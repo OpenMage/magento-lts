@@ -198,7 +198,7 @@ class Mage_Tax_Model_Config
     /**
      * Get configuration setting "Apply Discount On Prices Including Tax" value
      *
-     * @param null|int $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return bool 0|1
      */
     public function discountTax($store = null)
@@ -751,7 +751,7 @@ class Mage_Tax_Model_Config
     /**
      * Return the config value for self::CONFIG_XML_PATH_CROSS_BORDER_TRADE_ENABLED
      *
-     * @param int|null $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return int
      */
     public function crossBorderTradeEnabled($store = null)

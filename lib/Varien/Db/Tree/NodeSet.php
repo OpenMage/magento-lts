@@ -21,7 +21,6 @@
 
 /**
  * TODO implements iterators
- *
  */
 class Varien_Db_Tree_NodeSet implements Iterator
 {
@@ -60,31 +59,34 @@ class Varien_Db_Tree_NodeSet implements Iterator
     /**
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->_nodes[$this->_current]);
     }
 
+    #[\ReturnTypeWillChange]
     public function next()
     {
         if ($this->_current > $this->_currentNode) {
             return false;
         } else {
-            return  $this->_current++;
+            return $this->_current++;
         }
     }
 
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->_current;
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->_nodes[$this->_current];
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->_current = 0;
     }

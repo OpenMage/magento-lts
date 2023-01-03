@@ -202,7 +202,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
     /**
      * Getting attribute block name for tabs
      *
-     * @return string
+     * @return string|null
      */
     public function getAttributeTabBlock()
     {

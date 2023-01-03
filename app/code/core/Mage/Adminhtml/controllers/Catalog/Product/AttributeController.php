@@ -100,7 +100,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
         if ($id) {
             $model->load($id);
 
-            if (! $model->getId()) {
+            if (!$model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError(
                     Mage::helper('catalog')->__('This attribute no longer exists')
                 );
@@ -120,7 +120,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
 
         // set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getAttributeData(true);
-        if (! empty($data)) {
+        if (!empty($data)) {
             $model->addData($data);
         }
 
@@ -301,6 +301,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
             $model->addData($data);
 
             if (!$id) {
+                $data['entity_type_id'] = $this->_entityTypeId;
                 $model->setEntityTypeId($this->_entityTypeId);
                 $model->setIsUserDefined(1);
             }

@@ -157,7 +157,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Category tree model
      *
-     * @var Mage_Catalog_Model_Resource_Category_Tree
+     * @var Mage_Catalog_Model_Resource_Category_Tree|null
      */
     protected $_treeModel = null;
 
@@ -589,7 +589,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getParentId()
     {
         $parentIds = $this->getParentIds();
-        return intval(array_pop($parentIds));
+        return (int) array_pop($parentIds);
     }
 
     /**

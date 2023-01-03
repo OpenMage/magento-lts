@@ -1010,7 +1010,7 @@ XMLRequest;
 
                         if ($successConversion) {
                             $costArr[$code] = $cost;
-                            $priceArr[$code] = $this->getMethodPrice(floatval($cost), $code);
+                            $priceArr[$code] = $this->getMethodPrice((float) $cost, $code);
                         }
                     }
                 }

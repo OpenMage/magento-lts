@@ -423,7 +423,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $values = array_values($this->_columns);
 
         foreach ($this->getColumnsOrder() as $columnId => $after) {
-            if (array_search($after, $keys) !== false) {
+            if (in_array($after, $keys)) {
                 // Moving grid column
                 $positionCurrent = array_search($columnId, $keys);
 
@@ -1710,7 +1710,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Retrieve subtotal item
      *
      * @param Varien_Object $item
-     * @return Varien_Object
+     * @return Varien_Object|string
      */
     public function getSubTotalItem($item)
     {

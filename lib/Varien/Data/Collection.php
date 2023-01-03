@@ -85,7 +85,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Total items number
      *
-     * @var int
+     * @var int|null
      */
     protected $_totalRecords;
 
@@ -247,7 +247,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         if (is_null($this->_totalRecords)) {
             $this->_totalRecords = count($this->getItems());
         }
-        return intval($this->_totalRecords);
+        return (int) $this->_totalRecords;
     }
 
     /**
@@ -440,7 +440,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      *
      * Returns array with results of callback for each item
      *
-     * @param callable $callback
+     * @param string|callable $callback
      * @param array $args
      * @return array
      */

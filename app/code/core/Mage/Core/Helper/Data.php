@@ -333,6 +333,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $string
      * @param bool $german
      * @return false|string
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function removeAccents($string, $german = false)
     {
@@ -389,7 +391,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param int|null $storeId
+     * @param null|string|bool|int|Mage_Core_Model_Store $storeId
      * @return bool
      */
     public function isDevAllowed($storeId = null)
@@ -400,8 +402,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $remoteAddr = Mage::helper('core/http')->getRemoteAddr();
         if (!empty($allowedIps) && !empty($remoteAddr)) {
             $allowedIps = preg_split('#\s*,\s*#', $allowedIps, -1, PREG_SPLIT_NO_EMPTY);
-            if (array_search($remoteAddr, $allowedIps) === false
-                && array_search(Mage::helper('core/http')->getHttpHost(), $allowedIps) === false
+            if (!in_array($remoteAddr, $allowedIps)
+                && !in_array(Mage::helper('core/http')->getHttpHost(), $allowedIps)
             ) {
                 $allow = false;
             }
@@ -761,6 +763,8 @@ XML;
      * @param callable $beforeMergeCallback
      * @param array|string $extensionsFilter
      * @return bool|string
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function mergeFiles(
         array $srcFiles,

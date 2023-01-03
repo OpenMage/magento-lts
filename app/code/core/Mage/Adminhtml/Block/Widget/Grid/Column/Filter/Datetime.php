@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
      *
      * @param string $date
      * @param string $locale
-     * @return Zend_Date
+     * @return Zend_Date|null
      */
     protected function _convertDate($date, $locale)
     {

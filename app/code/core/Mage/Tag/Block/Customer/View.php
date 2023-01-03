@@ -34,14 +34,14 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     /**
      * Tagged Product Collection
      *
-     * @var Mage_Tag_Model_Resource_Product_Collection
+     * @var Mage_Tag_Model_Resource_Product_Collection|null
      */
     protected $_collection;
 
     /**
      * Current Tag object
      *
-     * @var Mage_Tag_Model_Tag
+     * @var Mage_Tag_Model_Tag|null
      */
     protected $_tagInfo;
 

@@ -10,6 +10,7 @@
     <file>lib/Mage/</file>
     <file>lib/Magento/</file>
     <file>lib/Varien/</file>
+    <file>shell/</file>
     <!-- file contains include/include_once/... -->
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
         <!-- controllers -->
@@ -26,6 +27,10 @@
         <exclude-pattern>*/core/Mage/Downloadable/controllers/Adminhtml/Downloadable/Product/EditController.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Downloadable/controllers/Product/EditController.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Downloadable/controllers/FileController.php*</exclude-pattern>
+        <exclude-pattern>*/shell/indexer.php*</exclude-pattern>
+        <exclude-pattern>*/shell/log.php*</exclude-pattern>
+        <exclude-pattern>*/shell/translations.php*</exclude-pattern>
+        <exclude-pattern>*/shell/update-copyright.php*</exclude-pattern>
         <!-- others (@todo check) -->
         <exclude-pattern>*/lib/Varien/Db/Tree/Exception.php*</exclude-pattern>
         <exclude-pattern>*/lib/Varien/Db/Tree/Node.php*</exclude-pattern>

@@ -106,8 +106,8 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
      */
     public function setColumnCount($columns)
     {
-        if (intval($columns) > 0) {
-            $this->_columnCount = intval($columns);
+        if ((int) $columns > 0) {
+            $this->_columnCount = (int) $columns;
         }
         return $this;
     }

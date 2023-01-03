@@ -31,35 +31,35 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Order model
      *
-     * @var Mage_Sales_Model_Order
+     * @var Mage_Sales_Model_Order|null
      */
     protected $_order;
 
     /**
      * Source model (invoice, shipment, creditmemo)
      *
-     * @var Mage_Core_Model_Abstract
+     * @var Mage_Core_Model_Abstract|null
      */
     protected $_source;
 
     /**
      * Item object
      *
-     * @var Varien_Object
+     * @var Varien_Object|null
      */
     protected $_item;
 
     /**
      * Pdf object
      *
-     * @var Mage_Sales_Model_Order_Pdf_Abstract
+     * @var Mage_Sales_Model_Order_Pdf_Abstract|null
      */
     protected $_pdf;
 
     /**
      * Pdf current page
      *
-     * @var Zend_Pdf_Page
+     * @var Zend_Pdf_Page|null
      */
     protected $_pdfPage;
 

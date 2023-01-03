@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Main extends Mage_Adminhtml
                 'name' => 'user_id',
             ]);
         } else {
-            if (! $model->hasData('is_active')) {
+            if (!$model->hasData('is_active')) {
                 $model->setIsActive(1);
             }
         }
