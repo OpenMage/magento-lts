@@ -26,7 +26,11 @@
  */
 class Mage_Shipping_Model_Tracking_Result
 {
+    /**
+     * @var array
+     */
     protected $_trackings = [];
+
     protected $_error = null;
 
     /**
@@ -75,6 +79,8 @@ class Mage_Shipping_Model_Tracking_Result
 
     /**
      * Return all trackings in the result
+     *
+     * @return array
      */
     public function getAllTrackings()
     {

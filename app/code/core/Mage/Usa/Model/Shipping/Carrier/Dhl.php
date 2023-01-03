@@ -59,7 +59,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|null
+     * @var Mage_Shipping_Model_Tracking_Result|Mage_Shipping_Model_Rate_Result|null
      */
     protected $_result = null;
 

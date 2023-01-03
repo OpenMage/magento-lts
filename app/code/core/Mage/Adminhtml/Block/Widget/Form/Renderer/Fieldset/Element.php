@@ -28,6 +28,9 @@
  */
 class Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element extends Mage_Adminhtml_Block_Template implements Varien_Data_Form_Element_Renderer_Interface
 {
+    /**
+     * @var Varien_Data_Form_Element_Abstract
+     */
     protected $_element;
 
     protected function _construct()
@@ -35,6 +38,9 @@ class Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element extends Mage_Ad
         $this->setTemplate('widget/form/renderer/fieldset/element.phtml');
     }
 
+    /**
+     * @return Varien_Data_Form_Element_Abstract
+     */
     public function getElement()
     {
         return $this->_element;

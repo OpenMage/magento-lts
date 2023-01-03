@@ -106,7 +106,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Widget/Chooser.php
 
 		-
-			message: "#^If condition is always true\\.$#"
+			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Form/Renderer/Fieldset/Element.php
 
@@ -162,7 +162,12 @@ parameters:
 
 		-
 			message: "#^If condition is always true\\.$#"
-			count: 2
+			count: 1
+			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Inventory.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Inventory.php
 
 		-
@@ -186,7 +191,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Settings.php
 
 		-
-			message: "#^If condition is always true\\.$#"
+			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Grid.php
 
@@ -737,12 +742,22 @@ parameters:
 
 		-
 			message: "#^If condition is always true\\.$#"
-			count: 2
+			count: 1
+			path: app/code/core/Mage/Adminhtml/Controller/Sales/Creditmemo.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
 			path: app/code/core/Mage/Adminhtml/Controller/Sales/Creditmemo.php
 
 		-
 			message: "#^If condition is always true\\.$#"
-			count: 2
+			count: 1
+			path: app/code/core/Mage/Adminhtml/Controller/Sales/Invoice.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
 			path: app/code/core/Mage/Adminhtml/Controller/Sales/Invoice.php
 
 		-
@@ -1401,6 +1416,16 @@ parameters:
 			path: app/code/core/Mage/Bundle/Block/Adminhtml/Sales/Order/Items/Renderer.php
 
 		-
+			message: "#^Result of && is always false\\.$#"
+			count: 2
+			path: app/code/core/Mage/Bundle/Block/Adminhtml/Sales/Order/Items/Renderer.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 2
+			path: app/code/core/Mage/Bundle/Block/Adminhtml/Sales/Order/View/Items/Renderer.php
+
+		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getIsPricesCalculatedByIndex\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Block/Catalog/Product/Price.php
@@ -1409,6 +1434,11 @@ parameters:
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getSelectionPreFinalPrice\\(\\)\\.$#"
 			count: 3
 			path: app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 2
+			path: app/code/core/Mage/Bundle/Block/Sales/Order/Items/Renderer.php
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Configuration_Item_Interface\\:\\:getQty\\(\\)\\.$#"
@@ -1602,11 +1632,6 @@ parameters:
 
 		-
 			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Navigation.php
-
-		-
-			message: "#^Property Mage_Catalog_Block_Navigation\\:\\:\\$_currentCategoryKey \\(string\\) does not accept int\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Navigation.php
 
@@ -1816,8 +1841,13 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Api/Resource.php
 
 		-
+			message: "#^Elseif condition is always false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php
+
+		-
 			message: "#^If condition is always false\\.$#"
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php
 
 		-
@@ -1954,6 +1984,11 @@ parameters:
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Convert/Parser/Product.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Design.php
 
 		-
 			message: "#^Left side of && is always true\\.$#"
@@ -2187,11 +2222,16 @@ parameters:
 
 		-
 			message: "#^If condition is always true\\.$#"
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Product_Type_Configurable\\:\\:getProductByAttributes\\(\\) should return Mage_Catalog_Model_Product\\|null but returns Varien_Object\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
 
@@ -3486,7 +3526,7 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource.php
 
 		-
-			message: "#^If condition is always true\\.$#"
+			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Cache.php
 
@@ -5661,7 +5701,7 @@ parameters:
 			path: app/code/core/Mage/Reports/Model/Totals.php
 
 		-
-			message: "#^If condition is always false\\.$#"
+			message: "#^Ternary operator condition is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Totals.php
 
@@ -6861,11 +6901,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
 
 		-
-			message: "#^Instanceof between Mage_Shipping_Model_Rate_Result\\|null and Mage_Shipping_Model_Tracking_Result will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:_doRequest\\(\\) should return Mage_Shipping_Model_Rate_Result\\|Varien_Object but empty return statement found\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
@@ -6892,16 +6927,6 @@ parameters:
 
 		-
 			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:\\$_request \\(Mage_Shipping_Model_Rate_Request\\|null\\) does not accept Varien_Object\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
-			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:\\$_result \\(Mage_Shipping_Model_Rate_Result\\|null\\) does not accept Mage_Shipping_Model_Tracking_Result\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
-			message: "#^Variable \\$statuses in empty\\(\\) always exists and is always falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
 
@@ -6966,11 +6991,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
 
 		-
-			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:\\$_result \\(Mage_Shipping_Model_Rate_Result\\|null\\) does not accept Mage_Shipping_Model_Tracking_Result\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
-
-		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page\\:\\:drawText\\(\\) should return \\$this\\(Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page\\) but returns Zend_Pdf_Canvas_Interface\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/Page.php
@@ -7001,11 +7021,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
 
 		-
-			message: "#^Instanceof between Mage_Shipping_Model_Rate_Result\\|null and Mage_Shipping_Model_Tracking_Result will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
-
-		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Fedex\\:\\:_getQuotes\\(\\) should return Mage_Shipping_Model_Rate_Result but returns true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
@@ -7014,21 +7029,6 @@ parameters:
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Fedex\\:\\:_getRateAmountOriginBased\\(\\) should return float\\|null but returns string\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
-
-		-
-			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Fedex\\:\\:\\$_result \\(Mage_Shipping_Model_Rate_Result\\|null\\) does not accept Mage_Shipping_Model_Tracking_Result\\.$#"
-			count: 2
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
-
-		-
-			message: "#^Variable \\$statuses in empty\\(\\) always exists and is always falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
-
-		-
-			message: "#^Instanceof between Mage_Shipping_Model_Rate_Result\\|null and Mage_Shipping_Model_Tracking_Result will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:_getQuotes\\(\\) should return Mage_Shipping_Model_Rate_Result but returns null\\.$#"
@@ -7056,23 +7056,8 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-
-			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:\\$_result \\(Mage_Shipping_Model_Rate_Result\\|null\\) does not accept Mage_Shipping_Model_Tracking_Result\\.$#"
-			count: 2
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			message: "#^Variable \\$statuses in empty\\(\\) always exists and is always falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
 			message: "#^Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Usps\\:\\:\\$_rawTrackRequest\\.$#"
 			count: 2
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
-
-		-
-			message: "#^Instanceof between Mage_Shipping_Model_Rate_Result\\|null and Mage_Shipping_Model_Tracking_Result will always evaluate to false\\.$#"
-			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
 
 		-
@@ -7087,16 +7072,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Usps\\:\\:setTrackingRequest\\(\\) should return null but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
-
-		-
-			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Usps\\:\\:\\$_result \\(Mage_Shipping_Model_Rate_Result\\|null\\) does not accept Mage_Shipping_Model_Tracking_Result\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
-
-		-
-			message: "#^Variable \\$statuses in empty\\(\\) always exists and is always falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
 
@@ -7469,11 +7444,6 @@ parameters:
 			message: "#^Property Varien_Data_Form_Abstract\\:\\:\\$_elements \\(Varien_Data_Form_Element_Collection\\) in empty\\(\\) is not falsy\\.$#"
 			count: 1
 			path: lib/Varien/Data/Form/Abstract.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: lib/Varien/Data/Form/Element/Abstract.php
 
 		-
 			message: "#^Access to an undefined property Varien_Data_Form_Element_Fieldset\\:\\:\\$_sortDirection\\.$#"

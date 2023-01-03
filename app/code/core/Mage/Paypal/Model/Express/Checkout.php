@@ -553,7 +553,8 @@ class Mage_Paypal_Model_Express_Checkout
      */
     public function updateShippingMethod($methodCode)
     {
-        if (!$this->_quote->getIsVirtual() && $shippingAddress = $this->_quote->getShippingAddress() && $methodCode != $shippingAddress->getShippingMethod()) {
+        $shippingAddress = $this->_quote->getShippingAddress();
+        if (!$this->_quote->getIsVirtual() && $shippingAddress && $methodCode != $shippingAddress->getShippingMethod()) {
             $this->_ignoreAddressValidation();
             $shippingAddress->setShippingMethod($methodCode)->setCollectShippingRates(true);
             $this->_quote->collectTotals()->save();

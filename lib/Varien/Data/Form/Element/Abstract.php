@@ -47,11 +47,16 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
 {
     protected $_id;
     protected $_type;
+
+    /**
+     * @var Varien_Data_Form|null
+     */
     protected $_form;
+
     protected $_elements;
 
     /**
-     * @var Varien_Data_Form_Element_Renderer_Interface
+     * @var Varien_Data_Form_Element_Renderer_Interface|null
      */
     protected $_renderer;
 
@@ -70,7 +75,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      *
      * @param Varien_Data_Form_Element_Abstract $element
      * @param string|false $after
-     * @return  $this
+     * @return $this
      */
     public function addElement(Varien_Data_Form_Element_Abstract $element, $after = false)
     {
@@ -100,7 +105,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @return Varien_Data_Form
+     * @return Varien_Data_Form|null
      */
     public function getForm()
     {
@@ -150,7 +155,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param Varien_Data_Form_Abstract $form
+     * @param Varien_Data_Form $form
      * @return $this
      */
     public function setForm($form)

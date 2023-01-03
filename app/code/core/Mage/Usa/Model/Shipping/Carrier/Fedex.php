@@ -73,7 +73,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|null
+     * @var Mage_Shipping_Model_Tracking_Result|Mage_Shipping_Model_Rate_Result|null
      */
     protected $_result = null;
 

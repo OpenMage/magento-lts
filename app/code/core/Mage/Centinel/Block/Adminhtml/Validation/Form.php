@@ -34,7 +34,8 @@ class Mage_Centinel_Block_Adminhtml_Validation_Form extends Mage_Adminhtml_Block
     protected function _toHtml()
     {
         $payment = $this->getQuote()->getPayment();
-        if ($payment && $method = $payment->getMethodInstance() && ($method->getIsCentinelValidationEnabled() && $centinel = $method->getCentinelValidator())) {
+        $method = $payment->getMethodInstance();
+        if ($payment && $method && ($method->getIsCentinelValidationEnabled() && $centinel = $method->getCentinelValidator())) {
             $this->setFrameUrl($centinel->getValidatePaymentDataUrl())
                 ->setContainerId('centinel_authenticate_iframe')
                 ->setMethodCode($method->getCode())
