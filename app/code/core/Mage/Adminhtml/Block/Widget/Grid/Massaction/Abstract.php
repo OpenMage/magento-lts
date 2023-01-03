@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
 /**
  * Grid widget massaction block
  *
@@ -32,6 +34,48 @@
  */
 abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage_Adminhtml_Block_Widget
 {
+    /**#@+
+     * Current massactions
+     * @var string
+     */
+    public const ASSIGN_GROUP              = 'assign_group';
+    public const ATTRIBUTES                = 'attributes';
+    public const CANCEL_ORDER              = 'cancel_order';
+    public const CHANGE_MODE               = 'change_mode';
+    public const ENABLE                    = 'enable';
+    public const DELETE                    = 'delete';
+    public const DISABLE                   = 'disable';
+    public const HOLD_ORDER                = 'hold_order';
+    public const MARK_AS_READ              = 'mark_as_read';
+    public const NEWSLETTER_SUBSCRIBE      = 'newsletter_subscribe';
+    public const NEWSLETTER_UNSUBSCRIBE    = 'newsletter_unsubscribe';
+    public const PDF_CREDITMEMOS_ORDER     = 'pdfcreditmemos_order';
+    public const PDF_DOCS_ORDER            = 'pdfdocs_order';
+    public const PDF_INVOICE_ORDER         = 'pdfinvoices_order';
+    public const PDF_SHIPMENTS_ORDER       = 'pdfshipments_order';
+    public const PRINT_SHIPMENT_LABEL      = 'print_shipping_label';
+    public const REFRESH                   = 'refresh';
+    public const REFRESH_LIFETIME          = 'refresh_lifetime';
+    public const REFRESH_RECENT            = 'refresh_recent';
+    public const REINDEX                   = 'reindex';
+    public const REMOVE                    = 'remove';
+    public const STATUS                    = 'status';
+    public const UNHOLD_ORDER              = 'unhold_order';
+    public const UNSUBSCRIBE               = 'unsubscribe';
+    public const UPDATE_STATUS             = 'update_status';
+    /**#@-*/
+
+    /**
+     * @var string[]
+     */
+    protected static $needsConfirm = [
+        self::CANCEL_ORDER,
+        self::HOLD_ORDER,
+        self::UNHOLD_ORDER,
+        self::DELETE,
+        self::REMOVE
+    ];
+
     /**
      * Massaction items
      *
@@ -66,6 +110,10 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function addItem($itemId, array $item)
     {
+        if (is_string($itemId) && $this->isConfirmMassAction($itemId) && !isset($item['confirm'])) {
+            $item['confirm'] = Mage::helper('core')->__('Are you sure?');
+        }
+
         $this->_items[$itemId] =  $this->getLayout()->createBlock('adminhtml/widget_grid_massaction_item')
             ->setData($item)
             ->setMassaction($this)
@@ -83,7 +131,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      * Retrieve massaction item with id $itemId
      *
      * @param string $itemId
-     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Item
+     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Item|null
      */
     public function getItem($itemId)
     {
@@ -215,6 +263,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         return $this->getButtonHtml($this->__('Submit'), $this->getJsObjectName() . ".apply()");
     }
 
+    /**
+     * @return string
+     */
     public function getJavaScript()
     {
         return " var {$this->getJsObjectName()} = new varienGridMassaction('{$this->getHtmlId()}', "
@@ -227,6 +278,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
                 . "{$this->getJsObjectName()}.errorText = '{$this->getErrorText()}';";
     }
 
+    /**
+     * @return string
+     */
     public function getGridIdsJson()
     {
         if (!$this->getUseSelectAll()) {
@@ -241,6 +295,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         return '';
     }
 
+    /**
+     * @return string
+     */
     public function getHtmlId()
     {
         return $this->getParentBlock()->getHtmlId() . '_massaction';
@@ -303,5 +360,14 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         }
 
         return $groupedItems;
+    }
+
+    /**
+     * @param string $itemId
+     * @return bool
+     */
+    protected function isConfirmMassAction(string $itemId): bool
+    {
+        return in_array($itemId, static::$needsConfirm);
     }
 }

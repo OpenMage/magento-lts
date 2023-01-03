@@ -37,7 +37,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
 
     /**
      * @param int $productId
-     * @param null $identifierType
+     * @param string|null $identifierType
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -74,7 +74,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
      *
      * @param int|string $productId
      * @param array $tierPrices
-     * @param null $identifierType
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -131,7 +131,8 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
         foreach ($tierPrices as $tierPrice) {
             if (!is_array($tierPrice)
                 || !isset($tierPrice['qty'])
-                || !isset($tierPrice['price'])) {
+                || !isset($tierPrice['price'])
+            ) {
                 $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid Tier Prices'));
             }
 
@@ -145,7 +146,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
                 }
             }
 
-            if (intval($tierPrice['website']) > 0 && !in_array($tierPrice['website'], $product->getWebsiteIds())) {
+            if ((int) $tierPrice['website'] > 0 && !in_array($tierPrice['website'], $product->getWebsiteIds())) {
                 $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid tier prices. The product is not associated to the requested website.'));
             }
 

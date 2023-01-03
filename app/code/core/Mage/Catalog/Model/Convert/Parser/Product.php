@@ -49,7 +49,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     /**
      * Product Type cache
      *
-     * @var array
+     * @var array|null
      */
     protected $_productTypes;
 

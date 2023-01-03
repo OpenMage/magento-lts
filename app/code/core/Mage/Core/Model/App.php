@@ -92,14 +92,14 @@ class Mage_Core_Model_App
     /**
      * Application store object
      *
-     * @var Mage_Core_Model_Store
+     * @var Mage_Core_Model_Store|null
      */
     protected $_store;
 
     /**
      * Application website object
      *
-     * @var Mage_Core_Model_Website
+     * @var Mage_Core_Model_Website|null
      */
     protected $_website;
 
@@ -589,13 +589,16 @@ class Mage_Core_Model_App
         $store = $this->getCookie()->get(Mage_Core_Model_Store::COOKIE_NAME);
         if ($store && isset($this->_stores[$store])
             && $this->_stores[$store]->getId()
-            && $this->_stores[$store]->getIsActive()) {
+            && $this->_stores[$store]->getIsActive()
+        ) {
             if ($type == 'website'
-                && $this->_stores[$store]->getWebsiteId() == $this->_stores[$this->_currentStore]->getWebsiteId()) {
+                && $this->_stores[$store]->getWebsiteId() == $this->_stores[$this->_currentStore]->getWebsiteId()
+            ) {
                 $this->_currentStore = $store;
             }
             if ($type == 'group'
-                && $this->_stores[$store]->getGroupId() == $this->_stores[$this->_currentStore]->getGroupId()) {
+                && $this->_stores[$store]->getGroupId() == $this->_stores[$this->_currentStore]->getGroupId()
+            ) {
                 $this->_currentStore = $store;
             }
             if ($type == 'store') {
@@ -749,7 +752,7 @@ class Mage_Core_Model_App
     /**
      * Set current default store
      *
-     * @param string $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return $this
      */
     public function setCurrentStore($store)
@@ -828,7 +831,7 @@ class Mage_Core_Model_App
      * Retrieve application store object
      *
      * @param null|string|bool|int|Mage_Core_Model_Store $id
-     * @return Mage_Core_Model_Store
+     * @return Mage_Core_Model_Store|null
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore($id = null)
@@ -933,7 +936,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve default store for default group and website
      *
-     * @return Mage_Core_Model_Store
+     * @return Mage_Core_Model_Store|null
      */
     public function getDefaultStoreView()
     {
@@ -1162,7 +1165,7 @@ class Mage_Core_Model_App
      * Loading cache data
      *
      * @param   string $id
-     * @return  mixed
+     * @return  string|false
      */
     public function loadCache($id)
     {
@@ -1428,6 +1431,10 @@ class Mage_Core_Model_App
         return $this->_updateMode;
     }
 
+    /**
+     * @param string $text
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function throwStoreException($text = '')
     {
         throw new Mage_Core_Model_Store_Exception($text);

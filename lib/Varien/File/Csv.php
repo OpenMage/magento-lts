@@ -15,6 +15,7 @@
  * @category   Varien
  * @package    Varien_File
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -137,7 +138,8 @@ class Varien_File_Csv
                 strpos($value, "\n") !== false ||
                 strpos($value, "\r") !== false ||
                 strpos($value, "\t") !== false ||
-                strpos($value, ' ') !== false) {
+                strpos($value, ' ') !== false
+            ) {
                 $str2 = $enclosure;
                 $escaped = 0;
                 $len = strlen($value);

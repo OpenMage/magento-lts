@@ -36,7 +36,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Store id
      *
-     * @var int
+     * @var int|null
      */
     protected $_storeId                  = null;
 
@@ -101,7 +101,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * array with root category id per store
      *
-     * @var array
+     * @var array|null
      */
     protected $_storesRootCategories;
 
@@ -179,7 +179,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     public function getMainStoreTable($storeId = Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
     {
         if (is_string($storeId)) {
-            $storeId = intval($storeId);
+            $storeId = (int) $storeId;
         }
         if ($this->getUseStoreTables() && $storeId) {
             $suffix = sprintf('store_%d', $storeId);
@@ -583,7 +583,8 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             foreach ($this->_columns as $fieldName => $fieldProp) {
                 $default = $fieldProp['default'];
                 if ($fieldProp['type'][0] == Varien_Db_Ddl_Table::TYPE_TIMESTAMP
-                    && $default === 'CURRENT_TIMESTAMP') {
+                    && $default === 'CURRENT_TIMESTAMP'
+                ) {
                     $default = Varien_Db_Ddl_Table::TIMESTAMP_INIT;
                 }
                 $table->addColumn($fieldName, $fieldProp['type'][0], $fieldProp['type'][1], [
@@ -814,7 +815,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Return attribute values for given entities and store
      *
-     * @param array $entityIds
+     * @param int|string|array $entityIds
      * @param int $store_id
      * @return array
      */

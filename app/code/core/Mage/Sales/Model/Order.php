@@ -441,42 +441,42 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     protected $_eventObject = 'order';
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Address_Collection|Mage_Sales_Model_Order_Address[]
+     * @var Mage_Sales_Model_Resource_Order_Address_Collection|Mage_Sales_Model_Order_Address[]|null
      */
     protected $_addresses       = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Item_Collection|Mage_Sales_Model_Order_Item[]
+     * @var Mage_Sales_Model_Resource_Order_Item_Collection|Mage_Sales_Model_Order_Item[]|null
      */
     protected $_items           = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Payment_Collection|Mage_Sales_Model_Order_Payment[]
+     * @var Mage_Sales_Model_Resource_Order_Payment_Collection|Mage_Sales_Model_Order_Payment[]|null
      */
     protected $_payments        = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Status_History_Collection|Mage_Sales_Model_Order_Status_History[]
+     * @var Mage_Sales_Model_Resource_Order_Status_History_Collection|Mage_Sales_Model_Order_Status_History[]|null
      */
     protected $_statusHistory   = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Invoice_Collection
+     * @var Mage_Sales_Model_Resource_Order_Invoice_Collection|null
      */
     protected $_invoices;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Shipment_Track_Collection
+     * @var Mage_Sales_Model_Resource_Order_Shipment_Track_Collection|null
      */
     protected $_tracks;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Shipment_Collection|false
+     * @var Mage_Sales_Model_Resource_Order_Shipment_Collection|false|null
      */
     protected $_shipments;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Creditmemo_Collection|Mage_Sales_Model_Order_Creditmemo[]|false
+     * @var Mage_Sales_Model_Resource_Order_Creditmemo_Collection|Mage_Sales_Model_Order_Creditmemo[]|false|null
      */
     protected $_creditmemos;
 
@@ -764,7 +764,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     {
         $state = $this->getState();
         if ($this->isCanceled() || $this->isPaymentReview()
-            || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED || $state === self::STATE_HOLDED) {
+            || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED || $state === self::STATE_HOLDED
+        ) {
             return false;
         }
 
@@ -821,7 +822,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
         foreach ($this->getAllItems() as $item) {
             if ($item->getQtyToShip() > 0 && !$item->getIsVirtual()
-                && !$item->getLockedDoShip()) {
+                && !$item->getLockedDoShip()
+            ) {
                 return true;
             }
         }
@@ -841,7 +843,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
         $state = $this->getState();
         if ($this->isCanceled() || $this->isPaymentReview()
-            || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED) {
+            || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED
+        ) {
             return false;
         }
 
@@ -1742,7 +1745,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $items = [];
         foreach ($this->getItemsCollection() as $item) {
             if (!$item->isDeleted() && !$item->getParentItemId()) {
-                $items[] =  $item;
+                $items[] = $item;
             }
         }
         return $items;
@@ -1750,7 +1753,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * @param int $itemId
-     * @return Varien_Object|null
+     * @return Mage_Sales_Model_Order_Item|null
      */
     public function getItemById($itemId)
     {
@@ -2371,12 +2374,13 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!$this->isCanceled()
             && !$this->canUnhold()
             && !$this->canInvoice()
-            && !$this->canShip()) {
+            && !$this->canShip()
+        ) {
             if ($this->getBaseGrandTotal() == 0 || $this->canCreditmemo()) {
                 if ($this->getState() !== self::STATE_COMPLETE) {
                     $this->_setState(self::STATE_COMPLETE, true, '', $userNotification);
                 }
-            } elseif (floatval($this->getTotalRefunded()) || (!$this->getTotalRefunded()
+            } elseif ((float) $this->getTotalRefunded() || (!$this->getTotalRefunded()
                 && $this->hasForcedCanCreditmemo())
                 /**
                  * Order can be closed just in case when we have refunded amount.

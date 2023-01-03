@@ -15,6 +15,7 @@
  * @category   Magento
  * @package    Magento_Profiler
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -275,7 +276,7 @@ class Magento_Profiler
         if (!self::$_enabled) {
             return;
         }
-        /** @var $output Magento_Profiler_OutputAbstract */
+        /** @var Magento_Profiler_OutputAbstract $output */
         foreach (self::$_outputs as $output) {
             $output->display();
         }

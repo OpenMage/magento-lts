@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@ class Mage_Oauth_TokenController extends Mage_Core_Controller_Front_Action
     /**
      * Dispatch event before action
      *
-     * @return void
+     * @inheritDoc
      */
     public function preDispatch()
     {
@@ -40,7 +40,7 @@ class Mage_Oauth_TokenController extends Mage_Core_Controller_Front_Action
         $this->setFlag('', self::FLAG_NO_COOKIES_REDIRECT, 0);
         $this->setFlag('', self::FLAG_NO_PRE_DISPATCH, 1);
 
-        parent::preDispatch();
+        return parent::preDispatch();
     }
 
     /**

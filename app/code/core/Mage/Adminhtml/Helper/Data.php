@@ -69,11 +69,32 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
         return $this;
     }
 
+    /**
+     * Add suffix for help page url
+     *
+     * @param string $suffix
+     * @return $this
+     * @deprecated
+     */
+    public function addPageHelpUrl($suffix)
+    {
+        $this->_pageHelpUrl = $this->getPageHelpUrl(null, $suffix);
+        return $this;
+    }
+
+    /**
+     * @param string $route
+     * @param array $params
+     * @return string
+     */
     public static function getUrl($route = '', $params = [])
     {
         return Mage::getModel('adminhtml/url')->getUrl($route, $params);
     }
 
+    /**
+     * @return false|int
+     */
     public function getCurrentUserId()
     {
         if (Mage::getSingleton('admin/session')->getUser()) {

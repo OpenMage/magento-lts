@@ -145,10 +145,6 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
     public function getCurrency($attribute)
     {
         return Mage::app()->getStore()->getCurrentCurrencyCode();
-
-        $baseCurrency = Mage::app()->getStore()->getBaseCurrency()->getCurrencyCode();
-        return $this->getAttributeValue($attribute, 'currency') ?
-            $this->getAttributeValue($attribute, 'currency') : $baseCurrency;
     }
 
     /**

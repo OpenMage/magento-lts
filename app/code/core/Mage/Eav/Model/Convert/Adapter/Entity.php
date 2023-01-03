@@ -29,7 +29,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     /**
      * Current store model
      *
-     * @var Mage_Core_Model_Store
+     * @var Mage_Core_Model_Store|null
      */
     protected $_store;
 
@@ -263,7 +263,8 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     public function load()
     {
         if (!($entityType = $this->getVar('entity_type'))
-            || !(Mage::getResourceSingleton($entityType) instanceof Mage_Eav_Model_Entity_Interface)) {
+            || !(Mage::getResourceSingleton($entityType) instanceof Mage_Eav_Model_Entity_Interface)
+        ) {
             $this->addException(Mage::helper('eav')->__('Invalid entity specified'), Varien_Convert_Exception::FATAL);
         }
         try {

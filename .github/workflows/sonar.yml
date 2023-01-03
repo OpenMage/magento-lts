@@ -1,15 +1,12 @@
-name: OpenMage LTS - Sonar - Full Analyses
+name: Sonar
 
 on:
-  # Run on all pushes and on all pull requests.
-  # Prevent the build from running when there are only irrelevant changes.
-  push:
-    paths-ignore:
-      - '**.md'
-  pull_request:
-    paths-ignore:
-      - '**.md'
-    types: [opened, synchronize, reopened]
+  # Run automatically every Monday on midnight.
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_call:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
 
 jobs:
   unit:
@@ -33,15 +30,12 @@ jobs:
         env:
           COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Validate composer
-        run: composer validate --strict
-
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}

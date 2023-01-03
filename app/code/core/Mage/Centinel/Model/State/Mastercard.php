@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Centinel
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -67,13 +68,15 @@ class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbst
 
             //Test case 3
             if ($paResStatus == 'N' && $signatureVerification == 'Y' &&  $eciFlag == '01' &&
-                $xid != '' && $cavv == '' && $errorNo == '0') {
+                $xid != '' && $cavv == '' && $errorNo == '0'
+            ) {
                 return false;
             }
 
             //Test case 4
             if ($paResStatus == 'U' && $signatureVerification == 'Y' && $eciFlag == '01' &&
-                $xid != '' && $cavv == '' && $errorNo == '0') {
+                $xid != '' && $cavv == '' && $errorNo == '0'
+            ) {
                 if ($this->getIsModeStrict()) {
                     return false;
                 } else {
@@ -92,10 +95,12 @@ class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbst
         //Test cases 5-9
         if (!$this->getIsModeStrict() && $this->_isLookupSoftSuccessful()) {
             if ($paResStatus == '' && $signatureVerification == '' && $eciFlag == '' &&
-                $xid == '' && $cavv == '' && $errorNo == '0') {
+                $xid == '' && $cavv == '' && $errorNo == '0'
+            ) {
                 return true;
             } elseif ($paResStatus == false && $signatureVerification == false && $eciFlag == false &&
-                $xid == false && $cavv == false && $errorNo == false) {
+                $xid == false && $cavv == false && $errorNo == false
+            ) {
                 return true;
             }
         }
@@ -114,7 +119,8 @@ class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbst
         if ($this->getLookupEnrolled() == 'Y' &&
             $this->getLookupAcsUrl() != '' &&
             $this->getLookupPayload() != '' &&
-            $this->getLookupErrorNo() == '0') {
+            $this->getLookupErrorNo() == '0'
+        ) {
             return true;
         }
         return false;

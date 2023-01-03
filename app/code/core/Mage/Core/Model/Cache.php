@@ -96,7 +96,7 @@ class Mage_Core_Model_Cache
     /**
      * List of allowed cache options
      *
-     * @var array
+     * @var array|null
      */
     protected $_allowedCacheOptions;
 
@@ -366,7 +366,7 @@ class Mage_Core_Model_Cache
      * Load data from cache by id
      *
      * @param   string $id
-     * @return  string
+     * @return  string|false
      */
     public function load($id)
     {

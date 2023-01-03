@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Backup
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -81,6 +82,8 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
      * Perform ftp validation. Check whether ftp account provided points to current magento installation
      *
      * @throws Mage_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _validateFtp()
     {
@@ -121,6 +124,8 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
     /**
      * @throws Mage_Exception
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _createTmpDir()
     {

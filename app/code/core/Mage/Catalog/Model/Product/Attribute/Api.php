@@ -60,7 +60,8 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         foreach ($attributes as $attribute) {
             /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if ((!$attribute->getId() || $attribute->isInSet($setId))
-                    && $this->_isAllowedAttribute($attribute)) {
+                    && $this->_isAllowedAttribute($attribute)
+            ) {
                 if (!$attribute->getId() || $attribute->isScopeGlobal()) {
                     $scope = 'global';
                 } elseif ($attribute->isScopeWebsite()) {
@@ -506,7 +507,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             ->setEntityTypeId($this->_entityTypeId);
 
         if (is_numeric($attribute)) {
-            $model->load(intval($attribute));
+            $model->load((int) $attribute);
         } else {
             $model->load($attribute, 'attribute_code');
         }

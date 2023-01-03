@@ -203,6 +203,8 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
  * @param bool $html
  * @param bool $showFirst
  * @return string|void
+ *
+ * @SuppressWarnings(PHPMD.ErrorControlOperator)
  */
 function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 {
@@ -231,25 +233,17 @@ function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 function mageSendErrorHeader()
 {
     return;
-    if (!isset($_SERVER['SCRIPT_NAME'])) {
-        return;
-    }
-    $action = Mage::app()->getRequest()->getBasePath() . "bugreport.php";
-    echo '<form id="error_report" method="post" style="display:none" action="' . $action . '"><textarea name="error">';
 }
 
 function mageSendErrorFooter()
 {
     return;
-    if (!isset($_SERVER['SCRIPT_NAME'])) {
-        return;
-    }
-    echo '</textarea></form><script type="text/javascript">document.getElementById("error_report").submit()</script>';
-    exit;
 }
 
 /**
  * @param string $path
+ *
+ * @SuppressWarnings(PHPMD.ErrorControlOperator)
  */
 function mageDelTree($path)
 {
@@ -306,6 +300,8 @@ function mageParseCsv($string, $delimiter = ",", $enclosure = '"', $escape = '\\
 /**
  * @param string $dir
  * @return bool
+ *
+ * @SuppressWarnings(PHPMD.ErrorControlOperator)
  */
 function is_dir_writeable($dir)
 {

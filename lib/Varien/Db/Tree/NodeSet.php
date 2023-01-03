@@ -21,13 +21,13 @@
 
 /**
  * TODO implements iterators
- *
  */
 class Varien_Db_Tree_NodeSet implements Iterator
 {
     private $_nodes = [];
     private $_currentNode = 0;
     private $_current = 0;
+    private $count = 0;
 
     public function __construct()
     {
@@ -37,6 +37,10 @@ class Varien_Db_Tree_NodeSet implements Iterator
         $this->count = 0;
     }
 
+    /**
+     * @param Varien_Db_Tree_Node $node
+     * @return int
+     */
     public function addNode(Varien_Db_Tree_Node $node)
     {
         $this->_nodes[$this->_currentNode] = $node;
@@ -44,36 +48,45 @@ class Varien_Db_Tree_NodeSet implements Iterator
         return ++$this->_currentNode;
     }
 
+    /**
+     * @return int
+     */
     public function count()
     {
         return $this->count;
     }
 
-    public function valid()
+    /**
+     * @return bool
+     */
+    public function valid(): bool
     {
-        return  isset($this->_nodes[$this->_current]);
+        return isset($this->_nodes[$this->_current]);
     }
 
+    #[\ReturnTypeWillChange]
     public function next()
     {
         if ($this->_current > $this->_currentNode) {
             return false;
         } else {
-            return  $this->_current++;
+            return $this->_current++;
         }
     }
 
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->_current;
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->_nodes[$this->_current];
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->_current = 0;
     }

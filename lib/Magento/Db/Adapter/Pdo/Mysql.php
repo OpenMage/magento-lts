@@ -15,7 +15,7 @@
  * @category   Magento
  * @package    Magento_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -104,8 +104,8 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     /**
      * Quote a raw string.
      *
-     * @param string $value     Raw string
-     * @return string           Quoted string
+     * @param string|float $value   Raw string
+     * @return string|float         Quoted string
      */
     protected function _quote($value)
     {
@@ -113,7 +113,10 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
             $value = $this->_convertFloat($value);
             return $value;
         }
-
+        // Fix for null-byte injection
+        if (is_string($value)) {
+            $value = addcslashes($value, "\000\032");
+        }
         return parent::_quote($value);
     }
 
@@ -131,9 +134,10 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     {
         $this->_connect();
 
-        if ($type !== null &&
-            array_key_exists($type = strtoupper($type), $this->_numericDataTypes) &&
-            $this->_numericDataTypes[$type] == Zend_Db::FLOAT_TYPE) {
+        if ($type !== null
+            && array_key_exists($type = strtoupper($type), $this->_numericDataTypes)
+            && $this->_numericDataTypes[$type] == Zend_Db::FLOAT_TYPE
+        ) {
             $value = $this->_convertFloat($value);
             $quoteValue = sprintf('%F', $value);
             return $quoteValue;

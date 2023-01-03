@@ -172,7 +172,8 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     public function setActiveTab($tabId)
     {
         if (isset($this->_tabs[$tabId]) && $this->canShowTab($this->_tabs[$tabId])
-            && !$this->getTabIsHidden($this->_tabs[$tabId])) {
+            && !$this->getTabIsHidden($this->_tabs[$tabId])
+        ) {
             $this->_activeTab = $tabId;
         }
         return $this;

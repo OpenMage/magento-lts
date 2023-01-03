@@ -45,6 +45,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
     /**
      * Destroy object image on shutdown
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function destruct()
     {
@@ -225,10 +227,10 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             $fileType = $this->_fileType;
         }
         if (empty(self::$_callbacks[$fileType])) {
-            throw new Exception($unsupportedText);
+            throw new Exception("{$unsupportedText}. Type: {$fileType}. File: {$this->_fileName}");
         }
         if (empty(self::$_callbacks[$fileType][$callbackType])) {
-            throw new Exception('Callback not found.');
+            throw new Exception("Callback not found. Callbacktype: {$callbackType}. File: {$this->_fileName}");
         }
         return self::$_callbacks[$fileType][$callbackType];
     }
@@ -243,17 +245,17 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 // fill truecolor png with alpha transparency
                 if ($isAlpha) {
                     if (!imagealphablending($imageResourceTo, false)) {
-                        throw new Exception('Failed to set alpha blending for PNG image.');
+                        throw new Exception('Failed to set alpha blending for PNG image. File: {$this->_fileName}');
                     }
                     $transparentAlphaColor = imagecolorallocatealpha($imageResourceTo, 0, 0, 0, 127);
                     if (false === $transparentAlphaColor) {
-                        throw new Exception('Failed to allocate alpha transparency for PNG image.');
+                        throw new Exception('Failed to allocate alpha transparency for PNG image. File: {$this->_fileName}');
                     }
                     if (!imagefill($imageResourceTo, 0, 0, $transparentAlphaColor)) {
-                        throw new Exception('Failed to fill PNG image with alpha transparency.');
+                        throw new Exception('Failed to fill PNG image with alpha transparency. File: {$this->_fileName}');
                     }
                     if (!imagesavealpha($imageResourceTo, true)) {
-                        throw new Exception('Failed to save alpha transparency into PNG image.');
+                        throw new Exception('Failed to save alpha transparency into PNG image. File: {$this->_fileName}');
                     }
 
                     return $transparentAlphaColor;
@@ -279,7 +281,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         list($r, $g, $b) = $this->_backgroundColor;
         $color = imagecolorallocate($imageResourceTo, $r, $g, $b);
         if (!imagefill($imageResourceTo, 0, 0, $color)) {
-            throw new Exception("Failed to fill image background with color {$r} {$g} {$b}.");
+            throw new Exception("Failed to fill image background with color {$r} {$g} {$b}. File: {$this->_fileName}");
         }
 
         return $color;
@@ -327,7 +329,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     public function resize($frameWidth = null, $frameHeight = null)
     {
         if (empty($frameWidth) && empty($frameHeight)) {
-            throw new Exception('Invalid image dimensions.');
+            throw new Exception('Invalid image dimensions. File: {$this->_fileName}');
         }
 
         // calculate lacking dimension

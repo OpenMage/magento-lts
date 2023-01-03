@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Centinel
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -141,7 +142,7 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
      * Return centinel block for payment form with logos
      *
      * @param Mage_Payment_Model_Method_Abstract $method
-     * @return Mage_Centinel_Block_Logo
+     * @return Mage_Centinel_Block_Logo|Mage_Core_Block_Abstract|false
      */
     public function getMethodFormBlock($method)
     {

@@ -464,7 +464,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if (!isset($_SESSION[self::VALIDATOR_KEY])) {
             $_SESSION[self::VALIDATOR_KEY] = $this->getValidatorData();
         } else {
-            if (! self::$isValidated && ! $this->_validate()) {
+            if (!self::$isValidated && ! $this->_validate()) {
                 $this->getCookie()->delete(session_name());
                 // throw core session exception
                 throw new Mage_Core_Model_Session_Exception('');
@@ -492,16 +492,19 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         self::$isValidated = true; // Only validate once since the validator data is the same for every namespace
 
         if ($this->useValidateRemoteAddr()
-                && $sessionData[self::VALIDATOR_REMOTE_ADDR_KEY] != $validatorData[self::VALIDATOR_REMOTE_ADDR_KEY]) {
+                && $sessionData[self::VALIDATOR_REMOTE_ADDR_KEY] != $validatorData[self::VALIDATOR_REMOTE_ADDR_KEY]
+        ) {
             return false;
         }
         if ($this->useValidateHttpVia()
-                && $sessionData[self::VALIDATOR_HTTP_VIA_KEY] != $validatorData[self::VALIDATOR_HTTP_VIA_KEY]) {
+                && $sessionData[self::VALIDATOR_HTTP_VIA_KEY] != $validatorData[self::VALIDATOR_HTTP_VIA_KEY]
+        ) {
             return false;
         }
 
         if ($this->useValidateHttpXForwardedFor()
-                && $sessionData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY] != $validatorData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY]) {
+                && $sessionData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY] != $validatorData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY]
+        ) {
             return false;
         }
         if ($this->useValidateHttpUserAgent()

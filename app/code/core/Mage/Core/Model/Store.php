@@ -56,58 +56,30 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public const ENTITY = 'core_store';
 
-    /**
+    /**#@+
      * Configuration pathes
+     * @var string
      */
-    public const XML_PATH_STORE_STORE_NAME       = 'general/store_information/name';
-    /**
-     *
-     */
-    public const XML_PATH_STORE_STORE_PHONE      = 'general/store_information/phone';
-    /**
-     *
-     */
-    public const XML_PATH_STORE_STORE_HOURS      = 'general/store_information/hours';
-    /**
-     *
-     */
-    public const XML_PATH_STORE_IN_URL           = 'web/url/use_store';
-    /**
-     *
-     */
-    public const XML_PATH_USE_REWRITES           = 'web/seo/use_rewrites';
-    /**
-     *
-     */
-    public const XML_PATH_UNSECURE_BASE_URL      = 'web/unsecure/base_url';
-    /**
-     *
-     */
-    public const XML_PATH_SECURE_BASE_URL        = 'web/secure/base_url';
-    /**
-     *
-     */
-    public const XML_PATH_SECURE_IN_FRONTEND     = 'web/secure/use_in_frontend';
-    /**
-     *
-     */
-    public const XML_PATH_SECURE_IN_ADMINHTML    = 'web/secure/use_in_adminhtml';
-    /**
-     *
-     */
-    public const XML_PATH_SECURE_BASE_LINK_URL   = 'web/secure/base_link_url';
-    /**
-     *
-     */
-    public const XML_PATH_UNSECURE_BASE_LINK_URL = 'web/unsecure/base_link_url';
-    /**
-     *
-     */
-    public const XML_PATH_OFFLOADER_HEADER       = 'web/secure/offloader_header';
-    /**
-     *
-     */
-    public const XML_PATH_PRICE_SCOPE            = 'catalog/price/scope';
+    public const XML_PATH_STORE_STORE_NAME          = 'general/store_information/name';
+    public const XML_PATH_STORE_STORE_PHONE         = 'general/store_information/phone';
+    public const XML_PATH_STORE_STORE_HOURS         = 'general/store_information/hours';
+    public const XML_PATH_STORE_IN_URL              = 'web/url/use_store';
+    public const XML_PATH_USE_REWRITES              = 'web/seo/use_rewrites';
+    public const XML_PATH_UNSECURE_BASE_URL         = 'web/unsecure/base_url';
+    public const XML_PATH_UNSECURE_BASE_JS_URL      = 'web/unsecure/base_js_url';
+    public const XML_PATH_UNSECURE_BASE_LINK_URL    = 'web/unsecure/base_link_url';
+    public const XML_PATH_UNSECURE_BASE_MEDIA_URL   = 'web/unsecure/base_media_url';
+    public const XML_PATH_UNSECURE_BASE_SKIN_URL    = 'web/unsecure/base_skin_url';
+    public const XML_PATH_SECURE_BASE_URL           = 'web/secure/base_url';
+    public const XML_PATH_SECURE_BASE_JS_URL        = 'web/secure/base_js_url';
+    public const XML_PATH_SECURE_BASE_LINK_URL      = 'web/secure/base_link_url';
+    public const XML_PATH_SECURE_BASE_MEDIA_URL     = 'web/secure/base_media_url';
+    public const XML_PATH_SECURE_BASE_SKIN_URL      = 'web/secure/base_skin_url';
+    public const XML_PATH_SECURE_IN_FRONTEND        = 'web/secure/use_in_frontend';
+    public const XML_PATH_SECURE_IN_ADMINHTML       = 'web/secure/use_in_adminhtml';
+    public const XML_PATH_OFFLOADER_HEADER          = 'web/secure/offloader_header';
+    public const XML_PATH_PRICE_SCOPE               = 'catalog/price/scope';
+    /**#@-*/
 
     /**
      * Price scope constants
@@ -201,14 +173,14 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Website model
      *
-     * @var Mage_Core_Model_Website
+     * @var Mage_Core_Model_Website|null
      */
     protected $_website;
 
     /**
      * Group model
      *
-     * @var Mage_Core_Model_Store_Group
+     * @var Mage_Core_Model_Store_Group|null
      */
     protected $_group;
 
@@ -968,7 +940,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $currency     = Mage::getModel('directory/currency')->load($this->getCurrentCurrencyCode());
             $baseCurrency = $this->getBaseCurrency();
 
-            if (! $baseCurrency->getRate($currency)) {
+            if (!$baseCurrency->getRate($currency)) {
                 $currency = $baseCurrency;
                 $this->setCurrentCurrencyCode($baseCurrency->getCode());
             }
@@ -1283,7 +1255,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     public function getFrontendName()
     {
         if (is_null($this->_frontendName)) {
-            $storeGroupName = (string) Mage::getStoreConfig('general/store_information/name', $this);
+            $storeGroupName = (string) Mage::getStoreConfig(self::XML_PATH_STORE_STORE_NAME, $this);
             $this->_frontendName = (!empty($storeGroupName)) ? $storeGroupName : $this->getGroup()->getName();
         }
         return $this->_frontendName;

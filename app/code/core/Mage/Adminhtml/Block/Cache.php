@@ -19,6 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -37,23 +38,24 @@ class Mage_Adminhtml_Block_Cache extends Mage_Adminhtml_Block_Widget_Grid_Contai
         $this->_removeButton('add');
         $this->_addButton('flush_magento', [
             'label'     => Mage::helper('core')->__('Flush OpenMage Cache'),
-            'onclick'   => 'setLocation(\'' . $this->getFlushSystemUrl() . '\')',
+            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getFlushSystemUrl()),
             'class'     => 'delete',
         ]);
 
-        $confirmationMessage = Mage::helper('core')->jsQuoteEscape(
-            Mage::helper('core')->__('Cache storage may contain additional data. Are you sure that you want flush it?')
-        );
         $this->_addButton('flush_system', [
             'label'     => Mage::helper('core')->__('Flush Cache Storage'),
-            'onclick'   => 'confirmSetLocation(\'' . $confirmationMessage . '\', \'' . $this->getFlushStorageUrl()
-                . '\')',
+            'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
+                $this->getFlushStorageUrl(),
+                Mage::helper('core')->__('Cache storage may contain additional data. Are you sure that you want flush it?')
+            ),
             'class'     => 'delete',
         ]);
     }
 
     /**
      * Get url for clean cache storage
+     *
+     * @return string
      */
     public function getFlushStorageUrl()
     {
@@ -62,6 +64,8 @@ class Mage_Adminhtml_Block_Cache extends Mage_Adminhtml_Block_Widget_Grid_Contai
 
     /**
      * Get url for clean cache storage
+     *
+     * @return string
      */
     public function getFlushSystemUrl()
     {

@@ -31,9 +31,10 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     /**
      * Customer model
      *
-     * @var Mage_Customer_Model_Customer
+     * @var Mage_Customer_Model_Customer|string|null
      */
     protected $_customerModel;
+
     protected $_stores;
     protected $_attributes = [];
     protected $_customerGroups;
@@ -609,7 +610,8 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
                 if (isset($importData[$field])) {
                     $billingAddress->setDataUsingMethod($cleanField, $importData[$field]);
                 } elseif (isset($this->_billingMappedFields[$field])
-                    && isset($importData[$this->_billingMappedFields[$field]])) {
+                    && isset($importData[$this->_billingMappedFields[$field]])
+                ) {
                     $billingAddress->setDataUsingMethod($cleanField, $importData[$this->_billingMappedFields[$field]]);
                 }
             }
@@ -662,7 +664,8 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
                 if (isset($importData[$field])) {
                     $shippingAddress->setDataUsingMethod($cleanField, $importData[$field]);
                 } elseif (isset($this->_shippingMappedFields[$field])
-                    && isset($importData[$this->_shippingMappedFields[$field]])) {
+                    && isset($importData[$this->_shippingMappedFields[$field]])
+                ) {
                     $shippingAddress->setDataUsingMethod($cleanField, $importData[$this->_shippingMappedFields[$field]]);
                 }
             }

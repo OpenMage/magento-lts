@@ -63,3 +63,20 @@
 
 # .phar (n98-magerun, ...)
 *.phar
+
+# PHP-CS-Fixer cache
+.php-cs-fixer.cache
+
+# Ignore custom config files
+.php-cs-fixer*
+!.php-cs-fixer.dist.*
+
+.phpcs*.xml
+!.phpcs*.xml.dist
+
+phpstan*.neon
+!phpstan.dist.*.neon
+
+# dev scripts loaded via composer
+/shell/update-copyright.php
+/shell/translations.php

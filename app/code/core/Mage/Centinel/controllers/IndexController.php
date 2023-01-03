@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Centinel
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -75,7 +76,7 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Return Centinel validation model
      *
-     * @return Mage_Centinel_Model_Service
+     * @return Mage_Centinel_Model_Service|false
      */
     private function _getValidator()
     {

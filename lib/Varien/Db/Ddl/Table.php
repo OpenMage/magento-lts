@@ -83,7 +83,7 @@ class Varien_Db_Ddl_Table
     /**
      * Name of table
      *
-     * @var string
+     * @var string|null
      */
     protected $_tableName;
 
@@ -481,7 +481,7 @@ class Varien_Db_Ddl_Table
      * Add index to table
      *
      * @param string $indexName     the index name
-     * @param array|string $columns array of columns or column string
+     * @param array|string $fields  array of columns or column string
      * @param array $options        array of additional options
      * @return Varien_Db_Ddl_Table
      */
@@ -597,7 +597,7 @@ class Varien_Db_Ddl_Table
      *
      * @param string $key
      * @param string $value
-     * @return string
+     * @return $this
      */
     public function setOption($key, $value)
     {

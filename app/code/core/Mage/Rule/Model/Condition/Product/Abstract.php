@@ -485,7 +485,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             if (isset($arr['value'])) {
                 if (!empty($arr['operator'])
                     && in_array($arr['operator'], ['!()', '()'])
-                    && strpos($arr['value'], ',') !== false) {
+                    && strpos($arr['value'], ',') !== false
+                ) {
                     $tmp = [];
                     foreach (explode(',', $arr['value']) as $value) {
                         $tmp[] = Mage::app()->getLocale()->getNumber($value);
@@ -519,7 +520,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
 
         if ($attrCode == 'category_ids') {
             return $this->validateAttribute($object->getCategoryIds());
-        } elseif (! isset($this->_entityAttributeValues[$object->getId()])) {
+        } elseif (!isset($this->_entityAttributeValues[$object->getId()])) {
             if (!$object->getResource()) {
                 return false;
             }

@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Archive
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +41,7 @@ class Mage_Archive
     /**
     * Current archiver is used for compress.
     *
-    * @var Mage_Archiver_Tar|Mage_Archiver_Gz|Mage_Archiver_Bz
+    * @var Mage_Archive_Tar|Mage_Archive_Gz|Mage_Archive_Bz
     */
     protected $_archiver = null;
 
@@ -68,7 +69,7 @@ class Mage_Archive
     * Create object of current archiver by $extension.
     *
     * @param string $extension
-    * @return Mage_Archiver_Tar|Mage_Archiver_Gz|Mage_Archiver_Bz
+    * @return Mage_Archive_Tar|Mage_Archive_Gz|Mage_Archive_Bz
     */
     protected function _getArchiver($extension)
     {

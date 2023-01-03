@@ -95,7 +95,8 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
         $scope = (int)Mage::app()->getStore()->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE);
 
         if ($object->getStoreId() != '0' && $scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE
-            && !$object->getData('scope', 'price')) {
+            && !$object->getData('scope', 'price')
+        ) {
             $baseCurrency = Mage::app()->getBaseCurrencyCode();
 
             $storeIds = Mage::app()->getStore($object->getStoreId())

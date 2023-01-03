@@ -41,6 +41,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * @var int
      */
     protected $_height;
+
     protected $_quality = 90;
 
     /**
@@ -116,7 +117,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getWidth()
     {
@@ -134,7 +135,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getHeight()
     {
@@ -237,7 +238,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
     /**
      * @deprecated
-     * @param null $file
+     * @param string|null $file
      * @return bool
      */
     protected function _checkMemory($file = null)
@@ -403,8 +404,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
         // add misc params as a hash
         $miscParams = [
-                ($this->_keepAspectRatio  ? '' : 'non') . 'proportional',
-                ($this->_keepFrame        ? '' : 'no')  . 'frame',
+                ($this->_keepAspectRatio ? '' : 'non') . 'proportional',
+                ($this->_keepFrame ? '' : 'no')  . 'frame',
                 ($this->_keepTransparency ? '' : 'no')  . 'transparency',
                 ($this->_constrainOnly ? 'do' : 'not')  . 'constrainonly',
                 $this->_backgroundColorStr,
@@ -491,7 +492,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     public function rotate($angle)
     {
-        $angle = intval($angle);
+        $angle = (int) $angle;
         $this->getImageProcessor()->rotate($angle);
         return $this;
     }

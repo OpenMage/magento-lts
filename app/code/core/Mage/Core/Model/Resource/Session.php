@@ -36,7 +36,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     /**
      * Session lifetime
      *
-     * @var int
+     * @var string|int|null
      */
     protected $_lifeTime;
 
@@ -265,7 +265,8 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     {
         if ($this->_automaticCleaningFactor > 0) {
             if ($this->_automaticCleaningFactor == 1 ||
-                rand(1, $this->_automaticCleaningFactor) == 1) {
+                rand(1, $this->_automaticCleaningFactor) == 1
+            ) {
                 $where = ['session_expires < ?' => Varien_Date::toTimestamp(true)];
                 $this->_write->delete($this->_sessionTable, $where);
             }

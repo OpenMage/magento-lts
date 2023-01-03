@@ -117,7 +117,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     {
         $this->_links[$this->_getNewPosition($position)] = $link;
 
-        if (intval($position) > 0) {
+        if ((int) $position > 0) {
             ksort($this->_links);
         }
 
@@ -243,7 +243,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      */
     protected function _getNewPosition($position = 0)
     {
-        if (intval($position) > 0) {
+        if ((int) $position > 0) {
             while (isset($this->_links[$position])) {
                 $position++;
             }

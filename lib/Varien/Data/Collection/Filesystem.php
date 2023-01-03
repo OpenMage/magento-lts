@@ -39,7 +39,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Target directory
      *
-     * @var string
+     * @var array
      */
     protected $_targetDirs = [];
 
@@ -250,7 +250,8 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
                 }
             } elseif ($this->_collectFiles && is_file($item)
                 && (!$this->_allowedFilesMask || preg_match($this->_allowedFilesMask, basename($item)))
-                && (!$this->_disallowedFilesMask || !preg_match($this->_disallowedFilesMask, basename($item)))) {
+                && (!$this->_disallowedFilesMask || !preg_match($this->_disallowedFilesMask, basename($item)))
+            ) {
                 $this->_collectedFiles[] = $item;
             }
         }
@@ -342,14 +343,13 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      *
      * @param array $a
      * @param array $b
-     * @return int
+     * @return int|void
      */
     protected function _usort($a, $b)
     {
         foreach ($this->_orders as $key => $direction) {
             $result = $a[$key] > $b[$key] ? 1 : ($a[$key] < $b[$key] ? -1 : 0);
             return (self::SORT_ORDER_ASC === strtoupper($direction) ? $result : -$result);
-            break;
         }
     }
 

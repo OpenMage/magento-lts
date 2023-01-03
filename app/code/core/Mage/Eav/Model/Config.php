@@ -34,14 +34,14 @@ class Mage_Eav_Model_Config
     /**
      * Entity types data
      *
-     * @var array
+     * @var array|null
      */
     protected $_entityData;
 
     /**
      * Attributes data
      *
-     * @var array
+     * @var array|null
      */
     protected $_attributeData;
 
@@ -71,7 +71,7 @@ class Mage_Eav_Model_Config
      *
      * array ($objectId => $object)
      *
-     * @var array
+     * @var array|null
      */
     protected $_objects;
 
@@ -83,7 +83,7 @@ class Mage_Eav_Model_Config
      *      'entities'  => array ($entityId => $entityCode)
      * )
      *
-     * @var array
+     * @var array|null
      */
     protected $_references;
 
@@ -244,7 +244,8 @@ class Mage_Eav_Model_Config
          * try load information about entity types from cache
          */
         if ($this->_isCacheEnabled()
-            && ($cache = Mage::app()->loadCache(self::ENTITIES_CACHE_ID))) {
+            && ($cache = Mage::app()->loadCache(self::ENTITIES_CACHE_ID))
+        ) {
             $this->_entityData = unserialize($cache, ['allowed_classes' => false]);
             foreach ($this->_entityData as $typeCode => $data) {
                 $typeId = $data['entity_type_id'];

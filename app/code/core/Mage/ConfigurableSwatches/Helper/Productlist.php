@@ -33,21 +33,21 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
     /**
      * ID of attribute to be used for swatches on product listing
      *
-     * @var string
+     * @var string|false|null
      */
     protected $_swatchAttributeId = null;
 
     /**
      * Attribute model to be used for swatches on product listing
      *
-     * @var Mage_Catalog_Model_Product_Type_Configurable_Attribute
+     * @var Mage_Catalog_Model_Product_Type_Configurable_Attribute|false|null
      */
     protected $_swatchAttribute = null;
 
     /**
      * The current value for the swatch attribute that the product list is being filtered by.
      *
-     * @var int
+     * @var int|false|null
      */
     protected $_swatchAttributeFilteredValue = null;
 
@@ -100,7 +100,7 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
     /**
      * Get model of attribute that should be used for swatches on product listing
      *
-     * @return Mage_Eav_Model_Attribute
+     * @return Mage_Catalog_Model_Product_Type_Configurable_Attribute|Mage_Eav_Model_Entity_Attribute_Abstract|false
      */
     public function getSwatchAttribute()
     {

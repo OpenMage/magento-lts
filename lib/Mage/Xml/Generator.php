@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Xml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Xml_Generator
@@ -28,19 +28,28 @@ class Mage_Xml_Generator
         $this->_dom = new DOMDocument('1.0');
         $this->_dom->formatOutput = true;
         $this->_currentDom = $this->_dom;
-        return $this;
     }
 
+    /**
+     * @return DOMDocument|null
+     */
     public function getDom()
     {
         return $this->_dom;
     }
 
+    /**
+     * @return DOMElement
+     */
     protected function _getCurrentDom()
     {
         return $this->_currentDom;
     }
 
+    /**
+     * @param DOMElement $node
+     * @return $this
+     */
     protected function _setCurrentDom($node)
     {
         $this->_currentDom = $node;
@@ -48,7 +57,7 @@ class Mage_Xml_Generator
     }
 
     /**
-    * @param array $content
+    * @param array|array[] $content
     */
     public function arrayToXml($content)
     {
@@ -95,11 +104,18 @@ class Mage_Xml_Generator
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getDom()->saveXML();
     }
 
+    /**
+     * @param string $file
+     * @return $this
+     */
     public function save($file)
     {
         $this->getDom()->save($file);

@@ -218,8 +218,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      *
      * @param int|string $productId
      * @param array $productData
-     * @param string|int $store
-     * @param null $identifierType
+     * @param string|int|null $store
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -370,7 +370,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * Delete product
      *
      * @param int|string $productId
-     * @param null $identifierType
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -409,7 +409,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         foreach ($productAttributes as $attribute) {
             /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if ($attribute->isInSet($attributeSetId) && $this->_isAllowedAttribute($attribute)
-                && !in_array($attribute->getAttributeCode(), $this->_defaultProductAttributeList)) {
+                && !in_array($attribute->getAttributeCode(), $this->_defaultProductAttributeList)
+            ) {
                 if ($attribute->isScopeGlobal()) {
                     $scope = 'global';
                 } elseif ($attribute->isScopeWebsite()) {

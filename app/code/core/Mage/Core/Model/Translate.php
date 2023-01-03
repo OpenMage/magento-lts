@@ -46,14 +46,14 @@ class Mage_Core_Model_Translate
     /**
      * Locale name
      *
-     * @var string
+     * @var string|null
      */
     protected $_locale;
 
     /**
      * Translation object
      *
-     * @var Zend_Translate
+     * @var Zend_Translate|null
      */
     protected $_translate;
 
@@ -69,14 +69,14 @@ class Mage_Core_Model_Translate
     /**
      * Cache identifier
      *
-     * @var string
+     * @var string|null
      */
     protected $_cacheId;
 
     /**
      * Translation data
      *
-     * @var array
+     * @var array|null
      */
     protected $_data = [];
 
@@ -398,7 +398,8 @@ class Mage_Core_Model_Translate
         if (is_string($text) && $text == ''
             || is_null($text)
             || is_bool($text) && $text === false
-            || is_object($text) && $text->getText() == '') {
+            || is_object($text) && $text->getText() == ''
+        ) {
             return '';
         }
         if ($text instanceof Mage_Core_Model_Translate_Expr) {

@@ -213,7 +213,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Retrieve model object identifier
      *
-     * @return int|string
+     * @return int|string|null
      */
     public function getId()
     {
@@ -589,7 +589,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     {
         Mage::dispatchEvent('model_delete_commit_after', ['object' => $this]);
         Mage::dispatchEvent($this->_eventPrefix . '_delete_commit_after', $this->_getEventData());
-         return $this;
+        return $this;
     }
 
     /**

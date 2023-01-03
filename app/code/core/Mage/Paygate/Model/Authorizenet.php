@@ -112,7 +112,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     protected $_allowCurrencyCode = ['USD'];
 
     /**
-     * @var Mage_Paygate_Model_Authorizenet_Cards
+     * @var Mage_Paygate_Model_Authorizenet_Cards|null
      */
     protected $_cardsStorage;
 
@@ -423,10 +423,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     {
         $cardsStorage = $this->getCardsStorage($payment);
 
-        if ($this->_formatAmount(
-            $cardsStorage->getCapturedAmount() - $cardsStorage->getRefundedAmount()
-            ) < $requestedAmount
-        ) {
+        if ($this->_formatAmount($cardsStorage->getCapturedAmount() - $cardsStorage->getRefundedAmount()) < $requestedAmount) {
             Mage::throwException(Mage::helper('paygate')->__('Invalid amount for refund.'));
         }
 
@@ -596,7 +593,6 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             default:
                 Mage::throwException($defaultExceptionMessage);
         }
-        return $this;
     }
 
     /**
@@ -706,10 +702,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     {
         $cardsStorage = $this->getCardsStorage($payment);
 
-        if ($this->_formatAmount(
-            $cardsStorage->getProcessedAmount() - $cardsStorage->getCapturedAmount()
-            ) < $requestedAmount
-        ) {
+        if ($this->_formatAmount($cardsStorage->getProcessedAmount() - $cardsStorage->getCapturedAmount()) < $requestedAmount) {
             Mage::throwException(Mage::helper('paygate')->__('Invalid amount for capture.'));
         }
 

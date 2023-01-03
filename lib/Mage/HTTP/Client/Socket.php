@@ -42,7 +42,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * Stream resource
-     * @var object
+     * @var resource
      */
     private $_sock = null;
 
@@ -130,6 +130,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * Disconnect
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function disconnect()
     {
@@ -385,6 +387,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * Process response body
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function processResponseBody()
     {
@@ -407,7 +411,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         if (count($line) != 3) {
             return $this->doError("Invalid response line returned from server: " . $responseLine);
         }
-        $this->_responseStatus = intval($line[1]);
+        $this->_responseStatus = (int) $line[1];
         $this->processResponseHeaders();
 
         $this->processRedirect();
@@ -437,7 +441,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      * @param string $method
      * @param string $uri
      * @param array $params
-     * @return null
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function makeRequest($method, $uri, $params = [])
     {

@@ -15,7 +15,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2021 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -92,10 +92,11 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         $this->_conn    = $connection;
         $this->_table   = $table;
 
-        if (!isset($fields[self::ID_FIELD]) ||
-            !isset($fields[self::PARENT_FIELD]) ||
-            !isset($fields[self::LEVEL_FIELD]) ||
-            !isset($fields[self::ORDER_FIELD])) {
+        if (!isset($fields[self::ID_FIELD])
+            || !isset($fields[self::PARENT_FIELD])
+            || !isset($fields[self::LEVEL_FIELD])
+            || !isset($fields[self::ORDER_FIELD])
+        ) {
             throw new Exception('"$fields" tree configuratin array');
         }
 
@@ -127,7 +128,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
     /**
      * Load tree
      *
-     * @param   int || Varien_Data_Tree_Node $parentNode
+     * @param   int|Varien_Data_Tree_Node $parentNode
      * @param   int $recursionLevel recursion level
      * @return  $this
      */

@@ -19,6 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Admin poll answer edit block
  *
@@ -41,13 +42,28 @@ class Mage_Adminhtml_Block_Poll_Answer_Edit extends Mage_Adminhtml_Block_Widget_
             Mage::register('answer_data', $answerData);
         }
 
-        $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getUrl('*/poll/edit', ['id' => $answerData->getPollId(), 'tab' => 'answers_section']) . '\');');
+        $this->_updateButton(
+            'back',
+            'onclick',
+            Mage::helper('core/js')->getSetLocationJs(
+                $this->getUrl(
+                    '*/poll/edit',
+                    ['id' => $answerData->getPollId(), 'tab' => 'answers_section']
+                )
+            )
+        );
         $this->_updateButton('save', 'label', Mage::helper('poll')->__('Save Answer'));
         $this->_updateButton('delete', 'label', Mage::helper('poll')->__('Delete Answer'));
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
-        return Mage::helper('poll')->__("Edit Answer '%s'", $this->escapeHtml(Mage::registry('answer_data')->getAnswerTitle()));
+        return Mage::helper('poll')->__(
+            "Edit Answer '%s'",
+            $this->escapeHtml(Mage::registry('answer_data')->getAnswerTitle())
+        );
     }
 }

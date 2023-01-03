@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Backup
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,7 +31,7 @@ class Mage_Backup_Snapshot extends Mage_Backup_Filesystem
     /**
      * Database backup manager
      *
-     * @var Mage_Backup_Db
+     * @var Mage_Backup_Interface|Mage_Backup_Db|null
      */
     protected $_dbBackupManager;
 
@@ -111,7 +112,7 @@ class Mage_Backup_Snapshot extends Mage_Backup_Filesystem
     /**
      * Get database backup manager
      *
-     * @return Mage_Backup_Db
+     * @return Mage_Backup_Interface
      */
     protected function _getDbBackupManager()
     {
@@ -125,7 +126,9 @@ class Mage_Backup_Snapshot extends Mage_Backup_Filesystem
     /**
      * Remove Db backup after added it to the snapshot
      *
-     * @return Mage_Backup_Snapshot
+     * @return $this
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _removeDbBackup()
     {

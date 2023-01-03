@@ -54,7 +54,7 @@ class Mage_Centinel_Model_Observer extends Varien_Object
     public function paymentInfoBlockPrepareSpecificInformation($observer)
     {
         if ($observer->getEvent()->getBlock()->getIsSecureMode()) {
-            return;
+            return $this;
         }
 
         $payment = $observer->getEvent()->getPayment();

@@ -67,7 +67,8 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
         $product = $this->getChildProduct();
         if (!$product || !$product->getData('thumbnail')
             || ($product->getData('thumbnail') === 'no_selection')
-            || (Mage::getStoreConfig(self::CONFIGURABLE_PRODUCT_IMAGE) === self::USE_PARENT_IMAGE)) {
+            || (Mage::getStoreConfig(self::CONFIGURABLE_PRODUCT_IMAGE) === self::USE_PARENT_IMAGE)
+        ) {
             $product = $this->getProduct();
         }
 

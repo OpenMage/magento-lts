@@ -89,7 +89,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
         if ($id) {
             $model->load($id);
-            if (! $model->getRuleId()) {
+            if (!$model->getRuleId()) {
                 Mage::getSingleton('adminhtml/session')->addError(
                     Mage::helper('salesrule')->__('This rule no longer exists.')
                 );
@@ -164,7 +164,8 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 }
 
                 if (isset($data['simple_action']) && $data['simple_action'] == 'by_percent'
-                    && isset($data['discount_amount'])) {
+                    && isset($data['discount_amount'])
+                ) {
                     $data['discount_amount'] = min(100, $data['discount_amount']);
                 }
                 if (isset($data['rule']['conditions'])) {

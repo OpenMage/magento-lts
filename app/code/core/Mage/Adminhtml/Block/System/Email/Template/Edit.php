@@ -34,6 +34,9 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         $this->setTemplate('system/email/template/edit.phtml');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -151,46 +154,73 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return string
+     */
     public function getBackButtonHtml()
     {
         return $this->getChildHtml('back_button');
     }
 
+    /**
+     * @return string
+     */
     public function getToggleButtonHtml()
     {
         return $this->getChildHtml('toggle_button');
     }
 
+    /**
+     * @return string
+     */
     public function getResetButtonHtml()
     {
         return $this->getChildHtml('reset_button');
     }
 
+    /**
+     * @return string
+     */
     public function getToPlainButtonHtml()
     {
         return $this->getChildHtml('to_plain_button');
     }
 
+    /**
+     * @return string
+     */
     public function getToHtmlButtonHtml()
     {
         return $this->getChildHtml('to_html_button');
     }
 
+    /**
+     * @return string
+     */
     public function getSaveButtonHtml()
     {
         return $this->getChildHtml('save_button');
     }
 
+    /**
+     * @return string
+     */
     public function getPreviewButtonHtml()
     {
         return $this->getChildHtml('preview_button');
     }
 
+    /**
+     * @return string
+     */
     public function getDeleteButtonHtml()
     {
         return $this->getChildHtml('delete_button');
     }
 
+    /**
+     * @return string
+     */
     public function getLoadButtonHtml()
     {
         return $this->getChildHtml('load_button');
@@ -216,7 +246,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         if ($this->getEditMode()) {
             return Mage::helper('adminhtml')->__('Edit Email Template');
         }
-
         return  Mage::helper('adminhtml')->__('New Email Template');
     }
 
@@ -250,6 +279,9 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         return $this->getUrl('*/*/preview');
     }
 
+    /**
+     * @return bool
+     */
     public function isTextType()
     {
         return $this->getEmailTemplate()->isPlain();
@@ -304,7 +336,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      * Get paths of where current template is used as default
      *
      * @param bool $asJSON
-     * @return string
+     * @return string|array
      */
     public function getUsedDefaultForPaths($asJSON = true)
     {
@@ -320,7 +352,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      * Get paths of where current template is currently used
      *
      * @param bool $asJSON
-     * @return string
+     * @return string|array
      */
     public function getUsedCurrentlyForPaths($asJSON = true)
     {

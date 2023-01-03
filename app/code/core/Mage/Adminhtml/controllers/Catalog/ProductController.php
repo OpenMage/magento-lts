@@ -111,7 +111,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
         // Required attributes of simple product for configurable creation
         if ($this->getRequest()->getParam('popup')
-            && $requiredAttributes = $this->getRequest()->getParam('required')) {
+            && $requiredAttributes = $this->getRequest()->getParam('required')
+        ) {
             $requiredAttributes = explode(",", $requiredAttributes);
             foreach ($product->getAttributes() as $attribute) {
                 if (in_array($attribute->getId(), $requiredAttributes)) {
@@ -123,7 +124,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         if ($this->getRequest()->getParam('popup')
             && $this->getRequest()->getParam('product')
             && !is_array($this->getRequest()->getParam('product'))
-            && $this->getRequest()->getParam('id', false) === false) {
+            && $this->getRequest()->getParam('id', false) === false
+        ) {
             $configProduct = Mage::getModel('catalog/product')
                 ->setStoreId(0)
                 ->load($this->getRequest()->getParam('product'))
@@ -138,7 +140,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                     && $attribute->getFrontend()->getInputType() != 'gallery'
                     && $attribute->getAttributeCode() != 'required_options'
                     && $attribute->getAttributeCode() != 'has_options'
-                    && $attribute->getAttributeCode() != $configProduct->getIdFieldName()) {
+                    && $attribute->getAttributeCode() != $configProduct->getIdFieldName()
+                ) {
                     $data[$attribute->getAttributeCode()] = $configProduct->getData($attribute->getAttributeCode());
                 }
             }
@@ -1032,7 +1035,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 || $attribute->getAttributeCode() == 'url_key'
                 || $attribute->getFrontend()->getInputType() == 'gallery'
                 || $attribute->getFrontend()->getInputType() == 'media_image'
-                || !$attribute->getIsVisible()) {
+                || !$attribute->getIsVisible()
+            ) {
                 continue;
             }
 

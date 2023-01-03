@@ -94,10 +94,11 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         $this->_conn    = $connection;
         $this->_table   = $table;
 
-        if (!isset($fields[self::ID_FIELD]) ||
-            !isset($fields[self::PATH_FIELD]) ||
-            !isset($fields[self::LEVEL_FIELD]) ||
-            !isset($fields[self::ORDER_FIELD])) {
+        if (!isset($fields[self::ID_FIELD])
+            || !isset($fields[self::PATH_FIELD])
+            || !isset($fields[self::LEVEL_FIELD])
+            || !isset($fields[self::ORDER_FIELD])
+        ) {
             throw new Exception('"$fields" tree configuratin array');
         }
 

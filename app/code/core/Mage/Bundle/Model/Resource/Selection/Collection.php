@@ -49,7 +49,7 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
     /**
      * Set store id for each collection item when collection was loaded
      *
-     * @return Mage_Bundle_Model_Resource_Selection_Collection
+     * @return $this
      */
     public function _afterLoad()
     {
@@ -74,6 +74,8 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
             'selection.product_id = e.entity_id',
             ['*']
         );
+
+        return $this;
     }
 
     /**

@@ -76,5 +76,7 @@ class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
                 $connection->insertArray($table, ['indexer_code', 'status'], $insertData);
             }
         }
+
+        return $this;
     }
 }

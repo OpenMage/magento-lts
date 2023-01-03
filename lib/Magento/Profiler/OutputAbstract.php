@@ -15,6 +15,7 @@
  * @category   Magento
  * @package    Magento_Profiler
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -87,7 +88,7 @@ abstract class Magento_Profiler_OutputAbstract
         if ($columnId == 'timer_id') {
             return $this->_renderTimerId($timerId);
         }
-        $value = (string)Magento_Profiler::fetch($timerId, $columnId);
+        $value = (float)Magento_Profiler::fetch($timerId, $columnId);
         if (in_array($columnId, [Magento_Profiler::FETCH_TIME, Magento_Profiler::FETCH_AVG])) {
             $value = number_format($value, 6);
         } else {

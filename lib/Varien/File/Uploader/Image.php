@@ -15,6 +15,7 @@
  * @category   Varien
  * @package    Varien_File
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,8 +25,9 @@
  * @deprecated after 1.4.0.0-rc1
  * @file       Image.php
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @property mixed $uploader
  */
-
 class Varien_File_Uploader_Image extends Varien_File_Uploader
 {
     public function __construct($file = null)
@@ -67,7 +69,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      */
     public function rotate($degrees = null)
     {
-        $this->uploader->image_rotate = intval($degrees);
+        $this->uploader->image_rotate = (int) $degrees;
     }
 
     /**
@@ -78,7 +80,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * Default value is h (flip horizontally)
      *
      * @access public
-     * @var string;
+     * @param string $type
      */
     public function flip($type = "h")
     {
@@ -186,7 +188,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      */
     public function addReflection($height = "10%", $space = 0, $color = "#FFFFFF", $opacity = 60)
     {
-        if (intval($height) == 0) {
+        if ((int) $height == 0) {
             return;
         }
 
@@ -222,7 +224,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
 
     public function setTextVisibilityPercent($percent)
     {
-        $this->uploader->image_text_percent = $visibilityPercent;
+        $this->uploader->image_text_percent = $percent;
     }
 
     public function setTextBackgroundColor($color)

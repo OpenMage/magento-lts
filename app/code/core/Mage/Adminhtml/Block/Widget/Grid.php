@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Collection object
      *
-     * @var Varien_Data_Collection
+     * @var Mage_Core_Model_Resource_Db_Collection_Abstract|null
      */
     protected $_collection = null;
 
@@ -313,7 +313,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * set collection object
      *
-     * @param Varien_Data_Collection|Varien_Data_Collection_Db $collection
+     * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
      */
     public function setCollection($collection)
     {
@@ -323,7 +323,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * get collection object
      *
-     * @return Varien_Data_Collection|Varien_Data_Collection_Db
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     public function getCollection()
     {
@@ -1710,7 +1710,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Retrieve subtotal item
      *
      * @param Varien_Object $item
-     * @return Varien_Object
+     * @return Varien_Object|string
      */
     public function getSubTotalItem($item)
     {

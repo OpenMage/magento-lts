@@ -65,7 +65,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     /**
      * Found products collection
      *
-     * @var Mage_CatalogSearch_Model_Resource_Advanced_Collection
+     * @var Mage_CatalogSearch_Model_Resource_Advanced_Collection|null
      */
     protected $_productCollection;
 
@@ -171,11 +171,12 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                     } else {
                         $rate = 1;
                     }
-                    if ($this->_getResource()->addRatedPriceFilter(
-                        $this->getProductCollection(),
-                        $attribute,
-                        $value,
-                        $rate
+                    if ($this->_getResource()
+                        ->addRatedPriceFilter(
+                            $this->getProductCollection(),
+                            $attribute,
+                            $value,
+                            $rate
                         )
                     ) {
                         $hasConditions = true;
@@ -184,11 +185,13 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 }
             } elseif ($attribute->isIndexable()) {
                 if (!is_string($value) || strlen($value) != 0) {
-                    if ($this->_getResource()->addIndexableAttributeModifiedFilter(
-                        $this->getProductCollection(),
-                        $attribute,
-                        $value
-                        )) {
+                    if ($this->_getResource()
+                        ->addIndexableAttributeModifiedFilter(
+                            $this->getProductCollection(),
+                            $attribute,
+                            $value
+                        )
+                    ) {
                         $hasConditions = true;
                         $this->_addSearchCriteria($attribute, $value);
                     }

@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_System
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,15 +47,15 @@ class Mage_System_Args
 
     /**
      * Constructor
-     * @param array $argv, if false $GLOBALS['argv'] is taken
+     * @param array|false $argv, if false $GLOBALS['argv'] is taken
      * @return void
      */
-    public function __construct($source = false)
+    public function __construct($argv = false)
     {
         $this->flags = [];
         $this->filtered = [];
 
-        if (false === $source) {
+        if (false === $argv) {
             $argv = $GLOBALS['argv'];
             array_shift($argv);
         }

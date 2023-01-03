@@ -171,6 +171,8 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
         if (!empty($rulesFilterSqlParts)) {
             $this->getSelect()->where(implode(' OR ', $rulesFilterSqlParts));
         }
+
+        return $this;
     }
 
     /**

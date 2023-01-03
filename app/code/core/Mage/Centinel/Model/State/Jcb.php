@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Centinel
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,13 +73,15 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
 
             //Test case 3
             if ($paResStatus == 'N' && $signatureVerification == 'Y' && $eciFlag == '07' &&
-                $xid != '' && $cavv == '' && $errorNo == '0') {
+                $xid != '' && $cavv == '' && $errorNo == '0'
+            ) {
                 return false;
             }
 
             //Test case 4
             if ($paResStatus == 'U' && $signatureVerification == 'Y' && $eciFlag == '07' &&
-                $xid != '' && $cavv == '' && $errorNo == '0') {
+                $xid != '' && $cavv == '' && $errorNo == '0'
+            ) {
                 if ($this->getIsModeStrict()) {
                     return false;
                 } else {
@@ -88,7 +91,8 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
 
             //Test case 5
             if ($paResStatus == 'U' && $signatureVerification == 'Y' && $eciFlag == '07' &&
-                $xid != '' && $cavv == '' && $errorNo == '0') {
+                $xid != '' && $cavv == '' && $errorNo == '0'
+            ) {
                 if ($this->getIsModeStrict()) {
                     return false;
                 } else {
@@ -98,13 +102,15 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
 
             //Test case 10
             if ($paResStatus == '' && $signatureVerification == '' && $eciFlag == '07' &&
-                $xid == '' && $cavv == '' && $errorNo != '0') {
+                $xid == '' && $cavv == '' && $errorNo != '0'
+            ) {
                 return false;
             }
 
             //Test case 11
             if ($paResStatus == 'A' && $signatureVerification == 'Y' && $eciFlag == '06' &&
-                $xid != '' && $cavv != '' && $errorNo == '0') {
+                $xid != '' && $cavv != '' && $errorNo == '0'
+            ) {
                 return true;
             }
         }
@@ -123,7 +129,8 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
         if ($this->getLookupEnrolled() == 'Y' &&
             $this->getLookupAcsUrl() != '' &&
             $this->getLookupPayload() != '' &&
-            $this->getLookupErrorNo() == '0') {
+            $this->getLookupErrorNo() == '0'
+        ) {
             return true;
         }
         return false;

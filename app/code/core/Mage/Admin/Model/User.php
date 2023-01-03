@@ -180,7 +180,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $this->cleanPasswordsValidationData();
 
         if (!is_null($this->getIsActive())) {
-            $data['is_active'] = intval($this->getIsActive());
+            $data['is_active'] = (int) $this->getIsActive();
         }
 
         $this->addData($data);
@@ -504,7 +504,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Find first menu item that user is able to access
      *
-     * @param Mage_Core_Model_Config_Element $parent
+     * @param Mage_Core_Model_Config_Element|Varien_Simplexml_Element $parent
      * @param string $path
      * @param int $level
      * @return string

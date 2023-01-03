@@ -19,6 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Recurring profile view page
  *
@@ -40,51 +41,52 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
     {
         $this->_addButton('back', [
             'label'     => Mage::helper('adminhtml')->__('Back'),
-            'onclick'   => "setLocation('{$this->getUrl('*/*/')}')",
+            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/')),
             'class'     => 'back',
         ]);
 
         $profile = Mage::registry('current_recurring_profile');
-        $confirmationMessage = Mage::helper('core')->jsQuoteEscape(
-            Mage::helper('sales')->__('Are you sure you want to do this?')
-        );
 
         // cancel
         if ($profile->canCancel()) {
-            $url = $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'cancel']);
             $this->_addButton('cancel', [
                 'label'     => Mage::helper('sales')->__('Cancel'),
-                'onclick'   => "confirmSetLocation('{$confirmationMessage}', '{$url}')",
+                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
+                    $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'cancel'])
+                ),
                 'class'     => 'delete',
             ]);
         }
 
         // suspend
         if ($profile->canSuspend()) {
-            $url = $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'suspend']);
             $this->_addButton('suspend', [
                 'label'     => Mage::helper('sales')->__('Suspend'),
-                'onclick'   => "confirmSetLocation('{$confirmationMessage}', '{$url}')",
+                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
+                    $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'suspend'])
+                ),
                 'class'     => 'delete',
             ]);
         }
 
         // activate
         if ($profile->canActivate()) {
-            $url = $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'activate']);
             $this->_addButton('activate', [
                 'label'     => Mage::helper('sales')->__('Activate'),
-                'onclick'   => "confirmSetLocation('{$confirmationMessage}', '{$url}')",
+                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
+                    $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'activate'])
+                ),
                 'class'     => 'add',
             ]);
         }
 
         // get update
         if ($profile->canFetchUpdate()) {
-            $url = $this->getUrl('*/*/updateProfile', ['profile' => $profile->getId(),]);
             $this->_addButton('update', [
                 'label'     => Mage::helper('sales')->__('Get Update'),
-                'onclick'   => "confirmSetLocation('{$confirmationMessage}', '{$url}')",
+                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
+                    $this->getUrl('*/*/updateProfile', ['profile' => $profile->getId()])
+                ),
                 'class'     => 'add',
             ]);
         }

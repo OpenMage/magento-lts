@@ -193,7 +193,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 switch ($this->getProcessMode()) {
                     case Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL:
                         Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option <em>%s</em>.', $option->getTitle()));
-                        break;
+                        // exception thrown
+                        // no break
                     default:
                         $this->setUserValue(null);
                         break;
@@ -407,7 +408,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             } elseif ($errorCode == Zend_Validate_File_Extension::FALSE_EXTENSION) {
                 $result[] = Mage::helper('catalog')->__("The file '%s' for '%s' has an invalid extension", $fileInfo['title'], $option->getTitle());
             } elseif ($errorCode == Zend_Validate_File_ImageSize::WIDTH_TOO_BIG
-                || $errorCode == Zend_Validate_File_ImageSize::HEIGHT_TOO_BIG) {
+                || $errorCode == Zend_Validate_File_ImageSize::HEIGHT_TOO_BIG
+            ) {
                 $result[] = Mage::helper('catalog')->__("Maximum allowed image size for '%s' is %sx%s px.", $option->getTitle(), $option->getImageSizeX(), $option->getImageSizeY());
             } elseif ($errorCode == Zend_Validate_File_FilesSize::TOO_BIG) {
                 $result[] = Mage::helper('catalog')->__("The file '%s' you uploaded is larger than %s Megabytes allowed by server", $fileInfo['title'], $this->_bytesToMbytes($this->_getUploadMaxFilesize()));
@@ -615,6 +617,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Quote item to order item copy process
      *
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function copyQuoteToOrder()
     {
@@ -796,6 +800,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      *
      * @param string $ini_key php.ini Var name
      * @return int Setting value
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _getBytesIniValue($ini_key)
     {
@@ -803,13 +809,13 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
         // kilobytes
         if (stristr($_bytes, 'k')) {
-            $_bytes = intval($_bytes) * 1024;
+            $_bytes = (int) $_bytes * 1024;
         // megabytes
         } elseif (stristr($_bytes, 'm')) {
-            $_bytes = intval($_bytes) * 1024 * 1024;
+            $_bytes = (int) $_bytes * 1024 * 1024;
         // gigabytes
         } elseif (stristr($_bytes, 'g')) {
-            $_bytes = intval($_bytes) * 1024 * 1024 * 1024;
+            $_bytes = (int) $_bytes * 1024 * 1024 * 1024;
         }
         return (int)$_bytes;
     }

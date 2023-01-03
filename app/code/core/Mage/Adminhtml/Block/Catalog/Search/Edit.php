@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,12 +39,14 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit extends Mage_Adminhtml_Block_Widg
         $this->_updateButton('delete', 'label', Mage::helper('catalog')->__('Delete Search'));
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         if (Mage::registry('current_catalog_search')->getId()) {
             return Mage::helper('catalog')->__("Edit Search '%s'", $this->escapeHtml(Mage::registry('current_catalog_search')->getQueryText()));
-        } else {
-            return Mage::helper('catalog')->__('New Search');
         }
+        return Mage::helper('catalog')->__('New Search');
     }
 }

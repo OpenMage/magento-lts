@@ -135,7 +135,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      * get address street
      *
      * @param   int $line address line index
-     * @return  string
+     * @return  string|array
      */
     public function getStreet($line = 0)
     {
@@ -392,7 +392,8 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     public function format($type)
     {
         if (!($formatType = $this->getConfig()->getFormatByCode($type))
-            || !$formatType->getRenderer()) {
+            || !$formatType->getRenderer()
+        ) {
             return null;
         }
         Mage::dispatchEvent('customer_address_format', ['type' => $formatType, 'address' => $this]);

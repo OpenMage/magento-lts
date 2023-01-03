@@ -27,7 +27,7 @@
 class Mage_CatalogIndex_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
 {
     /**
-     * @var array
+     * @var array|null
      */
     protected $_storeToWebsite   = null;
 

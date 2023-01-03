@@ -15,7 +15,7 @@
  * @category   Varien
  * @package    Varien_File
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -95,7 +95,7 @@ class Varien_File_Transfer_Adapter_Http
 
         $response = new Zend_Controller_Response_Http();
 
-        $response->setHeader('Content-length', filesize($filepath));
+        $response->setHeader('Content-length', (string)filesize($filepath));
         $response->setHeader('Content-Type', $mimeType);
 
         $response->sendHeaders();
@@ -107,7 +107,7 @@ class Varien_File_Transfer_Adapter_Http
      * Internal method to detect the mime type of a file
      *
      * @param  array $value File infos
-     * @return string Mime type of given file
+     * @return string|null Mime type of given file
      */
     protected function _detectMimeType($value)
     {

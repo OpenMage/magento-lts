@@ -78,6 +78,8 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
      *
      * @param string $filePath
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _processDatabaseFile($filePath)
     {

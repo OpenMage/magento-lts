@@ -35,6 +35,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pcompared extends Mage_Adm
         $this->setDataId('pcompared');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Recently Compared Products');

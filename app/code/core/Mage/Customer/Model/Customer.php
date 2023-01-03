@@ -192,14 +192,14 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Assoc array of customer attributes
      *
-     * @var array
+     * @var array|null
      */
     protected $_attributes;
 
     /**
      * Customer addresses array
      *
-     * @var Mage_Customer_Model_Address[]
+     * @var Mage_Customer_Model_Address[]|null
      * @deprecated after 1.4.0.0-rc1
      */
     protected $_addresses = null;
@@ -207,7 +207,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Customer addresses collection
      *
-     * @var Mage_Customer_Model_Entity_Address_Collection
+     * @var Mage_Customer_Model_Resource_Address_Collection|null
      */
     protected $_addressesCollection;
 
@@ -1184,7 +1184,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $regions->addRegionNameFilter($row['billing_region'])->load();
             if ($regions) {
                 foreach ($regions as $region) {
-                    $regionId = intval($region->getId());
+                    $regionId = (int) $region->getId();
                 }
             }
 
@@ -1228,7 +1228,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
             if ($regions) {
                 foreach ($regions as $region) {
-                    $regionId = intval($region->getId());
+                    $regionId = (int) $region->getId();
                 }
             }
 
@@ -1363,7 +1363,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                     return false;
                 }
                 if ($field == 'country'
-                    && in_array(strtolower($data[$prefix . $field]), ['US', 'CA'])) {
+                    && in_array(strtolower($data[$prefix . $field]), ['US', 'CA'])
+                ) {
                     if (!isset($data[$prefix . 'region'])) {
                         return false;
                     }

@@ -280,7 +280,8 @@ class Mage_Paypal_Model_Info
         if (in_array($paymentStatus, [
             self::PAYMENTSTATUS_COMPLETED, self::PAYMENTSTATUS_INPROGRESS, self::PAYMENTSTATUS_REFUNDED,
             self::PAYMENTSTATUS_REFUNDEDPART, self::PAYMENTSTATUS_UNREVERSED, self::PAYMENTSTATUS_PROCESSED,
-            ])) {
+            ])
+        ) {
             return true;
         }
         $pendingReason = $payment->getAdditionalInformation(self::PENDING_REASON_GLOBAL);

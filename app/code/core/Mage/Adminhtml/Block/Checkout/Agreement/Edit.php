@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,8 +46,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit extends Mage_Adminhtml_Block_
     {
         if (Mage::registry('checkout_agreement')->getId()) {
             return Mage::helper('checkout')->__('Edit Terms and Conditions');
-        } else {
-            return Mage::helper('checkout')->__('New Terms and Conditions');
         }
+        return Mage::helper('checkout')->__('New Terms and Conditions');
     }
 }

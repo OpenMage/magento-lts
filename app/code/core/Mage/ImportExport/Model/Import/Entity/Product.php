@@ -419,7 +419,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Media files uploader
      *
-     * @var Mage_ImportExport_Model_Import_Uploader
+     * @var Mage_ImportExport_Model_Import_Uploader|null
      */
     protected $_fileUploader;
 
@@ -503,7 +503,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     protected function _initAttributeSets()
     {
         foreach (Mage::getResourceModel('eav/entity_attribute_set_collection')
-                ->setEntityTypeFilter($this->_entityTypeId) as $attributeSet) {
+                ->setEntityTypeFilter($this->_entityTypeId) as $attributeSet
+        ) {
             /** @var Mage_Eav_Model_Entity_Attribute_Set $attributeSet */
             $this->_attrSetNameToId[$attributeSet->getAttributeSetName()] = $attributeSet->getId();
             $this->_attrSetIdToName[$attributeSet->getId()] = $attributeSet->getAttributeSetName();
@@ -604,7 +605,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             if (!$model) {
                 Mage::throwException("Entity type model '{$typeModel}' is not found");
             }
-            if (! $model instanceof Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract) {
+            if (!$model instanceof Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract) {
                 Mage::throwException(
                     Mage::helper('importexport')->__('Entity type model must be an instance of Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract')
                 );
@@ -725,11 +726,13 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 $this->addRowError(self::ERROR_TIER_DATA_INCOMPLETE, $rowNum);
                 return false;
             } elseif ($rowData['_tier_price_website'] != self::VALUE_ALL
-                    && !isset($this->_websiteCodeToId[$rowData['_tier_price_website']])) {
+                    && !isset($this->_websiteCodeToId[$rowData['_tier_price_website']])
+            ) {
                 $this->addRowError(self::ERROR_INVALID_TIER_PRICE_SITE, $rowNum);
                 return false;
             } elseif ($rowData['_tier_price_customer_group'] != self::VALUE_ALL
-                    && !isset($this->_customerGroups[$rowData['_tier_price_customer_group']])) {
+                    && !isset($this->_customerGroups[$rowData['_tier_price_customer_group']])
+            ) {
                 $this->addRowError(self::ERROR_INVALID_TIER_PRICE_GROUP, $rowNum);
                 return false;
             } elseif ($rowData['_tier_price_qty'] <= 0 || $rowData['_tier_price_price'] <= 0) {
@@ -1175,7 +1178,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                         $linkedSku    = $rowData[$linkName . 'sku'];
 
                         if ((isset($this->_newSku[$linkedSku]) || isset($this->_oldSku[$linkedSku]))
-                            && $linkedSku != $sku) {
+                            && $linkedSku != $sku
+                        ) {
                             if (isset($this->_newSku[$linkedSku])) {
                                 $linkedId = $this->_newSku[$linkedSku]['entity_id'];
                             } else {

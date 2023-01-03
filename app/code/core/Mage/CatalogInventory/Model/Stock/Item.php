@@ -137,7 +137,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Associated product instance
      *
-     * @var Mage_Catalog_Model_Product
+     * @var Mage_Catalog_Model_Product|null
      */
     protected $_productInstance = null;
 
@@ -462,7 +462,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      * Check quantity
      *
      * @param   float $qty
-     * @exception Mage_Core_Exception
+     * @throws  Mage_Core_Exception
      * @return  bool
      */
     public function checkQty($qty)
@@ -478,7 +478,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                     break;
                 default:
                     return false;
-                    break;
             }
         }
         return true;
@@ -571,7 +570,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
 
         if (!$this->getIsQtyDecimal()) {
             $result->setHasQtyOptionUpdate(true);
-            $qty = intval($qty);
+            $qty = (int) $qty;
 
             /**
               * Adding stock data to quote item
@@ -581,7 +580,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             if (!is_numeric($qty)) {
                 $qty = Mage::app()->getLocale()->getNumber($qty);
             }
-            $origQty = intval($origQty);
+            $origQty = (int) $origQty;
             $result->setOrigQty($origQty);
         }
 
