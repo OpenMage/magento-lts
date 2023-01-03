@@ -125,6 +125,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 - search for "NULL" in backend grids [#1203](https://github.com/OpenMage/magento-lts/pull/1203)
 - removed lib/flex containing unused ActionScript "file uploader" files [#2271](https://github.com/OpenMage/magento-lts/pull/2271)
 - removed modules:
+  - `Mage_Backup` [#2811](https://github.com/OpenMage/magento-lts/pull/2811)
   - `Mage_Compiler`
   - `Mage_GoogleBase`
   - `Mage_PageCache` [#2258](https://github.com/OpenMage/magento-lts/pull/2258)
@@ -132,6 +133,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
   - `Phoenix_Moneybookers`
 
 _If you rely on those modules you can reinstall them with composer:_
+- `Mage_Backup`: `composer require openmage/module-mage-backup`
 - `Mage_PageCache`: `composer require openmage/module-mage-pagecache`
 
 ### Between OpenMage 19.4.18 / 20.0.16 and 19.4.19 / 20.0.17
