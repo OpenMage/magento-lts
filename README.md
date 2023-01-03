@@ -16,9 +16,35 @@ level of backwards compatibility to the official releases.
 
 **Pull requests with bug fixes and security patches from the community are encouraged and welcome!**
 
+---
+
+## Table of contents
+
+- [Requirements](#requirements)
+  - [Optional](#optional)
+- [Installation](#installation)
+  - [Composer](#composer)
+  - [Git](#git)
+- [Secure your installation](#secure-your-installation)
+- [Changes](#changes)
+  - [Between Magento 1.9.4.5 and OpenMage 19.x](#between-magento-1945-and-openmage-19x)
+  - [Between OpenMage 19.4.18 / 20.0.16 and 19.4.19 / 20.0.17](#between-openmage-19418--20016-and-19419--20017)
+  - [Since OpenMage 19.5.0 / 20.1.0](#since-openmage-1950--2010)
+  - [New Config Options](#new-config-options)
+  - [New Events](#new-events)
+  - [Changes to SOAP/WSDL](#changes-to-soapwsdl)
+- [Development Environment with ddev](#development-environment-with-ddev)
+- [Development with PHP 8.1](#development-with-php-81)
+- [PhpStorm Factory Helper](#phpstorm-factory-helper)
+- [Versioning](#versioning)
+- [Public Communication](#public-communication)
+- [Maintainers](#maintainers)
+- [License](#license)
+- [Contributors](#contributors-)
+
 ## Requirements
 
-- PHP 7.3+ (PHP 8.0 is supported)
+- PHP 7.3+ (PHP 8.0 is supported, PHP 8.1 is work in progress)
 - MySQL 5.6+ (8.0+ recommended) or MariaDB
 
 
@@ -33,7 +59,7 @@ __Please be aware that although OpenMage is compatible that one or more extensio
 
 ## Installation
 
-### Using Composer
+### Composer
 
 Download the latest archive and extract it, clone the repo, or add a composer dependency to your existing project like so:
 
@@ -49,7 +75,7 @@ composer require "openmage/magento-lts":"dev-main"
 
 <small>Note: `dev-main` is just an alias for current `1.9.4.x` branch and may change</small>
 
-### Using Git
+### Git
 
 If you want to contribute to the project:
 
@@ -100,6 +126,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 - removed frontend default themes (default, modern, iphone, german, french, blank, blue) [#1600](https://github.com/OpenMage/magento-lts/pull/1600)
 - removed lib/flex containing unused ActionScript "file uploader" files [#2271](https://github.com/OpenMage/magento-lts/pull/2271)
 - removed modules:
+  - `Mage_Backup` [#2811](https://github.com/OpenMage/magento-lts/pull/2811)
   - `Mage_Compiler`
   - `Mage_GoogleBase`
   - `Mage_PageCache` [#2258](https://github.com/OpenMage/magento-lts/pull/2258)
@@ -107,6 +134,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
   - `Phoenix_Moneybookers`
 
 _If you rely on those modules you can reinstall them with composer:_
+- `Mage_Backup`: `composer require openmage/module-mage-backup`
 - `Mage_PageCache`: `composer require openmage/module-mage-pagecache`
 - `Legacy frontend themes`: `composer require openmage/legacy-frontend-themes`
 
@@ -211,6 +239,12 @@ grep -rn 'urn:Magento' --include \*.xml
   ```bash
   $ ddev launch
   ```
+
+## Development with PHP 8.1
+
+Deprecation errors are supressed by default.
+
+If you want to work on PHP 8.1 support, set environment variable `DEV_PHP_STRICT` to `1`, to show all errors.  
 
 ## PhpStorm Factory Helper
 
