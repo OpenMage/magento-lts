@@ -155,12 +155,8 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
         $storeId    = Mage::app()->getStore()->getId();
         $select     = $collection->getSelect();
 
-        if (is_array($value)) {
-            if (isset($value['from']) && isset($value['to'])) {
-                if (empty($value['from']) && empty($value['to'])) {
-                    return false;
-                }
-            }
+        if (is_array($value) && (isset($value['from']) && isset($value['to'])) && (empty($value['from']) && empty($value['to']))) {
+            return false;
         }
 
         $select->distinct(true);

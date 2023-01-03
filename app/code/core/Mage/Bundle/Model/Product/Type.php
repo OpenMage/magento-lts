@@ -242,17 +242,15 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         if ($product->getCanSaveBundleSelections()) {
             $product->canAffectOptions(true);
             $selections = $product->getBundleSelectionsData();
-            if ($selections) {
-                if (!empty($selections)) {
-                    $options = $product->getBundleOptionsData();
-                    if ($options) {
-                        foreach ($options as $option) {
-                            if (empty($option['delete']) || (int)$option['delete'] != 1) {
-                                $product->setTypeHasOptions(true);
-                                if ((int)$option['required'] == 1) {
-                                    $product->setTypeHasRequiredOptions(true);
-                                    break;
-                                }
+            if ($selections && !empty($selections)) {
+                $options = $product->getBundleOptionsData();
+                if ($options) {
+                    foreach ($options as $option) {
+                        if (empty($option['delete']) || (int)$option['delete'] != 1) {
+                            $product->setTypeHasOptions(true);
+                            if ((int)$option['required'] == 1) {
+                                $product->setTypeHasRequiredOptions(true);
+                                break;
                             }
                         }
                     }

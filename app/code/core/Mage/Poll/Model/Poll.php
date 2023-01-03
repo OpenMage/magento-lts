@@ -239,10 +239,8 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
         foreach ($this->getCookie()->get() as $cookieName => $cookieValue) {
             $pattern = '#^' . preg_quote($this->_pollCookieDefaultName, '#') . '(\d+)$#';
             $match   = [];
-            if (preg_match($pattern, $cookieName, $match)) {
-                if ($match[1] != Mage::getSingleton('core/session')->getJustVotedPoll()) {
-                    $idsArray[$match[1]] = $match[1];
-                }
+            if (preg_match($pattern, $cookieName, $match) && $match[1] != Mage::getSingleton('core/session')->getJustVotedPoll()) {
+                $idsArray[$match[1]] = $match[1];
             }
         }
 

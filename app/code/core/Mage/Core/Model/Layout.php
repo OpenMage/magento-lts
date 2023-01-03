@@ -285,10 +285,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      */
     protected function _generateAction($node, $parent)
     {
-        if (isset($node['ifconfig']) && ($configPath = (string)$node['ifconfig'])) {
-            if (!Mage::getStoreConfigFlag($configPath)) {
-                return $this;
-            }
+        if (isset($node['ifconfig']) && ($configPath = (string)$node['ifconfig']) && !Mage::getStoreConfigFlag($configPath)) {
+            return $this;
         }
 
         $method = (string)$node['method'];
@@ -499,10 +497,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     protected function _getBlockInstance($block, array $attributes = [])
     {
         if (is_string($block)) {
-            if (strpos($block, '/') !== false) {
-                if (!$block = Mage::getConfig()->getBlockClassName($block)) {
-                    Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $block));
-                }
+            if (strpos($block, '/') !== false && !$block = Mage::getConfig()->getBlockClassName($block)) {
+                Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $block));
             }
             if (class_exists($block, false) || mageFindClassFile($block)) {
                 $block = new $block($attributes);

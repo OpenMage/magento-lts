@@ -545,36 +545,33 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
         $apValue = 0;
         $apCode = self::ADDITIONAL_PROTECTION_NOT_REQUIRED;
-        if ($_apEnabled) {
-            if ($_apMinValue <= $_subtotal) {
-                switch ($_apUseSubtotal) {
-                    case self::ADDITIONAL_PROTECTION_VALUE_SUBTOTAL:
-                        $apValue = $_subtotal;
+        if ($_apEnabled && $_apMinValue <= $_subtotal) {
+            switch ($_apUseSubtotal) {
+                case self::ADDITIONAL_PROTECTION_VALUE_SUBTOTAL:
+                    $apValue = $_subtotal;
+                    break;
+                case self::ADDITIONAL_PROTECTION_VALUE_SUBTOTAL_WITH_DISCOUNT:
+                    $apValue = $_subtotalWithDiscount;
+                    break;
+                default:
+                case self::ADDITIONAL_PROTECTION_VALUE_CONFIG:
+                    $apValue = $_apConfigValue;
+                    break;
+            }
+            if ($apValue) {
+                $apCode = self::ADDITIONAL_PROTECTION_ASSET;
+
+                switch ($_apValueRounding) {
+                    case self::ADDITIONAL_PROTECTION_ROUNDING_CEIL:
+                        $apValue = ceil($apValue);
                         break;
-                    case self::ADDITIONAL_PROTECTION_VALUE_SUBTOTAL_WITH_DISCOUNT:
-                        $apValue = $_subtotalWithDiscount;
+                    case self::ADDITIONAL_PROTECTION_ROUNDING_ROUND:
+                        $apValue = round((float) $apValue);
                         break;
                     default:
-                    case self::ADDITIONAL_PROTECTION_VALUE_CONFIG:
-                        $apValue = $_apConfigValue;
+                    case self::ADDITIONAL_PROTECTION_ROUNDING_FLOOR:
+                        $apValue = floor($apValue);
                         break;
-                }
-
-                if ($apValue) {
-                    $apCode = self::ADDITIONAL_PROTECTION_ASSET;
-
-                    switch ($_apValueRounding) {
-                        case self::ADDITIONAL_PROTECTION_ROUNDING_CEIL:
-                            $apValue = ceil($apValue);
-                            break;
-                        case self::ADDITIONAL_PROTECTION_ROUNDING_ROUND:
-                            $apValue = round((float) $apValue);
-                            break;
-                        default:
-                        case self::ADDITIONAL_PROTECTION_ROUNDING_FLOOR:
-                            $apValue = floor($apValue);
-                            break;
-                    }
                 }
             }
         }
@@ -1163,15 +1160,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     public function getResponse()
     {
         $statuses = '';
-        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result) {
-            if ($trackings = $this->_result->getAllTrackings()) {
-                foreach ($trackings as $tracking) {
-                    if ($data = $tracking->getAllData()) {
-                        if (isset($data['status'])) {
-                            $statuses .= Mage::helper('usa')->__($data['status']) . "\n<br/>";
-                        } else {
-                            $statuses .= Mage::helper('usa')->__($data['error_message']) . "\n<br/>";
-                        }
+        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result && ($trackings = $this->_result->getAllTrackings())) {
+            foreach ($trackings as $tracking) {
+                if ($data = $tracking->getAllData()) {
+                    if (isset($data['status'])) {
+                        $statuses .= Mage::helper('usa')->__($data['status']) . "\n<br/>";
+                    } else {
+                        $statuses .= Mage::helper('usa')->__($data['error_message']) . "\n<br/>";
                     }
                 }
             }

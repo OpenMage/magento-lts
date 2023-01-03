@@ -361,15 +361,13 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function loadModulesCache()
     {
-        if (Mage::isInstalled(['etc_dir' => $this->getOptions()->getEtcDir()])) {
-            if ($this->_canUseCacheForInit()) {
-                Varien_Profiler::start('mage::app::init::config::load_cache');
-                $loaded = $this->loadCache();
-                Varien_Profiler::stop('mage::app::init::config::load_cache');
-                if ($loaded) {
-                    $this->_useCache = true;
-                    return true;
-                }
+        if (Mage::isInstalled(['etc_dir' => $this->getOptions()->getEtcDir()]) && $this->_canUseCacheForInit()) {
+            Varien_Profiler::start('mage::app::init::config::load_cache');
+            $loaded = $this->loadCache();
+            Varien_Profiler::stop('mage::app::init::config::load_cache');
+            if ($loaded) {
+                $this->_useCache = true;
+                return true;
             }
         }
         return false;
