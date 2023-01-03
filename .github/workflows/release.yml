@@ -26,12 +26,12 @@ jobs:
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: ${{ runner.os }}-composer-
 
+    - name: Require legacy frontend themes on v19
+      if: startsWith(github.event.release.tag_name, 'v19')
+      run: composer require --no-install --prefer-dist --no-progress --ignore-platform-req=ext-* openmage/legacy-frontend-themes
+
     - name: Composer install
       run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-* --no-dev
-
-    - name: Install legacy frontend themes on v19
-      if: startsWith(github.event.release.tag_name, 'v19')
-      run: composer require --prefer-dist --no-progress --ignore-platform-req=ext-* openmage/legacy-frontend-themes
 
     - name: Create ZIP file
       run: zip -rq openmage-${{ github.event.release.tag_name }}.zip . -x '.git/*'
