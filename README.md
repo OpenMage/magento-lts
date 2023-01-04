@@ -262,9 +262,7 @@ for more information.
 ## Versioning
 
 Though Magento does __not__ follow [Semantic Versioning](http://semver.org/) we aim to provide a workable system for
-dependency definition. Each Magento `1.<minor>.<revision>` release will get its own branch (named `1.<minor>.<revision>.x`)
-that will be independently maintained with upstream patches and community bug fixes for as long as it makes sense
-to do so (based on available resources). For example, Magento version `1.9.4.5` was merged into the `1.9.4.x` branch.
+dependency definition.
 
 ## Public Communication
 
