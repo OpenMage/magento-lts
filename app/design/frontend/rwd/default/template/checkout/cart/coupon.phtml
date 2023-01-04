@@ -29,7 +29,7 @@
                 <input class="input-text" type="text" id="coupon_code" name="coupon_code" value="<?php echo $this->escapeHtml($this->getCouponCode()) ?>" />
                 <div class="button-wrapper">
                     <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Apply')) ?>" class="button2" onclick="discountForm.submit(false)" value="<?php echo $this->__('Apply') ?>"><span><span><?php echo $this->__('Apply') ?></span></span></button>
-                    <?php if (strlen((string)$this->getCouponCode())): ?>
+                    <?php if(strlen($this->getCouponCode())): ?>
                         <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Cancel')) ?>" class="button2 cancel-coupon" onclick="discountForm.submit(true)" value="<?php echo $this->__('Cancel') ?>"><span><span><?php echo $this->__('Cancel') ?></span></span>
                         </button>
                     <?php endif ?>
