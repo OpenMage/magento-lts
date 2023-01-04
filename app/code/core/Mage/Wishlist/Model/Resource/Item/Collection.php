@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Wishlist
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,21 +69,21 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     /**
      * Add days in whishlist filter of product collection
      *
-     * @var boolean
+     * @var bool
      */
     protected $_addDaysInWishlist = false;
 
     /**
      * Sum of items collection qty
      *
-     * @var int
+     * @var int|null
      */
     protected $_itemsQty;
 
     /**
      * Whether product name attribute value table is joined in select
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isProductNameJoined = false;
 
@@ -100,9 +101,6 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      */
     protected $_customerGroupId = null;
 
-    /**
-     * Initialize resource model for collection
-     */
     public function _construct()
     {
         $this->_init('wishlist/item');
@@ -159,7 +157,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      */
     protected function _assignProducts()
     {
-        Varien_Profiler::start('WISHLIST:'.__METHOD__);
+        Varien_Profiler::start('WISHLIST:' . __METHOD__);
         $productIds = [];
 
         $isStoreAdmin = Mage::app()->getStore()->isAdmin();
@@ -204,6 +202,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
         $checkInStock = $this->_productInStock && !Mage::helper('cataloginventory')->isShowOutOfStock();
 
         foreach ($this as $item) {
+            /** @var Mage_Catalog_Model_Product $product */
             $product = $productCollection->getItemById($item->getProductId());
             if ($product) {
                 if ($checkInStock && !$product->isInStock()) {
@@ -220,7 +219,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
             }
         }
 
-        Varien_Profiler::stop('WISHLIST:'.__METHOD__);
+        Varien_Profiler::stop('WISHLIST:' . __METHOD__);
 
         return $this;
     }
@@ -281,8 +280,8 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     public function addStoreData()
     {
         $storeTable = Mage::getSingleton('core/resource')->getTableName('core/store');
-        $this->getSelect()->join(['store'=>$storeTable], 'main_table.store_id=store.store_id', [
-            'store_name'=>'name',
+        $this->getSelect()->join(['store' => $storeTable], 'main_table.store_id=store.store_id', [
+            'store_name' => 'name',
             'item_store_id' => 'store_id'
         ]);
         return $this;
@@ -443,7 +442,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
                     ['product_name_table' => $attribute->getBackendTable()],
                     'product_name_table.entity_id=main_table.product_id' .
                         ' AND product_name_table.store_id=' . $storeId .
-                        ' AND product_name_table.attribute_id=' . $attribute->getId().
+                        ' AND product_name_table.attribute_id=' . $attribute->getId() .
                         ' AND product_name_table.entity_type_id=' . $entityTypeId,
                     []
                 );

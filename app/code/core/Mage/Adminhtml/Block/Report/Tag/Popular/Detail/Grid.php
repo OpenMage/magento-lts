@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,20 +59,19 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
      */
     protected function _prepareColumns()
     {
-
         $this->addColumn('firstname', [
-            'header'    =>Mage::helper('reports')->__('First Name'),
-            'index'     =>'firstname'
+            'header'    => Mage::helper('reports')->__('First Name'),
+            'index'     => 'firstname'
         ]);
 
         $this->addColumn('lastname', [
-            'header'    =>Mage::helper('reports')->__('Last Name'),
-            'index'     =>'lastname'
+            'header'    => Mage::helper('reports')->__('Last Name'),
+            'index'     => 'lastname'
         ]);
 
         $this->addColumn('product', [
-            'header'    =>Mage::helper('reports')->__('Product Name'),
-            'index'     =>'product_name'
+            'header'    => Mage::helper('reports')->__('Product Name'),
+            'index'     => 'product_name'
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -79,7 +79,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
                 'header'    => Mage::helper('reports')->__('Submitted In'),
                 'index'     => 'added_in',
                 'type'      => 'store',
-                'store_view'=> true
+                'store_view' => true
             ]);
         }
 

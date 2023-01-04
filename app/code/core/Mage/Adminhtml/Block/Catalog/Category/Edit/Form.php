@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,13 +46,15 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         $category = $this->getCategory();
         $categoryId = (int) $category->getId(); // 0 when we create category, otherwise some value for editing category
 
-        $this->setChild('tabs',
+        $this->setChild(
+            'tabs',
             $this->getLayout()->createBlock('adminhtml/catalog_category_tabs', 'tabs')
         );
 
         // Save button
         if (!$category->isReadonly()) {
-            $this->setChild('save_button',
+            $this->setChild(
+                'save_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Save Category'),
@@ -63,7 +66,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
 
         // Delete button
         if (!in_array($categoryId, $this->getRootIds()) && $category->isDeleteable()) {
-            $this->setChild('delete_button',
+            $this->setChild(
+                'delete_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Delete Category'),
@@ -76,11 +80,12 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         // Reset button
         if (!$category->isReadonly()) {
             $resetPath = $categoryId ? '*/*/edit' : '*/*/add';
-            $this->setChild('reset_button',
+            $this->setChild(
+                'reset_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Reset'),
-                        'onclick'   => "categoryReset('".$this->getUrl($resetPath, ['_current'=>true])."',true)"
+                        'onclick'   => "categoryReset('" . $this->getUrl($resetPath, ['_current' => true]) . "',true)"
                     ])
             );
         }
@@ -148,8 +153,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         if (isset($config['name'])) {
             $config['element_name'] = $config['name'];
         }
-        $this->setChild($alias . '_button',
-                        $this->getLayout()->createBlock('adminhtml/widget_button')->addData($config));
+        $this->setChild(
+            $alias . '_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')->addData($config)
+        );
         $this->_additionalButtons[$alias] = $alias . '_button';
         return $this;
     }
@@ -194,7 +201,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
 
     public function getDeleteUrl(array $args = [])
     {
-        $params = ['_current'=>true];
+        $params = ['_current' => true];
         $params = array_merge($params, $args);
         return $this->getUrl('*/*/delete', $params);
     }
@@ -207,7 +214,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
      */
     public function getRefreshPathUrl(array $args = [])
     {
-        $params = ['_current'=>true];
+        $params = ['_current' => true];
         $params = array_merge($params, $args);
         return $this->getUrl('*/*/refreshPath', $params);
     }

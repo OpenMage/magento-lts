@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,7 +60,8 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         foreach ($attributes as $attribute) {
             /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if ((!$attribute->getId() || $attribute->isInSet($setId))
-                    && $this->_isAllowedAttribute($attribute)) {
+                    && $this->_isAllowedAttribute($attribute)
+            ) {
                 if (!$attribute->getId() || $attribute->isScopeGlobal()) {
                     $scope = 'global';
                 } elseif ($attribute->isScopeWebsite()) {
@@ -132,7 +134,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      * Create new product attribute
      *
      * @param array $data input data
-     * @return integer
+     * @return int
      */
     public function create($data)
     {
@@ -185,9 +187,9 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Update product attribute
      *
-     * @param string|integer $attribute attribute code or ID
+     * @param string|int $attribute attribute code or ID
      * @param array $data
-     * @return boolean
+     * @return bool
      */
     public function update($attribute, $data)
     {
@@ -217,8 +219,8 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Remove attribute
      *
-     * @param integer|string $attribute attribute ID or code
-     * @return boolean
+     * @param int|string $attribute attribute ID or code
+     * @return true|void
      */
     public function remove($attribute)
     {
@@ -243,7 +245,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Get full information about attribute with list of options
      *
-     * @param integer|string $attribute attribute ID or code
+     * @param int|string $attribute attribute ID or code
      * @return array
      */
     public function info($attribute)
@@ -351,7 +353,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Add option to select or multiselect attribute
      *
-     * @param  integer|string $attribute attribute ID or code
+     * @param  int|string $attribute attribute ID or code
      * @param  array $data
      * @return bool
      */
@@ -408,8 +410,8 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Remove option from select or multiselect attribute
      *
-     * @param  integer|string $attribute attribute ID or code
-     * @param  integer $optionId option to remove ID
+     * @param  int|string $attribute attribute ID or code
+     * @param  int $optionId option to remove ID
      * @return bool
      */
     public function removeOption($attribute, $optionId)
@@ -496,7 +498,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Load model by attribute ID or code
      *
-     * @param integer|string $attribute
+     * @param int|string $attribute
      * @return Mage_Catalog_Model_Resource_Eav_Attribute
      */
     protected function _getAttribute($attribute)
@@ -505,7 +507,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             ->setEntityTypeId($this->_entityTypeId);
 
         if (is_numeric($attribute)) {
-            $model->load(intval($attribute));
+            $model->load((int) $attribute);
         } else {
             $model->load($attribute, 'attribute_code');
         }

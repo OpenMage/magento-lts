@@ -7,19 +7,20 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Currency rate import model (From fixer.io)
+ * Currency rate import model (from Fixer API / Apilayer.com formerly fixer.io)
  *
  * @category   Mage
  * @package    Mage_Directory
@@ -30,19 +31,19 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
     /**
      * XML path to Fixer.IO timeout setting
      */
-    const XML_PATH_FIXERIO_TIMEOUT = 'currency/fixerio/timeout';
+    public const XML_PATH_FIXERIO_TIMEOUT = 'currency/fixerio/timeout';
 
     /**
      * XML path to Fixer.IO API key setting
      */
-    const XML_PATH_FIXERIO_API_KEY = 'currency/fixerio/api_key';
+    public const XML_PATH_FIXERIO_API_KEY = 'currency/fixerio/api_key';
 
     /**
      * URL template for currency rates import
      *
      * @var string
      */
-    protected $_url = '';
+    protected $_url = 'https://api.apilayer.com/fixer/latest?apikey={{ACCESS_KEY}}&base={{CURRENCY_FROM}}&symbols={{CURRENCY_TO}}';
 
     /**
      * Information messages stack
@@ -51,7 +52,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
      */
     protected $_messages = [];
 
-     /**
+    /**
      * HTTP client
      *
      * @var Varien_Http_Client
@@ -64,10 +65,6 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
     public function __construct()
     {
         $this->_httpClient = new Varien_Http_Client();
-        if (empty($this->_url)) {
-            $this->_url = 'http://data.fixer.io/api/latest'
-                . '?access_key={{ACCESS_KEY}}&base={{CURRENCY_FROM}}&symbols={{CURRENCY_TO}}';
-        }
     }
 
     /**
@@ -212,9 +209,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
                     ->__('One or more invalid symbols have been specified.'),
             ];
 
-            $this->_messages[] = isset($errorCodes[$response['error']['code']])
-                ? $errorCodes[$response['error']['code']]
-                : Mage::helper('directory')->__('Currency rates can\'t be retrieved.');
+            $this->_messages[] = $errorCodes[$response['error']['code']] ?? Mage::helper('directory')->__('Currency rates can\'t be retrieved.');
 
             return false;
         }

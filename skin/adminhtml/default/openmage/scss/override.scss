@@ -135,8 +135,8 @@ small {
 
 .content-header {
   @extend %extend_3;
-  margin-bottom: 0px;
-  padding-bottom: 0px;
+  margin-bottom: 0;
+  padding-bottom: 0;
   h3 {
     @extend %extend_3;
     margin: 0 0.3em 0.3em;
@@ -154,10 +154,8 @@ small {
 
 .switcher {
   background: none;
-  padding: 0px;
-  padding-bottom:10px;
+  padding: 0 0 10px;
   border: none;
-
 }
 
 .entry-edit {
@@ -257,17 +255,33 @@ small {
       th {
         border: 1px solid $color_alto_approx;
         border-top: 0;
+
+        &.sorted {
+          background: darken($white, 3%) !important;
+        }
       }
 
       .range {
         .range-line {
-          width: 110px;
+          width: 125px;
         }
 
         .label {
-          font-weight: 600;
+          font-weight: 400;
           width: 40px;
           padding: 4px;
+        }
+
+        div.date {
+          min-width: 140px;
+        }
+
+        input, select {
+          width: 75px !important;
+        }
+
+        select {
+          float: none;
         }
       }
 
@@ -351,6 +365,18 @@ small {
     &.odd tr td {
       background: $color_wild_sand_approx !important;
     }
+
+    tr.even td.sorted {
+      background: darken($color_gallery_approx, 3%) !important;
+    }
+
+    tr.odd td.sorted {
+      background: darken($white, 3%) !important;
+    }
+
+    tr.selected td.sorted {
+      background: darken($color_alice_blue_approx, 3%) !important;
+    }
   }
 
   td input.input-text {
@@ -360,6 +386,7 @@ small {
 
 .header {
   background: $openmage_base_blue;
+  position: relative;
 }
 
 .header-top {
@@ -473,10 +500,7 @@ ul {
         border-bottom: 1px solid $color_gallery_approx;
 
         span {
-          background: none;
           padding: 0;
-          background: none;
-          font-weight: 400;
           background: none;
           font-weight: 400;
         }
@@ -499,7 +523,6 @@ ul {
     span {
       background: none;
       padding: 0;
-      background: none;
       font-weight: 400;
     }
   }
@@ -508,12 +531,8 @@ ul {
     border: 0;
     font-weight: 300;
     text-transform: none;
-    padding-left: 10px;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    padding-right: 7px;
+    padding: 7px 7px 7px 10px;
     font-size: 18px;
-    border-top: 0;
     background: $color_boulder_approx;
     color: $white;
   }

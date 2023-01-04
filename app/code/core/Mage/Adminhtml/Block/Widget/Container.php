@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,8 +59,8 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      *
      * @param string $id
      * @param array $data
-     * @param integer $level
-     * @param integer $sortOrder
+     * @param int $level
+     * @param int $sortOrder
      * @param string|null $area area, that button should be displayed in ('header', 'footer', null)
      * @return $this
      */
@@ -83,8 +84,8 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      *
      * @param string $id
      * @param array $data
-     * @param integer $level
-     * @param integer $sortOrder
+     * @param int $level
+     * @param int $sortOrder
      * @param string|null $area area, that button should be displayed in ('header', 'footer', null)
      * @return $this
      */
@@ -165,9 +166,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     }
 
     /**
-     * Preparing child blocks for each added button
-     *
-     * @return Mage_Core_Block_Abstract
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -276,7 +275,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * Check if there's anything to display in footer
      *
-     * @return boolean
+     * @return bool
      */
     public function hasFooterButtons()
     {

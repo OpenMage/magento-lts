@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Centinel
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -96,7 +97,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
     /**
      * Return transaction type. according centinel documetation it should be "C"
      *
-     * @return "C"
+     * @return string "C"
      */
     protected function _getTransactionType()
     {
@@ -146,7 +147,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
         $debugData = ['request' => $request];
 
         try {
-            foreach($request as $key => $val) {
+            foreach ($request as $key => $val) {
                 $client->add($key, $val);
             }
             $client->sendHttp($this->_getApiEndpointUrl(), $this->_getTimeoutConnect(), $this->_getTimeoutRead());
@@ -191,7 +192,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
 
         $month = strlen($data->getCardExpMonth()) == 1 ? '0' . $data->getCardExpMonth() : $data->getCardExpMonth();
         $currencyCode = $data->getCurrencyCode();
-        $currencyNumber = isset(self::$_iso4217Currencies[$currencyCode]) ? self::$_iso4217Currencies[$currencyCode] : '';
+        $currencyNumber = self::$_iso4217Currencies[$currencyCode] ?? '';
         if (!$currencyNumber) {
             return $result->setErrorNo(1)->setErrorDesc(
                 Mage::helper('payment')->__('Unsupported currency code: %s.', $currencyCode)
@@ -202,7 +203,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
             'Amount' => round($data->getAmount() * 100),
             'CurrencyCode' => $currencyNumber,
             'CardNumber' =>  $data->getCardNumber(),
-            'CardExpMonth'=> $month,
+            'CardExpMonth' => $month,
             'CardExpYear' =>  $data->getCardExpYear(),
             'OrderNumber' => $data->getOrderNumber()
         ]);
@@ -221,7 +222,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
     /**
      * Call centinel api authentication method
      *
-     * @return $this
+     * @return Varien_Object
      */
     public function callAuthentication($data)
     {
@@ -257,4 +258,3 @@ class Mage_Centinel_Model_Api extends Varien_Object
         }
     }
 }
-

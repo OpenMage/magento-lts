@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -76,11 +77,11 @@ function now($dayOnly = false)
  * Check whether sql date is empty
  *
  * @param string $date
- * @return boolean
+ * @return bool
  */
 function is_empty_date($date)
 {
-    return preg_replace('#[ 0:-]#', '', $date)==='';
+    return preg_replace('#[ 0:-]#', '', $date) === '';
 }
 
 /**
@@ -89,10 +90,10 @@ function is_empty_date($date)
  */
 function mageFindClassFile($class)
 {
-    $classFile = uc_words($class, DIRECTORY_SEPARATOR).'.php';
+    $classFile = uc_words($class, DIRECTORY_SEPARATOR) . '.php';
     $found = false;
     foreach (explode(PS, get_include_path()) as $path) {
-        $fileName = $path.DS.$classFile;
+        $fileName = $path . DS . $classFile;
         if (file_exists($fileName)) {
             $found = $fileName;
             break;
@@ -104,15 +105,15 @@ function mageFindClassFile($class)
 /**
  * Custom error handler
  *
- * @param integer $errno
+ * @param int $errno
  * @param string $errstr
  * @param string $errfile
- * @param integer $errline
- * @return bool
+ * @param int $errline
+ * @return bool|void
  */
 function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 {
-    if (strpos($errstr, 'DateTimeZone::__construct')!==false) {
+    if (strpos($errstr, 'DateTimeZone::__construct') !== false) {
         // there's no way to distinguish between caught system exceptions and warnings
         return false;
     }
@@ -121,24 +122,19 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
     if ($errno == 0) {
         return false;
     }
-    if (!defined('E_STRICT')) {
-        define('E_STRICT', 2048);
-    }
-    if (!defined('E_RECOVERABLE_ERROR')) {
-        define('E_RECOVERABLE_ERROR', 4096);
-    }
-    if (!defined('E_DEPRECATED')) {
-        define('E_DEPRECATED', 8192);
-    }
 
     // Suppress deprecation warnings on PHP 7.x
-    if ($errno == E_DEPRECATED && version_compare(PHP_VERSION, '7.0.0', '>=')) {
+    // set environment variable DEV_PHP_STRICT to 1 will show E_DEPRECATED errors
+    if ((!isset($_ENV['DEV_PHP_STRICT']) || $_ENV['DEV_PHP_STRICT'] != '1')
+        && $errno == E_DEPRECATED
+        && version_compare(PHP_VERSION, '7.0.0', '>=')
+    ) {
         return true;
     }
 
     // PEAR specific message handling
-    if (stripos($errfile.$errstr, 'pear') !== false) {
-         // ignore strict and deprecated notices
+    if (stripos($errfile . $errstr, 'pear') !== false) {
+        // ignore strict and deprecated notices
         if (($errno == E_STRICT) || ($errno == E_DEPRECATED)) {
             return true;
         }
@@ -210,7 +206,9 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
  * @param bool $return
  * @param bool $html
  * @param bool $showFirst
- * @return string
+ * @return string|void
+ *
+ * @SuppressWarnings(PHPMD.ErrorControlOperator)
  */
 function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 {
@@ -220,7 +218,7 @@ function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
         $out .= "<pre>";
     }
     foreach ($d as $i => $r) {
-        if (!$showFirst && $i==0) {
+        if (!$showFirst && $i == 0) {
             continue;
         }
         // sometimes there is undefined index 'file'
@@ -239,25 +237,17 @@ function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 function mageSendErrorHeader()
 {
     return;
-    if (!isset($_SERVER['SCRIPT_NAME'])) {
-        return;
-    }
-    $action = Mage::app()->getRequest()->getBasePath()."bugreport.php";
-    echo '<form id="error_report" method="post" style="display:none" action="'.$action.'"><textarea name="error">';
 }
 
 function mageSendErrorFooter()
 {
     return;
-    if (!isset($_SERVER['SCRIPT_NAME'])) {
-        return;
-    }
-    echo '</textarea></form><script type="text/javascript">document.getElementById("error_report").submit()</script>';
-    exit;
 }
 
 /**
  * @param string $path
+ *
+ * @SuppressWarnings(PHPMD.ErrorControlOperator)
  */
 function mageDelTree($path)
 {
@@ -265,7 +255,7 @@ function mageDelTree($path)
         $entries = scandir($path);
         foreach ($entries as $entry) {
             if ($entry != '.' && $entry != '..') {
-                mageDelTree($path.DS.$entry);
+                mageDelTree($path . DS . $entry);
             }
         }
         @rmdir($path);
@@ -286,15 +276,15 @@ function mageParseCsv($string, $delimiter = ",", $enclosure = '"', $escape = '\\
     $elements = explode($delimiter, $string);
     for ($i = 0; $i < count($elements); $i++) {
         $nquotes = substr_count($elements[$i], $enclosure);
-        if ($nquotes %2 == 1) {
-            for ($j = $i+1; $j < count($elements); $j++) {
+        if ($nquotes % 2 == 1) {
+            for ($j = $i + 1; $j < count($elements); $j++) {
                 if (substr_count($elements[$j], $enclosure) > 0) {
                     // Put the quoted string's pieces back together again
                     array_splice(
                         $elements,
                         $i,
-                        $j-$i+1,
-                        implode($delimiter, array_slice($elements, $i, $j-$i+1))
+                        $j - $i + 1,
+                        implode($delimiter, array_slice($elements, $i, $j - $i + 1))
                     );
                     break;
                 }
@@ -305,7 +295,7 @@ function mageParseCsv($string, $delimiter = ",", $enclosure = '"', $escape = '\\
             $qstr =& $elements[$i];
             $qstr = substr_replace($qstr, '', strpos($qstr, $enclosure), 1);
             $qstr = substr_replace($qstr, '', strrpos($qstr, $enclosure), 1);
-            $qstr = str_replace($enclosure.$enclosure, $enclosure, $qstr);
+            $qstr = str_replace($enclosure . $enclosure, $enclosure, $qstr);
         }
     }
     return $elements;
@@ -314,13 +304,15 @@ function mageParseCsv($string, $delimiter = ",", $enclosure = '"', $escape = '\\
 /**
  * @param string $dir
  * @return bool
+ *
+ * @SuppressWarnings(PHPMD.ErrorControlOperator)
  */
 function is_dir_writeable($dir)
 {
     if (is_dir($dir) && is_writable($dir)) {
         if (stripos(PHP_OS, 'win') === 0) {
             $dir    = ltrim($dir, DIRECTORY_SEPARATOR);
-            $file   = $dir . DIRECTORY_SEPARATOR . uniqid(mt_rand()).'.tmp';
+            $file   = $dir . DIRECTORY_SEPARATOR . uniqid(mt_rand()) . '.tmp';
             $exist  = file_exists($file);
             $fp     = @fopen($file, 'a');
             if ($fp === false) {
@@ -373,7 +365,7 @@ if (!function_exists('hash_equals')) {
      *
      * @param string $known_string
      * @param string $user_string
-     * @return boolean Returns true when the two strings are equal, false otherwise.
+     * @return bool Returns true when the two strings are equal, false otherwise.
      */
     function hash_equals($known_string, $user_string)
     {
@@ -440,21 +432,8 @@ if (!function_exists('str_ends_with')) {
      * @param string $needle
      * @return bool
      */
-    function str_ends_with($haystack,  $needle)
+    function str_ends_with($haystack, $needle)
     {
         return $needle === '' || ($haystack !== '' && substr_compare($haystack, $needle, -\strlen($needle)) === 0);
-    }
-}
-
-/**
- * polyfill for PHP 7.3 function "is_countable"
- */
-if (!function_exists('is_countable')) {
-    /**
-     * @param mixed $value
-     * @return bool
-     */
-    function is_countable($value) {
-        return is_array($value) || $value instanceof Countable || $value instanceof ResourceBundle || $value instanceof SimpleXMLElement;
     }
 }

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,6 +67,8 @@ class Mage_Core_Model_Date
      *
      * @param  string $timezone
      * @return int offset between timezone and gmt
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function calculateOffset($timezone = null)
     {
@@ -93,12 +96,12 @@ class Mage_Core_Model_Date
      *
      * @param  string $format
      * @param  int|string $input date in current timezone
-     * @return string
+     * @return false|string
      */
     public function gmtDate($format = null, $input = null)
     {
         if (is_null($format)) {
-            $format = 'Y-m-d H:i:s';
+            $format = Varien_Date::DATETIME_PHP_FORMAT;
         }
 
         $date = $this->gmtTimestamp($input);
@@ -121,7 +124,7 @@ class Mage_Core_Model_Date
     public function date($format = null, $input = null)
     {
         if (is_null($format)) {
-            $format = 'Y-m-d H:i:s';
+            $format = Varien_Date::DATETIME_PHP_FORMAT;
         }
 
         return date($format, $this->timestamp($input));
@@ -131,7 +134,7 @@ class Mage_Core_Model_Date
      * Forms GMT timestamp
      *
      * @param  int|string $input date in current timezone
-     * @return int
+     * @return string|false|int
      */
     public function gmtTimestamp($input = null)
     {

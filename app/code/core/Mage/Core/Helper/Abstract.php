@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -120,7 +121,7 @@ abstract class Mage_Core_Helper_Abstract
     {
         if (!$this->_moduleName) {
             $class = get_class($this);
-            $this->_moduleName = substr($class, 0, strpos($class, '_Helper'));
+            $this->_moduleName = implode('_', array_slice(explode('_', $class), 0, 2));
         }
         return $this->_moduleName;
     }
@@ -129,7 +130,7 @@ abstract class Mage_Core_Helper_Abstract
      * Check whether or not the module output is enabled in Configuration
      *
      * @param string $moduleName Full module name
-     * @return boolean
+     * @return bool
      */
     public function isModuleOutputEnabled($moduleName = null)
     {
@@ -151,7 +152,7 @@ abstract class Mage_Core_Helper_Abstract
      * Check is module exists and enabled in global config.
      *
      * @param string $moduleName the full module name, example Mage_Core
-     * @return boolean
+     * @return bool
      */
     public function isModuleEnabled($moduleName = null)
     {
@@ -211,7 +212,7 @@ abstract class Mage_Core_Helper_Abstract
             }
         } else {
             // process single item
-            if (strlen($data)) {
+            if (is_string($data) && strlen($data)) {
                 if (is_array($allowedTags) && !empty($allowedTags)) {
                     $allowed = implode('|', $allowedTags);
                     $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
@@ -227,7 +228,7 @@ abstract class Mage_Core_Helper_Abstract
         return $result;
     }
 
-     /**
+    /**
      * Remove html tags, but leave "<" and ">" signs
      *
      * @param   string $html
@@ -247,7 +248,7 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * Wrapper for standart strip_tags() function with extra functionality for html entities
+     * Wrapper for standard strip_tags() function with extra functionality for html entities
      *
      * @param string $data
      * @param string $allowableTags
@@ -332,11 +333,11 @@ abstract class Mage_Core_Helper_Abstract
         if (is_array($data)) {
             $result = [];
             foreach ($data as $item) {
-                $result[] = str_replace($quote, '\\'.$quote, $item);
+                $result[] = str_replace($quote, '\\' . $quote, $item);
             }
             return $result;
         }
-        return str_replace($quote, '\\'.$quote, $data);
+        return str_replace($quote, '\\' . $quote, $data);
     }
 
     /**
@@ -401,7 +402,7 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     *  base64_dencode() for URLs dencoding
+     *  base64_decode() for URLs decoding
      *
      *  @param    string $url
      *  @return   string
@@ -465,8 +466,7 @@ abstract class Mage_Core_Helper_Abstract
                     if ($this->hasTags($item, $arrayKeys, $skipTags)) {
                         return true;
                     }
-                } elseif (
-                    (bool)strcmp($item, $this->removeTags($item))
+                } elseif ((bool)strcmp($item, $this->removeTags($item))
                     || (bool)strcmp($key, $this->removeTags($key))
                 ) {
                     if (!$skipTags && !in_array($key, $arrayKeys)) {

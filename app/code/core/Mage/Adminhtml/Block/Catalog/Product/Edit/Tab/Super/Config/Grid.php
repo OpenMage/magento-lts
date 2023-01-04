@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -86,12 +87,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
 
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('entity_id', ['in' => $existsProducts]);
-            }
-            elseif ($productIds) {
+            } elseif ($productIds) {
                 $this->getCollection()->addFieldToFilter('entity_id', ['nin' => $productIds]);
             }
-        }
-        else {
+        } else {
             parent::_addColumnFilterToCollection($column);
         }
         return $this;
@@ -130,7 +129,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             ->addAttributeToSelect('attribute_set_id')
             ->addAttributeToSelect('type_id')
             ->addAttributeToSelect('price')
-            ->addFieldToFilter('attribute_set_id',$product->getAttributeSetId())
+            ->addFieldToFilter('attribute_set_id', $product->getAttributeSetId())
             ->addFieldToFilter('type_id', $allowProductTypes)
             ->addFilterByRequiredOptions()
             ->joinAttribute('name', 'catalog_product/name', 'entity_id', null, 'inner');
@@ -138,10 +137,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
             Mage::getModel('cataloginventory/stock_item')->addCatalogInventoryToProductCollection($collection);
         }
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $product->getTypeInstance(true);
 
-        foreach ($product->getTypeInstance(true)->getUsedProductAttributes($product) as $attribute) {
+        foreach ($productType->getUsedProductAttributes($product) as $attribute) {
             $collection->addAttributeToSelect($attribute->getAttributeCode());
-            $collection->addAttributeToFilter($attribute->getAttributeCode(), ['notnull'=>1]);
+            $collection->addAttributeToFilter($attribute->getAttributeCode(), ['notnull' => 1]);
         }
 
         $this->setCollection($collection);
@@ -158,7 +159,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     {
         $products = $this->getRequest()->getPost('products', null);
         if (!is_array($products)) {
-            $products = $this->_getProduct()->getTypeInstance(true)->getUsedProductIds($this->_getProduct());
+            /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+            $productType = $this->_getProduct()->getTypeInstance(true);
+            $products = $productType->getUsedProductIds($this->_getProduct());
         }
         return $products;
     }
@@ -183,7 +186,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     protected function _prepareColumns()
     {
         $product = $this->_getProduct();
-        $attributes = $product->getTypeInstance(true)->getConfigurableAttributes($product);
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $product->getTypeInstance(true);
+        $attributes = $productType->getConfigurableAttributes($product);
 
         if (!$this->isReadonly()) {
             $this->addColumn('in_products', [
@@ -214,14 +219,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             ->load()
             ->toOptionHash();
 
-        $this->addColumn('set_name',
+        $this->addColumn(
+            'set_name',
             [
-                'header'=> Mage::helper('catalog')->__('Attrib. Set Name'),
+                'header' => Mage::helper('catalog')->__('Attrib. Set Name'),
                 'width' => '130px',
                 'index' => 'attribute_set_id',
                 'type'  => 'options',
                 'options' => $sets,
-            ]);
+            ]
+        );
 
         $this->addColumn('sku', [
             'header'    => Mage::helper('catalog')->__('SKU'),
@@ -254,7 +261,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             ]);
         }
 
-         $this->addColumn('action',
+        $this->addColumn(
+            'action',
             [
                 'header'    => Mage::helper('catalog')->__('Action'),
                 'type'      => 'action',
@@ -269,7 +277,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
                 ],
                 'filter'    => false,
                 'sortable'  => false
-            ]);
+             ]
+        );
 
         return parent::_prepareColumns();
     }
@@ -297,18 +306,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     protected function _getRequiredAttributesIds()
     {
         $attributesIds = [];
-        foreach (
-            $this->_getProduct()
-                ->getTypeInstance(true)
-                ->getConfigurableAttributes($this->_getProduct()) as $attribute
-        ) {
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->_getProduct()->getTypeInstance(true);
+        foreach ($productType->getConfigurableAttributes($this->_getProduct()) as $attribute) {
             $attributesIds[] = $attribute->getProductAttribute()->getId();
         }
 
         return implode(',', $attributesIds);
     }
 
-    public function getOptions($attribute) {
+    public function getOptions($attribute)
+    {
         $result = [];
         foreach ($attribute->getProductAttribute()->getSource()->getAllOptions() as $option) {
             if ($option['value'] != '') {
@@ -321,7 +329,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/superConfig', ['_current'=>true]);
+        return $this->getUrl('*/*/superConfig', ['_current' => true]);
     }
 
     /**
@@ -333,7 +341,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     {
         if (is_null($this->_configAttributeCodes)) {
             $product = $this->_getProduct();
-            $attributes = $product->getTypeInstance(true)->getConfigurableAttributes($product);
+            /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+            $productType = $product->getTypeInstance(true);
+            $attributes = $productType->getConfigurableAttributes($product);
             $attributeCodes = [];
             foreach ($attributes as $attribute) {
                 $productAttribute = $attribute->getProductAttribute();
@@ -381,15 +391,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         foreach ($this->_collection as $item) {
             $ids[] = $item->getId();
             $needleAttributeValues = $this->_retrieveRowData($item);
-            foreach($this->_collection as $item2) {
+            foreach ($this->_collection as $item2) {
                 // Skip the data if already checked
                 if (in_array($item2->getId(), $ids)) {
-                   continue;
+                    continue;
                 }
                 $attributeValues = $this->_retrieveRowData($item2);
                 $disableMultiSelect = ($needleAttributeValues == $attributeValues);
                 if ($disableMultiSelect) {
-                   break;
+                    break;
                 }
             }
             if ($disableMultiSelect) {

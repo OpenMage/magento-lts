@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,9 +26,18 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model_Config_Data
 {
+    /**
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
     protected function _beforeSave()
     {
-        $value = $this->getValue();
+        $value = str_replace(' ', '', $this->getValue());
+
+        if ($value === '') {
+            $label = $this->getFieldConfig()->descend('label');
+            Mage::throwException(Mage::helper('core')->__('"%s" is a required value.', $label));
+        }
 
         if (!preg_match('#^{{((un)?secure_)?base_url}}#', $value)) {
             $value = Mage::helper('core/url')->encodePunycode($value);
@@ -39,12 +49,12 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
             }
         }
 
-        $value = rtrim($value,  '/');
+        $value = rtrim($value, '/');
         /**
          * If value is special ({{}}) we don't need add slash
          */
         if (!preg_match('#}}$#', $value)) {
-            $value.= '/';
+            $value .= '/';
         }
 
         $this->setValue($value);
@@ -63,9 +73,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
     }
 
     /**
-     * Processing object after load data
-     *
-     * @return Mage_Core_Model_Abstract
+     * @inheritDoc
      */
     protected function _afterLoad()
     {

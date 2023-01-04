@@ -14,7 +14,7 @@ class XmlFileLoadingTest  extends TestCase
 
         $result = [];
         $result[] = [
-            $root . 'lib/Zend/Locale/Data/es_419.xml'
+            $root . 'vendor/shardj/zf1-future/library/Zend/Locale/Data/es_419.xml'
         ];
 
         return $result;
