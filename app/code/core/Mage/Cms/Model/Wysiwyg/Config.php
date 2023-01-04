@@ -34,27 +34,27 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
     /**
      * Wysiwyg behaviour: enabled
      */
-    const WYSIWYG_ENABLED = 'enabled';
+    public const WYSIWYG_ENABLED = 'enabled';
 
     /**
      * Wysiwyg behaviour: hidden
      */
-    const WYSIWYG_HIDDEN = 'hidden';
+    public const WYSIWYG_HIDDEN = 'hidden';
 
     /**
      * Wysiwyg behaviour: disabled
      */
-    const WYSIWYG_DISABLED = 'disabled';
+    public const WYSIWYG_DISABLED = 'disabled';
 
     /**
      * constant for image directory
      */
-    const IMAGE_DIRECTORY = 'wysiwyg';
+    public const IMAGE_DIRECTORY = 'wysiwyg';
 
     /**
      * Path to skin image placeholder file
      */
-    const WYSIWYG_SKIN_IMAGE_PLACEHOLDER_FILE = 'images/wysiwyg/skin_image.png';
+    public const WYSIWYG_SKIN_IMAGE_PLACEHOLDER_FILE = 'images/wysiwyg/skin_image.png';
 
     /**
      * Return Wysiwyg config as Varien_Object
@@ -87,9 +87,9 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             'encode_directives'             => true,
             'directives_url'                => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg/directive'),
             'popup_css'                     =>
-                Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/dialog.css',
+                Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/dialog.css',
             'content_css'                   =>
-                Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/content.css',
+                Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/content.css',
             'width'                         => '100%',
             'plugins'                       => [],
             'media_disable_flash'           => Mage::helper('cms')->isSwfDisabled()

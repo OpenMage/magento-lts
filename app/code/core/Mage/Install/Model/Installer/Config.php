@@ -28,8 +28,8 @@
  */
 class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_Abstract
 {
-    const TMP_INSTALL_DATE_VALUE= 'd-d-d-d-d';
-    const TMP_ENCRYPT_KEY_VALUE = 'k-k-k-k-k';
+    public const TMP_INSTALL_DATE_VALUE = 'd-d-d-d-d';
+    public const TMP_ENCRYPT_KEY_VALUE = 'k-k-k-k-k';
 
     /**
      * Path to local configuration file
@@ -61,7 +61,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     public function install()
     {
         $data = $this->getConfigData();
-        foreach (Mage::getModel('core/config')->getDistroServerVars() as $index=>$value) {
+        foreach (Mage::getModel('core/config')->getDistroServerVars() as $index => $value) {
             if (!isset($data[$index])) {
                 $data[$index] = $value;
             }
@@ -83,7 +83,8 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
             }
 
             if (!empty($data['use_secure'])
-                && !$this->_getInstaller()->getDataModel()->getSkipUrlValidation()) {
+                && !$this->_getInstaller()->getDataModel()->getSkipUrlValidation()
+            ) {
                 $this->_checkUrl($data['secure_base_url']);
             }
         }
@@ -158,8 +159,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
             $client = new Varien_Http_Client($url . 'index.php/' . $prefix);
             $response = $client->request('GET');
             $body = $response->getBody();
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             $this->_getInstaller()->getDataModel()
                 ->addError(Mage::helper('install')->__('The URL "%s" is not accessible.', $url));
             throw $e;

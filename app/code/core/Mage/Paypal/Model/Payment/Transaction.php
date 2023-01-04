@@ -31,7 +31,7 @@
  * @method Mage_Paypal_Model_Resource_Payment_Transaction getResource()
  * @method string getTxnId()
  * @method string getCreatedAt()
- * @method Mage_Paypal_Model_Payment_Transaction setCreatedAt(string $value)
+ * @method $this setCreatedAt(string $value)
  */
 class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 {
@@ -104,7 +104,8 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     {
         $this->_beforeLoadByTxnId($txnId);
         $this->getResource()->loadObjectByTxnId(
-            $this, $txnId
+            $this,
+            $txnId
         );
         $this->_afterLoadByTxnId();
         return $this;

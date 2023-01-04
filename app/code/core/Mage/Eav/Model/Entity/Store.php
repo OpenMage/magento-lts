@@ -27,13 +27,13 @@
  * @method Mage_Eav_Model_Resource_Entity_Store _getResource()
  * @method Mage_Eav_Model_Resource_Entity_Store getResource()
  * @method int getEntityTypeId()
- * @method Mage_Eav_Model_Entity_Store setEntityTypeId(int $value)
+ * @method $this setEntityTypeId(int $value)
  * @method int getStoreId()
- * @method Mage_Eav_Model_Entity_Store setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method string getIncrementPrefix()
- * @method Mage_Eav_Model_Entity_Store setIncrementPrefix(string $value)
+ * @method $this setIncrementPrefix(string $value)
  * @method string getIncrementLastId()
- * @method Mage_Eav_Model_Entity_Store setIncrementLastId(string $value)
+ * @method $this setIncrementLastId(string $value)
  */
 class Mage_Eav_Model_Entity_Store extends Mage_Core_Model_Abstract
 {

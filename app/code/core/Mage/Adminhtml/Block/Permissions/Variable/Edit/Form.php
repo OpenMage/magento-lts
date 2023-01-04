@@ -47,7 +47,8 @@ class Mage_Adminhtml_Block_Permissions_Variable_Edit_Form extends Mage_Adminhtml
             'method' => 'post'
         ]);
         $fieldset = $form->addFieldset(
-            'variable_details', ['legend' => $this->__('Variable Details')]
+            'variable_details',
+            ['legend' => $this->__('Variable Details')]
         );
 
         $fieldset->addField('variable_name', 'text', [

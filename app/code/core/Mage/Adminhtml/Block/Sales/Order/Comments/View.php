@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
 
     public function getSubmitUrl()
     {
-        return $this->getUrl('*/*/addComment', ['id'=>$this->getEntity()->getId()]);
+        return $this->getUrl('*/*/addComment', ['id' => $this->getEntity()->getId()]);
     }
 
     public function canSendCommentEmail()

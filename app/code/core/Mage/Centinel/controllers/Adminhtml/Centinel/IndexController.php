@@ -32,7 +32,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'sales/order/actions/review_payment';
+    public const ADMIN_RESOURCE = 'sales/order/actions/review_payment';
 
     /**
      * Process validate payment data action
@@ -78,7 +78,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
     public function authenticationCompleteAction()
     {
         try {
-           if ($validator = $this->_getValidator()) {
+            if ($validator = $this->_getValidator()) {
                 $request = $this->getRequest();
 
                 $data = new Varien_Object();
@@ -118,4 +118,3 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
         return false;
     }
 }
-

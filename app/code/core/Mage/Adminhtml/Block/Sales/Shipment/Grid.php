@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
 /**
  * Adminhtml sales orders grid
  *
@@ -104,7 +106,8 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
             'type'  => 'number',
         ]);
 
-        $this->addColumn('action',
+        $this->addColumn(
+            'action',
             [
                 'header'    => Mage::helper('sales')->__('Action'),
                 'width'     => '50px',
@@ -113,14 +116,15 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
                 'actions'   => [
                     [
                         'caption' => Mage::helper('sales')->__('View'),
-                        'url'     => ['base'=>'*/sales_shipment/view'],
+                        'url'     => ['base' => '*/sales_shipment/view'],
                         'field'   => 'shipment_id'
                     ]
                 ],
                 'filter'    => false,
                 'sortable'  => false,
                 'is_system' => true
-            ]);
+            ]
+        );
 
         $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
         $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel XML'));
@@ -154,13 +158,13 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
         $this->getMassactionBlock()->setFormFieldName('shipment_ids');
         $this->getMassactionBlock()->setUseSelectAll(false);
 
-        $this->getMassactionBlock()->addItem('pdfshipments_order', [
-             'label'=> Mage::helper('sales')->__('PDF Packingslips'),
+        $this->getMassactionBlock()->addItem(MassAction::PDF_SHIPMENTS_ORDER, [
+             'label' => Mage::helper('sales')->__('PDF Packingslips'),
              'url'  => $this->getUrl('*/sales_shipment/pdfshipments'),
         ]);
 
-        $this->getMassactionBlock()->addItem('print_shipping_label', [
-             'label'=> Mage::helper('sales')->__('Print Shipping Labels'),
+        $this->getMassactionBlock()->addItem(MassAction::PRINT_SHIPMENT_LABEL, [
+             'label' => Mage::helper('sales')->__('Print Shipping Labels'),
              'url'  => $this->getUrl('*/sales_order_shipment/massPrintShippingLabel'),
         ]);
 

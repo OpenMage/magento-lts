@@ -28,7 +28,7 @@
  */
 class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_API_WSI = 'api/config/compliance_wsi';
+    public const XML_PATH_API_WSI = 'api/config/compliance_wsi';
 
     protected $_moduleName = 'Mage_Api';
 
@@ -307,8 +307,8 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
             if (!isset($filter->key) || !isset($filter->value)) {
                 continue;
             }
-
-            list($fieldName, $condition) = [$filter->key, $filter->value];
+            $fieldName = $filter->key;
+            $condition = $filter->value;
             $conditionName = $condition->key;
             $conditionValue = $condition->value;
             $this->formatFilterConditionValue($conditionName, $conditionValue);

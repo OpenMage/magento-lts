@@ -28,15 +28,15 @@
  */
 class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
 {
-    const XML_USE_HTTPS_PATH    = 'system/adminnotification/use_https';
-    const XML_FEED_URL_PATH     = 'system/adminnotification/feed_url';
-    const XML_FREQUENCY_PATH    = 'system/adminnotification/frequency';
-    const XML_LAST_UPDATE_PATH  = 'system/adminnotification/last_update';
+    public const XML_USE_HTTPS_PATH    = 'system/adminnotification/use_https';
+    public const XML_FEED_URL_PATH     = 'system/adminnotification/feed_url';
+    public const XML_FREQUENCY_PATH    = 'system/adminnotification/frequency';
+    public const XML_LAST_UPDATE_PATH  = 'system/adminnotification/last_update';
 
     /**
      * Feed url
      *
-     * @var string
+     * @var string|null
      */
     protected $_feedUrl;
 
@@ -120,7 +120,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     /**
      * Retrieve Last update time
      *
-     * @return int
+     * @return string|false
      */
     public function getLastUpdate()
     {

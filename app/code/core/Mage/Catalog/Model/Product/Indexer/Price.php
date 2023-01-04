@@ -25,35 +25,35 @@
  *
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Price _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Price getResource()
- * @method Mage_Catalog_Model_Product_Indexer_Price setEntityId(int $value)
+ * @method $this setEntityId(int $value)
  * @method int getCustomerGroupId()
- * @method Mage_Catalog_Model_Product_Indexer_Price setCustomerGroupId(int $value)
+ * @method $this setCustomerGroupId(int $value)
  * @method int getWebsiteId()
- * @method Mage_Catalog_Model_Product_Indexer_Price setWebsiteId(int $value)
+ * @method $this setWebsiteId(int $value)
  * @method int getTaxClassId()
- * @method Mage_Catalog_Model_Product_Indexer_Price setTaxClassId(int $value)
+ * @method $this setTaxClassId(int $value)
  * @method float getPrice()
- * @method Mage_Catalog_Model_Product_Indexer_Price setPrice(float $value)
+ * @method $this setPrice(float $value)
  * @method float getFinalPrice()
- * @method Mage_Catalog_Model_Product_Indexer_Price setFinalPrice(float $value)
+ * @method $this setFinalPrice(float $value)
  * @method float getMinPrice()
- * @method Mage_Catalog_Model_Product_Indexer_Price setMinPrice(float $value)
+ * @method $this setMinPrice(float $value)
  * @method float getMaxPrice()
- * @method Mage_Catalog_Model_Product_Indexer_Price setMaxPrice(float $value)
+ * @method $this setMaxPrice(float $value)
  * @method float getTierPrice()
- * @method Mage_Catalog_Model_Product_Indexer_Price setTierPrice(float $value)
+ * @method $this setTierPrice(float $value)
  */
 class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_Abstract
 {
     /**
      * Data key for matching result to be saved in
      */
-    const EVENT_MATCH_RESULT_KEY = 'catalog_product_price_match_result';
+    public const EVENT_MATCH_RESULT_KEY = 'catalog_product_price_match_result';
 
     /**
      * Reindex price event type
      */
-    const EVENT_TYPE_REINDEX_PRICE = 'catalog_reindex_price';
+    public const EVENT_TYPE_REINDEX_PRICE = 'catalog_reindex_price';
 
     /**
      * Matched Entities instruction array

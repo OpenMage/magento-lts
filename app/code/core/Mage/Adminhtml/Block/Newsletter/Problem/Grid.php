@@ -52,16 +52,16 @@ class Mage_Adminhtml_Block_Newsletter_Problem_Grid extends Mage_Adminhtml_Block_
     protected function _prepareColumns()
     {
         $this->addColumn('checkbox', [
-             'sortable' 	=> false,
-            'filter'	=> 'adminhtml/newsletter_problem_grid_filter_checkbox',
-            'renderer'	=> 'adminhtml/newsletter_problem_grid_renderer_checkbox',
-            'width'		=> '20px'
+             'sortable'     => false,
+            'filter'    => 'adminhtml/newsletter_problem_grid_filter_checkbox',
+            'renderer'  => 'adminhtml/newsletter_problem_grid_renderer_checkbox',
+            'width'     => '20px'
         ]);
 
         $this->addColumn('problem_id', [
             'header' => Mage::helper('newsletter')->__('ID'),
             'index'  => 'problem_id',
-            'width'	 => '50px'
+            'width'  => '50px'
         ]);
 
         $this->addColumn('subscriber', [
@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Newsletter_Problem_Grid extends Mage_Adminhtml_Block_
             'header' => Mage::helper('newsletter')->__('Queue Date Start'),
             'index'  => 'queue_start_at',
             'gmtoffset' => true,
-            'type'	 => 'datetime'
+            'type'   => 'datetime'
         ]);
 
         $this->addColumn('queue', [

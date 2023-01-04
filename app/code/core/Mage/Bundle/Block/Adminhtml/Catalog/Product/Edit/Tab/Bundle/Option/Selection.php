@@ -121,10 +121,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
             ->setData([
-                'id' => $this->getFieldId().'_{{index}}_can_change_qty',
+                'id' => $this->getFieldId() . '_{{index}}_can_change_qty',
                 'class' => 'select'
             ])
-            ->setName($this->getFieldName().'[{{parentIndex}}][{{index}}][selection_can_change_qty]')
+            ->setName($this->getFieldName() . '[{{parentIndex}}][{{index}}][selection_can_change_qty]')
             ->setOptions(Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray());
 
         return $select->getHtml();

@@ -33,7 +33,6 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
         parent::__construct();
         $this->setId('sitemapGrid');
         $this->setDefaultSort('sitemap_id');
-
     }
 
     protected function _prepareCollection()

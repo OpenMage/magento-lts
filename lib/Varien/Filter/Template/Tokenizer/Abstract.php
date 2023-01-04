@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Filter
+ * @category   Varien
+ * @package    Varien_Filter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Filter
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 abstract class Varien_Filter_Template_Tokenizer_Abstract
@@ -49,7 +49,7 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
      */
     public function next()
     {
-        if($this->_currentIndex + 1 >= strlen($this->_string)) {
+        if ($this->_currentIndex + 1 >= strlen($this->_string)) {
             return false;
         }
 
@@ -66,7 +66,7 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
      */
     public function prev()
     {
-        if($this->_currentIndex - 1 < 0) {
+        if ($this->_currentIndex - 1 < 0) {
             return false;
         }
 
@@ -106,10 +106,10 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
      *
      * @return boolean
      */
-    public function isWhiteSpace() {
+    public function isWhiteSpace()
+    {
         return trim($this->char()) != $this->char();
     }
 
     abstract public function tokenize();
-
 }

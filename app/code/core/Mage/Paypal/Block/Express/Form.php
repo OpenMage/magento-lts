@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,7 +53,8 @@ class Mage_Paypal_Block_Express_Form extends Mage_Paypal_Block_Standard_Form
     {
         $customerId = Mage::getSingleton('customer/session')->getCustomerId();
         if (Mage::helper('paypal')->shouldAskToCreateBillingAgreement($this->_config, $customerId)
-             && $this->canCreateBillingAgreement()) {
+             && $this->canCreateBillingAgreement()
+        ) {
             $this->setCreateBACode(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT);
         }
         return parent::_beforeToHtml();

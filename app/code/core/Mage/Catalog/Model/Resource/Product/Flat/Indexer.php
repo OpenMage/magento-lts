@@ -28,8 +28,8 @@
  */
 class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_Resource_Abstract
 {
-    const XML_NODE_MAX_INDEX_COUNT  = 'global/catalog/product/flat/max_index_count';
-    const XML_NODE_ATTRIBUTE_NODES  = 'global/catalog/product/flat/attribute_nodes';
+    public const XML_NODE_MAX_INDEX_COUNT  = 'global/catalog/product/flat/max_index_count';
+    public const XML_NODE_ATTRIBUTE_NODES  = 'global/catalog/product/flat/attribute_nodes';
 
     /**
      * Attribute codes for flat
@@ -730,7 +730,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 if (isset($indexesNeed[$key])) {
                     $indexNeed = $indexesNeed[$key];
                     if (($indexNeed['INDEX_TYPE'] != $indexNow['INDEX_TYPE'])
-                        || ($indexNeed['COLUMNS_LIST'] != $indexNow['COLUMNS_LIST'])) {
+                        || ($indexNeed['COLUMNS_LIST'] != $indexNow['COLUMNS_LIST'])
+                    ) {
                         $dropIndexes[$key] = $indexNow;
                         $addIndexes[$key] = $indexNeed;
                     }

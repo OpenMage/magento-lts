@@ -43,9 +43,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
     }
 
     /**
-     * Prepare attributes form
-     *
-     * @return void
+     * @inheritDoc
      */
     protected function _prepareForm()
     {
@@ -140,6 +138,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
 
             $this->setForm($form);
         }
+
+        return parent::_prepareForm();
     }
 
     /**

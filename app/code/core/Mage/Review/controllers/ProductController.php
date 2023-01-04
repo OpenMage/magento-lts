@@ -67,7 +67,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      */
     protected function _initProduct()
     {
-        Mage::dispatchEvent('review_controller_product_init_before', ['controller_action'=>$this]);
+        Mage::dispatchEvent('review_controller_product_init_before', ['controller_action' => $this]);
         $categoryId = (int) $this->getRequest()->getParam('category', false);
         $productId  = (int) $this->getRequest()->getParam('id');
 
@@ -82,7 +82,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         }
 
         try {
-            Mage::dispatchEvent('review_controller_product_init', ['product'=>$product]);
+            Mage::dispatchEvent('review_controller_product_init', ['product' => $product]);
             Mage::dispatchEvent('review_controller_product_init_after', [
                 'product'           => $product,
                 'controller_action' => $this
@@ -287,7 +287,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         $update->addHandle('default');
         $this->addActionLayoutHandles();
 
-        $update->addHandle('PRODUCT_TYPE_'.$product->getTypeId());
+        $update->addHandle('PRODUCT_TYPE_' . $product->getTypeId());
 
         if ($product->getPageLayout()) {
             $this->getLayout()->helper('page/layout')

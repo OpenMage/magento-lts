@@ -15,7 +15,7 @@
  * @category    design
  * @package     rwd_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -64,28 +64,21 @@
                     <th rowspan="<?php echo $mergedCells; ?>">&nbsp;</th>
 
                     <th class="a-center cart-price-head" colspan="<?php echo $mergedCells; ?>">
-<!--                            <div class="cart-price-placeholder">-->
-                            <span class="nobr"><?php echo $this->__('Price') ?></span>
-<!--                            </div>-->
+                        <span class="nobr"><?php echo $this->__('Price') ?></span>
                     </th>
 
                     <th rowspan="<?php echo $mergedCells; ?>" class="a-center">
                         <?php echo $this->__('Qty') ?>
-
-                        <?php /*if ($this->helper('wishlist')->isAllowInCart()) : ?>
+                        <?php /* if ($this->helper('wishlist')->isAllowInCart()) : ?>
                             <span class="nobr"><?php echo $this->__('Move to Wishlist') ?></span>
-                        <?php endif*/ ?>
-
+                        <?php endif */ ?>
                     </th>
 
                     <th class="a-center cart-total-head" colspan="<?php echo $mergedCells; ?>">
-<!--                            <div class="cart-total-placeholder">-->
-                            <?php echo $this->__('Subtotal') ?>
-<!--                            </div>-->
+                        <?php echo $this->__('Subtotal') ?>
                     </th>
 
                     <th class="a-center" rowspan="<?php echo $mergedCells; ?>">&nbsp;</th>
-
                 </tr>
                 <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                 <tr>

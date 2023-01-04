@@ -28,13 +28,13 @@
  */
 class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
 {
-    const XML_PATH_EMAIL_RECIPIENT  = 'contacts/email/recipient_email';
-    const XML_PATH_EMAIL_SENDER     = 'contacts/email/sender_email_identity';
-    const XML_PATH_EMAIL_TEMPLATE   = 'contacts/email/email_template';
-    const XML_PATH_ENABLED          = 'contacts/contacts/enabled';
+    public const XML_PATH_EMAIL_RECIPIENT  = 'contacts/email/recipient_email';
+    public const XML_PATH_EMAIL_SENDER     = 'contacts/email/sender_email_identity';
+    public const XML_PATH_EMAIL_TEMPLATE   = 'contacts/email/email_template';
+    public const XML_PATH_ENABLED          = 'contacts/contacts/enabled';
 
     /**
-     * @return void
+     * @return $this
      */
     public function preDispatch()
     {
@@ -43,6 +43,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
         if (!Mage::getStoreConfigFlag(self::XML_PATH_ENABLED)) {
             $this->norouteAction();
         }
+        return $this;
     }
 
     public function indexAction()

@@ -52,6 +52,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form extends Mage_Adminhtml_Block_
         return $this->getUrl('*/*/save');
     }
 
+    /**
+     * @return string
+     */
     public function getCustomerSelectorDisplay()
     {
         $customerId = $this->getCustomerId();
@@ -61,6 +64,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form extends Mage_Adminhtml_Block_
         return 'none';
     }
 
+    /**
+     * @return string
+     */
     public function getStoreSelectorDisplay()
     {
         $storeId    = $this->getStoreId();
@@ -71,6 +77,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form extends Mage_Adminhtml_Block_
         return 'none';
     }
 
+    /**
+     * @return string
+     */
     public function getDataSelectorDisplay()
     {
         $storeId    = $this->getStoreId();

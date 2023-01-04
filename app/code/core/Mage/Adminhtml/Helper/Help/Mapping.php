@@ -88,35 +88,35 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
             'poll' => 'marketing/polls.html',
             /* Reports → Sales */
             'report_sales/sales' => 'store-operations/reports-generating.html',
-            'report_sales/tax' =>'store-operations/reports-available.html',
-            'report_sales/invoiced' =>'store-operations/reports-available.html',
-            'report_sales/shipping' =>'store-operations/reports-available.html',
-            'report_sales/refunded' =>'store-operations/reports-available.html',
-            'report_sales/coupons' =>'store-operations/reports-available.html',
+            'report_sales/tax' => 'store-operations/reports-available.html',
+            'report_sales/invoiced' => 'store-operations/reports-available.html',
+            'report_sales/shipping' => 'store-operations/reports-available.html',
+            'report_sales/refunded' => 'store-operations/reports-available.html',
+            'report_sales/coupons' => 'store-operations/reports-available.html',
             /* Reports → Shopping Cart */
-            'report_shopcart/product' =>'store-operations/reports-available.html',
-            'report_shopcart/abandoned' =>'store-operations/reports-available.html',
+            'report_shopcart/product' => 'store-operations/reports-available.html',
+            'report_shopcart/abandoned' => 'store-operations/reports-available.html',
             /* Reports → Products */
-            'report_sales/bestsellers' =>'store-operations/reports-available.html',
-            'report_product/sold' =>'store-operations/reports-available.html',
-            'report_product/viewed' =>'store-operations/reports-available.html',
-            'report_product/lowstock' =>'store-operations/reports-available.html',
-            'report_product/downloads' =>'store-operations/reports-available.html',
+            'report_sales/bestsellers' => 'store-operations/reports-available.html',
+            'report_product/sold' => 'store-operations/reports-available.html',
+            'report_product/viewed' => 'store-operations/reports-available.html',
+            'report_product/lowstock' => 'store-operations/reports-available.html',
+            'report_product/downloads' => 'store-operations/reports-available.html',
             /* Reports → Customers */
-            'report_customer/accounts' =>'store-operations/reports-available.html',
-            'report_customer/totals' =>'store-operations/reports-available.html',
-            'report_customer/orders' =>'store-operations/reports-available.html',
+            'report_customer/accounts' => 'store-operations/reports-available.html',
+            'report_customer/totals' => 'store-operations/reports-available.html',
+            'report_customer/orders' => 'store-operations/reports-available.html',
             /* Reports → Tags */
-            'report_tag/customer' =>'store-operations/reports-available.html',
-            'report_tag/product' =>'store-operations/reports-available.html',
-            'report_tag/popular' =>'store-operations/reports-available.html',
+            'report_tag/customer' => 'store-operations/reports-available.html',
+            'report_tag/product' => 'store-operations/reports-available.html',
+            'report_tag/popular' => 'store-operations/reports-available.html',
             /* Reports → Reviews */
-            'report_review/customer' =>'store-operations/reports-available.html',
-            'report_review/product' =>'store-operations/reports-available.html',
+            'report_review/customer' => 'store-operations/reports-available.html',
+            'report_review/product' => 'store-operations/reports-available.html',
             /* Search Terms */
-            'report/search' =>'store-operations/reports-available.html',
+            'report/search' => 'store-operations/reports-available.html',
             /* Refresh statistics */
-            'report_statistics' =>'store-operations/reports-refresh.html',
+            'report_statistics' => 'store-operations/reports-refresh.html',
             /* My Account */
             'system_account' => 'store-operations/admin-my-account.html',
             /* Notifications */

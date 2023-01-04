@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage
 
         $form = new Varien_Data_Form(['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post']);
 
-        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('catalog')->__('Frontend Properties')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('catalog')->__('Frontend Properties')]);
 
         $yesno = [
             [

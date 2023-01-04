@@ -32,7 +32,7 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'catalog/reviews_ratings/ratings';
+    public const ADMIN_RESOURCE = 'catalog/reviews_ratings/ratings';
 
     public function indexAction()
     {
@@ -129,7 +129,7 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
 
     public function deleteAction()
     {
-        if( $this->getRequest()->getParam('id') > 0 ) {
+        if ($this->getRequest()->getParam('id') > 0) {
             try {
                 $model = Mage::getModel('rating/rating');
                 /** @var Mage_Rating_Model_Rating $model */

@@ -22,5 +22,5 @@
 /** @var Mage_Sales_Model_Entity_Setup $installer */
 $installer = $this;
 
-$installer->addAttribute('invoice', 'email_sent', ['type'=>'int']);
-$installer->addAttribute('shipment', 'email_sent', ['type'=>'int']);
+$installer->addAttribute('invoice', 'email_sent', ['type' => 'int']);
+$installer->addAttribute('shipment', 'email_sent', ['type' => 'int']);

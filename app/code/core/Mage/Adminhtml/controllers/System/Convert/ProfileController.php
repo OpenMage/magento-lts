@@ -32,7 +32,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'admin/system/convert/profiles';
+    public const ADMIN_RESOURCE = 'admin/system/convert/profiles';
 
     protected function _initProfile($idFieldName = 'id')
     {
@@ -47,7 +47,8 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
             $profile->load($profileId);
             if (!$profile->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError(
-                    $this->__('The profile you are trying to save no longer exists'));
+                    $this->__('The profile you are trying to save no longer exists')
+                );
                 $this->_redirect('*/*');
                 return false;
             }
@@ -91,10 +92,12 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
          */
         $this->_addBreadcrumb(
             Mage::helper('adminhtml')->__('Import/Export'),
-            Mage::helper('adminhtml')->__('Import/Export Advanced'));
+            Mage::helper('adminhtml')->__('Import/Export Advanced')
+        );
         $this->_addBreadcrumb(
             Mage::helper('adminhtml')->__('Advanced Profiles'),
-            Mage::helper('adminhtml')->__('Advanced Profiles'));
+            Mage::helper('adminhtml')->__('Advanced Profiles')
+        );
 
         $this->renderLayout();
     }
@@ -158,8 +161,9 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
             try {
                 $profile->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('adminhtml')->__('The profile has been deleted.'));
-            } catch (Exception $e){
+                    Mage::helper('adminhtml')->__('The profile has been deleted.')
+                );
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
@@ -186,8 +190,9 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                 $profile->save();
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('adminhtml')->__('The profile has been saved.'));
-            } catch (Exception $e){
+                    Mage::helper('adminhtml')->__('The profile has been saved.')
+                );
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setConvertProfileData($data);
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['id' => $profile->getId()]));
@@ -255,7 +260,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                     $errors[] = $e->getMessage();
                     continue;
                 }
-                $saved ++;
+                $saved++;
             }
 
             if (method_exists($adapter, 'getEventPrefix')) {

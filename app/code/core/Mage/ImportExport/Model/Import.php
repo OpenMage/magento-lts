@@ -31,27 +31,27 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     /**
      * Key in config with entities.
      */
-    const CONFIG_KEY_ENTITIES  = 'global/importexport/import_entities';
+    public const CONFIG_KEY_ENTITIES  = 'global/importexport/import_entities';
 
     /**
      * Import behavior.
      */
-    const BEHAVIOR_APPEND  = 'append';
-    const BEHAVIOR_REPLACE = 'replace';
-    const BEHAVIOR_DELETE  = 'delete';
+    public const BEHAVIOR_APPEND  = 'append';
+    public const BEHAVIOR_REPLACE = 'replace';
+    public const BEHAVIOR_DELETE  = 'delete';
 
     /**
      * Form field names (and IDs)
      */
-    const FIELD_NAME_SOURCE_FILE = 'import_file';
-    const FIELD_NAME_IMG_ARCHIVE_FILE = 'import_image_archive';
+    public const FIELD_NAME_SOURCE_FILE = 'import_file';
+    public const FIELD_NAME_IMG_ARCHIVE_FILE = 'import_image_archive';
 
     /**
      * Import constants
      *
      */
-    const DEFAULT_SIZE      = 50;
-    const MAX_IMPORT_CHUNKS = 4;
+    public const DEFAULT_SIZE      = 50;
+    public const MAX_IMPORT_CHUNKS = 4;
 
     /**
      * Entity adapter.
@@ -391,8 +391,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     public function uploadSource()
     {
         $entity    = $this->getEntity();
-        $validTypes = array_keys(Mage_ImportExport_Model_Config::getModels(self::CONFIG_KEY_ENTITIES));
-        if (!in_array($entity, $validTypes)) {
+        if (!array_key_exists($entity, Mage_ImportExport_Model_Config::getModels(self::CONFIG_KEY_ENTITIES))) {
             Mage::throwException(Mage::helper('importexport')->__('Incorrect entity type'));
         }
         $uploader  = Mage::getModel('core/file_uploader', self::FIELD_NAME_SOURCE_FILE);

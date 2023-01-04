@@ -31,36 +31,36 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Transaction action codes
      */
-    const TRXTYPE_AUTH_ONLY         = 'A';
-    const TRXTYPE_SALE              = 'S';
-    const TRXTYPE_CREDIT            = 'C';
-    const TRXTYPE_DELAYED_CAPTURE   = 'D';
-    const TRXTYPE_DELAYED_VOID      = 'V';
-    const TRXTYPE_DELAYED_VOICE     = 'F';
-    const TRXTYPE_DELAYED_INQUIRY   = 'I';
+    public const TRXTYPE_AUTH_ONLY         = 'A';
+    public const TRXTYPE_SALE              = 'S';
+    public const TRXTYPE_CREDIT            = 'C';
+    public const TRXTYPE_DELAYED_CAPTURE   = 'D';
+    public const TRXTYPE_DELAYED_VOID      = 'V';
+    public const TRXTYPE_DELAYED_VOICE     = 'F';
+    public const TRXTYPE_DELAYED_INQUIRY   = 'I';
 
     /**
      * Tender type codes
      */
-    const TENDER_CC = 'C';
+    public const TENDER_CC = 'C';
 
     /**
      * Gateway request URLs
      */
-    const TRANSACTION_URL           = 'https://payflowpro.paypal.com/transaction';
-    const TRANSACTION_URL_TEST_MODE = 'https://pilot-payflowpro.paypal.com/transaction';
+    public const TRANSACTION_URL           = 'https://payflowpro.paypal.com/transaction';
+    public const TRANSACTION_URL_TEST_MODE = 'https://pilot-payflowpro.paypal.com/transaction';
 
     /**
      * Response codes
      */
-    const RESPONSE_CODE_APPROVED                = 0;
-    const RESPONSE_CODE_INVALID_AMOUNT          = 4;
-    const RESPONSE_CODE_FRAUDSERVICE_FILTER     = 126;
-    const RESPONSE_CODE_DECLINED                = 12;
-    const RESPONSE_CODE_DECLINED_BY_FILTER      = 125;
-    const RESPONSE_CODE_DECLINED_BY_MERCHANT    = 128;
-    const RESPONSE_CODE_CAPTURE_ERROR           = 111;
-    const RESPONSE_CODE_VOID_ERROR              = 108;
+    public const RESPONSE_CODE_APPROVED                = 0;
+    public const RESPONSE_CODE_INVALID_AMOUNT          = 4;
+    public const RESPONSE_CODE_FRAUDSERVICE_FILTER     = 126;
+    public const RESPONSE_CODE_DECLINED                = 12;
+    public const RESPONSE_CODE_DECLINED_BY_FILTER      = 125;
+    public const RESPONSE_CODE_DECLINED_BY_MERCHANT    = 128;
+    public const RESPONSE_CODE_CAPTURE_ERROR           = 111;
+    public const RESPONSE_CODE_VOID_ERROR              = 108;
 
     /**
      * Payment method code
@@ -435,13 +435,13 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
         return $result;
     }
 
-     /**
-      * Return request object with information for 'authorization' or 'sale' action
-      *
-      * @param Mage_Sales_Model_Order_Payment $payment
-      * @param float $amount
-      * @return Varien_Object
-      */
+    /**
+     * Return request object with information for 'authorization' or 'sale' action
+     *
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param float $amount
+     * @return Varien_Object
+     */
     protected function _buildPlaceRequest(Varien_Object $payment, $amount)
     {
         $request = $this->_buildBasicRequest($payment);
@@ -497,12 +497,12 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
         return $request;
     }
 
-     /**
-      * Return request object with basic information for gateway request
-      *
-      * @param Mage_Sales_Model_Order_Payment $payment
-      * @return Varien_Object
-      */
+    /**
+     * Return request object with basic information for gateway request
+     *
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @return Varien_Object
+     */
     protected function _buildBasicRequest(Varien_Object $payment)
     {
         $request = new Varien_Object();
@@ -519,27 +519,28 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
         return $request;
     }
 
-     /**
-      * Return unique value for request
-      *
-      * @return string
-      */
+    /**
+     * Return unique value for request
+     *
+     * @return string
+     */
     protected function _generateRequestId()
     {
         return Mage::helper('core')->uniqHash();
     }
 
-     /**
-      * If response is failed throw exception
-      *
-      * @throws Mage_Core_Exception
-      */
+    /**
+     * If response is failed throw exception
+     *
+     * @throws Mage_Core_Exception
+     */
     protected function _processErrors(Varien_Object $response)
     {
         if ($response->getResultCode() == self::RESPONSE_CODE_VOID_ERROR) {
             throw new Mage_Paypal_Exception(Mage::helper('paypal')->__('You cannot void a verification transaction'));
         } elseif ($response->getResultCode() != self::RESPONSE_CODE_APPROVED
-            && $response->getResultCode() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER) {
+            && $response->getResultCode() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER
+        ) {
             Mage::throwException($response->getRespmsg());
         }
     }

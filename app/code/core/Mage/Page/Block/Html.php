@@ -40,7 +40,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         parent::__construct();
         $this->_urls = [
             'base'      => Mage::getBaseUrl('web'),
-            'baseSecure'=> Mage::getBaseUrl('web', true),
+            'baseSecure' => Mage::getBaseUrl('web', true),
             'current'   => $this->getRequest()->getRequestUri()
         ];
 
@@ -104,7 +104,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
 
         // buld url
         if (!empty($logo)) {
-            $logo = Mage::getStoreConfig('web/unsecure/base_media_url') . $logo;
+            $logo = Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_MEDIA_URL) . $logo;
         } else {
             $logo = '';
         }

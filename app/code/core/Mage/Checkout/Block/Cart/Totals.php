@@ -57,7 +57,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
      */
     protected function _getTotalRenderer($code)
     {
-        $blockName = $code.'_total_renderer';
+        $blockName = $code . '_total_renderer';
         $block = $this->getLayout()->getBlock($blockName);
         if (!$block) {
             $block = $this->_defaultRenderer;
@@ -77,9 +77,9 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
 
     /**
      * @param Mage_Sales_Model_Quote_Address_Total $total
-     * @param null $area
+     * @param string|null $area
      * @param int $colspan
-     * @return mixed
+     * @return string
      */
     public function renderTotal($total, $area = null, $colspan = 1)
     {

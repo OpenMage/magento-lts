@@ -165,7 +165,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
         ];
         foreach (Mage_Catalog_Model_Product_Type::getTypes() as $typeId => $type) {
             $productsOptions[] = [
-               'value' => $typeId.'_products',
+               'value' => $typeId . '_products',
                'label' => $this->helper('core')->jsQuoteEscape($type['label'])
             ];
         }
@@ -230,7 +230,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
                 'label' => 'Products',
                 'code' => 'products',
                 'name' => $typeId . '_products',
-                'layout_handle' => 'default,catalog_product_view,PRODUCT_TYPE_'.$typeId,
+                'layout_handle' => 'default,catalog_product_view,PRODUCT_TYPE_' . $typeId,
                 'is_anchor_only' => '',
                 'product_type_id' => $typeId
             ];
@@ -303,7 +303,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
                     'block' => $pageGroup['block_reference'],
                     'for_value'   => $pageGroup['page_for'],
                     'layout_handle' => $pageGroup['layout_handle'],
-                    $pageGroup['page_group'].'_entities' => $pageGroup['entities'],
+                    $pageGroup['page_group'] . '_entities' => $pageGroup['entities'],
                     'template' => $pageGroup['page_template']
                 ];
             }

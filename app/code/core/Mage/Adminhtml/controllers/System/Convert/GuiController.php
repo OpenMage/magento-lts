@@ -34,7 +34,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'admin/system/convert/gui';
+    public const ADMIN_RESOURCE = 'admin/system/convert/gui';
 
     /**
      * Profiles list action
@@ -125,7 +125,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
     public function downloadAction()
     {
         $filename = $this->getRequest()->getParam('filename');
-        if (!$filename || strpos($filename, '..')!==false || $filename[0]==='.') {
+        if (!$filename || strpos($filename, '..') !== false || $filename[0] === '.') {
             return;
         }
         $this->_initProfile();

@@ -91,7 +91,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
         if (!$this->_block) {
             $this->_block = $this->getAction()
                 ->getLayout()
-                ->createBlock('paypal/'.$this->_paymentMethodCode.'_iframe');
+                ->createBlock('paypal/' . $this->_paymentMethodCode . '_iframe');
             if (!$this->_block instanceof Mage_Paypal_Block_Iframe) {
                 Mage::throwException('Invalid block type');
             }
@@ -134,7 +134,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     {
         if ($this->_getOrder()->getId() &&
             $this->_getOrder()->getQuoteId() == $this->_getCheckout()->getLastQuoteId() &&
-            $this->_paymentMethodCode) {
+            $this->_paymentMethodCode
+        ) {
             $this->_shouldRender = true;
         }
 
@@ -175,7 +176,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
         if ($quote->getPayment()->getMethod() == $this->_paymentMethodCode &&
             $quote->getIsActive() &&
             $this->getTemplate() &&
-            $this->getRequest()->getActionName() == 'savePayment') {
+            $this->getRequest()->getActionName() == 'savePayment'
+        ) {
             return true;
         }
 

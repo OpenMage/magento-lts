@@ -40,7 +40,6 @@ $obsoleteAcl = [
     'admin/xmlconnect/templates'
 ];
 
-
 $installer->getConnection()->delete(
     $installer->getTable('admin/rule'),
     ['resource_id IN (?)' => $obsoleteAcl]

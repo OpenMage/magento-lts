@@ -24,9 +24,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Prepare content for tab
@@ -79,7 +77,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions
 
         $form->setHtmlIdPrefix('rule_');
 
-        $fieldset = $form->addFieldset('action_fieldset', ['legend'=>Mage::helper('salesrule')->__('Update prices using the following information')]);
+        $fieldset = $form->addFieldset('action_fieldset', ['legend' => Mage::helper('salesrule')->__('Update prices using the following information')]);
 
         $fieldset->addField('simple_action', 'select', [
             'label'     => Mage::helper('salesrule')->__('Apply'),
@@ -97,13 +95,13 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions
             'class' => 'validate-not-negative-number',
             'label' => Mage::helper('salesrule')->__('Discount Amount'),
         ]);
-        $model->setDiscountAmount($model->getDiscountAmount()*1);
+        $model->setDiscountAmount($model->getDiscountAmount() * 1);
 
         $fieldset->addField('discount_qty', 'text', [
             'name' => 'discount_qty',
             'label' => Mage::helper('salesrule')->__('Maximum Qty Discount is Applied To'),
         ]);
-        $model->setDiscountQty($model->getDiscountQty()*1);
+        $model->setDiscountQty($model->getDiscountQty() * 1);
 
         $fieldset->addField('discount_step', 'text', [
             'name' => 'discount_step',
@@ -143,7 +141,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions
             ->setNewChildUrl($this->getUrl('*/promo_quote/newActionHtml/form/rule_actions_fieldset'));
 
         $fieldset = $form->addFieldset('actions_fieldset', [
-            'legend'=>Mage::helper('salesrule')->__('Apply the rule only to cart items matching the following conditions (leave blank for all items)')
+            'legend' => Mage::helper('salesrule')->__('Apply the rule only to cart items matching the following conditions (leave blank for all items)')
         ])->setRenderer($renderer);
 
         $fieldset->addField('actions', 'text', [

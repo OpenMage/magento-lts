@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
         $form->setHtmlIdPrefix('_general');
         $form->setDataObject($this->getCategory());
 
-        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('catalog')->__('General Information')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('catalog')->__('General Information')]);
 
         if (!$this->getCategory()->getId()) {
             $parentId = $this->getRequest()->getParam('parent');
@@ -99,7 +99,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
         ];
     }
 
-    protected function _getParentCategoryOptions($node=null, &$options= [])
+    protected function _getParentCategoryOptions($node = null, &$options = [])
     {
         if (is_null($node)) {
             $node = $this->getRoot();
@@ -108,7 +108,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
         if ($node) {
             $options[] = [
                'value' => $node->getPathId(),
-               'label' => str_repeat('&nbsp;', max(0, 3*($node->getLevel()))) . $this->escapeHtml($node->getName()),
+               'label' => str_repeat('&nbsp;', max(0, 3 * ($node->getLevel()))) . $this->escapeHtml($node->getName()),
             ];
 
             foreach ($node->getChildren() as $child) {
@@ -118,4 +118,3 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
         return $options;
     }
 }
-

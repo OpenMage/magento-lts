@@ -86,12 +86,10 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
             }
 
             // TODO: check user roles
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             Mage::logException($e);
             Mage::throwException(Mage::helper('install')->__($e->getMessage()));
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::logException($e);
             Mage::throwException(Mage::helper('install')->__('Database connection error.'));
         }
@@ -112,7 +110,7 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
         }
         //make all table prefix to lower letter
         if ($data['db_prefix'] != '') {
-           $data['db_prefix'] = strtolower($data['db_prefix']);
+            $data['db_prefix'] = strtolower($data['db_prefix']);
         }
         //check table prefix
         if ($data['db_prefix'] != '') {

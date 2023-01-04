@@ -31,18 +31,18 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Name of "is URLs checked" flag
      */
-    const FLAG_IS_URLS_CHECKED = 'check_url_settings';
+    public const FLAG_IS_URLS_CHECKED = 'check_url_settings';
 
     /**
      * Session namespace to refer in other places
      */
-    const SESSION_NAMESPACE = 'adminhtml';
+    public const SESSION_NAMESPACE = 'adminhtml';
 
     /**
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'admin';
+    public const ADMIN_RESOURCE = 'admin';
 
     /**
      * Array of actions which can be processed without secret key validation
@@ -121,7 +121,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * @return $this
      */
-    protected function _addBreadcrumb($label, $title, $link=null)
+    protected function _addBreadcrumb($label, $title, $link = null)
     {
         /** @var Mage_Adminhtml_Block_Widget_Breadcrumbs $block */
         $block = $this->getLayout()->getBlock('breadcrumbs');
@@ -199,17 +199,18 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
                     'message' => $_keyErrorMsg
                 ]));
             } else {
-                if (!$_isValidFormKey){
+                if (!$_isValidFormKey) {
                     Mage::getSingleton('adminhtml/session')->addError($_keyErrorMsg);
                 }
-                $this->_redirect( Mage::getSingleton('admin/session')->getUser()->getStartupPageUrl() );
+                $this->_redirect(Mage::getSingleton('admin/session')->getUser()->getStartupPageUrl());
             }
             return $this;
         }
 
         if ($this->getRequest()->isDispatched()
             && $this->getRequest()->getActionName() !== 'denied'
-            && !$this->_isAllowed()) {
+            && !$this->_isAllowed()
+        ) {
             $this->_forward('denied');
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return $this;
@@ -218,7 +219,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         if (!$this->getFlag('', self::FLAG_IS_URLS_CHECKED)
             && !$this->getRequest()->getParam('forwarded')
             && !$this->_getSession()->getIsUrlNotice(true)
-            && !Mage::getConfig()->getNode('global/can_use_base_url')) {
+            && !Mage::getConfig()->getNode('global/can_use_base_url')
+        ) {
             //$this->_checkUrlSettings();
             $this->setFlag('', self::FLAG_IS_URLS_CHECKED, true);
         }
@@ -253,7 +255,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         if ($defaultSecure == '{{base_url}}' || $defaultUnsecure == '{{base_url}}') {
             $this->_getSession()->addNotice(
-                $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', ['section'=>'web']))
+                $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', ['section' => 'web']))
             );
             return $this;
         }
@@ -265,11 +267,11 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         foreach ($dataCollection as $data) {
             if ($data->getScope() == 'stores') {
                 $code = Mage::app()->getStore($data->getScopeId())->getCode();
-                $url = $this->getUrl('adminhtml/system_config/edit', ['section'=>'web', 'store'=>$code]);
+                $url = $this->getUrl('adminhtml/system_config/edit', ['section' => 'web', 'store' => $code]);
             }
             if ($data->getScope() == 'websites') {
                 $code = Mage::app()->getWebsite($data->getScopeId())->getCode();
-                $url = $this->getUrl('adminhtml/system_config/edit', ['section'=>'web', 'website'=>$code]);
+                $url = $this->getUrl('adminhtml/system_config/edit', ['section' => 'web', 'website' => $code]);
             }
 
             if ($url) {
@@ -284,7 +286,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     public function deniedAction()
     {
-        $this->getResponse()->setHeader('HTTP/1.1','403 Forbidden');
+        $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
         if (!Mage::getSingleton('admin/session')->isLoggedIn()) {
             $this->_redirect('*/index/login');
             return;
@@ -293,7 +295,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         $this->renderLayout();
     }
 
-    public function loadLayout($ids=null, $generateBlocks=true, $generateXml=true)
+    public function loadLayout($ids = null, $generateBlocks = true, $generateXml = true)
     {
         parent::loadLayout($ids, $generateBlocks, $generateXml);
         $this->_initLayoutMessages('adminhtml/session');
@@ -302,8 +304,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     public function norouteAction($coreRoute = null)
     {
-        $this->getResponse()->setHeader('HTTP/1.1','404 Not Found');
-        $this->getResponse()->setHeader('Status','404 File not found');
+        $this->getResponse()->setHeader('HTTP/1.1', '404 Not Found');
+        $this->getResponse()->setHeader('Status', '404 File not found');
         $this->loadLayout(['default', 'adminhtml_noroute']);
         $this->renderLayout();
     }
@@ -351,7 +353,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * @param   string $defaultUrl
      * @return  Mage_Adminhtml_Controller_Action
      */
-    protected function _redirectReferer($defaultUrl=null)
+    protected function _redirectReferer($defaultUrl = null)
     {
         $defaultUrl = empty($defaultUrl) ? $this->getUrl('*') : $defaultUrl;
         parent::_redirectReferer($defaultUrl);
@@ -365,7 +367,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * @param array $arguments
      * @return $this
      */
-    protected function _redirect($path, $arguments= [])
+    protected function _redirect($path, $arguments = [])
     {
         $this->_getSession()->setIsUrlNotice($this->getFlag('', self::FLAG_IS_URLS_CHECKED));
         $this->getResponse()->setRedirect($this->getUrl($path, $arguments));
@@ -385,7 +387,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * @param   array $params
      * @return  string
      */
-    public function getUrl($route='', $params= [])
+    public function getUrl($route = '', $params = [])
     {
         return Mage::helper('adminhtml')->getUrl($route, $params);
     }
@@ -402,7 +404,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         }
 
         if (!($secretKey = $this->getRequest()->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME, null))
-            || !hash_equals(Mage::getSingleton('adminhtml/url')->getSecretKey(), $secretKey)) {
+            || !hash_equals(Mage::getSingleton('adminhtml/url')->getSecretKey(), $secretKey)
+        ) {
             return false;
         }
         return true;
@@ -442,7 +445,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     protected function _setForcedFormKeyActions($actionNames)
     {
         if (!Mage::helper('adminhtml')->isEnabledSecurityKeyUrl()) {
-            $actionNames = (is_array($actionNames)) ? $actionNames: (array)$actionNames;
+            $actionNames = (is_array($actionNames)) ? $actionNames : (array)$actionNames;
             $actionNames = array_merge($this->_forcedFormKeyActions, $actionNames);
             $actionNames = array_unique($actionNames);
             $this->_forcedFormKeyActions = $actionNames;

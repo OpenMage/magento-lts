@@ -183,7 +183,7 @@ table.actions td                { vertical-align:top; }
 
 /* Grid - Mass Action */
 .massaction { width:100%; height:26px; border:1px solid #d1cfcf; border-bottom:none; background:url(images/massaction_bg.gif) repeat-x 0 100% #ebebeb; font-size:.9em; }
-.massaction td                              { width:50%; border-top:1px solid #fff; padding:1px 8px; vertical-align:middle; }
+.massaction td                              { width:auto; border-top:1px solid #fff; padding:1px 8px; vertical-align:middle; }
 .massaction .entry-edit fieldset .select    { width:auto; /*width:120px;*/ display:inline; }
 .massaction .entry-edit fieldset select.validation-failed { border:1px dashed #eb340a !important; background:#faebe7 !important }
 .massaction .entry-edit fieldset            { margin:0; padding:0; background:none; border:none; }

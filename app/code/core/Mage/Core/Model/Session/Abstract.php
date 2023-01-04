@@ -36,22 +36,22 @@
  */
 class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_Varien
 {
-    const XML_PATH_COOKIE_DOMAIN        = 'web/cookie/cookie_domain';
-    const XML_PATH_COOKIE_PATH          = 'web/cookie/cookie_path';
-    const XML_PATH_COOKIE_LIFETIME      = 'web/cookie/cookie_lifetime';
-    const XML_NODE_SESSION_SAVE         = 'global/session_save';
-    const XML_NODE_SESSION_SAVE_PATH    = 'global/session_save_path';
+    public const XML_PATH_COOKIE_DOMAIN        = 'web/cookie/cookie_domain';
+    public const XML_PATH_COOKIE_PATH          = 'web/cookie/cookie_path';
+    public const XML_PATH_COOKIE_LIFETIME      = 'web/cookie/cookie_lifetime';
+    public const XML_NODE_SESSION_SAVE         = 'global/session_save';
+    public const XML_NODE_SESSION_SAVE_PATH    = 'global/session_save_path';
 
-    const XML_PATH_USE_REMOTE_ADDR      = 'web/session/use_remote_addr';
-    const XML_PATH_USE_HTTP_VIA         = 'web/session/use_http_via';
-    const XML_PATH_USE_X_FORWARDED      = 'web/session/use_http_x_forwarded_for';
-    const XML_PATH_USE_USER_AGENT       = 'web/session/use_http_user_agent';
-    const XML_PATH_USE_FRONTEND_SID     = 'web/session/use_frontend_sid';
+    public const XML_PATH_USE_REMOTE_ADDR      = 'web/session/use_remote_addr';
+    public const XML_PATH_USE_HTTP_VIA         = 'web/session/use_http_via';
+    public const XML_PATH_USE_X_FORWARDED      = 'web/session/use_http_x_forwarded_for';
+    public const XML_PATH_USE_USER_AGENT       = 'web/session/use_http_user_agent';
+    public const XML_PATH_USE_FRONTEND_SID     = 'web/session/use_frontend_sid';
 
-    const XML_NODE_USET_AGENT_SKIP      = 'global/session/validation/http_user_agent_skip';
-    const XML_PATH_LOG_EXCEPTION_FILE   = 'dev/log/exception_file';
+    public const XML_NODE_USET_AGENT_SKIP      = 'global/session/validation/http_user_agent_skip';
+    public const XML_PATH_LOG_EXCEPTION_FILE   = 'dev/log/exception_file';
 
-    const SESSION_ID_QUERY_PARAM        = 'SID';
+    public const SESSION_ID_QUERY_PARAM        = 'SID';
 
     /**
      * URL host cache

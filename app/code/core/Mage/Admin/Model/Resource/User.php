@@ -235,7 +235,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
 
             $adapter->delete($this->getTable('admin/role'), $conditions);
             foreach ($rolesIds as $rid) {
-                $rid = intval($rid);
+                $rid = (int) $rid;
                 if ($rid > 0) {
                     $role = Mage::getModel('admin/role')->load($rid);
                 } else {

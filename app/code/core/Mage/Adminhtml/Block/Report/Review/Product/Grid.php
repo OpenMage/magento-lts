@@ -48,11 +48,10 @@ class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Blo
 
     protected function _prepareColumns()
     {
-
         $this->addColumn('entity_id', [
-            'header'    =>Mage::helper('reports')->__('ID'),
-            'width'     =>'50px',
-            'index'     =>'entity_id'
+            'header'    => Mage::helper('reports')->__('ID'),
+            'width'     => '50px',
+            'index'     => 'entity_id'
         ]);
 
         $this->addColumn('name', [
@@ -61,31 +60,31 @@ class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Blo
         ]);
 
         $this->addColumn('review_cnt', [
-            'header'    =>Mage::helper('reports')->__('Number of Reviews'),
-            'width'     =>'50px',
-            'align'     =>'right',
-            'index'     =>'review_cnt'
+            'header'    => Mage::helper('reports')->__('Number of Reviews'),
+            'width'     => '50px',
+            'align'     => 'right',
+            'index'     => 'review_cnt'
         ]);
 
         $this->addColumn('avg_rating', [
-            'header'    =>Mage::helper('reports')->__('Avg. Rating'),
-            'width'     =>'50px',
-            'align'     =>'right',
-            'index'     =>'avg_rating'
+            'header'    => Mage::helper('reports')->__('Avg. Rating'),
+            'width'     => '50px',
+            'align'     => 'right',
+            'index'     => 'avg_rating'
         ]);
 
         $this->addColumn('avg_rating_approved', [
-            'header'    =>Mage::helper('reports')->__('Avg. Approved Rating'),
-            'width'     =>'50px',
-            'align'     =>'right',
-            'index'     =>'avg_rating_approved'
+            'header'    => Mage::helper('reports')->__('Avg. Approved Rating'),
+            'width'     => '50px',
+            'align'     => 'right',
+            'index'     => 'avg_rating_approved'
         ]);
 
         $this->addColumn('last_created', [
-            'header'    =>Mage::helper('reports')->__('Last Review'),
-            'width'     =>'150px',
-            'index'     =>'last_created',
-            'type'      =>'datetime'
+            'header'    => Mage::helper('reports')->__('Last Review'),
+            'width'     => '150px',
+            'index'     => 'last_created',
+            'type'      => 'datetime'
         ]);
 
         $this->addColumn('action', [

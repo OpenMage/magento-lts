@@ -205,7 +205,7 @@ class Mage_Core_Model_Url_Rewrite_Request
         $targetUrl = $this->_request->getBaseUrl() . '/' . $this->_rewrite->getTargetPath();
 
         $storeCode = $this->_app->getStore()->getCode();
-        if (Mage::getStoreConfig('web/url/use_store') && !empty($storeCode)) {
+        if (Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL) && !empty($storeCode)) {
             $targetUrl = $this->_request->getBaseUrl() . '/' . $storeCode . '/' . $this->_rewrite->getTargetPath();
         }
 

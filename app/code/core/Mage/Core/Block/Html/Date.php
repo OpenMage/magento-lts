@@ -87,12 +87,11 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
     }
 
     /**
-     * @param null $index
+     * @param null $index deprecated
      * @return string
      */
     public function getEscapedValue($index = null)
     {
-
         if ($this->getFormat() && $this->getValue()) {
             return strftime($this->getFormat(), strtotime($this->getValue()));
         }

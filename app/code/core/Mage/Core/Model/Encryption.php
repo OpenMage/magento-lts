@@ -28,14 +28,14 @@
  */
 class Mage_Core_Model_Encryption
 {
-    const HASH_VERSION_MD5    = 0;
-    const HASH_VERSION_SHA256 = 1;
-    const HASH_VERSION_SHA512 = 2;
+    public const HASH_VERSION_MD5    = 0;
+    public const HASH_VERSION_SHA256 = 1;
+    public const HASH_VERSION_SHA512 = 2;
 
     /**
      * Encryption method bcrypt
      */
-    const HASH_VERSION_LATEST = 3;
+    public const HASH_VERSION_LATEST = 3;
 
     /**
      * @var Varien_Crypt_Mcrypt

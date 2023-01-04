@@ -26,8 +26,7 @@
  * @package    Mage_Paypal
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract
-    implements Mage_Payment_Model_Billing_Agreement_MethodInterface
+class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract implements Mage_Payment_Model_Billing_Agreement_MethodInterface
 {
     /**
      * Method code
@@ -164,7 +163,8 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         } catch (Mage_Core_Exception $e) {
             // when BA was already canceled, just pretend that the operation succeeded
             if (!(Mage_Sales_Model_Billing_Agreement::STATUS_CANCELED == $targetStatus
-                && $api->getIsBillingAgreementAlreadyCancelled())) {
+                && $api->getIsBillingAgreementAlreadyCancelled())
+            ) {
                 throw $e;
             }
         }

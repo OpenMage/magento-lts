@@ -108,7 +108,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
     protected function _calcSelectionPrice($priceInfo, $productPrice)
     {
         if ($priceInfo['is_percent']) {
-            $ratio = $priceInfo['pricing_value']/100;
+            $ratio = $priceInfo['pricing_value'] / 100;
             $price = $productPrice * $ratio;
         } else {
             $price = $priceInfo['pricing_value'];

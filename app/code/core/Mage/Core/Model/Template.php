@@ -31,25 +31,25 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     /**
      * Types of template
      */
-    const TYPE_TEXT = 1;
-    const TYPE_HTML = 2;
+    public const TYPE_TEXT = 1;
+    public const TYPE_HTML = 2;
 
     /**
      * Default design area for emulation
      */
-    const DEFAULT_DESIGN_AREA = 'frontend';
+    public const DEFAULT_DESIGN_AREA = 'frontend';
 
     /**
      * Configuration of desing package for template
      *
-     * @var Varien_Object
+     * @var Varien_Object|null
      */
     protected $_designConfig;
 
     /**
      * Configuration of emulated desing package.
      *
-     * @var Varien_Object
+     * @var Varien_Object|false
      */
     protected $_emulatedDesignConfig = false;
 
@@ -57,7 +57,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * Initial environment information
      * @see self::_applyDesignConfig()
      *
-     * @var Varien_Object
+     * @var Varien_Object|null
      */
     protected $_initialEnvironmentInfo = null;
 

@@ -44,7 +44,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     /**
      * Active Website instance
      *
-     * @var Mage_Core_Model_Website
+     * @var Mage_Core_Model_Website|null
      */
     protected $_website;
 

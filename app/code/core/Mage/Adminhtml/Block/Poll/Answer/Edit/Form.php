@@ -40,22 +40,19 @@ class Mage_Adminhtml_Block_Poll_Answer_Edit_Form extends Mage_Adminhtml_Block_Wi
                     'label'     => Mage::helper('poll')->__('Answer Title'),
                     'required'  => true,
                     'class'     => 'required-entry',
-            ]
-        );
+            ]);
 
         $fieldset->addField('votes_count', 'text', [
                     'name'      => 'votes_count',
                     'title'     => Mage::helper('poll')->__('Votes Count'),
                     'label'     => Mage::helper('poll')->__('Votes Count'),
                     'class'     => 'validate-not-negative-number'
-            ]
-        );
+            ]);
 
         $fieldset->addField('poll_id', 'hidden', [
                     'name'      => 'poll_id',
                     'no_span'   => true,
-            ]
-        );
+            ]);
 
         $form->setValues(Mage::registry('answer_data')->getData());
         $form->setUseContainer(true);

@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging_Grid extends Mage_Admi
         if ($this->getShipment()->getId()) {
             $collection = Mage::getModel('sales/order_shipment_item')->getCollection()
                     ->setShipmentFilter($this->getShipment()->getId());
-        } else{
+        } else {
             $collection = $this->getShipment()->getAllItems();
         }
         return $collection;

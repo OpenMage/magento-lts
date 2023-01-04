@@ -31,23 +31,23 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
     /**
      * Display products type
      */
-    const DISPLAY_TYPE_ALL_PRODUCTS         = 'all_products';
-    const DISPLAY_TYPE_NEW_PRODUCTS         = 'new_products';
+    public const DISPLAY_TYPE_ALL_PRODUCTS         = 'all_products';
+    public const DISPLAY_TYPE_NEW_PRODUCTS         = 'new_products';
 
     /**
      * Default value whether show pager or not
      */
-    const DEFAULT_SHOW_PAGER                = false;
+    public const DEFAULT_SHOW_PAGER                = false;
 
     /**
      * Default value for products per page
      */
-    const DEFAULT_PRODUCTS_PER_PAGE         = 5;
+    public const DEFAULT_PRODUCTS_PER_PAGE         = 5;
 
     /**
      * Name of request parameter for page number value
      */
-    const PAGE_VAR_NAME                     = 'np';
+    public const PAGE_VAR_NAME                     = 'np';
 
     /**
      * Instance of pager block
@@ -120,7 +120,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
         return array_merge(parent::getCacheKeyInfo(), [
             $this->getDisplayType(),
             $this->getProductsPerPage(),
-            intval($this->getRequest()->getParam(self::PAGE_VAR_NAME))
+            (int) $this->getRequest()->getParam(self::PAGE_VAR_NAME)
         ]);
     }
 

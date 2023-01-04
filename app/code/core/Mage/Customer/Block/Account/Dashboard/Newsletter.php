@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,7 +26,7 @@
  * @package    Mage_Customer
  * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @property Mage_Newsletter_Model_Subscriber $_subscription
+ * @property Mage_Newsletter_Model_Subscriber|null $_subscription
  */
 class Mage_Customer_Block_Account_Dashboard_Newsletter extends Mage_Core_Block_Template
 {

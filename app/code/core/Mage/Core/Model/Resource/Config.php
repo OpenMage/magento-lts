@@ -52,8 +52,8 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             ->from($this->getTable('core/website'), ['website_id', 'code', 'name']);
         $rowset = $read->fetchAssoc($select);
         foreach ($rowset as $w) {
-            $xmlConfig->setNode('websites/'.$w['code'].'/system/website/id', $w['website_id']);
-            $xmlConfig->setNode('websites/'.$w['code'].'/system/website/name', $w['name']);
+            $xmlConfig->setNode('websites/' . $w['code'] . '/system/website/id', $w['website_id']);
+            $xmlConfig->setNode('websites/' . $w['code'] . '/system/website/name', $w['name']);
             $websites[$w['website_id']] = ['code' => $w['code']];
         }
 
@@ -66,11 +66,11 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if (!isset($websites[$s['website_id']])) {
                 continue;
             }
-            $xmlConfig->setNode('stores/'.$s['code'].'/system/store/id', $s['store_id']);
-            $xmlConfig->setNode('stores/'.$s['code'].'/system/store/name', $s['name']);
-            $xmlConfig->setNode('stores/'.$s['code'].'/system/website/id', $s['website_id']);
-            $xmlConfig->setNode('websites/'.$websites[$s['website_id']]['code'].'/system/stores/'.$s['code'], $s['store_id']);
-            $stores[$s['store_id']] = ['code'=>$s['code']];
+            $xmlConfig->setNode('stores/' . $s['code'] . '/system/store/id', $s['store_id']);
+            $xmlConfig->setNode('stores/' . $s['code'] . '/system/store/name', $s['name']);
+            $xmlConfig->setNode('stores/' . $s['code'] . '/system/website/id', $s['website_id']);
+            $xmlConfig->setNode('websites/' . $websites[$s['website_id']]['code'] . '/system/stores/' . $s['code'], $s['store_id']);
+            $stores[$s['store_id']] = ['code' => $s['code']];
             $websites[$s['website_id']]['stores'][$s['store_id']] = $s['code'];
         }
 
@@ -121,7 +121,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             $extendSource = $xmlConfig->getNode('websites/' . $website['code']);
             if (isset($website['stores'])) {
                 foreach ($website['stores'] as $sCode) {
-                    $storeNode = $xmlConfig->getNode('stores/'.$sCode);
+                    $storeNode = $xmlConfig->getNode('stores/' . $sCode);
                     /**
                      * $extendSource DO NOT need overwrite source
                      */

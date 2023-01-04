@@ -36,6 +36,6 @@ CREATE TABLE `{$this->getTable('paypal_api_debug')}` (
 $installer->addAttribute('quote_payment', 'paypal_payer_id', []);
 $installer->addAttribute('quote_payment', 'paypal_payer_status', []);
 $installer->addAttribute('quote_payment', 'paypal_correlation_id', []);
-$installer->addAttribute('order', 'paypal_ipn_customer_notified', ['type'=>'int', 'visible' => false, 'default' => 0]);
+$installer->addAttribute('order', 'paypal_ipn_customer_notified', ['type' => 'int', 'visible' => false, 'default' => 0]);
 
 $installer->endSetup();

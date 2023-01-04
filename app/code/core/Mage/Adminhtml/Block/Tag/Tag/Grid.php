@@ -19,6 +19,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
 /**
  * Adminhtml all tags grid
  *
@@ -126,21 +128,20 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->setMassactionIdField('tag_id');
         $this->getMassactionBlock()->setFormFieldName('tag');
 
-        $this->getMassactionBlock()->addItem('delete', [
+        $this->getMassactionBlock()->addItem(MassAction::DELETE, [
              'label'    => Mage::helper('tag')->__('Delete'),
-             'url'      => $this->getUrl('*/*/massDelete'),
-             'confirm'  => Mage::helper('tag')->__('Are you sure?')
+             'url'      => $this->getUrl('*/*/massDelete')
         ]);
 
         /** @var Mage_Tag_Helper_Data $helper */
         $helper = $this->helper('tag/data');
         $statuses = $helper->getStatusesOptionsArray();
 
-        array_unshift($statuses, ['label'=>'', 'value'=>'']);
+        array_unshift($statuses, ['label' => '', 'value' => '']);
 
-        $this->getMassactionBlock()->addItem('status', [
-            'label'=> Mage::helper('tag')->__('Change status'),
-            'url'  => $this->getUrl('*/*/massStatus', ['_current'=>true]),
+        $this->getMassactionBlock()->addItem(MassAction::STATUS, [
+            'label' => Mage::helper('tag')->__('Change status'),
+            'url'  => $this->getUrl('*/*/massStatus', ['_current' => true]),
             'additional' => [
                 'visibility' => [
                     'name'     => 'status',

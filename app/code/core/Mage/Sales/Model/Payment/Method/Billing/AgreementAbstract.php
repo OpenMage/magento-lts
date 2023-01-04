@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,8 +32,8 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
      * Transport billing agreement id
      *
      */
-    const TRANSPORT_BILLING_AGREEMENT_ID = 'ba_agreement_id';
-    const PAYMENT_INFO_REFERENCE_ID      = 'ba_reference_id';
+    public const TRANSPORT_BILLING_AGREEMENT_ID = 'ba_agreement_id';
+    public const PAYMENT_INFO_REFERENCE_ID      = 'ba_reference_id';
 
     protected $_infoBlockType = 'sales/payment_info_billing_agreement';
     protected $_formBlockType = 'sales/payment_form_billing_agreement';

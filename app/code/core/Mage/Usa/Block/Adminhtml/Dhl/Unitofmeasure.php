@@ -49,7 +49,12 @@ class Mage_Usa_Block_Adminhtml_Dhl_Unitofmeasure extends Mage_Adminhtml_Block_Sy
 
         $weight = round(
             (float) Mage::helper('usa')->convertMeasureWeight(
-                $kgWeight, Zend_Measure_Weight::KILOGRAM, Zend_Measure_Weight::POUND), 3);
+                $kgWeight,
+                Zend_Measure_Weight::KILOGRAM,
+                Zend_Measure_Weight::POUND
+            ),
+            3
+        );
 
         $this->setDivideOrderWeightNoteLbp(
             $this->jsQuoteEscape($this->__('Allows breaking total order weight into smaller pieces if it exeeds %s %s to ensure accurate calculation of shipping charges.', $weight, 'pounds'))

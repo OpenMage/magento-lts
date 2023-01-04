@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,7 +30,7 @@
  */
 class Mage_Reports_Block_Product_Compared extends Mage_Reports_Block_Product_Abstract
 {
-    const XML_PATH_RECENTLY_COMPARED_COUNT  = 'catalog/recently_products/compared_count';
+    public const XML_PATH_RECENTLY_COMPARED_COUNT  = 'catalog/recently_products/compared_count';
 
     /**
      * Compared Product Index model name

@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
 
         $form->setHtmlIdPrefix('block_');
 
-        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('cms')->__('General Information'), 'class' => 'fieldset-wide']);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('cms')->__('General Information'), 'class' => 'fieldset-wide']);
 
         if ($model->getBlockId()) {
             $fieldset->addField('block_id', 'hidden', [
@@ -87,7 +87,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
          * Check is single store mode
          */
         if (!Mage::app()->isSingleStoreMode()) {
-            $field =$fieldset->addField('store_id', 'multiselect', [
+            $field = $fieldset->addField('store_id', 'multiselect', [
                 'name'      => 'stores[]',
                 'label'     => Mage::helper('cms')->__('Store View'),
                 'title'     => Mage::helper('cms')->__('Store View'),
@@ -96,8 +96,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
             ]);
             $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
             $field->setRenderer($renderer);
-        }
-        else {
+        } else {
             $fieldset->addField('store_id', 'hidden', [
                 'name'      => 'stores[]',
                 'value'     => Mage::app()->getStore(true)->getId()
