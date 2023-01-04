@@ -26,6 +26,14 @@ jobs:
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: ${{ runner.os }}-composer-
 
+    - name: Require Mage_Backup on v19
+      if: startsWith(github.event.release.tag_name, 'v19')
+      run: composer require --no-install --prefer-dist --no-progress --ignore-platform-req=ext-* openmage/module-mage-backup
+
+    - name: Require Mage_PageCache on v19
+      if: startsWith(github.event.release.tag_name, 'v19')
+      run: composer require --no-install --prefer-dist --no-progress --ignore-platform-req=ext-* openmage/module-mage-pagecache
+
     - name: Composer install
       run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-* --no-dev
 

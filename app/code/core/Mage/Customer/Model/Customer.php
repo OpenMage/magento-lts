@@ -81,7 +81,6 @@
  * @method string getOldEmail()
  * @method $this setOldEmail(string $value)
  *
- * @method string getPassword()
  * @method string getPasswordConfirm()
  * @method string getPasswordConfirmation()
  * @method $this setPasswordConfirmation(string $value)
@@ -470,6 +469,14 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     {
         $this->getAttributes();
         return $this->_attributes[$attributeCode] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->_getData('password');
     }
 
     /**
