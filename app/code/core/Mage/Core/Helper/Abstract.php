@@ -210,7 +210,7 @@ abstract class Mage_Core_Helper_Abstract
             foreach ($data as $item) {
                 $result[] = $this->escapeHtml($item);
             }
-        } elseif (strlen($data)) {
+        } elseif (is_string($data) && strlen($data)) { // process single item
             if (is_array($allowedTags) && !empty($allowedTags)) {
                 $allowed = implode('|', $allowedTags);
                 $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);

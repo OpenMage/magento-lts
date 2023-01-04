@@ -59,8 +59,6 @@
  * @method $this setCheckoutMethod(string $value)
  * @method string getConvertedAt()
  * @method $this setConvertedAt(string $value)
- * @method string getCouponCode()
- * @method $this setCouponCode(string $value)
  * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)
  * @method string getCustomerDob()
@@ -1984,7 +1982,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     protected function _validateCouponCode()
     {
-        $code = $this->_getData('coupon_code');
+        $code = $this->getCouponCode();
         if (strlen($code)) {
             $addressHasCoupon = false;
             $addresses = $this->getAllAddresses();
@@ -2072,5 +2070,22 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             return $this;
         }
         return parent::save();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCouponCode(): string
+    {
+        return (string)$this->_getData('coupon_code');
+    }
+
+    /**
+     * @param string $couponCode
+     * @return $this
+     */
+    public function setCouponCode(string $couponCode) #static with php74
+    {
+        return $this->setData('coupon_code', $couponCode);
     }
 }
