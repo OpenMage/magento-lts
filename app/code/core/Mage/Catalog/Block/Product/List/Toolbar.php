@@ -356,7 +356,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         }
 
         $directions = ['asc', 'desc'];
-        $dir = strtolower($this->getRequest()->getParam($this->getDirectionVarName()));
+        $dir = strtolower($this->getRequest()->getParam($this->getDirectionVarName(), ''));
         if ($dir && in_array($dir, $directions)) {
             if ($dir == $this->_direction) {
                 Mage::getSingleton('catalog/session')->unsSortDirection();
