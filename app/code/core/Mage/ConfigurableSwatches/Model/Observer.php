@@ -1,27 +1,28 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
 {
@@ -37,17 +38,18 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
             return; // exit without loading swatch functionality
         }
 
-        /* @var $mediaHelper Mage_ConfigurableSwatches_Helper_Mediafallback */
+        /** @var Mage_ConfigurableSwatches_Helper_Mediafallback $mediaHelper */
         $mediaHelper = Mage::helper('configurableswatches/mediafallback');
 
-        /** @var $priceHelper Mage_ConfigurableSwatches_Helper_List_Price */
+        /** @var Mage_ConfigurableSwatches_Helper_List_Price $priceHelper */
         $priceHelper = Mage::helper('configurableswatches/list_price');
 
-        /* @var $collection Mage_Catalog_Model_Resource_Product_Collection */
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection = $observer->getCollection();
 
         if ($collection
-            instanceof Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable_Product_Collection) {
+            instanceof Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable_Product_Collection
+        ) {
             // avoid recursion
             return;
         }
@@ -64,13 +66,11 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
 
         $mediaHelper->attachGallerySetToCollection($products, $collection->getStoreId());
 
-        /* @var $product Mage_Catalog_Model_Product */
         foreach ($products as $product) {
             $mediaHelper->groupMediaGalleryImages($product);
             Mage::helper('configurableswatches/productimg')
                 ->indexProductImages($product, $product->getListSwatchAttrValues());
         }
-
     }
 
     /**
@@ -79,16 +79,16 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
      *
      * @param Varien_Event_Observer $observer
      */
-    public function productLoadAfter(Varien_Event_Observer $observer) {
-
+    public function productLoadAfter(Varien_Event_Observer $observer)
+    {
         if (!Mage::helper('configurableswatches')->isEnabled()) { // functionality disabled
             return; // exit without loading swatch functionality
         }
 
-        /* @var $helper Mage_ConfigurableSwatches_Helper_Mediafallback */
+        /** @var Mage_ConfigurableSwatches_Helper_Mediafallback $helper */
         $helper = Mage::helper('configurableswatches/mediafallback');
 
-        /* @var $product Mage_Catalog_Model_Product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getDataObject();
 
         if ($product->getTypeId() != Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
@@ -97,7 +97,7 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
 
         $helper->groupMediaGalleryImages($product);
 
-        $helper->attachProductChildrenAttributeMapping(array($product), $product->getStoreId(), false);
+        $helper->attachProductChildrenAttributeMapping([$product], $product->getStoreId(), false);
     }
 
     /**
@@ -107,28 +107,28 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
      *
      * @param Varien_Event_Observer $observer
      */
-    public function loadChildProductImagesOnMediaLoad(Varien_Event_Observer $observer) {
-
+    public function loadChildProductImagesOnMediaLoad(Varien_Event_Observer $observer)
+    {
         if (!Mage::helper('configurableswatches')->isEnabled()) { // functionality disabled
             return; // exit without loading swatch functionality
         }
 
-        /* @var $eventWrapper Varien_Object */
+        /** @var Varien_Object $eventWrapper */
         $eventWrapper = $observer->getEventObjectWrapper();
-        /* @var $product Mage_Catalog_Model_Product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $eventWrapper->getProduct();
 
         if ($product->getTypeId() != Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
             return;
         }
 
-        /* @var $productType Mage_Catalog_Model_Product_Type_Configurable */
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
         $productType = Mage::getModel('catalog/product_type_configurable');
 
         $childrenProducts = $productType->getUsedProducts(null, $product);
         $product->setChildrenProducts($childrenProducts);
 
-        $mediaProductIds = array();
+        $mediaProductIds = [];
         foreach ($childrenProducts as $childProduct) {
             $mediaProductIds[] = $childProduct->getId();
         }
@@ -156,8 +156,8 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
 
         // Perform this operation if we're on a category view page or search results page
         if (($front == 'catalog' && $controller == 'category' && $action == 'view')
-            || ($front == 'catalogsearch' && $controller == 'result' && $action == 'index')) {
-
+            || ($front == 'catalogsearch' && $controller == 'result' && $action == 'index')
+        ) {
             // Block name for layered navigation differs depending on which Magento edition we're in
             $blockName = 'catalog.leftnav';
             if (Mage::getEdition() == Mage::EDITION_ENTERPRISE) {

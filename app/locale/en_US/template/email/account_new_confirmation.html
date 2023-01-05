@@ -6,8 +6,8 @@
 "store url=\"customer/account/\"":"Customer Account Url",
 "htmlescape var=$customer.name":"Customer Name",
 "var customer.email":"Customer Email",
-"store url=\"customer/account/confirm/\" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url":"Confirmation Url",
-"htmlescape var=$customer.password":"Customer password"}
+"store url=\"customer/account/confirm/\" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url":"Confirmation Url"
+}
 @-->
 
 <!--@styles
@@ -27,7 +27,7 @@
                         <p class="highlighted-text">
                             Use the following values when prompted to log in:<br/>
                             <strong>Email:</strong> {{var customer.email}}<br/>
-                            <strong>Password:</strong> {{htmlescape var=$customer.password}}
+                            <strong>Password</strong>: (the password you set when creating your account)
                         </p>
                         <p>Click here to confirm your email and instantly log in (the link is valid only once):</p>
                         <table cellspacing="0" cellpadding="0" class="action-button" >

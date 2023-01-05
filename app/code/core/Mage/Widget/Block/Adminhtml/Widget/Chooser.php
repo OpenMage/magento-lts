@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Widget
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Widget
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -30,8 +25,15 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setConfig(Varien_Object $value)
+ * @method $this setElement(Varien_Data_Form_Element_Abstract $value)
+ * @method $this setFieldsetId(string $value)
+ * @method string getLabel()
+ * @method $this setTranslationHelper(Mage_Core_Helper_Abstract $value)
+ * @method $this setSourceUrl(string $value)
+ * @method $this setUniqId(string $value)
  */
-
 class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Template
 {
     /**
@@ -78,10 +80,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
         }
 
         // chooser control buttons
-        $buttons = array(
+        $buttons = [
             'open'  => Mage::helper('widget')->__('Choose...'),
             'close' => Mage::helper('widget')->__('Close')
-        );
+        ];
         if (isset($configArray['button']) && is_array($configArray['button'])) {
             foreach ($configArray['button'] as $id => $label) {
                 $buttons[$id] = $this->getTranslationHelper()->__($label);
@@ -143,16 +145,16 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
     protected function _toHtml()
     {
         $element   = $this->getElement();
-        /* @var $fieldset Varien_Data_Form_Element_Fieldset */
+        /** @var Varien_Data_Form_Element_Fieldset $fieldset */
         $fieldset  = $element->getForm()->getElement($this->getFieldsetId());
         $chooserId = $this->getUniqId();
         $config    = $this->getConfig();
 
         // add chooser element to fieldset
-        $chooser = $fieldset->addField('chooser' . $element->getId(), 'note', array(
+        $chooser = $fieldset->addField('chooser' . $element->getId(), 'note', [
             'label'       => $config->getLabel() ? $config->getLabel() : '',
             'value_class' => 'value2',
-        ));
+        ]);
         $hiddenHtml = '';
         if ($this->getHiddenEnabled()) {
             $hidden = new Varien_Data_Form_Element_Hidden($element->getData());
@@ -170,7 +172,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
             ->setId($chooserId . 'control')
             ->setClass('btn-chooser')
             ->setLabel($buttons['open'])
-            ->setOnclick($chooserId.'.choose()')
+            ->setOnclick($chooserId . '.choose()')
             ->setDisabled($element->getReadonly());
         $chooser->setData('after_element_html', $hiddenHtml . $chooseButton->toHtml());
 

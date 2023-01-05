@@ -1,36 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sitemap
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sitemap
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sitemap resource catalog collection model
  *
- * @category    Mage
- * @package     Mage_Sitemap
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sitemap
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Resource_Catalog_Abstract
 {
@@ -46,11 +40,10 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
      * Get category collection array
      *
      * @param int $storeId
-     * @return array
+     * @return array|false
      */
     public function getCollection($storeId)
     {
-        /* @var $store Mage_Core_Model_Store */
         $store = Mage::app()->getStore($storeId);
         if (!$store) {
             return false;
@@ -66,12 +59,11 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
         }
 
         $this->_select = $this->_getWriteAdapter()->select()
-            ->from(array('main_table' => $this->getMainTable()), array($this->getIdFieldName()))
+            ->from(['main_table' => $this->getMainTable()], [$this->getIdFieldName()])
             ->where('main_table.path LIKE ?', $categoryRow['path'] . '/%');
 
         $storeId = (int)$store->getId();
 
-        /** @var $urlRewrite Mage_Catalog_Helper_Category_Url_Rewrite_Interface */
         $urlRewrite = $this->_factory->getCategoryUrlRewriteHelper();
         $urlRewrite->joinTableToSelect($this->_select, $storeId);
 
@@ -109,19 +101,19 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
      * Loads category attribute by given attribute code.
      *
      * @param string $attributeCode
-     * @return Mage_Sitemap_Model_Resource_Catalog_Abstract
+     * @return $this
      */
     protected function _loadAttribute($attributeCode)
     {
         $attribute = Mage::getSingleton('catalog/category')->getResource()->getAttribute($attributeCode);
 
-        $this->_attributesCache[$attributeCode] = array(
+        $this->_attributesCache[$attributeCode] = [
             'entity_type_id' => $attribute->getEntityTypeId(),
             'attribute_id'   => $attribute->getId(),
             'table'          => $attribute->getBackend()->getTable(),
             'is_global'      => $attribute->getIsGlobal(),
             'backend_type'   => $attribute->getBackendType()
-        );
+        ];
         return $this;
     }
 }

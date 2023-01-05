@@ -1,29 +1,23 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog comapare controller
@@ -39,7 +33,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
      *
      * @var array
      */
-    protected $_cookieCheckActions = array('add');
+    protected $_cookieCheckActions = ['add'];
 
     /**
      * Customer id
@@ -80,7 +74,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
         }
 
         $productId = (int) $this->getRequest()->getParam('product');
-        if ($productId
+        if ($this->isProductAvailable($productId)
             && (Mage::getSingleton('log/visitor')->getId() || Mage::getSingleton('customer/session')->isLoggedIn())
         ) {
             $product = Mage::getModel('catalog/product')
@@ -92,7 +86,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
                 Mage::getSingleton('catalog/session')->addSuccess(
                     $this->__('The product %s has been added to comparison list.', Mage::helper('core')->escapeHtml($product->getName()))
                 );
-                Mage::dispatchEvent('catalog_product_compare_add_product', array('product'=>$product));
+                Mage::dispatchEvent('catalog_product_compare_add_product', ['product' => $product]);
             }
 
             Mage::helper('catalog/product_compare')->calculate();
@@ -106,15 +100,16 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
      */
     public function removeAction()
     {
-        if ($productId = (int) $this->getRequest()->getParam('product')) {
+        $productId = (int) $this->getRequest()->getParam('product');
+        if ($this->isProductAvailable($productId)) {
             $product = Mage::getModel('catalog/product')
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->load($productId);
 
-            if($product->getId()) {
-                /** @var $item Mage_Catalog_Model_Product_Compare_Item */
+            if ($product->getId()) {
+                /** @var Mage_Catalog_Model_Product_Compare_Item $item */
                 $item = Mage::getModel('catalog/product_compare_item');
-                if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+                if (Mage::getSingleton('customer/session')->isLoggedIn()) {
                     $item->addCustomerData(Mage::getSingleton('customer/session')->getCustomer());
                 } elseif ($this->_customerId) {
                     $item->addCustomerData(
@@ -126,12 +121,12 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
 
                 $item->loadByProduct($product);
 
-                if($item->getId()) {
+                if ($item->getId()) {
                     $item->delete();
                     Mage::getSingleton('catalog/session')->addSuccess(
                         $this->__('The product %s has been removed from comparison list.', $product->getName())
                     );
-                    Mage::dispatchEvent('catalog_product_compare_remove_product', array('product'=>$item));
+                    Mage::dispatchEvent('catalog_product_compare_remove_product', ['product' => $item]);
                     Mage::helper('catalog/product_compare')->calculate();
                 }
             }
@@ -157,7 +152,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
             $items->setVisitorId(Mage::getSingleton('log/visitor')->getId());
         }
 
-        /** @var $session Mage_Catalog_Model_Session */
+        /** @var Mage_Catalog_Model_Session $session */
         $session = Mage::getSingleton('catalog/session');
 
         try {
@@ -177,11 +172,22 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
      * Setter for customer id
      *
      * @param int $id
-     * @return Mage_Catalog_Product_CompareController
+     * @return $this
      */
     public function setCustomerId($id)
     {
         $this->_customerId = $id;
         return $this;
+    }
+
+    /**
+     * Check if product is available
+     *
+     * @param int $productId
+     * @return bool
+     */
+    public function isProductAvailable($productId)
+    {
+        return Mage::getModel('catalog/product')->load($productId)->isAvailable();
     }
 }

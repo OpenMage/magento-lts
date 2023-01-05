@@ -1,35 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CatalogSearch Fulltext Observer
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogSearch_Model_Fulltext_Observer
 {
@@ -47,10 +42,11 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
      * Update product index when product data updated
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_CatalogSearch_Model_Fulltext_Observer
+     * @return $this
      */
     public function refreshProductIndex(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
 
         $this->_getFulltextModel()
@@ -64,10 +60,11 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
      * Clean product index when product deleted or marked as unsearchable/invisible
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_CatalogSearch_Model_Fulltext_Observer
+     * @return $this
      */
     public function cleanProductIndex(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
 
         $this->_getFulltextModel()
@@ -81,14 +78,14 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
      * Update all attribute-dependant index
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_CatalogSearch_Model_Fulltext_Observer
+     * @return $this
      */
     public function eavAttributeChange(Varien_Event_Observer $observer)
     {
         $attribute = $observer->getEvent()->getAttribute();
-        /* @var $attribute Mage_Eav_Model_Entity_Attribute */
+        /** @var Mage_Eav_Model_Entity_Attribute $attribute */
         $entityType = Mage::getSingleton('eav/config')->getEntityType(Mage_Catalog_Model_Product::ENTITY);
-        /* @var $entityType Mage_Eav_Model_Entity_Type */
+        /** @var Mage_Eav_Model_Entity_Type $entityType */
 
         if ($attribute->getEntityTypeId() != $entityType->getId()) {
             return $this;
@@ -104,8 +101,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
             if ($attribute->getIsSearchable()) {
                 $showNotice = true;
             }
-        }
-        elseif ($attribute->dataHasChangedFor('is_searchable')) {
+        } elseif ($attribute->dataHasChangedFor('is_searchable')) {
             $showNotice = true;
         }
 
@@ -122,7 +118,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
     /**
      * Rebuild index after import
      *
-     * @return Mage_CatalogSearch_Model_Fulltext_Observer
+     * @return $this
      */
     public function refreshIndexAfterImport()
     {
@@ -148,7 +144,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
      * Catalog Product mass website update
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_CatalogSearch_Model_Fulltext_Observer
+     * @return $this
      */
     public function catalogProductWebsiteUpdate(Varien_Event_Observer $observer)
     {
@@ -162,8 +158,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
                     $this->_getFulltextModel()
                         ->cleanIndex($storeId, $productIds)
                         ->resetSearchResults();
-                }
-                elseif ($actionType == 'add') {
+                } elseif ($actionType == 'add') {
                     $this->_getFulltextModel()
                         ->rebuildIndex($storeId, $productIds)
                         ->resetSearchResults();
@@ -178,12 +173,12 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
      * Store delete processing
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_CatalogSearch_Model_Fulltext_Observer
+     * @return $this
      */
     public function cleanStoreIndex(Varien_Event_Observer $observer)
     {
         $store = $observer->getEvent()->getStore();
-        /* @var $store Mage_Core_Model_Store */
+        /** @var Mage_Core_Model_Store $store */
 
         $this->_getFulltextModel()
             ->cleanIndex($store->getId());

@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -33,11 +28,13 @@
  */
 class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_Abstract
 {
-     /**
+    protected $_moduleName = 'Mage_Adminhtml';
+
+    /**
      * Init layout of product configuration update result
      *
      * @param Mage_Adminhtml_Controller_Action $controller
-     * @return Mage_Adminhtml_Helper_Catalog_Product_Composite
+     * @return $this
      */
     protected function _initUpdateResultLayout($controller)
     {
@@ -53,7 +50,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
      *
      * @param Mage_Adminhtml_Controller_Action $controller
      * @param Varien_Object $updateResult
-     * @return Mage_Adminhtml_Helper_Catalog_Product_Composite
+     * @return $this
      */
     public function renderUpdateResult($controller, Varien_Object $updateResult)
     {
@@ -61,19 +58,20 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
 
         $this->_initUpdateResultLayout($controller);
         $controller->renderLayout();
+        return $this;
     }
 
-     /**
-     * Init composite product configuration layout
-     *
-     * $isOk - true or false, whether action was completed nicely or with some error
-     * If $isOk is FALSE (some error during configuration), so $productType must be null
-     *
-     * @param Mage_Adminhtml_Controller_Action $controller
-     * @param bool $isOk
-     * @param string $productType
-     * @return Mage_Adminhtml_Helper_Catalog_Product_Composite
-     */
+    /**
+    * Init composite product configuration layout
+    *
+    * $isOk - true or false, whether action was completed nicely or with some error
+    * If $isOk is FALSE (some error during configuration), so $productType must be null
+    *
+    * @param Mage_Adminhtml_Controller_Action $controller
+    * @param bool $isOk
+    * @param string $productType
+    * @return $this
+    */
     protected function _initConfigureResultLayout($controller, $isOk, $productType)
     {
         $update = $controller->getLayout()->getUpdate();
@@ -96,14 +94,14 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
      *
      * @param Mage_Adminhtml_Controller_Action $controller
      * @param Varien_Object $configureResult
-     * @return Mage_Adminhtml_Helper_Catalog_Product_Composite
+     * @return $this
      */
     public function renderConfigureResult($controller, Varien_Object $configureResult)
     {
         try {
             if (!$configureResult->getOk()) {
                 Mage::throwException($configureResult->getMessage());
-            };
+            }
 
             $currentStoreId = (int) $configureResult->getCurrentStoreId();
             if (!$currentStoreId) {
@@ -148,5 +146,6 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
 
         $this->_initConfigureResultLayout($controller, $isOk, $productType);
         $controller->renderLayout();
+        return $this;
     }
 }

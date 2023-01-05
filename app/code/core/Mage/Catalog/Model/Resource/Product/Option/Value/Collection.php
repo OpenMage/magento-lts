@@ -1,43 +1,33 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog product option values collection
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Option_Value_Collection
-    extends Mage_Core_Model_Resource_Db_Collection_Abstract
+class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    /**
-     * Resource initialization
-     */
     protected function _construct()
     {
         $this->_init('catalog/product_option_value');
@@ -47,7 +37,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      * Add price, title to result
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
+     * @return $this
      */
     public function getValues($storeId)
     {
@@ -61,7 +51,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      * Add titles to result
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
+     * @return $this
      */
     public function addTitlesToResult($storeId)
     {
@@ -94,31 +84,31 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection
 
         $this->getSelect()
             ->joinLeft(
-                array('default_value_price' => $optionTypePriceTable),
+                ['default_value_price' => $optionTypePriceTable],
                 $joinExprDefaultPrice,
-                array('default_price'=>'price','default_price_type'=>'price_type')
+                ['default_price' => 'price','default_price_type' => 'price_type']
             )
             ->joinLeft(
-                array('store_value_price' => $optionTypePriceTable),
+                ['store_value_price' => $optionTypePriceTable],
                 $joinExprStorePrice,
-                array(
+                [
                     'store_price'       => 'price',
                     'store_price_type'  => 'price_type',
                     'price'             => $priceExpr,
                     'price_type'        => $priceTypeExpr
-                )
+                ]
             )
             ->join(
-                array('default_value_title' => $optionTitleTable),
+                ['default_value_title' => $optionTitleTable],
                 'default_value_title.option_type_id = main_table.option_type_id',
-                array('default_title' => 'title')
+                ['default_title' => 'title']
             )
             ->joinLeft(
-                array('store_value_title' => $optionTitleTable),
+                ['store_value_title' => $optionTitleTable],
                 $joinExprTitle,
-                array(
+                [
                     'store_title' => 'title',
-                    'title'       => $titleExpr)
+                    'title'       => $titleExpr]
             )
             ->where('default_value_title.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
 
@@ -129,7 +119,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      * Add title result
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
+     * @return $this
      */
     public function addTitleToResult($storeId)
     {
@@ -141,17 +131,17 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection
                   . $this->getConnection()->quoteInto('store_value_title.store_id = ?', $storeId);
         $this->getSelect()
             ->join(
-                array('default_value_title' => $optionTitleTable),
+                ['default_value_title' => $optionTitleTable],
                 'default_value_title.option_type_id = main_table.option_type_id',
-                array('default_title' => 'title')
+                ['default_title' => 'title']
             )
             ->joinLeft(
-                array('store_value_title' => $optionTitleTable),
+                ['store_value_title' => $optionTitleTable],
                 $joinExpr,
-                array(
+                [
                     'store_title'   => 'title',
                     'title'         => $titleExpr
-                )
+                ]
             )
             ->where('default_value_title.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
 
@@ -162,7 +152,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      * Add price to result
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
+     * @return $this
      */
     public function addPriceToResult($storeId)
     {
@@ -182,22 +172,22 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection
                        . $this->getConnection()->quoteInto('store_value_price.store_id = ?', $storeId);
         $this->getSelect()
             ->joinLeft(
-                array('default_value_price' => $optionTypeTable),
+                ['default_value_price' => $optionTypeTable],
                 $joinExprDefault,
-                array(
+                [
                     'default_price' => 'price',
-                    'default_price_type'=>'price_type'
-                )
+                    'default_price_type' => 'price_type'
+                ]
             )
             ->joinLeft(
-                array('store_value_price' => $optionTypeTable),
+                ['store_value_price' => $optionTypeTable],
                 $joinExprStore,
-                array(
+                [
                     'store_price'       => 'price',
                     'store_price_type'  => 'price_type',
                     'price'             => $priceExpr,
                     'price_type'        => $priceTypeExpr
-                )
+                ]
             );
 
         return $this;
@@ -208,29 +198,29 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      *
      * @param array $optionIds
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
+     * @return $this
      */
     public function getValuesByOption($optionIds, $storeId = null)
     {
         if (!is_array($optionIds)) {
-            $optionIds = array($optionIds);
+            $optionIds = [$optionIds];
         }
 
-        return $this->addFieldToFilter('main_table.option_type_id', array('in' => $optionIds));
+        return $this->addFieldToFilter('main_table.option_type_id', ['in' => $optionIds]);
     }
 
     /**
      * Add option to filter
      *
      * @param array|Mage_Catalog_Model_Product_Option|int $option
-     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
+     * @return $this
      */
     public function addOptionToFilter($option)
     {
         if (empty($option)) {
             $this->addFieldToFilter('option_id', '');
         } elseif (is_array($option)) {
-            $this->addFieldToFilter('option_id', array('in' => $option));
+            $this->addFieldToFilter('option_id', ['in' => $option]);
         } elseif ($option instanceof Mage_Catalog_Model_Product_Option) {
             $this->addFieldToFilter('option_id', $option->getId());
         } else {

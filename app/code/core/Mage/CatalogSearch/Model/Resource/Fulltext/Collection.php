@@ -1,48 +1,42 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Fulltext Collection
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
     /**
      * Name for relevance order
      */
-    const RELEVANCE_ORDER_NAME = 'relevance';
+    public const RELEVANCE_ORDER_NAME = 'relevance';
 
     /**
      * Found data
      *
-     * @var array
+     * @var array|null
      */
     protected $_foundData = null;
 
@@ -80,8 +74,8 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     /**
      * Add search query filter
      *
-     * @param $query
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext_Collection
+     * @param string $query
+     * @return $this
      */
     public function addSearchFilter($query)
     {
@@ -119,7 +113,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     /**
      * Apply collection search filter
      *
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext_Collection
+     * @return $this
      */
     protected function _applySearchFilters()
     {
@@ -156,12 +150,12 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     /**
      * Resort found data by relevance
      *
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext_Collection
+     * @return $this
      */
     protected function _resortFoundDataByRelevance()
     {
         if (is_array($this->_foundData)) {
-            $data = array();
+            $data = [];
             foreach ($this->_foundData as $id => $relevance) {
                 $this->_foundData[$id] = $relevance . '_' . $id;
             }
@@ -170,7 +164,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
                 $this->_foundData = array_reverse($this->_foundData);
             }
             foreach ($this->_foundData as $dataString) {
-                list ($relevance, $id) = explode('_', $dataString);
+                list($relevance, $id) = explode('_', $dataString);
                 $data[$id] = $relevance;
             }
             $this->_foundData = $data;
@@ -183,7 +177,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
      *
      * @param string $attribute
      * @param string $dir
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext_Collection
+     * @return $this
      */
     public function setOrder($attribute, $dir = 'desc')
     {
@@ -199,7 +193,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     /**
      * Add sorting by relevance to select
      *
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext_Collection
+     * @return $this
      */
     protected function _addRelevanceSorting()
     {
@@ -226,7 +220,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     /**
      * Stub method for compatibility with other search engines
      *
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext_Collection
+     * @return $this
      */
     public function setGeneralDefaultQuery()
     {

@@ -1,35 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Captcha
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Captcha
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Captcha Observer
  *
- * @category    Mage
- * @package     Mage_Captcha
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Captcha
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Captcha_Model_Observer
 {
@@ -37,7 +32,7 @@ class Mage_Captcha_Model_Observer
      * Check Captcha On Forgot Password Page
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function checkForgotpassword($observer)
     {
@@ -58,7 +53,7 @@ class Mage_Captcha_Model_Observer
      * Check Captcha On User Login Page
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function checkUserLogin($observer)
     {
@@ -66,7 +61,7 @@ class Mage_Captcha_Model_Observer
         $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
         $controller = $observer->getControllerAction();
         $loginParams = $controller->getRequest()->getPost('login');
-        $login = isset($loginParams['username']) ? $loginParams['username'] : null;
+        $login = $loginParams['username'] ?? null;
         if ($captchaModel->isRequired($login)) {
             $word = $this->_getCaptchaString($controller->getRequest(), $formId);
             if (!$captchaModel->isCorrect($word)) {
@@ -86,9 +81,9 @@ class Mage_Captcha_Model_Observer
      * Check Captcha On Register User Page
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
-    public function checkUserCreate($observer)
+    public function checkUserCreate(Varien_Event_Observer $observer)
     {
         $formId = 'user_create';
         $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
@@ -108,9 +103,9 @@ class Mage_Captcha_Model_Observer
      * Check Captcha On Checkout as Guest Page
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
-    public function checkGuestCheckout($observer)
+    public function checkGuestCheckout(Varien_Event_Observer $observer)
     {
         $formId = 'guest_checkout';
         $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
@@ -120,7 +115,7 @@ class Mage_Captcha_Model_Observer
                 $controller = $observer->getControllerAction();
                 if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
                     $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
-                    $result = array('error' => 1, 'message' => Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                    $result = ['error' => 1, 'message' => Mage::helper('captcha')->__('Incorrect CAPTCHA.')];
                     $controller->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
                 }
             }
@@ -132,7 +127,7 @@ class Mage_Captcha_Model_Observer
      * Check Captcha On Checkout Register Page
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function checkRegisterCheckout($observer)
     {
@@ -144,7 +139,7 @@ class Mage_Captcha_Model_Observer
                 $controller = $observer->getControllerAction();
                 if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
                     $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
-                    $result = array('error' => 1, 'message' => Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                    $result = ['error' => 1, 'message' => Mage::helper('captcha')->__('Incorrect CAPTCHA.')];
                     $controller->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
                 }
             }
@@ -156,14 +151,14 @@ class Mage_Captcha_Model_Observer
      * Check Captcha On User Login Backend Page
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function checkUserLoginBackend($observer)
     {
         $formId = 'backend_login';
         $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
-        $loginParams = Mage::app()->getRequest()->getPost('login', array());
-        $login = array_key_exists('username', $loginParams) ? $loginParams['username'] : null;
+        $loginParams = Mage::app()->getRequest()->getPost('login', []);
+        $login = $loginParams['username'] ?? null;
         if ($captchaModel->isRequired($login)) {
             if (!$captchaModel->isCorrect($this->_getCaptchaString(Mage::app()->getRequest(), $formId))) {
                 $captchaModel->logAttempt($login);
@@ -188,7 +183,7 @@ class Mage_Captcha_Model_Observer
      * Check Captcha On User Login Backend Page
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function checkUserForgotPasswordBackend($observer)
     {
@@ -198,8 +193,8 @@ class Mage_Captcha_Model_Observer
         $email = (string) $observer->getControllerAction()->getRequest()->getParam('email');
         $params = $observer->getControllerAction()->getRequest()->getParams();
 
-        if (!empty($email) && !empty($params)){
-            if ($captchaModel->isRequired()){
+        if (!empty($email) && !empty($params)) {
+            if ($captchaModel->isRequired()) {
                 if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
                     $this->_getBackendSession()->setEmail((string) $controller->getRequest()->getPost('email'));
                     $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
@@ -215,7 +210,7 @@ class Mage_Captcha_Model_Observer
      * Reset Attempts For Frontend
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function resetAttemptForFrontend($observer)
     {
@@ -226,7 +221,7 @@ class Mage_Captcha_Model_Observer
      * Reset Attempts For Backend
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function resetAttemptForBackend($observer)
     {
@@ -236,7 +231,7 @@ class Mage_Captcha_Model_Observer
     /**
      * Delete Unnecessary logged attempts
      *
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function deleteOldAttempts()
     {
@@ -247,12 +242,12 @@ class Mage_Captcha_Model_Observer
     /**
      * Delete Expired Captcha Images
      *
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function deleteExpiredImages()
     {
-        foreach (Mage::app()->getWebsites(true) as $website){
-            $expire = time() - Mage::helper('captcha')->getConfigNode('timeout', $website->getDefaultStore())*60;
+        foreach (Mage::app()->getWebsites(true) as $website) {
+            $expire = time() - Mage::helper('captcha')->getConfigNode('timeout', $website->getDefaultStore()) * 60;
             $imageDirectory = Mage::helper('captcha')->getImgDir($website);
             foreach (new DirectoryIterator($imageDirectory) as $file) {
                 if ($file->isFile() && pathinfo($file->getFilename(), PATHINFO_EXTENSION) == 'png') {
@@ -269,7 +264,7 @@ class Mage_Captcha_Model_Observer
      * Reset Attempts
      *
      * @param string $login
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     protected function _resetAttempt($login)
     {
@@ -280,7 +275,7 @@ class Mage_Captcha_Model_Observer
     /**
      * Get Captcha String
      *
-     * @param Varien_Object $request
+     * @param Mage_Core_Controller_Request_Http $request
      * @param string $formId
      * @return string
      */
@@ -288,5 +283,58 @@ class Mage_Captcha_Model_Observer
     {
         $captchaParams = $request->getPost(Mage_Captcha_Helper_Data::INPUT_NAME_FIELD_VALUE);
         return $captchaParams[$formId];
+    }
+
+    /**
+     * Check Captcha On Share Wishlist Page
+     *
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function checkWishlistSharing($observer)
+    {
+        $formId = 'wishlist_sharing';
+        $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
+        if ($captchaModel->isRequired()) {
+            $controller = $observer->getControllerAction();
+            $request = $controller->getRequest();
+            if (!$captchaModel->isCorrect($this->_getCaptchaString($request, $formId))) {
+                Mage::getSingleton('wishlist/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
+                Mage::getSingleton('wishlist/session')->setSharingForm($request->getPost());
+                $wishlistId = (int)$request->getParam('wishlist_id');
+                $controller->getResponse()
+                    ->setRedirect(Mage::getUrl('wishlist/index/share/wishlist_id/' . $wishlistId));
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Check Captcha On Email Product To A Friend Page
+     *
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function checkSendfriendSend($observer)
+    {
+        $formId = 'sendfriend_send';
+        $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
+        if ($captchaModel->isRequired()) {
+            $controller = $observer->getControllerAction();
+            $request = $controller->getRequest();
+            if (!$captchaModel->isCorrect($this->_getCaptchaString($request, $formId))) {
+                Mage::getSingleton('catalog/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
+                Mage::getSingleton('catalog/session')->setFormData($request->getPost());
+                $id = (int)$request->getParam('id');
+                $catId = $request->getParam('cat_id');
+                if ($catId !== null) {
+                    $id .= '/cat_id/' . (int)$catId;
+                }
+                $controller->getResponse()->setRedirect(Mage::getUrl('*/*/send/id/' . $id));
+            }
+        }
+        return $this;
     }
 }

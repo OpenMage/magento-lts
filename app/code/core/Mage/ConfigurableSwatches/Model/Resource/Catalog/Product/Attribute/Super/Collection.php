@@ -1,30 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_Collection
-    extends Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
+
+/**
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_Collection extends Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
 {
     private $_eavAttributesJoined = false;
     private $_storeId = null;
@@ -35,8 +35,9 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
      * @param array $parentProductIds
      * @return $this
      */
-    public function addParentProductsFilter(array $parentProductIds) {
-        $this->addFieldToFilter('product_id', array('in' => $parentProductIds));
+    public function addParentProductsFilter(array $parentProductIds)
+    {
+        $this->addFieldToFilter('product_id', ['in' => $parentProductIds]);
         return $this;
     }
 
@@ -45,13 +46,14 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
      *
      * @return $this
      */
-    public function attachEavAttributes() {
+    public function attachEavAttributes()
+    {
         if ($this->_eavAttributesJoined) {
-            return;
+            return $this;
         }
 
         $this->join(
-            array('eav_attributes' => 'eav/attribute'),
+            ['eav_attributes' => 'eav/attribute'],
             '`eav_attributes`.`attribute_id` = `main_table`.`attribute_id`'
         );
 
@@ -62,10 +64,11 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
     /**
      * Set store ID
      *
-     * @param $storeId
+     * @param int $storeId
      * @return $this
      */
-    public function setStoreId($storeId) {
+    public function setStoreId($storeId)
+    {
         $this->_storeId = $storeId;
         return $this;
     }
@@ -116,23 +119,23 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
         $attributeIds = $this->_getAttributeIds();
 
         $select = $this->getConnection()->select();
-        $select->from(array('options' => $this->getTable('eav/attribute_option')))
+        $select->from(['options' => $this->getTable('eav/attribute_option')])
             ->join(
-                array('labels' => $this->getTable('eav/attribute_option_value')),
+                ['labels' => $this->getTable('eav/attribute_option_value')],
                 'labels.option_id = options.option_id',
-                array(
+                [
                     'label' => 'labels.value',
                     'store_id' => 'labels.store_id',
-                )
+                ]
             )
             ->where('options.attribute_id IN (?)', $attributeIds)
             ->where(
                 'labels.store_id IN (?)',
-                array(Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID, $this->getStoreId())
+                [Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID, $this->getStoreId()]
             );
 
         $resultSet = $this->getConnection()->query($select);
-        $labels = array();
+        $labels = [];
         while ($option = $resultSet->fetch()) {
             $labels[$option['option_id']][$option['store_id']] = $option['label'];
         }
@@ -146,7 +149,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
      */
     protected function _getAttributeIds()
     {
-        $attributeIds = array();
+        $attributeIds = [];
         foreach ($this->getItems() as $item) {
             $attributeIds[] = $item->getAttributeId();
         }

@@ -1,36 +1,32 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog view layer model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setStore(int $value)
  */
 class Mage_Catalog_Model_Layer extends Varien_Object
 {
@@ -39,7 +35,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      *
      * @var array
      */
-    protected $_productCollections = array();
+    protected $_productCollections = [];
 
     /**
      * Key which can be used for load/save aggregation data
@@ -66,7 +62,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     public function getStateKey()
     {
         if ($this->_stateKey === null) {
-            $this->_stateKey = 'STORE_'.Mage::app()->getStore()->getId()
+            $this->_stateKey = 'STORE_' . Mage::app()->getStore()->getId()
                 . '_CAT_' . $this->getCurrentCategory()->getId()
                 . '_CUSTGROUP_' . Mage::getSingleton('customer/session')->getCustomerGroupId();
         }
@@ -80,11 +76,11 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      * @param   array $additionalTags
      * @return  array
      */
-    public function getStateTags(array $additionalTags = array())
+    public function getStateTags(array $additionalTags = [])
     {
-        $additionalTags = array_merge($additionalTags, array(
-            Mage_Catalog_Model_Category::CACHE_TAG.$this->getCurrentCategory()->getId()
-        ));
+        $additionalTags = array_merge($additionalTags, [
+            Mage_Catalog_Model_Category::CACHE_TAG . $this->getCurrentCategory()->getId()
+        ]);
 
         return $additionalTags;
     }
@@ -92,7 +88,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Retrieve current layer product collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     public function getProductCollection()
     {
@@ -110,8 +106,8 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Initialize product collection
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection
-     * @return Mage_Catalog_Model_Layer
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @return $this
      */
     public function prepareProductCollection($collection)
     {
@@ -120,8 +116,6 @@ class Mage_Catalog_Model_Layer extends Varien_Object
             ->addPriceData()
             ->addTaxPercents()
             ->addUrlRewrite($this->getCurrentCategory()->getId());
-
-        Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
 
         return $this;
@@ -133,7 +127,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      * for prepare some index data before getting information
      * about existing intexes
      *
-     * @return Mage_Catalog_Model_Layer
+     * @return $this
      */
     public function apply()
     {
@@ -143,7 +137,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
                 . '_' . $filterItem->getValueString();
         }
         if (!empty($stateSuffix)) {
-            $this->_stateKey = $this->getStateKey().$stateSuffix;
+            $this->_stateKey = $this->getStateKey() . $stateSuffix;
         }
 
         return $this;
@@ -161,8 +155,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
         if (is_null($category)) {
             if ($category = Mage::registry('current_category')) {
                 $this->setData('current_category', $category);
-            }
-            else {
+            } else {
                 $category = Mage::getModel('catalog/category')->load($this->getCurrentStore()->getRootCategoryId());
                 $this->setData('current_category', $category);
             }
@@ -175,7 +168,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      * Change current category object
      *
      * @param mixed $category
-     * @return Mage_Catalog_Model_Layer
+     * @return $this
      */
     public function setCurrentCategory($category)
     {
@@ -209,18 +202,15 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Get collection of all filterable attributes for layer products set
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Attribute_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection|array
      */
     public function getFilterableAttributes()
     {
-//        $entity = Mage::getSingleton('eav/config')
-//            ->getEntityType('catalog_product');
-
         $setIds = $this->_getSetIds();
         if (!$setIds) {
-            return array();
+            return [];
         }
-        /** @var $collection Mage_Catalog_Model_Resource_Product_Attribute_Collection */
+        /** @var Mage_Catalog_Model_Resource_Product_Attribute_Collection $collection */
         $collection = Mage::getResourceModel('catalog/product_attribute_collection');
         $collection
             ->setItemObjectClass('catalog/resource_eav_attribute')
@@ -248,8 +238,8 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Add filters to attribute collection
      *
-     * @param   Mage_Catalog_Model_Resource_Eav_Mysql4_Attribute_Collection $collection
-     * @return  Mage_Catalog_Model_Resource_Eav_Mysql4_Attribute_Collection
+     * @param   Mage_Catalog_Model_Resource_Product_Attribute_Collection $collection
+     * @return  Mage_Catalog_Model_Resource_Product_Attribute_Collection
      */
     protected function _prepareAttributeCollection($collection)
     {
@@ -282,7 +272,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      */
     protected function _getSetIds()
     {
-        $key = $this->getStateKey().'_SET_IDS';
+        $key = $this->getStateKey() . '_SET_IDS';
         $setIds = $this->getAggregator()->getCacheData($key);
 
         if ($setIds === null) {

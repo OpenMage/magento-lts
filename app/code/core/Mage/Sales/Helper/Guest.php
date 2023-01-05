@@ -1,36 +1,35 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales module base helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
 {
+    protected $_moduleName = 'Mage_Sales';
+
     /**
      * Cookie params
      */
@@ -52,7 +51,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
         $post = Mage::app()->getRequest()->getPost();
         $errors = false;
 
-        /** @var $order Mage_Sales_Model_Order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = Mage::getModel('sales/order');
         /** @var Mage_Core_Model_Cookie $cookieModel */
         $cookieModel = Mage::getSingleton('core/cookie');
@@ -61,15 +60,16 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
         if (empty($post) && !$cookieModel->get($this->_cookieName)) {
             Mage::app()->getResponse()->setRedirect(Mage::getUrl('sales/guest/form'));
             return false;
-        } elseif (!empty($post) && isset($post['oar_order_id']) && isset($post['oar_type']))  {
+        } elseif (!empty($post) && isset($post['oar_order_id']) && isset($post['oar_type'])) {
             $type           = $post['oar_type'];
             $incrementId    = $post['oar_order_id'];
             $lastName       = $post['oar_billing_lastname'];
             $email          = $post['oar_email'];
             $zip            = $post['oar_zip'];
 
-            if (empty($incrementId) || empty($lastName) || empty($type) || (!in_array($type, array('email', 'zip')))
-                || ($type == 'email' && empty($email)) || ($type == 'zip' && empty($zip))) {
+            if (empty($incrementId) || empty($lastName) || empty($type) || (!in_array($type, ['email', 'zip']))
+                || ($type == 'email' && empty($email)) || ($type == 'zip' && empty($zip))
+            ) {
                 $errors = true;
             }
 
@@ -102,9 +102,9 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             }
         } elseif ($cookieModel->get($this->_cookieName)) {
             $cookie = $cookieModel->get($this->_cookieName);
-            $cookieOrder = $this->_loadOrderByCookie( $cookie );
-            if( !is_null( $cookieOrder) ){
-                if( is_null( $cookieOrder->getCustomerId() ) ){
+            $cookieOrder = $this->_loadOrderByCookie($cookie);
+            if (!is_null($cookieOrder)) {
+                if (is_null($cookieOrder->getCustomerId())) {
                     $cookieModel->renew($this->_cookieName, $this->_lifeTime, '/');
                     $order = $cookieOrder;
                 } else {
@@ -133,27 +133,28 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
      */
     public function getBreadcrumbs($controller)
     {
+        /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
         $breadcrumbs = $controller->getLayout()->getBlock('breadcrumbs');
         $breadcrumbs->addCrumb(
             'home',
-            array(
+            [
                 'label' => $this->__('Home'),
                 'title' => $this->__('Go to Home Page'),
                 'link'  => Mage::getBaseUrl()
-            )
+            ]
         );
         $breadcrumbs->addCrumb(
             'cms_page',
-            array(
+            [
                 'label' => $this->__('Order Information'),
                 'title' => $this->__('Order Information')
-            )
+            ]
         );
     }
 
     /**
      * Try to load order by cookie hash
-     * 
+     *
      * @param string|null $cookie
      * @return null|Mage_Sales_Model_Order
      */
@@ -161,11 +162,11 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
     {
         if (!is_null($cookie)) {
             $cookieData = explode(':', base64_decode($cookie));
-            $protectCode = isset($cookieData[0]) ? $cookieData[0] : null;
-            $incrementId = isset($cookieData[1]) ? $cookieData[1] : null;
+            $protectCode = $cookieData[0] ?? null;
+            $incrementId = $cookieData[1] ?? null;
 
             if (!empty($protectCode) && !empty($incrementId)) {
-                /** @var $order Mage_Sales_Model_Order */
+                /** @var Mage_Sales_Model_Order $order */
                 $order = Mage::getModel('sales/order');
                 $order->loadByIncrementId($incrementId);
 
@@ -186,5 +187,4 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
     {
         return $this->_cookieName;
     }
-
 }

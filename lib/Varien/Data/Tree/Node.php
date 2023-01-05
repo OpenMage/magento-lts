@@ -1,35 +1,39 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Data
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Data tree node
  *
+ * @method int getLevel()
+ * @method string getClass()
+ * @method string getPositionClass()
+ * @method string getOutermostClass()
+ * @method $this setOutermostClass(string $class)
+ * @method $this setChildrenWrapClass(string $class)
+ * @method bool getIsFirst()
+ * @method bool getIsLast()
+ *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Data_Tree_Node extends Varien_Object
 {
@@ -92,7 +96,7 @@ class Varien_Data_Tree_Node extends Varien_Object
      * Set node id field name
      *
      * @param   string $idField
-     * @return  this
+     * @return  $this
      */
     public function setIdField($idField)
     {
@@ -114,7 +118,7 @@ class Varien_Data_Tree_Node extends Varien_Object
      * Set node tree object
      *
      * @param   Varien_Data_Tree $tree
-     * @return  this
+     * @return  $this
      */
     public function setTree(Varien_Data_Tree $tree)
     {
@@ -147,7 +151,7 @@ class Varien_Data_Tree_Node extends Varien_Object
     /**
      * Retrieve node parent
      *
-     * @return Varien_Data_Tree
+     * @return Varien_Data_Tree_Node
      */
     public function getParent()
     {
@@ -164,21 +168,32 @@ class Varien_Data_Tree_Node extends Varien_Object
         return $this->_childNodes->count() > 0;
     }
 
+    /**
+     * @param int $level
+     * @return $this
+     */
     public function setLevel($level)
     {
         $this->setData('level', $level);
         return $this;
     }
 
+    /**
+     * @param int $path
+     * @return $this
+     */
     public function setPathId($path)
     {
         $this->setData('path_id', $path);
         return $this;
     }
 
+    /**
+     * @param Varien_Data_Tree_Node $node
+     * @todo LTS implement
+     */
     public function isChildOf($node)
     {
-
     }
 
     /**
@@ -187,7 +202,7 @@ class Varien_Data_Tree_Node extends Varien_Object
      * @param   int  $recursionLevel
      * @return  Varien_Data_Tree_Node
      */
-    public function loadChildren($recursionLevel=0)
+    public function loadChildren($recursionLevel = 0)
     {
         $this->_tree->load($this, $recursionLevel);
         return $this;
@@ -203,7 +218,11 @@ class Varien_Data_Tree_Node extends Varien_Object
         return $this->_childNodes;
     }
 
-    public function getAllChildNodes(&$nodes = array())
+    /**
+     * @param array $nodes
+     * @return Varien_Data_Tree_Node[]
+     */
+    public function getAllChildNodes(&$nodes = [])
     {
         foreach ($this->_childNodes as $node) {
             $nodes[$node->getId()] = $node;
@@ -212,6 +231,9 @@ class Varien_Data_Tree_Node extends Varien_Object
         return $nodes;
     }
 
+    /**
+     * @return Varien_Data_Tree_Node
+     */
     public function getLastChild()
     {
         return $this->_childNodes->lastNode();
@@ -229,47 +251,74 @@ class Varien_Data_Tree_Node extends Varien_Object
         return $this;
     }
 
-    public function appendChild($prevNode=null)
+    /**
+     * @param Varien_Data_Tree_Node|null $prevNode
+     * @return $this
+     */
+    public function appendChild($prevNode = null)
     {
         $this->_tree->appendChild($this, $prevNode);
         return $this;
     }
 
-    public function moveTo($parentNode, $prevNode=null)
+    /**
+     * @param Varien_Data_Tree_Node $parentNode
+     * @param Varien_Data_Tree_Node|null $prevNode
+     * @return $this
+     */
+    public function moveTo($parentNode, $prevNode = null)
     {
         $this->_tree->moveNodeTo($this, $parentNode, $prevNode);
         return $this;
     }
 
-    public function copyTo($parentNode, $prevNode=null)
+    /**
+     * @param Varien_Data_Tree_Node $parentNode
+     * @param Varien_Data_Tree_Node|null $prevNode
+     * @return $this
+     */
+    public function copyTo($parentNode, $prevNode = null)
     {
         $this->_tree->copyNodeTo($this, $parentNode, $prevNode);
         return $this;
     }
 
+    /**
+     * @param Varien_Data_Tree_Node $childNode
+     * @return $this
+     */
     public function removeChild($childNode)
     {
         $this->_childNodes->delete($childNode);
         return $this;
     }
 
-    public function getPath(&$prevNodes = array())
+    /**
+     * @param array $prevNodes
+     * @return array
+     */
+    public function getPath(&$prevNodes = [])
     {
         if ($this->_parent) {
-            array_push($prevNodes, $this);
+            $prevNodes[] = $this;
             $this->_parent->getPath($prevNodes);
         }
         return $prevNodes;
     }
 
+    /**
+     * @return bool
+     */
     public function getIsActive()
     {
         return $this->_getData('is_active');
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->_getData('name');
     }
-
 }

@@ -1,63 +1,64 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_Abstract
 {
     /**
      * Data key for matching result to be saved in
      */
-    const EVENT_MATCH_RESULT_KEY = 'catalog_product_flat_match_result';
+    public const EVENT_MATCH_RESULT_KEY = 'catalog_product_flat_match_result';
 
     /**
      * Index math Entities array
      *
      * @var array
      */
-    protected $_matchedEntities = array(
-        Mage_Catalog_Model_Product::ENTITY => array(
+    protected $_matchedEntities = [
+        Mage_Catalog_Model_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE,
             Mage_Index_Model_Event::TYPE_MASS_ACTION,
-        ),
-        Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY => array(
+        ],
+        Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE,
             Mage_Index_Model_Event::TYPE_DELETE,
-        ),
-        Mage_Core_Model_Store::ENTITY => array(
+        ],
+        Mage_Core_Model_Store::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE,
             Mage_Index_Model_Event::TYPE_DELETE
-        ),
-        Mage_Core_Model_Store_Group::ENTITY => array(
+        ],
+        Mage_Core_Model_Store_Group::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-        Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => array(
+        ],
+        Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-        Mage_Catalog_Model_Product_Flat_Indexer::ENTITY => array(
+        ],
+        Mage_Catalog_Model_Product_Flat_Indexer::ENTITY => [
             Mage_Catalog_Model_Product_Flat_Indexer::EVENT_TYPE_REBUILD,
-        ),
-    );
+        ],
+    ];
 
     /**
      * Whether the indexer should be displayed on process/list page
@@ -66,7 +67,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
      */
     public function isVisible()
     {
-        /** @var $productFlatHelper Mage_Catalog_Helper_Product_Flat */
+        /** @var Mage_Catalog_Helper_Product_Flat $productFlatHelper */
         $productFlatHelper = Mage::helper('catalog/product_flat');
         return $productFlatHelper->isEnabled() || !$productFlatHelper->isBuilt();
     }
@@ -111,7 +112,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
      */
     public function matchEvent(Mage_Index_Model_Event $event)
     {
-        /** @var $productFlatHelper Mage_Catalog_Helper_Product_Flat */
+        /** @var Mage_Catalog_Helper_Product_Flat $productFlatHelper */
         $productFlatHelper = Mage::helper('catalog/product_flat');
         if (!$productFlatHelper->isEnabled() || !$productFlatHelper->isBuilt()) {
             return false;
@@ -124,7 +125,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
 
         $entity = $event->getEntity();
         if ($entity == Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY) {
-            /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+            /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             $attribute      = $event->getDataObject();
             $addFilterable  = $productFlatHelper->isAddFilterableAttributes();
 
@@ -151,11 +152,11 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
             } else {
                 $result = false;
             }
-        } else if ($entity == Mage_Core_Model_Store::ENTITY) {
+        } elseif ($entity == Mage_Core_Model_Store::ENTITY) {
             if ($event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
                 $result = true;
             } else {
-                /* @var $store Mage_Core_Model_Store */
+                /** @var Mage_Core_Model_Store $store */
                 $store = $event->getDataObject();
                 if ($store && $store->isObjectNew()) {
                     $result = true;
@@ -163,8 +164,8 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                     $result = false;
                 }
             }
-        } else if ($entity == Mage_Core_Model_Store_Group::ENTITY) {
-            /* @var $storeGroup Mage_Core_Model_Store_Group */
+        } elseif ($entity == Mage_Core_Model_Store_Group::ENTITY) {
+            /** @var Mage_Core_Model_Store_Group $storeGroup */
             $storeGroup = $event->getDataObject();
             if ($storeGroup && $storeGroup->dataHasChangedFor('website_id')) {
                 $result = true;
@@ -200,6 +201,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                     $this->_registerCoreStoreEvent($event);
                     break;
                 }
+                // no break
             case Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY:
             case Mage_Core_Model_Store_Group::ENTITY:
                 $event->addNewData('catalog_product_flat_skip_call_event_handler', true);
@@ -219,22 +221,22 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
      * Register data required by catalog product process in event object
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Catalog_Model_Product_Indexer_Flat
+     * @return $this
      */
     protected function _registerCatalogProductEvent(Mage_Index_Model_Event $event)
     {
         switch ($event->getType()) {
             case Mage_Index_Model_Event::TYPE_SAVE:
-                /* @var $product Mage_Catalog_Model_Product */
+                /** @var Mage_Catalog_Model_Product $product */
                 $product = $event->getDataObject();
                 $event->addNewData('catalog_product_flat_product_id', $product->getId());
                 break;
 
             case Mage_Index_Model_Event::TYPE_MASS_ACTION:
-                /* @var $actionObject Varien_Object */
+                /** @var Varien_Object $actionObject */
                 $actionObject = $event->getDataObject();
 
-                $reindexData  = array();
+                $reindexData  = [];
                 $reindexFlat  = false;
 
                 // check if status changed
@@ -251,7 +253,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                     $reindexData['catalog_product_flat_action_type'] = $actionObject->getActionType();
                 }
 
-                $flatAttributes = array();
+                $flatAttributes = [];
                 if (is_array($attrData)) {
                     $flatAttributes = array_intersect($this->_getFlatAttributes(), array_keys($attrData));
                 }
@@ -278,12 +280,12 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
      * Register core store delete process
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Catalog_Model_Product_Indexer_Flat
+     * @return $this
      */
     protected function _registerCoreStoreEvent(Mage_Index_Model_Event $event)
     {
         if ($event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
-            /* @var $store Mage_Core_Model_Store */
+            /** @var Mage_Core_Model_Store $store */
             $store = $event->getDataObject();
             $event->addNewData('catalog_product_flat_delete_store_id', $store->getId());
         }
@@ -303,14 +305,13 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
             return;
         }
 
-
         if (!empty($data['catalog_product_flat_reindex_all'])) {
             $this->reindexAll();
-        } else if (!empty($data['catalog_product_flat_product_id'])) {
+        } elseif (!empty($data['catalog_product_flat_product_id'])) {
             // catalog_product save
             $productId = $data['catalog_product_flat_product_id'];
             $this->_getIndexer()->saveProduct($productId);
-        } else if (!empty($data['catalog_product_flat_product_ids'])) {
+        } elseif (!empty($data['catalog_product_flat_product_ids'])) {
             // catalog_product mass_action
             $productIds = $data['catalog_product_flat_product_ids'];
 
@@ -336,7 +337,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
             if (isset($data['catalog_product_flat_force_update'])) {
                 $this->_getIndexer()->updateProduct($productIds);
             }
-        } else if (!empty($data['catalog_product_flat_delete_store_id'])) {
+        } elseif (!empty($data['catalog_product_flat_delete_store_id'])) {
             $this->_getIndexer()->deleteStore($data['catalog_product_flat_delete_store_id']);
         }
     }

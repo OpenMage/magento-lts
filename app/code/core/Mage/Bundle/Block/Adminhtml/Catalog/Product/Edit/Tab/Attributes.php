@@ -1,43 +1,39 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle product attributes tab
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method bool getCanEditPrice()
  */
-class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes
-    extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes
+class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes
 {
     /**
      * Prepare attributes form of bundle product
      *
-     * @return void
+     * @return $this
      */
     protected function _prepareForm()
     {
@@ -62,8 +58,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes
         $price = $this->getForm()->getElement('price');
         if ($price) {
             $price->setRenderer(
-                $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_attributes_extend',
-                    'adminhtml.catalog.product.bundle.edit.tab.attributes.price')->setDisableChild(true)
+                $this->getLayout()->createBlock(
+                    'bundle/adminhtml_catalog_product_edit_tab_attributes_extend',
+                    'adminhtml.catalog.product.bundle.edit.tab.attributes.price'
+                )->setDisableChild(true)
             );
         }
 
@@ -157,6 +155,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes
                 . '</script>'
             );
         }
+
+        return $this;
     }
 
     /**
@@ -166,7 +166,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes
      */
     public function getProduct()
     {
-        if (!$this->getData('product')){
+        if (!$this->getData('product')) {
             $this->setData('product', Mage::registry('product'));
         }
         return $this->getData('product');

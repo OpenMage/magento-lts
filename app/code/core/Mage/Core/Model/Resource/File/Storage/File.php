@@ -1,43 +1,37 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Model for synchronization from DB to filesystem
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Resource_File_Storage_File
 {
     /**
      * Prefix of model events names
      *
-     * @var string
+     * @var string|null
      */
     protected $_mediaBaseDirectory = null;
 
@@ -48,9 +42,18 @@ class Mage_Core_Model_Resource_File_Storage_File
     protected $_ignoredFiles;
 
     /**
+     * @var resource|null
+     */
+    protected $filePointer;
+
+    /**
+     * @var null|string[]
+     */
+    protected $_createdDirectories;
+
+    /**
      * Files at storage
      *
-     * @var array
      * @return string
      */
     public function getMediaBaseDirectory()
@@ -65,15 +68,15 @@ class Mage_Core_Model_Resource_File_Storage_File
     /**
      * Collect files and directories recursively
      *
-     * @param  string$dir
+     * @param string $dir
      * @return array
      */
     public function getStorageData($dir = '')
     {
-        $files          = array();
-        $directories    = array();
+        $files          = [];
+        $directories    = [];
         $currentDir     = $this->getMediaBaseDirectory() . $dir;
-        $ignoredFiles = array_merge(array('.', '..'), $this->_getIgnoredFiles());
+        $ignoredFiles = array_merge(['.', '..'], $this->_getIgnoredFiles());
 
         if (is_dir($currentDir)) {
             $dh = opendir($currentDir);
@@ -86,10 +89,10 @@ class Mage_Core_Model_Resource_File_Storage_File
                     $fullPath = $currentDir . DS . $file;
                     $relativePath = $dir . DS . $file;
                     if (is_dir($fullPath)) {
-                        $directories[] = array(
+                        $directories[] = [
                             'name' => $file,
                             'path' => str_replace(DS, '/', ltrim($dir, DS))
-                        );
+                        ];
 
                         $data = $this->getStorageData($relativePath);
                         $directories = array_merge($directories, $data['directories']);
@@ -102,19 +105,21 @@ class Mage_Core_Model_Resource_File_Storage_File
             }
         }
 
-        return array('files' => $files, 'directories' => $directories);
+        return ['files' => $files, 'directories' => $directories];
     }
 
     /**
      * Clear files and directories in storage
      *
      * @param  string $dir
-     * @return Mage_Core_Model_Mysql4_File_Storage_File
+     * @return $this
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function clear($dir = '')
     {
         $currentDir = $this->getMediaBaseDirectory() . $dir;
-        $ignoredFiles = array_merge(array('.', '..'), $this->_getIgnoredFiles());
+        $ignoredFiles = array_merge(['.', '..'], $this->_getIgnoredFiles());
 
         if (is_dir($currentDir)) {
             $dh = opendir($currentDir);
@@ -145,10 +150,10 @@ class Mage_Core_Model_Resource_File_Storage_File
      */
     protected function _getIgnoredFiles()
     {
-        if (null === $this->_ignoredFiles) {
+        if ($this->_ignoredFiles === null) {
             $ignored = (string)Mage::app()->getConfig()
                 ->getNode(Mage_Core_Model_File_Storage::XML_PATH_MEDIA_RESOURCE_IGNORED);
-            $this->_ignoredFiles = $ignored ? explode(',', $ignored) : array();
+            $this->_ignoredFiles = $ignored ? explode(',', $ignored) : [];
         }
         return $this->_ignoredFiles;
     }
@@ -158,6 +163,8 @@ class Mage_Core_Model_Resource_File_Storage_File
      *
      * @param  array $dir
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function saveDir($dir)
     {
@@ -189,30 +196,38 @@ class Mage_Core_Model_Resource_File_Storage_File
      * @param  bool $overwrite
      * @return bool true if file written, otherwise false
      * @throws Mage_Core_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function saveFile($filePath, $content, $overwrite = false)
     {
         $filename = basename($filePath);
-        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS ,dirname($filePath));
+        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS, dirname($filePath));
 
         if (!is_dir($path)) {
             @mkdir($path, 0777, true);
         }
 
         $fullPath = $path . DS . $filename;
-        if (!file_exists($fullPath) || $overwrite) {
-            // If overwrite is not required then return if file could not be locked (assume it is being written by another process)
-            // Exception is only thrown if file was opened but could not be written.
-            if (!$overwrite) {
+        if ($this->filePointer || !file_exists($fullPath) || $overwrite) {
+            // If we already opened the file using lockCreateFile method
+            if ($this->filePointer) {
+                $fp = $this->filePointer;
+                $this->filePointer = null;
+                if (@fwrite($fp, $content) !== false && @fflush($fp) && @flock($fp, LOCK_UN) && @fclose($fp)) {
+                    return true;
+                }
+            } elseif (!$overwrite) {
+                // If overwrite is not required then return if file could not be locked (assume it is being written by another process)
+                // Exception is only thrown if file was opened but could not be written.
                 if (!($fp = @fopen($fullPath, 'x'))) {
                     return false;
                 }
-                if (@fwrite($fp, $content) !== false && @fclose($fp)) {
+                if (@fwrite($fp, $content) !== false && @fflush($fp) && @fclose($fp)) {
                     return true;
                 }
-            }
-            // If overwrite is required, throw exception on failure to write file
-            else if (@file_put_contents($fullPath, $content, LOCK_EX) !== false) {
+            } elseif (@file_put_contents($fullPath, $content, LOCK_EX) !== false) {
+                // If overwrite is required, throw exception on failure to write file
                 return true;
             }
 
@@ -220,5 +235,85 @@ class Mage_Core_Model_Resource_File_Storage_File
         }
 
         return false;
+    }
+
+    /**
+     * Create a new file already locked by this process and save the handle for later writing by saveFile method.
+     *
+     * @param string $filePath
+     * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     */
+    public function lockCreateFile($filePath)
+    {
+        $filename = basename($filePath);
+        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS, dirname($filePath));
+
+        // Create parent directories as needed and track so they can be cleaned up after
+        if (!is_dir($path)) {
+            $created = [];
+            $parent = $path;
+            while ($parent != $this->getMediaBaseDirectory() && !is_dir($parent)) {
+                $created[] = $parent;
+                $parent = dirname($parent);
+            }
+            if ($created) {
+                $this->_createdDirectories = $created;
+            }
+            @mkdir($path, 0777, true);
+        }
+
+        $fullPath = $path . DS . $filename;
+
+        // Get exclusive lock on new or existing file
+        if ($fp = @fopen($fullPath, 'c')) {
+            @flock($fp, LOCK_EX);
+            @fseek($fp, 0, SEEK_END);
+            if (@ftell($fp) === 0) { // If the file is empty we can write to it
+                $this->filePointer = $fp;
+                return true;
+            } else { // Otherwise we should not write to it
+                @flock($fp, LOCK_UN);
+                @fclose($fp);
+                return false;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Unlock, close and remove a locked file (in case the file could not be read from remote storage)
+     *
+     * @param string $filePath
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     */
+    public function removeLockedFile($filePath)
+    {
+        $filename = basename($filePath);
+        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS, dirname($filePath));
+        $fullPath = $path . DS . $filename;
+        if ($this->filePointer) {
+            $fp = $this->filePointer;
+            $this->filePointer = null;
+            @flock($fp, LOCK_UN);
+            @fclose($fp);
+        }
+        @unlink($fullPath);
+
+        // Clean up empty directories created by this process when the file was locked
+        if ($this->_createdDirectories) {
+            foreach ($this->_createdDirectories as $directory) {
+                @rmdir($directory); // Allowed to fail when the directory cannot be removed (non-empty)
+            }
+            $this->_createdDirectories = null;
+        }
+
+        // Clean up all empty directories
+        if (rand() % 1000 === 0) {
+            @exec("find {$this->getMediaBaseDirectory()} -empty -type d -delete"); // TODO - replace with native PHP?
+        }
     }
 }

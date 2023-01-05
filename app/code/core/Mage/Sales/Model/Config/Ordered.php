@@ -1,35 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Configuration class for ordered items
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Base
 {
@@ -52,26 +47,26 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
      *
      * @var array
      */
-    protected $_models = array();
+    protected $_models = [];
 
     /**
      * Models configuration
      *
      * @var array
      */
-    protected $_modelsConfig = array();
+    protected $_modelsConfig = [];
 
     /**
      * Sorted models
      *
      * @var array
      */
-    protected $_collectors = array();
+    protected $_collectors = [];
 
     /**
      * Initialize total models configuration and objects
      *
-     * @return Mage_Sales_Model_Config_Ordered
+     * @return $this
      */
     protected function _initModels()
     {
@@ -110,12 +105,12 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
         if (isset($totalConfig['before'])) {
             $totalConfig['before'] = explode(',', $totalConfig['before']);
         } else {
-            $totalConfig['before'] = array();
+            $totalConfig['before'] = [];
         }
         if (isset($totalConfig['after'])) {
             $totalConfig['after'] = explode(',', $totalConfig['after']);
         } else {
-            $totalConfig['after'] = array();
+            $totalConfig['after'] = [];
         }
         $totalConfig['_code'] = $code;
         return $totalConfig;
@@ -131,7 +126,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
         if (Mage::app()->useCache('config')) {
             $cachedData = Mage::app()->loadCache($this->_collectorsCacheKey);
             if ($cachedData) {
-                return unserialize($cachedData);
+                return unserialize($cachedData, ['allowed_classes' => false]);
             }
         }
         $configArray = $this->_modelsConfig;
@@ -139,7 +134,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
         reset($configArray);
         $element = current($configArray);
         if (isset($element['sort_order'])) {
-            uasort($configArray, array($this, '_compareSortOrder'));
+            uasort($configArray, [$this, '_compareSortOrder']);
         } else {
             foreach ($configArray as $code => $data) {
                 foreach ($data['before'] as $beforeCode) {
@@ -147,10 +142,13 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
                         continue;
                     }
                     $configArray[$code]['before'] = array_unique(array_merge(
-                        $configArray[$code]['before'], $configArray[$beforeCode]['before']
+                        $configArray[$code]['before'],
+                        $configArray[$beforeCode]['before']
                     ));
                     $configArray[$beforeCode]['after'] = array_merge(
-                        $configArray[$beforeCode]['after'], array($code), $data['after']
+                        $configArray[$beforeCode]['after'],
+                        [$code],
+                        $data['after']
                     );
                     $configArray[$beforeCode]['after'] = array_unique($configArray[$beforeCode]['after']);
                 }
@@ -159,22 +157,24 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
                         continue;
                     }
                     $configArray[$code]['after'] = array_unique(array_merge(
-                        $configArray[$code]['after'], $configArray[$afterCode]['after']
+                        $configArray[$code]['after'],
+                        $configArray[$afterCode]['after']
                     ));
                     $configArray[$afterCode]['before'] = array_merge(
-                        $configArray[$afterCode]['before'], array($code), $data['before']
+                        $configArray[$afterCode]['before'],
+                        [$code],
+                        $data['before']
                     );
                     $configArray[$afterCode]['before'] = array_unique($configArray[$afterCode]['before']);
                 }
             }
-            uasort($configArray, array($this, '_compareTotals'));
+            uasort($configArray, [$this, '_compareTotals']);
         }
         $sortedCollectors = array_keys($configArray);
         if (Mage::app()->useCache('config')) {
-            Mage::app()->saveCache(serialize($sortedCollectors), $this->_collectorsCacheKey, array(
+            Mage::app()->saveCache(serialize($sortedCollectors), $this->_collectorsCacheKey, [
                     Mage_Core_Model_Config::CACHE_TAG
-                )
-            );
+            ]);
         }
         return $sortedCollectors;
     }
@@ -183,7 +183,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
      * Initialize collectors array.
      * Collectors array is array of total models ordered based on configuration settings
      *
-     * @return  Mage_Sales_Model_Config_Ordered
+     * @return  $this
      */
     protected function _initCollectors()
     {

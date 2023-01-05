@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -42,19 +37,18 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      */
     public function items($optionId, $store = null)
     {
-        /** @var $option Mage_Catalog_Model_Product_Option */
         $option = $this->_prepareOption($optionId, $store);
         $productOptionValues = $option->getValuesCollection();
-        $result = array();
-        foreach($productOptionValues as $value){
-            $result[] = array(
+        $result = [];
+        foreach ($productOptionValues as $value) {
+            $result[] = [
                 'value_id' => $value->getId(),
                 'title' => $value->getTitle(),
                 'price' => $value->getPrice(),
                 'price_type' => $value->getPriceType(),
                 'sku' => $value->getSku(),
                 'sort_order' => $value->getSortOrder()
-            );
+            ];
         }
         return $result;
     }
@@ -68,7 +62,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      */
     public function info($valueId, $store = null)
     {
-        /** @var $productOptionValue Mage_Catalog_Model_Product_Option_Value */
+        /** @var Mage_Catalog_Model_Product_Option_Value $productOptionValue */
         $productOptionValue = Mage::getModel('catalog/product_option_value')->load($valueId);
         if (!$productOptionValue->getId()) {
             $this->_fault('value_not_exists');
@@ -76,7 +70,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         $storeId = $this->_getStoreId($store);
         $productOptionValues = $productOptionValue
                 ->getValuesByOption(
-                    array($valueId),
+                    [$valueId],
                     $productOptionValue->getOptionId(),
                     $storeId
                 )
@@ -105,9 +99,8 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      */
     public function add($optionId, $data, $store = null)
     {
-        /** @var $option Mage_Catalog_Model_Product_Option */
         $option = $this->_prepareOption($optionId, $store);
-        /** @var $optionValueModel Mage_Catalog_Model_Product_Option_Value */
+        /** @var Mage_Catalog_Model_Product_Option_Value $optionValueModel */
         $optionValueModel = Mage::getModel('catalog/product_option_value');
         $optionValueModel->setOption($option);
         foreach ($data as &$optionValue) {
@@ -134,13 +127,12 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      */
     public function update($valueId, $data, $store = null)
     {
-        /** @var $productOptionValue Mage_Catalog_Model_Product_Option_Value */
+        /** @var Mage_Catalog_Model_Product_Option_Value $productOptionValue */
         $productOptionValue = Mage::getModel('catalog/product_option_value')->load($valueId);
         if (!$productOptionValue->getId()) {
             $this->_fault('value_not_exists');
         }
 
-        /** @var $option Mage_Catalog_Model_Product_Option */
         $option = $this->_prepareOption($productOptionValue->getOptionId(), $store);
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
@@ -150,7 +142,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         foreach ($data as $key => $value) {
             $data[$key] = Mage::helper('catalog')->stripTags($value);
         }
-        if (!isset($data['title']) OR empty($data['title'])) {
+        if (!isset($data['title']) || empty($data['title'])) {
             $this->_fault('option_value_title_required');
         }
         $data['option_type_id'] = $valueId;
@@ -171,18 +163,18 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      * Delete value from select option
      *
      * @param int $valueId
-     * @return boolean
+     * @return bool
      */
     public function remove($valueId)
     {
-        /** @var $optionValue Mage_Catalog_Model_Product_Option_Value */
+        /** @var Mage_Catalog_Model_Product_Option_Value $optionValue */
         $optionValue = Mage::getModel('catalog/product_option_value')->load($valueId);
         if (!$optionValue->getId()) {
             $this->_fault('value_not_exists');
         }
 
         // check values count
-        if(count($this->items($optionValue->getOptionId())) <= 1){
+        if (count($this->items($optionValue->getOptionId())) <= 1) {
             $this->_fault('cant_delete_last_value');
         }
 
@@ -204,9 +196,9 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      */
     protected function _prepareOption($optionId, $store = null)
     {
-        /** @var $option Mage_Catalog_Model_Product_Option */
+        /** @var Mage_Catalog_Model_Product_Option $option */
         $option = Mage::getModel('catalog/product_option');
-        if (is_string($store) || is_integer($store)) {
+        if (is_string($store) || is_int($store)) {
             $storeId = $this->_getStoreId($store);
             $option->setStoreId($storeId);
         }
@@ -222,5 +214,4 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         }
         return $option;
     }
-
 }

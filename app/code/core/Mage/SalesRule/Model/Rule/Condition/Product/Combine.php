@@ -1,50 +1,49 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Model_Condition_Combine
 {
     /**
      * Quote item conditions group
      */
-    const PRODUCT_ATTRIBUTES_TYPE_QUOTE_ITEM = 'quote_item';
+    public const PRODUCT_ATTRIBUTES_TYPE_QUOTE_ITEM = 'quote_item';
 
     /**
      * "Product attribute match a value" conditions group
      */
-    const PRODUCT_ATTRIBUTES_TYPE_PRODUCT = 'product_attribute_match';
+    public const PRODUCT_ATTRIBUTES_TYPE_PRODUCT = 'product_attribute_match';
 
     /**
      * "Product attribute is set" conditions group
      */
-    const PRODUCT_ATTRIBUTES_TYPE_ISSET = 'product_attribute_isset';
+    public const PRODUCT_ATTRIBUTES_TYPE_ISSET = 'product_attribute_isset';
 
     /**
      * Products attributes info
-     * @var array
+     * @var array|null
      */
     protected $_productAttributesInfo = null;
 
@@ -59,8 +58,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
 
     /**
      * Check whether the attribute is a quote item attribute
-     * @param $attributeCode
-     *
+     * @param string $attributeCode
      * @return bool
      */
     protected function _getIsQuoteItemAttribute($attributeCode)
@@ -70,32 +68,32 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
 
     /**
      * Add an attribute condition to the conditions group
-     * @param $conditionType
-     * @param $conditionModel
-     * @param $attributeCode
-     * @param $attributeLabel
+     * @param string $conditionType
+     * @param string $conditionModel
+     * @param string $attributeCode
+     * @param string $attributeLabel
      *
      * @return $this
      */
     protected function _addAttributeToConditionGroup($conditionType, $conditionModel, $attributeCode, $attributeLabel)
     {
         if (!array_key_exists($conditionType, $this->_productAttributesInfo)) {
-            $this->_productAttributesInfo[$conditionType] = array();
+            $this->_productAttributesInfo[$conditionType] = [];
         }
 
         $conditionKey = sprintf('%s|%s', $conditionModel, $attributeCode);
 
-        $this->_productAttributesInfo[$conditionType][$conditionKey] = array(
+        $this->_productAttributesInfo[$conditionType][$conditionKey] = [
             'label' => $attributeLabel,
             'value' => $conditionKey
-        );
+        ];
 
         return $this;
     }
 
     /**
      * Retrieve a conditions by group_id
-     * @param $conditionsGroup
+     * @param string $conditionsGroup
      *
      * @return array
      */
@@ -104,7 +102,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
         $this->_initializeProductAttributesInfo();
         return array_key_exists($conditionsGroup, $this->_productAttributesInfo)
             ? $this->_productAttributesInfo[$conditionsGroup]
-            : array();
+            : [];
     }
 
     /**
@@ -114,7 +112,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
     protected function _initializeProductAttributesInfo()
     {
         if (is_null($this->_productAttributesInfo)) {
-            $this->_productAttributesInfo = array();
+            $this->_productAttributesInfo = [];
             $productAttributes = Mage::getModel('salesrule/rule_condition_product')
                 ->loadAttributeOptions()
                 ->getAttributeOption();
@@ -163,32 +161,31 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
         $conditions = parent::getNewChildSelectOptions();
         $conditions = array_merge_recursive(
             $conditions,
-            array(
-                array(
+            [
+                [
                     'label' => Mage::helper('catalog')->__('Conditions Combination'),
                     'value' => 'salesrule/rule_condition_product_combine'
-                ),
-                array(
+                ],
+                [
                     'label' => Mage::helper('catalog')->__('Cart Item Attribute'),
                     'value' => $this->_getAttributeConditions(self::PRODUCT_ATTRIBUTES_TYPE_QUOTE_ITEM)
-                ),
-                array(
+                ],
+                [
                     'label' => Mage::helper('catalog')->__('Product Attribute'),
                     'value' => $this->_getAttributeConditions(self::PRODUCT_ATTRIBUTES_TYPE_PRODUCT),
-                ),
-                array(
+                ],
+                [
                     'label' => $this->_getHelper()->__('Product Attribute Assigned'),
                     'value' => $this->_getAttributeConditions(self::PRODUCT_ATTRIBUTES_TYPE_ISSET)
-                )
-            )
+                ]
+            ]
         );
         return $conditions;
     }
 
     /**
      * Collect all validated attributes
-     * @param $productCollection
-     *
+     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return $this
      */
     public function collectValidatedAttributes($productCollection)
@@ -216,7 +213,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
         $valid = parent::validate($object);
         if (!$valid && $product->getTypeId() == Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
             $children = $object->getChildren();
-            if (is_array($children) and isset($children[0])) {
+            if (is_array($children) && isset($children[0])) {
                 $child = $children[0];
 
                 /** @var Mage_Catalog_Model_Product $childProduct */

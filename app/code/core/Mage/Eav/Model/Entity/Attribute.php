@@ -1,29 +1,23 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * EAV Entity attribute model
@@ -31,6 +25,19 @@
  * @category   Mage
  * @package    Mage_Eav
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Eav_Model_Resource_Entity_Attribute _getResource()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Collection getResourceCollection()
+ *
+ * @method int getAttributeGroupId()
+ * @method $this setDefaultValue(int $value)
+ * @method int getEntityAttributeId()
+ * @method $this setEntityAttributeId(int $value)
+ * @method $this setIsFilterable(int $value)
+ * @method array getFilterOptions()
+ * @method $this setFrontendLabel(string $value)
+ * @method $this unsIsVisible()
  */
 class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Abstract
 {
@@ -41,7 +48,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      */
     protected $_eventPrefix                         = 'eav_entity_attribute';
 
-    CONST ATTRIBUTE_CODE_MAX_LENGTH                 = 30;
+    public const ATTRIBUTE_CODE_MAX_LENGTH                 = 30;
 
     /**
      * Parameter name in event
@@ -52,11 +59,11 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      */
     protected $_eventObject = 'attribute';
 
-    const CACHE_TAG         = 'EAV_ATTRIBUTE';
+    public const CACHE_TAG         = 'EAV_ATTRIBUTE';
     protected $_cacheTag    = 'EAV_ATTRIBUTE';
 
     /**
-     * Retreive default attribute backend model by attribute code
+     * Retrieve default attribute backend model by attribute code
      *
      * @return string
      */
@@ -80,7 +87,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     }
 
     /**
-     * Retreive default attribute frontend model
+     * Retrieve default attribute frontend model
      *
      * @return string
      */
@@ -90,7 +97,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     }
 
     /**
-     * Retreive default attribute source model
+     * Retrieve default attribute source model
      *
      * @return string
      */
@@ -115,7 +122,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Load entity_attribute_id into $this by $this->attribute_set_id
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     public function loadEntityAttributeIdBySet()
     {
@@ -134,7 +141,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Prepare data for save
      *
-     * @return Mage_Eav_Model_Entity_Attribute
+     * @inheritDoc
      * @throws Mage_Eav_Exception
      */
     protected function _beforeSave()
@@ -146,7 +153,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             !Zend_Validate::is(
                 $this->_data['attribute_code'],
                 'StringLength',
-                array('max' => self::ATTRIBUTE_CODE_MAX_LENGTH)
+                ['max' => self::ATTRIBUTE_CODE_MAX_LENGTH]
             )
         ) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', self::ATTRIBUTE_CODE_MAX_LENGTH));
@@ -157,13 +164,13 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
 
         if ($this->getBackendType() == 'decimal' && $hasDefaultValue) {
             $locale = Mage::app()->getLocale()->getLocaleCode();
-            if (!Zend_Locale_Format::isNumber($defaultValue, array('locale' => $locale))) {
-                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default decimal value'));
+            if (!Zend_Locale_Format::isNumber($defaultValue, ['locale' => $locale])) {
+                throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default decimal value'));
             }
 
             try {
                 $filter = new Zend_Filter_LocalizedToNormalized(
-                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                    ['locale' => Mage::app()->getLocale()->getLocaleCode()]
                 );
                 $this->setDefaultValue($filter->filter($defaultValue));
             } catch (Exception $e) {
@@ -204,7 +211,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Save additional data
      *
-     * @return Mage_Eav_Model_Entity_Attribute
+     * @inheritDoc
      */
     protected function _afterSave()
     {
@@ -293,7 +300,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     }
 
     /**
-     * Retreive attribute codes by frontend type
+     * Retrieve attribute codes by frontend type
      *
      * @param string $type
      * @return array
@@ -320,7 +327,9 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Return store label of attribute
      *
+     * @param int $storeId
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreLabel($storeId = null)
     {

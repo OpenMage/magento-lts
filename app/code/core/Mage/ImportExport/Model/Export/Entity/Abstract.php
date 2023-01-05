@@ -1,35 +1,32 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Export entity abstract model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @property array $_invalidRows
  */
 abstract class Mage_ImportExport_Model_Export_Entity_Abstract
 {
@@ -38,8 +35,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      *
      * @var array
      */
-    protected $_attributeValues = array();
-
+    protected $_attributeValues = [];
 
     /**
      * Attribute code to its values. Only attributes with options and only default store values used.
@@ -60,7 +56,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      *
      * @var array
      */
-    protected $_disabledAttrs = array();
+    protected $_disabledAttrs = [];
 
     /**
      * Entity type id.
@@ -74,7 +70,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Error counter.
@@ -95,42 +91,42 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      *
      * @var array
      */
-    protected $_filter = array();
+    protected $_filter = [];
 
     /**
      * Attributes with index (not label) value.
      *
      * @var array
      */
-    protected $_indexValueAttributes = array();
+    protected $_indexValueAttributes = [];
 
     /**
      * Validation failure message template definitions.
      *
      * @var array
      */
-    protected $_messageTemplates = array();
+    protected $_messageTemplates = [];
 
     /**
      * Parameters.
      *
      * @var array
      */
-    protected $_parameters = array();
+    protected $_parameters = [];
 
     /**
      * Column names that holds values with particular meaning.
      *
      * @var array
      */
-    protected $_particularAttributes = array();
+    protected $_particularAttributes = [];
 
     /**
      * Permanent entity columns.
      *
      * @var array
      */
-    protected $_permanentAttributes = array();
+    protected $_permanentAttributes = [];
 
     /**
      * Number of entities processed by validation.
@@ -158,27 +154,22 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      *
      * @var array
      */
-    protected $_storeIdToCode = array();
+    protected $_storeIdToCode = [];
 
     /**
      * Store Id-to-website
      *
      * @var array
      */
-    protected $_storeIdToWebsiteId = array();
+    protected $_storeIdToWebsiteId = [];
 
     /**
      * Website ID-to-code.
      *
      * @var array
      */
-    protected $_websiteIdToCode = array();
+    protected $_websiteIdToCode = [];
 
-    /**
-     * Constructor.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $entityCode = $this->getEntityTypeCode();
@@ -189,11 +180,10 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
     * Initialize website values.
     *
-    * @return Mage_ImportExport_Model_Export_Entity_Customer
+    * @return $this
     */
     protected function _initWebsites()
     {
-        /** @var $website Mage_Core_Model_Website */
         foreach (Mage::app()->getWebsites(true) as $website) {
             $this->_websiteIdToCode[$website->getId()] = $website->getCode();
         }
@@ -203,7 +193,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Initialize stores hash.
      *
-     * @return Mage_ImportExport_Model_Export_Entity_Abstract
+     * @return $this
      */
     protected function _initStores()
     {
@@ -224,18 +214,20 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      */
     protected function _getExportAttrCodes()
     {
-        if (null === self::$attrCodes) {
+        if (self::$attrCodes === null) {
             if (!empty($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP])
-                    && is_array($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP])) {
+                    && is_array($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP])
+            ) {
                 $skipAttr = array_flip($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP]);
             } else {
-                $skipAttr = array();
+                $skipAttr = [];
             }
-            $attrCodes = array();
+            $attrCodes = [];
 
             foreach ($this->filterAttributeCollection($this->getAttributeCollection()) as $attribute) {
                 if (!isset($skipAttr[$attribute->getAttributeId()])
-                        || in_array($attribute->getAttributeCode(), $this->_permanentAttributes)) {
+                        || in_array($attribute->getAttributeCode(), $this->_permanentAttributes)
+                ) {
                     $attrCodes[] = $attribute->getAttributeCode();
                 }
             }
@@ -266,8 +258,9 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     protected function _prepareEntityCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
         if (!isset($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP])
-            || !is_array($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP])) {
-            $exportFilter = array();
+            || !is_array($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP])
+        ) {
+            $exportFilter = [];
         } else {
             $exportFilter = $this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP];
         }
@@ -282,11 +275,11 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
 
                 if (Mage_ImportExport_Model_Export::FILTER_TYPE_SELECT == $attrFilterType) {
                     if (is_scalar($exportFilter[$attrCode]) && trim($exportFilter[$attrCode])) {
-                        $collection->addAttributeToFilter($attrCode, array('eq' => $exportFilter[$attrCode]));
+                        $collection->addAttributeToFilter($attrCode, ['eq' => $exportFilter[$attrCode]]);
                     }
                 } elseif (Mage_ImportExport_Model_Export::FILTER_TYPE_INPUT == $attrFilterType) {
                     if (is_scalar($exportFilter[$attrCode]) && trim($exportFilter[$attrCode])) {
-                        $collection->addAttributeToFilter($attrCode, array('like' => "%{$exportFilter[$attrCode]}%"));
+                        $collection->addAttributeToFilter($attrCode, ['like' => "%{$exportFilter[$attrCode]}%"]);
                     }
                 } elseif (Mage_ImportExport_Model_Export::FILTER_TYPE_DATE == $attrFilterType) {
                     if (is_array($exportFilter[$attrCode]) && count($exportFilter[$attrCode]) == 2) {
@@ -294,12 +287,12 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                         $to   = array_shift($exportFilter[$attrCode]);
 
                         if (is_scalar($from) && !empty($from)) {
-                            $date = Mage::app()->getLocale()->date($from,null,null,false)->toString('MM/dd/YYYY');
-                            $collection->addAttributeToFilter($attrCode, array('from' => $date, 'date' => true));
+                            $date = Mage::app()->getLocale()->date($from, null, null, false)->toString('MM/dd/YYYY');
+                            $collection->addAttributeToFilter($attrCode, ['from' => $date, 'date' => true]);
                         }
                         if (is_scalar($to) && !empty($to)) {
-                            $date = Mage::app()->getLocale()->date($to,null,null,false)->toString('MM/dd/YYYY');
-                            $collection->addAttributeToFilter($attrCode, array('to' => $date, 'date' => true));
+                            $date = Mage::app()->getLocale()->date($to, null, null, false)->toString('MM/dd/YYYY');
+                            $collection->addAttributeToFilter($attrCode, ['to' => $date, 'date' => true]);
                         }
                     }
                 } elseif (Mage_ImportExport_Model_Export::FILTER_TYPE_NUMBER == $attrFilterType) {
@@ -308,10 +301,10 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                         $to   = array_shift($exportFilter[$attrCode]);
 
                         if (is_numeric($from)) {
-                            $collection->addAttributeToFilter($attrCode, array('from' => $from));
+                            $collection->addAttributeToFilter($attrCode, ['from' => $from]);
                         }
                         if (is_numeric($to)) {
-                            $collection->addAttributeToFilter($attrCode, array('to' => $to));
+                            $collection->addAttributeToFilter($attrCode, ['to' => $to]);
                         }
                     }
                 }
@@ -328,7 +321,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      *
      * @param string $errorCode Error code or simply column name
      * @param int $errorRowNum Row number.
-     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @return $this
      */
     public function addRowError($errorCode, $errorRowNum)
     {
@@ -344,7 +337,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      *
      * @param string $errorCode Error code
      * @param string $message Message template
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @return $this
      */
     public function addMessageTemplate($errorCode, $message)
     {
@@ -376,7 +369,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      * @throws Mage_Core_Exception
      * @return array
      */
-    abstract function exportFile();
+    abstract public function exportFile();
 
     /**
      * Clean up attribute collection.
@@ -411,7 +404,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      */
     public function getAttributeOptions(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
-        $options = array();
+        $options = [];
 
         if ($attribute->usesSource()) {
             // should attribute has index (option value) instead of a label?
@@ -422,7 +415,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
 
             try {
                 foreach ($attribute->getSource()->getAllOptions(false) as $option) {
-                    $innerOptions = is_array($option['value']) ? $option['value'] : array($option);
+                    $innerOptions = is_array($option['value']) ? $option['value'] : [$option];
                     foreach ($innerOptions as $innerOption) {
                         if (strlen($innerOption['value'])) { // skip ' -- Please Select -- ' option
                             $options[$innerOption['value']] = $innerOption[$index];
@@ -461,7 +454,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      */
     public function getErrorMessages()
     {
-        $messages = array();
+        $messages = [];
         foreach ($this->_errors as $errorCode => $errorRows) {
             $message = isset($this->_messageTemplates[$errorCode])
                 ? Mage::helper('importexport')->__($this->_messageTemplates[$errorCode])

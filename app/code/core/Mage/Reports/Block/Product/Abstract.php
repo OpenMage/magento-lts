@@ -1,29 +1,23 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Reports Recently Products Abstract Block
@@ -31,27 +25,30 @@
  * @category   Mage
  * @package    Mage_Reports
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method int getCustomerId()
+ * @method array getProductIds()
  */
 abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Product_Abstract
 {
     /**
      * Product Index model name
      *
-     * @var string
+     * @var string|null
      */
     protected $_indexName;
 
     /**
      * Product Index model instance
      *
-     * @var Mage_Reports_Model_Product_Index_Abstract
+     * @var Mage_Core_Model_Abstract|Mage_Reports_Model_Product_Index_Abstract|null
      */
     protected $_indexModel;
 
     /**
      * Product Index Collection
      *
-     * @var Mage_Reports_Model_Mysql4_Product_Index_Collection_Abstract
+     * @var Mage_Reports_Model_Resource_Product_Index_Collection_Abstract|null
      */
     protected $_collection;
 
@@ -89,13 +86,13 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
      */
     protected function _getProductsToSkip()
     {
-        return array();
+        return [];
     }
 
     /**
      * Retrieve Product Index model instance
      *
-     * @return Mage_Reports_Model_Product_Index_Abstract
+     * @return Mage_Core_Model_Abstract|Mage_Reports_Model_Product_Index_Abstract
      */
     protected function _getModel()
     {
@@ -113,7 +110,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     /**
      * Public method for retrieve Product Index model
      *
-     * @return Mage_Reports_Model_Product_Index_Abstract
+     * @return Mage_Core_Model_Abstract|Mage_Reports_Model_Product_Index_Abstract
      */
     public function getModel()
     {
@@ -134,11 +131,11 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
                 ->getCollection()
                 ->addAttributeToSelect($attributes);
 
-                if ($this->getCustomerId()) {
-                    $this->_collection->setCustomerId($this->getCustomerId());
-                }
+            if ($this->getCustomerId()) {
+                $this->_collection->setCustomerId($this->getCustomerId());
+            }
 
-                $this->_collection->excludeProductIds($this->_getModel()->getExcludeProductIds())
+            $this->_collection->excludeProductIds($this->_getModel()->getExcludeProductIds())
                     ->addUrlRewrite()
                     ->setPageSize($this->getPageSize())
                     ->setCurPage(1);
@@ -192,8 +189,8 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     /**
      * Get products collection and apply recent events log to it
      *
+     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      * @deprecated
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
      */
     protected function _getRecentProductsCollection()
     {

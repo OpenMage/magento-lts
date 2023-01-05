@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -36,7 +31,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
     /**
      * The greatest decimal value which could be stored. Corresponds to DECIMAL (12,4) SQL type
      */
-    const MAX_DECIMAL_VALUE = 99999999.9999;
+    public const MAX_DECIMAL_VALUE = 99999999.9999;
 
     /**
      * Add special fields to product get response
@@ -45,17 +40,17 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      */
     protected function _prepareProductForResponse(Mage_Catalog_Model_Product $product)
     {
-        $pricesFilterKeys = array('price_id', 'all_groups', 'website_price');
+        $pricesFilterKeys = ['price_id', 'all_groups', 'website_price'];
         $groupPrice = $product->getData('group_price');
         $product->setData('group_price', $this->_filterOutArrayKeys($groupPrice, $pricesFilterKeys, true));
         $tierPrice = $product->getData('tier_price');
         $product->setData('tier_price', $this->_filterOutArrayKeys($tierPrice, $pricesFilterKeys, true));
 
         $stockData = $product->getStockItem()->getData();
-        $stockDataFilterKeys = array('item_id', 'product_id', 'stock_id', 'low_stock_date', 'type_id',
+        $stockDataFilterKeys = ['item_id', 'product_id', 'stock_id', 'low_stock_date', 'type_id',
             'stock_status_changed_auto', 'stock_status_changed_automatically', 'product_name', 'store_id',
             'product_type_id', 'product_status_changed', 'product_changed_websites',
-            'use_config_enable_qty_increments');
+            'use_config_enable_qty_increments'];
         $product->setData('stock_data', $this->_filterOutArrayKeys($stockData, $stockDataFilterKeys));
         $product->setData('product_type_name', $product->getTypeId());
     }
@@ -95,7 +90,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      */
     protected function _retrieveCollection()
     {
-        /** @var $collection Mage_Catalog_Model_Resource_Product_Collection */
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection = Mage::getResourceModel('catalog/product_collection');
         $store = $this->_getStore();
         $collection->setStoreId($store->getId());
@@ -104,8 +99,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         ));
         $this->_applyCategoryFilter($collection);
         $this->_applyCollectionModifiers($collection);
-        $products = $collection->load()->toArray();
-        return $products;
+        return $collection->load()->toArray();
     }
 
     /**
@@ -121,6 +115,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -133,10 +128,10 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      */
     protected function _create(array $data)
     {
-        /* @var $validator Mage_Catalog_Model_Api2_Product_Validator_Product */
-        $validator = Mage::getModel('catalog/api2_product_validator_product', array(
+        /** @var Mage_Catalog_Model_Api2_Product_Validator_Product $validator */
+        $validator = Mage::getModel('catalog/api2_product_validator_product', [
             'operation' => self::OPERATION_CREATE
-        ));
+        ]);
 
         if (!$validator->isValidData($data)) {
             foreach ($validator->getErrors() as $error) {
@@ -147,13 +142,15 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
 
         $type = $data['type_id'];
         if ($type !== 'simple') {
-            $this->_critical("Creation of products with type '$type' is not implemented",
-                Mage_Api2_Model_Server::HTTP_METHOD_NOT_ALLOWED);
+            $this->_critical(
+                "Creation of products with type '$type' is not implemented",
+                Mage_Api2_Model_Server::HTTP_METHOD_NOT_ALLOWED
+            );
         }
         $set = $data['attribute_set_id'];
         $sku = $data['sku'];
 
-        /** @var $product Mage_Catalog_Model_Product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product')
             ->setStoreId(Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
             ->setAttributeSetId($set)
@@ -171,11 +168,14 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             $product->save();
             $this->_multicall($product->getId());
         } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
-            $this->_critical(sprintf('Invalid attribute "%s": %s', $e->getAttributeCode(), $e->getMessage()),
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+            $this->_critical(
+                sprintf('Invalid attribute "%s": %s', $e->getAttributeCode(), $e->getMessage()),
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+            );
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_UNKNOWN_ERROR);
         }
 
@@ -189,13 +189,12 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      */
     protected function _update(array $data)
     {
-        /** @var $product Mage_Catalog_Model_Product */
         $product = $this->_getProduct();
-        /* @var $validator Mage_Catalog_Model_Api2_Product_Validator_Product */
-        $validator = Mage::getModel('catalog/api2_product_validator_product', array(
+        /** @var Mage_Catalog_Model_Api2_Product_Validator_Product $validator */
+        $validator = Mage::getModel('catalog/api2_product_validator_product', [
             'operation' => self::OPERATION_UPDATE,
             'product'   => $product
-        ));
+        ]);
 
         if (!$validator->isValidData($data)) {
             foreach ($validator->getErrors() as $error) {
@@ -214,11 +213,14 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             $product->validate();
             $product->save();
         } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
-            $this->_critical(sprintf('Invalid attribute "%s": %s', $e->getAttributeCode(), $e->getMessage()),
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+            $this->_critical(
+                sprintf('Invalid attribute "%s": %s', $e->getAttributeCode(), $e->getMessage()),
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+            );
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_UNKNOWN_ERROR);
         }
     }
@@ -235,7 +237,8 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             $manageStock = isset($stockData['manage_stock']) && $stockData['manage_stock'];
         } else {
             $manageStock = Mage::getStoreConfig(
-                Mage_CatalogInventory_Model_Stock_Item::XML_PATH_ITEM . 'manage_stock');
+                Mage_CatalogInventory_Model_Stock_Item::XML_PATH_ITEM . 'manage_stock'
+            );
         }
         return (bool) $manageStock;
     }
@@ -266,21 +269,24 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             }
             $this->_filterStockData($productData['stock_data']);
         } else {
-            $productData['stock_data'] = array(
+            $productData['stock_data'] = [
                 'use_config_manage_stock' => 1,
                 'use_config_min_sale_qty' => 1,
                 'use_config_max_sale_qty' => 1,
-            );
+            ];
         }
         $product->setStockData($productData['stock_data']);
         // save gift options
-        $this->_filterConfigValueUsed($productData, array('gift_message_available', 'gift_wrapping_available'));
+        $this->_filterConfigValueUsed($productData, ['gift_message_available', 'gift_wrapping_available']);
         if (isset($productData['use_config_gift_message_available'])) {
             $product->setData('use_config_gift_message_available', $productData['use_config_gift_message_available']);
             if (!$productData['use_config_gift_message_available']
-                && ($product->getData('gift_message_available') === null)) {
+                && ($product->getData('gift_message_available') === null)
+            ) {
                 $product->setData('gift_message_available', (int) Mage::getStoreConfig(
-                    Mage_GiftMessage_Helper_Message::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $product->getStoreId()));
+                    Mage_GiftMessage_Helper_Message::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS,
+                    $product->getStoreId()
+                ));
             }
         }
         if (isset($productData['use_config_gift_wrapping_available'])) {
@@ -290,7 +296,9 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             ) {
                 $xmlPathGiftWrappingAvailable = 'sales/gift_options/wrapping_allow_items';
                 $product->setData('gift_wrapping_available', (int)Mage::getStoreConfig(
-                    $xmlPathGiftWrappingAvailable, $product->getStoreId()));
+                    $xmlPathGiftWrappingAvailable,
+                    $product->getStoreId()
+                ));
             }
         }
 
@@ -303,7 +311,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         ) {
             $product->setData('save_rewrites_history', (bool)$productData['url_key_create_redirect']);
         }
-        /** @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+        /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             //Unset data if object attribute has no value in current store
             if (Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID !== (int)$product->getStoreId()
@@ -314,7 +322,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             }
 
             if ($this->_isAllowedAttribute($attribute)) {
-                if (isset($productData[$attribute->getAttributeCode()])) {
+                if (array_key_exists($attribute->getAttributeCode(), $productData)) {
                     $product->setData(
                         $attribute->getAttributeCode(),
                         $productData[$attribute->getAttributeCode()]
@@ -331,8 +339,8 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      */
     protected function _filterStockData(&$stockData)
     {
-        $fieldsWithPossibleDefautlValuesInConfig = array('manage_stock', 'min_sale_qty', 'max_sale_qty', 'backorders',
-            'qty_increments', 'notify_stock_qty', 'min_qty', 'enable_qty_increments');
+        $fieldsWithPossibleDefautlValuesInConfig = ['manage_stock', 'min_sale_qty', 'max_sale_qty', 'backorders',
+            'qty_increments', 'notify_stock_qty', 'min_qty', 'enable_qty_increments'];
         $this->_filterConfigValueUsed($stockData, $fieldsWithPossibleDefautlValuesInConfig);
 
         if ($this->_isManageStockEnabled($stockData)) {
@@ -346,8 +354,8 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
                 $stockData['is_decimal_divided'] = 0;
             }
         } else {
-            $nonManageStockFields = array('manage_stock', 'use_config_manage_stock', 'min_sale_qty',
-                'use_config_min_sale_qty', 'max_sale_qty', 'use_config_max_sale_qty');
+            $nonManageStockFields = ['manage_stock', 'use_config_manage_stock', 'min_sale_qty',
+                'use_config_min_sale_qty', 'max_sale_qty', 'use_config_max_sale_qty'];
             foreach ($stockData as $field => $value) {
                 if (!in_array($field, $nonManageStockFields)) {
                     unset($stockData[$field]);
@@ -362,8 +370,9 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      * @param array $data
      * @param string $fields
      */
-    protected function _filterConfigValueUsed(&$data, $fields) {
-        foreach($fields as $field) {
+    protected function _filterConfigValueUsed(&$data, $fields)
+    {
+        foreach ($fields as $field) {
             if ($this->_isConfigValueUsed($data, $field)) {
                 unset($data[$field]);
             }
@@ -375,7 +384,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param array $attributes
-     * @return boolean
+     * @return bool
      */
     protected function _isAllowedAttribute($attribute, $attributes = null)
     {
