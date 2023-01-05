@@ -33,9 +33,11 @@ class Mage_Core_Model_Resource
     public const AUTO_UPDATE_NEVER      = -1;
     public const AUTO_UPDATE_ALWAYS     = 1;
 
-    public const DEFAULT_READ_RESOURCE  = 'core_read';
-    public const DEFAULT_WRITE_RESOURCE = 'core_write';
-    public const DEFAULT_SETUP_RESOURCE = 'core_setup';
+    public const DEFAULT_ADMIN_READ_RESOURCE  = 'admin_read';
+    public const DEFAULT_ADMIN_WRITE_RESOURCE = 'admin_write';
+    public const DEFAULT_READ_RESOURCE        = 'core_read';
+    public const DEFAULT_WRITE_RESOURCE       = 'core_write';
+    public const DEFAULT_SETUP_RESOURCE       = 'core_setup';
 
     /**
      * Instances of classes for connection types
@@ -201,10 +203,14 @@ class Mage_Core_Model_Resource
      */
     protected function _getDefaultConnection($requiredConnectionName)
     {
+        $isAdmin = Mage::app()->getStore()->isAdmin();
+        $readResource = $isAdmin ? self::DEFAULT_ADMIN_READ_RESOURCE : self::DEFAULT_READ_RESOURCE;
+        $writeResource = $isAdmin ? self::DEFAULT_ADMIN_WRITE_RESOURCE : self::DEFAULT_WRITE_RESOURCE;
+
         if (strpos($requiredConnectionName, 'read') !== false) {
-            return $this->getConnection(self::DEFAULT_READ_RESOURCE);
+            return $this->getConnection($readResource);
         }
-        return $this->getConnection(self::DEFAULT_WRITE_RESOURCE);
+        return $this->getConnection($writeResource);
     }
 
     /**

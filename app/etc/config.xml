@@ -67,6 +67,16 @@
                     <use>default_read</use>
                 </connection>
             </core_read>
+            <admin_write>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </admin_write>
+            <admin_read>
+                <connection>
+                    <use>default_read</use>
+                </connection>
+            </admin_read>
         </resources>
         <resource>
             <connection>
