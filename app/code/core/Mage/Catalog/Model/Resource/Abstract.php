@@ -575,7 +575,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * @param int $entityId
      * @param int|string|array $attribute atrribute's ids or codes
      * @param int|Mage_Core_Model_Store $store
-     * @return bool|string|array
+     * @return bool|string|null|array
      */
     public function getAttributeRawValue($entityId, $attribute, $store)
     {
@@ -699,7 +699,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * @param int $entityId
      * @param int|string|array $attribute attribute's ids or codes
      * @param int|Mage_Core_Model_Store $store
-     * @return bool|string|null|array
+     * @return bool|string|array
      */
     public function getAttributeRawText($entityId, $attribute, $store)
     {
