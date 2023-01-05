@@ -283,12 +283,14 @@ dependency definition.
 
 ## Maintainers
 
-* [Lee Saferite](https://github.com/LeeSaferite)
+* [Daniel Fahlke](https://github.com/Flyingmana)
 * [David Robinson](https://github.com/drobinson)
-* [Daniel Fahlke aka Flyingmana](https://github.com/Flyingmana)
-* [Tymoteusz Motylewski](https://github.com/tmotyl)
-* [Sven Reichel](https://github.com/sreichel)
 * [Fabrizio Balliano](https://github.com/fballiano)
+* [Lee Saferite](https://github.com/LeeSaferite)
+* [Mohamed Elidrissi](https://github.com/elidrissidev)
+* [Ng Kiat Siong](https://github.com/kiatng)
+* [Sven Reichel](https://github.com/sreichel)
+* [Tymoteusz Motylewski](https://github.com/tmotyl)
 
 ## License
 
