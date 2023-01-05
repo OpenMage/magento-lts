@@ -26,6 +26,8 @@ level of backwards compatibility to the official releases.
   - [Composer](#composer)
   - [Git](#git)
 - [Secure your installation](#secure-your-installation)
+  - [Apache .htaccess](#apache-htaccess)
+  - [Nginx](#nginx)
 - [Changes](#changes)
   - [Between Magento 1.9.4.5 and OpenMage 19.x](#between-magento-1945-and-openmage-19x)
   - [Between OpenMage 19.4.18 / 20.0.16 and 19.4.19 / 20.0.17](#between-openmage-19418--20016-and-19419--20017)
@@ -110,8 +112,15 @@ Don't use common paths like /admin for OpenMage Backend URL. Don't use the path 
 
 Don't use common file names like api.php for OpenMage API URLs to prevent attacks. Don't use the new file name in _robots.txt_ and keep it secret with your partners. After renaming the file you must update the webserver configuration as follows:
 
-* Apache .htaccess: `RewriteRule ^api/rest api.php?type=rest [QSA,L]`
-* Nginx: `rewrite ^/api/(\w+).*$ /api.php?type=$1 last;`
+### Apache .htaccess
+```
+RewriteRule ^api/rest api.php?type=rest [QSA,L]
+```
+
+### Nginx
+```
+rewrite ^/api/(\w+).*$ /api.php?type=$1 last;`
+```
 
 ## Changes
 
@@ -121,14 +130,14 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 ### Between Magento 1.9.4.5 and OpenMage 19.x
 
 - bug fixes and PHP 7.x, 8.0 and 8.1 compatibility
-- added config cache for system.xml [#1916](https://github.com/OpenMage/magento-lts/pull/1916)
-- search for "NULL" in backend grids [#1203](https://github.com/OpenMage/magento-lts/pull/1203)
-- removed lib/flex containing unused ActionScript "file uploader" files [#2271](https://github.com/OpenMage/magento-lts/pull/2271)
+- added config cache for system.xml ([#1916](https://github.com/OpenMage/magento-lts/pull/1916))
+- search for "NULL" in backend grids ([#1203](https://github.com/OpenMage/magento-lts/pull/1203))
+- removed `lib/flex` containing unused ActionScript "file uploader" files ([#2271](https://github.com/OpenMage/magento-lts/pull/2271))
 - removed modules:
-  - `Mage_Backup` [#2811](https://github.com/OpenMage/magento-lts/pull/2811)
+  - `Mage_Backup` ([#2811](https://github.com/OpenMage/magento-lts/pull/2811))
   - `Mage_Compiler`
   - `Mage_GoogleBase`
-  - `Mage_PageCache` [#2258](https://github.com/OpenMage/magento-lts/pull/2258)
+  - `Mage_PageCache` ([#2258](https://github.com/OpenMage/magento-lts/pull/2258))
   - `Mage_Xmlconnect`
   - `Phoenix_Moneybookers`
 
@@ -144,14 +153,14 @@ _If you rely on those modules you can reinstall them with composer:_
 
 Do not use 20.x.x if you need IE support.
 
-- removed IE conditional comments, IE styles, IE scripts and IE eot files [#1073](https://github.com/OpenMage/magento-lts/pull/1073)
-- removed frontend default themes (default, modern, iphone, german, french, blank, blue) [#1600](https://github.com/OpenMage/magento-lts/pull/1600)
-- fixed incorrect datetime in customer block (`$useTimezone` parameter) [#1525](https://github.com/OpenMage/magento-lts/pull/1525)
-- added redis as a valid option for `global/session_save` [#1513](https://github.com/OpenMage/magento-lts/pull/1513)
-- reduce needless saves by avoiding setting `_hasDataChanges` flag [#2066](https://github.com/OpenMage/magento-lts/pull/2066)
-- removed support for `global/sales/old_fields_map` defined in XML [#921](https://github.com/OpenMage/magento-lts/pull/921)
-- enabled website level config cache [#2355](https://github.com/OpenMage/magento-lts/pull/2355)
-- make overrides of Mage_Core_Model_Resource_Db_Abstract::delete respect parent api [#1257](https://github.com/OpenMage/magento-lts/pull/1257)
+- removed IE conditional comments, IE styles, IE scripts and IE eot files ([#1073](https://github.com/OpenMage/magento-lts/pull/1073))
+- removed frontend default themes (default, modern, iphone, german, french, blank, blue) ([#1600](https://github.com/OpenMage/magento-lts/pull/1600))
+- fixed incorrect datetime in customer block (`$useTimezone` parameter) ([#1525](https://github.com/OpenMage/magento-lts/pull/1525))
+- added redis as a valid option for `global/session_save` ([#1513](https://github.com/OpenMage/magento-lts/pull/1513))
+- reduce needless saves by avoiding setting `_hasDataChanges` flag ([#2066](https://github.com/OpenMage/magento-lts/pull/2066))
+- removed support for `global/sales/old_fields_map` defined in XML ([#921](https://github.com/OpenMage/magento-lts/pull/921))
+- enabled website level config cache ([#2355](https://github.com/OpenMage/magento-lts/pull/2355))
+- make overrides of Mage_Core_Model_Resource_Db_Abstract::delete respect parent api ([#1257](https://github.com/OpenMage/magento-lts/pull/1257))
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
@@ -161,13 +170,17 @@ Most of the 3rd party libraries/modules that were bundled in our repository were
 This allows for better maintenance and upgradability.
 
 Specifically:
-- phpseclib, mcrypt_compat, Cm_RedisSession, Cm_Cache_Backend_Redis, Pelago_Emogrifier (#2411)
-- Zend Framework 1 (#2827)
+- `phpseclib`, `mcrypt_compat`, `Cm_RedisSession`, `Cm_Cache_Backend_Redis`, `Pelago_Emogrifier` ([#2411](https://github.com/OpenMage/magento-lts/pull/2411))
+- Zend Framework 1 ([#2827](https://github.com/OpenMage/magento-lts/pull/2827))
 
 If your project uses OpenMage through composer then all dependencies will be managed automatically.  
 If you just extracted the release zip/tarball in your project's main folder then be sure to:
 - remove the old copy of aforementioned libraries from your project, you can do that with this command:
-  `rm -rf lib/Cm lib/Credis lib/mcryptcompat lib/Pelago lib/phpseclib lib/Zend`
+  ```bash
+  rm -rf lib/Cm lib/Credis lib/mcryptcompat lib/Pelago lib/phpseclib lib/Zend
+  ```
+
+
 - download the new release zip file that is named `openmage-VERSIONNUMBER.zip`, this one is built to contain the `vendor`
   folder generated by composer, with all the dependencies in it
 - extract the zip file in your project's repository as you always did
@@ -217,26 +230,26 @@ targetNamespace="urn:{{var wsdl.name}}"
  to avoid any problem.
 
 To find which files need the modification you can run this command from the root directory of your project.
-```
+```bash
 grep -rn 'urn:Magento' --include \*.xml
 ```
 
-## Development Environment with ddev
+## Development Environment with DDEV
 
 - Install [ddev](https://ddev.com/get-started/)
-- Clone the repository as described in installation ([Using Git](https://github.com/OpenMage/magento-lts#using-git))
+- Clone the repository as described in installation ([Git](#git))
 - Create a ddev config, defaults should be good for you
   ```bash
-  $ ddev config
+  ddev config
   ```
 - Open `.ddev/config.yaml` and change the php version to your needs
 - Download and start the containers
   ```bash
-  $ ddev start
+  ddev start
   ```
 - Open your site in browser
   ```bash
-  $ ddev launch
+  ddev launch
   ```
 
 ## Development with PHP 8.1
@@ -251,7 +264,7 @@ This repo includes class maps for the core Magento files in `.phpstorm.meta.php`
 To add class maps for installed extensions, you have to install [N98-magerun](https://github.com/netz98/n98-magerun)
 and run command:
 
-```
+```bash
 n98-magerun.phar dev:ide:phpstorm:meta
 ```
 
