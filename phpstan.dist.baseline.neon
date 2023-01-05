@@ -131,11 +131,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute\\:\\:_getHelper\\(\\) should return Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute but returns Mage_Core_Helper_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Action/Attribute.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Js.php
@@ -1717,11 +1712,6 @@ parameters:
 
 		-
 			message: "#^Invalid array key type array\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php
-
-		-
-			message: "#^Method Mage_Catalog_Block_Product_View_Type_Configurable\\:\\:_getHelper\\(\\) should return Mage_Catalog_Helper_Product_Type_Composite but returns Mage_Core_Helper_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php
 
