@@ -38,9 +38,15 @@ class Mage_Core_Model_Encryption
     public const HASH_VERSION_LATEST = 3;
 
     /**
+     * Maximum Password Length
+     */
+    public const MAXIMUM_PASSWORD_LENGTH = 256;
+
+    /**
      * @var Varien_Crypt_Mcrypt
      */
     protected $_crypt;
+
     /**
      * @var Mage_Core_Helper_Data
      */
@@ -126,7 +132,7 @@ class Mage_Core_Model_Encryption
      */
     public function validateHash($password, $hash)
     {
-        if (strlen($password) > Mage_Customer_Model_Customer::MAXIMUM_PASSWORD_LENGTH)
+        if (strlen($password) > self::MAXIMUM_PASSWORD_LENGTH)
             return false;
 
         return $this->validateHashByVersion($password, $hash, self::HASH_VERSION_LATEST)
