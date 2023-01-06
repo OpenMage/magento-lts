@@ -126,13 +126,13 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
             return;
         }
         if (!is_array($checked)) {
-            $checked = [strval($checked)];
+            $checked = [(string) $checked];
         } else {
             foreach ($checked as $k => $v) {
-                $checked[$k] = strval($v);
+                $checked[$k] = (string) $v;
             }
         }
-        if (in_array(strval($value), $checked)) {
+        if (in_array((string) $value, $checked)) {
             return 'checked';
         }
         return ;
@@ -146,13 +146,13 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
     {
         if ($disabled = $this->getData('disabled')) {
             if (!is_array($disabled)) {
-                $disabled = [strval($disabled)];
+                $disabled = [(string) $disabled];
             } else {
                 foreach ($disabled as $k => $v) {
-                    $disabled[$k] = strval($v);
+                    $disabled[$k] = (string) $v;
                 }
             }
-            if (in_array(strval($value), $disabled)) {
+            if (in_array((string) $value, $disabled)) {
                 return 'disabled';
             }
         }

@@ -570,7 +570,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
 
         if (!$this->getIsQtyDecimal()) {
             $result->setHasQtyOptionUpdate(true);
-            $qty = intval($qty);
+            $qty = (int) $qty;
 
             /**
               * Adding stock data to quote item
@@ -580,7 +580,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             if (!is_numeric($qty)) {
                 $qty = Mage::app()->getLocale()->getNumber($qty);
             }
-            $origQty = intval($origQty);
+            $origQty = (int) $origQty;
             $result->setOrigQty($origQty);
         }
 

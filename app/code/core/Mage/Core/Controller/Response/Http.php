@@ -105,6 +105,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
 
     /**
      * Method send already collected headers and exit from script
+     * @return never
      */
     public function sendHeadersAndExit()
     {

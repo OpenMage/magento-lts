@@ -244,7 +244,7 @@ class Varien_Image
      */
     public function setImageBackgroundColor($color)
     {
-        $this->_getAdapter()->imageBackgroundColor = intval($color);
+        $this->_getAdapter()->imageBackgroundColor = (int) $color;
     }
 
     /**

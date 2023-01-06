@@ -179,7 +179,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     public function getMainStoreTable($storeId = Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
     {
         if (is_string($storeId)) {
-            $storeId = intval($storeId);
+            $storeId = (int) $storeId;
         }
         if ($this->getUseStoreTables() && $storeId) {
             $suffix = sprintf('store_%d', $storeId);

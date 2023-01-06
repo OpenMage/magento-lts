@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "02777979d49d3d6513aac121560f35a2",
+    "content-hash": "7383db4cc36fec5b622f8581e1c15105",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
-            "version": "1.14.4",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis.git",
-                "reference": "6661e3f07baa10e7b48305f9282eac5f7ad8e50a"
+                "reference": "841d59ef81b2eb9018e43fd9e8ae5b1adce3dc31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colinmollenhour/Cm_Cache_Backend_Redis/zipball/6661e3f07baa10e7b48305f9282eac5f7ad8e50a",
-                "reference": "6661e3f07baa10e7b48305f9282eac5f7ad8e50a",
+                "url": "https://api.github.com/repos/colinmollenhour/Cm_Cache_Backend_Redis/zipball/841d59ef81b2eb9018e43fd9e8ae5b1adce3dc31",
+                "reference": "841d59ef81b2eb9018e43fd9e8ae5b1adce3dc31",
                 "shasum": ""
             },
             "require": {
@@ -42,9 +42,9 @@
             "homepage": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis",
             "support": {
                 "issues": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/issues",
-                "source": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/tree/1.14.4"
+                "source": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/tree/1.15.0"
             },
-            "time": "2022-08-12T20:16:06+00:00"
+            "time": "2022-12-29T19:46:03+00:00"
         },
         {
             "name": "colinmollenhour/credis",
@@ -2661,16 +2661,16 @@
         },
         {
             "name": "macopedia/phpstan-magento1",
-            "version": "v1.0.4",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/macopedia/phpstan-magento1.git",
-                "reference": "c615c3e7e4cc48978842580611004ebe54ae89d8"
+                "reference": "69346472b19422b2aefeb928d6488b5d907e8b1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/macopedia/phpstan-magento1/zipball/c615c3e7e4cc48978842580611004ebe54ae89d8",
-                "reference": "c615c3e7e4cc48978842580611004ebe54ae89d8",
+                "url": "https://api.github.com/repos/macopedia/phpstan-magento1/zipball/69346472b19422b2aefeb928d6488b5d907e8b1d",
+                "reference": "69346472b19422b2aefeb928d6488b5d907e8b1d",
                 "shasum": ""
             },
             "require": {
@@ -2693,9 +2693,10 @@
             ],
             "description": "Extension for PHPStan to allow analysis of Magento 1 code.",
             "support": {
-                "source": "https://github.com/macopedia/phpstan-magento1/tree/v1.0.4"
+                "issues": "https://github.com/macopedia/phpstan-magento1/issues",
+                "source": "https://github.com/macopedia/phpstan-magento1/tree/v1.0.5"
             },
-            "time": "2022-03-07T13:47:54+00:00"
+            "time": "2022-12-30T08:43:52+00:00"
         },
         {
             "name": "magento-ecg/coding-standard",
@@ -3325,16 +3326,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.9.4",
+            "version": "1.9.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "d03bccee595e2146b7c9d174486b84f4dc61b0f2"
+                "reference": "0501435cd342eac7664bd62155b1ef907fc60b6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d03bccee595e2146b7c9d174486b84f4dc61b0f2",
-                "reference": "d03bccee595e2146b7c9d174486b84f4dc61b0f2",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/0501435cd342eac7664bd62155b1ef907fc60b6f",
+                "reference": "0501435cd342eac7664bd62155b1ef907fc60b6f",
                 "shasum": ""
             },
             "require": {
@@ -3364,7 +3365,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.9.4"
+                "source": "https://github.com/phpstan/phpstan/tree/1.9.7"
             },
             "funding": [
                 {
@@ -3380,7 +3381,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-17T13:33:52+00:00"
+            "time": "2023-01-04T21:59:57+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

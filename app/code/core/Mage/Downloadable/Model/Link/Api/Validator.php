@@ -149,12 +149,12 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateFileDetails(&$var)
     {
-        if (!isset($var['name']) || !is_string($var['name']) || strlen($var['name']) === 0) {
+        if (!isset($var['name']) || !is_string($var['name']) || $var['name'] === '') {
             throw new Exception('no_filename');
         }
         if (!isset($var['base64_content'])
             || !is_string($var['base64_content'])
-            || strlen($var['base64_content']) === 0
+            || $var['base64_content'] === ''
         ) {
             throw new Exception('no_file_base64_content');
         }
@@ -186,7 +186,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateTitle(&$var)
     {
-        if (!is_string($var) || strlen($var) === 0) {
+        if (!is_string($var) || $var === '') {
             throw new Exception('no_title');
         }
     }
@@ -198,7 +198,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validatePrice(&$var)
     {
-        $var = is_numeric($var) ? floatval($var) : floatval(0);
+        $var = is_numeric($var) ? (float) $var : (float) 0;
     }
 
     /**
@@ -208,7 +208,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateNumOfDownloads(&$var)
     {
-        $var = is_numeric($var) ? intval($var) : 0;
+        $var = is_numeric($var) ? (int) $var : 0;
     }
 
     /**
@@ -218,7 +218,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateUnlimited(&$var)
     {
-        $var = ((is_numeric($var) && $var >= 0 && $var <= 1) || (is_bool($var))) ? intval($var) : 0;
+        $var = ((is_numeric($var) && $var >= 0 && $var <= 1) || (is_bool($var))) ? (int) $var : 0;
     }
 
     /**
@@ -228,7 +228,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateShareable(&$var)
     {
-        $var = (is_numeric($var) && $var >= 0 && $var <= 2) ? intval($var) : 2;
+        $var = (is_numeric($var) && $var >= 0 && $var <= 2) ? (int) $var : 2;
     }
 
     /**
@@ -265,7 +265,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateOrder(&$var)
     {
-        $var = is_numeric($var) ? intval($var) : 0;
+        $var = is_numeric($var) ? (int) $var : 0;
     }
 
     /**

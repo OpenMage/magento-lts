@@ -869,7 +869,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function prepareQuoteItemQty($qty, $product = null)
     {
-        return floatval($qty);
+        return (float) $qty;
     }
 
     /**

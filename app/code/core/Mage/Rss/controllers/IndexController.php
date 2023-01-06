@@ -146,7 +146,7 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
 
             $params = $this->_getHelper('core')->urlDecode($this->getRequest()->getParam('data'));
             $data   = explode(',', $params);
-            $customerId    = abs(intval($data[0]));
+            $customerId    = abs((int) $data[0]);
             if ($customerId && ($customerId == Mage::getSingleton('customer/session')->getCustomerId())) {
                 $this->_customer->load($customerId);
             }

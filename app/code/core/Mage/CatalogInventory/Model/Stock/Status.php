@@ -312,11 +312,11 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
                     $optionStatus = false;
                     foreach ($groupedChildrenIds as $childId) {
                         if (isset($childrenStatus[$childId])
-                            and isset($childrenWebsites[$childId])
-                            and in_array($websiteId, $childrenWebsites[$childId])
-                            and $childrenStatus[$childId] == $this->getProductStatusEnabled()
-                            and isset($childrenStock[$childId])
-                            and $childrenStock[$childId] == self::STATUS_IN_STOCK
+                            && isset($childrenWebsites[$childId])
+                            && in_array($websiteId, $childrenWebsites[$childId])
+                            && $childrenStatus[$childId] == $this->getProductStatusEnabled()
+                            && isset($childrenStock[$childId])
+                            && $childrenStock[$childId] == self::STATUS_IN_STOCK
                         ) {
                             $optionStatus = true;
                         }

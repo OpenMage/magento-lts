@@ -55,7 +55,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         'Mage_SalesRule' => 23,
         'Mage_Usa' => 24,
         'Mage_Paygate' => 25,
-        'Mage_Backup' => 26,
+        'Mage_Backup' => 26, # removed
         'Mage_Checkout' => 27,
         'Mage_Paypal' => 28,
         'Mage_GoogleCheckout' => 29,
@@ -689,10 +689,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             Varien_Profiler::start('init_config_section:' . $sectionKey);
             $this->_cacheLoadedSections[$sectionKey] = $this->_loadSectionCache($sectionKey);
             Varien_Profiler::stop('init_config_section:' . $sectionKey);
-        }
-
-        if ($this->_cacheLoadedSections[$sectionKey] === false) {
-            return false;
         }
         return $this->_cacheLoadedSections[$sectionKey];
     }

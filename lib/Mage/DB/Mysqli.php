@@ -305,7 +305,7 @@ class Mage_DB_Mysqli
     /**
      * Throw connect exception
      * @throws Mage_DB_Exception
-     * @return void
+     * @return never
      */
     protected function throwConnectException()
     {
@@ -460,7 +460,7 @@ class Mage_DB_Mysqli
     public function idsToString($ids)
     {
         if (is_scalar($ids)) {
-            return $this->escapeFieldValue(strval($ids));
+            return $this->escapeFieldValue((string) $ids);
         }
         $out = [];
         foreach ($ids as $id) {
@@ -510,7 +510,7 @@ class Mage_DB_Mysqli
         if (empty($data['cnt'])) {
             return 0;
         }
-        return intval($data['cnt']);
+        return (int) $data['cnt'];
     }
 
     public function lastInsertId()

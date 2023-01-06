@@ -627,7 +627,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             if ($this->isStatic()) {
                 $this->_dataTable = $this->getEntityType()->getValueTablePrefix();
             } else {
-                $backendTable = trim($this->_getData('backend_table'));
+                $backendTable = trim((string)$this->_getData('backend_table'));
                 if (empty($backendTable)) {
                     $entityTable  = [$this->getEntity()->getEntityTablePrefix(), $this->getBackendType()];
                     $backendTable = $this->getResource()->getTable($entityTable);

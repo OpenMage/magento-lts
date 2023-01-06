@@ -176,6 +176,6 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
             $this->prev();
         }
 
-        return floatval($value);
+        return (float) $value;
     }
 }
