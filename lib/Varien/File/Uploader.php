@@ -516,12 +516,7 @@ class Varien_File_Uploader
             $this->_uploadType = self::MULTIPLE_STYLE;
             $this->_file = $fileId;
         } else {
-            preg_match("/^(.*?)\[(.*?)\]$/", $fileId, $file);
-
-            if (count($file) > 0
-                && (count($file[0]) > 0)
-                && (count($file[1]) > 0)
-            ) {
+            if (preg_match('/^(\w+)\[(\w+)\]$/', $fileId, $file)) {
                 array_shift($file);
                 $this->_uploadType = self::MULTIPLE_STYLE;
 
