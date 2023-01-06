@@ -319,6 +319,10 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         return $tab->getTitle();
     }
 
+    /**
+     * @param Varien_Object $tab
+     * @return string
+     */
     public function getTabClass($tab)
     {
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
@@ -327,7 +331,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             }
             return '';
         }
-        return $tab->getClass();
+        return (string) $tab->getClass();
     }
 
     public function getTabLabel($tab)
