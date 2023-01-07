@@ -43,6 +43,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     protected $_type;
     protected $_cssClass = null;
 
+    /**
+     * @param Mage_Adminhtml_Block_Widget_Grid $grid
+     * @return $this
+     */
     public function setGrid($grid)
     {
         $this->_grid = $grid;
@@ -51,6 +55,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         return $this;
     }
 
+    /**
+     * @return Mage_Adminhtml_Block_Widget_Grid
+     */
     public function getGrid()
     {
         return $this->_grid;
@@ -225,12 +232,19 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         return $value;
     }
 
+    /**
+     * @param string $renderer
+     * @return $this
+     */
     public function setRenderer($renderer)
     {
         $this->_renderer = $renderer;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     protected function _getRendererByType()
     {
         $type = strtolower($this->getType());
@@ -320,12 +334,19 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         return $this->_renderer;
     }
 
+    /**
+     * @param string $filterClass
+     * @return void
+     */
     public function setFilter($filterClass)
     {
         $this->_filter = $this->getLayout()->createBlock($filterClass)
                 ->setColumn($this);
     }
 
+    /**
+     * @return string
+     */
     protected function _getFilterByType()
     {
         $type = strtolower($this->getType());
@@ -426,5 +447,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             return $this->getHeaderExport();
         }
         return $this->getHeader();
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return (string) $this->_getData('type');
     }
 }
