@@ -1,38 +1,31 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Quote addresses collection
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
     /**
@@ -71,12 +64,12 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
      */
     protected function _afterLoad()
     {
-        Varien_Profiler::start('TEST1: '.__METHOD__);
+        Varien_Profiler::start('TEST1: ' . __METHOD__);
         $productCollection = $this->_getProductCollection();
-        Varien_Profiler::stop('TEST1: '.__METHOD__);
+        Varien_Profiler::stop('TEST1: ' . __METHOD__);
         $recollectQuote = false;
         foreach ($this as $item) {
-            Varien_Profiler::start('TEST2: '.__METHOD__);
+            Varien_Profiler::start('TEST2: ' . __METHOD__);
             if ($productCollection) {
                 $product = $productCollection->getItemById($item->getProductId());
             } else {
@@ -110,7 +103,7 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
 
             $item->importCatalogProduct($itemProduct);
             $item->checkData();
-            Varien_Profiler::stop('TEST2: '.__METHOD__);
+            Varien_Profiler::stop('TEST2: ' . __METHOD__);
         }
         if ($recollectQuote && $this->_quote) {
             $this->_quote->collectTotals();
@@ -119,13 +112,15 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
     }
 
     /**
-     * @return bool
+     * @return false|Mage_Catalog_Model_Resource_Product_Collection
+     * @throws Mage_Core_Exception
      */
     protected function _getProductCollection()
     {
-        $productIds = array();
+        $productIds = [];
         foreach ($this as $item) {
-            $productIds[$item->getProductId()] = $item->getProductId();
+            $productId = $item->getProductId();
+            $productIds[$productId] = $productId;
             if ($item->getSuperProductId()) {
                 $productIds[$item->getSuperProductId()] = $item->getSuperProductId();
             }
@@ -148,7 +143,7 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
         if (Mage::app()->useCache('checkout_quote')) {
             $collection->initCache(
                 $this->_getCacheInstance(),
-                $this->_cacheConf['prefix'].'_PRODUCTS',
+                $this->_cacheConf['prefix'] . '_PRODUCTS',
                 $this->_getCacheTags()
             );
         }

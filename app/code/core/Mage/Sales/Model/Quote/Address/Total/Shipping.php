@@ -1,29 +1,29 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
     public function __construct()
@@ -53,7 +53,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
         }
 
         $method     = $address->getShippingMethod();
-        $freeAddress= $address->getFreeShipping();
+        $freeAddress = $address->getFreeShipping();
 
         $addressWeight      = $address->getWeight();
         $freeMethodWeight   = $address->getFreeMethodWeight();
@@ -85,14 +85,14 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                     if (!$item->getProduct()->getWeightType()) {
                         $itemWeight = $child->getWeight();
                         $itemQty    = $child->getTotalQty();
-                        $rowWeight  = $itemWeight*$itemQty;
+                        $rowWeight  = $itemWeight * $itemQty;
                         $addressWeight += $rowWeight;
-                        if ($freeAddress || $child->getFreeShipping()===true) {
+                        if ($freeAddress || $child->getFreeShipping() === true) {
                             $rowWeight = 0;
                         } elseif (is_numeric($child->getFreeShipping())) {
                             $freeQty = $child->getFreeShipping();
-                            if ($itemQty>$freeQty) {
-                                $rowWeight = $itemWeight*($itemQty-$freeQty);
+                            if ($itemQty > $freeQty) {
+                                $rowWeight = $itemWeight * ($itemQty - $freeQty);
                             } else {
                                 $rowWeight = 0;
                             }
@@ -103,19 +103,19 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                 }
                 if ($item->getProduct()->getWeightType()) {
                     $itemWeight = $item->getWeight();
-                    $rowWeight  = $itemWeight*$item->getQty();
-                    $addressWeight+= $rowWeight;
-                    if ($freeAddress || $item->getFreeShipping()===true) {
+                    $rowWeight  = $itemWeight * $item->getQty();
+                    $addressWeight += $rowWeight;
+                    if ($freeAddress || $item->getFreeShipping() === true) {
                         $rowWeight = 0;
                     } elseif (is_numeric($item->getFreeShipping())) {
                         $freeQty = $item->getFreeShipping();
-                        if ($item->getQty()>$freeQty) {
-                            $rowWeight = $itemWeight*($item->getQty()-$freeQty);
+                        if ($item->getQty() > $freeQty) {
+                            $rowWeight = $itemWeight * ($item->getQty() - $freeQty);
                         } else {
                             $rowWeight = 0;
                         }
                     }
-                    $freeMethodWeight+= $rowWeight;
+                    $freeMethodWeight += $rowWeight;
                     $item->setRowWeight($rowWeight);
                 }
             } else {
@@ -123,19 +123,19 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                     $addressQty += $item->getQty();
                 }
                 $itemWeight = $item->getWeight();
-                $rowWeight  = $itemWeight*$item->getQty();
-                $addressWeight+= $rowWeight;
-                if ($freeAddress || $item->getFreeShipping()===true) {
+                $rowWeight  = $itemWeight * $item->getQty();
+                $addressWeight += $rowWeight;
+                if ($freeAddress || $item->getFreeShipping() === true) {
                     $rowWeight = 0;
                 } elseif (is_numeric($item->getFreeShipping())) {
                     $freeQty = $item->getFreeShipping();
-                    if ($item->getQty()>$freeQty) {
-                        $rowWeight = $itemWeight*($item->getQty()-$freeQty);
+                    if ($item->getQty() > $freeQty) {
+                        $rowWeight = $itemWeight * ($item->getQty() - $freeQty);
                     } else {
                         $rowWeight = 0;
                     }
                 }
-                $freeMethodWeight+= $rowWeight;
+                $freeMethodWeight += $rowWeight;
                 $item->setRowWeight($rowWeight);
             }
         }
@@ -156,7 +156,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
 
         if ($method) {
             foreach ($address->getAllShippingRates() as $rate) {
-                if ($rate->getCode()==$method) {
+                if ($rate->getCode() == $method) {
                     $amountPrice = $address->getQuote()->getStore()->convertPrice($rate->getPrice(), false);
                     $this->_setAmount($amountPrice);
                     $this->_setBaseAmount($rate->getPrice());
@@ -184,11 +184,11 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
             if ($address->getShippingDescription()) {
                 $title .= ' (' . $address->getShippingDescription() . ')';
             }
-            $address->addTotal(array(
+            $address->addTotal([
                 'code' => $this->getCode(),
                 'title' => $title,
                 'value' => $address->getShippingAmount()
-            ));
+            ]);
         }
         return $this;
     }

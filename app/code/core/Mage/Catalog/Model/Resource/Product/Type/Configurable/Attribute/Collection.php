@@ -1,41 +1,34 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Configurable Product Attribute Collection
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Catalog_Model_Product_Type_Configurable_Attribute getItemById(int $value)
  */
-class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
-    extends Mage_Core_Model_Resource_Db_Collection_Abstract
+class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
      * Configurable attributes label table name
@@ -58,10 +51,6 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
      */
     protected $_product;
 
-    /**
-     * Initialize connection and define table names
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product_type_configurable_attribute');
@@ -99,7 +88,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
      */
     public function orderByPosition($dir = self::SORT_ORDER_ASC)
     {
-        $this->setOrder('position ',  $dir);
+        $this->setOrder('position ', $dir);
         return $this;
     }
 
@@ -121,18 +110,18 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     protected function _afterLoad()
     {
         parent::_afterLoad();
-        Varien_Profiler::start('TTT1:'.__METHOD__);
+        Varien_Profiler::start('TTT1:' . __METHOD__);
         $this->_addProductAttributes();
-        Varien_Profiler::stop('TTT1:'.__METHOD__);
-        Varien_Profiler::start('TTT2:'.__METHOD__);
+        Varien_Profiler::stop('TTT1:' . __METHOD__);
+        Varien_Profiler::start('TTT2:' . __METHOD__);
         $this->_addAssociatedProductFilters();
-        Varien_Profiler::stop('TTT2:'.__METHOD__);
-        Varien_Profiler::start('TTT3:'.__METHOD__);
+        Varien_Profiler::stop('TTT2:' . __METHOD__);
+        Varien_Profiler::start('TTT3:' . __METHOD__);
         $this->_loadLabels();
-        Varien_Profiler::stop('TTT3:'.__METHOD__);
-        Varien_Profiler::start('TTT4:'.__METHOD__);
+        Varien_Profiler::stop('TTT3:' . __METHOD__);
+        Varien_Profiler::start('TTT4:' . __METHOD__);
         $this->_loadPrices();
-        Varien_Profiler::stop('TTT4:'.__METHOD__);
+        Varien_Profiler::stop('TTT4:' . __METHOD__);
         return $this;
     }
 
@@ -158,8 +147,9 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
      */
     public function _addAssociatedProductFilters()
     {
-        $this->getProduct()->getTypeInstance(true)
-            ->getUsedProducts($this->getColumnValues('attribute_id'), $this->getProduct()); //Filter associated products
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->getProduct()->getTypeInstance(true);
+        $productType->getUsedProducts($this->getColumnValues('attribute_id'), $this->getProduct()); //Filter associated products
         return $this;
     }
 
@@ -184,25 +174,26 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
             );
 
             $select = $this->getConnection()->select()
-                ->from(array('def' => $this->_labelTable))
+                ->from(['def' => $this->_labelTable])
                 ->joinLeft(
-                    array('store' => $this->_labelTable),
+                    ['store' => $this->_labelTable],
                     $this->getConnection()->quoteInto(
                         'store.product_super_attribute_id = def.product_super_attribute_id AND store.store_id = ?',
                         $this->getStoreId()
                     ),
-                    array(
+                    [
                         'use_default' => $useDefaultCheck,
                         'label' => $labelCheck
-                    ))
+                    ]
+                )
                 ->where('def.product_super_attribute_id IN (?)', array_keys($this->_items))
                 ->where('def.store_id = ?', 0);
 
-                $result = $this->getConnection()->fetchAll($select);
-                foreach ($result as $data) {
-                    $this->getItemById($data['product_super_attribute_id'])->setLabel($data['label']);
-                    $this->getItemById($data['product_super_attribute_id'])->setUseDefault($data['use_default']);
-                }
+            $result = $this->getConnection()->fetchAll($select);
+            foreach ($result as $data) {
+                $this->getItemById($data['product_super_attribute_id'])->setLabel($data['label']);
+                $this->getItemById($data['product_super_attribute_id'])->setUseDefault($data['use_default']);
+            }
         }
         return $this;
     }
@@ -215,23 +206,23 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     protected function _loadPrices()
     {
         if ($this->count()) {
-            $pricings = array(
-                0 => array()
-            );
+            $pricings = [
+                0 => []
+            ];
 
             if ($this->getHelper()->isPriceGlobal()) {
                 $websiteId = 0;
             } else {
                 $websiteId = (int)Mage::app()->getStore($this->getStoreId())->getWebsiteId();
-                $pricing[$websiteId] = array();
+                $pricing[$websiteId] = [];
             }
 
             $select = $this->getConnection()->select()
-                ->from(array('price' => $this->_priceTable))
+                ->from(['price' => $this->_priceTable])
                 ->where('price.product_super_attribute_id IN (?)', array_keys($this->_items));
 
             if ($websiteId > 0) {
-                $select->where('price.website_id IN(?)', array(0, $websiteId));
+                $select->where('price.website_id IN(?)', [0, $websiteId]);
             } else {
                 $select->where('price.website_id = ?', 0);
             }
@@ -242,32 +233,33 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                 $pricings[(int)$row['website_id']][] = $row;
             }
 
-            $values = array();
+            $values = [];
             $sortOrder = 1;
             foreach ($this->_items as $item) {
                 $productAttribute = $item->getProductAttribute();
+                $productAttributeCode = $productAttribute->getAttributeCode();
                 if (!($productAttribute instanceof Mage_Eav_Model_Entity_Attribute_Abstract)) {
                     continue;
                 }
                 $options = $productAttribute->getFrontend()->getSelectOptions();
 
-                $optionsByValue = array();
+                $optionsByValue = [];
                 foreach ($options as $option) {
-                    $optionsByValue[$option['value']] = array('label' => $option['label'], 'order' => $sortOrder++);
+                    $optionsByValue[$option['value']] = ['label' => $option['label'], 'order' => $sortOrder++];
                 }
 
-                /** @var Mage_Catalog_Model_Product $associatedProduct */
-                foreach ($this->getProduct()->getTypeInstance(true)
-                             ->getUsedProducts(array($productAttribute->getAttributeCode()), $this->getProduct())
-                         as $associatedProduct) {
+                /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+                $productType = $this->getProduct()->getTypeInstance(true);
 
-                    $optionValue = $associatedProduct->getData($productAttribute->getAttributeCode());
+                /** @var Mage_Catalog_Model_Product $associatedProduct */
+                foreach ($productType->getUsedProducts([$productAttributeCode], $this->getProduct()) as $associatedProduct) {
+                    $optionValue = $associatedProduct->getData($productAttributeCode);
 
                     if (array_key_exists($optionValue, $optionsByValue)) {
                         // If option available in associated product
                         if (!isset($values[$item->getId() . ':' . $optionValue])) {
                             // If option not added, we will add it.
-                            $values[$item->getId() . ':' . $optionValue] = array(
+                            $values[$item->getId() . ':' . $optionValue] = [
                                 'product_super_attribute_id' => $item->getId(),
                                 'value_index'                => $optionValue,
                                 'label'                      => $optionsByValue[$optionValue]['label'],
@@ -277,13 +269,13 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                                 'pricing_value'              => null,
                                 'use_default_value'          => true,
                                 'order'                      => $optionsByValue[$optionValue]['order']
-                            );
+                            ];
                         }
                     }
                 }
             }
 
-            uasort($values, function($a, $b) {
+            uasort($values, function ($a, $b) {
                 return $a['order'] - $b['order'];
             });
 
@@ -318,7 +310,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     }
 
     /**
-     * Retrive product instance
+     * Retrieve product instance
      *
      * @return Mage_Catalog_Model_Product
      */

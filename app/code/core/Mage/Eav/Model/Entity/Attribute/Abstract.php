@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,9 +24,8 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @method array getApplyTo()
  * @method bool hasAttributeSetInfo()
  * @method array getAttributeSetInfo()
  * @method $this setAttributeSetInfo(array $value)
@@ -66,7 +60,7 @@
  */
 abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_Abstract implements Mage_Eav_Model_Entity_Attribute_Interface
 {
-    const TYPE_STATIC = 'static';
+    public const TYPE_STATIC = 'static';
 
     /**
      * Attribute name
@@ -108,7 +102,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      *
      * @var array
      */
-    protected $_attributeIdCache            = array();
+    protected $_attributeIdCache            = [];
 
     /**
      * Attribute data table name
@@ -120,13 +114,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Attribute validation flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_attributeValidationPassed   = false;
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('eav/entity_attribute');
@@ -161,8 +152,6 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
 
     /**
      * Mark current attribute as passed validation
-     *
-     * @return void
      */
     public function setAttributeValidationAsPassed()
     {
@@ -354,7 +343,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Return is attribute global
      *
      * @deprecated moved to catalog attribute model
-     * @return integer
+     * @return int
      */
     public function getIsGlobal()
     {
@@ -390,7 +379,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * Retreive entity type
+     * Retrieve entity type
      *
      * @return Mage_Eav_Model_Entity_Type
      */
@@ -425,7 +414,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * Retreive entity type
+     * Retrieve entity type
      *
      * @return string
      */
@@ -534,25 +523,23 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param $value
+     * @param mixed $value
      * @return bool
      * @throws Mage_Core_Exception
      */
     public function isValueEmpty($value)
     {
         $attrType = $this->getBackend()->getType();
-        $isEmpty = is_array($value)
+        return is_array($value)
             || ($value === null)
-            || $value === false && $attrType != 'int'
-            || $value === '' && ($attrType == 'int' || $attrType == 'decimal' || $attrType == 'datetime');
-
-        return $isEmpty;
+            || $value === false && $attrType !== 'int'
+            || $value === '' && ($attrType === 'int' || $attrType === 'decimal' || $attrType === 'datetime');
     }
 
     /**
      * Check if attribute is valid
      *
-     * @return boolean
+     * @return bool
      */
     public function isAttributeValidationPassed()
     {
@@ -563,7 +550,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Check if attribute in specified set
      *
      * @param int|array $setId
-     * @return boolean
+     * @return bool
      */
     public function isInSet($setId)
     {
@@ -572,12 +559,14 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
         }
 
         if (is_array($setId)
-            && count(array_intersect($setId, array_keys($this->getAttributeSetInfo())))) {
+            && count(array_intersect($setId, array_keys($this->getAttributeSetInfo())))
+        ) {
             return true;
         }
 
         if (!is_array($setId)
-            && array_key_exists($setId, $this->getAttributeSetInfo())) {
+            && array_key_exists($setId, $this->getAttributeSetInfo())
+        ) {
             return true;
         }
 
@@ -589,7 +578,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      *
      * @param int $setId
      * @param int $groupId
-     * @return boolean
+     * @return bool
      */
     public function isInGroup($setId, $groupId)
     {
@@ -638,9 +627,9 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             if ($this->isStatic()) {
                 $this->_dataTable = $this->getEntityType()->getValueTablePrefix();
             } else {
-                $backendTable = trim($this->_getData('backend_table'));
+                $backendTable = trim((string)$this->_getData('backend_table'));
                 if (empty($backendTable)) {
-                    $entityTable  = array($this->getEntity()->getEntityTablePrefix(), $this->getBackendType());
+                    $entityTable  = [$this->getEntity()->getEntityTablePrefix(), $this->getBackendType()];
                     $backendTable = $this->getResource()->getTable($entityTable);
                 }
                 $this->_dataTable = $backendTable;
@@ -675,8 +664,9 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      */
     public function _getFlatColumnsDdlDefinition()
     {
+        /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
         $helper  = Mage::getResourceHelper('eav');
-        $columns = array();
+        $columns = [];
         switch ($this->getBackendType()) {
             case 'static':
                 $describe = $this->_getResource()->describeTable($this->getBackend()->getTable());
@@ -685,64 +675,64 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 }
                 $prop = $describe[$this->getAttributeCode()];
                 $type = $prop['DATA_TYPE'];
-                $size = ($prop['LENGTH'] ? $prop['LENGTH'] : null);
+                $size = $prop['LENGTH'] ?: null;
 
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => $helper->getDdlTypeByColumnType($type),
                     'length'    => $size,
-                    'unsigned'  => $prop['UNSIGNED'] ? true: false,
+                    'unsigned'  => $prop['UNSIGNED'] ? true : false,
                     'nullable'   => $prop['NULLABLE'],
                     'default'   => $prop['DEFAULT'],
                     'extra'     => null
-                );
+                ];
                 break;
             case 'datetime':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => Varien_Db_Ddl_Table::TYPE_DATETIME,
                     'unsigned'  => false,
                     'nullable'  => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
             case 'decimal':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                     'length'    => '12,4',
                     'unsigned'  => false,
                     'nullable'  => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
             case 'int':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                     'unsigned'  => false,
                     'nullable'  => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
             case 'text':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                     'unsigned'  => false,
                     'nullable'  => true,
                     'default'   => null,
                     'extra'     => null,
                     'length'    => Varien_Db_Ddl_Table::MAX_TEXT_SIZE
-                );
+                ];
                 break;
             case 'varchar':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                     'length'    => '255',
                     'unsigned'  => false,
                     'nullable'  => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
         }
 
@@ -757,7 +747,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      */
     protected function _getFlatColumnsOldDefinition()
     {
-        $columns = array();
+        $columns = [];
         switch ($this->getBackendType()) {
             case 'static':
                 $describe = $this->_getResource()->describeTable($this->getBackend()->getTable());
@@ -766,63 +756,63 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 }
                 $prop = $describe[$this->getAttributeCode()];
                 $type = $prop['DATA_TYPE'];
-                if (isset($prop['PRECISION']) && isset($prop['SCALE'])) {
+                if (isset($prop['PRECISION'], $prop['SCALE'])) {
                     $type .= "({$prop['PRECISION']},{$prop['SCALE']})";
                 } else {
                     $type .= (isset($prop['LENGTH']) && $prop['LENGTH']) ? "({$prop['LENGTH']})" : "";
                 }
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => $type,
-                    'unsigned'  => $prop['UNSIGNED'] ? true: false,
+                    'unsigned'  => $prop['UNSIGNED'] ? true : false,
                     'is_null'   => $prop['NULLABLE'],
                     'default'   => $prop['DEFAULT'],
                     'extra'     => null
-                );
+                ];
                 break;
             case 'datetime':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => 'datetime',
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
             case 'decimal':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => 'decimal(12,4)',
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
             case 'int':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => 'int',
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
             case 'text':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => 'text',
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
             case 'varchar':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => 'varchar(255)',
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
         }
         return $columns;
@@ -840,7 +830,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             $condition = $condition || $this->getIsFilterable();
         }
 
-        if ($this->getAttributeCode() == 'status') {
+        if ($this->getAttributeCode() === 'status') {
             $condition = true;
         }
 
@@ -848,7 +838,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             if ($this->usesSource() && $this->getBackendType() != self::TYPE_STATIC) {
                 return $this->getSource()->getFlatIndexes();
             }
-            $indexes = array();
+            $indexes = [];
 
             switch ($this->getBackendType()) {
                 case 'static':
@@ -857,7 +847,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     if (!isset($describe[$this->getAttributeCode()])) {
                         break;
                     }
-                    $indexDataTypes = array(
+                    $indexDataTypes = [
                         'varchar',
                         'varbinary',
                         'char',
@@ -878,14 +868,14 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                         'float',
                         'double',
                         'decimal',
-                    );
+                    ];
                     $prop = $describe[$this->getAttributeCode()];
                     if (in_array($prop['DATA_TYPE'], $indexDataTypes)) {
                         $indexName = 'IDX_' . strtoupper($this->getAttributeCode());
-                        $indexes[$indexName] = array(
+                        $indexes[$indexName] = [
                             'type'      => 'index',
-                            'fields'    => array($this->getAttributeCode())
-                        );
+                            'fields'    => [$this->getAttributeCode()]
+                        ];
                     }
 
                     break;
@@ -894,17 +884,17 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 case 'int':
                 case 'varchar':
                     $indexName = 'IDX_' . strtoupper($this->getAttributeCode());
-                    $indexes[$indexName] = array(
+                    $indexes[$indexName] = [
                         'type'      => 'index',
-                        'fields'    => array($this->getAttributeCode())
-                    );
+                        'fields'    => [$this->getAttributeCode()]
+                    ];
                     break;
             }
 
             return $indexes;
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -930,5 +920,13 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             return $this->getSource()->getFlatUpdateSelect($store);
         }
         return $this->_getResource()->getFlatUpdateSelect($this, $store);
+    }
+
+    /**
+     * @return array
+     */
+    public function getApplyTo()
+    {
+        return [];
     }
 }

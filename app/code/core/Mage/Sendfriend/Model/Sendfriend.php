@@ -1,31 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sendfriend
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sendfriend
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * SendFriend Log
+ *
+ * @category   Mage
+ * @package    Mage_Sendfriend
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sendfriend_Model_Resource_Sendfriend _getResource()
  * @method Mage_Sendfriend_Model_Resource_Sendfriend getResource()
@@ -35,10 +34,6 @@
  * @method $this setIp(int $value)
  * @method int getTime()
  * @method $this setTime(int $value)
- *
- * @category    Mage
- * @package     Mage_Sendfriend
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
 {
@@ -47,21 +42,21 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_names   = array();
+    protected $_names   = [];
 
     /**
      * Recipient Emails
      *
      * @var array
      */
-    protected $_emails  = array();
+    protected $_emails  = [];
 
     /**
      * Sender data array
      *
      * @var array
      */
-    protected $_sender  = array();
+    protected $_sender  = [];
 
     /**
      * Product Instance
@@ -73,7 +68,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Count of sent in last period
      *
-     * @var int
+     * @var int|null
      */
     protected $_sentCount;
 
@@ -82,12 +77,8 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_lastCookieValue = array();
+    protected $_lastCookieValue = [];
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('sendfriend/sendfriend');
@@ -111,7 +102,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      */
     public function toOptionArray()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -125,23 +116,23 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
             Mage::throwException(Mage::helper('sendfriend')->__('You have exceeded limit of %d sends in an hour', $this->getMaxSendsToFriend()));
         }
 
-        /* @var Mage_Core_Model_Translate $translate */
+        /** @var Mage_Core_Model_Translate $translate */
         $translate = Mage::getSingleton('core/translate');
         $translate->setTranslateInline(false);
 
-        /* @var Mage_Core_Model_Email_Template $mailTemplate */
+        /** @var Mage_Core_Model_Email_Template $mailTemplate */
         $mailTemplate = Mage::getModel('core/email_template');
 
         $message = nl2br(htmlspecialchars($this->getSender()->getMessage()));
-        $sender  = array(
+        $sender  = [
             'name'  => $this->_getHelper()->escapeHtml($this->getSender()->getName()),
             'email' => $this->_getHelper()->escapeHtml($this->getSender()->getEmail())
-        );
+        ];
 
-        $mailTemplate->setDesignConfig(array(
+        $mailTemplate->setDesignConfig([
             'area'  => 'frontend',
             'store' => Mage::app()->getStore()->getId()
-        ));
+        ]);
 
         foreach ($this->getRecipients()->getEmails() as $k => $email) {
             $name = $this->getRecipients()->getNames($k);
@@ -150,7 +141,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
                 $sender,
                 $email,
                 $name,
-                array(
+                [
                     'name'          => $name,
                     'email'         => $email,
                     'product_name'  => $this->getProduct()->getName(),
@@ -162,7 +153,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
                         $this->getProduct(),
                         'small_image'
                     )->resize(75),
-                )
+                ]
             );
         }
 
@@ -179,7 +170,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        $errors = array();
+        $errors = [];
 
         $name = $this->getSender()->getName();
         if (empty($name)) {
@@ -301,12 +292,13 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         // validate array
         if (!is_array($recipients) || !isset($recipients['email'])
             || !isset($recipients['name']) || !is_array($recipients['email'])
-            || !is_array($recipients['name'])) {
+            || !is_array($recipients['name'])
+        ) {
             return $this;
         }
 
-        $emails = array();
-        $names  = array();
+        $emails = [];
+        $names  = [];
         foreach ($recipients['email'] as $k => $email) {
             if (!isset($emails[$email]) && isset($recipients['name'][$k])) {
                 $emails[$email] = true;
@@ -318,10 +310,10 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
             $emails = array_keys($emails);
         }
 
-        return $this->setData('_recipients', new Varien_Object(array(
+        return $this->setData('_recipients', new Varien_Object([
             'emails' => $emails,
             'names'  => $names
-        )));
+        ]));
     }
 
     /**
@@ -333,10 +325,10 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     {
         $recipients = $this->_getData('_recipients');
         if (!$recipients instanceof Varien_Object) {
-            $recipients =  new Varien_Object(array(
-                'emails' => array(),
-                'names'  => array()
-            ));
+            $recipients =  new Varien_Object([
+                'emails' => [],
+                'names'  => []
+            ]);
             $this->setData('_recipients', $recipients);
         }
         return $recipients;
@@ -422,7 +414,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Get max allowed uses of "Send to Friend" function per hour
      *
-     * @return integer
+     * @return int
      */
     public function getMaxSendsToFriend()
     {
@@ -442,7 +434,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Get max allowed recipients for "Send to a Friend" function
      *
-     * @return integer
+     * @return int
      */
     public function getMaxRecipients()
     {
@@ -452,7 +444,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Check if user is allowed to email product to a friend
      *
-     * @return boolean
+     * @return bool
      */
     public function canEmailToFriend()
     {
@@ -462,7 +454,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Check if user is exceed limit
      *
-     * @return boolean
+     * @return bool
      */
     public function isExceedLimit()
     {
@@ -518,13 +510,9 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     {
         $cookie   = $this->_getHelper()->getCookieName();
         $time     = time();
-        $newTimes = array();
+        $newTimes = [];
 
-        if (isset($this->_lastCookieValue[$cookie])) {
-            $oldTimes = $this->_lastCookieValue[$cookie];
-        } else {
-            $oldTimes = $this->getCookie()->get($cookie);
-        }
+        $oldTimes = $this->_lastCookieValue[$cookie] ?? $this->getCookie()->get($cookie);
 
         if ($oldTimes) {
             $oldTimes = explode(',', $oldTimes);

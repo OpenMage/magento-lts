@@ -1004,7 +1004,7 @@
 		 *
 		 * @method getLang
 		 * @param {String} n Name/key to get from the language pack.
-		 * @param {String} dv Optional default value to retrive.
+		 * @param {String} dv Optional default value to retrieve.
 		 */
 		getLang : function(n, dv) {
 			return tinymce.i18n[(this.settings.language || 'en') + '.' + n] || (is(dv) ? dv : '{#' + n + '}');
@@ -1014,7 +1014,7 @@
 		 * Returns a configuration parameter by name.
 		 *
 		 * @method getParam
-		 * @param {String} n Configruation parameter to retrive.
+		 * @param {String} n Configruation parameter to retrieve.
 		 * @param {String} dv Optional default value to return.
 		 * @param {String} ty Optional type parameter.
 		 * @return {String} Configuration parameter value or default value.

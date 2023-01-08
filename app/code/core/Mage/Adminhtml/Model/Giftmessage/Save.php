@@ -1,36 +1,32 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml giftmessage save model
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array getGiftmessages()
  */
 class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
 {
@@ -40,6 +36,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * Save all seted giftmessages
      *
      * @return $this
+     * @throws Throwable
      */
     public function saveAllInQuote()
     {
@@ -49,18 +46,25 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
             return $this;
         }
 
-        foreach ($giftmessages as $entityId=>$giftmessage) {
+        foreach ($giftmessages as $entityId => $giftmessage) {
             $this->_saveOne($entityId, $giftmessage);
         }
 
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function getSaved()
     {
         return $this->_saved;
     }
 
+    /**
+     * @return $this
+     * @throws Throwable
+     */
     public function saveAllInOrder()
     {
         $giftmessages = $this->getGiftmessages();
@@ -69,7 +73,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
             return $this;
         }
 
-        foreach ($giftmessages as $entityId=>$giftmessage) {
+        foreach ($giftmessages as $entityId => $giftmessage) {
             $this->_saveOne($entityId, $giftmessage);
         }
 
@@ -79,16 +83,18 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     /**
      * Save a single gift message
      *
-     * @param integer $entityId
+     * @param int $entityId
      * @param array $giftmessage
      * @return $this
+     * @throws Throwable
      */
-    protected function _saveOne($entityId, $giftmessage) {
-        /* @var $giftmessageModel Mage_Giftmessage_Model_Message */
+    protected function _saveOne($entityId, $giftmessage)
+    {
+        /** @var Mage_GiftMessage_Model_Message $giftmessageModel */
         $giftmessageModel = Mage::getModel('giftmessage/message');
         $entityType = $this->_getMappedType($giftmessage['type']);
 
-        switch($entityType) {
+        switch ($entityType) {
             case 'quote':
                 $entityModel = $this->_getQuote();
                 break;
@@ -120,7 +126,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
         } elseif (!$giftmessageModel->isMessageEmpty()) {
             $giftmessageModel->save();
             $entityModel->setGiftMessageId($giftmessageModel->getId());
-            if($entityType != 'quote') {
+            if ($entityType != 'quote') {
                 $entityModel->save();
             }
             $this->_saved = true;
@@ -135,10 +141,11 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * @param Mage_GiftMessage_Model_Message|null $giftmessageModel
      * @param Varien_Object $entityModel
      * @return $this
+     * @throws Throwable
      */
-    protected function _deleteOne($entityModel, $giftmessageModel=null)
+    protected function _deleteOne($entityModel, $giftmessageModel = null)
     {
-        if(is_null($giftmessageModel)) {
+        if (is_null($giftmessageModel)) {
             $giftmessageModel = Mage::getModel('giftmessage/message')
                 ->load($entityModel->getGiftMessageId());
         }
@@ -178,30 +185,30 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     }
 
     /**
-     * Retrive allowed quote items for gift messages
+     * Retrieve allowed quote items for gift messages
      *
      * @return array
      */
     public function getAllowQuoteItems()
     {
-        if(!is_array($this->_getSession()->getAllowQuoteItemsGiftMessage())) {
-            $this->setAllowQuoteItems(array());
+        if (!is_array($this->_getSession()->getAllowQuoteItemsGiftMessage())) {
+            $this->setAllowQuoteItems([]);
         }
 
         return $this->_getSession()->getAllowQuoteItemsGiftMessage();
     }
 
     /**
-     * Retrive allowed quote items products for gift messages
+     * Retrieve allowed quote items products for gift messages
      *
      * @return array
      */
     public function getAllowQuoteItemsProducts()
     {
-        $result = array();
+        $result = [];
         foreach ($this->getAllowQuoteItems() as $itemId) {
             $item = $this->_getQuote()->getItemById($itemId);
-            if(!$item) {
+            if (!$item) {
                 continue;
             }
             $result[] = $item->getProduct()->getId();
@@ -213,11 +220,11 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * Checks allowed quote item for gift messages
      *
      * @param  Varien_Object $item
-     * @return boolean
+     * @return bool
      */
     public function getIsAllowedQuoteItem($item)
     {
-        if(!in_array($item->getId(), $this->getAllowQuoteItems())) {
+        if (!in_array($item->getId(), $this->getAllowQuoteItems())) {
             if ($item->getGiftMessageId() && $this->isGiftMessagesAvailable($item)) {
                 $this->addAllowQuoteItem($item->getId());
                 return true;
@@ -237,7 +244,9 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     public function isGiftMessagesAvailable($item)
     {
         return Mage::helper('giftmessage/message')->getIsMessagesAvailable(
-            'item', $item, $item->getStore()
+            'item',
+            $item,
+            $item->getStore()
         );
     }
 
@@ -250,25 +259,26 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     public function importAllowQuoteItemsFromProducts($products)
     {
         $allowedItems = $this->getAllowQuoteItems();
-        $deleteAllowedItems = array();
-        foreach ($products as $productId=>$data) {
+        $deleteAllowedItems = [];
+        foreach ($products as $productId => $data) {
             $product = Mage::getModel('catalog/product')
                 ->setStore($this->_getSession()->getStore())
                 ->load($productId);
             $item = $this->_getQuote()->getItemByProduct($product);
 
-            if(!$item) {
+            if (!$item) {
                 continue;
             }
 
             if (in_array($item->getId(), $allowedItems)
-                && !isset($data['giftmessage'])) {
+                && !isset($data['giftmessage'])
+            ) {
                 $deleteAllowedItems[] = $item->getId();
             } elseif (!in_array($item->getId(), $allowedItems)
-                      && isset($data['giftmessage'])) {
+                      && isset($data['giftmessage'])
+            ) {
                 $allowedItems[] = $item->getId();
             }
-
         }
 
         $allowedItems = array_diff($allowedItems, $deleteAllowedItems);
@@ -280,25 +290,25 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     public function importAllowQuoteItemsFromItems($items)
     {
         $allowedItems = $this->getAllowQuoteItems();
-        $deleteAllowedItems = array();
-        foreach ($items as $itemId=>$data) {
-
+        $deleteAllowedItems = [];
+        foreach ($items as $itemId => $data) {
             $item = $this->_getQuote()->getItemById($itemId);
 
-            if(!$item) {
+            if (!$item) {
                 // Clean not exists items
                 $deleteAllowedItems[] = $itemId;
                 continue;
             }
 
             if (in_array($item->getId(), $allowedItems)
-                && !isset($data['giftmessage'])) {
+                && !isset($data['giftmessage'])
+            ) {
                 $deleteAllowedItems[] = $item->getId();
             } elseif (!in_array($item->getId(), $allowedItems)
-                      && isset($data['giftmessage'])) {
+                      && isset($data['giftmessage'])
+            ) {
                 $allowedItems[] = $item->getId();
             }
-
         }
 
         $allowedItems = array_diff($allowedItems, $deleteAllowedItems);
@@ -307,25 +317,21 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     }
 
     /**
-     * Retrive mapped type for entity
+     * Retrieve mapped type for entity
      *
      * @param string $type
      * @return string
      */
     protected function _getMappedType($type)
     {
-        $map = array(
+        $map = [
             'main'          =>  'quote',
             'item'          =>  'quote_item',
             'order'         =>  'order',
             'order_item'    =>  'order_item'
-        );
+        ];
 
-        if (isset($map[$type])) {
-            return $map[$type];
-        }
-
-        return null;
+        return $map[$type] ?? null;
     }
 
     /**
@@ -347,5 +353,4 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     {
         return $this->_getSession()->getQuote();
     }
-
 }

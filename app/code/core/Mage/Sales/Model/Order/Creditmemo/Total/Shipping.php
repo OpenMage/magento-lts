@@ -1,35 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order creditmemo shipping total calculation model
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_Order_Creditmemo_Total_Abstract
 {
@@ -42,8 +37,8 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
         $order = $creditmemo->getOrder();
-        $allowedAmount          = $order->getShippingAmount()-$order->getShippingRefunded();
-        $baseAllowedAmount      = $order->getBaseShippingAmount()-$order->getBaseShippingRefunded();
+        $allowedAmount          = $order->getShippingAmount() - $order->getShippingRefunded();
+        $baseAllowedAmount      = $order->getBaseShippingAmount() - $order->getBaseShippingRefunded();
 
         $shipping               = $order->getShippingAmount();
         $baseShipping           = $order->getBaseShippingAmount();
@@ -59,10 +54,10 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
         if ($creditmemo->hasBaseShippingAmount()) {
             $baseShippingAmount = Mage::app()->getStore()->roundPrice($creditmemo->getBaseShippingAmount());
             if ($isShippingInclTax && $baseShippingInclTax != 0) {
-                $part = $baseShippingAmount/$baseShippingInclTax;
-                $shippingInclTax    = Mage::app()->getStore()->roundPrice($shippingInclTax*$part);
-                $baseShippingInclTax= $baseShippingAmount;
-                $baseShippingAmount = Mage::app()->getStore()->roundPrice($baseShipping*$part);
+                $part = $baseShippingAmount / $baseShippingInclTax;
+                $shippingInclTax    = Mage::app()->getStore()->roundPrice($shippingInclTax * $part);
+                $baseShippingInclTax = $baseShippingAmount;
+                $baseShippingAmount = Mage::app()->getStore()->roundPrice($baseShipping * $part);
             }
             /*
              * Rounded allowed shipping refund amount is the highest acceptable shipping refund amount.
@@ -108,8 +103,8 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
         $creditmemo->setShippingInclTax($shippingInclTax);
         $creditmemo->setBaseShippingInclTax($baseShippingInclTax);
 
-        $creditmemo->setGrandTotal($creditmemo->getGrandTotal()+$shipping);
-        $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal()+$baseShipping);
+        $creditmemo->setGrandTotal($creditmemo->getGrandTotal() + $shipping);
+        $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal() + $baseShipping);
         return $this;
     }
 }

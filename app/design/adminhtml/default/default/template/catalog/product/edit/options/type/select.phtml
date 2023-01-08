@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 
@@ -35,7 +30,7 @@ OptionTemplateSelect = '<table class="border" cellpadding="0" cellspacing="0">'+
             <?php if ($this->getCanReadPrice() !== false) : ?>
             '<th class="type-price"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Price')) ?></th>' +
             '<th class="type-type"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Price Type')) ?></th>' +
-            <?php endif; ?>
+            <?php endif ?>
             '<th class="type-sku"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('SKU')) ?></th>'+
             '<th class="type-order"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Sort Order')) ?></th>'+
             '<th class="type-butt last">&nbsp;</th>'+
@@ -56,12 +51,12 @@ OptionTemplateSelectRow = '<tr id="product_option_{{id}}_select_{{select_id}}">'
             '<input type="hidden" id="product_option_{{id}}_select_{{select_id}}_is_delete" name="product[options][{{id}}][values][{{select_id}}][is_delete]" value="">'+
             '<input type="text" class="required-entry input-text select-type-title" id="product_option_{{id}}_select_{{select_id}}_title" name="product[options][{{id}}][values][{{select_id}}][title]" value="{{title}}">{{checkboxScopeTitle}}</td>'+
             <?php if ($this->getCanReadPrice() !== false) : ?>
-            '<td><input type="text" class="input-text validate-number product-option-price" id="product_option_{{id}}_select_{{select_id}}_price" name="product[options][{{id}}][values][{{select_id}}][price]" value="{{price}}"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif; ?>></td>' +
+            '<td><input type="text" class="input-text validate-number product-option-price" id="product_option_{{id}}_select_{{select_id}}_price" name="product[options][{{id}}][values][{{select_id}}][price]" value="{{price}}"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif ?>></td>' +
             '<td><?php echo $this->getPriceTypeSelectHtml() ?>{{checkboxScopePrice}}</td>' +
-            <?php else : ?>
+            <?php else: ?>
             '<input type="hidden" id="product_option_{{id}}_select_{{select_id}}_price" name="product[options][{{id}}][values][{{select_id}}][price]">' +
             '<input type="hidden" name="product[options][{{id}}][values][{{select_id}}][price_type]" id="product_option_{{id}}_select_{{select_id}}_price_type">' +
-            <?php endif; ?>
+            <?php endif ?>
             '<td><input type="text" class="input-text" name="product[options][{{id}}][values][{{select_id}}][sku]" value="{{sku}}"></td>'+
             '<td><input type="text" class="validate-zero-or-greater input-text" name="product[options][{{id}}][values][{{select_id}}][sort_order]" value="{{sort_order}}"></td>'+
             '<td class="last"><span title="Delete row"><?php echo $this->getDeleteButtonHtml() ?></span></td>'+
@@ -73,7 +68,6 @@ selectOptionType = {
     templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
     templateText : OptionTemplateSelectRow,
     add : function(data) {
-
         this.template = new Template(this.templateText, this.templateSyntax);
 
         if (data.target || data.srcElement) {//data is Event (work in IE and Firefox)
@@ -91,6 +85,11 @@ selectOptionType = {
         data.id  = optionId;
 
         Element.insert($(this.div+'_'+data.id), {'bottom':this.template.evaluate(data)});
+
+        var inputs = $$('#product_option_'+data.id+'_select_'+data.select_id+' input', '#product_option_'+data.id+'_select_'+data.select_id+' select', '#product_option_'+data.id+'_select_'+data.select_id+' textarea');
+        inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el)); });
+        var inputs = $$('#product_option_'+data.id+'_select_'+data.select_id+' button');
+        inputs.each(function(el) { Event.observe(el, 'click', el.setHasChanges.bind(el));  });
 
         if (data.checkboxScopeTitle) {
             //set disabled

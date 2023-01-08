@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php echo $this->getTemplatesHtml() ?>
@@ -79,7 +74,7 @@ var productOption = {
         }
 
         //set selected is_require
-        if (data.is_require) {
+        if (data.hasOwnProperty('is_require')) {
             $A($('<?php echo $this->getFieldId() ?>_'+data.id+'_is_require').options).each(function(option){
                 if (option.value==data.is_require) option.selected = true;
             });
@@ -123,7 +118,9 @@ var productOption = {
         }
         <?php else: ?>
             inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el));  } )
-        <?php endif;?>
+            var inputs = $$('div.product-custom-options button');
+            inputs.each(function(el) { Event.observe(el, 'click', el.setHasChanges.bind(el));  } )
+        <?php endif ?>
     }
 }
 
@@ -322,8 +319,6 @@ if($('option_panel')){
     $('option_panel').remove();
 }
 
-productOption.bindRemoveButtons();
-
 if($('<?php echo $this->getAddButtonId() ?>')){
     Event.observe('<?php echo $this->getAddButtonId() ?>', 'click', productOption.add.bind(productOption));
 }
@@ -341,11 +336,13 @@ Validation.addAllThese([
 <?php foreach ($this->getOptionValues() as $_value): ?>
     productOption.add(<?php echo $_value->toJson() ?>);
     productOptionType.addDataToValues(<?php echo $_value->toJson() ?>);
-<?php endforeach; ?>
+<?php endforeach ?>
+
+productOption.bindRemoveButtons();
 
 //bind scope checkboxes
 productOptionScope.bindScopeCheckbox();
 //]]>
 </script>
 
-<div><?php if (!$this->isReadonly()):?><input type="hidden" name="affect_product_custom_options" value="1" /><?php endif;?></div>
+<div><?php if (!$this->isReadonly()):?><input type="hidden" name="affect_product_custom_options" value="1" /><?php endif ?></div>

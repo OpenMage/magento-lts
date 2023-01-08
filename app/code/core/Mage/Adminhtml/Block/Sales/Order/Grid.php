@@ -1,39 +1,35 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
 
 /**
  * Adminhtml sales orders grid
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -54,6 +50,10 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
         return 'sales/order_grid_collection';
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass());
@@ -61,87 +61,91 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _prepareColumns()
     {
-
-        $this->addColumn('real_order_id', array(
+        $this->addColumn('real_order_id', [
             'header' => Mage::helper('sales')->__('Order #'),
-            'width'  => '80px',
+            'width'  => '100px',
             'type'   => 'text',
             'index'  => 'increment_id',
             'escape' => true,
-        ));
+        ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', array(
+            $this->addColumn('store_id', [
                 'header'    => Mage::helper('sales')->__('Purchased From (Store)'),
                 'index'     => 'store_id',
                 'type'      => 'store',
-                'store_view'=> true,
+                'store_view' => true,
                 'display_deleted' => true,
                 'escape'  => true,
-            ));
+            ]);
         }
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('created_at', [
             'header' => Mage::helper('sales')->__('Purchased On'),
             'index' => 'created_at',
             'type' => 'datetime',
-            'width' => '100px',
-        ));
+        ]);
 
-        $this->addColumn('billing_name', array(
+        $this->addColumn('billing_name', [
             'header' => Mage::helper('sales')->__('Bill to Name'),
             'index' => 'billing_name',
-        ));
+        ]);
 
-        $this->addColumn('shipping_name', array(
+        $this->addColumn('shipping_name', [
             'header' => Mage::helper('sales')->__('Ship to Name'),
             'index' => 'shipping_name',
-        ));
+        ]);
 
-        $this->addColumn('base_grand_total', array(
+        $this->addColumn('base_grand_total', [
             'header' => Mage::helper('sales')->__('G.T. (Base)'),
             'index' => 'base_grand_total',
             'type'  => 'currency',
             'currency' => 'base_currency_code',
-        ));
+        ]);
 
-        $this->addColumn('grand_total', array(
+        $this->addColumn('grand_total', [
             'header' => Mage::helper('sales')->__('G.T. (Purchased)'),
             'index' => 'grand_total',
             'type'  => 'currency',
             'currency' => 'order_currency_code',
-        ));
+        ]);
 
-        $this->addColumn('status', array(
+        $this->addColumn('status', [
             'header' => Mage::helper('sales')->__('Status'),
             'index' => 'status',
             'type'  => 'options',
-            'width' => '70px',
+            'width' => '150px',
             'options' => Mage::getSingleton('sales/order_config')->getStatuses(),
-        ));
+        ]);
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
-            $this->addColumn('action',
-                array(
+            $this->addColumn(
+                'action',
+                [
                     'header'    => Mage::helper('sales')->__('Action'),
                     'width'     => '50px',
                     'type'      => 'action',
                     'getter'     => 'getId',
-                    'actions'   => array(
-                        array(
+                    'actions'   => [
+                        [
                             'caption' => Mage::helper('sales')->__('View'),
-                            'url'     => array('base'=>'*/sales_order/view'),
+                            'url'     => ['base' => '*/sales_order/view'],
                             'field'   => 'order_id',
                             'data-column' => 'action',
-                        )
-                    ),
+                        ]
+                    ],
                     'filter'    => false,
                     'sortable'  => false,
                     'index'     => 'stores',
                     'is_system' => true,
-            ));
+                ]
+            );
         }
         $this->addRssList('rss/order/new', Mage::helper('sales')->__('New Order RSS'));
 
@@ -151,6 +155,9 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
         return parent::_prepareColumns();
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('entity_id');
@@ -158,65 +165,71 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
         $this->getMassactionBlock()->setUseSelectAll(false);
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/cancel')) {
-            $this->getMassactionBlock()->addItem('cancel_order', array(
-                 'label'=> Mage::helper('sales')->__('Cancel'),
+            $this->getMassactionBlock()->addItem(MassAction::CANCEL_ORDER, [
+                 'label' => Mage::helper('sales')->__('Cancel'),
                  'url'  => $this->getUrl('*/sales_order/massCancel'),
-            ));
+            ]);
         }
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/hold')) {
-            $this->getMassactionBlock()->addItem('hold_order', array(
-                 'label'=> Mage::helper('sales')->__('Hold'),
+            $this->getMassactionBlock()->addItem(MassAction::HOLD_ORDER, [
+                 'label' => Mage::helper('sales')->__('Hold'),
                  'url'  => $this->getUrl('*/sales_order/massHold'),
-            ));
+            ]);
         }
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/unhold')) {
-            $this->getMassactionBlock()->addItem('unhold_order', array(
-                 'label'=> Mage::helper('sales')->__('Unhold'),
+            $this->getMassactionBlock()->addItem(MassAction::UNHOLD_ORDER, [
+                 'label' => Mage::helper('sales')->__('Unhold'),
                  'url'  => $this->getUrl('*/sales_order/massUnhold'),
-            ));
+            ]);
         }
 
-        $this->getMassactionBlock()->addItem('pdfinvoices_order', array(
-             'label'=> Mage::helper('sales')->__('Print Invoices'),
+        $this->getMassactionBlock()->addItem(MassAction::PDF_INVOICE_ORDER, [
+             'label' => Mage::helper('sales')->__('Print Invoices'),
              'url'  => $this->getUrl('*/sales_order/pdfinvoices'),
-        ));
+        ]);
 
-        $this->getMassactionBlock()->addItem('pdfshipments_order', array(
-             'label'=> Mage::helper('sales')->__('Print Packingslips'),
+        $this->getMassactionBlock()->addItem(MassAction::PDF_SHIPMENTS_ORDER, [
+             'label' => Mage::helper('sales')->__('Print Packingslips'),
              'url'  => $this->getUrl('*/sales_order/pdfshipments'),
-        ));
+        ]);
 
-        $this->getMassactionBlock()->addItem('pdfcreditmemos_order', array(
-             'label'=> Mage::helper('sales')->__('Print Credit Memos'),
+        $this->getMassactionBlock()->addItem(MassAction::PDF_CREDITMEMOS_ORDER, [
+             'label' => Mage::helper('sales')->__('Print Credit Memos'),
              'url'  => $this->getUrl('*/sales_order/pdfcreditmemos'),
-        ));
+        ]);
 
-        $this->getMassactionBlock()->addItem('pdfdocs_order', array(
-             'label'=> Mage::helper('sales')->__('Print All'),
+        $this->getMassactionBlock()->addItem(MassAction::PDF_DOCS_ORDER, [
+             'label' => Mage::helper('sales')->__('Print All'),
              'url'  => $this->getUrl('*/sales_order/pdfdocs'),
-        ));
+        ]);
 
-        $this->getMassactionBlock()->addItem('print_shipping_label', array(
-             'label'=> Mage::helper('sales')->__('Print Shipping Labels'),
+        $this->getMassactionBlock()->addItem(MassAction::PRINT_SHIPMENT_LABEL, [
+             'label' => Mage::helper('sales')->__('Print Shipping Labels'),
              'url'  => $this->getUrl('*/sales_order_shipment/massPrintShippingLabel'),
-        ));
+        ]);
 
         return $this;
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $row
+     * @return false|string
+     */
     public function getRowUrl($row)
     {
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
-            return $this->getUrl('*/sales_order/view', array('order_id' => $row->getId()));
+            return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
         }
         return false;
     }
 
+    /**
+     * @return string
+     */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current'=>true));
+        return $this->getUrl('*/*/grid', ['_current' => true]);
     }
-
 }

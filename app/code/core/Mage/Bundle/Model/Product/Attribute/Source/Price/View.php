@@ -1,36 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Bundle Price View Attribute Renderer
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
@@ -42,16 +36,16 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
     public function getAllOptions()
     {
         if (is_null($this->_options)) {
-            $this->_options = array(
-                array(
+            $this->_options = [
+                [
                     'label' => Mage::helper('bundle')->__('As Low as'),
                     'value' =>  1
-                ),
-                array(
+                ],
+                [
                     'label' => Mage::helper('bundle')->__('Price Range'),
                     'value' =>  0
-                ),
-            );
+                ],
+            ];
         }
         return $this->_options;
     }
@@ -59,8 +53,8 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
     /**
      * Get a text for option value
      *
-     * @param string|integer $value
-     * @return string
+     * @param string|int $value
+     * @return string|false
      */
     public function getOptionText($value)
     {
@@ -81,11 +75,11 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
     public function getFlatColums()
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
-        $column = array(
+        $column = [
             'unsigned'  => false,
             'default'   => null,
             'extra'     => null
-        );
+        ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
             $column['type']     = 'int';
@@ -96,7 +90,7 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
             $column['comment']  = 'Bundle Price View ' . $attributeCode . ' column';
         }
 
-        return array($attributeCode => $column);
+        return [$attributeCode => $column];
     }
 
     /**

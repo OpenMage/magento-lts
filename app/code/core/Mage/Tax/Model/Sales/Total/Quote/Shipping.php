@@ -1,35 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tax
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Model to calculate shipping tax
  *
- * @category    Mage
- * @package     Mage_Tax
- * @author      Magento Core Team
+ * @category   Mage
+ * @package    Mage_Tax
+ * @author     Magento Core Team
  */
 class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
@@ -65,7 +60,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
     /**
      * Request which can be used for tax rate calculation
      *
-     * @var Varien_Object
+     * @var Varien_Object|null
      */
     protected $_storeTaxRequest = null;
 
@@ -157,8 +152,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
             }
         } else {
             $appliedRates = $calc->getAppliedRates($addressTaxRequest);
-            $taxes = array();
-            $baseTaxes = array();
+            $taxes = [];
+            $baseTaxes = [];
             foreach ($appliedRates as $appliedRate) {
                 $taxRate = $appliedRate['percent'];
                 $taxId = $appliedRate['id'];
@@ -208,10 +203,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
         }
 
         $deltas = $this->_address->getRoundingDeltas();
-        $key = $type.$direction;
+        $key = $type . $direction;
         $rate = (string) $rate;
-        $delta = isset($deltas[$key][$rate]) ? $deltas[$key][$rate] : 0;
-        return $this->_calculator->round($price+$delta);
+        $delta = $deltas[$key][$rate] ?? 0;
+        return $this->_calculator->round($price + $delta);
     }
 
     /**
@@ -238,13 +233,12 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
      */
     protected function _getAddressTaxRequest($address)
     {
-        $addressTaxRequest = $this->_calculator->getRateRequest(
+        return $this->_calculator->getRateRequest(
             $address,
             $address->getQuote()->getBillingAddress(),
             $address->getQuote()->getCustomerTaxClassId(),
             $address->getQuote()->getStore()
         );
-        return $addressTaxRequest;
     }
 
     /**
@@ -267,7 +261,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
      * Calculate shipping price without store tax
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     * @return void
      * @deprecated after 1.4.0.0
      */
     protected function _processShippingAmount($address)

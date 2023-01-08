@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Cache
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Cache
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Varien_Cache_Core extends Zend_Cache_Core
@@ -31,12 +26,12 @@ class Varien_Cache_Core extends Zend_Cache_Core
      *
      * @var array $_specificOptions
      */
-    protected $_specificOptions = array('slab_size' => 0);
+    protected $_specificOptions = ['slab_size' => 0];
 
     /**
      * Used to tell chunked data from ordinary
      */
-    const CODE_WORD = '{splitted}';
+    public const CODE_WORD = '{splitted}';
 
     /**
      * Constructor
@@ -44,7 +39,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @throws Varien_Exception
      * @param array|Zend_Config $options Associative array of options or Zend_Config instance
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         parent::__construct($options);
         if (!is_numeric($this->getOption('slab_size'))) {
@@ -69,7 +64,6 @@ class Varien_Cache_Core extends Zend_Cache_Core
      *
      * @param string $id     ID of data's info cell
      * @param int    $chunks Number of chunks to remove (basically, the number after '{splitted}|')
-     * @return null
      */
     protected function _cleanTheMess($id, $chunks)
     {
@@ -107,7 +101,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      */
     protected function _tags($tags)
     {
-        foreach ($tags as $key=>$tag) {
+        foreach ($tags as $key => $tag) {
             $tags[$key] = $this->_id($tag);
         }
         return $tags;
@@ -123,7 +117,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param  int $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends
      * @return boolean True if no problem
      */
-    public function save($data, $id = null, $tags = array(), $specificLifetime = false, $priority = 8)
+    public function save($data, $id = null, $tags = [], $specificLifetime = false, $priority = 8)
     {
         $tags = $this->_tags($tags);
 
@@ -161,8 +155,8 @@ class Varien_Cache_Core extends Zend_Cache_Core
             // Seems we've got chunked data
 
             $arr = explode('|', $data);
-            $chunks = isset($arr[1]) ? $arr[1] : false;
-            $chunkData = array();
+            $chunks = $arr[1] ?? false;
+            $chunkData = [];
 
             if ($chunks && is_numeric($chunks)) {
                 for ($i = 0; $i < $chunks; $i++) {
@@ -172,7 +166,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
                         // Some chunk in chain was not found, we can not glue-up the data:
                         // clean the mess and return nothing
 
-                        $this->_cleanTheMess($id, $chunks);
+                        $this->_cleanTheMess($id, (int)$chunks);
                         return false;
                     }
 
@@ -205,7 +199,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @throws Zend_Cache_Exception
      * @return boolean True if ok
      */
-    public function clean($mode = 'all', $tags = array())
+    public function clean($mode = 'all', $tags = [])
     {
         $tags = $this->_tags($tags);
         return parent::clean($mode, $tags);
@@ -219,7 +213,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param array $tags array of tags
      * @return array array of matching cache ids (string)
      */
-    public function getIdsMatchingTags($tags = array())
+    public function getIdsMatchingTags($tags = [])
     {
         $tags = $this->_tags($tags);
         return parent::getIdsMatchingTags($tags);
@@ -233,7 +227,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param array $tags array of tags
      * @return array array of not matching cache ids (string)
      */
-    public function getIdsNotMatchingTags($tags = array())
+    public function getIdsNotMatchingTags($tags = [])
     {
         $tags = $this->_tags($tags);
         return parent::getIdsNotMatchingTags($tags);

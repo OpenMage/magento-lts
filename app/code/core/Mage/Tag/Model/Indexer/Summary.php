@@ -1,79 +1,69 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tag
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Tag Indexer Model
  *
+ * @category   Mage
+ * @package    Mage_Tag
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Tag_Model_Resource_Indexer_Summary _getResource()
  * @method Mage_Tag_Model_Resource_Indexer_Summary getResource()
  * @method int getTagId()
- * @method Mage_Tag_Model_Indexer_Summary setTagId(int $value)
+ * @method $this setTagId(int $value)
  * @method int getStoreId()
- * @method Mage_Tag_Model_Indexer_Summary setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method int getCustomers()
- * @method Mage_Tag_Model_Indexer_Summary setCustomers(int $value)
+ * @method $this setCustomers(int $value)
  * @method int getProducts()
- * @method Mage_Tag_Model_Indexer_Summary setProducts(int $value)
+ * @method $this setProducts(int $value)
  * @method int getUses()
- * @method Mage_Tag_Model_Indexer_Summary setUses(int $value)
+ * @method $this setUses(int $value)
  * @method int getHistoricalUses()
- * @method Mage_Tag_Model_Indexer_Summary setHistoricalUses(int $value)
+ * @method $this setHistoricalUses(int $value)
  * @method int getPopularity()
- * @method Mage_Tag_Model_Indexer_Summary setPopularity(int $value)
+ * @method $this setPopularity(int $value)
  * @method int getBasePopularity()
- * @method Mage_Tag_Model_Indexer_Summary setBasePopularity(int $value)
- *
- * @category    Mage
- * @package     Mage_Tag
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method $this setBasePopularity(int $value)
  */
 class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
 {
     /**
      * @var array
      */
-    protected $_matchedEntities = array(
-        Mage_Catalog_Model_Product::ENTITY => array(
+    protected $_matchedEntities = [
+        Mage_Catalog_Model_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE,
             Mage_Index_Model_Event::TYPE_DELETE,
             Mage_Index_Model_Event::TYPE_MASS_ACTION,
-        ),
-        Mage_Tag_Model_Tag::ENTITY => array(
+        ],
+        Mage_Tag_Model_Tag::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-        Mage_Tag_Model_Tag_Relation::ENTITY => array(
+        ],
+        Mage_Tag_Model_Tag_Relation::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        )
-    );
+        ]
+    ];
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('tag/indexer_summary');
@@ -106,11 +96,11 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
      */
     protected function _getProductAttributesDependOn()
     {
-        return array(
+        return [
             'visibility',
             'status',
             'website_ids'
-        );
+        ];
     }
 
     /**
@@ -136,7 +126,7 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
      */
     protected function _registerCatalogProductSaveEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $event->getDataObject();
         $reindexTag = $product->getForceReindexRequired();
 
@@ -171,7 +161,6 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
      */
     protected function _registerCatalogProductMassActionEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Varien_Object $actionObject */
         $actionObject = $event->getDataObject();
         $attributes   = $this->_getProductAttributesDependOn();
         $reindexTags  = false;
