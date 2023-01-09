@@ -1,31 +1,28 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Log
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Log
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Enter description here ...
+ * @category   Mage
+ * @package    Mage_Log
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Log_Model_Resource_Visitor getResource()
  * @method int getCustomerId()
@@ -62,16 +59,12 @@
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
  * @method int getVisitorId()
- *
- * @category    Mage
- * @package     Mage_Log
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
 {
-    const DEFAULT_ONLINE_MINUTES_INTERVAL = 15;
-    const VISITOR_TYPE_CUSTOMER = 'c';
-    const VISITOR_TYPE_VISITOR  = 'v';
+    public const DEFAULT_ONLINE_MINUTES_INTERVAL = 15;
+    public const VISITOR_TYPE_CUSTOMER = 'c';
+    public const VISITOR_TYPE_VISITOR  = 'v';
 
     protected $_skipRequestLogging = false;
 
@@ -99,7 +92,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      * Mage_Log_Model_Visitor constructor.
      * @param array $data
      */
-    public function __construct(array $data = array())
+    public function __construct(array $data = [])
     {
         $this->_httpHelper = !empty($data['http_helper']) ? $data['http_helper'] : Mage::helper('core/http');
         $this->_config = !empty($data['config']) ? $data['config'] : Mage::getConfig();
@@ -108,7 +101,6 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         $this->_session = !empty($data['session']) ? $data['session'] : Mage::getSingleton('core/session');
         parent::__construct($data);
     }
-
 
     /**
      * Object initialization
@@ -146,7 +138,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      */
     public function initServerData()
     {
-        $this->addData(array(
+        $this->addData([
             'server_addr'           => $this->_httpHelper->getServerAddr(true),
             'remote_addr'           => $this->_httpHelper->getRemoteAddr(true),
             'http_secure'           => Mage::app()->getStore()->isCurrentlySecure(),
@@ -157,7 +149,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             'request_uri'           => $this->_httpHelper->getRequestUri(true),
             'session_id'            => $this->_session->getSessionId(),
             'http_referer'          => $this->_httpHelper->getHttpReferer(true),
-        ));
+        ]);
 
         return $this;
     }
@@ -170,8 +162,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public static function getOnlineMinutesInterval()
     {
         $configValue = Mage::getStoreConfig('customer/online_customers/online_minutes_interval');
-        return intval($configValue) > 0
-            ? intval($configValue)
+        return (int) $configValue > 0
+            ? (int) $configValue
             : self::DEFAULT_ONLINE_MINUTES_INTERVAL;
     }
 
@@ -183,7 +175,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function getUrl()
     {
         $url = 'http' . ($this->getHttpSecure() ? 's' : '') . '://';
-        $url .= $this->getHttpHost().$this->getRequestUri();
+        $url .= $this->getHttpHost() . $this->getRequestUri();
         return $url;
     }
 
@@ -193,7 +185,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function getFirstVisitAt()
     {
         if (!$this->hasData('first_visit_at')) {
-            $this->setData('first_visit_at', now());
+            $this->setData('first_visit_at', Varien_Date::now());
         }
         return $this->getData('first_visit_at');
     }
@@ -204,7 +196,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function getLastVisitAt()
     {
         if (!$this->hasData('last_visit_at')) {
-            $this->setData('last_visit_at', now());
+            $this->setData('last_visit_at', Varien_Date::now());
         }
         return $this->getData('last_visit_at');
     }
@@ -228,12 +220,12 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         $visitorId = $this->getId();
         if (!$visitorId) {
             $this->initServerData();
-            $this->setFirstVisitAt(now());
+            $this->setFirstVisitAt(Varien_Date::now());
             $this->setIsNewVisitor(true);
             $this->save();
         }
         if (!$visitorId || $this->_isVisitorSessionNew()) {
-            Mage::dispatchEvent('visitor_init', array('visitor' => $this));
+            Mage::dispatchEvent('visitor_init', ['visitor' => $this]);
         }
         return $this;
     }
@@ -268,7 +260,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         }
 
         try {
-            $this->setLastVisitAt(now());
+            $this->setLastVisitAt(Varien_Date::now());
             $this->save();
             $this->_session->setVisitorData($this->getData());
         } catch (Exception $e) {
@@ -288,7 +280,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function bindCustomerLogin($observer)
     {
         /** @var Mage_Customer_Model_Customer $customer */
-        if ($customer = $observer->getEvent()->getCustomer()) {
+        $customer = $observer->getEvent()->getCustomer();
+        if ($customer) {
             $this->setDoCustomerLogin(true);
             $this->setCustomerId($customer->getId());
         }
@@ -318,7 +311,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function bindQuoteCreate($observer)
     {
         /** @var Mage_Sales_Model_Quote $quote */
-        if ($quote = $observer->getEvent()->getQuote()) {
+        $quote = $observer->getEvent()->getQuote();
+        if ($quote) {
             if ($quote->getIsCheckoutCart()) {
                 $this->setQuoteId($quote->getId());
                 $this->setDoQuoteCreate(true);
@@ -334,7 +328,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function bindQuoteDestroy($observer)
     {
         /** @var Mage_Sales_Model_Quote $quote */
-        if ($quote = $observer->getEvent()->getQuote()) {
+        $quote = $observer->getEvent()->getQuote();
+        if ($quote) {
             $this->setDoQuoteDestroy(true);
         }
         return $this;
@@ -347,7 +342,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      */
     public function addIpData($data)
     {
-        $ipData = array();
+        $ipData = [];
         $data->setIpData($ipData);
         return $this;
     }
@@ -359,11 +354,11 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function addCustomerData($data)
     {
         $customerId = $data->getCustomerId();
-        if (intval($customerId) <= 0) {
+        if ((int) $customerId <= 0) {
             return $this;
         }
         $customerData = Mage::getModel('customer/customer')->load($customerId);
-        $newCustomerData = array();
+        $newCustomerData = [];
         foreach ($customerData->getData() as $propName => $propValue) {
             $newCustomerData['customer_' . $propName] = $propValue;
         }
@@ -379,7 +374,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function addQuoteData($data)
     {
         $quoteId = $data->getQuoteId();
-        if (intval($quoteId) <= 0) {
+        if ((int) $quoteId <= 0) {
             return $this;
         }
         $data->setQuoteData(Mage::getModel('sales/quote')->load($quoteId));

@@ -1,49 +1,42 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Install
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Install
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Install config
  *
  * @category   Mage
  * @package    Mage_Install
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Install_Model_Config extends Varien_Simplexml_Config
 {
+    public const XML_PATH_WIZARD_STEPS     = 'wizard/steps';
+    public const XML_PATH_CHECK_WRITEABLE  = 'check/filesystem/writeable';
+    public const XML_PATH_CHECK_EXTENSIONS = 'check/php/extensions';
 
-    const XML_PATH_WIZARD_STEPS     = 'wizard/steps';
-    const XML_PATH_CHECK_WRITEABLE  = 'check/filesystem/writeable';
-    const XML_PATH_CHECK_EXTENSIONS = 'check/php/extensions';
-
-    protected $_optionsMapping = array(self::XML_PATH_CHECK_WRITEABLE => array(
+    protected $_optionsMapping = [self::XML_PATH_CHECK_WRITEABLE => [
         'app_etc' => 'etc_dir',
         'var'     => 'var_dir',
         'media'   => 'media_dir',
-    ));
+    ]];
 
     public function __construct()
     {
@@ -61,7 +54,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
      */
     public function getWizardSteps()
     {
-        $steps = array();
+        $steps = [];
         foreach ((array)$this->getNode(self::XML_PATH_WIZARD_STEPS) as $stepName => $step) {
             $stepObject = new Varien_Object((array)$step);
             $stepObject->setName($stepName);
@@ -88,7 +81,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
      */
     public function getPathForCheck()
     {
-        $res = array();
+        $res = [];
 
         $items = (array) $this->getNode(self::XML_PATH_CHECK_WRITEABLE);
 
@@ -106,7 +99,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
      */
     public function getWritableFullPathsForCheck()
     {
-        $paths = array();
+        $paths = [];
         $items = (array) $this->getNode(self::XML_PATH_CHECK_WRITEABLE);
         foreach ($items as $nodeKey => $item) {
             $value = (array)$item;
@@ -129,22 +122,20 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
      */
     public function getExtensionsForCheck()
     {
-        $res = array();
+        $res = [];
         $items = (array) $this->getNode(self::XML_PATH_CHECK_EXTENSIONS);
 
         foreach ($items as $name => $value) {
             if (!empty($value)) {
-                $res[$name] = array();
+                $res[$name] = [];
                 foreach ($value as $subname => $subvalue) {
                     $res[$name][] = $subname;
                 }
-            }
-            else {
+            } else {
                 $res[$name] = (array) $value;
             }
         }
 
         return $res;
     }
-
 }

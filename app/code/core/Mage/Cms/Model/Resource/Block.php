@@ -1,42 +1,33 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Cms
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Cms
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CMS block model
  *
- * @category    Mage
- * @package     Mage_Cms
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Cms
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('cms/block', 'block_id');
@@ -47,9 +38,9 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
-        $condition = array(
+        $condition = [
             'block_id = ?'     => (int) $object->getId(),
-        );
+        ];
 
         $this->_getWriteAdapter()->delete($this->getTable('cms/block_store'), $condition);
 
@@ -69,7 +60,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
             Mage::throwException(Mage::helper('cms')->__('A block identifier with the same properties already exists in the selected store.'));
         }
 
-        if (! $object->getId()) {
+        if (!$object->getId()) {
             $object->setCreationTime(Mage::getSingleton('core/date')->gmtDate());
         }
         $object->setUpdateTime(Mage::getSingleton('core/date')->gmtDate());
@@ -89,22 +80,22 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
         $delete = array_diff($oldStores, $newStores);
 
         if ($delete) {
-            $where = array(
+            $where = [
                 'block_id = ?'     => (int) $object->getId(),
                 'store_id IN (?)' => $delete
-            );
+            ];
 
             $this->_getWriteAdapter()->delete($table, $where);
         }
 
         if ($insert) {
-            $data = array();
+            $data = [];
 
             foreach ($insert as $storeId) {
-                $data[] = array(
+                $data[] = [
                     'block_id'  => (int) $object->getId(),
                     'store_id' => (int) $storeId
-                );
+                ];
             }
 
             $this->_getWriteAdapter()->insertMultiple($table, $data);
@@ -152,15 +143,15 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
         $select = parent::_getLoadSelect($field, $value, $object);
 
         if ($object->getStoreId()) {
-            $stores = array(
+            $stores = [
                 (int) $object->getStoreId(),
                 Mage_Core_Model_App::ADMIN_STORE_ID,
-            );
+            ];
 
             $select->join(
-                array('cbs' => $this->getTable('cms/block_store')),
-                $this->getMainTable().'.block_id = cbs.block_id',
-                array('store_id')
+                ['cbs' => $this->getTable('cms/block_store')],
+                $this->getMainTable() . '.block_id = cbs.block_id',
+                ['store_id']
             )->where('is_active = ?', 1)
             ->where('cbs.store_id in (?) ', $stores)
             ->order('store_id DESC')
@@ -179,17 +170,17 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     public function getIsUniqueBlockToStores(Mage_Core_Model_Abstract $object)
     {
         if (Mage::app()->isSingleStoreMode()) {
-            $stores = array(Mage_Core_Model_App::ADMIN_STORE_ID);
+            $stores = [Mage_Core_Model_App::ADMIN_STORE_ID];
         } else {
             $stores = (array)$object->getData('stores');
         }
 
         $select = $this->_getReadAdapter()->select()
-            ->from(array('cb' => $this->getMainTable()))
+            ->from(['cb' => $this->getMainTable()])
             ->join(
-                array('cbs' => $this->getTable('cms/block_store')),
+                ['cbs' => $this->getTable('cms/block_store')],
                 'cb.block_id = cbs.block_id',
-                array()
+                []
             )->where('cb.identifier = ?', $object->getData('identifier'))
             ->where('cbs.store_id IN (?)', $stores);
 
@@ -218,9 +209,9 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
             ->from($this->getTable('cms/block_store'), 'store_id')
             ->where('block_id = :block_id');
 
-        $binds = array(
+        $binds = [
             ':block_id' => (int) $id
-        );
+        ];
 
         return $adapter->fetchCol($select, $binds);
     }

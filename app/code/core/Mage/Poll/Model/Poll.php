@@ -1,31 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Poll
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Poll
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Poll model
+ *
+ * @category   Mage
+ * @package    Mage_Poll
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Poll_Model_Resource_Poll _getResource()
  * @method Mage_Poll_Model_Resource_Poll getResource()
@@ -51,23 +50,18 @@
  * @method int getStoreFilter()
  * @method $this setStoreFilter(int $value)
  * @method $this setVotesCount(int $value)
- *
- * @category    Mage
- * @package     Mage_Poll
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
 {
-    const XML_PATH_POLL_CHECK_BY_IP = 'web/polls/poll_check_by_ip';
+    public const XML_PATH_POLL_CHECK_BY_IP = 'web/polls/poll_check_by_ip';
 
     protected $_pollCookieDefaultName = 'poll';
 
     /**
      * @var Mage_Poll_Model_Poll_Answer[]
      */
-    protected $_answersCollection   = array();
-    protected $_storeCollection     = array();
+    protected $_answersCollection   = [];
+    protected $_storeCollection     = [];
 
     protected function _construct()
     {
@@ -110,8 +104,8 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     /**
      * Retrieve defined or current Id
      *
-     * @param string $pollId
-     * @return string
+     * @param int|string|null $pollId
+     * @return int|string
      */
     public function getPollId($pollId = null)
     {
@@ -128,7 +122,7 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
      */
     public function isValidationByIp()
     {
-        return (1 == Mage::getStoreConfig(self::XML_PATH_POLL_CHECK_BY_IP));
+        return (Mage::getStoreConfig(self::XML_PATH_POLL_CHECK_BY_IP) == 1);
     }
 
     /**
@@ -156,7 +150,7 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
 
         // check if it is in cookie
         $cookie = $this->getCookie()->get($this->getCookieName($pollId));
-        if (false !== $cookie) {
+        if ($cookie !== false) {
             return true;
         }
 
@@ -208,8 +202,8 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     /**
      * Check answer existing for poll
      *
-     * @param   mixed $answer
-     * @return  bool
+     * @param   Mage_Poll_Model_Poll_Answer|string|int $answer
+     * @return  string|false
      */
     public function hasAnswer($answer)
     {
@@ -240,11 +234,11 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
      */
     public function getVotedPollsIds()
     {
-        $idsArray = array();
+        $idsArray = [];
 
         foreach ($this->getCookie()->get() as $cookieName => $cookieValue) {
             $pattern = '#^' . preg_quote($this->_pollCookieDefaultName, '#') . '(\d+)$#';
-            $match   = array();
+            $match   = [];
             if (preg_match($pattern, $cookieName, $match)) {
                 if ($match[1] != Mage::getSingleton('core/session')->getJustVotedPoll()) {
                     $idsArray[$match[1]] = $match[1];

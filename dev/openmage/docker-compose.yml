@@ -19,11 +19,10 @@ services:
     image: openmage/php-dev:7.3-cli
     working_dir: /var/www/html
     command: /run-cron.sh
-    user: www-data
     volumes:
       - ../..:/var/www/html
     environment:
-      - ENABLE_SENDMAIL=true
+      - ENABLE_CRON=true
     links:
       - mysql
 

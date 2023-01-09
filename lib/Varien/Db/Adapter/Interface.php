@@ -1,67 +1,61 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Db
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Db
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Varien Database Adapter Interface
  *
- * @category    Varien
- * @package     Varien_Db
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Varien
+ * @package    Varien_Db
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Varien_Db_Adapter_Interface
 {
-    const INDEX_TYPE_PRIMARY    = 'primary';
-    const INDEX_TYPE_UNIQUE     = 'unique';
-    const INDEX_TYPE_INDEX      = 'index';
-    const INDEX_TYPE_FULLTEXT   = 'fulltext';
+    public const INDEX_TYPE_PRIMARY    = 'primary';
+    public const INDEX_TYPE_UNIQUE     = 'unique';
+    public const INDEX_TYPE_INDEX      = 'index';
+    public const INDEX_TYPE_FULLTEXT   = 'fulltext';
 
-    const FK_ACTION_CASCADE     = 'CASCADE';
-    const FK_ACTION_SET_NULL    = 'SET NULL';
-    const FK_ACTION_NO_ACTION   = 'NO ACTION';
-    const FK_ACTION_RESTRICT    = 'RESTRICT';
-    const FK_ACTION_SET_DEFAULT = 'SET DEFAULT';
+    public const FK_ACTION_CASCADE     = 'CASCADE';
+    public const FK_ACTION_SET_NULL    = 'SET NULL';
+    public const FK_ACTION_NO_ACTION   = 'NO ACTION';
+    public const FK_ACTION_RESTRICT    = 'RESTRICT';
+    public const FK_ACTION_SET_DEFAULT = 'SET DEFAULT';
 
-    const INSERT_ON_DUPLICATE   = 1;
-    const INSERT_IGNORE         = 2;
+    public const INSERT_ON_DUPLICATE   = 1;
+    public const INSERT_IGNORE         = 2;
 
-    const ISO_DATE_FORMAT       = 'yyyy-MM-dd';
-    const ISO_DATETIME_FORMAT   = 'yyyy-MM-dd HH-mm-ss';
+    public const ISO_DATE_FORMAT       = 'yyyy-MM-dd';
+    public const ISO_DATETIME_FORMAT   = 'yyyy-MM-dd HH-mm-ss';
 
-    const INTERVAL_SECOND       = 'SECOND';
-    const INTERVAL_MINUTE       = 'MINUTES';
-    const INTERVAL_HOUR         = 'HOURS';
-    const INTERVAL_DAY          = 'DAYS';
-    const INTERVAL_MONTH        = 'MONTHS';
-    const INTERVAL_YEAR         = 'YEARS';
+    public const INTERVAL_SECOND       = 'SECOND';
+    public const INTERVAL_MINUTE       = 'MINUTES';
+    public const INTERVAL_HOUR         = 'HOURS';
+    public const INTERVAL_DAY          = 'DAYS';
+    public const INTERVAL_MONTH        = 'MONTHS';
+    public const INTERVAL_YEAR         = 'YEARS';
 
     /**
      * Error message for DDL query in transactions
      */
-    const ERROR_DDL_MESSAGE = 'DDL statements are not allowed in transactions';
+    public const ERROR_DDL_MESSAGE = 'DDL statements are not allowed in transactions';
 
     /**
      * Begin new DB transaction for connection
@@ -254,8 +248,14 @@ interface Varien_Db_Adapter_Interface
      * @param string $schemaName
      * @return Varien_Db_Adapter_Interface
      */
-    public function changeColumn($tableName, $oldColumnName, $newColumnName, $definition, $flushData = false,
-        $schemaName = null);
+    public function changeColumn(
+        $tableName,
+        $oldColumnName,
+        $newColumnName,
+        $definition,
+        $flushData = false,
+        $schemaName = null
+    );
 
     /**
      * Modify the column definition
@@ -351,9 +351,18 @@ interface Varien_Db_Adapter_Interface
      * @param string $refSchemaName
      * @return Varien_Db_Adapter_Interface
      */
-    public function addForeignKey($fkName, $tableName, $columnName, $refTableName, $refColumnName,
-        $onDelete = self::FK_ACTION_CASCADE, $onUpdate = self::FK_ACTION_CASCADE,
-        $purge = false, $schemaName = null, $refSchemaName = null);
+    public function addForeignKey(
+        $fkName,
+        $tableName,
+        $columnName,
+        $refTableName,
+        $refColumnName,
+        $onDelete = self::FK_ACTION_CASCADE,
+        $onUpdate = self::FK_ACTION_CASCADE,
+        $purge = false,
+        $schemaName = null,
+        $refSchemaName = null
+    );
 
     /**
      * Drop the Foreign Key from table
@@ -405,7 +414,7 @@ interface Varien_Db_Adapter_Interface
      * @param array $fields update fields pairs or values
      * @return int The number of affected rows.
      */
-    public function insertOnDuplicate($table, array $data, array $fields = array());
+    public function insertOnDuplicate($table, array $data, array $fields = []);
 
     /**
      * Inserts a table multiply rows with specified data.
@@ -481,7 +490,7 @@ interface Varien_Db_Adapter_Interface
      * @param  mixed  $bind An array of data or data itself to bind to the placeholders.
      * @return Zend_Db_Statement_Interface
      */
-    public function query($sql, $bind = array());
+    public function query($sql, $bind = []);
 
     /**
      * Executes a SQL statement(s)
@@ -500,7 +509,7 @@ interface Varien_Db_Adapter_Interface
      * @param mixed                 $fetchMode Override current fetch mode.
      * @return array
      */
-    public function fetchAll($sql, $bind = array(), $fetchMode = null);
+    public function fetchAll($sql, $bind = [], $fetchMode = null);
 
     /**
      * Fetches the first row of the SQL result.
@@ -511,7 +520,7 @@ interface Varien_Db_Adapter_Interface
      * @param mixed                 $fetchMode Override current fetch mode.
      * @return array
      */
-    public function fetchRow($sql, $bind = array(), $fetchMode = null);
+    public function fetchRow($sql, $bind = [], $fetchMode = null);
 
     /**
      * Fetches all SQL result rows as an associative array.
@@ -526,7 +535,7 @@ interface Varien_Db_Adapter_Interface
      * @param mixed $bind Data to bind into SELECT placeholders.
      * @return array
      */
-    public function fetchAssoc($sql, $bind = array());
+    public function fetchAssoc($sql, $bind = []);
 
     /**
      * Fetches the first column of all SQL result rows as an array.
@@ -537,7 +546,7 @@ interface Varien_Db_Adapter_Interface
      * @param mixed $bind Data to bind into SELECT placeholders.
      * @return array
      */
-    public function fetchCol($sql, $bind = array());
+    public function fetchCol($sql, $bind = []);
 
     /**
      * Fetches all SQL result rows as an array of key-value pairs.
@@ -549,7 +558,7 @@ interface Varien_Db_Adapter_Interface
      * @param mixed $bind Data to bind into SELECT placeholders.
      * @return array
      */
-    public function fetchPairs($sql, $bind = array());
+    public function fetchPairs($sql, $bind = []);
 
     /**
      * Fetches the first column of the first row of the SQL result.
@@ -558,7 +567,7 @@ interface Varien_Db_Adapter_Interface
      * @param mixed $bind Data to bind into SELECT placeholders.
      * @return string
      */
-    public function fetchOne($sql, $bind = array());
+    public function fetchOne($sql, $bind = []);
 
     /**
      * Safely quotes a value for an SQL statement.
@@ -779,7 +788,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Returns valid IFNULL expression
      *
-     * @param string $column
+     * @param string $expression
      * @param string $value OPTIONAL. Applies when $expression is NULL
      * @return Zend_Db_Expr
      */
@@ -969,7 +978,7 @@ interface Varien_Db_Adapter_Interface
      * @param bool|int $mode
      * @return string
      */
-    public function insertFromSelect(Varien_Db_Select $select, $table, array $fields = array(), $mode = false);
+    public function insertFromSelect(Varien_Db_Select $select, $table, array $fields = [], $mode = false);
 
     /**
      * Get insert queries in array for insert by range with step parameter

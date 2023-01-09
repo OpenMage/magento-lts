@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,11 +24,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Tags extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -59,51 +53,51 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tags extends Mage_Adminhtml_Block_W
 
     protected function _prepareColumns()
     {
-        $this->addColumn('entity_id', array(
+        $this->addColumn('entity_id', [
             'header'    => Mage::helper('customer')->__('ID'),
-            'width'     =>5,
-            'align'     =>'center',
-            'sortable'  =>true,
-            'index'     =>'entity_id'
-        ));
-        $this->addColumn('name', array(
+            'width'     => 5,
+            'align'     => 'center',
+            'sortable'  => true,
+            'index'     => 'entity_id'
+        ]);
+        $this->addColumn('name', [
             'header'    => Mage::helper('customer')->__('Name'),
-            'index'     =>'name'
-        ));
-        $this->addColumn('email', array(
+            'index'     => 'name'
+        ]);
+        $this->addColumn('email', [
             'header'    => Mage::helper('customer')->__('Email'),
-            'width'     =>40,
-            'align'     =>'center',
-            'index'     =>'email'
-        ));
-        $this->addColumn('telephone', array(
+            'width'     => 40,
+            'align'     => 'center',
+            'index'     => 'email'
+        ]);
+        $this->addColumn('telephone', [
             'header'    => Mage::helper('customer')->__('Telephone'),
-            'align'     =>'center',
-            'index'     =>'billing_telephone'
-        ));
-        $this->addColumn('billing_postcode', array(
+            'align'     => 'center',
+            'index'     => 'billing_telephone'
+        ]);
+        $this->addColumn('billing_postcode', [
             'header'    => Mage::helper('customer')->__('ZIP/Post Code'),
-            'index'     =>'billing_postcode',
-        ));
-        $this->addColumn('billing_country_id', array(
+            'index'     => 'billing_postcode',
+        ]);
+        $this->addColumn('billing_country_id', [
             'header'    => Mage::helper('customer')->__('Country'),
             'type'      => 'country',
             'index'     => 'billing_country_id',
-        ));
-        $this->addColumn('customer_since', array(
+        ]);
+        $this->addColumn('customer_since', [
             'header'    => Mage::helper('customer')->__('Customer Since'),
             'type'      => 'date',
             'format'    => 'Y.m.d',
-            'index'     =>'created_at',
-        ));
-        $this->addColumn('action', array(
+            'index'     => 'created_at',
+        ]);
+        $this->addColumn('action', [
             'header'    => Mage::helper('customer')->__('Action'),
-            'align'     =>'center',
-            'format'    =>'<a href="'.$this->getUrl('*/sales/edit/id/$entity_id').'">'.Mage::helper('customer')->__('Edit').'</a>',
-            'filter'    =>false,
-            'sortable'  =>false,
-            'is_system' =>true
-        ));
+            'align'     => 'center',
+            'format'    => '<a href="' . $this->getUrl('*/sales/edit/id/$entity_id') . '">' . Mage::helper('customer')->__('Edit') . '</a>',
+            'filter'    => false,
+            'sortable'  => false,
+            'is_system' => true
+        ]);
 
         $this->setColumnFilter('entity_id')
             ->setColumnFilter('email')
@@ -116,7 +110,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tags extends Mage_Adminhtml_Block_W
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/index', array('_current'=>true));
+        return $this->getUrl('*/*/index', ['_current' => true]);
     }
-
 }

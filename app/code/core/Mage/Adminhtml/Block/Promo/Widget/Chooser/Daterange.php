@@ -1,32 +1,31 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Date range promo widget chooser
  * Currently works without localized format
+ *
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml_Block_Abstract
 {
@@ -42,7 +41,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
      *
      * @var array
      */
-    protected $_rangeValues     = array('from' => '', 'to' => '');
+    protected $_rangeValues     = ['from' => '', 'to' => ''];
 
     /**
      * Range string delimiter for from/to dates
@@ -65,17 +64,18 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
 
         $idSuffix = Mage::helper('core')->uniqHash();
         $form = new Varien_Data_Form();
-        foreach (array(
+        foreach ([
             'from' => Mage::helper('adminhtml')->__('From'),
-            'to'   => Mage::helper('adminhtml')->__('To')) as $key => $label) {
+            'to'   => Mage::helper('adminhtml')->__('To')] as $key => $label
+        ) {
             $id = "{$key}_{$idSuffix}";
-            $element = new Varien_Data_Form_Element_Date(array(
+            $element = new Varien_Data_Form_Element_Date([
                 'format'   => Varien_Date::DATE_INTERNAL_FORMAT, // hardcode because hardcoded values delimiter
                 'label'    => $label,
                 'image'    => $this->getSkinUrl('images/grid-cal.gif'),
                 'onchange' => "dateTimeChoose_{$idSuffix}()", // won't work through Event.observe()
                 'value'    => $this->_rangeValues[$key],
-            ));
+            ]);
             $element->setId($id);
             $form->addElement($element);
         }
@@ -107,7 +107,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
      */
     public function setRangeValues($from, $to)
     {
-        $this->_rangeValues = array('from' => $from, 'to' => $to);
+        $this->_rangeValues = ['from' => $from, 'to' => $to];
         return $this;
     }
 
@@ -121,10 +121,8 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
     public function setRangeValue($delimitedString)
     {
         $split = explode($this->_rangeDelimiter, $delimitedString, 2);
-        $from = $split[0]; $to = '';
-        if (isset($split[1])) {
-            $to = $split[1];
-        }
+        $from = $split[0];
+        $to = $split[1] ?? '';
         return $this->setRangeValues($from, $to);
     }
 

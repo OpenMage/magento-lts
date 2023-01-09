@@ -1,55 +1,50 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Stock model
  *
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_CatalogInventory_Model_Resource_Stock _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock getResource()
  * @method string getStockName()
- * @method Mage_CatalogInventory_Model_Stock setStockName(string $value)
- *
- * @category    Mage
- * @package     Mage_CatalogInventory
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method $this setStockName(string $value)
  */
 class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
 {
-    const BACKORDERS_NO             = 0;
-    const BACKORDERS_YES_NONOTIFY   = 1;
-    const BACKORDERS_YES_NOTIFY     = 2;
+    public const BACKORDERS_NO             = 0;
+    public const BACKORDERS_YES_NONOTIFY   = 1;
+    public const BACKORDERS_YES_NOTIFY     = 2;
 
     /* @deprecated */
-    const BACKORDERS_BELOW          = 1;
-    const BACKORDERS_YES            = 2;
+    public const BACKORDERS_BELOW          = 1;
+    public const BACKORDERS_YES            = 2;
 
-    const STOCK_OUT_OF_STOCK        = 0;
-    const STOCK_IN_STOCK            = 1;
+    public const STOCK_OUT_OF_STOCK        = 0;
+    public const STOCK_IN_STOCK            = 1;
 
-    const DEFAULT_STOCK_ID          = 1;
+    public const DEFAULT_STOCK_ID          = 1;
 
     protected function _construct()
     {
@@ -78,7 +73,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
             ->addProductsFilter($productCollection)
             ->joinStockStatus($productCollection->getStoreId())
             ->load();
-        $stockItems = array();
+        $stockItems = [];
         /** @var Mage_CatalogInventory_Model_Stock_Item $item */
         foreach ($items as $item) {
             $stockItems[$item->getProductId()] = $item;
@@ -111,7 +106,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
      */
     protected function _prepareProductQtys($items)
     {
-        $qtys = array();
+        $qtys = [];
         foreach ($items as $productId => $item) {
             if (empty($item['item'])) {
                 $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId);
@@ -140,7 +135,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
         $this->_getResource()->beginTransaction();
         try {
             $stockInfo = $this->_getResource()->getProductsStock($this, array_keys($qtys), true);
-            $fullSaveItems = array();
+            $fullSaveItems = [];
             foreach ($stockInfo as $itemInfo) {
                 $item->setData($itemInfo);
                 if (!$item->checkQty($qtys[$item->getProductId()])) {
