@@ -90,7 +90,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if ($r['scope'] !== 'default') {
                 continue;
             }
-            $value = str_replace($substFrom, $substTo, $r['value']);
+            $value = str_replace($substFrom, $substTo, (string)$r['value']);
             $xmlConfig->setNode('default/' . $r['path'], $value);
         }
 
@@ -107,7 +107,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if ($r['scope'] !== 'websites') {
                 continue;
             }
-            $value = str_replace($substFrom, $substTo, $r['value']);
+            $value = str_replace($substFrom, $substTo, (string)$r['value']);
             if (isset($websites[$r['scope_id']])) {
                 $nodePath = sprintf('websites/%s/%s', $websites[$r['scope_id']]['code'], $r['path']);
                 $xmlConfig->setNode($nodePath, $value);
@@ -136,7 +136,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if ($r['scope'] !== 'stores') {
                 continue;
             }
-            $value = str_replace($substFrom, $substTo, $r['value']);
+            $value = str_replace($substFrom, $substTo, (string)$r['value']);
             if (isset($stores[$r['scope_id']])) {
                 $nodePath = sprintf('stores/%s/%s', $stores[$r['scope_id']]['code'], $r['path']);
                 $xmlConfig->setNode($nodePath, $value);
