@@ -32,7 +32,7 @@
         "shardj/zf1-future": "^1.21"
     },
     "require-dev": {
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.4",
         "macopedia/phpstan-magento1": "^1.0.5",
         "magento-ecg/coding-standard": "^4.5",
