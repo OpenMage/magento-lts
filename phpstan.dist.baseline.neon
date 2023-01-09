@@ -7166,11 +7166,6 @@ parameters:
 			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Options.php
 
 		-
-			message: "#^Comparison operation \"\\>\\=\" between int\\<0, max\\>\\|false and 0 is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Widget/Model/Widget/Instance.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Block/Customer/Wishlist/Item/Column.php
