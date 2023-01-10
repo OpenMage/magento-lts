@@ -518,7 +518,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Get skin file url
      *
-     * @param string $file
+     * @param string|null $file
      * @param array $params
      * @return string
      * @throws Exception
@@ -528,7 +528,7 @@ class Mage_Core_Model_Design_Package
         Varien_Profiler::start(__METHOD__);
 
         // Prevent reading files outside of the proper directory while still allowing symlinked files
-        if (strpos($file, '..') !== false) {
+        if (strpos((string)$file, '..') !== false) {
             Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Zend_Log::ERR);
             throw new Exception('Invalid path requested.');
         }
