@@ -87,7 +87,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adm
         if ($rate = $this->getColumn()->getRate()) {
             return (float) $rate;
         }
-        if ($rate = $row->getData($this->getColumn()->getRateField())) {
+        if (($rateField = $this->getColumn()->getRateField()) && ($rate = $row->getData($rateField))) {
             return (float) $rate;
         }
         return 1;

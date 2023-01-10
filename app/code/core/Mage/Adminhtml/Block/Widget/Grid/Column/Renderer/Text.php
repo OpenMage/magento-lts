@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text extends Mage_Adminht
         if (is_null($format)) {
             // If no format and it column not filtered specified return data as is.
             $data = parent::_getValue($row);
-            $string = is_null($data) ? $defaultValue : $data;
+            $string = $data ?? $defaultValue ?? '';
             return $this->escapeHtml($string);
         } elseif (preg_match_all($this->_variablePattern, $format, $matches)) {
             // Parsing of format string

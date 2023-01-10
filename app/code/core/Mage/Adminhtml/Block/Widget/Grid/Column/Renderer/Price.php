@@ -85,7 +85,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price extends Mage_Adminh
         if ($rate = $this->getColumn()->getRate()) {
             return (float) $rate;
         }
-        if ($rate = $row->getData($this->getColumn()->getRateField())) {
+        if (($rateField = $this->getColumn()->getRateField()) && ($rate = $row->getData($rateField))) {
             return (float) $rate;
         }
         return 1;

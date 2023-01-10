@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview extends Mage_Adminhtml_Bl
             $template->setTemplateStyles($this->getRequest()->getParam('styles'));
         }
         $template->setTemplateStyles(
-            $this->maliciousCodeFilter($template->getTemplateStyles())
+            $this->maliciousCodeFilter((string)$template->getTemplateStyles())
         );
         $template->setTemplateText(
             $this->maliciousCodeFilter($template->getTemplateText())
