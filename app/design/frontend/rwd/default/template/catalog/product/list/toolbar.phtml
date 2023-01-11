@@ -48,7 +48,7 @@
 
             <div class="sort-by">
                 <label><?php echo $this->__('Sort By') ?></label>
-                <select onchange="setLocation(this.value)" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sort By')) ?>">
+                <select onchange="window.location.href=this.value" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sort By')) ?>">
                     <?php foreach($this->getAvailableOrders() as $_key => $_order): ?>
                         <option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif ?>>
                             <?php echo $this->__($_order) ?>
@@ -79,7 +79,7 @@
             <?php if (count($availableLimits) > 1): ?>
                 <div class="limiter">
                     <label><?php echo $this->__('Show') ?></label>
-                    <select onchange="setLocation(this.value)" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Results per page')); ?>">
+                    <select onchange="window.location.href=this.value" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Results per page')); ?>">
                     <?php foreach ($availableLimits as $_key => $_limit): ?>
                         <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
                             <?php echo $_limit ?>
