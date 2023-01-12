@@ -901,6 +901,76 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Report/StatisticsController.php
 
 		-
+			message: "#^Method Mage_Adminhtml_Model_Sales_Order_Create\\:\\:moveQuoteItem\\(\\) invoked with 2 parameters, 3 required\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreateController.php
+
+		-
+			message: "#^Method Mage_Adminhtml_Model_Sales_Order_Create\\:\\:resetShippingMethod\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreateController.php
+
+		-
+			message: "#^Return type \\(Mage_Adminhtml_Model_Session_Quote\\) of method Mage_Adminhtml_Sales_Order_CreateController\\:\\:_getSession\\(\\) should be compatible with return type \\(Mage_Adminhtml_Model_Session\\) of method Mage_Adminhtml_Controller_Action\\:\\:_getSession\\(\\)$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreateController.php
+
+		-
+			message: "#^Call to an undefined method Mage_Sales_Model_Order_Creditmemo\\:\\:void\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreditmemoController.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreditmemoController.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php
+
+		-
+			message: "#^Undefined variable\\: \\$shippingResponse$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php
+
+		-
+			message: "#^Variable \\$shippingResponse in isset\\(\\) is never defined\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php
+
+		-
+			message: "#^Call to function is_object\\(\\) with array\\|string will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
+
+		-
+			message: "#^Method Mage_Adminhtml_Sales_Order_ShipmentController\\:\\:getShippingItemsGridAction\\(\\) should return Mage_Core_Controller_Response_Http but returns Zend_Controller_Response_Abstract\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
+
+		-
+			message: "#^Method Mage_Adminhtml_Controller_Action\\:\\:_setForcedFormKeyActions\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/Recurring/ProfileController.php
+
+		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/System/Config/System/StorageController.php
@@ -1821,6 +1891,16 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Category/Url.php
 
 		-
+			message: "#^Call to an undefined method Mage_Catalog_Model_Config\\:\\:_init\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Config.php
+
+		-
+			message: "#^Method Mage_Catalog_Model_Config\\:\\:getAttributeSetId\\(\\) invoked with 1 parameter, 2 required\\.$#"
+			count: 2
+			path: app/code/core/Mage/Catalog/Model/Config.php
+
+		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Convert/Adapter/Catalog.php
@@ -1966,6 +2046,21 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product.php
 
 		-
+			message: "#^Strict comparison using \\=\\=\\= between \\*NEVER\\* and true will always evaluate to false\\.$#"
+			count: 2
+			path: app/code/core/Mage/Catalog/Model/Product/Api.php
+
+		-
+			message: "#^Parameter \\#3 \\$attributes \\(stdClass\\) of method Mage_Catalog_Model_Product_Api_V2\\:\\:info\\(\\) should be compatible with parameter \\$attributes \\(array\\) of method Mage_Catalog_Model_Product_Api\\:\\:info\\(\\)$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between \\*NEVER\\* and true will always evaluate to false\\.$#"
+			count: 2
+			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
+
+		-
 			message: "#^Cannot call method getBackend\\(\\) on bool\\|Mage_Catalog_Model_Resource_Attribute\\.$#"
 			count: 11
 			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api.php
@@ -1991,9 +2086,24 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api/V2.php
 
 		-
+			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item\\:\\:clean\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Compare/Item.php
+
+		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Resource_Product_Flat_Indexer\\:\\:prepareFlatTables\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Flat/Indexer.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Image.php
+
+		-
+			message: "#^Cannot call method isIndexable\\(\\) on Mage_Eav_Model_Entity_Attribute_Abstract\\|false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Indexer/Eav.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Product_Option\\:\\:getValuesCollection\\(\\) should return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Value_Collection but returns Mage_Catalog_Model_Resource_Product_Option_Value_Collection\\.$#"
@@ -2046,6 +2156,11 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Select.php
 
 		-
+			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:getStoreId\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Status.php
+
+		-
 			message: "#^Method Mage_Catalog_Model_Product_Type\\:\\:priceFactory\\(\\) should return Mage_Catalog_Model_Product_Type_Price but returns Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type.php
@@ -2056,6 +2171,21 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php
 
 		-
+			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 2
+			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
+
+		-
+			message: "#^Method Mage_Catalog_Model_Product_Type_Configurable\\:\\:getProductByAttributes\\(\\) should return Mage_Catalog_Model_Product\\|null but returns Varien_Object\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
+
+		-
 			message: "#^Cannot access offset 'pricing_value' on true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable/Price.php
@@ -2064,6 +2194,41 @@ parameters:
 			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Grouped.php
+
+		-
+			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:isScopeStore\\(\\)\\.$#"
+			count: 2
+			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
+
+		-
+			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:isScopeWebsite\\(\\)\\.$#"
+			count: 2
+			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
+
+		-
+			message: "#^Cannot call method isScopeStore\\(\\) on Mage_Eav_Model_Entity_Attribute_Abstract\\|false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
+
+		-
+			message: "#^Cannot call method isScopeWebsite\\(\\) on Mage_Eav_Model_Entity_Attribute_Abstract\\|false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
+
+		-
+			message: "#^Method Mage_Core_Model_Website\\:\\:getStoreIds\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
+
+		-
+			message: "#^Right side of \\|\\| is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
+
+		-
+			message: "#^Method Mage_Catalog_Model_Resource_Attribute\\:\\:isUsedBySuperProducts\\(\\) should return int but returns string\\|false\\|null\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Attribute.php
 
 		-
 			message: "#^If condition is always true\\.$#"
@@ -2101,6 +2266,71 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
 		-
+			message: "#^Variable \\$ids in empty\\(\\) always exists and is not falsy\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Category/Collection.php
+
+		-
+			message: "#^Call to an undefined method Mage_Catalog_Model_Resource_Category_Collection\\:\\:addSortedField\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
+
+		-
+			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Abstract\\:\\:getMainStoreTable\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat/Collection.php
+
+		-
+			message: "#^Variable \\$ids in empty\\(\\) always exists and is not falsy\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat/Collection.php
+
+		-
+			message: "#^Call to an undefined method Zend_Db_Select\\:\\:insertFromSelect\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Category/Indexer/Product.php
+
+		-
+			message: "#^Call to an undefined method Zend_Db_Adapter_Abstract\\:\\:getCheckSql\\(\\)\\.$#"
+			count: 2
+			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
+
+		-
+			message: "#^Call to an undefined method Zend_Db_Adapter_Abstract\\:\\:getConcatSql\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
+
+		-
+			message: "#^Call to an undefined method Zend_Db_Adapter_Abstract\\:\\:getLengthSql\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
+
+		-
+			message: "#^Method Mage_Catalog_Model_Resource_Category_Tree\\:\\:_getItemIsActive\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
+
+		-
+			message: "#^Parameter \\#1 \\$category \\(Mage_Catalog_Model_Category\\) of method Mage_Catalog_Model_Resource_Category_Tree\\:\\:move\\(\\) should be compatible with parameter \\$node \\(Varien_Data_Tree_Node\\) of method Varien_Data_Tree_Dbp\\:\\:move\\(\\)$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
+
+		-
 			message: "#^Property Mage_Catalog_Model_Resource_Config\\:\\:\\$_storeId \\(int\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Config.php
@@ -2124,6 +2354,11 @@ parameters:
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media\\:\\:insertGallery\\(\\) should return int but returns string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Attribute/Backend/Media.php
+
+		-
+			message: "#^Method Mage_Catalog_Model_Url\\:\\:refreshProductRewrites\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Product/Attribute/Backend/Urlkey.php
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:getAllTableColumns\\(\\)\\.$#"
@@ -2256,9 +2491,39 @@ parameters:
 			path: app/code/core/Mage/CatalogIndex/Model/Attribute.php
 
 		-
+			message: "#^Parameter \\#1 \\$product \\(array\\) of method Mage_CatalogIndex_Model_Data_Grouped\\:\\:getFinalPrice\\(\\) should be compatible with parameter \\$product \\(int\\) of method Mage_CatalogIndex_Model_Data_Abstract\\:\\:getFinalPrice\\(\\)$#"
+			count: 1
+			path: app/code/core/Mage/CatalogIndex/Model/Data/Grouped.php
+
+		-
+			message: "#^Return type \\(false\\) of method Mage_CatalogIndex_Model_Data_Grouped\\:\\:getFinalPrice\\(\\) should be compatible with return type \\(float\\) of method Mage_CatalogIndex_Model_Data_Abstract\\:\\:getFinalPrice\\(\\)$#"
+			count: 1
+			path: app/code/core/Mage/CatalogIndex/Model/Data/Grouped.php
+
+		-
+			message: "#^Property Mage_CatalogIndex_Model_Data_Simple\\:\\:\\$_haveChildren \\(array\\<bool\\|int\\>\\) does not accept default value of type false\\.$#"
+			count: 1
+			path: app/code/core/Mage/CatalogIndex/Model/Data/Simple.php
+
+		-
 			message: "#^Property Mage_CatalogIndex_Model_Data_Virtual\\:\\:\\$_haveChildren \\(array\\<bool\\|int\\>\\) does not accept default value of type false\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Data/Virtual.php
+
+		-
+			message: "#^Call to function is_array\\(\\) with mixed will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
+
+		-
+			message: "#^Variable \\$kill in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
 
 		-
 			message: "#^Return type \\(string\\) of method Mage_CatalogIndex_Model_Indexer_Eav\\:\\:_getIndexableAttributeConditions\\(\\) should be compatible with return type \\(array\\) of method Mage_CatalogIndex_Model_Indexer_Abstract\\:\\:_getIndexableAttributeConditions\\(\\)$#"
@@ -2274,6 +2539,21 @@ parameters:
 			message: "#^Return type \\(string\\) of method Mage_CatalogIndex_Model_Indexer_Price\\:\\:_getIndexableAttributeConditions\\(\\) should be compatible with return type \\(array\\) of method Mage_CatalogIndex_Model_Indexer_Abstract\\:\\:_getIndexableAttributeConditions\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Indexer/Price.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/CatalogIndex/Model/Price.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: app/code/core/Mage/CatalogIndex/Model/Resource/Aggregation.php
+
+		-
+			message: "#^Method Mage_CatalogIndex_Model_Resource_Indexer_Abstract\\:\\:saveIndex\\(\\) with return type void returns mixed but should not return anything\\.$#"
+			count: 1
+			path: app/code/core/Mage/CatalogIndex/Model/Resource/Indexer/Abstract.php
 
 		-
 			message: "#^Method Mage_CatalogIndex_Model_Retreiver\\:\\:getRetreiver\\(\\) should return Mage_CatalogIndex_Model_Data_Abstract but returns Mage_Core_Model_Abstract\\.$#"
@@ -2546,6 +2826,16 @@ parameters:
 			path: app/code/core/Mage/Checkout/Controller/Action.php
 
 		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Checkout/Helper/Data.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Checkout/Helper/Data.php
+
+		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 5
 			path: app/code/core/Mage/Checkout/Model/Cart.php
@@ -2664,6 +2954,36 @@ parameters:
 			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
+
+		-
+			message: "#^Comparison operation \"\\=\\=\" between 0\\|0\\.0\\|array\\|string\\|false\\|null and 0 results in an error\\.$#"
+			count: 1
+			path: app/code/core/Mage/Checkout/controllers/CartController.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Checkout/controllers/CartController.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Checkout/controllers/CartController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 2
+			path: app/code/core/Mage/Checkout/controllers/CartController.php
+
+		-
+			message: "#^Call to an undefined method Mage_Sales_Model_Service_Order\\:\\:register\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Order will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
 
 		-
 			message: "#^If condition is always true\\.$#"
@@ -4006,6 +4326,91 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
 
 		-
+			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Abstract\\:\\:getIdByCode\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
+
+		-
+			message: "#^Method Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:getFlatUpdateSelect\\(\\) should return \\$this\\(Mage_Eav_Model_Entity_Attribute_Abstract\\)\\|Varien_Db_Select but returns null\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
+
+		-
+			message: "#^Property Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:\\$_backend \\(Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\) in empty\\(\\) is not falsy\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
+
+		-
+			message: "#^Property Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:\\$_entity \\(Mage_Eav_Model_Entity_Abstract\\) does not accept Mage_Eav_Model_Entity_Type\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
+
+		-
+			message: "#^Property Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:\\$_frontend \\(Mage_Eav_Model_Entity_Attribute_Frontend_Abstract\\) in empty\\(\\) is not falsy\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
+
+		-
+			message: "#^Property Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:\\$_source \\(Mage_Eav_Model_Entity_Attribute_Source_Abstract\\) in empty\\(\\) is not falsy\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
+
+		-
+			message: "#^Return type \\(\\$this\\(Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\)\\) of method Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\:\\:setValueId\\(\\) should be compatible with return type \\(int\\) of method Mage_Eav_Model_Entity_Attribute_Backend_Interface\\:\\:setValueId\\(\\)$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Backend/Abstract.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Frontend/Abstract.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Frontend/Abstract.php
+
+		-
+			message: "#^Variable \\$out in empty\\(\\) always exists and is not falsy\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Frontend/Abstract.php
+
+		-
+			message: "#^Call to an undefined method Mage_Eav_Model_Resource_Entity_Attribute_Group\\:\\:deleteGroups\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Group.php
+
+		-
+			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:getStoreId\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Table.php
+
+		-
+			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Interface\\:\\:getAttributeCode\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
+
+		-
+			message: "#^Constructor of class Mage_Eav_Model_Entity_Collection_Abstract has an unused parameter \\$resource\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 2
+			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
+
+		-
+			message: "#^Property Mage_Eav_Model_Entity_Collection_Abstract\\:\\:\\$_entity \\(Mage_Eav_Model_Entity_Abstract\\) in empty\\(\\) is not falsy\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
+
+		-
 			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
@@ -4034,6 +4439,11 @@ parameters:
 			message: "#^Method Mage_Eav_Model_Entity_Setup\\:\\:getDefaultAttributeSetId\\(\\) should return int but returns string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
+
+		-
+			message: "#^Property Mage_Eav_Model_Entity_Type\\:\\:\\$_sets \\(Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection\\) in empty\\(\\) is not falsy\\.$#"
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Entity/Type.php
 
 		-
 			message: "#^Ternary operator condition is always true\\.$#"
@@ -4861,6 +5271,16 @@ parameters:
 			path: app/code/core/Mage/Paypal/Helper/Hss.php
 
 		-
+			message: "#^Method Mage_Paypal_Model_Api_Abstract\\:\\:_exportLineItems\\(\\) should return bool but empty return statement found\\.$#"
+			count: 2
+			path: app/code/core/Mage/Paypal/Model/Api/Abstract.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Paypal/Model/Api/Abstract.php
+
+		-
 			message: "#^Call to an undefined method Mage_Paypal_Model_Api_Nvp\\:\\:_export\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Api/Nvp.php
@@ -4884,6 +5304,21 @@ parameters:
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Api/Nvp.php
+
+		-
+			message: "#^Method Mage_Paypal_Model_Api_Standard\\:\\:_exportLineItems\\(\\) should return true\\|null but empty return statement found\\.$#"
+			count: 1
+			path: app/code/core/Mage/Paypal/Model/Api/Standard.php
+
+		-
+			message: "#^Method Mage_Paypal_Model_Api_Standard\\:\\:_exportLineItems\\(\\) should return true\\|null but returns bool\\.$#"
+			count: 1
+			path: app/code/core/Mage/Paypal/Model/Api/Standard.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Paypal/Model/Api/Standard.php
 
 		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:isNominal\\(\\)\\.$#"
@@ -4991,6 +5426,16 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Payflowlink.php
 
 		-
+			message: "#^Property Mage_Paypal_Model_Payflowpro\\:\\:\\$_centinelFieldMap \\(string\\) does not accept default value of type array\\<string, string\\>\\.$#"
+			count: 1
+			path: app/code/core/Mage/Paypal/Model/Payflowpro.php
+
+		-
+			message: "#^Variable \\$order in empty\\(\\) always exists and is not falsy\\.$#"
+			count: 1
+			path: app/code/core/Mage/Paypal/Model/Payflowpro.php
+
+		-
 			message: "#^Method Mage_Paypal_Model_Pro\\:\\:capture\\(\\) should return false\\|null but return statement is missing\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Pro.php
@@ -4999,6 +5444,16 @@ parameters:
 			message: "#^Property Mage_Paypal_Model_Pro\\:\\:\\$_config \\(Mage_Paypal_Model_Config\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Pro.php
+
+		-
+			message: "#^Method Varien_Data_Collection\\:\\:toOptionArray\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: app/code/core/Mage/Paypal/Model/System/Config/Source/BuyerCountry.php
+
+		-
+			message: "#^Method Varien_Data_Collection\\:\\:toOptionArray\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: app/code/core/Mage/Paypal/Model/System/Config/Source/MerchantCountry.php
 
 		-
 			message: "#^Method Mage_Paypal_HostedproController\\:\\:_getIframeBlock\\(\\) should return Mage_Paypal_Block_Hosted_Pro_Iframe but returns Mage_Core_Block_Abstract\\|false\\.$#"
