@@ -233,7 +233,7 @@ final class Mage
      */
     public static function getOpenMageMajorVersion(): int
     {
-        return 19;
+        return 20;
     }
 
     /**
