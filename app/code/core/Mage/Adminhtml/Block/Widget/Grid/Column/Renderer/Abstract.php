@@ -92,7 +92,10 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
             }
             return '';
         }
-        return $row->getData($this->getColumn()->getIndex());
+        if ($index = $this->getColumn()->getIndex()) {
+            return $row->getData($index);
+        }
+        return null;
     }
 
     /**
@@ -123,7 +126,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     {
         if ($this->getColumn()->getGrid()->getSortable() !== false && $this->getColumn()->getSortable() !== false) {
             $className = 'not-sort';
-            $dir = strtolower($this->getColumn()->getDir());
+            $dir = strtolower((string)$this->getColumn()->getDir());
             $nDir = ($dir == 'asc') ? 'desc' : 'asc';
             if ($this->getColumn()->getDir()) {
                 $className = 'sort-arrow-' . $dir;
