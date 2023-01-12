@@ -2012,13 +2012,14 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Retrieve text formatted price value including order rate
+     * Retrieve currency formatted string.
      *
-     * @param   float $price
-     * @return  string
+     * @param float|string $price Numeric value or field name, e.g. "grand_total".
+     * @return string
      */
     public function formatPriceTxt($price)
     {
+        $price = (float) (is_numeric($price) ? $price : $this->_getData($price));
         return $this->getOrderCurrency()->formatTxt($price);
     }
 
