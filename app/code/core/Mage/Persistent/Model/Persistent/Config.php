@@ -1,29 +1,23 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Persistent
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Persistent
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Persistent Config Model
@@ -72,8 +66,10 @@ class Mage_Persistent_Model_Persistent_Config
             $filePath = $this->_configFilePath;
             if (!is_file($filePath) || !is_readable($filePath)) {
                 $io = new Varien_Io_File();
-                Mage::throwException(Mage::helper('persistent')->__('Cannot load configuration from file %s.',
-                    $io->getFilteredPath($filePath)));
+                Mage::throwException(Mage::helper('persistent')->__(
+                    'Cannot load configuration from file %s.',
+                    $io->getFilteredPath($filePath)
+                ));
             }
             $xml = file_get_contents($filePath);
             $this->_xmlConfig = new Varien_Simplexml_Element($xml);
@@ -118,7 +114,7 @@ class Mage_Persistent_Model_Persistent_Config
      * Run one method by given method info
      *
      * @param array $info
-     * @param bool $instance
+     * @param Mage_Core_Block_Abstract|false $instance
      * @return $this
      */
     public function fireOne($info, $instance = false)
@@ -136,7 +132,7 @@ class Mage_Persistent_Model_Persistent_Config
         if (method_exists($object, $method)) {
             $object->$method($instance);
         } elseif (Mage::getIsDeveloperMode()) {
-            Mage::throwException('Method "' . $method.'" is not defined in "' . get_class($object) . '"');
+            Mage::throwException('Method "' . $method . '" is not defined in "' . get_class($object) . '"');
         }
 
         return $this;

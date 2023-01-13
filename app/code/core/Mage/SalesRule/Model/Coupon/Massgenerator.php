@@ -1,47 +1,54 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * SalesRule Mass Coupon Generator
  *
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_SalesRule_Model_Resource_Coupon getResource()
  *
- * @category    Mage
- * @package     Mage_SalesRule
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method string getDash()
+ * @method string getFormat()
+ * @method string getLength()
+ * @method $this setLength(int $value)
+ * @method int getMaxAttempts()
+ * @method int getMaxProbability()
+ * @method string getPrefix()
+ * @method int getQty()
+ * @method int getRuleId()
+ * @method string getSuffix()
+ * @method string getToDate()
+ * @method int getUsesPerCoupon()
+ * @method int getUsesPerCustomer()
  */
-class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
-    implements Mage_SalesRule_Model_Coupon_CodegeneratorInterface
+class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract implements Mage_SalesRule_Model_Coupon_CodegeneratorInterface
 {
     /**
      * Maximum probability of guessing the coupon on the first attempt
      */
-    const MAX_PROBABILITY_OF_GUESSING = 0.25;
-    const MAX_GENERATE_ATTEMPTS = 10;
+    public const MAX_PROBABILITY_OF_GUESSING = 0.25;
+    public const MAX_GENERATE_ATTEMPTS = 10;
 
     /**
      * Count of generated Coupons
@@ -78,7 +85,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
 
         $code = '';
         $charsetSize = count($charset);
-        for ($i=0; $i<$length; $i++) {
+        for ($i = 0; $i < $length; $i++) {
             $char = $charset[random_int(0, $charsetSize - 1)];
             if ($split > 0 && ($i % $split) == 0 && $i != 0) {
                 $char = $splitChar . $char;
@@ -117,7 +124,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
         $maxProbability = $this->getMaxProbability() ? $this->getMaxProbability() : self::MAX_PROBABILITY_OF_GUESSING;
         $maxAttempts = $this->getMaxAttempts() ? $this->getMaxAttempts() : self::MAX_GENERATE_ATTEMPTS;
 
-        /** @var $coupon Mage_SalesRule_Model_Coupon */
+        /** @var Mage_SalesRule_Model_Coupon $coupon */
         $coupon = Mage::getModel('salesrule/coupon');
 
         $chars = count(Mage::helper('salesrule/coupon')->getCharset($this->getFormat()));

@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,17 +24,18 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Encryption
 {
-    const HASH_VERSION_MD5    = 0;
-    const HASH_VERSION_SHA512 = 2;
+    public const HASH_VERSION_MD5    = 0;
+    public const HASH_VERSION_SHA256 = 1;
+    public const HASH_VERSION_SHA512 = 2;
 
     /**
      * Encryption method bcrypt
      */
-    const HASH_VERSION_LATEST = 3;
+    public const HASH_VERSION_LATEST = 3;
 
     /**
      * @var Varien_Crypt_Mcrypt
@@ -76,10 +72,12 @@ class Mage_Core_Model_Encryption
      */
     public function getHash($password, $salt = false)
     {
-        if (is_integer($salt)) {
+        if (is_int($salt)) {
             $salt = $this->_helper->getRandomString($salt);
         }
-        return $salt === false ? $this->hash($password) : $this->hash($salt . $password) . ':' . $salt;
+        return $salt === false
+            ? $this->hash($password)
+            : $this->hash($salt . $password, self::HASH_VERSION_SHA256) . ':' . $salt;
     }
 
     /**
@@ -91,7 +89,7 @@ class Mage_Core_Model_Encryption
      */
     public function getHashPassword($password, $salt = null)
     {
-        if (is_integer($salt)) {
+        if (is_int($salt)) {
             $salt = $this->_helper->getRandomString($salt);
         }
         return (bool) $salt
@@ -110,6 +108,8 @@ class Mage_Core_Model_Encryption
     {
         if (self::HASH_VERSION_LATEST === $version && $version === $this->_helper->getVersionHash($this)) {
             return password_hash($data, PASSWORD_DEFAULT);
+        } elseif (self::HASH_VERSION_SHA256 == $version) {
+            return hash('sha256', $data);
         } elseif (self::HASH_VERSION_SHA512 == $version) {
             return hash('sha512', $data);
         }
@@ -128,6 +128,7 @@ class Mage_Core_Model_Encryption
     {
         return $this->validateHashByVersion($password, $hash, self::HASH_VERSION_LATEST)
             || $this->validateHashByVersion($password, $hash, self::HASH_VERSION_SHA512)
+            || $this->validateHashByVersion($password, $hash, self::HASH_VERSION_SHA256)
             || $this->validateHashByVersion($password, $hash, self::HASH_VERSION_MD5);
     }
 
@@ -146,7 +147,7 @@ class Mage_Core_Model_Encryption
         }
         // look for salt
         $hashArr = explode(':', $hash, 2);
-        if (1 === count($hashArr)) {
+        if (count($hashArr) === 1) {
             return hash_equals($this->hash($password, $version), $hash);
         }
         list($hash, $salt) = $hashArr;
@@ -162,7 +163,7 @@ class Mage_Core_Model_Encryption
     protected function _getCrypt($key = null)
     {
         if (!$this->_crypt) {
-            if (null === $key) {
+            if ($key === null) {
                 $key = (string)Mage::getConfig()->getNode('global/crypt/key');
             }
             $this->_crypt = Varien_Crypt::factory()->init($key);

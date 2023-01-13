@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Api2
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -30,6 +25,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method string _create() _create(array $filteredData) creation of an entity
  * @method void _multiCreate() _multiCreate(array $filteredData) processing and creation of a collection
  * @method array _retrieve() retrieving an entity
@@ -44,60 +40,60 @@ abstract class Mage_Api2_Model_Resource
     /**#@+
      *  Action types
      */
-    const ACTION_TYPE_ENTITY = 'entity';
-    const ACTION_TYPE_COLLECTION  = 'collection';
+    public const ACTION_TYPE_ENTITY = 'entity';
+    public const ACTION_TYPE_COLLECTION  = 'collection';
     /**#@-*/
 
     /**#@+
      * Operations. Resource method names
      */
-    const OPERATION_CREATE   = 'create';
-    const OPERATION_RETRIEVE = 'retrieve';
-    const OPERATION_UPDATE   = 'update';
-    const OPERATION_DELETE   = 'delete';
+    public const OPERATION_CREATE   = 'create';
+    public const OPERATION_RETRIEVE = 'retrieve';
+    public const OPERATION_UPDATE   = 'update';
+    public const OPERATION_DELETE   = 'delete';
     /**#@-*/
 
     /**#@+
      * Common operations for attributes
      */
-    const OPERATION_ATTRIBUTE_READ  = 'read';
-    const OPERATION_ATTRIBUTE_WRITE = 'write';
+    public const OPERATION_ATTRIBUTE_READ  = 'read';
+    public const OPERATION_ATTRIBUTE_WRITE = 'write';
     /**#@-*/
 
     /**#@+
      *  Default error messages
      */
-    const RESOURCE_NOT_FOUND = 'Resource not found.';
-    const RESOURCE_METHOD_NOT_ALLOWED = 'Resource does not support method.';
-    const RESOURCE_METHOD_NOT_IMPLEMENTED = 'Resource method not implemented yet.';
-    const RESOURCE_INTERNAL_ERROR = 'Resource internal error.';
-    const RESOURCE_DATA_PRE_VALIDATION_ERROR = 'Resource data pre-validation error.';
-    const RESOURCE_DATA_INVALID = 'Resource data invalid.'; //error while checking data inside method
-    const RESOURCE_UNKNOWN_ERROR = 'Resource unknown error.';
-    const RESOURCE_REQUEST_DATA_INVALID = 'The request data is invalid.';
+    public const RESOURCE_NOT_FOUND = 'Resource not found.';
+    public const RESOURCE_METHOD_NOT_ALLOWED = 'Resource does not support method.';
+    public const RESOURCE_METHOD_NOT_IMPLEMENTED = 'Resource method not implemented yet.';
+    public const RESOURCE_INTERNAL_ERROR = 'Resource internal error.';
+    public const RESOURCE_DATA_PRE_VALIDATION_ERROR = 'Resource data pre-validation error.';
+    public const RESOURCE_DATA_INVALID = 'Resource data invalid.'; //error while checking data inside method
+    public const RESOURCE_UNKNOWN_ERROR = 'Resource unknown error.';
+    public const RESOURCE_REQUEST_DATA_INVALID = 'The request data is invalid.';
     /**#@-*/
 
     /**#@+
      *  Default collection resources error messages
      */
-    const RESOURCE_COLLECTION_PAGING_ERROR       = 'Resource collection paging error.';
-    const RESOURCE_COLLECTION_PAGING_LIMIT_ERROR = 'The paging limit exceeds the allowed number.';
-    const RESOURCE_COLLECTION_ORDERING_ERROR     = 'Resource collection ordering error.';
-    const RESOURCE_COLLECTION_FILTERING_ERROR    = 'Resource collection filtering error.';
-    const RESOURCE_COLLECTION_ATTRIBUTES_ERROR   = 'Resource collection including additional attributes error.';
+    public const RESOURCE_COLLECTION_PAGING_ERROR       = 'Resource collection paging error.';
+    public const RESOURCE_COLLECTION_PAGING_LIMIT_ERROR = 'The paging limit exceeds the allowed number.';
+    public const RESOURCE_COLLECTION_ORDERING_ERROR     = 'Resource collection ordering error.';
+    public const RESOURCE_COLLECTION_FILTERING_ERROR    = 'Resource collection filtering error.';
+    public const RESOURCE_COLLECTION_ATTRIBUTES_ERROR   = 'Resource collection including additional attributes error.';
     /**#@-*/
 
     /**#@+
      *  Default success messages
      */
-    const RESOURCE_UPDATED_SUCCESSFUL = 'Resource updated successful.';
+    public const RESOURCE_UPDATED_SUCCESSFUL = 'Resource updated successful.';
     /**#@-*/
 
     /**#@+
      * Collection page sizes
      */
-    const PAGE_SIZE_DEFAULT = 10;
-    const PAGE_SIZE_MAX     = 100;
+    public const PAGE_SIZE_DEFAULT = 10;
+    public const PAGE_SIZE_MAX     = 100;
     /**#@-*/
 
     /**
@@ -131,7 +127,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Response
      *
-     * @var Zend_Controller_Response_Http
+     * @var Mage_Api2_Model_Response
      */
     protected $_response;
 
@@ -205,7 +201,8 @@ abstract class Mage_Api2_Model_Resource
             case self::ACTION_TYPE_ENTITY . self::OPERATION_CREATE:
                 // Creation of objects is possible only when working with collection
                 $this->_critical(self::RESOURCE_METHOD_NOT_IMPLEMENTED);
-                break;
+                // exception thrown
+                // no break
             case self::ACTION_TYPE_COLLECTION . self::OPERATION_CREATE:
                 // If no of the methods(multi or single) is implemented, request body is not checked
                 if (!$this->_checkMethodExist('_create') && !$this->_checkMethodExist('_multiCreate')) {
@@ -286,14 +283,13 @@ abstract class Mage_Api2_Model_Resource
                 break;
             default:
                 $this->_critical(self::RESOURCE_METHOD_NOT_IMPLEMENTED);
-                break;
         }
     }
 
     /**
      * Trigger error for not-implemented operations
      *
-     * @param $methodName
+     * @param string $methodName
      */
     protected function _errorIfMethodNotExist($methodName)
     {
@@ -305,7 +301,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Check method exist
      *
-     * @param $methodName
+     * @param string $methodName
      * @return bool
      */
     protected function _checkMethodExist($methodName)
@@ -331,7 +327,7 @@ abstract class Mage_Api2_Model_Resource
      * Set request
      *
      * @param Mage_Api2_Model_Request $request
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     public function setRequest(Mage_Api2_Model_Request $request)
     {
@@ -359,7 +355,7 @@ abstract class Mage_Api2_Model_Resource
      * Set resource type
      *
      * @param string $resourceType
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     public function setResourceType($resourceType)
     {
@@ -385,7 +381,7 @@ abstract class Mage_Api2_Model_Resource
      * Set API type
      *
      * @param string $apiType
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     public function setApiType($apiType)
     {
@@ -400,8 +396,8 @@ abstract class Mage_Api2_Model_Resource
      */
     public function getVersion()
     {
-        if (null === $this->_version) {
-            if (preg_match('/^.+([1-9]\d*)$/', get_class($this), $matches) ) {
+        if ($this->_version === null) {
+            if (preg_match('/^.+([1-9]\d*)$/', get_class($this), $matches)) {
                 $this->setVersion($matches[1]);
             } else {
                 throw new Exception('Can not determine version from class name');
@@ -451,7 +447,7 @@ abstract class Mage_Api2_Model_Resource
     public function getFilter()
     {
         if (!$this->_filter) {
-            /** @var $filter Mage_Api2_Model_Acl_Filter */
+            /** @var Mage_Api2_Model_Acl_Filter $filter */
             $filter = Mage::getModel('api2/acl_filter', $this);
             $this->setFilter($filter);
         }
@@ -511,7 +507,7 @@ abstract class Mage_Api2_Model_Resource
      * Set user type
      *
      * @param string $userType
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     public function setUserType($userType)
     {
@@ -537,7 +533,7 @@ abstract class Mage_Api2_Model_Resource
      * Set API user
      *
      * @param Mage_Api2_Model_Auth_User_Abstract $apiUser
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     public function setApiUser(Mage_Api2_Model_Auth_User_Abstract $apiUser)
     {
@@ -563,7 +559,7 @@ abstract class Mage_Api2_Model_Resource
      * Set route type
      *
      * @param string $actionType One of Mage_Api2_Model_Resource::ACTION_TYPE_... constant
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     public function setActionType($actionType)
     {
@@ -589,7 +585,7 @@ abstract class Mage_Api2_Model_Resource
      * Set operation
      *
      * @param string $operation One of Mage_Api2_Model_Resource::OPERATION_... constant
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     public function setOperation($operation)
     {
@@ -657,7 +653,7 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _getCriticalErrors()
     {
-        return array(
+        return [
             '' => Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             self::RESOURCE_NOT_FOUND => Mage_Api2_Model_Server::HTTP_NOT_FOUND,
             self::RESOURCE_METHOD_NOT_ALLOWED => Mage_Api2_Model_Server::HTTP_METHOD_NOT_ALLOWED,
@@ -671,7 +667,7 @@ abstract class Mage_Api2_Model_Resource
             self::RESOURCE_COLLECTION_ORDERING_ERROR => Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             self::RESOURCE_COLLECTION_FILTERING_ERROR => Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             self::RESOURCE_COLLECTION_ATTRIBUTES_ERROR => Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
-        );
+        ];
     }
 
     /**
@@ -679,7 +675,7 @@ abstract class Mage_Api2_Model_Resource
      *
      * @param string $message
      * @param int $code
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     protected function _error($message, $code)
     {
@@ -693,9 +689,9 @@ abstract class Mage_Api2_Model_Resource
      * @param string $message
      * @param int $code
      * @param array $params
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
-    protected function _successMessage($message, $code, $params = array())
+    protected function _successMessage($message, $code, $params = [])
     {
         $this->getResponse()->addMessage($message, $code, $params, Mage_Api2_Model_Response::MESSAGE_TYPE_SUCCESS);
         return $this;
@@ -707,9 +703,9 @@ abstract class Mage_Api2_Model_Resource
      * @param string $message
      * @param int $code
      * @param array $params
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
-    protected function _errorMessage($message, $code, $params = array())
+    protected function _errorMessage($message, $code, $params = [])
     {
         $this->getResponse()->addMessage($message, $code, $params, Mage_Api2_Model_Response::MESSAGE_TYPE_ERROR);
         return $this;
@@ -719,7 +715,7 @@ abstract class Mage_Api2_Model_Resource
      * Set navigation parameters and apply filters from URL params
      *
      * @param Varien_Data_Collection_Db $collection
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     final protected function _applyCollectionModifiers(Varien_Data_Collection_Db $collection)
     {
@@ -729,7 +725,7 @@ abstract class Mage_Api2_Model_Resource
         }
 
         $pageSize = $this->getRequest()->getPageSize();
-        if (null == $pageSize) {
+        if ($pageSize == null) {
             $pageSize = self::PAGE_SIZE_DEFAULT;
         } else {
             if ($pageSize != abs($pageSize) || $pageSize > self::PAGE_SIZE_MAX) {
@@ -739,8 +735,8 @@ abstract class Mage_Api2_Model_Resource
 
         $orderField = $this->getRequest()->getOrderField();
 
-        if (null !== $orderField) {
-            $operation = Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ;
+        if ($orderField !== null) {
+            $operation = self::OPERATION_ATTRIBUTE_READ;
             if (!is_string($orderField)
                 || !array_key_exists($orderField, $this->getAvailableAttributes($this->getUserType(), $operation))
             ) {
@@ -757,7 +753,7 @@ abstract class Mage_Api2_Model_Resource
      * Validate filter data and apply it to collection if possible
      *
      * @param Varien_Data_Collection_Db $collection
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     protected function _applyFilter(Varien_Data_Collection_Db $collection)
     {
@@ -791,7 +787,7 @@ abstract class Mage_Api2_Model_Resource
 
             try {
                 $collection->$methodName($attributeCode, $filterEntry);
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 $this->_critical(self::RESOURCE_COLLECTION_FILTERING_ERROR);
             }
         }
@@ -818,7 +814,7 @@ abstract class Mage_Api2_Model_Resource
      *
      * @param string $resourceId Resource identifier
      * @param array $requestParams Parameters to be set to request
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     protected function _getSubModel($resourceId, array $requestParams)
     {
@@ -829,7 +825,7 @@ abstract class Mage_Api2_Model_Resource
             $this->getVersion()
         );
 
-        /** @var $request Mage_Api2_Model_Request */
+        /** @var Mage_Api2_Model_Request $request */
         $request = Mage::getModel('api2/request');
 
         $request->setParams($requestParams);
@@ -854,7 +850,7 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _isSubCallAllowed($resourceId)
     {
-        /** @var $globalAcl Mage_Api2_Model_Acl_Global */
+        /** @var Mage_Api2_Model_Acl_Global $globalAcl */
         $globalAcl = Mage::getSingleton('api2/acl_global');
 
         try {
@@ -867,8 +863,8 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Set 'returnData' flag
      *
-     * @param boolean $flag
-     * @return Mage_Api2_Model_Resource
+     * @param bool $flag
+     * @return $this
      */
     public function setReturnData($flag)
     {
@@ -884,16 +880,16 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _getLocation($resource)
     {
-        /* @var $apiTypeRoute Mage_Api2_Model_Route_ApiType */
+        /** @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(
             new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType()))
         );
-        $params = array(
+        $params = [
             'api_type' => $this->getRequest()->getApiType(),
             'id'       => $resource->getId()
-        );
+        ];
         $uri = $chain->assemble($params);
 
         return '/' . $uri;
@@ -906,7 +902,7 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _getResourceAttributes()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -925,7 +921,7 @@ abstract class Mage_Api2_Model_Resource
         $resourceAttrs = $this->_getResourceAttributes();
 
         // if resource returns not-associative array - attributes' codes only
-        if (0 === key($resourceAttrs)) {
+        if (key($resourceAttrs) === 0) {
             $resourceAttrs = array_combine($resourceAttrs, $resourceAttrs);
         }
         foreach ($resourceAttrs as $attrCode => $attrLabel) {
@@ -1007,11 +1003,11 @@ abstract class Mage_Api2_Model_Resource
      */
     public function getDbAttributes()
     {
-        $available = array();
+        $available = [];
         $workModel = $this->getConfig()->getResourceWorkingModel($this->getResourceType());
 
         if ($workModel) {
-            /* @var $resource Mage_Core_Model_Resource_Db_Abstract */
+            /** @var Mage_Core_Model_Resource_Db_Abstract $resource */
             $resource = Mage::getResourceModel($workModel);
 
             if (method_exists($resource, 'getMainTable')) {
@@ -1030,13 +1026,13 @@ abstract class Mage_Api2_Model_Resource
      */
     public function getEavAttributes($onlyVisible = false, $excludeSystem = false)
     {
-        $attributes = array();
+        $attributes = [];
         $model = $this->getConfig()->getResourceWorkingModel($this->getResourceType());
 
-        /** @var $entityType Mage_Eav_Model_Entity_Type */
+        /** @var Mage_Eav_Model_Entity_Type $entityType */
         $entityType = Mage::getModel('eav/entity_type')->load($model, 'entity_model');
 
-        /** @var $attribute Mage_Eav_Model_Entity_Attribute */
+        /** @var Mage_Eav_Model_Entity_Attribute $attribute */
         foreach ($entityType->getAttributeCollection() as $attribute) {
             if ($onlyVisible && !$attribute->getIsVisible()) {
                 continue;

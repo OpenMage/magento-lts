@@ -1,67 +1,59 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Media
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Media
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Media library Image model
  *
  * @category   Mage
  * @package    Mage_Media
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getFileName()
+ * @method $this setFileName(string $value)
  */
 class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
 {
     /**
      * Image config instance
-     *
      * @var Mage_Media_Model_Image_Config_Interface
      */
     protected $_config;
 
     /**
      * Image resource
-     *
-     * @var resource
+     * @var resource|null
      */
     protected $_image;
 
     /**
      * Tmp image resource
-     *
-     * @var resource
+     * @var resource|null
      */
     protected $_tmpImage;
 
     /**
      * Params for filename generation
-     *
      * @var array
      */
-    protected $_params = array();
-
+    protected $_params = [];
 
     protected function _construct()
     {
@@ -70,9 +62,8 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
 
     /**
      * Set media image config instance
-     *
      * @param Mage_Media_Model_Image_Config_Interface $config
-     * @return unknown
+     * @return Mage_Media_Model_Image
      */
     public function setConfig(Mage_Media_Model_Image_Config_Interface $config)
     {
@@ -81,8 +72,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive media image config instance
-     *
+     * Retrieve media image config instance
      * @return Mage_Media_Model_Image_Config_Interface
      */
     public function getConfig()
@@ -90,18 +80,24 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
         return $this->_config;
     }
 
+    /**
+     * @return resource
+     */
     public function getImage()
     {
-        if(is_null($this->_image)) {
+        if (is_null($this->_image)) {
             $this->_image = $this->_getResource()->getImage($this);
         }
 
         return $this->_image;
     }
 
+    /**
+     * @return resource
+     */
     public function getTmpImage()
     {
-        if(is_null($this->_image)) {
+        if (is_null($this->_image)) {
             $this->_tmpImage = $this->_getResource()->getTmpImage($this);
         }
 
@@ -109,69 +105,88 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive source dimensions object
+     * Retrieve source dimensions object
      *
      * @return Varien_Object
      */
     public function getDimensions()
     {
-        if(!$this->getData('dimensions')) {
+        if (!$this->getData('dimensions')) {
             $this->setData('dimensions', $this->_getResource()->getDimensions($this));
         }
         return $this->getData('dimensions');
     }
 
     /**
-     * Retrive destanation dimensions object
+     * Retrieve destanation dimensions object
      *
      * @return Varien_Object
      */
     public function getDestanationDimensions()
     {
-        if(!$this->getData('destanation_dimensions')) {
+        if (!$this->getData('destanation_dimensions')) {
             $this->setData('destanation_dimensions', clone $this->getDimensions());
         }
 
         return $this->getData('destanation_dimensions');
     }
 
+    /**
+     * @return bool|string
+     */
     public function getExtension()
     {
-        return substr($this->getFileName(), strrpos($this->getFileName(), '.')+1);
+        return substr($this->getFileName(), strrpos($this->getFileName(), '.') + 1);
     }
 
-    public function getFilePath($useParams=false)
+    /**
+     * @param bool $useParams
+     * @return string
+     */
+    public function getFilePath($useParams = false)
     {
-        if($useParams && sizeof($this->getParams())) {
+        if ($useParams && count($this->getParams())) {
             $changes = '.' . $this->getParamsSum();
         } else {
             $changes = '';
         }
 
         return $this->getConfig()->getBaseMediaPath() . DS . $this->getName() . $changes . '.'
-             . ( ( $useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension() );
+             . (($useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension());
     }
 
-    public function getFileUrl($useParams=false)
+    /**
+     * @param bool $useParams
+     * @return string
+     */
+    public function getFileUrl($useParams = false)
     {
-        if($useParams && sizeof($this->getParams())) {
+        if ($useParams && count($this->getParams())) {
             $changes = '.' . $this->getParamsSum();
         } else {
             $changes = '';
         }
 
         return $this->getConfig()->getBaseMediaUrl() . '/' . $this->getName() . $changes . '.'
-             . ( ( $useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension() );
+             . (($useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension());
     }
 
+    /**
+     * @return bool|string
+     */
     public function getName()
     {
         return substr($this->getFileName(), 0, strrpos($this->getFileName(), '.'));
     }
 
-    public function addParam($param, $value=null)
+    /**
+     * @param array|string $param
+     * @param string $value
+     * @return $this
+     */
+    public function addParam($param, $value = null)
     {
-        if(is_array($param)) {
+        if (is_array($param)) {
             $this->_params = array_merge($this->_params, $param);
         } else {
             $this->_params[$param] = $value;
@@ -180,9 +195,14 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
         return $this;
     }
 
-    public function setParam($param, $value=null)
+    /**
+     * @param array|string $param
+     * @param string $value
+     * @return $this
+     */
+    public function setParam($param, $value = null)
     {
-        if(is_array($param)) {
+        if (is_array($param)) {
             $this->_params = $param;
         } else {
             $this->_params[$param] = $value;
@@ -191,20 +211,26 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * @param string $param
+     * @return string|null
+     */
     public function getParam($param)
     {
-        if(isset($this->_params[$param])) {
-            return $this->_params[$param];
-        }
-
-        return null;
+        return $this->_params[$param] ?? null;
     }
 
+    /**
+     * @return array
+     */
     public function getParams()
     {
         return $this->_params;
     }
 
+    /**
+     * @return string
+     */
     public function getParamsSum()
     {
         return md5(serialize($this->_params));
@@ -219,20 +245,20 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
      * @param string $watermark
      * @return string
      */
-    public function getSpecialLink($file, $size, $extension=null, $watermark=null)
+    public function getSpecialLink($file, $size, $extension = null, $watermark = null)
     {
         $this->_removeResources();
-        $this->setData(array());
-        $this->setParam(array());
+        $this->setData([]);
+        $this->setParam([]);
         $this->setFileName($file);
 
         $this->addParam('size', $size);
         $this->addParam('watermark', $watermark);
         $this->addParam('extension', $extension);
 
-        if(!$this->hasSpecialImage()) {
-            if (strpos($size, 'x')!==false) {
-               list($width, $height) = explode('x', $size);
+        if (!$this->hasSpecialImage()) {
+            if (strpos($size, 'x') !== false) {
+                list($width, $height) = explode('x', $size);
             } else {
                 $width = $size;
                 $height = $this->getDimensions()->getHeight();
@@ -248,9 +274,8 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
             }
 
             $this->getDestanationDimensions()
-                ->setWidth($rate*$this->getDimensions()->getWidth())
-                ->setHeight($rate*$this->getDimensions()->getHeight());
-
+                ->setWidth($rate * $this->getDimensions()->getWidth())
+                ->setHeight($rate * $this->getDimensions()->getHeight());
 
             $this->_getResource()->resize($this);
             $this->_getResource()->watermark($this);
@@ -261,6 +286,9 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
         return $this->getFileUrl(true);
     }
 
+    /**
+     * @return bool
+     */
     public function hasSpecialImage()
     {
         return $this->_getResource()->hasSpecialImage($this);
@@ -278,5 +306,4 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
             $this->_tmpImage = null;
         }
     }
-
 }

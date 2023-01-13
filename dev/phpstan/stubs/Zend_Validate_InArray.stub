@@ -1,0 +1,9 @@
+<?php
+
+class Zend_Validate_InArray
+{
+    /**
+     * @var array<string, string>|null
+     */
+    protected $_messageTemplates;
+}

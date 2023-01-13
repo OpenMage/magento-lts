@@ -1,30 +1,37 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Index
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mage
+ * @package    Mage_Index
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    public const ADMIN_RESOURCE = 'system/index';
+
     /**
      * Initialize process object by request
      *
@@ -34,7 +41,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
     {
         $processId = $this->getRequest()->getParam('process');
         if ($processId) {
-            /** @var $process Mage_Index_Model_Process */
+            /** @var Mage_Index_Model_Process $process */
             $process = Mage::getModel('index/process')->load($processId);
             if ($process->getId() && $process->getIndexer()->isVisible()) {
                 return $process;
@@ -60,7 +67,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
      */
     public function editAction()
     {
-        /** @var $process Mage_Index_Model_Process */
+        /** @var Mage_Index_Model_Process $process */
         $process = $this->_initProcess();
         if ($process) {
             $this->_title($process->getIndexCode());
@@ -85,7 +92,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
      */
     public function saveAction()
     {
-        /** @var $process Mage_Index_Model_Process */
+        /** @var Mage_Index_Model_Process $process */
         $process = $this->_initProcess();
         if ($process) {
             $mode = $this->getRequest()->getPost('mode');
@@ -100,8 +107,9 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
             } catch (Exception $e) {
-                $this->_getSession()->addException($e,
-                     Mage::helper('index')->__('There was a problem with saving process.')
+                $this->_getSession()->addException(
+                    $e,
+                    Mage::helper('index')->__('There was a problem with saving process.')
                 );
             }
             $this->_redirect('*/*/list');
@@ -118,7 +126,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
      */
     public function reindexProcessAction()
     {
-        /** @var $process Mage_Index_Model_Process */
+        /** @var Mage_Index_Model_Process $process */
         $process = $this->_initProcess();
         if ($process) {
             try {
@@ -132,8 +140,9 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
             } catch (Exception $e) {
-                $this->_getSession()->addException($e,
-                     Mage::helper('index')->__('There was a problem with reindexing process.')
+                $this->_getSession()->addException(
+                    $e,
+                    Mage::helper('index')->__('There was a problem with reindexing process.')
                 );
             }
         } else {
@@ -150,7 +159,6 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
      */
     public function reindexEventsAction()
     {
-
     }
 
     /**
@@ -158,7 +166,6 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
      */
     public function reindexAllAction()
     {
-
     }
 
     /**
@@ -167,7 +174,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
      */
     public function massReindexAction()
     {
-        /* @var $indexer Mage_Index_Model_Indexer */
+        /** @var Mage_Index_Model_Indexer $indexer */
         $indexer    = Mage::getSingleton('index/indexer');
         $processIds = $this->getRequest()->getParam('process');
         if (empty($processIds) || !is_array($processIds)) {
@@ -176,7 +183,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
             try {
                 $counter = 0;
                 foreach ($processIds as $processId) {
-                    /* @var $process Mage_Index_Model_Process */
+                    /** @var Mage_Index_Model_Process $process */
                     $process = $indexer->getProcessById($processId);
                     if ($process && $process->getIndexer()->isVisible()) {
                         $process->reindexEverything();
@@ -210,7 +217,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
                 $counter = 0;
                 $mode = $this->getRequest()->getParam('index_mode');
                 foreach ($processIds as $processId) {
-                    /* @var $process Mage_Index_Model_Process */
+                    /** @var Mage_Index_Model_Process $process */
                     $process = Mage::getModel('index/process')->load($processId);
                     if ($process->getId() && $process->getIndexer()->isVisible()) {
                         $process->setMode($mode)->save();
@@ -228,15 +235,5 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
         }
 
         $this->_redirect('*/*/list');
-    }
-
-    /**
-     * Check ACL permissins
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/index');
     }
 }

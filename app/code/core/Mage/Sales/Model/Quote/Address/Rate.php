@@ -1,61 +1,56 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- * Enter description here ...
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate _getResource()
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate getResource()
- * @method int getAddressId()
- * @method Mage_Sales_Model_Quote_Address_Rate setAddressId(int $value)
- * @method string getCreatedAt()
- * @method Mage_Sales_Model_Quote_Address_Rate setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method Mage_Sales_Model_Quote_Address_Rate setUpdatedAt(string $value)
- * @method string getCarrier()
- * @method Mage_Sales_Model_Quote_Address_Rate setCarrier(string $value)
- * @method string getCarrierTitle()
- * @method Mage_Sales_Model_Quote_Address_Rate setCarrierTitle(string $value)
- * @method string getCode()
- * @method Mage_Sales_Model_Quote_Address_Rate setCode(string $value)
- * @method string getMethod()
- * @method Mage_Sales_Model_Quote_Address_Rate setMethod(string $value)
- * @method string getMethodDescription()
- * @method Mage_Sales_Model_Quote_Address_Rate setMethodDescription(string $value)
- * @method float getPrice()
- * @method Mage_Sales_Model_Quote_Address_Rate setPrice(float $value)
- * @method string getErrorMessage()
- * @method Mage_Sales_Model_Quote_Address_Rate setErrorMessage(string $value)
- * @method string getMethodTitle()
- * @method Mage_Sales_Model_Quote_Address_Rate setMethodTitle(string $value)
+ * @method Mage_Sales_Model_Resource_Quote_Address_Rate_Collection getCollection()
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method int getAddressId()
+ * @method $this setAddressId(int $value)
+ * @method string getCreatedAt()
+ * @method $this setCreatedAt(string $value)
+ * @method string getUpdatedAt()
+ * @method $this setUpdatedAt(string $value)
+ * @method string getCarrier()
+ * @method $this setCarrier(string $value)
+ * @method string getCarrierTitle()
+ * @method $this setCarrierTitle(string $value)
+ * @method string getCode()
+ * @method $this setCode(string $value)
+ * @method string getMethod()
+ * @method $this setMethod(string $value)
+ * @method string getMethodDescription()
+ * @method $this setMethodDescription(string $value)
+ * @method float getPrice()
+ * @method $this setPrice(float $value)
+ * @method string getErrorMessage()
+ * @method $this setErrorMessage(string $value)
+ * @method string getMethodTitle()
+ * @method $this setMethodTitle(string $value)
  */
 class Mage_Sales_Model_Quote_Address_Rate extends Mage_Shipping_Model_Rate_Abstract
 {
@@ -66,6 +61,9 @@ class Mage_Sales_Model_Quote_Address_Rate extends Mage_Shipping_Model_Rate_Abstr
         $this->_init('sales/quote_address_rate');
     }
 
+    /**
+     * @return $this
+     */
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -75,29 +73,40 @@ class Mage_Sales_Model_Quote_Address_Rate extends Mage_Shipping_Model_Rate_Abstr
         return $this;
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return $this
+     */
     public function setAddress(Mage_Sales_Model_Quote_Address $address)
     {
         $this->_address = $address;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAddress()
     {
         return $this->_address;
     }
 
+    /**
+     * @param Mage_Shipping_Model_Rate_Result_Abstract $rate
+     * @return $this
+     */
     public function importShippingRate(Mage_Shipping_Model_Rate_Result_Abstract $rate)
     {
         if ($rate instanceof Mage_Shipping_Model_Rate_Result_Error) {
             $this
-                ->setCode($rate->getCarrier().'_error')
+                ->setCode($rate->getCarrier() . '_error')
                 ->setCarrier($rate->getCarrier())
                 ->setCarrierTitle($rate->getCarrierTitle())
                 ->setErrorMessage($rate->getErrorMessage())
             ;
         } elseif ($rate instanceof Mage_Shipping_Model_Rate_Result_Method) {
             $this
-                ->setCode($rate->getCarrier().'_'.$rate->getMethod())
+                ->setCode($rate->getCarrier() . '_' . $rate->getMethod())
                 ->setCarrier($rate->getCarrier())
                 ->setCarrierTitle($rate->getCarrierTitle())
                 ->setMethod($rate->getMethod())

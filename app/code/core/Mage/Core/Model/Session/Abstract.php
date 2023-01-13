@@ -1,29 +1,23 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Core Session Abstract model
@@ -31,32 +25,40 @@
  * @category   Mage
  * @package    Mage_Core
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getErrorMessage()
+ * @method $this setErrorMessage(string $value)
+ * @method $this unsErrorMessage()
+ * @method string getSuccessMessage()
+ * @method $this setSuccessMessage(string $value)
+ * @method $this unsSuccessMessage()
+ * @method $this setMessages(Mage_Core_Model_Abstract|Mage_Core_Model_Message_Collection $value)
  */
 class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_Varien
 {
-    const XML_PATH_COOKIE_DOMAIN        = 'web/cookie/cookie_domain';
-    const XML_PATH_COOKIE_PATH          = 'web/cookie/cookie_path';
-    const XML_PATH_COOKIE_LIFETIME      = 'web/cookie/cookie_lifetime';
-    const XML_NODE_SESSION_SAVE         = 'global/session_save';
-    const XML_NODE_SESSION_SAVE_PATH    = 'global/session_save_path';
+    public const XML_PATH_COOKIE_DOMAIN        = 'web/cookie/cookie_domain';
+    public const XML_PATH_COOKIE_PATH          = 'web/cookie/cookie_path';
+    public const XML_PATH_COOKIE_LIFETIME      = 'web/cookie/cookie_lifetime';
+    public const XML_NODE_SESSION_SAVE         = 'global/session_save';
+    public const XML_NODE_SESSION_SAVE_PATH    = 'global/session_save_path';
 
-    const XML_PATH_USE_REMOTE_ADDR      = 'web/session/use_remote_addr';
-    const XML_PATH_USE_HTTP_VIA         = 'web/session/use_http_via';
-    const XML_PATH_USE_X_FORWARDED      = 'web/session/use_http_x_forwarded_for';
-    const XML_PATH_USE_USER_AGENT       = 'web/session/use_http_user_agent';
-    const XML_PATH_USE_FRONTEND_SID     = 'web/session/use_frontend_sid';
+    public const XML_PATH_USE_REMOTE_ADDR      = 'web/session/use_remote_addr';
+    public const XML_PATH_USE_HTTP_VIA         = 'web/session/use_http_via';
+    public const XML_PATH_USE_X_FORWARDED      = 'web/session/use_http_x_forwarded_for';
+    public const XML_PATH_USE_USER_AGENT       = 'web/session/use_http_user_agent';
+    public const XML_PATH_USE_FRONTEND_SID     = 'web/session/use_frontend_sid';
 
-    const XML_NODE_USET_AGENT_SKIP      = 'global/session/validation/http_user_agent_skip';
-    const XML_PATH_LOG_EXCEPTION_FILE   = 'dev/log/exception_file';
+    public const XML_NODE_USET_AGENT_SKIP      = 'global/session/validation/http_user_agent_skip';
+    public const XML_PATH_LOG_EXCEPTION_FILE   = 'dev/log/exception_file';
 
-    const SESSION_ID_QUERY_PARAM        = 'SID';
+    public const SESSION_ID_QUERY_PARAM        = 'SID';
 
     /**
      * URL host cache
      *
      * @var array
      */
-    protected static $_urlHostCache = array();
+    protected static $_urlHostCache = [];
 
     /**
      * Encrypted session id cache
@@ -79,7 +81,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * @param string $sessionName
      * @return $this
      */
-    public function init($namespace, $sessionName=null)
+    public function init($namespace, $sessionName = null)
     {
         parent::init($namespace, $sessionName);
         $this->addHost(true);
@@ -190,7 +192,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      */
     public function getValidateHttpUserAgentSkip()
     {
-        $userAgents = array();
+        $userAgents = [];
         $skip = Mage::getConfig()->getNode(self::XML_NODE_USET_AGENT_SKIP);
         foreach ($skip->children() as $userAgent) {
             $userAgents[] = (string)$userAgent;
@@ -204,7 +206,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * @param   bool $clear
      * @return  Mage_Core_Model_Message_Collection
      */
-    public function getMessages($clear=false)
+    public function getMessages($clear = false)
     {
         if (!$this->getData('messages')) {
             $this->setMessages(Mage::getModel('core/message_collection'));
@@ -224,19 +226,12 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @param   Exception $exception
      * @param   string $alternativeText
-     * @return  Mage_Core_Model_Session_Abstract
+     * @return  $this
      */
     public function addException(Exception $exception, $alternativeText)
     {
-        // log exception to exceptions log
-        $message = sprintf('Exception message: %s%sTrace: %s',
-            $exception->getMessage(),
-            "\n",
-            $exception->getTraceAsString());
-        $file    = Mage::getStoreConfig(self::XML_PATH_LOG_EXCEPTION_FILE);
-        Mage::log($message, Zend_Log::DEBUG, $file);
-
-        $this->addMessage(Mage::getSingleton('core/message')->error($alternativeText));
+        Mage::logException($exception);
+        $this->addError($alternativeText);
         return $this;
     }
 
@@ -244,7 +239,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * Adding new message to message collection
      *
      * @param   Mage_Core_Model_Message_Abstract $message
-     * @return  Mage_Core_Model_Session_Abstract
+     * @return  $this
      */
     public function addMessage(Mage_Core_Model_Message_Abstract $message)
     {
@@ -257,7 +252,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * Adding new error message
      *
      * @param   string $message
-     * @return  Mage_Core_Model_Session_Abstract
+     * @return  $this
      */
     public function addError($message)
     {
@@ -269,7 +264,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * Adding new warning message
      *
      * @param   string $message
-     * @return  Mage_Core_Model_Session_Abstract
+     * @return  $this
      */
     public function addWarning($message)
     {
@@ -281,7 +276,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * Adding new notice message
      *
      * @param   string $message
-     * @return  Mage_Core_Model_Session_Abstract
+     * @return  $this
      */
     public function addNotice($message)
     {
@@ -293,7 +288,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * Adding new success message
      *
      * @param   string $message
-     * @return  Mage_Core_Model_Session_Abstract
+     * @return  $this
      */
     public function addSuccess($message)
     {
@@ -305,7 +300,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * Adding messages array to message collection
      *
      * @param   array $messages
-     * @return  Mage_Core_Model_Session_Abstract
+     * @return  $this
      */
     public function addMessages($messages)
     {
@@ -321,23 +316,23 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * Adds messages array to message collection, but doesn't add duplicates to it
      *
      * @param   array|string|Mage_Core_Model_Message_Abstract $messages
-     * @return  Mage_Core_Model_Session_Abstract
+     * @return  $this
      */
     public function addUniqueMessages($messages)
     {
         if (!is_array($messages)) {
-            $messages = array($messages);
+            $messages = [$messages];
         }
         if (!$messages) {
             return $this;
         }
 
-        $messagesAlready = array();
+        $messagesAlready = [];
         $items = $this->getMessages()->getItems();
         foreach ($items as $item) {
             if ($item instanceof Mage_Core_Model_Message_Abstract) {
                 $text = $item->getText();
-            } else if (is_string($item)) {
+            } elseif (is_string($item)) {
                 $text = $item;
             } else {
                 continue; // Some unknown object, do not put it in already existing messages
@@ -348,7 +343,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         foreach ($messages as $message) {
             if ($message instanceof Mage_Core_Model_Message_Abstract) {
                 $text = $message->getText();
-            } else if (is_string($message)) {
+            } elseif (is_string($message)) {
                 $text = $message;
             } else {
                 $text = null; // Some unknown object, add it anyway
@@ -370,10 +365,9 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Specify session identifier
      *
-     * @param   string|null $id
-     * @return  Mage_Core_Model_Session_Abstract
+     * @inheritDoc
      */
-    public function setSessionId($id=null)
+    public function setSessionId($id = null)
     {
         if (is_null($id) && $this->useSid()) {
             $_queryParam = $this->getSessionIdQueryParam();
@@ -400,6 +394,9 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         return self::$_encryptedSessionId;
     }
 
+    /**
+     * @return string
+     */
     public function getSessionIdQueryParam()
     {
         $_sessionName = $this->getSessionName();

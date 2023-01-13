@@ -1,45 +1,42 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Customer
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer module observer
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Model_Observer
 {
     /**
      * VAT ID validation processed flag code
      */
-    const VIV_PROCESSED_FLAG = 'viv_after_address_save_processed';
+    public const VIV_PROCESSED_FLAG = 'viv_after_address_save_processed';
 
     /**
      * VAT ID validation currently saved address flag
      */
-    const VIV_CURRENTLY_SAVED_ADDRESS = 'currently_saved_address';
+    public const VIV_CURRENTLY_SAVED_ADDRESS = 'currently_saved_address';
 
     /**
      * Check whether specified billing address is default for its customer
@@ -112,7 +109,7 @@ class Mage_Customer_Model_Observer
             Mage::unregister(self::VIV_CURRENTLY_SAVED_ADDRESS);
         }
 
-        /** @var $customerAddress Mage_Customer_Model_Address */
+        /** @var Mage_Customer_Model_Address $customerAddress */
         $customerAddress = $observer->getCustomerAddress();
         if ($customerAddress->getId()) {
             Mage::register(self::VIV_CURRENTLY_SAVED_ADDRESS, $customerAddress->getId());
@@ -137,7 +134,7 @@ class Mage_Customer_Model_Observer
      */
     public function afterAddressSave($observer)
     {
-        /** @var $customerAddress Mage_Customer_Model_Address */
+        /** @var Mage_Customer_Model_Address $customerAddress */
         $customerAddress = $observer->getCustomerAddress();
         $customer = $customerAddress->getCustomer();
 
@@ -152,12 +149,12 @@ class Mage_Customer_Model_Observer
         try {
             Mage::register(self::VIV_PROCESSED_FLAG, true);
 
-            /** @var $customerHelper Mage_Customer_Helper_Data */
+            /** @var Mage_Customer_Helper_Data $customerHelper */
             $customerHelper = Mage::helper('customer');
 
             if ($customerAddress->getVatId() == ''
-                || !Mage::helper('core')->isCountryInEU($customerAddress->getCountry()))
-            {
+                || !Mage::helper('core')->isCountryInEU($customerAddress->getCountry())
+            ) {
                 $defaultGroupId = $customerHelper->getDefaultCustomerGroupId($customer->getStore());
 
                 if (!$customer->getDisableAutoGroupChange() && $customer->getGroupId() != $defaultGroupId) {
@@ -165,14 +162,15 @@ class Mage_Customer_Model_Observer
                     $customer->save();
                 }
             } else {
-
                 $result = $customerHelper->checkVatNumber(
                     $customerAddress->getCountryId(),
                     $customerAddress->getVatId()
                 );
 
                 $newGroupId = $customerHelper->getCustomerGroupIdBasedOnVatNumber(
-                    $customerAddress->getCountryId(), $result, $customer->getStore()
+                    $customerAddress->getCountryId(),
+                    $result,
+                    $customer->getStore()
                 );
 
                 if (!$customer->getDisableAutoGroupChange() && $customer->getGroupId() != $newGroupId) {
@@ -181,8 +179,11 @@ class Mage_Customer_Model_Observer
                 }
 
                 if (!Mage::app()->getStore()->isAdmin()) {
-                    $validationMessage = Mage::helper('customer')->getVatValidationUserMessage($customerAddress,
-                        $customer->getDisableAutoGroupChange(), $result);
+                    $validationMessage = Mage::helper('customer')->getVatValidationUserMessage(
+                        $customerAddress,
+                        $customer->getDisableAutoGroupChange(),
+                        $result
+                    );
 
                     if (!$validationMessage->getIsError()) {
                         Mage::getSingleton('customer/session')->addSuccess($validationMessage->getMessage());
@@ -203,7 +204,7 @@ class Mage_Customer_Model_Observer
      */
     public function quoteSubmitAfter($observer)
     {
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = $observer->getQuote()->getCustomer();
 
         if (!Mage::helper('customer/address')->isVatValidationEnabled($customer->getStore())) {
@@ -228,7 +229,36 @@ class Mage_Customer_Model_Observer
     {
         $resource   = Mage::getSingleton('core/resource');
         $connection = $resource->getConnection('write');
-        $condition  = array('requested_date < ?' => Mage::getModel('core/date')->date(null, '-1 day'));
+        $condition  = ['requested_date < ?' => Mage::getModel('core/date')->date(null, '-1 day')];
         $connection->delete($resource->getTableName('customer_flowpassword'), $condition);
+    }
+
+    /**
+     * Upgrade customer password hash when customer has logged in
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function actionUpgradeCustomerPassword($observer)
+    {
+        $password = $observer->getEvent()->getPassword();
+        $model = $observer->getEvent()->getModel();
+
+        $encryptor = Mage::helper('core')->getEncryptor();
+        $hashVersionArray = [
+            Mage_Core_Model_Encryption::HASH_VERSION_MD5,
+            Mage_Core_Model_Encryption::HASH_VERSION_SHA256,
+            Mage_Core_Model_Encryption::HASH_VERSION_SHA512,
+            Mage_Core_Model_Encryption::HASH_VERSION_LATEST,
+        ];
+        $currentVersionHash = null;
+        foreach ($hashVersionArray as $hashVersion) {
+            if ($encryptor->validateHashByVersion($password, $model->getPasswordHash(), $hashVersion)) {
+                $currentVersionHash = $hashVersion;
+                break;
+            }
+        }
+        if (Mage_Core_Model_Encryption::HASH_VERSION_SHA256 !== $currentVersionHash) {
+            $model->changePassword($password, false);
+        }
     }
 }

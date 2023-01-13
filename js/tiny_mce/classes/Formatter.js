@@ -169,7 +169,7 @@
 		 * Returns the format by name or all formats if no name is specified.
 		 *
 		 * @method get
-		 * @param {String} name Optional name to retrive by.
+		 * @param {String} name Optional name to retrieve by.
 		 * @return {Array/Object} Array/Object with all registred formats or a specific format.
 		 */
 		function get(name) {

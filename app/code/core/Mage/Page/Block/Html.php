@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Page
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Page
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,21 +24,25 @@
  *
  * @category   Mage
  * @package    Mage_Page
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getLayoutCode()
+ * @method bool getIsHandle()
+ * @method $this setBodyClass(string $value)
  */
 class Mage_Page_Block_Html extends Mage_Core_Block_Template
 {
-    protected $_urls = array();
+    protected $_urls = [];
     protected $_title = '';
 
     public function __construct()
     {
         parent::__construct();
-        $this->_urls = array(
+        $this->_urls = [
             'base'      => Mage::getBaseUrl('web'),
-            'baseSecure'=> Mage::getBaseUrl('web', true),
+            'baseSecure' => Mage::getBaseUrl('web', true),
             'current'   => $this->getRequest()->getRequestUri()
-        );
+        ];
 
         $action = Mage::app()->getFrontController()->getAction();
         if ($action) {
@@ -53,16 +52,25 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         $this->_beforeCacheUrl();
     }
 
+    /**
+     * @return string
+     */
     public function getBaseUrl()
     {
         return $this->_urls['base'];
     }
 
+    /**
+     * @return string
+     */
     public function getBaseSecureUrl()
     {
         return $this->_urls['baseSecure'];
     }
 
+    /**
+     * @return string
+     */
     public function getCurrentUrl()
     {
         return $this->_urls['current'];
@@ -71,9 +79,9 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
     /**
      *  Print Logo URL (Conf -> Sales -> Invoice and Packing Slip Design)
      *
-     *  @return	  string
+     *  @return   string
      */
-    public function getPrintLogoUrl ()
+    public function getPrintLogoUrl()
     {
         // load html logo
         $logo = Mage::getStoreConfig('sales/identity/logo_html');
@@ -88,8 +96,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
                 // prevent tiff format displaying in html
                 if (strtolower(substr($logo, -5)) === '.tiff' || strtolower(substr($logo, -4)) === '.tif') {
                     $logo = '';
-                }
-                else {
+                } else {
                     $logo = 'sales/store/logo/' . $logo;
                 }
             }
@@ -97,26 +104,35 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
 
         // buld url
         if (!empty($logo)) {
-            $logo = Mage::getStoreConfig('web/unsecure/base_media_url') . $logo;
-        }
-        else {
+            $logo = Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_MEDIA_URL) . $logo;
+        } else {
             $logo = '';
         }
 
         return $logo;
     }
 
+    /**
+     * @return string
+     */
     public function getPrintLogoText()
     {
         return Mage::getStoreConfig('sales/identity/address');
     }
 
+    /**
+     * @param string $title
+     * @return $this
+     */
     public function setHeaderTitle($title)
     {
         $this->_title = $title;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderTitle()
     {
         return $this->_title;
@@ -136,6 +152,9 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getLang()
     {
         if (!$this->hasData('lang')) {
@@ -144,6 +163,11 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         return $this->getData('lang');
     }
 
+    /**
+     * @param string $theme
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
     public function setTheme($theme)
     {
         $arr = explode('/', $theme);
@@ -155,11 +179,17 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getBodyClass()
     {
         return $this->_getData('body_class');
     }
 
+    /**
+     * @return string
+     */
     public function getAbsoluteFooter()
     {
         return Mage::getStoreConfig('design/footer/absolute_footer');
